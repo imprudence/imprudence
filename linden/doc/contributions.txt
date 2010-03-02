@@ -577,6 +577,8 @@ Tue Torok
 	CT-74
 Vadim Bigbear
 	VWR-2681
+Vex Streeter
+	SNOW-434
 Vixen Heron
 	VWR-2710
 	CT-88

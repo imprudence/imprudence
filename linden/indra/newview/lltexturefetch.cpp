@@ -1472,8 +1472,12 @@ void LLTextureFetch::deleteRequest(const LLUUID& id, bool cancel)
 // protected
 void LLTextureFetch::addToNetworkQueue(LLTextureFetchWorker* worker)
 {
+	mQueueMutex.lock();
+	bool is_worker_in_request_map = (mRequestMap.find(worker->mID) != mRequestMap.end());
+	mQueueMutex.unlock();
+
 	LLMutexLock lock(&mNetworkQueueMutex);
-	if (mRequestMap.find(worker->mID) != mRequestMap.end())
+	if (is_worker_in_request_map)
 	{
 		// only add to the queue if in the request map
 		// i.e. a delete has not been requested
