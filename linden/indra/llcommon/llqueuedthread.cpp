@@ -348,9 +348,9 @@ bool LLQueuedThread::completeRequest(handle_t handle)
 #if _DEBUG
 // 		llinfos << llformat("LLQueuedThread::Completed req [%08d]",handle) << llendl;
 #endif
-		mRequestHash.erase(handle);
-		req->deleteRequest();
-// 		check();
+		//re insert to the queue to schedule for a delete later
+		req->setStatus(STATUS_DELETE);
+		mRequestQueue.insert(req);
 		res = true;
 	}
 	unlockData();
@@ -394,11 +394,19 @@ S32 LLQueuedThread::processNextRequest()
 		}
 		req = *mRequestQueue.begin();
 		mRequestQueue.erase(mRequestQueue.begin());
+
+		if(req->getStatus() == STATUS_DELETE)
+		{
+				mRequestHash.erase(req);
+				req->deleteRequest();
+				continue;
+		}
+
 		if ((req->getFlags() & FLAG_ABORT) || (mStatus == QUITTING))
 		{
 			req->setStatus(STATUS_ABORTED);
 			req->finishRequest(false);
-			if (req->getFlags() & FLAG_AUTO_COMPLETE)
+			if ((req->getFlags() & FLAG_AUTO_COMPLETE))
 			{
 				mRequestHash.erase(req);
 				req->deleteRequest();
@@ -427,14 +435,17 @@ S32 LLQueuedThread::processNextRequest()
 		{
 			lockData();
 			req->setStatus(STATUS_COMPLETE);
+			unlockData();
+
 			req->finishRequest(true);
-			if (req->getFlags() & FLAG_AUTO_COMPLETE)
+
+			if ((req->getFlags() & FLAG_AUTO_COMPLETE))
 			{
+				lockData();
 				mRequestHash.erase(req);
 				req->deleteRequest();
-// 				check();
+				unlockData();
 			}
-			unlockData();
 		}
 		else
 		{
