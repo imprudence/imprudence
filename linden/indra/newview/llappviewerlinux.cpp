@@ -64,14 +64,7 @@
 #endif
 
 #if LL_DBUS_ENABLED
-# include "llappviewerlinux_api_dbus.h"
-
-// regrettable hacks to give us better runtime compatibility with older systems inside llappviewerlinux_api.h:
-#define llg_return_if_fail(COND) do{if (!(COND)) return;}while(0)
-#undef g_return_if_fail
-#define g_return_if_fail(COND) llg_return_if_fail(COND)
-// The generated API
-# include "llappviewerlinux_api.h"
+#include "llappviewerlinux_api.h"
 #endif
 
 namespace
@@ -372,29 +365,6 @@ static void viewerappapi_class_init(ViewerAppAPIClass *klass);
 
 ///
 
-// regrettable hacks to give us better runtime compatibility with older systems in general
-static GType llg_type_register_static_simple_ONCE(GType parent_type,
-						  const gchar *type_name,
-						  guint class_size,
-						  GClassInitFunc class_init,
-						  guint instance_size,
-						  GInstanceInitFunc instance_init,
-						  GTypeFlags flags)
-{
-	static GTypeInfo type_info;
-	memset(&type_info, 0, sizeof(type_info));
-
-	type_info.class_size = class_size;
-	type_info.class_init = class_init;
-	type_info.instance_size = instance_size;
-	type_info.instance_init = instance_init;
-
-	return g_type_register_static(parent_type, type_name, &type_info, flags);
-}
-#define llg_intern_static_string(S) (S)
-#define g_intern_static_string(S) llg_intern_static_string(S)
-#define g_type_register_static_simple(parent_type, type_name, class_size, class_init, instance_size, instance_init, flags) llg_type_register_static_simple_ONCE(parent_type, type_name, class_size, class_init, instance_size, instance_init, flags)
-
 G_DEFINE_TYPE(ViewerAppAPI, viewerappapi, G_TYPE_OBJECT);
 
 void viewerappapi_class_init(ViewerAppAPIClass *klass)
@@ -411,18 +381,18 @@ void viewerappapi_init(ViewerAppAPI *server)
 	{
 		GError *error = NULL;
 		
-		server->connection = lldbus_g_bus_get(DBUS_BUS_SESSION, &error);
+		server->connection = dbus_g_bus_get(DBUS_BUS_SESSION, &error);
 		if (server->connection)
 		{
-			lldbus_g_object_type_install_info(viewerappapi_get_type(), &dbus_glib_viewerapp_object_info);
+			dbus_g_object_type_install_info(viewerappapi_get_type(), &dbus_glib_viewerapp_object_info);
 			
-			lldbus_g_connection_register_g_object(server->connection, VIEWERAPI_PATH, G_OBJECT(server));
+			dbus_g_connection_register_g_object(server->connection, VIEWERAPI_PATH, G_OBJECT(server));
 			
-			DBusGProxy *serverproxy = lldbus_g_proxy_new_for_name(server->connection, DBUS_SERVICE_DBUS, DBUS_PATH_DBUS, DBUS_INTERFACE_DBUS);
+			DBusGProxy *serverproxy = dbus_g_proxy_new_for_name(server->connection, DBUS_SERVICE_DBUS, DBUS_PATH_DBUS, DBUS_INTERFACE_DBUS);
 
 			guint request_name_ret_unused;
 			// akin to org_freedesktop_DBus_request_name
-			if (lldbus_g_proxy_call(serverproxy, "RequestName", &error, G_TYPE_STRING, VIEWERAPI_SERVICE, G_TYPE_UINT, 0, G_TYPE_INVALID, G_TYPE_UINT, &request_name_ret_unused, G_TYPE_INVALID))
+			if (dbus_g_proxy_call(serverproxy, "RequestName", &error, G_TYPE_STRING, VIEWERAPI_SERVICE, G_TYPE_UINT, 0, G_TYPE_INVALID, G_TYPE_UINT, &request_name_ret_unused, G_TYPE_INVALID))
 			{
 				// total success.
 				dbus_server_init = true;
@@ -472,11 +442,6 @@ gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **succ
 //virtual
 bool LLAppViewerLinux::initSLURLHandler()
 {
-	if (!grab_dbus_syms(DBUSGLIB_DYLIB_DEFAULT_NAME))
-	{
-		return false; // failed
-	}
-
 	g_type_init();
 
 	//ViewerAppAPI *api_server = (ViewerAppAPI*)
@@ -488,25 +453,20 @@ bool LLAppViewerLinux::initSLURLHandler()
 //virtual
 bool LLAppViewerLinux::sendURLToOtherInstance(const std::string& url)
 {
-	if (!grab_dbus_syms(DBUSGLIB_DYLIB_DEFAULT_NAME))
-	{
-		return false; // failed
-	}
-
 	bool success = false;
 	DBusGConnection *bus;
 	GError *error = NULL;
 
 	g_type_init();
 	
-	bus = lldbus_g_bus_get (DBUS_BUS_SESSION, &error);
+	bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
 	if (bus)
 	{
 		gboolean rtn = FALSE;
 		DBusGProxy *remote_object =
-			lldbus_g_proxy_new_for_name(bus, VIEWERAPI_SERVICE, VIEWERAPI_PATH, VIEWERAPI_INTERFACE);
+			dbus_g_proxy_new_for_name(bus, VIEWERAPI_SERVICE, VIEWERAPI_PATH, VIEWERAPI_INTERFACE);
 
-		if (lldbus_g_proxy_call(remote_object, "GoSLURL", &error,
+		if (dbus_g_proxy_call(remote_object, "GoSLURL", &error,
 					G_TYPE_STRING, url.c_str(), G_TYPE_INVALID,
 				       G_TYPE_BOOLEAN, &rtn, G_TYPE_INVALID))
 		{

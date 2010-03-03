@@ -939,7 +939,6 @@ endif (DARWIN)
 
 if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
-    LIST(APPEND viewer_SOURCE_FILES llappviewerlinux_api_dbus.cpp)
     LIST(APPEND CMAKE_EXE_LINKER_FLAGS -Wl,--as-needed)
 
     set(viewer_LIBRARIES
