@@ -1,3 +1,11 @@
+2010-03-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied slviewer-0-v11905-UnknownJointsCrashFix_v2.patch from CV to fix crash when encountering
+	  avatars using multiple attachment points.
+	  
+	  modified:   linden/indra/llcharacter/llkeyframemotion.cpp
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                      1.3.0 BETA 1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

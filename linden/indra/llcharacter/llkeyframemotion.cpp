@@ -1159,9 +1159,12 @@ void LLKeyframeMotion::applyConstraint(JointConstraint* constraint, F32 time, U8
 	{
 		LLVector3 delta = source_to_target * weight;
 		LLPointer<LLJointState> current_joint_state = getJointState(shared_data->mJointStateIndices[0]);
-		LLQuaternion parent_rot = current_joint_state->getJoint()->getParent()->getWorldRotation();
-		delta = delta * ~parent_rot;
-		current_joint_state->setPosition(current_joint_state->getJoint()->getPosition() + delta);
+		if (current_joint_state->getJoint())
+		{
+			LLQuaternion parent_rot = current_joint_state->getJoint()->getParent()->getWorldRotation();
+			delta = delta * ~parent_rot;
+			current_joint_state->setPosition(current_joint_state->getJoint()->getPosition() + delta);
+		}
 	}
 }
 
