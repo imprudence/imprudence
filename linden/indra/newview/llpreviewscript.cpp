@@ -282,6 +282,10 @@ void LLScriptEdCore::initMenu()
 	menuItem->setMenuCallback(onSelectAllMenu, this);
 	menuItem->setEnabledCallback(enableSelectAllMenu);
 
+	menuItem = getChild<LLMenuItemCallGL>("Deselect");
+	menuItem->setMenuCallback(onDeselectMenu, this);
+	menuItem->setEnabledCallback(enableDeselectMenu);
+
 	menuItem = getChild<LLMenuItemCallGL>("Search / Replace...");
 	menuItem->setMenuCallback(onSearchMenu, this);
 	menuItem->setEnabledCallback(NULL);
