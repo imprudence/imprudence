@@ -3146,6 +3146,17 @@
       <key>Value</key>
       <string>89556747-24cb-43ed-920b-47caed15465f</string>
     </map>
+    <key>DisableDBUS</key>
+    <map>
+      <key>Comment</key>
+      <string>Disable DBUS API (get SLURL from Webbrowser atm).</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>DisableCameraConstraints</key>
     <map>
       <key>Comment</key>

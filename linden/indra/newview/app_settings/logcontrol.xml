@@ -40,6 +40,8 @@
 						</array>
 					<key>tags</key>
 						<array>
+							<string>DBUS</string>
+<!--Unused debug messages below--><!--
 							<string>OpenAL</string>
               <string>APR</string>
 							<string>AudioEngine</string>
@@ -52,9 +54,9 @@
 							<string>ShaderLoading</string>
               <string>XMLNode</string>
 							<string>Openjpeg</string>
-              <!--Unused debug messages below-->
+
               
-              <!--<string>RLV</string>
+              <string>RLV</string>
               <string>Messaging</string>
               <string>ViewerImages</string>
               <string>Throttle</string>

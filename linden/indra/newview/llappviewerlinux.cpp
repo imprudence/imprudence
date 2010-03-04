@@ -369,6 +369,7 @@ G_DEFINE_TYPE(ViewerAppAPI, viewerappapi, G_TYPE_OBJECT);
 
 void viewerappapi_class_init(ViewerAppAPIClass *klass)
 {
+	LL_DEBUGS("DBUS")<< "Debug DBUS1"<< LL_ENDL;
 }
 
 static bool dbus_server_init = false;
@@ -376,19 +377,23 @@ static bool dbus_server_init = false;
 void viewerappapi_init(ViewerAppAPI *server)
 {
 	// Connect to the default DBUS, register our service/API.
-
+	LL_DEBUGS("DBUS")<< "Debug DBUS2"<< LL_ENDL;
 	if (!dbus_server_init)
 	{
+		LL_DEBUGS("DBUS")<< "Debug DBUS3"<< LL_ENDL;
 		GError *error = NULL;
 		
 		server->connection = dbus_g_bus_get(DBUS_BUS_SESSION, &error);
+		LL_DEBUGS("DBUS")<< "Debug DBUS4"<< LL_ENDL;
 		if (server->connection)
 		{
 			dbus_g_object_type_install_info(viewerappapi_get_type(), &dbus_glib_viewerapp_object_info);
-			
+			LL_DEBUGS("DBUS")<< "Debug DBUS5"<< LL_ENDL;			
 			dbus_g_connection_register_g_object(server->connection, VIEWERAPI_PATH, G_OBJECT(server));
-			
+			LL_DEBUGS("DBUS")<< "Debug DBUS6"<< LL_ENDL;
+
 			DBusGProxy *serverproxy = dbus_g_proxy_new_for_name(server->connection, DBUS_SERVICE_DBUS, DBUS_PATH_DBUS, DBUS_INTERFACE_DBUS);
+			LL_DEBUGS("DBUS")<< "Debug DBUS7"<< LL_ENDL;
 
 			guint request_name_ret_unused;
 			// akin to org_freedesktop_DBus_request_name
@@ -396,6 +401,7 @@ void viewerappapi_init(ViewerAppAPI *server)
 			{
 				// total success.
 				dbus_server_init = true;
+				LL_DEBUGS("DBUS")<< "Debug DBUS8"<< LL_ENDL;
 			}
 			else 
 			{
@@ -403,6 +409,7 @@ void viewerappapi_init(ViewerAppAPI *server)
 			}
 	
 			g_object_unref(serverproxy);
+			LL_DEBUGS("DBUS")<< "Debug DBUS9"<< LL_ENDL;
 		}
 		else
 		{
@@ -410,8 +417,16 @@ void viewerappapi_init(ViewerAppAPI *server)
 		}
 
 		if (error)
+		{
 			g_error_free(error);
+			LL_DEBUGS("DBUS")<< "Debug DBUS10"<< LL_ENDL;
+		}
+
 	}
+	else
+		LL_DEBUGS("DBUS")<< "Debug DBUS11"<< LL_ENDL;
+
+	LL_DEBUGS("DBUS")<< "Debug DBUS End"<< LL_ENDL;
 }
 
 gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **success_rtn, GError **error)
@@ -442,7 +457,11 @@ gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **succ
 //virtual
 bool LLAppViewerLinux::initSLURLHandler()
 {
+	if (gSavedSettings.getBOOL("DisableDBUS"))
+		return false;
+
 	g_type_init();
+	LL_DEBUGS("DBUS")<< "Debug DBUS Start"<< LL_ENDL;
 
 	//ViewerAppAPI *api_server = (ViewerAppAPI*)
 	g_object_new(viewerappapi_get_type(), NULL);
@@ -453,6 +472,9 @@ bool LLAppViewerLinux::initSLURLHandler()
 //virtual
 bool LLAppViewerLinux::sendURLToOtherInstance(const std::string& url)
 {
+	if (gSavedSettings.getBOOL("DisableDBUS"))
+		return false;
+
 	bool success = false;
 	DBusGConnection *bus;
 	GError *error = NULL;
