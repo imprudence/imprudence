@@ -648,6 +648,7 @@ void LLTextEditor::selectNext(const std::string& search_text_in, BOOL case_insen
 	}
 
 	setCursorPos(loc);
+	scrollToPos(mCursorPos);
 	
 	mIsSelecting = TRUE;
 	mSelectionEnd = mCursorPos;
@@ -3413,6 +3414,43 @@ void LLTextEditor::setCursorAndScrollToEnd()
 	needsScroll();
 }
 
+void LLTextEditor::scrollToPos(S32 pos)
+{
+	mScrollbar->setDocSize( getLineCount() );
+
+	S32 line, offset;
+	getLineAndOffset(pos, &line, &offset );
+
+	S32 page_size = mScrollbar->getPageSize();
+
+	if( line < mScrollbar->getDocPos() )
+	{
+		// scroll so that the cursor is at the top of the page
+		mScrollbar->setDocPos( line );
+	}
+	else if( line >= mScrollbar->getDocPos() + page_size - 1 )
+	{
+		S32 new_pos = 0;
+		if( line < mScrollbar->getDocSize() - 1 )
+		{
+			// scroll so that the cursor is one line above the bottom of the page,
+			new_pos = line - page_size + 1;
+		}
+		else
+		{
+			// if there is less than a page of text remaining, scroll so that the cursor is at the bottom
+			new_pos = mScrollbar->getDocPosMax();
+		}
+		mScrollbar->setDocPos( new_pos );
+	}
+
+	// Check if we've scrolled to bottom for callback if asked for callback
+	if (mOnScrollEndCallback && mOnScrollEndData && (mScrollbar->getDocPos() == mScrollbar->getDocPosMax()))
+	{
+		mOnScrollEndCallback(mOnScrollEndData);
+	}
+}
+
 void LLTextEditor::getLineAndColumnForPosition( S32 position, S32* line, S32* col, BOOL include_wordwrap )
 {
 	if( include_wordwrap )
@@ -3490,45 +3528,13 @@ void LLTextEditor::endOfDoc()
 // Sets the scrollbar from the cursor position
 void LLTextEditor::updateScrollFromCursor()
 {
-	mScrollbar->setDocSize( getLineCount() );
-
 	if (mReadOnly)
 	{
 		// no cursor in read only mode
 		return;
 	}
 
-	S32 line, offset;
-	getLineAndOffset( mCursorPos, &line, &offset ); 
-
-	S32 page_size = mScrollbar->getPageSize();
-
-	if( line < mScrollbar->getDocPos() )
-	{
-		// scroll so that the cursor is at the top of the page
-		mScrollbar->setDocPos( line );
-	}
-	else if( line >= mScrollbar->getDocPos() + page_size - 1 )
-	{
-		S32 new_pos = 0;
-		if( line < mScrollbar->getDocSize() - 1 )
-		{
-			// scroll so that the cursor is one line above the bottom of the page,
-			new_pos = line - page_size + 1;
-		}
-		else
-		{
-			// if there is less than a page of text remaining, scroll so that the cursor is at the bottom
-			new_pos = mScrollbar->getDocPosMax();
-		}
-		mScrollbar->setDocPos( new_pos );
-	}
-
-	// Check if we've scrolled to bottom for callback if asked for callback
-	if (mOnScrollEndCallback && mOnScrollEndData && (mScrollbar->getDocPos() == mScrollbar->getDocPosMax()))
-	{
-		mOnScrollEndCallback(mOnScrollEndData);
-	}
+	scrollToPos(mCursorPos);
 }
 
 void LLTextEditor::reshape(S32 width, S32 height, BOOL called_from_parent)

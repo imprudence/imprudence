@@ -43,6 +43,7 @@
 // This class allows us to edit notecards
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class LLTextEditor;
 class LLViewerTextEditor;
 class LLButton;
 
@@ -84,6 +85,7 @@ public:
 	// asset system. :(
 	void refreshFromInventory();
 
+	LLTextEditor* getEditor();
 protected:
 
 	virtual void loadAsset();

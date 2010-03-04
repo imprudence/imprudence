@@ -50,7 +50,6 @@ class LLScrollListCtrl;
 class LLViewerObject;
 struct 	LLEntryAndEdCore;
 class LLMenuBarGL;
-class LLFloaterScriptSearch;
 class LLKeywordToken;
 
 // Inner, implementation class.  LLPreviewScript and LLLiveLSLEditor each own one of these.
@@ -59,7 +58,6 @@ class LLScriptEdCore : public LLPanel
 	friend class LLPreviewScript;
 	friend class LLPreviewLSL;
 	friend class LLLiveLSLEditor;
-	friend class LLFloaterScriptSearch;
 
 public:
 	LLScriptEdCore(
@@ -196,6 +194,7 @@ protected:
 	static void onSaveBytecodeComplete(const LLUUID& asset_uuid, void* user_data, S32 status, LLExtStat ext_status);
 public:
 	static LLPreviewLSL* getInstance(const LLUUID& uuid);
+	LLTextEditor* getEditor() { return mScriptEd->mEditor; }
 protected:
 	static void* createScriptEdPanel(void* userdata);
 

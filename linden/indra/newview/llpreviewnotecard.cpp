@@ -40,6 +40,7 @@
 #include "llassetuploadresponders.h"
 #include "llviewerwindow.h"
 #include "llbutton.h"
+#include "llfloatersearchreplace.h"
 #include "llinventorymodel.h"
 #include "lllineeditor.h"
 #include "llnotify.h"
@@ -210,6 +211,12 @@ BOOL LLPreviewNotecard::handleKeyHere(KEY key, MASK mask)
 	if(('S' == key) && (MASK_CONTROL == (mask & MASK_CONTROL)))
 	{
 		saveIfNeeded();
+		return TRUE;
+	}
+
+	if(('F' == key) && (MASK_CONTROL == (mask & MASK_CONTROL)))
+	{
+		LLFloaterSearchReplace::show(getChild<LLViewerTextEditor>("Notecard Editor"));
 		return TRUE;
 	}
 
@@ -645,6 +652,11 @@ void LLPreviewNotecard::reshape(S32 width, S32 height, BOOL called_from_parent)
 		// (although not the same position).
 		gSavedSettings.setRect("NotecardEditorRect", getRect());
 	}
+}
+
+LLTextEditor* LLPreviewNotecard::getEditor()
+{
+	return getChild<LLViewerTextEditor>("Notecard Editor");
 }
 
 // EOF
