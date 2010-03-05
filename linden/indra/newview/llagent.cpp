@@ -6073,9 +6073,20 @@ bool LLAgent::teleportCore(bool is_local)
 
 		//release geometry from old location
 		gPipeline.resetVertexBuffers();
+
+		if (gSavedSettings.getBOOL("SpeedRez"))
+		{
+			F32 draw_distance = gSavedSettings.getF32("RenderFarClip");
+			if (gSavedDrawDistance < draw_distance)
+			{
+				gSavedDrawDistance = draw_distance;
+			}
+			gSavedSettings.setF32("SavedRenderFarClip", gSavedDrawDistance);
+			gSavedSettings.setF32("RenderFarClip", 32.0f);
+		}
+		make_ui_sound("UISndTeleportOut");
 	}
-	make_ui_sound("UISndTeleportOut");
-	
+
 	// MBW -- Let the voice client know a teleport has begun so it can leave the existing channel.
 	// This was breaking the case of teleporting within a single sim.  Backing it out for now.
 //	gVoiceClient->leaveChannel();
