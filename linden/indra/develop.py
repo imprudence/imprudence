@@ -520,14 +520,14 @@ class WindowsSetup(PlatformSetup):
             unattended=self.unattended,
             project_name=self.project_name
             )
-        # default to packaging enabled
+        # default to packaging disabled
         # if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
-                '-DPACKAGE:BOOL=ON '
+                #'-DPACKAGE:BOOL=ON '
                 '%(opts)s "%(dir)s"' % args)
 
     def find_visual_studio(self, gen=None):
