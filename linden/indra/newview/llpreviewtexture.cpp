@@ -316,6 +316,12 @@ void LLPreviewTexture::saveAs()
 	}
 	// remember the user-approved/edited file name.
 	mSaveFileName = file_picker.getFirstFile();
+	std::string filename = mSaveFileName;
+	LLStringUtil::toLower(filename);
+	if (filename.find(".tga") != filename.length() - 4)
+	{
+		mSaveFileName += ".tga";
+	}
 	mLoadingFullImage = TRUE;
 	getWindow()->incBusyCount();
 	mImage->setLoadedCallback( LLPreviewTexture::onFileLoadedForSave, 
