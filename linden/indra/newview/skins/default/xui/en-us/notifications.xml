@@ -80,6 +80,25 @@
     </form>
   </template>
 
+  <template name="okcancelhelpignore">
+    <form>
+      <button
+       default="true"
+       index="0"
+       name="OK"
+       text="$yestext"/>
+      <button
+       index="1"
+       name="Help"
+       text="$helptext"/>
+      <button
+       index="2"
+       name="Cancel"
+       text="$notext"/>
+      <ignore text="$ignoretext"/>
+    </form>
+  </template>
+
   <template name="yesnocancelbuttons">
     <form>
       <button
@@ -6463,15 +6482,14 @@ GRAVITY  --  -9.8
 +  --  Addition
 -  --  Subtraction
 
-For what these are and how to use them, read:
-[_URL]
-    <url option="0" name="url">
-
+For information about this feature, click "More Info".
+    <url option="1" name="url">
       http://imprudenceviewer.org/wiki/Build_Math_Expressions
     </url>
     <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+     name="okhelpbuttons"
+     yestext="OK"
+     helptext="More Info"/>
   </notification>
 
   <notification
@@ -6493,15 +6511,14 @@ GLOW --  Glow
 +  --  Addition
 -  --  Subtraction
 
-For what these are and how to use them, read:
-[_URL]
-    <url option="0" name="url">
-
+For information about this feature, click "More Info".
+    <url option="1" name="url">
       http://imprudenceviewer.org/wiki/Build_Math_Expressions
     </url>
     <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+     name="okhelpbuttons"
+     yestext="OK"
+     helptext="More Info"/>
   </notification>
 
   <notification
@@ -6583,16 +6600,16 @@ Are you sure you want to restore the object to its last position?
 
 WARNING: Don't restore if you aren't sure where the object will go!
 
-[_URL]
-    <url option="0" name="url">
-
+For information about this feature, click "More Info".
+    <url option="1" name="url">
       http://imprudenceviewer.org/wiki/Restore_to_Last_Position
     </url>
     <usetemplate
-     ignoretext="Warn about lack of age verification"
-     name="okcancelignore"
+     name="okcancelhelpignore"
+     yestext="Restore"
+     helptext="More Info"
      notext="Cancel"
-     yestext="Restore"/>
+     ignoretext="When restoring objects to their last positions" />
   </notification>
 
   <notification
