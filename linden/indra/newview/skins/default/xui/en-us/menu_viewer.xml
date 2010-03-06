@@ -661,6 +661,29 @@
       <on_check control="EditLinkedParts" />
       <on_enable function="Tools.EnableToolNotPie" />
     </menu_item_check>
+    <menu create_jump_keys="true" drop_shadow="true" enabled="true" label="Select Linked Parts"
+			 mouse_opaque="false" name="Select Linked Parts" opaque="true" tear_off="true">
+			<menu_item_call enabled="false" label="Select Next Part" mouse_opaque="true"
+				 name="Select Next Part" shortcut="control|.">
+				<on_click function="Tools.SelectNextPart" userdata="next" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Select Previous Part" mouse_opaque="true"
+				 name="Select Previous Part" shortcut="control|,">
+				<on_click function="Tools.SelectNextPart" userdata="previous" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Include Next Part" mouse_opaque="true"
+				 name="Include Next Part" shortcut="control|shift|.">
+				<on_click function="Tools.SelectNextPart" userdata="includenext" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Include Previous Part" mouse_opaque="true"
+				 name="Include Previous Part" shortcut="control|shift|,">
+				<on_click function="Tools.SelectNextPart" userdata="includeprevious" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+    </menu>
     <menu_item_call name="Link" enabled="false" label="Link"
                     shortcut="control|L">
       <on_click function="Tools.Link" userdata="" />
