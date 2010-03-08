@@ -75,8 +75,12 @@ class ViewerManifest(LLManifest):
 
         # Include our fonts
         if self.prefix(src="fonts"):
-            self.path("*.ttf")
-            self.path("*.txt")
+            self.path("LiberationSans-Bold.ttf")
+            self.path("LiberationSans-Regular.ttf")
+            self.path("VeraMono.ttf")
+            self.path("GPL.txt")
+            self.path("Liberation-License.txt")
+            self.path("Vera-License.txt")
             self.end_prefix("fonts")
 
         # skins
