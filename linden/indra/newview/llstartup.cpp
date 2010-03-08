@@ -719,9 +719,13 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
+			// a valid grid is selected (in llpanellogin, for some reason?)
+			// This should get the right values from the grid manager now -Patrick Sapinski (Monday, August 17, 2009)
+			HippoGridInfo *gridInfo = gHippoGridManager->getCurrentGrid();
+			firstname = gridInfo->getFirstName();
+			lastname = gridInfo->getLastName();
+			password = gridInfo->getAvatarPassword();
+
 			show_connect_box = true;
 		}
 
@@ -1418,7 +1422,8 @@ bool idle_startup()
 			if (gSavedSettings.getBOOL("RememberPassword"))
 			{
 				// Successful login means the password is valid, so save it.
-				LLStartUp::savePasswordToDisk(password);
+				// functionality replaced in grid manager. -Patrick Sapinski (Monday, March 08, 2010)
+				//LLStartUp::savePasswordToDisk(password);
 			}
 			else
 			{

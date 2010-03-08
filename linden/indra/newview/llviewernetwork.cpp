@@ -42,6 +42,12 @@
 
 unsigned char gMACAddress[MAC_ADDRESS_BYTES];		/* Flawfinder: ignore */
 
+void LLViewerLogin::resetURIs()
+{
+    // Clear URIs when picking a new server
+	gSavedSettings.setValue("CmdLineLoginURI", LLSD::emptyArray());
+	gSavedSettings.setString("CmdLineHelperURI", "");
+}
 
 void LLViewerLogin::getLoginURIs(std::vector<std::string>& uris) const
 {
