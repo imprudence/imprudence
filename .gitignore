@@ -53,7 +53,9 @@ linden/installed.xml
 *.diff*
 *.patch*
 
+
 # MISCELLANEOUS
 
+ChangeLog.txt
 .DS_Store
 *.zip

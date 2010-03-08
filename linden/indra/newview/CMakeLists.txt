@@ -1384,6 +1384,14 @@ check_message_template(${VIEWER_BINARY_NAME})
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
 
+
+add_custom_target(
+  ChangeLog ALL
+  COMMAND ${PYTHON_EXECUTABLE} ${SCRIPTS_DIR}/make_changelog.py
+  COMMENT "Generating ChangeLog.txt."
+  )
+
+
 if (WINDOWS)
     if(MSVC71)
         set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /MAPINFO:LINES")
