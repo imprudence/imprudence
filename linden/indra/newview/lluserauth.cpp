@@ -253,8 +253,20 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "last", lastname.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start.c_str(), 0);
-	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
-	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
+
+	// To log into OpenLife, we need to spoof our version or it complains about an out of date viewer.
+	// This will likely break OpenLife logins through SLProxy!
+	// -Patrick Sapinski (Wednesday, October 21, 2009)
+	if (auth_uri.find("logingrid.net") != -1) {
+		XMLRPC_VectorAppendString(params, "version", "Openlife R17 1.17.0.336", 0);
+		XMLRPC_VectorAppendString(params, "channel", "Second Life Release", 0); //OLG uses the original channel name.
+
+	}
+	else {
+		XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
+		XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
+	}
+
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", mac, 0);
 	// A bit of security through obscurity: id0 is volume_serial
