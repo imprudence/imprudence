@@ -428,6 +428,16 @@ void do_create(LLInventoryModel *model, LLInventoryPanel *ptr, std::string type,
 		LLUUID parent_id = self ? self->getUUID() : gInventory.findCategoryUUIDForType(LLAssetType::AT_CLOTHING);
 		LLFolderBridge::createWearable(parent_id, WT_UNDERPANTS);
 	}
+	else if ("alpha" == type)
+	{
+		LLUUID parent_id = self ? self->getUUID() : gInventory.findCategoryUUIDForType(LLAssetType::AT_CLOTHING);
+		LLFolderBridge::createWearable(parent_id, WT_ALPHA);
+	}
+	else if ("tattoo" == type)
+	{
+		LLUUID parent_id = self ? self->getUUID() : gInventory.findCategoryUUIDForType(LLAssetType::AT_CLOTHING);
+		LLFolderBridge::createWearable(parent_id, WT_TATTOO);
+	}
 	else if ("shape" == type)
 	{
 		LLUUID parent_id = self ? self->getUUID() : gInventory.findCategoryUUIDForType(LLAssetType::AT_BODYPART);

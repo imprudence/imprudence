@@ -39,6 +39,7 @@
 #include <string>
 #include <vector>
 
+#include "imageids.h"			// IMG_INVISIBLE
 #include "llchat.h"
 #include "lldrawpoolalpha.h"
 #include "llviewerobject.h"
@@ -342,7 +343,7 @@ public:
 	BOOL			teToColorParams( LLVOAvatarDefines::ETextureIndex te, const char* param_name[3] );
 
 	BOOL			isWearingWearableType( EWearableType type );
-	void			wearableUpdated( EWearableType type );
+	void			wearableUpdated(EWearableType type, BOOL upload_result = TRUE);
 
 	//--------------------------------------------------------------------
 	// texture compositing
@@ -602,6 +603,7 @@ private:
 	BOOL mIsBuilt; // state of deferred character building
 	F32 mSpeedAccum; // measures speed (for diagnostics mostly).
 
+	BOOL mSupportsAlphaLayers; // For backwards compatibility, TRUE for 1.23+ clients
 	
 	// LLFrameTimer mUpdateLODTimer; // controls frequency of LOD change calculations
 	BOOL mDirtyMesh;
@@ -827,7 +829,7 @@ inline BOOL LLVOAvatar::isTextureDefined(U8 te) const
 
 inline BOOL LLVOAvatar::isTextureVisible(U8 te) const
 {
-	return ((isTextureDefined(te) || isSelf())
+	return ((isTextureDefined(te) || mIsSelf)
 			&& (getTEImage(te)->getID() != IMG_INVISIBLE 
 				|| LLDrawPoolAlpha::sShowDebugAlpha));
 }

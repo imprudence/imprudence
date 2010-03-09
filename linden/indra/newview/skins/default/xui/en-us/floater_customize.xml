@@ -1108,6 +1108,174 @@ scratch and wear it.
 			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
+		<panel name="Tattoo" label="Tattoo" border="true" mouse_opaque="true"
+             follows="left|top|right|bottom" width="389" height="481" left="102" bottom="-482">
+			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
+			     width="16" />
+			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+			     mouse_opaque="true" name="icon" width="16" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title" v_pad="0" width="355">
+				[DESC]
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
+				[DESC]: cannot modify
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
+				[DESC]: loading...
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
+				[DESC]: not worn
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
+			     mouse_opaque="true" name="path" v_pad="0" width="373">
+				Located in [PATH]
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
+			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
+                Put on a new tattoo by dragging one from your inventory to your avatar. Alternately, you create a new one from scratch and wear it.
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
+			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
+				You do not have permission to modify this wearable.
+			</text>
+            <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+                 bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+                 font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+                 mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+                Tattoo:
+            </text>
+            <texture_picker  name="Head Tattoo" label="Head Tattoo" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="70" height="80" left="14" bottom="-145"/>
+            <texture_picker name="Upper Tattoo" label="Upper Tattoo" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="70" height="80" left="14" bottom="-235"/>
+            <texture_picker name="Lower Tattoo" label="Lower Tattoo" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="70" height="80" left="14" bottom="-325"/>
+			<button name="Create New" label="Create New Tattoo" label_selected="Create New Tattoo"
+                 follows="left|top" halign="center" width="170" height="24" left="8" bottom="-128"
+			     mouse_opaque="true" scale_image="true"/>
+            <button name="Take Off" label="Take Off" label_selected="Take Off"
+             follows="left|top" width="82" height="20" left="8" bottom="-365"/>
+            <button name="Save" label="Save" label_selected="Save"
+             follows="right|bottom" width="82" height="20" left="123" bottom="-478"/>
+            <button name="Save As" label="Save As..." label_selected="Save As..."
+             follows="right|bottom" width="92" height="20" left="209" bottom="-478"/>
+            <button name="Revert" label="Revert" label_selected="Revert"
+             follows="right|bottom" width="82" height="20" left="305" bottom="-478"/>
+		</panel>
+		<panel name="Alpha" label="Alpha" border="true" mouse_opaque="true"
+             follows="left|top|right|bottom" width="389" height="481" left="102" bottom="-482">
+			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
+			     width="16" />
+			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+			     mouse_opaque="true" name="icon" width="16" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title" v_pad="0" width="355">
+				[DESC]
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
+				[DESC]: cannot modify
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
+				[DESC]: loading...
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
+			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
+				[DESC]: not worn
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
+			     mouse_opaque="true" name="path" v_pad="0" width="373">
+				Located in [PATH]
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
+			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
+                Put on a new alpha mask by dragging one from your inventory to your avatar. Alternately, you create a new one from scratch and wear it.
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
+			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
+				You do not have permission to modify this wearable.
+			</text>
+            <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+                 bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+                 font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+                 mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+                Alpha:
+            </text>
+            <texture_picker name="Head Alpha" label="Head Alpha" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="64" height="80" left="120" bottom="-165"/>
+            <texture_picker name="Upper Alpha" label="Upper Alpha" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="64" height="80" left_delta="90" bottom="-165"/>
+            <texture_picker  name="Lower Alpha" label="Lower Alpha" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="64" height="80" left_delta="90" bottom="-165"/>
+            <check_box name="head alpha texture invisible"
+             follows="left" width="16" height="16" left="142" bottom="-185"/>
+            <check_box name="upper alpha texture invisible"
+             follows="left" width="16" height="16" left_delta="90" bottom="-185"/>
+            <check_box name="lower alpha texture invisible"
+             follows="left" width="16" height="16" left_delta="90" bottom="-185"/>
+            <texture_picker name="Hair Alpha" label="Hair Alpha" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="64" height="80" left="120" bottom="-280"/>
+            <texture_picker name="Eye Alpha" label="Eye Alpha" tool_tip="Click to choose a picture"
+             can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
+             follows="left|top" width="64" height="80" left_delta="90" bottom="-280"/>
+            <check_box name="hair alpha texture invisible"
+             follows="left" width="16" height="16" left="142" bottom="-300"/>
+            <check_box name="eye alpha texture invisible"
+             follows="left" width="16" height="16" left_delta="90" bottom="-300"/>
+			<button name="Create New" label="Create New Alpha" label_selected="Create New Alpha"
+                 follows="left|top" halign="center" width="170" height="24" left="8" bottom="-128"
+			     mouse_opaque="true" scale_image="true"/>
+            <button name="Take Off" label="Take Off" label_selected="Take Off"
+             follows="left|top" width="82" height="20" left="123" bottom="-340"/>
+            <button name="Save" label="Save" label_selected="Save"
+             follows="right|bottom" width="82" height="20" left="123" bottom="-478"/>
+            <button name="Save As" label="Save As..." label_selected="Save As..."
+             follows="right|bottom" width="92" height="20" left="209" bottom="-478"/>
+            <button name="Revert" label="Revert" label_selected="Revert"
+             follows="right|bottom" width="82" height="20" left="305" bottom="-478"/>
+		</panel>
 	</tab_container>
 	<scroll_container bottom="-476" follows="left|top|right|bottom" height="382" left="197"
 	     mouse_opaque="false" name="panel_container" opaque="false" width="292" />

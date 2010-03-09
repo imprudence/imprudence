@@ -128,6 +128,8 @@ LLInventoryType::NType calc_ntype(
 							case WT_UNDERSHIRT:  return LLInventoryType::NIT_UNDERSHIRT;
 							case WT_UNDERPANTS:  return LLInventoryType::NIT_UNDERPANTS;
 							case WT_SKIRT:       return LLInventoryType::NIT_SKIRT;
+							case WT_ALPHA:       return LLInventoryType::NIT_ALPHA;
+							case WT_TATTOO:       return LLInventoryType::NIT_TATTOO;
 							default:             return LLInventoryType::NIT_CLOTHING;
 						}
 					}

@@ -8146,6 +8146,14 @@ class LLEditEnableTakeOff : public view_listener_t
 		{
 			new_value = LLAgent::selfHasWearable((void *)WT_SKIRT);
 		}
+		if (clothing == "alpha")
+		{
+			new_value = LLAgent::selfHasWearable((void *)WT_ALPHA);
+		}
+		if (clothing == "tattoo")
+		{
+			new_value = LLAgent::selfHasWearable((void *)WT_TATTOO);
+		}
 
 // [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
 		// Why aren't they using LLWearable::typeNameToType()? *confuzzled*
@@ -8200,6 +8208,14 @@ class LLEditTakeOff : public view_listener_t
 		else if (clothing == "skirt")
 		{
 			LLAgent::userRemoveWearable((void*)WT_SKIRT);
+		}
+		else if (clothing == "alpha")
+		{
+			LLAgent::userRemoveWearable((void*)WT_ALPHA);
+		}
+		else if (clothing == "tattoo")
+		{
+			LLAgent::userRemoveWearable((void*)WT_TATTOO);
 		}
 		else if (clothing == "all")
 		{

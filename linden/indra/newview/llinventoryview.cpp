@@ -1485,6 +1485,12 @@ std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 		case LLInventoryType::NIT_SKIRT:
 			idx = CLOTHING_SKIRT_ICON_NAME;
 			break;
+		case LLInventoryType::NIT_ALPHA:
+			idx = CLOTHING_ALPHA_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_TATTOO:
+			idx = CLOTHING_TATTOO_ICON_NAME;
+			break;
 
 		case LLInventoryType::NIT_CLOTHING:
 			idx = CLOTHING_ICON_NAME;

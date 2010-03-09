@@ -115,49 +115,51 @@ public:
 		NIT_UNDERSHIRT       =  1 << 10,
 		NIT_UNDERPANTS       =  1 << 11,
 		NIT_SKIRT            =  1 << 12,
-		NIT_CLOTHING         =  0x0001ff0,
+		NIT_ALPHA            =  1 << 13,
+		NIT_TATTOO           =  1 << 14,
+		NIT_CLOTHING         =  0x0007ff0,
 
 		/* Body Parts | Clothing */
-		NIT_WEARABLE         =  0x0001fff,
+		NIT_WEARABLE         =  0x0007fff,
 
 		/* Images */
-		NIT_TEXTURE          =  1 << 13,
-		NIT_SNAPSHOT         =  1 << 14,
-		NIT_IMAGE            =  0x0006000,
+		NIT_TEXTURE          =  1 << 15,
+		NIT_SNAPSHOT         =  1 << 16,
+		NIT_IMAGE            =  0x0018000,
 
 		/* Calling Cards */
-		NIT_CALLCARD_OFF     =  1 << 15,
-		NIT_CALLCARD_ON      =  1 << 16,
-		NIT_CALLCARD         =  0x0018000,
+		NIT_CALLCARD_OFF     =  1 << 17,
+		NIT_CALLCARD_ON      =  1 << 18,
+		NIT_CALLCARD         =  0x0060000,
 
 		/* Landmarks */
-		NIT_LANDMARK_UNUSED  =  1 << 17,
-		NIT_LANDMARK_USED    =  1 << 18,
-		NIT_LANDMARK         =  0x0060000,
+		NIT_LANDMARK_UNUSED  =  1 << 19,
+		NIT_LANDMARK_USED    =  1 << 20,
+		NIT_LANDMARK         =  0x0180000,
 
 		/* Sounds */
-		NIT_SOUND            =  1 << 19,
+		NIT_SOUND            =  1 << 21,
 
 		/* Animations */
-		NIT_ANIMATION        =  1 << 20,
+		NIT_ANIMATION        =  1 << 22,
 
 		/* Gestures */
-		NIT_GESTURE          =  1 << 21,
+		NIT_GESTURE          =  1 << 23,
 
 		/* Notecards */
-		NIT_NOTECARD         =  1 << 22,
+		NIT_NOTECARD         =  1 << 24,
 
 		/* Scripts */
-		NIT_SCRIPT_LSL2      =  1 << 23,
+		NIT_SCRIPT_LSL2      =  1 << 25,
 
 		/* Objects */
-		NIT_OBJECT           =  1 << 24,
+		NIT_OBJECT           =  1 << 26,
 
     /* Folders ("Categories" in the old type system) */
-    NIT_FOLDER           =  1 << 25,
+    NIT_FOLDER           =  1 << 27,
 
 		/* Bitwise OR-ing of all the above */
-		NIT_ALL              =  0x3ffffff,
+		NIT_ALL              =  0xfffffff,
 	};
 
 

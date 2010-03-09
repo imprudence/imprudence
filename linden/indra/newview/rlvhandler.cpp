@@ -1097,7 +1097,7 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 
 				const EWearableType layerTypes[] =
 					{ 
-						WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_SOCKS, 
+						WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_ALPHA, WT_TATTOO, WT_SOCKS, 
 						WT_UNDERPANTS, WT_UNDERSHIRT, WT_SKIN, WT_EYES, WT_HAIR, WT_SHAPE
 					};
 

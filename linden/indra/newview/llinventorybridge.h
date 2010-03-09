@@ -64,6 +64,8 @@ enum EInventoryIcon
 	CLOTHING_UNDERSHIRT_ICON_NAME,
 	CLOTHING_UNDERPANTS_ICON_NAME,
 	CLOTHING_SKIRT_ICON_NAME,
+	CLOTHING_ALPHA_ICON_NAME,
+	CLOTHING_TATTOO_ICON_NAME,
 	
 	ANIMATION_ICON_NAME,
 	GESTURE_ICON_NAME,
@@ -328,6 +330,8 @@ protected:
 	static void createNewGloves(void* user_data);
 	static void createNewUndershirt(void* user_data);
 	static void createNewUnderpants(void* user_data);
+	static void createNewAlpha(void* user_data);
+	static void createNewTattoo(void* user_data);
 	static void createNewShape(void* user_data);
 	static void createNewSkin(void* user_data);
 	static void createNewHair(void* user_data);
