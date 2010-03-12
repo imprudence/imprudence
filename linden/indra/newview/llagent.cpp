@@ -4043,6 +4043,8 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 	// visibility changes at end of animation
 	gViewerWindow->getWindow()->resetBusyCount();
 
+	LLMenuGL::sMenuContainer->hideMenus();
+
 	// unpause avatar animation
 	mPauseRequest = NULL;
 
