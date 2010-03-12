@@ -634,7 +634,23 @@ void LLPanelLogin::addServer(const std::string& server)
 	}
 	else
 	{
-		std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
+		std::string last_grid = gSavedSettings.getString("CmdLineGridChoice");//imprudence TODO:errorcheck
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if (!last_grid.empty()&& cmd_line_login_uri.empty())//don't use --grid if --loginuri is also given
+		{
+			 //give user chance to change their mind, even with --grid set
+			gSavedSettings.setString("CmdLineGridChoice","");
+		}
+		else if (!cmd_line_login_uri.empty())
+		{
+			last_grid = cmd_line_login_uri;
+			 //also clear --grid no matter if it was given
+			gSavedSettings.setString("CmdLineGridChoice","");
+		}
+		else if (last_grid.empty())
+		{
+			last_grid = gSavedSettings.getString("LastSelectedGrid");
+		}
 		if (last_grid.empty()) last_grid = defaultGrid;
 		grids->setSimple(last_grid);
 	}
@@ -876,17 +892,17 @@ void LLPanelLogin::loadLoginPage()
 			location = "home";
 		}
 	}
-	
+
 	std::string firstname, lastname;
 
-    if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
-    {
-        LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+	if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
+	{
+		LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 		firstname = cmd_line_login[0].asString();
 		lastname = cmd_line_login[1].asString();
-        password = cmd_line_login[2].asString();
-    }
-    	
+		password = cmd_line_login[2].asString();
+	}
+
 	if (firstname.empty())
 	{
 		firstname = gSavedSettings.getString("FirstName");

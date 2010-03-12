@@ -683,9 +683,9 @@ bool idle_startup()
 			show_connect_box = 
 				firstname.empty() || lastname.empty() || web_login_key.isNull();
 		}
-        else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
-        {
-            LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+		else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
+		{
+			LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 			firstname = cmd_line_login[0].asString();
 			lastname = cmd_line_login[1].asString();
 
@@ -700,7 +700,7 @@ bool idle_startup()
 			show_connect_box = false;
 #endif
 			gSavedSettings.setBOOL("AutoLogin", TRUE);
-        }
+		}
 		else if (gSavedSettings.getBOOL("AutoLogin"))
 		{
 			firstname = gSavedSettings.getString("FirstName");
@@ -877,13 +877,20 @@ bool idle_startup()
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
-        gHippoGridManager->setCurrentGridAsConnected();
+		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
+		{
+			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
+		}
+
+		gHippoGridManager->setCurrentGridAsConnected();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-    	LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		LLFile::mkdir(gDirUtilp->getLindenUserDir());
 
-        // Set PerAccountSettingsFile to the default value.
+		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
 			gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, 
 				LLAppViewer::instance()->getSettingsFilename("Default", "PerAccount")
