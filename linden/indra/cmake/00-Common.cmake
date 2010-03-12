@@ -225,6 +225,7 @@ else (STANDALONE)
    else(${ARCH} STREQUAL "i686")
      if (${ARCH} STREQUAL "x86_64")
        set(${ARCH}_linux_INCLUDES
+          ELFIO
           atk-1.0
           glib-2.0
           gstreamer-0.10
