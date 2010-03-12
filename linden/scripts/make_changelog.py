@@ -51,7 +51,7 @@
 
 
 
-import commands, re, os.path, sys
+import commands, re, os, sys
 from string import Template
 
 
@@ -309,16 +309,15 @@ class LogEntry:
         texts=[LogEntry.separator]
 
         texts.append("""
-Date:       {ad}                                                ({id})
-Author:     {an}  <{ae}>""".format(ad = self.author_date,
-                                   an = self.author_name,
-                                   ae = self.author_mail,
-                                   id = self.id[0:7]))
+Date:       %(ad)s                                                (%(id)s)
+Author:     %(an)s  <%(ae)s>""" % { "ad" : self.author_date,
+                                    "an" : self.author_name,
+                                    "ae" : self.author_mail,
+                                    "id" : self.id[0:7] })
 
         if self.commit_name != self.author_name:
-            texts.append("Committer:  {cn}  <{ce}>".format(
-                    cn = self.commit_name,
-                    ce = self.commit_mail))
+            texts.append("Committer:  %(cn)s  <%(ce)s>" % { "cn" : self.commit_name,
+                                                            "ce" : self.commit_mail })
 
         texts.append("\n")
 
@@ -370,16 +369,21 @@ def main():
         commits = "HEAD"
 
 
+    # Set PATH to help find the git executable on Mac OS X.
+    if os.uname()[0] == "Darwin":
+        os.environ["PATH"] += ":/usr/local/bin:/usr/local/git/bin:/sw/bin:/opt/bin:~/bin"
+
     # Fetch the log entries from git in one big chunk.
-    cmd = "git log --pretty=fuller --name-status --date=short --date-order --show-notes {commits}".format(commits = commits)
+    cmd = "git log --pretty=fuller --name-status --date=short --date-order " + commits
     status, output = commands.getstatusoutput(cmd)
 
 
     # If the git command failed, write a placeholder ChangeLog.txt and exit.
     if status != 0:
         print "Could not generate ChangeLog.txt: " + output
-        with open(CHANGELOG, "w") as changelog:
-            changelog.write("\n  (Imprudence must be compiled from a Git repository to generate a ChangeLog.)\n\n")
+        changelog = open(CHANGELOG, "w")
+        changelog.write( output + "\n  (Imprudence must be compiled from a Git repository to generate a ChangeLog.)\n\n")
+        changelog.close()
         exit(0)
 
 
@@ -424,8 +428,10 @@ def main():
 
     text = "\n".join(output)
 
-    with open(CHANGELOG, "w") as changelog:
-        changelog.write(text)
+    changelog = open(CHANGELOG, "w")
+    changelog.write(text)
+    changelog.close()
+
 
 
 if __name__ == "__main__":
