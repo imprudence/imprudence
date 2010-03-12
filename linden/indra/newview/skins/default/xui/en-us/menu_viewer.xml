@@ -1510,6 +1510,23 @@
     <menu name="UI" drop_shadow="true"
           opaque="true" tear_off="true">
 
+      
+      <menu_item_check name="Use default system color picker"
+                       label="Use default system color picker">
+        <on_click function="ToggleControl"
+                  userdata="UseDefaultColorPicker" />
+        <on_check control="UseDefaultColorPicker" />
+      </menu_item_check>
+
+      <menu_item_check name="Show search panel in overlay bar"
+                       label="Show search panel in overlay bar">
+        <on_click function="ToggleControl"
+                  userdata="ShowSearchBar" />
+        <on_check control="ShowSearchBar" />
+      </menu_item_check>
+
+      <menu_item_separator />
+
       <menu_item_call name="Web Browser Test" label="Web Browser Test">
         <on_click function="Advanced.WebBrowserTest" userdata="" />
       </menu_item_call>
@@ -1623,6 +1640,12 @@
                   userdata="DebugShowRenderInfo" />
         <on_check control="DebugShowRenderInfo" />
       </menu_item_check>
+      <menu_item_check name="Show Matrices"
+                       label="Show Matrices">
+        <on_click function="ToggleControl"
+                  userdata="DebugShowRenderMatrices" />
+        <on_check control="DebugShowRenderMatrices" />
+      </menu_item_check>
       <menu_item_check name="Show Color Under Cursor"
                        label="Show Color Under Cursor">
         <on_click function="ToggleControl"
@@ -1640,6 +1663,11 @@
       <menu_item_call name="Floater Test..."
                       label="Floater Test...">
         <on_click function="Advanced.ShowFloaterTest"
+                  userdata="" />
+      </menu_item_call>
+      <menu_item_call name="Font Test..."
+                      label="Font Test...">
+        <on_click function="Advanced.ShowFontTest"
                   userdata="" />
       </menu_item_call>
       <menu_item_call name="Export Menus to XML..."

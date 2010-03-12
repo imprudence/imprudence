@@ -1046,14 +1046,11 @@ extern BOOL gDebugSelectMgr;
 
 void init_debug_ui_menu(LLMenuGL* menu)
 {
-	// For Imprudence 1.3 - need to XUIfy (or move back to preferences?)
 	menu->append(new LLMenuItemCheckGL("Use default system color picker", menu_toggle_control, NULL, menu_check_control, (void*)"UseDefaultColorPicker"));
-	// For Imprudence 1.3 - need to XUIfy (or remove to advance our marxist schemes!)
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
 	menu->appendSeparator();
 
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
-	// For Imprudence 1.3 - need to XUIfy
 	// commented out until work is complete: DEV-32268
 	// menu->append(new LLMenuItemCallGL("Buy Currency Test", &handle_buy_currency_test));
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
@@ -1079,7 +1076,6 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->appendSeparator();
 	menu->append(new LLMenuItemCheckGL("Show Time", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowTime"));
 	menu->append(new LLMenuItemCheckGL("Show Render Info", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowRenderInfo"));
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemCheckGL("Show Matrices", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowRenderMatrices"));
 	menu->append(new LLMenuItemCheckGL("Show Color Under Cursor", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowColor"));
 	
@@ -9586,6 +9582,22 @@ class LLAdvancedShowFloaterTest : public view_listener_t
 
 
 
+////////////////////
+// SHOW FONT TEST //
+////////////////////
+
+
+class LLAdvancedShowFontTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterFontTest::show(NULL);
+		return true;
+	}
+};
+
+
+
 /////////////////////////
 // EXPORT MENUS TO XML //
 /////////////////////////
@@ -10964,6 +10976,7 @@ void initialize_menus()
 
 	// Advanced > XUI
 	addMenu(new LLAdvancedShowFloaterTest(), "Advanced.ShowFloaterTest");
+	addMenu(new LLAdvancedShowFontTest(), "Advanced.ShowFontTest");
 	addMenu(new LLAdvancedExportMenusToXML(), "Advanced.ExportMenusToXML");
 	addMenu(new LLAdvancedEditUI(), "Advanced.EditUI");
 	addMenu(new LLAdvancedLoadUIFromXML(), "Advanced.LoadUIFromXML");
