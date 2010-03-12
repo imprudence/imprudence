@@ -1553,12 +1553,6 @@
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>
-      <menu_item_check name="Double-Click Auto-Pilot"
-                       label="Double-Click Auto-Pilot">
-        <on_click function="ToggleControl"
-                  userdata="DoubleClickAutoPilot" />
-        <on_check control="DoubleClickAutoPilot" />
-      </menu_item_check>
       <menu_item_separator />
       <menu_item_check name="Debug SelectMgr"
                        label="Debug SelectMgr">
