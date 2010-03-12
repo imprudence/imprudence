@@ -181,7 +181,7 @@ static inline BOOL do_basic_glibc_backtrace()
 		for (i = 0; i < size; i++)
 		{
 			// the format of the StraceFile is very specific, to allow (kludgy) machine-parsing
-			fprintf(StraceFile, "%-ld ", (long)i);
+			fprintf(StraceFile, "%-3lu ", (unsigned long)i);
 			fprintf(StraceFile, "%-32s\t", "unknown");
 			fprintf(StraceFile, "%p ", stackarray[i]);
 			fprintf(StraceFile, "%s\n", strings[i]);
