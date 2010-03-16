@@ -370,7 +370,7 @@ def main():
 
 
     # Set PATH to help find the git executable on Mac OS X.
-    if os.uname()[0] == "Darwin":
+    if sys.platform == "darwin":
         os.environ["PATH"] += ":/usr/local/bin:/usr/local/git/bin:/sw/bin:/opt/bin:~/bin"
 
     # Fetch the log entries from git in one big chunk.
