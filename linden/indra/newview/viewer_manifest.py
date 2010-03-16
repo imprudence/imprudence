@@ -102,6 +102,7 @@ class ViewerManifest(LLManifest):
                         self.path("*.png")
                         self.path("*/*/*.html")
                         self.path("*/*/*.gif")
+                        self.path("*/*/*.png")
                         self.end_prefix("*/html")
                 self.end_prefix("skins")
         
