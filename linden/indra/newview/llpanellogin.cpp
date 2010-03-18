@@ -826,8 +826,9 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Channel and Version
-	std::string version = llformat("%d.%d.%d (%d)",
-						LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
+	std::string version = llformat("%d.%d.%d %s",
+	                               IMP_VERSION_MAJOR, IMP_VERSION_MINOR,
+	                               IMP_VERSION_PATCH, IMP_VERSION_TEST);
 
 	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);
