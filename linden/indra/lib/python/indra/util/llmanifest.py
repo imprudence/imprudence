@@ -608,7 +608,7 @@ class LLManifest(object):
             d = src_re.sub(d_template, s.replace('\\', '/'))
             yield os.path.normpath(s), os.path.normpath(d)
 
-    def path(self, src, dst=None):
+    def path(self, src, dst=None, required=True):
         sys.stdout.write("Processing %s => %s ... " % (src, dst))
         sys.stdout.flush()
         if src == None:
@@ -625,9 +625,10 @@ class LLManifest(object):
                     assert(s != d)
                     count += self.process_file(s, d)
             else:
-                # if we're specifying a single path (not a glob),
-                # we should error out if it doesn't exist
-                self.check_file_exists(src)
+                # if we're specifying a single path (not a glob), and
+                # it's required, error out if it doesn't exist
+                if required:
+                    self.check_file_exists(src)
                 # if it's a directory, recurse through it
                 if os.path.isdir(src):
                     count += self.process_directory(src, dst)
