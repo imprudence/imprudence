@@ -1404,10 +1404,8 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &LLVOAvatar::sDebugAvatarRotation));
 	menu->append(new LLMenuItemCallGL("Dump Attachments", handle_dump_attachments));
 	menu->append(new LLMenuItemCallGL("Refresh Appearance", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	menu->append(new LLMenuItemCallGL("Debug Avatar Textures", handle_debug_avatar_textures, NULL, NULL, 'A', MASK_SHIFT|MASK_CONTROL|MASK_ALT));
 	menu->append(new LLMenuItemCallGL("Dump Local Textures", handle_dump_avatar_local_textures, NULL, NULL, 'M', MASK_SHIFT|MASK_ALT ));	
-#endif
 	menu->createJumpKeys();
 }
 

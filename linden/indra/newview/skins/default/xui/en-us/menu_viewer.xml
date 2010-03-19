@@ -1856,6 +1856,16 @@
         <on_click function="Advanced.DumpAttachments"
                   userdata="" />
       </menu_item_call>
+      <menu_item_call name="Debug Avatar Textures"
+                      label="Debug Avatar Textures">
+        <on_click function="Advanced.DebugAvatarTextures"
+                  userdata="" />
+      </menu_item_call>
+      <menu_item_call name="Dump Local Textures"
+                      label="Dump Local Textures">
+        <on_click function="Advanced.DumpAvatarLocalTextures"
+                  userdata="" />
+      </menu_item_call>
     </menu>
 
 
