@@ -596,9 +596,9 @@ void update_statistics(U32 frame_count)
 	gObjectBits = 0;
 //	gDecodedBits = 0;
 
-	// Only update texture stats ones per second so that they are less noisy
+	// Only update texture stats periodically so that they are less noisy
 	{
-		static const F32 texture_stats_freq = 1.f;
+		static const F32 texture_stats_freq = 10.f;
 		static LLFrameTimer texture_stats_timer;
 		if (texture_stats_timer.getElapsedTimeF32() >= texture_stats_freq)
 		{
@@ -774,8 +774,6 @@ void send_stats()
 	S32 window_size = (window_width * window_height) / 1024;
 	misc["string_1"] = llformat("%d", window_size);
 	// misc["string_2"] = 
-// 	misc["int_1"] = LLFloaterDirectory::sOldSearchCount; // Steve: 1.18.6
-// 	misc["int_2"] = LLFloaterDirectory::sNewSearchCount; // Steve: 1.18.6
 // 	misc["int_1"] = LLSD::Integer(gSavedSettings.getU32("RenderQualityPerformance")); // Steve: 1.21
 // 	misc["int_2"] = LLSD::Integer(gFrameStalls); // Steve: 1.21
 
