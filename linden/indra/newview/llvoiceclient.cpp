@@ -1753,6 +1753,7 @@ void LLVoiceClient::stateMachine()
 					else
 					{
 						LL_INFOS("Voice") << exe_path << " not found." << LL_ENDL;
+						mVoiceEnabled = false;
 					}	
 				}
 				else
