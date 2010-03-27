@@ -462,7 +462,7 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 	if ( KEY_F1 == key )
 	{
 		llinfos << "Spawning HTML help window" << llendl;
-		LLFloaterMediaBrowser::helpF1();
+		gViewerHtmlHelp.show();
 		return TRUE;
 	}
 
@@ -1017,8 +1017,7 @@ bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD&
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
-		llinfos << "Going to account creation URL" << llendl;
-		LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
+		onClickNewAccount(0);
 	}
 	else
 	{
@@ -1031,7 +1030,14 @@ bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD&
 // static
 void LLPanelLogin::onClickNewAccount(void*)
 {
-	LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
+	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+	if (!url.empty()) {
+		llinfos << "Going to account creation URL." << llendl;
+		LLWeb::loadURLExternal(url);
+	} else {
+		llinfos << "Account creation URL is empty." << llendl;
+		sInstance->setFocus(TRUE);
+	}
 }
 
 
@@ -1062,7 +1068,12 @@ void LLPanelLogin::onClickForgotPassword(void*)
 {
 	if (sInstance )
 	{
-		LLWeb::loadURLExternal(sInstance->getString( "forgot_password_url" ));
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordUrl();
+		if (!url.empty()) {
+			LLWeb::loadURLExternal(url);
+		} else {
+			llwarns << "Link for 'forgotton password' not set." << llendl;
+		}
 	}
 }
 
