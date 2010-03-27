@@ -485,13 +485,11 @@ std::string HippoGridInfo::sanitizeUri(std::string &uri)
 
 void HippoGridInfo::initFallback()
 {
-	FALLBACK_GRIDINFO.mGridNick = "secondlife";
-	FALLBACK_GRIDINFO.setPlatform(PLATFORM_SECONDLIFE);
-	FALLBACK_GRIDINFO.setGridName("Second Life");
-	FALLBACK_GRIDINFO.setLoginUri("https://login.agni.lindenlab.com/cgi-bin/login.cgi");
-	FALLBACK_GRIDINFO.setLoginPage("http://secondlife.com/app/login/");
-	FALLBACK_GRIDINFO.setHelperUri("https://secondlife.com/helpers/");
-	FALLBACK_GRIDINFO.setWebSite("http://secondlife.com/");
+	FALLBACK_GRIDINFO.mGridNick = "localhost";
+	FALLBACK_GRIDINFO.setPlatform(PLATFORM_OPENSIM);
+	FALLBACK_GRIDINFO.setGridName("Local Host");
+	FALLBACK_GRIDINFO.setLoginUri("http://127.0.0.1:9000/");
+	FALLBACK_GRIDINFO.setHelperUri("http://127.0.0.1:9000/");
 }
 
 
