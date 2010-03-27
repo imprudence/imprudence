@@ -4130,12 +4130,19 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="ClickOpenF1Help"
    type="alertmodal">
-    Visit the [SECOND_LIFE] Support Website? (note: this is not an Imprudence Help site)
+Visit the [GRID] Support Web site?
     <usetemplate
      ignoretext="When visiting the Support Website."
      name="okcancelignore"
      notext="Cancel"
      yestext="Go"/>
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="NoSupportUrl"
+   type="alertmodal">
+[GRID] has no link for support.
   </notification>
 
   <notification

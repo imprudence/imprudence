@@ -2914,7 +2914,12 @@ bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 	if (0 == option)
 	{
 		LL_DEBUGS("AppInit") << "First run dialog cancelling" << LL_ENDL;
-		LLWeb::loadURL( CREATE_ACCOUNT_URL );
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+		if (!url.empty()) {
+			LLWeb::loadURL(url);
+		} else {
+			llwarns << "Account creation URL is empty" << llendl;
+		}
 	}
 
 	LLPanelLogin::giveFocus();
@@ -2939,9 +2944,11 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
     {
         case 0:     // OK
             break;
-        case 1:     // Help
-            LLWeb::loadURL( SUPPORT_URL );
+        case 1: {   // Help
+            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+            if (!url.empty()) LLWeb::loadURL(url);
             break;
+        }
         case 2:     // Teleport
             // Restart the login process, starting at our home locaton
             LLURLSimString::setString(LLURLSimString::sLocationStringHome);

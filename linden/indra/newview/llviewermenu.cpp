@@ -5865,7 +5865,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "help f1")
 		{
-			LLFloaterMediaBrowser::helpF1();
+			gViewerHtmlHelp.show();
 		}
 		else if (floater_name == "help tutorial")
 		{
