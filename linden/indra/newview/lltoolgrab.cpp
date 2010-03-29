@@ -64,6 +64,8 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 
+#include "hippoLimits.h"
+
 const S32 SLOP_DIST_SQ = 4;
 
 // Override modifier key behavior with these buttons
@@ -635,9 +637,10 @@ void LLToolGrab::handleHoverActive(S32 x, S32 y, MASK mask)
 			}
 
 			// For safety, cap heights where objects can be dragged
-			if (grab_point_global.mdV[VZ] > MAX_OBJECT_Z)
+			float maxHeight = gHippoLimits->getMaxHeight();
+			if (grab_point_global.mdV[VZ] > maxHeight)
 			{
-				grab_point_global.mdV[VZ] = MAX_OBJECT_Z;
+				grab_point_global.mdV[VZ] = maxHeight;
 			}
 
 			grab_point_global = LLWorld::getInstance()->clipToVisibleRegions(mDragStartPointGlobal, grab_point_global);
