@@ -1899,7 +1899,9 @@ bool LLAppViewer::initConfiguration()
 		gHippoGridManager = new HippoGridManager();
 		gHippoGridManager->init();
 	}
-
+	if (!gHippoLimits) {
+		gHippoLimits = new HippoLimits();
+	}
 
     //initGridChoice();
 

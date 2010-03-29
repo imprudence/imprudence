@@ -54,7 +54,6 @@
 #include "llkeyframefallmotion.h"
 #include "llkeyframestandmotion.h"
 #include "llkeyframewalkmotion.h"
-#include "llmanipscale.h" // getMaxPrimSize()
 #include "llmutelist.h"
 #include "llnotify.h"
 #include "llquantize.h"
@@ -96,7 +95,7 @@
 // [RLVa:KB]
 #include "llstartup.h"
 // [/RLVa:KB]
-
+#include "hippoLimits.h"// getMaxPrimScale
 using namespace LLVOAvatarDefines;
 
 //-----------------------------------------------------------------------------
@@ -1535,7 +1534,7 @@ void LLVOAvatar::getSpatialExtents(LLVector3& newMin, LLVector3& newMax)
 	LLVector3 pos = getRenderPosition();
 	newMin = pos - buffer;
 	newMax = pos + buffer;
-	float max_attachment_span = LLManipScale::getMaxPrimSize() * 5.0f;
+	float max_attachment_span = gHippoLimits->getMaxPrimScale() * 5.0f;
 	
 	//stretch bounding box by joint positions
 	for (polymesh_map_t::iterator i = mMeshes.begin(); i != mMeshes.end(); ++i)

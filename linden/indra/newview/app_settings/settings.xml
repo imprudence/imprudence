@@ -5909,17 +5909,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>LoggedIntoOpenSim</key>
-    <map>
-      <key>Comment</key>
-      <string>Check whether or not we're in an OpenSimulator (default 0)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>LoginAsGod</key>
     <map>
       <key>Comment</key>

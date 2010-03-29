@@ -138,6 +138,8 @@
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
+#include "hippoLimits.h"
+
 #include <boost/tokenizer.hpp>
 
 #if LL_WINDOWS // For Windows specific error handler
@@ -3167,15 +3169,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		LLSD payload;
 		payload["message"] = version_channel;
 		LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
-	}
-
-	if (version_channel.find("OpenSim") != std::string::npos)
-	{
-		gSavedSettings.setBOOL("LoggedIntoOpenSim", TRUE);
-	}
-	else
-	{
-		gSavedSettings.setBOOL("LoggedIntoOpenSim", FALSE);
+		gHippoLimits->setLimits();
 	}
 
 	gLastVersionChannel = version_channel;

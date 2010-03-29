@@ -37,6 +37,8 @@
 #include "llpanelgeneral.h"
 
 #include "hippoGridManager.h"
+#include "hippoLimits.h"
+
 #include "floaterlogin.h"
 
 #include "indra_constants.h"		// for key and mask constants
@@ -1099,7 +1101,8 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	// 	//childSetText("gridname", gridInfo->getGridName());
 	// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
 	// }
-
+	if (mCurGrid == gHippoGridManager->getConnectedGrid()->getGridNick())
+		gHippoLimits->setLimits();
 	
 	llwarns << "current grid = " << mCurGrid << llendl;
 

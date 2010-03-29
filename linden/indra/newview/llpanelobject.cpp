@@ -79,7 +79,7 @@
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
 #include "llvoavatar.h"
 // [/RLVa:KB]
-
+#include "hippoLimits.h"
 //
 // Constants
 //
@@ -632,9 +632,9 @@ void LLPanelObject::getState( )
 	}
 	else
 	{
-		mCtrlScaleX->setMaxValue(LLManipScale::getMaxPrimSize());
-		mCtrlScaleY->setMaxValue(LLManipScale::getMaxPrimSize());
-		mCtrlScaleZ->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleX->setMaxValue(gHippoLimits->getMaxPrimScale());
+		mCtrlScaleY->setMaxValue(gHippoLimits->getMaxPrimScale());
+		mCtrlScaleZ->setMaxValue(gHippoLimits->getMaxPrimScale());
 
 		// Only allowed to change these parameters for objects
 		// that you have permissions on AND are not attachments.

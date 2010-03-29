@@ -885,6 +885,7 @@ bool idle_startup()
 		}
 
 		gHippoGridManager->setCurrentGridAsConnected();
+		gHippoLimits->setLimits();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
@@ -1650,13 +1651,14 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("search");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("real_currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
-            gHippoGridManager->saveFile();
+			tmp = LLUserAuth::getInstance()->getResponse("currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+			gHippoGridManager->saveFile();
+			gHippoLimits->setLimits();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.
