@@ -489,15 +489,8 @@ class WindowsSetup(PlatformSetup):
                     print 'Building with ', self.gens[version]['gen']
                     break
             else:
-                print >> sys.stderr, 'Cannot find a Visual Studio installation, testing for express editions'
-                for version in 'vc80 vc90 vc100 vc71'.split():
-                    if self.find_visual_studio_express(version):
-                        self._generator = version
-                        print 'Building with ', self.gens[version]['gen'] , "Express edition"
-                        break
-                else:
-                    print >> sys.stderr, 'Cannot find any Visual Studio installation'
-                    eys.exit(1)
+                print >> sys.stderr, 'Cannot find a Visual Studio installation!'
+                sys.exit(1)
         return self._generator
 
     def _set_generator(self, gen):
@@ -527,52 +520,37 @@ class WindowsSetup(PlatformSetup):
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
-                '-DPACKAGE:BOOL=ON '
                 '%(opts)s "%(dir)s"' % args)
 
+    def get_HKLM_registry_value(self, key_str, value_str):
+        import _winreg
+        reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+        key = _winreg.OpenKey(reg, key_str)
+        value = _winreg.QueryValueEx(key, value_str)[0]
+        print 'Found: %s' % value
+        return value
+        
     def find_visual_studio(self, gen=None):
         if gen is None:
             gen = self._generator
         gen = gen.lower()
+        value_str = (r'EnvironmentDirectory')
+        key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
+                   self.gens[gen]['ver'])
+        print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
+               (key_str, value_str))
         try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
-                       self.gens[gen]['ver'])
-            value_str = (r'EnvironmentDirectory')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]
-            print 'Found: %s' % value
-            return value
+            return self.get_HKLM_registry_value(key_str, value_str)           
         except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
+            key_str = (r'SOFTWARE\Wow6432Node\Microsoft\VisualStudio\%s\Setup\VS' %
+                       self.gens[gen]['ver'])
 
-    def find_visual_studio_express(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
         try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
-                       self.gens[gen]['ver'])
-            value_str = (r'ProductDir')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
-            print 'Found: %s' % value
-            return value
-        except WindowsError, err:
+            return self.get_HKLM_registry_value(key_str, value_str)
+        except:
             print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
+            
+        return ''
 
     def get_build_cmd(self):
         if self.incredibuild:
@@ -580,24 +558,15 @@ class WindowsSetup(PlatformSetup):
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
                 config = '\"%s|Win32\"' % config
 
-            return "buildconsole %s.sln /build %s" % (self.project_name, config)
-           
-        environment = self.find_visual_studio()
-        if environment == '':
-            environment = self.find_visual_studio_express()
-            if environment == '':
-                 print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
-            else:
-                 print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
-                 build_dirs=self.build_dirs();
-                 print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
-                 print >> sys.stderr, "Set %s as startup project" % self.project_name
-                 print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
-                 exit(0)   
+            executable = 'buildconsole'
+            cmd = "%(bin)s %(prj)s.sln /build /cfg=%(cfg)s" % {'prj': self.project_name, 'cfg': config, 'bin': executable}
+            return (executable, cmd)
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
-        return ('"%sdevenv.com" %s.sln /build %s' % 
-               (environment, self.project_name, self.build_type))
+        executable = '%sdevenv.com' % (self.find_visual_studio(),)
+        cmd = ('"%s" %s.sln /build %s' % 
+                (executable, self.project_name, self.build_type))
+        return (executable, cmd)
 
     def run(self, command, name=None):
         '''Run a program.  If the program fails, raise an exception.'''
