@@ -249,11 +249,25 @@ LLFloaterAO::~LLFloaterAO()
 void LLFloaterAO::show(void*)
 {
     if (!sInstance)
-	sInstance = new LLFloaterAO();
-	updateLayout(sInstance);
-	init();
+	{
+		sInstance = new LLFloaterAO();
+		updateLayout(sInstance);
+		init();
 
-	sInstance->open();
+		sInstance->open();
+	}
+	else
+	{
+		sInstance->close();
+	}
+}
+
+bool LLFloaterAO::getInstance()
+{
+	if (sInstance) 
+		return true;
+	else 
+		return false;
 }
 
 BOOL LLFloaterAO::postBuild()

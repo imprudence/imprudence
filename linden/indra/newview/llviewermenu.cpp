@@ -8598,7 +8598,7 @@ class LLAdvancedTogglePhantom: public view_listener_t
 };
 
 
-class LLAO : public view_listener_t
+class LLViewToggleAO : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
@@ -8606,6 +8606,16 @@ class LLAO : public view_listener_t
 		return true;
 	}
 };
+
+class LLViewCheckAO: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getInstance());
+		return true;
+	}
+};
+
 
 class LLAdvancedCheckPhantom: public view_listener_t
 {
@@ -10731,6 +10741,7 @@ void initialize_menus()
 	addMenu(new LLZoomer(1/1.2f), "View.ZoomIn");
 	addMenu(new LLZoomer(DEFAULT_FIELD_OF_VIEW, false), "View.ZoomDefault");
 	addMenu(new LLViewFullscreen(), "View.Fullscreen");
+	addMenu(new LLViewToggleAO(), "View.ToggleAO");
 	addMenu(new LLViewToggleAdvanced(), "View.ToggleAdvanced");
 
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
@@ -10743,7 +10754,7 @@ void initialize_menus()
 	addMenu(new LLViewCheckHighlightTransparent(), "View.CheckHighlightTransparent");
 	addMenu(new LLViewCheckRenderType(), "View.CheckRenderType");
 	addMenu(new LLViewCheckHUDAttachments(), "View.CheckHUDAttachments");
-	addMenu(new LLAO(), "View.AO");
+	addMenu(new LLViewCheckAO(), "View.CheckAO");
 	addMenu(new LLViewCheckAdvanced(), "View.CheckAdvanced");
 
 	// World menu

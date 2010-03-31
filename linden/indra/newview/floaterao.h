@@ -103,6 +103,8 @@ public:
 
 	static LLUUID invfolderid;
 	static const LLUUID& getAssetIDByName(const std::string& name);
+
+	static bool getInstance();
 	
 private:
 
