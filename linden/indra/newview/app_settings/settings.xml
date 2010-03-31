@@ -2,8 +2,19 @@
 <llsd>
 <map>
   
-  <!-- Show statistics in mouselook -->
+  <!-- Imprudence-specific settings -->
 
+  <key>AppearanceForceStand</key>
+  <map>
+    <key>Comment</key>
+    <string>Unsit avatar when entering appearance mode?</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>ShowStatusBarInMouselook</key>
   <map>
     <key>Comment</key>
