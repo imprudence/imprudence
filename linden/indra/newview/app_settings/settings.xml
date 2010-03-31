@@ -29,13 +29,13 @@
   <key>ShowStatusBarInMouselook</key>
   <map>
     <key>Comment</key>
-    <string>Makes it so that the statistics bar stays visable when entering mouselook if it was open already.</string>
+    <string>Display statistics window when entering mouselook (requires restart).</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
 
   <!-- Begin: AO-->
