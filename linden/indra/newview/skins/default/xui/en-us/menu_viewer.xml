@@ -346,6 +346,11 @@
       <on_check control="ShowMiniMap" />
     </menu_item_check>
     <menu_item_separator />
+    <menu_item_check label="AO" name="AO" 
+                     shortcut="control|shift|O">
+      <on_click function="View.AO" userdata="" />
+    </menu_item_check>
+    <menu_item_separator />
     <menu_item_check name="Statistics Bar" label="Statistics Bar"
                      shortcut="control|shift|1">
       <on_click function="ShowFloater" userdata="stat bar" />

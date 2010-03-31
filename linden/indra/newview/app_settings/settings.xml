@@ -2,6 +2,91 @@
 <llsd>
 <map>
 
+  <!-- Begin: AO-->
+
+  <key>AOEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Turn on Animation Overrider</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>AOAdvanced</key>
+  <map>
+    <key>Comment</key>
+    <string>Advanced options</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>AOSitsEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Overrides sit animations.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>AONoStandsInMouselook</key>
+  <map>
+    <key>Comment</key>
+    <string>Disables stand anims during mouselook</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>AOStandInterval</key>
+  <map>
+    <key>Comment</key>
+    <string>AO stand time in seconds</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>20</real>
+  </map>
+  <key>AOStandRandomize</key>
+  <map>
+    <key>Comment</key>
+    <string>Randomize stand anims</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>AORect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for AO window</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+    </array>
+  </map>
+
 <!-- Begin: Client Name Tag -->	
 
   <key>ShowClientNameTag</key>

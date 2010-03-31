@@ -66,6 +66,7 @@ include_directories(
 
 set(viewer_SOURCE_FILES
     emeraldboobutils.cpp
+    floaterao.cpp
     floaterlogin.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
@@ -488,6 +489,7 @@ set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
     emeraldboobutils.h
+    floaterao.h
     floaterlogin.h
     hippoGridManager.h
     hippoLimits.h
@@ -1082,6 +1084,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_active_speakers.xml
     skins/default/xui/en-us/floater_animation_list.xml
     skins/default/xui/en-us/floater_animation_preview.xml
+    skins/default/xui/en-us/floater_ao.xml
     skins/default/xui/en-us/floater_asset_browser.xml
     skins/default/xui/en-us/floater_auction.xml
     skins/default/xui/en-us/floater_audio_volume.xml

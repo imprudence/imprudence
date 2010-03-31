@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="Animation Overrider">
+  <view_border name="ao_notecard"/>
+  <view_border name="ao_notecard_vis"/>
+  <text name="Give inventory" tool_tip="ZHAO Notiz hier fallen lassen. Konfiguration und Animationen müssen im gleichen Inventar Ordner liegen!">
+    ZHAO II Konfiguration hier fallen lassen.
+  </text>
+  <view_border name="ao_notecard_disp"/>
+  <text name="ao_nc_text" tool_tip="">
+    Aktuell: ITEM
+  </text>
+  <button name="opencard" label="Laden"/>
+  <button name="reloadcard" label="Neuladen"/>
+	<button label="Mehr &gt;&gt;" name="more_btn" tool_tip="Erweiterte Optionen"/>
+	<button label="&lt;&lt; Weniger" name="less_btn" tool_tip="Erweiterte Optionen"/>
+	<check_box label="Anims übersteuern" name="EmeraldAOEnabled"/>
+  <check_box label="Sitzen übersteuern" name="EmeraldAOSitsEnabled"/>
+  <text name="buttons_desc">
+    Stand:
+  </text>
+  <combo_box name="stands" label=""/>
+  <button name="prevstand" tool_tip="vorheriger Stand" label="&lt;&lt;"/>
+  <button name="nextstand" tool_tip="nächster Stand" label="&gt;&gt;"/>
+  <check_box label="zufällige Stand Ani" name="EmeraldAOStandRandomize"/>
+  <check_box label="keine Stand Ani bei Mouselook" name="EmeraldAONoStandsInMouselook"/>
+  <spinner name="standtime" label="Stand Zeit" tool_tip="AO Stand zeit in Sekunden"/>
+  <tab_container label="Default" name="tabcontainer">
+    <panel label="Standard Anis" name="tabdefaultanims">
+      <text name="textdefaultwalk">
+        Standard Gang:
+      </text>
+      <combo_box name="walks" label=""/>
+      <text name="textdefaultrun">
+        Standard Rennen:
+      </text>
+      <combo_box name="runs" label=""/>
+      <text name="textdefaultjump">
+        Standard Sprung:
+      </text>
+      <combo_box name="jumps" label=""/>
+      <text name="textdefaultsit">
+        Standard sitzen:
+      </text>
+      <combo_box name="sits" label=""/>
+      <text name="textdefaultgsit">
+        Standard Bodensitz:
+      </text>
+      <combo_box name="gsits" label=""/>
+      <text name="textdefaultcrouch">
+        Standard geduckt:
+      </text>
+      <combo_box name="crouchs" label=""/>
+      <text name="textdefaultcrouchwalk">
+        Standard geduckt Gang:
+      </text>
+      <combo_box name="cwalks" label=""/>
+      <text name="textdefaultfall">
+        Standard fallen:
+      </text>
+      <combo_box name="falls" label=""/>
+      <text name="textdefaulthover">
+        Standard scheweben:
+      </text>
+      <combo_box name="hovers" label=""/>
+      <text name="textdefaultfly">
+        Standard fliegen:
+      </text>
+      <combo_box name="flys" label=""/>
+      <text name="textdefaultflyslow">
+        Standard langsam fliegen:
+      </text>
+      <combo_box name="flyslows" label=""/>
+      <text name="textdefaultflyup">
+        Standard aufwärts fliegen:
+      </text>
+      <combo_box name="flyups" label=""/>
+      <text name="textdefaultflydown">
+        Standard abwärts fliegen:
+      </text>
+      <combo_box name="flydowns" label=""/>
+      <text name="textdefaultland">
+        Standard landen:
+      </text>
+      <combo_box name="lands" label=""/>
+      <text name="textdefaultstandup">
+        Standard aufstehen:
+      </text>
+      <combo_box name="standups" label=""/>
+      <text name="textdefaultprejump">
+        Standard Pre-Sprung:
+      </text>
+      <combo_box name="prejumps" label=""/>
+  </panel>
+</tab_container>
+</floater>
