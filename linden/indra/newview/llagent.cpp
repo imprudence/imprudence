@@ -80,6 +80,7 @@
 #include "llfloatermap.h"
 #include "llfloatermute.h"
 #include "llfloatersnapshot.h"
+#include "llfloaterstats.h"
 #include "llfloatertools.h"
 #include "llfloaterworldmap.h"
 #include "llgroupmgr.h"
