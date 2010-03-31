@@ -476,7 +476,8 @@ void LLFloaterStats::buildStats()
 
 	stat_barp = sim_time_viewp->addStat("Script Time", &(LLViewerStats::getInstance()->mSimScriptMsec), "DebugStatModeSimScriptMsec");
 	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
+	//Chalice - Enhanced Script Time precision
+	stat_barp->mPrecision = 3;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 40.f;
 	stat_barp->mTickSpacing = 10.f;
