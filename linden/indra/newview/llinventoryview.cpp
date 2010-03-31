@@ -593,6 +593,9 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 
     }
 
+	//Initialize item count - rkeast
+	mItemCount = gSavedPerAccountSettings.getS32("InventoryPreviousCount");
+
 
 	mSearchEditor = getChild<LLSearchEditor>("inventory search editor");
 	if (mSearchEditor)
@@ -848,7 +851,26 @@ void LLInventoryView::changed(U32 mask)
 		LLLocale locale(LLLocale::USER_LOCALE);
 		std::string item_count_string;
 		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
-		title << " (Fetched " << item_count_string << " items...)";
+
+		//Displays a progress indication for loading the inventory, but not if it hasn't been loaded before on this PC, or we load more than expected - rkeast
+		if(mItemCount == -1)
+		{
+			title << " (Fetched " << item_count_string << " items...)";
+		}
+		else
+		{
+			S32 remaining = mItemCount - gInventory.getItemCount();
+			std::string total_items;
+			std::string items_remaining;
+			LLResMgr::getInstance()->getIntegerString(total_items, mItemCount);
+			LLResMgr::getInstance()->getIntegerString(items_remaining, remaining);
+			if(remaining < 0) title << " (Fetched " << item_count_string << " items...)";
+			else title << " (Fetched " << item_count_string << " items of ~" << total_items << " - ~" << items_remaining << " remaining...)";
+		}
+	}
+	else
+	{
+		gSavedPerAccountSettings.setS32("InventoryPreviousCount", gInventory.getItemCount());
 	}
 	title << mFilterText;
 	setTitle(title.str());
