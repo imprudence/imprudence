@@ -2875,6 +2875,10 @@ static const LLFloaterView::skip_list_t& get_skip_list()
 {
 	static LLFloaterView::skip_list_t skip_list;
 	skip_list.insert(LLFloaterMap::getInstance());
+	if(gSavedSettings.getBOOL("ShowStatusBarInMouselook"))
+	{
+		skip_list.insert(LLFloaterStats::getInstance());
+	}
 	return skip_list;
 }
 
