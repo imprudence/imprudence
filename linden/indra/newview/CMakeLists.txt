@@ -66,6 +66,7 @@ include_directories(
 
 set(viewer_SOURCE_FILES
 	importtracker.cpp
+    emeraldboobutils.cpp
 	exporttracker.cpp
 	chatbar_as_cmdline.cpp
     floaterlogin.cpp
@@ -197,6 +198,7 @@ set(viewer_SOURCE_FILES
     llfloaterregioninfo.cpp
     llfloaterreporter.cpp
     llfloaterscriptdebug.cpp
+    llfloatersearchreplace.cpp
     llfloatersellland.cpp
     llfloatersettingsdebug.cpp
     llfloatersnapshot.cpp
@@ -487,6 +489,7 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
+    emeraldboobutils.h
     floaterlogin.h
     hippoGridManager.h
     hippoLimits.h
@@ -620,6 +623,7 @@ set(viewer_HEADER_FILES
     llfloaterproperties.h
     llfloaterregioninfo.h
     llfloaterreporter.h
+    llfloatersearchreplace.h
     llfloaterscriptdebug.h
     llfloatersellland.h
     llfloatersettingsdebug.h
@@ -943,7 +947,6 @@ endif (DARWIN)
 
 if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
-    LIST(APPEND viewer_SOURCE_FILES llappviewerlinux_api_dbus.cpp)
     LIST(APPEND CMAKE_EXE_LINKER_FLAGS -Wl,--as-needed)
 
     set(viewer_LIBRARIES
@@ -1387,6 +1390,14 @@ check_message_template(${VIEWER_BINARY_NAME})
 
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
+
+
+add_custom_target(
+  ChangeLog ALL
+  COMMAND ${PYTHON_EXECUTABLE} ${SCRIPTS_DIR}/make_changelog.py
+  COMMENT "Generating ChangeLog.txt."
+  )
+
 
 if (WINDOWS)
     if(MSVC71)

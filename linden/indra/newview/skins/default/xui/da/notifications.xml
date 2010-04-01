@@ -71,7 +71,7 @@
     </form>
   </template>
 	<notification functor="GenericAcknowledge" label="Ukendt advarsels-besked" name="MissingAlert">
-		Din version af Second Life kan ikke vise den advarselsbesked den modtog.
+		Din version af [VIEWER_NAME] kan ikke vise den advarselsbesked den modtog.
 
 Fejl detaljer: Advarslen &apos;[_NAME]&apos; blev ikke fundet i notifications.xml.
 		<usetemplate name="okbutton" yestext="OK"/>
@@ -94,7 +94,7 @@ Fejl detaljer: Advarslen &apos;[_NAME]&apos; blev ikke fundet i notifications.xm
 		<usetemplate name="okcancelbuttons" notext="Annullér" yestext="Ja"/>
 	</notification>
 	<notification name="BadInstallation">
-		Der opstod en fejl ved opdatering af Second Life. Hent venligst den nyeste version fra secondlife.com.
+		Der opstod en fejl ved opdatering af [VIEWER_NAME]. Hent venligst den nyeste version fra [VIEWER_SITE].
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -238,7 +238,7 @@ Du har ikke nok L$ til denne tilmelding.
 		Ups! Noget var tomt.
 Du skal skrive både fornavn og efternavn på din figur.
 
-Du har brug for en konto for at logge ind i [SECOND_LIFE]. Vil du oprette en nu?
+Du har brug for en konto for at logge ind i [GRID_NAME]. Vil du oprette en nu?
 		<usetemplate name="okcancelbuttons" notext="Prøv igen" yestext="Lav ny konto"/>
 	</notification>
 	<notification name="ResetShowNextTimeDialogs">
@@ -250,7 +250,7 @@ Du har brug for en konto for at logge ind i [SECOND_LIFE]. Vil du oprette en nu?
 		<usetemplate name="okcancelbuttons" notext="Annullér" yestext="OK"/>
 	</notification>
 	<notification name="ChangeSkin">
-		Det nye udseende vil vises efter du har genstartet [SECOND_LIFE].
+		Det nye udseende vil vises efter du har genstartet [VIEWER_NAME].
 	</notification>
 	<notification name="UnsupportedHardware"/>
 	<notification name="UnknownGPU">
@@ -326,9 +326,9 @@ Lilla = På auktion
 Grå = Offentligt ejet
 	</notification>
 	<notification name="YouHaveBeenLoggedOut">
-		Du er blevet logget ud af [SECOND_LIFE]:
+		Du er blevet logget ud af [GRID_NAME]:
             [MESSAGE]
-Du kan stadig se eksiterende PB&apos;er og chat ved at klikke&apos;Se PB &amp; Chat&apos;. Ellers, klik &apos;Afslut&apos; for at afslutte [SECOND_LIFE] nu.
+Du kan stadig se eksiterende PB&apos;er og chat ved at klikke&apos;Se PB &amp; Chat&apos;. Ellers, klik &apos;Afslut&apos; for at afslutte [VIEWER_NAME] nu.
 		<usetemplate name="okcancelbuttons" notext="Afslut" yestext="Se PB &amp; Chat"/>
 	</notification>
 	<notification label="Tilføj ven" name="AddFriend">
@@ -372,7 +372,7 @@ Tilbyd venskab til [NAME]?
 	<notification name="RegionEntryAccessBlocked">
 		Du har ikke adgang til denne region på grund af din valgte indholdsrating. Dette kan skyldes manglende validering af din alder.
 
-Undersøg venligst om du har installeret den nyeste Second Life klient, og gå til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
+Undersøg venligst om du har installeret den nyeste [VIEWER_NAME] klient, og gå til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -410,7 +410,7 @@ Du kan vælge &apos;Indstillinger&apos; for at hæve din indholdsrating nu og de
 	<notification name="LandClaimAccessBlocked">
 		Du kan ikke kræve dette land på grund af din nuværende indholdsrating indstillinge . Dette kan skyldes manglende validering af din alder.
 
-Undersøg om du har den nyeste Second Life klient og gå venligst til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
+Undersøg om du har den nyeste [VIEWER_NAME] klient og gå venligst til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -444,7 +444,7 @@ Du kan vælge &apos;Indstillinger&apos; for at hæve din indholdsrating nu og de
 	<notification name="LandBuyAccessBlocked">
 		Du kan ikke købe dette land på grund af din nuværende indholdsrating indstillinge . Dette kan skyldes manglende validering af din alder.
 
-Undersøg om du har den nyeste Second Life klient og gå venligst til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
+Undersøg om du har den nyeste [VIEWER_NAME] klient og gå venligst til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -789,7 +789,7 @@ Ingen scripts vil køre på nær dem, som tilhører ejeren af landet.
 		Du kan kun gøre krav på offentlig land i den region, du befinder dig i.
 	</notification>
 	<notification name="RegionTPAccessBlocked">
-		Du har ikke adgang til denne region på grund af din valgte indholdsrating. Dette kan skyldes manglende validering af din alder eller at du ikke benytter den nyeste Second Life klient.
+		Du har ikke adgang til denne region på grund af din valgte indholdsrating. Dette kan skyldes manglende validering af din alder eller at du ikke benytter den nyeste [VIEWER_NAME] klient.
 
 Gå venligst til &apos;Knowledge Base&apos; for yderligere detaljer om adgang til områder med denne indholdsrating.
 	</notification>
@@ -856,13 +856,13 @@ Prøv igen om lidt.
 		Kunne ikke skabe fast forbindelse.
 	</notification>
 	<notification name="InternalUsherError">
-		Der opstod en intern fejl ved teleportering til din teleport destination.. Der kan være generelle problemer med Second Life lige nu.
+		Der opstod en intern fejl ved teleportering til din teleport destination.. Der kan være generelle problemer med [GRID_NAME] lige nu.
 	</notification>
 	<notification name="NoGoodTPDestination">
 		Kunne ikke finde et egnet teleport sted i denne region.
 	</notification>
 	<notification name="InternalErrorRegionResolver">
-		Der opstod en intern fejl ved beregning af globale koordinater for din teleport forespørgsel. Der kan være generelle problemer med Second Life lige nu.
+		Der opstod en intern fejl ved beregning af globale koordinater for din teleport forespørgsel. Der kan være generelle problemer med [GRID_NAME] lige nu.
 	</notification>
 	<notification name="NoValidLanding">
 		Kunne ikke finde et gyldigt landingspunkt.
@@ -972,7 +972,7 @@ Fra genstand: [OBJECTNAME], ejer: [NAME]?
 		Det lykkedes ikke at finde [TYPE] med navnet [DESC] i databasen.
 	</notification>
 	<notification name="InvalidWearable">
-		Den genstand du prøver at tage på benytter funktioner som din klient ikke kan forstå. Opdatér din version af Second Life for at tage genstanden på.
+		Den genstand du prøver at tage på benytter funktioner som din klient ikke kan forstå. Opdatér din version af [VIEWER_NAME] for at tage genstanden på.
 	</notification>
 	<notification name="ScriptQuestion">
 		&apos;[OBJECTNAME]&apos;, en genstand, ejet af &apos;[NAME]&apos;, vil gerne:
@@ -1031,7 +1031,7 @@ Dobbelt-klik for at teleportere.
 Brug kontrollerne til højre for at finde ting og se forskellige baggrunde.
 	</notification>
 	<notification name="FirstBuild">
-		Du kan bygge nye genstande i nogle områder af [SECOND_LIFE].
+		Du kan bygge nye genstande i nogle områder af [GRID_NAME].
 Brug værktøjet øverst til venstre for at bygge, og prøv at holde Ctrl eller Alt nede for hurtigt at skifte imellem værktøjerne.
 Tryk Esc for at stoppe med at bygge.
 	</notification>
@@ -1075,7 +1075,7 @@ Fleksible genstande er ikke fysiske og man kan gå igennem dem, indtil fleksibel
 	</notification>
 	<notification name="FirstDebugMenus">
 		Du har sat avanceret menu til.
-Denne menu indeholder funktioner brugbare for udviklere, der udbedrer fejl i Second Life.
+Denne menu indeholder funktioner brugbare for udviklere, der udbedrer fejl i [VIEWER_NAME].
 For at vise denne menu, skal man i Windows trykke Ctrl-Alt-D. På Mac tryk Cmd-Opt-Shift-D.
 	</notification>
 	<notification name="FirstSculptedPrim">

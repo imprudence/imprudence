@@ -71,7 +71,7 @@
     </form>
   </template>
 	<notification label="Bilinmeyen uyarı mesajı" name="MissingAlert">
-		Second Life sürümünüz henüz aldığı uyarı mesajını nasıl görüntülemesi gerektiğini bilmiyor.
+		[VIEWER_NAME] sürümünüz henüz aldığı uyarı mesajını nasıl görüntülemesi gerektiğini bilmiyor.
 
 Hata detayları: &apos;[_NAME]&apos; adındaki uyarı notifications.xml&apos;de bulunamadı.
 		<usetemplate name="okbutton" yestext="Tamam"/>
@@ -88,7 +88,7 @@ Hata detayları: &apos;[_NAME]&apos; adındaki uyarı notifications.xml&apos;de 
 		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Evet"/>
 	</notification>
 	<notification name="BadInstallation">
-		Second Life güncellenirken bir hata oluştu. Lütfen secondlife.com&apos;dan en güncel sürümü yükleyiniz.
+		[VIEWER_NAME] güncellenirken bir hata oluştu. Lütfen [VIEWER_SITE]&apos;dan en güncel sürümü yükleyiniz.
 		<usetemplate name="okbutton" yestext="Tamam"/>
 	</notification>
 	<notification name="LoginFailedNoNetwork">
@@ -188,7 +188,7 @@ Devam etmek istediğinizden emin misiniz?
 	<notification name="ClickPartnerHelpAvatar">
 		[SECOND_LIFE] web sitesi üzerinden bir üyeye evlilik teklif edebilir veya var olan evliliği iptal edebilirsiniz.
 
-Evlenmek ile ilgili daha fazla bilgi için Second Life web sitesine gitmek ister misiniz?
+Evlenmek ile ilgili daha fazla bilgi için [SECOND_LIFE] web sitesine gitmek ister misiniz?
 		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Sayfaya git"/>
 	</notification>
 	<notification name="ClickUploadHelpPermissions">
@@ -227,7 +227,7 @@ Satış ücretiniz L$[SALE_PRICE] ve tanımlanan alıcı [NAME] olacaktır.
 		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
 	</notification>
 	<notification name="ConfirmLandSaleToAnyoneChange">
-		DİKKAT: Herhangi birini seçmek arazinizi tüm Second Life toplumuna görüntüler,sadece bu bölgedekilere değil.
+		DİKKAT: Herhangi birini seçmek arazinizi tüm [GRID_NAME] toplumuna görüntüler,sadece bu bölgedekilere değil.
 
 Seçili [LAND_SIZE] m² arazi satışa çıkarılıyor.
 Satış ücretiniz L$[SALE_PRICE] ve tanımlanan alıcı [NAME] olacaktır.
@@ -315,7 +315,7 @@ Objeler: [N]
 		Raporlama resmini gönderirken bir problem oluştu: [REASON]
 	</notification>
 	<notification name="MustAgreeToLogIn">
-		[SECOND_LIFE]&apos;a girmeye devam etmek için Servis Anlaşması&apos;nı kabul etmelisiniz.
+		[GRID_NAME]&apos;a girmeye devam etmek için Servis Anlaşması&apos;nı kabul etmelisiniz.
 	</notification>
 	<notification name="CannotWearTrash">
 		Çöpteki giysi veya vücut parçalarını giyemezsiniz
@@ -327,7 +327,7 @@ Objeler: [N]
 		Ups! Bazı şeyler boş kaldı.
 Karakterinizin adınızı ve soyadınızı birlikte girmeniz gerekiyor.
 
-[SECOND_LIFE]&apos;a bağlanabilmeniz için bir hesabınız olması gerekir.Yeni bir tane yaratmak ister misiniz?
+[GRID_NAME]&apos;a bağlanabilmeniz için bir hesabınız olması gerekir.Yeni bir tane yaratmak ister misiniz?
 		<usetemplate name="okcancelbuttons" notext="Tekrar dene" yestext="Yeni hesap yarat"/>
 	</notification>
 	<notification name="AddClassified">
@@ -363,17 +363,17 @@ Yüksek ücret ödemek reklamınızı listede yükseltir, ve ayrıca insanların
 		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
 	</notification>
 	<notification name="CacheWillClear">
-		[SECOND_LIFE] yeniden başlatıldıktan sonra ön bellek temizlenecektir.
+		[VIEWER_NAME] yeniden başlatıldıktan sonra ön bellek temizlenecektir.
 	</notification>
 	<notification name="CacheWillBeMoved">
-		[SECOND_LIFE] yeniden başlatıldıktan sonra ön bellek taşınacaktır.
+		[VIEWER_NAME] yeniden başlatıldıktan sonra ön bellek taşınacaktır.
 Not: Ön bellek temizlenecektir.
 	</notification>
 	<notification name="ChangeConnectionPort">
-		[SECOND_LIFE] yeniden başlatıldıktan sonra port ayarları etkili olur.
+		[VIEWER_NAME] yeniden başlatıldıktan sonra port ayarları etkili olur.
 	</notification>
 	<notification name="ChangeSkin">
-		[SECOND_LIFE] yeniden başlatıldıktan sonra yeni vücut teni görünecektir.
+		[VIEWER_NAME] yeniden başlatıldıktan sonra yeni vücut teni görünecektir.
 	</notification>
 	<notification name="GoToAuctionPage">
 		Açık arttırma detaylarını görmek veya bahis koymak için [SECOND_LIFE] web sayfasına gitmek ister misiniz?
@@ -419,7 +419,7 @@ Obje alan dışı veya silinmiş olabilir.
 		Dosya indirilemedi
 	</notification>
 	<notification name="UnsupportedHardware">
-		Uyarı: Sisteminiz Second Life&apos;ın minimum sistem gereksinimlerini karşılamıyor. Eğer Second Life&apos;ı kullanmaya devam ederseniz,düşük performans alabilirsiniz. Malesef,desteklenmeyen sistem konfigürasyonları için teknik destek sağlayamıyoruz.
+		Uyarı: Sisteminiz [VIEWER_NAME]&apos;ın minimum sistem gereksinimlerini karşılamıyor. Eğer [VIEWER_NAME]&apos;ı kullanmaya devam ederseniz,düşük performans alabilirsiniz. Malesef,desteklenmeyen sistem konfigürasyonları için teknik destek sağlayamıyoruz.
 
 MINSPECS
 Daha fazla bilgi için [_URL] linkini ziyaret etmek ister misiniz?
@@ -427,7 +427,7 @@ Daha fazla bilgi için [_URL] linkini ziyaret etmek ister misiniz?
 	</notification>
 	<notification name="UnknownGPU">
 		Sisteminiz bize şu an yabancı olan bir ekran kartı içeriyor.
-Bu durum genellikle henüz test etme şansı bulamadığımız yeni donanımlarda görülür. Second Life normal olarak çalışacaktır,fakat daha uygun hale getirmek için grafik ayarlarınızı düzenleyebilirsiniz.
+Bu durum genellikle henüz test etme şansı bulamadığımız yeni donanımlarda görülür. [VIEWER_NAME] normal olarak çalışacaktır,fakat daha uygun hale getirmek için grafik ayarlarınızı düzenleyebilirsiniz.
 (Düzenle menüsü &gt; Ayarlar &gt; Grafikler).
 		<form name="form">
 			<ignore name="ignore" text="Bilinmeyen ekran kartı tespit edildiğinde"/>
@@ -652,7 +652,7 @@ Hiçbir parsel seçili değil.
 Bu arazinin içinde olduğu bölge bulunamıyor.
 	</notification>
 	<notification name="CannotCloseFloaterBuyLand">
-		Arazi satın alım penceresini Second Life bu işlemin ücretini hesaplayana kadar kapatamazsınız.
+		Arazi satın alım penceresini [GRID_NAME] bu işlemin ücretini hesaplayana kadar kapatamazsınız.
 	</notification>
 	<notification name="CannotDeedLandNothingSelected">
 		Arazi bağışlanamıyor:
@@ -779,9 +779,9 @@ Gri = Genel
 		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Kopyala"/>
 	</notification>
 	<notification name="YouHaveBeenLoggedOut">
-		[SECOND_LIFE]&apos;dan çıkarıldınız:
+		[GRID_NAME]&apos;dan çıkarıldınız:
             [MESSAGE]
-HM &amp; Sohbet butonuna tıklayarak var olan HM ve sohbete bakabilirsiniz.Veya,&apos;Çık&apos; butonuna tıklayarak [SECOND_LIFE]&apos;dan hemen çıkabilirsiniz.
+HM &amp; Sohbet butonuna tıklayarak var olan HM ve sohbete bakabilirsiniz.Veya,&apos;Çık&apos; butonuna tıklayarak [VIEWER_NAME]&apos;dan hemen çıkabilirsiniz.
 		<usetemplate name="okcancelbuttons" notext="Çık" yestext="HM &amp; Sohbet"/>
 	</notification>
 	<notification name="OnlyOfficerCanBuyLand">
@@ -852,16 +852,16 @@ Yakındaki bir bölgeye taşındınız.
 	</notification>
 	<notification name="ClothingLoading">
 		Giysileriniz hala yükleniyor.
-[SECOND_LIFE]&apos;ı normal olarak kullanabilirsiniz ve diğer üyeler sizi doğru olarak göreceklerdir.
+[GRID_NAME]&apos;ı normal olarak kullanabilirsiniz ve diğer üyeler sizi doğru olarak göreceklerdir.
 		<form name="form">
 			<ignore name="ignore" text="Giysilerin yüklenmesi fazla zaman aldığında"/>
 		</form>
 	</notification>
 	<notification name="FirstRun">
-		[SECOND_LIFE] yüklemesi tamamlandı.
+		[VIEWER_NAME] yüklemesi tamamlandı.
 
-Eğer [SECOND_LIFE]&apos;ı ilk kez kullanıyorsanız,giriş yapmadan önce yeni bir hesap yaratmanız gerekmektedir.
-www.secondlife.com geri dönüp yeni bir hesap yaratmak ister misiniz?
+Eğer [GRID_NAME]&apos;ı ilk kez kullanıyorsanız,giriş yapmadan önce yeni bir hesap yaratmanız gerekmektedir.
+[GRID_SITE] geri dönüp yeni bir hesap yaratmak ister misiniz?
 		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="Yeni Hesap..."/>
 	</notification>
 	<notification name="LoginPacketNeverReceived">
@@ -876,7 +876,7 @@ www.secondlife.com geri dönüp yeni bir hesap yaratmak ister misiniz?
 		Karakteriniz birazdan görünecek.
 
 Yürümek için ok tuşlarını kullanınız.
-Herhangi bir zaman F1 tuşuna basarak yardım alabilir veya [SECOND_LIFE] hakkında daha fazla şey öğrenebilirsiniz.
+Herhangi bir zaman F1 tuşuna basarak yardım alabilir veya [GRID_NAME] hakkında daha fazla şey öğrenebilirsiniz.
 Lütfen bay veya bayan karakteri seçiniz.
 Daha sonra fikrinizi değiştirebilirsiniz.
 		<usetemplate name="okcancelbuttons" notext="Bayan" yestext="Bay"/>
@@ -912,33 +912,33 @@ Daha sonra fikrinizi değiştirebilirsiniz.
 [DOWNLOAD_PATH].
 	</notification>
 	<notification name="DownloadWindowsMandatory">
-		[SECOND_LIFE]&apos;ın yeni versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın yeni versiyonu mevcut.
 [MESSAGE]
-[SECOND_LIFE]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
+[GRID_NAME]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
 		<usetemplate name="okcancelbuttons" notext="Çık" yestext="İndir"/>
 	</notification>
 	<notification name="DownloadWindows">
-		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın güncel versiyonu mevcut.
 [MESSAGE]
 Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
 		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="İndir"/>
 	</notification>
 	<notification name="DownloadWindowsReleaseForDownload">
-		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın güncel versiyonu mevcut.
 [MESSAGE]
 Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
 		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="İndir"/>
 	</notification>
 	<notification name="DownloadMacMandatory">
-		[SECOND_LIFE]&apos;ın yeni versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın yeni versiyonu mevcut.
 [MESSAGE]
-[SECOND_LIFE]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
+[GRID_NAME]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
 
 Uygulamalar klasörünüze indirilsin mi?
 		<usetemplate name="okcancelbuttons" notext="Çık" yestext="İndir"/>
 	</notification>
 	<notification name="DownloadMac">
-		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın güncel versiyonu mevcut.
 [MESSAGE]
 Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
 
@@ -946,7 +946,7 @@ Uygulamalar klasörünüze indirilsin mi?
 		<usetemplate name="okcancelbuttons" notext="Devan Et" yestext="İndir"/>
 	</notification>
 	<notification name="DownloadMacReleaseForDownload">
-		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+		[VIEWER_NAME]&apos;ın güncel versiyonu mevcut.
 [MESSAGE]
 Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
 
@@ -963,7 +963,7 @@ Uygulamalar klasörünüze indirilsin mi?
 		<usetemplate ignoretext="Web sayfası görüntülemek için sistem tarayıcınız açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
 	</notification>
 	<notification name="WebLaunchJoinNow">
-		Hesabınızı yönetmek için www.secondlife.com adresine gitmek ister misiniz?
+		Hesabınızı yönetmek için [GRID_SITE] adresine gitmek ister misiniz?
 		<usetemplate ignoretext="Hesabınızı yönetmek için web tarayıcısı açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
 	</notification>
 	<notification name="WebLaunchBugReport101">
@@ -1322,16 +1322,16 @@ Envanter ürünü(leri) taşınsın mı?
 		Bu obje içinde kopyalama izniniz olan hiçbir ürün yok.
 	</notification>
 	<notification name="WebLaunchAccountHistory">
-		Second Life web sitesine gidip hesap geçmişinizi görmek ister misiniz?
+		[SECOND_LIFE] web sitesine gidip hesap geçmişinizi görmek ister misiniz?
 		<usetemplate ignoretext="Hesap geçmişi web sayfası açılırken" name="okcancelignore" notext="İptal" yestext="Sayfaya git"/>
 	</notification>
 	<notification name="ClickOpenF1Help">
-		Second Life destek web sitesini ziyaret etmek ister misiniz?
-		<usetemplate ignoretext="Second Life destek web sitesi ziyaret edilirken" name="okcancelignore" notext="İptal" yestext="Git"/>
+		[SECOND_LIFE] destek web sitesini ziyaret etmek ister misiniz?
+		<usetemplate ignoretext="[SECOND_LIFE] destek web sitesi ziyaret edilirken" name="okcancelignore" notext="İptal" yestext="Git"/>
 	</notification>
 	<notification name="ConfirmQuit">
 		Çıkmak istediğinizden emin misiniz?
-		<usetemplate ignoretext="Second Life&apos;dan çıkarken" name="okcancelignore" notext="Devam et" yestext="Çık"/>
+		<usetemplate ignoretext="[VIEWER_NAME]&apos;dan çıkarken" name="okcancelignore" notext="Devam et" yestext="Çık"/>
 	</notification>
 	<notification name="HelpReportAbuseEmailLL">
 		Bu aracı Servis Anlaşması ve Toplum Standartları&apos;na aykırı durumları raporlamak için kullanınız. Bakınız:
@@ -1348,9 +1348,9 @@ http://secondlife.com/support/incidentreport.php
 
 Zihinsel mülk ihlali raporluyor görünmektesiniz. Lütfen doğru olarak şikayetinizi belirttiğinizden emin olunuz:
 
-(1) Suistimal İşlemi. Eğer bir üyenin Second Life izin sistemini kötüye kullandığını, örneğin, CopyBot veya benzer kopyalama araçları ile, zihinsel mülk ihlali gerçekleştirdiğine inanıyorsanız şikayet raporu bildirebilirsiniz. Suistimal Takımı araştırmasını yapar ve Second Life Toplum Standartları&apos;nı veya Servis Anlaşması&apos;nı ihlal eden davranışlar için gerekli disiplin hareketini uygular. Ancak, Suistimal Takımı Second Life dünyasından içerik silinme ile ilgili talepleri ele almaz ve bu taleplere cevap vermez.
+(1) Suistimal İşlemi. Eğer bir üyenin [SECOND_LIFE] izin sistemini kötüye kullandığını, örneğin, CopyBot veya benzer kopyalama araçları ile, zihinsel mülk ihlali gerçekleştirdiğine inanıyorsanız şikayet raporu bildirebilirsiniz. Suistimal Takımı araştırmasını yapar ve [SECOND_LIFE] Toplum Standartları&apos;nı veya Servis Anlaşması&apos;nı ihlal eden davranışlar için gerekli disiplin hareketini uygular. Ancak, Suistimal Takımı [SECOND_LIFE] dünyasından içerik silinme ile ilgili talepleri ele almaz ve bu taleplere cevap vermez.
 
-(2) DMCA veya İçerik Silme İşlemi. Second Life&apos;dan içerik silinme talebinde bulunmak için, http://secondlife.com/corporate/dmca.php adresindeki DMCA Poliçe&apos;sinde belirtildiği gibi geçerli bir ihlal bildirisinde bulunmalısınız.
+(2) DMCA veya İçerik Silme İşlemi. [SECOND_LIFE]&apos;dan içerik silinme talebinde bulunmak için, http://secondlife.com/corporate/dmca.php adresindeki DMCA Poliçe&apos;sinde belirtildiği gibi geçerli bir ihlal bildirisinde bulunmalısınız.
 
 Eğer hale suistimal raporlama işlemine devam etmek istiyorsanız, lütfen bu pencereyi kapatınız ve raporunuzu gönderiniz.  Özellikle &apos;CopyBot veya İzinlerin Kötüye Kullanımı&apos; kategorisini seçmeniz gerekebilir.
 
@@ -1455,14 +1455,14 @@ Zemin detayı: Zemin deseni için görebileceğiniz detay miktarını belirler.
 	</notification>
 	<notification name="NotAgeVerified">
 		Bu parsele giriş yapabilmeniz için yaşınızı doğrulamış olmanız gerekiyor.
-Yaşınızı doğrulamak için Second Life web sitesini ziyaret etmek ister misiniz?
+Yaşınızı doğrulamak için [SECOND_LIFE] web sitesini ziyaret etmek ister misiniz?
 
 [_URL]
 		<usetemplate ignoretext="Yaş doğrulaması eksikliğinde" name="okcancelignore" notext="Hayır" yestext="Evet"/>
 	</notification>
 	<notification name="Cannot enter parcel: no payment info on file">
 		Bu parsele giriş yapabilmeniz için kayıtlı ödeme bilginizin olması gerekiyor.
-Bunu düzenlemek için Second Life web sitesini ziyaret etmek ister misiniz?
+Bunu düzenlemek için [SECOND_LIFE] web sitesini ziyaret etmek ister misiniz?
 
 [_URL]
 		<usetemplate ignoretext="Eksik ödeme bilgisinde" name="okcancelignore" notext="Hayır" yestext="Evet"/>
@@ -1709,13 +1709,13 @@ Lütfen birkaç dakika içinde tekrar deneyiniz.
 		Beklenen bağlantı kurulamıyor.
 	</notification>
 	<notification name="InternalUsherError">
-		Işınlanma hedefinize yol gösterme sırasında içsel bir hata meydana geldi. Second Life şu anda servis problemleri ile karşı karşıya olabilir.
+		Işınlanma hedefinize yol gösterme sırasında içsel bir hata meydana geldi. [GRID_NAME] şu anda servis problemleri ile karşı karşıya olabilir.
 	</notification>
 	<notification name="NoGoodTPDestination">
 		Bu bölgede iyi bir ışınlanma hedefi bulunamadı.
 	</notification>
 	<notification name="InternalErrorRegionResolver">
-		Işınlanma isteğiniz için gerekli olan global koordinatların çözümü sırasında içsel bir hata meydana geldi. Second Life şu anda servis problemleri ile karşı karşıya olabilir.
+		Işınlanma isteğiniz için gerekli olan global koordinatların çözümü sırasında içsel bir hata meydana geldi. [GRID_NAME] şu anda servis problemleri ile karşı karşıya olabilir.
 	</notification>
 	<notification name="NoValidLanding">
 		Geçerli konumlandırma noktası bulunamadı.
@@ -1830,7 +1830,7 @@ Obje: [OBJECTNAME], sahibi: [NAME]?
 		</form>
 	</notification>
 	<notification name="InvalidWearable">
-		Giymeye çalıştığınız ürün görüntüleyicinin algılayamdığı bir özelliği kullanıyor olabilir. Bu ürünü giymek için lütfen Second Life sürümünüzü güncelleyiniz.
+		Giymeye çalıştığınız ürün görüntüleyicinin algılayamdığı bir özelliği kullanıyor olabilir. Bu ürünü giymek için lütfen [VIEWER_NAME] sürümünüzü güncelleyiniz.
 	</notification>
 	<notification name="ScriptDialog">
 		[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
@@ -1866,7 +1866,7 @@ Işınlanmak için çift tıklayınız.
 Farklı arka planlar görüntülemek ve farklı şeyler bulmak için sağdaki kontrolleri kullanınız.
 	</notification>
 	<notification name="FirstBuild">
-		[SECOND_LIFE]&apos;ın bazı bölgelerinde yeni objeler yaratabilirsiniz.
+		[GRID_NAME]&apos;ın bazı bölgelerinde yeni objeler yaratabilirsiniz.
 İnşa etmek için sol üstteki araçları kullanınız,ve araçlar arası hızlı geçiş yapmak için Ctrl veya Alt tuşlarını basılı tutunuz.
 İnşa etmeyi durdumak için Esc tuşunu kullanınız.
 	</notification>
@@ -1910,7 +1910,7 @@ Esnek objeler fiziksel olmayabilirler ve esneklik işaret kutusu işaretlenmedi�
 	</notification>
 	<notification name="FirstDebugMenus">
 		Gelişmiş menüsünü etkinleştirdiniz.
-Bu menü,Second Life&apos;ı ayıklayan geliştiriciler için özellikler içerir.
+Bu menü,[VIEWER_NAME]&apos;ı ayıklayan geliştiriciler için özellikler içerir.
 Bu menüye Windows&apos;da ulaşmak için Ctrl-Alt-D,Mac için Cmd-Opt-Shift-D kombinasyonlarını kullanınız.
 	</notification>
 	<notification name="FirstSculptedPrim">
@@ -2010,7 +2010,7 @@ Sohbete katılmak için Kabul et veya daveti reddetmek için Reddet butonuna tı
 		- İşlemci hızınız minimum gereksinimleri karşılamıyor.
 	</global>
 	<global name="UnsupportedGLRequirements">
-		Second Life için gereken uygun donanıma sahip olmadığınız görünüyor. Second Life çokludesen desteği olan bir OpenGL ekran kartı gerektirir. Eğer sorun bu ise,grafik kartınız için güncel sürücülere ve işletim sisteminiz için servis paketlerine sahip olduğunuzdan emin olunuz.
+		[VIEWER_NAME] için gereken uygun donanıma sahip olmadığınız görünüyor. [VIEWER_NAME] çokludesen desteği olan bir OpenGL ekran kartı gerektirir. Eğer sorun bu ise,grafik kartınız için güncel sürücülere ve işletim sisteminiz için servis paketlerine sahip olduğunuzdan emin olunuz.
 
 Eğer problem hala devam ederse, http://www.secondlife.com/support adresini ziyaret ediniz
 	</global>

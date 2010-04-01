@@ -40,6 +40,8 @@ Aimee Trescothick
 Alejandro Rosenthal
 	VWR-1184
 Aleric Inglewood
+	SNOW-196
+	SNOW-408
 	VWR-10759
 	VWR-10837
 Alissa Sabre
@@ -68,6 +70,7 @@ Alissa Sabre
 	VWR-2826
 	VWR-3290
 	VWR-3410
+	SNOW-408
 	VWR-3857
 	VWR-4010
 	VWR-5575
@@ -471,6 +474,8 @@ Ringo Tuxing
 	CT-321
 Robin Cornelius
 	SNOW-108
+	SNOW-196
+        SNOW-485
 	VWR-2488
 	VWR-9557
 Ryozu Kojima
@@ -575,6 +580,8 @@ Tue Torok
 	CT-74
 Vadim Bigbear
 	VWR-2681
+Vex Streeter
+	SNOW-434
 Vixen Heron
 	VWR-2710
 	CT-88

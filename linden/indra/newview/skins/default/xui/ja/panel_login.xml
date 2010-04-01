@@ -3,18 +3,18 @@
 	<text name="first_name_text" left="20">
 		ファーストネーム：
 	</text>
-	<line_editor left="20" name="first_name_edit" width="126" />
-	<text name="last_name_text" left="158">
+	<line_editor name="first_name_edit" />
+	<text name="last_name_text">
 		ラストネーム：
 	</text>
-	<line_editor left="158" name="last_name_edit" width="126" />
+	<line_editor name="last_name_edit"/>
 	<text name="password_text">
 		パスワード：
 	</text>
-	<text name="start_location_text" left="20" >
+	<text name="start_location_text">
 		ログイン位置：
 	</text>
-	<combo_box name="start_location_combo" left_delta="92" width="172">
+	<combo_box name="start_location_combo">
 		<combo_item name="MyHome">
 			自宅（ホーム）
 		</combo_item>
@@ -25,7 +25,7 @@
 			&lt; 地域の名前入力 &gt;
 		</combo_item>
 	</combo_box>
-	<check_box label="パスワードを記憶" name="remember_check" left_delta="180"/>
+	<check_box label="パスワードを記憶" name="remember_check"/>
 	<text name="full_screen_text">
 		ログイン時にはフルスクリーン表示になります
 	</text>
@@ -42,7 +42,7 @@
 	<text name="channel_text">
 		[VERSION]
 	</text>
-	<text name="forgot_password_text" left="-230" width="220">
+	<text name="forgot_password_text">
 		名前またはパスワードをお忘れですか？
 	</text>
 	<text name="forgot_password_url">

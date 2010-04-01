@@ -1046,14 +1046,11 @@ extern BOOL gDebugSelectMgr;
 
 void init_debug_ui_menu(LLMenuGL* menu)
 {
-	// For Imprudence 1.3 - need to XUIfy (or move back to preferences?)
 	menu->append(new LLMenuItemCheckGL("Use default system color picker", menu_toggle_control, NULL, menu_check_control, (void*)"UseDefaultColorPicker"));
-	// For Imprudence 1.3 - need to XUIfy (or remove to advance our marxist schemes!)
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
 	menu->appendSeparator();
 
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
-	// For Imprudence 1.3 - need to XUIfy
 	// commented out until work is complete: DEV-32268
 	// menu->append(new LLMenuItemCallGL("Buy Currency Test", &handle_buy_currency_test));
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
@@ -1079,7 +1076,6 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->appendSeparator();
 	menu->append(new LLMenuItemCheckGL("Show Time", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowTime"));
 	menu->append(new LLMenuItemCheckGL("Show Render Info", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowRenderInfo"));
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemCheckGL("Show Matrices", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowRenderMatrices"));
 	menu->append(new LLMenuItemCheckGL("Show Color Under Cursor", menu_toggle_control, NULL, menu_check_control, (void*)"DebugShowColor"));
 	
@@ -4480,6 +4476,97 @@ class LLToolsSnapObjectXY : public view_listener_t
 			}
 		}
 		LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_POSITION);
+		return true;
+	}
+};
+
+// Determine if the option to cycle between linked prims is shown
+class LLToolsEnableSelectNextPart : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = (gSavedSettings.getBOOL("EditLinkedParts") &&
+				 !LLSelectMgr::getInstance()->getSelection()->isEmpty());
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		return true;
+	}
+};
+
+// Cycle selection through linked children in selected object.
+// FIXME: Order of children list is not always the same as sim's idea of link order. This may confuse
+// resis. Need link position added to sim messages to address this.
+class LLToolsSelectNextPart : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+		if (gSavedSettings.getBOOL("EditLinkedParts") && object_count)
+		{
+			LLViewerObject* selected = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+			if (selected && selected->getRootEdit())
+			{
+				bool fwd = (userdata.asString() == "next");
+				bool prev = (userdata.asString() == "previous");
+				bool ifwd = (userdata.asString() == "includenext");
+				bool iprev = (userdata.asString() == "includeprevious");
+				LLViewerObject* to_select = NULL;
+				LLViewerObject::child_list_t children = selected->getRootEdit()->getChildren();
+				children.push_front(selected->getRootEdit());	// need root in the list too
+
+				for (LLViewerObject::child_list_t::iterator iter = children.begin(); iter != children.end(); ++iter)
+				{
+					if ((*iter)->isSelected())
+					{
+						if (object_count > 1 && (fwd || prev))	// multiple selection, find first or last selected if not include
+						{
+							to_select = *iter;
+							if (fwd)
+							{
+								// stop searching if going forward; repeat to get last hit if backward
+								break;
+							}
+						}
+						else if ((object_count == 1) || (ifwd || iprev))	// single selection or include
+						{
+							if (fwd || ifwd)
+							{
+								++iter;
+								while (iter != children.end() && ((*iter)->isAvatar() || (ifwd && (*iter)->isSelected())))
+								{
+									++iter;	// skip sitting avatars and selected if include
+								}
+							}
+							else // backward
+							{
+								iter = (iter == children.begin() ? children.end() : iter);
+								--iter;
+								while (iter != children.begin() && ((*iter)->isAvatar() || (iprev && (*iter)->isSelected())))
+								{
+									--iter;	// skip sitting avatars and selected if include
+								}
+							}
+							iter = (iter == children.end() ? children.begin() : iter);
+							to_select = *iter;
+							break;
+						}
+					}
+				}
+
+				if (to_select)
+				{
+					if (gFocusMgr.childHasKeyboardFocus(gFloaterTools))
+					{
+						gFocusMgr.setKeyboardFocus(NULL);	// force edit toolbox to commit any changes
+					}
+					if (fwd || prev)
+					{
+						LLSelectMgr::getInstance()->deselectAll();
+					}
+					LLSelectMgr::getInstance()->selectObjectOnly(to_select);
+					return true;
+				}
+			}
+		}
 		return true;
 	}
 };
@@ -9445,6 +9532,22 @@ class LLAdvancedShowFloaterTest : public view_listener_t
 
 
 
+////////////////////
+// SHOW FONT TEST //
+////////////////////
+
+
+class LLAdvancedShowFontTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterFontTest::show(NULL);
+		return true;
+	}
+};
+
+
+
 /////////////////////////
 // EXPORT MENUS TO XML //
 /////////////////////////
@@ -10616,6 +10719,7 @@ void initialize_menus()
 	addMenu(new LLToolsEditLinkedParts(), "Tools.EditLinkedParts");
 	addMenu(new LLToolsSnapObjectXY(), "Tools.SnapObjectXY");
 	addMenu(new LLToolsUseSelectionForGrid(), "Tools.UseSelectionForGrid");
+	addMenu(new LLToolsSelectNextPart(), "Tools.SelectNextPart");
 	addMenu(new LLToolsLink(), "Tools.Link");
 	addMenu(new LLToolsUnlink(), "Tools.Unlink");
 	addMenu(new LLToolsStopAllAnimations(), "Tools.StopAllAnimations");
@@ -10629,6 +10733,7 @@ void initialize_menus()
 	addMenu(new LLToolsSetBulkPerms(), "Tools.SetBulkPerms");
 
 	addMenu(new LLToolsEnableToolNotPie(), "Tools.EnableToolNotPie");
+	addMenu(new LLToolsEnableSelectNextPart(), "Tools.EnableSelectNextPart");
 	addMenu(new LLToolsEnableLink(), "Tools.EnableLink");
 	addMenu(new LLToolsEnableUnlink(), "Tools.EnableUnlink");
 	addMenu(new LLToolsEnableTake(), "Tools.EnableTake");
@@ -10818,6 +10923,7 @@ void initialize_menus()
 
 	// Advanced > XUI
 	addMenu(new LLAdvancedShowFloaterTest(), "Advanced.ShowFloaterTest");
+	addMenu(new LLAdvancedShowFontTest(), "Advanced.ShowFontTest");
 	addMenu(new LLAdvancedExportMenusToXML(), "Advanced.ExportMenusToXML");
 	addMenu(new LLAdvancedEditUI(), "Advanced.EditUI");
 	addMenu(new LLAdvancedLoadUIFromXML(), "Advanced.LoadUIFromXML");

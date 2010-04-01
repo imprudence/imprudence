@@ -76,8 +76,8 @@ public:
 	S32 getFetchState(const LLUUID& id, F32& decode_progress_p, F32& requested_priority_p,
 					  U32& fetch_priority_p, F32& fetch_dtime_p, F32& request_dtime_p);
 	void dump();
-	S32 getNumRequests() { return mRequestMap.size(); }
-	S32 getNumHTTPRequests() { return mHTTPTextureQueue.size(); }
+	S32 getNumRequests() const { LLMutexLock lock(&mQueueMutex); return mRequestMap.size(); }
+	S32 getNumHTTPRequests() const { LLMutexLock lock(&mNetworkQueueMutex); return mHTTPTextureQueue.size(); }
 	
 	// Public for access by callbacks
 	void lockQueue() { mQueueMutex.lock(); }
@@ -91,7 +91,6 @@ protected:
 	void removeFromNetworkQueue(LLTextureFetchWorker* worker, bool cancel);
 	void addToHTTPQueue(const LLUUID& id);
 	void removeFromHTTPQueue(const LLUUID& id);
-	S32 getHTTPQueueSize() { return (S32)mHTTPTextureQueue.size(); }
 	void removeRequest(LLTextureFetchWorker* worker, bool cancel);
 	// Called from worker thread (during doWork)
 	void processCurlRequests();	
@@ -110,8 +109,8 @@ public:
 	S32 mBadPacketCount;
 	
 private:
-	LLMutex mQueueMutex;
-	LLMutex mNetworkQueueMutex;
+	mutable LLMutex mQueueMutex;
+	mutable LLMutex mNetworkQueueMutex;
 
 	LLTextureCache* mTextureCache;
 	LLImageDecodeThread* mImageDecodeThread;

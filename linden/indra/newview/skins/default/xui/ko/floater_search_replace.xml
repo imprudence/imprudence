@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script search" title="검색 / 대체">
+	<check_box label="영문 대소문자 구분 안 함" name="case_text" />
+	<button label="검색" label_selected="검색" name="search_btn" />
+	<button label="대체" label_selected="대체" name="replace_btn" />
+	<button label="모두 대체" label_selected="모두 대체" name="replace_all_btn" />
+	<text type="string" length="1" name="txt">
+		검색
+	</text>
+	<text type="string" length="1" name="txt2">
+		대체
+	</text>
+</floater>

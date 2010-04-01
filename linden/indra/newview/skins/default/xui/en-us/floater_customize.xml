@@ -1111,16 +1111,6 @@ scratch and wear it.
 	</tab_container>
 	<scroll_container bottom="-476" follows="left|top|right|bottom" height="382" left="197"
 	     mouse_opaque="false" name="panel_container" opaque="false" width="292" />
-  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Cancel" label_selected="Cancel" mouse_opaque="true"
-	     name="Cancel" right="-10" scale_image="true" width="100" />
-	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="OK" label_selected="OK" mouse_opaque="true"
-	     name="Ok" right="-116" scale_image="true" width="100" />
-	<button bottom="-536" follows="left|bottom" font="SansSerif" halign="center"
-	     height="20" label="Make Outfit..." label_selected="Make Outfit..."
-	     mouse_opaque="true" name="Make Outfit" left="100" scale_image="true"
-	     width="100" />
 
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom="-400" drop_shadow_visible="true" follows="left|top"
@@ -1141,7 +1131,26 @@ scratch and wear it.
     Avatar Height2
   </text>
 
-  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center" height="20" hidden="false" label="Export" label_selected="Export" right="-280" mouse_opaque="true" name="Export" scale_image="true" width="80" />
-  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center" height="20" hidden="false" label="Import" label_selected="Import" right="-370" mouse_opaque="true" name="Import" scale_image="true" width="80" />
+
+  <button name="Import" label="Import"
+          bottom="-536" left="10" height="20" width="70"
+          follows="right|bottom" font="SansSerif" halign="center" />
+
+  <button name="Export" label="Export"
+          bottom_delta="0" left_delta="75" height="20" width="70" 
+          follows="right|bottom" font="SansSerif" halign="center" />
+
+	<button name="Make Outfit" label="Make Outfit"
+          bottom_delta="0" left_delta="100" height="20" width="100" 
+          follows="right|bottom" font="SansSerif" halign="center" />
+
+
+  <button name="Cancel" label="Cancel"
+          bottom="-536" right="-10" height="20" width="80"
+          follows="right|bottom" font="SansSerif" halign="center" />
+
+	<button name="Ok" label="OK"
+          bottom_delta="0" right="-95" height="20" width="80"
+          follows="right|bottom" font="SansSerif" halign="center" />
 
 </floater>

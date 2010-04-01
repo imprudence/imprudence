@@ -601,8 +601,14 @@ void LLNotification::init(const std::string& template_name, const LLSD& form_ele
 	if (!mTemplatep) return;
 
 	// add default substitutions
-	// TODO: change this to read from the translatable strings file!
-	mSubstitutions["SECOND_LIFE"] = "Second Life";
+	mSubstitutions["[SECOND_LIFE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
+	mSubstitutions["[VIEWER_NAME]"] = LLNotifications::instance().getGlobalString("VIEWER_NAME");
+	mSubstitutions["[VIEWER_SITE]"] = LLNotifications::instance().getGlobalString("VIEWER_SITE");
+
+	// TODO: set these based on which grid the user is connected to.
+	mSubstitutions["[GRID_NAME]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
+	mSubstitutions["[GRID_SITE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE_SITE");
+
 	mSubstitutions["_URL"] = getURL();
 	mSubstitutions["_NAME"] = template_name;
 	// TODO: something like this so that a missing alert is sensible:

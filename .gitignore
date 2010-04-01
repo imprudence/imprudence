@@ -13,6 +13,8 @@ linden/LICENSE-logos.txt
 linden/indra/newview/skins/*/textures/
 linden/indra/newview/skins/default/html/btn_purplepill_bg.png
 linden/indra/newview/skins/default/html/en-us/loading/sl_logo_rotate_black.gif
+linden/indra/newview/skins/default/html/en-us/loading/Thumbs.db
+linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
 linden/indra/newview/skins/default/html/unabletoconnect.png
 linden/indra/newview/res/
 linden/indra/newview/res-sdl/
@@ -29,10 +31,13 @@ linden/LICENSE-libraries-*.txt
 linden/libraries/
 linden/indra/newview/app_settings/mozilla-runtime-*/
 linden/indra/newview/fonts/
+linden/indra/newview/lib/
+linden/indra/newview/dbghelp.dll
 linden/indra/newview/linux_tools/client-readme-voice.txt
 linden/indra/newview/vivox-runtime/
 linden/indra/newview/*.lproj/
 linden/indra/newview/mozilla-theme/
+linden/indra/test_apps/
 
 
 # COMPILED STUFF
@@ -48,6 +53,9 @@ linden/installed.xml
 *.diff*
 *.patch*
 
+
 # MISCELLANEOUS
 
+ChangeLog.txt
 .DS_Store
+*.zip

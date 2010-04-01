@@ -755,11 +755,6 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		}
 		else
 		{
-			// Shouldn't need to do anything here
-			//llassert_always(mFetcher->mNetworkQueue.find(mID) != mFetcher->mNetworkQueue.end());
-			// Make certain this is in the network queue
-			//mFetcher->addToNetworkQueue(this);
-			//setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
 			return false;
 		}
 	}
@@ -800,7 +795,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			// Set the throttle to the entire bandwidth, assuming UDP packets will get priority
 			// when they are needed
 			F32 max_bandwidth = mFetcher->mMaxBandwidth;
-			if ((mFetcher->getHTTPQueueSize() >= HTTP_QUEUE_MAX_SIZE) ||
+			if ((mFetcher->getNumHTTPRequests() >= HTTP_QUEUE_MAX_SIZE) ||
 				(mFetcher->getTextureBandwidth() > max_bandwidth))
 			{
 				// Make normal priority and return (i.e. wait until there is room in the queue)
@@ -1473,14 +1468,8 @@ void LLTextureFetch::deleteRequest(const LLUUID& id, bool cancel)
 void LLTextureFetch::addToNetworkQueue(LLTextureFetchWorker* worker)
 {
 	LLMutexLock lock(&mNetworkQueueMutex);
-	if (mRequestMap.find(worker->mID) != mRequestMap.end())
-	{
-		// only add to the queue if in the request map
-		// i.e. a delete has not been requested
-		mNetworkQueue.insert(worker->mID);
-	}
-	for (cancel_queue_t::iterator iter1 = mCancelQueue.begin();
-		 iter1 != mCancelQueue.end(); ++iter1)
+	mNetworkQueue.insert(worker->mID);
+	for (cancel_queue_t::iterator iter1 = mCancelQueue.begin(); iter1 != mCancelQueue.end(); ++iter1)
 	{
 		iter1->second.erase(worker->mID);
 	}
@@ -1706,8 +1695,10 @@ void LLTextureFetch::sendRequestListToSimulators()
 		LLTextureFetchWorker* req = getWorker(*curiter);
 		if (!req)
 		{
+			// This happens when a request was removed from mRequestMap in a race
+			// with adding it to mNetworkQueue by doWork (see SNOW-196).
 			mNetworkQueue.erase(curiter);
-			continue; // paranoia
+			continue;
 		}
 		llassert(req->mState == LLTextureFetchWorker::LOAD_FROM_NETWORK || LLTextureFetchWorker::LOAD_FROM_SIMULATOR);
 		if ((req->mState != LLTextureFetchWorker::LOAD_FROM_NETWORK) &&
@@ -1912,6 +1903,7 @@ bool LLTextureFetch::receiveImageHeader(const LLHost& host, const LLUUID& id, U8
 	{
 // 		llwarns << "Received header for non active worker: " << id << llendl;
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 		return false;
 	}
@@ -1940,6 +1932,7 @@ bool LLTextureFetch::receiveImageHeader(const LLHost& host, const LLUUID& id, U8
 	if (!res)
 	{
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 	}
 	else
@@ -1984,6 +1977,7 @@ bool LLTextureFetch::receiveImagePacket(const LLHost& host, const LLUUID& id, U1
 	if (!res)
 	{
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 		return false;
 	}

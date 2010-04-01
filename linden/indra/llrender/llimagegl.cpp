@@ -369,6 +369,7 @@ LLImageGL::~LLImageGL()
 	sImageList.erase(this);
 	delete [] mPickMask;
 	mPickMask = NULL;
+	mPickMaskSize = 0;
 	sCount--;
 }
 
@@ -379,6 +380,7 @@ void LLImageGL::init(BOOL usemipmaps)
 #endif
 
 	mPickMask		  = NULL;
+	mPickMaskSize	  = 0;
 	mTextureState       = NO_DELETE ;
 	mTextureMemory    = 0;
 	mLastBindTime     = 0.f;
@@ -1567,20 +1569,21 @@ void LLImageGL::updatePickMask(S32 width, S32 height, const U8* data_in)
 		//cannot generate a pick mask for this texture
 		delete [] mPickMask;
 		mPickMask = NULL;
+		mPickMaskSize = 0;
 		return;
 	}
 
 	U32 pick_width = width/2;
 	U32 pick_height = height/2;
 
-	U32 size = llmax(pick_width, (U32) 1) * llmax(pick_height, (U32) 1);
+	mPickMaskSize = llmax(pick_width, (U32) 1) * llmax(pick_height, (U32) 1);
 
-	size = size/8 + 1;
+	mPickMaskSize = mPickMaskSize/8 + 1;
 
 	delete[] mPickMask;
-	mPickMask = new U8[size];
+	mPickMask = new U8[mPickMaskSize];
 
-	memset(mPickMask, 0, sizeof(U8) * size);
+	memset(mPickMask, 0, sizeof(U8) * mPickMaskSize);
 
 	U32 pick_bit = 0;
 	
@@ -1594,7 +1597,7 @@ void LLImageGL::updatePickMask(S32 width, S32 height, const U8* data_in)
 			{
 				U32 pick_idx = pick_bit/8;
 				U32 pick_offset = pick_bit%8;
-				if (pick_idx >= size)
+				if (pick_idx >= mPickMaskSize)
 				{
 					llerrs << "WTF?" << llendl;
 				}
@@ -1631,7 +1634,15 @@ BOOL LLImageGL::getMask(const LLVector2 &tc)
 		S32 idx = y*width+x;
 		S32 offset = idx%8;
 
-		res = mPickMask[idx/8] & (1 << offset) ? TRUE : FALSE;
+		if (idx / 8 < (S32)mPickMaskSize)
+		{
+			res = mPickMask[idx/8] & (1 << offset) ? TRUE : FALSE;
+		}
+		else
+		{
+			llwarns << "Index out of range for mPickMask !" << llendl;
+			return FALSE;
+		}
 	}
 	
 	return res;

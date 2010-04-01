@@ -654,6 +654,29 @@
       <on_check control="EditLinkedParts" />
       <on_enable function="Tools.EnableToolNotPie" />
     </menu_item_check>
+    <menu create_jump_keys="true" drop_shadow="true" enabled="true" label="Select Linked Parts"
+			 mouse_opaque="false" name="Select Linked Parts" opaque="true" tear_off="true">
+			<menu_item_call enabled="false" label="Select Next Part" mouse_opaque="true"
+				 name="Select Next Part" shortcut="control|.">
+				<on_click function="Tools.SelectNextPart" userdata="next" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Select Previous Part" mouse_opaque="true"
+				 name="Select Previous Part" shortcut="control|,">
+				<on_click function="Tools.SelectNextPart" userdata="previous" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Include Next Part" mouse_opaque="true"
+				 name="Include Next Part" shortcut="control|shift|.">
+				<on_click function="Tools.SelectNextPart" userdata="includenext" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+			<menu_item_call enabled="false" label="Include Previous Part" mouse_opaque="true"
+				 name="Include Previous Part" shortcut="control|shift|,">
+				<on_click function="Tools.SelectNextPart" userdata="includeprevious" />
+				<on_enable function="Tools.EnableSelectNextPart" />
+      </menu_item_call>
+    </menu>
     <menu_item_call name="Link" enabled="false" label="Link"
                     shortcut="control|L">
       <on_click function="Tools.Link" userdata="" />
@@ -1480,6 +1503,23 @@
     <menu name="UI" drop_shadow="true"
           opaque="true" tear_off="true">
 
+      
+      <menu_item_check name="Use default system color picker"
+                       label="Use default system color picker">
+        <on_click function="ToggleControl"
+                  userdata="UseDefaultColorPicker" />
+        <on_check control="UseDefaultColorPicker" />
+      </menu_item_check>
+
+      <menu_item_check name="Show search panel in overlay bar"
+                       label="Show search panel in overlay bar">
+        <on_click function="ToggleControl"
+                  userdata="ShowSearchBar" />
+        <on_check control="ShowSearchBar" />
+      </menu_item_check>
+
+      <menu_item_separator />
+
       <menu_item_call name="Web Browser Test" label="Web Browser Test">
         <on_click function="Advanced.WebBrowserTest" userdata="" />
       </menu_item_call>
@@ -1523,12 +1563,6 @@
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>
-      <menu_item_check name="Double-Click Auto-Pilot"
-                       label="Double-Click Auto-Pilot">
-        <on_click function="ToggleControl"
-                  userdata="DoubleClickAutoPilot" />
-        <on_check control="DoubleClickAutoPilot" />
-      </menu_item_check>
       <menu_item_separator />
       <menu_item_check name="Debug SelectMgr"
                        label="Debug SelectMgr">
@@ -1599,6 +1633,12 @@
                   userdata="DebugShowRenderInfo" />
         <on_check control="DebugShowRenderInfo" />
       </menu_item_check>
+      <menu_item_check name="Show Matrices"
+                       label="Show Matrices">
+        <on_click function="ToggleControl"
+                  userdata="DebugShowRenderMatrices" />
+        <on_check control="DebugShowRenderMatrices" />
+      </menu_item_check>
       <menu_item_check name="Show Color Under Cursor"
                        label="Show Color Under Cursor">
         <on_click function="ToggleControl"
@@ -1616,6 +1656,11 @@
       <menu_item_call name="Floater Test..."
                       label="Floater Test...">
         <on_click function="Advanced.ShowFloaterTest"
+                  userdata="" />
+      </menu_item_call>
+      <menu_item_call name="Font Test..."
+                      label="Font Test...">
+        <on_click function="Advanced.ShowFontTest"
                   userdata="" />
       </menu_item_call>
       <menu_item_call name="Export Menus to XML..."

@@ -106,7 +106,7 @@ public:
 	friend std::ostream& operator<<(std::ostream &s, const LLWearable &w);
 
 public:
-	// Private constructor used by LLWearableList
+	// -not anymore Private- constructor used by LLWearableList
 	LLWearable(const LLTransactionID& transactionID);
 	LLWearable(const LLAssetID& assetID);
 private:

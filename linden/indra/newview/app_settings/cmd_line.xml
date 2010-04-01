@@ -333,5 +333,13 @@
       <string>CrashOnStartup</string>
     </map>
 
+    <key>disabledbus</key>
+    <map>
+      <key>desc</key>
+      <string>Disable DBUS API (get SLURL from Webbrowser atm).</string>
+      <key>map-to</key>
+      <string>DisableDBUS</string>
+    </map>
+
   </map>
 </llsd>

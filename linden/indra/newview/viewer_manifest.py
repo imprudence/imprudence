@@ -75,8 +75,12 @@ class ViewerManifest(LLManifest):
 
         # Include our fonts
         if self.prefix(src="fonts"):
-            self.path("*.ttf")
-            self.path("*.txt")
+            self.path("LiberationSans-Bold.ttf")
+            self.path("LiberationSans-Regular.ttf")
+            self.path("VeraMono.ttf")
+            self.path("GPL.txt")
+            self.path("Liberation-License.txt")
+            self.path("Vera-License.txt")
             self.end_prefix("fonts")
 
         # skins
@@ -98,6 +102,7 @@ class ViewerManifest(LLManifest):
                         self.path("*.png")
                         self.path("*/*/*.html")
                         self.path("*/*/*.gif")
+                        self.path("*/*/*.png")
                         self.end_prefix("*/html")
                 self.end_prefix("skins")
         
@@ -1010,6 +1015,7 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libjpeg.so.7")
+            self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
             self.path("libz.so.1")

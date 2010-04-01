@@ -544,10 +544,14 @@ void LLNotifyBox::close()
 
 void LLNotifyBox::format(std::string& msg, const LLStringUtil::format_map_t& args)
 {
-	// XUI:translate!
 	LLStringUtil::format_map_t targs = args;
-	targs["[SECOND_LIFE]"] = "Second Life";
-	targs["[VIEWER]"] = IMP_VIEWER_NAME;
+
+	// These sort of things are actually set in llui/llnotifications.cpp
+	// so that they will affect all notifications, not just boxes.
+
+	// targs["[SECOND_LIFE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
+	// targs["[VIEWER_NAME]"] = LLNotifications::instance().getGlobalString("VIEWER_NAME");
+
 	LLStringUtil::format(msg, targs);
 }
 

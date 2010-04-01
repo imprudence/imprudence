@@ -2643,6 +2643,16 @@ bool idle_startup()
 		LLStartUp::setStartupState( STATE_STARTED );
 		LLStartUp::setStartedOnce(true);
 
+		if (gSavedSettings.getBOOL("SpeedRez"))
+		{
+			// Speed up rezzing if requested.
+			F32 dist1 = gSavedSettings.getF32("RenderFarClip");
+			F32 dist2 = gSavedSettings.getF32("SavedRenderFarClip");
+			gSavedDrawDistance = (dist1 >= dist2 ? dist1 : dist2);
+			gSavedSettings.setF32("SavedRenderFarClip", gSavedDrawDistance);
+			gSavedSettings.setF32("RenderFarClip", 32.0f);
+		}
+
 		// Unmute audio if desired and setup volumes.
 		// Unmute audio if desired and setup volumes.
 		// This is a not-uncommon crash site, so surround it with

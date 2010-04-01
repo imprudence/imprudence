@@ -4,6 +4,348 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 2                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Temporary (Free) Texture Uploads. When uploading an image,
+       select "Temporary Image (Free)" to upload it for free, but with
+       some caveats (see below). Thanks to the Emerald viewer for this
+       feature, and Armin for porting it!
+
+        - Temporary textures are intended for testing and preview
+          purposes only. They exist only on the sim they are uploaded
+          to, will disappear from your inventory when you log off, and
+          may disappear from the sim when it restarts.
+
+     * Breast Physics. By popular demand, we have ported breast
+       physics simulation (i.e. jiggly boobs) from the Emerald Viewer.
+       Thanks to Danny Nolan and the Emerald devs for creating this
+       feature, and Armin for porting it!
+
+        - Currently, this feature can only be configured via Debug
+          Settings: EmeraldBreastPhysicsToggle (to disable/enable the
+          feature entirely), EmeraldBoobMass, EmeraldBoobHardness,
+          etc.
+
+     * SpeedRez. After teleporting, the viewer will temporarily
+       decrease the draw distance to encourage nearby objects and
+       textures to rez first. Thanks for the patch, Henri Beauchamp!
+
+        - You can disable this feature by setting the SpeedRez debug
+          setting to FALSE, or adjust the timing by editing the
+          SpeedRezInterval debug setting (smaller numbers restore the
+          old draw distance sooner).
+
+     * Building hotkeys to cycle through prims in a link set
+       (SNOW-97). See the "Tools > Select Linked Parts" menu. Thanks
+       for the patch, Thickbrick Sleaford!
+
+
+   KNOWN ISSUES
+
+     * Linux: The viewer may crash on some Ubuntu Karmic 64-bit
+       installs, most likely due to a bug in glib2. As a work around,
+       users affected by this issue can modify the "imprudence" launch
+       script to add the following code near the top of the script
+       (for example on the second line):
+
+         export LL_WRAPPER='strace -o /dev/null'
+
+     * All known issues listed for 1.3.0 beta 1 still apply to this
+       this version.
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.3.0 beta 1.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * Opening SLURLs ("secondlife://...") from another application
+         is now handled nicely on Linux. If Imprudence is already
+         running, the SLURL will open in the current instance of
+         Imprudence. Otherwise, it will launch a new instance of
+         Imprudence. Thanks, Armin!
+
+       * The notecard editor now has Search/Replace functionality.
+         Thanks for the patch, Kitty Barnett!
+
+       * The notecard editor now has an "Edit" menu. Thanks for the
+         patch, Henri Beauchamp!
+
+       * The password field on the login screen now uses solid black
+         circles (•) instead of asterisks (*), for a cleaner look.
+         Thanks, Geneko Nemeth!
+
+       * Added PrivateLookAtTarget debug setting. When enabled, the
+         viewer will no longer tell other users where your avatar is
+         looking. Thanks for the patch, Henri Beauchamp!
+
+
+     BUG FIXES
+
+       * Fixed: Possible crash related to ShowLookAt targets. Thanks, Armin!
+
+       * Fixed: Pie menu remains after switch to Mouselook (VWR-2425).
+         Thanks for the patch, Kitty Barnett!
+
+       * Fixed: Some menu entries were missing from the Advanced menu.
+         Thanks, Jacek!
+
+          - Advanced > UI > Use default system color picker
+          - Advanced > UI > Show search panel in overlay bar
+          - Advanced > UI > Show Matrices
+          - Advanced > XUI > Font Test...
+
+       * Fixed: Clicking the "Advanced > UI > Double-Click Auto-Pilot"
+         menu entry would crash the viewer, so it has been removed.
+         (As of Imprudence 1.2, double-click autopilot is configured
+         in "Preferences > Input & Camera.) Thanks, Jacek!
+
+       * Applied several bug fixes from Henri Beauchamp. Thanks, Henri!
+
+          - Fixed: The viewer would sometimes crash when touching or
+            focusing the camera on an object that was being rezzed.
+
+          - Fixed: The viewer did not properly use the .tga file
+            extension when saving textures to your computer.
+
+          - Fixed: The viewer would sometimes crash when encountering
+            avatars using "extra" attachment points (multiple
+            attachments on the same body part).
+
+       * Fixed: Some pop-up notifications behaved incorrectly: Build
+         Math Expressions help pop-ups, and the "Restore to Last
+         Position" warning.
+
+       * Fixed: Several cases where the viewer could pause or freeze
+         when downloading textures (SNOW-196, SNOW-408, SNOW-434,
+         SNOW-435, SNOW-485). Thanks for the patches, Aleric
+         Inglewood, Merov Linden, Robin Cornelius, and Vex Streeter!
+
+
+     OTHER CHANGES
+
+       * ELFIO has been reactivated on 64-bit Linux. It had been
+         disabled in 1.3.0 beta 1 as a possible fix for a crash for
+         some 64-bit Linux users, but the problem turned out to be
+         something else (see Known Issues, above). Thank, Armin!
+
+       * Linux: You can now disable disable DBUS support by passing
+         the "--disableDBUS" command line option or setting the
+         "DisableDBUS" Debug Setting to TRUE. This is meant as a
+         work-around for users who crash when using DBUS. Thank,
+         Armin!
+
+       * The pre-packaged 32-bit GStreamer plugins will be now be
+         available to GStreamer when running the 32-bit Linux build on
+         a 64-bit Linux system. Thank, Armin!
+
+       * To save developers' time and effort, the ChangeLog.txt file
+         is now automatically generated from Git commit messages,
+         instead of being edited by hand. Thanks, Jacek!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 1                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Textures and objects now rez more quickly, due to improved
+       texture and object engines from Snowglobe. Thanks to the
+       Snowglobe devs for creating it, and Armin and Jacek for porting
+       it!
+
+     * Imprudence's code base has been updated to Second Life 1.23.5.
+       That means Imprudence has gained most of the new features and
+       bug fixes from SL 1.23. Thanks to Linden Lab for writing it,
+       and to Jacek, McCabe, and Armin for their hard work merging it!
+       Thanks also to Lilly Zenovka for her assistance.
+
+     * Optional legacy pie menus. Enable "Preferences > General > Use
+       legacy pie menus" to switch to a pie menu layout similar to SL
+       1.22 and earlier. Thanks, McCabe!
+
+     * Clothing layer protection and client identification from
+       Meerkat/Emerald. See the Client Identification page on our wiki
+       for information about these features. Thanks to the Meerkat and
+       Emerald teams for creating them, and Armin for porting them!
+
+
+   KNOWN ISSUES
+
+     * Imprudence may crash on Linux when changing "Antialiasing" or
+       "Anisotropic Filtering" in "Preferences > Graphics > Hardware
+       Settings".
+
+        - This is a known bug in SL 1.23 (VWR-13286). We will try our
+          best to fix it.
+
+        - As a work around, you can open "Advanced > Debug Settings",
+          modify RenderFSAASamples (antialiasing) and
+          RenderAnisotropic (anisotropic filtering), then restart the
+          viewer.
+
+     * The "View > Web Browser" menu entry does not work.
+
+     * Legacy pie menus always appear in English, even if you are
+       using another language.
+
+     * The "File > Import + Upload" menu item's price always says
+       "L$10 per texture", even when uploads are actually free, such
+       as on OpenSim.
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.2.1.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * You can now type in an optional message when paying L$ to a
+         Resident (SNOW-436, formerly VWR-9597). The message will
+         appear in that Resident's transaction history online. Thanks,
+         Jacek!
+
+          - The layout for the Pay Resident and Pay Object windows
+            have been cleaned up, too. Thanks, Jacek!
+
+       * You can now adjust numerical sliders with the mouse wheel.
+         Position the mouse pointer over a slider (e.g. sound volume,
+         draw distance, etc.) and scroll the mouse wheel up and down.
+         Thanks, Armin!
+
+          - You can change the direction and speed by editing the
+            SliderScrollWheelMultiplier debug setting. Thanks, Jacek!
+
+       * In the IM window, the "Profile" button now has a drop-down
+         menu with "Pay" and "Offer Teleport" options. Thanks, McCabe!
+
+       * User profiles now have a "Copy Key" button to copy that
+         user's key (agent UUID) to your clipboard. You can then paste
+         it into a script, for example. Thanks, McCabe!
+
+       * Color chooser widgets now display opacity in a way that makes
+         sense. Thanks, Geneko Nemeth!
+
+       * The Script editor's Help menu now has a link to the
+         Autoscript scripting helper, to help generate .
+
+       * You can now drag-and-drop inventory items anywhere on
+         someone's profile to send them. In Imprudence 1.2, you had to
+         drag to specific area in the bottom right corner. Thanks,
+         McCabe!
+
+       * There is now a new debug setting to save inventory scripts as
+         Mono (SNOW-378). If you enable SaveInventoryScriptsAsMono in
+         Debug Settings, new scripts that you create in your inventory
+         will default to Mono. Thanks, Henri Beauchamp!
+
+       * You can now set a custom "world search" URL to use instead of
+         SL's search pages. See "Preferences > Web > World Search".
+         This is mostly useful for users of third-party grids. We hope
+         to provide per-grid search URLs in the future.
+
+
+     BUG FIXES
+
+       * Fixed the login screen not allowing login names longer than
+         16 letters. It now allows up to 31 letters per name, like it
+         should.
+
+       * Fixed #155: Double clicking your avatar triggers a TP
+         request. Thanks, Armin!
+
+       * Fixed #184: Opening notecards resets the camera. Thanks,
+         Armin!
+
+       * Fixed #197: Windlight toolbar can't be hidden. Thanks, Jacek!
+
+       * Fixed VWR-4232: Some particles don't disappear when UI is
+         hidden. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed VWR-14267: Clicking send in an IM window does not add
+         the sent text to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-14278: Gesture auto-completion adds uncommitted
+         suggestions to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-11172: A source coding mistake prevents number-pad
+         keys from specifying Ctrl+digit shortcuts on Windows. Thanks,
+         Alissa Sabre!
+
+       * Fixed VWR-14475: Load from XML is broken. Thanks, Admiral
+         Admiral and Mm Alder!
+
+       * Fixed VWR-15310: Save to XML doesn't set proper XML tags.
+         Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-376: Clean up handling of the maximum length of
+         chat messages. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-413: Potential null pointer exception in
+         multi-slider control. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-488: Malformed animation crash. Thanks, Robin
+         Cornelius!
+
+       * Fixed SNOW-492: LLDataPacker::unpackstring() is unsafe.
+         Thanks, Robin Cornelius!
+
+       * Fixed a rare crash from textures with too many components.
+         (This has only been observed in the Lbsa Plaza sim on OSGrid,
+         so far.) Thanks, Armin!
+
+
+     OTHER CHANGES
+
+       * To help protect our users' privacy, the viewer no longer
+         sends "ViewerStats" to Linden Lab's servers. This was a
+         feature of the SL viewer which would collect and send various
+         pieces of information to Linden Lab without the user's active
+         consent. Thanks, Patrick Sapinski!
+
+       * The Linux (32 and 64 bit) builds are no longer distributed
+         with Pango or GDK-PixBuf, due to a number of bugs that was
+         causing. Linux users should install the following on their
+         systems:
+
+          - Pango 1.26 (or compatible), including freetype support.
+
+          - GTK+ 1.16 (or compatible)
+
+       * The "Notify when Linden dollars (L$) spent or received"
+         checkbox has been moved to "Preferences > Popups". Thanks,
+         McCabe!
+
+       * Removed unnecessary XUI files from the Silver skin. This
+         helps keep the UI layouts of both skins in sync. Thanks,
+         McCabe!
+
+       * There have been numerous changes and improvements to the
+         viewer compile system and software libraries. Thanks to
+         Armin, Jacek, McCabe, and Patrick Sapinski, and the Snowglobe
+         devs!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.2.1                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -564,7 +906,7 @@
          feature, but this will serve for now. Thanks to the Hippo
          Viewer and Meerkat Viewer for this, and to Armin for helping
          import it!
-       
+
        * Restrained Life support. Imprudence now provides optional
          support for the Restrained Life API (used by BDSM items and
          various scripted gadgets). Enable it with "Advanced >
@@ -877,7 +1219,7 @@
          feedback. Thanks, McCabe!
 
           - Check out the Pie Menus wiki page for pictures and
-            descriptions of all the changes! 
+            descriptions of all the changes!
             <http://imprudenceviewer.org/wiki/Pie_Menus>
 
        * Ctrl-D has been reverted to Edit > Duplicate. (It had been
@@ -1210,7 +1552,7 @@
          message, "You created a landmark at _____", will appear in
          chat history when creating a landmark. Thanks, McCabe!
 
-       * Moved "View > Show HUD Attachments" to 
+       * Moved "View > Show HUD Attachments" to
          "Advanced > Rendering > Features > HUD Attachments", and
          removed its keyboard shortcut.
 
@@ -1294,7 +1636,7 @@
          changes in SL 1.22 (VWR-8012). Thanks to CG Linden for
          pointing to the fix!
 
-       * Lip sync for voice chat is enabled by default 
+       * Lip sync for voice chat is enabled by default
          ("Advanced > Character > Enable Lip Sync"). Thanks, McCabe!
 
        * The colors.xml files (for setting skin colors) now has helpful

@@ -89,8 +89,14 @@ void LLPanelMsgs::buildLists()
 		if (ignore == LLNotificationForm::IGNORE_NO)
 				continue;
 
+		std::string message = formp->getIgnoreMessage();
+		LLStringUtil::format_map_t targs;
+		targs["[SECOND_LIFE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
+		targs["[VIEWER_NAME]"] = LLNotifications::instance().getGlobalString("VIEWER_NAME");
+		LLStringUtil::format(message, targs);
+
 		LLSD row;
-		row["columns"][0]["value"] = formp->getIgnoreMessage();
+		row["columns"][0]["value"] = message;
 		row["columns"][0]["font"] = "SANSSERIF_SMALL";
 		row["columns"][0]["width"] = 300;
 

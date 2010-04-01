@@ -43,8 +43,10 @@
 // This class allows us to edit notecards
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class LLTextEditor;
 class LLViewerTextEditor;
 class LLButton;
+class LLMenuBarGL;
 
 class LLPreviewNotecard : public LLPreview
 {
@@ -84,6 +86,7 @@ public:
 	// asset system. :(
 	void refreshFromInventory();
 
+	LLTextEditor* getEditor();
 protected:
 
 	virtual void loadAsset();
@@ -105,6 +108,25 @@ protected:
 	bool handleSaveChangesDialog(const LLSD& notification, const LLSD& response);
 
 	virtual const char *getTitleName() const { return "Note"; }
+
+	void			initMenu();
+
+	static void		onSearchMenu(void* userdata);
+	static void		onUndoMenu(void* userdata);
+	static void		onRedoMenu(void* userdata);
+	static void		onCutMenu(void* userdata);
+	static void		onCopyMenu(void* userdata);
+	static void		onPasteMenu(void* userdata);
+	static void		onSelectAllMenu(void* userdata);
+	static void		onDeselectMenu(void* userdata);
+
+	static BOOL		enableUndoMenu(void* userdata);
+	static BOOL		enableRedoMenu(void* userdata);
+	static BOOL		enableCutMenu(void* userdata);
+	static BOOL		enableCopyMenu(void* userdata);
+	static BOOL		enablePasteMenu(void* userdata);
+	static BOOL		enableSelectAllMenu(void* userdata);
+	static BOOL		enableDeselectMenu(void* userdata);
 
 protected:
 	LLViewerTextEditor* mEditor;

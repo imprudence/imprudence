@@ -816,7 +816,7 @@ bool LLTextureCache::updateTextureEntryList(const LLUUID& id, S32 bodysize)
 	bool res = false;
 	bool purge = false;
 	{
-		LLMutexLock lock(&mHeaderMutex);
+		mHeaderMutex.lock();
 		size_map_t::iterator iter1 = mTexturesSizeMap.find(id);
 		if (iter1 == mTexturesSizeMap.end() || iter1->second < bodysize)
 		{
@@ -834,6 +834,7 @@ bool LLTextureCache::updateTextureEntryList(const LLUUID& id, S32 bodysize)
 			{
 				// TODO: change to llwarns
 				llerrs << "Failed to open entry: " << id << llendl;
+				mHeaderMutex.unlock();
 				removeFromCache(id);
 				return false;
 			}			
@@ -860,6 +861,7 @@ bool LLTextureCache::updateTextureEntryList(const LLUUID& id, S32 bodysize)
 	{
 		mDoPurge = TRUE;
 	}
+	mHeaderMutex.unlock();
 	return res;
 }
 
@@ -884,6 +886,8 @@ void LLTextureCache::setDirNames(ELLPath location)
 
 void LLTextureCache::purgeCache(ELLPath location)
 {
+	LLMutexLock lock(&mHeaderMutex);
+
 	if (!mReadOnly)
 	{
 		setDirNames(location);
@@ -1140,7 +1144,7 @@ void LLTextureCache::writeEntriesAndClose(const std::vector<Entry>& entries)
 // Called from either the main thread or the worker thread
 void LLTextureCache::readHeaderCache()
 {
-	LLMutexLock lock(&mHeaderMutex);
+	mHeaderMutex.lock();
 
 	mLRU.clear(); // always clear the LRU
 
@@ -1169,7 +1173,7 @@ void LLTextureCache::readHeaderCache()
 				const LLUUID& id = entry.mID;
 				if (entry.mImageSize < 0)
 				{
-					// This will be in the Free List, don't put it in the LRY
+					// This will be in the Free List, don't put it in the LRU
 					++empty_entries;
 				}
 				else
@@ -1217,7 +1221,9 @@ void LLTextureCache::readHeaderCache()
 			{
 				for (std::vector<LLUUID>::iterator iter = purge_list.begin(); iter != purge_list.end(); ++iter)
 				{
+					mHeaderMutex.unlock(); 
 					removeFromCache(*iter);
+					mHeaderMutex.lock();
 				}
 				// If we removed any entries, we need to rebuild the entries list,
 				// write the header, and call this again
@@ -1233,7 +1239,9 @@ void LLTextureCache::readHeaderCache()
 				llassert_always(new_entries.size() <= sCacheMaxEntries);
 				mHeaderEntriesInfo.mEntries = new_entries.size();
 				writeEntriesAndClose(new_entries);
+				mHeaderMutex.unlock(); // unlock the mutex before calling again
 				readHeaderCache(); // repeat with new entries file
+				mHeaderMutex.lock();
 			}
 			else
 			{
@@ -1241,6 +1249,7 @@ void LLTextureCache::readHeaderCache()
 			}
 		}
 	}
+	mHeaderMutex.unlock();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1285,9 +1294,12 @@ void LLTextureCache::purgeTextures(bool validate)
 		return;
 	}
 
-	// *FIX:Mani - watchdog off.
-	LLAppViewer::instance()->pauseMainloopTimeout();
-
+	if (!mThreaded)
+	{
+		// *FIX:Mani - watchdog off.
+		LLAppViewer::instance()->pauseMainloopTimeout();
+	}
+	
 	LLMutexLock lock(&mHeaderMutex);
 
 	llinfos << "TEXTURE CACHE: Purging." << llendl;
@@ -1379,8 +1391,11 @@ void LLTextureCache::purgeTextures(bool validate)
 
 	writeEntriesAndClose(entries);
 	
-	// *FIX:Mani - watchdog back on.
-	LLAppViewer::instance()->resumeMainloopTimeout();
+	if (!mThreaded)
+	{
+		// *FIX:Mani - watchdog back on.
+		LLAppViewer::instance()->resumeMainloopTimeout();
+	}
 	
 	LL_INFOS("TextureCache") << "TEXTURE CACHE:"
 			<< " PURGED: " << purge_count
@@ -1434,7 +1449,7 @@ S32 LLTextureCache::getHeaderCacheEntry(const LLUUID& id, S32& imagesize)
 // Writes imagesize to the header, updates timestamp
 S32 LLTextureCache::setHeaderCacheEntry(const LLUUID& id, S32 imagesize)
 {
-	LLMutexLock lock(&mHeaderMutex);
+	mHeaderMutex.lock();
 	llassert_always(imagesize >= 0);
 	Entry entry;
 	S32 idx = openAndReadEntry(id, entry, true);
@@ -1442,11 +1457,15 @@ S32 LLTextureCache::setHeaderCacheEntry(const LLUUID& id, S32 imagesize)
 	{
 		entry.mImageSize = imagesize;
 		writeEntryAndClose(idx, entry);
+		mHeaderMutex.unlock();
 	}
 	else // retry
 	{
+		mHeaderMutex.unlock();
 		readHeaderCache(); // We couldn't write an entry, so refresh the LRU
+		mHeaderMutex.lock();
 		llassert_always(!mLRU.empty() || mHeaderEntriesInfo.mEntries < sCacheMaxEntries);
+		mHeaderMutex.unlock();
 		idx = setHeaderCacheEntry(id, imagesize); // assert above ensures no inf. recursion
 	}
 	return idx;
@@ -1484,26 +1503,39 @@ LLTextureCache::handle_t LLTextureCache::readFromCache(const LLUUID& id, U32 pri
 	return handle;
 }
 
-
+// Return true if the handle is not valid, which is the case
+// when the worker was already deleted or is scheduled for deletion.
+//
+// If the handle exists and a call to worker->complete() returns
+// true or abort is true, then the handle is removed and the worker
+// scheduled for deletion.
 bool LLTextureCache::readComplete(handle_t handle, bool abort)
 {
-	lockWorkers();
+	lockWorkers();	// Needed for access to mReaders.
+
 	handle_map_t::iterator iter = mReaders.find(handle);
-	llassert_always(iter != mReaders.end() || abort);
-	LLTextureCacheWorker* worker = iter->second;
-	bool res = worker->complete();
-	if (res || abort)
+	bool handle_is_valid = iter != mReaders.end();
+	llassert_always(handle_is_valid || abort);
+	LLTextureCacheWorker* worker = NULL;
+	bool delete_worker = false;
+
+	if (handle_is_valid)
 	{
-		mReaders.erase(handle);
-		unlockWorkers();
-		worker->scheduleDelete();
-		return true;
+		worker = iter->second;
+		delete_worker = worker->complete() || abort;
+		if (delete_worker)
+		{
+			mReaders.erase(handle);
+			handle_is_valid = false;
+		}
 	}
-	else
-	{
-		unlockWorkers();
-		return false;
-	}
+
+      	unlockWorkers();
+
+	if (delete_worker) worker->scheduleDelete();
+
+	// Return false if the handle is (still) valid.
+	return !handle_is_valid;
 }
 
 LLTextureCache::handle_t LLTextureCache::writeToCache(const LLUUID& id, U32 priority,
@@ -1597,6 +1629,7 @@ void LLTextureCache::removeFromCache(const LLUUID& id)
 	if (!mReadOnly)
 	{
 		removeHeaderCacheEntry(id);
+		LLMutexLock lock(&mHeaderMutex);
 		LLAPRFile::remove(getTextureFileName(id));
 	}
 }
