@@ -20,7 +20,7 @@
        mouse_opaque="true" name="Give inventory"
        tool_tip="Drop a ZHAO notecard here. Animations have to be in the same Inventory folder as the notecard." v_pad="2"
        width="180">
-    Drop a ZHAO II Notecard here.
+    Drop a ZHAO II notecard here
   </text>
   <view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="0"
        mouse_opaque="false" name="ao_notecard_disp" width="180" />
@@ -35,11 +35,11 @@
 
   <button
       name="opencard"
-      label="Open"
+      label="Open Notecard"
       font="SansSerifSmall"
       left="10"
       bottom_delta="-30"
-      width="58"
+      width="110"
       height="20"
       follows="bottom|left"
 		/>
@@ -47,29 +47,20 @@
       name="reloadcard"
       label="Reload"
       font="SansSerifSmall"
-      left="70"
+      left="124"
       bottom_delta="0"
-      width="58"
+      width="70"
       height="20"
       follows="bottom|left"
 		/>
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="More &gt;&gt;" left="130"
-	     mouse_opaque="true" name="more_btn" scale_image="TRUE"
-	     tool_tip="Advanced Options" width="58" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="&lt;&lt; Less" left_delta="0"
-	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
-	     tool_tip="Advanced Options" width="58" />
-
   
-  <check_box bottom_delta="-42" control_name="AOEnabled" enabled="true"
-	 follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Override Anims" left="10"
-	 mouse_opaque="true" name="AOEnabled" radio_style="false" width="90" />
-  <check_box bottom_delta="0" control_name="AOSitsEnabled" enabled="true"
-	 follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Override Sits" left="110"
-	 mouse_opaque="true" name="AOSitsEnabled" radio_style="false" width="90" />
-
+  <check_box bottom_delta="-24" control_name="AOEnabled" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Enable Animations Override" left="10"
+       mouse_opaque="true" name="AOEnabled" radio_style="false" width="90" />
+  <check_box bottom_delta="-18" control_name="AOSitsEnabled" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Enable Sits Override" left="10"
+	     mouse_opaque="true" name="AOSitsEnabled" radio_style="false" width="90" />
+  
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -93,7 +84,7 @@
   tool_tip="next stand"
   label="&gt;&gt;"
   font="SansSerifSmall"
-  left="100"
+  left="104"
   bottom_delta="0"
   width="90"
   height="20"
@@ -109,6 +100,15 @@
 	 increment="1" initial_val="20" left="10" max_val="9000" min_val="1.00"
 	 mouse_opaque="true" name="standtime" label="Stand Time" label_width="80"
 	 tool_tip="AO Stand Time in seconds" width="180" />
+
+  <button bottom="4" follows="left|bottom" font="SansSerifSmall" halign="center"
+     height="20" label="More &gt;&gt;" left="118"
+     mouse_opaque="true" name="more_btn" scale_image="TRUE"
+     tool_tip="Advanced Options" width="76" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerifSmall" halign="center"
+	     height="20" label="&lt;&lt; Less" left_delta="0"
+	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
+	     tool_tip="Advanced Options" width="76" />
 
   <tab_container label="Default" bottom="6" left="210" mouse_opaque="false" name="tabcontainer" tab_min_width="50" tab_position="top" width="390" height="350" bg_opaque_color="0,0,0,0.0">
     <panel border="true" left="0" bottom="0" follows="left|top|right|bottom" height="350" label="Default Anims" mouse_opaque="true" name="tabdefaultanims" width="390">
