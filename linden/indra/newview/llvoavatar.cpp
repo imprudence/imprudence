@@ -5242,7 +5242,7 @@ void LLVOAvatar::processAnimationStateChanges()
 
 				if (mIsSelf) // AO is only for ME
 				{
-					if (gSavedSettings.getBOOL("EmeraldAOEnabled"))
+					if (gSavedSettings.getBOOL("AOEnabled"))
 					{
 						if (LLFloaterAO::startMotion(anim_it->first, 0,FALSE)) // AO overrides the anim if needed
 						{

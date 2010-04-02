@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater
 	name="geminifloater"
-  rect_control="EmeraldAORect"
+  rect_control="AORect"
 	title="Animation Overrider"
 	can_resize="false"
 	can_minimize="true"
@@ -63,12 +63,12 @@
 	     tool_tip="Advanced Options" width="58" />
 
   
-  <check_box bottom_delta="-42" control_name="EmeraldAOEnabled" enabled="true"
+  <check_box bottom_delta="-42" control_name="AOEnabled" enabled="true"
 	 follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Override Anims" left="10"
-	 mouse_opaque="true" name="EmeraldAOEnabled" radio_style="false" width="90" />
-  <check_box bottom_delta="0" control_name="EmeraldAOSitsEnabled" enabled="true"
+	 mouse_opaque="true" name="AOEnabled" radio_style="false" width="90" />
+  <check_box bottom_delta="0" control_name="AOSitsEnabled" enabled="true"
 	 follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Override Sits" left="110"
-	 mouse_opaque="true" name="EmeraldAOSitsEnabled" radio_style="false" width="90" />
+	 mouse_opaque="true" name="AOSitsEnabled" radio_style="false" width="90" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
@@ -99,13 +99,13 @@
   height="20"
   follows="bottom|left"
 		/>
-  <check_box bottom_delta="-20" control_name="EmeraldAOStandRandomize" enabled="true"
+  <check_box bottom_delta="-20" control_name="AOStandRandomize" enabled="true"
  follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Randomize Stand Order" left="10"
- mouse_opaque="true" name="EmeraldAOStandRandomize" radio_style="false" width="200" />
-  <check_box bottom_delta="-20" control_name="EmeraldAONoStandsInMouselook" enabled="true"
+ mouse_opaque="true" name="AOStandRandomize" radio_style="false" width="200" />
+  <check_box bottom_delta="-20" control_name="AONoStandsInMouselook" enabled="true"
 	 follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Disable Stands in Mouselook" left="10"
-	 mouse_opaque="true" name="EmeraldAONoStandsInMouselook" radio_style="false" width="180" />
-  <spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16" control_name="EmeraldAOStandInterval"
+	 mouse_opaque="true" name="AONoStandsInMouselook" radio_style="false" width="180" />
+  <spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16" control_name="AOStandInterval"
 	 increment="1" initial_val="20" left="10" max_val="9000" min_val="1.00"
 	 mouse_opaque="true" name="standtime" label="Stand Time" label_width="80"
 	 tool_tip="AO Stand Time in seconds" width="180" />
@@ -119,7 +119,7 @@
 	         mouse_opaque="true" name="textdefaultwalk" v_pad="0" width="180">
         Default Walk:
       </text>
-      <combo_box name="walks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultWalk" />
+      <combo_box name="walks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultWalk" />
 
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
@@ -127,105 +127,105 @@
 	         mouse_opaque="true" name="textdefaultrun" v_pad="0" width="180">
         Default Run:
       </text>
-      <combo_box name="runs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultRun" />
+      <combo_box name="runs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultRun" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	         mouse_opaque="true" name="textdefaultjump" v_pad="0" width="180">
         Default Jump:
       </text>
-      <combo_box name="jumps" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultJump" />
+      <combo_box name="jumps" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultJump" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
          bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
          font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
          mouse_opaque="true" name="textdefaultsit" v_pad="0" width="180">
         Default Sit:
       </text>
-      <combo_box name="sits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultSit" />
+      <combo_box name="sits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultSit" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	         mouse_opaque="true" name="textdefaultgsit" v_pad="0" width="180">
         Default Groundsit:
       </text>
-      <combo_box name="gsits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultGroundSit" />
+      <combo_box name="gsits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultGroundSit" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	         mouse_opaque="true" name="textdefaultcrouch" v_pad="0" width="180">
         Default Crouch:
       </text>
-      <combo_box name="crouchs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultCrouch" />
+      <combo_box name="crouchs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultCrouch" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	         mouse_opaque="true" name="textdefaultcrouchwalk" v_pad="0" width="180">
         Default Crouchwalk:
       </text>
-      <combo_box name="cwalks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultCrouchWalk" />
+      <combo_box name="cwalks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultCrouchWalk" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	         mouse_opaque="true" name="textdefaultfall" v_pad="0" width="180">
         Default Fall:
       </text>
-      <combo_box name="falls" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="EmeraldAODefaultFall" />
+      <combo_box name="falls" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultFall" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="280" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="200"
 	         mouse_opaque="true" name="textdefaulthover" v_pad="0" width="180">
         Default Hover:
       </text>
-      <combo_box name="hovers" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultHover" />
+      <combo_box name="hovers" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultHover" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultfly" v_pad="0" width="180">
         Default Fly:
       </text>
-      <combo_box name="flys" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultFly" />
+      <combo_box name="flys" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFly" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultflyslow" v_pad="0" width="180">
         Default Slow Fly:
       </text>
-      <combo_box name="flyslows" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultFlySlow" />
+      <combo_box name="flyslows" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlySlow" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultflyup" v_pad="0" width="180">
         Default Upward Fly:
       </text>
-      <combo_box name="flyups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultFlyUp" />
+      <combo_box name="flyups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlyUp" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultflydown" v_pad="0" width="180">
         Default Downward Fly:
       </text>
-      <combo_box name="flydowns" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultFlyDown" />
+      <combo_box name="flydowns" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlyDown" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultland" v_pad="0" width="180">
         Default Land:
       </text>
-      <combo_box name="lands" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultLand" />
+      <combo_box name="lands" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultLand" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultstandup" v_pad="0" width="180">
         Default Standup:
       </text>
-      <combo_box name="standups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultStandUp" />
+      <combo_box name="standups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultStandUp" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 	         mouse_opaque="true" name="textdefaultprejump" v_pad="0" width="180">
         Default Pre-Jump:
       </text>
-      <combo_box name="prejumps" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="EmeraldAODefaultPreJump" />
+      <combo_box name="prejumps" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultPreJump" />
   </panel>
 </tab_container>
 </floater>

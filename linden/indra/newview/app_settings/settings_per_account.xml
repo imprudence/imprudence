@@ -1,5 +1,198 @@
 <llsd>
     <map>
+
+      <!-- Begin AO -->
+
+      <key>AOConfigNotecardID</key>
+      <map>
+        <key>Comment</key>
+        <string>InventoryItemID of the AO config notecard</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultWalk</key>
+      <map>
+        <key>Comment</key>
+        <string>Default walk anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultSit</key>
+      <map>
+        <key>Comment</key>
+        <string>Default sit anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultRun</key>
+      <map>
+        <key>Comment</key>
+        <string>Default run anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultJump</key>
+      <map>
+        <key>Comment</key>
+        <string>Default jump anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultGroundSit</key>
+      <map>
+        <key>Comment</key>
+        <string>Default groundsit anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultCrouch</key>
+      <map>
+        <key>Comment</key>
+        <string>Default crouch anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultCrouchWalk</key>
+      <map>
+        <key>Comment</key>
+        <string>Default crouchwalk anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFall</key>
+      <map>
+        <key>Comment</key>
+        <string>Default fall anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultHover</key>
+      <map>
+        <key>Comment</key>
+        <string>Default hover anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFly</key>
+      <map>
+        <key>Comment</key>
+        <string>Default fly anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlySlow</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flyslow anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlyUp</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flyup anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlyDown</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flydown anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultLand</key>
+      <map>
+        <key>Comment</key>
+        <string>Default land anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultStandUp</key>
+      <map>
+        <key>Comment</key>
+        <string>Default standup anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultPreJump</key>
+      <map>
+        <key>Comment</key>
+        <string>Default prejump anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      
+      <!-- End AO -->
+      
       <key>RLVaLoginLastLocation</key>
       <map>
         <key>Comment</key>
