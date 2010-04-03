@@ -45,6 +45,51 @@ void cmdline_printchat(std::string message)
 }
 
 
+class AONotecardCallback : public LLInventoryCallback
+{
+public:
+	AONotecardCallback(std::string &filename)
+	{
+		mFileName = filename;
+	}
+
+	void fire(const LLUUID &inv_item)
+	{
+		if (!mFileName.empty())
+		{ 
+			LLPreviewNotecard* nc;
+			nc = (LLPreviewNotecard*)LLPreview::find(inv_item);
+			if(nc)
+			{
+				nc->open();
+				LLTextEditor *text = nc->getEditor();
+				if (text)
+				{
+					text->setText(LLStringUtil::null);
+					text->makePristine();
+
+					std::ifstream file(mFileName.c_str());
+				
+					std::string line;
+					while (!file.eof())
+					{ 
+						getline(file, line);
+						line = line + "\n";
+						text->insertText(line);
+					}
+					file.close();
+			
+					nc->saveIfNeeded();
+				}
+			}
+		}
+	}
+
+private:
+	std::string mFileName;
+};
+
+
 // -------------------------------------------------------
 
 AOStandTimer* mAOStandTimer;
@@ -308,6 +353,7 @@ BOOL LLFloaterAO::postBuild()
 
 	childSetAction("reloadcard",onClickReloadCard,this);
 	childSetAction("opencard",onClickOpenCard,this);
+	childSetAction("newcard",onClickNewCard,this);
 	childSetAction("prevstand",onClickPrevStand,this);
 	childSetAction("nextstand",onClickNextStand,this);
 	childSetCommitCallback("AOEnabled",onClickToggleAO);
@@ -946,6 +992,25 @@ void LLFloaterAO::onClickOpenCard(void* user_data)
 			}
 		}
 	}
+}
+
+void LLFloaterAO::onClickNewCard(void* user_data)
+{
+	// load the template file from app_settings/ao_template.ini then
+	// create a new properly-formatted notecard in the user's inventory
+	std::string ao_template = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "ao_template.ini");
+	if (!ao_template.empty())
+	{
+		LLPointer<LLInventoryCallback> cb = new AONotecardCallback(ao_template);
+		create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
+							LLUUID::null, LLTransactionID::tnull, "New AO Notecard", 
+							"Drop this notecard in your AO window to use", LLAssetType::AT_NOTECARD,
+							LLInventoryType::IT_NOTECARD, NOT_WEARABLE, PERM_ALL, cb);
+	}
+	else
+	{
+		llwarns << "Can't find ao_template.ini in app_settings!" << llendl;
+	}	
 }
 
 struct AOAssetInfo

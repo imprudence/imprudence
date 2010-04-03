@@ -101,6 +101,17 @@
 	 mouse_opaque="true" name="standtime" label="Stand Time" label_width="80"
 	 tool_tip="AO Stand Time in seconds" width="180" />
 
+  <button
+    name="newcard"
+    label="New Notecard Template"
+    font="SansSerifSmall"
+    left="10"
+    bottom_delta="-32"
+    width="180"
+    height="20"
+    follows="bottom|left"
+		/>
+
   <button bottom="4" follows="left|bottom" font="SansSerifSmall" halign="center"
      height="20" label="More &gt;&gt;" left="118"
      mouse_opaque="true" name="more_btn" scale_image="TRUE"

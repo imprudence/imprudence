@@ -99,7 +99,7 @@ public:
 	static void onClickNextStand(void* userdata);
 	static void onClickReloadCard(void* userdata);
 	static void onClickOpenCard(void* userdata);
-
+	static void onClickNewCard(void* userdata);
 
 	static LLUUID invfolderid;
 	static const LLUUID& getAssetIDByName(const std::string& name);
