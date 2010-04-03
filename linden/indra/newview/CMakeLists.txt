@@ -310,6 +310,7 @@ set(viewer_SOURCE_FILES
     llpatchvertexarray.cpp
     llpolymesh.cpp
     llpolymorph.cpp
+    llprefsadvanced.cpp
     llprefschat.cpp
     llprefsim.cpp
     llprefsvoice.cpp
@@ -735,6 +736,7 @@ set(viewer_HEADER_FILES
     llpatchvertexarray.h
     llpolymesh.h
     llpolymorph.h
+    llprefsadvanced.h
     llprefschat.h
     llprefsim.h
     llprefsvoice.h
@@ -1244,6 +1246,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_overlaybar.xml
     skins/default/xui/en-us/panel_place_small.xml
     skins/default/xui/en-us/panel_place.xml
+    skins/default/xui/en-us/panel_preferences_advanced.xml
     skins/default/xui/en-us/panel_preferences_audio.xml
     skins/default/xui/en-us/panel_preferences_chat.xml
     skins/default/xui/en-us/panel_preferences_general.xml
