@@ -2526,15 +2526,15 @@ S32 LLVOAvatar::setTETexture(const U8 te, const LLUUID& uuid)
 {
 	// The core setTETexture() method requests images, so we need
 	// to redirect certain avatar texture requests to different sims.
-	/* if (isIndexBakedTexture((ETextureIndex)te))
-	{*/
+	if (isIndexBakedTexture((ETextureIndex)te))
+	{
 		LLHost target_host = getObjectHost();
 		return setTETextureCore(te, uuid, target_host);
-	/*}
+	}
 	else
 	{
 		return setTETextureCore(te, uuid, LLHost::invalid);
-	}*/
+	}
 }
 
 
