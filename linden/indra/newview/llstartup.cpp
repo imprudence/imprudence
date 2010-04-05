@@ -491,7 +491,10 @@ bool idle_startup()
 
 			// TODO parameterize 
 			const F32 circuit_heartbeat_interval = 5;
-			const F32 circuit_timeout = 100;
+			const F32 circuit_timeout = 180; //seconds until llcircuit decides
+							 //it isn't alive.
+							 //Since we are on OpenSim we need to
+							 //relax about 'bad' ping. Was for SL: 100;
 
 			const LLUseCircuitCodeResponder* responder = NULL;
 			bool failure_is_fatal = true;
