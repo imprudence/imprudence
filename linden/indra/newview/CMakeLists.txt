@@ -67,6 +67,7 @@ include_directories(
 set(viewer_SOURCE_FILES
     emeraldboobutils.cpp
     floaterao.cpp
+    floaterbusy.cpp
     floaterlogin.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
@@ -491,6 +492,7 @@ set(viewer_HEADER_FILES
     ViewerInstall.cmake
     emeraldboobutils.h
     floaterao.h
+    floaterbusy.h
     floaterlogin.h
     hippoGridManager.h
     hippoLimits.h
@@ -1096,6 +1098,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_build_options.xml
     skins/default/xui/en-us/floater_bulk_perms.xml
     skins/default/xui/en-us/floater_bumps.xml
+    skins/default/xui/en-us/floater_busy.xml
     skins/default/xui/en-us/floater_buy_contents.xml
     skins/default/xui/en-us/floater_buy_currency.xml
     skins/default/xui/en-us/floater_buy_land.xml

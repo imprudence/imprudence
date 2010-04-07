@@ -228,6 +228,132 @@
       </map>
       
       <!-- End AO -->
+
+      <!-- Begin IM auto-response -->
+
+      <key>InstantMessageResponseFriends</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to non-friends</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseMuted</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to muted people</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseAnyone</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to anyone</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageShowResponded</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to hide IMs entirely from those you have chosen to send autoresponses</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageShowOnTyping</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to perform the autorespond the moment they begin to type instead of waiting for a actual message</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseRepeat</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to keep on resending the autoresponse every line they send</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseItem</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to send a item along with the autoresponse</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponse</key>
+      <map>
+        <key>Comment</key>
+        <string>Auto response to instant messages</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string>This is an autoresponse!</string>
+      </map>
+      <key>InstantMessageResponseItemData</key>
+      <map>
+        <key>Comment</key>
+        <string>UUID</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>InstantMessageAnnounceIncoming</key>
+      <map>
+        <key>Comment</key>
+        <string>Open a new IM tab when another person begins typing to you and announce that they are doing so.</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageAnnounceStealFocus</key>
+      <map>
+        <key>Comment</key>
+        <string>Steal focus when opening new IM tab due to other person begins first typing this session</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>1</integer>
+      </map>
+      
+      <!-- End IM auto-response -->
       
       <key>RLVaLoginLastLocation</key>
       <map>
