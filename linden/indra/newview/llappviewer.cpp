@@ -51,6 +51,7 @@
 #include "llimpanel.h"
 #include "llmimetypes.h"
 #include "llstartup.h"
+#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llviewerjoystick.h"
 #include "llfloaterjoystick.h"
@@ -3671,13 +3672,28 @@ void LLAppViewer::idleShutdown()
 		&& !logoutRequestSent())
 	{
 		static S32 total_uploads = 0;
+		static bool saving_msg = true;
 		// Sometimes total upload count can change during logout.
 		total_uploads = llmax(total_uploads, pending_uploads);
-		gViewerWindow->setShowProgress(!gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
-		S32 finished_uploads = total_uploads - pending_uploads;
-		F32 percent = 100.f * finished_uploads / total_uploads;
-		gViewerWindow->setProgressPercent(percent);
-		gViewerWindow->setProgressString("Saving final data...");
+		if (gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+		{
+			if (saving_msg)
+			{
+				LLChat chat;
+				chat.mText = "Saving final data...";
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+				saving_msg = false;
+			}
+		}
+		else
+		{
+			gViewerWindow->setShowProgress(TRUE);
+			S32 finished_uploads = total_uploads - pending_uploads;
+			F32 percent = 100.f * finished_uploads / total_uploads;
+			gViewerWindow->setProgressPercent(percent);
+			gViewerWindow->setProgressString("Saving final data...");
+		}
 		return;
 	}
 
@@ -3687,9 +3703,19 @@ void LLAppViewer::idleShutdown()
 		sendLogoutRequest();
 
 		// Wait for a LogoutReply message
-		gViewerWindow->setShowProgress(!gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
-		gViewerWindow->setProgressPercent(100.f);
-		gViewerWindow->setProgressString("Logging out...");
+		if (gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+		{
+			LLChat chat;
+			chat.mText = "Logging out...";
+			chat.mSourceType = CHAT_SOURCE_SYSTEM;
+			LLFloaterChat::addChat(chat);
+		}
+		else
+		{
+			gViewerWindow->setShowProgress(TRUE);
+			gViewerWindow->setProgressPercent(100.f);
+			gViewerWindow->setProgressString("Logging out...");
+		}
 		return;
 	}
 
