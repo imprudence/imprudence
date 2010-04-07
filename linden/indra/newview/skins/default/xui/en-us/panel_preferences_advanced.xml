@@ -11,4 +11,8 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Disable Teleport Screens" left="12" mouse_opaque="true"
 	     name="disable_tp_screen_check" radio_style="false" width="217" />
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="false"
+     label="Show Client Names in Name Tag" left="12" mouse_opaque="true"
+     name="client_name_tag_check" radio_style="false" width="217" />
 </panel>
