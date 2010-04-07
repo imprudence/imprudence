@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar" width="495">
 	<tab_container name="tab" width="484">
-		<panel label="2nd Life" name="2nd Life" width="483">
+		<panel label="Avatar" name="2nd Life" width="483">
 			<string name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
@@ -153,7 +153,7 @@
 				Carregando...
 			</text>
 		</panel>
-		<panel label="1st Life" name="1st Life" width="483">
+		<panel label="Real Life" name="1st Life" width="483">
 			<text_editor name="about" width="395" />
 			<text name="Photo:">
 				Foto:

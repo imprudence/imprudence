@@ -3,7 +3,7 @@
   <tab_container bottom="-511" height="511" left="0" mouse_opaque="false" name="tab"
 	     tab_min_width="50" tab_position="top" width="419">
     <panel border="true" bottom="-507" follows="left|top|right|bottom" height="491"
-		     label="2nd Life" left="1" mouse_opaque="true" name="2nd Life" width="418">
+		     label="Avatar" left="1" mouse_opaque="true" name="2nd Life" width="418">
       <string name="CaptionTextAcctInfo">
 [ACCTTYPE]
 [PAYMENTINFO]
@@ -335,7 +335,7 @@
       </text>
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
-		     label="1st Life" left="1" mouse_opaque="true" name="1st Life" width="418">
+		     label="Real Life" left="1" mouse_opaque="true" name="1st Life" width="418">
       <texture_picker allow_no_texture="true" bottom="220" can_apply_immediately="false"
 			     default_image_name="None" follows="left|top" height="235" label=""
 			     left="12" mouse_opaque="true" name="img"
