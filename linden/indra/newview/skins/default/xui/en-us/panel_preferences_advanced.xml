@@ -2,4 +2,13 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Advanced" left="102" mouse_opaque="true"
      name="advanced_panel" width="517">
+  <check_box bottom="-20" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16"
+       initial_value="false" label="Disable Login/Logout Screens" left="12"
+       mouse_opaque="true" name="disable_log_screen_check" radio_style="false"
+       width="217" />
+  <check_box bottom_delta="-18" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Disable Teleport Screens" left="12" mouse_opaque="true"
+	     name="disable_tp_screen_check" radio_style="false" width="217" />
 </panel>

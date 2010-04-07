@@ -31,6 +31,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llprefsadvanced.h"
+#include "llviewercontrol.h"
 
 #include "lluictrlfactory.h"
 
@@ -46,11 +47,16 @@ LLPrefsAdvanced::~LLPrefsAdvanced()
 
 BOOL LLPrefsAdvanced::postBuild()
 {
+	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
+	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
+
 	return TRUE;
 }
 
 void LLPrefsAdvanced::apply()
 {
+	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
+	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 }
 
 void LLPrefsAdvanced::cancel()
