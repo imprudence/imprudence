@@ -33,13 +33,15 @@ void HippoLimits::setOpenSimLimits()
 	mMaxAgentGroups = 100;
 	mMaxPrimScale = 256.0f;
 	mMaxHeight = 10000.0f;
+	mMaxLinkedPrims = -1;
+
 	if (gHippoGridManager->getConnectedGrid()->isRenderCompat()) {
 		llinfos << "Using rendering compatible OpenSim limits." << llendl;
 		mMinHoleSize = 0.05f;  
 		mMaxHollow = 0.95f;
 	} else {
 		llinfos << "Using Hippo OpenSim limits." << llendl;
-		mMinHoleSize = 0.01f;  
+		mMinHoleSize = 0.01f;
 		mMaxHollow = 0.99f;
 	}
 }
@@ -52,5 +54,6 @@ void HippoLimits::setSecondLifeLimits()
 	mMaxHeight = 4096.0f;
 	mMinHoleSize = 0.05f;  
 	mMaxHollow = 0.95f;
+	mMaxLinkedPrims = 255;
 }
 

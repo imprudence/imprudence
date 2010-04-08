@@ -84,6 +84,8 @@
 #include "llvotree.h"
 #include "lluictrlfactory.h"
 
+#include "hippoLimits.h"
+
 // Globals
 LLFloaterTools *gFloaterTools = NULL;
 
@@ -1146,18 +1148,21 @@ void LLFloaterTools::onClickLink(void* data)
 		LLNotifications::instance().add("UnableToLinkWhileDownloading");
 		return;
 	}
- 
-	S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-	if (object_count > MAX_CHILDREN_PER_TASK + 1)
+
+	S32 max_linked_prims = gHippoLimits->getMaxLinkedPrims();
+	if (max_linked_prims > -1)
 	{
-		LLSD args;
-		args["COUNT"] = llformat("%d", object_count);
-		int max = MAX_CHILDREN_PER_TASK+1;
-		args["MAX"] = llformat("%d", max);
-		LLNotifications::instance().add("UnableToLinkObjects", args);
-		return;
+		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+		if (object_count > max_linked_prims + 1)
+		{
+			LLSD args;
+			args["COUNT"] = llformat("%d", object_count);
+			args["MAX"] = llformat("%d", max_linked_prims +1);
+			LLNotifications::instance().add("UnableToLinkObjects", args);
+			return;
+		}
 	}
- 
+
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
 		LLNotifications::instance().add("CannotLinkIncompleteSet");
