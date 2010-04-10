@@ -57,7 +57,6 @@
 #include "llvoavatar.h"
 #include "llviewercamera.h"
 #include "llviewerobject.h"
-#include "llviewerobject.h"
 #include "llviewerwindow.h"
 #include "llworld.h"
 #include "pipeline.h"

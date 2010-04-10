@@ -70,7 +70,6 @@
 #include "object_flags.h"
 #include "lltimer.h"
 #include "timing.h"
-#include "llviewermenu.h"
 
 // newview includes
 #include "llagent.h"

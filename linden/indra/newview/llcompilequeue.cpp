@@ -52,16 +52,12 @@
 #include "llviewerregion.h"
 #include "lscript_rt_interface.h"
 #include "llviewercontrol.h"
-#include "llviewerobject.h"
-#include "llviewerregion.h"
 #include "llresmgr.h"
 #include "llbutton.h"
 #include "lldir.h"
 #include "llfloaterchat.h"
 #include "llviewerstats.h"
 #include "lluictrlfactory.h"
-#include "llselectmgr.h"
-
 #include "llselectmgr.h"
 
 ///----------------------------------------------------------------------------

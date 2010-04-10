@@ -69,7 +69,6 @@
 #include "pipeline.h"
 #include "llspatialpartition.h"
 #include "llappviewer.h"
-#include "llstartup.h"
 #include "llviewershadermgr.h"
 #include "llfasttimer.h"
 #include "llfloatertools.h"

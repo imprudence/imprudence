@@ -67,7 +67,6 @@
 #include "llinventorymodel.h"
 #include "llmultigesture.h"
 #include "llui.h"
-#include "llviewermenu.h"
 #include "lluictrlfactory.h"
 
 
