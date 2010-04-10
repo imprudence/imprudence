@@ -39,6 +39,7 @@
 #include "llglheaders.h"
 #include "llagent.h"
 #include "llviewercontrol.h"
+#include "llconsole.h"
 #include "llcoord.h"
 #include "llcriticaldamp.h"
 #include "lldir.h"
@@ -46,6 +47,7 @@
 #include "lldrawpoolalpha.h"
 #include "llfeaturemanager.h"
 #include "llfirstuse.h"
+#include "llfloaterchat.h"
 #include "llframestats.h"
 #include "llhudmanager.h"
 #include "llimagebmp.h"
@@ -114,6 +116,8 @@ void render_ui_3d();
 void render_ui_2d();
 void render_disconnected_background();
 void render_hud_elements();
+
+void display_teleport_chat(const LLAgent::ETeleportState tp_state, const std::string& msg);
 
 void display_startup()
 {
@@ -347,7 +351,10 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			// Transition to REQUESTED.  Viewer has sent some kind
 			// of TeleportRequest to the source simulator
 			gTeleportDisplayTimer.reset();
-			if(!gSavedSettings.getBOOL("DisableTeleportScreens"))gViewerWindow->setShowProgress(TRUE);
+			if (!gSavedSettings.getBOOL("DisableTeleportScreens"))
+			{
+				gViewerWindow->setShowProgress(TRUE);
+			}
 			gViewerWindow->setProgressPercent(0);
 			gAgent.setTeleportState( LLAgent::TELEPORT_REQUESTED );
 			gAgent.setTeleportMessage(
@@ -357,13 +364,28 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		case LLAgent::TELEPORT_REQUESTED:
 			// Waiting for source simulator to respond
 			gViewerWindow->setProgressPercent( llmin(teleport_percent, 37.5f) );
-			gViewerWindow->setProgressString(message);
+			gTeleportDisplayTimer.reset();
+			if (!gSavedSettings.getBOOL("DisableTeleportScreens"))
+			{
+				gViewerWindow->setProgressString(message);
+			}
+			else
+			{
+				display_teleport_chat(LLAgent::TELEPORT_REQUESTED, message);
+			}
 			break;
 
 		case LLAgent::TELEPORT_MOVING:
 			// Viewer has received destination location from source simulator
 			gViewerWindow->setProgressPercent( llmin(teleport_percent, 75.f) );
-			gViewerWindow->setProgressString(message);
+			if (!gSavedSettings.getBOOL("DisableTeleportScreens"))
+			{
+				gViewerWindow->setProgressString(message);
+			}
+			else
+			{
+				display_teleport_chat(LLAgent::TELEPORT_MOVING, message);
+			}
 			break;
 
 		case LLAgent::TELEPORT_START_ARRIVAL:
@@ -375,7 +397,14 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gAgent.setTeleportMessage(
 				LLAgent::sTeleportProgressMessages["arriving"]);
 			gImageList.mForceResetTextureStats = TRUE;
-			if(!gSavedSettings.getBOOL("DisableTeleportScreens"))gAgent.resetView(TRUE, TRUE);
+			if (!gSavedSettings.getBOOL("DisableTeleportScreens"))
+			{
+				gAgent.resetView(TRUE, TRUE);
+			}
+			else
+			{
+				display_teleport_chat(LLAgent::TELEPORT_MOVING, LLAgent::sTeleportProgressMessages["arriving"]);
+			}
 			break;
 
 		case LLAgent::TELEPORT_ARRIVING:
@@ -390,7 +419,14 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 				}
 				gViewerWindow->setProgressCancelButtonVisible(FALSE, std::string("Cancel")); //TODO: Translate
 				gViewerWindow->setProgressPercent(  arrival_fraction * 25.f + 75.f);
-				gViewerWindow->setProgressString(message);
+				if ( !gSavedSettings.getBOOL("DisableTeleportScreens") )
+				{
+					gViewerWindow->setProgressString(message);
+				}
+				else
+				{
+					display_teleport_chat(LLAgent::TELEPORT_ARRIVING, message);
+				}
 			}
 			break;
 
@@ -1356,4 +1392,21 @@ void render_disconnected_background()
 void display_cleanup()
 {
 	gDisconnectedImagep = NULL;
+}
+
+static LLAgent::ETeleportState old_tp_state = LLAgent::TELEPORT_NONE;
+void display_teleport_chat(const LLAgent::ETeleportState tp_state, const std::string& msg)
+{
+	// Display different messages as the teleport progresses. 
+	// Some are fetched from the sim, others are hardcoded -- MC
+	gConsole->setVisible(TRUE);
+
+	LLAgent::ETeleportState new_tp_state = tp_state;
+	if (old_tp_state != new_tp_state)
+	{
+		LLChat chat (msg);
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		LLFloaterChat::addChatHistory(chat);
+		old_tp_state = new_tp_state;
+	}
 }
