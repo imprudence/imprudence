@@ -6674,8 +6674,7 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
    icon="notify.tga"
    name="FirstAO"
    type="notify">
-    Make a new template for AO instructions.
-    Use the toolbar to toggle the AO on/off.
+    For instructions, make a new template in the AO. Use the toolbar to toggle the AO on/off.
   </notification>
 
   <notification
