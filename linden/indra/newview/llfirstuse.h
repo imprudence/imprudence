@@ -104,6 +104,7 @@ public:
 	static void useTeleport();
 	static void useOverrideKeys();
 	static void useAttach();
+	static void useAO();
 	static void useAppearance();
 	static void useInventory();
 	static void useSandbox();

@@ -22,6 +22,7 @@
 // Uncomment and use instead if we ever add the chatbar as a command line - MC
 //#include "chatbar_as_cmdline.h"
 #include "llfloaterchat.h"
+#include "llfirstuse.h"
 
 #include "llinventory.h"
 #include "llinventoryview.h"
@@ -305,6 +306,7 @@ void LLFloaterAO::show(void*)
 	{
 		sInstance->close();
 	}
+	LLFirstUse::useAO();
 }
 
 bool LLFloaterAO::getInstance()

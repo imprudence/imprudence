@@ -49,7 +49,7 @@ BOOL LLPrefsAdvanced::postBuild()
 {
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
-	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
+	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
 
 	return TRUE;
 }
@@ -58,7 +58,7 @@ void LLPrefsAdvanced::apply()
 {
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
-	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
+	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_check"));
 }
 
 void LLPrefsAdvanced::cancel()

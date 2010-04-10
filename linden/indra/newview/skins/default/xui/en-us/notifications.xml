@@ -6670,6 +6670,14 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
      yestext="OK"/>
   </notification>
 
+  <notification
+   icon="notify.tga"
+   name="FirstAO"
+   type="notify">
+    Make a new template for AO instructions.
+    Use the toolbar to toggle the AO on/off.
+  </notification>
+
 
   <!--End Imprudence notifications-->
 
