@@ -6678,6 +6678,13 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
     Use the toolbar to toggle the AO on/off.
   </notification>
 
+  <notification
+	   icon="notifytip.tga"
+	   name="NoShadows"
+	   type="notifytip">
+    Shadows cannot be enabled due to your graphics settings being set too low. Make sure your graphics settings are set to Ultra with Basic and Atmospheric Shaders enabled.
+  </notification>
+
 
   <!--End Imprudence notifications-->
 

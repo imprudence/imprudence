@@ -59,6 +59,37 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_check"));
+
+	// This is bad bad BAD UI from Emerald, I know. 
+	// If anyone wants to do this better, please do -- MC
+	if ( childGetValue("shadows_check").asBoolean() )
+	{
+		if ( (gSavedSettings.getU32("RenderQualityPerformance") < 3) // Make sure we have everything enabled
+			|| !gSavedSettings.getBOOL("WindLightUseAtmosShaders")
+			|| !gSavedSettings.getBOOL("VertexShaderEnable") ) 
+		{
+			childSetValue("shadows_check", FALSE);
+			LLNotifications::instance().add("NoShadows");
+			llwarns << "Attempting to enable shadow rendering while graphics settings less than Ultra or shaders are missing!" << llendl;
+		}
+		else if ( (gSavedSettings.getBOOL("WindLightUseAtmosShaders") // If we do, toggle shadows in the correct order
+				&& gSavedSettings.getBOOL("VertexShaderEnable")) )
+		{
+			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
+			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
+			llinfos << "Shadow rendering enabled" << llendl;
+		}
+	}
+	else if (!childGetValue("shadows_check").asBoolean()) 
+	{
+		if (gSavedSettings.getBOOL("RenderDeferred"))
+		{
+			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
+			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
+			llinfos << "Shadow rendering disabled" << llendl;
+		}
+	}
+	gSavedSettings.setBOOL("ShadowsEnabled", childGetValue("shadows_check").asBoolean());
 }
 
 void LLPrefsAdvanced::cancel()
