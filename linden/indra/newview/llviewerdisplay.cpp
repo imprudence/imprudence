@@ -39,7 +39,6 @@
 #include "llglheaders.h"
 #include "llagent.h"
 #include "llviewercontrol.h"
-#include "llconsole.h"
 #include "llcoord.h"
 #include "llcriticaldamp.h"
 #include "lldir.h"
@@ -403,7 +402,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			}
 			else
 			{
-				display_teleport_chat(LLAgent::TELEPORT_MOVING, LLAgent::sTeleportProgressMessages["arriving"]);
+				//display_teleport_chat(LLAgent::TELEPORT_MOVING, LLAgent::sTeleportProgressMessages["arriving"]);
 			}
 			break;
 
@@ -1399,14 +1398,13 @@ void display_teleport_chat(const LLAgent::ETeleportState tp_state, const std::st
 {
 	// Display different messages as the teleport progresses. 
 	// Some are fetched from the sim, others are hardcoded -- MC
-	gConsole->setVisible(TRUE);
 
 	LLAgent::ETeleportState new_tp_state = tp_state;
 	if (old_tp_state != new_tp_state)
 	{
 		LLChat chat (msg);
 		chat.mSourceType = CHAT_SOURCE_SYSTEM;
-		LLFloaterChat::addChatHistory(chat);
+		LLFloaterChat::addChat(chat, FALSE, FALSE);
 		old_tp_state = new_tp_state;
 	}
 }

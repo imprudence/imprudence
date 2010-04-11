@@ -3345,9 +3345,18 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 //		if (avatarp)
 		{
 			// Chat the "back" SLURL. (DEV-4907)
+			// Show this in the console if DisableTeleportScreens is true 
+			// Why? Because it's nifty, that's why -- MC
 			LLChat chat("Teleport completed from " + gAgent.getTeleportSourceSLURL());
 			chat.mSourceType = CHAT_SOURCE_SYSTEM;
- 			LLFloaterChat::addChatHistory(chat);
+			if (gSavedSettings.getBOOL("DisableTeleportScreens"))
+			{
+				LLFloaterChat::addChat(chat, FALSE, FALSE);
+			}
+			else
+			{
+				LLFloaterChat::addChatHistory(chat);
+			}
 
 			// Set the new position
 			avatarp->setPositionAgent(agent_pos);
