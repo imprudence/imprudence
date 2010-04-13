@@ -69,6 +69,9 @@
 #include "object_flags.h"
 #include "llimview.h"
 
+#include "llparcel.h" // RezWithLandGroup
+#include "llviewerparcelmgr.h" // RezWithLandGroup
+
 
 // MAX ITEMS is based on (sizeof(uuid)+2) * count must be < MTUBYTES
 // or 18 * count < 1200 => count < 1200/18 => 66. I've cut it down a
@@ -1356,6 +1359,29 @@ void LLToolDragAndDrop::dropObject(LLViewerObject* raycast_target,
 	msg->addUUIDFast(_PREHASH_AgentID,  gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID,  gAgent.getSessionID());
 	msg->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+
+	// RezWithLandGroup 2009-05, If avatar is in land group/land owner group,
+	//it rezzes it with it to prevent autoreturn/whatever...
+	if ( gSavedSettings.getBOOL("RezWithLandGroup") )
+	{
+		LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+		if ( gAgent.isInGroup(parcel->getGroupID()) )
+		{
+			msg->addUUIDFast(_PREHASH_GroupID, parcel->getGroupID());
+		}
+		else if ( gAgent.isInGroup(parcel->getOwnerID()) )
+		{
+			msg->addUUIDFast(_PREHASH_GroupID, parcel->getOwnerID());
+		}
+		else 
+		{
+			msg->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+		}
+	}
+	else 
+	{
+		msg->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+	}
 
 	msg->nextBlock("RezData");
 	// if it's being rezzed from task inventory, we need to enable
