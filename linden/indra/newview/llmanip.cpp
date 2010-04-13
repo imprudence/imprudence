@@ -106,20 +106,20 @@ LLManip::LLManip( const std::string& name, LLToolComposite* composite )
 {
 	initPivot();
 
-	gSavedSettings.getControl("BuildPrefs_ActualRoot")->getSignal()->connect(&updateActualRoot);
-	gSavedSettings.getControl("BuildPrefs_PivotIsPercent")->getSignal()->connect(&updatePivotIsPercent);
-	gSavedSettings.getControl("BuildPrefs_PivotX")->getSignal()->connect(&updatePivotX);
-	gSavedSettings.getControl("BuildPrefs_PivotY")->getSignal()->connect(&updatePivotY);
-	gSavedSettings.getControl("BuildPrefs_PivotZ")->getSignal()->connect(&updatePivotZ);
+	gSavedPerAccountSettings.getControl("BuildPrefs_ActualRoot")->getSignal()->connect(&updateActualRoot);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotIsPercent")->getSignal()->connect(&updatePivotIsPercent);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotX")->getSignal()->connect(&updatePivotX);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotY")->getSignal()->connect(&updatePivotY);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotZ")->getSignal()->connect(&updatePivotZ);
 }
 //static
 void LLManip::initPivot()
 {
-	sActualRoot = (bool)gSavedSettings.getBOOL("BuildPrefs_ActualRoot");
-	sPivotPerc  = (bool)gSavedSettings.getBOOL("BuildPrefs_PivotIsPercent");
-	sPivotX		= gSavedSettings.getF32("BuildPrefs_PivotX");
-	sPivotY		= gSavedSettings.getF32("BuildPrefs_PivotY");
-	sPivotZ		= gSavedSettings.getF32("BuildPrefs_PivotZ");
+	sActualRoot = (bool)gSavedPerAccountSettings.getBOOL("BuildPrefs_ActualRoot");
+	sPivotPerc  = (bool)gSavedPerAccountSettings.getBOOL("BuildPrefs_PivotIsPercent");
+	sPivotX		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotX");
+	sPivotY		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotY");
+	sPivotZ		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotZ");
 }
 //static
 void LLManip::updateActualRoot(const LLSD &data)
@@ -420,9 +420,9 @@ LLVector3 LLManip::getPivotPoint()
 		pos = pos + add;
 	}else
 	{
-		//pos[VX] = pos[VX] + gSavedSettings.getF32("BuildPrefs_PivotX");
-		//pos[VY] = pos[VY] + gSavedSettings.getF32("BuildPrefs_PivotY");
-		//pos[VZ] = pos[VZ] + gSavedSettings.getF32("BuildPrefs_PivotZ");
+		//pos[VX] = pos[VX] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotX");
+		//pos[VY] = pos[VY] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotY");
+		//pos[VZ] = pos[VZ] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotZ");
 		LLVector3 add(
 			sPivotX,
 			sPivotY,

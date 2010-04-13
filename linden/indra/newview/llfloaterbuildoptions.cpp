@@ -80,8 +80,8 @@ LLFloaterBuildOptions::~LLFloaterBuildOptions()
 
 BOOL LLFloaterBuildOptions::postBuild()
 {
-	getChild<LLComboBox>("material")->setSimple(gSavedSettings.getString("BuildPrefs_Material"));
-	getChild<LLComboBox>("combobox shininess")->setSimple(gSavedSettings.getString("BuildPrefs_Shiny"));
+	getChild<LLComboBox>("material")->setSimple(gSavedPerAccountSettings.getString("BuildPrefs_Material"));
+	getChild<LLComboBox>("combobox shininess")->setSimple(gSavedPerAccountSettings.getString("BuildPrefs_Shiny"));
 
 	getChild<LLComboBox>("material")->setCommitCallback(onComboBoxCommit);
 	getChild<LLComboBox>("combobox shininess")->setCommitCallback(onComboBoxCommit);
@@ -102,7 +102,7 @@ BOOL LLFloaterBuildOptions::postBuild()
 
 	if (LLStartUp::getStartupState() == STATE_STARTED)
 	{
-		LLUUID itemid = (LLUUID)gSavedSettings.getString("BuildPrefs_Item");
+		LLUUID itemid = (LLUUID)gSavedPerAccountSettings.getString("BuildPrefs_Item");
 		LLViewerInventoryItem* item = gInventory.getItem(itemid);
 		if (item)
 		{
@@ -154,7 +154,7 @@ BOOL LLFloaterBuildOptions::visible(void*)
 
 void LLFloaterBuildOptions::BuildAutoResponseItemDrop(LLViewerInventoryItem* item)
 {
-	gSavedSettings.setString("BuildPrefs_Item", item->getUUID().asString());
+	gSavedPerAccountSettings.setString("BuildPrefs_Item", item->getUUID().asString());
 	LLFloaterBuildOptions::getInstance()->childSetValue("build_item_add_disp_rect_txt", "Currently set to: "+item->getName());
 }
 
@@ -173,6 +173,6 @@ void LLFloaterBuildOptions::onTexturePickerCommit(LLUICtrl* ctrl, void* userdata
 	LLTextureCtrl*	image_ctrl = (LLTextureCtrl*)ctrl;
 	if(image_ctrl)
 	{
-		gSavedSettings.setString("BuildPrefs_Texture", image_ctrl->getImageAssetID().asString());
+		gSavedPerAccountSettings.setString("BuildPrefs_Texture", image_ctrl->getImageAssetID().asString());
 	}
 }

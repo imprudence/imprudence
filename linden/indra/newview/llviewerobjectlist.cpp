@@ -279,20 +279,20 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 		LLPrimitive obj;
 		obj.setNumTEs(U8(10));	
 		S32 shinnyLevel = 0;
-		if(gSavedSettings.getString("BuildPrefs_Shiny")== "None") shinnyLevel = 0;
-		if(gSavedSettings.getString("BuildPrefs_Shiny")== "Low") shinnyLevel = 1;
-		if(gSavedSettings.getString("BuildPrefs_Shiny")== "Medium") shinnyLevel = 2;
-		if(gSavedSettings.getString("BuildPrefs_Shiny")== "High") shinnyLevel = 3;
+		if(gSavedPerAccountSettings.getString("BuildPrefs_Shiny")== "None") shinnyLevel = 0;
+		if(gSavedPerAccountSettings.getString("BuildPrefs_Shiny")== "Low") shinnyLevel = 1;
+		if(gSavedPerAccountSettings.getString("BuildPrefs_Shiny")== "Medium") shinnyLevel = 2;
+		if(gSavedPerAccountSettings.getString("BuildPrefs_Shiny")== "High") shinnyLevel = 3;
 		
 		for (int i = 0; i < 10; i++)
 		{
 			// I'm assuming this is because there's no good workaround for setting the default 
 			// box texture manually without restarting? -- MC
-			LLTextureEntry tex =  LLTextureEntry(LLUUID(gSavedSettings.getString("BuildPrefs_Texture")));
-			tex.setColor(gSavedSettings.getColor4("BuildPrefs_Color"));
-			tex.setAlpha(1.0 - ((gSavedSettings.getF32("BuildPrefs_Alpha")) / 100.0));
-			tex.setGlow(gSavedSettings.getF32("BuildPrefs_Glow"));
-			if(gSavedSettings.getBOOL("BuildPrefs_FullBright"))
+			LLTextureEntry tex =  LLTextureEntry(LLUUID(gSavedPerAccountSettings.getString("BuildPrefs_Texture")));
+			tex.setColor(gSavedPerAccountSettings.getColor4("BuildPrefs_Color"));
+			tex.setAlpha(1.0 - ((gSavedPerAccountSettings.getF32("BuildPrefs_Alpha")) / 100.0));
+			tex.setGlow(gSavedPerAccountSettings.getF32("BuildPrefs_Glow"));
+			if(gSavedPerAccountSettings.getBOOL("BuildPrefs_FullBright"))
 			{
 				tex.setFullbright(TEM_FULLBRIGHT_MASK);
 			}
@@ -311,15 +311,15 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 		msg->addU32Fast(_PREHASH_ObjectLocalID, (U32)(objectp->mLocalID) );
-		msg->addBOOLFast(_PREHASH_UsePhysics, gSavedSettings.getBOOL("BuildPrefs_Physical"));
-		msg->addBOOL("IsTemporary", gSavedSettings.getBOOL("BuildPrefs_Temporary"));
-		msg->addBOOL("IsPhantom", gSavedSettings.getBOOL("BuildPrefs_Phantom") );
+		msg->addBOOLFast(_PREHASH_UsePhysics, gSavedPerAccountSettings.getBOOL("BuildPrefs_Physical"));
+		msg->addBOOL("IsTemporary", gSavedPerAccountSettings.getBOOL("BuildPrefs_Temporary"));
+		msg->addBOOL("IsPhantom", gSavedPerAccountSettings.getBOOL("BuildPrefs_Phantom") );
 		msg->addBOOL("CastsShadows", true );
 		msg->sendReliable(gAgent.getRegion()->getHost());
 
-		if(gSavedSettings.getBOOL("BuildPrefs_EmbedItem"))
+		if(gSavedPerAccountSettings.getBOOL("BuildPrefs_EmbedItem"))
 		{
-			LLViewerInventoryItem* item = (LLViewerInventoryItem*)gInventory.getItem((LLUUID)gSavedSettings.getString("BuildPrefs_Item"));
+			LLViewerInventoryItem* item = (LLViewerInventoryItem*)gInventory.getItem((LLUUID)gSavedPerAccountSettings.getString("BuildPrefs_Item"));
 			if(item)
 			{
 				if(item->getType()==LLAssetType::AT_LSL_TEXT)

@@ -147,27 +147,10 @@ BOOL FloaterBusy::postBuild()
 		{
 			childSetValue("im_give_disp_rect_txt","Currently set to a item not on this account");
 		}
-
-		itemid = (LLUUID)gSavedSettings.getString("EmeraldBuildPrefs_Item");
-		item = gInventory.getItem(itemid);
-
-		if (item)
-		{
-			childSetValue("build_item_add_disp_rect_txt","Currently set to: "+item->getName());
-		}
-		else if (itemid.isNull())
-		{
-			childSetValue("build_item_add_disp_rect_txt","Currently not set");
-		}
-		else
-		{
-			childSetValue("build_item_add_disp_rect_txt","Currently set to a item not on this account");
-		}
 	}
 	else
 	{
 		childSetValue("im_give_disp_rect_txt","Not logged in");
-		childSetValue("build_item_add_disp_rect_txt","Not logged in");
 	}
 
 	LLWString auto_response = utf8str_to_wstring( gSavedPerAccountSettings.getString("InstantMessageResponse") );
