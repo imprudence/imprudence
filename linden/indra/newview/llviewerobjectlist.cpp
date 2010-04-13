@@ -60,6 +60,7 @@
 #include "llresmgr.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
+#include "lltooldraganddrop.h"
 #include "lltoolmgr.h"
 #include "lltoolpie.h"
 #include "llkeyboard.h"
@@ -95,6 +96,7 @@ extern LLPipeline	gPipeline;
 U32						LLViewerObjectList::sSimulatorMachineIndex = 1; // Not zero deliberately, to speed up index check.
 LLMap<U64, U32>			LLViewerObjectList::sIPAndPortToIndex;
 std::map<U64, LLUUID>	LLViewerObjectList::sIndexAndLocalIDToUUID;
+
 
 LLViewerObjectList::LLViewerObjectList()
 {
@@ -256,6 +258,85 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 	// (from gPipeline.addObject)
 	// so that the drawable parent is set properly
 	findOrphans(objectp, msg->getSenderIP(), msg->getSenderPort());
+
+	// Apply custom settings not set in llmanip and lltoolplacer here.
+	// Don't check for permissions in case opensim ever implements
+	// default prim permission support serverside -- MC
+	if (objectp 
+		&& just_created 
+		&& objectp->permYouOwner()
+		&& objectp->mCreateSelected)
+	{
+		LLMessageSystem* msg = gMessageSystem;
+		msg->newMessageFast(_PREHASH_ObjectImage);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());	
+		msg->nextBlockFast(_PREHASH_ObjectData);				
+		msg->addU32Fast(_PREHASH_ObjectLocalID,  (U32)(objectp->mLocalID));
+		msg->addStringFast(_PREHASH_MediaURL, NULL);
+
+		LLPrimitive obj;
+		obj.setNumTEs(U8(10));	
+		S32 shinnyLevel = 0;
+		if(gSavedSettings.getString("BuildPrefs_Shiny")== "None") shinnyLevel = 0;
+		if(gSavedSettings.getString("BuildPrefs_Shiny")== "Low") shinnyLevel = 1;
+		if(gSavedSettings.getString("BuildPrefs_Shiny")== "Medium") shinnyLevel = 2;
+		if(gSavedSettings.getString("BuildPrefs_Shiny")== "High") shinnyLevel = 3;
+		
+		for (int i = 0; i < 10; i++)
+		{
+			// I'm assuming this is because there's no good workaround for setting the default 
+			// box texture manually without restarting? -- MC
+			LLTextureEntry tex =  LLTextureEntry(LLUUID(gSavedSettings.getString("BuildPrefs_Texture")));
+			tex.setColor(gSavedSettings.getColor4("BuildPrefs_Color"));
+			tex.setAlpha(1.0 - ((gSavedSettings.getF32("BuildPrefs_Alpha")) / 100.0));
+			tex.setGlow(gSavedSettings.getF32("BuildPrefs_Glow"));
+			if(gSavedSettings.getBOOL("BuildPrefs_FullBright"))
+			{
+				tex.setFullbright(TEM_FULLBRIGHT_MASK);
+			}
+							
+			tex.setShiny((U8) shinnyLevel & TEM_SHINY_MASK);
+			
+			obj.setTE(U8(i), tex);
+		}
+
+		obj.packTEMessage(gMessageSystem);
+
+		msg->sendReliable(gAgent.getRegion()->getHost());
+		
+		msg->newMessage("ObjectFlagUpdate");
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		msg->addU32Fast(_PREHASH_ObjectLocalID, (U32)(objectp->mLocalID) );
+		msg->addBOOLFast(_PREHASH_UsePhysics, gSavedSettings.getBOOL("BuildPrefs_Physical"));
+		msg->addBOOL("IsTemporary", gSavedSettings.getBOOL("BuildPrefs_Temporary"));
+		msg->addBOOL("IsPhantom", gSavedSettings.getBOOL("BuildPrefs_Phantom") );
+		msg->addBOOL("CastsShadows", true );
+		msg->sendReliable(gAgent.getRegion()->getHost());
+
+		if(gSavedSettings.getBOOL("BuildPrefs_EmbedItem"))
+		{
+			LLViewerInventoryItem* item = (LLViewerInventoryItem*)gInventory.getItem((LLUUID)gSavedSettings.getString("BuildPrefs_Item"));
+			if(item)
+			{
+				if(item->getType()==LLAssetType::AT_LSL_TEXT)
+				{
+					LLToolDragAndDrop::dropScript(objectp,
+						item,
+						TRUE,
+						LLToolDragAndDrop::SOURCE_AGENT,
+						gAgent.getID());
+				}else
+				{
+					LLToolDragAndDrop::dropInventory(objectp,item,LLToolDragAndDrop::SOURCE_AGENT,gAgent.getID());
+				}
+			}
+			//llinfos << "SENDING CUBE TEXTURE.." << llendl;
+		}
+	}
 	
 	// If we're just wandering around, don't create new objects selected.
 	if (just_created 

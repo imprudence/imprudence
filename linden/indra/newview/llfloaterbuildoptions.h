@@ -40,6 +40,8 @@
 
 #include "llfloater.h"
 
+class LLViewerInventoryItem;
+class InvDropTarget;
 
 class LLFloaterBuildOptions
 :	public LLFloater
@@ -49,12 +51,21 @@ protected:
 	~LLFloaterBuildOptions();
 
 public:
+	BOOL			postBuild();
+
 	static void		show(void*);
 	static LLFloaterBuildOptions* getInstance();
 	static BOOL		visible(void*);
 
 protected:
 	static LLFloaterBuildOptions*	sInstance;
+
+private:
+	static InvDropTarget* mBuildObjectDropTarget;
+
+	static void onTexturePickerCommit(LLUICtrl* ctrl, void* userdata);
+	static void onComboBoxCommit(LLUICtrl* ctrl, void* userdata);
+	static void BuildAutoResponseItemDrop(LLViewerInventoryItem* item);
 };
 
 #endif

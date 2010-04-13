@@ -119,10 +119,10 @@
   <check_box bottom_delta="-19" control_name="SnapEnabled" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
 	     left_delta="0" mouse_opaque="true" name="checkbox snap to grid" width="134" />
-	<button bottom_delta="-19" follows="left|top" font="SansSerifSmall"
+	<button bottom_delta="-30" follows="left|top" font="SansSerifSmall"
        halign="center" valign="center"
-	     height="20" label="Options..." label_selected="Options..." left_delta="20"
-	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
+	     height="20" label="Build Options" left_delta="20"
+	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="100" />
 
 
 <!-- Help text -->

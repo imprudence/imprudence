@@ -43,17 +43,24 @@
 // library includes
 #include "llfontgl.h"
 #include "llcheckboxctrl.h"
+#include "llcombobox.h"
 #include "llspinctrl.h"
 #include "llsliderctrl.h"
+#include "lltexturectrl.h"
 
 // newview includes
+#include "llinventorymodel.h"
 #include "llresmgr.h"
+#include "llstartup.h" // not really necessary here, but just in case
 #include "llviewercontrol.h"
+#include "llviewerinventory.h"
+#include "floaterbusy.h" // class InvDropTarget
 
 //
 // Globals
 //
 LLFloaterBuildOptions	*LLFloaterBuildOptions::sInstance = NULL;
+InvDropTarget * LLFloaterBuildOptions::mBuildObjectDropTarget;
 
 //
 // Methods
@@ -67,6 +74,55 @@ LLFloaterBuildOptions::LLFloaterBuildOptions( )
 LLFloaterBuildOptions::~LLFloaterBuildOptions()
 {
 	sInstance = NULL;
+	delete mBuildObjectDropTarget;
+	mBuildObjectDropTarget = NULL;
+}
+
+BOOL LLFloaterBuildOptions::postBuild()
+{
+	getChild<LLComboBox>("material")->setSimple(gSavedSettings.getString("BuildPrefs_Material"));
+	getChild<LLComboBox>("combobox shininess")->setSimple(gSavedSettings.getString("BuildPrefs_Shiny"));
+
+	getChild<LLComboBox>("material")->setCommitCallback(onComboBoxCommit);
+	getChild<LLComboBox>("combobox shininess")->setCommitCallback(onComboBoxCommit);
+
+	getChild<LLTextureCtrl>("texture control")->setDefaultImageAssetID(LLUUID("89556747-24cb-43ed-920b-47caed15465f"));
+	getChild<LLTextureCtrl>("texture control")->setCommitCallback(onTexturePickerCommit);
+
+	LLView *target_view = getChild<LLView>("build_item_add_disp_rect");
+	if (target_view)
+	{
+		if (mBuildObjectDropTarget) 
+		{
+			delete mBuildObjectDropTarget;
+		}
+		mBuildObjectDropTarget = new InvDropTarget("build drop target", target_view->getRect(),BuildAutoResponseItemDrop);
+		addChild(mBuildObjectDropTarget);
+	}
+
+	if (LLStartUp::getStartupState() == STATE_STARTED)
+	{
+		LLUUID itemid = (LLUUID)gSavedSettings.getString("BuildPrefs_Item");
+		LLViewerInventoryItem* item = gInventory.getItem(itemid);
+		if (item)
+		{
+			childSetValue("build_item_add_disp_rect_txt", "Currently set to: "+item->getName());
+		}
+		else if (itemid.isNull())
+		{
+			childSetValue("build_item_add_disp_rect_txt", "Currently not set");
+		}
+		else
+		{
+			childSetValue("build_item_add_disp_rect_txt", "Currently set to a item not on this account");
+		}
+	}
+	else
+	{
+		childSetValue("build_item_add_disp_rect_txt", "Not logged in");
+	}
+
+	return TRUE;
 }
 
 // static
@@ -94,4 +150,29 @@ LLFloaterBuildOptions* LLFloaterBuildOptions::getInstance()
 BOOL LLFloaterBuildOptions::visible(void*)
 {
 	return (sInstance != NULL);
+}
+
+void LLFloaterBuildOptions::BuildAutoResponseItemDrop(LLViewerInventoryItem* item)
+{
+	gSavedSettings.setString("BuildPrefs_Item", item->getUUID().asString());
+	LLFloaterBuildOptions::getInstance()->childSetValue("build_item_add_disp_rect_txt", "Currently set to: "+item->getName());
+}
+
+void LLFloaterBuildOptions::onComboBoxCommit(LLUICtrl* ctrl, void* userdata)
+{
+	
+	LLComboBox* box = (LLComboBox*)ctrl;
+	if(box)
+	{
+		gSavedSettings.setString(box->getControlName(), box->getValue().asString());
+	}	
+}
+
+void LLFloaterBuildOptions::onTexturePickerCommit(LLUICtrl* ctrl, void* userdata)
+{
+	LLTextureCtrl*	image_ctrl = (LLTextureCtrl*)ctrl;
+	if(image_ctrl)
+	{
+		gSavedSettings.setString("BuildPrefs_Texture", image_ctrl->getImageAssetID().asString());
+	}
 }

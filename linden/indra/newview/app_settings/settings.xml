@@ -15,6 +15,231 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>BuildPrefs_Xsize</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Size For New Objects to be created X</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+  <key>BuildPrefs_Ysize</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Size For New Objects to be created Y</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+  <key>BuildPrefs_Zsize</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Size For New Objects to be created Z</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+  <key>BuildPrefs_Phantom</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Setting For New Objects to be created, phantom flag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>BuildPrefs_Temporary</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Setting For New Objects to be created, temp flag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>BuildPrefs_Physical</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Setting For New Objects to be created, physical flag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>BuildPrefs_EmbedItem</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether to add item to objects</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>BuildPrefs_Material</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Setting For New Objects to be created, physical flag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>Wood</string>
+  </map>
+  <key>BuildPrefs_Color</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of new objects textures</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+    </array>
+  </map>
+  <key>BuildPrefs_Texture</key>
+  <map>
+    <key>Comment</key>
+    <string>Texture used as 'Default' for new object created</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>89556747-24cb-43ed-920b-47caed15465f</string>
+  </map>
+  <key>BuildPrefs_Item</key>
+  <map>
+    <key>Comment</key>
+    <string>item added to new object created</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>BuildPrefs_Alpha</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Alpha For New Objects to be created</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>
+  <key>BuildPrefs_Glow</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Glow For New Objects to be created</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>
+  <key>BuildPrefs_FullBright</key>
+  <map>
+    <key>Comment</key>
+    <string>Default Setting For New Objects to be created, whether textures are full bright</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>BuildPrefs_Shiny</key>
+  <map>
+    <key>Comment</key>
+    <string>Shiny level used as 'Default' for new objects created</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>None</string>
+  </map>
+  <key>BuildPrefs_PivotX</key>
+  <map>
+    <key>Comment</key>
+    <string>Pivot point on the X axis</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>50</real>
+  </map>
+  <key>BuildPrefs_PivotY</key>
+  <map>
+    <key>Comment</key>
+    <string>Pivot point on the Y axis</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>50</real>
+  </map>
+  <key>BuildPrefs_PivotZ</key>
+  <map>
+    <key>Comment</key>
+    <string>Pivot point on the Z axis</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>50</real>
+  </map>
+  <key>BuildPrefs_PivotIsPercent</key>
+  <map>
+    <key>Comment</key>
+    <string>Consider the Pivot points values as a percentage</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>BuildPrefs_ActualRoot</key>
+  <map>
+    <key>Comment</key>
+    <string>Show the axis on the actual root of a linkset instead of mass center</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>DisableLoginLogoutScreens</key>
   <map>
     <key>Comment</key>
