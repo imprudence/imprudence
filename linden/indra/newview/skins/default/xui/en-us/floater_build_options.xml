@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-297" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="right" height="355" min_height="355"
+     can_resize="false" follows="right" height="370" min_height="370"
      min_width="530" mouse_opaque="true" name="build options floater"
      rect_control="FloaterBuildOptionsRect" title="Advanced Build Options" width="530">
 
@@ -10,23 +10,23 @@
        bottom_delta="110" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
        h_pad="0" halign="left" height="10" left_delta="53" mouse_opaque="false"
        name="text_box7" v_pad="0" width="150">        Grid Options</text>
-  <spinner bottom="-60" control_name="GridResolution" decimal_digits="3"
+  <spinner bottom="-60" decimal_digits="3"
 	     follows="left|top" height="16" increment="0.1" initial_val="1"
 	     label="Grid Units (m)" label_width="90" left="21" max_val="5"
 	     min_val="0.01" mouse_opaque="true" name="GridResolution" width="155" />
-	<spinner bottom_delta="-20" control_name="GridDrawSize" decimal_digits="1"
+	<spinner bottom_delta="-20" decimal_digits="1"
 	     follows="left|top" height="16" increment="0.5" initial_val="5"
 	     label="Grid Extents (m)" label_width="90" left_delta="0" max_val="50"
-     min_val="1" mouse_opaque="true" name="GridDrawSize" width="155" />
-  <check_box bottom_delta="-20" control_name="GridSubUnit" follows="left|top"
+       min_val="1" mouse_opaque="true" name="GridDrawSize" width="155" />
+  <check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Sub-Unit Snapping" left_delta="0" mouse_opaque="true"
 	     name="GridSubUnit" width="200" />
-  <check_box bottom_delta="-20" control_name="GridCrossSections" follows="left|top"
+  <check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show Cross Sections" left_delta="0" mouse_opaque="true"
 	     name="GridCrossSection" width="200" />
-	<slider bottom_delta="-20" can_edit_text="false" control_name="GridOpacity"
+	<slider bottom_delta="-20" can_edit_text="false" 
 	     decimal_digits="3" follows="left" height="16" increment="0.05"
 	     initial_val="0.7" label="Grid Opacity" left_delta="0" max_val="1" min_val="0"
 	     mouse_opaque="true" name="GridOpacity" show_text="false" value="0.7"
@@ -53,26 +53,25 @@
   
   <spinner bottom="-200" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="X size" label_width="40" left="20" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="X size" width="110" control_name="BuildPrefs_Xsize"/>
+     mouse_opaque="true" name="X size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Y size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="Y size" width="110" control_name="BuildPrefs_Ysize"/>
+     mouse_opaque="true" name="Y size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Z size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="Z size" width="110" control_name="BuildPrefs_Zsize"/>
+     mouse_opaque="true" name="Z size" width="110" />
   
   <check_box bottom="-200" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Phantom" left="154" mouse_opaque="true" name="PhantomToggle" radio_style="false"
-     width="100" control_name="BuildPrefs_Phantom"/>
+     width="100" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Physical" left_delta="0" mouse_opaque="true" name="PhysicalToggle" radio_style="false"
-     width="100" control_name="BuildPrefs_Physical"/>
+     width="100" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Temporary" left_delta="0" mouse_opaque="true" name="TemporaryToggle" radio_style="false"
-     width="100" control_name="BuildPrefs_Temporary"/>
+     width="100" />
   <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="1" follows="left|top" height="18"
-     left="10" max_chars="20" mouse_opaque="true" name="material" width="87"
-     control_name="BuildPrefs_Material">
+     left="10" max_chars="20" mouse_opaque="true" name="material" width="87">
     <combo_item name="Stone" value="Stone">Stone</combo_item>
     <combo_item name="Metal" value="Metal">Metal</combo_item>
     <combo_item name="Glass" value="Glass">Glass</combo_item>
@@ -84,25 +83,24 @@
   
   <texture_picker allow_no_texture="false" bottom="-265" can_apply_immediately="true" default_image_name="Default"
      follows="left|top" height="80" label="Texture" left="270" mouse_opaque="true"
-     name="texture control" control_name="BuildPrefs_Texture" tool_tip="Click to choose a picture"
+     name="texture control" tool_tip="Click to choose a picture"
      width="64"/>
   <color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom_delta="0" can_apply_immediately="true"
      color="1, 1, 1, 1" follows="left|top" height="80" label="Color" left_delta="75"
-     mouse_opaque="true" name="colorswatch" tool_tip="Click to open Color Picker" width="64"
-     control_name="BuildPrefs_Color"/>
+     mouse_opaque="true" name="colorswatch" tool_tip="Click to open Color Picker" width="64" />
   
   <spinner bottom="-200" decimal_digits="0" follows="left|top" height="16" increment="1"
      label="Alpha" label_width="40" left_delta="70" max_val="100" min_val="0"
-     mouse_opaque="true" name="alpha" width="90" control_name="BuildPrefs_Alpha"/>
+     mouse_opaque="true" name="alpha" width="90" />
   <spinner bottom_delta="-20" enabled="true" decimal_digits="2" follows="left|top" height="16"
      increment="0.05" label="Glow" label_width="40" left_delta="0" max_val="1"
-     min_val="0" mouse_opaque="true" name="glow" width="90" control_name="BuildPrefs_Glow"/>
+     min_val="0" mouse_opaque="true" name="glow" width="90" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Full Bright" left_delta="0" mouse_opaque="true" name="FBToggle" radio_style="false"
-     width="100" control_name="BuildPrefs_FullBright"/>
+     width="100" />
   <combo_box allow_text_entry="false" bottom_delta="-20" follows="left|top" height="18" left_delta="0"
      max_chars="20" mouse_opaque="true" name="combobox shininess" tool_tip="Set the amount of shine for the object"
-     width="90" control_name="BuildPrefs_Shiny">
+     width="90">
     <combo_item name="None" value="None">          None</combo_item>
     <combo_item name="Low" value="Low">          Low</combo_item>
     <combo_item name="Medium" value="Medium">          Medium</combo_item>
@@ -117,14 +115,17 @@
      v_pad="2" width="400">        Drop an inventory item here to have it added to the prim contents.</text>
   <view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="0"
      mouse_opaque="false" name="build_item_add_disp_rect" width="400"/>
+  <button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
+     label="Clear Item" left_delta="405" mouse_opaque="true"
+     name="btn_clear" scale_image="true" width="90" />
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom_delta="0"
      drop_shadow_visible="true" follows="left|top" font="SansSerifSmall" h_pad="0" halign="center"
-     height="16" left_delta="0" mouse_opaque="true" name="build_item_add_disp_rect_txt" tool_tip=""
+     height="16" left="14" mouse_opaque="true" name="build_item_add_disp_rect_txt" tool_tip=""
      v_pad="2" width="400">        Currently set to: ITEM</text>
   <check_box name="BuildPrefsEmbedItem" bottom_delta="-25" enabled="true" 
      follows="left|top" font="SansSerifSmall" height="16"
      initial_value="false" label="Embed an item into the newly created object" left_delta="0"
-     mouse_opaque="true" control_name="BuildPrefs_EmbedItem" radio_style="false" width="270"/>
+     mouse_opaque="true" radio_style="false" width="270" />
   
   <view_border bevel_style="none" border_thickness="1" bottom="-145" follows="top|left" height="105"
      left="198" name="PivotBorder" width="135"/>
@@ -134,28 +135,41 @@
      name="text_box6" v_pad="0" width="150">        Pivot Point</text>
   <spinner bottom_delta="-25" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="X pos" label_width="40" left_delta="-28" mouse_opaque="true" max_val="256"
-     min_val="-256" name="X pos" width="120" control_name="BuildPrefs_PivotX"/>
+     min_val="-256" name="X pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Y pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
-     min_val="-256" name="Y pos" width="120" control_name="BuildPrefs_PivotY"/>
+     min_val="-256" name="Y pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Z pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
-     min_val="-256" name="Z pos" width="120" control_name="BuildPrefs_PivotZ"/>
+     min_val="-256" name="Z pos" width="120" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Values are percent" left_delta="-5" mouse_opaque="true" tool_tip="Default settings are Percentages and every axis set at 50"
-     name="PivotPercToggle" radio_style="false" width="100" control_name="BuildPrefs_PivotIsPercent"/>
+     name="PivotPercToggle" radio_style="false" width="100" />
   
   <check_box bottom_delta="60" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
 					 initial_value="true" label="Highlight selected prims" left_delta="143"
-					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" control_name="RenderHighlightSelections"
+					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" 
 					 radio_style="false" width="270"/>
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      initial_value="false" label="Show axis on root prim" left_delta="0"
      mouse_opaque="true" tool_tip="Default behaviour is to show the axis on the center of mass of a linkset. If enabled, the axis will be shown on the root prim of the linkset instead."
-     name="BuildPrefsActualRoot_toggle" control_name="BuildPrefs_ActualRoot"
-     radio_style="false" width="270"/>
+     name="BuildPrefsActualRoot_toggle" radio_style="false" width="270" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Rez objects using land group" left_delta="0" mouse_opaque="true"
      tooltip="Rez objects on group land using the land's group (if possible)" 
-     name="grouplandrez" radio_style="false" width="270" control_name="RezWithLandGroup"/>
+     name="grouplandrez" radio_style="false" width="270" />
+
+  <button bottom="2" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" label="Cancel" right="-4" 
+       mouse_opaque="true" name="btn_cancel" scale_image="true" width="90" />
+  <button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
+       halign="center" height="20" label="Apply" left_delta="-93"
+       mouse_opaque="true" name="btn_apply" scale_image="true" width="90" />
+  <button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
+       halign="center" height="20" label="OK" left_delta="-93"
+       mouse_opaque="true" name="btn_ok" scale_image="true" width="90" />
+  <button bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" label="Reset to Defaults"
+	     left="2" mouse_opaque="true" name="btn_reset" scale_image="true"
+	     width="160" />
 </floater>
