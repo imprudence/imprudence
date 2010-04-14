@@ -458,6 +458,15 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llHTTPResponse", NULL, "kis", "llHTTPResponse(key id, integer status, string body)\nResponds to request id with status and body."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetHTTPHeader", "s", "ks", "string llGetHTTPHeader(key id, string header)\nGet the value for header for request id."));
 
+	// Prim media functions and those added in SL server 1.38 -- MC
+	addFunction(new LLScriptLibraryFunction(10.f, 1.0f, dummy_func, "llSetPrimMediaParams", "i", "il", "llSetPrimMediaParams(integer face, list params)\nSets the media params for a particular face on an object. If media is not already on this object, add it.\nList is a set of name/value pairs in no particular order.  Params not specified are unchanged, or if new media is added then set to the default specified.\nThe possible names are below, along with the types of values and what they mean."));
+	addFunction(new LLScriptLibraryFunction(10.f, 1.0f, dummy_func, "llGetPrimMediaParams", "l", "il", "list llGetPrimMediaParams(integer face, list params)\nReturns the media params for a particular face on an object, given the desired list of names, in the order requested.\n(Returns an empty list if no media exists on the face.)"));
+	addFunction(new LLScriptLibraryFunction(10.f, 1.0f, dummy_func, "llClearPrimMedia", "i", "i", "llClearPrimMedia(integer face)\nClears (deletes) the media and all params from the given face."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetLinkPrimitiveParamsFast", NULL, "il", "llSetLinkPrimitiveParamsFast(integer linknumber, list rules);\nIdentical to llSetLinkPrimitiveParams except with no script delay."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetLinkPrimitiveParams", NULL, "il", "list llGetLinkPrimitiveParams(integer link, list params)\nSimilar to llGetPrimitiveParams except works for any prim in the link set and with no script delay."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llLinkParticleSystem", NULL, "il", "llLinkParticleSystem(integer link, list params)\nSimilar to llParticleSystem except works for any prim in the link set."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetLinkTextureAnim", NULL, "iiiiifff", "llSetLinkTextureAnim(integer link, integer mode, integer face, integer sizex, integer sizey, float start, float length, float rate);\nSimilar to llSetTextureAnim except works for any prim in the link set"));
+
 	// energy, sleep, dummy_func, name, return type, parameters, help text, gods-only
 
 	// IF YOU ADD NEW SCRIPT CALLS, YOU MUST PUT THEM AT THE END OF THIS LIST.
