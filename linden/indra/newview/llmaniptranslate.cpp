@@ -66,6 +66,8 @@
 #include "llui.h"
 #include "pipeline.h"
 
+#include "hippoLimits.h"
+
 const S32 NUM_AXES = 3;
 const S32 MOUSE_DRAG_SLOP = 2;       // pixels
 const F32 HANDLE_HIDE_ANGLE = 0.15f; // radians
@@ -731,9 +733,10 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 				}
 
 				// For safety, cap heights where objects can be dragged
-				if (new_position_global.mdV[VZ] > MAX_OBJECT_Z)
+				float maxHeight = gHippoLimits->getMaxHeight();
+				if (new_position_global.mdV[VZ] > maxHeight)
 				{
-					new_position_global.mdV[VZ] = MAX_OBJECT_Z;
+					new_position_global.mdV[VZ] = maxHeight;
 				}
 
 				// Grass is always drawn on the ground, so clamp its position to the ground

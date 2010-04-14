@@ -1753,6 +1753,7 @@ void LLVoiceClient::stateMachine()
 					else
 					{
 						LL_INFOS("Voice") << exe_path << " not found." << LL_ENDL;
+						mVoiceEnabled = false;
 					}	
 				}
 				else
@@ -1856,7 +1857,7 @@ void LLVoiceClient::stateMachine()
 				// We never started up the connector.  This will shut down the daemon.
 				setState(stateConnectorStopped);
 			}
-			else if(!mAccountName.empty())
+			else if(!mAccountName.empty() && mVoiceEnabled)
 			{
 				LLViewerRegion *region = gAgent.getRegion();
 				
@@ -1872,7 +1873,7 @@ void LLVoiceClient::stateMachine()
 					}
 					else
 					{
-						LL_WARNS("Voice") << "region doesn't have ProvisionVoiceAccountRequest capability!" << LL_ENDL;
+						LL_DEBUGS("Voice") << "region doesn't have ProvisionVoiceAccountRequest capability!" << LL_ENDL;
 					}
 				}
 			}

@@ -138,6 +138,8 @@
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
+#include "hippoLimits.h"
+
 #include <boost/tokenizer.hpp>
 #include <boost/regex.hpp> // Boost Reg Expresions
 
@@ -654,7 +656,7 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 	if(option == 0 && !group_id.isNull())
 	{
 		// check for promotion or demotion.
-		S32 max_groups = MAX_AGENT_GROUPS;
+		S32 max_groups = gHippoLimits->getMaxAgentGroups();
 		if(gAgent.isInGroup(group_id)) ++max_groups;
 
 		if(gAgent.mGroups.count() < max_groups)
@@ -3313,10 +3315,6 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	// appropriate.
 	LLVector3 shift_vector = regionp->getPosRegionFromGlobal(
 		gAgent.getRegion()->getOriginGlobal());
-	// don't shift objects, if teleporting more than about 1000 sims, as
-	// for long teleports shifting objects garbles the view at the target region
-	if (shift_vector.lengthSquared() > 6.5e10f)
-		shift_vector = LLVector3::zero;
 	gAgent.setRegion(regionp);
 	gObjectList.shiftObjects(shift_vector);
 	gAssetStorage->setUpstream(msg->getSender());
@@ -3442,15 +3440,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		LLSD payload;
 		payload["message"] = version_channel;
 		LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
-	}
-
-	if (version_channel.find("OpenSim") != std::string::npos)
-	{
-		gSavedSettings.setBOOL("LoggedIntoOpenSim", TRUE);
-	}
-	else
-	{
-		gSavedSettings.setBOOL("LoggedIntoOpenSim", FALSE);
+		gHippoLimits->setLimits();
 	}
 
 	gLastVersionChannel = version_channel;

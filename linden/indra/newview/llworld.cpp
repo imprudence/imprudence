@@ -60,6 +60,7 @@
 #include "pipeline.h"
 #include "llappviewer.h"		// for do_disconnect()
 
+#include "hippoLimits.h"
 //
 // Globals
 //
@@ -128,6 +129,10 @@ void LLWorld::destroyClass()
 	LLViewerPartSim::getInstance()->destroyClass();
 }
 
+F32	LLWorld::getRegionMaxHeight() const
+{
+	return gHippoLimits->getMaxHeight();
+}
 
 LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host)
 {

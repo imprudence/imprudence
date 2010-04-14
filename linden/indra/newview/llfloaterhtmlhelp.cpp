@@ -54,6 +54,7 @@
 #include "llviewerparcelmedia.h"
 #include "llcombobox.h"
 
+#include "hippoGridManager.h"
 
 LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 {
@@ -454,22 +455,18 @@ void LLFloaterHtmlHelp::show(std::string url, std::string title)
 	LLFloaterHtml* floater_html = LLFloaterHtml::getInstance();
 	floater_html->setVisible(FALSE);
 	
-	if (url.empty())
-	{
-		url = floater_html->getSupportUrl();
-	}
-
-	if (gSavedSettings.getBOOL("UseExternalBrowser"))
-	{
-        LLSD payload;
-        payload["url"] = url;
-		
-	    LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);	    
-	}
-	else
-	{
-	    // don't wait, just do it
-        LLWeb::loadURL(url);
+	url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+	if (!url.empty()) {
+		if (gSavedSettings.getBOOL("UseExternalBrowser")) {
+			LLSD payload;
+			payload["url"] = url;
+			LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);
+		} else {
+			// don't wait, just do it
+			LLWeb::loadURL(url);
+		}
+	} else {
+		LLNotifications::instance().add("NoSupportUrl");
 	}
 }
 
@@ -479,7 +476,12 @@ bool LLFloaterHtmlHelp::onClickF1HelpLoadURL(const LLSD& notification, const LLS
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		LLWeb::loadURL(notification["payload"]["url"].asString());
+		const std::string &url = notification["payload"]["url"].asString();
+		if (!url.empty()) {
+			LLWeb::loadURL(url);
+		} else {
+			llwarns << "Support URL not available." << llendl;
+		}
 	}
 	return false;
 }

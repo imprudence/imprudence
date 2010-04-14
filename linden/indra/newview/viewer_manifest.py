@@ -118,7 +118,7 @@ class ViewerManifest(LLManifest):
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
             self.path("RELEASE_NOTES.txt")
-            self.path("ChangeLog.txt")
+            self.path("ChangeLog.txt", required=False)
             self.end_prefix("../../..")
 
         # From the linden directory
