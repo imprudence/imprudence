@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -71,6 +71,8 @@
 #else
 #include "boost/lexical_cast.hpp"
 #endif
+
+#include "hippoGridManager.h"
 
 //---------------------------------------------------------------------------
 // LLPanelDirFindAll - Google search appliance based search
@@ -248,7 +250,15 @@ void LLPanelDirFind::focus()
 
 void LLPanelDirFind::navigateToDefaultPage()
 {
-	std::string start_url = getString("default_search_page");
+	std::string start_url = gSavedSettings.getString("SearchURLDefault");
+	// Note: beware porting stuff like below. We use the web panel in OpenSim as well as Second Life -- MC
+	/*if (gHippoGridManager->getConnectedGrid()->getPlatform() == HippoGridInfo::PLATFORM_SECONDLIFE) {
+		start_url = getString("default_search_page");
+	} else {
+		start_url = gHippoGridManager->getConnectedGrid()->getSearchUrl();
+		start_url += "panel=" + getLabel() + "&";
+	}*/
+
 	BOOL inc_pg = childGetValue("incpg").asBoolean();
 	BOOL inc_mature = childGetValue("incmature").asBoolean();
 	BOOL inc_adult = childGetValue("incadult").asBoolean();
@@ -272,9 +282,10 @@ void LLPanelDirFind::navigateToDefaultPage()
 std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const std::string& collection, 
 										   bool inc_pg, bool inc_mature, bool inc_adult)
 {
-	std::string url = gSavedSettings.getString("SearchURLDefault");
-	if (!search_text.empty())
-	{
+	std::string url;
+	if (search_text.empty()) {
+		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_EMPTY);
+	} else {
 		// Replace spaces with "+" for use by Google search appliance
 		// Yes, this actually works for double-spaces
 		// " foo  bar" becomes "+foo++bar" and works fine. JC
@@ -296,7 +307,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 			"-._~$+!*'()";
 		std::string query = LLURI::escape(search_text_with_plus, allowed);
 
-		url = gSavedSettings.getString("SearchURLQuery");
+		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_QUERY);
 		std::string substring = "[QUERY]";
 		std::string::size_type where = url.find(substring);
 		if (where != std::string::npos)
@@ -321,7 +332,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 // static
 std::string LLPanelDirFind::getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult)
 {
-	std::string url = gSavedSettings.getString("SearchURLSuffix2");
+	std::string url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_TEMPLATE);
 
 	// if the mature checkbox is unchecked, modify query to remove 
 	// terms with given phrase from the result set
@@ -469,3 +480,133 @@ void LLPanelDirFindAllInterface::focus(LLPanelDirFindAll* panel)
 	panel->focus();
 }
 
+//---------------------------------------------------------------------------
+// LLPanelDirFindAllOld - deprecated if new Google search works out. JC
+//---------------------------------------------------------------------------
+
+LLPanelDirFindAllOld::LLPanelDirFindAllOld(const std::string& name, LLFloaterDirectory* floater)
+	:	LLPanelDirBrowser(name, floater)
+{
+	mMinSearchChars = 3;
+}
+
+BOOL LLPanelDirFindAllOld::postBuild()
+{
+	LLPanelDirBrowser::postBuild();
+
+	childSetKeystrokeCallback("name", &LLPanelDirBrowser::onKeystrokeName, this);
+
+	childSetAction("Search", onClickSearch, this);
+	childDisable("Search");
+	setDefaultBtn( "Search" );
+
+	return TRUE;
+}
+
+LLPanelDirFindAllOld::~LLPanelDirFindAllOld()
+{
+	// Children all cleaned up by default view destructor.
+}
+
+// virtual
+void LLPanelDirFindAllOld::draw()
+{
+	updateMaturityCheckbox();
+	LLPanelDirBrowser::draw();
+}
+
+// static
+void LLPanelDirFindAllOld::onCommitScope(LLUICtrl* ctrl, void* data)
+{
+	LLPanelDirFindAllOld* self = (LLPanelDirFindAllOld*)data;
+	self->setFocus(TRUE);
+}
+
+// static
+void LLPanelDirFindAllOld::onClickSearch(void *userdata)
+{
+	LLPanelDirFindAllOld *self = (LLPanelDirFindAllOld *)userdata;
+
+	if (self->childGetValue("name").asString().length() < self->mMinSearchChars)
+	{
+		return;
+	};
+
+	BOOL inc_pg = self->childGetValue("incpg").asBoolean();
+	BOOL inc_mature = self->childGetValue("incmature").asBoolean();
+	BOOL inc_adult = self->childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+
+	self->setupNewSearch();
+
+	// Figure out scope
+	U32 scope = 0x0;
+	scope |= DFQ_PEOPLE;	// people (not just online = 0x01 | 0x02)
+	// places handled below
+	scope |= DFQ_EVENTS;	// events
+	scope |= DFQ_GROUPS;	// groups
+	if (inc_pg)
+	{
+		scope |= DFQ_INC_PG;
+	}
+	if (inc_mature)
+	{
+		scope |= DFQ_INC_MATURE;
+	}
+	if (inc_adult)
+	{
+		scope |= DFQ_INC_ADULT;
+	}
+
+	// send the message
+	LLMessageSystem *msg = gMessageSystem;
+	S32 start_row = 0;
+	sendDirFindQuery(msg, self->mSearchID, self->childGetValue("name").asString(), scope, start_row);
+
+	// Also look up classified ads. JC 12/2005
+	BOOL filter_auto_renew = FALSE;
+	U32 classified_flags = pack_classified_flags_request(filter_auto_renew, inc_pg, inc_mature, inc_adult);
+	msg->newMessage("DirClassifiedQuery");
+	msg->nextBlock("AgentData");
+	msg->addUUID("AgentID", gAgent.getID());
+	msg->addUUID("SessionID", gAgent.getSessionID());
+	msg->nextBlock("QueryData");
+	msg->addUUID("QueryID", self->mSearchID);
+	msg->addString("QueryText", self->childGetValue("name").asString());
+	msg->addU32("QueryFlags", classified_flags);
+	msg->addU32("Category", 0);	// all categories
+	msg->addS32("QueryStart", 0);
+	gAgent.sendReliableMessage();
+
+	// Need to use separate find places query because places are
+	// sent using the more compact DirPlacesReply message.
+	U32 query_flags = DFQ_DWELL_SORT;
+	if (inc_pg)
+	{
+		query_flags |= DFQ_INC_PG;
+	}
+	if (inc_mature)
+	{
+		query_flags |= DFQ_INC_MATURE;
+	}
+	if (inc_adult)
+	{
+		query_flags |= DFQ_INC_ADULT;
+	}
+	msg->newMessage("DirPlacesQuery");
+	msg->nextBlock("AgentData");
+	msg->addUUID("AgentID", gAgent.getID() );
+	msg->addUUID("SessionID", gAgent.getSessionID());
+	msg->nextBlock("QueryData");
+	msg->addUUID("QueryID", self->mSearchID );
+	msg->addString("QueryText", self->childGetValue("name").asString());
+	msg->addU32("QueryFlags", query_flags );
+	msg->addS32("QueryStart", 0 ); // Always get the first 100 when using find ALL
+	msg->addS8("Category", LLParcel::C_ANY);
+	msg->addString("SimName", NULL);
+	gAgent.sendReliableMessage();
+}
