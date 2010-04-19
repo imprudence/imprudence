@@ -122,6 +122,8 @@ BOOL LLFloaterBuildOptions::postBuild()
 	childSetValue("GridDrawSize", gSavedSettings.getF32("GridDrawSize") );
 	childSetValue("GridOpacity", gSavedSettings.getF32("GridOpacity") );
 
+	childSetValue("spinner_decimal", (F32)gSavedSettings.getU32("DecimalsForTools") );
+
 	getChild<LLComboBox>("material")->setCommitCallback(onComboBoxCommit);
 	getChild<LLComboBox>("combobox shininess")->setCommitCallback(onComboBoxCommit);
 
@@ -292,6 +294,8 @@ void LLFloaterBuildOptions::apply()
 	gSavedSettings.setF32("GridResolution", childGetValue("GridResolution").asReal() );
 	gSavedSettings.setF32("GridDrawSize", childGetValue("GridDrawSize").asReal() );
 	gSavedSettings.setF32("GridOpacity", childGetValue("GridOpacity").asReal() );
+
+	gSavedSettings.setU32("DecimalsForTools", childGetValue("spinner_decimal").asReal() );
 }
 
 void LLFloaterBuildOptions::cancel()
@@ -335,6 +339,8 @@ void LLFloaterBuildOptions::reset()
 	childSetValue("GridResolution", gSavedSettings.getControl("GridResolution")->getDefault() );
 	childSetValue("GridDrawSize", gSavedSettings.getControl("GridDrawSize")->getDefault() );
 	childSetValue("GridOpacity", gSavedSettings.getControl("GridOpacity")->getDefault() );
+
+	childSetValue("spinner_decimal", gSavedSettings.getControl("DecimalsForTools")->getDefault() );
 }
 
 void LLFloaterBuildOptions::refresh()

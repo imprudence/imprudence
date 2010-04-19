@@ -158,6 +158,11 @@
      label="Rez objects using land group" left_delta="0" mouse_opaque="true"
      tooltip="Rez objects on group land using the land's group (if possible)" 
      name="grouplandrez" radio_style="false" width="270" />
+  <spinner bottom_delta="-20" decimal_digits="0" 
+     tool_tip="Sets the default decimal precision for move, resize, and rotate" 
+     follows="left|top" height="16" increment="1" initial_val="3"
+     label="Edit object decimal places" label_width="140" left_delta="0" max_val="5"
+     min_val="0" mouse_opaque="true" name="spinner_decimal" width="175" />
 
   <button bottom="2" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Cancel" right="-4" 
