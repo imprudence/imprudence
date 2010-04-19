@@ -29,7 +29,7 @@ linden/indra/newview/cursors_mac/
 linden/LICENSES/
 linden/LICENSE-libraries-*.txt
 linden/libraries/
-linden/indra/newview/app_settings/mozilla-runtime-*/
+linden/indra/newview/app_settings/mozilla*/
 linden/indra/newview/fonts/
 linden/indra/newview/lib/
 linden/indra/newview/dbghelp.dll
