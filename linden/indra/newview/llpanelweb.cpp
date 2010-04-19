@@ -37,6 +37,7 @@
 
 // project includes
 #include "llcheckboxctrl.h"
+#include "hippoGridManager.h"
 #include "llmediamanager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
@@ -100,7 +101,14 @@ BOOL LLPanelWeb::postBuild()
 	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
 	childSetValue("web_proxy_port", gSavedSettings.getS32("BrowserProxyPort"));
 
-	childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQuery")) ;
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQuery")) ;
+	}
+	else
+	{	
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQueryOpenSim")) ;
+	}
 	childSetAction("world_search_reset_default", onClickDefault, this);
 	childSetAction("world_search_clear", onClickClear, this);
 
@@ -124,7 +132,14 @@ void LLPanelWeb::apply()
 	gSavedSettings.setBOOL("BrowserProxyEnabled", childGetValue("web_proxy_enabled"));
 	gSavedSettings.setString("BrowserProxyAddress", childGetValue("web_proxy_editor"));
 	gSavedSettings.setS32("BrowserProxyPort", childGetValue("web_proxy_port"));
-	gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));
+	}
+	else
+	{
+		gSavedSettings.setString("SearchURLQueryOpenSim", childGetValue("world_search_editor"));
+	}
 
 	bool value = childGetValue("use_external_browser").asString() == "external" ? true : false;
 	gSavedSettings.setBOOL("UseExternalBrowser", value);
@@ -217,14 +232,20 @@ void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 void LLPanelWeb::onClickDefault(void* user_data)
 {
 	LLPanelWeb* self = (LLPanelWeb*)user_data;
-	LLControlVariable* controlp = gSavedSettings.getControl("SearchURLQuery");
+	LLControlVariable* controlp = 
+		(gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+		? 
+		gSavedSettings.getControl("SearchURLQuery")
+		:
+		gSavedSettings.getControl("SearchURLQueryOpenSim");
+
 	if (controlp)
 	{
 		self->childSetValue("world_search_editor",controlp->getDefault().asString()) ;
 	}
 	else
 	{
-		llwarns << "SearchURLQuery missing from settings.xml - thats bad!" << llendl;
+		llwarns << "SearchURLQuery or SearchURLQueryOpenSim missing from settings.xml - thats bad!" << llendl;
 	}
 
 }

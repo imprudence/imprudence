@@ -8828,7 +8828,7 @@
     <key>SearchURLDefault</key>
     <map>
       <key>Comment</key>
-      <string>URL to load for empty searches</string>
+      <string>URL to load for empty Second Life searches</string>
       <key>Persist</key>
       <integer>1</integer>
 	  <key>HideFromEditor</key>
@@ -8838,10 +8838,23 @@
       <key>Value</key>
       <string>http://search.secondlife.com/client_search.php?</string>
     </map>
+    <key>SearchURLDefaultOpenSim</key>
+    <map>
+      <key>Comment</key>
+      <string>URL to load for empty OpenSim searches</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>HideFromEditor</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string>http://webi.metaverseink.com/opensim/results.jsp?</string>
+    </map>
     <key>SearchURLQuery</key>
     <map>
       <key>Comment</key>
-      <string>URL to use for searches</string>
+      <string>URL to use for Second Life searches</string>
       <key>Persist</key>
       <integer>1</integer>
 	  <key>HideFromEditor</key>
@@ -8851,10 +8864,23 @@
       <key>Value</key>
       <string>http://search.secondlife.com/client_search.php?q=[QUERY]&amp;s=[COLLECTION]&amp;</string>
     </map>
+    <key>SearchURLQueryOpenSim</key>
+    <map>
+      <key>Comment</key>
+      <string>URL to use for OpenSim searches</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>HideFromEditor</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string>http://webi.metaverseink.com/opensim/results.jsp?query=[QUERY]&amp;vw=os</string>
+    </map>
     <key>SearchURLSuffix2</key>
     <map>
       <key>Comment</key>
-      <string>Parameters added to end of search queries</string>
+      <string>Parameters added to end of Second Life search queries</string>
       <key>Persist</key>
       <integer>1</integer>
 	  <key>HideFromEditor</key>
@@ -8863,6 +8889,19 @@
       <string>String</string>
       <key>Value</key>
       <string>lang=[LANG]&amp;mat=[MATURITY]&amp;t=[TEEN]&amp;region=[REGION]&amp;x=[X]&amp;y=[Y]&amp;z=[Z]&amp;session=[SESSION]</string>
+    </map>
+    <key>SearchURLSuffixOpenSim</key>
+    <map>
+      <key>Comment</key>
+      <string>Parameters added to end of OpenSim search queries</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>HideFromEditor</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string></string>
     </map>
     <key>SelectMovableOnly</key>
     <map>

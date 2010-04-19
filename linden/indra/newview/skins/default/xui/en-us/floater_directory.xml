@@ -82,7 +82,7 @@
 			     font="SansSerif" handle_edit_keys_directly="false" height="18"
 			     label="Search" left_delta="56" max_length="254" mouse_opaque="true"
 			     name="search_editor" select_all_on_focus_received="false"
-			     select_on_focus="false" tab_group="1" tool_tip="Search Second Life"
+			     select_on_focus="false" tab_group="1" tool_tip="Search the web"
 			     width="160" />
 			<button bottom="-26" follows="top|right" font="SansSerifSmall" height="20" label="Back"
 			     left="230" name="back_btn" width="70" />

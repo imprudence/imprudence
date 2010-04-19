@@ -51,7 +51,7 @@ public:
     const std::string& getFirstName()       const;
     const std::string& getLastName()        const;
     const std::string& getAvatarPassword()  const;
-    std::string getSearchUrl(SearchType ty) const;
+    std::string getSearchUrl(SearchType ty, bool is_web) const;
     bool isRenderCompat()                   const;
 
     const std::string& getCurrencySymbol()     const;

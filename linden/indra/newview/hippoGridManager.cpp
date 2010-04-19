@@ -263,22 +263,43 @@ void HippoGridInfo::setDirectoryFee(int fee)
 // ********************************************************************
 // Grid Info
 
-std::string HippoGridInfo::getSearchUrl(SearchType ty) const
+std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 {
-    if ((mPlatform == PLATFORM_SECONDLIFE) || mSearchUrl.empty()) {
-        // Second Life defaults
-        if (ty == SEARCH_ALL_EMPTY) {
-            return gSavedSettings.getString("SearchURLDefault");
-        } else if (ty == SEARCH_ALL_QUERY) {
-            return gSavedSettings.getString("SearchURLQuery");
-        } else if (ty == SEARCH_ALL_TEMPLATE) {
-            return gSavedSettings.getString("SearchURLSuffix2");
-        } else {
-            llinfos << "Illegal search URL type " << ty << llendl;
-            return "";
-        }
-    } else {
-        // OpenSim and other
+	// Don't worry about whether or not mSearchUrl is empty here anymore -- MC
+	if (is_web)
+	{
+		if (mPlatform == PLATFORM_SECONDLIFE) 
+		{
+			// Second Life defaults
+			if (ty == SEARCH_ALL_EMPTY) {
+				return gSavedSettings.getString("SearchURLDefault");
+			} else if (ty == SEARCH_ALL_QUERY) {
+				return gSavedSettings.getString("SearchURLQuery");
+			} else if (ty == SEARCH_ALL_TEMPLATE) {
+				return gSavedSettings.getString("SearchURLSuffix2");
+			} else {
+				llinfos << "Illegal search URL type " << ty << llendl;
+				return "";
+			}
+		}
+		else
+		{
+			// OpenSim and other web search defaults
+			if (ty == SEARCH_ALL_EMPTY) {
+				return gSavedSettings.getString("SearchURLDefaultOpenSim");
+			} else if (ty == SEARCH_ALL_QUERY) {
+				return gSavedSettings.getString("SearchURLQueryOpenSim");
+			} else if (ty == SEARCH_ALL_TEMPLATE) {
+				return gSavedSettings.getString("SearchURLSuffixOpenSim");
+			} else {
+				llinfos << "Illegal search URL type " << ty << llendl;
+				return "";
+			}
+		} 
+	}
+	else 
+	{
+        // Use the old search all
         if (ty == SEARCH_ALL_EMPTY) {
             return (mSearchUrl + "panel=All&");
         } else if (ty == SEARCH_ALL_QUERY) {
