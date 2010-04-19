@@ -1682,7 +1682,7 @@ void LLPanelObject::sendRotation(BOOL btn_down)
 	// Note: must compare before conversion to radians
 	LLVector3 delta = new_rot - mCurEulerDegrees;
 
-	if (delta.magVec() >= 0.0005f)
+	if (delta.magVec() >= 0.0001f)
 	{
 		mCurEulerDegrees = new_rot;
 		new_rot *= DEG_TO_RAD;
@@ -1728,7 +1728,7 @@ void LLPanelObject::sendScale(BOOL btn_down)
 	LLVector3 newscale(mCtrlScaleX->get(), mCtrlScaleY->get(), mCtrlScaleZ->get());
 
 	LLVector3 delta = newscale - mObject->getScale();
-	if (delta.magVec() >= 0.0005f)
+	if (delta.magVec() >= 0.0001f)
 	{
 		// scale changed by more than 1/2 millimeter
 
@@ -1799,7 +1799,7 @@ void LLPanelObject::sendPosition(BOOL btn_down)
 		LLVector3d old_pos_global = mObject->getPositionGlobal();
 		LLVector3d delta = new_pos_global - old_pos_global;
 		// moved more than 1/2 millimeter
-		if (delta.magVec() >= 0.0005f)
+		if (delta.magVec() >= 0.0001f)
 		{			
 			if (mRootObject != mObject)
 			{
