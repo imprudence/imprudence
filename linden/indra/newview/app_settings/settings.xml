@@ -15,6 +15,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>DecimalsForTools</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of decimals for the edit tool position, size and rotation settings (0 to 5)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>3</integer>
+  </map>
   <key>DisableLoginLogoutScreens</key>
   <map>
     <key>Comment</key>
