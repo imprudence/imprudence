@@ -12018,6 +12018,21 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+
+<!-- Begin: Use Serverside Windlight Settings -->
+    <key>UseServersideWindlightSettings</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether or not to use Windlight settings presented by the server.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+<!-- End: Use Serverside Windlight Settings -->
+
     <key>UseStartScreen</key>
     <map>
       <key>Comment</key>

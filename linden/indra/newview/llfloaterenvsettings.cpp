@@ -31,7 +31,6 @@
  */
 
 #include "llviewerprecompiledheaders.h"
-
 #include "llfloaterenvsettings.h"
 
 #include "llfloaterwindlight.h"
@@ -41,7 +40,8 @@
 #include "llcombobox.h"
 #include "llcolorswatch.h"
 #include "llwlanimator.h"
-
+#include "llviewergenericmessage.h"
+#include "meta7windlight.h"
 #include "llwlparamset.h"
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
@@ -87,6 +87,7 @@ void LLFloaterEnvSettings::initCallbacks(void)
 	// WL Top
 	childSetAction("EnvAdvancedSkyButton", onOpenAdvancedSky, NULL);
 	childSetAction("EnvAdvancedWaterButton", onOpenAdvancedWater, NULL);
+	childSetAction("EnvSubmitWindlight", onSubmitWindlight, NULL);
 	childSetAction("EnvUseEstateTimeButton", onUseEstateTime, NULL);
 	childSetAction("EnvSettingsHelpButton", onClickHelp, this);
 }
@@ -284,6 +285,20 @@ void LLFloaterEnvSettings::onOpenAdvancedWater(void* userData)
 	LLFloaterWater::show();
 }
 
+void LLFloaterEnvSettings::onSubmitWindlight(void* userData)
+{
+	Meta7WindlightPacket * wl = new Meta7WindlightPacket();
+
+	LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
+	wl->reflectionWaveletScale.X = param_mgr->mNormalScale.mX;
+	wl->reflectionWaveletScale.Y = param_mgr->mNormalScale.mY;
+	wl->reflectionWaveletScale.Z = param_mgr->mNormalScale.mZ;
+
+	
+	std::vector<std::string> strings;
+	strings.push_back((char*)wl);
+	send_generic_message("Windlight", strings);
+}
 
 void LLFloaterEnvSettings::onUseEstateTime(void* userData)
 {
