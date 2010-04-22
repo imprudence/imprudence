@@ -50,6 +50,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
+	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 
 	return TRUE;
 }
@@ -59,6 +60,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_check"));
+	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 
 	// This is bad bad BAD UI from Emerald, I know. 
 	// If anyone wants to do this better, please do -- MC
