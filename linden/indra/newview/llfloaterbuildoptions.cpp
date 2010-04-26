@@ -326,10 +326,10 @@ void LLFloaterBuildOptions::reset()
 	childSetValue("X size", gSavedPerAccountSettings.getControl("BuildPrefs_Xsize")->getDefault() );
 
 	getChild<LLColorSwatchCtrl>("colorswatch")->set(gSavedPerAccountSettings.getControl("BuildPrefs_Color")->getDefault(), TRUE);
-	getChild<LLTextureCtrl>("texture control")->setImageAssetID(LLUUID(gSavedPerAccountSettings.getControl("BuildPrefs_Texture")->getDefault()) );
+	getChild<LLTextureCtrl>("texture control")->setImageAssetID( (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Texture")->getDefault().asString() );
 
-	mBuildItemUUID = (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Item")->getDefault();
-	mBuildTextureUUID = (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Texture")->getDefault();
+	mBuildItemUUID = (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Item")->getDefault().asString();
+	mBuildTextureUUID = (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Texture")->getDefault().asString();
 
 	childSetValue("BuildPrefsRenderHighlight_toggle", gSavedSettings.getControl("RenderHighlightSelections")->getDefault() );
 	childSetValue("grouplandrez", gSavedSettings.getControl("RezWithLandGroup")->getDefault() );
