@@ -2686,7 +2686,11 @@ void LLAppViewer::removeMarkerFile(bool leave_logout_marker)
 
 //this gets called after we get a packet back from the
 //server saying we are logged out, or if the packet times
-//out
+//out. 
+// Beware of calling this directly as it'll have odd effects
+// due to the Logout feature. You should really use:
+// LLAppViewer::instance()->requestLogout(true);
+// instead. -- MC
 void LLAppViewer::forceQuit()
 { 
 
@@ -3099,7 +3103,7 @@ bool finish_disconnect(const LLSD& notification, const LLSD& response)
 
 	if (1 == option)
 	{
-        LLAppViewer::instance()->forceQuit();
+        LLAppViewer::instance()->requestLogout(true);
 	}
 	return false;
 }
@@ -3107,7 +3111,7 @@ bool finish_disconnect(const LLSD& notification, const LLSD& response)
 // Callback from an early disconnect dialog, force an exit
 bool finish_forced_disconnect(const LLSD& notification, const LLSD& response)
 {
-	LLAppViewer::instance()->forceQuit();
+	LLAppViewer::instance()->requestLogout(true);
 	return false;
 }
 
