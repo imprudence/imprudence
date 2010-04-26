@@ -30,8 +30,10 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
+#include "llvoavatar.h"
 
 #include "lluictrlfactory.h"
 
@@ -49,7 +51,8 @@ BOOL LLPrefsAdvanced::postBuild()
 {
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
-	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
+	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
+	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speedrez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speedrez_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
@@ -61,10 +64,23 @@ void LLPrefsAdvanced::apply()
 {
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
-	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_check"));
+	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speedrez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speedrez_spinner").asReal());
+
+	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
+	if (gSavedSettings.getBOOL("ClothingLayerProtection") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
+	{
+		LLVOAvatar* avatar = gAgent.getAvatarObject();
+		if (avatar)
+		{
+			// Slam pending upload count to "unstick" things
+			bool slam_for_debug = true;
+			avatar->forceBakeAllTextures(slam_for_debug);
+		}
+	}
+	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_broadcast_check"));
 
 	// This is bad bad BAD UI from Emerald, I know. 
 	// If anyone wants to do this better, please do -- MC

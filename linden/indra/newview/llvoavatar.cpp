@@ -3480,7 +3480,10 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				if(!mIsSelf) //don't know your own client ?
 				{
 					new_name = TRUE; //lol or see the last client used 
-					resolveClient(avatar_name_color,client, this);
+					if (gSavedSettings.getBOOL("ShowClientNameTag"))
+					{
+						resolveClient(avatar_name_color,client, this);
+					}
 				}
 				avatar_name_color.setAlpha(alpha);
 				mNameText->setColor(avatar_name_color);
