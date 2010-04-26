@@ -458,8 +458,15 @@ void LLAgent::init()
 //-----------------------------------------------------------------------------
 void LLAgent::cleanup()
 {
-	mInitialized = FALSE;
+	// cleanup wearables
+	for( S32 i = 0; i < WT_COUNT; i++ )
+	{
+		mWearableEntry[ i ].mWearable = NULL;
+		mWearableEntry[ i ].mItemID.setNull();
+	}
 	mWearablesLoaded = FALSE;
+
+	mInitialized = FALSE;
 	mShowAvatar = TRUE;
 
 	setSitCamera(LLUUID::null);
