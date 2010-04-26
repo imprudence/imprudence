@@ -886,6 +886,11 @@ S32 LLTextEditor::getCursorPosFromLocalCoord( S32 local_x, S32 local_y, BOOL rou
 
 void LLTextEditor::setCursor(S32 row, S32 column)
 {
+	// Make sure we're not trying to set the cursor anywhere 
+	// it can't go by always setting the min to 0 -- MC
+	row = (row < 0) ? 0 : row;
+	column = (column < 0) ? 0 : column;
+
 	const llwchar* doc = mWText.c_str();
 	const char CR = 10;
 	while(row--)
