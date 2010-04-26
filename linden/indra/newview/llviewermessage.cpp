@@ -3496,6 +3496,8 @@ void send_agent_update(BOOL force_send, BOOL send_reliable)
 		return;
 	}
 
+	if(gAgent.getPhantom()) return; //Don't want to do this while phantom
+
 	// We have already requested to log out.  Don't send agent updates.
 	if(LLAppViewer::instance()->logoutRequestSent())
 	{
