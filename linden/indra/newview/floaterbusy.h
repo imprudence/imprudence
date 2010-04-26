@@ -85,4 +85,4 @@ private:
 	static void IMAutoResponseItemDrop(LLViewerInventoryItem* item);
 };
 
-#endif FLOATERBUSY_H
+#endif // FLOATERBUSY_H
