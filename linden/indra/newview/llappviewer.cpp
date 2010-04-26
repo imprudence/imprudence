@@ -3161,6 +3161,12 @@ void LLAppViewer::badNetworkHandler()
 	LLAppViewer::handleSyncViewerCrash();
 	LLAppViewer::handleViewerCrash();
 
+	std::string grid_support_msg = "";
+	if (!gHippoGridManager->getCurrentGrid()->getSupportUrl().empty())
+	{
+		grid_support_msg = "\n\nOr visit the gird support page at: \n " 
+			+ gHippoGridManager->getCurrentGrid()->getSupportUrl();
+	}
 	std::ostringstream message;
 	message <<
 		"The viewer has detected mangled network data indicative\n"
@@ -3170,8 +3176,8 @@ void LLAppViewer::badNetworkHandler()
 		"Try uninstalling and reinstalling to see if this resolves \n"
 		"the issue. \n"
 		" \n"
-		"If the problem continues, see the Tech Support FAQ at: \n"
-		"www.secondlife.com/support";
+		"If the problem continues, please report the issue at: \n"
+		"www.imprudenceviewer.org" << grid_support_msg;
 	forceDisconnect(message.str());
 }
 

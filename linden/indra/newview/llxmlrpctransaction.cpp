@@ -416,7 +416,7 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 			default:
 				// Usually this means that there's a problem with the login server,
 				// not with the client.  Direct user to status page.
-				// NOTE: these should really be gHippoGridManager->getCurrentGrid()->getGridNick()
+				// NOTE: these should really be gHippoGridManager->getCurrentGrid()->getGridName()
 				// but apparently that's broken as of 1.3 b2 -- MC
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
@@ -432,7 +432,7 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 {
 	std::string message;
-	std::string uri = "http://secondlife.com/community/support.php";
+	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportUrl();
 	
 	switch (code)
 	{
