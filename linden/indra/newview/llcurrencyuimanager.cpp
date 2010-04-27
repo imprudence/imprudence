@@ -47,6 +47,7 @@
 #include "llxmlrpctransaction.h"
 #include "llviewernetwork.h"
 
+#include "hippoGridManager.h"
 
 const F64 CURRENCY_ESTIMATE_FREQUENCY = 2.0;
 	// how long of a pause in typing a currency buy amount before an
@@ -238,17 +239,11 @@ void LLCurrencyUIManager::Impl::finishCurrencyBuy()
 void LLCurrencyUIManager::Impl::startTransaction(TransactionType type,
 		const char* method, LLXMLRPCValue params)
 {
-	static std::string transactionURI;
-	if (transactionURI.empty())
-	{
-		transactionURI = LLViewerLogin::getInstance()->getHelperURI() + "currency.php";
-	}
-
 	delete mTransaction;
 
 	mTransactionType = type;
 	mTransaction = new LLXMLRPCTransaction(
-		transactionURI,
+		LLViewerLogin::getInstance()->getHelperURI() + "currency.php",
 		method,
 		params,
 		false /* don't use gzip */
@@ -372,6 +367,7 @@ void LLCurrencyUIManager::Impl::updateUI()
 	}
 
 	mPanel.childShow("currency_action");
+	mPanel.childSetTextArg("currency_action", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	LLLineEditor* lindenAmount = mPanel.getChild<LLLineEditor>("currency_amt");
 	if (lindenAmount) 
@@ -478,7 +474,9 @@ void LLCurrencyUIManager::buy(const std::string& buy_msg)
 
 	LLUIString msg = buy_msg;
 	msg.setArg("[LINDENS]", llformat("%d", impl.mUserCurrencyBuy));
+	msg.setArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	msg.setArg("[USD]", llformat("%#.2f", impl.mSiteCurrencyEstimatedCost / 100.0));
+	msg.setArg("[REALCURRENCY]", gHippoGridManager->getConnectedGrid()->getRealCurrencySymbol());
 	LLConfirmationManager::confirm(impl.mSiteConfirm,
 								   msg,
 								   impl,

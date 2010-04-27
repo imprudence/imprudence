@@ -41,7 +41,7 @@
 	     name="show_in_inventory" radio_style="false" width="270" />
   <check_box bottom_delta="-30" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Notify when Linden dollars (L$) spent or received" left="15"
+       label="Notify when [CURRENCY] spent or received" left="15"
        mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"
        width="256" />
 </panel>

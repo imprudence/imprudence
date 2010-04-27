@@ -118,7 +118,7 @@
 			     bottom="-220" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="96"
 			     mouse_opaque="true" name="For Sale: Price L$[PRICE]." v_pad="0" width="226">
-				Price: L$[PRICE] (L$[PRICE_PER_SQM]/sq.m.).
+				Price: [CURRENCY][PRICE] ([CURRENCY][PRICE_PER_SQM]/sq.m.).
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-240" drop_shadow_visible="true" enabled="false" follows="left|top"
@@ -624,7 +624,7 @@ Go to World menu > About Land or select another parcel to show its details.
 			     width="119" />
 			<check_box bottom="-140" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false"
-			     label="Show Place in Search (L$30/week) under" left="14"
+			     label="Show Place in Search ([DIRECTORYFEE]) under" left="14"
 			     mouse_opaque="true" name="ShowDirectoryCheck" radio_style="false"
 			     tool_tip="Let people see this parcel in search results" width="268" />
 			<string name="search_enabled_tooltip">
@@ -991,7 +991,7 @@ Options:
 				</combo_item>
 			</combo_box>
 			<spinner bottom_delta="-20" enabled="false" follows="left|top" height="16" increment="1"
-			     initial_val="10" label="Price in L$:" label_width="120" left="28"
+			     initial_val="10" label="Price in [CURRENCY]:" label_width="120" left="28"
 			     max_val="500" min_val="1" mouse_opaque="true" name="PriceSpin" width="180" />
 			<spinner bottom_delta="-20" enabled="false" follows="left|top" height="16"
 			     increment="0.25" initial_val="1" label="Hours of access:" label_width="120"

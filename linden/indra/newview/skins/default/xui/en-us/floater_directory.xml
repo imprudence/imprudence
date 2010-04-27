@@ -406,7 +406,7 @@
 				None Found.
 			</string>
 			<string name="land_help_text">
-				Land can be bought direct for Linden Dollars (L$) or at auction for either L$ or US$.
+				Land can be bought direct for inworld currency or at auction for either real or inworld currency.
 To buy direct, visit the land and click on the place name in the title bar.
 			</string>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -449,8 +449,8 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" follows="left|top"
 			     bottom="-24" font="SansSerifSmall" halign="left" height="16" left="116" mouse_opaque="true"
 			     name="pricecheck_symbol" width="15">
-				L$
-			</text>
+        [CURRENCY]
+      </text>
 			<check_box bottom_delta="-18" control_name="FindLandArea" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="Area &#8805; " left="56" mouse_opaque="true" name="areacheck"
@@ -476,9 +476,9 @@ To buy direct, visit the land and click on the place name in the title bar.
 				<column label="" name="type" width="-1" />
 				<column dynamicwidth="true" label="Name" name="name" />
 				<column label="Type" name="landtype" width="50" />
-				<column label="L$ Price" name="price" width="65" />
+				<column label="[CURRENCY] Price" name="price" width="65" />
 				<column label="Area" name="area" width="50" />
-				<column label="L$/m²" name="per_meter" width="65" />
+				<column label="[CURRENCY]/m²" name="per_meter" width="65" />
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"

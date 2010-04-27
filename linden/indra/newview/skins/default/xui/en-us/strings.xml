@@ -4,212 +4,221 @@
      For example, the strings used in avatar chat bubbles, and strings 
      that are returned from one component and may appear in many places-->
 <strings>
-	
-	<!-- Login -->
-	<string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>
-	<string name="LoginAuthenticating">Authenticating</string>
-	<string name="LoginMaintenance">Performing account maintenance...</string>
-	<string name="LoginAttempt">Previous login attempt failed. Logging in, attempt [NUMBER]</string>
-	<string name="LoginPrecaching">Loading world...</string>
-	<string name="LoginInitializingBrowser">Initializing embedded web browser...</string>
-	<string name="LoginInitializingMultimedia">Initializing multimedia...</string>
-	<string name="LoginVerifyingCache">Verifying cache files (can take 60-90 seconds)...</string>
-	<string name="LoginProcessingResponse">Processing Response...</string>
-	<string name="LoginInitializingWorld">Initializing World...</string>
-	<string name="LoginDecodingImages">Decoding images...</string>
-	<string name="LoginInitializingQuicktime">Initializing QuickTime...</string>
-	<string name="LoginQuicktimeNotFound">QuickTime not found - unable to initialize.</string>
-	<string name="LoginQuicktimeOK">QuickTime initialized successfully.</string>
-	<string name="LoginWaitingForRegionHandshake">Waiting for region handshake...</string>
-	<string name="LoginConnectingToRegion">Connecting to region...</string>
-	<string name="LoginDownloadingClothing">Downloading clothing...</string>
+
+  <!-- Imprudence-specific strings -->
+  <string name="landmark_created">You created a landmark at</string>
+  <string name="new_home_page">Your new Home Page is</string>
+  <string name="hippo_label_free">free</string>
+  <string name="hippo_label_week">week</string>
+
+  <!-- Login -->
+  <string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>
+  <string name="LoginAuthenticating">Authenticating</string>
+  <string name="LoginMaintenance">Performing account maintenance...</string>
+  <string name="LoginAttempt">Previous login attempt failed. Logging in, attempt [NUMBER]</string>
+  <string name="LoginPrecaching">Loading world...</string>
+  <string name="LoginInitializingBrowser">Initializing embedded web browser...</string>
+  <string name="LoginInitializingMultimedia">Initializing multimedia...</string>
+  <string name="LoginVerifyingCache">Verifying cache files (can take 60-90 seconds)...</string>
+  <string name="LoginProcessingResponse">Processing Response...</string>
+  <string name="LoginInitializingWorld">Initializing World...</string>
+  <string name="LoginDecodingImages">Decoding images...</string>
+  <string name="LoginInitializingQuicktime">Initializing QuickTime...</string>
+  <string name="LoginQuicktimeNotFound">QuickTime not found - unable to initialize.</string>
+  <string name="LoginQuicktimeOK">QuickTime initialized successfully.</string>
+  <string name="LoginWaitingForRegionHandshake">Waiting for region handshake...</string>
+  <string name="LoginConnectingToRegion">Connecting to region...</string>
+  <string name="LoginDownloadingClothing">Downloading clothing...</string>
 
 
-	<!-- Disconnection -->
-	<string name="AgentLostConnection">This region may be experiencing trouble.  Please check your connection to the Internet.</string>
-	
-	
-	<!-- Tooltip, llhoverview.cpp -->
-	<string name="TooltipPerson">Person</string><!-- Object under mouse pointer is an avatar -->
-	<string name="TooltipNoName">(no name)</string> <!-- No name on an object -->
-	<string name="TooltipOwner">Owner:</string> <!-- Owner name follows -->
-	<string name="TooltipPublic">Public</string> <!-- Public permissions on an object -->
-	<string name="TooltipIsGroup">(Group)</string> <!-- The name before this text is that of a group -->
-	<string name="TooltipFlagScript">Script</string>
-	<string name="TooltipFlagPhysics">Physics</string>
-	<string name="TooltipFlagTouch">Touch</string>
-	<string name="TooltipFlagL$">L$</string>
-	<string name="TooltipFlagDropInventory">Drop Inventory</string>
-	<string name="TooltipFlagPhantom">Phantom</string>
-	<string name="TooltipFlagTemporary">Temporary</string>
-	<string name="TooltipFlagRightClickMenu">(Right-click for menu)</string>
-	<string name="TooltipFreeToCopy">Free to copy</string>
-	<string name="TooltipForSaleL$">For Sale: L$[AMOUNT]</string> <!-- L$ version -->
-	<string name="TooltipForSaleMsg">For Sale: [MESSAGE]</string> <!-- Message (RetrievingData) -->
-	<string name="TooltipFlagGroupBuild">Group Build</string>
-	<string name="TooltipFlagNoBuild">No Build</string>
-	<string name="TooltipFlagNoEdit">Group Build</string>
-	<string name="TooltipFlagNotSafe">Not Safe</string><!-- damage area -->
-	<string name="TooltipFlagNoFly">No Fly</string>
-	<string name="TooltipFlagGroupScripts">Group Scripts</string>
-	<string name="TooltipFlagNoScripts">No Scripts</string>
-	<string name="TooltipLand">Land:</string>
-	<string name="TooltipMustSingleDrop">Only a single item can be dragged here</string>	
+  <!-- Disconnection -->
+  <string name="AgentLostConnection">This region may be experiencing trouble.  Please check your connection to the Internet.</string>
 
-	
-	<!-- Indicates that an avatar name or other similar datum is being retrieved. General usage. -->
-	<string name="RetrievingData">Retrieving...</string>
 
-	<string name="ReleaseNotes">Release Notes</string>
+  <!-- Tooltip, llhoverview.cpp -->
+  <string name="TooltipPerson">Person</string>
+  <!-- Object under mouse pointer is an avatar -->
+  <string name="TooltipNoName">(no name)</string>
+  <!-- No name on an object -->
+  <string name="TooltipOwner">Owner:</string>
+  <!-- Owner name follows -->
+  <string name="TooltipPublic">Public</string>
+  <!-- Public permissions on an object -->
+  <string name="TooltipIsGroup">(Group)</string>
+  <!-- The name before this text is that of a group -->
+  <string name="TooltipFlagScript">Script</string>
+  <string name="TooltipFlagPhysics">Physics</string>
+  <string name="TooltipFlagTouch">Touch</string>
+  <string name="TooltipFlagDropInventory">Drop Inventory</string>
+  <string name="TooltipFlagPhantom">Phantom</string>
+  <string name="TooltipFlagTemporary">Temporary</string>
+  <string name="TooltipFlagRightClickMenu">(Right-click for menu)</string>
+  <string name="TooltipFreeToCopy">Free to copy</string>
+  <string name="TooltipForSaleL$">For Sale: [CURRENCY][AMOUNT]</string>
+  <!-- L$ version -->
+  <string name="TooltipForSaleMsg">For Sale: [MESSAGE]</string>
+  <!-- Message (RetrievingData) -->
+  <string name="TooltipFlagGroupBuild">Group Build</string>
+  <string name="TooltipFlagNoBuild">No Build</string>
+  <string name="TooltipFlagNoEdit">Group Build</string>
+  <string name="TooltipFlagNotSafe">Not Safe</string>
+  <!-- damage area -->
+  <string name="TooltipFlagNoFly">No Fly</string>
+  <string name="TooltipFlagGroupScripts">Group Scripts</string>
+  <string name="TooltipFlagNoScripts">No Scripts</string>
+  <string name="TooltipLand">Land:</string>
+  <string name="TooltipMustSingleDrop">Only a single item can be dragged here</string>
 
-	<!-- Indicates something is being loaded. Maybe should be merged with RetrievingData -->
-	<string name="LoadingData">Loading...</string>
-	
-	
-	<!-- namecache -->
-	<!-- Avatar name: text shown for LLUUID::null -->
-	<string name="AvatarNameNobody">(nobody)</string>
-	
-	<!-- Avatar name: text shown while fetching name -->
-	<string name="AvatarNameWaiting">(waiting)</string>
 
-	<!-- Avatar name: text shown as an alternative to AvatarNameFetching, easter egg. -->
-	<string name="AvatarNameHippos">(hippos)</string>
-	
-	<!-- Group name: text shown for LLUUID::null -->
-	<string name="GroupNameNone">(none)</string>
-	
-	<!-- Asset errors. Used in llassetstorage.cpp, translation from error code to error message. -->
-	<string name="AssetErrorNone">No error</string>
-	<string name="AssetErrorRequestFailed">Asset request: failed</string>
-	<string name="AssetErrorNonexistentFile">Asset request: non-existent file</string>
-	<string name="AssetErrorNotInDatabase">Asset request: asset not found in database</string>
-	<string name="AssetErrorEOF">End of file</string>
-	<string name="AssetErrorCannotOpenFile">Cannot open file</string>
-	<string name="AssetErrorFileNotFound">File not found</string>
-	<string name="AssetErrorTCPTimeout">File transfer timeout</string>
-	<string name="AssetErrorCircuitGone">Circuit gone</string>
-	<string name="AssetErrorPriceMismatch">Viewer and server do not agree on price</string>
-	<string name="AssetErrorUnknownStatus">Unknown status</string>
-	
-	<!-- llvoavatar. Displayed in the avatar chat bubble -->
-	<string name="AvatarEditingApparance">(Editing Appearance)</string>
-	<string name="AvatarAway">Away</string>
-	<string name="AvatarBusy">Busy</string>
-	<string name="AvatarMuted">Muted</string>
+  <!-- Indicates that an avatar name or other similar datum is being retrieved. General usage. -->
+  <string name="RetrievingData">Retrieving...</string>
 
-	<!-- animations -->
-	<string name="anim_express_afraid">Afraid</string>
-	<string name="anim_express_anger">Angry</string>
-	<string name="anim_away">Away</string>
-	<string name="anim_backflip">Backflip</string>
-	<string name="anim_express_laugh">Belly Laugh</string>
-	<string name="anim_express_toothsmile">BigSmile</string>
-	<string name="anim_blowkiss">Blow Kiss</string>
-	<string name="anim_express_bored">Bored</string>
-	<string name="anim_bow">Bow</string>
-	<string name="anim_clap">Clap</string>
-	<string name="anim_courtbow">Court Bow</string>
-	<string name="anim_express_cry">Cry</string>
-	<string name="anim_dance1">Dance 1</string>
-	<string name="anim_dance2">Dance 2</string>
-	<string name="anim_dance3">Dance 3</string>
-	<string name="anim_dance4">Dance 4</string>
-	<string name="anim_dance5">Dance 5</string>
-	<string name="anim_dance6">Dance 6</string>
-	<string name="anim_dance7">Dance 7</string>
-	<string name="anim_dance8">Dance 8</string>
-	<string name="anim_express_disdain">Disdain</string>
-	<string name="anim_drink">Drink</string>
-	<string name="anim_express_embarrased">Embarrassed</string>
-	<string name="anim_angry_fingerwag">Finger Wag</string>
-	<string name="anim_fist_pump">Fist Pump</string>
-	<string name="anim_yoga_float">Floating Yoga</string>
-	<string name="anim_express_frown">Frown</string>
-	<string name="anim_impatient">Impatient</string>
-	<string name="anim_jumpforjoy">Jump For Joy</string>
-	<string name="anim_kissmybutt">Kiss My Butt</string>
-	<string name="anim_express_kiss">Kiss</string>
-	<string name="anim_laugh_short">Laugh</string>
-	<string name="anim_musclebeach">Muscle Beach</string>
-	<string name="anim_no_unhappy">No (Unhappy)</string>
-	<string name="anim_no_head">No</string>
-	<string name="anim_nyanya">Nya-nya-nya</string>
-	<string name="anim_punch_onetwo">One-Two Punch</string>
-	<string name="anim_express_open_mouth">Open Mouth</string>
-	<string name="anim_peace">Peace</string>
-	<string name="anim_point_you">Point at Other</string>
-	<string name="anim_point_me">Point at Self</string>
-	<string name="anim_punch_l">Punch Left</string>
-	<string name="anim_punch_r">Punch Right</string>
-	<string name="anim_rps_countdown">RPS count</string>
-	<string name="anim_rps_paper">RPS paper</string>
-	<string name="anim_rps_rock">RPS rock</string>
-	<string name="anim_rps_scissors">RPS scissors</string>
-	<string name="anim_express_repulsed">Repulsed</string>
-	<string name="anim_kick_roundhouse_r">Roundhouse Kick</string>
-	<string name="anim_express_sad">Sad</string>
-	<string name="anim_salute">Salute</string>
-	<string name="anim_shout">Shout</string>
-	<string name="anim_express_shrug">Shrug</string>
-	<string name="anim_express_smile">Smile</string>
-	<string name="anim_smoke_idle">Smoke Idle</string>
-	<string name="anim_smoke_inhale">Smoke Inhale</string>
-	<string name="anim_smoke_throw_down">Smoke Throw Down</string>
-	<string name="anim_express_surprise">Surprise</string>
-	<string name="anim_sword_strike_r">Sword Strike</string>
-	<string name="anim_angry_tantrum">Tantrum</string>
-	<string name="anim_express_tongue_out">TongueOut</string>
-	<string name="anim_hello">Wave</string>
-	<string name="anim_whisper">Whisper</string>
-	<string name="anim_whistle">Whistle</string>
-	<string name="anim_express_wink">Wink</string>
-	<string name="anim_wink_hollywood">Wink (Hollywood)</string>
-	<string name="anim_express_worry">Worry</string>
-	<string name="anim_yes_happy">Yes (Happy)</string>
-	<string name="anim_yes_head">Yes</string>
-	
-	<string name="texture_loading">Loading...</string>
-	<string name="worldmap_offline">Offline</string>
-	
-	<!-- Chat -->
-	<string name="whisper">whispers:</string>
-	<string name="shout">shouts:</string>
-	
-	<!-- Sim Access labels -->
-	<string name="SIM_ACCESS_PG">PG</string>
-	<string name="SIM_ACCESS_MATURE">Mature</string>
-	<string name="SIM_ACCESS_ADULT">Adult</string>
-	<string name="SIM_ACCESS_DOWN">Offline</string>
-	<string name="SIM_ACCESS_MIN">Unknown</string>
-	
-	<!-- For use when we do not have land type back from the server -->
-	<string name="land_type_unknown">(unknown)</string>
-	
-	<!-- Covenant info -->
-	<string name="covenant_never_modified">Last Modified: (never)</string>
-	<string name="covenant_modified">Last Modified: </string>
+  <string name="ReleaseNotes">Release Notes</string>
 
-	<!-- File load/save dialogs -->
-	<string name="all_files">All Files</string>
-	<string name="sound_files">Sounds</string>
-	<string name="animation_files">Animations</string>
-	<string name="image_files">Images</string>
-	<string name="save_file_verb">Save</string>
-	<string name="load_file_verb">Load</string>
-	<string name="targa_image_files">Targa Images</string>
-	<string name="bitmap_image_files">Bitmap Images</string>
-	<string name="avi_movie_file">AVI Movie File</string>
-	<string name="xaf_animation_file">XAF Anim File</string>
-	<string name="xml_file">XML File</string>
-	<string name="dot_raw_file">RAW File</string>
+  <!-- Indicates something is being loaded. Maybe should be merged with RetrievingData -->
+  <string name="LoadingData">Loading...</string>
+
+
+  <!-- namecache -->
+  <!-- Avatar name: text shown for LLUUID::null -->
+  <string name="AvatarNameNobody">(nobody)</string>
+
+  <!-- Avatar name: text shown while fetching name -->
+  <string name="AvatarNameWaiting">(waiting)</string>
+
+  <!-- Avatar name: text shown as an alternative to AvatarNameFetching, easter egg. -->
+  <string name="AvatarNameHippos">(hippos)</string>
+
+  <!-- Group name: text shown for LLUUID::null -->
+  <string name="GroupNameNone">(none)</string>
+
+  <!-- Asset errors. Used in llassetstorage.cpp, translation from error code to error message. -->
+  <string name="AssetErrorNone">No error</string>
+  <string name="AssetErrorRequestFailed">Asset request: failed</string>
+  <string name="AssetErrorNonexistentFile">Asset request: non-existent file</string>
+  <string name="AssetErrorNotInDatabase">Asset request: asset not found in database</string>
+  <string name="AssetErrorEOF">End of file</string>
+  <string name="AssetErrorCannotOpenFile">Cannot open file</string>
+  <string name="AssetErrorFileNotFound">File not found</string>
+  <string name="AssetErrorTCPTimeout">File transfer timeout</string>
+  <string name="AssetErrorCircuitGone">Circuit gone</string>
+  <string name="AssetErrorPriceMismatch">Viewer and server do not agree on price</string>
+  <string name="AssetErrorUnknownStatus">Unknown status</string>
+
+  <!-- llvoavatar. Displayed in the avatar chat bubble -->
+  <string name="AvatarEditingApparance">(Editing Appearance)</string>
+  <string name="AvatarAway">Away</string>
+  <string name="AvatarBusy">Busy</string>
+  <string name="AvatarMuted">Muted</string>
+
+  <!-- animations -->
+  <string name="anim_express_afraid">Afraid</string>
+  <string name="anim_express_anger">Angry</string>
+  <string name="anim_away">Away</string>
+  <string name="anim_backflip">Backflip</string>
+  <string name="anim_express_laugh">Belly Laugh</string>
+  <string name="anim_express_toothsmile">BigSmile</string>
+  <string name="anim_blowkiss">Blow Kiss</string>
+  <string name="anim_express_bored">Bored</string>
+  <string name="anim_bow">Bow</string>
+  <string name="anim_clap">Clap</string>
+  <string name="anim_courtbow">Court Bow</string>
+  <string name="anim_express_cry">Cry</string>
+  <string name="anim_dance1">Dance 1</string>
+  <string name="anim_dance2">Dance 2</string>
+  <string name="anim_dance3">Dance 3</string>
+  <string name="anim_dance4">Dance 4</string>
+  <string name="anim_dance5">Dance 5</string>
+  <string name="anim_dance6">Dance 6</string>
+  <string name="anim_dance7">Dance 7</string>
+  <string name="anim_dance8">Dance 8</string>
+  <string name="anim_express_disdain">Disdain</string>
+  <string name="anim_drink">Drink</string>
+  <string name="anim_express_embarrased">Embarrassed</string>
+  <string name="anim_angry_fingerwag">Finger Wag</string>
+  <string name="anim_fist_pump">Fist Pump</string>
+  <string name="anim_yoga_float">Floating Yoga</string>
+  <string name="anim_express_frown">Frown</string>
+  <string name="anim_impatient">Impatient</string>
+  <string name="anim_jumpforjoy">Jump For Joy</string>
+  <string name="anim_kissmybutt">Kiss My Butt</string>
+  <string name="anim_express_kiss">Kiss</string>
+  <string name="anim_laugh_short">Laugh</string>
+  <string name="anim_musclebeach">Muscle Beach</string>
+  <string name="anim_no_unhappy">No (Unhappy)</string>
+  <string name="anim_no_head">No</string>
+  <string name="anim_nyanya">Nya-nya-nya</string>
+  <string name="anim_punch_onetwo">One-Two Punch</string>
+  <string name="anim_express_open_mouth">Open Mouth</string>
+  <string name="anim_peace">Peace</string>
+  <string name="anim_point_you">Point at Other</string>
+  <string name="anim_point_me">Point at Self</string>
+  <string name="anim_punch_l">Punch Left</string>
+  <string name="anim_punch_r">Punch Right</string>
+  <string name="anim_rps_countdown">RPS count</string>
+  <string name="anim_rps_paper">RPS paper</string>
+  <string name="anim_rps_rock">RPS rock</string>
+  <string name="anim_rps_scissors">RPS scissors</string>
+  <string name="anim_express_repulsed">Repulsed</string>
+  <string name="anim_kick_roundhouse_r">Roundhouse Kick</string>
+  <string name="anim_express_sad">Sad</string>
+  <string name="anim_salute">Salute</string>
+  <string name="anim_shout">Shout</string>
+  <string name="anim_express_shrug">Shrug</string>
+  <string name="anim_express_smile">Smile</string>
+  <string name="anim_smoke_idle">Smoke Idle</string>
+  <string name="anim_smoke_inhale">Smoke Inhale</string>
+  <string name="anim_smoke_throw_down">Smoke Throw Down</string>
+  <string name="anim_express_surprise">Surprise</string>
+  <string name="anim_sword_strike_r">Sword Strike</string>
+  <string name="anim_angry_tantrum">Tantrum</string>
+  <string name="anim_express_tongue_out">TongueOut</string>
+  <string name="anim_hello">Wave</string>
+  <string name="anim_whisper">Whisper</string>
+  <string name="anim_whistle">Whistle</string>
+  <string name="anim_express_wink">Wink</string>
+  <string name="anim_wink_hollywood">Wink (Hollywood)</string>
+  <string name="anim_express_worry">Worry</string>
+  <string name="anim_yes_happy">Yes (Happy)</string>
+  <string name="anim_yes_head">Yes</string>
+
+  <string name="texture_loading">Loading...</string>
+  <string name="worldmap_offline">Offline</string>
+
+  <!-- Chat -->
+  <string name="whisper">whispers:</string>
+  <string name="shout">shouts:</string>
+
+  <!-- Sim Access labels -->
+  <string name="SIM_ACCESS_PG">PG</string>
+  <string name="SIM_ACCESS_MATURE">Mature</string>
+  <string name="SIM_ACCESS_ADULT">Adult</string>
+  <string name="SIM_ACCESS_DOWN">Offline</string>
+  <string name="SIM_ACCESS_MIN">Unknown</string>
+
+  <!-- For use when we do not have land type back from the server -->
+  <string name="land_type_unknown">(unknown)</string>
+
+  <!-- Covenant info -->
+  <string name="covenant_never_modified">Last Modified: (never)</string>
+  <string name="covenant_modified">Last Modified: </string>
+
+  <!-- File load/save dialogs -->
+  <string name="all_files">All Files</string>
+  <string name="sound_files">Sounds</string>
+  <string name="animation_files">Animations</string>
+  <string name="image_files">Images</string>
+  <string name="save_file_verb">Save</string>
+  <string name="load_file_verb">Load</string>
+  <string name="targa_image_files">Targa Images</string>
+  <string name="bitmap_image_files">Bitmap Images</string>
+  <string name="avi_movie_file">AVI Movie File</string>
+  <string name="xaf_animation_file">XAF Anim File</string>
+  <string name="xml_file">XML File</string>
+  <string name="dot_raw_file">RAW File</string>
 	<string name="compressed_image_files">Compressed Images</string>
 	<string name="load_files">Load Files</string>
 	<string name="choose_the_directory">Choose Directory</string>
-
-  <!-- System messages -->
-  <string name="landmark_created">You created a landmark at</string>
-  <string name="new_home_page">Your new Home Page is</string>
 
 </strings>
 

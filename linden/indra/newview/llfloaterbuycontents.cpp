@@ -54,6 +54,8 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
+#include "hippoGridManager.h"
+
 LLFloaterBuyContents* LLFloaterBuyContents::sInstance = NULL;
 
 LLFloaterBuyContents::LLFloaterBuyContents()
@@ -129,6 +131,7 @@ void LLFloaterBuyContents::show(const LLSaleInfo& sale_info)
 	}
 
 	sInstance->childSetTextArg("contains_text", "[NAME]", node->mName);
+	sInstance->childSetTextArg("buy_text", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	sInstance->childSetTextArg("buy_text", "[AMOUNT]", llformat("%d", sale_info.getSalePrice()));
 	sInstance->childSetTextArg("buy_text", "[NAME]", owner_name);
 

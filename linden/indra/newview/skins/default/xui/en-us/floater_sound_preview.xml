@@ -24,6 +24,6 @@
 	     height="20" label="Cancel" label_selected="Cancel" left="200"
 	     mouse_opaque="true" name="cancel_btn" width="90" />
 	<button bottom="-180" follows="left|bottom" font="SansSerif" halign="center"
-	     height="20" label="Upload (L$[AMOUNT])"
+	     height="20" label="Upload ([UPLOADFEE])"
 	     left_delta="-135" mouse_opaque="true" name="ok_btn" width="130" />
 </floater>

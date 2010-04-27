@@ -13,6 +13,7 @@
 #include <llfile.h>
 #include <llhttpclient.h>
 #include <llsdserialize.h>
+#include "lltrans.h"
 #include "llviewercontrol.h"
 #include "llweb.h"
 
@@ -441,14 +442,14 @@ std::string HippoGridInfo::getDirectoryFee() const
 {
     std::string fee;
     formatFee(fee, mDirectoryFee, true);
-    if (fee != "free") fee += "/week";
+	if (fee != LLTrans::getString("hippo_label_free")) fee += "/" + LLTrans::getString("hippo_label_week");
     return fee;
 }
 
 void HippoGridInfo::formatFee(std::string &fee, int cost, bool showFree) const
 {
     if (showFree && (cost == 0)) {
-        fee = "free";
+        fee = LLTrans::getString("hippo_label_free");
     } else {
         fee = llformat("%s%d", getCurrencySymbol().c_str(), cost);
     }

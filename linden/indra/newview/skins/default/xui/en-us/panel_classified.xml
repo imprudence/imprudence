@@ -40,7 +40,7 @@
 	<button bottom="400" follows="left|top" height="20" label="Update" left="30"
 	     name="classified_update_btn" width="70" />
 	<string name="ad_placed_paid">
-		Ad placed: [DATE], Paid L$[AMT] for listing.
+		Ad placed: [DATE], Paid [CURRENCY][AMT] for listing.
 	</string>
 	<string name="update_txt">
 		Update

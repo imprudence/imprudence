@@ -63,6 +63,6 @@ Try saving image as 24 bit Targa (.tga).
 	     left_delta="0" name="temp_check" width="280" tooltip="Sets the asset to be temporary, meaning its free, but in return, only good for a short time before it ceases to exist." />
 	<button bottom="5" follows="bottom|right" height="20" label="Cancel" left="165"
 	     name="cancel_btn" width="125" />
-	<button bottom="5" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
+	<button bottom="5" follows="bottom|left" height="20" label="Upload ([UPLOADFEE])"
 	     left="15" name="ok_btn" width="125" />
 </floater>

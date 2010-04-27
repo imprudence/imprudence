@@ -67,6 +67,8 @@
 #include "pipeline.h"
 #include "lluictrlfactory.h"
 
+#include "hippoGridManager.h"
+
 S32 LLFloaterAnimPreview::sUploadAmount = 10;
 
 const S32 PREVIEW_BORDER_WIDTH = 2;
@@ -162,7 +164,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 
 	childSetCommitCallback("name_form", onCommitName, this);
 
-	childSetLabelArg("ok_btn", "[AMOUNT]", llformat("%d",sUploadAmount));
+	childSetLabelArg("ok_btn", "[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getUploadFee());
 	childSetAction("ok_btn", onBtnOK, this);
 	setDefaultBtn();
 

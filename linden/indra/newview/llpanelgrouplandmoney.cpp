@@ -55,6 +55,8 @@
 #include "llfloaterworldmap.h"
 #include "llviewermessage.h"
 
+#include "hippoGridManager.h"
+
 ////////////////////////////////////////////////////////////////////////////
 
 class LLGroupMoneyTabEventHandler
@@ -528,6 +530,9 @@ void LLPanelGroupLandMoney::activate()
 			mImplementationp->mBeenActivated = true;
 		}
 
+		setLabelArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+		childSetTextArg("group_money_heading", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+
 		//fill in the max contribution
 
 		//This calculation is unfortunately based on
@@ -779,7 +784,9 @@ void LLPanelGroupLandMoney::processPlacesReply(LLMessageSystem* msg, void**)
 	LLPanelGroupLandMoney* selfp = sGroupIDs.getIfThere(group_id);
 	if(!selfp)
 	{
-		llinfos << "Group Panel Land L$ " << group_id << " no longer in existence."
+		llinfos << "Group Panel Land "
+				<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+				<< ' ' << group_id << " no longer in existence."
 				<< llendl;
 		return;
 	}
@@ -1116,7 +1123,9 @@ void LLPanelGroupLandMoney::processGroupAccountDetailsReply(LLMessageSystem* msg
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1287,7 +1296,9 @@ void LLPanelGroupLandMoney::processGroupAccountTransactionsReply(LLMessageSystem
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1428,7 +1439,9 @@ void LLGroupMoneyPlanningTabEventHandler::processReply(LLMessageSystem* msg,
 		text.append("The next stipend day is ");
 		text.append(next_stipend_date);
 		text.append("\n\n");
-		text.append(llformat("%-24sL$%6d\n", "Balance", balance ));
+		text.append(llformat("%-24s%s%6d\n", "Balance",
+			gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str(),
+			balance));
 		text.append(1, '\n');
 	}
 
@@ -1458,7 +1471,9 @@ void LLPanelGroupLandMoney::processGroupAccountSummaryReply(LLMessageSystem* msg
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1470,7 +1485,9 @@ void LLPanelGroupLandMoney::processGroupAccountSummaryReply(LLMessageSystem* msg
 	self = LLGroupMoneyTabEventHandler::sInstanceIDs.getIfThere(request_id);
 	if (!self)
 	{
-		llwarns << "GroupAccountSummary recieved for non-existent group L$ planning tab." << llendl;
+		llwarns << "GroupAccountSummary recieved for non-existent group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " planning tab." << llendl;
 		return;
 	}
 

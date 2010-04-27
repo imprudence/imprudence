@@ -14,6 +14,6 @@
 	     width="280" />
 	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="182"
 	     name="cancel_btn" width="64" />
-	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])" left="31"
+	<button bottom="10" follows="bottom|left" height="20" label="Upload ([UPLOADFEE])" left="31"
 	     name="ok_btn" width="110" />
 </floater>

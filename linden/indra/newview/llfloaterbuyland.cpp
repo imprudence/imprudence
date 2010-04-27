@@ -66,6 +66,8 @@
 #include "llviewernetwork.h"
 #include "roles_constants.h"
 
+#include "hippoGridManager.h"
+
 // NOTE: This is duplicated in lldatamoney.cpp ...
 const F32 GROUP_LAND_BONUS_FACTOR = 1.1f;
 const F64 CURRENCY_ESTIMATE_FREQUENCY = 0.5;
@@ -1024,6 +1026,7 @@ void LLFloaterBuyLandUI::refreshUI()
 			LLStringUtil::format_map_t string_args;
 			string_args["[AMOUNT]"] = llformat("%d", mParcelActualArea);
 			string_args["[AMOUNT2]"] = llformat("%d", mParcelSupportedObjects);
+			string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		
 			childSetText("info_size", getString("meters_supports_object", string_args));
 
@@ -1227,7 +1230,8 @@ void LLFloaterBuyLandUI::refreshUI()
 			
 		childSetText("purchase_action",
 			llformat(
-				"Pay L$ %d to %s for this land",
+				"Pay %s %d to %s for this land",
+				gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str(),
 				mParcelPrice,
 				mParcelSellerName.c_str()
 				));
@@ -1239,6 +1243,7 @@ void LLFloaterBuyLandUI::refreshUI()
 		{
 			LLStringUtil::format_map_t string_args;
 			string_args["[AMOUNT]"] = llformat("%d", mAgentCashBalance);
+			string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 
 			childSetText("currency_reason", getString("have_enough_lindens", string_args));
 		}
@@ -1247,6 +1252,7 @@ void LLFloaterBuyLandUI::refreshUI()
 			LLStringUtil::format_map_t string_args;
 			string_args["[AMOUNT]"] = llformat("%d", mAgentCashBalance);
 			string_args["[AMOUNT2]"] = llformat("%d", mParcelPrice - mAgentCashBalance);
+			string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 			
 			childSetText("currency_reason", getString("not_enough_lindens", string_args));
 
@@ -1257,6 +1263,7 @@ void LLFloaterBuyLandUI::refreshUI()
 		{
 			LLStringUtil::format_map_t string_args;
 			string_args["[AMOUNT]"] = llformat("%d", finalBalance);
+			string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 
 			childSetText("currency_balance", getString("balance_left", string_args));
 
@@ -1265,6 +1272,7 @@ void LLFloaterBuyLandUI::refreshUI()
 		{
 			LLStringUtil::format_map_t string_args;
 			string_args["[AMOUNT]"] = llformat("%d", mParcelPrice - mAgentCashBalance);
+			string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	
 			childSetText("currency_balance", getString("balance_needed", string_args));
 			
@@ -1331,6 +1339,7 @@ void LLFloaterBuyLandUI::startBuyPreConfirm()
 		LLStringUtil::format_map_t string_args;
 		string_args["[AMOUNT]"] = llformat("%d", mCurrency.getAmount());
 		string_args["[AMOUNT2]"] = llformat("%#.2f", mCurrency.getEstimate() / 100.0);
+		string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		
 		action += getString("buy_for_US", string_args);
 	}
@@ -1338,6 +1347,7 @@ void LLFloaterBuyLandUI::startBuyPreConfirm()
 	LLStringUtil::format_map_t string_args;
 	string_args["[AMOUNT]"] = llformat("%d", mParcelPrice);
 	string_args["[SELLER]"] = mParcelSellerName;
+	string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	action += getString("pay_to_for_land", string_args);
 		
 	

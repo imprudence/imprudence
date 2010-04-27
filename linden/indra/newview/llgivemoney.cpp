@@ -52,6 +52,8 @@
 #include "lltransactiontypes.h"
 #include "lluictrlfactory.h"
 
+#include "hippoGridManager.h"
+
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
@@ -111,6 +113,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 
 	childSetAction("fastpay 1",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 1", FALSE);
+	childSetLabelArg("fastpay 1", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 1");
 	mQuickPayInfo[i] = info;
@@ -121,6 +124,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 
 	childSetAction("fastpay 5",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 5", FALSE);
+	childSetLabelArg("fastpay 5", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 5");
 	mQuickPayInfo[i] = info;
@@ -131,6 +135,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 
 	childSetAction("fastpay 10",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 10", FALSE);
+	childSetLabelArg("fastpay 10", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 10");
 	mQuickPayInfo[i] = info;
@@ -141,6 +146,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 
 	childSetAction("fastpay 20",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 20", FALSE);
+	childSetLabelArg("fastpay 20", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 20");
 	mQuickPayInfo[i] = info;
@@ -149,7 +155,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	
 	childSetVisible("amount text", FALSE);	
 	childSetVisible("currency text", FALSE);
-
+	childSetTextArg("currency text", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	std::string last_amount;
 	if(sLastAmount > 0)
@@ -246,7 +252,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			msg->getS32Fast(_PREHASH_ButtonData,_PREHASH_PayButton,pay_button,i);
 			if (pay_button > 0)
 			{
-				std::string button_str = "L$";
+				std::string button_str = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 				button_str += LLResMgr::getInstance()->getMonetaryString( pay_button );
 
 				self->mQuickPayButton[i]->setLabelSelected(button_str);
@@ -267,7 +273,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 		}
 
 		// build a string containing the maximum value and calc nerw button width from it.
-		std::string balance_str = "L$";
+		std::string balance_str = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		balance_str += LLResMgr::getInstance()->getMonetaryString( max_pay_amount );
 		const LLFontGL* font = LLResMgr::getInstance()->getRes(LLFONT_SANSSERIF);
 		S32 new_button_width = font->getWidth( std::string(balance_str));
@@ -329,7 +335,9 @@ void LLFloaterPay::payViaObject(money_callback callback, const LLUUID& object_id
 	LLViewerObject* object = gObjectList.findObject(object_id);
 	if (!object) return;
 	
-	LLFloaterPay *floater = new LLFloaterPay("Give L$", callback, object_id, TRUE);
+	LLFloaterPay *floater = new LLFloaterPay(
+		"Give " + gHippoGridManager->getConnectedGrid()->getCurrencySymbol(),
+		callback, object_id, TRUE);
 	if (!floater) return;
 
 	LLSelectNode* node = floater->mObjectSelection->getFirstRootNode();
@@ -362,7 +370,9 @@ void LLFloaterPay::payDirectly(money_callback callback,
 							   const LLUUID& target_id,
 							   BOOL is_group)
 {
-	LLFloaterPay *floater = new LLFloaterPay("Give L$", callback, target_id, FALSE);
+	LLFloaterPay *floater = new LLFloaterPay(
+		"Give " + gHippoGridManager->getConnectedGrid()->getCurrencySymbol(),
+		callback, target_id, FALSE);
 	if (!floater) return;
 
 	floater->childSetVisible("amount", TRUE);

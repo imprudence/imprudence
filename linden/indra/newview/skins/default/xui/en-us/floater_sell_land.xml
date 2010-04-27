@@ -34,12 +34,12 @@
 		Choose an appropriate price for this land.
 	</text>
 	<text height="16" left="72" name="price_ld" width="20">
-		L$
+		[CURRENCY]
 	</text>
 	<line_editor bottom_delta="0" follows="top|left" height="16" increment="1" initial_val="0"
 	     left_delta="20" max_val="999999999" min_val="0" name="price" width="100" />
 	<text bottom_delta="0" height="16" left_delta="110" name="price_per_m" width="200">
-		(L$[PER_METER] per square meter)
+		([CURRENCY][PER_METER] per square meter)
 	</text>
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_sell_to" width="64" />

@@ -16,7 +16,7 @@
 			Send via email
 		</radio_item>
 		<radio_item bottom="-38" height="16" name="texture">
-      Save to your inventory (L$[AMOUNT])
+      Save to your inventory ([UPLOADFEE])
     </radio_item>
 		<radio_item bottom="-57" height="16" name="local">
 			Save to your hard drive
@@ -30,7 +30,7 @@
 	     name="new_snapshot_btn" width="195" />
 	<button bottom_delta="-22" follows="left|top" height="20" label="Send" left="10"
 	     name="send_btn" width="105" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Save (L$[AMOUNT])" left="10"
+	<button bottom_delta="0" follows="left|top" height="20" label="Save ([UPLOADFEE])" left="10"
 	     name="upload_btn" width="105" />
   <flyout_button bottom_delta="0" follows="left|top" height="20" label="Save" left="10"
        list_position="below" mouse_opaque="true" name="save_btn" tool_tip="Save image to a file"

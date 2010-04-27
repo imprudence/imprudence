@@ -87,6 +87,8 @@
 #include <iomanip>
 
 
+#include "hippoGridManager.h"
+
 //
 // Globals
 //
@@ -669,10 +671,8 @@ void LLStatusBar::creditBalance(S32 credit)
 
 void LLStatusBar::setBalance(S32 balance)
 {
-	std::string money_str = LLResMgr::getInstance()->getMonetaryString( balance );
-	std::string balance_str = "L$";
-	balance_str += money_str;
-	mTextBalance->setText( balance_str );
+	mTextBalance->setText(gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str() +
+		LLResMgr::getInstance()->getMonetaryString(balance));
 
 	if (mBalance && (fabs((F32)(mBalance - balance)) > gSavedSettings.getF32("UISndMoneyChangeThreshold")))
 	{

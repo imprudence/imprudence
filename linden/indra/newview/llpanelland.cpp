@@ -49,6 +49,8 @@
 
 #include "lluictrlfactory.h"
 
+#include "hippoGridManager.h"
+
 LLPanelLandSelectObserver* LLPanelLandInfo::sObserver = NULL;
 LLPanelLandInfo* LLPanelLandInfo::sInstance = NULL;
 
@@ -213,6 +215,7 @@ void LLPanelLandInfo::refresh()
 								   &dwell);
 		if(is_public || (is_for_sale && LLViewerParcelMgr::getInstance()->getParcelSelection()->getWholeParcelSelected()))
 		{
+			childSetTextArg("label_area_price","[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 			childSetTextArg("label_area_price","[PRICE]", llformat("%d",claim_price));
 			childSetTextArg("label_area_price","[AREA]", llformat("%d",area));
 			childSetVisible("label_area_price",true);

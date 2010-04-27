@@ -70,6 +70,8 @@
 #include "roles_constants.h"
 #include "llweb.h"
 
+#include "hippoGridManager.h"
+
 const F32 PARCEL_COLLISION_DRAW_SECS = 1.f;
 
 
@@ -2016,6 +2018,7 @@ void LLViewerParcelMgr::startReleaseLand()
 	// Compute claim price
 	LLSD args;
 	args["AREA"] = llformat("%d",mCurrentParcel->getArea());
+	args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	LLNotifications::instance().add("ReleaseLandWarning", args, LLSD(), releaseAlertCB);
 }
 

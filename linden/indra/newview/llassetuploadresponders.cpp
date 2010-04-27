@@ -63,6 +63,8 @@
 #include "llscrolllistctrl.h"
 #include "llsdserialize.h"
 
+#include "hippoGridManager.h"
+
 // When uploading multiple files, don't display any of them when uploading more than this number.
 static const S32 FILE_COUNT_DISPLAY_THRESHOLD = 5;
 
@@ -227,6 +229,7 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 
 		LLSD args;
 		args["AMOUNT"] = llformat("%d", expected_upload_cost);
+		args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		LLNotifications::instance().add("UploadPayment", args);
 	}
 

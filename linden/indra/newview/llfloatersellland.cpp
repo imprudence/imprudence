@@ -46,6 +46,8 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
+#include "hippoGridManager.h"
+
 // defined in llfloaterland.cpp
 void send_parcel_select_objects(S32 parcel_local_id, S32 return_type,
 								uuid_list_t* return_ids = NULL);
@@ -283,6 +285,8 @@ void LLFloaterSellLandUI::refreshUI()
 
 	childSetText("info_parcel", parcelp->getName());
 	childSetTextArg("info_size", "[AREA]", llformat("%d", mParcelActualArea));
+
+	childSetTextArg("price_ld", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	std::string price_str = childGetValue("price").asString();
 	bool valid_price = false;

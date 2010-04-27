@@ -36,7 +36,9 @@
 #include "lluuid.h"
 #include "lltransactionflags.h"
 #include "lltransactiontypes.h"
- 
+
+#include "../newview/hippoGridManager.h"
+
 const U8 TRANSACTION_FLAGS_NONE = 0;
 const U8 TRANSACTION_FLAG_SOURCE_GROUP = 1;
 const U8 TRANSACTION_FLAG_DEST_GROUP = 2;
@@ -114,7 +116,7 @@ std::string build_transfer_message_to_source(
 	std::ostringstream ostr;
 	if(dest_id.isNull())
 	{
-		ostr << "You paid L$" << amount;
+		ostr << "You paid " << gHippoGridManager->getConnectedGrid()->getCurrencySymbol() << amount;
 		switch(transaction_type)
 		{
 		case TRANS_GROUP_CREATE:
@@ -132,7 +134,7 @@ std::string build_transfer_message_to_source(
 	}
 	else
 	{
-		ostr << "You paid " << dest_name << " L$" << amount;
+		ostr << "You paid " << dest_name << ' ' << gHippoGridManager->getConnectedGrid()->getCurrencySymbol() << amount;
 		append_reason(ostr, transaction_type, description);
 	}
 	ostr << ".";
@@ -160,7 +162,7 @@ std::string build_transfer_message_to_destination(
 		return description;
 	}
 	std::ostringstream ostr;
-	ostr << source_name << " paid you L$" << amount;
+	ostr << source_name << " paid you " << gHippoGridManager->getConnectedGrid()->getCurrencySymbol() << amount;
 	append_reason(ostr, transaction_type, description);
 	ostr << ".";
 	return ostr.str();

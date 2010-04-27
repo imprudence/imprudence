@@ -47,6 +47,8 @@
 #include "llviewerregion.h"
 #include "llregionflags.h"
 
+#include "hippoGridManager.h"
+
 const F32 REQUEST_ITEMS_TIMER =  10.f * 60.f; // 10 minutes
 
 // For DEV-17507, do lazy image loading in llworldmapview.cpp instead,
@@ -790,7 +792,9 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 			case MAP_ITEM_LAND_FOR_SALE: // land for sale
 			case MAP_ITEM_LAND_FOR_SALE_ADULT: // adult land for sale 
 			{
-				new_item.mToolTip = llformat("%d sq. m. L$%d", new_item.mExtra, new_item.mExtra2);
+				new_item.mToolTip = llformat("%d sq. m. %s%d", new_item.mExtra,
+					gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str(),
+					new_item.mExtra2);
 				if (type == MAP_ITEM_LAND_FOR_SALE)
 				{
 					LLWorldMap::getInstance()->mLandForSale.push_back(new_item);

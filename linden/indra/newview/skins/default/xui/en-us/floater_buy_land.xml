@@ -159,7 +159,7 @@ This parcel is 512 sq.m. of land.
 	</text>
 	<text bottom_delta="-25" follows="top|left" height="16" left="72"
 	     name="currency_action" width="90">
-		Buy additional L$
+		Buy additional [CURRENCY]
 	</text>
 	<pad height="0" width="8" />
 	<line_editor bottom_delta="5" follows="top|right" height="16" left="170" name="currency_amt"
@@ -258,10 +258,10 @@ Try selecting a smaller area.
 		You hold [BUYER] sq.m. of land.
 	</string>
 	<string name="pay_to_for_land">
-		Pay L$ [AMOUNT] to [SELLER] for this land
+		Pay [CURRENCY] [AMOUNT] to [SELLER] for this land
 	</string>
 	<string name="buy_for_US">
-		Buy L$ [AMOUNT] for approx. US$ [AMOUNT2],
+		Buy [CURRENCY] [AMOUNT] for approx. US$ [AMOUNT2],
 	</string>
 	<string name="parcel_meters">
 		This parcel is [AMOUNT] sq.m.
@@ -291,21 +291,21 @@ supports [AMOUNT2] objects
 		The group [GROUP] will need sufficient contributed land use credits to cover this parcel before the purchase will complete.
 	</string>
 	<string name="have_enough_lindens">
-		You have L$ [AMOUNT], which is enough to buy this land.
+		You have [CURRENCY] [AMOUNT], which is enough to buy this land.
 	</string>
 	<string name="not_enough_lindens">
-		You have only L$ [AMOUNT], and need L$ [AMOUNT2] more.
+		You have only [CURRENCY] [AMOUNT], and need [CURRENCY] [AMOUNT2] more.
 	</string>
 	<string name="balance_left">
-		After the purchase, you will have L$ [AMOUNT] left.
+		After the purchase, you will have [CURRENCY] [AMOUNT] left.
 	</string>
 	<string name="balance_needed">
-		You need to buy at least L$ [AMOUNT] to afford this land.
+		You need to buy at least [CURRENCY] [AMOUNT] to afford this land.
 	</string>
 	<string name="no_parcel_selected">
 		(no parcel selected)
 	</string>
 	<string name="buy_currency">
-		Buy L$ [LINDENS] for approx. US$ [USD]
+		Buy [CURRENCY] [LINDENS] for approx. US$ [USD]
 	</string>
 </floater>

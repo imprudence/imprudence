@@ -225,6 +225,7 @@
 #include "jcfloater_animation_list.h"
 #include "llfloaterassetbrowser.h"
 
+#include "hippoGridManager.h"
 #include "hippoLimits.h"
 
 using namespace LLVOAvatarDefines;
@@ -665,12 +666,14 @@ void init_menus()
         LLViewerLogin::getInstance()->isInProductionGrid());
 
 	// Assume L$10 for now, the server will tell us the real cost at login
-	const std::string upload_cost("10");
-	gMenuHolder->childSetLabelArg("Upload Image", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Bulk Upload", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("ImportUpload", "[COST]", upload_cost);
+	std::string fee = gHippoGridManager->getConnectedGrid()->getCurrencySymbol() + "10";
+	gMenuHolder->childSetLabelArg("Upload Image", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Upload Sound", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Upload Animation", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Bulk Upload", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("ImportUpload", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Buy and Sell L$...", "[CURRENCY]",
+		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	gAFKMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Away", TRUE);
 	gBusyMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Busy", TRUE);

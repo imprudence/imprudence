@@ -59,6 +59,8 @@
 
 #include "lluictrlfactory.h"
 
+#include "hippoGridManager.h"
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLPropertiesObserver
@@ -164,6 +166,8 @@ LLFloaterProperties::LLFloaterProperties(const std::string& name, const LLRect& 
 		sPropertiesObserver = new LLPropertiesObserver;
 	}
 	sPropertiesObserverCount++;
+
+	childSetTextArg("TextPrice", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	
 	// add the object to the static structure
 	LLUUID key = mItemID ^ mObjectID;

@@ -58,6 +58,8 @@
 #include "llweb.h"
 #include "llsdutil.h"
 
+#include "hippoGridManager.h"
+
 //static
 std::list<LLPanelPlace*> LLPanelPlace::sAllPanels;
 
@@ -311,6 +313,7 @@ void LLPanelPlace::processParcelInfoReply(LLMessageSystem *msg, void **)
 		if (flags & DFQ_FOR_SALE)
 		{
 			LLUIString forsale = self->getString("forsale_text");
+			forsale.setArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 			forsale.setArg("[PRICE]", llformat("%d", sale_price));
 			info_text += forsale;
 		}
