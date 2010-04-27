@@ -116,6 +116,8 @@ public:
 	static void		onUpBtn(void *userdata);
 	static void		onDownBtn(void *userdata);
 
+	virtual BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+
 private:
 	void			updateEditor();
 	void			reportInvalidData();

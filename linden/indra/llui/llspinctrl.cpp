@@ -402,6 +402,18 @@ void LLSpinCtrl::setLabel(const LLStringExplicit& label)
 	}
 }
 
+BOOL LLSpinCtrl::setLabelArg( const std::string& key, const LLStringExplicit& text )
+{
+	if (mLabelBox)
+	{
+		BOOL res = mLabelBox->setTextArg(key, text);
+		reshape(getRect().getWidth(), getRect().getHeight(), FALSE);
+		return res;
+	}
+	return FALSE;
+}
+
+
 void LLSpinCtrl::setAllowEdit(BOOL allow_edit)
 {
 	mEditor->setEnabled(allow_edit);
