@@ -1096,4 +1096,11 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 			The URL you clicked cannot be opened from this web browser.
 		</message>
 	</notify>
+
+  <notify name="NoTextureExportSL" tip="true">
+    <message name="message">
+      Note: To comply with the Second Life Terms of Service, Imprudence did not download any texture files for the exported object(s).
+    </message>
+  </notify>
+
 </notifications>
