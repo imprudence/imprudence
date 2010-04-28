@@ -1,4 +1,31 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.2.2                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2010-04-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Send the correct version number when loading login splash page.
+
+    The viewer now sends the Imprudence version, instead of the
+    version of Second Life it was based on.
+
+    modified:   linden/indra/newview/llpanellogin.cpp
+
+
+	* Object export no longer downloads textures from Second Life.
+
+	  Exporting object textures (or other content) from Second Life
+	  without checking creator is a violation of the Second Life
+	  Policy on Third-Party Viewers and Terms of Service.
+
+    Other grids are not affected.
+
+    modified:   linden/indra/newview/primbackup.cpp
+    modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.2.1                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

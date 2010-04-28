@@ -4,6 +4,29 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.2                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.2.2 is a small maintenance release to attempt to make
+   the viewer compliant with the new Second Life Terms of Service and
+   the Policy on Third Party Viewers.
+
+   Please see the Imprudence 1.2.0 Release Notes for information about
+   the changes in Imprudence 1.2.
+
+
+   CHANGES
+
+     * The object export feature no longer downloads textures from
+       Second Life. Other grids are not affected.
+
+     * The viewer now sends the correct version number when loading
+       login splash page. It now sends the Imprudence version, instead
+       of the version of Second Life it was based on.
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.2.1                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
