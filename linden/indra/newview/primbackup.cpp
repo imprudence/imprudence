@@ -61,6 +61,8 @@
 #include "llappviewer.h" 
 #include "lltransactiontypes.h"
 
+#include "hippoGridManager.h"
+
 #include "primbackup.h" 
 
 #include "llviewerobjectlist.h"
@@ -421,6 +423,15 @@ void primbackup::exportworker(void *userdata)
 		}
 
 		case EXPORT_TEXTURES: {
+			// Exporting object textures (or other content) from Second Life
+			// without checking creator is a violation of the Second Life
+			// Policy on Third-Party Viewers and Terms of Service.
+			if(gHippoGridManager->getConnectedGrid()->isSecondLife())
+			{
+				primbackup::getInstance()->export_state=EXPORT_DONE;
+				return;
+			}
+
 			if(primbackup::getInstance()->m_nexttextureready==false)
 				return;
 
