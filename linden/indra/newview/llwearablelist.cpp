@@ -223,7 +223,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 // Creates a new wearable just like the old_wearable but with data copied over from item
 LLWearable* LLWearableList::createWearableMatchedToInventoryItem( LLWearable* old_wearable, LLViewerInventoryItem* item )
 {
-	lldebugs << "LLWearableList::createWearableMatchedToInventoryItem()" << llendl;
+	LL_DEBUGS("Wearable") << "LLWearableList::createWearableMatchedToInventoryItem()" << LL_ENDL;
 
 	LLTransactionID tid;
 	LLAssetID new_asset_id;
@@ -247,7 +247,7 @@ LLWearable* LLWearableList::createWearableMatchedToInventoryItem( LLWearable* ol
 
 LLWearable* LLWearableList::createCopyFromAvatar( LLWearable* old_wearable, const std::string& new_name )
 {
-	lldebugs << "LLWearableList::createCopyFromAvatar()" << llendl;
+	LL_DEBUGS("Wearable") << "LLWearableList::createCopyFromAvatar()" << LL_ENDL;
 
 	LLTransactionID tid;
 	LLAssetID new_asset_id;
@@ -274,7 +274,7 @@ LLWearable* LLWearableList::createCopyFromAvatar( LLWearable* old_wearable, cons
 
 LLWearable* LLWearableList::createCopy( LLWearable* old_wearable )
 {
-	lldebugs << "LLWearableList::createCopy()" << llendl;
+	LL_DEBUGS("Wearable") << "LLWearableList::createCopy()" << LL_ENDL;
 
 	LLTransactionID tid;
 	LLAssetID new_asset_id;
@@ -296,7 +296,7 @@ LLWearable* LLWearableList::createCopy( LLWearable* old_wearable )
 
 LLWearable* LLWearableList::createNewWearable( EWearableType type )
 {
-	lldebugs << "LLWearableList::createNewWearable()" << llendl;
+	LL_DEBUGS("Wearable") << "LLWearableList::createNewWearable()" << LL_ENDL;
 
 	LLTransactionID tid;
 	LLAssetID new_asset_id;

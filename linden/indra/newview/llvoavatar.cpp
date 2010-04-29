@@ -778,7 +778,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	const bool needsSendToSim = false; // currently, this HUD effect doesn't need to pack and unpack data to do its job
 	mVoiceVisualizer = ( LLVoiceVisualizer *)LLHUDManager::getInstance()->createViewerEffect( LLHUDObject::LL_HUD_EFFECT_VOICE_VISUALIZER, needsSendToSim );
 
-	lldebugs << "LLVOAvatar Constructor (0x" << this << ") id:" << mID << llendl;
+	LL_DEBUGS("VOAvatar") << "Constructor (" << this << ") id:" << mID << LL_ENDL;
 
 	mPelvisp = NULL;
 
@@ -823,7 +823,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	{
 		mIsSelf = TRUE;
 		gAgent.setAvatarObject(this);
-		lldebugs << "Marking avatar as self " << id << llendl;
+		LL_DEBUGS("VOAvatar") << "Marking avatar as self " << id << LL_ENDL;
 	}
 	else
 	{
@@ -1021,11 +1021,15 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 //------------------------------------------------------------------------
 LLVOAvatar::~LLVOAvatar()
 {
-	lldebugs << "LLVOAvatar Destructor (0x" << this << ") id:" << mID << llendl;
+	LL_DEBUGS("VOAvatar") << "Destructor (" << this << ") id:" << mID << LL_ENDL;
 
-	if (mIsSelf)
+	if (this==gAgent.getAvatarObject())
 	{
 		gAgent.setAvatarObject(NULL);
+	}
+	else if (mIsSelf)
+	{
+		LL_DEBUGS("VOAvatar") << "Destructing Zombie from previous session." << LL_ENDL;	
 	}
 
 	mRoot.removeAllChildren();
@@ -1078,7 +1082,7 @@ LLVOAvatar::~LLVOAvatar()
 
 	mAnimationSources.clear();
 
-	lldebugs << "LLVOAvatar Destructor end" << llendl;
+	LL_DEBUGS("VOAvatar") << "Destructor end" << LL_ENDL;
 }
 
 void LLVOAvatar::markDead()
@@ -1475,6 +1479,8 @@ void LLVOAvatar::cleanupClass()
 	sAvatarXmlInfo = NULL;
 	delete sAvatarSkeletonInfo;
 	sAvatarSkeletonInfo = NULL;
+	delete sAvatarDictionary;
+	sAvatarDictionary = NULL;
 	sSkeletonXMLTree.cleanup();
 	sXMLTree.cleanup();
 }
@@ -1923,7 +1929,7 @@ void LLVOAvatar::buildCharacter()
 	}
 
 // 	gPrintMessagesThisFrame = TRUE;
-	lldebugs << "Avatar load took " << timer.getElapsedTimeF32() << " seconds." << llendl;
+	LL_DEBUGS("VOAvatar") << "Avatar load took " << timer.getElapsedTimeF32() << " seconds." << LL_ENDL;
 
 	if ( ! status )
 	{
@@ -2040,6 +2046,7 @@ void LLVOAvatar::buildCharacter()
 		gAttachBodyPartPieMenus[5] = new LLPieMenu(std::string("Left Leg >"));
 		gAttachBodyPartPieMenus[6] = new LLPieMenu(std::string("Torso >"));
 		gAttachBodyPartPieMenus[7] = new LLPieMenu(std::string("Right Leg >"));
+		//gAttachBodyPartPieMenus[8] = NULL;
 
 		gDetachBodyPartPieMenus[0] = NULL;
 		gDetachBodyPartPieMenus[1] = new LLPieMenu(std::string("Right Arm >"));
@@ -2049,8 +2056,9 @@ void LLVOAvatar::buildCharacter()
 		gDetachBodyPartPieMenus[5] = new LLPieMenu(std::string("Left Leg >"));
 		gDetachBodyPartPieMenus[6] = new LLPieMenu(std::string("Torso >"));
 		gDetachBodyPartPieMenus[7] = new LLPieMenu(std::string("Right Leg >"));
+		//gDetachBodyPartPieMenus[8] = NULL;
 
-		for (S32 i = 0; i < 8; i++)
+		for (S32 i = 0; i < 8 ; i++)
 		{
 			if (gAttachBodyPartPieMenus[i])
 			{

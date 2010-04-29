@@ -1365,8 +1365,12 @@ bool LLAppViewer::cleanup()
 
 	// PerAccountSettingsFile should be empty if no use has been logged on.
 	// *FIX:Mani This should get really saved in a "logoff" mode. 
-	gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
-	llinfos << "Saved settings" << llendflush;
+	std::string per_account_settings_filename = gSavedSettings.getString("PerAccountSettingsFile");
+	if (!per_account_settings_filename.empty())
+	{
+		gSavedPerAccountSettings.saveToFile(per_account_settings_filename, TRUE);
+		llinfos << "Saved settings" << llendflush;
+	}
 
 	std::string crash_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
 	// save all settings, even if equals defaults
@@ -3989,7 +3993,7 @@ void LLAppViewer::disconnectViewer()
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();
-
+	cleanup_menus();
 	// Also writes cached agent settings to gSavedSettings
 	gAgent.cleanup();
 
@@ -4000,7 +4004,6 @@ void LLAppViewer::disconnectViewer()
 	// call all self-registered classes
 	LLDestroyClassList::instance().fireCallbacks();
 
-	cleanup_xfer_manager();
 	gDisconnected = TRUE;
 	if (mQuitRequested)
 		cleanup_xfer_manager();

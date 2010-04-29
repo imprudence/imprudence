@@ -692,6 +692,7 @@ BOOL LLViewerParcelMgr::isOwnedAt(const LLVector3d& pos_global) const
 
 BOOL LLViewerParcelMgr::isOwnedSelfAt(const LLVector3d& pos_global) const
 {
+	LL_DEBUGS("isOwnedSelf")<< "LLViewerParcelMgr" << LL_ENDL; 
 	LLViewerRegion* region = LLWorld::getInstance()->getRegionFromPosGlobal( pos_global );
 	if (!region) return FALSE;
 

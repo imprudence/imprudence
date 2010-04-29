@@ -38,6 +38,7 @@
 
 #include "lltexturefetch.h"
 
+#include "llappviewer.h"
 #include "llcurl.h"
 #include "lldir.h"
 #include "llhttpclient.h"
@@ -580,7 +581,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		}
 	}
 	
-	if (mFetcher->mDebugPause)
+	if (mFetcher->mDebugPause|| gDisconnected)
 	{
 		return false; // debug: don't do any work
 	}

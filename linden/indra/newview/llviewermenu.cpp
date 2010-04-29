@@ -1,4 +1,3 @@
-
 /** 
  * @file llviewermenu.cpp
  * @brief Builds menus out of items.
@@ -589,11 +588,6 @@ void set_underclothes_menu_options()
 
 void init_menus()
 {
-	if (gMenuHolder)
-	{
-		cleanup_menus();
-	}
-
 	S32 top = gViewerWindow->getRootView()->getRect().getHeight();
 	S32 width = gViewerWindow->getRootView()->getRect().getWidth();
 
@@ -1554,8 +1548,38 @@ static std::vector<LLPointer<view_listener_t> > sMenus;
 //-----------------------------------------------------------------------------
 void cleanup_menus()
 {
+	LL_DEBUGS("AFK") << "cleanup_menus start" << LL_ENDL;
+	sMenus.clear();
+
 	delete gMenuParcelObserver;
 	gMenuParcelObserver = NULL;
+
+
+	delete gAttachPieMenu;
+	gAttachPieMenu = NULL;
+	
+	delete gDetachPieMenu;
+	gDetachPieMenu = NULL;
+
+	delete gAttachScreenPieMenu;
+	gAttachScreenPieMenu = NULL;
+
+	delete gDetachScreenPieMenu;
+	gDetachScreenPieMenu = NULL;
+
+	for (int i = 0 ; i < 8 ; i++)
+	{
+		if (gAttachBodyPartPieMenus[i])
+		{
+			delete gAttachBodyPartPieMenus[i];
+			gAttachBodyPartPieMenus[i] = NULL;
+		}
+		if (gAttachBodyPartPieMenus[i])
+		{	
+			delete   gDetachBodyPartPieMenus[i];
+			gDetachBodyPartPieMenus[i] = NULL;
+		}
+	}
 
 	delete gPieSelf;
 	gPieSelf = NULL;
@@ -1584,7 +1608,6 @@ void cleanup_menus()
 	delete gMenuHolder;
 	gMenuHolder = NULL;
 
-	sMenus.clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -2767,6 +2790,7 @@ class LLAvatarEnableFreezeEject : public view_listener_t
 						
 			if (new_value)
 			{
+				LL_DEBUGS("isOwnedSelf")<< " viewermenu" << LL_ENDL; 
 				new_value = region->isOwnedSelf(pos);
 				if (!new_value || region->isOwnedGroup(pos))
 				{
@@ -6527,7 +6551,9 @@ class LLAttachmentEnableDrop : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		if (gDisconnected)
+		{
 			return true;
+		}
 		BOOL can_build   = gAgent.isGodlike() || (LLViewerParcelMgr::getInstance()->agentCanBuild());
 
 		//Add an inventory observer to only allow dropping the newly attached item

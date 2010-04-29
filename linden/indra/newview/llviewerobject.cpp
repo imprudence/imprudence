@@ -485,6 +485,7 @@ void LLViewerObject::setNameValueList(const std::string& name_value_list)
 // agent.
 BOOL LLViewerObject::isOverAgentOwnedLand() const
 {
+	LL_DEBUGS("isOwnedSelf")<< " LLViewerObject::isOverAgentOwnedLand()" << LL_ENDL; 
 	return mRegionp
 		&& mRegionp->getParcelOverlay()
 		&& mRegionp->getParcelOverlay()->isOwnedSelf(getPositionRegion());
