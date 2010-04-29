@@ -7,10 +7,10 @@
 
 	* Send the correct version number when loading login splash page.
 
-    The viewer now sends the Imprudence version, instead of the
-    version of Second Life it was based on.
+	  The viewer now sends the Imprudence version, instead of the
+	  version of Second Life it was based on.
 
-    modified:   linden/indra/newview/llpanellogin.cpp
+	  modified:   linden/indra/newview/llpanellogin.cpp
 
 
 	* Object export no longer downloads textures from Second Life.
@@ -19,10 +19,32 @@
 	  without checking creator is a violation of the Second Life
 	  Policy on Third-Party Viewers and Terms of Service.
 
-    Other grids are not affected.
+	  Other grids are not affected.
 
-    modified:   linden/indra/newview/primbackup.cpp
-    modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+	  modified:   linden/indra/newview/primbackup.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+
+
+2010-01-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Several changes to work better on 64bit Linux.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/LLWindow.cmake
+	  modified:   linden/indra/develop.py
+	  modified:   linden/indra/newview/linux_tools/wrapper.sh
+	  modified:   linden/indra/newview/llappviewerlinux.cpp
+	  modified:   linden/indra/newview/llfilepicker.cpp
+	  modified:   linden/indra/newview/llviewermedia.cpp
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
+2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Downgraded Linux boost to 1.36.0.
+
+	  modified:   linden/install.xml
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
