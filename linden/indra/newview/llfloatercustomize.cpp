@@ -1230,13 +1230,19 @@ void LLScrollingPanelParam::onSliderMoved(LLUICtrl* ctrl, void* userdata)
 		LLFloaterCustomize* floater_customize = gFloaterCustomize;
 		if (!floater_customize) return;
 
-		//avatar height stuff -Patrick Sapinski (Wednesday, August 19, 2009)
+		//avatar height stuff
+		// Use the values in SNOW-197 as they seem more accurate -- MC
 		LLVOAvatar* avatar = gAgent.getAvatarObject();
-		F32 avatar_size = (avatar->mBodySize.mV[VZ]) + (F32)0.17; //mBodySize is actually quite a bit off.
+		//mBodySize is actually quite a bit off.
+		F32 avatar_size = (avatar->mBodySize.mV[VZ]) + (F32)0.195;
+		int inches = (int)(avatar_size / .0254f); 
+		int feet = inches / 12; 
+		inches %= 12; 
 		
-		floater_customize->getChild<LLTextBox>("HeightText")->setValue(llformat("%.2f", avatar_size) + "m");
-		floater_customize->getChild<LLTextBox>("HeightText2")->setValue(llformat("%.2f",llround(avatar_size / 0.3048)) + "'"
-																	  + llformat("%.2f",llround(avatar_size * 39.37) % 12) + "\"");
+		floater_customize->getChild<LLTextBox>("HeightText")->\
+			setValue(llformat("%.2f", avatar_size) + "m");
+		floater_customize->getChild<LLTextBox>("HeightText2")->\
+			setValue(llformat("%.2f' %.2f\"", feet, inches));
 
 		gAgent.getAvatarObject()->setVisualParamWeight( param, new_weight, FALSE);
 		gAgent.getAvatarObject()->updateVisualParams();

@@ -1115,24 +1115,29 @@ scratch and wear it.
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom="-400" drop_shadow_visible="true" follows="left|top"
      font="SansSerif" h_pad="0" halign="left" height="16"
-     left="8" mouse_opaque="true" name="AvatarHeightText" v_pad="0" width="140">
+     left="4" mouse_opaque="true" name="AvatarHeightText" v_pad="0" width="140">
     Avatar Height:
   </text>
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
      font="SansSerif" h_pad="0" halign="left" height="16"
-     left="8" mouse_opaque="true" name="HeightText" v_pad="0" width="140">
+     left="4" mouse_opaque="true" name="HeightText" v_pad="0" width="140">
     Avatar Height
   </text>
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
    bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
    font="SansSerif" h_pad="0" halign="left" height="16"
-   left="8" mouse_opaque="true" name="HeightText2" v_pad="0" width="140">
+   left="4" mouse_opaque="true" name="HeightText2" v_pad="0" width="140">
     Avatar Height2
   </text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom_delta="-18" drop_shadow_visible="true" follows="right|bottom"
+         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+         mouse_opaque="true" name="includes_shoes" v_pad="0" width="150">
+    (includes shoes)
+  </text>
 
-
-  <button name="Import" label="Import"
+    <button name="Import" label="Import"
           bottom="-536" left="10" height="20" width="70"
           follows="right|bottom" font="SansSerif" halign="center" />
 
