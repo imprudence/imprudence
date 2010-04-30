@@ -1153,6 +1153,7 @@ void LLPanelFace::onCommitPlanarAlign(LLUICtrl* ctrl, void* userdata)
 {
 	LLPanelFace* self = (LLPanelFace*) userdata;
 	self->getState();
+	self->sendTextureInfo();
 }
 
 // static
