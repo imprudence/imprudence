@@ -92,7 +92,7 @@
       <text bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="true" bottom_delta="0" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" height="48" left="264"
-			     mouse_opaque="false" name="acct" width="121" />
+			     mouse_opaque="false" name="acct" width="400" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
@@ -209,12 +209,12 @@
 		     label="Interests" left="1" mouse_opaque="true" name="Interests" width="418">
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-36" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
 			     mouse_opaque="true" name="I Want To:" v_pad="0" width="70">
         I Want To:
       </text>
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Build" left_delta="70" mouse_opaque="true"
+			     initial_value="false" label="Build" left_delta="76" mouse_opaque="true"
 			     name="chk0" width="90" />
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Explore" left_delta="170" mouse_opaque="true"
@@ -239,17 +239,17 @@
 			     name="chk7" width="92" />
       <line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
-			     font="SansSerifSmall" height="16" is_unicode="false" left="74"
+			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="want_to_edit"
 			     width="330" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-26" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
 			     mouse_opaque="true" name="Skills:" v_pad="0" width="70">
         Skills:
       </text>
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Textures" left_delta="70" mouse_opaque="true"
+			     initial_value="false" label="Textures" left_delta="76" mouse_opaque="true"
 			     name="schk0" width="90" />
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Architecture" left_delta="170"
@@ -268,18 +268,18 @@
 			     mouse_opaque="true" name="schk5" width="127" />
       <line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
-			     font="SansSerifSmall" height="16" is_unicode="false" left="74"
+			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="skills_edit"
 			     width="330" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-30" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
 			     mouse_opaque="true" name="Languages:" v_pad="0" width="70">
         Languages:
       </text>
       <line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom_delta="0" enabled="true" follows="left|top"
-			     font="SansSerifSmall" height="16" is_unicode="false" left="74"
+			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="languages_edit"
 			     width="330" />
     </panel>
@@ -291,7 +291,7 @@
 			     mouse_opaque="true"
 			     name="Tell everyone about your favorite places in Second Life." v_pad="0"
 			     width="302">
-        Tell everyone about your favorite places in Second Life.
+        Tell everyone about your favorite places.
       </text>
       <button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="New..." label_selected="New..." left="114"
@@ -299,7 +299,7 @@
       <button bottom="-44" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Delete..." label_selected="Delete..." left_delta="79"
 			     mouse_opaque="true" name="Delete..." width="75" />
-      <tab_container bottom="-411" follows="left|top" height="363" left="12" mouse_opaque="false"
+      <tab_container bottom="-411" follows="left|top" height="363" left="2" mouse_opaque="false"
 			     name="picks tab" tab_position="left" width="412" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"
@@ -317,7 +317,7 @@
 			     mouse_opaque="true"
 			     name="Place an ad in Second Life&apos;s classified listings." v_pad="0"
 			     width="302">
-        Place an ad in Second Life&apos;s classified listings.
+        Place an ad in the current grid&apos;s classified listings.
       </text>
       <button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="New..." label_selected="New..." left="114"
@@ -325,7 +325,7 @@
       <button bottom="-44" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Delete..." label_selected="Delete..." left_delta="79"
 			     mouse_opaque="true" name="Delete..." width="75" />
-      <tab_container bottom="-443" follows="left|top" height="395" left="12" mouse_opaque="false"
+      <tab_container bottom="-443" follows="left|top" height="395" left="2" mouse_opaque="false"
 			     name="classified tab" tab_position="left" width="412" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"

@@ -17,7 +17,7 @@
 	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
 	     left="10" name="set_location_btn" width="120" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Teleport"
-	     left_delta="120" name="classified_teleport_btn" width="90" />
+	     left_delta="110" name="classified_teleport_btn" width="90" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Map" left_delta="90"
 	     name="classified_map_btn" width="80" />
 	<combo_box bottom_delta="-27" follows="left|top" height="18" label="" left="10"
