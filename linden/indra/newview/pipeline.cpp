@@ -1833,11 +1833,12 @@ void LLPipeline::markRebuild(LLDrawable *drawablep, LLDrawable::EDrawableFlags f
 void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 {
 	const U32 face_mask = (1 << LLPipeline::RENDER_TYPE_AVATAR) |
-						  (1 << LLPipeline::RENDER_TYPE_GROUND) |
-						  (1 << LLPipeline::RENDER_TYPE_TERRAIN) |
-						  (1 << LLPipeline::RENDER_TYPE_TREE) |
-						  (1 << LLPipeline::RENDER_TYPE_SKY) |
-						  (1 << LLPipeline::RENDER_TYPE_WATER);
+	                      (1 << LLPipeline::RENDER_TYPE_GROUND) |
+	                      (1 << LLPipeline::RENDER_TYPE_TERRAIN) |
+	                      (1 << LLPipeline::RENDER_TYPE_TREE) |
+	                      (1 << LLPipeline::RENDER_TYPE_SKY) |
+	                      (1 << LLPipeline::RENDER_TYPE_VOIDWATER) |
+	                      (1 << LLPipeline::RENDER_TYPE_WATER);
 
 	if (mRenderTypeMask & face_mask)
 	{
@@ -4436,6 +4437,11 @@ void LLPipeline::toggleRenderType(U32 type)
 {
 	U32 bit = (1<<type);
 	gPipeline.mRenderTypeMask ^= bit;
+	if (type == RENDER_TYPE_WATER)
+	{
+		bit = (1 << RENDER_TYPE_VOIDWATER);
+		gPipeline.mRenderTypeMask ^= bit;
+	}
 }
 
 //static
@@ -5744,18 +5750,19 @@ void LLPipeline::renderDeferredLighting()
 		LLGLDisable stencil(GL_STENCIL_TEST);
 
 		U32 render_mask = mRenderTypeMask;
-		mRenderTypeMask =	mRenderTypeMask & 
-							((1 << LLPipeline::RENDER_TYPE_SKY) |
-							(1 << LLPipeline::RENDER_TYPE_CLOUDS) |
-							(1 << LLPipeline::RENDER_TYPE_WL_SKY) |
-							(1 << LLPipeline::RENDER_TYPE_ALPHA) |
-							(1 << LLPipeline::RENDER_TYPE_AVATAR) |
-							(1 << LLPipeline::RENDER_TYPE_WATER) |
-							(1 << LLPipeline::RENDER_TYPE_FULLBRIGHT) |
-							(1 << LLPipeline::RENDER_TYPE_VOLUME) |
-							(1 << LLPipeline::RENDER_TYPE_GLOW) |
-							(1 << LLPipeline::RENDER_TYPE_BUMP));
-		
+		mRenderTypeMask = mRenderTypeMask &
+		                  ((1 << LLPipeline::RENDER_TYPE_SKY) |
+		                   (1 << LLPipeline::RENDER_TYPE_CLOUDS) |
+		                   (1 << LLPipeline::RENDER_TYPE_WL_SKY) |
+		                   (1 << LLPipeline::RENDER_TYPE_ALPHA) |
+		                   (1 << LLPipeline::RENDER_TYPE_AVATAR) |
+		                   (1 << LLPipeline::RENDER_TYPE_VOIDWATER) |
+		                   (1 << LLPipeline::RENDER_TYPE_WATER) |
+		                   (1 << LLPipeline::RENDER_TYPE_FULLBRIGHT) |
+		                   (1 << LLPipeline::RENDER_TYPE_VOLUME) |
+		                   (1 << LLPipeline::RENDER_TYPE_GLOW) |
+		                   (1 << LLPipeline::RENDER_TYPE_BUMP));
+
 		renderGeomPostDeferred(*LLViewerCamera::getInstance());
 		mRenderTypeMask = render_mask;
 	}
@@ -5910,10 +5917,11 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 
 			if (LLDrawPoolWater::sNeedsDistortionUpdate)
 			{
-				mRenderTypeMask &=	~((1<<LLPipeline::RENDER_TYPE_WATER) |
-									  (1<<LLPipeline::RENDER_TYPE_GROUND) |
-									  (1<<LLPipeline::RENDER_TYPE_SKY) |
-									  (1<<LLPipeline::RENDER_TYPE_CLOUDS));	
+				mRenderTypeMask &= ~((1<<LLPipeline::RENDER_TYPE_WATER) |
+				                     (1<<LLPipeline::RENDER_TYPE_VOIDWATER) |
+				                     (1<<LLPipeline::RENDER_TYPE_GROUND) |
+				                     (1<<LLPipeline::RENDER_TYPE_SKY) |
+				                     (1<<LLPipeline::RENDER_TYPE_CLOUDS));
 
 				if (gSavedSettings.getBOOL("RenderWaterReflections"))
 				{ //mask out selected geometry based on reflection detail
@@ -5955,8 +5963,9 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		if (last_update)
 		{
 			camera.setFar(camera_in.getFar());
-			mRenderTypeMask = type_mask & (~(1<<LLPipeline::RENDER_TYPE_WATER) |
-											(1<<LLPipeline::RENDER_TYPE_GROUND));	
+			mRenderTypeMask = type_mask & ~((1<<LLPipeline::RENDER_TYPE_WATER) |
+							(1<<LLPipeline::RENDER_TYPE_VOIDWATER) |
+							(1<<LLPipeline::RENDER_TYPE_GROUND));
 			stop_glerror();
 
 			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? FALSE : TRUE;

@@ -70,16 +70,15 @@ const F32 WAVE_STEP_INV	= (1. / WAVE_STEP);
 
 
 LLVOWater::LLVOWater(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
-:	LLStaticViewerObject(id, LL_VO_WATER, regionp)
+:	LLStaticViewerObject(id, pcode, regionp)
 {
 	// Terrain must draw during selection passes so it can block objects behind it.
 	mbCanSelect = FALSE;
 	setScale(LLVector3(256.f, 256.f, 0.f)); // Hack for setting scale for bounding boxes/visibility.
 
 	mUseTexture = TRUE;
-	mIsEdgePatch = FALSE;
+	mRenderType = LLPipeline::RENDER_TYPE_WATER;
 }
-
 
 void LLVOWater::markDead()
 {
@@ -123,7 +122,7 @@ LLDrawable *LLVOWater::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
 	mDrawable->setLit(FALSE);
-	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_WATER);
+	mDrawable->setRenderType(mRenderType);
 
 	LLDrawPoolWater *pool = (LLDrawPoolWater*) gPipeline.getPool(LLDrawPool::POOL_WATER);
 
@@ -254,11 +253,6 @@ void LLVOWater::setUseTexture(const BOOL use_texture)
 	mUseTexture = use_texture;
 }
 
-void LLVOWater::setIsEdgePatch(const BOOL edge_patch)
-{
-	mIsEdgePatch = edge_patch;
-}
-
 void LLVOWater::updateSpatialExtents(LLVector3 &newMin, LLVector3& newMax)
 {
 	LLVector3 pos = getPositionAgent();
@@ -271,8 +265,13 @@ void LLVOWater::updateSpatialExtents(LLVector3 &newMin, LLVector3& newMax)
 }
 
 U32 LLVOWater::getPartitionType() const
-{ 
-	return LLViewerRegion::PARTITION_WATER; 
+{
+	return LLViewerRegion::PARTITION_WATER;
+}
+
+U32 LLVOVoidWater::getPartitionType() const
+{
+	return LLViewerRegion::PARTITION_VOIDWATER;
 }
 
 LLWaterPartition::LLWaterPartition()
@@ -282,4 +281,10 @@ LLWaterPartition::LLWaterPartition()
 	mInfiniteFarClip = TRUE;
 	mDrawableType = LLPipeline::RENDER_TYPE_WATER;
 	mPartitionType = LLViewerRegion::PARTITION_WATER;
+}
+
+LLVoidWaterPartition::LLVoidWaterPartition()
+{
+	mDrawableType = LLPipeline::RENDER_TYPE_VOIDWATER;
+	mPartitionType = LLViewerRegion::PARTITION_VOIDWATER;
 }
