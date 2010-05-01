@@ -56,6 +56,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speedrez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speedrez_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
+	childSetValue("appearance_stand_check", gSavedSettings.getBOOL("AppearanceForceStand"));
 
 	return TRUE;
 }
@@ -68,6 +69,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speedrez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speedrez_spinner").asReal());
+	gSavedSettings.setBOOL("AppearanceForceStand", childGetValue("appearance_stand_check"));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ClothingLayerProtection") != (BOOL)childGetValue("client_name_tag_broadcast_check"))

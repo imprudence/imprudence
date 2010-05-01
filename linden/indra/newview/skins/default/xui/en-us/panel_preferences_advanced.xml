@@ -39,5 +39,9 @@
        follows="left|top" height="16" increment="1" initial_val="12"
        label="Step interval (seconds)" label_width="130" left_delta="0" max_val="20"
        min_val="1" mouse_opaque="true" name="spinner_decimal" width="170" />
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="false"
+       label="Stand when editing appearance" left="12" mouse_opaque="true"
+       name="appearance_stand_check" radio_style="false" width="217" />
 
 </panel>
