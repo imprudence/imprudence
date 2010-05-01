@@ -540,7 +540,7 @@ void LLDrawPoolWater::shade()
 
 			sNeedsReflectionUpdate = TRUE;
 
-			if (water->getUseTexture() || !water->isEdgeWater())
+			if (water->getUseTexture() || !water->getIsEdgePatch())
 			{
 				sNeedsDistortionUpdate = TRUE;
 				face->renderIndexed();

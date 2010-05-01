@@ -77,12 +77,13 @@ public:
 	/*virtual*/ BOOL isActive() const; // Whether this object needs to do an idleUpdate.
 
 	void setUseTexture(const BOOL use_texture);
+	void setIsEdgePatch(const BOOL edge_patch);
 	BOOL getUseTexture() const { return mUseTexture; }
-
-	bool isEdgeWater(void) const { return mPrimitiveCode == LL_VO_EDGE_WATER; }
+	BOOL getIsEdgePatch() const { return mIsEdgePatch; }
 
 protected:
 	BOOL mUseTexture;
+	BOOL mIsEdgePatch;
 	LLPipeline::LLRenderTypeMask mRenderType;
 };
 

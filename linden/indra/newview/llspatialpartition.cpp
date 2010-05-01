@@ -2304,8 +2304,7 @@ void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
 				case LLViewerObject::LL_VO_HUD_PART_GROUP:
 						gGL.color4f(0,0,1,1);
 						break;
-				case LLViewerObject::LL_VO_EDGE_WATER:
-				case LLViewerObject::LL_VO_HOLE_WATER:
+				case LLViewerObject::LL_VO_VOID_WATER:
 				case LLViewerObject::LL_VO_WATER:
 						gGL.color4f(0,0.5f,1,1);
 						break;

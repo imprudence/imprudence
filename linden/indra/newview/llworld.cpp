@@ -1105,7 +1105,7 @@ void LLWorld::updateWaterObjects()
 			U64 region_handle = to_region_handle(x, y);
 			if (!getRegionFromHandle(region_handle))
 			{
-				LLVOWater* waterp = (LLVOWater*)gObjectList.createObjectViewer(LLViewerObject::LL_VO_HOLE_WATER, gAgent.getRegion());
+				LLVOWater* waterp = (LLVOWater*)gObjectList.createObjectViewer(LLViewerObject::LL_VO_VOID_WATER, gAgent.getRegion());
 				waterp->setUseTexture(FALSE);
 				waterp->setPositionGlobal(LLVector3d(x + rwidth / 2, y + rwidth / 2, water_center_z));
 				waterp->setScale(LLVector3((F32)rwidth, (F32)rwidth, box_height));
@@ -1140,9 +1140,10 @@ void LLWorld::updateWaterObjects()
 		{
 			// The edge water objects can be dead because they're attached to the region that the
 			// agent was in when they were originally created.
-			mEdgeWaterObjects[dir] = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_EDGE_WATER, gAgent.getRegion());
+			mEdgeWaterObjects[dir] = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_VOID_WATER, gAgent.getRegion());
 			waterp = mEdgeWaterObjects[dir];
 			waterp->setUseTexture(FALSE);
+			waterp->setIsEdgePatch(TRUE);		// Mark that this is edge water and not hole water.
 			gPipeline.createObject(waterp);
 		}
 
