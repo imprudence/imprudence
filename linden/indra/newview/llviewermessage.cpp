@@ -3439,10 +3439,21 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	if (!gLastVersionChannel.empty())
 	{
-		LLSD payload;
-		payload["message"] = version_channel;
-		LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
 		gHippoLimits->setLimits();
+
+		if (gSavedSettings.getBOOL("ServerVersionChangedChat"))
+		{
+			LLChat chat;
+			chat.mText = version_channel;
+			LLFloaterChat::addChat(chat, FALSE, FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ServerVersionChangedNotify"))
+		{
+			LLSD payload;
+			payload["message"] = version_channel;
+			LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
+		}
 	}
 
 	gLastVersionChannel = version_channel;
