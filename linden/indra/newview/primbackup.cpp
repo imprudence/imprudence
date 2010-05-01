@@ -377,6 +377,10 @@ void primbackup::exportworker(void *userdata)
 
 			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
 			{
+				if(gHippoGridManager->getConnectedGrid()->isSecondLife())
+				{
+					LLNotifications::instance().add("NoTextureExportSL");
+				}
 				primbackup::getInstance()->export_state=EXPORT_STRUCTURE;
 			}
 			else
