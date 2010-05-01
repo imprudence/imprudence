@@ -217,7 +217,7 @@
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
-			<scroll_list background_visible="true" bottom="-553" column_padding="0" draw_border="true" 
+			<scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true" 
 				 draw_heading="true" follows="left|top|right|bottom" height="484" left="4" 
 				 mouse_opaque="true" multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
@@ -357,7 +357,7 @@
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="80" />
-			<button bottom="-533" follows="right|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
 			<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
@@ -484,7 +484,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
-			<button bottom="-533" follows="right|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
 			<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
