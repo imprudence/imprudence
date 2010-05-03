@@ -29,8 +29,14 @@ public:
 
 	static void 	onCommitPosition(LLUICtrl* ctrl, void* userdata);
 
+	//Temporary function to rez a cube.
+	static void onClickPlywood(void* data);
+
 	//Reset button
 	static void onClickReset(void* data);
+
+	//My Position button
+	static void onClickSetToMyPosition(void* data);
 
 	//Import button
 	static void onClickImport(void* data);
@@ -71,6 +77,9 @@ class ImportTracker
 		~ImportTracker() { localids.clear(); linkset.clear(); }
 	
 		//Chalice - support import of linkset groups
+		LLSD parse_hpa_group(LLXmlTreeNode* prim);
+		LLSD parse_hpa_linkset(LLXmlTreeNode* prim);
+		LLSD parse_hpa_object(LLXmlTreeNode* prim);
 		void loadhpa(std::string file);
 		void importer(std::string file, void (*callback)(LLViewerObject*));
 		void cleargroups();
@@ -119,6 +128,7 @@ class ImportTracker
 		void link();
 		void wear(LLSD &prim);
 		void position(LLSD &prim);
+public:
 		void plywood_above_head();
 	
 	private:

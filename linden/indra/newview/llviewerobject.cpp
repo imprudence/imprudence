@@ -201,7 +201,9 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mJointInfo(NULL),
 	mState(0),
 	mMedia(NULL),
-	mClickAction(0)
+	mClickAction(0),
+	mPropertiesRecieved(false),
+	mInventoryRecieved(false)
 {
 	if(!is_global)
 	{
