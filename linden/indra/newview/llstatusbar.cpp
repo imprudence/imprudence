@@ -161,7 +161,6 @@ mSquareMetersCommitted(0)
 	childSetAction("health", onClickHealth, this);
 	childSetAction("no_fly", onClickFly, this);
 	childSetAction("buyland", onClickBuyLand, this );
-	childSetAction("buycurrency", onClickBuyCurrency, this );
 	childSetAction("no_build", onClickBuild, this );
 	childSetAction("no_scripts", onClickScripts, this );
 	childSetAction("restrictpush", onClickPush, this );
@@ -173,11 +172,23 @@ mSquareMetersCommitted(0)
 	childSetVisible("search_editor", gSavedSettings.getBOOL("ShowSearchBar"));
 	childSetVisible("search_btn", gSavedSettings.getBOOL("ShowSearchBar"));
 	childSetVisible("menubar_search_bevel_bg", gSavedSettings.getBOOL("ShowSearchBar"));
-	// Hide the buy currency button in non-Second Life grids -- MC
-	childSetVisible("buycurrency", gHippoGridManager->getConnectedGrid()->isSecondLife());
 
 	childSetActionTextbox("ParcelNameText", onClickParcelInfo );
-	childSetActionTextbox("BalanceText", onClickBalance );
+
+	// Disable buying currency when connected to non-SL grids.
+	// TODO: Check whether the grid supports buying currency.
+	if( gHippoGridManager->getConnectedGrid()->isSecondLife() )
+	{
+		childSetEnabled("buycurrency", true);
+		childSetVisible("buycurrency", true);
+		childSetAction("buycurrency", onClickBuyCurrency, this );
+		childSetActionTextbox("BalanceText", onClickBalance );
+	}
+	else
+	{
+		childSetEnabled("buycurrency", false);
+		childSetVisible("buycurrency", false);
+	}
 
 	// Adding Net Stat Graph
 	S32 x = getRect().getWidth() - 2;
