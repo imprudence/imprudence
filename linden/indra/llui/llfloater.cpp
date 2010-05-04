@@ -2118,15 +2118,14 @@ void LLFloaterView::focusFrontFloater()
 
 void LLFloaterView::getMinimizePosition(S32 *left, S32 *bottom)
 {
-	S32 col = 0;
 	LLRect snap_rect_local = getLocalSnapRect();
-	for(S32 row = snap_rect_local.mBottom;
-		row < snap_rect_local.getHeight() - LLFLOATER_HEADER_SIZE;
-		row += LLFLOATER_HEADER_SIZE ) //loop rows
+	for(S32 col = snap_rect_local.mLeft;
+		col < snap_rect_local.getWidth() - MINIMIZED_WIDTH;
+		col += MINIMIZED_WIDTH)
 	{
-		for(col = snap_rect_local.mLeft;
-			col < snap_rect_local.getWidth() - MINIMIZED_WIDTH;
-			col += MINIMIZED_WIDTH)
+		for(S32 row = snap_rect_local.mTop - LLFLOATER_HEADER_SIZE;
+			row > LLFLOATER_HEADER_SIZE;
+			row -= LLFLOATER_HEADER_SIZE) //loop rows
 		{
 			bool foundGap = TRUE;
 			for(child_list_const_iter_t child_it = getChildList()->begin();
