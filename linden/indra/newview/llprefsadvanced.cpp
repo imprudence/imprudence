@@ -40,6 +40,7 @@
 LLPrefsAdvanced::LLPrefsAdvanced()
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_advanced.xml");
+	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
 }
 
 LLPrefsAdvanced::~LLPrefsAdvanced()
@@ -54,9 +55,11 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
-	childSetValue("speedrez_check", gSavedSettings.getBOOL("SpeedRez"));
-	childSetValue("speedrez_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
+	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
+	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
 	childSetValue("appearance_stand_check", gSavedSettings.getBOOL("AppearanceForceStand"));
+
+	refresh();
 
 	return TRUE;
 }
@@ -67,8 +70,8 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
-	gSavedSettings.setBOOL("SpeedRez", childGetValue("speedrez_check"));
-	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speedrez_spinner").asReal());
+	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
+	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
 	gSavedSettings.setBOOL("AppearanceForceStand", childGetValue("appearance_stand_check"));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
@@ -118,4 +121,25 @@ void LLPrefsAdvanced::apply()
 
 void LLPrefsAdvanced::cancel()
 {
+}
+
+void LLPrefsAdvanced::refresh()
+{
+	if (childGetValue("speed_rez_check").asBoolean())
+	{
+		childEnable("speed_rez_interval_spinner");
+		childEnable("speed_rez_seconds_text");
+	}
+	else
+	{
+		childDisable("speed_rez_interval_spinner");
+		childDisable("speed_rez_seconds_text");
+	}
+}
+
+//static
+void LLPrefsAdvanced::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
+{
+	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
+	self->refresh();
 }

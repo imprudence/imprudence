@@ -33,12 +33,16 @@
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
        label="Increase rez speed via draw distance stepping" left="12" mouse_opaque="true"
-       name="speedrez_check" radio_style="false" width="217" />
+       name="speed_rez_check" radio_style="false" width="217" />
   <spinner bottom_delta="-18" decimal_digits="0"
        tool_tip="Interval in seconds between each draw distance increment"
        follows="left|top" height="16" increment="1" initial_val="12"
-       label="Step interval (seconds)" label_width="130" left_delta="0" max_val="20"
-       min_val="1" mouse_opaque="true" name="spinner_decimal" width="170" />
+       label="Step interval every" label_width="105" left_delta="20" max_val="20"
+       min_val="1" mouse_opaque="true" name="speed_rez_interval_spinner" width="145" />
+  <text bottom_delta="0" follows="top|left" height="15" left_delta="150"
+	     name="speed_rez_seconds_text" width="115">
+    seconds
+  </text>
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
        label="Stand when editing appearance" left="12" mouse_opaque="true"

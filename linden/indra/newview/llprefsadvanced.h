@@ -43,8 +43,10 @@ public:
 
 	void apply();
 	void cancel();
+	void refresh();
 
 private:
+	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
 };
 
 #endif // LLPREFSADVANCED_H
