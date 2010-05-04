@@ -48,6 +48,7 @@
 
 LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const std::string& name) : LLPanel(name)
 {
+	mVoiceLastActive = false;
 	setIsChrome(TRUE);
 
 	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
@@ -107,6 +108,11 @@ void LLVoiceRemoteCtrl::draw()
 
 	mTalkBtn->setEnabled(voice_active);
 	mTalkLockBtn->setEnabled(voice_active);
+	mSpeakersBtn->setEnabled(voice_active);
+
+	if (!voice_active && mVoiceLastActive)
+		LLFloaterActiveSpeakers::getInstance()->onClose(false);
+	mVoiceLastActive = voice_active;
 
 	// propagate ptt state to button display,
 	if (!mTalkBtn->hasMouseCapture())

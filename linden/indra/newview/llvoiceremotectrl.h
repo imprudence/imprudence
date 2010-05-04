@@ -59,6 +59,7 @@ protected:
 	LLButton* mTalkBtn;
 	LLButton* mTalkLockBtn;
 	LLButton* mSpeakersBtn;
+	bool mVoiceLastActive;
 };
 
 #endif // LL_LLVOICEREMOTECTRL_H

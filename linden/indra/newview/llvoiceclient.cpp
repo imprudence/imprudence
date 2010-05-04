@@ -1605,7 +1605,7 @@ void LLVoiceClient::stateMachine()
 						if (count % num == 0)
 						{
 						LL_DEBUGS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long (" << count << ")." << LL_ENDL;
-							if (num < 1000)
+							if (num < 100)
 							{
 								if( ++count2 == 10)
 								{
