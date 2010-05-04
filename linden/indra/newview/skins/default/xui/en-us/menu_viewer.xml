@@ -52,6 +52,11 @@
       <on_enable function="Object.EnableExport" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call name="Minimize All Windows"
+                label="Minimize All Windows">
+      <on_click function="File.MinimizeAllWindows"
+                userdata="" />
+    </menu_item_call>
     <menu_item_call name="Close Window"
                     label="Close Window"
                     shortcut="control|W">
