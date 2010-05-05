@@ -471,9 +471,11 @@ void LLAgent::cleanup()
 
 	setSitCamera(LLUUID::null);
 
-	mAvatarObject->markDead();
-
-	mAvatarObject = NULL;
+	if (mAvatarObject)
+	{
+		mAvatarObject->markDead();
+		mAvatarObject = NULL;
+	}
 	if(mLookAt)
 	{
 		mLookAt->markDead() ;
