@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar" width="500">
 	<tab_container name="tab" width="489">
-		<panel label="2ая Жизнь" name="2nd Life" width="488">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>
@@ -37,24 +37,24 @@
 			<text name="Name:">
 				Имя:
 			</text>
-			<text name="online_yes" width="181">
+			<text name="online_yes">
 				Сейчас онлайн
 			</text>
 			<text name="label">
 				Родился:
 			</text>
-			<line_editor name="born" width="191"/>
+			<line_editor name="born" />
 			<text name="label2">
 				Аккаунт:
 			</text>
-			<view_border name="acct_border" width="191"/>
-			<text name="acct" width="191"/>
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Партнер Second Life. Для информации, как им стать, см. www.secondlife.com/partner">
 				Партнер
 			</text>
-			<button label="i" label_selected="i" name="partner_info" tool_tip="Кликните для просмотра профиля партнера"/>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Кликните для просмотра профиля партнера" />
 			<button label="?" label_selected="?" name="partner_help"/>
-			<line_editor name="partner_edit" tool_tip="Партнер Second Life. Для информации, как им стать, см. www.secondlife.com/partner" width="191">
+			<line_editor name="partner_edit" tool_tip="Партнер Second Life. Для информации, как им стать, см. www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
@@ -64,33 +64,33 @@
 			<text name="Groups:">
 				Группы:
 			</text>
-			<scroll_list name="groups" width="391"/>
+			<scroll_list name="groups" />
 			<text name="About:">
 				О себе:
 			</text>
 			<text name="(500 chars)">
 				(500 симв.)
 			</text>
-			<text_editor name="about" width="391"/>
+			<text_editor name="about" />
 			<text name="Give item:">
 				Дать вещь:
 			</text>
-			<view_border name="drop_target_rect" width="479"/>
-			<view_border name="drop_target_rect_vis" width="391"/>
-			<text name="Give inventory" tool_tip="Бросьте предметы инвентаря сюда, чтобы отдать их этой персоне." width="391">
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
+			<text name="Give inventory" tool_tip="Бросьте предметы инвентаря сюда, чтобы отдать их этой персоне.">
 				Бросить предмет инвентаря сюда.
 			</text>
 			<check_box label="Показывать в поиске" name="allow_publish" tool_tip="Публиковать дополнительную информацию, такую как описание и картинки, в Поиске."/>
 			<button label="?" label_selected="?" name="?"/>
-			<button label="На карте" label_selected="На карте" name="Find on Map" width="130"/>
-			<button label="Предл.телепорт..." label_selected="Предл.телепорт..." left_delta="137" name="Offer Teleport..." width="174"/>
-			<button label="Добавить Друга..." label_selected="Добавить Друга..." left_delta="180" name="Add Friend..."/>
-			<button label="Платить..." label_selected="Платить..." name="Pay..." width="130"/>
-			<button label="Мгновенное сообщение..." label_selected="Мгновенное сообщение..." left_delta="137" name="Instant Message..." tool_tip="Мгновенное сообщение (IM)" width="174"/>
-			<button label="Заглушить" label_selected="Заглушить" left_delta="180" name="Mute"/>
+			<button label="На карте" label_selected="На карте" name="Find on Map" />
+			<button label="Предл.телепорт..." label_selected="Предл.телепорт..." name="Offer Teleport..." />
+			<button label="Добавить Друга..." label_selected="Добавить Друга..." name="Add Friend..."/>
+			<button label="Платить..." label_selected="Платить..." name="Pay..." />
+			<button label="Мгновенное сообщение..." label_selected="Мгновенное сообщение..." name="Instant Message..." tool_tip="Мгновенное сообщение (IM)" />
+			<button label="Заглушить" label_selected="Заглушить" name="Mute"/>
 		</panel>
-		<panel label="Web" name="WebProfile" width="488">
-			<line_editor name="url_edit" width="470"/>
+		<panel label="Web" name="WebProfile">
+			<line_editor name="url_edit" />
 			<flyout_button label="Загрузка" label_selected="Загрузка" name="load" tool_tip="Загрузить страницу профиля встроенным браузером.">
 				<flyout_button_item name="open_item">
 					Во внешнем браузере
@@ -101,9 +101,9 @@
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="Автозагрузка профиля в Web" name="auto_load" tool_tip="Автоматически загружать ВСЕ Интернет-профили  без спроса."/>
-			<web_browser name="profile_html" width="470"/>
+			<web_browser name="profile_html" />
 		</panel>
-		<panel label="Интересы" name="Interests" width="488">
+		<panel label="Интересы" name="Interests">
 			<text name="I Want To:">
 				Я хочу:
 			</text>
@@ -115,7 +115,7 @@
 			<check_box label="Покупать" name="chk4"/>
 			<check_box label="Продавать" name="chk5"/>
 			<check_box label="Нанять" name="chk7"/>
-			<line_editor name="want_to_edit" width="390"/>
+			<line_editor name="want_to_edit" />
 			<text name="Skills:">
 				Умею:
 			</text>
@@ -125,35 +125,35 @@
 			<check_box label="Моделир." name="schk3"/>
 			<check_box label="Программир." name="schk4"/>
 			<check_box label="Создание Персонажей" name="schk5"/>
-			<line_editor name="skills_edit" width="390"/>
+			<line_editor name="skills_edit" />
 			<text name="Languages:">
 				Языки:
 			</text>
-			<line_editor name="languages_edit" width="390"/>
+			<line_editor name="languages_edit" />
 		</panel>
-		<panel label="Избранное" name="Picks" width="488">
+		<panel label="Избранное" name="Picks">
 			<text name="Tell everyone about your favorite places in Second Life.">
 				Рассказать всем о Ваших любимых местах в Second Life
 			</text>
 			<button label="Новый..." label_selected="Новый..." name="New..."/>
 			<button label="Удалить..." label_selected="Удалить..." name="Delete..."/>
-			<tab_container name="picks tab" width="482"/>
+			<tab_container name="picks tab" />
 			<text name="loading_text">
 				Загрузка...
 			</text>
 		</panel>
-		<panel label="Реклама" name="Classified" width="488">
+		<panel label="Реклама" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				Поместить рекламу в Second Life.
 			</text>
 			<button label="Новый..." label_selected="Новый..." name="New..."/>
 			<button label="Удалить..." label_selected="Удалить..." name="Delete..."/>
-			<tab_container name="classified tab" width="482"/>
+			<tab_container name="classified tab" />
 			<text name="loading_text">
 				Загрузка...
 			</text>
 		</panel>
-		<panel label="1ая жизнь" name="1st Life" width="488">
+		<panel label="1ая жизнь" name="1st Life">
 			<text name="Photo:">
 				Фото:
 			</text>
@@ -164,26 +164,26 @@
 			<text name="(250 chars)">
 				(250 симв.)
 			</text>
-			<text_editor name="about" width="400"/>
+			<text_editor name="about" />
 		</panel>
-		<panel label="Мои заметки" name="My Notes" width="488">
+		<panel label="Мои заметки" name="My Notes">
 			<string name="Loading">
 				Загрузка...
 			</string>
-			<text name="label" width="482">
+			<text name="label">
 				Используйте это место для записи Ваших заметок об этой персоне. 
 Ведите дневник торговли, успешных проектов и т.д. 
 Ни эта персона, ни другие люди никогда не увидят этих заметок.
 			</text>
-			<text_editor name="notes edit" width="460"/>
+			<text_editor name="notes edit" />
 		</panel>
 	</tab_container>
 	<button label="OK" label_selected="OK" name="OK"/>
 	<button label="Отмена" label_selected="Отмена" name="Cancel"/>
-	<button label="Выбросить" label_selected="Выбросить" name="Kick" width="82"/>
-	<button label="Заморозить" label_selected="Заморозить" name="Freeze" tool_tip="Остановить перемещения резидента и его чат." width="82"/>
-	<button label="Разморозить" label_selected="Разморозить" name="Unfreeze" tool_tip="Разморозить резидента" width="82"/>
-	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Открыть сервис поддержки для резидента" width="82"/>
+	<button label="Выбросить" label_selected="Выбросить" name="Kick" />
+	<button label="Заморозить" label_selected="Заморозить" name="Freeze" tool_tip="Остановить перемещения резидента и его чат." />
+	<button label="Разморозить" label_selected="Разморозить" name="Unfreeze" tool_tip="Разморозить резидента" />
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Открыть сервис поддержки для резидента" />
 	<string name="ShowOnMapNonFriend">
 		Местонахождение на карте.
 Отключено потому, что Вы не оформили

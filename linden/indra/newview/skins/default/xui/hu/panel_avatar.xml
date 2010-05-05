@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar" width="470">
 	<tab_container name="tab" width="459">
-		<panel label="SL" name="2nd Life" width="458">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>
@@ -38,24 +38,24 @@ fizetési információ
 			<text name="Name:">
 				Név:
 			</text>
-			<text name="online_yes" width="151">
+			<text name="online_yes">
 				Jelenleg online
 			</text>
 			<text name="label">
 				Született:
 			</text>
-			<line_editor name="born" width="161"/>
+			<line_editor name="born" />
 			<text name="label2">
 				Fiók:
 			</text>
-			<view_border name="acct_border" width="161"/>
-			<text name="acct" width="161"/>
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Second Life partner. További információk ennek beállításáról: see www.secondlife.com/partner">
 				Társ:
 			</text>
 			<button label="i" label_selected="i" name="partner_info" tool_tip="Kattints ide a partner adatlapjának megnyitásához"/>
 			<button label="?" label_selected="?" name="partner_help"/>
-			<line_editor name="partner_edit" tool_tip="Second Life partner. További információk ennek beállításáról: see www.secondlife.com/partner" width="161">
+			<line_editor name="partner_edit" tool_tip="Second Life partner. További információk ennek beállításáról: see www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
@@ -65,33 +65,33 @@ fizetési információ
 			<text name="Groups:">
 				Csoportok:
 			</text>
-			<scroll_list name="groups" width="361"/>
+			<scroll_list name="groups" />
 			<text name="About:">
 				Egyéb:
 			</text>
 			<text name="(500 chars)">
 				500 karakter
 			</text>
-			<text_editor name="about" width="361"/>
+			<text_editor name="about" />
 			<text name="Give item:">
 				Elem átadása:
 			</text>
-			<view_border name="drop_target_rect" width="449"/>
-			<view_border name="drop_target_rect_vis" width="361"/>
-			<text name="Give inventory" tool_tip="Ide helyezd at azokat az elemeket, melyeket ennek a személynek szeretnél átadni." width="361">
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
+			<text name="Give inventory" tool_tip="Ide helyezd at azokat az elemeket, melyeket ennek a személynek szeretnél átadni.">
 				Készlettár elemeinek bedobása ide.
 			</text>
-			<check_box label="Keresések között megjelenít" name="allow_publish" tool_tip="További adatlap információk (pl. leírás) megjelenítése a keresések között."/>
-			<button label="?" label_selected="?" name="?"/>
+			<check_box label="Keresések között megjelenít" name="allow_publish" tool_tip="További adatlap információk (pl. leírás) megjelenítése a keresések között." left="4" />
+			<button label="?" label_selected="?" name="?" left_delta="175" />
 			<button label="Térkép" label_selected="Térkép" name="Find on Map"/>
-			<button label="Teleportálási ajánlat" label_selected="Teleportálási ajánlat" left_delta="117" name="Offer Teleport..."/>
-			<button label="Barátokhoz ad" label_selected="Barátokhoz ad" left_delta="157" name="Add Friend..."/>
+			<button label="Teleportálási ajánlat" label_selected="Teleportálási ajánlat" name="Offer Teleport..."/>
+			<button label="Barátokhoz ad" label_selected="Barátokhoz ad" name="Add Friend..."/>
 			<button label="Fizet" label_selected="Fizet" name="Pay..."/>
-			<button label="Azonnali üzenet" label_selected="Azonnali üzenet" left_delta="117" name="Instant Message..." tool_tip="Azonnali üzenetek küldése"/>
-			<button label="Elnémít" label_selected="Elnémít" left_delta="157" name="Mute"/>
+			<button label="Azonnali üzenet" label_selected="Azonnali üzenet" name="Instant Message..." tool_tip="Azonnali üzenetek küldése"/>
+			<button label="Elnémít" label_selected="Elnémít" name="Mute"/>
 		</panel>
-		<panel label="Web" name="WebProfile" width="458">
-			<line_editor name="url_edit" width="440"/>
+		<panel label="Web" name="WebProfile">
+			<line_editor name="url_edit" />
 			<flyout_button label="Betölt" label_selected="Betölt" name="load" tool_tip="Az oldal betöltése a beépített böngészővel.">
 				<flyout_button_item name="open_item">
 					Beépített böngészőben
@@ -102,9 +102,9 @@ fizetési információ
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="Az oldal automatikus betöltése" name="auto_load" tool_tip="Minden oldal automatikus betöltése jóváhagyás nélkül."/>
-			<web_browser name="profile_html" width="440"/>
+			<web_browser name="profile_html" />
 		</panel>
-		<panel label="Érdeklődés" name="Interests" width="458">
+		<panel label="Érdeklődés" name="Interests">
 			<text name="I Want To:">
 				Szeretek:
 			</text>
@@ -116,7 +116,7 @@ fizetési információ
 			<check_box label="Vásárolni" name="chk4"/>
 			<check_box label="Eladni" name="chk5"/>
 			<check_box label="Foglalkoztatni" name="chk7"/>
-			<line_editor name="want_to_edit" width="360"/>
+			<line_editor name="want_to_edit" />
 			<text name="Skills:">
 				Tudás:
 			</text>
@@ -126,35 +126,35 @@ fizetési információ
 			<check_box label="Modellezés" name="schk3"/>
 			<check_box label="Programozás" name="schk4"/>
 			<check_box label="Karakter formázás" name="schk5"/>
-			<line_editor name="skills_edit" width="360"/>
+			<line_editor name="skills_edit" />
 			<text name="Languages:">
 				Nyelvek:
 			</text>
-			<line_editor name="languages_edit" width="360"/>
+			<line_editor name="languages_edit" />
 		</panel>
-		<panel label="Kedvencek" name="Picks" width="458">
+		<panel label="Kedvencek" name="Picks">
 			<text name="Tell everyone about your favorite places in Second Life.">
 				Mutasd be kedvenc helyeidet a Second Life-ban.
 			</text>
 			<button label="Új" label_selected="Új" name="New..."/>
 			<button label="Töröl" label_selected="Töröl" name="Delete..."/>
-			<tab_container name="picks tab" width="452"/>
+			<tab_container name="picks tab" />
 			<text name="loading_text">
 				Betöltés...
 			</text>
 		</panel>
-		<panel label="Hirdetések" name="Classified" width="458">
+		<panel label="Hirdetések" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				Hirdetések feladása a Second Life-ban.
 			</text>
 			<button label="Új" label_selected="Új" name="New..."/>
 			<button label="Töröl" label_selected="Töröl" name="Delete..."/>
-			<tab_container name="classified tab" width="452"/>
+			<tab_container name="classified tab" />
 			<text name="loading_text">
 				Betöltés...
 			</text>
 		</panel>
-		<panel label="RL" name="1st Life" width="458">
+		<panel label="RL" name="1st Life">
 			<text name="Photo:">
 				Kép:
 			</text>
@@ -162,29 +162,29 @@ fizetési információ
 			<text name="Info:">
 				Információ:
 			</text>
-			<text halign="left" left="7" name="(250 chars)">
+			<text halign="left" name="(250 chars)">
 				250
 karakter
 			</text>
-			<text_editor name="about" width="370"/>
+			<text_editor name="about" />
 		</panel>
-		<panel label="Feljegyzéseim" name="My Notes" width="458">
+		<panel label="Feljegyzéseim" name="My Notes">
 			<string name="Loading">
 				Betöltés...
 			</string>
-			<text name="label" width="452">
+			<text name="label">
 				Ide írd saját feljegyzéseidet az adott személyről.
 Csak te látod ezeket az információkat, mások nem.
 			</text>
-			<text_editor name="notes edit" width="430"/>
+			<text_editor name="notes edit" />
 		</panel>
 	</tab_container>
 	<button label="OK" label_selected="OK" name="OK"/>
 	<button label="Mégsem" label_selected="Mégsem" name="Cancel"/>
-	<button label="Kirúg" label_selected="Kirúg" name="Kick" width="82"/>
-	<button label="Fagyaszt" label_selected="Fagyaszt" name="Freeze" tool_tip="Lakó mozgásának és üzenetküldésének leállítása." width="82"/>
-	<button font="SansSerifSmall" label="Fagyasztás megszüntetése" label_selected="Fagyasztás megszüntetése" name="Unfreeze" tool_tip="Lakó feloldása" width="150"/>
-	<button font="SansSerifSmall" label="Ügyfélszolgálat" label_selected="Ügyfélszolgálat" name="csr_btn" tool_tip="Ügyfélszolgálati eszközök használata ennél a személynél" width="150"/>
+	<button label="Kirúg" label_selected="Kirúg" name="Kick" />
+	<button label="Fagyaszt" label_selected="Fagyaszt" name="Freeze" tool_tip="Lakó mozgásának és üzenetküldésének leállítása." left_delta="70" />
+	<button font="SansSerifSmall" label="Fagyasztás megszüntetése" label_selected="Fagyasztás megszüntetése" name="Unfreeze" tool_tip="Lakó feloldása" left_delta="70" width="150"/>
+	<button font="SansSerifSmall" label="Ügyfélszolgálat" label_selected="Ügyfélszolgálat" name="csr_btn" tool_tip="Ügyfélszolgálati eszközök használata ennél a személynél" left_delta="150" width="150"/>
 	<string name="ShowOnMapNonFriend">
 		Helyszín megjelenítése a térképen.
 Nem elérhető, mivel nincs kettőtök között semmilyen kapcsolat.

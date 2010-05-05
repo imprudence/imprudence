@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
-		<panel label="SL" name="2nd Life">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>

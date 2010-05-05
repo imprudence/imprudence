@@ -39,13 +39,13 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-23" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifsmall" h_pad="0" halign="left" height="16" right="-12"
-			     mouse_opaque="true" name="online_yes" v_pad="0" width="145">
+			     mouse_opaque="true" name="online_yes" v_pad="0" width="200">
         Currently: Online
       </text>
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left_delta="0"
-			     mouse_opaque="true" name="online_no" v_pad="0" width="145">
+			     mouse_opaque="true" name="online_no" v_pad="0" width="200">
         Currently: Offline
       </text>
       <button bottom_delta="-19" font="SansSerif" halign="center" height="20"
@@ -102,7 +102,7 @@
         Partner:
       </text>
       <button bottom_delta="1" follows="left|top" font="SansSerif" halign="center"
-			     height="18" label="i" label_selected="i" left_delta="44"
+			     height="18" label="i" label_selected="i" left_delta="64"
 			     mouse_opaque="true" name="partner_info"
 			     tool_tip="Click to open partner&apos;s profile" width="20" />
       <button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
@@ -299,7 +299,7 @@
       <button bottom="-44" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Delete..." label_selected="Delete..." left_delta="79"
 			     mouse_opaque="true" name="Delete..." width="75" />
-      <tab_container bottom="-411" follows="left|top" height="363" left="2" mouse_opaque="false"
+      <tab_container bottom="-430" follows="left|top" height="363" left="2" mouse_opaque="false"
 			     name="picks tab" tab_position="left" width="412" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"
@@ -325,7 +325,7 @@
       <button bottom="-44" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Delete..." label_selected="Delete..." left_delta="79"
 			     mouse_opaque="true" name="Delete..." width="75" />
-      <tab_container bottom="-443" follows="left|top" height="395" left="2" mouse_opaque="false"
+      <tab_container bottom="-462" follows="left|top" height="395" left="2" mouse_opaque="false"
 			     name="classified tab" tab_position="left" width="412" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"
@@ -376,16 +376,16 @@
 	     label_selected="Cancel" left_delta="105" mouse_opaque="true" name="Cancel"
 	     width="100" />
   <button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Kick"
-	     label_selected="Kick" left="12" mouse_opaque="true" name="Kick" width="72" />
+	     label_selected="Kick" left="12" mouse_opaque="true" name="Kick" width="82" />
   <button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Freeze"
-	     label_selected="Freeze" left_delta="76" mouse_opaque="true" name="Freeze"
-	     tool_tip="Stop this resident&apos;s movement and chat." width="72" />
+	     label_selected="Freeze" left_delta="86" mouse_opaque="true" name="Freeze"
+	     tool_tip="Stop this resident&apos;s movement and chat." width="82" />
   <button bottom_delta="0" font="SansSerif" halign="center" height="20"
-	     label="Unfreeze" label_selected="Unfreeze" left_delta="76" mouse_opaque="true"
-	     name="Unfreeze" tool_tip="Thaw resident" width="72" />
+	     label="Unfreeze" label_selected="Unfreeze" left_delta="86" mouse_opaque="true"
+	     name="Unfreeze" tool_tip="Thaw resident" width="82" />
   <button bottom_delta="0" font="SansSerif" halign="center" height="20" label="CSR"
-	     label_selected="CSR" left_delta="76" mouse_opaque="true" name="csr_btn"
-	     tool_tip="Open customer service tool for this resident" width="72" />
+	     label_selected="CSR" left_delta="86" mouse_opaque="true" name="csr_btn"
+	     tool_tip="Open customer service tool for this resident" width="82" />
   <string name="ShowOnMapNonFriend">
     Show location on the map.
     Disabled because you have not
