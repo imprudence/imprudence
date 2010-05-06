@@ -390,7 +390,7 @@ def main():
            "--date=short", "--date-order"] + commits
 
     try:
-        proc = subprocess.Popen(cmd, 
+        proc = subprocess.Popen( [" ".join(cmd)], 
                                 cwd    = ROOT_DIR,
                                 stdout = subprocess.PIPE,
                                 stderr = subprocess.STDOUT,
