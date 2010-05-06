@@ -53,6 +53,7 @@
 #include "llcolorswatch.h"
 #include "llinventorymodel.h"
 #include "llresmgr.h"
+#include "llselectmgr.h"
 #include "llstartup.h" // not really necessary here, but just in case
 #include "llviewercontrol.h"
 #include "llviewerinventory.h"
@@ -286,7 +287,12 @@ void LLFloaterBuildOptions::apply()
 		gSavedPerAccountSettings.setString("BuildPrefs_Texture", mBuildTextureUUID.asString() );
 	}
 
-	gSavedSettings.setBOOL("RenderHighlightSelections", childGetValue("BuildPrefsRenderHighlight_toggle").asBoolean() );
+	if (gSavedSettings.getBOOL("RenderHighlightSelections") != (BOOL)(childGetValue("BuildPrefsRenderHighlight_toggle").asBoolean()))
+	{
+		LLSelectMgr::sRenderSelectionHighlights = !LLSelectMgr::sRenderSelectionHighlights;
+		gSavedSettings.setBOOL("RenderHighlightSelections", LLSelectMgr::sRenderSelectionHighlights);
+	}
+
 	gSavedSettings.setBOOL("RezWithLandGroup", childGetValue("grouplandrez").asBoolean() );
 	gSavedSettings.setBOOL("GridSubUnit", childGetValue("GridSubUnit").asBoolean() );
 	gSavedSettings.setBOOL("GridCrossSections", childGetValue("GridCrossSection").asBoolean() );

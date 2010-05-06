@@ -52,13 +52,13 @@
      left_delta="114" name="TextureBorder" width="250" />
   
   <spinner bottom="-200" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="X size" label_width="40" left="20" max_val="10" min_val="0.01"
+     label="X Size" label_width="40" left="20" max_val="10" min_val="0.01"
      mouse_opaque="true" name="X size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Y size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
+     label="Y Size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
      mouse_opaque="true" name="Y size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Z size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
+     label="Z Size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
      mouse_opaque="true" name="Z size" width="110" />
   
   <check_box bottom="-200" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
@@ -132,36 +132,37 @@
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="110" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
      h_pad="0" halign="left" height="10" left_delta="35" mouse_opaque="false"
-     name="text_box6" v_pad="0" width="150">        Pivot Point</text>
+     name="text_box6" v_pad="0" width="150">Axis Pivot Point</text>
   <spinner bottom_delta="-25" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="X pos" label_width="40" left_delta="-28" mouse_opaque="true" max_val="256"
+     label="X Pos" label_width="40" left_delta="-28" mouse_opaque="true" max_val="256"
      min_val="-256" name="X pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Y pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
+     label="Y Pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
      min_val="-256" name="Y pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Z pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
+     label="Z Pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
      min_val="-256" name="Z pos" width="120" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     label="Values are percent" left_delta="-5" mouse_opaque="true" tool_tip="Default settings are Percentages and every axis set at 50"
+     label="Values are percent" left_delta="-5" mouse_opaque="true"
+     tool_tip="Default settings are Percentages and every axis set at 50"
      name="PivotPercToggle" radio_style="false" width="100" />
   
   <check_box bottom_delta="60" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-					 initial_value="true" label="Highlight selected prims" left_delta="143"
+					 initial_value="true" label="Show Selection Outlines" left_delta="143"
 					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" 
 					 radio_style="false" width="270"/>
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     initial_value="false" label="Show axis on root prim" left_delta="0"
+     initial_value="false" label="Show Axis On Root Prim" left_delta="0"
      mouse_opaque="true" tool_tip="Default behaviour is to show the axis on the center of mass of a linkset. If enabled, the axis will be shown on the root prim of the linkset instead."
      name="BuildPrefsActualRoot_toggle" radio_style="false" width="270" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     label="Rez objects using land group" left_delta="0" mouse_opaque="true"
+     label="Rez Objects Using Land Group" left_delta="0" mouse_opaque="true"
      tooltip="Rez objects on group land using the land's group (if possible)" 
      name="grouplandrez" radio_style="false" width="270" />
-  <spinner bottom_delta="-20" decimal_digits="0" 
+  <spinner bottom_delta="-25" decimal_digits="0" 
      tool_tip="Sets the default decimal precision for move, resize, and rotate" 
      follows="left|top" height="16" increment="1" initial_val="3"
-     label="Edit object decimal places" label_width="140" left_delta="0" max_val="5"
+     label="Object edit decimal places" label_width="140" left_delta="0" max_val="5"
      min_val="0" mouse_opaque="true" name="spinner_decimal" width="175" />
 
   <button bottom="2" enabled="true" follows="right|bottom" font="SansSerif"
