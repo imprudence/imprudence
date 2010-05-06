@@ -65,32 +65,37 @@
            border="true" mouse_opaque="true">
 
       <button name="im_btn" label="IM/Call"
-              bottom="-25" left="-85" height="22" width="80"
+              bottom="-25" left="-85" height="16" width="80"
               follows="top|right"
               tool_tip="Open Instant Message session" />
 
       <button name="profile_btn" label="Profile"
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-20" left_delta="0" height="18" width="80"
               follows="top|right" 
               tool_tip="Show picture, groups, and other information" />
 
       <button name="offer_teleport_btn" label="Teleport..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-20" left_delta="0" height="16" width="80"
               follows="top|right" 
               tool_tip="Offer to teleport this person to your location" />
 
+      <button name="teleport_btn" label="TP to"
+              bottom_delta="-20" left_delta="0" height="16" width="80"
+              follows="top|right" 
+              tool_tip="Teleport to avatar's position" />
+
       <button name="track_btn" label="Track"
-              bottom_delta="-25" left_delta="0" height="22" width="80" 
+              bottom_delta="-20" left_delta="0" height="16" width="80" 
               follows="top|right" 
               tool_tip="Create a beacon to track friends you can map" />
 
       <button name="invite_btn" label="Invite..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-20" left_delta="0" height="16" width="80"
               follows="top|right"
               tool_tip="Remove this person from your friends list" />
 
       <button name="add_btn" label="Add..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-20" left_delta="0" height="16" width="80"
               follows="top|right"
               tool_tip="Offer friendship to a resident" />
 

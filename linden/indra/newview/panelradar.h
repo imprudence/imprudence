@@ -88,6 +88,7 @@ private:
 	static void onClickIM(void* user_data);
 	static void onClickAddFriend(void* user_data);
 	static void onClickOfferTeleport(void* user_data);
+	static void onClickTeleport(void *userdata);
 	static void onClickTrack(void* user_data);
 	static void onClickInvite(void* user_data);
 	static void callback_invite_to_group(LLUUID group_id, void *user_data);

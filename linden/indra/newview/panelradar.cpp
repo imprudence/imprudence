@@ -77,6 +77,7 @@ BOOL PanelRadar::postBuild()
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
 	childSetAction("offer_teleport_btn", onClickOfferTeleport, this);
+	childSetAction("teleport_btn", onClickTeleport, this);
 	childSetAction("track_btn", onClickTrack, this);
 	childSetAction("invite_btn", onClickInvite, this);
 	childSetAction("add_btn", onClickAddFriend, this);
@@ -417,6 +418,7 @@ void PanelRadar::updateButtonStates()
 	childSetEnabled("im_btn", enable);
 	childSetEnabled("profile_btn", enable);
 	childSetEnabled("offer_teleport_btn", enable);
+	childSetEnabled("teleport_btn", enable);
 	childSetEnabled("track_btn", enable_track);
 	childSetEnabled("invite_btn", enable);
 	childSetEnabled("add_btn", enable);
@@ -585,6 +587,31 @@ void PanelRadar::onClickOfferTeleport(void* user_data)
 	}
 }
 
+//static
+void PanelRadar::onClickTeleport(void* userdata)
+{
+	PanelRadar *self = (PanelRadar*)userdata;
+ 	LLScrollListItem *item =   self->mRadarList->getFirstSelected();
+
+	if ( item )
+	{
+		LLUUID agent_id = item->getUUID();
+		std::string agent_name = getSelectedName(agent_id);
+		if ( !agent_name.empty()  )
+		{
+			LLViewerObject *av_obj = gObjectList.findObject(agent_id);
+					if (av_obj != NULL && av_obj->isAvatar())
+					{
+						LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+						if (avatarp != NULL)
+						{
+							LLVector3d pos = avatarp->getPositionGlobal();
+							gAgent.teleportViaLocation(pos);
+						}
+					}
+		}
+	}
+}
 
 // static
 void PanelRadar::onClickTrack(void* user_data)
