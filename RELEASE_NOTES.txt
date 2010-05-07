@@ -94,6 +94,16 @@
        on OpenSim in this release, but will be disabled in the future
        to prevent confusion on grids that don't support currencies.
 
+     * When your avatar is sitting on an object, it may appear
+       invisible to users of older viewers, such as Hippo Viewer
+       version 5.0.1.
+
+     * In the grid manager, the "Get Grid Info" button does not work
+       for OpenSim-based grids unless the login URI has a trailing
+       slash ("/"). You should end login URIs for OpenSim-based grids
+       with a trailing slash, e.g. "http://osgrid.org:8002/", not
+       "http://osgrid.org:8002".
+
 
    CHANGES
 
@@ -217,6 +227,9 @@
        * The "File > Import + Upload" menu item no longer erroneously
          shows "(L$10 per texture)" when connected to OpenSim. Thanks,
          McCabe!
+
+       * Fixed several hardcoded references to Second Life and the
+         Second Life website. Thanks, McCabe!
 
        * Repositioned the "Temporary Image" checkbox on the image
          upload window so it doesn't extend beyond the window. Thanks,
