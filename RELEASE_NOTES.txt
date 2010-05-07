@@ -310,7 +310,7 @@
 
      * SpeedRez. After teleporting, the viewer will temporarily
        decrease the draw distance to encourage nearby objects and 
-      textures to rez first. Thanks for the patch, Henri Beauchamp!
+       textures to rez first. Thanks for the patch, Henri Beauchamp!
 
         - You can disable this feature by setting the SpeedRez debug
           setting to FALSE, or adjust the timing by editing the
@@ -363,7 +363,7 @@
 
        * Added PrivateLookAtTarget debug setting. When enabled, the
          viewer will no longer tell other users where your avatar is
-         looking. Thanks for the patch, Henri Beauchamp!
+         looking. Thanks, Armin!
 
 
      BUG FIXES
