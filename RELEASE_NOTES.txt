@@ -4,6 +4,42 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 4                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.3.0 beta 4 is a hotfix release to fix a serious bug
+   when rezzing objects from your inventory in Second Life while the
+   Build window is open.
+
+
+   CHANGES
+
+     * The following features from the Advanced Build Options window
+       have been removed to prevent unintentional modification of
+       objects rezzed from your inventory:
+
+        - "Settings" and "Texture" control the default settings and
+          textures for newly created prims.
+
+        - Ability to embed an inventory item into newly created prims.
+
+     * The following change in 1.3.0 beta 3 has been reverted, to
+       avoid possible negative effects on private/group voice
+       conversations:
+
+       - If the current region does not have any support for voice
+         chat (e.g. OpenSim regions with no voice module), the viewer
+         will temporarily deactivate voice chat and hide the voice
+         chat controls on the toolbar. The viewer will check again for
+         voice chat again whenever you move to another parcel.
+
+     * Fixed the "Show Selection Outlines" checkbox in the Advanced
+       Build Options window not working correctly.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                     1.3.0 BETA 3                       -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
