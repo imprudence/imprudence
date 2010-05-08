@@ -330,7 +330,6 @@ static	void updatePosition(void);
 			bool		mIsP2P;
 			bool		mIncoming;
 			bool		mVoiceEnabled;
-			bool		mVoiceTemporaryDisabled;
 			bool		mReconnect;	// Whether we should try to reconnect to this session if it's dropped
 			// Set to true when the mute state of someone in the participant list changes.
 			// The code will have to walk the list to find the changed participant(s).
@@ -726,7 +725,6 @@ static	std::string nameFromsipURI(const std::string &uri);
 		bool		mMicVolumeDirty;
 		
 		bool		mVoiceEnabled;
-		bool		mVoiceTemporaryDisabled;
 		bool		mWriteInProgress;
 		std::string mWriteString;
 		size_t		mWriteOffset;

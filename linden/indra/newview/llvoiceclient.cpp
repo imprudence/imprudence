@@ -1137,7 +1137,6 @@ LLVoiceClient::LLVoiceClient()
 
 	// Use default values for everything then call updateSettings() after preferences are loaded
 	mVoiceEnabled = false;
-	mVoiceTemporaryDisabled = false;
 	mUsePTT = true;
 	mPTTIsToggle = false;
 	mEarLocation = 0;
@@ -1350,17 +1349,13 @@ void LLVoiceClient::userAuthorized(const std::string& firstName, const std::stri
 
 void LLVoiceClient::requestVoiceAccountProvision(S32 retries)
 {
-	if ( gAgent.getRegion() && mVoiceEnabled && !mVoiceTemporaryDisabled)
+	if ( gAgent.getRegion() && mVoiceEnabled )
 	{
 		std::string url = 
 			gAgent.getRegion()->getCapability(
 				"ProvisionVoiceAccountRequest");
 
-		if ( url.empty() )
-		{
-			mVoiceTemporaryDisabled = true;
-			return;
-		}
+		if ( url == "" ) return;
 
 		LLHTTPClient::post(
 			url,
@@ -1537,7 +1532,7 @@ void LLVoiceClient::stateMachine()
 		setVoiceEnabled(false);
 	}
 	
-	if(mVoiceEnabled && !mVoiceTemporaryDisabled)
+	if(mVoiceEnabled)
 	{
 		updatePosition();
 	}
@@ -1596,29 +1591,18 @@ void LLVoiceClient::stateMachine()
 				}
 				else
 				{
-					if(!mVoiceTemporaryDisabled)
+				  	static int count = 0;
+				  	static int count2 = 0;
+					static int num = 1;
+					++count;
+					if (count % num == 0)
 					{
-						static int count = 0;
-						static int count2 = 0;
-						static int num = 1;
-						++count;
-						if (count % num == 0)
-						{
-						LL_DEBUGS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long (" << count << ")." << LL_ENDL;
-							if (num < 100)
-							{
-								if( ++count2 == 10)
-								{
-								num *= 10;
-								count2 = 0;
-								}
-							}
-							else
-							{
-								mVoiceTemporaryDisabled = true;
-								count = 0;
-							}
-						}
+					  LL_DEBUGS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long (" << count << ")." << LL_ENDL;
+					  if (num < 1000 && ++count2 == 10)
+					  {
+					    num *= 10;
+					    count2 = 0;
+					  }
 					}
 				}
 			}
@@ -1644,7 +1628,7 @@ void LLVoiceClient::stateMachine()
 		
 		//MARK: stateDisabled
 		case stateDisabled:
-			if(mTuningMode || (!mVoiceTemporaryDisabled && mVoiceEnabled && !mAccountName.empty()))
+			if(mTuningMode || (mVoiceEnabled && !mAccountName.empty()))
 			{
 				setState(stateStart);
 			}
@@ -1868,12 +1852,12 @@ void LLVoiceClient::stateMachine()
 				mTuningExitState = stateIdle;
 				setState(stateMicTuningStart);
 			}
-			else if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			else if(!mVoiceEnabled)
 			{
 				// We never started up the connector.  This will shut down the daemon.
 				setState(stateConnectorStopped);
 			}
-			else if(!mAccountName.empty() && mVoiceEnabled && !mVoiceTemporaryDisabled)
+			else if(!mAccountName.empty() && mVoiceEnabled)
 			{
 				LLViewerRegion *region = gAgent.getRegion();
 				
@@ -1890,7 +1874,6 @@ void LLVoiceClient::stateMachine()
 					else
 					{
 						LL_DEBUGS("Voice") << "region doesn't have ProvisionVoiceAccountRequest capability!" << LL_ENDL;
-						mVoiceTemporaryDisabled = true;
 					}
 				}
 			}
@@ -1987,7 +1970,7 @@ void LLVoiceClient::stateMachine()
 												
 		//MARK: stateConnectorStart
 		case stateConnectorStart:
-			if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled)
 			{
 				// We were never logged in.  This will shut down the connector.
 				setState(stateLoggedOut);
@@ -2005,7 +1988,7 @@ void LLVoiceClient::stateMachine()
 		
 		//MARK: stateConnectorStarted
 		case stateConnectorStarted:		// connector handle received
-			if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled)
 			{
 				// We were never logged in.  This will shut down the connector.
 				setState(stateLoggedOut);
@@ -2116,7 +2099,7 @@ void LLVoiceClient::stateMachine()
 		
 		//MARK: stateCreatingSessionGroup
 		case stateCreatingSessionGroup:
-			if(mSessionTerminateRequested || !mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(mSessionTerminateRequested || !mVoiceEnabled)
 			{
 				// TODO: Question: is this the right way out of this state
 				setState(stateSessionTerminated);
@@ -2139,7 +2122,7 @@ void LLVoiceClient::stateMachine()
 			// Otherwise, if you log in but don't join a proximal channel (such as when your login location has voice disabled), your friends list won't sync.
 			sendFriendsListUpdates();
 			
-			if(mSessionTerminateRequested || !mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(mSessionTerminateRequested || !mVoiceEnabled)
 			{
 				// TODO: Question: Is this the right way out of this state?
 				setState(stateSessionTerminated);
@@ -2192,7 +2175,7 @@ void LLVoiceClient::stateMachine()
 		//MARK: stateJoiningSession
 		case stateJoiningSession:		// waiting for session handle
 			// joinedAudioSession() will transition from here to stateSessionJoined.
-			if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled)
 			{
 				// User bailed out during connect -- jump straight to teardown.
 				setState(stateSessionTerminated);
@@ -2236,7 +2219,7 @@ void LLVoiceClient::stateMachine()
 				notifyStatusObservers(LLVoiceClientStatusObserver::STATUS_JOINED);
 
 			}
-			else if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			else if(!mVoiceEnabled)
 			{
 				// User bailed out during connect -- jump straight to teardown.
 				setState(stateSessionTerminated);
@@ -2256,7 +2239,7 @@ void LLVoiceClient::stateMachine()
 		//MARK: stateRunning
 		case stateRunning:				// steady state
 			// Disabling voice or disconnect requested.
-			if(!mVoiceEnabled || mSessionTerminateRequested || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled || mSessionTerminateRequested)
 			{
 				leaveAudioSession();
 			}
@@ -2399,7 +2382,7 @@ void LLVoiceClient::stateMachine()
 		break;
 		//MARK: stateConnectorFailedWaiting
 		case stateConnectorFailedWaiting:
-			if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled)
 			{
 				setState(stateDisableCleanup);
 			}
@@ -2411,7 +2394,7 @@ void LLVoiceClient::stateMachine()
 		break;
 		//MARK: stateLoginFailedWaiting
 		case stateLoginFailedWaiting:
-			if(!mVoiceEnabled || mVoiceTemporaryDisabled)
+			if(!mVoiceEnabled)
 			{
 				setState(stateDisableCleanup);
 			}
@@ -5063,27 +5046,17 @@ LLVoiceClient::participantState* LLVoiceClient::findParticipantByID(const LLUUID
 
 void LLVoiceClient::parcelChanged()
 {
-	mVoiceTemporaryDisabled = false;
-
 	if(getState() >= stateNoChannel)
 	{
 		// If the user is logged in, start a channel lookup.
 		LL_DEBUGS("Voice") << "sending ParcelVoiceInfoRequest (" << mCurrentRegionName << ", " << mCurrentParcelLocalID << ")" << LL_ENDL;
 
 		std::string url = gAgent.getRegion()->getCapability("ParcelVoiceInfoRequest");
-
-		if ( !url.empty() )
-		{
-			LLSD data;
-			LLHTTPClient::post(
-				url,
-				data,
-				new LLVoiceClientCapResponder);
-		}
-		else
-		{
-			mVoiceTemporaryDisabled = true;
-		}
+		LLSD data;
+		LLHTTPClient::post(
+			url,
+			data,
+			new LLVoiceClientCapResponder);
 	}
 	else
 	{
@@ -5837,7 +5810,6 @@ void LLVoiceClient::setVoiceEnabled(bool enabled)
 		if (enabled)
 		{
 			LLVoiceChannel::getCurrentVoiceChannel()->activate();
-			mVoiceTemporaryDisabled =false;
 		}
 		else
 		{
@@ -5860,7 +5832,7 @@ void LLVoiceClient::setLipSyncEnabled(BOOL enabled)
 BOOL LLVoiceClient::lipSyncEnabled()
 {
 	   
-	if ( !mVoiceTemporaryDisabled && mVoiceEnabled && stateDisabled != getState() )
+	if ( mVoiceEnabled && stateDisabled != getState() )
 	{
 		return mLipSyncEnabled;
 	}
@@ -6297,7 +6269,6 @@ LLVoiceClient::sessionState::sessionState() :
 	mIsP2P(false),
 	mIncoming(false),
 	mVoiceEnabled(false),
-	mVoiceTemporaryDisabled(false),
 	mReconnect(false),
 	mVolumeDirty(false),
 	mParticipantsChanged(false)
