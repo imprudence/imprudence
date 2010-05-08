@@ -222,16 +222,6 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 		gSavedPerAccountSettings.getF32("BuildPrefs_Zsize"));
 	
 	U8				material = LL_MCODE_WOOD;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Stone") material = LL_MCODE_STONE;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Metal") material = LL_MCODE_METAL;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Wood") material = LL_MCODE_WOOD;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Flesh") material = LL_MCODE_FLESH;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Rubber") material = LL_MCODE_RUBBER;
-	if(gSavedPerAccountSettings.getString("BuildPrefs_Material")== "Plastic") material = LL_MCODE_PLASTIC;
-		
-
-	
-
 	BOOL			create_selected = FALSE;
 	LLVolumeParams	volume_params;
 	
@@ -298,10 +288,6 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	gMessageSystem->addU8Fast(_PREHASH_Material,	material);
 
 	U32 flags = 0;		// not selected
-	if (use_physics || gSavedPerAccountSettings.getBOOL("BuildPrefs_Physical"))
-	{
-		flags |= FLAGS_USE_PHYSICS;
-	}
 	//if (create_selected)
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0b) | Added: RLVa-1.0.0b
 	if ( (create_selected) && (!gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) )
