@@ -47,5 +47,9 @@
        font="SansSerifSmall" height="16" initial_value="false"
        label="Stand when editing appearance" left="12" mouse_opaque="true"
        name="appearance_stand_check" radio_style="false" width="217" />
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="false"
+       label="Enable Wind" left="12" mouse_opaque="true"
+       name="mute_wind_check" radio_style="false" width="217" />
 
 </panel>
