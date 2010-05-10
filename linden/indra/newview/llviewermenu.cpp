@@ -10369,7 +10369,41 @@ class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
 	}
 };
 
+///////////
+// Crash //
+///////////
 
+
+class LLAdvancedCrash : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		std::string command = userdata.asString();
+		if ("deadbeefcrash" == command)
+		{
+			force_error_bad_memory_access(NULL);
+		}
+		else if ("llerrcrash" == command)
+		{
+			force_error_llerror(NULL);
+		}
+		else if ("infiniteloopcrash" == command)
+		{
+			force_error_infinite_loop(NULL);
+		}
+		else if ("drivercrash" == command)
+		{
+			force_error_driver_crash(NULL);
+		}
+		else if ("forcedisconnect" == command)
+		{
+			handle_disconnect_viewer(NULL);
+		}
+
+		return true;
+	}
+
+};
 
 /////////////////
 // MESSAGE LOG //
@@ -11086,6 +11120,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
+
+	// Advanced > Crash
+	addMenu(new LLAdvancedCrash(), "Advanced.Crash");
+
 
 	// Advanced > Network
 	addMenu(new LLAdvancedEnableMessageLog(), "Advanced.EnableMessageLog");

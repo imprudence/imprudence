@@ -1920,7 +1920,36 @@
       </menu_item_call>
     </menu>
 
+    <!-- CRASH -->
 
+    <menu name="Crash" drop_shadow="true"
+          opaque="true" tear_off="true">
+      <menu_item_call name="Force Bad Memory Access"
+                      label="Force Bad Memory Access">
+        <on_click function="Advanced.Crash"
+                  userdata="deadbeefcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force LLError And Crash"
+                      label="Force LLError And Crash">
+        <on_click function="Advanced.Crash"
+                  userdata="llerrcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Infinite Loop"
+                      label="Force Infinite Loop">
+        <on_click function="Advanced.Crash"
+                  userdata="infiniteloopcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Driver Crash"
+                      label="Force Driver Crash">
+        <on_click function="Advanced.Crash"
+                  userdata="drivercrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Disconnect Viewer"
+                      label="Force Disconnect Viewer">
+        <on_click function="Advanced.Crash"
+                  userdata="forcedisconnect" />
+      </menu_item_call>
+    </menu>
 
     <!-- NETWORK -->
 
