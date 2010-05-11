@@ -50,6 +50,7 @@
 #include "llcheckboxctrl.h"
 #include "llfloater.h"
 
+#include "llfloaterchat.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
 #include "llfloatergroups.h"
@@ -1622,6 +1623,18 @@ void LLPanelAvatar::onClickOfferTeleport(void *userdata)
 void LLPanelAvatar::onClickCopyUUID(void *userdata)
 {
 	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+
+	// Say same info in chat -- MC
+	LLStringUtil::format_map_t targs;
+	targs["[KEY]"] = self->mAvatarID.asString();
+	targs["[AVATAR]"] = self->mPanelSecondLife->getChild<LLNameEditor>("name")->getText();
+	std::string msg = self->mPanelSecondLife->getString("copy_key_info");
+	LLStringUtil::format(msg, targs);
+
+	LLChat chat;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+	chat.mText = msg;
+	LLFloaterChat::addChat(chat);
 
 	std::string buffer;
 	(self->mAvatarID).toString(buffer);
