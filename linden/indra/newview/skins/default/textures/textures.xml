@@ -204,8 +204,6 @@
   
   <texture name="status_no_build.tga"/>
   <texture name="status_voice.tga"/>
-  <texture name="status_buy_currency.tga"/>
-  <texture name="status_buy_currency_pressed.tga"/>
   <texture name="status_buy_land.tga"/>
   <texture name="status_buy_land_pressed.tga"/>
   <texture name="status_no_fly.tga"/>

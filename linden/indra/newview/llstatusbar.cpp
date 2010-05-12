@@ -173,22 +173,14 @@ mSquareMetersCommitted(0)
 	childSetVisible("search_btn", gSavedSettings.getBOOL("ShowSearchBar"));
 	childSetVisible("menubar_search_bevel_bg", gSavedSettings.getBOOL("ShowSearchBar"));
 
+	childSetAction("buycurrency", onClickBuyCurrency, this );
+	childSetActionTextbox("BalanceText", onClickBalance );
 	childSetActionTextbox("ParcelNameText", onClickParcelInfo );
 
-	// Disable buying currency when connected to non-SL grids.
-	// TODO: Check whether the grid supports buying currency.
-	if( gHippoGridManager->getConnectedGrid()->isSecondLife() )
-	{
-		childSetEnabled("buycurrency", true);
-		childSetVisible("buycurrency", true);
-		childSetAction("buycurrency", onClickBuyCurrency, this );
-		childSetActionTextbox("BalanceText", onClickBalance );
-	}
-	else
-	{
-		childSetEnabled("buycurrency", false);
-		childSetVisible("buycurrency", false);
-	}
+	// TODO: Disable buying currency when connected to non-SL grids
+	// that don't support currency yet -- MC
+	LLButton* buybtn = getChild<LLButton>("buycurrency");
+	buybtn->setLabelArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	// Adding Net Stat Graph
 	S32 x = getRect().getWidth() - 2;
@@ -462,6 +454,9 @@ void LLStatusBar::refresh()
 		x += buttonRect.getWidth();
 	}
 
+	// TODO: disable buy land button when connected to non-SL grids
+	// that don't support currency.
+	// TODO: make this brandable -- MC
 	BOOL canBuyLand = parcel
 		&& !parcel->isPublic()
 		&& LLViewerParcelMgr::getInstance()->canAgentBuyParcel(parcel, false);
@@ -632,19 +627,14 @@ void LLStatusBar::refresh()
 	childSetRect("BalanceText", r);
 	new_right -= r.getWidth() - 18;
 
+	childGetRect("buycurrency", r);
+	r.translate( new_right - r.mRight, 0);
+	childSetRect("buycurrency", r);
+	new_right -= r.getWidth() + 6;
+
 	// Don't toggle this visibility while in mouselook -- MC
 	if (!gAgent.cameraMouselook())
 	{
-		// Hide the buy currency button in non-Second Life grids -- MC
-		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
-		{
-			childGetRect("buycurrency", r);
-			r.translate( new_right - r.mRight, 0);
-			childSetRect("buycurrency", r);
-			new_right -= r.getWidth() + 6;
-		}
-		childSetVisible("buycurrency", gHippoGridManager->getConnectedGrid()->isSecondLife());
-
 		// Set search bar visibility
 		childSetVisible("search_editor", search_visible);
 		childSetVisible("search_btn", search_visible);
@@ -673,10 +663,8 @@ void LLStatusBar::setVisibleForMouselook(bool visible)
 {
 	mTextBalance->setVisible(visible);
 	mTextTime->setVisible(visible);
-	if (gHippoGridManager->getConnectedGrid()->isSecondLife())
-	{
-		childSetVisible("buycurrency", visible);
-	}
+	childSetVisible("buycurrency", visible);
+	childSetVisible("buyland", visible);
 	childSetVisible("search_editor", visible);
 	childSetVisible("search_btn", visible);
 	childSetVisible("menubar_search_bevel_bg", visible);
