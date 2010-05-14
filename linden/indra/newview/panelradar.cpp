@@ -270,12 +270,16 @@ void PanelRadar::populateRadar()
 			mRadarList->selectByID(mSelectedAvatar);
 		}
 		avatar_count << (int)avatar_ids.size();
+		childSetText("avatars_in", ((int)avatar_ids.size() > 1) ? 
+									getString("avatars_in_plural") : 
+									getString("avatars_in_singular"));
 	}
 	else
 	{
 		mTypingAvatars.clear();
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		avatar_count << "0";
+		childSetText("avatars_in", getString("avatars_in_plural"));
 	}
 
 	childSetText("lblAvatarCount", avatar_count.str());

@@ -4932,17 +4932,17 @@
   <key>FloaterMiniMapRect</key>
   <map>
     <key>Comment</key>
-    <string>Rectangle for world map</string>
+    <string>Rectangle for the mini-map</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>Rect</string>
     <key>Value</key>
     <array>
-      <integer>0</integer>
-      <integer>225</integer>
-      <integer>200</integer>
-      <integer>0</integer>
+      <integer>600</integer>
+      <integer>590</integer>
+      <integer>880</integer>
+      <integer>190</integer>
     </array>
   </map>
   <key>FloaterMoveRect2</key>

@@ -21,6 +21,12 @@
   <string name="entering_sim_range">
     [NAME] has entered the sim ([DISTANCE]m)
   </string>
+  <string name="avatars_in_singular">
+    avatar in
+  </string>
+  <string name="avatars_in_plural">
+    avatars in
+  </string>
 
   <text name="lblAvatarCount"
         bottom="-20" left="10" height="16" width="220"
@@ -37,11 +43,11 @@
         bg_visible="false" border_drop_shadow_visible="false"
         border_visible="false" drop_shadow_visible="true" follows="left|top"
         font="SansSerifSmall" mouse_opaque="true" >
-    Avatars in
+    avatars in
   </text>
 
   <slider name="near_me_range" label="" control_name="NearMeRange"
-          bottom_delta="0" left_delta="55" width="110" height="15"
+          bottom_delta="0" left_delta="58" width="110" height="15"
           follows="left|top" min_val="5" max_val="512" increment="1"
           initial_val="96" decimal_digits="0" />
 
@@ -62,79 +68,79 @@
     <panel name="avatar_tab" label="Avatars"
            bottom="-180" left="1" height="160" width="198"
            follows="left|top|right|bottom"
-           border="true" mouse_opaque="true">
+           border="false" mouse_opaque="true">
 
       <button name="im_btn" label="IM/Call"
-              bottom="-25" left="-85" height="16" width="80"
+              bottom="-22" left="-85" height="20" width="80"
               follows="top|right"
               tool_tip="Open Instant Message session" />
 
       <button name="profile_btn" label="Profile"
-              bottom_delta="-20" left_delta="0" height="18" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" 
               tool_tip="Show picture, groups, and other information" />
 
-      <button name="offer_teleport_btn" label="Teleport..."
-              bottom_delta="-20" left_delta="0" height="16" width="80"
+      <button name="offer_teleport_btn" label="Offer TP"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" 
               tool_tip="Offer to teleport this person to your location" />
 
-      <button name="teleport_btn" label="TP to"
-              bottom_delta="-20" left_delta="0" height="16" width="80"
+      <button name="teleport_btn" label="TP To"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" 
-              tool_tip="Teleport to avatar's position" />
+              tool_tip="Teleport to another person's location" />
 
       <button name="track_btn" label="Track"
-              bottom_delta="-20" left_delta="0" height="16" width="80" 
+              bottom_delta="-22" left_delta="0" height="20" width="80" 
               follows="top|right" 
               tool_tip="Create a beacon to track friends you can map" />
 
       <button name="invite_btn" label="Invite..."
-              bottom_delta="-20" left_delta="0" height="16" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right"
-              tool_tip="Remove this person from your friends list" />
+              tool_tip="Invite a person to a group" />
 
       <button name="add_btn" label="Add..."
-              bottom_delta="-20" left_delta="0" height="16" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right"
-              tool_tip="Offer friendship to a resident" />
+              tool_tip="Offer friendship to a person" />
 
     </panel>
 
     <panel name="estate_tab" label="Estate"
            bottom="-160" left="1" height="160" width="198"
            follows="left|top|right|bottom"
-           border="true" mouse_opaque="true">
+           border="false" mouse_opaque="true">
 
       <button name="freeze_btn" label="Freeze..."
-              bottom="-25" left="-85" height="22" width="80"
+              bottom="-22" left="-85" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="eject_btn" label="Eject..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="mute_btn" label="Mute..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="unmute_btn" label="Unmute..."
-              bottom_delta="0" left_delta="0" height="22" width="80"
+              bottom_delta="0" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="ar_btn" label="Report..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="estate_eject_btn" label="Kick..."
-              bottom_delta="-25" left_delta="0" height="22" width="80"
+              bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
     </panel>
   </tab_container>
 
   <scroll_list name="RadarList"
-               bottom="6" left="4" right="-92" height="146"
+               bottom="6" left="4" right="-90" height="146"
                follows="left|bottom|right" 
                draw_border="false" draw_heading="true"
                draw_stripes="true" background_visible="true"
