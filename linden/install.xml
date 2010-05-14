@@ -1300,9 +1300,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>41541a98106894e28a6bf585010fea65</string>
+            <string>8e611d266d9e589bc3913dbe0a08853c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3-windows-20090407.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4.565-windows-20100514.tar.bz2</uri>
           </map>
         </map>
       </map>
