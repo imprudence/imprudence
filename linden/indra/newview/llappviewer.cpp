@@ -35,7 +35,6 @@
 #include "llappviewer.h"
 #include "llprimitive.h"
 
-#include "llversionviewer.h"
 #include "llfeaturemanager.h"
 #include "lluictrlfactory.h"
 #include "lltexteditor.h"
@@ -151,6 +150,7 @@
 #include "llflexibleobject.h" 
 #include "llvosurfacepatch.h"
 #include "llslider.h"
+#include "viewerversion.h"
 
 // includes for idle() idleShutdown()
 #include "llviewercontrol.h"
@@ -577,7 +577,7 @@ bool LLAppViewer::init()
 	
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
-	gDirUtilp->initAppDirs(IMP_VIEWER_NAME);
+	gDirUtilp->initAppDirs(ViewerVersion::getImpViewerName());
 	// set skin search path to default, will be overridden later
 	// this allows simple skinned file lookups to work
 	gDirUtilp->setSkinFolder("default");
@@ -601,15 +601,15 @@ bool LLAppViewer::init()
 	// Build a string representing the current version number.
     gCurrentVersion = llformat("%s %d.%d.%d %s / %s %d.%d.%d.%d", 
         gSavedSettings.getString("VersionChannelName").c_str(), 
-        IMP_VERSION_MAJOR, 
-        IMP_VERSION_MINOR, 
-        IMP_VERSION_PATCH,
-		IMP_VERSION_TEST,
-        LL_VIEWER_NAME,
-        LL_VERSION_MAJOR, 
-        LL_VERSION_MINOR, 
-        LL_VERSION_PATCH, 
-        LL_VERSION_BUILD );
+		ViewerVersion::getImpMajorVersion(), 
+		ViewerVersion::getImpMinorVersion(), 
+		ViewerVersion::getImpPatchVersion(),
+		ViewerVersion::getImpTestVersion().c_str(),
+		ViewerVersion::getLLViewerName().c_str(),
+		ViewerVersion::getLLMajorVersion(), 
+		ViewerVersion::getLLMinorVersion(), 
+		ViewerVersion::getLLPatchVersion(), 
+		ViewerVersion::getLLBuildVersion() );
 
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -1685,6 +1685,9 @@ std::string LLAppViewer::getSettingsFilename(const std::string& location_key,
 
 bool LLAppViewer::initConfiguration()
 {	
+	// init Imprudence version - MC
+	ViewerVersion::initViewerVersion();
+
 	//Set up internal pointers	
 	gSettings[sGlobalSettingsName] = &gSavedSettings;
 	gSettings[sPerAccountSettingsName] = &gSavedPerAccountSettings;
@@ -1732,7 +1735,7 @@ bool LLAppViewer::initConfiguration()
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
         gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence.xml"));
 
-	gSavedSettings.setString("VersionChannelName", IMP_VIEWER_NAME);
+	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 
 	//*FIX:Mani - Set default to disabling watchdog mainloop 
 	// timeout for mac and linux. There is no call stack info 
@@ -1970,7 +1973,7 @@ bool LLAppViewer::initConfiguration()
     mYieldTime = gSavedSettings.getS32("YieldTime");
              
 	// XUI:translate
-	gSecondLife = IMP_VIEWER_NAME;
+	gSecondLife = ViewerVersion::getImpViewerName();
 
 	// Read skin/branding settings if specified.
 	//if (! gDirUtilp->getSkinDir().empty() )
@@ -2339,14 +2342,14 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 
@@ -2433,14 +2436,14 @@ void LLAppViewer::handleViewerCrash()
 	//to check against no matter what
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
 
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if ( parcel && parcel->getMusicURL()[0])
@@ -4115,10 +4118,10 @@ void LLAppViewer::handleLoginComplete()
 	// Store some data to DebugInfo in case of a freeze.
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
 
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();

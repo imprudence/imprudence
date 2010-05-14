@@ -73,7 +73,6 @@
 #include "llsecondlifeurls.h"
 #include "llstring.h"
 #include "lluserrelations.h"
-#include "llversionviewer.h"
 #include "llvfs.h"
 #include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
@@ -185,6 +184,7 @@
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
 #include "llagentlanguage.h"
+#include "viewerversion.h"
 
 #include "jcfloater_animation_list.h"
 
@@ -504,9 +504,9 @@ bool idle_startup()
 			if(!start_messaging_system(
 				   message_template_path,
 				   port,
-				   LL_VERSION_MAJOR,
-				   LL_VERSION_MINOR,
-				   LL_VERSION_PATCH,
+				   ViewerVersion::getLLMajorVersion(),
+				   ViewerVersion::getLLMinorVersion(),
+				   ViewerVersion::getLLPatchVersion(),
 				   FALSE,
 				   std::string(),
 				   responder,

@@ -8,7 +8,6 @@
 
 #include <boost/algorithm/string.hpp>
 #include "llviewercontrol.h"
-#include "llviewerbuild.h"
 #include "llcombobox.h"
 #include "llscrolllistctrl.h"
 #include "llmd5.h"

@@ -54,7 +54,6 @@
 #include "llfloaterchat.h"	// for add_chat_history()
 #include "lloverlaybar.h" // for gOverlayBar
 #include "lluictrlfactory.h"
-#include "llversionviewer.h"
 
 #include "hippoGridManager.h"
 

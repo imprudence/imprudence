@@ -38,8 +38,8 @@
 #include "llviewercontrol.h"
 #include "llviewerimage.h"
 #include "llviewerwindow.h"
-#include "llversionviewer.h"
 #include "llviewerimagelist.h"
+#include "viewerversion.h"
 
 #include "llevent.h"		// LLSimpleListener
 #include "llmediamanager.h"
@@ -443,7 +443,7 @@ void LLViewerMediaImpl::updateBrowserUserAgent()
 	// http://www.mozilla.org/build/revised-user-agent-strings.html
 	std::ostringstream codec;
 	codec << "SecondLife/";
-	codec << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD;
+	codec << ViewerVersion::getLLMajorVersion() << "." << ViewerVersion::getLLMinorVersion() << "." << ViewerVersion::getLLPatchVersion() << "." << ViewerVersion::getLLBuildVersion();
 	codec << " (" << channel << "; " << skin_name << " skin)";
 	llinfos << codec.str() << llendl;
 	LLMediaManager::setBrowserUserAgent( codec.str() );

@@ -468,6 +468,7 @@ set(viewer_SOURCE_FILES
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
+    viewerversion.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -905,6 +906,7 @@ set(viewer_HEADER_FILES
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
+    viewerversion.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
@@ -1313,6 +1315,7 @@ set(viewer_APPSETTINGS_FILES
     app_settings/trees.xml
     app_settings/ultra_graphics.xml
     app_settings/viewerart.xml
+    app_settings/viewerversion.xml
     ${CMAKE_SOURCE_DIR}/../etc/message.xml
     ${CMAKE_SOURCE_DIR}/../scripts/messages/message_template.msg
     )

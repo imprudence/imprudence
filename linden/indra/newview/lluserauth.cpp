@@ -38,9 +38,7 @@
 #include <iterator>
 
 #include "lldir.h"
-#include "llversionviewer.h"
 #include "llappviewer.h"
-#include "llviewerbuild.h"
 #include "llviewercontrol.h"
 #include "llxmlrpctransaction.h"
 #include "llmd5.h"

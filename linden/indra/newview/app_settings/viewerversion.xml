@@ -1,0 +1,25 @@
+<!-- 
+Set the version for Imprudence here!
+
+NOTE: llcommon/llviewerversion.h still
+contains the version for the LL viewer.
+
+OS-specific version resources still 
+need to be changed manually - MC
+-->
+
+<viewer_version>
+
+  <!--int-->
+  <viewer version_major="1" />
+
+  <!--int-->
+  <viewer version_minor="3" />
+
+  <!--int-->
+  <viewer version_patch="0" />
+
+  <!--string-->
+  <viewer version_test="Beta 4" />
+  
+</viewer_version>
