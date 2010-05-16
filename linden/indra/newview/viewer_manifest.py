@@ -898,7 +898,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
+            self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
             self.path("libz.so.1")
 
