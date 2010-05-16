@@ -574,9 +574,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>6b2071b61e5cdc799f5b7654e4851f40</string>
+            <string>58c11add6b275c163950364df5b2964a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20091231.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20100515.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
