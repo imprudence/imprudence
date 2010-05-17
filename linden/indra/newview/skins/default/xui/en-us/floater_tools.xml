@@ -1165,13 +1165,13 @@
 			</text>
 			<spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" increment="0.1"
 			     initial_val="0" label="Horizontal (U)" label_width="90" left="20"
-			     max_val="100" min_val="0" mouse_opaque="true" name="TexScaleU" width="160" />
+			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleU" width="160" />
 			<check_box bottom="-179" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Flip" left_delta="170" mouse_opaque="true"
 			     name="checkbox flip s" width="70" />
 			<spinner bottom="-196" decimal_digits="3" follows="left|top" height="16" increment="0.1"
 			     initial_val="0" label="Vertical (V)" label_width="90" left="20"
-			     max_val="100" min_val="0" mouse_opaque="true" name="TexScaleV" width="160" />
+			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleV" width="160" />
 			<check_box bottom="-197" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Flip" left_delta="170" mouse_opaque="true"
 			     name="checkbox flip t" width="70" />
