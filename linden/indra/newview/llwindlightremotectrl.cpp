@@ -137,6 +137,8 @@ BOOL LLWindlightRemoteCtrl::postBuild()
 
 void LLWindlightRemoteCtrl::refreshPresets()
 {
+	// Just in case, let's not ever crash here
+	mPresetsCombo = getChild<LLComboBox>("Presets");
 	if (mPresetsCombo)
 	{
 		// snag current preset
