@@ -41,7 +41,7 @@
       </string>
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-23" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifsmall" h_pad="0" halign="left" height="16" right="-12"
+			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left="262"
 			     mouse_opaque="true" name="online_yes" v_pad="0" width="200">
         Currently: Online
       </text>
