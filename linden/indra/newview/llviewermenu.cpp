@@ -2450,7 +2450,7 @@ bool handle_go_to_confirm()
 	{
 		LLNotifications::instance().add("ConfirmDoubleClickTP", LLSD(), LLSD(), &handle_go_to_callback);
 	}
-	else if (action == "autopilot")
+	else if (action == "move")
 	{
 		LLNotifications::instance().add("ConfirmAutoPilot", LLSD(), LLSD(), &handle_go_to_callback);
 	}
@@ -2493,7 +2493,7 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
 			gAgent.teleportViaLocation(pos + hips_offset);
 		}
-		else if (action == "autopilot")
+		else if (action == "move")
 		{
 			// JAMESDEBUG try simulator autopilot
 			std::vector<std::string> strings;
