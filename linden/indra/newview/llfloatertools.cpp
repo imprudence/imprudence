@@ -268,6 +268,14 @@ BOOL	LLFloaterTools::postBuild()
 	mBtnUnlink = getChild<LLButton>("unlink_btn");
 	childSetAction("unlink_btn",onClickUnlink, this);
 
+	getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+
+	getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
+
 	toolsPrecision();
 
 	//

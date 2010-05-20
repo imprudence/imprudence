@@ -32,6 +32,7 @@ void HippoLimits::setOpenSimLimits()
 {
 	mMaxAgentGroups = 100;
 	mMaxPrimScale = 256.0f;
+	mMinPrimScale = 0.001f;
 	mMaxHeight = 10000.0f;
 	mMaxLinkedPrims = -1;
 
@@ -51,6 +52,7 @@ void HippoLimits::setSecondLifeLimits()
 	llinfos << "Using Second Life limits." << llendl;
 	mMaxAgentGroups = 25;
 	mMaxPrimScale = 10.0f;
+	mMinPrimScale = 0.01f;
 	mMaxHeight = 4096.0f;
 	mMinHoleSize = 0.05f;  
 	mMaxHollow = 0.95f;

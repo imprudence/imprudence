@@ -655,15 +655,15 @@
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="3" follows="left|top" height="16"
 			     increment="0.01" initial_val="0" label="X" label_width="10" left="10"
-			     min_val="0.01" mouse_opaque="true" name="Scale X"
+			     mouse_opaque="true" name="Scale X"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
 			<spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
 			     increment="0.01" initial_val="0" label="Y" label_width="10" left="10"
-			     min_val="0.01" mouse_opaque="true" name="Scale Y"
+           mouse_opaque="true" name="Scale Y"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
 			<spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
 			     increment="0.01" initial_val="0" label="Z" label_width="10" left="10"
-			     min_val="0.01" mouse_opaque="true" name="Scale Z"
+			     mouse_opaque="true" name="Scale Z"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"

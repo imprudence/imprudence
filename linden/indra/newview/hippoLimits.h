@@ -12,6 +12,7 @@ public:
 	float getMinHoleSize()    const { return mMinHoleSize;    }
 	float getMaxHollow()      const { return mMaxHollow;      }
 	float getMaxPrimScale()   const { return mMaxPrimScale;   }
+	float getMinPrimScale()   const { return mMinPrimScale;   }
 	S32   getMaxLinkedPrims() const { return mMaxLinkedPrims; }
 
 	void setLimits();
@@ -23,6 +24,7 @@ private:
 	float mMinHoleSize;
 	float mMaxHollow;
 	float mMaxPrimScale;
+	float mMinPrimScale;
 	S32   mMaxLinkedPrims;
 
 	void setOpenSimLimits();
