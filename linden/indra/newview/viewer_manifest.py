@@ -812,6 +812,7 @@ class LinuxManifest(ViewerManifest):
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
+	    self.path("getvoice.sh")
             self.end_prefix("linux_tools")
 
         self.gather_documents()
