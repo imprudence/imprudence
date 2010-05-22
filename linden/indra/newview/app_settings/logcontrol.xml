@@ -42,8 +42,10 @@
 						<array>
 
 <!--Unused debug messages below-->
-              
-							<!--<string>DBUS</string>-->
+
+              <!--<string>AppInit</string>-->
+              <!--<string>AppInitStartupState</string>-->
+              <!--<string>DBUS</string>-->
 							<!--<string>OpenAL</string>-->
               <!--<string>AppCache</string>-->
 							<!--<string>APR</string>-->
