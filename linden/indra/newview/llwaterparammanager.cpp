@@ -115,7 +115,7 @@ void LLWaterParamManager::loadAllPresets(const std::string& file_name)
 	// And repeat for user presets, note the user presets will modify any system presets already loaded
 
 	std::string path_name2(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/water", ""));
-	LL_INFOS2("AppInit", "Shaders") << "Loading User water settings from " << path_name2 << LL_ENDL;
+	LL_DEBUGS2("AppInit", "Shaders") << "Loading User water settings from " << path_name2 << LL_ENDL;
 			
 	found = true;			
 	while(found) 
@@ -150,7 +150,7 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 	escaped_filename += ".xml";
 
 	std::string pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/water", escaped_filename));
-	llinfos << "Loading water settings from " << pathName << llendl;
+	LL_DEBUGS2("AppInit", "Shaders") << "Loading water settings from " << pathName << LL_ENDL;
 	
 	std::ifstream presetsXML;
 	presetsXML.open(pathName.c_str());
@@ -159,7 +159,7 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 	if(!presetsXML)
 	{
 		pathName=gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/water", escaped_filename);
-		llinfos << "Loading User water setting from " << pathName << llendl;
+		LL_DEBUGS2("AppInit", "Shaders") << "Loading User water setting from " << pathName << LL_ENDL;
 		presetsXML.open(pathName.c_str());
 	}
 
