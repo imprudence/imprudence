@@ -32,6 +32,8 @@ def get_version(filename):
     version = "%(major)s.%(minor)s.%(patch)s" % vals
 
     if len(vals['test']) > 0:
+        # Replace some puncuation and spaces with '-' in the test version
+        vals['test'] = re.sub('[ \t:;,+/\\"\'`]+', '-', vals['test'])
         version += "-%(test)s" % vals
 
     return version
