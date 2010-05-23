@@ -608,10 +608,10 @@
 			     mouse_opaque="true" name="edit_object" v_pad="0" width="252">
 				Edit object parameters:
 			</text>
-      <button bottom_delta="-10" follows="left|top" font="SansSerif" halign="center"
-			     height="22" label="?" label_selected="?" right="-8" tool_tip="Object math constants" 
-			     mouse_opaque="true" name="build_math_constants" scale_image="true" width="22" />
-			<check_box bottom_delta="-16" follows="left|top" font="SansSerifSmall" height="16"
+      <button bottom_delta="-5" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="20" label="Build Math..." label_selected="Build Math..." right="-8" tool_tip="Object math constants" 
+			     mouse_opaque="true" name="build_math_constants" scale_image="true" width="100" />
+			<check_box bottom_delta="-21" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Locked" left="8" mouse_opaque="true"
 			     name="checkbox locked"
 			     tool_tip="Prevents object from being moved or deleted. Frequently useful during building to avoid unintended edits."
@@ -1225,9 +1225,9 @@
 			<button bottom="-360" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="20" label="Align" label_selected="Align" left="112"
 			     mouse_opaque="true" name="button align" scale_image="TRUE" width="68" />
-      <button bottom="-162" follows="left|top" font="SansSerif" halign="center"
-			     height="22" label="?" label_selected="?" right="-8" tool_tip="Texture math constants"
-			     mouse_opaque="true" name="texture_math_constants" scale_image="true" width="24" />
+      <button bottom="-155" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="20" label="Texture Math..." label_selected="Texture Math..." right="-8" tool_tip="Texture math constants"
+			     mouse_opaque="true" name="texture_math_constants" scale_image="true" width="110" />
 		</panel>
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     label="Content" left="1" mouse_opaque="false" name="Contents" width="270">
