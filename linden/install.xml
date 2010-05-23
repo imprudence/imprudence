@@ -190,6 +190,13 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
