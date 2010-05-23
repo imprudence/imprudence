@@ -2164,28 +2164,36 @@ BOOL LLLineEditor::prevalidateASCII(const LLWString &str)
 
 BOOL LLLineEditor::evaluateFloat()
 {
-	bool success;
-	F32 result = 0.f;
+	bool success = false;
 	std::string expr = getText();
 
-	success = LLCalc::getInstance()->evalString(expr, result);
-
-	if (!success)
+	// user deleted the contents, nothing to evaluate -- MC
+	if (expr.empty())
 	{
-		// Move the cursor to near the error on failure
-		setCursor(LLCalc::getInstance()->getLastErrorPos());
-		// *TODO: Translated error message indicating the type of error? Select error text?
+		return success;
 	}
 	else
 	{
-		// Replace the expression with the result
-		std::ostringstream result_str;
-		result_str << result;
-		setText(result_str.str());
-		selectAll();
-	}
+		F32 result = 0.f;
+		success = LLCalc::getInstance()->evalString(expr, result);
 
-	return success;
+		if (!success)
+		{
+			// Move the cursor to near the error on failure
+			setCursor(LLCalc::getInstance()->getLastErrorPos());
+			// *TODO: Translated error message indicating the type of error? Select error text?
+		}
+		else
+		{
+			// Replace the expression with the result
+			std::ostringstream result_str;
+			result_str << result;
+			setText(result_str.str());
+			selectAll();
+		}
+
+		return success;
+	}
 }
 
 void LLLineEditor::onMouseCaptureLost()
