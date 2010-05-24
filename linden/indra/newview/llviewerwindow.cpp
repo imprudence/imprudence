@@ -2194,7 +2194,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	    && (MASK_CONTROL & mask)
 	    && ('5' == key))
 	{
-		LLFloaterNotificationConsole::showInstance();
+		LLFloaterNotificationConsole::toggleInstance();
 		return TRUE;
 	}
 

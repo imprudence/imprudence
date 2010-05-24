@@ -760,7 +760,6 @@ void init_client_menu(LLMenuGL* menu)
 		
 		sub->appendSeparator();
 		
-		// For Imprudence 1.3 - need to XUIfy
 		// Debugging view for unified notifications
 		sub->append(new LLMenuItemCallGL("Notifications Console...",
 						 &handle_show_notifications_console, NULL, NULL, '5', MASK_CONTROL|MASK_SHIFT ));
@@ -8422,6 +8421,11 @@ class LLAdvancedToggleConsole : public view_listener_t
 		else if ("memory" == console_type)
 		{
 			toggle_visibility( (void*)gDebugView->mMemoryView );
+		}
+		else if ("notifications" == console_type)
+		{
+			// Don't find the instance, it'll force it to show on login screen -- MC
+			LLFloaterNotificationConsole::toggleInstance();
 		}
 		return true;
 	}

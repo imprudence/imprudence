@@ -879,6 +879,12 @@
       </menu_item_check>
       -->
       <menu_item_separator />
+      <menu_item_call name="Notifications Console..." label="Notifications Console..."
+                       shortcut="control|shift|5">
+        <on_click function="Advanced.ToggleConsole"
+                  userdata="notifications" />
+      </menu_item_call>
+      <menu_item_separator />
       <menu_item_call name="Region Info to Debug Console"
                       label="Region Info to Debug Console">
         <on_click function="Advanced.DumpInfoToConsole"
@@ -894,7 +900,8 @@
         <on_click function="Advanced.DumpInfoToConsole"
                   userdata="capabilities" />
       </menu_item_call>
-    </menu>
+    
+  </menu>
 
 
     <menu_item_call name="Reload personal setting overrides"
