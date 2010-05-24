@@ -1352,6 +1352,12 @@
                   userdata="RenderFastAlpha" />
         <on_check control="RenderFastAlpha" />
       </menu_item_check>
+      <menu_item_check name="Animate Trees"
+                 label="Animate Trees">
+        <on_click function="ToggleControl"
+                  userdata="RenderAnimateTrees" />
+        <on_check control="RenderAnimateTrees" />
+      </menu_item_check>
       <menu_item_check name="Animate Textures"
                        label="Animate Textures">
         <on_click function="ToggleControl"
