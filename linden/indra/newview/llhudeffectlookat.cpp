@@ -553,6 +553,8 @@ void LLHUDEffectLookAt::render()
 //-----------------------------------------------------------------------------
 void LLHUDEffectLookAt::update()
 {
+	LLHUDEffectLookAt::sDebugLookAt = gSavedSettings.getBOOL("PersistShowLookAt");
+
 	// If the target object is dead, set the target object to NULL
 	if (!mTargetObject.isNull() && mTargetObject->isDead())
 	{
