@@ -1949,6 +1949,13 @@
         <on_click function="Advanced.Crash"
                   userdata="forcedisconnect" />
       </menu_item_call>
+      <menu_item_separator />
+      <menu_item_check name="Output Debug Minidump"
+                 label="Output Debug Minidump">
+        <on_click function="ToggleControl"
+                  userdata="SaveMinidump" />
+        <on_check control="SaveMinidump" />
+      </menu_item_check>
     </menu>
 
     <!-- NETWORK -->
@@ -2091,12 +2098,6 @@
       <on_check function="RLVa.Main.Enabled" />
     </menu_item_check>
 
-    <menu_item_check name="Output Debug Minidump"
-                     label="Output Debug Minidump">
-      <on_click function="ToggleControl"
-                userdata="SaveMinidump" />
-      <on_check control="SaveMinidump" />
-    </menu_item_check>
     <menu_item_check name="Allow Multiple Instances"
             label="Allow Multiple Instances">
       <on_click function="Advanced.ToggleMultipleViewers"
