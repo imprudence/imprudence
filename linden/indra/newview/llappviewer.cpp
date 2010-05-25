@@ -2915,16 +2915,21 @@ bool LLAppViewer::initCache()
 	migrateCacheDirectory();
 
 	// Setup and verify the cache location
-	std::string cache_location = gSavedSettings.getString("CacheLocation");
+	std::string cache_location = gSavedSettings.getString("CmdLineCacheLocation");
+	if (cache_location.empty())
+	{
+		cache_location = gSavedSettings.getString("CacheLocation");
+	}
 	std::string new_cache_location = gSavedSettings.getString("NewCacheLocation");
-	if (new_cache_location != cache_location)
+	if ((new_cache_location != cache_location) && new_cache_location != "")
 	{
 		gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation"));
 		purgeCache(); // purge old cache
 		gSavedSettings.setString("CacheLocation", new_cache_location);
+		cache_location = new_cache_location;
 	}
 	
-	if (!gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation")))
+	if (!gDirUtilp->setCacheDir(cache_location))
 	{
 		LL_WARNS("AppCache") << "Unable to set cache location" << LL_ENDL;
 		gSavedSettings.setString("CacheLocation", "");

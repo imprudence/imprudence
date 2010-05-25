@@ -52,6 +52,16 @@
       <string>CmdLineGridChoice</string>
     </map>
 
+    <key>cache</key>
+    <map>
+      <key>desc</key>
+      <string>Specify the location of the local cache directory.</string>
+      <key>count</key>
+      <integer>1</integer>
+      <key>map-to</key>
+      <string>CmdLineCacheLocation</string>
+    </map>
+
     <key>loginuri</key>
     <map>
       <key>desc</key>

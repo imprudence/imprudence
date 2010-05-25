@@ -48,6 +48,17 @@
     <key>Value</key>
     <string></string>
   </map>
+  <key>CmdLineCacheLocation</key>
+  <map>
+    <key>Comment</key>
+    <string>Command line specified cache location to use.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
   <key>DecimalsForTools</key>
   <map>
     <key>Comment</key>
