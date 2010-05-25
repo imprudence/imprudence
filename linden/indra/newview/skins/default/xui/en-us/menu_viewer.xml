@@ -1861,8 +1861,10 @@
 
       <menu_item_check name="Show Look At"
                        label="Show Look At">
-        <on_click function="ToggleControl" userdata="PersistShowLookAt" />
-        <on_check control="PersistShowLookAt" />
+        <on_click function="Advanced.ToggleShowLookAt"
+                  userdata="" />
+        <on_check function="Advanced.CheckShowLookAt"
+                  userdata="" />
       </menu_item_check>
       <menu_item_check name="Show Point At"
                        label="Show Point At">

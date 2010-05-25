@@ -127,6 +127,7 @@
 
 #include "llworld.h"
 #include "llhudeffecttrail.h"
+#include "llhudeffectlookat.h"
 #include "llvectorperfoptions.h"
 #include "llurlsimstring.h"
 #include "llwatchdog.h"
@@ -429,6 +430,8 @@ static void settings_to_globals()
 	LLCubeMap::sUseCubeMaps = LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 
 	LLSlider::setScrollWheelMultiplier( gSavedSettings.getS32("SliderScrollWheelMultiplier") );
+
+	LLHUDEffectLookAt::sDebugLookAt = gSavedSettings.getBOOL("PersistShowLookAt");
 }
 
 static void settings_modify()

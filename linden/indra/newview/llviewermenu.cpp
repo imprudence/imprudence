@@ -10072,6 +10072,7 @@ class LLAdvancedToggleShowLookAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
+		gSavedSettings.setBOOL("PersistShowLookAt", LLHUDEffectLookAt::sDebugLookAt);
 		return true;
 	}
 };
