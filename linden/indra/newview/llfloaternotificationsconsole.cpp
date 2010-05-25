@@ -187,6 +187,7 @@ BOOL LLFloaterNotificationConsole::postBuild()
 	addChannel("NotificationTips");
 
 	getChild<LLButton>("add_notification")->setClickedCallback(onClickAdd, this);
+	getChild<LLButton>("reload_notifications")->setClickedCallback(onClickReload, this);
 
 	LLComboBox* notifications = getChild<LLComboBox>("notification_types");
 	LLNotifications::TemplateNames names = LLNotifications::instance().getTemplateNames();
@@ -242,6 +243,12 @@ void LLFloaterNotificationConsole::onClickAdd(void* user_data)
 	{
 		LLNotifications::instance().add(message_name, LLSD());
 	}
+}
+
+void LLFloaterNotificationConsole::onClickReload(void* user_data)
+{
+	// Reload notifications.xml. Old used notifications are preserved in the history for the session -- MC
+	LLNotifications::instance().loadTemplates();
 }
 
 
