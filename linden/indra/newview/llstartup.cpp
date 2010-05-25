@@ -1244,6 +1244,7 @@ bool idle_startup()
 		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_PROCESS_RESPONSE" << LL_ENDL;
 		std::ostringstream emsg;
 		bool quit = false;
+		static bool presence_retry = true;
 		std::string login_response;
 		std::string reason_response;
 		std::string message_response;
@@ -1368,6 +1369,19 @@ bool idle_startup()
 						return false;
 					}
 				}
+				// The "You appear to be already logged in, wait 5 minutes" message
+				// Only do this once per each login button press -- MC
+				if (presence_retry && (reason_response == "presence"))
+				{
+					// Only do this on OS as SL will lock us out -- MC
+					if (gHippoGridManager->getConnectedGrid()->isOpenSimulator() && show_connect_box)
+					{
+						LL_INFOS("AppInit") << "Login Failed. " << message_response << " Retrying now." << LL_ENDL;
+						LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+						presence_retry = false;
+						return false;
+					}
+				}
 			}
 			break;
 		case LLUserAuth::E_COULDNT_RESOLVE_HOST:
@@ -1391,6 +1405,8 @@ bool idle_startup()
 			}
 			break;
 		}
+
+		presence_retry = true;
 
 		// Version update and we're not showing the dialog
 		if(quit)
