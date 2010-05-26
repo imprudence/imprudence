@@ -4,10 +4,10 @@
   
   <!-- Imprudence-specific settings -->
 
-  <key>AppearanceForceStand</key>
+  <key>AppearanceAnimate</key>
   <map>
     <key>Comment</key>
-    <string>Unsit avatar when entering appearance mode?</string>
+    <string>Play appearance anim and unsit avatar when entering appearance mode?</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>

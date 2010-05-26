@@ -59,7 +59,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
-	childSetValue("appearance_stand_check", gSavedSettings.getBOOL("AppearanceForceStand"));
+	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("mute_wind_check", !gSavedSettings.getBOOL("MuteWind"));
 
 	refresh();
@@ -75,7 +75,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
-	gSavedSettings.setBOOL("AppearanceForceStand", childGetValue("appearance_stand_check"));
+	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
 	gSavedSettings.setBOOL("MuteWind", !(BOOL)(childGetValue("mute_wind_check").asBoolean()));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC

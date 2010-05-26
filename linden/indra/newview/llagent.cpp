@@ -4299,14 +4299,14 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 	}
 
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-	if(gSavedSettings.getBOOL("AppearanceForceStand"))
+	if(gSavedSettings.getBOOL("AppearanceAnimate"))
 	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) )
 	{
 		return;
 	}
 // [/RLVa:KB]
 
-	if(gSavedSettings.getBOOL("AppearanceForceStand"))
+	if(gSavedSettings.getBOOL("AppearanceAnimate"))
 		setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -4350,7 +4350,7 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 
 	if (mAvatarObject.notNull())
 	{
-		if(avatar_animate)
+		if(avatar_animate && gSavedSettings.getBOOL("AppearanceAnimate"))
 		{
 				// Remove any pitch from the avatar
 			LLVector3 at = mFrameAgent.getAtAxis();
