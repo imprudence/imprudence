@@ -65,7 +65,7 @@ struct Meta7WindlightPacket {
 	F32 blurMultiplier;
 	M7Vector2 littleWaveDirection;
 	M7Vector2 bigWaveDirection;
-	LLUUID normalMapTexture;
+	unsigned char normalMapTexture[16];
 	M7Color4 horizon;
 	F32 hazeHorizon;
 	M7Color4 blueDensity;

@@ -88,6 +88,7 @@ void process_generic_message(LLMessageSystem* msg, void**)
 	std::string method;
 	msg->getStringFast(_PREHASH_MethodData, _PREHASH_Method, method);
 	
+	//This needs to be handled by a dispatcher really, but I'm not sure where is the best place to put it
 	if (method == "Windlight" && gSavedSettings.getBOOL("UseServersideWindlightSettings"))
 	{	
 		//Meta7 WindLight packet
@@ -121,8 +122,32 @@ void process_generic_message(LLMessageSystem* msg, void**)
 				param_set.set("blurMultiplier", wl->blurMultiplier);
 				param_set.set("wave1Dir", wl->littleWaveDirection.X, wl->littleWaveDirection.Y);
 				param_set.set("wave2Dir", wl->bigWaveDirection.X, wl->bigWaveDirection.Y);
-				
+
+				LLUUID normalMapTexture;
+
+				std::string out = llformat(
+					"%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+					(U8)(wl->normalMapTexture[0]),
+					(U8)(wl->normalMapTexture[1]),
+					(U8)(wl->normalMapTexture[2]),
+					(U8)(wl->normalMapTexture[3]),
+					(U8)(wl->normalMapTexture[4]),
+					(U8)(wl->normalMapTexture[5]),
+					(U8)(wl->normalMapTexture[6]),
+					(U8)(wl->normalMapTexture[7]),
+					(U8)(wl->normalMapTexture[8]),
+					(U8)(wl->normalMapTexture[9]),
+					(U8)(wl->normalMapTexture[10]),
+					(U8)(wl->normalMapTexture[11]),
+					(U8)(wl->normalMapTexture[12]),
+					(U8)(wl->normalMapTexture[13]),
+					(U8)(wl->normalMapTexture[14]),
+					(U8)(wl->normalMapTexture[15]));
+
+				normalMapTexture.set(out);
+
 				param_mgr->setParamSet(	"Meta7CurrentRegion", param_set);
+				param_mgr->setNormalMapID(normalMapTexture);
 
 				LLWLParamManager * wl_param_mgr = LLWLParamManager::instance();
 				LLWLParamSet & wl_param_set = wl_param_mgr->mCurParams;
