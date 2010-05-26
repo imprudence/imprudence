@@ -26,6 +26,10 @@
        font="SansSerifSmall" height="16" initial_value="false"
        label="Enable Shadows (WARNING: unstable and requires Ultra graphics)" left="12" mouse_opaque="true"
        name="shadows_check" radio_style="false" width="217" />
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="true"
+       label="Use server-side Windlight settings" left="12" mouse_opaque="true"
+       name="windlight_check" radio_style="false" width="217" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
        label="Use HTTP Textures" left="12" mouse_opaque="true"
