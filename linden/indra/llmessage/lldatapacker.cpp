@@ -188,27 +188,31 @@ BOOL LLDataPackerBinaryBuffer::packString(const std::string& value, const char *
 
 BOOL LLDataPackerBinaryBuffer::unpackString(std::string& value, const char *name)
 {
-	//Sanitise the string before attemping ANY buffer operations
-	U8 * pos;
-	S32 length=0;
-	for(pos=mCurBufferp;pos<(mBufferp+mBufferSize);pos++)
+    // Verify that the buffer members are meaningful
+    llassert(mBufferp != NULL);
+    llassert(mBufferSize > 0);
+    llassert(mCurBufferp >= mBufferp);
+    llassert(mCurBufferp < (mBufferp + mBufferSize));
+
+	// Compute the length of the mCurBufferp string *without* assuming NULL termination of that string (avoids attempt to read beyond mBufferp boundary)
+	U8 *pos;
+	for (pos = mCurBufferp; pos < (mBufferp+mBufferSize); pos++)
 	{
-		length++;
-		if((*pos)==0)
+		if ((*pos) == 0)
 			break;
 	}
+    S32 length = pos - mCurBufferp + 1;                         // mCurBufferp length
+    S32 max_length = mBufferSize - (mCurBufferp - mBufferp);    // Possible max length of mCurBufferp in mBufferp
 
-	if(length>=mBufferSize)
+	if (length > max_length)
 	{
-		llwarns << "Unpack string failed, null termination not found"<<llendl;
+		llwarns << "Buffer overflow in BinaryBuffer unpackString, field name " << name << "!" << llendl;
+		llwarns << "Null termination not found" << llendl;
+		llwarns << "Current pos in buffer: " << (int)(mCurBufferp - mBufferp) << " Buffer size: " << mBufferSize << llendl;
 		return false;
 	}
 
-	if(!verifyLength(length, name))
-		return false;
-
-	value = std::string((char*)mCurBufferp); // We already assume NULL termination calling strlen()
-	
+	value = std::string((char*)mCurBufferp);
 	mCurBufferp += length;
 	return true;
 }
