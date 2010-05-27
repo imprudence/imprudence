@@ -4267,7 +4267,8 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 			mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
 			mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
 
-			LL_DEBUGS("Messaging") << "Anim sequence ID: " << anim_sequence_id << LL_ENDL;
+			LL_DEBUGS("Messaging") << "Animation id " << animation_id 
+								   << " from self using sequence id " << anim_sequence_id << LL_ENDL;
 
 			avatarp->mSignaledAnimations[animation_id] = anim_sequence_id;
 
@@ -4306,6 +4307,9 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 			mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
 			mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
 			avatarp->mSignaledAnimations[animation_id] = anim_sequence_id;
+			LL_DEBUGS("Messaging") << "Received animation id " << animation_id 
+								   << " from " << uuid 
+								   << " using sequence id " << anim_sequence_id << LL_ENDL;
 		}
 	}
 
