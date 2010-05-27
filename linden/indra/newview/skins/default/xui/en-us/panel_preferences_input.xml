@@ -89,11 +89,16 @@
 	     label="Automatic Appearance Camera Movement" left="148" mouse_opaque="true"
 	     name="appearance_camera_movement" radio_style="false"
 	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
-	<check_box bottom_delta="-18" control_name="DisableCameraConstraints" enabled="true"
+	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Disable camera constraints" left="148" mouse_opaque="true"
 	     name="Disable camera constraints" radio_style="false"
 	     tool_tip="Disables camera limits such as distance and terrain" width="242" />
+  <check_box bottom_delta="-18" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+       label="Disable minimum zoom distance" left="168" mouse_opaque="true"
+       name="disable_min_zoom_check" radio_style="false"
+       tool_tip="Disables minimum zoom distance for prims and avatars" width="242" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-32" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"

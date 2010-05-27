@@ -77,6 +77,9 @@ BOOL LLPanelInput::postBuild()
 	childSetValue("double_click_action", gSavedSettings.getString("DoubleClickAction"));
 	childSetValue("go_action", gSavedSettings.getString("GoAction"));
 
+	childSetValue("Disable camera constraints", gSavedSettings.getBOOL("DisableCameraConstraints"));
+	childSetValue("disable_min_zoom_check", gSavedSettings.getBOOL("DisableMinZoomDist"));
+
 	return TRUE;
 }
 
@@ -104,6 +107,8 @@ void LLPanelInput::apply()
 	gSavedSettings.setString("DoubleClickAction", childGetValue("double_click_action"));
 	gSavedSettings.setString("GoAction", childGetValue("go_action"));
 
+	gSavedSettings.setBOOL("DisableCameraConstraints", childGetValue("Disable camera constraints"));
+	gSavedSettings.setBOOL("DisableMinZoomDist", childGetValue("disable_min_zoom_check"));
 }
 
 void LLPanelInput::cancel()
