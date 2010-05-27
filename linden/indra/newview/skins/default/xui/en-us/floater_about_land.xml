@@ -638,7 +638,7 @@ Only large parcels can be listed in search.
 				This option is disabled because you cannot modify this parcel&apos;s options.
 			</string>
 			<combo_box allow_text_entry="false" bottom="-140" enabled="false" follows="left|top"
-			     height="18" left="255" max_chars="20" mouse_opaque="true"
+			     height="18" left="275" max_chars="20" mouse_opaque="true"
 			     name="land category with adult" width="130" visible="false">
 				<combo_item name="AnyCategory" value="any">
 					Any Category
@@ -685,7 +685,7 @@ Only large parcels can be listed in search.
 			delete the adult item with our UI toolkit.
 			Once we have completed the transition period, the one WITH adult can be deleted. -->
 			<combo_box allow_text_entry="false" bottom="-140" enabled="false" follows="left|top"
-			     height="18" left="255" max_chars="20" mouse_opaque="true"
+			     height="18" left="275" max_chars="20" mouse_opaque="true"
 			     name="land category" width="130" visible="false">
 				<combo_item name="AnyCategory" value="any">
 					Any Category
