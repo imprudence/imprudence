@@ -141,6 +141,8 @@
   <texture name="inv_item_texture.tga"/>
   <texture name="inv_item_underpants.tga"/>
   <texture name="inv_item_undershirt.tga"/>
+  <texture name="inv_item_alpha.tga"/>
+  <texture name="inv_item_tattoo.tga"/>
   
   <texture name="lag_status_critical.tga"/>
   <texture name="lag_status_good.tga"/>
