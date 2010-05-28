@@ -51,6 +51,7 @@
 							<!--<string>APR</string>-->
 							<!--<string>AudioEngine</string>-->
               <!--<string>InitInfo</string>-->
+              <!--<string>isOwnedSelf</string>-->
               <!--<string>MarkerFile</string>-->
 							<!--<string>MediaImpl</string>-->
 							<!--<string>MediaInfo</string>-->
