@@ -725,7 +725,7 @@ Only large parcels can be listed in search.
 				</combo_item>
 			</combo_box>
 			<button bottom="-140" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="18" label="?" label_selected="?" left="400"
+			     halign="center" height="18" label="?" label_selected="?" left="410"
 			     mouse_opaque="true" name="?" width="20" />
 			<check_box bottom="-160" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Mature Content" left="14"
