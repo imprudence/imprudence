@@ -1364,8 +1364,10 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 		}
 		else
 		{
-			llwarns << "joint not found: " << llendl;
-			return FALSE;
+			llwarns << "joint not found: " << joint_name << llendl;
+			// Returning here causes certain sits to fail on OpenSim, and this line is commented out of V2.
+			// Seems safe enough to comment out here -- MC
+			//return FALSE;
 		}
 
 		joint_motion->mJointName = joint_name;
