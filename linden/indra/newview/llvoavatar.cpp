@@ -3244,11 +3244,15 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
 			client = "Imprudence";
 
-		} else  if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
+		}else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
 		{
 			avatar_name_color += LLColor4(1.0f,0.9f,0.7f);//Meerkat
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "Meerkat";
+		}else if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
+		{
+			avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);//Meta7
+			client = "Meta7";
 		}else if(idx == LLUUID("ccda2b3b-e72c-a112-e126-fee238b67218"))
 		{
 			avatar_name_color += LLColor4::green;//emerald
