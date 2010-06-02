@@ -1,0 +1,15 @@
+<llsd>
+    <map>
+    <key>skin_name</key>
+        <string>Meerkat</string>
+    <key>author_name</key>
+        <string>Patrick Sapinski</string>
+    <key>additional_author_names</key>
+        <string>Linden Lab</string>
+    <key>skin_info</key>
+        <string>Silver skin using "Windows Default" colors.
+</string>
+    <key>folder_name</key>
+        <string>Meerkat</string>
+    </map>
+</llsd>
