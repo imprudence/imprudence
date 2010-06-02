@@ -39,6 +39,8 @@
 class LLPanelSkins : public LLPanel
 {
 public:
+
+	std::vector<LLSD> datas;
 	LLPanelSkins();
 	virtual ~LLPanelSkins();
 
@@ -46,14 +48,12 @@ public:
 	void refresh();
 	void apply();
 	void cancel();
-
-private:
-	static void onSelectSkin(LLUICtrl* ctrl, void* data);
-	static void onClickClassic(void* data);
-	static void onClickSilver(void* data);
-
-private:
+	static void onComboBoxCommit(LLUICtrl* ctrl, void* userdata);
 	std::string mSkin;
+private:
+
+	static LLPanelSkins* sInstance;
+	std::string oldSkin;
 };
 
 #endif // LL_LLPANELSKINS_H
