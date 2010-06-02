@@ -107,9 +107,9 @@
 	</text>
 	<slider bottom_delta="-25" can_edit_text="false" control_name="ConsoleBackgroundOpacity"
 	     decimal_digits="3" enabled="true" follows="left|top" height="12"
-	     increment="0.05" initial_val="1" label="Opacity" left="148" max_val="1"
+	     increment="0.05" initial_val="1" label="Console Opacity" left="148" max_val="1"
 	     min_val="0" mouse_opaque="true" name="console_opacity" show_text="true"
-	     value="0.4" width="200" />
+	     value="0.4" width="225" />
 	<check_box bottom_delta="-25" control_name="ChatFullWidth" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use full screen width  (Requires restart)" left="148"
@@ -159,7 +159,7 @@
 	     name="bubble_text_chat" radio_style="false" width="237" />
 	<slider bottom="-402" can_edit_text="false" control_name="ChatBubbleOpacity"
 	     decimal_digits="3" enabled="true" follows="left|top" height="12"
-	     increment="0.05" initial_val="1" label="Opacity" left="148" max_val="1"
+	     increment="0.05" initial_val="1" label="Bubble Opacity" left="148" max_val="1"
 	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"
-	     value="0.5" width="200" />
+	     value="0.5" width="225" />
 </panel>
