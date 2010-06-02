@@ -3452,8 +3452,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 		if (gSavedSettings.getBOOL("ServerVersionChangedChat"))
 		{
+			LLStringUtil::format_map_t args;
+			args["[SERVER_VERSION_INFO]"] = version_channel;
 			LLChat chat;
-			chat.mText = version_channel;
+			chat.mText = LLTrans::getString("server_version_changed_chat", args);
 			LLFloaterChat::addChat(chat, FALSE, FALSE);
 		}
 
