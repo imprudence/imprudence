@@ -583,6 +583,11 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params, S32 channel)
 	case BE_DARKNESS:
 		if( tex )
 		{
+			if(tex->getID()== IMG_DEFAULT)
+			{
+				return TRUE;
+			}
+
 			bump = gBumpImageList.getBrightnessDarknessImage( tex, bump_code );
 		}
 		break;
