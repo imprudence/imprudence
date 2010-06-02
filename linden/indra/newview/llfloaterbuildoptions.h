@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * 2010, McCabe Maxsted
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -40,6 +41,8 @@
 
 #include "llfloater.h"
 
+class InvDropTarget;
+class LLViewerInventoryItem;
 
 class LLFloaterBuildOptions
 :	public LLFloater
@@ -49,12 +52,39 @@ protected:
 	~LLFloaterBuildOptions();
 
 public:
+	BOOL			postBuild();
+
 	static void		show(void*);
 	static LLFloaterBuildOptions* getInstance();
 	static BOOL		visible(void*);
 
+	void apply();
+	void cancel();
+	void refresh();
+	void reset();
+
+	void setItem(const LLUUID& item);
+	void setTexture(const LLUUID& texture);
+
 protected:
 	static LLFloaterBuildOptions*	sInstance;
+
+private:
+	static InvDropTarget*	sBuildObjectDropTarget;
+	LLUUID					mBuildItemUUID;
+	LLUUID					mBuildTextureUUID;
+
+	static void onTexturePickerCommit(LLUICtrl* ctrl, void* userdata);
+	static void onComboBoxCommit(LLUICtrl* ctrl, void* userdata);
+	static void BuildAutoResponseItemDrop(LLViewerInventoryItem* item);
+
+	static void onClickOK(void* userdata);
+	static void onClickApply(void* userdata);
+	static void onClickCancel(void* userdata);
+	static void onClickClear(void* userdata);
+	static void onClickReset(void* userdata);
+	
+	void refreshItem();
 };
 
 #endif

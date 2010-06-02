@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="440" min_height="140" min_width="300"
+     can_resize="false" height="450" min_height="450" min_width="300"
      name="Image Preview" title="" width="300">
 	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="name_label">
 		Name:
@@ -53,16 +53,16 @@
 
 Try saving image as 24 bit Targa (.tga).
 	</text>
-	<check_box bottom="37" control_name="LosslessJ2CUpload" enabled="false"
+	<check_box bottom="45" control_name="LosslessJ2CUpload" enabled="false"
 	     follows="bottom|left" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Use lossless compression" left="10"
 	     left_delta="2" name="lossless_check" width="280" />
-	<check_box bottom="37" control_name="EmeraldTemporaryUpload" enabled="true"
+	<check_box bottom_delta="-18" control_name="EmeraldTemporaryUpload" enabled="true"
 	     follows="bottom|left" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Temporary Image (Free)"
-	     left_delta="155" name="temp_check" width="280" tooltip="Sets the asset to be temporary, meaning its free, but in return, only good for a short time before it ceases to exist." />
-	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="165"
+	     left_delta="0" name="temp_check" width="280" tooltip="Sets the asset to be temporary, meaning its free, but in return, only good for a short time before it ceases to exist." />
+	<button bottom="5" follows="bottom|right" height="20" label="Cancel" left="165"
 	     name="cancel_btn" width="125" />
-	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
+	<button bottom="5" follows="bottom|left" height="20" label="Upload ([UPLOADFEE])"
 	     left="15" name="ok_btn" width="125" />
 </floater>

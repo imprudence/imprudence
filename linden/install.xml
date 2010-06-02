@@ -1203,16 +1203,16 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>5017e0c2b24c6c31956ce7e33b0443af</string>
+            <string>9dfdc055297355d04e04b905f92fbfad</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-linux32-20100426.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-            <string>8d1ba70a777b7961e06e70818a0060e9</string>
+            <string>ea42b868511e2d5fab2df11dceaf2b7e</string>
              <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux64-20091230.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-linux64-20100428.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>

@@ -83,9 +83,10 @@ private:
 	BOOL				mGrabMouseButtonDown;
 	BOOL				mMouseOutsideSlop;				// for this drag, has mouse moved outside slop region
 	LLPickInfo			mPick;
-	LLPointer<LLViewerObject> mClickActionObject;
 	U8					mClickAction;
 	LLSafeHandle<LLObjectSelection> mLeftClickSelection;
+protected:
+	LLPointer<LLViewerObject> mClickActionObject;
 };
 
 

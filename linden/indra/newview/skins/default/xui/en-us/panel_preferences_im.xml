@@ -62,8 +62,11 @@
   <text_editor type="string" length="1" bottom_delta="-60" embedded_items="false" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="70" left="148" max_length="255"
 	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" />
+  <button bottom_delta="-25" follows="top|right" height="22" label="IM Response Options"
+     left="164" name="busy_adv_btn" tool_tip="Auto response options"
+     width="180" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-33" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom_delta="-23" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box4" v_pad="0" width="128">
     Logging Options:
@@ -100,7 +103,7 @@
 	     name="log_date_timestamp" radio_style="false" width="237" />
   <button bottom_delta="-22" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Change Path" label_selected="Change Path" left="170"
-	     mouse_opaque="true" name="log_path_button" width="90" />
+	     mouse_opaque="true" name="log_path_button" width="96" />
   <line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="1"
 	     drop_shadow_visible="true" enabled="false" follows="top|left|right"
 	     font="SansSerifSmall" halign="right" height="19" left="248"

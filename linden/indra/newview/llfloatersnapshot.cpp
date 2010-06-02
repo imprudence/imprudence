@@ -77,6 +77,8 @@
 #include "llvfile.h"
 #include "llvfs.h"
 
+#include "hippoGridManager.h"
+
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
@@ -1255,6 +1257,21 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	floater->getChild<LLComboBox>("texture_size_combo")->selectNthItem(gSavedSettings.getS32("SnapshotTextureLastResolution"));
 	floater->getChild<LLComboBox>("local_size_combo")->selectNthItem(gSavedSettings.getS32("SnapshotLocalLastResolution"));
 	floater->getChild<LLComboBox>("local_format_combo")->selectNthItem(gSavedSettings.getS32("SnapshotFormat"));
+
+	std::string fee = gHippoGridManager->getConnectedGrid()->getUploadFee();
+	floater->childSetLabelArg("upload_btn", "[UPLOADFEE]", fee);
+
+	if (snapshot_type_radio) {
+		const child_list_t *childs = snapshot_type_radio->getChildList();
+		if (childs) {
+			child_list_t::const_iterator it, end=childs->end();
+			for (it=childs->begin(); it!=end; ++it) {
+				LLRadioCtrl *ctrl = dynamic_cast<LLRadioCtrl*>(*it);
+				if (ctrl && (ctrl->getName() == "texture"))
+					ctrl->setLabelArg("[UPLOADFEE]", fee);
+			}
+		}
+	}
 
 	floater->childSetVisible("upload_btn",			shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE);
 	floater->childSetVisible("send_btn",			shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD);

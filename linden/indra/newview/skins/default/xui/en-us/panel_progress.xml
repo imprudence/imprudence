@@ -7,7 +7,7 @@
         <layout_panel name="panel3" min_height="10" height="200" width="640"/>
         <layout_panel name="panel4" min_height="250" height="250" width="640" auto_resize="false">
           <icon image_name="rounded_square.tga" color="LoginProgressBoxCenterColor" left="0" bottom="0" width="640" height="250" follows="left|right|bottom|top"/>
-          <text name="title_text" halign="center" font="SansSerif" left="0" bottom="-70" width="640" height="20" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top"/>
+          <text name="title_text" halign="center" font="SansSerifHuge" left="0" bottom="-70" width="640" height="20" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top"/>
           <text name="progress_text" halign="center" font="SansSerif" left="0" bottom="-95" width="640" height="20" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top"/>
           <progress_bar name="login_progress_bar" color="255,255,255,245" height="16" bottom="135" left="45" right="-45" follows="left|right|top" />
           <text name="message_text" halign="center" line_spacing="8" font="SansSerif" left="20" bottom="5" width="600" height="100" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top|bottom"/>

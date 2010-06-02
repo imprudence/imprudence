@@ -51,7 +51,7 @@ Hover your mouse over the options for more help.
 		Group Charter
 	</text_editor>
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-	     height="22" label="Join (L$0)" label_selected="Join (L$0)" left="7"
+	     height="22" label="Join (free)" label_selected="Join (free)" left="7"
 	     mouse_opaque="true" name="join_button" width="128" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="22" label="Detailed View" label_selected="Detailed View"
@@ -89,7 +89,7 @@ Hover your mouse over the options for more help.
 		     tool_tip="Sets whether this group allows new members to join   without being invited."
 		     width="95" />
 		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Enrollment fee: L$" left_delta="16"
+		     initial_value="false" label="Enrollment fee: [CURRENCY]" left_delta="16"
 		     max_length="5" mouse_opaque="true" name="check_enrollment_fee"
 		     radio_style="false" 
 		     tool_tip="Sets whether to require an enrollment fee to join the group."
@@ -97,10 +97,10 @@ Hover your mouse over the options for more help.
 		<spinner bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="2" decimal_digits="0" drop_shadow_visible="true"
 		     follows="left|top" font="SansSerif" h_pad="0" halign="left" height="16"
-		     increment="1" label_width="10" left_delta="116" max_val="99999" min_val="0"
-		     mouse_opaque="true" name="spin_enrollment_fee" right_delta="170"
+		     increment="1" label_width="10" left_delta="126" max_val="99999" min_val="0"
+		     mouse_opaque="true" name="spin_enrollment_fee" right_delta="160"
 		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked."
-		     v_pad="0" width="65" />
+		     v_pad="0" width="55" />
 		<combo_box allow_text_entry="false" bottom_delta="-30" follows="left|top" height="20" left="6"
 			max_chars="20" mouse_opaque="true" name="group_mature_check" 
 			tool_tip="Sets whether your group information is considered mature."
@@ -139,8 +139,8 @@ Hover your mouse over the options for more help.
 		Retrieving member data
 	</string>
 	<string name="confirm_group_create_str">
-		Creating this group will cost L$100. 
-Are you really, really, REALLY sure you want to spend L$100 to create this group?
+		Creating this group will cost [GROUPCREATEFEE].
+Are you really, really, REALLY sure you want to spend [GROUPCREATEFEE] to create this group?
 Be aware that if nobody else joins this group within 48 hours, it will be disbanded and the group&apos;s name will be unavailable for future use.
 	</string>
 </panel>

@@ -12,19 +12,19 @@
 		Fast Pay:
 	</text>
 
-	<button name="fastpay 1" label="L$1"
+	<button name="fastpay 1" label="[CURRENCY]1"
 	        bottom_delta="0" left="95" height="20" width="75"
 	        font="SansSerif" halign="center" scale_image="true" />
 
-	<button name="fastpay 5" label="L$5"
+	<button name="fastpay 5" label="[CURRENCY]5"
 	        bottom_delta="0" left_delta="85" height="20" width="75"
 	        font="SansSerif" halign="center" scale_image="true" />
 
-	<button name="fastpay 10" label="L$10"
+	<button name="fastpay 10" label="[CURRENCY]10"
 	        bottom_delta="-25" left="95" height="20" width="75"
 	        font="SansSerif" halign="center" scale_image="true" />
 
-	<button name="fastpay 20" label="L$20"
+	<button name="fastpay 20" label="[CURRENCY]20"
 	        bottom_delta="0" left_delta="85" height="20" width="75"
 	        font="SansSerif" halign="center" scale_image="true" />
 
@@ -55,7 +55,7 @@
 	<text name="currency text"
 	      bottom_delta="0" left_delta="67" height="18" width="15"
 	      follows="left|top" font="SansSerif">
-	  L$
+	  [CURRENCY]
 	</text>
 
 	<line_editor name="amount" max_length="9"

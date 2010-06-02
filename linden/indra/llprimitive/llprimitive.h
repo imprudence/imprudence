@@ -84,7 +84,6 @@ extern const F32 OBJECT_TWIST_LINEAR_MIN;
 extern const F32 OBJECT_TWIST_LINEAR_MAX;
 extern const F32 OBJECT_TWIST_LINEAR_INC;
 
-extern const F32 OBJECT_MIN_HOLE_SIZE;
 extern const F32 OBJECT_MAX_HOLE_SIZE_X;
 extern const F32 OBJECT_MAX_HOLE_SIZE_Y;
 

@@ -751,7 +751,14 @@ S32 LLTextEditor::getLineStart( S32 line ) const
 	S32 segoffset = mLineStartList[line].mOffset;
 	LLTextSegment* seg = mSegments[segidx];
 	S32 res = seg->getStart() + segoffset;
-	if (res > seg->getEnd()) llerrs << "wtf" << llendl;
+	if (res > seg->getEnd()) 
+	{
+		//llerrs << "wtf" << llendl;
+		// This happens when creating a new notecard using the AO on certain opensims.
+		// Play it safe instead of bringing down the viewer - MC
+		llwarns << "BAD JOOJOO! Text length (" << res << ") greater than text end (" << seg->getEnd() << "). Setting line start to " << seg->getEnd() << llendl;
+		res = seg->getEnd();
+	}
 	return res;
 }
 
@@ -879,6 +886,11 @@ S32 LLTextEditor::getCursorPosFromLocalCoord( S32 local_x, S32 local_y, BOOL rou
 
 void LLTextEditor::setCursor(S32 row, S32 column)
 {
+	// Make sure we're not trying to set the cursor anywhere 
+	// it can't go by always setting the min to 0 -- MC
+	row = (row < 0) ? 0 : row;
+	column = (column < 0) ? 0 : column;
+
 	const llwchar* doc = mWText.c_str();
 	const char CR = 10;
 	while(row--)

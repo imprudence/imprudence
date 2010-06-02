@@ -118,7 +118,7 @@ class ViewerManifest(LLManifest):
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
             self.path("RELEASE_NOTES.txt")
-            self.path("ChangeLog.txt")
+            self.path("ChangeLog.txt", required=False)
             self.end_prefix("../../..")
 
         # From the linden directory
@@ -541,12 +541,14 @@ class DarwinManifest(ViewerManifest):
                 self.path("libxml2.2.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
+                self.path("libpng12.0.dylib")
                 self.path("libneon.27.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
                 self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")
+                self.path("libvorbisfile.3.dylib")
 
                 self.end_prefix("../../libraries/universal-darwin/lib_release")
 

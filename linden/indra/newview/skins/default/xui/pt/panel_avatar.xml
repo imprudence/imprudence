@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar" width="495">
 	<tab_container name="tab" width="484">
-		<panel label="2nd Life" name="2nd Life" width="483">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>
@@ -37,24 +37,24 @@
 			<text name="Name:">
 				Nome:
 			</text>
-			<text name="online_yes" width="176">
+			<text name="online_yes">
 				Atualmente Online
 			</text>
 			<text name="label">
 				Nascido:
 			</text>
-			<line_editor name="born" width="186" />
+			<line_editor name="born" />
 			<text name="label2">
 				Conta:
 			</text>
-			<view_border name="acct_border" width="186" />
-			<text name="acct" width="186" />
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Parceiro Second Life. Para mais informações, veja www.secondlife.com/partner">
 				Parceiro:
 			</text>
-			<button label="i" label_selected="i" name="partner_info" tool_tip="Clique para abrir o perfil do(a) parceiro(a)" left_delta="64"/>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Clique para abrir o perfil do(a) parceiro(a)" />
 			<button label="?" label_selected="?" name="partner_help"/>
-			<line_editor name="partner_edit" tool_tip="Parceiro Second Life. Para mais informações, veja www.secondlife.com/partner" width="186">
+			<line_editor name="partner_edit" tool_tip="Parceiro Second Life. Para mais informações, veja www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
@@ -64,33 +64,33 @@
 			<text name="Groups:">
 				Grupos:
 			</text>
-			<scroll_list name="groups" width="386" />
+			<scroll_list name="groups" />
 			<text name="About:">
 				Sobre:
 			</text>
 			<text name="(500 chars)">
 				(500 chars)
 			</text>
-			<text_editor name="about" width="386"/>
+			<text_editor name="about" />
 			<text name="Give item:">
 				Doar item:
 			</text>
-			<view_border name="drop_target_rect" width="474" />
-			<view_border name="drop_target_rect_vis" width="386" />
-			<text name="Give inventory" tool_tip="Arraste e solte o item aqui para dá-lo à pessoa desejada." width="386">
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
+			<text name="Give inventory" tool_tip="Arraste e solte o item aqui para dá-lo à pessoa desejada.">
 				Arraste e solte o item de inventário aqui.
 			</text>
 			<check_box label="Mostrar na busca" name="allow_publish" tool_tip="Publicar informações de perfil adicionais, como descrição e imagem, na Busca."/>
 			<button label="?" label_selected="?" name="?"/>
-			<button label="Encontrar no Mapa" label_selected="Encontrar no Mapa" name="Find on Map" width="130" />
-			<button label="Oferecer teletransporte..." label_selected="Oferecer teletransporte..." name="Offer Teleport..." left_delta="137" width="156" />
-			<button label="Adicionar amigo..." label_selected="Adicionar amigo..." name="Add Friend..." left_delta="164"/>
-			<button label="Pagar..." label_selected="Pagar..." name="Pay..." width="130" />
-			<button label="Mensagem Instantânea..." label_selected="Mensagem Instantânea..." name="Instant Message..." tool_tip="Mensagem Instantânea (MI)" left_delta="137" width="156" />
-			<button label="Mudo" label_selected="Mudo" name="Mute" left_delta="164"/>
+			<button label="Encontrar no Mapa" label_selected="Encontrar no Mapa" name="Find on Map" />
+			<button label="Oferecer teletransporte..." label_selected="Oferecer teletransporte..." name="Offer Teleport..." />
+			<button label="Adicionar amigo..." label_selected="Adicionar amigo..." name="Add Friend..." />
+			<button label="Pagar..." label_selected="Pagar..." name="Pay..." />
+			<button label="Mensagem Instantânea..." label_selected="Mensagem Instantânea..." name="Instant Message..." tool_tip="Mensagem Instantânea (MI)" />
+			<button label="Mudo" label_selected="Mudo" name="Mute" />
 		</panel>
-		<panel label="Web" name="WebProfile" width="483">
-		  <line_editor name="url_edit" width="465" />
+		<panel label="Web" name="WebProfile">
+		  <line_editor name="url_edit" />
 			<flyout_button label="Carregar" label_selected="Carregar" name="load" tool_tip="Carrega o seu perfil no seu navegador embutido.">
 				<flyout_button_item name="open_item">
 					No navegador externo
@@ -101,9 +101,9 @@
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="Carregar automaticamente perfis da web" name="auto_load" tool_tip="Carrega automaticamente todos os perfis da Web sem perguntar antes."/>
-			<web_browser name="profile_html" width="465" />
+			<web_browser name="profile_html" />
 		</panel>
-		<panel label="Interesses" name="Interests" width="483">
+		<panel label="Interesses" name="Interests">
 			<text name="I Want To:">
 				Eu quero:
 			</text>
@@ -115,7 +115,7 @@
 			<check_box label="Comprar" name="chk4"/>
 			<check_box label="Vender" name="chk5"/>
 			<check_box label="Contratar" name="chk7"/>
-			<line_editor name="want_to_edit" width="385" />
+			<line_editor name="want_to_edit" />
 			<text name="Skills:">
 				Habilidades:
 			</text>
@@ -125,14 +125,14 @@
 			<check_box label="Modelador" name="schk3"/>
 			<check_box label="Programador" name="schk4"/>
 			<check_box label="Personagens customizados" name="schk5"/>
-			<line_editor name="skills_edit" width="385" />
+			<line_editor name="skills_edit" />
 			<text name="Languages:">
 				Línguas:
 			</text>
-			<line_editor name="languages_edit" width="385" />
+			<line_editor name="languages_edit" />
 		</panel>
-		<panel label="Seletor" name="Picks" width="483">
-			<tab_container name="picks tab" width="477" />
+		<panel label="Seletor" name="Picks">
+			<tab_container name="picks tab" />
 			<text name="Tell everyone about your favorite places in Second Life.">
 				Diga a todos os seus lugares favoritos em Second Life.
 			</text>
@@ -142,8 +142,8 @@
 				Carregando...
 			</text>
 		</panel>
-		<panel label="Classificados" name="Classified" width="483">
-			<tab_container name="classified tab" width="477" />
+		<panel label="Classificados" name="Classified">
+			<tab_container name="classified tab" />
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				Coloque um anúncio nas listas de classificados do Second Life.
 			</text>
@@ -153,8 +153,8 @@
 				Carregando...
 			</text>
 		</panel>
-		<panel label="1st Life" name="1st Life" width="483">
-			<text_editor name="about" width="395" />
+		<panel label="Real Life" name="1st Life">
+			<text_editor name="about" />
 			<text name="Photo:">
 				Foto:
 			</text>
@@ -162,17 +162,17 @@
 			<text name="Info:">
 				Sobre:
 			</text>
-			<text name="(250 chars)" halign="left" left="7">
+			<text name="(250 chars)" halign="left">
 				(250
 caracteres)
 			</text>
 		</panel>
-		<panel label="Minhas anotações" name="My Notes" width="483">
-			<text_editor name="notes edit" width="455"/>
+		<panel label="Minhas anotações" name="My Notes">
+			<text_editor name="notes edit" />
 			<string name="Loading">
 				Carregando...
 			</string>
-			<text name="label" width="462">
+			<text name="label">
 				Use este espaço para falar sobre essa pessoa.Coloque aqui o que desejar, projetos,
 lembretes e etc. Somente você poderá ver essa anotação. Nem esta nem
 outras pessoas podem ver as anotações.

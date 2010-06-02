@@ -11,23 +11,23 @@
     <menu label="Upload" create_jump_keys="true" name="Upload"
           opaque="true" tear_off="true">
       <menu_item_call name="Upload Image"
-                      label="Upload Image (L$[COST])..."
+                      label="Upload Image ([UPLOADFEE])..."
                       shortcut="control|U">
         <on_click function="File.UploadImage" userdata="" />
         <on_enable function="File.EnableUpload" />
       </menu_item_call>
       <menu_item_call name="Upload Sound"
-                      label="Upload Sound (L$[COST])...">
+                      label="Upload Sound ([UPLOADFEE])...">
         <on_click function="File.UploadSound" userdata="" />
         <on_enable function="File.EnableUpload" />
       </menu_item_call>
       <menu_item_call name="Upload Animation"
-                      label="Upload Animation (L$[COST])...">
+                      label="Upload Animation ([UPLOADFEE])...">
         <on_click function="File.UploadAnim" userdata="" />
         <on_enable function="File.EnableUpload" />
       </menu_item_call>
       <menu_item_call name="Bulk Upload"
-                      label="Bulk Upload (L$[COST] per file)...">
+                      label="Bulk Upload ([UPLOADFEE] per file)...">
         <on_click function="File.UploadBulk" userdata="" />
       </menu_item_call>
       <menu_item_separator />
@@ -339,6 +339,12 @@
       <on_check control="ShowMiniMap" />
     </menu_item_check>
     <menu_item_separator />
+    <menu_item_check label="AO" name="AO" 
+                     shortcut="control|shift|O">
+      <on_click function="View.ToggleAO" userdata="" />
+      <on_check function="View.CheckAO" />
+    </menu_item_check>
+    <menu_item_separator />
     <menu_item_check name="Statistics Bar" label="Statistics Bar"
                      shortcut="control|shift|1">
       <on_click function="ShowFloater" userdata="stat bar" />
@@ -491,7 +497,7 @@
       <on_click function="PromptShowURL" name="ManageMyAccount_url"
                 userdata="WebLaunchJoinNow,http://secondlife.com/account/" />
     </menu_item_call>
-    <menu_item_call name="Buy and Sell L$..." label="Buy L$...">
+    <menu_item_call name="Buy and Sell L$..." label="Buy [CURRENCY]...">
       <on_click function="ShowFloater" userdata="buy currency" />
     </menu_item_call>
     <menu_item_separator />
@@ -641,10 +647,9 @@
       <on_click function="Tools.UseSelectionForGrid" userdata="" />
       <on_enable function="SomethingSelected" />
     </menu_item_call>
-    <menu_item_call name="Grid Options..." enabled="false"
-                    label="Grid Options..." shortcut="control|shift|B">
+    <menu_item_call name="Advanced Build Options..." enabled="false"
+                    label="Advanced Build Options..." shortcut="control|shift|B">
       <on_click function="ShowFloater" userdata="grid options" />
-      <on_enable function="Tools.EnableToolNotPie" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_check name="Edit Linked Parts" enabled="false"

@@ -71,6 +71,8 @@
 #include "llviewerwindow.h"	// for window width, height
 #include "llappviewer.h"	// abortQuit()
 
+#include "hippoGridManager.h"
+
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
 const S32 MATURE_UNDEFINED = -1;
 const S32 MATURE_CONTENT = 1;
@@ -677,6 +679,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		std::string datestr = llformat("%02d/%02d/%d", now->tm_mon+1, now->tm_mday, now->tm_year+1900);
 		LLStringUtil::format_map_t string_args;
 		string_args["[DATE]"] = datestr;
+		string_args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		string_args["[AMT]"] = llformat("%d", price_for_listing);
 		self->childSetText("classified_info_text", self->getString("ad_placed_paid", string_args));
 
@@ -873,6 +876,7 @@ void LLPanelClassified::callbackGotPriceForListing(S32 option, std::string text,
 		LLSD args;
 		std::string price_text = llformat("%d", MINIMUM_PRICE_FOR_LISTING);
 		args["MIN_PRICE"] = price_text;
+		args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 			
 		LLNotifications::instance().add("MinClassifiedPrice", args);
 		return;
@@ -884,6 +888,7 @@ void LLPanelClassified::callbackGotPriceForListing(S32 option, std::string text,
 
 	LLSD args;
 	args["AMOUNT"] = llformat("%d", price_for_listing);
+	args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	LLNotifications::instance().add("PublishClassified", args, LLSD(), 
 									boost::bind(&LLPanelClassified::confirmPublish, self, _1, _2));
 }

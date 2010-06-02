@@ -33,7 +33,7 @@
 	     tool_tip="Offer this friend a teleport to your current location" width="80" />
 	<button bottom_delta="-25" follows="top|right" height="22" label="Pay..."
 	     left_delta="0" name="pay_btn"
-	     tool_tip="Give Linden dollars (L$) to this friend" width="80" />
+	     tool_tip="Give currency to this friend" width="80" />
 	<button bottom_delta="-25" follows="top|right" height="22" label="Remove..."
 	     left_delta="0" name="remove_btn"
 	     tool_tip="Remove this person from your friends list" width="80" />

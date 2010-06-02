@@ -69,7 +69,11 @@ S32		LLManip::sMaxTimesShowHelpText = 5;
 F32		LLManip::sGridMaxSubdivisionLevel = 32.f;
 F32		LLManip::sGridMinSubdivisionLevel = 1.f;
 LLVector2 LLManip::sTickLabelSpacing(60.f, 25.f);
-
+bool	LLManip::sActualRoot = false;// going to set these up in the main entry
+bool	LLManip::sPivotPerc  = false;
+F32		LLManip::sPivotX	 = 0.f;
+F32		LLManip::sPivotY	 = 0.f;
+F32		LLManip::sPivotZ	 = 0.f;
 
 //static
 void LLManip::rebuild(LLViewerObject* vobj)
@@ -100,8 +104,48 @@ LLManip::LLManip( const std::string& name, LLToolComposite* composite )
 	mHighlightedPart(LL_NO_PART),
 	mManipPart(LL_NO_PART)
 {
-}
+	initPivot();
 
+	gSavedPerAccountSettings.getControl("BuildPrefs_ActualRoot")->getSignal()->connect(&updateActualRoot);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotIsPercent")->getSignal()->connect(&updatePivotIsPercent);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotX")->getSignal()->connect(&updatePivotX);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotY")->getSignal()->connect(&updatePivotY);
+	gSavedPerAccountSettings.getControl("BuildPrefs_PivotZ")->getSignal()->connect(&updatePivotZ);
+}
+//static
+void LLManip::initPivot()
+{
+	sActualRoot = (bool)gSavedPerAccountSettings.getBOOL("BuildPrefs_ActualRoot");
+	sPivotPerc  = (bool)gSavedPerAccountSettings.getBOOL("BuildPrefs_PivotIsPercent");
+	sPivotX		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotX");
+	sPivotY		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotY");
+	sPivotZ		= gSavedPerAccountSettings.getF32("BuildPrefs_PivotZ");
+}
+//static
+void LLManip::updateActualRoot(const LLSD &data)
+{
+	sActualRoot = (bool)data.asBoolean();
+}
+//static
+void LLManip::updatePivotIsPercent(const LLSD &data)
+{
+	sPivotPerc = (bool)data.asBoolean();
+}
+//static
+void LLManip::updatePivotX(const LLSD &data)
+{
+	sPivotX = (F32)data.asReal();
+}
+//static
+void LLManip::updatePivotY(const LLSD &data)
+{
+	sPivotY = (F32)data.asReal();
+}
+//static
+void LLManip::updatePivotZ(const LLSD &data)
+{
+	sPivotZ = (F32)data.asReal();
+}
 void LLManip::getManipNormal(LLViewerObject* object, EManipPart manip, LLVector3 &normal)
 {
 	LLVector3 grid_origin;
@@ -351,11 +395,43 @@ LLVector3 LLManip::getSavedPivotPoint() const
 
 LLVector3 LLManip::getPivotPoint()
 {
-	if (mObjectSelection->getFirstObject() && mObjectSelection->getObjectCount() == 1 && mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
+	LLVector3 pos;
+	LLVector3 scale;
+	LLQuaternion rot;// = mObjectSelection->getFirstObject()->getRotation();
+	if (mObjectSelection->getFirstRootObject(TRUE) && (mObjectSelection->getObjectCount() == 1 || sActualRoot) && mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
 	{
-		return mObjectSelection->getFirstObject()->getPivotPositionAgent();
+		pos = mObjectSelection->getFirstRootObject(TRUE)->getPivotPositionAgent();
+		scale = mObjectSelection->getFirstRootObject(TRUE)->getScale();
+		rot = mObjectSelection->getFirstRootObject(TRUE)->getRotation();
+	}else
+	{
+		pos = LLSelectMgr::getInstance()->getBBoxOfSelection().getCenterAgent();
+		scale = LLSelectMgr::getInstance()->getBBoxOfSelection().getExtentLocal();
+		rot = LLSelectMgr::getInstance()->getBBoxOfSelection().getRotation();
 	}
-	return LLSelectMgr::getInstance()->getBBoxOfSelection().getCenterAgent();
+	if(sPivotPerc)
+	{
+		
+		LLVector3 add(
+			(-scale[VX]*0.5) + (scale[VX]*(sPivotX*0.01)),
+			(-scale[VY]*0.5) + (scale[VY]*(sPivotY*0.01)),
+			(-scale[VZ]*0.5) + (scale[VZ]*(sPivotZ*0.01)));
+		add = add * rot;
+		pos = pos + add;
+	}else
+	{
+		//pos[VX] = pos[VX] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotX");
+		//pos[VY] = pos[VY] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotY");
+		//pos[VZ] = pos[VZ] + gSavedPerAccountSettings.getF32("BuildPrefs_PivotZ");
+		LLVector3 add(
+			sPivotX,
+			sPivotY,
+			sPivotZ);
+		add = add * rot;
+		pos = pos + add;
+	}
+	//pos = pos * rot;
+	return pos;
 }
 
 

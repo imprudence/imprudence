@@ -56,14 +56,14 @@
 	     initial_val="1" label="Rolloff Factor" label_width="100" left="148"
 	     max_val="2" min_val="0" mouse_opaque="true" name="Rolloff Factor"
 	     show_text="true" width="250" />
-	<spinner bottom_delta="-20" control_name="UISndMoneyChangeThreshold" decimal_digits="0"
+	<spinner bottom_delta="-30" control_name="UISndMoneyChangeThreshold" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="10"
-	     initial_val="10" label="L$ Change Threshold" label_width="128" left="148"
+	     initial_val="10" label="[CURRENCY] Change Threshold" label_width="158" left="148"
 	     max_val="10000" min_val="0" mouse_opaque="true" name="L$ Change Threshold"
-	     width="192" />
+	     width="212" />
 	<spinner bottom_delta="-20" control_name="UISndHealthReductionThreshold"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="10" initial_val="20" label="Health Change Threshold"
-	     label_width="128" left="148" max_val="10000" min_val="0"
-	     mouse_opaque="true" name="Health Change Threshold" width="192" />
+	     label_width="158" left="148" max_val="10000" min_val="0"
+	     mouse_opaque="true" name="Health Change Threshold" width="212" />
 </panel>

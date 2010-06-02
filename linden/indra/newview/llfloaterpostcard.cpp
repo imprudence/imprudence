@@ -66,6 +66,8 @@
 
 #include <boost/regex.hpp>  //boost.regex lib
 
+#include "hippoGridManager.h"
+
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
@@ -355,7 +357,12 @@ bool LLFloaterPostcard::missingSubjMsgAlertCallback(const LLSD& notification, co
 		if((childGetValue("subject_form").asString()).empty())
 		{
 			// Stuff the subject back into the form.
-			childSetValue("subject_form", getString("default_subject"));
+			LLStringUtil::format_map_t targs;
+			targs["[GRID_NAME]"] = gHippoGridManager->getConnectedGrid()->getGridName();
+			std::string subj = getString("default_subject");
+			LLStringUtil::format(subj, targs);
+
+			childSetValue("subject_form", subj);
 		}
 
 		if(!mHasFirstMsgFocus)

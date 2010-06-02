@@ -482,8 +482,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="JoinGroupCanAfford"
    type="alertmodal">
-    Joining this group costs L$[COST].
-    Do you wish to proceed?
+Joining this group costs [CURRENCY][COST].
+Do you wish to proceed?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -494,15 +494,15 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="JoinGroupCannotAfford"
    type="alertmodal">
-    Joining this group costs L$[COST].
-    You do not have enough L$ to join this group.
+Joining this group costs [CURRENCY][COST].
+You do not have enough [CURRENCY] to join this group.
   </notification>
 
   <notification
    icon="alertmodal.tga"
    name="LandBuyPass"
    type="alertmodal">
-    For L$[COST] you can enter this land (&apos;[PARCEL_NAME]&apos;) for [TIME] hours.  Buy a pass?
+For [CURRENCY][COST] you can enter this land (&apos;[PARCEL_NAME]&apos;) for [TIME] hours.  Buy a pass?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -513,8 +513,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="SalePriceRestriction"
    type="alertmodal">
-    Sale price must be set to more than L$0 if selling to anyone.
-    Please select an individual to sell to if selling for L$0.
+Sale price must be set to more than [CURRENCY]0 if selling to anyone.
+Please select an individual to sell to if selling for [CURRENCY]0.
   </notification>
 
   <notification
@@ -522,8 +522,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="ConfirmLandSaleChange"
    priority="high"
    type="alertmodal">
-    The selected [LAND_SIZE] m² land is being set for sale.
-    Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
+The selected [LAND_SIZE] m² land is being set for sale.
+Your selling price will be [CURRENCY][SALE_PRICE] and will be authorized for sale to [NAME].
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -536,8 +536,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire [GRID_NAME] community, even those not in this region.
 
-    The selected [LAND_SIZE] m² land is being set for sale.
-    Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
+The selected [LAND_SIZE] m² land is being set for sale.
+Your selling price will be [CURRENCY][SALE_PRICE] and will be authorized for sale to [NAME].
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -1777,8 +1777,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="ReleaseLandWarning"
    type="alertmodal">
-    You are about to release [AREA] m² of land.
-    Releasing this parcel will remove it from your land holdings, but will not grant any L$.
+You are about to release [AREA] m² of land.
+Releasing this parcel will remove it from your land holdings, but will not grant any [CURRENCY].
 
     Release this land?
     <usetemplate
@@ -2088,7 +2088,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="MinClassifiedPrice"
    type="alertmodal">
-    Price to pay for listing must be at least L$[MIN_PRICE].
+Price to pay for listing must be at least [CURRENCY][MIN_PRICE].
 
     Please enter a higher price.
   </notification>
@@ -2368,7 +2368,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="NotEnoughCurrency"
    type="alertmodal">
-    [NAME] L$ [PRICE] You don&apos;t have enough L$ to do that.
+[NAME] [CURRENCY] [PRICE] You don&apos;t have enough [CURRENCY] to do that.
   </notification>
 
   <notification
@@ -2560,7 +2560,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     A new version of [VIEWER_NAME] is available.
     [MESSAGE]
-    You must download this update to use [GRID_NAME].
+    You must download this update to connect to [GRID_NAME].
     <usetemplate
      name="okcancelbuttons"
      notext="Quit"
@@ -2599,7 +2599,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     A new version of [VIEWER_NAME] is available.
     [MESSAGE]
-    You must download this update to use [GRID_NAME].
+    You must download this update to connect to [GRID_NAME].
 
     Download to your Applications folder?
     <usetemplate
@@ -2642,8 +2642,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DeedObjectToGroup"
    type="alertmodal">
-    Deeding this object will cause the group to:
-    * Receive L$ paid into the object
+Deeding this object will cause the group to:
+* Receive [CURRENCY] paid into the object
     <usetemplate
      ignoretext="When deeding objects to groups"
      name="okcancelignore"
@@ -3074,8 +3074,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alert">
     You are about to change the access list for a Linden owned estate (mainland, teen grid, orientation, etc.).
 
-    This is DANGEROUS and should only be done to invoke the hack allowing objects/L$ to be transfered in/out of a grid.
-    It will change thousands of regions and make the spaceserver hiccup.
+This is DANGEROUS and should only be done to invoke the hack allowing objects/[CURRENCY] to be transfered in/out of a grid.
+It will change thousands of regions and make the spaceserver hiccup.
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3434,9 +3434,9 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alert.tga"
    name="PublishClassified"
    type="alert">
-    Remember: Classified ad fees are non-refundable.
+Remember: Classified ad fees are non-refundable.
 
-    Publish this classified now for L$[AMOUNT]?
+Publish this classified now for [CURRENCY][AMOUNT]?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3932,12 +3932,12 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyOriginal"
    type="alertmodal">
-    Buy original object from [OWNER] for L$[PRICE]?
-    You will become the owner of this object.
-    You will be able to:
-    Modify: [MODIFYPERM]
-    Copy: [COPYPERM]
-    Resell or Give Away: [RESELLPERM]
+Buy original object from [OWNER] for [CURRENCY][PRICE]?
+You will become the owner of this object.
+You will be able to:
+ Modify: [MODIFYPERM]
+ Copy: [COPYPERM]
+ Resell or Give Away: [RESELLPERM]
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3948,12 +3948,12 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyOriginalNoOwner"
    type="alertmodal">
-    Buy original object for L$[PRICE]?
-    You will become the owner of this object.
-    You will be able to:
-    Modify: [MODIFYPERM]
-    Copy: [COPYPERM]
-    Resell or Give Away: [RESELLPERM]
+Buy original object for [CURRENCY][PRICE]?
+You will become the owner of this object.
+You will be able to:
+ Modify: [MODIFYPERM]
+ Copy: [COPYPERM]
+ Resell or Give Away: [RESELLPERM]
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3964,12 +3964,12 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyCopy"
    type="alertmodal">
-    Buy a copy from [OWNER] for L$[PRICE]?
-    The object will be copied to your inventory.
-    You will be able to:
-    Modify: [MODIFYPERM]
-    Copy: [COPYPERM]
-    Resell or Give Away: [RESELLPERM]
+Buy a copy from [OWNER] for [CURRENCY][PRICE]?
+The object will be copied to your inventory.
+You will be able to:
+ Modify: [MODIFYPERM]
+ Copy: [COPYPERM]
+ Resell or Give Away: [RESELLPERM]
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3980,12 +3980,12 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyCopyNoOwner"
    type="alertmodal">
-    Buy a copy for L$[PRICE]?
-    The object will be copied to your inventory.
-    You will be able to:
-    Modify: [MODIFYPERM]
-    Copy: [COPYPERM]
-    Resell or Give Away: [RESELLPERM]
+Buy a copy for [CURRENCY][PRICE]?
+The object will be copied to your inventory.
+You will be able to:
+ Modify: [MODIFYPERM]
+ Copy: [COPYPERM]
+ Resell or Give Away: [RESELLPERM]
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -3996,8 +3996,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyContents"
    type="alertmodal">
-    Buy contents from [OWNER] for L$[PRICE]?
-    They will be copied to your inventory.
+Buy contents from [OWNER] for [CURRENCY][PRICE]?
+They will be copied to your inventory.
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -4008,8 +4008,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="BuyContentsNoOwner"
    type="alertmodal">
-    Buy contents for L$[PRICE]?
-    They will be copied to your inventory.
+Buy contents for [CURRENCY][PRICE]?
+They will be copied to your inventory.
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -4130,12 +4130,19 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="ClickOpenF1Help"
    type="alertmodal">
-    Visit the [SECOND_LIFE] Support Website? (note: this is not an Imprudence Help site)
+Visit the [GRID_NAME] Support Web site?
     <usetemplate
      ignoretext="When visiting the Support Website."
      name="okcancelignore"
      notext="Cancel"
      yestext="Go"/>
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="NoSupportUrl"
+   type="alertmodal">
+[GRID_NAME] has no link for support.
   </notification>
 
   <notification
@@ -4889,7 +4896,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    label="About Requests for the Debit Permission"
    name="DebitPermissionDetails"
    type="alertmodal">
-    Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.
+Granting this request gives a script ongoing permission to take [CURRENCY] from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -5027,7 +5034,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="notify.tga"
    name="UploadPayment"
    type="notify">
-    You paid L$[AMOUNT] to upload.
+You paid [CURRENCY][AMOUNT] to upload.
   </notification>
 
   <notification
@@ -6014,17 +6021,17 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="notify.tga"
    name="FirstBalanceIncrease"
    type="notify">
-    You just received L$[AMOUNT].
-    Objects and other users may give you L$.
-    Your balance is shown in the upper-right corner of the screen.
+You just received [CURRENCY][AMOUNT].
+Objects and other users may give you [CURRENCY].
+Your balance is shown in the upper-right corner of the screen.
   </notification>
 
   <notification
    icon="notify.tga"
    name="FirstBalanceDecrease"
    type="notify">
-    You just paid L$[AMOUNT].
-    Your balance is shown in the upper-right corner of the screen.
+You just paid [CURRENCY][AMOUNT].
+Your balance is shown in the upper-right corner of the screen.
   </notification>
 
   <notification
@@ -6668,6 +6675,27 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
      name="okcancelignore"
      notext="Cancel"
      yestext="OK"/>
+  </notification>
+
+  <notification
+   icon="notify.tga"
+   name="FirstAO"
+   type="notify">
+    For instructions, make a new template in the AO. Use the toolbar to toggle the AO on/off.
+  </notification>
+
+  <notification
+	   icon="notifytip.tga"
+	   name="NoShadows"
+	   type="notifytip">
+    Shadows cannot be enabled due to your graphics settings being set too low. Make sure your graphics settings are set to Ultra with Basic and Atmospheric Shaders enabled.
+  </notification>
+
+  <notification
+     icon="notifytip.tga"
+     name="NoTextureExportSL"
+	   type="notifytip">
+    Note: To comply with the Second Life Terms of Service, Imprudence did not download any texture files for the exported object(s).
   </notification>
 
 

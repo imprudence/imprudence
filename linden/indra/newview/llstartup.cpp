@@ -187,6 +187,7 @@
 #include "llagentlanguage.h"
 
 #include "exporttracker.h"
+#include "jcfloater_animation_list.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -493,7 +494,10 @@ bool idle_startup()
 
 			// TODO parameterize 
 			const F32 circuit_heartbeat_interval = 5;
-			const F32 circuit_timeout = 100;
+			const F32 circuit_timeout = 180; //seconds until llcircuit decides
+							 //it isn't alive.
+							 //Since we are on OpenSim we need to
+							 //relax about 'bad' ping. Was for SL: 100;
 
 			const LLUseCircuitCodeResponder* responder = NULL;
 			bool failure_is_fatal = true;
@@ -685,9 +689,9 @@ bool idle_startup()
 			show_connect_box = 
 				firstname.empty() || lastname.empty() || web_login_key.isNull();
 		}
-        else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
-        {
-            LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+		else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
+		{
+			LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 			firstname = cmd_line_login[0].asString();
 			lastname = cmd_line_login[1].asString();
 
@@ -702,7 +706,7 @@ bool idle_startup()
 			show_connect_box = false;
 #endif
 			gSavedSettings.setBOOL("AutoLogin", TRUE);
-        }
+		}
 		else if (gSavedSettings.getBOOL("AutoLogin"))
 		{
 			firstname = gSavedSettings.getString("FirstName");
@@ -883,13 +887,21 @@ bool idle_startup()
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
-        gHippoGridManager->setCurrentGridAsConnected();
+		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
+		{
+			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
+		}
+
+		gHippoGridManager->setCurrentGridAsConnected();
+		gHippoLimits->setLimits();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-    	LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		LLFile::mkdir(gDirUtilp->getLindenUserDir());
 
-        // Set PerAccountSettingsFile to the default value.
+		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
 			gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, 
 				LLAppViewer::instance()->getSettingsFilename("Default", "PerAccount")
@@ -1014,7 +1026,7 @@ bool idle_startup()
 		}
 
 		// Display the startup progress bar.
-		gViewerWindow->setShowProgress(TRUE);
+		gViewerWindow->setShowProgress(!gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 		gViewerWindow->setProgressCancelButtonVisible(TRUE, std::string("Quit")); // *TODO: Translate
 
 		// Poke the VFS, which could potentially block for a while if
@@ -1650,13 +1662,14 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("search");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("real_currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
-            gHippoGridManager->saveFile();
+			tmp = LLUserAuth::getInstance()->getResponse("currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+			gHippoGridManager->saveFile();
+			gHippoLimits->setLimits();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.
@@ -2909,7 +2922,12 @@ bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 	if (0 == option)
 	{
 		LL_DEBUGS("AppInit") << "First run dialog cancelling" << LL_ENDL;
-		LLWeb::loadURL( CREATE_ACCOUNT_URL );
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+		if (!url.empty()) {
+			LLWeb::loadURL(url);
+		} else {
+			llwarns << "Account creation URL is empty" << llendl;
+		}
 	}
 
 	LLPanelLogin::giveFocus();
@@ -2917,13 +2935,34 @@ bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 }
 
 
-
+std::string last_d;
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg)
 {
-	gViewerWindow->setProgressPercent(frac*100);
-	gViewerWindow->setProgressString(string);
+	if(gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+	{
+		std::string new_d = string;
+		if(new_d != last_d)
+		{
+			last_d = new_d;
+			LLChat chat;
+			chat.mText = new_d;
+			chat.mSourceType = CHAT_SOURCE_SYSTEM;
+			LLFloaterChat::addChat(chat);
+			if(new_d == LLTrans::getString("LoginWaitingForRegionHandshake"))
+			{
+				chat.mText = "MOTD: "+msg;
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+			}
+		}
+	}
+	else
+	{
+		gViewerWindow->setProgressPercent(frac*100);
+		gViewerWindow->setProgressString(string);
 
-	gViewerWindow->setProgressMessage(msg);
+		gViewerWindow->setProgressMessage(msg);
+	}
 }
 
 bool login_alert_status(const LLSD& notification, const LLSD& response)
@@ -2934,9 +2973,11 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
     {
         case 0:     // OK
             break;
-        case 1:     // Help
-            LLWeb::loadURL( SUPPORT_URL );
+        case 1: {   // Help
+            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+            if (!url.empty()) LLWeb::loadURL(url);
             break;
+        }
         case 2:     // Teleport
             // Restart the login process, starting at our home locaton
             LLURLSimString::setString(LLURLSimString::sLocationStringHome);
@@ -3168,6 +3209,7 @@ void pass_processObjectPropertiesFamily(LLMessageSystem *msg, void**)
 {
 	// send it to 'observers'
 	LLSelectMgr::processObjectPropertiesFamily(msg,0);
+	JCFloaterAnimList::processObjectPropertiesFamily(msg,0);
 }
 
 void pass_processObjectProperties(LLMessageSystem *msg, void**)

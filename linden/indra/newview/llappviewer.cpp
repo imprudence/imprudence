@@ -51,6 +51,7 @@
 #include "llimpanel.h"
 #include "llmimetypes.h"
 #include "llstartup.h"
+#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llviewerjoystick.h"
 #include "llfloaterjoystick.h"
@@ -1364,8 +1365,12 @@ bool LLAppViewer::cleanup()
 
 	// PerAccountSettingsFile should be empty if no use has been logged on.
 	// *FIX:Mani This should get really saved in a "logoff" mode. 
-	gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
-	llinfos << "Saved settings" << llendflush;
+	std::string per_account_settings_filename = gSavedSettings.getString("PerAccountSettingsFile");
+	if (!per_account_settings_filename.empty())
+	{
+		gSavedPerAccountSettings.saveToFile(per_account_settings_filename, TRUE);
+		llinfos << "Saved settings" << llendflush;
+	}
 
 	std::string crash_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
 	// save all settings, even if equals defaults
@@ -1757,6 +1762,7 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstTeleport");
 	LLFirstUse::addConfigVariable("FirstOverrideKeys");
 	LLFirstUse::addConfigVariable("FirstAttach");
+	LLFirstUse::addConfigVariable("FirstAO");
 	LLFirstUse::addConfigVariable("FirstAppearance");
 	LLFirstUse::addConfigVariable("FirstInventory");
 	LLFirstUse::addConfigVariable("FirstSandbox");
@@ -1899,7 +1905,9 @@ bool LLAppViewer::initConfiguration()
 		gHippoGridManager = new HippoGridManager();
 		gHippoGridManager->init();
 	}
-
+	if (!gHippoLimits) {
+		gHippoLimits = new HippoLimits();
+	}
 
     //initGridChoice();
 
@@ -2682,7 +2690,11 @@ void LLAppViewer::removeMarkerFile(bool leave_logout_marker)
 
 //this gets called after we get a packet back from the
 //server saying we are logged out, or if the packet times
-//out
+//out. 
+// Beware of calling this directly as it'll have odd effects
+// due to the Logout feature. You should really use:
+// LLAppViewer::instance()->requestLogout(true);
+// instead. -- MC
 void LLAppViewer::forceQuit()
 { 
 
@@ -3095,7 +3107,7 @@ bool finish_disconnect(const LLSD& notification, const LLSD& response)
 
 	if (1 == option)
 	{
-        LLAppViewer::instance()->forceQuit();
+        LLAppViewer::instance()->requestLogout(true);
 	}
 	return false;
 }
@@ -3103,7 +3115,7 @@ bool finish_disconnect(const LLSD& notification, const LLSD& response)
 // Callback from an early disconnect dialog, force an exit
 bool finish_forced_disconnect(const LLSD& notification, const LLSD& response)
 {
-	LLAppViewer::instance()->forceQuit();
+	LLAppViewer::instance()->requestLogout(true);
 	return false;
 }
 
@@ -3157,6 +3169,12 @@ void LLAppViewer::badNetworkHandler()
 	LLAppViewer::handleSyncViewerCrash();
 	LLAppViewer::handleViewerCrash();
 
+	std::string grid_support_msg = "";
+	if (!gHippoGridManager->getCurrentGrid()->getSupportUrl().empty())
+	{
+		grid_support_msg = "\n\nOr visit the gird support page at: \n " 
+			+ gHippoGridManager->getCurrentGrid()->getSupportUrl();
+	}
 	std::ostringstream message;
 	message <<
 		"The viewer has detected mangled network data indicative\n"
@@ -3166,8 +3184,8 @@ void LLAppViewer::badNetworkHandler()
 		"Try uninstalling and reinstalling to see if this resolves \n"
 		"the issue. \n"
 		" \n"
-		"If the problem continues, see the Tech Support FAQ at: \n"
-		"www.secondlife.com/support";
+		"If the problem continues, please report the issue at: \n"
+		"www.imprudenceviewer.org" << grid_support_msg;
 	forceDisconnect(message.str());
 }
 
@@ -3671,13 +3689,28 @@ void LLAppViewer::idleShutdown()
 		&& !logoutRequestSent())
 	{
 		static S32 total_uploads = 0;
+		static bool saving_msg = true;
 		// Sometimes total upload count can change during logout.
 		total_uploads = llmax(total_uploads, pending_uploads);
-		gViewerWindow->setShowProgress(TRUE);
-		S32 finished_uploads = total_uploads - pending_uploads;
-		F32 percent = 100.f * finished_uploads / total_uploads;
-		gViewerWindow->setProgressPercent(percent);
-		gViewerWindow->setProgressString("Saving final data...");
+		if (gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+		{
+			if (saving_msg)
+			{
+				LLChat chat;
+				chat.mText = "Saving final data...";
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+				saving_msg = false;
+			}
+		}
+		else
+		{
+			gViewerWindow->setShowProgress(TRUE);
+			S32 finished_uploads = total_uploads - pending_uploads;
+			F32 percent = 100.f * finished_uploads / total_uploads;
+			gViewerWindow->setProgressPercent(percent);
+			gViewerWindow->setProgressString("Saving final data...");
+		}
 		return;
 	}
 
@@ -3687,9 +3720,19 @@ void LLAppViewer::idleShutdown()
 		sendLogoutRequest();
 
 		// Wait for a LogoutReply message
-		gViewerWindow->setShowProgress(TRUE);
-		gViewerWindow->setProgressPercent(100.f);
-		gViewerWindow->setProgressString("Logging out...");
+		if (gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+		{
+			LLChat chat;
+			chat.mText = "Logging out...";
+			chat.mSourceType = CHAT_SOURCE_SYSTEM;
+			LLFloaterChat::addChat(chat);
+		}
+		else
+		{
+			gViewerWindow->setShowProgress(TRUE);
+			gViewerWindow->setProgressPercent(100.f);
+			gViewerWindow->setProgressString("Logging out...");
+		}
 		return;
 	}
 
@@ -3950,7 +3993,7 @@ void LLAppViewer::disconnectViewer()
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();
-
+	cleanup_menus();
 	// Also writes cached agent settings to gSavedSettings
 	gAgent.cleanup();
 
@@ -3961,7 +4004,6 @@ void LLAppViewer::disconnectViewer()
 	// call all self-registered classes
 	LLDestroyClassList::instance().fireCallbacks();
 
-	cleanup_xfer_manager();
 	gDisconnected = TRUE;
 	if (mQuitRequested)
 		cleanup_xfer_manager();

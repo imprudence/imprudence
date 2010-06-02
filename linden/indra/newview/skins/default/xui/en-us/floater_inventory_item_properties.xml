@@ -161,7 +161,7 @@
 	     bottom="-315" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="42"
 	     mouse_opaque="true" name="TextPrice" v_pad="0" width="56">
-		Price:  L$
+		Price: [CURRENCY]
 	</text>
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-315"
 	     enabled="true" follows="left|top|right" font="SansSerifSmall" height="16"

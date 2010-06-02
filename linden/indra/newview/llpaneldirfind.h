@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -62,8 +62,8 @@ public:
 	virtual void navigateToDefaultPage();
 	void focus();
 
-	static std::string buildSearchURL(const std::string& search_text, const std::string& collection, bool inc_pg, bool inc_mature, bool inc_adult);
-	static std::string getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult);
+	static std::string buildSearchURL(const std::string& search_text, const std::string& collection, bool inc_pg, bool inc_mature, bool inc_adult, bool is_web);
+	static std::string getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult, bool is_web);
 
 private:
 	static void onClickBack( void* data );
@@ -91,6 +91,22 @@ public:
 	static LLPanelDirFindAll* create(LLFloaterDirectory* floater);
 	static void search(LLPanelDirFindAll* panel, const std::string& search_text);
 	static void focus(LLPanelDirFindAll* panel);
+};
+
+
+class LLPanelDirFindAllOld : public LLPanelDirBrowser
+{
+public:
+	LLPanelDirFindAllOld(const std::string& name, LLFloaterDirectory* floater);
+	/*virtual*/ ~LLPanelDirFindAllOld();
+
+	/*virtual*/ BOOL postBuild();
+
+	/*virtual*/ void draw();
+
+	static void onClickSearch(void *userdata);
+	static void onCommitScope(LLUICtrl* ctrl, void* data);
+	static void onKeystrokeName(LLLineEditor* line, void* data);
 };
 
 #endif

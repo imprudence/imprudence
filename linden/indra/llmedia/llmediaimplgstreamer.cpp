@@ -130,7 +130,7 @@ LLMediaImplGStreamer () :
 			return; // error
 		}
 
-		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
+		g_object_set(mPlaybin, "video-sink", mVideoSink, (void*)NULL);
 	}
 }
 
@@ -591,7 +591,7 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	setStatus( LLMediaBase::STATUS_NAVIGATING );
 
 	// set URI
-	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), NULL);
+	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), (void*)NULL);
 
 	// get playbin's bus - perhaps this can/should be done in ctor
 	GstBus *bus = gst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
@@ -917,7 +917,7 @@ bool LLMediaImplGStreamer::setVolume(float volume)
 	mVolume = volume;
 	if (mPlaybin)
 	{
-		g_object_set(mPlaybin, "volume", mVolume, NULL);
+		g_object_set(mPlaybin, "volume", mVolume, (void*)NULL);
 		return true;
 	}
 

@@ -187,7 +187,7 @@ We recommend BVH files exported from Poser 4.
 	</text>
 	<button bottom="10" follows="bottom|right" height="20" label="Cancel" name="cancel_btn"
 	     right="290" width="123" />
-	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
+	<button bottom="10" follows="bottom|left" height="20" label="Upload ([UPLOADFEE])"
 	     left_delta="-129" name="ok_btn" width="123" />
 	<string name="failed_to_initialize">
 		Failed to initialize motion

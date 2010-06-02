@@ -50,9 +50,7 @@
 # 
 
 
-
-import commands, re, os, sys
-from string import Template
+import re, os, sys, subprocess
 
 
 SCRIPT_DIR = os.path.abspath( os.path.dirname( sys.argv[0] ) )
@@ -316,8 +314,9 @@ Author:     %(an)s  <%(ae)s>""" % { "ad" : self.author_date,
                                     "id" : self.id[0:7] })
 
         if self.commit_name != self.author_name:
-            texts.append("Committer:  %(cn)s  <%(ce)s>" % { "cn" : self.commit_name,
-                                                            "ce" : self.commit_mail })
+            texts.append("Committer:  %(cn)s  <%(ce)s>" % \
+                             { "cn" : self.commit_name,
+                               "ce" : self.commit_mail })
 
         texts.append("\n")
 
@@ -360,32 +359,52 @@ Author:     %(an)s  <%(ae)s>""" % { "ad" : self.author_date,
 
 
 
+def fail( reason, abort=False ):
+    """Prints a message that the ChangeLog couldn't be generated, then
+    exits the script. If abort is True, exit with status code 1 (to
+    indicate that Make/VisualStudio/Xcode/etc. should abort),
+    otherwise exit with status code 0."""
+
+    if abort:
+        print "Error: Could not generate ChangeLog.txt: " + reason
+        exit(1)
+    else:
+        print "Warning: Could not generate ChangeLog.txt: " + reason
+        exit(0)
+        
+
 
 def main():
     commits = sys.argv[1:]
-    if commits:
-        commits = " ".join(commits)
-    else:
-        commits = "HEAD"
+    if not commits:
+        commits = ["HEAD"]
 
 
     # Set PATH to help find the git executable on Mac OS X.
     if sys.platform == "darwin":
         os.environ["PATH"] += ":/usr/local/bin:/usr/local/git/bin:/sw/bin:/opt/bin:~/bin"
 
+
     # Fetch the log entries from git in one big chunk.
-    cmd = "git log --pretty=fuller --name-status --date=short --date-order " + commits
-    status, output = commands.getstatusoutput(cmd)
+    cmd = ["git", "log", "--pretty=fuller", "--name-status",
+           "--date=short", "--date-order"] + commits
+
+    try:
+        proc = subprocess.Popen( [" ".join(cmd)], 
+                                cwd    = ROOT_DIR,
+                                stdout = subprocess.PIPE,
+                                stderr = subprocess.STDOUT,
+                                shell  = True)
+    except OSError:
+        fail("The 'git' command is not available.")
+    
+    output = proc.communicate()[0]
+    status = proc.returncode
 
 
-    # If the git command failed, write a placeholder ChangeLog.txt and exit.
+    # If the git command failed, print the reason and exit.
     if status != 0:
-        print "Could not generate ChangeLog.txt: " + output
-        changelog = open(CHANGELOG, "w")
-        changelog.write( output + "\n  (Imprudence must be compiled from a Git repository to generate a ChangeLog.)\n\n")
-        changelog.close()
-        exit(0)
-
+        fail(output)
 
     # Split it up into individual commits.
     logs = re.compile("^commit ", re.MULTILINE).split(output)[1:]

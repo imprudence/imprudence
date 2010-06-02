@@ -65,6 +65,9 @@
 #include "llviewercamera.h"
 #include "llviewerstats.h"
 
+#include "llparcel.h" // RezWithLandGroup
+#include "llviewerparcelmgr.h" // RezWithLandGroup
+
 const LLVector3 DEFAULT_OBJECT_SCALE(0.5f, 0.5f, 0.5f);
 
 //static 
@@ -213,7 +216,11 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 
 	// Set params for new object based on its PCode.
 	LLQuaternion	rotation;
-	LLVector3		scale = DEFAULT_OBJECT_SCALE;
+	LLVector3		scale = LLVector3(
+		gSavedPerAccountSettings.getF32("BuildPrefs_Xsize"),
+		gSavedPerAccountSettings.getF32("BuildPrefs_Ysize"),
+		gSavedPerAccountSettings.getF32("BuildPrefs_Zsize"));
+	
 	U8				material = LL_MCODE_WOOD;
 	BOOL			create_selected = FALSE;
 	LLVolumeParams	volume_params;
@@ -255,15 +262,32 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	gMessageSystem->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+	// RezWithLandGroup 2009-05, If avatar is in land group/land owner group,
+	// it rezzes it with it to prevent autoreturn/whatever
+	if ( gSavedSettings.getBOOL("RezWithLandGroup") )
+	{
+		LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+		if ( gAgent.isInGroup(parcel->getGroupID()) )
+		{
+			gMessageSystem->addUUIDFast(_PREHASH_GroupID, parcel->getGroupID());
+		}
+		else if ( gAgent.isInGroup(parcel->getOwnerID()) )
+		{
+			gMessageSystem->addUUIDFast(_PREHASH_GroupID, parcel->getOwnerID());
+		}
+		else 
+		{
+			gMessageSystem->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+		}
+	}
+	else 
+	{
+		gMessageSystem->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+	}
 	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
 	gMessageSystem->addU8Fast(_PREHASH_Material,	material);
 
 	U32 flags = 0;		// not selected
-	if (use_physics)
-	{
-		flags |= FLAGS_USE_PHYSICS;
-	}
 	//if (create_selected)
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0b) | Added: RLVa-1.0.0b
 	if ( (create_selected) && (!gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) )

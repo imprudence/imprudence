@@ -537,7 +537,11 @@ BOOL LLTemplateMessageReader::decodeData(const U8* buffer, const LLHost& sender 
 	llassert( mReceiveSize >= 0 );
 	llassert( mCurrentRMessageTemplate);
 	llassert( !mCurrentRMessageData );
-	delete mCurrentRMessageData; // just to make sure
+	if (mCurrentRMessageData) {
+		// just to make sure
+		delete mCurrentRMessageData;
+		mCurrentRMessageData = 0;
+	}
 
 	// The offset tells us how may bytes to skip after the end of the
 	// message name.

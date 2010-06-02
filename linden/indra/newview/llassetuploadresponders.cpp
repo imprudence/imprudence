@@ -63,6 +63,8 @@
 #include "llscrolllistctrl.h"
 #include "llsdserialize.h"
 
+#include "hippoGridManager.h"
+
 // When uploading multiple files, don't display any of them when uploading more than this number.
 static const S32 FILE_COUNT_DISPLAY_THRESHOLD = 5;
 
@@ -114,8 +116,7 @@ void LLAssetUploadResponder::error(U32 statusNum, const std::string& reason)
 	{
 		case 400:
 			args["FILE"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
-			args["REASON"] = "Error in upload request.  Please visit "
-				"http://secondlife.com/support for help fixing this problem.";
+			args["REASON"] = "Error in upload request.";
 			LLNotifications::instance().add("CannotUploadReason", args);
 			break;
 		case 500:
@@ -228,6 +229,7 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 
 		LLSD args;
 		args["AMOUNT"] = llformat("%d", expected_upload_cost);
+		args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		LLNotifications::instance().add("UploadPayment", args);
 	}
 

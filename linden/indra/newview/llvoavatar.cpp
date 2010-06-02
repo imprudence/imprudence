@@ -46,6 +46,7 @@
 #include "lldriverparam.h"
 #include "lleditingmotion.h"
 #include "llemote.h"
+#include "floaterao.h"
 #include "llfirstuse.h"
 #include "llheadrotmotion.h"
 #include "llhudeffecttrail.h"
@@ -54,7 +55,6 @@
 #include "llkeyframefallmotion.h"
 #include "llkeyframestandmotion.h"
 #include "llkeyframewalkmotion.h"
-#include "llmanipscale.h" // getMaxPrimSize()
 #include "llmutelist.h"
 #include "llnotify.h"
 #include "llquantize.h"
@@ -96,7 +96,7 @@
 // [RLVa:KB]
 #include "llstartup.h"
 // [/RLVa:KB]
-
+#include "hippoLimits.h"// getMaxPrimScale
 using namespace LLVOAvatarDefines;
 
 //-----------------------------------------------------------------------------
@@ -778,7 +778,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	const bool needsSendToSim = false; // currently, this HUD effect doesn't need to pack and unpack data to do its job
 	mVoiceVisualizer = ( LLVoiceVisualizer *)LLHUDManager::getInstance()->createViewerEffect( LLHUDObject::LL_HUD_EFFECT_VOICE_VISUALIZER, needsSendToSim );
 
-	lldebugs << "LLVOAvatar Constructor (0x" << this << ") id:" << mID << llendl;
+	LL_DEBUGS("VOAvatar") << "Constructor (" << this << ") id:" << mID << LL_ENDL;
 
 	mPelvisp = NULL;
 
@@ -823,7 +823,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	{
 		mIsSelf = TRUE;
 		gAgent.setAvatarObject(this);
-		lldebugs << "Marking avatar as self " << id << llendl;
+		LL_DEBUGS("VOAvatar") << "Marking avatar as self " << id << LL_ENDL;
 	}
 	else
 	{
@@ -1021,11 +1021,15 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 //------------------------------------------------------------------------
 LLVOAvatar::~LLVOAvatar()
 {
-	lldebugs << "LLVOAvatar Destructor (0x" << this << ") id:" << mID << llendl;
+	LL_DEBUGS("VOAvatar") << "Destructor (" << this << ") id:" << mID << LL_ENDL;
 
-	if (mIsSelf)
+	if (this==gAgent.getAvatarObject())
 	{
 		gAgent.setAvatarObject(NULL);
+	}
+	else if (mIsSelf)
+	{
+		LL_DEBUGS("VOAvatar") << "Destructing Zombie from previous session." << LL_ENDL;	
 	}
 
 	mRoot.removeAllChildren();
@@ -1078,7 +1082,7 @@ LLVOAvatar::~LLVOAvatar()
 
 	mAnimationSources.clear();
 
-	lldebugs << "LLVOAvatar Destructor end" << llendl;
+	LL_DEBUGS("VOAvatar") << "Destructor end" << LL_ENDL;
 }
 
 void LLVOAvatar::markDead()
@@ -1475,6 +1479,8 @@ void LLVOAvatar::cleanupClass()
 	sAvatarXmlInfo = NULL;
 	delete sAvatarSkeletonInfo;
 	sAvatarSkeletonInfo = NULL;
+	delete sAvatarDictionary;
+	sAvatarDictionary = NULL;
 	sSkeletonXMLTree.cleanup();
 	sXMLTree.cleanup();
 }
@@ -1535,7 +1541,7 @@ void LLVOAvatar::getSpatialExtents(LLVector3& newMin, LLVector3& newMax)
 	LLVector3 pos = getRenderPosition();
 	newMin = pos - buffer;
 	newMax = pos + buffer;
-	float max_attachment_span = LLManipScale::getMaxPrimSize() * 5.0f;
+	float max_attachment_span = gHippoLimits->getMaxPrimScale() * 5.0f;
 	
 	//stretch bounding box by joint positions
 	for (polymesh_map_t::iterator i = mMeshes.begin(); i != mMeshes.end(); ++i)
@@ -1923,7 +1929,7 @@ void LLVOAvatar::buildCharacter()
 	}
 
 // 	gPrintMessagesThisFrame = TRUE;
-	lldebugs << "Avatar load took " << timer.getElapsedTimeF32() << " seconds." << llendl;
+	LL_DEBUGS("VOAvatar") << "Avatar load took " << timer.getElapsedTimeF32() << " seconds." << LL_ENDL;
 
 	if ( ! status )
 	{
@@ -2040,6 +2046,7 @@ void LLVOAvatar::buildCharacter()
 		gAttachBodyPartPieMenus[5] = new LLPieMenu(std::string("Left Leg >"));
 		gAttachBodyPartPieMenus[6] = new LLPieMenu(std::string("Torso >"));
 		gAttachBodyPartPieMenus[7] = new LLPieMenu(std::string("Right Leg >"));
+		//gAttachBodyPartPieMenus[8] = NULL;
 
 		gDetachBodyPartPieMenus[0] = NULL;
 		gDetachBodyPartPieMenus[1] = new LLPieMenu(std::string("Right Arm >"));
@@ -2049,8 +2056,9 @@ void LLVOAvatar::buildCharacter()
 		gDetachBodyPartPieMenus[5] = new LLPieMenu(std::string("Left Leg >"));
 		gDetachBodyPartPieMenus[6] = new LLPieMenu(std::string("Torso >"));
 		gDetachBodyPartPieMenus[7] = new LLPieMenu(std::string("Right Leg >"));
+		//gDetachBodyPartPieMenus[8] = NULL;
 
-		for (S32 i = 0; i < 8; i++)
+		for (S32 i = 0; i < 8 ; i++)
 		{
 			if (gAttachBodyPartPieMenus[i])
 			{
@@ -2527,15 +2535,15 @@ S32 LLVOAvatar::setTETexture(const U8 te, const LLUUID& uuid)
 {
 	// The core setTETexture() method requests images, so we need
 	// to redirect certain avatar texture requests to different sims.
-	/* if (isIndexBakedTexture((ETextureIndex)te))
-	{*/
+	if (isIndexBakedTexture((ETextureIndex)te))
+	{
 		LLHost target_host = getObjectHost();
 		return setTETextureCore(te, uuid, target_host);
-	/*}
+	}
 	else
 	{
 		return setTETextureCore(te, uuid, LLHost::invalid);
-	}*/
+	}
 }
 
 
@@ -3480,7 +3488,10 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				if(!mIsSelf) //don't know your own client ?
 				{
 					new_name = TRUE; //lol or see the last client used 
-					resolveClient(avatar_name_color,client, this);
+					if (gSavedSettings.getBOOL("ShowClientNameTag"))
+					{
+						resolveClient(avatar_name_color,client, this);
+					}
 				}
 				avatar_name_color.setAlpha(alpha);
 				mNameText->setColor(avatar_name_color);
@@ -5212,6 +5223,14 @@ void LLVOAvatar::processAnimationStateChanges()
 		// playing, but not signaled, so stop
 		if (found_anim == mSignaledAnimations.end())
 		{
+			if (mIsSelf)
+			{
+				if ((gSavedSettings.getBOOL("AOEnabled")) && LLFloaterAO::stopMotion(anim_it->first, FALSE)) // if the AO replaced this anim serverside then stop it serverside
+				{
+//					return TRUE; //no local stop needed
+				}
+			}
+
 			processSingleAnimationStateChange(anim_it->first, FALSE);
 			mPlayingAnimations.erase(anim_it++);
 			continue;
@@ -5230,6 +5249,19 @@ void LLVOAvatar::processAnimationStateChanges()
 		{
 			if (processSingleAnimationStateChange(anim_it->first, TRUE))
 			{
+
+				if (mIsSelf) // AO is only for ME
+				{
+					if (gSavedSettings.getBOOL("AOEnabled"))
+					{
+						if (LLFloaterAO::startMotion(anim_it->first, 0,FALSE)) // AO overrides the anim if needed
+						{
+//								return TRUE; // not playing it locally
+						}
+					}
+				}
+
+
 				mPlayingAnimations[anim_it->first] = anim_it->second;
 				++anim_it;
 				continue;
@@ -5427,6 +5459,11 @@ void LLVOAvatar::stopMotionFromSource(const LLUUID& source_id)
 //-----------------------------------------------------------------------------
 LLVector3 LLVOAvatar::getVolumePos(S32 joint_index, LLVector3& volume_offset)
 {
+	if(joint_index < 0)
+	{
+		return LLVector3::zero;
+	}
+
 	if (joint_index > mNumCollisionVolumes)
 	{
 		return LLVector3::zero;
@@ -6615,6 +6652,7 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 
 	gPipeline.markMoved(mDrawable, TRUE);
 	mIsSitting = TRUE;
+	LLFloaterAO::ChangeStand();
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
 	#ifdef RLV_EXTENSION_STARTLOCATION
 	if (rlv_handler_t::isEnabled())
@@ -8580,7 +8618,7 @@ void LLVOAvatar::onBakedTextureMasksLoaded( BOOL success, LLViewerImage *src_vi,
 		{
 			if (!aux_src->getData())
 			{
-				llerrs << "No auxiliary source data for onBakedTextureMasksLoaded" << llendl;
+				llwarns << "No auxiliary source data for onBakedTextureMasksLoaded" << llendl;
 				return;
 			}
 

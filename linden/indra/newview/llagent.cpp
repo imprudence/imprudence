@@ -67,6 +67,7 @@
 #include "llface.h"
 #include "llfirstuse.h"
 #include "llfloater.h"
+#include "floaterao.h"
 #include "llfloateractivespeakers.h"
 #include "llfloateravatarinfo.h"
 #include "llfloaterbuildoptions.h"
@@ -79,6 +80,7 @@
 #include "llfloatermap.h"
 #include "llfloatermute.h"
 #include "llfloatersnapshot.h"
+#include "llfloaterstats.h"
 #include "llfloatertools.h"
 #include "llfloaterworldmap.h"
 #include "llgroupmgr.h"
@@ -448,6 +450,7 @@ void LLAgent::init()
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
 	
 	mInitialized = TRUE;
+	LL_DEBUGS("VOAvatar")<< "ctor of LLAgent" << LL_ENDL;
 }
 
 //-----------------------------------------------------------------------------
@@ -455,12 +458,24 @@ void LLAgent::init()
 //-----------------------------------------------------------------------------
 void LLAgent::cleanup()
 {
-	mInitialized = FALSE;
+	// cleanup wearables
+	for( S32 i = 0; i < WT_COUNT; i++ )
+	{
+		mWearableEntry[ i ].mWearable = NULL;
+		mWearableEntry[ i ].mItemID.setNull();
+	}
 	mWearablesLoaded = FALSE;
+
+	mInitialized = FALSE;
 	mShowAvatar = TRUE;
 
 	setSitCamera(LLUUID::null);
-	mAvatarObject = NULL;
+
+	if (mAvatarObject)
+	{
+		mAvatarObject->markDead();
+		mAvatarObject = NULL;
+	}
 	if(mLookAt)
 	{
 		mLookAt->markDead() ;
@@ -473,6 +488,7 @@ void LLAgent::cleanup()
 	}
 	mRegionp = NULL;
 	setFocusObject(NULL);
+	LL_DEBUGS("VOAvatar")<< "LLAgent cleanup()" << LL_ENDL;
 }
 
 //-----------------------------------------------------------------------------
@@ -480,11 +496,13 @@ void LLAgent::cleanup()
 //-----------------------------------------------------------------------------
 LLAgent::~LLAgent()
 {
+	LL_DEBUGS("VOAvatar")<< "LLAgent dtor begin" << LL_ENDL;
 	cleanup();
 
 	delete [] mActiveCacheQueries;
 	mActiveCacheQueries = NULL;
 
+	LL_DEBUGS("VOAvatar")<< "LLAgent dtor end" << LL_ENDL;
 	// *Note: this is where LLViewerCamera::getInstance() used to be deleted.
 }
 
@@ -2874,6 +2892,10 @@ static const LLFloaterView::skip_list_t& get_skip_list()
 {
 	static LLFloaterView::skip_list_t skip_list;
 	skip_list.insert(LLFloaterMap::getInstance());
+	if(gSavedSettings.getBOOL("ShowStatusBarInMouselook"))
+	{
+		skip_list.insert(LLFloaterStats::getInstance());
+	}
 	return skip_list;
 }
 
@@ -4069,6 +4091,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 	if( mCameraMode != CAMERA_MODE_MOUSELOOK )
 	{
 		gFocusMgr.setKeyboardFocus( NULL );
+		if (gSavedSettings.getBOOL("AONoStandsInMouselook"))	LLFloaterAO::stopMotion(LLFloaterAO::getCurrentStandId(), FALSE,TRUE);
 		
 		mLastCameraMode = mCameraMode;
 		mCameraMode = CAMERA_MODE_MOUSELOOK;
@@ -4276,13 +4299,15 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 	}
 
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if(gSavedSettings.getBOOL("AppearanceForceStand"))
 	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) )
 	{
 		return;
 	}
 // [/RLVa:KB]
 
-	setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
+	if(gSavedSettings.getBOOL("AppearanceForceStand"))
+		setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
 
 	if (gFaceEditToolset)
@@ -6030,7 +6055,7 @@ bool LLAgent::teleportCore(bool is_local)
 	if(TELEPORT_NONE != mTeleportState)
 	{
 		llwarns << "Attempt to teleport when already teleporting." << llendl;
-		return false;
+		//return false; //This seems to fix getting stuck in TPs in the first place. --Liny
 	}
 
 #if 0
@@ -7911,6 +7936,8 @@ void LLAgent::userRemoveAllClothesStep2( BOOL proceed, void* userdata )
 
 void LLAgent::userRemoveAllAttachments( void* userdata )
 {
+	LL_DEBUGS("VOAvatar")<< "userRemoveAllAttachments" << LL_ENDL;
+
 	LLVOAvatar* avatarp = gAgent.getAvatarObject();
 	if(!avatarp)
 	{

@@ -119,10 +119,10 @@
   <check_box bottom_delta="-19" control_name="SnapEnabled" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
 	     left_delta="0" mouse_opaque="true" name="checkbox snap to grid" width="134" />
-	<button bottom_delta="-19" follows="left|top" font="SansSerifSmall"
+	<button bottom_delta="-30" follows="left|top" font="SansSerifSmall"
        halign="center" valign="center"
-	     height="20" label="Options..." label_selected="Options..." left_delta="20"
-	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
+	     height="20" label="Build Options" left_delta="20"
+	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="100" />
 
 
 <!-- Help text -->
@@ -457,7 +457,7 @@
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="90"
 			     mouse_opaque="true" name="Cost" v_pad="0" width="78">
-				Price:  L$
+				Price: [CURRENCY]
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 			     follows="left|top|right" font="SansSerifSmall" height="16" left_delta="80"
@@ -576,13 +576,13 @@
 				Must select entire object to set permissions.
 			</string>
 			<string name="Cost Default">
-			Price:           L$
+			Price:           [CURRENCY]
 			</string>
 			<string name="Cost Total">
-			Total Price:  L$
+			Total Price:  [CURRENCY]
 			</string>
 			<string name="Cost Per Unit">
-			Price Per:     L$
+			Price Per:     [CURRENCY]
 			</string>
 			<string name="Cost Mixed">
 			Mixed Price
@@ -1258,7 +1258,7 @@
 		     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="48"
 		     mouse_opaque="true" name="label_area_price" v_pad="0" width="150">
-			Price: L$[PRICE] for [AREA] sq. m.
+			Price: [CURRENCY][PRICE] for [AREA] sq. m.
 		</text>
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="true" follows="left|top"

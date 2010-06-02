@@ -464,8 +464,15 @@ bool LLAppViewerLinux::initSLURLHandler()
 	LL_DEBUGS("DBUS")<< "Debug DBUS Start"<< LL_ENDL;
 
 	//ViewerAppAPI *api_server = (ViewerAppAPI*)
-	g_object_new(viewerappapi_get_type(), NULL);
 
+	g_object_new(viewerappapi_get_type(), NULL, (void*)NULL);
+///	also possible instead:
+/*	GType obj_type = viewerappapi_get_type();
+	g_object_newv(obj_type, 0, NULL);	//gpointer g_object_newv  (GType object_type,
+						//				guint n_parameters,
+						//				GParameter *parameters);
+
+*/
 	return true;
 }
 

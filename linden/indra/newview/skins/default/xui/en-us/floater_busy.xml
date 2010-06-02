@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="busy" title="IM Response Options" 
+         height="446" width="255" min_height="446" min_width="255"
+         follows="top|right" can_close="true" can_drag_on_left="false"
+         can_minimize="true" can_resize="false" can_tear_off="false">
+
+  <check_box bottom="-40" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Announce incoming instant messages" left="10" mouse_opaque="true"
+     name="InstantMessageAnnounceIncoming" radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Steal focus" left_delta="10" mouse_opaque="true" name="InstantMessageAnnounceStealFocus"
+     radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Autorespond to non-friends" left_delta="-10" mouse_opaque="true"
+     name="InstantMessageResponseFriends" radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Autorespond to people you have muted" left_delta="0"
+     mouse_opaque="true" name="InstantMessageResponseMuted" radio_style="false"
+     width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Autorespond to anyone" left_delta="0" mouse_opaque="true"
+     name="InstantMessageResponseAnyone" radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Send as soon as they start typing" left_delta="10" mouse_opaque="true"
+     name="InstantMessageShowOnTyping" radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="26"
+     initial_value="false" label="Don't show IMs you auto-responsed to" left_delta="0"
+     mouse_opaque="true" name="InstantMessageShowResponded" radio_style="false"
+     width="170"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Autorespond to every message" left_delta="0" mouse_opaque="true"
+     name="InstantMessageResponseRepeat" radio_style="false" width="270"/>
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
+     h_pad="0" halign="left" height="20" left_delta="-10" mouse_opaque="false"
+     name="text_box1" v_pad="0" width="425">
+    Response Text:
+  </text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+   bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
+   h_pad="0" halign="left" height="20" left_delta="15" mouse_opaque="false"
+   name="text_box_a" v_pad="0" width="425">
+    Use "#f" for recipient's first name
+  </text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+   bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
+   h_pad="0" halign="left" height="20" left_delta="0" mouse_opaque="false"
+   name="text_box_b" v_pad="0" width="425">
+   Use "#l" for last name
+  </text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+   bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
+   h_pad="0" halign="left" height="20" left_delta="0" mouse_opaque="false"
+   name="text_box_c" v_pad="0" width="425">
+    Use "#t" for timestamp
+  </text>
+  
+  <text_editor type="string" length="1" bottom_delta="-85" embedded_items="false" enabled="true"
+     follows="left|top" font="SansSerifSmall" height="75" left_delta="-15" max_length="1100"
+     mouse_opaque="true" name="im_response" width="230" word_wrap="true"/>
+
+  <check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Send an item along with the response" left_delta="0"
+     mouse_opaque="true" name="InstantMessageResponseItem" radio_style="false"
+     width="270"/>
+
+  <view_border blevel_style="in" bottom_delta="-20" follows="left|top" height="16" left_delta="0"
+     mouse_opaque="false" name="im_give_drop_target_rect" width="230"/>
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom_delta="0"
+     drop_shadow_visible="true" follows="left|top" font="SansSerifSmall" h_pad="0" halign="center"
+     height="16" left_delta="0" mouse_opaque="true" name="Give inventory" tool_tip="Drop an inventory item here to have it given along with the auto-response."
+     v_pad="2" width="230">
+    Drop an inventory item here
+  </text>
+
+  <view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="0"
+     mouse_opaque="false" name="im_give_disp_rect" width="230"/>
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom_delta="0"
+     drop_shadow_visible="true" follows="left|top" font="SansSerifSmall" h_pad="0" halign="center"
+     height="16" left_delta="0" mouse_opaque="true" name="im_give_disp_rect_txt" tool_tip=""
+     v_pad="2" width="230">
+    Currently set to: ITEM
+  </text>
+
+  <button bottom_delta="-26" follows="top|right" height="22" label="Cancel"
+     right="-10" name="btn_cancel" tool_tip="" enagled="true" width="80" />
+  <button bottom_delta="0" follows="top|right" height="22" label="OK"
+    right="-90" name="btn_ok" tool_tip="" enabled="true" width="80" />
+  
+</floater>

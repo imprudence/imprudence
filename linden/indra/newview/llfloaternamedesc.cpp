@@ -55,6 +55,8 @@
 #include "llassetstorage.h"
 #include "llinventorytype.h"
 
+#include "hippoGridManager.h"
+
 const S32 PREVIEW_LINE_HEIGHT = 19;
 const S32 PREVIEW_CLOSE_BOX_SIZE = 16;
 const S32 PREVIEW_BORDER_WIDTH = 2;
@@ -138,6 +140,7 @@ BOOL LLFloaterNameDesc::postBuild()
 	childSetAction("cancel_btn", onBtnCancel, this);
 
 	// OK button
+	childSetLabelArg("ok_btn", "[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getUploadFee());
 	childSetAction("ok_btn", onBtnOK, this);
 	setDefaultBtn("ok_btn");
 

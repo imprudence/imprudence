@@ -52,6 +52,8 @@
 #include "llviewercontrol.h"
 #include "llviewermessage.h"
 #include "llnotify.h"
+#include "hippoGridManager.h"
+
 //-----------------------------------------------------------------------------
 // Constants
 //-----------------------------------------------------------------------------
@@ -99,6 +101,10 @@ BOOL LLPanelDirLand::postBuild()
 	childSetAction("Search", onClickSearchCore, this);
 	setDefaultBtn("Search");
 
+	childSetTextArg("land", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	childSetTextArg("pricecheck_symbol", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	childSetLabelArg("pricecheck", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+
 	mCurrentSortColumn = "per_meter";
 
 	LLScrollListCtrl* results = getChild<LLScrollListCtrl>("results");
@@ -106,6 +112,16 @@ BOOL LLPanelDirLand::postBuild()
 	{
 		results->setSortChangedCallback(onClickSort);
 		results->sortByColumn(mCurrentSortColumn,mCurrentSortAscending);
+
+		LLStringUtil::format_map_t args;
+		args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
+		int n = results->getNumColumns();
+		for (int i=0; i<n; i++) {
+			LLScrollListColumn *col = results->getColumn(i);
+			std::string label = col->mLabel;
+			LLStringUtil::format(label, args);
+			results->setColumnLabel(col->mName, label);
+		}
 	}
 
 	return TRUE;

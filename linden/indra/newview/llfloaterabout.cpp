@@ -44,6 +44,7 @@
 #include "llimagej2c.h"
 #include "audioengine.h"
 
+#include "hippoGridManager.h"
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
 #include "llagent.h"
@@ -128,6 +129,8 @@ LLFloaterAbout::LLFloaterAbout()
 
 	std::string support;
 	support.append("\n\n");
+	support.append("Grid: " + gHippoGridManager->getConnectedGrid()->getGridName()
+					+ " (" + gHippoGridManager->getConnectedGrid()->getGridNick() + ")\n\n");
 
 #if LL_MSVC
     support.append(llformat("Built with MSVC version %d\n\n", _MSC_VER));

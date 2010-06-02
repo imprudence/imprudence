@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater
+	name="geminifloater"
+  rect_control="AORect"
+	title="Animation Overrider"
+	can_resize="false"
+	can_minimize="true"
+	can_close="true"
+	can_drag_on_left="false"
+	width="610"
+	height="380">
+
+  <view_border blevel_style="in" border_thickness="0" bottom="-380" follows="left|top" height="380" left="1"
+       mouse_opaque="false" name="ao_notecard" width="610" />
+  <view_border blevel_style="in" bottom="340" follows="left|top" height="16" left="10"
+       mouse_opaque="false" name="ao_notecard_vis" width="180" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="center" height="16" left_delta="0"
+       mouse_opaque="true" name="Give inventory"
+       tool_tip="Drop a ZHAO notecard here. Animations have to be in the same Inventory folder as the notecard." v_pad="2"
+       width="180">
+    Drop a ZHAO II notecard here
+  </text>
+  <view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="0"
+       mouse_opaque="false" name="ao_notecard_disp" width="180" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="center" height="16" left_delta="0"
+       mouse_opaque="true" name="ao_nc_text"
+       tool_tip="" v_pad="2"
+       width="180">
+    Currently set to: ITEM
+  </text>
+
+  <button
+      name="opencard"
+      label="Open Notecard"
+      font="SansSerifSmall"
+      left="10"
+      bottom_delta="-30"
+      width="110"
+      height="20"
+      follows="bottom|left"
+		/>
+  <button
+      name="reloadcard"
+      label="Reload"
+      font="SansSerifSmall"
+      left="124"
+      bottom_delta="0"
+      width="70"
+      height="20"
+      follows="bottom|left"
+		/>
+  
+  <check_box bottom_delta="-24" control_name="AOEnabled" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Enable Animations Override" left="10"
+       mouse_opaque="true" name="AOEnabled" radio_style="false" width="90" />
+  <check_box bottom_delta="-18" control_name="AOSitsEnabled" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Enable Sits Override" left="10"
+	     mouse_opaque="true" name="AOSitsEnabled" radio_style="false" width="90" />
+  
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	     mouse_opaque="true" name="buttons_desc" v_pad="0" width="180">
+    Stands:
+  </text>
+  <combo_box name="stands" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="-20"/>
+  <button
+    name="prevstand"
+    tool_tip="previous stand"
+    label="&lt;&lt;"
+    font="SansSerifSmall"
+    left="10"
+    bottom_delta="-25"
+    width="90"
+    height="20"
+    follows="bottom|left"
+		/>
+  <button
+  name="nextstand"
+  tool_tip="next stand"
+  label="&gt;&gt;"
+  font="SansSerifSmall"
+  left="104"
+  bottom_delta="0"
+  width="90"
+  height="20"
+  follows="bottom|left"
+		/>
+  <check_box bottom_delta="-20" control_name="AOStandRandomize" enabled="true"
+ follows="left|top" font="SansSerifSmall" height="16" initial_value="false" label="Randomize Stand Order" left="10"
+ mouse_opaque="true" name="AOStandRandomize" radio_style="false" width="200" />
+  <check_box bottom_delta="-20" control_name="AONoStandsInMouselook" enabled="true"
+	 follows="left|top" font="SansSerifSmall" height="16" initial_value="true" label="Disable Stands in Mouselook" left="10"
+	 mouse_opaque="true" name="AONoStandsInMouselook" radio_style="false" width="180" />
+  <spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16" control_name="AOStandInterval"
+	 increment="1" initial_val="20" left="10" max_val="9000" min_val="1.00"
+	 mouse_opaque="true" name="standtime" label="Stand Time" label_width="80"
+	 tool_tip="AO Stand Time in seconds" width="180" />
+
+  <button
+    name="newcard"
+    label="New Notecard Template"
+    font="SansSerifSmall"
+    left="10"
+    bottom_delta="-32"
+    width="180"
+    height="20"
+    follows="bottom|left"
+		/>
+
+  <button bottom="4" follows="left|bottom" font="SansSerifSmall" halign="center"
+     height="20" label="More &gt;&gt;" left="118"
+     mouse_opaque="true" name="more_btn" scale_image="TRUE"
+     tool_tip="Advanced Options" width="76" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerifSmall" halign="center"
+	     height="20" label="&lt;&lt; Less" left_delta="0"
+	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
+	     tool_tip="Advanced Options" width="76" />
+
+  <tab_container label="Default" bottom="6" left="210" mouse_opaque="false" name="tabcontainer" tab_min_width="50" tab_position="top" width="390" height="350" bg_opaque_color="0,0,0,0.0">
+    <panel border="true" left="0" bottom="0" follows="left|top|right|bottom" height="350" label="Default Anims" mouse_opaque="true" name="tabdefaultanims" width="390">
+    
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultwalk" v_pad="0" width="180">
+        Default Walk:
+      </text>
+      <combo_box name="walks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultWalk" />
+
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultrun" v_pad="0" width="180">
+        Default Run:
+      </text>
+      <combo_box name="runs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultRun" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultjump" v_pad="0" width="180">
+        Default Jump:
+      </text>
+      <combo_box name="jumps" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultJump" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+         mouse_opaque="true" name="textdefaultsit" v_pad="0" width="180">
+        Default Sit:
+      </text>
+      <combo_box name="sits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultSit" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultgsit" v_pad="0" width="180">
+        Default Groundsit:
+      </text>
+      <combo_box name="gsits" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultGroundSit" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultcrouch" v_pad="0" width="180">
+        Default Crouch:
+      </text>
+      <combo_box name="crouchs" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultCrouch" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultcrouchwalk" v_pad="0" width="180">
+        Default Crouchwalk:
+      </text>
+      <combo_box name="cwalks" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultCrouchWalk" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	         mouse_opaque="true" name="textdefaultfall" v_pad="0" width="180">
+        Default Fall:
+      </text>
+      <combo_box name="falls" label="" follows="left|top" height="20" left="10" width="180" bottom_delta="0" control_name="AODefaultFall" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="280" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left="200"
+	         mouse_opaque="true" name="textdefaulthover" v_pad="0" width="180">
+        Default Hover:
+      </text>
+      <combo_box name="hovers" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultHover" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultfly" v_pad="0" width="180">
+        Default Fly:
+      </text>
+      <combo_box name="flys" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFly" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultflyslow" v_pad="0" width="180">
+        Default Slow Fly:
+      </text>
+      <combo_box name="flyslows" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlySlow" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultflyup" v_pad="0" width="180">
+        Default Upward Fly:
+      </text>
+      <combo_box name="flyups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlyUp" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultflydown" v_pad="0" width="180">
+        Default Downward Fly:
+      </text>
+      <combo_box name="flydowns" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultFlyDown" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultland" v_pad="0" width="180">
+        Default Land:
+      </text>
+      <combo_box name="lands" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultLand" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultstandup" v_pad="0" width="180">
+        Default Standup:
+      </text>
+      <combo_box name="standups" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultStandUp" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-40" drop_shadow_visible="true" follows="left|bottom"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	         mouse_opaque="true" name="textdefaultprejump" v_pad="0" width="180">
+        Default Pre-Jump:
+      </text>
+      <combo_box name="prejumps" label="" follows="left|top" height="20" left_delta="0" width="180" bottom_delta="0" control_name="AODefaultPreJump" />
+  </panel>
+</tab_container>
+</floater>

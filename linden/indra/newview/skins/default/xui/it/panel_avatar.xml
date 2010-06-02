@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar" width="470">
 	<tab_container name="tab" width="459">
-		<panel label="2nd Life" name="2nd Life" width="458">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>
@@ -37,24 +37,24 @@
 			<text name="Name:">
 				Nome:
 			</text>
-			<text name="online_yes" width="151">
+			<text name="online_yes">
 				Online in questo istante
 			</text>
 			<text name="label">
 				Nato:
 			</text>
-			<line_editor name="born" width="161" />
+			<line_editor name="born" />
 			<text name="label2">
 				Conto:
 			</text>
-			<view_border name="acct_border" width="161" />
-			<text name="acct" width="161" />
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Partner in Second Life. Per maggiori informazioni sulla partnesrhip leggi www.secondlife.com/partner">
 				Partner:
 			</text>
 			<button label="i" label_selected="i" name="partner_info" tool_tip="Clicca per aprire il profilo del partner"/>
 			<button label="?" label_selected="?" name="partner_help"/>
-			<line_editor name="partner_edit" tool_tip="Partner in Second Life. Per maggiori informazioni sulla partnership leggi www.secondlife.com/partner" width="161">
+			<line_editor name="partner_edit" tool_tip="Partner in Second Life. Per maggiori informazioni sulla partnership leggi www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
@@ -64,33 +64,33 @@
 			<text name="Groups:">
 				Gruppi:
 			</text>
-			<scroll_list name="groups" width="361" />
+			<scroll_list name="groups" />
 			<text name="About:">
 				Informazioni:
 			</text>
 			<text name="(500 chars)">
 				500 carat.
 			</text>
-			<text_editor name="about" width="361"/>
+			<text_editor name="about" />
 			<text name="Give item:">
 				Regala oggetto:
 			</text>
-			<view_border name="drop_target_rect" width="449" />
-			<view_border name="drop_target_rect_vis" width="361" />
-			<text name="Give inventory" tool_tip="Trascina e lascia uno o più oggetti dell&apos;inventario qui, per regalarli a questa persona." width="361">
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
+			<text name="Give inventory" tool_tip="Trascina e lascia uno o più oggetti dell&apos;inventario qui, per regalarli a questa persona.">
 				Rilascia un oggetto dell&apos;inventario qui.
 			</text>
 			<check_box label="Mostra nella ricerca" name="allow_publish" tool_tip="Pubblica informazioni descrizioni o immagini aggiuntive del profilo nella ricerca."/>
 			<button label="?" label_selected="?" name="?"/>
 			<button label="Trova sulla mappa" label_selected="Trova sulla mappa" name="Find on Map"/>
-			<button label="Offri teletrasporto..." label_selected="Offri teletrasporto..." name="Offer Teleport..." left_delta="117"/>
-			<button label="Aggiungi come amico..." label_selected="Aggiungi come amico..." name="Add Friend..." left_delta="157" width="140"/>
-			<button label="Paga..." label_selected="Paga..." name="Pay..."/>
-			<button label="Instant Message..." label_selected="Instant Message..." name="Instant Message..." tool_tip="Instant Message (IM)" left_delta="117"/>
-			<button label="Ignora" label_selected="Ignora" name="Mute" left_delta="157" width="140"/>
+			<button label="Offri teletrasporto..." label_selected="Offri teletrasporto..." name="Offer Teleport..." />
+			<button label="Aggiungi come amico..." label_selected="Aggiungi come amico..." name="Add Friend..." />
+			<button label="Paga..." label_selected="Paga..." name="Pay..." />
+			<button label="Instant Message..." label_selected="Instant Message..." name="Instant Message..." tool_tip="Instant Message (IM)" />
+			<button label="Ignora" label_selected="Ignora" name="Mute" />
 		</panel>
-		<panel label="Web" name="WebProfile" width="458">
-		  <line_editor name="url_edit" width="440" />
+		<panel label="Web" name="WebProfile">
+		  <line_editor name="url_edit" />
 			<flyout_button label="Carica" label_selected="Carica" name="load" tool_tip="Carica questa pagina del profilo con il browser web interno.">
 				<flyout_button_item name="open_item">
 					Usa browser esterno
@@ -100,10 +100,10 @@
 				</flyout_button_item>
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
-			<check_box label="Carica automaticamente tutte le pagine web dei profili" name="auto_load" tool_tip="Carica automaticamente tutte le pagine web dei profili senza chiedere preventivamente."/>
-			<web_browser name="profile_html" width="440" />
+			<check_box label="Carica automaticamente tutte le pagine web dei profili" name="auto_load" tool_tip="Carica automaticamente tutte le pagine web dei profili senza chiedere preventivamente." left_delta="-10" />
+			<web_browser name="profile_html" />
 		</panel>
-		<panel label="Interessi" name="Interests" width="458">
+		<panel label="Interessi" name="Interests">
 			<text name="I Want To:">
 				Mi piace:
 			</text>
@@ -115,7 +115,7 @@
 			<check_box label="Comprare" name="chk4"/>
 			<check_box label="Vendere" name="chk5"/>
 			<check_box label="Assumere" name="chk7"/>
-			<line_editor name="want_to_edit" width="360" />
+			<line_editor name="want_to_edit" />
 			<text name="Skills:">
 				Capacità:
 			</text>
@@ -125,27 +125,27 @@
 			<check_box label="Modellazione" name="schk3"/>
 			<check_box label="Scripting" name="schk4"/>
 			<check_box label="Personalizzazione avatar" name="schk5"/>
-			<line_editor name="skills_edit" width="360" />
+			<line_editor name="skills_edit" />
 			<text name="Languages:">
 				Lingue:
 			</text>
-			<line_editor name="languages_edit" width="360" />
+			<line_editor name="languages_edit" />
 		</panel>
-		<panel label="Preferiti" name="Picks" width="458">
-			<tab_container name="picks tab" width="452" />
-			<text name="Tell everyone about your favorite places in Second Life.">
-				Comunica a tutti i tuoi posti preferiti in Second Life.
-			</text>
-			<button label="Nuovo..." label_selected="Nuovo..." name="New..."/>
-			<button label="Cancella..." label_selected="Cancella..." name="Delete..."/>
-			<text name="loading_text">
-				In caricamento...
-			</text>
-		</panel>
-		<panel label="Inserzioni" name="Classified" width="458">
-			<tab_container name="classified tab" width="452" />
+		<panel label="Preferiti" name="Picks">
+			<tab_container name="picks tab" />
+      <text name="Tell everyone about your favorite places in Second Life.">
+        Comunica a tutti i tuoi posti preferiti.
+      </text>
+      <button label="Nuovo..." label_selected="Nuovo..." name="New..."/>
+      <button label="Cancella..." label_selected="Cancella..." name="Delete..."/>
+      <text name="loading_text">
+        In caricamento...
+      </text>
+    </panel>
+    <panel label="Inserzioni" name="Classified">
+      <tab_container name="classified tab" />
 			<text name="Place an ad in Second Life&apos;s classified listings.">
-				Inserisci una pubblicità nelle liste delle inserzioni di Second Life.
+				Inserisci una pubblicità nelle liste delle inserzioni.
 			</text>
 			<button label="Nuovo..." label_selected="Nuovo..." name="New..."/>
 			<button label="Cancella..." label_selected="Cancella..." name="Delete..."/>
@@ -153,8 +153,8 @@
 				In caricamento...
 			</text>
 		</panel>
-		<panel label="First Life" name="1st Life" width="458">
-			<text_editor name="about" width="370" />
+		<panel label="First Life" name="1st Life">
+			<text_editor name="about" />
 			<text name="Photo:">
 				Foto:
 			</text>
@@ -162,17 +162,17 @@
 			<text name="Info:">
 				Info:
 			</text>
-			<text name="(250 chars)" halign="left" left="7">
+			<text name="(250 chars)" halign="left">
 				(250
 caratteri)
 			</text>
 		</panel>
-		<panel label="Le mie note" name="My Notes" width="458">
-			<text_editor name="notes edit" width="430"/>
+		<panel label="Le mie note" name="My Notes">
+			<text_editor name="notes edit" />
 			<string name="Loading">
 				In caricamento...
 			</string>
-			<text name="label" width="452">
+			<text name="label">
 				Usa questo spazio per registrare le tue note su questa persona. Appunta qui
 affari in corso, progetti in comune, ecc. Solo tu puoi leggere queste note.
 Nè questa persona né nessun altro possono vederle.

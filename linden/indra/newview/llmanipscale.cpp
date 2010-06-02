@@ -63,6 +63,8 @@
 #include "v2math.h"
 #include "llvoavatar.h"
 
+#include "hippoLimits.h"
+
 
 const F32 MAX_MANIP_SELECT_DISTANCE_SQUARED = 11.f * 11.f;
 const F32 SNAP_GUIDE_SCREEN_OFFSET = 0.05f;
@@ -70,8 +72,6 @@ const F32 SNAP_GUIDE_SCREEN_LENGTH = 0.7f;
 const F32 SELECTED_MANIPULATOR_SCALE = 1.2f;
 const F32 MANIPULATOR_SCALE_HALF_LIFE = 0.07f;
 const S32 NUM_MANIPULATORS = 14;
-const F32 DEFAULT_LL_MAX_PRIM_SCALE = 10.f; 
-const F32 DEFAULT_OPENSIM_MAX_PRIM_SCALE = 128.f;
 
 const LLManip::EManipPart MANIPULATOR_IDS[NUM_MANIPULATORS] = 
 {
@@ -176,7 +176,6 @@ LLManipScale::LLManipScale( LLToolComposite* composite )
 	mScaledBoxHandleSize( 1.f ),
 	mLastMouseX( -1 ),
 	mLastMouseY( -1 ),
-	mMaxPrimSize(0.f),
 	mSendUpdateOnMouseUp( FALSE ),
 	mLastUpdateFlags( 0 ),
 	mScaleSnapUnit1(1.f),
@@ -205,7 +204,6 @@ void LLManipScale::render()
 	LLGLDepthTest gls_depth(GL_TRUE);
 	LLGLEnable gl_blend(GL_BLEND);
 	LLGLEnable gls_alpha_test(GL_ALPHA_TEST);
-	mMaxPrimSize = gSavedSettings.getBOOL("LoggedIntoOpenSim") ? DEFAULT_OPENSIM_MAX_PRIM_SCALE : DEFAULT_LL_MAX_PRIM_SCALE;
 	
 	if( canAffectSelection() )
 	{
@@ -957,8 +955,9 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 		mInSnapRegime = FALSE;
 	}
 
-	F32 max_scale_factor = mMaxPrimSize / MIN_PRIM_SCALE;
-	F32 min_scale_factor = MIN_PRIM_SCALE / mMaxPrimSize;
+	F32 maxScale = gHippoLimits->getMaxPrimScale();
+	F32 max_scale_factor = maxScale / MIN_PRIM_SCALE;
+	F32 min_scale_factor = MIN_PRIM_SCALE / maxScale;
 
 	// find max and min scale factors that will make biggest object hit max absolute scale and smallest object hit min absolute scale
 	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
@@ -970,7 +969,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 		{
 			const LLVector3& scale = selectNode->mSavedScale;
 
-			F32 cur_max_scale_factor = llmin( mMaxPrimSize / scale.mV[VX], mMaxPrimSize / scale.mV[VY], mMaxPrimSize / scale.mV[VZ] );
+			F32 cur_max_scale_factor = llmin( maxScale / scale.mV[VX], maxScale / scale.mV[VY], maxScale / scale.mV[VZ] );
 			max_scale_factor = llmin( max_scale_factor, cur_max_scale_factor );
 
 			F32 cur_min_scale_factor = llmax( MIN_PRIM_SCALE / scale.mV[VX], MIN_PRIM_SCALE / scale.mV[VY], MIN_PRIM_SCALE / scale.mV[VZ] );
@@ -1267,7 +1266,8 @@ void LLManipScale::stretchFace( const LLVector3& drag_start_agent, const LLVecto
 
 			F32 denom = axis * dir_local;
 			F32 desired_delta_size	= is_approx_zero(denom) ? 0.f : (delta_local_mag / denom);  // in meters
-			F32 desired_scale		= llclamp(selectNode->mSavedScale.mV[axis_index] + desired_delta_size, MIN_PRIM_SCALE, mMaxPrimSize);
+			F32 desired_scale		= llclamp(selectNode->mSavedScale.mV[axis_index] + desired_delta_size, MIN_PRIM_SCALE,
+											gHippoLimits->getMaxPrimScale());
 			// propagate scale constraint back to position offset
 			desired_delta_size		= desired_scale - selectNode->mSavedScale.mV[axis_index]; // propagate constraint back to position
 
@@ -1967,7 +1967,7 @@ F32		LLManipScale::partToMaxScale( S32 part, const LLBBox &bbox ) const
 			max_extent = bbox_extents.mV[i];
 		}
 	}
-	max_scale_factor = bbox_extents.magVec() * mMaxPrimSize / max_extent;
+	max_scale_factor = bbox_extents.magVec() * gHippoLimits->getMaxPrimScale() / max_extent;
 
 	if (getUniform())
 	{
@@ -1982,7 +1982,7 @@ F32		LLManipScale::partToMinScale( S32 part, const LLBBox &bbox ) const
 {
 	LLVector3 bbox_extents = unitVectorToLocalBBoxExtent( partToUnitVector( part ), bbox );
 	bbox_extents.abs();
-	F32 min_extent = mMaxPrimSize;
+	F32 min_extent = gHippoLimits->getMaxPrimScale();
 	for (U32 i = VX; i <= VZ; i++)
 	{
 		if (bbox_extents.mV[i] > 0.f && bbox_extents.mV[i] < min_extent)
@@ -2056,14 +2056,4 @@ BOOL LLManipScale::canAffectSelection()
 		can_scale = mObjectSelection->applyToObjects(&func);
 	}
 	return can_scale;
-}
-
-//static
-F32 LLManipScale::getMaxPrimSize()
-{
-	if (gSavedSettings.getBOOL("LoggedIntoOpenSim"))
-	{
-		return DEFAULT_OPENSIM_MAX_PRIM_SCALE;
-	}
-	return DEFAULT_LL_MAX_PRIM_SCALE;
 }

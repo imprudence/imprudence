@@ -50,6 +50,8 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
+#include "hippoGridManager.h"
+
 LLFloaterBuy* LLFloaterBuy::sInstance = NULL;
 
 LLFloaterBuy::LLFloaterBuy()
@@ -184,6 +186,7 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 	// Add after columns added so appropriate heights are correct.
 	object_list->addElement(row);
 
+	sInstance->childSetTextArg("buy_text", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	sInstance->childSetTextArg("buy_text", "[AMOUNT]", llformat("%d", sale_info.getSalePrice()));
 	sInstance->childSetTextArg("buy_text", "[NAME]", owner_name);
 

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Copyright (c) 2002-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -78,6 +78,8 @@ public:
 	// call this once per frame to handle visibility, rect location,
 	// button highlights, etc.
 	void updatePopup(LLCoordGL center, MASK mask);
+
+	void toolsPrecision();
 
 	// When the floater is going away, reset any options that need to be 
 	// cleared.
@@ -197,6 +199,7 @@ public:
 
 private:
 	BOOL					mDirty;
+	U32						mPrecision;
 
 	std::map<std::string, std::string> mStatusText;
 

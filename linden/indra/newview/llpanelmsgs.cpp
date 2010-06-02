@@ -40,6 +40,8 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 
+#include "hippoGridManager.h"
+
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
 	LLPanel("Messages Panel")
@@ -66,6 +68,7 @@ BOOL LLPanelMsgs::postBuild()
 	childSetValue("show_in_inventory", gSavedSettings.getBOOL("ShowInInventory"));
 
 	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
+	childSetLabelArg("notify_money_change_checkbox", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	return TRUE;
 }

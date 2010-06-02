@@ -4,6 +4,333 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 4                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.3.0 beta 4 is a hotfix release to fix a serious bug
+   when rezzing objects from your inventory in Second Life while the
+   Build window is open.
+
+
+   CHANGES
+
+     * The following features from the Advanced Build Options window
+       have been removed to prevent unintentional modification of
+       objects rezzed from your inventory:
+
+        - "Settings" and "Texture" control the default settings and
+          textures for newly created prims.
+
+        - Ability to embed an inventory item into newly created prims.
+
+     * The following change in 1.3.0 beta 3 has been reverted, to
+       avoid possible negative effects on private/group voice
+       conversations:
+
+       - If the current region does not have any support for voice
+         chat (e.g. OpenSim regions with no voice module), the viewer
+         will temporarily deactivate voice chat and hide the voice
+         chat controls on the toolbar. The viewer will check again for
+         voice chat again whenever you move to another parcel.
+
+     * Fixed the "Show Selection Outlines" checkbox in the Advanced
+       Build Options window not working correctly.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 3                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Improved OpenSim support.
+
+        - Support for up to 100 groups, 99% hollow prims, 1% hole
+          size, megaprims up to 256m in size, and prim Z position up
+          to 10km. Thanks to the Hippo Viewer for these improvements!
+
+        - Implemented the "--grid" command line flag to select a grid
+          to login to by name, e.g. "--grid osgrid --login Firstname
+          Lastname Password". Thanks, Armin!
+
+        - Various links now go to the proper web page for the current
+          grid, instead of always a Second Life web page: F1 Help,
+          "Sign up for account", "Forgot your name or password?".
+          Thanks, Armin!
+
+        - The Search window's Groups tab has been reverted to a
+          non-web based version, like the Hippo Viewer has. The All
+          tab is also no longer web based, but a new "All (web)" tab
+          has been added for the web based search. Thanks to the Hippo
+          Viewer and McCabe for this!
+
+        - The "All (web)" Search tab now uses metaverseink.com for
+          searches on non-Second Life grids. Thanks, McCabe!
+
+     * Built-in Animation Overrider (View > AO, Ctrl-Shift-O). See our
+       "Animation Overrider" wiki page for full details. Thanks to
+       Emerald Viewer for this feature, and McCabe for porting and
+       improving it!
+
+     * IM Autoresponse (Prefences > Communication > IM Response
+       Options). The viewer can now perform a variety of actions when
+       you receive an Instant Message, such as sending a response
+       automatically. Thanks to Emerald Viewer for this feature, and
+       McCabe for porting it!
+
+     * Tools > Advanced Build Options (Ctrl-Shift-B). The old "Grid
+       Options" window has been renamed and extended with a bunch of
+       great new options and features to help builders. See our
+       "Advanced Build Options" wiki page for full details. Thanks to
+       McCabe for setting up the Advanced Build Options window.
+
+        - "Pivot Point" and "Show axis on root prim" affect the
+          placement of the 3D build axes widget. Thanks to the Emerald
+          Viewer for this feature!
+
+        - "Rez objects using land group" automatically rezzes objects
+          using the correct group for the land, if you are a member.
+          Thanks to the Emerald Viewer for this feature!
+
+        - "Edit object decimal places" controls the numerical
+          precision shown for object position, rotation, and size.
+          Thanks to the Cool VL Viewer for this feature!
+
+        - "Object Size", "Settings", and "Texture" controls the
+          default settings for newly created prims. Thanks to the
+          Emerald Viewer for this feature!
+
+        - Ability to embed an inventory item into newly created
+          prims. Thanks to the Emerald Viewer for this feature!
+
+     * To make the viewer compliant with the Second Life Policy on
+       Third-Party Viewers, the object export feature no longer
+       downloads textures from Second Life. Other grids are not
+       affected. (Ported from version 1.2.2.)
+
+
+   KNOWN ISSUES
+
+     * Textures on other avatars may flicker or appear corrupted on
+       your computer, if they are using viewers based on Second Life
+       1.22 or earlier. This is due to a change in avatar texture
+       format introduced in Second Life 1.23. We are investigating
+       solutions to this problem.
+
+     * Textures may not load fully or may appear corrupted when using
+       OpenJPEG when "Use HTTP Textures" is enabled. If you want to
+       benefit from HTTP textures in this release, you should copy the
+       "libkdu" and "libllkdu" from a Second Life 1.23.5 installation
+       to the corresponding location within the Imprudence directory.
+
+     * Due to an oversight, the "World > Buy OS$" menu item is active
+       on OpenSim in this release, but will be disabled in the future
+       to prevent confusion on grids that don't support currencies.
+
+     * When your avatar is sitting on an object, it may appear
+       invisible to users of older viewers, such as Hippo Viewer
+       version 5.0.1.
+
+     * In the grid manager, the "Get Grid Info" button does not work
+       for OpenSim-based grids unless the login URI has a trailing
+       slash ("/"). You should end login URIs for OpenSim-based grids
+       with a trailing slash, e.g. "http://osgrid.org:8002/", not
+       "http://osgrid.org:8002".
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.3.0 beta 2.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * Added a new "Advanced" section in Preferences, with several
+         new options. Thanks, McCabe!
+
+          - "Disable Login/Logout Screens". When this option is checked,
+            the viewer will not show the progress bar screen when
+            logging in, logging out, or quitting the viewer.
+
+          - "Disable Teleport Screens". When this option is checked, the
+            viewer will not show the progress bar screen when
+            teleporting.
+
+          - "Show Client Names in Name Tag" and "Broadcast Your Client
+            Name to Others". These control the Client Identification
+            feature. (See the wiki for more information.)
+
+          - "Enable Shadows". This enables experimental support for
+            dynamic shadow rendering in the viewer. WARNING: This is
+            potentially unstable and requires a very good video card.
+
+          - "Use HTTP Textures". This enables support for downloading
+            textures via HTTP when available. This can improve the
+            speed and reliability of texture downloads when connected
+            to a service that supports HTTP textures, such as OpenSim
+            0.6.9-RC2 or later. If the service does not support HTTP
+            textures (such as Second Life or older OpenSim versions),
+            this option has no benefit.
+
+          - "Increase rez speed via draw distance stepping". This
+            controls the "SpeedRez" feature added in 1.3.0 beta 2.
+            There is also an option to adjust the time between draw
+            distance steps.
+
+          - "Stand when editing appearance". When turned off, you will
+            no longer Stand Up when you edit your avatar appearance
+            while sitting. (Currently the "turn around" animation still
+            plays, but that behavior will likely change in the future.)
+
+       * The inventory window title now remembers the inventory count
+         from your previous session, and indicates how many items are
+         still remaining to fetch. Thanks to Emerald Viewer for this
+         feature!
+
+       * The script editor now has tooltips for new LSL features added
+         in SL serve 1.38 (prim media and linkset functions). Thanks
+         to Linden Lab and McCabe!
+
+       * Tweaked the avatar height calculator in the Appearance window
+         to be more accurate, using values from SNOW-197. Thanks to
+         Archimedies Plutonian, Soft Linden, McCabe, and Jacek!
+
+       * Objects with no name (or unknown name) now appear as ">>" in
+         chat, instead of appearing as "no name". Thanks, McCabe!
+
+       * If the current region does not have any support for voice
+         chat (e.g. OpenSim regions with no voice module), the viewer
+         will temporarily deactivate voice chat and hide the voice
+         chat controls on the toolbar. The viewer will check again for
+         voice chat again whenever you move to another parcel.
+
+       * The viewer will deactivate voice chat for the current session
+         if the SLVoice program is not found, rather than repeatedly
+         checking for it. (See our "How to Re-enable Voice Chat" wiki
+         page for instructions for installing SLVoice.)
+
+       * By default, the statistics window (Ctrl-Shift-1) no longer
+         hides when entering Mouselook mode. You can adjust this
+         behavior with the ShowStatusBarInMouselook debug setting.
+
+       * Tooltips now disappear when you type, to prevent them from
+         obscuring the UI while typing (SNOW-384). Thanks for the
+         patch, Ardy Lay!
+
+       * Tweaked some ugly layouts in several avatar profile tabs and
+         Search window tabs. Thanks, McCabe!
+
+       * Uploads that cost nothing (on OpenSim) now say "free" instead
+         of "L$0". Thanks to the Hippo Viewer for this!
+
+
+     BUG FIXES
+
+       * Fixed a bug where some objects would be invisible after a
+         very long-distance teleport (#239). Thanks, Armin!
+
+       * Fixed the "Advanced > Animation List" window not updating.
+         Thanks, McCabe!
+
+       * Fixed "Advanced > Phantom Avatar" not working correctly on
+         Second Life. Thanks, McCabe!
+
+       * Fixed some UI layout problems in the login screen and avatar
+         profile window when the viewer is set to certain non-English
+         languages (#192, #231). Thanks, Jacek and McCabe!
+
+       * Fixed a crash in the script editor related to OpenSim
+         reporting a syntax error with a negative line number (#245).
+         Thanks, McCabe!
+
+       * Fixed a crash caused by some malformed animations (SNOW-484).
+         Thanks to Robin Cornelius for the patch!
+
+       * Fixed a crash when quitting, related to the LLAgent class
+         destructor. Thanks, McCabe!
+
+       * Fixed the "Quit" button not working in the dialog that
+         informs you of a lost connection (#199). Thanks, McCabe!
+
+       * Fixed a rare crash in the payment dialog in laggy situations.
+         Thanks to to Hippo Viewer for the fix!
+
+       * The "File > Import + Upload" menu item no longer erroneously
+         shows "(L$10 per texture)" when connected to OpenSim. Thanks,
+         McCabe!
+
+       * Fixed several hardcoded references to Second Life and the
+         Second Life website. Thanks, McCabe!
+
+       * Repositioned the "Temporary Image" checkbox on the image
+         upload window so it doesn't extend beyond the window. Thanks,
+         McCabe!
+
+       * Fixed an ambiguous use of NULL in the media code which may
+         have caused crashes for 64-bit Linux users. Thanks, Armin!
+
+
+     OTHER CHANGES
+
+       * "Sub-Unit Snapping" is now enabled by default. You can
+         toggle it in the "Tools > Advanced Build Options" window
+         (Ctrl-Shift-O).
+
+       * When connected to grids other than Second Life, the currency
+         symbol is now "OS$" instead of "L$" (#237).
+
+       * As a temporary measure, you can now only purchase currency in
+         the viewer when connected to Second Life. On OpenSim, the
+         "L$" button is hidden and clicking your "OS$" amount will not
+         open the window to buy currency. This functionality will be
+         re-enabled when we are certain it will work correctly on
+         OpenSim, and can detect whether the grid supports it.
+
+       * Renamed some tabs in the Profile window: "2nd Life" and "1st
+         Life" are now "Avatar" and "Real Life". Thanks, McCabe!
+
+       * The OpenAL library for Linux (32-bit and 64-bit) has been
+         updated to version 1.11.753. This should hopefully address
+         some issues related to PulseAudio. Thanks, Armin!
+
+       * The viewer now sends the correct version number when loading
+         login splash page. It now sends the Imprudence version,
+         instead of the version of Second Life it was based on.
+         (Ported from version 1.2.2.)
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.2                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.2.2 is a small maintenance release to attempt to make
+   the viewer compliant with the new Second Life Terms of Service and
+   the Policy on Third Party Viewers.
+
+   Please see the Imprudence 1.2.0 Release Notes for information about
+   the changes in Imprudence 1.2.
+
+
+   CHANGES
+
+     * The object export feature no longer downloads textures from
+       Second Life. Other grids are not affected.
+
+     * The viewer now sends the correct version number when loading
+       login splash page. It now sends the Imprudence version, instead
+       of the version of Second Life it was based on.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                     1.3.0 BETA 2                       -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -31,7 +358,7 @@
           etc.
 
      * SpeedRez. After teleporting, the viewer will temporarily
-       decrease the draw distance to encourage nearby objects and
+       decrease the draw distance to encourage nearby objects and 
        textures to rez first. Thanks for the patch, Henri Beauchamp!
 
         - You can disable this feature by setting the SpeedRez debug
@@ -85,7 +412,7 @@
 
        * Added PrivateLookAtTarget debug setting. When enabled, the
          viewer will no longer tell other users where your avatar is
-         looking. Thanks for the patch, Henri Beauchamp!
+         looking. Thanks, Armin!
 
 
      BUG FIXES

@@ -35,6 +35,7 @@
 #include "llxmlrpctransaction.h"
 
 #include "llcurl.h"
+#include "hippoGridManager.h"
 #include "llviewercontrol.h"
 
 // Have to include these last to avoid queue redefinition!
@@ -415,13 +416,15 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 			default:
 				// Usually this means that there's a problem with the login server,
 				// not with the client.  Direct user to status page.
+				// NOTE: these should really be gHippoGridManager->getCurrentGrid()->getGridName()
+				// but apparently that's broken as of 1.3 b2 -- MC
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
 					" \n"
-					"Please check secondlife.com/status \n"
+					"Please check " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s status \n"
 					"to see if there is a known problem with the service.";
 
-				mStatusURI = "http://secondlife.com/status/";
+				//mStatusURI = "http://secondlife.com/status/";
 		}
 	}
 }
@@ -429,14 +432,14 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 {
 	std::string message;
-	std::string uri = "http://secondlife.com/community/support.php";
+	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportUrl();
 	
 	switch (code)
 	{
 		case CURLE_COULDNT_RESOLVE_HOST:
 			message =
 				"DNS could not resolve the host name.\n"
-				"Please verify that you can connect to the www.secondlife.com\n"
+				"Please verify that you can connect to " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s\n"
 				"web site.  If you can, but continue to receive this error,\n"
 				"please go to the support section and report this problem.";
 			break;
@@ -445,7 +448,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 			message =
 				"The login server couldn't verify itself via SSL.\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of the SecondLife.com web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
 				"and report the problem.";
 			break;
 			
@@ -457,7 +460,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 				"are set correctly.\n"
 				"\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of the SecondLife.com web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
 				"and report the problem.";
 			break;
 			

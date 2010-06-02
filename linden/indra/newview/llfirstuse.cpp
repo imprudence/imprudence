@@ -46,6 +46,7 @@
 #include "lltracker.h"
 
 #include "llvoavatar.h"
+#include "hippoGridManager.h"
 
 // [RLVa:KB] - Version: 1.22.11
 #include "llviewerwindow.h"
@@ -94,6 +95,7 @@ void LLFirstUse::useBalanceIncrease(S32 delta)
 
 		LLSD args;
 		args["AMOUNT"] = llformat("%d",delta);
+		args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		LLNotifications::instance().add("FirstBalanceIncrease", args);
 	}
 }
@@ -108,6 +110,7 @@ void LLFirstUse::useBalanceDecrease(S32 delta)
 
 		LLSD args;
 		args["AMOUNT"] = llformat("%d",-delta);
+		args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 		LLNotifications::instance().add("FirstBalanceDecrease", args);
 	}
 }
@@ -211,6 +214,17 @@ void LLFirstUse::useOverrideKeys()
 void LLFirstUse::useAttach()
 {
 	// nothing for now
+}
+
+// static
+void LLFirstUse::useAO()
+{
+	if (gSavedSettings.getWarning("FirstAO"))
+	{
+		gSavedSettings.setWarning("FirstAO", FALSE);
+
+		LLNotifications::instance().add("FirstAO");
+	}
 }
 
 // static

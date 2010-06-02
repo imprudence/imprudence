@@ -40,6 +40,8 @@
 #include <algorithm>
 #include <boost/regex.hpp>
 
+#include "../newview/hippoGridManager.h"
+
 
 const std::string NOTIFICATION_PERSIST_VERSION = "0.93";
 
@@ -605,9 +607,9 @@ void LLNotification::init(const std::string& template_name, const LLSD& form_ele
 	mSubstitutions["[VIEWER_NAME]"] = LLNotifications::instance().getGlobalString("VIEWER_NAME");
 	mSubstitutions["[VIEWER_SITE]"] = LLNotifications::instance().getGlobalString("VIEWER_SITE");
 
-	// TODO: set these based on which grid the user is connected to.
-	mSubstitutions["[GRID_NAME]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
-	mSubstitutions["[GRID_SITE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE_SITE");
+	mSubstitutions["[GRID_NAME]"] = gHippoGridManager->getConnectedGrid()->getGridName();
+	mSubstitutions["[GRID_SITE]"] = gHippoGridManager->getConnectedGrid()->getWebSite();
+	mSubstitutions["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 
 	mSubstitutions["_URL"] = getURL();
 	mSubstitutions["_NAME"] = template_name;

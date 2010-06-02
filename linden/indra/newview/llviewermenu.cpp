@@ -1,4 +1,3 @@
-
 /** 
  * @file llviewermenu.cpp
  * @brief Builds menus out of items.
@@ -81,6 +80,7 @@
 #include "llface.h"
 #include "llfirstuse.h"
 #include "llfloater.h"
+#include "floaterao.h"
 #include "llfloaterabout.h"
 #include "llfloaterbuycurrency.h"
 #include "llfloateractivespeakers.h"
@@ -223,6 +223,9 @@
 #include "jcfloater_animation_list.h"
 #include "llfloaterassetbrowser.h"
 #include "exporttracker.h"
+
+#include "hippoGridManager.h"
+#include "hippoLimits.h"
 
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
@@ -585,11 +588,6 @@ void set_underclothes_menu_options()
 
 void init_menus()
 {
-	if (gMenuHolder)
-	{
-		cleanup_menus();
-	}
-
 	S32 top = gViewerWindow->getRootView()->getRect().getHeight();
 	S32 width = gViewerWindow->getRootView()->getRect().getWidth();
 
@@ -662,12 +660,14 @@ void init_menus()
         LLViewerLogin::getInstance()->isInProductionGrid());
 
 	// Assume L$10 for now, the server will tell us the real cost at login
-	const std::string upload_cost("10");
-	gMenuHolder->childSetLabelArg("Upload Image", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("Bulk Upload", "[COST]", upload_cost);
-	gMenuHolder->childSetLabelArg("ImportUpload", "[COST]", upload_cost);
+	std::string fee = gHippoGridManager->getConnectedGrid()->getCurrencySymbol() + "10";
+	gMenuHolder->childSetLabelArg("Upload Image", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Upload Sound", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Upload Animation", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Bulk Upload", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("ImportUpload", "[UPLOADFEE]", fee);
+	gMenuHolder->childSetLabelArg("Buy and Sell L$...", "[CURRENCY]",
+		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	gAFKMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Away", TRUE);
 	gBusyMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Busy", TRUE);
@@ -1546,8 +1546,38 @@ static std::vector<LLPointer<view_listener_t> > sMenus;
 //-----------------------------------------------------------------------------
 void cleanup_menus()
 {
+	LL_DEBUGS("AFK") << "cleanup_menus start" << LL_ENDL;
+	sMenus.clear();
+
 	delete gMenuParcelObserver;
 	gMenuParcelObserver = NULL;
+
+
+	delete gAttachPieMenu;
+	gAttachPieMenu = NULL;
+	
+	delete gDetachPieMenu;
+	gDetachPieMenu = NULL;
+
+	delete gAttachScreenPieMenu;
+	gAttachScreenPieMenu = NULL;
+
+	delete gDetachScreenPieMenu;
+	gDetachScreenPieMenu = NULL;
+
+	for (int i = 0 ; i < 8 ; i++)
+	{
+		if (gAttachBodyPartPieMenus[i])
+		{
+			delete gAttachBodyPartPieMenus[i];
+			gAttachBodyPartPieMenus[i] = NULL;
+		}
+		if (gAttachBodyPartPieMenus[i])
+		{	
+			delete   gDetachBodyPartPieMenus[i];
+			gDetachBodyPartPieMenus[i] = NULL;
+		}
+	}
 
 	delete gPieSelf;
 	gPieSelf = NULL;
@@ -1576,7 +1606,6 @@ void cleanup_menus()
 	delete gMenuHolder;
 	gMenuHolder = NULL;
 
-	sMenus.clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -2711,6 +2740,7 @@ class LLAvatarEnableFreezeEject : public view_listener_t
 						
 			if (new_value)
 			{
+				LL_DEBUGS("isOwnedSelf")<< " viewermenu" << LL_ENDL; 
 				new_value = region->isOwnedSelf(pos);
 				if (!new_value || region->isOwnedGroup(pos))
 				{
@@ -4618,15 +4648,18 @@ class LLToolsLink : public view_listener_t
 			return true;
 		}
 
-		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-		if (object_count > MAX_CHILDREN_PER_TASK + 1)
+		S32 max_linked_prims = gHippoLimits->getMaxLinkedPrims();
+		if (max_linked_prims > -1)
 		{
-			LLSD args;
-			args["COUNT"] = llformat("%d", object_count);
-			int max = MAX_CHILDREN_PER_TASK+1;
-			args["MAX"] = llformat("%d", max);
-			LLNotifications::instance().add("UnableToLinkObjects", args);
-			return true;
+			S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+			if (object_count >  max_linked_prims + 1)
+			{
+				LLSD args;
+				args["COUNT"] = llformat("%d", object_count);
+				args["MAX"] = llformat("%d", max_linked_prims+1);
+				LLNotifications::instance().add("UnableToLinkObjects", args);
+				return true;
+			}
 		}
 
 		if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
@@ -5810,7 +5843,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "help f1")
 		{
-			LLFloaterMediaBrowser::helpF1();
+			gViewerHtmlHelp.show();
 		}
 		else if (floater_name == "help tutorial")
 		{
@@ -6468,7 +6501,9 @@ class LLAttachmentEnableDrop : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		if (gDisconnected)
+		{
 			return true;
+		}
 		BOOL can_build   = gAgent.isGodlike() || (LLViewerParcelMgr::getInstance()->agentCanBuild());
 
 		//Add an inventory observer to only allow dropping the newly attached item
@@ -8545,6 +8580,26 @@ class LLAdvancedTogglePhantom: public view_listener_t
 	}
 
 };
+
+
+class LLViewToggleAO : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterAO::show(NULL);
+		return true;
+	}
+};
+
+class LLViewCheckAO: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getInstance());
+		return true;
+	}
+};
+
 
 class LLAdvancedCheckPhantom: public view_listener_t
 {
@@ -10670,6 +10725,7 @@ void initialize_menus()
 	addMenu(new LLZoomer(1/1.2f), "View.ZoomIn");
 	addMenu(new LLZoomer(DEFAULT_FIELD_OF_VIEW, false), "View.ZoomDefault");
 	addMenu(new LLViewFullscreen(), "View.Fullscreen");
+	addMenu(new LLViewToggleAO(), "View.ToggleAO");
 	addMenu(new LLViewToggleAdvanced(), "View.ToggleAdvanced");
 
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
@@ -10682,6 +10738,7 @@ void initialize_menus()
 	addMenu(new LLViewCheckHighlightTransparent(), "View.CheckHighlightTransparent");
 	addMenu(new LLViewCheckRenderType(), "View.CheckRenderType");
 	addMenu(new LLViewCheckHUDAttachments(), "View.CheckHUDAttachments");
+	addMenu(new LLViewCheckAO(), "View.CheckAO");
 	addMenu(new LLViewCheckAdvanced(), "View.CheckAdvanced");
 
 	// World menu

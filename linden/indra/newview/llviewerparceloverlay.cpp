@@ -132,6 +132,7 @@ BOOL LLViewerParcelOverlay::isOwned(const LLVector3& pos) const
 
 BOOL LLViewerParcelOverlay::isOwnedSelf(const LLVector3& pos) const
 {
+	LL_DEBUGS("VOAvatar")<< "LLViewerParcelOverlay" << LL_ENDL; 
 	S32 row =    S32(pos.mV[VY] / PARCEL_GRID_STEP_METERS);
 	S32 column = S32(pos.mV[VX] / PARCEL_GRID_STEP_METERS);
 	return (PARCEL_SELF == ownership(row, column));

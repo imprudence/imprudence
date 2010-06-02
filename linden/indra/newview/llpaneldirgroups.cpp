@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,47 +33,111 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpaneldirgroups.h"
-#include "llnotifications.h"
 
-#include "llwebbrowserctrl.h"
+// linden library includes
+#include "llagent.h"
+//#include "llfontgl.h"
+#include "message.h"
+#include "llqueryflags.h"
+#include "llviewercontrol.h"
+#include "llviewerwindow.h"
 
 LLPanelDirGroups::LLPanelDirGroups(const std::string& name, LLFloaterDirectory* floater)
-	:	LLPanelDirFind(name, floater, "groups_browser")
+	:	LLPanelDirBrowser(name, floater)
 {
+	mMinSearchChars = 3;
 }
 
 
-void LLPanelDirGroups::search(const std::string& search_text)
+BOOL LLPanelDirGroups::postBuild()
 {
-	if (!search_text.empty())
-	{
-		BOOL inc_pg = childGetValue("incpg").asBoolean();
-		BOOL inc_mature = childGetValue("incmature").asBoolean();
-		BOOL inc_adult = childGetValue("incadult").asBoolean();
-		if (!(inc_pg || inc_mature || inc_adult))
-		{
-			LLNotifications::instance().add("NoContentToSearch");
-			return;
-		}
-		
-		std::string selected_collection = "Groups";
-		std::string url = buildSearchURL(search_text, selected_collection, inc_pg, inc_mature, inc_adult);
-		if (mWebBrowser)
-		{
-			mWebBrowser->navigateTo(url);
-		}
-	}
-	else
-	{
-		// empty search text
-		navigateToDefaultPage();
-	}
+	LLPanelDirBrowser::postBuild();
 
-	childSetText("search_editor", search_text);
+	childSetKeystrokeCallback("name", &LLPanelDirBrowser::onKeystrokeName, this);
+
+	childSetAction("Search", &LLPanelDirBrowser::onClickSearchCore, this);
+	childDisable("Search");
+	setDefaultBtn( "Search" );
+
+	return TRUE;
 }
 
+LLPanelDirGroups::~LLPanelDirGroups()
+{
+	// Children all cleaned up by default view destructor.
+}
+
+// virtual
 void LLPanelDirGroups::draw()
 {
 	updateMaturityCheckbox();
 	LLPanelDirBrowser::draw();
+}
+
+
+// virtual
+void LLPanelDirGroups::performQuery()
+{
+	std::string group_name = childGetValue("name").asString();
+	if (group_name.length() < mMinSearchChars)
+	{
+		return;
+	}
+
+    // "hi " is three chars but not a long-enough search
+	std::string query_string = group_name;
+	LLStringUtil::trim( query_string );
+	bool query_was_filtered = (query_string != group_name);
+
+	// possible we threw away all the short words in the query so check length
+	if ( query_string.length() < mMinSearchChars )
+	{
+		LLNotifications::instance().add("SeachFilteredOnShortWordsEmpty");
+		return;
+	};
+
+	BOOL inc_pg = childGetValue("incpg").asBoolean();
+	BOOL inc_mature = childGetValue("incmature").asBoolean();
+	BOOL inc_adult = childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+
+	// if we filtered something out, display a popup
+	if ( query_was_filtered )
+	{
+		LLSD args;
+		args["[FINALQUERY]"] = query_string;
+		LLNotifications::instance().add("SeachFilteredOnShortWords", args);
+	};
+
+	setupNewSearch();
+
+	// groups
+	U32 scope = DFQ_GROUPS;
+	if (inc_pg)
+	{
+		scope |= DFQ_INC_PG;
+	}
+	if (inc_mature)
+	{
+		scope |= DFQ_INC_MATURE;
+	}
+	if (inc_adult)
+	{
+		scope |= DFQ_INC_ADULT;
+	}
+
+	mCurrentSortColumn = "score";
+	mCurrentSortAscending = FALSE;
+
+	// send the message
+	sendDirFindQuery(
+		gMessageSystem,
+		mSearchID,
+		query_string,
+		scope,
+		mSearchStart);
 }

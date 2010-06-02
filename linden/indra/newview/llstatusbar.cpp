@@ -87,6 +87,8 @@
 #include <iomanip>
 
 
+#include "hippoGridManager.h"
+
 //
 // Globals
 //
@@ -159,7 +161,6 @@ mSquareMetersCommitted(0)
 	childSetAction("health", onClickHealth, this);
 	childSetAction("no_fly", onClickFly, this);
 	childSetAction("buyland", onClickBuyLand, this );
-	childSetAction("buycurrency", onClickBuyCurrency, this );
 	childSetAction("no_build", onClickBuild, this );
 	childSetAction("no_scripts", onClickScripts, this );
 	childSetAction("restrictpush", onClickPush, this );
@@ -173,7 +174,21 @@ mSquareMetersCommitted(0)
 	childSetVisible("menubar_search_bevel_bg", gSavedSettings.getBOOL("ShowSearchBar"));
 
 	childSetActionTextbox("ParcelNameText", onClickParcelInfo );
-	childSetActionTextbox("BalanceText", onClickBalance );
+
+	// Disable buying currency when connected to non-SL grids.
+	// TODO: Check whether the grid supports buying currency.
+	if( gHippoGridManager->getConnectedGrid()->isSecondLife() )
+	{
+		childSetEnabled("buycurrency", true);
+		childSetVisible("buycurrency", true);
+		childSetAction("buycurrency", onClickBuyCurrency, this );
+		childSetActionTextbox("BalanceText", onClickBalance );
+	}
+	else
+	{
+		childSetEnabled("buycurrency", false);
+		childSetVisible("buycurrency", false);
+	}
 
 	// Adding Net Stat Graph
 	S32 x = getRect().getWidth() - 2;
@@ -617,10 +632,27 @@ void LLStatusBar::refresh()
 	childSetRect("BalanceText", r);
 	new_right -= r.getWidth() - 18;
 
-	childGetRect("buycurrency", r);
-	r.translate( new_right - r.mRight, 0);
-	childSetRect("buycurrency", r);
-	new_right -= r.getWidth() + 6;
+	// Don't toggle this visibility while in mouselook -- MC
+	if (!gAgent.cameraMouselook())
+	{
+		// Hide the buy currency button in non-Second Life grids -- MC
+		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+		{
+			childGetRect("buycurrency", r);
+			r.translate( new_right - r.mRight, 0);
+			childSetRect("buycurrency", r);
+			new_right -= r.getWidth() + 6;
+		}
+		childSetVisible("buycurrency", gHippoGridManager->getConnectedGrid()->isSecondLife());
+
+		// Set search bar visibility
+		childSetVisible("search_editor", search_visible);
+		childSetVisible("search_btn", search_visible);
+		childSetVisible("menubar_search_bevel_bg", search_visible);
+		mSGBandwidth->setVisible(! search_visible);
+		mSGPacketLoss->setVisible(! search_visible);
+		childSetEnabled("stat_btn", ! search_visible);
+	}
 
 	childGetRect("TimeText", r);
 	// mTextTime->getTextPixelWidth();
@@ -635,23 +667,19 @@ void LLStatusBar::refresh()
 	const S32 PARCEL_RIGHT =  llmin(mTextTime->getRect().mLeft, mTextParcelName->getTextPixelWidth() + x + 5);
 	r.set(x+4, getRect().getHeight() - 2, PARCEL_RIGHT, 0);
 	mTextParcelName->setRect(r);
-
-	// Set search bar visibility
-	childSetVisible("search_editor", search_visible);
-	childSetVisible("search_btn", search_visible);
-	childSetVisible("menubar_search_bevel_bg", search_visible);
-	mSGBandwidth->setVisible(! search_visible);
-	mSGPacketLoss->setVisible(! search_visible);
-	childSetEnabled("stat_btn", ! search_visible);
 }
 
 void LLStatusBar::setVisibleForMouselook(bool visible)
 {
 	mTextBalance->setVisible(visible);
 	mTextTime->setVisible(visible);
-	childSetVisible("buycurrency", visible);
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+	{
+		childSetVisible("buycurrency", visible);
+	}
 	childSetVisible("search_editor", visible);
 	childSetVisible("search_btn", visible);
+	childSetVisible("menubar_search_bevel_bg", visible);
 	mSGBandwidth->setVisible(visible);
 	mSGPacketLoss->setVisible(visible);
 	setBackgroundVisible(visible);
@@ -669,10 +697,8 @@ void LLStatusBar::creditBalance(S32 credit)
 
 void LLStatusBar::setBalance(S32 balance)
 {
-	std::string money_str = LLResMgr::getInstance()->getMonetaryString( balance );
-	std::string balance_str = "L$";
-	balance_str += money_str;
-	mTextBalance->setText( balance_str );
+	mTextBalance->setText(gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str() +
+		LLResMgr::getInstance()->getMonetaryString(balance));
 
 	if (mBalance && (fabs((F32)(mBalance - balance)) > gSavedSettings.getF32("UISndMoneyChangeThreshold")))
 	{

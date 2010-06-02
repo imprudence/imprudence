@@ -1663,8 +1663,11 @@ void LLLiveLSLEditor::callbackLSLCompileFailed(const LLSD& compile_errors)
 		line < compile_errors.endArray();
 		line++)
 	{
-		LLSD row;
+		// Note: OpenSim screws up and sends the wrong values for (row, column).
+		// (As of 2010-04-25: rows start at -1 instead of 0, and columns start at
+		//  1 instead of 0) -- MC
 		std::string error_message = line->asString();
+		LLSD row;
 		LLStringUtil::stripNonprintable(error_message);
 		row["columns"][0]["value"] = error_message;
 		row["columns"][0]["font"] = "OCRA";
