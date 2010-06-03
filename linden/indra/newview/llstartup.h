@@ -92,6 +92,9 @@ public:
 	static void setStartedOnce(bool started);
 	static bool getStartedOnce() { return mStartedOnce;     };
 
+	static void setLoginFailed(bool login_failed);
+	static bool getLoginFailed() { return sLoginFailed; };
+
 	static void multimediaInit();
 		// Initialize LLViewerMedia multimedia engine.
 
@@ -123,6 +126,8 @@ public:
 private:
  	static bool mStartedOnce;
 	static bool mShouldAutoLogin;
+	// For failed logins before mStartedOnce can be changed -- MC
+	static bool sLoginFailed;
 	static std::string startupStateToString(EStartupState state);
 	static EStartupState gStartupState; // Do not set directly, use LLStartup::setStartupState
 };

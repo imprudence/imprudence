@@ -233,6 +233,7 @@ static bool gUseCircuitCallbackCalled = false;
 EStartupState LLStartUp::gStartupState = STATE_FIRST;
 bool LLStartUp::mStartedOnce = false;
 bool LLStartUp::mShouldAutoLogin = false;
+bool LLStartUp::sLoginFailed = false;
 
 //
 // local function declaration
@@ -803,7 +804,7 @@ bool idle_startup()
 		// *NOTE: This is where gMuteList used to get allocated before becoming LLMuteList::getInstance().
 
 		// Initialize UI
-		if (!gNoRender)
+		if (!gNoRender && !LLStartUp::getLoginFailed())
 		{
 			// Initialize all our tools.  Must be done after saved settings loaded.
 			// NOTE: This also is where gToolMgr used to be instantiated before being turned into a singleton.
@@ -1691,6 +1692,7 @@ bool idle_startup()
 					exit(0);
 				}
 				// Bounce back to the login screen.
+				LLStartUp::setLoginFailed(true);
 				LLSD args;
 				args["ERROR_MESSAGE"] = emsg.str();
 				LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
@@ -1713,6 +1715,7 @@ bool idle_startup()
 				exit(0);
 			}
 			// Bounce back to the login screen.
+			LLStartUp::setLoginFailed(true);
 			LLSD args;
 			args["ERROR_MESSAGE"] = emsg.str();
 			LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
@@ -2094,6 +2097,7 @@ bool idle_startup()
 		{
 			// Bounce back to the login screen -- MC
 			LL_WARNS("AppInit") << "Bad login - can't connect to this region for some reason" << LL_ENDL;
+			LLStartUp::setLoginFailed(true);
 			LLSD args;
 			args["ERROR_MESSAGE"] = "Unable to connect to the current region. Try logging into a different region instead. The default login location can be set in the General tab in Preferences.";
 			LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
@@ -2684,6 +2688,7 @@ bool idle_startup()
 
 		LLStartUp::setStartupState( STATE_STARTED );
 		LLStartUp::setStartedOnce(true);
+		LLStartUp::setLoginFailed(false);
 
 		if (gSavedSettings.getBOOL("SpeedRez"))
 		{
@@ -3623,6 +3628,13 @@ void LLStartUp::setStartupState( EStartupState state )
 void LLStartUp::setStartedOnce(bool started)
 {
 	mStartedOnce=started;
+}
+
+
+//static
+void LLStartUp::setLoginFailed(bool login_failed)
+{
+	sLoginFailed = login_failed;
 }
 
 
