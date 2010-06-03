@@ -1687,7 +1687,13 @@ void LLViewerWindow::initWorldUI()
 	//
 
 	// Toolbox floater
-	init_menus();
+
+	// Make sure we only create menus once per session -- MC
+	if (!gMenuHolder)
+	{
+		init_menus();
+	}
+
 	if (!gFloaterTools)
 	{
 		gFloaterTools = new LLFloaterTools();
