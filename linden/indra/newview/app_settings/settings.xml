@@ -48,6 +48,17 @@
     <key>Value</key>
     <string></string>
   </map>
+  <key>ChatDistance</key>
+  <map>
+    <key>Comment</key>
+    <string>Default chat distance in meters</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>20</real>
+  </map>
   <key>CmdLineCacheLocation</key>
   <map>
     <key>Comment</key>

@@ -140,6 +140,7 @@
 
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
+#include "panelradarentry.h"
 
 #include <boost/tokenizer.hpp>
 #include <boost/regex.hpp> // Boost Reg Expresions
@@ -2785,7 +2786,11 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				LLFloaterMap::getInstance()->getRadar()->addToTypingList(from_id);
+				PanelRadarEntry* entry = LLFloaterMap::getInstance()->getRadar()->getEntry(from_id);
+				if (entry) 
+				{
+					entry->setStatus(RADAR_STATUS_TYPING);
+				}
 			}
 
 			return;
@@ -2802,7 +2807,11 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				LLFloaterMap::getInstance()->getRadar()->removeFromTypingList(from_id);
+				PanelRadarEntry* entry = LLFloaterMap::getInstance()->getRadar()->getEntry(from_id);
+				if (entry) 
+				{
+					entry->setStatus(RADAR_STATUS_NONE);
+				}
 			}
 
 			return;

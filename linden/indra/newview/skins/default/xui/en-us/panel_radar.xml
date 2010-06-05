@@ -22,28 +22,22 @@
     [NAME] has entered the sim ([DISTANCE]m)
   </string>
   <string name="avatars_in_singular">
-    avatar in
+    [COUNT] avatar in
   </string>
   <string name="avatars_in_plural">
-    avatars in
+    [COUNT] avatars in
+  </string>
+  <string name="unknown_avatar">
+    (Unknown)
   </string>
 
-  <text name="lblAvatarCount"
+  <text name="avatar_count"
         bottom="-20" left="10" height="16" width="220"
         h_pad="0" halign="left" v_pad="0" follows="left|top"
         bg_visible="false" border_drop_shadow_visible="false" 
         border_visible="false" drop_shadow_visible="true"
         font="SansSerifSmall" mouse_opaque="true">
-    0
-  </text>
-
-  <text name="avatars_in" 
-        bottom="-20" left="27" height="16" width="220"
-        h_pad="0" halign="left" v_pad="0"
-        bg_visible="false" border_drop_shadow_visible="false"
-        border_visible="false" drop_shadow_visible="true" follows="left|top"
-        font="SansSerifSmall" mouse_opaque="true" >
-    avatars in
+    0 avatars in
   </text>
 
   <slider name="near_me_range" label="" control_name="NearMeRange"
@@ -111,9 +105,13 @@
            bottom="-160" left="1" height="160" width="198"
            follows="left|top|right|bottom"
            border="false" mouse_opaque="true">
+      
+      <button name="cam_btn" label="Cam To"
+              bottom="-22" left="-85" height="20" width="80"
+              follows="top|right" tool_tip="" />
 
       <button name="freeze_btn" label="Freeze..."
-              bottom="-22" left="-85" height="20" width="80"
+              bottom_delta="-22" left="-85" height="20" width="80"
               follows="top|right" tool_tip="" />
 
       <button name="eject_btn" label="Eject..."
@@ -132,7 +130,11 @@
               bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
-      <button name="estate_eject_btn" label="Kick..."
+      <!--<button name="estate_eject_btn" label="Kick..."
+              bottom_delta="-22" left_delta="0" height="20" width="80"
+              follows="top|right" tool_tip="" />-->
+
+      <button name="estate_ban_btn" label="Ban..."
               bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 

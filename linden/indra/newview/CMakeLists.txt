@@ -461,6 +461,7 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     panelradar.cpp
+    panelradarentry.cpp
     pipeline.cpp
     primbackup.cpp
     rlvhandler.cpp
@@ -894,6 +895,7 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     panelradar.h
+    panelradarentry.h
     pipeline.h
     primbackup.h
     randgauss.h
