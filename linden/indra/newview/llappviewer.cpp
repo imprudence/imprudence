@@ -1190,8 +1190,12 @@ bool LLAppViewer::cleanup()
 	//clear all the chat off the screen	
 	gConsole->clear();
 
-	if (!mQuitRequested) //if we are doing a soft cleanup, bail here
+	//if we are doing a soft cleanup, bail here
+	// But clean up the messaging system first -- MC
+	if (!mQuitRequested)
 	{
+		gTransferManager.cleanup();
+		LLTransferTargetVFile::updateQueue(true); // shutdown LLTransferTargetVFile
 		return true;
 	}
  	// End TransferManager before deleting systems it depends on (Audio, VFS, AssetStorage)
@@ -2744,11 +2748,11 @@ void LLAppViewer::requestLogout(bool quit_after)
 	
 	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
 	{
-	LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
-	effectp->setPositionGlobal(gAgent.getPositionGlobal());
-	effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-	LLHUDManager::getInstance()->sendEffects();
-	effectp->markDead() ;//remove it.
+		LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
+		effectp->setPositionGlobal(gAgent.getPositionGlobal());
+		effectp->setColor(LLColor4U(gAgent.getEffectColor()));
+		LLHUDManager::getInstance()->sendEffects();
+		effectp->markDead() ;//remove it.
 		//send_stats(); if we're quitting the server shouldn't need viewer stats.
 	}
 	else
