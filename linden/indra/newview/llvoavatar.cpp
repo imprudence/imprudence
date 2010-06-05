@@ -3244,7 +3244,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
 			client = "Imprudence";
 
-		}else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
+		}else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190") ||
+			idx == LLUUID("b6820989-bf42-ff59-ddde-fd3fd3a74fe4"))
 		{
 			avatar_name_color += LLColor4(1.0f,0.9f,0.7f);//Meerkat
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
@@ -3269,7 +3270,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::pink;//tyk3n
 			avatar_name_color = avatar_name_color * 0.5;
 			client = "tyk3n";
-		}else if(idx == LLUUID("f3fd74a6-fee7-4b2f-93ae-ddcb5991da04") || idx == LLUUID("77662f23-c77a-9b4d-5558-26b757b2144c"))
+		}else if(idx == LLUUID("f3fd74a6-fee7-4b2f-93ae-ddcb5991da04") || 
+			idx == LLUUID("77662f23-c77a-9b4d-5558-26b757b2144c"))
 		{
 			avatar_name_color += (LLColor4::purple);//psl
 			avatar_name_color = avatar_name_color * 0.5;
@@ -3285,7 +3287,10 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::blue;//day oh
 			avatar_name_color = avatar_name_color * 0.5;
 			client = "Day Oh proxy";
-		}else if(idx == LLUUID("e52d21f7-3c8b-819f-a3db-65c432295dac") || idx == LLUUID("0f6723d2-5b23-6b58-08ab-308112b33786"))
+		}else if(idx == LLUUID("e52d21f7-3c8b-819f-a3db-65c432295dac") || 
+			idx == LLUUID("0f6723d2-5b23-6b58-08ab-308112b33786") || 
+			idx == LLUUID("7c4d47a3-0c51-04d1-fa47-e4f3ac12f59b") ||
+			idx == LLUUID("d0091f21-1eef-a4ad-b358-249a8e5432ea"))
 		{
 			avatar_name_color += LLColor4::cyan;//cryolife
 			avatar_name_color += LLColor4::cyan;
@@ -3297,7 +3302,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::pink;//moy
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "MoyMix";
-		}else if(idx == LLUUID("f5a48821-9a98-d09e-8d6a-50cc08ba9a47"))
+		}else if(idx == LLUUID("f5a48821-9a98-d09e-8d6a-50cc08ba9a47") ||
+			idx == LLUUID("d95e0d9a-4d40-ea1b-a054-8db87f583f58"))
 		{
 			avatar_name_color += LLColor4::yellow;//neil
 			avatar_name_color += LLColor4::yellow;//neil
@@ -3308,7 +3314,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4(0.0f,1.0f,1.0f);
 			avatar_name_color = avatar_name_color * 0.5;//phox
 			client = "PhoxSL";
-		}else if(idx == LLUUID("c5b570ca-bb7e-3c81-afd1-f62646b20014") || idx == LLUUID("7c4d47a3-0c51-04d1-fa47-e4f3ac12f59b"))
+		}else if(idx == LLUUID("c5b570ca-bb7e-3c81-afd1-f62646b20014"))
 		{
 			avatar_name_color += LLColor4::white;
 			avatar_name_color += LLColor4::white;
@@ -3326,13 +3332,12 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color = avatar_name_color * 0.5;
-			client = "CryoLife";
-                }else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
-					idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
-					idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
-					idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
-					idx == LLUUID("841ef25b-3b90-caf9-ea3d-5649e755db65")//wat -.-
-					)
+			client = "Copybotter";
+		}else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
+			idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
+			idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
+			idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
+			idx == LLUUID("841ef25b-3b90-caf9-ea3d-5649e755db65")) //wat -.-
 		{
 			avatar_name_color += LLColor4(0.0f,0.5f,1.0f); 
 			avatar_name_color = avatar_name_color * 0.5;   
@@ -3360,6 +3365,55 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::yellow9;
 			avatar_name_color *= (F32)0.333333333333;
 			client = "Gemini";
+		}
+		else if(idx == LLUUID("3da8a69a-58ca-023f-2161-57f2ab3b5702"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Operator";
+		}
+		else if(idx == LLUUID("4da16427-d81e-e816-f346-aaf4741b8056"))
+		{
+			avatar_name_color = LLColor4(2.0f,2.0f,2.0f);
+			avatar_name_color *= 0.33f;
+			client = "iLife";
+		}
+		else if(idx == LLUUID("5262d71a-88f7-ef40-3b15-00ea148ab4b5"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Gemini.Bot";
+		}
+		else if(idx == LLUUID("81b3e921-ee31-aa57-ff9b-ec1f28e41da1"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Infinity";
+		}
+		else if(idx == LLUUID("d3eb4a5f-aec5-4bcb-b007-cce9efe89d37"))
+		{
+			avatar_name_color = LLColor4(0.0f,0.6f,0.0f);
+			avatar_name_color *= 0.33f;
+			client = "rivlife";
+		}
+		else if(idx == LLUUID("f12457b5-762e-52a7-efad-8f17f3b022ee"))
+		{
+			avatar_name_color = LLColor4(0.69f,0.8f,1.6f);
+			avatar_name_color *= 0.5f;
+			client = "Anti-Life";
+		}
+		else if(idx == LLUUID("f5feab57-bde5-2074-97af-517290213eaa") ||
+			idx == LLUUID("e6f9c019-8783-dc3e-b265-41f1510333fc"))
+		{
+			avatar_name_color = LLColor4(0.4f,0.4f,0.4f);
+			client = "Onyx";
+		}
+		else if(idx == LLUUID("c58fca06-33b3-827d-d81c-a886a631affc"))
+		{
+			avatar_name_color = LLColor4(1.0f,0.61176f,0.0f);
+			client = "Whale";
+		}
+		else if(idx == LLUUID("9ba526b6-f43d-6b60-42de-ce62a25ee7fb"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "nolife";
 		}
 	}
 	if(client.empty())
