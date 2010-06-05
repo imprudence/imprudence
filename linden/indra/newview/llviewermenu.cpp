@@ -1351,8 +1351,6 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->appendMenu(sub_menu);
 
 	sub_menu = new LLMenuGL("Character Tests");
-	sub_menu->append(new LLMenuItemToggleGL("Go Away/AFK When Idle",
-		&gAllowIdleAFK));
 
 	sub_menu->append(new LLMenuItemCallGL("Appearance To XML", 
 		&LLVOAvatar::dumpArchetypeXML));
@@ -9839,28 +9837,7 @@ class LLAdvancedEnableGrabBakedTexture : public view_listener_t
 // ALLOW IDLE / AFK //
 //////////////////////
 
-
-class LLAdvancedToggleAllowIdleAFK : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gAllowIdleAFK = !(gAllowIdleAFK);
-		return true;
-	}
-};
-
-class LLAdvancedCheckAllowIdleAFK : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		bool new_value = gAllowIdleAFK;
-		std::string control_name = userdata["control"].asString();
-		gMenuHolder->findControl(control_name)->setValue(new_value);
-		return true;
-	}
-};
-
-
+//aw: moved to llpanelgeneral.cpp
 
 ///////////////////////
 // APPEARANCE TO XML //
@@ -11101,8 +11078,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedEnableGrabBakedTexture(), "Advanced.EnableGrabBakedTexture");
 
 	// Advanced > Character > Character Tests
-	addMenu(new LLAdvancedToggleAllowIdleAFK(), "Advanced.ToggleAllowIdleAFK");
-	addMenu(new LLAdvancedCheckAllowIdleAFK(), "Advanced.CheckAllowIdleAFK");
 	addMenu(new LLAdvancedAppearanceToXML(), "Advanced.AppearanceToXML");
 	addMenu(new LLAdvancedToggleCharacterGeometry(), "Advanced.ToggleCharacterGeometry");
 	addMenu(new LLAdvancedTestMale(), "Advanced.TestMale");

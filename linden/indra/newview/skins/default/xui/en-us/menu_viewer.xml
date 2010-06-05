@@ -1773,13 +1773,6 @@
       <!-- CHARACTER TESTS -->
       <menu name="Character Tests" drop_shadow="true"
             opaque="true" tear_off="true">
-        <menu_item_check name="Go Away/AFK When Idle"
-                         label="Go Away/AFK When Idle">
-          <on_click function="Advanced.ToggleAllowIdleAFK"
-                    userdata="" />
-          <on_check function="Advanced.CheckAllowIdleAFK"
-                    userdata="" />
-        </menu_item_check>
         <menu_item_call name="Appearance To XML"
                         label="Appearance To XML">
           <on_click function="Advanced.ToggleAppearanceToXML"

@@ -2307,8 +2307,6 @@ void LLAppViewer::cleanupSavedSettings()
 	gSavedSettings.setBOOL("UseEnergy", TRUE);				// force toggle to turn off, since sends message to simulator
 
 	gSavedSettings.setBOOL("DebugWindowProc", gDebugWindowProc);
-		
-	gSavedSettings.setBOOL("AllowIdleAFK", gAllowIdleAFK);
 	gSavedSettings.setBOOL("AllowTapTapHoldRun", gAllowTapTapHoldRun);
 	gSavedSettings.setBOOL("ShowObjectUpdates", gShowObjectUpdates);
 	
