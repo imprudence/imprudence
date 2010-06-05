@@ -69,6 +69,7 @@ set(viewer_SOURCE_FILES
     floaterao.cpp
     floaterbusy.cpp
     floaterlogin.cpp
+    hbfloatergrouptitles.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
     hippoRestRequest.cpp
@@ -496,6 +497,7 @@ set(viewer_HEADER_FILES
     floaterao.h
     floaterbusy.h
     floaterlogin.h
+    hbfloatergrouptitles.h
     hippoGridManager.h
     hippoLimits.h
     hippoRestRequest.h
@@ -1122,6 +1124,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_gesture.xml
     skins/default/xui/en-us/floater_god_tools.xml
     skins/default/xui/en-us/floater_group_info.xml
+    skins/default/xui/en-us/floater_group_titles.xml
     skins/default/xui/en-us/floater_hardware_settings.xml
     skins/default/xui/en-us/floater_html.xml
     skins/default/xui/en-us/floater_html_simple.xml

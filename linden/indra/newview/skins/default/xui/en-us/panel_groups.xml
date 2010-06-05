@@ -26,6 +26,8 @@
 	     tool_tip="Open Instant Message session" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Activate" name="Activate" width="80" />
+  <button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
+	     label="Titles..." name="Titles..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Invite..." name="Invite..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
