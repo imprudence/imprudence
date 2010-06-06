@@ -4260,7 +4260,7 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 	if (!avatarp)
 	{
 		// no agent by this ID...error?
-		LL_WARNS("Messaging") << "Received animation state for unknown avatar" << uuid << LL_ENDL;
+		LL_DEBUGS("Messaging") << "Received animation state for unknown avatar: " << uuid << LL_ENDL;
 		return;
 	}
 
