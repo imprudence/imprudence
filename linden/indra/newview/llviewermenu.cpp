@@ -10066,6 +10066,14 @@ class LLAdvancedToggleShowLookAt : public view_listener_t
 	{
 		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
 		gSavedSettings.setBOOL("PersistShowLookAt", LLHUDEffectLookAt::sDebugLookAt);
+
+		// If we're enabling it, give the user some idea of what it does
+		// Also, disable private look at to be fair -- MC
+		if (LLHUDEffectLookAt::sDebugLookAt)
+		{
+			gSavedSettings.setBOOL("PrivateLookAtTarget", FALSE);
+			LLNotifications::instance().add("ShowLookAtInfo");
+		}
 		return true;
 	}
 };
@@ -10093,6 +10101,11 @@ class LLAdvancedToggleShowPointAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLHUDEffectPointAt::sDebugPointAt = !(LLHUDEffectPointAt::sDebugPointAt);
+		// Disable private look/point at if we're going to use it. S'only fair -- MC
+		if (LLHUDEffectPointAt::sDebugPointAt)
+		{
+			gSavedSettings.setBOOL("PrivateLookAtTarget", FALSE);
+		}
 		return true;
 	}
 };
@@ -10102,6 +10115,40 @@ class LLAdvancedCheckShowPointAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		bool new_value = LLHUDEffectPointAt::sDebugPointAt;
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+/////////////////////
+// PRIVATE LOOK AT //
+/////////////////////
+
+
+class LLAdvancedTogglePrivateLookPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		// Noate: PrivateLookAtTarget also hides point at -- MC
+		bool new_value = !gSavedSettings.getBOOL("PrivateLookAtTarget");
+		if (new_value)
+		{
+			// Disable show look at and show point at if you make yours private. It's only fair, after all -- MC
+			LLHUDEffectLookAt::sDebugLookAt = FALSE;
+			LLHUDEffectPointAt::sDebugPointAt = FALSE;
+		}
+		gSavedSettings.setBOOL("PrivateLookAtTarget", new_value);
+		return true;
+	}
+};
+
+class LLAdvancedCheckPrivateLookPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gSavedSettings.getBOOL("PrivateLookAtTarget");
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -11102,6 +11149,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckShowLookAt(), "Advanced.CheckShowLookAt");
 	addMenu(new LLAdvancedToggleShowPointAt(), "Advanced.ToggleShowPointAt");
 	addMenu(new LLAdvancedCheckShowPointAt(), "Advanced.CheckShowPointAt");
+	addMenu(new LLAdvancedTogglePrivateLookPointAt(), "Advanced.TogglePrivateLookPointAt");
+	addMenu(new LLAdvancedCheckPrivateLookPointAt(), "Advanced.CheckPrivateLookPointAt");
 	addMenu(new LLAdvancedToggleDebugJointUpdates(), "Advanced.ToggleDebugJointUpdates");
 	addMenu(new LLAdvancedCheckDebugJointUpdates(), "Advanced.CheckDebugJointUpdates");
 	addMenu(new LLAdvancedToggleDisableLOD(), "Advanced.ToggleDisableLOD");
