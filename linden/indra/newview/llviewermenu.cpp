@@ -10676,6 +10676,9 @@ class LLAdvancedToggleMultipleViewers : public view_listener_t
 	{
 		BOOL cur_val = gSavedSettings.getBOOL("AllowMultipleViewers");
 		gSavedSettings.setBOOL("AllowMultipleViewers", !cur_val );
+
+		// Save settings so the checkbox works right away -- MC
+		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
 		return true;
 	}
 };
