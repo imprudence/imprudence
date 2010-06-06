@@ -622,6 +622,17 @@ LLWindowWin32::~LLWindowWin32()
 	mWindowClassName = NULL;
 }
 
+void LLWindowWin32::setWindowTitle(std::string &title)
+{
+	int len = title.size() + 1;
+	wchar_t *wText = new wchar_t[len];
+	if (wText == 0) return;
+	memset(wText, 0, len);
+	MultiByteToWideChar(CP_ACP, NULL, title.c_str(), -1, wText, len);
+	SetWindowText(mWindowHandle, wText);
+	delete [] wText;
+}
+
 void LLWindowWin32::show()
 {
 	ShowWindow(mWindowHandle, SW_SHOW);

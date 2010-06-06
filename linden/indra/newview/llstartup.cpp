@@ -214,6 +214,8 @@ std::string SCREEN_LAST_FILENAME = "screen_last.bmp";
 //
 extern S32 gStartImageWidth;
 extern S32 gStartImageHeight;
+extern std::string gSecondLife;
+extern std::string gWindowTitle;
 
 //
 // local globals
@@ -2143,6 +2145,14 @@ bool idle_startup()
 	if (STATE_INVENTORY_SEND == LLStartUp::getStartupState())
 	{
 		LL_DEBUGS("AppInitStartupState") << "STATE_INVENTORY_SEND" << LL_ENDL;
+
+		// Change the window title to include the avatar name if we're using multiple viewers -- MC
+		if (gSavedSettings.getBOOL("AllowMultipleViewers"))
+		{
+			gWindowTitle = gSecondLife + " - " + firstname + " " + lastname;
+			LLStringUtil::truncate(gWindowTitle, 255);
+			gViewerWindow->getWindow()->setWindowTitle(gWindowTitle);
+		}
 
 		// unpack thin inventory
 		LLUserAuth::options_t options;

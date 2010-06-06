@@ -107,6 +107,7 @@ public:
 		// currently unused
 	};
 public:
+	virtual void setWindowTitle(std::string &title) {} ;
 	virtual void show() = 0;
 	virtual void hide() = 0;
 	virtual void close() = 0;
