@@ -55,10 +55,13 @@ std::string LLImage::sLastErrorMessage;
 LLMutex* LLImage::sMutex = NULL;
 
 //static
-void LLImage::initClass()
+void LLImage::initClass(const bool useDSO)
 {
 	sMutex = new LLMutex(NULL);
-	LLImageJ2C::openDSO();
+	if (useDSO)
+	{
+		LLImageJ2C::openDSO();
+	}
 }
 
 //static

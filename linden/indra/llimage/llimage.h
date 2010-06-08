@@ -82,7 +82,7 @@ typedef enum e_image_codec
 class LLImage
 {
 public:
-	static void initClass();
+	static void initClass(const bool useDSO);
 	static void cleanupClass();
 
 	static const std::string& getLastError();
