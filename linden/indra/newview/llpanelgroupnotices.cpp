@@ -320,7 +320,7 @@ void LLPanelGroupNotices::setItem(LLPointer<LLInventoryItem> inv_item)
 	};
 
 	std::string icon_name = get_item_icon_name(inv_item->getType(),
-										inv_item->getInventoryType(),
+										inv_item->getNInventoryType(),
 										inv_item->getFlags(),
 										item_is_multi );
 
@@ -479,7 +479,7 @@ void LLPanelGroupNotices::processNotices(LLMessageSystem* msg)
 		{
 			std::string icon_name = get_item_icon_name(
 									(LLAssetType::EType)asset_type,
-									LLInventoryType::IT_NONE,FALSE, FALSE);
+									LLInventoryType::NIT_NONE,FALSE, FALSE);
 			row["columns"][0]["type"] = "icon";
 			row["columns"][0]["value"] = icon_name;
 		}
@@ -547,7 +547,7 @@ void LLPanelGroupNotices::showNotice(const std::string& subject,
 		mInventoryOffer = inventory_offer;
 
 		std::string icon_name = get_item_icon_name(mInventoryOffer->mType,
-												LLInventoryType::IT_TEXTURE,
+												LLInventoryType::NIT_TEXTURE,
 												0, FALSE);
 
 		mViewInventoryIcon->setImage(icon_name);
