@@ -60,26 +60,20 @@ void PanelRadarEntry::setPosition(const LLVector3d& position)
 
 void PanelRadarEntry::setStatus(const RADAR_STATUS& status)
 {
-	if (status <= RADAR_STATUS_AWAY)
-	{
-		mStatus = status;
+	mStatus = status;
 
-		if (mStatus != RADAR_STATUS_NONE || mStatusTimer.hasExpired())
-		{
-			mStatusTimer.start();
-			mStatusTimer.setTimerExpirySec(RADAR_STATUS_TIMEOUT);
-		}
-		else
-		{
-			mStatusTimer.stop();
-		}
+	if (mStatus != RADAR_STATUS_NONE || mStatusTimer.hasExpired())
+	{
+		mStatusTimer.start();
+		mStatusTimer.setTimerExpirySec(RADAR_STATUS_TIMEOUT);
+	}
+	else
+	{
+		mStatusTimer.stop();
 	}
 }
 
 void PanelRadarEntry::setNotified(const RADAR_NOTIFIED& notified)
 {
-	if (notified <= RADAR_NOTIFIED_SIM)
-	{
-		mNotified = notified;
-	}
+	mNotified = notified;
 }

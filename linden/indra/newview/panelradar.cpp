@@ -261,9 +261,9 @@ void PanelRadar::updateRadarDisplay()
 					}
 				}
 			}
-			if (notify_chat && 
-				(entry->getDistance() < chat_distance) && 
-				(entry->getNotified() < RADAR_NOTIFIED_CHAT))
+			else if (notify_chat && 
+					(entry->getDistance() < chat_distance) && 
+					(entry->getNotified() < RADAR_NOTIFIED_CHAT))
 			{
 				LLChat chat;
 				LLUIString notify = getString("entering_chat_range");
