@@ -63,6 +63,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
+	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 
 	refresh();
 
@@ -79,6 +80,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
 	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
 	gSavedSettings.setBOOL("UseServersideWindlightSettings", childGetValue("windlight_check"));
+	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))

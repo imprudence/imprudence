@@ -58,8 +58,6 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("default_start_location", gSavedSettings.getBOOL("LoginLastLocation") ? "MyLastLocation" : "MyHome");
 	childSetValue("show_location_checkbox", gSavedSettings.getBOOL("ShowStartLocation"));
 	childSetValue("show_all_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitleAll"));
-	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
-
 	childSetValue("show_my_name_checkbox", gSavedSettings.getBOOL("RenderNameHideSelf"));
 	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
 	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
@@ -122,7 +120,6 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("LoginLastLocation", childGetValue("default_start_location").asString() == "MyLastLocation");
 	gSavedSettings.setBOOL("ShowStartLocation", childGetValue("show_location_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitleAll", childGetValue("show_all_title_checkbox"));
-	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
 	gSavedSettings.setBOOL("RenderNameHideSelf", childGetValue("show_my_name_checkbox"));
 	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));

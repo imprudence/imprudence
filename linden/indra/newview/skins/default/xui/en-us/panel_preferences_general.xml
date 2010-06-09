@@ -244,12 +244,5 @@
 			한국어 (Korean) - Beta
 		</combo_item>
 	</combo_box>
-	<check_box bottom="-400" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Share language with objects" left="151"
-	     mouse_opaque="true" name="language_is_public"
-	     radio_style="false"
-	     tool_tip="This lets in-world objects know your preferred language."
-	     width="256" />
 
 </panel>

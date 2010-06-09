@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="与物体共享语言" name="language_is_public" tool_tip="这使得世界内的物体可以知道你偏好的语言。"/>
+</panel>
