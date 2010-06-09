@@ -175,6 +175,11 @@ void PanelRadar::updateRadarInfo()
 	}
 	else // avatar_ids empty
 	{
+		// Just in case
+		if (!mAvatars.empty())
+		{
+			mAvatars.clear();
+		}
 		mRadarList->deleteAllItems();
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		LLUIString av_count_string = getString("avatars_in_plural");
@@ -211,6 +216,8 @@ void PanelRadar::updateRadarDisplay()
 	F32 range = gSavedSettings.getF32("NearMeRange");
 	bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
 	bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
+	// We show avatars outside the estate even if you can't manage it in case griefers are lying on the border
+	bool is_manager = gAgent.getRegion()->canManageEstate();
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 	{
@@ -279,7 +286,7 @@ void PanelRadar::updateRadarDisplay()
 		}
 
 		// Only display avatars in range
-		if (entry->getDistance() <= range)
+		if (is_manager || entry->getDistance() <= range)
 		{
 			// Append typing string
 			std::string typing = "";
