@@ -54,7 +54,7 @@
     m
   </text>
 
-  <tab_container name="buttons_container"
+  <tab_container name="radar_tab_container"
                  bottom="1" left="0" right="0" height="172"
                  follows="left|right|bottom" border="false"
                  mouse_opaque="false" tab_position="top">

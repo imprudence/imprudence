@@ -61,7 +61,8 @@
 PanelRadar::PanelRadar()
 	:
 	LLPanel(),
-	mSelectedAvatar(LLUUID::null)
+	mSelectedAvatar(LLUUID::null),
+	mSelectedDistance(-1.0f)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_radar.xml");
 }
@@ -69,6 +70,8 @@ PanelRadar::PanelRadar()
 
 BOOL PanelRadar::postBuild()
 {
+	mRadarTabs = getChild<LLTabContainer>("radar_tab_container");
+
 	mRadarList = getChild<LLScrollListCtrl>("RadarList");
 	childSetCommitCallback("RadarList", onUseRadarList, this);
 	mRadarList->setDoubleClickCallback(onClickIM);
@@ -186,10 +189,13 @@ void PanelRadar::updateRadarDisplay()
 	if (visibleItemsSelected())
 	{
 		mSelectedAvatar = mRadarList->getFirstSelected()->getUUID();
+		//TODO: as we expand columns, make these numbers enums
+		mSelectedDistance = mRadarList->getFirstSelected()->getColumn(1)->getValue().asReal(); 
 	}
 	else
 	{
 		mSelectedAvatar.setNull();
+		mSelectedDistance = -1.0f;
 	}
 
 	S32 scroll_pos = mRadarList->getScrollPos();
@@ -388,18 +394,35 @@ void PanelRadar::updateButtonStates()
 	static bool enable_track = false;
 	static bool enable_estate = false;
 	static bool enable_friend = false;
+	static bool enable_cam = false;
 
-	if (hasFocus())
+	if (mRadarTabs->getCurrentPanelIndex() == 0) // Avatar tab
 	{
-		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : false;
-		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : false;
-		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
+		mRadarList->setDoubleClickCallback(onClickIM);
+	}
+	else // Estate tab
+	{
+		mRadarList->setDoubleClickCallback(onClickCam);
+	}
+	
+	if (hasFocus() && mSelectedAvatar.notNull())
+	{
+		enable = visibleItemsSelected();
 		enable_estate = isKickable(mSelectedAvatar);
+		enable_unmute = LLMuteList::getInstance()->isMuted(mSelectedAvatar);
+		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
 		enable_friend = !is_agent_friend(mSelectedAvatar);
+		enable_cam = mSelectedDistance >= 0 && mSelectedDistance <= gSavedSettings.getF32("NearMeRange");
 	}
 	else
 	{
 		mRadarList->deselect();
+		enable = false;
+		enable_estate = false;
+		enable_unmute = false;
+		enable_track = false;
+		enable_friend = false;
+		enable_cam = false;
 	}
 
 	childSetEnabled("im_btn", enable);
@@ -409,7 +432,7 @@ void PanelRadar::updateButtonStates()
 	childSetEnabled("track_btn", enable_track);
 	childSetEnabled("invite_btn", enable);
 	childSetEnabled("add_btn", enable);
-	childSetEnabled("cam_btn", enable);
+	childSetEnabled("cam_btn", enable_cam);
 	childSetEnabled("freeze_btn", enable_estate);
 	childSetEnabled("eject_btn", enable_estate);
 	childSetEnabled("mute_btn", enable);
@@ -442,6 +465,8 @@ void PanelRadar::updateButtonStates()
 			childSetEnabled("add_btn", false);
 			childSetEnabled("mute_btn", false);
 			childSetEnabled("unmute_btn", false);
+			childSetEnabled("cam_btn", false);
+			childSetEnabled("teleport_btn", false);
 		}
 
 		// Even though the avie is in the same sim (so they already know

@@ -31,9 +31,10 @@
 
 
 #include "llpanel.h"
-#include "llscrolllistctrl.h"
 
 class PanelRadarEntry;
+class LLScrollListCtrl;
+class LLTabContainer;
 
 class PanelRadar : public LLPanel
 {
@@ -72,13 +73,16 @@ private:
 	// Removes avatar IDs no longer known to the viewer
 	void removeDeadEntries(const std::vector<LLUUID>& agent_ids);
 
+	LLTabContainer*		mRadarTabs;
 	LLScrollListCtrl*   mRadarList;
 	LLUUID              mSelectedAvatar;
+	F32					mSelectedDistance;
 
 	bool visibleItemsSelected() const;
 	bool isKickable(const LLUUID &agent_id);
 
 	std::string getSelectedName(const LLUUID &agent_id);
+	F32			getSelectedDistance() { return mSelectedDistance; }
 
 	void sendAvatarPropertiesRequest(const LLUUID &agent_id);
 
