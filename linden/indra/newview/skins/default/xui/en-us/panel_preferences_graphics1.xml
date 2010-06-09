@@ -24,7 +24,7 @@
 	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="WindowSizeLabel" v_pad="0" width="128">
-		Window Size:
+		Window size:
 	</text>
 	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
 	     height="18" left="185" max_chars="20" mouse_opaque="true"
@@ -50,7 +50,7 @@
 	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="DisplayResLabel" v_pad="0" width="128">
-		Display Resolution:
+		Display resolution:
 	</text>
 	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
 	     height="18" left="185" max_chars="20" mouse_opaque="true"
@@ -60,7 +60,7 @@
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
 	     left="10" mouse_opaque="true" name="AspectRatioLabel1"
 	     tool_tip="width / height" v_pad="0" width="160">
-		Aspect Ratio:
+		Aspect ratio:
 	</text>
 	<combo_box allow_text_entry="true" bottom="-43" enabled="true" follows="left|top"
 	     height="16" left="185" max_chars="100" mouse_opaque="true"
@@ -93,7 +93,7 @@
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="12" left_delta="0" mouse_opaque="true"
 	     name="QualityText" v_pad="0" width="95">
-		Performance:
+		performance:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-86" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -172,22 +172,22 @@
 	</text>
 	<check_box bottom="-153" control_name="RenderObjectBump" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
-	     label="Bump Mapping and Shiny" left="10" mouse_opaque="true"
+	     label="Bump mapping and shiny" left="10" mouse_opaque="true"
 	     name="BumpShiny" radio_style="false" width="256" />
 	<check_box bottom_delta="-17" control_name="VertexShaderEnable" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Basic Shaders" left_delta="0"
+	     initial_value="true" label="Basic shaders" left_delta="0"
 	     mouse_opaque="true" name="BasicShaders" radio_style="false"
 	     tool_tip="Disabling this option may prevent some graphics card drivers from crashing."
 	     width="315" />
 	<check_box bottom_delta="-17" control_name="WindLightUseAtmosShaders" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Atmospheric Shaders" left_delta="0"
+	     initial_value="true" label="Atmospheric shaders" left_delta="0"
 	     mouse_opaque="true" name="WindLightUseAtmosShaders" radio_style="false"
 	     width="256" />
 	<check_box bottom_delta="-17" control_name="RenderWaterReflections" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Water Reflections" left_delta="0"
+	     initial_value="true" label="Water reflections" left_delta="0"
 	     mouse_opaque="true" name="Reflections" radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-223" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -202,15 +202,15 @@
 	     width="321">
 		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16"
 		     left="3" mouse_opaque="true" name="0" width="315">
-			Terrain and Trees
+			Terrain and trees
 		</radio_item>
 		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16"
 		     left="3" mouse_opaque="true" name="1" width="315">
-			All Static Objects
+			All static objects
 		</radio_item>
 		<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16"
 		     left="3" mouse_opaque="true" name="2" width="315">
-			All Avatars and Objects
+			All avatars and objects
 		</radio_item>
 		<radio_item type="string" length="1" bottom="-67" enabled="true" follows="left|top" height="16"
 		     left="3" mouse_opaque="true" name="3" width="315">
@@ -225,15 +225,15 @@
 	</text>
 	<check_box bottom_delta="-23" control_name="RenderUseImpostors" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Avatar Impostors" left_delta="0" mouse_opaque="true"
+	     label="Avatar impostors" left_delta="0" mouse_opaque="true"
 	     name="AvatarImpostors" radio_style="false" width="256" />
 	<check_box bottom_delta="-17" control_name="RenderAvatarVP" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Hardware Skinning" left_delta="0" mouse_opaque="true"
+	     label="Hardware skinning" left_delta="0" mouse_opaque="true"
 	     name="AvatarVertexProgram" radio_style="false" width="256" />
 	<check_box bottom_delta="-17" control_name="RenderAvatarCloth" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Avatar Cloth" left_delta="0" mouse_opaque="true" name="AvatarCloth"
+	     label="Avatar cloth" left_delta="0" mouse_opaque="true" name="AvatarCloth"
 	     radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -251,18 +251,18 @@
 	</text>
 	<slider bottom="-135" can_edit_text="false" control_name="RenderFarClip"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="8" initial_val="160" label="Draw Distance:"
+	     increment="8" initial_val="160" label="Draw distance:"
 	     label_width="140" left="215" max_val="512" min_val="32" mouse_opaque="true"
 	     name="DrawDistance" show_text="true" width="255" />
 	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderMaxPartCount"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="256" initial_val="4096"
-	     label="Max. Particle Count:" label_width="140" left_delta="0"
+	     label="Max. particle count:" label_width="140" left_delta="0"
 	     max_val="8192" min_val="0" mouse_opaque="true" name="MaxParticleCount"
 	     show_text="true" width="262" />
 	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderGlowResolutionPow"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="1" initial_val="8" label="Post Process Quality:"
+	     increment="1" initial_val="8" label="Post process quality:"
 	     label_width="140" left_delta="0" max_val="9" min_val="8"
 	     mouse_opaque="true" name="RenderPostProcess" show_text="false" width="223" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"

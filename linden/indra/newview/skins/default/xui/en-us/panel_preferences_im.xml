@@ -23,7 +23,7 @@
     log in to change
   </string>
   <check_box bottom="-45" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="16" initial_value="false" label="Send IM to Email ([EMAIL])"
+	     height="16" initial_value="false" label="Send IM to email ([EMAIL])"
 	     left="148" mouse_opaque="true" name="send_im_to_email" radio_style="false"
 	     width="350" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -34,11 +34,11 @@
   </text>
   <check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Main Chat" left="248" mouse_opaque="true"
+	     label="Chat console" left="248" mouse_opaque="true"
 	     name="include_im_in_chat_console" radio_style="false" width="100" />
   <check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Local Chat" left="348" mouse_opaque="true"
+	     label="Local Chat window" left="348" mouse_opaque="true"
 	     name="include_im_in_chat_history" radio_style="false" width="100" />
   <check_box bottom="-85" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"

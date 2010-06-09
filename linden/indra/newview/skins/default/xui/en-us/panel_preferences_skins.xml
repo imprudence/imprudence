@@ -6,7 +6,7 @@
 	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="muting_text" v_pad="0" width="400">
-		Select a skin (requires restart):
+		Select a Skin (Requires Restart):
 	</text>
   <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="12"
 	     name="skin_selection" width="480">
