@@ -41,6 +41,9 @@
       <on_enable function="Object.EnableInspect" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
+      <on_click function="Object.DERENDER" />
+    </menu_item_call>
 		<menu_item_call enabled="false" label="Debug..." mouse_opaque="true" name="Debug...">
 			<on_click function="Avatar.Debug" />
 			<on_visible function="Avatar.VisibleDebug" />

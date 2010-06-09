@@ -2055,6 +2055,37 @@ class LLObjectInspect : public view_listener_t
 	}
 };
 
+class LLObjectDerender : public view_listener_t
+{
+    bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+    {
+		LLViewerObject* slct = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+		if(!slct)return true;
+		LLUUID id = slct->getID();
+		LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
+		LLUUID root_key;
+		LLSelectNode* node = selection->getFirstRootNode();
+		if(node)root_key = node->getObject()->getID();
+		if(root_key.notNull())
+		{
+			id = root_key;
+			//LLSelectMgr::getInstance()->removeObjectFromSelections(root_key);
+		}
+		LLSelectMgr::getInstance()->removeObjectFromSelections(id);
+
+		// ...don't kill the avatar
+		if (!(id == gAgentID))
+		{
+			LLViewerObject *objectp = gObjectList.findObject(id);
+			if (objectp)
+			{
+				gObjectList.killObject(objectp);
+			}
+		}
+		return true;
+	}
+};
+
 
 //---------------------------------------------------------------------------
 // Land pie menu
@@ -11056,6 +11087,7 @@ void initialize_menus()
 	addMenu(new LLObjectBuy(), "Object.Buy");
 	addMenu(new LLObjectEdit(), "Object.Edit");
 	addMenu(new LLObjectInspect(), "Object.Inspect");
+	addMenu(new LLObjectDerender(), "Object.DERENDER");
 	addMenu(new LLObjectCopyUUID(), "Object.CopyUUID");
 	addMenu(new LLObjectExport(), "Object.Export");
 	addMenu(new LLObjectImport(), "Object.Import");
