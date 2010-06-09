@@ -1163,7 +1163,7 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys, bool shield) const
 		for (face_index = 0; face_index <= last_face_index; face_index++)
 		{
 			// Directly sending image_ids is not safe!
-			if(shield && !(face_index == 4 || face_index == 8 || face_index == 9 || face_index == 10 || face_index == 11 || face_index == 18 || face_index == 19))
+			if(shield && !(face_index == 20 || face_index == 8 || face_index == 9 || face_index == 10 || face_index == 11 || face_index == 18 || face_index == 19))
 			{
 				S8 f_f_i = face_index;
 				if(face_index == 0)f_f_i = 64;
