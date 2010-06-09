@@ -33,6 +33,7 @@
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
+#include "llviewermenu.h"
 #include "llvoavatar.h"
 
 #include "lluictrlfactory.h"
@@ -61,6 +62,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
+	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 
 	refresh();
 
@@ -121,6 +123,12 @@ void LLPrefsAdvanced::apply()
 		}
 	}
 	gSavedSettings.setBOOL("ShadowsEnabled", childGetValue("shadows_check").asBoolean());
+
+	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
+	{
+		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
+		build_pie_menus();
+	}
 }
 
 void LLPrefsAdvanced::cancel()
