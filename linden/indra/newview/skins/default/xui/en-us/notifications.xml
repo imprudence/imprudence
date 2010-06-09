@@ -4299,7 +4299,7 @@ Are you sure you want to quit?
   <usetemplate
    ignoretext="When quitting [VIEWER_NAME]."
    name="okcancelignore"
-   notext="Continue"
+   notext="Cancel"
    yestext="Quit"/>
 </notification>
 
