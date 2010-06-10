@@ -154,6 +154,7 @@ public:
 	static void		onBtnPipette( void* userdata );
 	//static void		onBtnRevert( void* userdata );
 	static void		onBtnWhite( void* userdata );
+	static void		onBtnInvisible( void* userdata );
 	static void		onBtnNone( void* userdata );
 	static void		onBtnClear( void* userdata );
 	static void		onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
@@ -170,6 +171,7 @@ protected:
 	std::string			mFallbackImageName; // What to show if currently selected texture is null.
 
 	LLUUID				mWhiteImageAssetID;
+	LLUUID				mInvisibleImageAssetID;
 	LLUUID				mSpecialCurrentImageAssetID;  // Used when the asset id has no corresponding texture in the user's inventory.
 	LLUUID				mOriginalImageAssetID;
 
@@ -210,6 +212,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	mImageAssetID( owner->getImageAssetID() ),
 	mFallbackImageName( fallback_image_name ),
 	mWhiteImageAssetID( gSavedSettings.getString( "UIImgWhiteUUID" ) ),
+	mInvisibleImageAssetID(gSavedSettings.getString("UIImgInvisibleUUID")),
 	mOriginalImageAssetID(owner->getImageAssetID()),
 	mLabel(label),
 	mTentativeLabel(NULL),
@@ -231,6 +234,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	childSetAction("Default",LLFloaterTexturePicker::onBtnSetToDefault,this);
 	childSetAction("None", LLFloaterTexturePicker::onBtnNone,this);
 	childSetAction("Blank", LLFloaterTexturePicker::onBtnWhite,this);
+	childSetAction("Invisible", LLFloaterTexturePicker::onBtnInvisible,this);
 
 		
 	childSetCommitCallback("show_folders_check", onShowFolders, this);
@@ -571,6 +575,7 @@ void LLFloaterTexturePicker::draw()
 
 		childSetEnabled("Default",  mImageAssetID != mOwner->getDefaultImageAssetID());
 		childSetEnabled("Blank",   mImageAssetID != mWhiteImageAssetID );
+		childSetEnabled("Invisible", mOwner->getAllowInvisibleTexture() && mImageAssetID != mInvisibleImageAssetID );
 		childSetEnabled("None", mOwner->getAllowNoTexture() && !mImageAssetID.isNull() );
 
 		LLFloater::draw();
@@ -701,6 +706,15 @@ void LLFloaterTexturePicker::onBtnWhite(void* userdata)
 {
 	LLFloaterTexturePicker* self = (LLFloaterTexturePicker*) userdata;
 	self->setImageID( self->mWhiteImageAssetID );
+	self->commitIfImmediateSet();
+}
+
+
+// static
+void LLFloaterTexturePicker::onBtnInvisible(void* userdata)
+{
+	LLFloaterTexturePicker* self = (LLFloaterTexturePicker*) userdata;
+	self->setImageID(self->mInvisibleImageAssetID);
 	self->commitIfImmediateSet();
 }
 
@@ -918,6 +932,7 @@ LLTextureCtrl::LLTextureCtrl(
 	mDefaultImageName( default_image_name ),
 	mLabel( label ),
 	mAllowNoTexture( FALSE ),
+	mAllowInvisibleTexture(FALSE),
 	mImmediateFilterPermMask( PERM_NONE ),
 	mNonImmediateFilterPermMask( PERM_NONE ),
 	mCanApplyImmediately( FALSE ),
@@ -977,6 +992,8 @@ LLXMLNodePtr LLTextureCtrl::getXML(bool save_children) const
 
 	node->createChild("allow_no_texture", TRUE)->setBoolValue(mAllowNoTexture);
 
+	node->createChild("allow_invisible_texture", TRUE)->setBoolValue(mAllowInvisibleTexture);
+
 	node->createChild("can_apply_immediately", TRUE)->setBoolValue(mCanApplyImmediately );
 
 	return node;
@@ -1005,6 +1022,9 @@ LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	BOOL allow_no_texture = FALSE;
 	node->getAttributeBOOL("allow_no_texture", allow_no_texture);
 
+	BOOL allow_invisible_texture = FALSE;
+	node->getAttributeBOOL("allow_invisible_texture", allow_invisible_texture);
+
 	BOOL can_apply_immediately = FALSE;
 	node->getAttributeBOOL("can_apply_immediately", can_apply_immediately);
 
@@ -1021,6 +1041,7 @@ LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 									LLUUID(default_image_id), 
 									default_image_name );
 	texture_picker->setAllowNoTexture(allow_no_texture);
+	texture_picker->setAllowInvisibleTexture(allow_invisible_texture);
 	texture_picker->setCanApplyImmediately(can_apply_immediately);
 
 	texture_picker->initFromXML(node, parent);

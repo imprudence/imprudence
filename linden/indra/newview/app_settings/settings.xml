@@ -663,6 +663,17 @@
     <key>Value</key>
     <real>1.0</real>
   </map>
+  <key>UIImgInvisibleUUID</key>
+  <map>
+    <key>Comment</key>
+    <string />
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>f54a0c32-3cd1-d49a-5b4f-7b792bebc204</string>
+  </map>
   <key>VerticalIMTabs</key>
   <map>
     <key>Comment</key>

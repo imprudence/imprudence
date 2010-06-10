@@ -1026,7 +1026,7 @@
 
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     label="Texture" left="1" mouse_opaque="false" name="Texture" width="270">
-			<texture_picker allow_no_texture="false" bottom="-90" can_apply_immediately="true"
+      <texture_picker allow_no_texture="false" allow_invisible_texture="true" bottom="-90" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Texture:"
 			     left="10" mouse_opaque="true" name="texture control"
 			     tool_tip="Click to choose a picture" width="64" />
