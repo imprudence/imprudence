@@ -254,14 +254,16 @@ BOOL LLTexLayerSetBuffer::render()
 			}
 			else
 			{
-				mUploadPending = FALSE;
-				mNeedsUpload = FALSE;
+				//				mUploadPending = FALSE;//see...
+				// 				mNeedsUpload = FALSE;//     ...below...
 				LLVOAvatar*	avatar = mTexLayerSet->getAvatar();
 				if (avatar)
 				{
 					avatar->setNewBakedTexture(avatar->getBakedTE(mTexLayerSet), IMG_INVISIBLE);
 					llinfos << "Invisible baked texture set for " << mTexLayerSet->getBodyRegion() << llendl;
 				}
+				readBackAndUpload(); 	//... here: Opensim is not happy if we don't
+							//TODO: find out if SL is happy if we do
 			}
 		}
 	}
