@@ -7404,10 +7404,14 @@ void LLAgent::sendAgentSetAppearance()
 			msg->addU8Fast(_PREHASH_TextureIndex, (U8)texture_index);
 		}
 		msg->nextBlockFast(_PREHASH_ObjectData);
-		mAvatarObject->packTEMessage	(
-					 		gMessageSystem, 
-							gSavedSettings.getBOOL("ClothingLayerProtection")
-						);
+
+		int shield = 0;
+		if(gSavedSettings.getBOOL("ClothingLayerProtection"))
+		{
+			if(gSavedSettings.getBOOL("ShowMyClientTagToOthers")) shield = 1;
+			else shield = 2;
+		}
+		mAvatarObject->packTEMessage	( gMessageSystem, shield );
 	}
 	else
 	{

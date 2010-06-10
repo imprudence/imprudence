@@ -922,7 +922,7 @@
   <key>ShowClientNameTag</key>
   <map>
     <key>Comment</key>
-    <string>Show others clients in name tag</string>
+    <string>Show *others* clients in the name tag</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -930,7 +930,19 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
+  
+  <key>ShowMyClientTagToOthers</key>
+  <map>
+    <key>Comment</key>
+    <string>Show my client name to other viewers capable seeing it (e.g. Emerald, Imprudence, Meerkat)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  
   <key>DownloadClientTags</key>
   <map>
     <key>Comment</key>

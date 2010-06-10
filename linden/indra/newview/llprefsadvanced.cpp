@@ -57,7 +57,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
 	childSetValue("windlight_check", gSavedSettings.getBOOL("UseServersideWindlightSettings"));
-	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
+	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
@@ -81,8 +81,16 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("UseServersideWindlightSettings", childGetValue("windlight_check"));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
-	if (gSavedSettings.getBOOL("ClothingLayerProtection") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
+	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
 	{
+		if(gSavedSettings.getBOOL("ShowMyClientTagToOthers"))
+		{
+			//ShowMyClientTagToOthers works only with ClothingLayerProtection true,
+			//while not showing also works with ClothingLayerProtection false.
+			//since ClothingLayerProtection true is preferrable only switch ON
+			gSavedSettings.setBOOL("ClothingLayerProtection", TRUE);
+		}
+
 		LLVOAvatar* avatar = gAgent.getAvatarObject();
 		if (avatar)
 		{
@@ -91,7 +99,7 @@ void LLPrefsAdvanced::apply()
 			avatar->forceBakeAllTextures(slam_for_debug);
 		}
 	}
-	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_broadcast_check"));
+	gSavedSettings.setBOOL("ShowMyClientTagToOthers", childGetValue("client_name_tag_broadcast_check"));
 
 	// This is bad bad BAD UI from Emerald, I know. 
 	// If anyone wants to do this better, please do -- MC
