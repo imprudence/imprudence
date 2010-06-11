@@ -2080,7 +2080,7 @@ bool idle_startup()
 			LLHUDManager::getInstance()->sendEffects();
 		}
 
-		// Drop out if we can't connect after TIMEOUT_SECONDS -- MC
+		// Drop out if we can't connect -- MC
 		connecting_region_timer.start();
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
 
@@ -2095,7 +2095,7 @@ bool idle_startup()
 	if (STATE_AGENT_WAIT == LLStartUp::getStartupState())
 	{
 		LL_DEBUGS("AppInitStartupState") << "STATE_AGENT_WAIT" << LL_ENDL;
-		if (connecting_region_timer.getElapsedTimeF32() > TIMEOUT_SECONDS)
+		if (connecting_region_timer.getElapsedTimeF32() > 15.0f)
 		{
 			// Bounce back to the login screen -- MC
 			LL_WARNS("AppInit") << "Bad login - can't connect to this region for some reason" << LL_ENDL;

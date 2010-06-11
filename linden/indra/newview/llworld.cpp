@@ -43,7 +43,9 @@
 #include "lldrawpool.h"
 #include "llglheaders.h"
 #include "llhttpnode.h"
+#include "llpanellogin.h"
 #include "llregionhandle.h"
+#include "llstartup.h"
 #include "llsurface.h"
 #include "llviewercamera.h"
 #include "llviewerimage.h"
@@ -84,6 +86,7 @@ const F32 LLWorld::mWidthInMeters = mWidth * mScale;
 //
 // Functions
 //
+bool connecting_alert_done(const LLSD& notification, const LLSD& response);
 
 // allocate the stack
 LLWorld::LLWorld() :
@@ -263,7 +266,13 @@ void LLWorld::removeRegion(const LLHost &host)
 		llwarns << "gFrameTimeSeconds " << gFrameTimeSeconds << llendl;
 
 		llwarns << "Disabling region " << regionp->getName() << " that agent is in!" << llendl;
-		LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
+		
+		// Don't ever forceQuit on the user if we can avoid it -- MC
+		//LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
+		LLSD args;
+		args["ERROR_MESSAGE"] = "You have been disconnected from the region you were in.";
+		LLNotifications::instance().add("ErrorMessage", args, LLSD(), connecting_alert_done);
+
 		return;
 	}
 
@@ -1243,6 +1252,20 @@ void LLWorld::getAvatars(std::vector<LLUUID>* avatar_ids, std::vector<LLVector3d
 	}
 }
 
+bool connecting_alert_done(const LLSD& notification, const LLSD& response)
+{
+	if (LLStartUp::getStartupState() < STATE_STARTED)
+	{
+		//LLStartUp::setLoginFailed(true);
+		LLStartUp::resetLogin();
+		LLPanelLogin::giveFocus();
+	}
+	else
+	{
+		LLAppViewer::instance()->requestLogout(false);
+	}
+	return false;
+}
 
 LLHTTPRegistration<LLEstablishAgentCommunication>
 	gHTTPRegistrationEstablishAgentCommunication(
