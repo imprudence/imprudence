@@ -2744,30 +2744,8 @@ void LLAppViewer::requestLogout(bool quit_after)
 
 	llinfos << "requestLogout" << llendl;
 
-	LLViewerRegion* region = gAgent.getRegion();
-	
-	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
-	{
-		LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
-		effectp->setPositionGlobal(gAgent.getPositionGlobal());
-		effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-		LLHUDManager::getInstance()->sendEffects();
-		effectp->markDead() ;//remove it.
-		//send_stats(); if we're quitting the server shouldn't need viewer stats.
-	}
-	else
-	{
-		mQuitRequested=true;
-		LLAppViewer::instance()->forceQuit();
-	}
-
-	// Attempt to close all floaters that might be
-	// editing things.
-	if (gFloaterView)
-	{
-		// application is quitting
-		gFloaterView->closeAllChildren(true);
-	}
+	//NOTE: don't do cleanup here, or you get in trouble with notification callbacks
+	//put cleanup in idleShutdown() instead
 
 	gLogoutTimer.reset();
 }
@@ -2782,11 +2760,10 @@ static bool finish_quit(const LLSD& notification, const LLSD& response)
 	}
 	return false;
 }
-static LLNotificationFunctorRegistration finish_quit_reg("ConfirmQuit", finish_quit);
 
 void LLAppViewer::userQuit()
 {
-	LLNotifications::instance().add("ConfirmQuit");
+	LLNotifications::instance().add("ConfirmQuit", LLSD(), LLSD(), finish_quit);
 }
 
 //static
@@ -3329,6 +3306,14 @@ void LLAppViewer::idle()
 			LLAppViewer::instance()->forceQuit();
 		}
 	}
+	// Handle shutdown process, for example, 
+	// wait for floaters to close, send quit message,
+	// forcibly quit if it has taken too long
+	if (mQuitRequested || mLogoutRequested)
+	{
+		idleShutdown();
+	}
+
 
 	// Must wait until both have avatar object and mute list, so poll
 	// here.
@@ -3665,13 +3650,7 @@ void LLAppViewer::idle()
 		}
 	}
 	
-	// Handle shutdown process, for example, 
-	// wait for floaters to close, send quit message,
-	// forcibly quit if it has taken too long
-	if (mQuitRequested || mLogoutRequested)
-	{
-		idleShutdown();
-	}
+
 
 	stop_glerror();
 }
@@ -3682,6 +3661,31 @@ void LLAppViewer::idleShutdown()
 	if (LLModalDialog::activeCount() > 0)
 	{
 		return;
+	}
+	LLViewerRegion* region = gAgent.getRegion();
+	
+	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
+	{
+		LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
+		effectp->setPositionGlobal(gAgent.getPositionGlobal());
+		effectp->setColor(LLColor4U(gAgent.getEffectColor()));
+		LLHUDManager::getInstance()->sendEffects();
+		effectp->markDead() ;//remove it.
+		//send_stats(); if we're quitting the server shouldn't need viewer stats.
+	}
+	else
+	{
+		mQuitRequested=true;
+//awfixme
+		forceQuit();
+	}
+
+	// Attempt to close all floaters that might be
+	// editing things.
+	if (gFloaterView)
+	{
+		// application is quitting
+		gFloaterView->closeAllChildren(true);
 	}
 
 	// close IM interface
