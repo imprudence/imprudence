@@ -32,7 +32,7 @@
 		</flyout_button_item>
 	</flyout_button>
 	<flyout_button bottom="-23" follows="right|bottom" height="20" label="Gestures" left_delta="83"
-		       list_position="above" mouse_opaque="true" name="Gesture" tool_tip="(tooltip)"
+		       list_position="above" mouse_opaque="true" name="Gesture" tool_tip="Select individual gestures"
 		       width="95">
 	</flyout_button>
 	
