@@ -55,7 +55,7 @@ std::string LLImage::sLastErrorMessage;
 LLMutex* LLImage::sMutex = NULL;
 
 //static
-void LLImage::initClass(const bool useDSO)
+void LLImage::initClass(const bool& useDSO)
 {
 	sMutex = new LLMutex(NULL);
 	if (useDSO)
