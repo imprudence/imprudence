@@ -574,9 +574,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>2b0e8b6a17db9398475b1d40a4563bdf</string>
+            <string>566cc47a572303bc4aef12ca02670902</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux32-20100529.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -705,9 +705,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>47b7c6261940bcedf86e681bd93ec2cc</string>
+            <string>57ec243cf8e05e4fb7c737846a287498</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux32-dbg-20100604.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
