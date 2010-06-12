@@ -1210,7 +1210,7 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 			buffer->readAfter(channels.in(), NULL, mBuffer, data_size);
 			mBufferSize += data_size;
 			if (data_size < mRequestedSize &&
-				(mRequestedDiscard == MAX_DISCARD_LEVEL || mRequestedSize >= MAX_IMAGE_DATA_SIZE) )
+				(mRequestedDiscard == 0 || mRequestedSize >= MAX_IMAGE_DATA_SIZE) )
 			{
 				// We requested whole image (by discard or by size,) so assume we got it
 				mHaveAllData = TRUE;
