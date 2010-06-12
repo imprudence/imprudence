@@ -76,7 +76,7 @@
 				</combo_item>
 			</combo_box>
 			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="20" initial_value="false" label="Show Muted Text" left_delta="125"
+			     height="20" initial_value="false" label="Show muted text" left_delta="125"
 			     name="show mutes" radio_style="false" width="116" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
 			     label_selected="&gt; &gt;" left="272" name="toggle_active_speakers_btn"
