@@ -140,7 +140,7 @@ void LLFloaterMap::draw()
 		getDragHandle()->setMouseOpaque(FALSE);
 
 		drawChild(mPanelMap);
-		if (gSavedSettings.getBOOL("ShowMiniMapRadar"))
+		if (gSavedSettings.getBOOL("ShowMiniMapRadar") && !LLFloaterMap::getInstance()->isMinimized())
 		{
 			drawChild(mPanelRadar);
 		}
