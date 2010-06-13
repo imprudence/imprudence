@@ -267,11 +267,17 @@ void LLWorld::removeRegion(const LLHost &host)
 
 		llwarns << "Disabling region " << regionp->getName() << " that agent is in!" << llendl;
 		
-		// Don't ever forceQuit on the user if we can avoid it -- MC
+		// Don't ever forceQuit on the user during startup if we can avoid it -- MC
 		//LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
-		LLSD args;
-		args["ERROR_MESSAGE"] = "You have been disconnected from the region you were in.";
-		LLNotifications::instance().add("ErrorMessage", args, LLSD(), connecting_alert_done);
+		// We stop a login, even if it's a successful one, as the expected behavior is to not receive
+		// any more messages from a sim when we receive the DisableSimulator message, despite the viewer
+		// continuing to connect anyway -- MC
+		if (LLStartUp::getStartupState() < STATE_STARTED)
+		{
+			//LLStartUp::setLoginFailed(true);
+			LLStartUp::setStartupState(STATE_SEED_GRANTED_WAIT);
+		}
+		LLNotifications::instance().add("DisconnectedFromRegion", LLSD(), LLSD(), connecting_alert_done);
 
 		return;
 	}
@@ -1256,13 +1262,13 @@ bool connecting_alert_done(const LLSD& notification, const LLSD& response)
 {
 	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
-		//LLStartUp::setLoginFailed(true);
 		LLStartUp::resetLogin();
 		LLPanelLogin::giveFocus();
 	}
 	else
 	{
-		LLAppViewer::instance()->requestLogout(false);
+		// TODO: make this translatable
+		LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in. Unable to continue.");
 	}
 	return false;
 }

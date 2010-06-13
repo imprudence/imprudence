@@ -6848,6 +6848,13 @@ Are you sure you want to teleport home?
 </notification>
 
 <notification
+ icon="alertmodal.tga"
+ name="DisconnectedFromRegion"
+ type="alertmodal">
+You have been disconnected from the region you were in. Unable to continue.
+</notification>
+
+<notification
  icon="alert.tga"
  name="IMLogNotFound"
  type="alert">
