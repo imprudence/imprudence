@@ -247,50 +247,22 @@ void LLPrimitive::setTE(const U8 index, const LLTextureEntry& te)
 
 S32  LLPrimitive::setTETexture(const U8 index, const LLUUID &id)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setID(index, id);
 }
 
 S32  LLPrimitive::setTEColor(const U8 index, const LLColor4 &color)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 
 	return mTextureList.setColor(index, color);
 }
 
 S32  LLPrimitive::setTEColor(const U8 index, const LLColor3 &color)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setColor(index, color);
 }
 
 S32  LLPrimitive::setTEAlpha(const U8 index, const F32 alpha)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setAlpha(index, alpha);
 }
 
@@ -350,111 +322,46 @@ S32  LLPrimitive::setTERotation(const U8 index, const F32 r)
 //===============================================================
 S32  LLPrimitive::setTEBumpShinyFullbright(const U8 index, const U8 bump)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
-	return mTextureList.setBumpShinyFullbright(index, bump);
+ 	return mTextureList.setBumpShinyFullbright(index, bump);
 }
 
 S32  LLPrimitive::setTEMediaTexGen(const U8 index, const U8 media)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setMediaTexGen(index, media);
 }
 
 S32  LLPrimitive::setTEBumpmap(const U8 index, const U8 bump)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setBumpMap(index, bump);
 }
 
 S32  LLPrimitive::setTEBumpShiny(const U8 index, const U8 bump_shiny)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setBumpShiny(index, bump_shiny);
 }
 
 S32  LLPrimitive::setTETexGen(const U8 index, const U8 texgen)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setTexGen(index, texgen);
 }
 
 S32  LLPrimitive::setTEShiny(const U8 index, const U8 shiny)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
-
 	return mTextureList.setShiny(index, shiny);
 }
 
 S32  LLPrimitive::setTEFullbright(const U8 index, const U8 fullbright)
 {
-
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setFullbright(index, fullbright);
 }
 
 S32  LLPrimitive::setTEMediaFlags(const U8 index, const U8 media_flags)
 {
-    // if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-		return 0;
-	}
-
 	return mTextureList.setMediaFlags(index, media_flags);
 }
 
 S32 LLPrimitive::setTEGlow(const U8 index, const F32 glow)
 {
-	// if we're asking for a non-existent face, return null
-	if (te >= mNumTEs)
-	{
-		llwarns << "setting non-existent te " << te << llendl;
-			return 0;
-	}
-
 	return mTextureList.setGlow(index, glow);
 }
 
@@ -1029,7 +936,6 @@ BOOL LLPrimitive::setVolume(const LLVolumeParams &volume_params, const S32 detai
 			setTE(te_num, *(old_tes.getTexture(face_mapping[face_bit])));
 		}
 	}
->>>>>>> 5faaca1... port llprimitive from SG2.0
 	return TRUE;
 }
 

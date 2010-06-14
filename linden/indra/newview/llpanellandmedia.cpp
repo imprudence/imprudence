@@ -172,57 +172,6 @@ void LLPanelLandMedia::refresh()
 		BOOL can_change_media = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA);
 
  		mCheckSoundLocal->set( parcel->getSoundLocal() );
-		mCheckSoundLocal->setEnabled( can_change_media );
-
-		LLViewerRegion* region = LLViewerParcelMgr::getInstance()->getSelectionRegion();
-		if (!region)
-		{
-			// never seen this happen, but log it
-			llwarns << "Couldn't get selected region." << llendl;
-		}
-
-		// We need to do this differently for OpenSim because it doesn't include
-		// REGION_FLAGS_ALLOW_VOICE in the "RegionInfo" message as of 0.6.9 PF -- MC
-		bool allow_voice = parcel->getParcelFlagAllowVoice();
-		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
-		{
-			if (region && region->isVoiceEnabled()) // estate-wide voice-disable overrides all
-			{
-				mCheckEnableVoiceChatIsEstateDisabled->setVisible(false);
-
-				mCheckEnableVoiceChat->setVisible(true);
-				mCheckEnableVoiceChat->setEnabled( can_change_media );
-				mCheckEnableVoiceChat->set(allow_voice);
-
-				mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
-			}
-			else // disabled at region level
-			{
-				mCheckEnableVoiceChatIsEstateDisabled->setVisible(true); // always disabled
-				mCheckEnableVoiceChat->setVisible(false);
-				mCheckEnableVoiceChat->setEnabled(false);
-				mCheckEnableVoiceChat->set(false);
-
-				mCheckEnableVoiceChatParcel->setEnabled(false);
-			}
-		}
-		else
-		{
-			mCheckEnableVoiceChatIsEstateDisabled->setVisible(true);
-
-			mCheckEnableVoiceChat->setVisible(true);
-			mCheckEnableVoiceChat->setEnabled( can_change_media );
-			mCheckEnableVoiceChat->set(allow_voice);
-
-			mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
-		}
-
-		mCheckEnableVoiceChatParcel->set(!parcel->getParcelFlagUseEstateVoiceChannel());
-
-		mMusicURLEdit->setText(parcel->getMusicURL());
-		mMusicURLEdit->setEnabled( can_change_media );
-
-
 
 		childSetText("current_url", parcel->getMediaCurrentURL());
 
