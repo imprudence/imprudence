@@ -1092,7 +1092,8 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libcairo.so.2")
             self.path("libfontconfig.so.1")
             self.path("libfreetype.so.6")
-#            self.path("libgdk_pixbuf-2.0.so.0")	# use systems gdk pixbufs instead
+            self.path("libgdk_pixbuf-2.0.so.0")	# was commented to use systems gdk pixbufs instead -
+	    					# but seems webkit needs it o_O . Packaging for testing now.
             self.path("libgdk-x11-2.0.so.0")
             self.path("libgtk-x11-2.0.so.0")
 #            self.path("libpango-1.0.so.0")		# use systems pango instead

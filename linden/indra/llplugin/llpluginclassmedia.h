@@ -13,13 +13,13 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * online at http://secondlife.com/developers/opensource/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
- * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * http://secondlife.com/developers/opensource/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -29,6 +29,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ * 
  * @endcond
  */
 
@@ -50,7 +51,9 @@ public:
 	virtual ~LLPluginClassMedia();
 
 	// local initialization, called by the media manager when creating a source
-	virtual bool init(const std::string &launcher_filename, const std::string &plugin_filename, bool debug, const std::string &user_data_path);
+	virtual bool init(const std::string &launcher_filename, 
+					  const std::string &plugin_filename, 
+					  bool debug);
 
 	// undoes everything init() didm called by the media manager when destroying a source
 	virtual void reset();
@@ -174,6 +177,12 @@ public:
 
 	void	paste();
 	bool	canPaste() const { return mCanPaste; };
+	
+	// These can be called before init(), and they will be queued and sent before the media init message.
+	void	setUserDataPath(const std::string &user_data_path);
+	void	setLanguageCode(const std::string &language_code);
+	void	setPluginsEnabled(const bool enabled);
+	void	setJavascriptEnabled(const bool enabled);
 		
 	///////////////////////////////////
 	// media browser class functions

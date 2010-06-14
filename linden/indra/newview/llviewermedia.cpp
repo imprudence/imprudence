@@ -480,7 +480,7 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 		{
 			LLPluginClassMedia* media_source = new LLPluginClassMedia(owner);
 			media_source->setSize(default_width, default_height);
-			if (media_source->init(launcher_name, plugin_name, false, user_data_path))
+			if (media_source->init(launcher_name, plugin_name, false))
 			{
 				return media_source;
 			}

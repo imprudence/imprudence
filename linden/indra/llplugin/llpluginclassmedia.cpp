@@ -13,13 +13,13 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * online at http://secondlife.com/developers/opensource/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
- * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * http://secondlife.com/developers/opensource/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -29,6 +29,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ * 
  * @endcond
  */
 
@@ -66,15 +67,19 @@ LLPluginClassMedia::~LLPluginClassMedia()
 	reset();
 }
 
-bool LLPluginClassMedia::init(const std::string &launcher_filename, const std::string &plugin_filename, bool debug, const std::string &user_data_path)
+bool LLPluginClassMedia::init(const std::string &launcher_filename, const std::string &plugin_filename, bool debug)
 {	
 	LL_DEBUGS("Plugin") << "launcher: " << launcher_filename << LL_ENDL;
 	LL_DEBUGS("Plugin") << "plugin: " << plugin_filename << LL_ENDL;
-	LL_DEBUGS("Plugin") << "user_data_path: " << user_data_path << LL_ENDL;
 	
 	mPlugin = new LLPluginProcessParent(this);
 	mPlugin->setSleepTime(mSleepTime);
-	mPlugin->init(launcher_filename, plugin_filename, debug, user_data_path);
+	
+	// Queue up the media init message -- it will be sent after all the currently queued messages.
+	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "init");
+	sendMessage(message);
+	
+	mPlugin->init(launcher_filename, plugin_filename, debug);
 
 	return true;
 }
@@ -384,7 +389,7 @@ bool LLPluginClassMedia::textureValid(void)
 
 bool LLPluginClassMedia::getDirty(LLRect *dirty_rect)
 {
-	bool result = !mDirtyRect.isNull();//awfixme isEmpty();
+	bool result = !mDirtyRect.isNull();
 
 	if(dirty_rect != NULL)
 	{
@@ -679,6 +684,34 @@ void LLPluginClassMedia::paste()
 	sendMessage(message);
 }
 
+void LLPluginClassMedia::setUserDataPath(const std::string &user_data_path)
+{
+	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "set_user_data_path");
+	message.setValue("path", user_data_path);
+	sendMessage(message);
+}
+
+void LLPluginClassMedia::setLanguageCode(const std::string &language_code)
+{
+	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "set_language_code");
+	message.setValue("language", language_code);
+	sendMessage(message);
+}
+
+void LLPluginClassMedia::setPluginsEnabled(const bool enabled)
+{
+	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "plugins_enabled");
+	message.setValueBoolean("enable", enabled);
+	sendMessage(message);
+}
+
+void LLPluginClassMedia::setJavascriptEnabled(const bool enabled)
+{
+	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "javascript_enabled");
+	message.setValueBoolean("enable", enabled);
+	sendMessage(message);
+}
+
 LLPluginClassMedia::ETargetType getTargetTypeFromLLQtWebkit(int target_type)
 {
 	// convert a LinkTargetType value from llqtwebkit to an ETargetType
@@ -746,7 +779,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 					newDirtyRect.mBottom = temp;
 				}
 				
-				if(mDirtyRect.isNull())//awfixme isEmpty())
+				if(mDirtyRect.isNull())
 				{
 					mDirtyRect = newDirtyRect;
 				}
@@ -1048,6 +1081,7 @@ void LLPluginClassMedia::clear_cookies()
 void LLPluginClassMedia::enable_cookies(bool enable)
 {
 	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "enable_cookies");
+	message.setValueBoolean("enable", enable);
 	sendMessage(message);
 }
 

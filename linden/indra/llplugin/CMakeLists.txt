@@ -48,13 +48,13 @@ set(llplugin_HEADER_FILES
 set_source_files_properties(${llplugin_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-if(WORD_SIZE EQUAL 64)
+if(NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 	if(WINDOWS)
 		add_definitions(/FIXED:NO)
 	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
 		add_definitions(-fPIC)
 	endif(WINDOWS)
-endif (WORD_SIZE EQUAL 64)
+endif (NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 
 list(APPEND llplugin_SOURCE_FILES ${llplugin_HEADER_FILES})
 
