@@ -35,7 +35,7 @@
 
 #include "llfloater.h"
 
-class LLWebBrowserCtrl;
+class LLMediaCtrl;
 
 class LLFloaterHUD : public LLFloater
 {
@@ -53,7 +53,7 @@ private:
 	/*virtual*/ ~LLFloaterHUD();
 
 private:
-	LLWebBrowserCtrl* mWebBrowser; ///< the actual web browser control
+	LLMediaCtrl* mWebBrowser; ///< the actual web browser control
 	static LLFloaterHUD* sInstance;
 };
 

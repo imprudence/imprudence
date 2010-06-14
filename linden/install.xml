@@ -1112,39 +1112,32 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           </map>
         </map>
       </map>
-      <key>llmozlib</key>
+      <key>llqtwebkit</key>
       <map>
         <key>license</key>
-        <string>mozillaPL</string>
+        <string>lgpl</string>
         <key>packages</key>
         <map>
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>c951587726618d33646f2b169c290bd3</string>
+            <string>b40a13847ee773c9ee06f641fe0dd1c2</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llmozlib-2_0_0_21-darwin-20090304.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-darwin-20091023.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>b7ebcf0fb764ed4fa57c62d068b4a769</string>
+            <string>ffede2775355676096b1085cbb9d0da7</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llmozlib-linux-20090304prfhk.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>afa946a118d3d71123003785189a31f2</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/llmozlib-linux64-20091231.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20091117.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>e9454e258b99668782d8570481b5eda1</string>
+            <string>6f2f911545e5906edc87f4f3cda423a1</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llmozlib-windows-20090306.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-windows-20091023.tar.bz2</uri>
           </map>
         </map>
       </map>

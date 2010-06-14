@@ -294,6 +294,10 @@ const std::string LLDir::getSkinBaseDir() const
 	return dir;
 }
 
+const std::string &LLDir::getLLPluginDir() const
+{
+	return mLLPluginDir;
+}
 
 std::string LLDir::getExpandedFilename(ELLPath location, const std::string& filename) const
 {
@@ -465,6 +469,8 @@ std::string LLDir::getDirName(const std::string& filepath) const
 
 std::string LLDir::getExtension(const std::string& filepath) const
 {
+	if (filepath.empty())
+		return std::string();
 	std::string basename = getBaseFileName(filepath, false);
 	std::size_t offset = basename.find_last_of('.');
 	std::string exten = (offset == std::string::npos || offset == 0) ? "" : basename.substr(offset+1);

@@ -42,7 +42,7 @@
 
 #include "llcurl.h"
 #include "llimagej2c.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 
 #include "hippoGridManager.h"
 #include "llviewertexteditor.h"
@@ -57,7 +57,6 @@
 #include "lltrans.h"
 #include "llappviewer.h" 
 #include "llglheaders.h"
-#include "llmediamanager.h"
 #include "llwindow.h"
 #include "viewerversion.h"
 
@@ -244,26 +243,10 @@ LLFloaterAbout::LLFloaterAbout()
 
 	support.append("\n");
 
-	LLMediaManager *mgr = LLMediaManager::getInstance();
-	if (mgr)
-	{
-		LLMediaBase *gstreamer = mgr->createSourceFromMimeType("http", "audio/mpeg");
-		if (gstreamer)
-		{
-			support.append("GStreamer Version: ");
-			support.append( gstreamer->getVersion() );
-			support.append("\n");
-		} 
+	// TODO: Implement media plugin version query
 
-		LLMediaBase *media_source = mgr->createSourceFromMimeType("http", "text/html");
-		if (media_source)
-		{
-			support.append("LLMozLib Version: ");
-			support.append(media_source->getVersion());
-			support.append("\n");
-			mgr->destroySource(media_source);
-		}
-	}
+	support.append("Qt Webkit Version: 4.5.2 ");
+	support.append("\n");
 
 	if (gPacketsIn > 0)
 	{

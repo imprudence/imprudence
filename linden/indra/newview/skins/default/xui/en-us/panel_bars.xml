@@ -15,7 +15,4 @@
 		<layout_panel auto_resize="false" filename="panel_toolbar.xml" name="toolbar"
 		     use_bounding_rect="true" user_resize="false" width="1024" min_height="28" />
 	</layout_stack>
-	<panel auto_resize="true" background_visible="false" bottom="50"
-	     follows="left|right|top|bottom" height="728" left="0" mouse_opaque="false"
-	     name="hud" user_resize="false" width="1024" />
 </panel>

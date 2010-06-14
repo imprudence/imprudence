@@ -59,7 +59,7 @@
 #include "llvolumemessage.h"
 #include "llhudmanager.h"
 #include "llagent.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llhudeffecttrail.h"
 #include "llviewerobjectlist.h"
 #include "llviewercamera.h"

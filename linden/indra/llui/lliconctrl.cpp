@@ -112,6 +112,12 @@ void LLIconCtrl::draw()
 	LLUICtrl::draw();
 }
 
+// virtual 
+void LLIconCtrl::setAlpha(F32 alpha)
+{
+	mColor.setAlpha(alpha);
+}
+
 // virtual
 void LLIconCtrl::setValue(const LLSD& value )
 {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" follows="" height="160" visible="false" mouse_opaque="false"  
+     label="" name="MediaHUD" width="208" background_visible="false" background_opaque="false" bg_alpha_color="1 1 1 0.0">
+<panel name="media_region" left="20" right="-20" bottom="35" top="-20" follows="left|right|top|bottom" visible="true" background_opaque="false"
+       mouse_opaque="false"/>
+	<!--icon name="bg_image" image_name="media_panel_hoverrectangle.png" visible="true" left="10" bottom="32" right="-10" top="-10" follows="left|right|top|bottom"/-->
+	<layout_stack orientation="horizontal" left="0" bottom="0" follows="left|right|bottom" visible="true" width="208" height="32">
+		<layout_panel user_resize="false"/>
+		<layout_panel user_resize="false" auto_resize="false" width="210" min_width="208">
+			<panel name="media_focused_controls" width="208" left="0" height="32" bottom="0" visible="true">
+				<icon name="media_panel_transportcontrols_bg" image_name="media_panel_bg.png" visible="true" height="32" width="99" scale_image="true" bottom="0"/>
+				<button name="back" label="" left="4" width="20" bottom="6" height="22" image_unselected="media_btn_back.png" 
+					image_selected="media_btn_back.png" scale_image="true"/>
+				<icon name="media_panel_divider-1" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="20" 
+					scale_image="false" bottom="5"/>
+				<button name="fwd" label="" left_delta="3"  width="17" bottom_delta="0" height="22" image_unselected="media_btn_forward.png" 
+					image_selected="media_btn_forward.png" scale_image="true"/>
+				<icon name="media_panel_divider-2" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="17" 
+					scale_image="false" bottom="5"/>
+				<button name="home" label="" left_delta="3"  width="22" bottom_delta="0" height="22" image_unselected="media_btn_home.png" 
+					image_selected="media_btn_home.png" scale_image="true"/>
+        <button name="media_stop" label="" left_delta="0"  width="22" bottom_delta="0" height="22" image_unselected="button_anim_stop.tga"
+					image_selected="button_anim_stop.tga" scale_image="true"/>
+        <icon name="media_panel_divider-3" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="22" 
+					scale_image="false" bottom="5"/>
+				<button name="reload" label="" left_delta="3"  width="22" bottom_delta="0" height="22" image_unselected="media_btn_reload.png" 
+					image_selected="media_btn_reload.png" scale_image="true"/>
+				<button name="stop" label="" left_delta="0"  width="22" bottom_delta="0" height="22" image_unselected="media_btn_stoploading.png" 
+					image_selected="media_btn_stoploading.png" scale_image="true" visible="false"/>
+        <button name="play" label="" left_delta="0"  width="22" bottom_delta="0" height="22" image_unselected="button_anim_play.tga"
+					image_selected="button_anim_play.tga" scale_image="true" visible="false"/>
+        <button name="pause" label="" left_delta="0"  width="22" bottom_delta="0" height="22" image_unselected="button_anim_pause.tga"
+					image_selected="button_anim_pause.tga" scale_image="true" visible="false"/>
+        <icon name="media_panel_scrollbg" image_name="media_panel_scrollbg.png" visible="true" height="32" width="32" 
+					scale_image="false" bottom="0" left="97"/>
+				<button name="scrollup" label="" left="109" width="8" bottom="20" height="8" image_unselected="media_btn_scrollup.png" 
+					image_selected="media_btn_scrollup.png" scale_image="false"/>
+				<button name="scrollleft" label="" left="100" width="8" bottom="12" height="8" image_unselected="media_btn_scrollleft.png" 
+					image_selected="media_btn_scrollleft.png" scale_image="false"/>
+				<button name="scrollright" label="" left="117" width="8" bottom="12" height="8" image_unselected="media_btn_scrollright.png" 
+					image_selected="media_btn_scrollright.png" scale_image="false"/>
+				<button name="scrolldown" label="" left="109" width="8" bottom="4" height="8" image_unselected="media_btn_scrolldown.png" 
+					image_selected="media_btn_scrolldown.png" scale_image="false"/>
+				<icon name="media_panel_metacontrols_bg" image_name="media_panel_bg.png" visible="true" height="32" width="81" 
+					scale_image="true" bottom="0" left="127"/>
+				<button name="zoom_frame" label="" left_delta="4" width="22" bottom="5" height="22" image_unselected="media_btn_optimalzoom.png" 
+					image_selected="media_btn_optimalzoom.png" scale_image="true"/>
+				<icon name="media_panel_divider-4" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="22" 
+					scale_image="false" bottom="5"/>
+				<button name="new_window" label="" left_delta="3" width="24" bottom_delta="1" height="22" image_unselected="media_btn_newwindow.png" 
+					image_selected="media_btn_newwindow.png" scale_image="true"/>
+				<icon name="media_panel_divider-5" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="24" 
+					scale_image="false" bottom="5"/>
+				<button name="close" label="" left_delta="3" width="21" bottom_delta="1" height="22" image_unselected="media_btn_done.png" 
+					image_selected="media_btn_done.png" scale_image="true"/>
+			</panel>
+			<panel name="media_hover_controls" width="57" left="74" height="32" bottom="0" visible="false">
+				<icon name="media_panel_metacontrols_bg-hover" image_name="media_panel_bg.png" visible="true" height="32" width="57" scale_image="true" bottom="0" left="0"/>
+				<button name="zoom_frame_hover" label="" left_delta="4" width="22" bottom="5" height="22" image_unselected="media_btn_optimalzoom.png" image_selected="media_btn_optimalzoom.png" 
+					scale_image="true"/>
+				<icon name="media_panel_divider" image_name="media_panel_divider.png" visible="true" height="22" width="3" left_delta="22" scale_image="false" bottom="5"/>
+				<button name="new_window_hover" label="" left_delta="3" width="24" bottom_delta="1" height="22" image_unselected="media_btn_newwindow.png" image_selected="media_btn_newwindow.png" 
+					scale_image="true"/>
+			</panel>
+    </layout_panel>
+		<layout_panel user_resize="false"/>
+	</layout_stack> 
+</panel>

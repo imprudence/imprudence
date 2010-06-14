@@ -4,7 +4,6 @@ project(llvfs)
 
 include(00-Common)
 include(LLCommon)
-include(UnixInstall)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
@@ -58,6 +57,7 @@ set_source_files_properties(${llvfs_HEADER_FILES}
 list(APPEND llvfs_SOURCE_FILES ${llvfs_HEADER_FILES})
 
 add_library (llvfs ${llvfs_SOURCE_FILES})
+add_dependencies(llvfs prepare)
 
 if (DARWIN)
   include(CMakeFindFrameworks)

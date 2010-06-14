@@ -1,10 +1,12 @@
 # -*- cmake -*-
-
-include(Variables)
 include(Linking)
+include(Prebuilt)
 
-set(OPENAL ON CACHE BOOL "Enable OpenAL")
-
+if (LINUX)
+  set(OPENAL ON CACHE BOOL "Enable OpenAL")
+else (LINUX)
+  set(OPENAL OFF CACHE BOOL "Enable OpenAL")
+endif (LINUX)
 
 if (OPENAL)
 
@@ -109,5 +111,8 @@ if (OPENAL)
   set(OPENAL_FOUND TRUE CACHE BOOL
     "Found OpenAL and ALUT libraries successfully"
     )
+endif (OPENAL)
 
+if (OPENAL)
+  message(STATUS "Building with OpenAL audio support")
 endif (OPENAL)

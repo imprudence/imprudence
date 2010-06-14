@@ -7624,7 +7624,40 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>MemoryLogFrequency</key>
+  <key>MediaControlFadeTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount of time (in seconds) that the media control fades</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.5</real>
+  </map>
+  <key>MediaControlTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount of time (in seconds) for media controls to fade with no mouse activity</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>3.0</real>
+  </map>
+  <key>MediaOnAPrimUI</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether or not to show the "link sharing" UI</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>MemoryLogFrequency</key>
         <map>
         <key>Comment</key>
             <string>Seconds between display of Memory in log (0 for never)</string>

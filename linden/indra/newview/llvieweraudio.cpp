@@ -32,7 +32,7 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llagent.h"
 #include "llappviewer.h"
 #include "llvieweraudio.h"
@@ -130,7 +130,6 @@ void audio_update_volume(bool force_update)
 		gAudiop->setMasterGain ( master_volume );
 
 		gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
-		gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
 		gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
 
 		if(wind_muted == false)

@@ -27,7 +27,7 @@
 * COMPLETENESS OR PERFORMANCE.
 * $/LicenseInfo$
 */
-
+/*
 #include "llviewerprecompiledheaders.h"
 
 #include "floatervoicelicense.h"
@@ -234,4 +234,4 @@ void FloaterVoiceLicense::onNavigateComplete( const EventType& eventIn )
 		LLCheckBoxCtrl * license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
 		license_agreement->setEnabled( true );
 	}
-}
+}*/

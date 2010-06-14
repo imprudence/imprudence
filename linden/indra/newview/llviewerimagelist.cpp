@@ -593,7 +593,7 @@ void LLViewerImageList::updateImages(F32 max_time)
 	llpushcallstacks ;
 	if (!gNoRender && !gGLManager.mIsDisabled)
 	{
-		LLViewerMedia::updateImagesMediaStreams();
+		LLViewerMedia::updateMedia();
 	}
 	llpushcallstacks ;
 	updateImagesUpdateStats();

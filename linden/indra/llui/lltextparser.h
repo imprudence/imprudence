@@ -34,12 +34,8 @@
 #ifndef LL_LLTEXTPARSER_H
 #define LL_LLTEXTPARSER_H
 
-#include <vector>
-#include "linden_common.h"
+#include "llsd.h"
 
-#include "lltextparser.h"
-
-class LLSD;
 class LLUUID;
 class LLVector3d;
 class LLColor4;
@@ -59,7 +55,6 @@ public:
 	S32  findPattern(const std::string &text, LLSD highlight);
 	LLSD parsePartialLineHighlights(const std::string &text,const LLColor4 &color,S32 part=WHOLE, S32 index=0);
 	bool parseFullLineHighlights(const std::string &text, LLColor4 *color);
-	void triggerAlerts(LLUUID agent_id, LLVector3d position, std::string text, LLWindow* viewer_window);
 
 	std::string getFileName();
 	LLSD loadFromDisk();

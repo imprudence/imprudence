@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "noise.h"
 
 #include "llagent.h" //  Get state values from here
@@ -69,6 +69,7 @@
 #include "lltoolmorph.h"
 #include "llviewercamera.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
 #include "llviewermenu.h"
 #include "llviewerobjectlist.h"
 #include "llviewerparcelmgr.h"
@@ -3825,6 +3826,18 @@ void LLVOAvatar::idleUpdateTractorBeam()
 	{
 		return;
 	}
+	const LLPickInfo& pick = gViewerWindow->getLastPick();
+
+	// No beam for media textures
+	// TODO: this will change for Media on a Prim
+	if(pick.getObject() && pick.mObjectFace >= 0)
+	{
+		const LLTextureEntry* tep = pick.getObject()->getTE(pick.mObjectFace);
+		if (tep && LLViewerMedia::textureHasMedia(tep->getID()))
+		{
+			return;
+		}
+	}
 
 	// This is only done for yourself (maybe it should be in the agent?)
 	if (!needsRenderBeam() || !mIsBuilt)
@@ -3935,7 +3948,7 @@ void LLVOAvatar::idleUpdateTractorBeam()
 			}
 			else
 			{
-				const LLPickInfo& pick = gViewerWindow->getLastPick();
+				
 				mBeam->setPositionGlobal(pick.mPosGlobal);
 			}
 

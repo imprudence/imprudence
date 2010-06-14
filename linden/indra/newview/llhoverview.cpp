@@ -154,12 +154,13 @@ void LLHoverView::updateHover(LLTool* current_tool)
 
 void LLHoverView::pickCallback(const LLPickInfo& pick_info)
 {
+	gHoverView->mLastPickInfo = pick_info;
 	LLViewerObject* hit_obj = pick_info.getObject();
 
 	if (hit_obj)
 	{
 		gHoverView->setHoverActive(TRUE);
-		LLSelectMgr::getInstance()->setHoverObject(hit_obj);
+		LLSelectMgr::getInstance()->setHoverObject(hit_obj, pick_info.mObjectFace);
 		gHoverView->mLastHoverObject = hit_obj;
 		gHoverView->mHoverOffset = pick_info.mObjectOffset;
 	}

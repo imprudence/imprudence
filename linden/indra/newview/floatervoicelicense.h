@@ -35,8 +35,8 @@
 
 #include "llmodaldialog.h"
 #include "llassetstorage.h"
-#include "llwebbrowserctrl.h"
-
+//imprudence fixme: removed for media plugins #include "llwebbrowserctrl.h"
+/*
 class LLButton;
 class LLRadioGroup;
 class LLVFS;
@@ -45,7 +45,7 @@ class LLUUID;
 
 class FloaterVoiceLicense : 
 	public LLModalDialog,
-	public LLWebBrowserCtrlObserver, 
+	public LLViewerMediaObserver
 	public LLFloaterSingleton<FloaterVoiceLicense>
 {
 public:
@@ -67,6 +67,6 @@ public:
 private:
 	int				mWebBrowserWindowId;
 	int				mLoadCompleteCount;
-};
+};*/
 
 #endif // FLOATERVOICELICENSE_H

@@ -229,6 +229,12 @@ class WindowsManifest(ViewerManifest):
 		
         self.path("imprudence.url")
 
+        # Plugin host application
+        self.path(os.path.join(os.pardir,
+                               'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"),
+                  "SLPlugin.exe")
+
+
         self.path("featuretable.txt")
 
         # For use in crash reporting (generates minidumps)
@@ -251,7 +257,41 @@ class WindowsManifest(ViewerManifest):
             self.path("alut.dll")
             self.end_prefix()           
 
-        # Mozilla appears to force a dependency on these files so we need to ship it (CP) - updated to vc8 versions (nyx)
+
+        # Media plugins - QuickTime
+        if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
+            self.path("media_plugin_quicktime.dll")
+            self.end_prefix()
+
+        # Media plugins - WebKit/Qt
+        if self.prefix(src='../media_plugins/webkit/%s' % self.args['configuration'], dst="llplugin"):
+            self.path("media_plugin_webkit.dll")
+            self.end_prefix()
+            
+        # For WebKit/Qt plugin runtimes
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst="llplugin"):
+            self.path("libeay32.dll")
+            self.path("qtcore4.dll")
+            self.path("qtgui4.dll")
+            self.path("qtnetwork4.dll")
+            self.path("qtopengl4.dll")
+            self.path("qtwebkit4.dll")
+            self.path("ssleay32.dll")
+            self.end_prefix()
+
+        # For WebKit/Qt plugin runtimes (image format plugins)
+        if self.prefix(src="../../libraries/i686-win32/lib/release/imageformats", dst="llplugin/imageformats"):
+            self.path("qgif4.dll")
+            self.path("qico4.dll")
+            self.path("qjpeg4.dll")
+            self.path("qmng4.dll")
+            self.path("qsvg4.dll")
+            self.path("qtiff4.dll")
+            self.end_prefix()
+
+	# Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+        self.path("skins/default/xui/en-us/mime_types_windows.xml", "skins/default/xui/en-us/mime_types.xml")
+
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
         if self.prefix(src=self.args['configuration'], dst=""):
@@ -278,34 +318,6 @@ class WindowsManifest(ViewerManifest):
         # same thing for auto-updater.
         #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
 
-        # Mozilla runtime DLLs (CP)
-        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
-            self.path("freebl3.dll")
-            self.path("js3250.dll")
-            self.path("nspr4.dll")
-            self.path("nss3.dll")
-            self.path("nssckbi.dll")
-            self.path("plc4.dll")
-            self.path("plds4.dll")
-            self.path("smime3.dll")
-            self.path("softokn3.dll")
-            self.path("ssl3.dll")
-            self.path("xpcom.dll")
-            self.path("xul.dll")
-            self.end_prefix()
-
-        # Mozilla runtime misc files (CP)
-        if self.prefix(src="app_settings/mozilla"):
-            self.path("chrome/*.*")
-            self.path("components/*.*")
-            self.path("greprefs/*.*")
-            self.path("plugins/*.*")
-            self.path("res/*.*")
-            self.path("res/*/*")
-            self.end_prefix()
-
-        # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
-        # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
         #    self.path("alut.dll")
@@ -534,11 +546,8 @@ class DarwinManifest(ViewerManifest):
         self.path(self.args['configuration'] + "/Imprudence.app", dst="")
 
         if self.prefix(src="", dst="Contents"):  # everything goes in Contents
-            # Expand the tar file containing the assorted mozilla bits into
-            #  <bundle>/Contents/MacOS/
-            self.contents_of_tar(self.args['source']+'/mozilla-universal-darwin.tgz', 'MacOS')
-
-            self.path("Info-Imprudence.plist", dst="Info.plist")
+            
+	    self.path("Info-Imprudence.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
             if self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
@@ -589,12 +598,6 @@ class DarwinManifest(ViewerManifest):
                 self.path("libvorbisfile.3.dylib")
 
                 self.end_prefix("../../libraries/universal-darwin/lib_release")
-
-            # replace the default theme with our custom theme (so scrollbars work).
-            if self.prefix(src="mozilla-theme", dst="MacOS/chrome"):
-                self.path("classic.jar")
-                self.path("classic.manifest")
-                self.end_prefix("MacOS/chrome")
 
             # most everything goes in the Resources directory
             if self.prefix(src="", dst="Resources"):
@@ -723,7 +726,21 @@ class DarwinManifest(ViewerManifest):
                 # our apps
 #                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
                 self.path("../mac_updater/" + self.args['configuration'] + "/mac-updater.app", "mac-updater.app")
+                
+		# plugin launcher
+                self.path("../llplugin/slplugin/" + self.args['configuration'] + "/SLPlugin", "SLPlugin")
 
+                # plugins
+                if self.prefix(src="", dst="llplugin"):
+                    self.path("../media_plugins/quicktime/" + self.args['configuration'] + "/media_plugin_quicktime.dylib", "media_plugin_quicktime.dylib")
+                    self.path("../media_plugins/webkit/" + self.args['configuration'] + "/media_plugin_webkit.dylib", "media_plugin_webkit.dylib")
+                    self.path("../../libraries/universal-darwin/lib_release/libllqtwebkit.dylib", "libllqtwebkit.dylib")
+
+                    self.end_prefix("llplugin")
+
+                # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+                self.path("skins/default/xui/en-us/mime_types_mac.xml", "skins/default/xui/en-us/mime_types.xml")
+ 
                 # command line arguments for connecting to the proper grid
                 self.put_in_file(self.flags_list(), 'arguments.txt')
 
@@ -766,7 +783,7 @@ class DarwinManifest(ViewerManifest):
         # make sure we don't have stale files laying about
         self.remove(sparsename, finalname)
 
-        self.run_command('hdiutil create "%(sparse)s" -volname "%(vol)s" -fs HFS+ -type SPARSE -megabytes 300 -layout SPUD' % {
+        self.run_command('hdiutil create "%(sparse)s" -volname "%(vol)s" -fs HFS+ -type SPARSE -megabytes 400 -layout SPUD' % {
                 'sparse':sparsename,
                 'vol':volname})
 
@@ -851,6 +868,23 @@ class LinuxManifest(ViewerManifest):
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
         self.put_in_file(self.flags_list(), 'gridargs.dat')
+        self.path("linux_tools/launch_url.sh","launch_url.sh")
+        self.path("../llplugin/slplugin/SLPlugin", "bin/SLPlugin")
+        if self.prefix("res-sdl"):
+            self.path("*")
+            # recurse
+            self.end_prefix("res-sdl")
+
+        # plugins
+        if self.prefix(src="", dst="bin/llplugin"):
+            self.path("../media_plugins/webkit/libmedia_plugin_webkit.so", "libmedia_plugin_webkit.so")
+            self.path("../media_plugins/gstreamer010/libmedia_plugin_gstreamer010.so", "libmedia_plugin_gstreamer.so")
+            self.end_prefix("bin/llplugin")
+
+        # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+        self.path("skins/default/xui/en-us/mime_types_linux.xml", "skins/default/xui/en-us/mime_types.xml")
+
+        self.path("featuretable_linux.txt")
 
 
     def package_finish(self):
@@ -904,17 +938,7 @@ class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
-#        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
-        self.path("linux_tools/launch_url.sh","launch_url.sh")
-        if self.prefix("res-sdl"):
-            self.path("*")
-            # recurse
-            self.end_prefix("res-sdl")
 
-        self.path("featuretable_linux.txt")
-        #self.path("secondlife-i686.supp")
-
-        self.path("app_settings/mozilla-runtime-linux-i686")
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")

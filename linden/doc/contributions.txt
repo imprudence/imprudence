@@ -85,11 +85,6 @@ Alissa Sabre
         VWR-7087
         VWR-7153
         VWR-7168
-<<<<<<< HEAD
-=======
-        VWR-7087
-        VWR-7086
->>>>>>> origin/next
 	VWR-9190
 	VWR-10728
 	VWR-12620
@@ -558,6 +553,8 @@ TBBle Kurosawa
 	VWR-1892
 Teardrops Fall
 	VWR-5366
+Techwolf Lupindo
+	SNOW-334
 tenebrous pau
 	VWR-247
 Tharax Ferraris

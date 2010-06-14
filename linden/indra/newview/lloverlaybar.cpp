@@ -38,7 +38,7 @@
 #include "lloverlaybar.h"
 
 #include "aoremotectrl.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llrender.h"
 #include "llagent.h"
 #include "llbutton.h"
@@ -63,7 +63,7 @@
 #include "llvoiceclient.h"
 #include "llvoavatar.h"
 #include "llvoiceremotectrl.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 #include "llwindlightremotectrl.h"
 #include "llselectmgr.h"
 
@@ -75,13 +75,14 @@ LLOverlayBar *gOverlayBar = NULL;
 
 extern S32 MENU_BAR_HEIGHT;
 
-
+//awfixme
+/*
 class LLTitleObserver
 	:	public LLMediaObserver
 {
 public:
 	void init(std::string url);
-	/*virtual*/ void onMediaTitleChange(const EventType& event_in);
+	*//*virtual*//* void onMediaTitleChange(const EventType& event_in);
 private:
 	LLMediaBase* mMediaSource;
 };
@@ -120,7 +121,7 @@ void LLTitleObserver::onMediaTitleChange(const EventType& event_in)
 	chat.mText = playing_msg;
 	LLFloaterChat::addChat(chat, FALSE, FALSE);
 }
-
+*/
 
 //
 // Functions
@@ -445,11 +446,11 @@ void LLOverlayBar::toggleMediaPlay(void*)
 	}
 
 	
-	if (LLViewerMedia::isMediaPaused())
+	if (LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PAUSED)
 	{
 		LLViewerParcelMedia::start();
 	}
-	else if(LLViewerMedia::isMediaPlaying())
+	else if(LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PLAYING)
 	{
 		LLViewerParcelMedia::pause();
 	}
@@ -490,7 +491,7 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 				{
 					gAudiop->startInternetStream(parcel->getMusicURL());
-					sTitleObserver.init(parcel->getMusicURL());
+//awfixme					sTitleObserver.init(parcel->getMusicURL());
 				}
 			}
 		}

@@ -16,7 +16,7 @@
  *      may be used to endorse or promote products derived from this
  *      software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY MODULAR SYSTEMS AND CONTRIBUTORS “AS IS”
+ * THIS SOFTWARE IS PROVIDED BY MODULAR SYSTEMS AND CONTRIBUTORS ï¿½AS ISï¿½
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MODULAR SYSTEMS OR CONTRIBUTORS
@@ -69,7 +69,7 @@
 #include "llviewerparcelmgr.h"
 #include "llviewerparcelmedia.h"
 #include "llparcel.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llviewerparcelmediaautoplay.h"
 #include "lloverlaybar.h"
 #include "lggautocorrectfloater.h"

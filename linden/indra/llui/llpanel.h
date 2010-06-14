@@ -82,6 +82,8 @@ public:
 
 	// From LLFocusableElement
 	/*virtual*/ void	setFocus( BOOL b );
+	virtual void setAlpha(F32 alpha);
+
 	
 	// New virtuals
 	virtual 	void	refresh();	// called in setFocus()
@@ -174,6 +176,7 @@ public:
 	void childSetUserData(const std::string& id, void* userdata);
 
 	void childSetColor(const std::string& id, const LLColor4& color);
+	void childSetAlpha(const std::string& id, F32 alpha);
 
 	LLCtrlSelectionInterface* childGetSelectionInterface(const std::string& id) const;
 	LLCtrlListInterface* childGetListInterface(const std::string& id) const;

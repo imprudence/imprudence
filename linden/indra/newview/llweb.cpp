@@ -38,7 +38,7 @@
 #include "llviewerwindow.h"
 
 #include "llviewercontrol.h"
-#include "llfloaterhtmlhelp.h"
+#include "llfloatermediabrowser.h"
 
 // static
 void LLWeb::initClass()
