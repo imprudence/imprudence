@@ -13,13 +13,13 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * online at http://secondlife.com/developers/opensource/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
- * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * http://secondlife.com/developers/opensource/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -29,6 +29,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ * 
  * @endcond
  */
 
@@ -947,33 +948,6 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 
 				message.setValue("plugin_version", getVersion());
 				sendMessage(message);
-
-				// Plugin gets to decide the texture parameters to use.
-				message.setMessage(LLPLUGIN_MESSAGE_CLASS_MEDIA, "texture_params");
-				// lame to have to decide this now, it depends on the movie.  Oh well.
-				mDepth = 4;
-
-				mCurrentWidth = 1;
-				mCurrentHeight = 1;
-				mPreviousWidth = 1;
-				mPreviousHeight = 1;
-				mNaturalWidth = 1;
-				mNaturalHeight = 1;
-				mWidth = 1;
-				mHeight = 1;
-				mTextureWidth = 1;
-				mTextureHeight = 1;
-
-				message.setValueU32("format", GL_RGBA);
-				message.setValueU32("type", GL_UNSIGNED_INT_8_8_8_8_REV);
-
-				message.setValueS32("depth", mDepth);
-				message.setValueS32("default_width", mWidth);
-				message.setValueS32("default_height", mHeight);
-				message.setValueU32("internalformat", GL_RGBA8);
-				message.setValueBoolean("coords_opengl", true);	// true == use OpenGL-style coordinates, false == (0,0) is upper left.
-				message.setValueBoolean("allow_downsample", true); // we respond with grace and performance if asked to downscale
-				sendMessage(message);
 			}
 			else if(message_name == "idle")
 			{
@@ -1038,7 +1012,36 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 		}
 		else if(message_class == LLPLUGIN_MESSAGE_CLASS_MEDIA)
 		{
-			if(message_name == "size_change")
+			if(message_name == "init")
+			{
+				// Plugin gets to decide the texture parameters to use.
+				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "texture_params");
+				// lame to have to decide this now, it depends on the movie.  Oh well.
+				mDepth = 4;
+
+				mCurrentWidth = 1;
+				mCurrentHeight = 1;
+				mPreviousWidth = 1;
+				mPreviousHeight = 1;
+				mNaturalWidth = 1;
+				mNaturalHeight = 1;
+				mWidth = 1;
+				mHeight = 1;
+				mTextureWidth = 1;
+				mTextureHeight = 1;
+
+				message.setValueU32("format", GL_RGBA);
+				message.setValueU32("type", GL_UNSIGNED_INT_8_8_8_8_REV);
+
+				message.setValueS32("depth", mDepth);
+				message.setValueS32("default_width", mWidth);
+				message.setValueS32("default_height", mHeight);
+				message.setValueU32("internalformat", GL_RGBA8);
+				message.setValueBoolean("coords_opengl", true);	// true == use OpenGL-style coordinates, false == (0,0) is upper left.
+				message.setValueBoolean("allow_downsample", true); // we respond with grace and performance if asked to downscale
+				sendMessage(message);
+			}
+			else if(message_name == "size_change")
 			{
 				std::string name = message_in.getValue("name");
 				S32 width = message_in.getValueS32("width");

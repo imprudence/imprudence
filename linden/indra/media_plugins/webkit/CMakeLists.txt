@@ -14,10 +14,12 @@ include(Linking)
 include(PluginAPI)
 include(MediaPluginBase)
 include(FindOpenGL)
+#include(PulseAudio)
 
 include(WebKitLibPlugin)
 
 include_directories(
+    ${PULSEAUDIO_INCLUDE_DIRS}
     ${LLPLUGIN_INCLUDE_DIRS}
     ${MEDIA_PLUGIN_BASE_INCLUDE_DIRS}
     ${LLCOMMON_INCLUDE_DIRS}
@@ -35,13 +37,13 @@ set(media_plugin_webkit_SOURCE_FILES
     media_plugin_webkit.cpp
     )
 
-if(WORD_SIZE EQUAL 64)
+if(NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 	if(WINDOWS)
 		add_definitions(/FIXED:NO)
 	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
 		add_definitions(-fPIC)
 	endif(WINDOWS)
-endif (WORD_SIZE EQUAL 64)
+endif (NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 
 set(media_plugin_webkit_LINK_LIBRARIES
   ${LLPLUGIN_LIBRARIES}
@@ -49,9 +51,11 @@ set(media_plugin_webkit_LINK_LIBRARIES
   ${LLCOMMON_LIBRARIES}
   ${WEBKIT_PLUGIN_LIBRARIES}
   ${PLUGIN_API_WINDOWS_LIBRARIES}
+  ${PULSEAUDIO_LIBRARIES}
 )
 
-if(LINUX)
+if (LINUX)
+  list(APPEND media_plugin_webkit_SOURCE_FILES linux_volume_catcher.cpp)
   list(APPEND media_plugin_webkit_LINK_LIBRARIES
     ${UI_LIBRARIES}  # for glib/GTK
     )

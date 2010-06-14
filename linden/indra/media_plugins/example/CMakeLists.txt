@@ -14,7 +14,7 @@ include(PluginAPI)
 include(MediaPluginBase)
 include(FindOpenGL)
 
-#awfixme include(ExamplePlugin)
+#include(ExamplePlugin)
 
 include_directories(
     ${LLPLUGIN_INCLUDE_DIRS}
@@ -29,13 +29,13 @@ include_directories(
 
 ### media_plugin_example
 
-if(WORD_SIZE EQUAL 64)
+if(NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 	if(WINDOWS)
 		add_definitions(/FIXED:NO)
 	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
 		add_definitions(-fPIC)
 	endif(WINDOWS)
-endif (WORD_SIZE EQUAL 64)
+endif (NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 
 set(media_plugin_example_SOURCE_FILES
     media_plugin_example.cpp

@@ -1,12 +1,11 @@
 /** 
- * @file llmediaimplgstreamer.h
- * @author Tofu Linden
- * @brief implementation that supports media playback via GStreamer.
+ * @file linux_volume_catcher.h
+ * @brief A Linux-specific, PulseAudio-specific hack to detect and volume-adjust new audio sources
  *
  * @cond
- * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * $LicenseInfo:firstyear=2010&license=viewergpl$
  * 
- * Copyright (c) 2007-2010, Linden Research, Inc.
+ * Copyright (c) 2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -34,27 +33,24 @@
  * @endcond
  */
 
-// header guard
-#ifndef llmediaimplgstreamer_h
-#define llmediaimplgstreamer_h
+#ifndef LINUX_VOLUME_CATCHER_H
+#define LINUX_VOLUME_CATCHER_H
 
-#if LL_GSTREAMER010_ENABLED
+#include "linden_common.h"
 
-extern "C" {
-#include <stdio.h>
-#include <gst/gst.h>
+class LinuxVolumeCatcherImpl;
 
-#include "apr_pools.h"
-#include "apr_dso.h"
-}
+class LinuxVolumeCatcher
+{
+ public:
+	LinuxVolumeCatcher();
+	~LinuxVolumeCatcher();
 
+	void setVolume(F32 volume); // 0.0 - 1.0
+	void pump(); // call this at least a few times a second if you can - it affects how quickly we can 'catch' a new audio source and adjust its volume
+	
+ private:
+	LinuxVolumeCatcherImpl *pimpl;
+};
 
-extern "C" {
-gboolean llmediaimplgstreamer_bus_callback (GstBus     *bus,
-					    GstMessage *message,
-					    gpointer    data);
-}
-
-#endif // LL_GSTREAMER010_ENABLED
-
-#endif // llmediaimplgstreamer_h
+#endif // LINUX_VOLUME_CATCHER_H
