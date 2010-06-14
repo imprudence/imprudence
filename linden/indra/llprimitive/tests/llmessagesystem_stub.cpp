@@ -1,10 +1,9 @@
 /** 
- * @file material_codes.h
- * @brief Material_codes definitions
+ * @file llmessagesystem_stub.cpp
  *
- * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2000-2010, Linden Research, Inc.
+ * Copyright (c) 2008-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,31 +29,25 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_MATERIAL_CODES_H
-#define LL_MATERIAL_CODES_H
+#include "linden_common.h"
 
-class LLUUID;
+char * _PREHASH_TextureEntry;
 
-	// material types
-const U8	LL_MCODE_STONE   = 0;
-const U8	LL_MCODE_METAL   = 1;
-const U8	LL_MCODE_GLASS   = 2;
-const U8	LL_MCODE_WOOD    = 3;
-const U8	LL_MCODE_FLESH   = 4;
-const U8	LL_MCODE_PLASTIC = 5;
-const U8	LL_MCODE_RUBBER  = 6;
-const U8	LL_MCODE_LIGHT   = 7;
-const U8    LL_MCODE_END     = 8;
-const U8	LL_MCODE_MASK    = 0x0F;
+S32 LLMessageSystem::getSizeFast(char const*, char const*) const
+{
+	return 0;
+}
 
-// *NOTE: Define these in .cpp file to reduce duplicate instances
-extern const LLUUID LL_DEFAULT_STONE_UUID;
-extern const LLUUID LL_DEFAULT_METAL_UUID;
-extern const LLUUID LL_DEFAULT_GLASS_UUID;
-extern const LLUUID LL_DEFAULT_WOOD_UUID;
-extern const LLUUID LL_DEFAULT_FLESH_UUID;
-extern const LLUUID LL_DEFAULT_PLASTIC_UUID;
-extern const LLUUID LL_DEFAULT_RUBBER_UUID;
-extern const LLUUID LL_DEFAULT_LIGHT_UUID;
+S32 LLMessageSystem::getSizeFast(char const*, int, char const*) const
+{
+	return 0;
+}
 
-#endif
+void LLMessageSystem::getBinaryDataFast(char const*, char const*, void*, int, int, int)
+{
+}
+
+void LLMessageSystem::addBinaryDataFast(char const*, void const*, int)
+{
+}
+

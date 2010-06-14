@@ -1715,7 +1715,7 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	U8 media_flags = LLTextureEntry::MF_NONE;
 	if (media_type == LLViewerObject::MEDIA_TYPE_WEB_PAGE)
 	{
-		media_flags = LLTextureEntry::MF_WEB_PAGE;
+		media_flags = LLTextureEntry::MF_HAS_MEDIA;
 	}
 	
 	struct f : public LLSelectedTEFunctor

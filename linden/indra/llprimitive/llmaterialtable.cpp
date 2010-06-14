@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -92,6 +92,9 @@ F32 const LLMaterialTable::DEFAULT_FRICTION = 0.5f;
 F32 const LLMaterialTable::DEFAULT_RESTITUTION = 0.4f;
 
 LLMaterialTable::LLMaterialTable()
+	: mCollisionSoundMatrix(NULL),
+	  mSlidingSoundMatrix(NULL),
+	  mRollingSoundMatrix(NULL)
 {
 }
 
@@ -122,6 +125,17 @@ LLMaterialTable::~LLMaterialTable()
 
 	for_each(mMaterialInfoList.begin(), mMaterialInfoList.end(), DeletePointer());
 	mMaterialInfoList.clear();
+}
+
+void LLMaterialTable::initTableTransNames(std::map<std::string, std::string> namemap)
+{
+	for (info_list_t::iterator iter = mMaterialInfoList.begin();
+		 iter != mMaterialInfoList.end(); ++iter)
+	{
+		LLMaterialInfo *infop = *iter;
+		std::string name = infop->mName;
+		infop->mName = namemap[name];
+	}
 }
 
 void LLMaterialTable::initBasicTable()
