@@ -264,6 +264,8 @@ void LLViewerJoystick::init(bool autoenable)
 			// It's not a Space Navigator
 			gSavedSettings.setString("JoystickInitialized", "UnknownDevice");
 		}
+
+		gSavedSettings.setBOOL("JoystickEnabled", TRUE );
 	}
 	else
 	{

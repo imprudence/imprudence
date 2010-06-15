@@ -4068,7 +4068,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 {
 	if (LLViewerJoystick::getInstance()->getOverrideCamera())
 	{
-		return;
+		LLViewerJoystick::getInstance()->setOverrideCamera(false);
 	}
 
 	// visibility changes at end of animation
@@ -4131,7 +4131,7 @@ void LLAgent::changeCameraToDefault()
 {
 	if (LLViewerJoystick::getInstance()->getOverrideCamera())
 	{
-		return;
+		LLViewerJoystick::getInstance()->setOverrideCamera(false);
 	}
 
 	if (LLFollowCamMgr::getActiveFollowCamParams())
