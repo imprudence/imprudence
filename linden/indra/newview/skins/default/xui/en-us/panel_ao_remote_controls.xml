@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+     enabled="true" follows="right|bottom" height="20" left="0"
+     name="ao_controls" width="96">
+  <button bottom="-22" follows="left|bottom" font="SansSerif" halign="center" height="22"
+	     label="AO Off" label_selected="AO On" left="3" name="ao_btn" control_name="AOEnabled"  
+	     tool_tip="Click here to toggle the Animation Overrider" width="66" />
+  <button bottom="-22" follows="left|bottom" font="SansSerif" halign="center" height="22" toggle="true"
+	     label="" left_delta="68" name="popup_btn" scale_image="true" control_name="ShowAOSitPopup"
+       tool_tip="Click here for more options" width="22" />
+</panel>

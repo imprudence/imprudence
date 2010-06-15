@@ -65,6 +65,7 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	aoremotectrl.cpp
     emeraldboobutils.cpp
     floaterao.cpp
     floaterbusy.cpp
@@ -493,6 +494,7 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
+    aoremotectrl.h
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
@@ -1225,6 +1227,9 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/mime_types.xml
     skins/default/xui/en-us/notifications.xml
     skins/default/xui/en-us/notify.xml
+    skins/default/xui/en-us/panel_ao_remote_controls.xml
+    skins/default/xui/en-us/panel_ao_remote.xml
+    skins/default/xui/en-us/panel_ao_remote_expanded.xml
     skins/default/xui/en-us/panel_audio_device.xml
     skins/default/xui/en-us/panel_audio.xml
     skins/default/xui/en-us/panel_avatar_classified.xml
