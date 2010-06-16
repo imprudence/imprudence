@@ -2065,6 +2065,33 @@
                   userdata="stop record" />
       </menu_item_call>
     </menu>
+    
+    
+    <!-- ADMIN OPTIONS -->
+
+    <menu name="Admin Options" drop_shadow="true"
+          opaque="true" tear_off="true">
+      <menu_item_check name="View Admin Options"
+                   label="View Admin Options"
+                   shortcut="control|alt|V">
+        <on_click function="Advanced.ToggleViewAdminOptions"
+                  userdata="" />
+        <on_check function="Advanced.CheckViewAdminOptions"
+                  userdata="" />
+      </menu_item_check>
+      <menu_item_call name="Request Admin Status"
+                      label="Request Admin Status"
+                      shortcut="control|alt|G">
+        <on_click function="Advanced.RequestAdminStatus"
+                  userdata="" />
+      </menu_item_call>
+      <menu_item_call name="Leave Admin Status"
+                      label="Leave Admin Status"
+                      shortcut="control|alt|shift|G">
+        <on_click function="Advanced.LeaveAdminStatus"
+                  userdata="" />
+      </menu_item_call>
+    </menu>
 
 
     <menu_item_separator />
@@ -2132,26 +2159,6 @@
     <menu_item_call name="Debug Settings"
                     label="Debug Settings">
       <on_click function="Advanced.ShowDebugSettings"
-                userdata="" />
-    </menu_item_call>
-    <menu_item_check name="View Admin Options"
-                     label="View Admin Options"
-                     shortcut="control|alt|V">
-      <on_click function="Advanced.ToggleViewAdminOptions"
-                userdata="" />
-      <on_check function="Advanced.CheckViewAdminOptions"
-                userdata="" />
-    </menu_item_check>
-    <menu_item_call name="Request Admin Status"
-                    label="Request Admin Status"
-                    shortcut="control|alt|G">
-      <on_click function="Advanced.RequestAdminStatus"
-                userdata="" />
-    </menu_item_call>
-    <menu_item_call name="Leave Admin Status"
-                    label="Leave Admin Status"
-                    shortcut="control|alt|shift|G">
-      <on_click function="Advanced.LeaveAdminStatus"
                 userdata="" />
     </menu_item_call>
 
