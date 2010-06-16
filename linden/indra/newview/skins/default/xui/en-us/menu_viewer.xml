@@ -351,7 +351,7 @@
       <on_check control="ShowMiniMap" />
     </menu_item_check>
     <menu_item_separator />
-    <menu_item_check label="AO" name="AO" 
+    <menu_item_check label="Animation Overrider" name="AO" 
                      shortcut="control|shift|O">
       <on_click function="View.ToggleAO" userdata="" />
       <on_check function="View.CheckAO" />
