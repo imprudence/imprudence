@@ -7,32 +7,34 @@ class HippoLimits
 public:
 	HippoLimits();
 
-	int   getMaxAgentGroups() const { return mMaxAgentGroups; }
-	float getMaxHeight()      const { return mMaxHeight;      }
-	float getMinHoleSize()    const { return mMinHoleSize;    }
-	float getMaxHollow()      const { return mMaxHollow;      }
-	float getMaxPrimScale()   const { return mMaxPrimScale;   }
-	float getMinPrimScale()   const { return mMinPrimScale;   }
-	S32   getMaxLinkedPrims() const { return mMaxLinkedPrims; }
+	const S32&	getMaxAgentGroups() const { return mMaxAgentGroups; }
+	const F32&	getMaxHeight()      const { return mMaxHeight;      }
+	const F32&	getMinHoleSize()    const { return mMinHoleSize;    }
+	const F32&	getMaxHollow()      const { return mMaxHollow;      }
+	const F32&	getMinPrimScale()   const { return mMinPrimScale;   }
+	const S32&	getMaxLinkedPrims() const { return mMaxLinkedPrims; }
 
-	void setLimits();
+	// Returns the max prim size we can use on a grid
+	F32		getMaxPrimScale() const;
+
+	void	setLimits();
 
 private:
-	int   mMaxAgentGroups;
+	S32		mMaxAgentGroups;
 
-	float mMaxHeight;
-	float mMinHoleSize;
-	float mMaxHollow;
-	float mMaxPrimScale;
-	float mMinPrimScale;
-	S32   mMaxLinkedPrims;
+	F32		mMaxHeight;
+	F32		mMinHoleSize;
+	F32		mMaxHollow;
+	F32		mMaxPrimScale;
+	F32		mMinPrimScale;
+	S32		mMaxLinkedPrims;
 
-	void setOpenSimLimits();
-	void setSecondLifeLimits();
+	void	setOpenSimLimits();
+	void	setSecondLifeLimits();
 };
 
 
-extern HippoLimits *gHippoLimits;
+extern HippoLimits* gHippoLimits;
 
 
 #endif

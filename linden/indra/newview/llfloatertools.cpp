@@ -179,7 +179,27 @@ void*	LLFloaterTools::createPanelLandInfo(void* data)
 	return floater->mPanelLandInfo;
 }
 
-void LLFloaterTools::toolsPrecision()
+void LLFloaterTools::updateToolsSizeLimits()
+{
+	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
+	{
+		getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+	}
+	else
+	{
+		getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
+		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
+		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+
+		getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
+		getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
+		getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
+	}
+}
+
+void LLFloaterTools::updateToolsPrecision()
 {
 	U32 decimals = gSavedSettings.getU32("DecimalsForTools");
 	if (decimals != mPrecision)
@@ -268,15 +288,11 @@ BOOL	LLFloaterTools::postBuild()
 	mBtnUnlink = getChild<LLButton>("unlink_btn");
 	childSetAction("unlink_btn",onClickUnlink, this);
 
-	getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
-	getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
-	getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	// Set the default size limits for spinners -- MC
+	updateToolsSizeLimits();
 
-	getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
-	getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
-	getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
-
-	toolsPrecision();
+	// Set the default decimal precision for spinners -- MC
+	updateToolsPrecision();
 
 	//
 	// Create Buttons
@@ -517,7 +533,7 @@ void LLFloaterTools::refresh()
 	LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
 	childSetTextArg("prim_count", "[COUNT]", prim_count_string);
 
-	toolsPrecision();
+	updateToolsPrecision();
 
 	// Refresh child tabs
 	mPanelPermissions->refresh();

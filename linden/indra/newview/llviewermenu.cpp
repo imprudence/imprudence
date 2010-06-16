@@ -10711,11 +10711,9 @@ class LLAvatarReportAbuse : public view_listener_t
 };
 
 
-
 ////////////////////////////
 // ALLOW MULTIPLE VIEWERS //
 ////////////////////////////
-
 
 class LLAdvancedToggleMultipleViewers : public view_listener_t
 {
@@ -10730,12 +10728,38 @@ class LLAdvancedToggleMultipleViewers : public view_listener_t
 	}
 };
 
-
 class LLAdvancedCheckMultipleViewers : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		bool new_value = gSavedSettings.getBOOL("AllowMultipleViewers");
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+///////////////////////////////////
+// DISABLE MAX BUILD CONSTRAINTS //
+///////////////////////////////////
+
+class LLAdvancedToggleMaxBuildConstraints : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		BOOL cur_val = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
+		gSavedSettings.setBOOL("DisableMaxBuildConstraints", !cur_val );
+		gFloaterTools->updateToolsSizeLimits();
+		return true;
+	}
+};
+
+class LLAdvancedCheckMaxBuildConstraints : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -11195,6 +11219,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedLeaveAdminStatus(), "Advanced.LeaveAdminStatus");
 	addMenu(new LLAdvancedToggleMultipleViewers(), "Advanced.ToggleMultipleViewers");
 	addMenu(new LLAdvancedCheckMultipleViewers(), "Advanced.CheckMultipleViewers");
+	addMenu(new LLAdvancedToggleMaxBuildConstraints(), "Advanced.ToggleMaxBuildConstraints");
+	addMenu(new LLAdvancedCheckMaxBuildConstraints(), "Advanced.CheckMaxBuildConstraints");
 
 	// RLVa
 	addMenu(new RLVaMainToggle(), "RLVa.Main.Toggle");

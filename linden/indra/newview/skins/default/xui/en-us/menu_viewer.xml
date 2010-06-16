@@ -2090,6 +2090,13 @@
                 userdata="LimitSelectDistance" />
       <on_check control="LimitSelectDistance" />
     </menu_item_check>
+    <menu_item_check name="Disable Max Build Constraints"
+           label="Disable Max Build Constraints">
+      <on_click function="Advanced.ToggleMaxBuildConstraints"
+                userdata="" />
+      <on_check function="Advanced.CheckMaxBuildConstraints"
+                userdata="" />
+    </menu_item_check>
     <menu_item_check name="Mouse Smoothing"
                      label="Mouse Smoothing">
       <on_click function="ToggleControl"
