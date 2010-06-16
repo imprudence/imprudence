@@ -40,11 +40,14 @@ HippoGridInfo HippoGridInfo::FALLBACK_GRIDINFO("");
 // Initialize
 
 HippoGridInfo::HippoGridInfo(const std::string &gridNick) :
-    mPlatform(PLATFORM_OTHER),
-    mRenderCompat(true),
-    mCurrencySymbol("OS$"),
-    mRealCurrencySymbol("US$"),
-    mDirectoryFee(30)
+	mPlatform(PLATFORM_OTHER),
+	mGridNick(gridNick),
+	mVoiceConnector("SLVoice"),
+	mRenderCompat(true),
+	mMaxAgentGroups(-1),
+	mCurrencySymbol("OS$"),
+	mRealCurrencySymbol("US$"),
+	mDirectoryFee(30)
 {
 	std::string nick = gridNick;
 	mGridNick = sanitizeGridNick( nick );
@@ -432,33 +435,36 @@ bool HippoGridInfo::retrieveGridInfo()
 
 std::string HippoGridInfo::getUploadFee() const
 {
-    std::string fee;
-    formatFee(fee, LLGlobalEconomy::Singleton::getInstance()->getPriceUpload(), true);
-    return fee;
+	std::string fee;
+	formatFee(fee, LLGlobalEconomy::Singleton::getInstance()->getPriceUpload(), true);
+	return fee;
 }
 
 std::string HippoGridInfo::getGroupCreationFee() const
 {
-    std::string fee;
-    formatFee(fee, LLGlobalEconomy::Singleton::getInstance()->getPriceGroupCreate(), false);
-    return fee;
+	std::string fee;
+	formatFee(fee, LLGlobalEconomy::Singleton::getInstance()->getPriceGroupCreate(), false);
+	return fee;
 }
 
 std::string HippoGridInfo::getDirectoryFee() const
 {
-    std::string fee;
-    formatFee(fee, mDirectoryFee, true);
+	std::string fee;
+	formatFee(fee, mDirectoryFee, true);
 	if (fee != LLTrans::getString("hippo_label_free")) fee += "/" + LLTrans::getString("hippo_label_week");
-    return fee;
+	return fee;
 }
 
 void HippoGridInfo::formatFee(std::string &fee, int cost, bool showFree) const
 {
-    if (showFree && (cost == 0)) {
-        fee = LLTrans::getString("hippo_label_free");
-    } else {
-        fee = llformat("%s%d", getCurrencySymbol().c_str(), cost);
-    }
+	if (showFree && (cost == 0)) 
+	{
+		fee = LLTrans::getString("hippo_label_free");
+	} 
+	else 
+	{
+		fee = llformat("%s%d", getCurrencySymbol().c_str(), cost);
+	}
 }
 
 
@@ -584,7 +590,7 @@ HippoGridInfo* HippoGridManager::getGrid(const std::string &grid) const
 		return it->second;
 	} else {
 		return 0;
-	}	
+	}
 }
 
 

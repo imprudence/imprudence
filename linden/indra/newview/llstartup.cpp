@@ -1689,6 +1689,10 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+			tmp = LLUserAuth::getInstance()->getResponse("max_groups");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
+			tmp = LLUserAuth::getInstance()->getResponse("VoiceConnector");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setVoiceConnector(tmp);
 			gHippoGridManager->saveFile();
 			gHippoLimits->setLimits();
 
