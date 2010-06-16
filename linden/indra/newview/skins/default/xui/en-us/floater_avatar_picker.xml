@@ -78,7 +78,7 @@
 	     width="95" height="20" label="Select" label_selected="Select" mouse_opaque="true"
 	     name="Select" scale_image="TRUE" />
 	<button bottom_delta="0" right="240" follows="left|bottom" font="SansSerif" halign="center"
-	     width="95" height="20" label="Cancel" label_selected="Cancel" mouse_opaque="true"
+	     width="95" height="20" label="Close" label_selected="Close" mouse_opaque="true"
 	     name="Cancel" scale_image="TRUE" />
 
 	<string name="not_found">
