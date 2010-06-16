@@ -233,7 +233,7 @@
                   userdata="" />
       </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Gestures..." label="Gestures..."
+    <menu_item_call name="Gestures" label="Gestures"
                     shortcut="control|G">
       <on_click function="ShowFloater"
                 userdata="gestures" />
@@ -248,14 +248,14 @@
       <on_enable function="Edit.EnableCustomizeAvatar" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_check name="Friends..." label="Friends..."
+    <menu_item_check name="Friends" label="Friends"
                      shortcut="control|shift|F">
       <on_click function="ShowFloater"
                 userdata="friends" />
       <on_check function="FloaterVisible"
                 userdata="friends" />
     </menu_item_check>
-    <menu_item_call name="Groups..." label="Groups...">
+    <menu_item_call name="Groups" label="Groups">
       <on_click function="ShowAgentGroups"
                 userdata="agent" />
     </menu_item_call>
@@ -514,17 +514,17 @@
       <on_click function="ShowFloater" userdata="buy currency" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="My Land..." label="My Land...">
+    <menu_item_call name="My Land" label="My Land">
       <on_click function="ShowFloater" userdata="my land" />
     </menu_item_call>
-    <menu_item_call name="About Land..." label="About Land...">
+    <menu_item_call name="About Land" label="About Land">
       <on_click function="ShowFloater" userdata="about land" />
     </menu_item_call>
     <menu_item_call name="Buy Land..." label="Buy Land...">
       <on_click function="ShowFloater" userdata="buy land" />
       <on_enable function="World.EnableBuyLand" />
     </menu_item_call>
-    <menu_item_call name="Region/Estate..." label="Region/Estate...">
+    <menu_item_call name="Region/Estate" label="Region/Estate">
       <on_click function="ShowFloater" userdata="about region" />
     </menu_item_call>
     <menu_item_separator />
@@ -795,19 +795,19 @@
       <on_click function="ShowFloater" userdata="help tutorial" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Imprudence Blog..."
-                    label="Imprudence Blog...">
+    <menu_item_call name="Imprudence Blog"
+                    label="Imprudence Blog">
       <on_click function="PromptShowURL"
                 userdata="WebLaunchImprudenceBlog,http://www.imprudenceviewer.org/" />
     </menu_item_call>
-    <menu_item_call name="Imprudence Forums..."
-                    label="Imprudence Forums...">
+    <menu_item_call name="Imprudence Forums"
+                    label="Imprudence Forums">
       <on_click function="PromptShowURL"
                 userdata="WebLaunchImprudenceForums,http://www.imprudenceviewer.org/forums/" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Scripting Portal..."
-                    label="Scripting Portal...">
+    <menu_item_call name="Scripting Portal"
+                    label="Scripting Portal">
       <on_click function="PromptShowURL" name="ScriptingPortal_url"
                 userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal" />
     </menu_item_call>
@@ -816,16 +816,16 @@
       <on_click function="ShowFloater"
                 userdata="complaint reporter" />
     </menu_item_call>
-    <menu_item_call name="Bumps, Pushes &amp;amp; Hits..."
-                    label="Bumps, Pushes &amp; Hits...">
+    <menu_item_call name="Bumps, Pushes &amp;amp; Hits"
+                    label="Bumps, Pushes &amp; Hits">
       <on_click function="ShowFloater" userdata="mean events" />
     </menu_item_call>
     <menu_item_call name="Lag Meter" label="Lag Meter">
       <on_click function="ShowFloater" userdata="lag meter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="About Imprudence..."
-                    label="About Imprudence...">
+    <menu_item_call name="About Imprudence"
+                    label="About Imprudence">
       <on_click function="ShowFloater" userdata="about" />
     </menu_item_call>
   </menu>
@@ -880,7 +880,7 @@
       </menu_item_check>
       -->
       <menu_item_separator />
-      <menu_item_call name="Notifications Console..." label="Notifications Console..."
+      <menu_item_call name="Notifications Console" label="Notifications Console"
                        shortcut="control|shift|5">
         <on_click function="Advanced.ToggleConsole"
                   userdata="notifications" />
@@ -1684,13 +1684,13 @@
 
     <menu name="XUI" drop_shadow="true"
           opaque="true" tear_off="true">
-      <menu_item_call name="Floater Test..."
-                      label="Floater Test...">
+      <menu_item_call name="Floater Test"
+                      label="Floater Test">
         <on_click function="Advanced.ShowFloaterTest"
                   userdata="" />
       </menu_item_call>
-      <menu_item_call name="Font Test..."
-                      label="Font Test...">
+      <menu_item_call name="Font Test"
+                      label="Font Test">
         <on_click function="Advanced.ShowFontTest"
                   userdata="" />
       </menu_item_call>
