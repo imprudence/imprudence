@@ -6849,6 +6849,15 @@ Are you sure you want to teleport home?
 
 <notification
  icon="alertmodal.tga"
+ name="ConnectingToRegionError"
+ type="alertmodal">
+Unable to connect to the current region. Try logging into a different region instead. 
+
+The default login location can be set in the General tab in Preferences.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
  name="DisconnectedFromRegion"
  type="alertmodal">
 You have been disconnected from the region you were in. Unable to continue.

@@ -2105,9 +2105,7 @@ bool idle_startup()
 			// Bounce back to the login screen -- MC
 			LL_WARNS("AppInit") << "Bad login - can't connect to this region for some reason" << LL_ENDL;
 			LLStartUp::setLoginFailed(true);
-			LLSD args;
-			args["ERROR_MESSAGE"] = "Unable to connect to the current region. Try logging into a different region instead. The default login location can be set in the General tab in Preferences.";
-			LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
+			LLNotifications::instance().add("ConnectingToRegionError", LLSD(), LLSD(), login_alert_done);
 			LLStartUp::resetLogin();
 			gSavedSettings.setBOOL("AutoLogin", FALSE);
 			//this might be redundant
