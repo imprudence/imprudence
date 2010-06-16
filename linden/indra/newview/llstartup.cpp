@@ -2665,6 +2665,12 @@ bool idle_startup()
 		LL_DEBUGS("AppInitStartupState") << "STATE_CLEANUP" << LL_ENDL;
 		set_startup_status(1.0, "", "");
 
+		// Make sure all the branding is in order -- MC
+		if (gStatusBar)
+		{
+			gStatusBar->updateElements();
+		}
+
 		LLFirstUse::ClientTags();
 
 		// Let the map know about the inventory.

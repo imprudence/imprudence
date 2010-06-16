@@ -662,6 +662,14 @@ void LLStatusBar::refresh()
 	mTextParcelName->setRect(r);
 }
 
+void LLStatusBar::updateElements()
+{
+	// TODO: Disable buying currency when connected to non-SL grids
+	// that don't support currency yet -- MC
+	LLButton* buybtn = getChild<LLButton>("buycurrency");
+	buybtn->setLabelArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+}
+
 void LLStatusBar::setVisibleForMouselook(bool visible)
 {
 	mTextBalance->setVisible(visible);
