@@ -3224,11 +3224,9 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	gCacheName->setUpstream(sim);
 */
 
-	//Reset the windlight profile to default
-	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
-	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
-	LLWLParamManager::instance()->loadPreset("Default", true);
-	LLWaterParamManager::instance()->loadPreset("Default",true);
+	// Reset windlight settings to default
+	LLWLParamManager::instance()->mAnimator.mIsRunning = true;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = true;
 
 	// now, use the circuit info to tell simulator about us!
 	LL_INFOS("Messaging") << "process_teleport_finish() Enabling "

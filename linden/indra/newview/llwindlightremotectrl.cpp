@@ -41,6 +41,7 @@
 #include "lluictrlfactory.h"
 #include "llwlparammanager.h"
 #include "llviewercontrol.h"
+#include "llviewerwindow.h"
 
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 #include "rlvhandler.h"
@@ -137,8 +138,12 @@ BOOL LLWindlightRemoteCtrl::postBuild()
 
 void LLWindlightRemoteCtrl::refreshPresets()
 {
-	// Just in case, let's not ever crash here
-	mPresetsCombo = getChild<LLComboBox>("Presets");
+	// If we're teleporting or just logging in, no UI to refresh
+	if (gViewerWindow->getShowProgress())
+	{
+		return;
+	}
+
 	if (mPresetsCombo)
 	{
 		// snag current preset
