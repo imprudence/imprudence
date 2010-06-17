@@ -2,6 +2,10 @@
 
 project(media_plugin_webkit)
 
+if(HAVE_64_BIT)
+	set(REQUIRE_PIC)
+endif(HAVE_64_BIT)
+
 include(00-Common)
 include(LLCommon)
 include(LLImage)

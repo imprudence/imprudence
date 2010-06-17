@@ -20,6 +20,14 @@ set(CMAKE_CONFIGURATION_TYPES "RelWithDebInfo;Release;Debug" CACHE STRING
     "Supported build types." FORCE)
 
 
+# Determine the number of bits of this processor
+
+if(CMAKE_SIZEOF_VOID_P MATCHES 4)
+   set( HAVE_64_BIT 0 )
+else(CMAKE_SIZEOF_VOID_P MATCHES 4)
+   set( HAVE_64_BIT 1 )
+endif(CMAKE_SIZEOF_VOID_P MATCHES 4)
+
 # Platform-specific compilation flags.
 
 if (WINDOWS)
