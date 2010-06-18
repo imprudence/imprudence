@@ -1060,19 +1060,6 @@ BOOL LLItemBridge::isItemCopyable() const
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
-		// can't copy worn objects. DEV-15183
-		LLVOAvatar *avatarp = gAgent.getAvatarObject();
-		if( !avatarp )
-		{
-			return FALSE;
-		}
-
-		if( avatarp->isWearingAttachment( mUUID ) )
-		{
-			return FALSE;
-		}
-			
-
 		return (item->getPermissions().allowCopyBy(gAgent.getID()));
 	}
 	return FALSE;
