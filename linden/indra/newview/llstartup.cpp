@@ -197,6 +197,8 @@
 #include "lldxhardware.h"
 #endif
 
+#include "floaterao.h"
+
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
 //
@@ -2669,6 +2671,12 @@ bool idle_startup()
 		if (gStatusBar)
 		{
 			gStatusBar->updateElements();
+		}
+
+		// Start the AO now that settings have loaded and login successful -- MC
+		if (!gAOInvTimer)
+		{
+			gAOInvTimer = new AOInvTimer();
 		}
 
 		LLFirstUse::ClientTags();

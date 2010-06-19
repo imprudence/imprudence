@@ -45,6 +45,8 @@ void cmdline_printchat(std::string message)
     LLFloaterChat::addChat(chat, FALSE, FALSE);
 }
 
+AOInvTimer* gAOInvTimer = NULL;
+
 
 class AONotecardCallback : public LLInventoryCallback
 {

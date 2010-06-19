@@ -154,6 +154,7 @@
 #include "viewerversion.h"
 
 // includes for idle() idleShutdown()
+#include "floaterao.h"
 #include "llviewercontrol.h"
 #include "lleventnotifier.h"
 #include "llcallbacklist.h"
@@ -1156,21 +1157,21 @@ bool LLAppViewer::cleanup()
 	LLMortician::setZealous(TRUE);
 
 	if (mQuitRequested)
-	LLVoiceClient::terminate();
+	{
+		LLVoiceClient::terminate();
+	}
 	
 	disconnectViewer();
 
 	llinfos << "Viewer disconnected" << llendflush;
 
-
-
-
-
 	//this deletes all your buddies
 	LLAvatarTracker::instance().reset();
 
 	if (mQuitRequested)
-	display_cleanup(); 
+	{
+		display_cleanup();
+	}
 
 	release_start_screen(); // just in case
 
@@ -1189,6 +1190,9 @@ bool LLAppViewer::cleanup()
 	
 	//clear all the chat off the screen	
 	gConsole->clear();
+
+	// Cleaned up elsewhere
+	gAOInvTimer = NULL;
 
 	//if we are doing a soft cleanup, bail here
 	// But clean up the messaging system first -- MC
