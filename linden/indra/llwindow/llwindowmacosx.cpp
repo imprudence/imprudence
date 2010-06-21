@@ -318,7 +318,7 @@ LLWindowMacOSX::LLWindowMacOSX(const std::string& title, const std::string& name
 	stop_glerror();
 }
 
-void LLWindowSDL::setWindowTitle(std::string &title)
+void LLWindowMacOSX::setWindowTitle(std::string &title)
 {
 	CFStringRef string = CFStringCreateWithCString(NULL, title.c_str(), kCFStringEncodingUTF8);
 	SetWindowTitleWithCFString(mWindow, string);
