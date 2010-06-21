@@ -557,6 +557,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("libneon.27.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
+                self.path("libopenjpeg.1.4.dylib")
                 self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")

@@ -1286,9 +1286,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>23313fda213a2496945435db2a0ee78b</string>
+            <string>f897280ac9338127ff90198e0e2e6d1c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3.0-darwin-20090501.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4.565-darwin-20100620.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
