@@ -1163,9 +1163,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>ae91786e70ddf85caed4f6d3f249f86c</string>
+            <string>88eec3965fc2384436192faef1db2629</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-darwin-20091108.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-darwin-20100620.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
