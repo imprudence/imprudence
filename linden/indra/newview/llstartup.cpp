@@ -1394,7 +1394,7 @@ bool idle_startup()
 		default:
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
-				emsg << "Unable to connect to " << LLAppViewer::instance()->getSecondLifeTitle() << ".\n";
+				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridNick() << ".\n";
 				emsg << LLUserAuth::getInstance()->errorMessage();
 			} else {
 				sAuthUriNum++;
