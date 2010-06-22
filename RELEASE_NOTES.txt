@@ -4,6 +4,373 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 5                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    NEW FEATURES
+
+      * Animation Overrider (AO) can now be enabled/disabled from the
+        toolbar. Thanks, McCabe!
+
+      * Added support for Alpha and Tattoo layers. Thanks for the
+        patch, Henri Beauchamp, and Armin for applying it!
+
+      * Align planar textures in build window. Allows texture
+        alignment across multiple prims when planar textures are used.
+        Thanks for the patch, Thickbrick Sleaford!
+
+      * Added "File > Minimize All" to minimizes all open windows.
+        Thanks, McCabe!
+
+      * Added "Advanced > Rendering > Animate Trees" to enables Linden
+        tree swaying (warning: more cpu intensive). Thanks, McCabe!
+
+      * Advanced > Rendering > Show Look At now shows the names of
+        avatars along with their look at beacon. Thanks to the Meerkat
+        Viewer for developing this feature and Tom Meta for porting
+        it!
+
+      * Added "Advanced > Character > Private Look/Point At" to
+        opt-out of sending look at/point at data. Thanks to Henri
+        Beauchamp for the patch, and McCabe for tweaking it!
+
+      * Added "Advanced > Crash menu for triggering viewer crashes.
+        Thanks, Armin!
+
+      * Added "TP To..." button in the radar Avatar tab to teleport to
+        an avatar's position. Thanks, Armin!
+
+      * Added "Cam To..." button in the radar Estate tab to cam to an
+        avatar's position. Thanks, McCabe!
+
+      * Added "Reset All Preferences" button in Preferences >
+        Advanced. Thanks, McCabe!
+
+      * Added "Titles..." button in the group window for selecting
+        your group title titles. Thanks for the patch, Henri
+        Beauchamp!
+
+      * Added "Invisible" button in the texture picker. Thanks for the
+        patch, Henri Beauchamp!
+
+      * Added "Preferences > General > Go away/AFK when idle". Thanks,
+        Armin!
+
+      * Added "Preferences > Input & Camera > Disable minimum zoom
+        distance" to disable the "push" when zooming close to/inside
+        prims. Thanks, McCabe!
+
+      * Moved "Mute wind" into Preferences > Audio & Video and renamed
+        it to "Enable wind generation". Thanks, McCabe!
+
+
+    OPENSIM-SPECIFIC CHANGES
+
+      * Added new currency button in the status bar (currently shows
+        OS$ on OpenSim, L$ on Second Life). Thanks, McCabe!
+
+      * Added support for tiny/nano prims (0.001m small). Thanks,
+        McCabe!
+
+      * Added support for LightShare. Thanks, Tom Meta and the Meta7
+        team!
+
+      * Added "Preferences > Advanced > Use server-side Windlight
+        settings" to toggles LightShare. Thanks, Tom Meta!
+
+      * Added "Advanced > Disable Max Build Constraints" to disable
+        the viewer-side size limit on megaprims. Thanks, McCabe!
+
+      * Added support for linking more than 255 prims at once. Thanks,
+        Armin!
+
+      * Added support for OpenSim-specific functions and their
+        tooltips in the script editor. Thanks to WhiteStar and Meerkat
+        for the info and Jacek for cleaning up the tooltips!
+
+      * Viewer no longer gets stuck at "Connecting to region..." when
+        logging in. Thanks, McCabe!
+
+      * Workaround for 1.23-based viewers not being able to toggle
+        voice parcel settings on OpenSim. Thanks, McCabe!
+
+
+    OTHER CHANGES
+
+      * Changed View > AO to View > Animation Overrider Thanks,
+        McCabe!
+
+      * Changed "Copy Key" in the profile window to also say the name
+        of the avatar and the key in chat. Thanks, McCabe!
+
+      * Several changes to reduce log spam. Thanks, McCabe!
+
+      * Moved Admin options into Advanced > Admin Options submenu.
+        Thanks, McCabe!
+
+      * Double-clicking in the radar's Estate tab now cams to the
+        selected avatar. Thanks, McCabe!
+
+      * Increased the default mini-map width. Thanks, McCabe!
+
+      * Changed the new server version popup show as chat instead.
+        This behavior can be altered by toggling the
+        ServerVersionChangedNotify and ServerVersionChangedChat Debug
+        Settings. Thanks, Armin!
+
+      * Updated the viewer's version of OpenJpeg. Thanks, McCabe!
+
+      * Texture repeats can now be set up to 10,000. Thanks, McCabe!
+
+      * Camera now doesn't block your view when using Look At Last
+        Chatter. Thanks, Geneko Nameth!
+
+      * Included getvoice.sh for installing voice on Linux. Thanks,
+        Armin!
+
+      * Simulator camera "push" when moving around objects now ignored
+        by default. This behavior can be toggled with the
+        IgnoreSimulatorCameraConstraints Debug Setting. Thanks to the
+        Emerald Viewer for discovering this, and McCabe for porting
+        it!
+
+      * Changed the build math cheat sheet buttons from "?" to "Build
+        Math" so they're more discoverable. Thanks, McCabe!
+
+      * Moved "Output Debug Minidump" to Advanced > Crash menu.
+        Thanks, McCabe!
+
+      * Added "Reload All" button to Notifications Console for easier
+        debugging. Thanks, McCabe!
+
+      * Disabled editing appearance animation when standing up when
+        editing your appearance is also disabled. Thanks, McCabe!
+
+      * Increased the time it takes for tooltips to display. Thanks,
+        McCabe!
+
+      * Added a --cache command line flag to set cache location.
+        Thanks, Tom Meta!
+
+      * Your own nametag now uses the Imprudence color when client
+        detection is enabled. Thanks, McCabe!
+
+      * Advanced > Allow Multiple Instances now applies when toggled
+        (previously you had to relog for it to work). Thanks, McCabe!
+
+      * Avatar name now displayed in window title when Advanced >
+        Allow Multiple Instances is enabled. Thanks to the FrozenGlobe
+        Viewer for the patch, and McCabe for tweaking it!
+
+      * Made preferences follow Mac and Windows user interface
+        guidelines. Thanks, McCabe!
+
+      * Made menu ellipses follow standard user interface guidelines.
+        Thanks, McCabe!
+
+      * Moved "Legacy pie menus" into Preferences > Advanced. Thanks,
+        McCabe!
+
+      * Moved "Share language with objects" into Preferences >
+        Advanced. Thanks, McCabe!
+
+      * Added a new shortcut for creating landmarks: CTRL-SHIFT-D.
+        Thanks, McCabe!
+
+      * Changed "Continue" to "Cancel" when confirming quitting.
+        Thanks, McCabe!
+
+      * ClothingLayerProtection is now always enabled. Thanks, Armin!
+
+      * Automatically try logging in again when the "Login Failed. You
+        appear to be already logged in" error happens on OpenSim.
+        Thanks, McCabe!
+
+      * Windows installer now branded to Imprudence. Thanks, McCabe!
+
+      * Added UseKDUIfAvailable Debug Setting to switch between llkdu
+        and openjpeg on relog. Thanks, Tom Meta!
+
+
+    BUG FIXES
+
+      * Fix for "flashing" avatars, where a bake would switch between
+        white/texture repeatedly. Thanks, McCabe!
+
+      * Fix for corrupt textures on objects when using openjpeg.
+        Thanks, McCabe!
+
+      * Fix for crashing when camming around a sim. Thanks, McCabe!
+
+      * Several fixes for issues with malicious viewers use. Thanks,
+        McCabe, Armin, Robin Cornelius, and KirstenLee Cinquetti!
+
+      * Fixed radar spamming chat with "avatar is entering chat
+        range/sim" updates. Thanks, McCabe!
+
+      * Fixed radar showing avatars stuck as typing. Thanks, McCabe!
+
+      * Fixed radar not appearing in mouselook. Thanks, McCabe!
+
+      * Fixed radar not showing people in the list who are in the
+        mini-map. Thanks, McCabe!
+
+      * Fixed Autopilot > Move not working. Thanks, McCabe!
+
+      * Fixed crash when creating/loading WindLight presets with
+        spaces in their names. Thanks, McCabe!
+
+      * Fixed crash when updating WindLight after a teleport. Thanks,
+        McCabe!
+
+      * Fixed crash when sim crashes/disconnects. Thanks, Armin!
+
+      * Fixed crash in "Quit" confirmation after logout. Thanks,
+        Armin!
+
+      * Fixed crash when logging out with messages in the queue.
+        Thanks, McCabe!
+
+      * Fixed crash when using the Show Look At feature. Thanks,
+        McCabe!
+
+      * Fixed spinners in the Object, Features, and Textures build
+        tabs not updating after their contents are deleted. Thanks,
+        McCabe!
+
+      * Fixed Notifications Console missing from Advanced > Consoles.
+        Thanks, McCabe!
+
+      * Fixed group creation alert showing the price as
+        "GROUPCREATEFEE". Thanks, McCabe!
+
+      * Fixed issue with certain sit animations not playing (avatar
+        appears to be standing instead of being animated). Thanks,
+        McCabe!
+
+      * Fixed bad indentations in alerts and notifications. Thanks,
+        McCabe!
+
+      * Fixed the Infamous Wright Plaza Crash of Doom
+        (mRawImage.notNull() crash). Thanks for the patch, Robin
+        Cornelius, and the repro, Nebadon and Warin on OSGrid!
+
+      * Fixed confusing "opacity" sliders in Preferences > Text Chat.
+        Thanks, McCabe!
+
+      * Fixed Grid Manager failing to get grid info if the port
+        doesn't end in a slash ("/"). Thanks, McCabe!
+
+      * Fixed small typo in the AO template notecard. Thanks, McCabe!
+
+      * Fixed your own name being highlighted in Local Chat. Thanks,
+        McCabe!
+
+      * Fixed the status bar info "disappearing" when connecting after
+        a failed login. Thanks, McCabe!
+
+      * Fixed left-clicking attachments not moving the avatar. Thanks,
+        Armin!
+
+      * Fixed group notice history showing wrong icons for attached
+        inventory. Thanks, McCabe!
+
+      * Fixed the Advanced Build Window's Cancel and Apply buttons
+        being switched. Thanks, McCabe!
+
+      * Fixed Alpha layers not visible to other viewers when
+        ClothingLayerProtection enabled. Thanks to Emerald Viewer for
+        the fix!
+
+      * Fixed issue with Alpha layers and OpenSim. Thanks, Armin!
+
+      * Fixed HTTP textures not loading sculpties. Thanks for the
+        patch, Thickbrick Sleaford!
+
+      * Fixed "Gestures" button's tooltip not being informative.
+        Thanks, McCabe!
+
+      * Fixed "You Have Been Disconnecting From The Region" causing
+        the viewer to quit while logging into an OpenSim that won't
+        let you in. Thanks, McCabe!
+
+      * Fixed glib and gtk not being friendly on Debian Lenny 32bit.
+        Thanks, Armin!
+
+      * Fixed Animation Overrider not starting on login. Thanks,
+        McCabe!
+
+
+    KNOWN ISSUES
+
+      * Sometimes an avatar's textures stay "white" for an extended
+        period of time with ClothingLayerProtection enabled. The
+        workaround is to set this to FALSE in Advanced > Debug
+        Settings.
+
+      * Eyes get stuck looking sideways with Private Look At enabled.
+
+      * Tooltips don't disappear with mouseclicks or when your mouse
+        moves from a specific control. The workaround for this is to
+        clear the tooltip with your mousewheel or set ToolTipDelay to
+        999999 in the Debug Settings.
+
+      * Some animations may not display their joints correctly.
+
+      * Creating new Alpha or Tattoo layers only works in the
+        Inventory.
+
+      * Avatar layers may appear invisible when using HTTP textures.
+        The workaround for this is to copy llkdu from a Second Life
+        1.23 install into the main Imprudence folder.
+
+      * While sitting on an object, your avatar may appear invisible
+        to users of unpatched viewers based on 1.22 or lower, such as
+        Hippo Viewer 5.0.1. See VWR-9137 for more info.
+
+      * Streaming audio/video that use the AAC codec will have no
+        sound. This is caused by our inability to distribute
+        libgstfaad due to licensing reasons.
+
+      * Sometimes inworld sounds (OpenAL) stops working on Windows XP.
+        A relog usually fixes the problem.
+
+
+    KNOWN ISSUES WITH OPENSIM
+
+      If you're using Imprudence to explore the larger metaverse, here
+      are a few OpenSim bugs that you should be aware of:
+
+      * Clearing cache causes "body parts not found" error and your
+        avatar to login as a cloud. This will also happen on first
+        login to many OpenSim grids. The workaround is to change your
+        shape then relog.
+
+      * Megaregion teleports fail except in the root (SW) region.
+
+      * The "Cancel" button does not appear during teleports.
+
+      * When sitting, the camera's default center is the root prim,
+        not the prim you're actually sitting on.
+
+      * OpenSims using CS2JK to bake avatar textures might corrupt an
+        avatar's appearance (looking "rainbow" or "checker-boarded")
+        when using openjpeg. A rebake will generally fix this.
+
+      * Sometimes OpenSim loses an avatar's appearance, causing
+        changing clothing to fail and the avatar to permanently look
+        white, even after a rebake or a relog.
+
+      * Sometimes prims or land become corrupted (i.e. look
+        "rainbow"). The workaround for this is to copy llkdu from a
+        Second Life 1.23 install into the main Imprudence folder.
+
+      * Creating new outfits causes the viewer to crash on OpenSim.
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                     1.3.0 BETA 4                       -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
