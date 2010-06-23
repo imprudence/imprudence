@@ -2100,6 +2100,7 @@ bool idle_startup()
 
 		// Drop out if we can't connect -- MC
 		connecting_region_timer.start();
+		connecting_region_timer.setTimerExpirySec(10.0f);
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
 
 		timeout.reset();
@@ -2113,7 +2114,7 @@ bool idle_startup()
 	if (STATE_AGENT_WAIT == LLStartUp::getStartupState())
 	{
 		LL_DEBUGS("AppInitStartupState") << "STATE_AGENT_WAIT" << LL_ENDL;
-		if (connecting_region_timer.getElapsedTimeF32() > 10.0f)
+		if (connecting_region_timer.hasExpired())
 		{
 			// Bounce back to the login screen -- MC
 			LL_WARNS("AppInit") << "Bad login - can't connect to this region for some reason" << LL_ENDL;
@@ -2124,6 +2125,7 @@ bool idle_startup()
 			//this might be redundant
 			LLStartUp::setShouldAutoLogin(false);
 			show_connect_box = true;
+			connecting_region_timer.stop();
 			connecting_region_timer.reset();
 		}
 
@@ -2149,7 +2151,7 @@ bool idle_startup()
 		if (gAgentMovementCompleted)
 		{
 			LLStartUp::setStartupState( STATE_INVENTORY_SEND );
-			connecting_region_timer.reset();
+			connecting_region_timer.stop();
 		}
 
 		return FALSE;
