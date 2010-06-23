@@ -3331,18 +3331,14 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	// set our upstream host the new simulator and shuffle things as
 	// appropriate.
-	// Sometimes OpenSim will get here but still fail on a teleport -- MC
-	if (regionp != gAgent.getRegion())
-	{
-		LLVector3 shift_vector = regionp->getPosRegionFromGlobal(
-			gAgent.getRegion()->getOriginGlobal());
-		gAgent.setRegion(regionp);
-		gObjectList.shiftObjects(shift_vector);
-		gAssetStorage->setUpstream(msg->getSender());
-		gCacheName->setUpstream(msg->getSender());
-		gViewerThrottle.sendToSim();
-		gViewerWindow->sendShapeToSim();
-	}
+	LLVector3 shift_vector = regionp->getPosRegionFromGlobal(
+		gAgent.getRegion()->getOriginGlobal());
+	gAgent.setRegion(regionp);
+	gObjectList.shiftObjects(shift_vector);
+	gAssetStorage->setUpstream(msg->getSender());
+	gCacheName->setUpstream(msg->getSender());
+	gViewerThrottle.sendToSim();
+	gViewerWindow->sendShapeToSim();
 
 	bool is_teleport = gAgent.getTeleportState() == LLAgent::TELEPORT_MOVING;
 

@@ -1809,13 +1809,8 @@ bool idle_startup()
 		regionp->setSeedCapability(first_sim_seed_cap);
 		LL_DEBUGS("AppInit") << "Waiting for seed grant ...." << LL_ENDL;
 		
-		// Set agent's initial region to be the one we just created
-		// Only if we don't already have one set. We want to catch this here
-		// because setRegion calls removeRegion, which kills the viewer -- MC
-		if (!gAgent.getRegion() && gAgent.getRegion() != regionp)
-		{
-			gAgent.setRegion(regionp);
-		}
+		// Set agent's initial region to be the one we just created.
+		gAgent.setRegion(regionp);
 
 		// Set agent's initial position, which will be read by LLVOAvatar when the avatar
 		// object is created.  I think this must be done after setting the region.  JC
@@ -3629,7 +3624,6 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 #define RTNENUM(E) case E: return #E
 	switch(state){
 		RTNENUM( STATE_FIRST );
-		RTNENUM( STATE_BROWSER_INIT );
 		RTNENUM( STATE_LOGIN_SHOW );
 		RTNENUM( STATE_LOGIN_WAIT );
 		RTNENUM( STATE_LOGIN_CLEANUP );
@@ -3640,7 +3634,6 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 		RTNENUM( STATE_LOGIN_DOWNLOADING );
 		RTNENUM( STATE_LOGIN_PROCESS_RESPONSE );
 		RTNENUM( STATE_WORLD_INIT );
-		RTNENUM( STATE_MULTIMEDIA_INIT );
 		RTNENUM( STATE_SEED_GRANTED_WAIT );
 		RTNENUM( STATE_SEED_CAP_GRANTED );
 		RTNENUM( STATE_WORLD_WAIT );

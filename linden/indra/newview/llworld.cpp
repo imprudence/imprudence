@@ -43,9 +43,7 @@
 #include "lldrawpool.h"
 #include "llglheaders.h"
 #include "llhttpnode.h"
-#include "llpanellogin.h"
 #include "llregionhandle.h"
-#include "llstartup.h"
 #include "llsurface.h"
 #include "llviewercamera.h"
 #include "llviewerimage.h"
@@ -86,7 +84,6 @@ const F32 LLWorld::mWidthInMeters = mWidth * mScale;
 //
 // Functions
 //
-bool connecting_alert_done(const LLSD& notification, const LLSD& response);
 
 // allocate the stack
 LLWorld::LLWorld() :
@@ -266,19 +263,7 @@ void LLWorld::removeRegion(const LLHost &host)
 		llwarns << "gFrameTimeSeconds " << gFrameTimeSeconds << llendl;
 
 		llwarns << "Disabling region " << regionp->getName() << " that agent is in!" << llendl;
-		
-		// Don't ever forceQuit on the user during startup if we can avoid it -- MC
-		//LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
-		// We stop a login, even if it's a successful one, as the expected behavior is to not receive
-		// any more messages from a sim when we receive the DisableSimulator message, despite the viewer
-		// continuing to connect anyway -- MC
-		if (LLStartUp::getStartupState() < STATE_STARTED)
-		{
-			//LLStartUp::setLoginFailed(true);
-			LLStartUp::setStartupState(STATE_SEED_GRANTED_WAIT);
-		}
-		LLNotifications::instance().add("DisconnectedFromRegion", LLSD(), LLSD(), connecting_alert_done);
-
+		LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
 		return;
 	}
 
@@ -1258,20 +1243,6 @@ void LLWorld::getAvatars(std::vector<LLUUID>* avatar_ids, std::vector<LLVector3d
 	}
 }
 
-bool connecting_alert_done(const LLSD& notification, const LLSD& response)
-{
-	if (LLStartUp::getStartupState() < STATE_STARTED)
-	{
-		LLStartUp::resetLogin();
-		LLPanelLogin::giveFocus();
-	}
-	else
-	{
-		// TODO: make this translatable
-		LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in. Unable to continue.");
-	}
-	return false;
-}
 
 LLHTTPRegistration<LLEstablishAgentCommunication>
 	gHTTPRegistrationEstablishAgentCommunication(
