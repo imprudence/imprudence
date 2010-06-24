@@ -3,7 +3,7 @@
 	<menu_item_call enabled="true" label="Profile..." name="Profile...">
 		<on_click function="ShowAgentProfile" userdata="agent" />
 	</menu_item_call>
-	<menu_item_call enabled="true" label="Groups..." name="Groups...">
+	<menu_item_call enabled="true" label="Groups" name="Groups">
 		<on_click function="ShowAgentGroups" userdata="agent" />
 	</menu_item_call>
   <menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Attachment Touch">
@@ -14,7 +14,7 @@
     <on_click function="Self.StandUp" userdata="" />
     <on_enable function="Self.EnableStandUp" />
   </menu_item_call>
-  <menu_item_call enabled="true" label="Friends..." name="Friends...">
+  <menu_item_call enabled="true" label="Friends" name="Friends">
     <on_click function="ShowFloater" userdata="friends" />
   </menu_item_call>
   <menu_item_call enabled="true" label="Appearance..." name="Appearance...">
