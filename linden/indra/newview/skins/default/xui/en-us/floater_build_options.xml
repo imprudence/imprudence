@@ -12,11 +12,11 @@
        name="text_box7" v_pad="0" width="150">        Grid Options:</text>
   <spinner bottom="-60" decimal_digits="3"
 	     follows="left|top" height="16" increment="0.1" initial_val="1"
-	     label="Grid units (m):" label_width="90" left="21" max_val="5"
+	     label="Grid units (m):" label_width="90" left="21" max_val="1000"
 	     min_val="0.01" mouse_opaque="true" name="GridResolution" width="155" />
 	<spinner bottom_delta="-20" decimal_digits="1"
 	     follows="left|top" height="16" increment="0.5" initial_val="5"
-	     label="Grid extents (m):" label_width="90" left_delta="0" max_val="50"
+	     label="Grid extents (m):" label_width="90" left_delta="0" max_val="10000"
        min_val="1" mouse_opaque="true" name="GridDrawSize" width="155" />
   <check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
