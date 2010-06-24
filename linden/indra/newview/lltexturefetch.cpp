@@ -1224,14 +1224,22 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 				mFormattedImage = NULL; // discard any previous data we had
 				mBufferSize = data_size;
 			}
+			mRequestedSize = data_size;
 		}
 		else
 		{
 			// We requested data but received none (and no error),
-			// so presumably we have all of it
-			mHaveAllData = TRUE;
+			if (mFormattedImage.notNull() && mFormattedImage->getDataSize() > 0)
+			{
+				// but have earlier data, so presumably we have it all.
+				mRequestedSize = 0;
+				mHaveAllData = TRUE;
+			}
+			else
+			{
+				mRequestedSize = -1;	// treat this fetch as if it failed.
+			}
 		}
-		mRequestedSize = data_size;
 	}
 	else
 	{
