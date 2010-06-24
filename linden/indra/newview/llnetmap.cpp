@@ -71,9 +71,11 @@
 
 #include "llglheaders.h"
 
+#include "hippoLimits.h"
+
 const F32 MAP_SCALE_MIN = 32;
 const F32 MAP_SCALE_MID = 1024;
-const F32 MAP_SCALE_MAX = 4096;
+//const F32 MAP_SCALE_MAX = 4096; Now uses the max height value from hippo limits
 const F32 MAP_SCALE_INCREMENT = 16;
 const F32 MAP_SCALE_ZOOM_FACTOR = 1.25f;			// Zoom in factor per click of the scroll wheel (25%)
 const F32 MAP_MINOR_DIR_THRESHOLD = 0.08f;
@@ -603,7 +605,7 @@ BOOL LLNetMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	F32 scale = mScale;
 	
 	scale *= pow(MAP_SCALE_ZOOM_FACTOR, -clicks);
-	setScale(llclamp(scale, MAP_SCALE_MIN, MAP_SCALE_MAX));
+	setScale(llclamp(scale, MAP_SCALE_MIN, gHippoLimits->getMaxHeight()));
 
 	return TRUE;
 }
@@ -969,7 +971,7 @@ bool LLNetMap::LLScaleMap::handleEvent(LLPointer<LLEvent> event, const LLSD& use
 		self->setScale(MAP_SCALE_MID);
 		break;
 	case 2:
-		self->setScale(MAP_SCALE_MAX);
+		self->setScale(gHippoLimits->getMaxHeight());
 		break;
 	default:
 		break;
