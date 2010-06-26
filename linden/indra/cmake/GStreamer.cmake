@@ -71,18 +71,6 @@ else (WINDOWS)
     use_prebuilt_binary(neon)
     use_prebuilt_binary(theora)
 
-    find_library( XML2_LIB
-      NAMES xml2.2
-      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-      NO_DEFAULT_PATH
-      DOC "libxml2 dynamic library / shared object" )
-
-    if (NOT XML2_LIB)
-      message(FATAL_ERROR "libxml2 not found!")
-    else (NOT XML2_LIB)
-      #message(STATUS "libxml2 found: ${XML2_LIB}")
-    endif (NOT XML2_LIB)
-
     set(GSTREAMER_LIBRARIES
         gstvideo-0.10
         gstaudio-0.10
@@ -92,7 +80,7 @@ else (WINDOWS)
         gmodule-2.0
         gthread-2.0
         glib-2.0
-        ${XML2_LIB}
+        xml2.2
         )
 
   else (DARWIN) # Linux
