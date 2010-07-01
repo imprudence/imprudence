@@ -57,6 +57,10 @@ LLFloaterJoystick::LLFloaterJoystick(const LLSD& data)
 void LLFloaterJoystick::draw()
 {
 	bool joystick_inited = LLViewerJoystick::getInstance()->isJoystickInitialized();
+	if (!joystick_inited)
+	{
+		 joystick_inited = LLViewerJoystick::getInstance()->init(false);
+	}
 	childSetEnabled("enable_joystick", joystick_inited);
 	childSetEnabled("joystick_type", joystick_inited);
 	std::string desc = LLViewerJoystick::getInstance()->getDescription();

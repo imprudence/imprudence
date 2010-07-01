@@ -175,10 +175,11 @@ LLViewerJoystick::~LLViewerJoystick()
 }
 
 // -----------------------------------------------------------------------------
-void LLViewerJoystick::init(bool autoenable)
+bool LLViewerJoystick::init(bool autoenable)
 {
-#if LIB_NDOF
+
 	static bool libinit = false;
+#if LIB_NDOF
 	mDriverState = JDS_INITIALIZING;
 
 	if (libinit == false)
@@ -275,6 +276,7 @@ void LLViewerJoystick::init(bool autoenable)
 	llinfos << "ndof: mDriverState=" << mDriverState << "; mNdofDev=" 
 			<< mNdofDev << "; libinit=" << libinit << llendl;
 #endif
+	return libinit;
 }
 
 // -----------------------------------------------------------------------------
