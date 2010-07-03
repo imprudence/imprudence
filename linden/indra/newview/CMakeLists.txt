@@ -1145,6 +1145,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_land_holdings.xml
     skins/default/xui/en-us/floater_landmark_ctrl.xml
     skins/default/xui/en-us/floater_live_lsleditor.xml
+    skins/default/xui/en-us/floater_login.xml
     skins/default/xui/en-us/floater_lsl_guide.xml
     skins/default/xui/en-us/floater_media_browser.xml
     skins/default/xui/en-us/floater_mini_map.xml
@@ -1219,7 +1220,6 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/menu_pie_avatar.xml
     skins/default/xui/en-us/menu_pie_hud.xml
     skins/default/xui/en-us/menu_pie_land.xml
-    skins/default/xui/en-us/menu_mini_map.xml
     skins/default/xui/en-us/menu_pie_object.xml
     skins/default/xui/en-us/menu_pie_self.xml
     skins/default/xui/en-us/menu_slurl.xml
