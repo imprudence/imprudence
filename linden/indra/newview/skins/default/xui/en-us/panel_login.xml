@@ -24,7 +24,7 @@
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
 	      font="SansSerifSmall" mouse_opaque="true">
-		Start Location:
+		Start location:
 	</text>
 	<combo_box name="start_location_combo"
              bottom_delta="2" left="120" height="16" width="150"
@@ -50,7 +50,7 @@
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
 	      font="SansSerif" mouse_opaque="true">
-		First Name:
+		First name:
 	</text>
 	<line_editor name="first_name_edit" 
                bottom_delta="-20" left_delta="0" height="20" width="120"
@@ -69,7 +69,7 @@
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
 	      font="SansSerif" mouse_opaque="true">
-		Last Name:
+		Last name:
 	</text>
 	<line_editor name="last_name_edit" 
                bottom_delta="-20" left_delta="0" height="20" width="120"
