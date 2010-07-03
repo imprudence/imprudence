@@ -652,6 +652,17 @@ bool LLAppViewer::init()
 	{
 		LLError::setPrintLocation(true);
 	}
+
+	// ZWAGOTH: This resolves a bunch of skin updating problems and makes skinning
+	// SIGNIFICANLTLY easier. User colors > skin colors > default skin colors.
+	// This also will get rid of the Invalid control... spam when a skin doesn't have that color
+	// setting defined as long as we keep the default skin up to date. Maybe make invalid controls
+	// errors again?
+	std::string default_base_filename = gDirUtilp->getExpandedFilename(LL_PATH_SKINS,
+																	   "default",
+																	   "colors_base.xml");
+	LL_DEBUGS("InitInfo") << "Loading default base colors from " << default_base_filename << LL_ENDL;
+	 gColors.loadFromFileLegacy(default_base_filename, FALSE, TYPE_COL4U);
 	
 	// Load art UUID information, don't require these strings to be declared in code.
 	std::string colors_base_filename = gDirUtilp->findSkinnedFilename("colors_base.xml");
