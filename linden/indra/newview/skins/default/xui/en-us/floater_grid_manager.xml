@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater can_close="false" can_drag_on_left="false" can_minimize="false"
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="true" height="400" min_height="400" min_width="600"
-     name="floater_login" title="plasticwuzhere" width="600">
+     name="floater_login" title="Grid Manager" width="600">
 
   <!-- Grid Selector -->
   <text type="string" length="1" enabled="true" name="grid_selector_label"
@@ -244,14 +244,17 @@
 	     left="280" mouse_opaque="true" name="connect_btn" scale_image="TRUE"
 	     width="100" />  -->
   <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
-     height="24" label="Ok" label_selected="Apply" left="280"
+     height="24" label="Apply" label_selected="Apply" left="-108"
+     mouse_opaque="true" name="btn_apply" scale_image="TRUE" width="100" />
+  <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
+     height="24" label="Cancel" label_selected="Cancel" left_delta="-104"
+     mouse_opaque="true" name="btn_cancel" scale_image="TRUE" width="100" />
+  <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
+     height="24" label="OK" label_selected="OK" left_delta="-104"
      mouse_opaque="true" name="btn_ok" scale_image="TRUE" width="100" />
   <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
-     height="24" label="Apply" label_selected="Apply" left="385"
-     mouse_opaque="true" name="btn_apply" scale_image="TRUE" width="100" />
-	<button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
-	     height="24" label="Undo" label_selected="Undo" left="490"
-	     mouse_opaque="true" name="btn_cancel" scale_image="TRUE" width="100" />
+     height="24" label="Clear" label_selected="Clear" left_delta="-104"
+     mouse_opaque="true" name="btn_clear" scale_image="TRUE" width="100" />
   <!--
 	<combo_box allow_text_entry="true" bottom="32" follows="left|bottom" height="18"
 	     left_delta="135" max_chars="40" mouse_opaque="true"

@@ -38,8 +38,7 @@
 
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
-
-#include "floaterlogin.h"
+#include "floatergridmanager.h"
 
 #include "indra_constants.h"		// for key and mask constants
 #include "llfontgl.h"
@@ -1006,7 +1005,8 @@ void LLPanelLogin::onClickGrid(void *)
 {
 	if (sInstance && sInstance->mCallback)
 	{
-		LoginFloater::newShow(std::string("Test"), false);
+		FloaterGridManager::getInstance()->open();
+		FloaterGridManager::getInstance()->center();
 	}
 }
 

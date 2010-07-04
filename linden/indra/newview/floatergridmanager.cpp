@@ -1,0 +1,750 @@
+/*
+ *  floatergridmanager.cpp
+ *  This is Meerkats grid manager.
+ *  -Patrick Sapinski (Monday, August 17, 2009)
+ *
+ *  Modified by McCabe Maxsted for Imprudence
+ */
+
+#include "llviewerprecompiledheaders.h"
+
+#include "floatergridmanager.h"
+
+#include <boost/algorithm/string.hpp>
+#include "llviewercontrol.h"
+#include "llcombobox.h"
+#include "llscrolllistctrl.h"
+#include "llmd5.h"
+#include "llurlsimstring.h"
+#include "lluictrlfactory.h"
+#include "hippoGridManager.h"
+#include "llviewernetwork.h"
+#include "llpanellogin.h"
+
+#define PASSWORD_FILLER "123456789!123456"
+
+LoginController* FloaterGridManager::sController = NULL;
+bool FloaterGridManager::sIsInitialLogin;
+std::string FloaterGridManager::sGrid;
+
+FloaterGridManager::FloaterGridManager(const LLSD& key)
+:	mState(NORMAL),
+	mCurGrid(gHippoGridManager->getCurrentGridNick()),
+	mIncomingPassword(""),
+	mMungedPassword("")
+{
+	llinfos << "Opening grid manager" << llendl;
+
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_grid_manager.xml");
+	center();
+
+	LLLineEditor* edit = getChild<LLLineEditor>("avatar_password_edit");
+	if (edit)
+	{
+		edit->setDrawAsterixes(TRUE);
+	}
+}
+
+
+FloaterGridManager::~FloaterGridManager()
+{
+	FloaterGridManager::sController = NULL;
+}
+
+BOOL FloaterGridManager::postBuild()
+{
+	/*requires<LLScrollListCtrl>("grid_selector");
+	requires<LLLineEditor>("gridnick");
+	requires<LLLineEditor>("gridname");
+	requires<LLLineEditor>("loginuri");
+	requires<LLLineEditor>("loginpage");
+	requires<LLLineEditor>("helperuri");
+	requires<LLLineEditor>("website");
+	requires<LLLineEditor>("support");
+	requires<LLLineEditor>("register");
+	requires<LLLineEditor>("password");
+	requires<LLLineEditor>("first_name");
+	requires<LLLineEditor>("last_name");
+	requires<LLLineEditor>("avatar_password");
+	//requires<LLLineEditor>("search");
+	requires<LLButton>("btn_delete");
+	requires<LLButton>("btn_add");
+	requires<LLButton>("btn_copy");
+	requires<LLButton>("set_default");
+	requires<LLButton>("btn_gridinfo");*/
+	//requires<LLButton>("btn_help_render_compat");
+
+	/*if (!checkRequirements())
+	{
+		return false;
+	}*/
+
+	LLLineEditor* password_edit = getChild<LLLineEditor>("avatar_password");
+	if (password_edit)
+	{
+		password_edit->setDrawAsterixes(TRUE);
+	}
+
+	childSetAction("btn_delete", onClickDelete, this);
+	childSetAction("btn_add", onClickAdd, this);
+	childSetAction("btn_copy", onClickCopy, this);
+	childSetAction("btn_ok", onClickOk, this);
+	childSetAction("btn_apply", onClickApply, this);
+	// childSetAction("set_default", onClickDefault, this); // We use the last selected grid as the default
+	childSetAction("btn_cancel", onClickCancel, this);
+	childSetAction("btn_clear", onClickClear, this);
+	childSetAction("btn_gridinfo", onClickGridInfo, this);
+	// childSetAction("btn_help_render_compat", onClickHelpRenderCompat, this); // Ugly ugly ugly
+
+	childSetCommitCallback("grid_selector", onSelectGrid, this);
+	LLScrollListCtrl* combo = getChild<LLScrollListCtrl>("grid_selector");
+	combo->setFocus(TRUE);
+
+	refreshGrids();
+
+	return TRUE;
+}
+
+void FloaterGridManager::refreshGrids()
+{
+	const std::string &defaultGrid = gHippoGridManager->getDefaultGridNick();
+	LLScrollListCtrl *grids = FloaterGridManager::getInstance()->getChild<LLScrollListCtrl>("grid_selector");
+	grids->deleteAllItems();
+
+	S32 selectIndex = -1;
+	S32 i = 0;
+	if (defaultGrid != "") 
+	{
+		LLSD value;
+		value["id"] = defaultGrid;
+		value["columns"][0]["column"] = "grid";
+		value["columns"][0]["value"] = defaultGrid;
+		grids->addElement(value);
+		selectIndex = i++;
+	}
+	
+	HippoGridManager::GridIterator it = gHippoGridManager->beginGrid();
+	HippoGridManager::GridIterator end = gHippoGridManager->endGrid();
+	for (it; it != end; ++it) 
+	{
+		const std::string &grid = it->second->getGridNick();
+		if (grid != defaultGrid) 
+		{
+			LLSD value;
+			value["id"] = grid;
+			value["columns"][0]["column"] = "grid";
+			value["columns"][0]["value"] = grid;
+			grids->addElement(value);
+
+			if (grid == FloaterGridManager::getInstance()->getCurGrid())
+			{
+				selectIndex = i;
+			}
+			i++;
+		}
+	}
+
+	if ((FloaterGridManager::getInstance()->getState() == ADD_NEW) || (FloaterGridManager::getInstance()->getState() == ADD_COPY)) 
+	{
+		grids->addElement("<new>");
+		selectIndex = i++;
+	}
+
+	//if (selectIndex >= 0) 
+	//{
+	//	grids->setCurrentByIndex(selectIndex);
+	//} 
+	//else 
+	//{
+	//	grids->setLabel(LLStringExplicit(""));  // LLComboBox::removeall() does not clear the label
+	//}
+			
+	// FloaterGridManager::getInstance()->childSetTextArg("default_grid", "[DEFAULT]", (defaultGrid != "")? defaultGrid: " ");
+
+	FloaterGridManager::getInstance()->childSetEnabled("btn_delete", (selectIndex >= 0));
+	FloaterGridManager::getInstance()->childSetEnabled("btn_copy", (FloaterGridManager::getInstance()->getState() == NORMAL) && (selectIndex >= 0));
+	// FloaterGridManager::getInstance()->childSetEnabled("set_default", (FloaterGridManager::getInstance()->getState() == NORMAL) && (selectIndex > 0));
+	FloaterGridManager::getInstance()->childSetEnabled("gridnick", (FloaterGridManager::getInstance()->getState() == ADD_NEW) || (FloaterGridManager::getInstance()->getState() == ADD_COPY));
+
+	if (FloaterGridManager::getInstance()->getState() == NORMAL) 
+	{
+		HippoGridInfo *gridInfo = gHippoGridManager->getGrid(FloaterGridManager::getInstance()->getCurGrid());
+		if (gridInfo) 
+		{
+			FloaterGridManager::getInstance()->childSetText("gridnick", gridInfo->getGridNick());
+			//FloaterGridManager::getInstance()->childSetText("grid_name", gridInfo->getGridName());
+			FloaterGridManager::getInstance()->childSetText("loginuri", gridInfo->getLoginUri());
+			FloaterGridManager::getInstance()->childSetText("loginpage", gridInfo->getLoginPage());
+			FloaterGridManager::getInstance()->childSetText("helperuri", gridInfo->getHelperUri());
+			FloaterGridManager::getInstance()->childSetText("website", gridInfo->getWebSite());
+			FloaterGridManager::getInstance()->childSetText("support", gridInfo->getSupportUrl());
+			FloaterGridManager::getInstance()->childSetText("register", gridInfo->getRegisterUrl());
+			FloaterGridManager::getInstance()->childSetText("password", gridInfo->getPasswordUrl());
+
+			// FloaterGridManager::getInstance()->childSetText("first_name", gridInfo->getFirstName());
+			// FloaterGridManager::getInstance()->childSetText("last_name", gridInfo->getLastName());
+			// if(gridInfo->getAvatarPassword().length() == 32)
+			// 	FloaterGridManager::getInstance()->childSetText("avatar_password", std::string(PASSWORD_FILLER));
+			// else if(gridInfo->getPasswordUrl().empty())
+			// 	FloaterGridManager::getInstance()->childSetText("avatar_password", std::string(""));
+
+			// if (gridInfo->getPlatform() == HippoGridInfo::PLATFORM_SECONDLIFE) {
+			// 	//childSetEnabled("search", false);
+			// 	//childSetText("search", LLStringExplicit(""));
+			// 	childSetEnabled("render_compat", false);
+			// 	childSetValue("render_compat", false);
+			// } else {
+			// 	//childSetEnabled("search", true);
+			// 	//childSetText("search", gridInfo->getSearchUrl());
+			// 	childSetEnabled("render_compat", true);
+			// 	childSetValue("render_compat", gridInfo->isRenderCompat());
+			// }
+
+		}	
+		else 
+		{
+			std::string empty = "";
+			FloaterGridManager::getInstance()->childSetText("gridnick", empty);
+			FloaterGridManager::getInstance()->childSetText("gridname", empty);
+			FloaterGridManager::getInstance()->childSetText("loginuri", empty);
+			FloaterGridManager::getInstance()->childSetText("loginpage", empty);
+			FloaterGridManager::getInstance()->childSetText("helperuri", empty);
+			FloaterGridManager::getInstance()->childSetText("website", empty);
+			// FloaterGridManager::getInstance()->childSetText("first_name", empty);
+			// FloaterGridManager::getInstance()->childSetText("last_name", empty);
+			// FloaterGridManager::getInstance()->childSetText("avatar_password", empty);
+		}
+	} 
+	else if (FloaterGridManager::getInstance()->getState() == ADD_NEW) 
+	{
+		llinfos << "mState == ADD_NEW" << llendl;
+		std::string required = "<required>";
+		std::string empty = "";
+		FloaterGridManager::getInstance()->childSetText("gridnick", required);
+		FloaterGridManager::getInstance()->childSetText("gridname", empty);
+		FloaterGridManager::getInstance()->childSetText("loginuri", required);
+		FloaterGridManager::getInstance()->childSetText("loginpage", empty);
+		FloaterGridManager::getInstance()->childSetText("helperuri", empty);
+		FloaterGridManager::getInstance()->childSetText("website", empty);
+		FloaterGridManager::getInstance()->childSetText("support", empty);
+		FloaterGridManager::getInstance()->childSetText("register", empty);
+		FloaterGridManager::getInstance()->childSetText("password", empty);
+		// FloaterGridManager::getInstance()->childSetText("first_name", empty);
+		// FloaterGridManager::getInstance()->childSetText("last_name", empty);
+		// FloaterGridManager::getInstance()->childSetText("avatar_password", empty);
+		//childSetEnabled("search", true);
+		//childSetText("search", empty);
+	} 
+	else if (FloaterGridManager::getInstance()->getState() == ADD_COPY) 
+	{
+		llinfos << "mState == ADD_COPY" << llendl;
+		FloaterGridManager::getInstance()->childSetText("gridnick", LLStringExplicit("<required>"));
+	} 
+	else 
+	{
+		llwarns << "Illegal state " << FloaterGridManager::getInstance()->getState() << llendl; 	
+	}
+	return;
+}
+
+void FloaterGridManager::update()
+{
+	setState(NORMAL);
+	setCurGrid(gHippoGridManager->getCurrentGridNick());
+	refreshGrids();
+	//KOW gHippoLimits->setLimits();
+}
+
+void FloaterGridManager::applyChanges()
+{ 
+	HippoGridInfo* gridInfo = gHippoGridManager->getGrid(mCurGrid);
+	if (gridInfo) 
+	{
+		if (gridInfo->getGridNick() == childGetValue("gridnick").asString()) 
+		{
+			gridInfo->setGridName(childGetValue("gridname"));
+			gridInfo->setLoginUri(childGetValue("loginuri"));
+			gridInfo->setLoginPage(childGetValue("loginpage"));
+			gridInfo->setHelperUri(childGetValue("helperuri"));
+			gridInfo->setWebSite(childGetValue("website"));
+			gridInfo->setSupportUrl(childGetValue("support"));
+			gridInfo->setRegisterUrl(childGetValue("register"));
+			gridInfo->setPasswordUrl(childGetValue("password"));
+			//gridInfo->setSearchUrl(childGetValue("search"));
+			gridInfo->setRenderCompat(childGetValue("render_compat"));
+			
+			// gridInfo->setFirstName(childGetValue("first_name"));
+			// gridInfo->setLastName(childGetValue("last_name"));
+			// if(childGetValue("avatar_password").asString().empty())
+			// 	gridInfo->setAvatarPassword(std::string(""));
+			// else if(childGetValue("avatar_password").asString() != std::string(PASSWORD_FILLER))
+			// {
+			// 	// store account authentication data
+			// 	std::string auth_password = childGetValue("avatar_password");
+			// 	std::string hashed_password;
+			// 	hashPassword(auth_password, hashed_password);
+			// 	gridInfo->setAvatarPassword(hashed_password);
+			// }
+
+			//this bug was a feature -Patrick Sapinski (Friday, August 21, 2009)
+			//LLPanelLogin::setFields(gridInfo->getFirstName(), gridInfo->getLastName(),
+			//						gridInfo->getAvatarPassword(), true);
+		} 
+		else 
+		{
+			llwarns << "Grid nickname mismatch, ignoring changes." << llendl;
+		}
+	}
+}
+
+
+bool FloaterGridManager::createNewGrid()
+{
+	// check nickname
+	std::string gridnick = childGetValue("gridnick");
+	if (gridnick == "<required>") 
+	{
+		gridnick = "";
+	}
+
+	if (gridnick.empty()) 
+	{
+		//KOW gViewerWindow->alertXml("GridsNoNick");
+		return false;
+	}
+
+	if (gHippoGridManager->getGrid(gridnick)) 
+	{
+		//LLStringUtil::format_map_t args;
+		//args["[NAME]"] = gridnick;
+		//KOW gViewerWindow->alertXml("GridExists", args);
+		return false;
+	}
+
+	// check login URI
+	std::string loginuri = childGetValue("loginuri");
+	if ((loginuri.empty()) || (loginuri == "<required>")) 
+	{
+		//LLStringUtil::format_map_t args;
+		//args["[NAME]"] = gridnick;
+		//KOW gViewerWindow->alertXml("GridsNoLoginUri", args);
+		return false;
+	}
+
+	// create new grid
+	HippoGridInfo* grid = new HippoGridInfo(gridnick);
+	grid->setGridName(childGetValue("gridname"));
+	grid->setLoginUri(loginuri);
+	grid->setLoginPage(childGetValue("loginpage"));
+	grid->setHelperUri(childGetValue("helperuri"));
+	grid->setWebSite(childGetValue("website"));
+	grid->setSupportUrl(childGetValue("support"));
+	grid->setRegisterUrl(childGetValue("register"));
+	grid->setPasswordUrl(childGetValue("password"));
+	//grid->setSearchUrl(childGetValue("search"));
+	grid->setRenderCompat(childGetValue("render_compat"));
+	gHippoGridManager->addGrid(grid);
+	
+	// grid->setFirstName(childGetValue("first_name"));
+	// grid->setLastName(childGetValue("last_name"));
+	// if(childGetValue("avatar_password").asString().empty())
+	// 	grid->setAvatarPassword(std::string(""));
+	// else
+	// {
+	// 	std::string hashed_password;
+	// 	hashPassword(childGetValue("avatar_password"), hashed_password);
+	// 	grid->setAvatarPassword(hashed_password);
+	// }
+	
+	setCurGrid(gridnick);
+	return true;
+}
+
+void FloaterGridManager::retrieveGridInfo()
+{
+	std::string loginuri = childGetValue("loginuri");
+	if ((loginuri == "") || (loginuri == "<required>")) 
+	{
+		//KOW gViewerWindow->alertXml("GridInfoNoLoginUri");
+		return;
+	}
+
+	HippoGridInfo* grid = 0;
+	bool cleanupGrid = false;
+
+	if (mState == NORMAL) 
+	{
+		grid = gHippoGridManager->getGrid(mCurGrid);
+	} 
+	else if ((mState == ADD_NEW) || (mState == ADD_COPY)) 
+	{
+		grid = new HippoGridInfo("");
+		cleanupGrid = true;
+	} 
+	else 
+	{
+		llerrs << "Illegal state " << mState << '.' << llendl;
+		return;
+	}
+	if (!grid) 
+	{
+		llerrs << "Internal error retrieving grid info." << llendl;
+		return;
+	}
+
+	grid->setLoginUri(loginuri);
+	if (grid->retrieveGridInfo()) 
+	{
+		if (grid->getGridNick() != "") childSetText("gridnick", grid->getGridNick());
+		if (grid->getGridName() != "") childSetText("gridname", grid->getGridName());
+		if (grid->getLoginUri() != "") childSetText("loginuri", grid->getLoginUri());
+		if (grid->getLoginPage() != "") childSetText("loginpage", grid->getLoginPage());
+		if (grid->getHelperUri() != "") childSetText("helperuri", grid->getHelperUri());
+		if (grid->getWebSite() != "") childSetText("website", grid->getWebSite());
+		if (grid->getSupportUrl() != "") childSetText("support", grid->getSupportUrl());
+		if (grid->getRegisterUrl() != "") childSetText("register", grid->getRegisterUrl());
+		if (grid->getPasswordUrl() != "") childSetText("password", grid->getPasswordUrl());
+		//if (grid->getSearchUrl() != "") childSetText("search", grid->getSearchUrl());
+	} 
+	else 
+	{
+		//KOW gViewerWindow->alertXml("GridInfoError");
+	}
+
+	if (cleanupGrid) delete grid;
+}
+
+void FloaterGridManager::apply()
+{
+	if (mState == NORMAL) 
+	{
+		applyChanges();
+	} 
+	else if ((mState == ADD_NEW) || (mState == ADD_COPY)) 
+	{
+		if (!createNewGrid()) return;
+	} 
+	else 
+	{
+		llwarns << "Illegal state " << mState << '.' << llendl;
+		return;
+	}
+	//gHippoGridManager->setCurrentGrid(mCurGrid);
+	//gHippoGridManager->setDefaultGrid(mCurGrid);
+	gHippoGridManager->saveFile();
+	LLPanelLogin::addServer(LLViewerLogin::getInstance()->getGridLabel());
+}
+
+//void FloaterGridManager::setDefault()
+//{
+//	if (mState == NORMAL) 
+//	{
+//		applyChanges();
+//	} 
+//	else if ((mState == ADD_NEW) || (mState == ADD_COPY)) 
+//	{
+//		if (!createNewGrid()) return;
+//	} 
+//	else 
+//	{
+//		llwarns << "Illegal state " << mState << '.' << llendl;
+//		return;
+//	}
+//	gHippoGridManager->setCurrentGrid(mCurGrid);
+//	gHippoGridManager->setDefaultGrid(mCurGrid);
+//	gHippoGridManager->saveFile();
+//	LLPanelLogin::addServer(LLViewerLogin::getInstance()->getGridLabel());
+//}
+
+void FloaterGridManager::onSelectGrid(LLUICtrl* ctrl, void* data)
+{
+	FloaterGridManager* self = (FloaterGridManager*)data;
+	if (self->getState() == NORMAL) 
+	{
+		self->applyChanges();
+	} 
+	else if ((self->getState() == ADD_NEW) || (self->getState() == ADD_COPY)) 
+	{
+		if (self->createNewGrid()) 
+		{
+			self->setState(NORMAL);
+		} 
+		else 
+		{
+			//LLScrollListCtrl *grids = self->getChild<LLScrollListCtrl>("grid_selector");
+			//grids->setCurrentByIndex(grids->getItemCount() - 1);
+			return;
+		}
+	} 
+	else 
+	{
+		llwarns << "Illegal state " << self->getState() << llendl;
+		return;
+	}
+	self->setCurGrid(ctrl->getValue().asString());
+	self->refreshGrids();
+}
+
+//static
+void FloaterGridManager::onClickDelete(void* data)
+{
+	//llinfos << "onClickDelete" << llendl;
+	FloaterGridManager* self = (FloaterGridManager*)data;
+	if (self->getState() == NORMAL)
+	{
+		gHippoGridManager->deleteGrid(self->getCurGrid());
+	}
+	self->update();
+}
+
+//static
+void FloaterGridManager::onClickAdd(void* data)
+{
+	//llinfos << "onClickAdd" << llendl;
+	FloaterGridManager* self = (FloaterGridManager*)data;
+	self->setState(ADD_NEW);
+	self->refreshGrids();
+}
+
+
+//static
+void FloaterGridManager::onClickCopy(void* data)
+{
+	//llinfos << "onClickCopy" << llendl;
+	FloaterGridManager* self = (FloaterGridManager*)data;
+	self->setState(ADD_COPY);
+	self->refreshGrids();
+}
+
+// static
+void FloaterGridManager::onClickOk(void* data)
+{
+	FloaterGridManager::getInstance()->apply();
+	FloaterGridManager::getInstance()->close();
+}
+
+//static
+void FloaterGridManager::onClickApply(void* data)
+{
+	FloaterGridManager::getInstance()->apply();
+	refreshGrids();
+}
+
+// static
+void FloaterGridManager::onClickClear(void* data)
+{
+	gHippoGridManager->discardAndReload();
+	FloaterGridManager::getInstance()->update();
+}
+
+//static
+//void FloaterGridManager::onClickDefault(void* data)
+//{
+//	FloaterGridManager::getInstance()->setDefault();
+//	FloaterGridManager::getInstance()->refreshGrids();
+//}
+
+//static
+void FloaterGridManager::onClickGridInfo(void* data)
+{
+	//HippoPanelGrids* self = (HippoPanelGrids*)data;
+	FloaterGridManager::getInstance()->retrieveGridInfo();
+}
+
+//static
+void FloaterGridManager::onClickCancel(void* data)
+{
+	FloaterGridManager::getInstance()->close();
+}
+
+//void FloaterGridManager::setAlwaysRefresh(bool refresh)
+//{
+//	// wargames 2: dead code, LLPanelLogin compatibility
+//	return;
+//}
+
+//void FloaterGridManager::refreshLocation( bool force_visible )
+//{
+//	llinfos << "refreshLocation called" << llendl;
+//	
+//	if (!FloaterGridManager::getInstance()) 
+//	{
+//		return;
+//	}
+
+	//LLComboBox* combo = FloaterGridManager::getInstance()->getChild<LLComboBox>("start_location_combo");
+	//
+	//if (LLURLSimString::parse())
+	//{
+	//	combo->setCurrentByIndex( 3 );		// BUG?  Maybe 2?
+	//	combo->setTextEntry(LLURLSimString::FloaterGridManager::getInstance().mSimString);
+	//}
+	//else
+	//{
+	//	BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
+	//	combo->setCurrentByIndex( login_last ? 1 : 0 );
+	//}
+	//
+	//BOOL show_start = TRUE;
+	//
+	//if (!force_visible)
+	//	show_start = gSavedSettings.getBOOL("ShowStartLocation");
+	//
+	//FloaterGridManager::getInstance()->childSetVisible("start_location_combo", show_start);
+	//FloaterGridManager::getInstance()->childSetVisible("start_location_text", show_start);
+	//FloaterGridManager::getInstance()->childSetVisible("server_combo", TRUE);
+//}
+
+//void FloaterGridManager::newShow(const std::string &grid, bool initialLogin)
+//{
+//	llinfos << "newShow called" << llendl;
+//	/*if (!FloaterGridManager::getInstance()) 
+//	{
+//		FloaterGridManager::sGrid = grid;
+//		FloaterGridManager::sIsInitialLogin = initialLogin;
+//		FloaterGridManager::getInstance() = new FloaterGridManager();
+//		
+//		llinfos << "FloaterGridManager::getInstance() assigned. FloaterGridManager::getInstance()=" << FloaterGridManager::getInstance() << llendl;
+//	}*/
+//
+//	llinfos << "newshow called" << llendl;
+//	FloaterGridManager::getInstance()->setCurGrid(gHippoGridManager->getCurrentGridNick());
+//	refreshGrids();
+//
+//	FloaterGridManager::getInstance()->open();
+//	// we're important
+//	//FloaterGridManager::getInstance()->setFrontmost(TRUE);
+//	//FloaterGridManager::getInstance()->setFocus(TRUE);
+//
+//}
+
+//void FloaterGridManager::show(const LLRect &rect, BOOL show_server, 
+//						void (*callback)(S32 option, void* user_data), 
+//						void* callback_data)
+//{
+//	// we don't need a grid passed in because this is old-style login
+//	std::string grid = "";
+//	newShow(grid, TRUE);
+//}
+
+//void FloaterGridManager::setFocus(BOOL b)
+//{
+//	if(b != hasFocus())
+//	{
+//		if(b)
+//		{
+//			FloaterGridManager::giveFocus();
+//		}
+//		else
+//		{
+//			LLPanel::setFocus(b);
+//		}
+//	}
+//}
+//
+//void FloaterGridManager::giveFocus()
+//{
+//	LLScrollListCtrl *combo = NULL;
+//	
+//	if (!FloaterGridManager::getInstance())
+//	{
+//		llinfos << "giveFocus has no FloaterGridManager instance. FloaterGridManager::getInstance()=" << FloaterGridManager::getInstance() << llendl;
+//		return;
+//	}
+//	
+//	// for our combo box approach, selecting the combo box is almost always
+//	// the right thing to do on the floater receiving focus
+//	combo = FloaterGridManager::getInstance()->getChild<LLScrollListCtrl>("grid_selector");
+//	combo->setFocus(TRUE);
+//}
+
+BOOL FloaterGridManager::isGridComboDirty()
+{
+	BOOL user_picked = FALSE;
+	if (!FloaterGridManager::getInstance())
+	{
+		llwarns << "Attempted getServer with no login view shown" << llendl;
+	}
+	else
+	{
+		LLComboBox* combo = FloaterGridManager::getInstance()->getChild<LLComboBox>("server_combo");
+		user_picked = combo->isDirty();
+	}
+	return user_picked;
+}
+
+void FloaterGridManager::getLocation(std::string &location)
+{
+	if (!FloaterGridManager::getInstance())
+	{
+		llwarns << "Attempted getLocation with no login view shown" << llendl;
+		return;
+	}
+	
+	LLComboBox* combo = FloaterGridManager::getInstance()->getChild<LLComboBox>("start_location_combo");
+	location = combo->getValue().asString();
+}
+
+std::string& FloaterGridManager::getPassword()
+{
+	return mMungedPassword;
+}
+
+void FloaterGridManager::setPassword(std::string &password)
+{
+	mMungedPassword = password;
+}
+
+bool FloaterGridManager::isSamePassword(std::string &password)
+{
+	return mMungedPassword == password;
+}
+
+//void FloaterGridManager::addServer(const std::string& server, S32 domain_name)
+//{
+//	if (!FloaterGridManager::getInstance())
+//	{
+//		llwarns << "Attempted addServer with no login view shown" << llendl;
+//		return;
+//	}
+//	
+//	/*LLComboBox* combo = FloaterGridManager::getInstance()->getChild<LLComboBox>("server_combo");
+//	combo->add(server, LLSD(domain_name) );
+//	combo->setCurrentByIndex(0);*/
+//}
+
+//void FloaterGridManager::cancel_old()
+//{
+//	if (!FloaterGridManager::getInstance())
+//	{
+//		return;
+//	}
+//
+//	if (FloaterGridManager::getInstance()->sIsInitialLogin)
+//	{
+//		// send a callback that indicates we're quitting or closing
+//		if (FloaterGridManager::getInstance()->mCallback)
+//			FloaterGridManager::getInstance()->mCallback(LOGIN_OPTION_QUIT, FloaterGridManager::getInstance()->mCallbackData);
+//		return;
+//	}
+//	
+//	FloaterGridManager::getInstance()->close();
+//}
+
+void FloaterGridManager::hashPassword(const std::string& password, std::string& hashedPassword)
+{
+	// Max "actual" password length is 16 characters.
+	// Hex digests are always 32 characters.
+	if (password.length() == 32)
+	{
+		hashedPassword = password;
+	}
+	else
+	{
+		// this is a normal text password
+		LLMD5 pass((unsigned char *)password.c_str());
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		hashedPassword = munged_password;
+	}
+}
