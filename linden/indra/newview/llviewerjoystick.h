@@ -55,7 +55,7 @@ public:
 	LLViewerJoystick();
 	virtual ~LLViewerJoystick();
 	
-	bool init(bool autoenable);
+	bool init();
 	void updateStatus();
 	void scanJoystick();
 	void moveObjects(bool reset = false);

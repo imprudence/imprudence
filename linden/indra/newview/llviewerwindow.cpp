@@ -1166,7 +1166,7 @@ BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 	// give a chance to use a joystick after startup (hot-plugging)
 	if (!LLViewerJoystick::getInstance()->isJoystickInitialized() )
 	{
-		LLViewerJoystick::getInstance()->init(true);
+		LLViewerJoystick::getInstance()->init();
 		return TRUE;
 	}
 	return FALSE;

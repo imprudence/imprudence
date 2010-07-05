@@ -873,8 +873,14 @@ bool LLAppViewer::init()
 
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
 	gSimFrames = (F32)gFrameCount;
-
+/*
+#if LL_DARWIN //on mac the mouse gets misdetected as joystick; don't autoenable
 	LLViewerJoystick::getInstance()->init(false);
+#else
+	LLViewerJoystick::getInstance()->init(true);
+#endif
+*/
+	LLViewerJoystick::getInstance()->init();
 
 	return true;
 }

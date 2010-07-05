@@ -462,7 +462,7 @@ gboolean viewer_app_api_HotplugJoystick(ViewerAppAPI *obj, gchar *dummy, gboolea
 
 	if (!joystick_inited)
 	{
-		 success = LLViewerJoystick::getInstance()->init(false);
+		 success = LLViewerJoystick::getInstance()->init();
 	}
 
 	*success_rtn = g_new (gboolean, 1);

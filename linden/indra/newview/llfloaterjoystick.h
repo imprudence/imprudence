@@ -60,6 +60,7 @@ private:
 private:
 	// Device prefs
 	bool mJoystickEnabled;
+	bool mJoystickAutoEnable;
 	S32 mJoystickAxis[7];
 	bool m3DCursor;
 	bool mAutoLeveling;

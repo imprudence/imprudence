@@ -6122,6 +6122,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>JoystickAutoEnable</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables the Joystick at startup if plugged in.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>JoystickAvatarEnabled</key>
     <map>
       <key>Comment</key>

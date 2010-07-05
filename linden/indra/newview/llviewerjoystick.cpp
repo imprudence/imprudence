@@ -82,7 +82,7 @@ void LLViewerJoystick::updateEnabled(bool autoenable)
 	}
 	else
 	{
-		if (isLikeSpaceNavigator() && autoenable)
+		if (autoenable)
 		{
 			gSavedSettings.setBOOL("JoystickEnabled", TRUE );
 		}
@@ -175,11 +175,13 @@ LLViewerJoystick::~LLViewerJoystick()
 }
 
 // -----------------------------------------------------------------------------
-bool LLViewerJoystick::init(bool autoenable)
+bool LLViewerJoystick::init()
 {
 
 	static bool libinit = false;
 #if LIB_NDOF
+	bool autoenable = gSavedSettings.getBOOL("JoystickAutoEnable");
+
 	mDriverState = JDS_INITIALIZING;
 
 	if (libinit == false)
@@ -240,12 +242,7 @@ bool LLViewerJoystick::init(bool autoenable)
 		}
 	}
 
-	// Autoenable the joystick for recognized devices if nothing was connected previously
-	if (!autoenable)
-	{
-		autoenable = gSavedSettings.getString("JoystickInitialized").empty() ? true : false;
-	}
-	updateEnabled(autoenable);
+
 	
 	if (mDriverState == JDS_INITIALIZED)
 	{
@@ -265,8 +262,11 @@ bool LLViewerJoystick::init(bool autoenable)
 			// It's not a Space Navigator
 			gSavedSettings.setString("JoystickInitialized", "UnknownDevice");
 		}
-
-		gSavedSettings.setBOOL("JoystickEnabled", TRUE );
+		// Autoenable the joystick for recognized devices if nothing was connected previously
+		if (autoenable)
+		{
+			updateEnabled(autoenable);
+		}
 	}
 	else
 	{

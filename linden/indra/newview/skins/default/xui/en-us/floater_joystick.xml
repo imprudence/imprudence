@@ -3,8 +3,9 @@
      name="Joystick" title="Joystick Configuration" width="550">
 
 	<check_box name="enable_joystick" bottom="-38" left="14" width="60" halign="left" border_drop_shadow_visible="true" control_name="JoystickEnabled">Enable Joystick:</check_box>
+	
 	<text name="joystick_type" bottom="-32" left="120" width="380" halign="left"></text>
-
+	<check_box name="auto_enable_joystick" bottom="-38" left="310" width="60" halign="left" border_drop_shadow_visible="true" control_name="JoystickAutoEnable">Auto-Enable Joystick</check_box>
 	<spinner bottom="-48" left="20" width="140" label_width="100" control_name="JoystickAxis1" name="JoystickAxis1" label="X Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
 	<spinner bottom="-48" left="190" width="140" label_width="100" control_name="JoystickAxis2" name="JoystickAxis2" label="Y Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
 	<spinner bottom="-48" left="360" width="140" label_width="100" control_name="JoystickAxis0" name="JoystickAxis0" label="Z Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
