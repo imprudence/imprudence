@@ -10,7 +10,10 @@
 # ARTWORK
 
 linden/LICENSE-logos.txt
-linden/indra/newview/skins/*/textures/
+linden/indra/newview/skins/default/textures/*.tga
+linden/indra/newview/skins/default/textures/*.j2c
+linden/indra/newview/skins/silver/textures/*.tga
+linden/indra/newview/skins/silver/textures/*.j2c
 linden/indra/newview/skins/default/html/btn_purplepill_bg.png
 linden/indra/newview/skins/default/html/en-us/loading/sl_logo_rotate_black.gif
 linden/indra/newview/skins/default/html/en-us/loading/Thumbs.db
