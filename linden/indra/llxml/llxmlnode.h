@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2009, Linden Research, Inc.
+ * Copyright (c) 2000-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -141,7 +141,7 @@ public:
 		LLXMLNodePtr& node, 
 		LLXMLNode* defaults_tree);
 	static bool parseBuffer(
-		U8* buffer,
+		const char *buffer,
 		U32 length,
 		LLXMLNodePtr& node, 
 		LLXMLNode* defaults);

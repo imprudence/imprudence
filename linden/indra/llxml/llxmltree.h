@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -63,10 +63,17 @@ public:
 
 	virtual BOOL	parseFile(const std::string &path, BOOL keep_contents = TRUE);
 
+	bool parseBufferStart(bool keep_contents = true);
+	bool parseBuffer(const char *buf, int len);
+	bool parseBufferFinalize();
+
 	LLXmlTreeNode*	getRoot() { return mRoot; }
 
 	void			dump();
 	void			dumpNode( LLXmlTreeNode* node, const std::string& prefix );
+
+	void write(std::string &buffer) const;
+	void writeNode(LLXmlTreeNode *node, std::string &buffer, const std::string &indent) const;
 
 	static LLStdStringHandle addAttributeString( const std::string& name)
 	{
@@ -79,6 +86,7 @@ public:
 	
 protected:
 	LLXmlTreeNode* mRoot;
+	LLXmlTreeParser *mParser;
 
 	// local
 	LLStdStringTable mNodeNames;	
@@ -175,6 +183,11 @@ private:
 
 	void			dump( const std::string& prefix );
 
+	void writeNoChild(std::string &buffer, const std::string &indent) const;
+	void writeStart(std::string &buffer, const std::string &indent) const;
+	void writeEnd(std::string &buffer, const std::string &indent) const;
+	void writeAttributes(std::string &buffer) const;
+
 protected:
 	typedef std::map<LLStdStringHandle, const std::string*> attribute_map_t;
 	attribute_map_t						mAttributes;
@@ -206,6 +219,10 @@ public:
 	virtual ~LLXmlTreeParser();
 
 	BOOL parseFile(const std::string &path, LLXmlTreeNode** root, BOOL keep_contents );
+
+	void parseBufferStart(BOOL keep_contents);
+	bool parseBuffer(const char *buf, int len);
+	bool parseBufferFinalize(LLXmlTreeNode** root);
 
 protected:
 	const std::string& tabs();

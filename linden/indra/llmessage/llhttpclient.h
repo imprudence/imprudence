@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2009, Linden Research, Inc.
+ * Copyright (c) 2006-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -148,6 +148,7 @@ public:
 		///< must be called before any of the above calls are made
 	static bool hasPump();
 		///< for testing
+	static LLPumpIO &getPump();
 };
 
 #endif // LL_LLHTTPCLIENT_H

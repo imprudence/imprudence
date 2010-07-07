@@ -160,7 +160,10 @@ const std::string& HippoGridInfo::getRealCurrencySymbol() const
 void HippoGridInfo::setPlatform(Platform platform)
 {
 	mPlatform = platform;
-	mCurrencySymbol = (mPlatform == PLATFORM_SECONDLIFE)? "L$": "OS$";
+	if (mPlatform == PLATFORM_SECONDLIFE)
+	{
+		mCurrencySymbol = "L$";
+	}
 }
 
 
