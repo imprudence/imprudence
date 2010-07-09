@@ -44,9 +44,11 @@
 #include "llviewerregion.h"
 #include "llwindow.h"
 #include "lltransfersourceasset.h"
+#include "lltooldraganddrop.h"
 #include "llviewernetwork.h"
 #include "llcurl.h"
 #include "llviewerimagelist.h"
+#include "llscrolllistctrl.h"
 
 #include "llimagej2c.h"
 
@@ -84,11 +86,11 @@ std::list<InventoryRequest_t*> JCExportTracker::requested_inventory;
 
 ExportTrackerFloater* ExportTrackerFloater::sInstance = 0;
 LLDynamicArray<LLViewerObject*> ExportTrackerFloater::objectselection;
-LLDynamicArray<LLViewerObject*> ExportTrackerFloater::mOjectSelectionWaitList;
+LLDynamicArray<LLViewerObject*> ExportTrackerFloater::mObjectSelectionWaitList;
 
 std::list<LLSD *> JCExportTracker::processed_prims;
-std::map<LLUUID,LLSD *> JCExportTracker::recieved_inventory;
-std::map<LLUUID,LLSD *> JCExportTracker::recieved_properties;
+std::map<LLUUID,LLSD *> JCExportTracker::received_inventory;
+std::map<LLUUID,LLSD *> JCExportTracker::received_properties;
 
 int ExportTrackerFloater::properties_received = 0;
 int ExportTrackerFloater::inventories_received = 0;
@@ -126,16 +128,20 @@ void ExportTrackerFloater::draw()
 		);
 
 	// Draw the progress bar.
+
+	LLRect rec  = getChild<LLPanel>("progress_bar")->getRect();
+
 	S32 bar_width = 180;
-	S32 bar_left = 10;
-	S32 left, right;
-	S32 top = 35;
-	S32 bottom = top + 10;
-	left = bar_left;
-	right = left + bar_width;
+	//S32 bar_left = 10;
+	S32 left = rec.mLeft, right = rec.mRight;
+	S32 top = rec.mTop;
+	S32 bottom = rec.mBottom;
+	//left = bar_left;
+	//right = left + bar_width;
 
 	gGL.color4f(0.f, 0.f, 0.f, 0.75f);
-	gl_rect_2d(left, top, right, bottom);
+	//gl_rect_2d(left, top, right, bottom);
+	gl_rect_2d(rec);
 
 	F32 data_progress = ((F32)JCExportTracker::totalprims/total_objects);
 
@@ -148,6 +154,90 @@ void ExportTrackerFloater::draw()
 			gGL.color4f(0.f, 0.f, 1.f, 0.75f);
 			gl_rect_2d(left, top, right, bottom);
 		}
+	}
+
+	//find active tab
+
+	S32 panel = sInstance->getChild<LLTabContainer>("exporttab")->getCurrentPanelIndex();
+	/* if (panel == 0) //Error list
+	{
+		cmdline_printchat("error panel selected");
+	}
+	else */if (panel == 1) //object list
+	{
+		//update export queue list
+		LLScrollListCtrl* mResultList;
+		mResultList = getChild<LLScrollListCtrl>("object_result_list");
+
+		LLDynamicArray<LLUUID> selected = mResultList->getSelectedIDs();
+		S32 scrollpos = mResultList->getScrollPos();
+		mResultList->deleteAllItems();
+
+		LLDynamicArray<LLViewerObject*> objectlist;
+
+//		if (mObjectSelectionWaitList.empty())
+//		{
+			objectlist = objectselection;
+//		}
+//		else {
+//			objectlist = mObjectSelectionWaitList;
+//		}
+		
+
+		LLDynamicArray<LLViewerObject*>::iterator iter=objectselection.begin();
+		LLViewerObject* object = NULL;
+
+		for(iter;iter!=objectselection.end();iter++)
+		{
+			object = (*iter);
+			LLVector3 object_pos = object->getPosition();
+
+			LLSD element;
+			element["id"] = llformat("%u",object->getLocalID()); //object->getLocalID();
+
+			element["columns"][0]["column"] = "Name";
+			element["columns"][0]["type"] = "text";
+			element["columns"][0]["value"] = object->getID();
+
+			element["columns"][1]["column"] = "UUID";
+			element["columns"][1]["type"] = "text";
+			element["columns"][1]["value"] = object->getID();
+
+			if (object->mPropertiesRecieved)
+			{
+				element["columns"][2]["column"] = "icon_prop";
+				element["columns"][2]["type"] = "icon";
+				element["columns"][2]["value"] = "account_id_green.tga";
+			}
+			if (object->mInventoryRecieved)
+			{
+				element["columns"][3]["column"] = "icon_inv";
+				element["columns"][3]["type"] = "icon";
+				element["columns"][3]["value"] = "account_id_green.tga";
+			}
+
+			element["columns"][4]["column"] = "Local ID";
+			element["columns"][4]["type"] = "text";
+			element["columns"][4]["value"] = llformat("%u",object->getLocalID());
+
+			std::stringstream sstr;	
+			sstr <<llformat("%.1f", object_pos.mV[VX]);
+			sstr <<","<<llformat("%.1f", object_pos.mV[VY]);
+			sstr <<","<<llformat("%.1f", object_pos.mV[VZ]);
+
+			element["columns"][5]["column"] = "Position";
+			element["columns"][5]["type"] = "text";
+			element["columns"][5]["value"] = sstr.str();
+
+			mResultList->addElement(element, ADD_BOTTOM);
+		}
+
+		//mResultList->sortItems();
+		mResultList->selectMultiple(selected);
+		mResultList->setScrollPos(scrollpos);
+	}
+	else if (panel == 2) //inventory list
+	{
 	}
 }
 
@@ -335,6 +425,7 @@ struct JCAssetInfo
 {
 	std::string path;
 	std::string name;
+	LLUUID assetid;
 };
 
 
@@ -358,7 +449,7 @@ LLSD * JCExportTracker::subserialize(LLViewerObject* linkset)
 		return NULL;
 	}
 
-	if (!(!object->isAvatar() && object->permModify() && object->permCopy() && object->permTransfer()))
+	if (!(!object->isAvatar()))// && object->permModify() && object->permCopy() && object->permTransfer()))
 	{
 		delete pllsd;	
 		return NULL;
@@ -366,7 +457,114 @@ LLSD * JCExportTracker::subserialize(LLViewerObject* linkset)
 
 	// Build a list of everything that we'll actually be exporting
 	LLDynamicArray<LLViewerObject*> export_objects;
-	
+
+	if (!object)
+	{
+		cmdline_printchat("subserialize: invalid obj");
+	}
+	if (object->isDead())
+	{
+		cmdline_printchat("subserialize: object is dead");
+		return NULL;
+	}
+	/*
+	LLPCode pcode = object->getPCode();
+	if (pcode != LL_PCODE_VOLUME &&
+		pcode != LL_PCODE_LEGACY_GRASS &&
+		pcode != LL_PCODE_LEGACY_TREE)
+	{
+		cmdline_printchat("subserialize: object has invalid pcode");
+		return NULL;
+	}
+	*/
+
+//#define _KOW
+
+#ifdef _KOW
+	//begin: copy object workaround.
+	if (!object->permYouOwner()) //&& check if user opted to copy non owned objects
+	{ //we don't own this object
+		cmdline_printchat("someone else owns object " + llformat("%d",object->getLocalID()));
+
+		//try and take a copy
+		U8 d = (U8)DRD_ACQUIRE_TO_AGENT_INVENTORY;
+		const LLUUID& category_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_OBJECT);
+		LLUUID tid;
+		tid.generate();
+		LLMessageSystem* msg = gMessageSystem;
+
+		msg->newMessageFast(_PREHASH_DeRezObject);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		msg->nextBlockFast(_PREHASH_AgentBlock);
+		msg->addUUIDFast(_PREHASH_GroupID, gAgent.getGroupID());
+		msg->addU8Fast(_PREHASH_Destination, d);	
+		msg->addUUIDFast(_PREHASH_DestinationID, category_id);
+		msg->addUUIDFast(_PREHASH_TransactionID, tid);
+		msg->addU8Fast(_PREHASH_PacketCount, 1);
+		msg->addU8Fast(_PREHASH_PacketNumber, 1);
+		msg->nextBlockFast(_PREHASH_ObjectData);
+		msg->addU32Fast(_PREHASH_ObjectLocalID, object->getLocalID());
+		msg->sendReliable(object->getRegion()->getHost());
+
+		//add our new copy to a list
+		//copied_objects.put(object);
+
+		
+		//LLDynamicArray<U32> copied_objects;
+		//U32 tmp = object->getLocalID();
+		//copied_objects.push_back(tmp);
+		
+
+		//TODO: add callback which will attach this object and rerun it through this function
+
+		
+		#define vCatType (LLAssetType::EType)128
+		#define vBridgeOpCat "#Emerald"
+
+		
+				//cmdline_printchat("foldering");
+				//LLUUID vcatid;
+				//vcatid = gInventory.findCategoryByName(vBridgeOpCat);
+				//if(vcatid.isNull())
+				//{
+				//	cmdline_printchat("creating folder");
+				//	vcatid = gInventory.createNewCategory(gAgent.getInventoryRootID(), LLAssetType::AT_NONE, vBridgeOpCat);
+				//}
+				std::string objectName = "blah_";
+				LLUUID objectid = LLUUID("e97cf410-8e61-7005-ec06-629eba4cd1fb");//findInventoryByName(objectName);
+				cmdline_printchat("id="+objectid.asString());
+				LLViewerInventoryItem* object = gInventory.getItem(objectid);
+				if(object)
+				{
+					if(0)//isworn(object->getUUID()))
+					{
+						cmdline_printchat("wearing object");
+					}
+					else
+					{
+						cmdline_printchat("attaching object");
+						LLMessageSystem* msg = gMessageSystem;
+						msg->newMessageFast(_PREHASH_RezSingleAttachmentFromInv);
+						msg->nextBlockFast(_PREHASH_AgentData);
+						msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+						msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+						msg->nextBlockFast(_PREHASH_ObjectData);
+						msg->addUUIDFast(_PREHASH_ItemID, object->getUUID());
+						msg->addUUIDFast(_PREHASH_OwnerID, object->getPermissions().getOwner());
+						msg->addU8Fast(_PREHASH_AttachmentPt, 128);
+						pack_permissions_slam(msg, object->getFlags(), object->getPermissions());
+						msg->addStringFast(_PREHASH_Name, object->getName());
+						msg->addStringFast(_PREHASH_Description, object->getDescription());
+						msg->sendReliable(gAgent.getRegionHost());
+					}
+				}
+	}
+	else
+#endif
+	{ // we own this object.
+
 	// Add the root object to the export list
 	export_objects.put(object);
 
@@ -559,6 +757,7 @@ LLSD * JCExportTracker::subserialize(LLViewerObject* linkset)
 		// Changed to use link numbers zero-indexed.
 		(*pllsd)[object_index - 1] = prim_llsd;
 	}
+	}
 	return pllsd;
 }
 
@@ -589,6 +788,7 @@ bool JCExportTracker::getAsyncData(LLViewerObject * obj)
 			PropertiesRequest_t * req = new PropertiesRequest_t();
 			req->target_prim=obj->getID();
 			req->request_time=0;
+			req->num_retries = 0;	
 			req->localID=obj->getLocalID();
 			requested_properties.push_back(req);
 
@@ -617,6 +817,7 @@ bool JCExportTracker::getAsyncData(LLViewerObject * obj)
 				InventoryRequest_t * ireq = new InventoryRequest_t();
 				ireq->object=obj;
 				ireq->request_time = 0;	
+				ireq->num_retries = 0;	
 				requested_inventory.push_back(ireq);
 				obj->registerInventoryListener(sInstance,(void*)ireq);
 				//cmdline_printchat("registered inventory listener for: " + llformat("%d",ireq->object->getLocalID()));
@@ -788,7 +989,7 @@ bool JCExportTracker::serialize(LLDynamicArray<LLViewerObject*> objects)
 void JCExportTracker::exportworker(void *userdata)
 {
 	//CHECK IF WE'RE DONE
-	if(ExportTrackerFloater::objectselection.empty() && ExportTrackerFloater::mOjectSelectionWaitList.empty()
+	if(ExportTrackerFloater::objectselection.empty() && ExportTrackerFloater::mObjectSelectionWaitList.empty()
 		&& requested_inventory.empty() && requested_properties.empty())
 	{
 		gIdleCallbacks.deleteFunction(exportworker);
@@ -812,13 +1013,27 @@ void JCExportTracker::exportworker(void *userdata)
 		if( (req->request_time+PROP_REQUEST_KICK)< tnow)
 		{
 			req->request_time=time(NULL);
+			req->num_retries++;
 			requestPrimProperties(req->localID);
 			kick_count++;
 			//cmdline_printchat("requested property for: " + llformat("%d",req->localID));
 		}
-		requested_properties.push_back(req);
+		if (req->num_retries < 40)
+			requested_properties.push_back(req);
+		else
+		{
+			//req->localID->mPropertiesRecieved = true;		
+			cmdline_printchat("failed to retrieve properties for ");// + req->localID);
+			ExportTrackerFloater::properties_received++;
+			LLViewerObject *obj = gObjectList.findObject(req->target_prim);
+			if(obj)
+			{
+				obj->mPropertiesRecieved=true;
+				cmdline_printchat("successfully set property to received");
+			}
+		}
 		
-		if(kick_count>=25)
+		if(kick_count>=20)
 			break; // that will do for now				
 
 		total--;
@@ -840,13 +1055,59 @@ void JCExportTracker::exportworker(void *userdata)
 		if( (req->request_time+INV_REQUEST_KICK)< tnow)
 		{
 			req->request_time=time(NULL);
-			req->object->dirtyInventory();
-			req->object->requestInventory();
+			req->num_retries++;
+
+			//LLViewerObject* obj = gObjectList.findObject(req->object->mID);
+			LLViewerObject* obj = req->object;
+
+			//cmdline_printchat("requesting inventory: " + obj->mID.asString());
+
+			if(obj->mID.isNull())
+				cmdline_printchat("no mID");
+
+			if (!obj)
+			{
+				cmdline_printchat("export worker: " + req->object->mID.asString() + " not found in object list");
+			}
+			LLPCode pcode = obj->getPCode();
+			if (pcode != LL_PCODE_VOLUME &&
+				pcode != LL_PCODE_LEGACY_GRASS &&
+				pcode != LL_PCODE_LEGACY_TREE)
+			{
+				cmdline_printchat("exportworker: object has invalid pcode");
+				//return NULL;
+			}
+			obj->dirtyInventory();
+			obj->requestInventory();
+			
+			//if (req->object->isInventoryDirty()) //yet another crashy inventory call
+			//{
+			//	req->object->fetchInventoryFromServer();
+			//}
+
+			//sInstance->removeVOInventoryListener();
+			//sInstance->clearContents();
+			//sInstance->registerVOInventoryListener(obj,NULL);
+			//sInstance->requestVOInventory();
+
+
 			kick_count++;
 		}
-		requested_inventory.push_back(req);
+
+		if (req->num_retries < 40)
+			requested_inventory.push_back(req);
+		else
+		{
+			req->object->mInventoryRecieved = true;
+
+			//object->removeInventoryListener(sInstance);
+			//obj->mInventoryRecieved=true;
+			cmdline_printchat("failed to retrieve inventory for " + req->object->mID.asString());
+			ExportTrackerFloater::inventories_received++;
+		}
+
 		
-		if(kick_count>=25)
+		if(kick_count>=20)
 			break; // that will do for now				
 
 		total--;
@@ -859,9 +1120,16 @@ void JCExportTracker::exportworker(void *userdata)
 	{
 		if(!ExportTrackerFloater::objectselection.empty())
 		{
-			LLViewerObject * obj=ExportTrackerFloater::objectselection.get(0);
+			LLViewerObject* obj=ExportTrackerFloater::objectselection.get(0);
 			ExportTrackerFloater::objectselection.remove(0);
-			ExportTrackerFloater::mOjectSelectionWaitList.push_back(obj);
+
+			if (!obj)
+			{
+				cmdline_printchat("export worker (getasyncdata): invalid obj");
+				break;
+			}
+
+			ExportTrackerFloater::mObjectSelectionWaitList.push_back(obj);
 			// We need to go off and get properties, inventorys and textures now
 			getAsyncData(obj);
 			//cmdline_printchat("getAsyncData for: " + llformat("%d",obj->getLocalID()));
@@ -884,11 +1152,11 @@ void JCExportTracker::exportworker(void *userdata)
 		}
 	}
 
-	LLDynamicArray<LLViewerObject*>::iterator iter=ExportTrackerFloater::mOjectSelectionWaitList.begin();
+	LLDynamicArray<LLViewerObject*>::iterator iter=ExportTrackerFloater::mObjectSelectionWaitList.begin();
 	
 	LLViewerObject* object = NULL;
 
-	for(iter;iter!=ExportTrackerFloater::mOjectSelectionWaitList.end();iter++)
+	for(iter;iter!=ExportTrackerFloater::mObjectSelectionWaitList.end();iter++)
 	{
 		//Find an object that has completed export
 		
@@ -936,7 +1204,7 @@ void JCExportTracker::exportworker(void *userdata)
 			
 			ExportTrackerFloater::linksets_exported++;
 			//Erase this entry from the wait list then BREAK, do not loop
-			ExportTrackerFloater::mOjectSelectionWaitList.erase(iter);
+			ExportTrackerFloater::mObjectSelectionWaitList.erase(iter);
 			break;	
 		}
 	}
@@ -945,7 +1213,6 @@ void JCExportTracker::exportworker(void *userdata)
 void JCExportTracker::finalize()
 {
 	//We convert our LLSD to HPA here.
-
 
 	LLXMLNode *project_xml = new LLXMLNode("project", FALSE);
 														
@@ -1091,7 +1358,7 @@ void JCExportTracker::finalize()
 				
 				//Properties
 				
-				LLSD * props=recieved_properties[prim["id"]];
+				LLSD * props=received_properties[prim["id"]];
 
 				if(props!=NULL)
 				{
@@ -1100,7 +1367,7 @@ void JCExportTracker::finalize()
 					
 					//All done with properties?
 					free(props);
-					recieved_properties.erase(prim["id"]);
+					received_properties.erase(prim["id"]);
 				}
 				
 				// Transforms		
@@ -1253,7 +1520,7 @@ void JCExportTracker::finalize()
 					hollow_xml->createChild("amount", TRUE)->setValue(llformat("%.5f", hollow * 100.0));
 					hollow_xml->createChild("shape", TRUE)->setValue(llformat("%s", selected_hole));
 				}
-				// Extra params // b6fab961-af18-77f8-cf08-f021377a7244
+				// Extra params
 				// Flexible
 				if(prim.has("flexible"))
 				{
@@ -1281,16 +1548,6 @@ void JCExportTracker::finalize()
 					force_xml->createChild("x", TRUE)->setValue(llformat("%.5f", attributes.getUserForce().mV[VX]));
 					force_xml->createChild("y", TRUE)->setValue(llformat("%.5f", attributes.getUserForce().mV[VY]));
 					force_xml->createChild("z", TRUE)->setValue(llformat("%.5f", attributes.getUserForce().mV[VZ]));
-		//			LLFlexibleObjectData* flex = (LLFlexibleObjectData*)object->getParameterEntry(LLNetworkData::PARAMS_FLEXIBLE);
-		//			prim_xml->createChild("flexible", FALSE)->setValue(flex->asLLSD());
-		/*			childSetValue("FlexNumSections",(F32)attributes->getSimulateLOD());
-					childSetValue("FlexGravity",attributes->getGravity());
-					childSetValue("FlexTension",attributes->getTension());
-					childSetValue("FlexFriction",attributes->getAirFriction());
-					childSetValue("FlexWind",attributes->getWindSensitivity());
-					childSetValue("FlexForceX",attributes->getUserForce().mV[VX]);
-					childSetValue("FlexForceY",attributes->getUserForce().mV[VY]);
-					childSetValue("FlexForceZ",attributes->getUserForce().mV[VZ]);*/
 				}
 				
 				// Light
@@ -1430,13 +1687,12 @@ void JCExportTracker::finalize()
 						
 					//<mapping val="0" />
 				} // end for each texture
-///////////////////////////////////////////////////////////
 				//<inventory>
 
 				
 				LLXMLNodePtr inventory_xml = prim_xml->createChild("inventory", FALSE);
 				//LLSD inventory = prim["inventory"];
-				LLSD * inventory = recieved_inventory[prim["id"]];
+				LLSD * inventory = received_inventory[prim["id"]];
 
 				if(inventory !=NULL)
 				{
@@ -1458,7 +1714,7 @@ void JCExportTracker::finalize()
 					//add this prim to the linkset.
 
 					delete(inventory);
-					recieved_inventory.erase((LLUUID)prim["id"]);
+					received_inventory.erase((LLUUID)prim["id"]);
 
 				}
 				linkset_xml->addChild(prim_xml);
@@ -1519,7 +1775,7 @@ void JCExportTracker::finalize()
 //	export_file.close();
 
 	processed_prims.clear();
-	recieved_inventory.clear();
+	received_inventory.clear();
 	ExportTrackerFloater::getInstance()->childSetEnabled("export",true);
 	status = IDLE;
 }
@@ -1650,7 +1906,7 @@ void JCExportTracker::processObjectProperties(LLMessageSystem* msg, void** user_
 		(*props)["touch_name"] = touch_name;
 		(*props)["sit_name"] = sit_name;
 
-		recieved_properties[id]=props;
+		received_properties[id]=props;
 
 		LLViewerObject *obj = gObjectList.findObject(id);
 		if(obj)
@@ -1739,6 +1995,7 @@ void JCExportTracker::inventoryChanged(LLViewerObject* obj,
 						{
 							LLFile::mkdir(asset_dir+gDirUtilp->getDirDelimiter()+"inventory");
 						}
+
 						JCExportTracker::mirror(asset, obj, asset_dir+gDirUtilp->getDirDelimiter()+"inventory", asset->getUUID().asString());//loltest
 						//unacceptable
 						(*inventory)[num] = inv_item;
@@ -1750,7 +2007,7 @@ void JCExportTracker::inventoryChanged(LLViewerObject* obj,
 
 			//MEH
 			//(*link_itr)["inventory"] = inventory;
-			recieved_inventory[obj->getID()]=inventory;
+			received_inventory[obj->getID()]=inventory;
 
 			//cmdline_printchat(llformat("%d inv queries left",requested_inventory.size()));
 
@@ -1834,6 +2091,51 @@ void JCAssetExportCallback(LLVFS *vfs, const LLUUID& uuid, LLAssetType::EType ty
 
 		ExportTrackerFloater::assets_exported++;
 
+		//mark as downloaded in inventory list
+		LLScrollListCtrl* mResultList;
+		mResultList = ExportTrackerFloater::sInstance->getChild<LLScrollListCtrl>("inventory_result_list");
+
+		if (mResultList->getItemIndex(info->assetid) >= 0)
+		{
+			mResultList->deleteSingleItem(mResultList->getItemIndex(info->assetid));
+
+/*
+			//add to floater list
+			LLSD element;
+			element["id"] = info->assetid; //object->getLocalID();
+
+			element["columns"][0]["column"] = "Name";
+			element["columns"][0]["type"] = "text";
+			element["columns"][0]["value"] = info->name;
+
+			element["columns"][1]["column"] = "UUID";
+			element["columns"][1]["type"] = "text";
+			element["columns"][1]["value"] = info->assetid;
+
+			//element["columns"][2]["column"] = "Object ID";
+			//element["columns"][2]["type"] = "text";
+			//element["columns"][2]["value"] = llformat("%u",obj->getLocalID());
+
+			//LLVector3 object_pos = obj->getWorldPosition();
+			//std::stringstream sstr;	
+			//sstr <<llformat("%.1f", object_pos.mV[VX]);
+			//sstr <<","<<llformat("%.1f", object_pos.mV[VY]);
+			//sstr <<","<<llformat("%.1f", object_pos.mV[VZ]);
+
+			//element["columns"][3]["column"] = "Position";
+			//element["columns"][3]["type"] = "text";
+			//element["columns"][3]["value"] = sstr.str();
+
+			element["columns"][4]["column"] = "icon_rec";
+			element["columns"][4]["type"] = "icon";
+			element["columns"][4]["value"] = "account_id_green.tga";
+
+			mResultList->addElement(element, ADD_BOTTOM);
+*/
+		}
+		else cmdline_printchat("received unrequested asset");
+		
+
 		//delete buffer;
 	} else cmdline_printchat("Failed to save file "+info->path+" ("+info->name+") : "+std::string(LLAssetStorage::getErrorString(result)));
 
@@ -1899,6 +2201,7 @@ BOOL JCExportTracker::mirror(LLInventoryObject* item, LLViewerObject* container,
 			JCAssetInfo* info = new JCAssetInfo;
 			info->path = root;
 			info->name = item->getName();
+			info->assetid = item->getUUID();
 			
 			//LLHost host = container != NULL ? container->getRegion()->getHost() : LLHost::invalid;
 
@@ -1913,6 +2216,36 @@ BOOL JCExportTracker::mirror(LLInventoryObject* item, LLViewerObject* container,
 			JCAssetExportCallback,
 			info,
 			TRUE);
+
+			//add to floater list
+			LLSD element;
+			element["id"] = info->assetid; //object->getLocalID();
+
+			element["columns"][0]["column"] = "Name";
+			element["columns"][0]["type"] = "text";
+			element["columns"][0]["value"] = info->name;
+
+			element["columns"][1]["column"] = "UUID";
+			element["columns"][1]["type"] = "text";
+			element["columns"][1]["value"] = info->assetid;
+
+			element["columns"][2]["column"] = "Object ID";
+			element["columns"][2]["type"] = "text";
+			element["columns"][2]["value"] = llformat("%u",container->getLocalID());
+
+			LLVector3 object_pos = container->getPositionRegion();
+			std::stringstream sstr;	
+			sstr <<llformat("%.1f", object_pos.mV[VX]);
+			sstr <<","<<llformat("%.1f", object_pos.mV[VY]);
+			sstr <<","<<llformat("%.1f", object_pos.mV[VZ]);
+
+			element["columns"][3]["column"] = "Position";
+			element["columns"][3]["type"] = "text";
+			element["columns"][3]["value"] = sstr.str();
+
+			LLScrollListCtrl* mResultList;
+			mResultList = ExportTrackerFloater::sInstance->getChild<LLScrollListCtrl>("inventory_result_list");
+			mResultList->addElement(element, ADD_BOTTOM);
 
 			return TRUE;
 
@@ -1949,19 +2282,19 @@ void JCExportTracker::cleanup()
 
 	processed_prims.clear();
 
-	std::map<LLUUID,LLSD *>::iterator iter4=recieved_properties.begin();
-	for(iter4;iter4!=recieved_properties.begin();iter4++)
+	std::map<LLUUID,LLSD *>::iterator iter4=received_properties.begin();
+	for(iter4;iter4!=received_properties.begin();iter4++)
 	{
 		free((*iter4).second);
 	}
-	recieved_properties.clear();
+	received_properties.clear();
 
-	std::map<LLUUID,LLSD *>::iterator iter2=recieved_inventory.begin();
-	for(iter2;iter2!=recieved_inventory.begin();iter2++)
+	std::map<LLUUID,LLSD *>::iterator iter2=received_inventory.begin();
+	for(iter2;iter2!=received_inventory.begin();iter2++)
 	{
 		free((*iter2).second);
 	}
-	recieved_inventory.clear();
+	received_inventory.clear();
 }
 
 BOOL zip_folder(const std::string& srcfile, const std::string& dstfile)

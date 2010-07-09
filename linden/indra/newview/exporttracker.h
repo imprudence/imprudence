@@ -41,12 +41,14 @@ struct PropertiesRequest_t
 	time_t	request_time;
 	LLUUID	target_prim;
 	U32		localID;
+	U32		num_retries;
 };
 
 struct InventoryRequest_t
 {
 	time_t	request_time;
 	LLViewerObject * object; // I can't be bothered to itterate the objects list on every kick, so hold the pointer here
+	U32		num_retries;
 };
 
 
@@ -78,7 +80,7 @@ public:
 
 
 	static LLDynamicArray<LLViewerObject*> objectselection;
-	static LLDynamicArray<LLViewerObject*> mOjectSelectionWaitList;
+	static LLDynamicArray<LLViewerObject*> mObjectSelectionWaitList;
 
 	static int		linksets_exported;
 	static int		properties_received;
@@ -163,8 +165,8 @@ public:
 	static std::list<InventoryRequest_t*> requested_inventory;
 
 	static std::list<LLSD *> processed_prims;
-	static std::map<LLUUID,LLSD *>recieved_inventory;
-	static std::map<LLUUID,LLSD *>recieved_properties;
+	static std::map<LLUUID,LLSD *>received_inventory;
+	static std::map<LLUUID,LLSD *>received_properties;
 
 private:
 	static LLSD total;
@@ -172,6 +174,8 @@ private:
 	static std::string destination;
 	static std::string asset_dir;
 	static std::set<LLUUID> requested_textures;
+	//static std::list<S32> copied_objects;
+	//static LLDynamicArray<U32> copied_objects;
 };
 
 // zip a folder. this doesn't work yet.

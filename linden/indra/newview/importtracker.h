@@ -7,9 +7,27 @@
 #ifndef IMPORTTRACKER_H
 #define IMPORTTRACKER_H
 
+#define MAX_IDLE_TIME 20
+
 #include "llviewerobject.h"
 
 class LLSpinCtrl;
+
+struct InventoryImportInfo
+{
+	U32 localid;
+	LLAssetType::EType type;
+	LLInventoryType::EType inv_type;
+	EWearableType wear_type;
+	LLTransactionID tid;
+	LLUUID assetid;
+	std::string name;
+	std::string description;
+	bool compiled;
+	std::string filename;
+	U32 perms;
+	U32 retries;
+};
 
 class ImportTrackerFloater : public LLFloater
 {
@@ -51,6 +69,7 @@ public:
 	static int		total_objects;
 	static int		objects_imported;
 	static int		total_linksets;
+	static int		total_textures;
 	static int		linksets_imported;
 	static int		textures_imported;
 	static int		total_assets;
@@ -82,6 +101,7 @@ class ImportTracker
 		LLSD parse_hpa_object(LLXmlTreeNode* prim);
 		void loadhpa(std::string file);
 		void importer(std::string file, void (*callback)(LLViewerObject*));
+		static void plywoodtracker(void *userdata);
 		void cleargroups();
 		void import(LLSD &ls_data);
 		void expectRez();
@@ -102,6 +122,8 @@ class ImportTracker
 		LLVector3 importoffset;
 		LLVector3 currentimportoffset;
 
+		time_t	idle_time;
+
 		//Working LLSD holders
 		LLUUID current_asset;
 		
@@ -116,7 +138,9 @@ class ImportTracker
 
 		//Move to next texture upload
 		void upload_next_asset();
-		
+
+		static void import_asset(InventoryImportInfo* data);
+
 	protected:		
 		void send_inventory(LLSD &prim);
 		void send_properties(LLSD &prim, int counter);
@@ -128,26 +152,23 @@ class ImportTracker
 		void link();
 		void wear(LLSD &prim);
 		void position(LLSD &prim);
-public:
+	public:
 		void plywood_above_head();
+
+		int					state;
+		LLSD				linksetgroups;
+		LLSD				linkset;
+		int					groupcounter;
 	
 	private:
 		int				numberExpected;
-	public:
-		int				state;
-	private:	
 		S32				last;
 		LLVector3			root;
 		LLQuaternion		rootrot;
 		std::list<S32>			localids;
-	public:
-		LLSD				linksetgroups;
-		int					groupcounter;
-	private:	
 		int					updated;
 		LLVector3			linksetoffset;
 		LLVector3			initialPos;
-		LLSD				linkset;
 
 		std::string filepath;
 		std::string asset_dir;
