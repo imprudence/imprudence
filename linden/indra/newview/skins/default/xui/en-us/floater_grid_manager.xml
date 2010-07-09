@@ -14,10 +14,10 @@
   </text>
   
   <scroll_list background_visible="true" bottom_delta="65" draw_border="true"
-	     draw_stripes="true" 
+	     draw_stripes="false" sort_column="0"
 	     follows="top|left|bottom" height="300" left="10" multi_select="false"
 	     name="grid_selector" width="170">
-    <column label="" name="grid" width="200" />
+    <column label="Grid List" name="grid" width="170" />
   </scroll_list>
   
   <!-- Grid Selector Buttons -->
@@ -122,7 +122,7 @@
         halign="center" follows="left|top" scale_image="true"
         font="SansSerifSmall" mouse_opaque="true" />
   <button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-        height="18" label="Clear All" left_delta="104"
+        height="18" label="Clear Info" left_delta="104"
         mouse_opaque="true" name="btn_clear" scale_image="true" width="100" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -247,13 +247,13 @@
 	     height="24" label="Connect" label_selected="Connect"
 	     left="280" mouse_opaque="true" name="connect_btn" scale_image="TRUE"
 	     width="100" />  -->
-  <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
+  <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
      height="24" label="Apply" label_selected="Apply" left="-108"
      mouse_opaque="true" name="btn_apply" scale_image="TRUE" width="100" />
-  <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
+  <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
      height="24" label="Cancel" label_selected="Cancel" left_delta="-104"
      mouse_opaque="true" name="btn_cancel" scale_image="TRUE" width="100" />
-  <button bottom="8" follows="right|bottom" font="SansSerif" halign="center"
+  <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
      height="24" label="OK" label_selected="OK" left_delta="-104"
      mouse_opaque="true" name="btn_ok" scale_image="TRUE" width="100" />
   <!--

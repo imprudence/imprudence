@@ -6864,6 +6864,47 @@ You have been disconnected from the region you were in. Unable to continue.
 </notification>
 
 <notification
+ icon="alertmodal.tga"
+ name="GridsNoNick"
+ type="alertmodal">
+Cannot save new grid information.
+
+You need to specify a unique grid nickname.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridsNoLoginUri"
+ type="alertmodal">
+Cannot save new grid '[NAME]'.
+
+You need to specify a login URI.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridExists"
+ type="alertmodal">
+Cannot save new grid '[NAME]'.
+
+A grid with the same nickname already exists.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridInfoNoLoginUri"
+ type="alertmodal">
+A login URI is required to retrieve the grid info.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridInfoError"
+ type="alertmodal">
+Cannot retrieve grid info from server.
+</notification>
+  
+<notification
  icon="alert.tga"
  name="IMLogNotFound"
  type="alert">

@@ -1,4 +1,4 @@
-
+// Ported to Imprudence from the Hippo OpenSim Viewer by Jacek Antonelli
 
 #include "llviewerprecompiledheaders.h"
 
@@ -173,11 +173,16 @@ void HippoGridInfo::setPlatform(const std::string &platform)
 	for (unsigned i=0; i<platform.size(); i++)
 		tmp[i] = tolower(tmp[i]);
 
-	if (tmp == "opensim") {
+	if (tmp == "opensim") 
+	{
 		setPlatform(PLATFORM_OPENSIM);
-	} else if (tmp == "secondlife") {
+	} 
+	else if (tmp == "secondlife") 
+	{
 		setPlatform(PLATFORM_SECONDLIFE);
-	} else {
+	} 
+	else 
+	{
 		setPlatform(PLATFORM_OTHER);
 		llwarns << "Unknown platform '" << platform << "'." << llendl;
 	}
@@ -278,13 +283,20 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 		if (mPlatform == PLATFORM_SECONDLIFE) 
 		{
 			// Second Life defaults
-			if (ty == SEARCH_ALL_EMPTY) {
+			if (ty == SEARCH_ALL_EMPTY) 
+			{
 				return gSavedSettings.getString("SearchURLDefault");
-			} else if (ty == SEARCH_ALL_QUERY) {
+			} 
+			else if (ty == SEARCH_ALL_QUERY) 
+			{
 				return gSavedSettings.getString("SearchURLQuery");
-			} else if (ty == SEARCH_ALL_TEMPLATE) {
+			} 
+			else if (ty == SEARCH_ALL_TEMPLATE) 
+			{
 				return gSavedSettings.getString("SearchURLSuffix2");
-			} else {
+			} 
+			else 
+			{
 				llinfos << "Illegal search URL type " << ty << llendl;
 				return "";
 			}
@@ -292,13 +304,20 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 		else
 		{
 			// OpenSim and other web search defaults
-			if (ty == SEARCH_ALL_EMPTY) {
+			if (ty == SEARCH_ALL_EMPTY) 
+			{
 				return gSavedSettings.getString("SearchURLDefaultOpenSim");
-			} else if (ty == SEARCH_ALL_QUERY) {
+			} 
+			else if (ty == SEARCH_ALL_QUERY) 
+			{
 				return gSavedSettings.getString("SearchURLQueryOpenSim");
-			} else if (ty == SEARCH_ALL_TEMPLATE) {
+			} 
+			else if (ty == SEARCH_ALL_TEMPLATE) 
+			{
 				return gSavedSettings.getString("SearchURLSuffixOpenSim");
-			} else {
+			} 
+			else 
+			{
 				llinfos << "Illegal search URL type " << ty << llendl;
 				return "";
 			}
@@ -307,13 +326,20 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 	else 
 	{
         // Use the old search all
-        if (ty == SEARCH_ALL_EMPTY) {
+        if (ty == SEARCH_ALL_EMPTY) 
+		{
             return (mSearchUrl + "panel=All&");
-        } else if (ty == SEARCH_ALL_QUERY) {
+        } 
+		else if (ty == SEARCH_ALL_QUERY) 
+		{
             return (mSearchUrl + "q=[QUERY]&s=[COLLECTION]&");
-        } else if (ty == SEARCH_ALL_TEMPLATE) {
+        } 
+		else if (ty == SEARCH_ALL_TEMPLATE) 
+		{
             return "lang=[LANG]&m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]";
-        } else {
+        } 
+		else 
+		{
             llinfos << "Illegal search URL type " << ty << llendl;
             return "";
         }
@@ -360,33 +386,38 @@ void HippoGridInfo::onXmlElementEnd(void *userData, const XML_Char *name)
 void HippoGridInfo::onXmlCharacterData(void *userData, const XML_Char *s, int len)
 {
 	HippoGridInfo *self = (HippoGridInfo*)userData;
-	switch (self->mXmlState) {
-		
-		case XML_GRIDNICK: {
+	switch (self->mXmlState) 
+	{
+		case XML_GRIDNICK: 
+		{
 			if (self->mGridNick == "") self->mGridNick.assign(s, len);
 			self->mGridNick = sanitizeGridNick(self->mGridNick);
 			break;
 		}
 
-		case XML_PLATFORM: {
+		case XML_PLATFORM: 
+		{
 			std::string platform(s, len);
 			self->setPlatform(platform); 
 			break;
 		}	
 
-		case XML_LOGINURI: {
+		case XML_LOGINURI: 
+		{
 			std::string loginuri(s, len);
 			self->mLoginUri = sanitizeUri( loginuri );
 			break;
 		}
 
-		case XML_HELPERURI: {
+		case XML_HELPERURI: 
+		{
 			std::string helperuri(s, len);
 			self->mHelperUri = sanitizeUri( helperuri );
 			break;
 		}
 
-		case XML_SEARCH: {
+		case XML_SEARCH: 
+		{
 			//self->mSearchUrl.assign(s, len);
 			//sanitizeQueryUrl(mSearchUrl);
 			break;
@@ -426,7 +457,8 @@ bool HippoGridInfo::retrieveGridInfo()
 	XML_SetElementHandler(parser, onXmlElementStart, onXmlElementEnd);
 	XML_SetCharacterDataHandler(parser, onXmlCharacterData);
 	mXmlState = XML_VOID;
-	if (!XML_Parse(parser, reply.data(), reply.size(), TRUE)) {
+	if (!XML_Parse(parser, reply.data(), reply.size(), TRUE)) 
+	{
 		llwarns << "XML Parse Error: " << XML_ErrorString(XML_GetErrorCode(parser)) << llendl;
 		success = false;
 	}
@@ -477,7 +509,8 @@ void HippoGridInfo::formatFee(std::string &fee, int cost, bool showFree) const
 // static
 const char *HippoGridInfo::getPlatformString(Platform platform)
 {
-	static const char *platformStrings[PLATFORM_LAST] = {
+	static const char *platformStrings[PLATFORM_LAST] = 
+	{
 		"Other", "OpenSim", "SecondLife"
 	};
 
@@ -492,11 +525,15 @@ std::string HippoGridInfo::sanitizeGridNick(std::string &gridnick)
 {
 	std::string tmp;
 	int size = gridnick.size();
-	for (int i=0; i<size; i++) {
+	for (int i=0; i<size; i++) 
+	{
 		char c = gridnick[i];
-		if ((c == '_') || isalnum(c)) {
+		if ((c == '_') || isalnum(c)) 
+		{
 			tmp += tolower(c);
-		} else if (isspace(c)) {
+		} 
+		else if (isspace(c)) 
+		{
 			tmp += "_";
 		}
 	}
@@ -543,7 +580,9 @@ void HippoGridInfo::initFallback()
 
 HippoGridManager::HippoGridManager() :
     mConnectedGrid(0),
-    mDefaultGridsVersion(0)
+    mDefaultGridsVersion(0),
+	mCurrentGrid("osgrid"),
+	mDefaultGrid("osgrid")
 {
 }
 
@@ -556,7 +595,8 @@ HippoGridManager::~HippoGridManager()
 void HippoGridManager::cleanup()
 {
 	std::map<std::string, HippoGridInfo*>::iterator it, end = mGridInfo.end();
-	for (it=mGridInfo.begin(); it != end; ++it) {
+	for (it=mGridInfo.begin(); it != end; ++it) 
+	{
 		delete it->second;
 	}
 	mGridInfo.clear();
@@ -589,9 +629,12 @@ HippoGridInfo* HippoGridManager::getGrid(const std::string &grid) const
 {
 	std::map<std::string, HippoGridInfo*>::const_iterator it;
 	it = mGridInfo.find(grid);
-	if (it != mGridInfo.end()) {
+	if (it != mGridInfo.end()) 
+	{
 		return it->second;
-	} else {
+	} 
+	else 
+	{
 		return 0;
 	}
 }
@@ -606,9 +649,12 @@ HippoGridInfo* HippoGridManager::getConnectedGrid() const
 HippoGridInfo* HippoGridManager::getCurrentGrid() const
 {
 	HippoGridInfo *grid = getGrid(mCurrentGrid);
-	if (grid) {
+	if (grid) 
+	{
 		return grid;
-	} else {
+	} 
+	else 
+	{
 		return &HippoGridInfo::FALLBACK_GRIDINFO;
 	}
 }
@@ -620,6 +666,10 @@ const std::string& HippoGridManager::getDefaultGridNick() const
 
 const std::string& HippoGridManager::getCurrentGridNick() const
 {
+	if (mCurrentGrid.empty())
+	{
+		return mDefaultGrid;
+	}
 	return mCurrentGrid;
 }
 
@@ -633,12 +683,14 @@ void HippoGridManager::addGrid(HippoGridInfo *grid)
 {
 	if (!grid) return;
 	const std::string &nick = grid->getGridNick();
-	if (nick == "") {
+	if (nick == "") 
+	{
 		llwarns << "Ignoring to try adding grid with empty nick." << llendl;
 		delete grid;
 		return;
 	}
-	if (mGridInfo.find(nick) != mGridInfo.end()) {
+	if (mGridInfo.find(nick) != mGridInfo.end()) 
+	{
 		llwarns << "Ignoring to try adding existing grid " << nick << '.' << llendl;
 		delete grid;
 		return;
@@ -667,13 +719,20 @@ void HippoGridManager::deleteGrid(const std::string &grid)
 void HippoGridManager::setDefaultGrid(const std::string &grid)
 {
 	GridIterator it = mGridInfo.find(grid);
-	if (it != mGridInfo.end()) {
+	if (it != mGridInfo.end()) 
+	{
 		mDefaultGrid = grid;
-	} else if (mGridInfo.find("secondlife") != mGridInfo.end()) {
+	} 
+	else if (mGridInfo.find("secondlife") != mGridInfo.end()) 
+	{
 		mDefaultGrid = "secondlife";
-	} else if (!mGridInfo.empty()) {
+	} 
+	else if (!mGridInfo.empty()) 
+	{
         mDefaultGrid = mGridInfo.begin()->first;
-	} else {
+	} 
+	else 
+	{
 		mDefaultGrid = "";
 	}
 }
@@ -682,9 +741,12 @@ void HippoGridManager::setDefaultGrid(const std::string &grid)
 void HippoGridManager::setCurrentGrid(const std::string &grid)
 {
 	GridIterator it = mGridInfo.find(grid);
-	if (it != mGridInfo.end()) {
+	if (it != mGridInfo.end()) 
+	{
 		mCurrentGrid = grid;
-	} else if (!mGridInfo.empty()) {
+	} 
+	else if (!mGridInfo.empty()) 
+	{
 		llwarns << "Unknown grid '" << grid << "'. Setting to default grid." << llendl;
         mCurrentGrid = mDefaultGrid;
 	}
@@ -722,7 +784,8 @@ void HippoGridManager::parseUrl(const char *url, bool mergeIfNewer)
 
 	// check response, return on error
 	S32 status = response["status"].asInteger();
-	if ((status != 200) || !response["body"].isArray()) {
+	if ((status != 200) || !response["body"].isArray()) 
+	{
 		llinfos << "GridInfo Update failed (" << status << "): "
 			<< (response["body"].isString()? response["body"].asString(): "<unknown error>")
 			<< llendl;
@@ -737,13 +800,15 @@ void HippoGridManager::parseFile(const std::string &fileName, bool mergeIfNewer)
 {
 	llifstream infile;
 	infile.open(fileName.c_str());
-	if(!infile.is_open()) {
+	if (!infile.is_open()) 
+	{
 		llwarns << "Cannot find grid info file " << fileName << " to load." << llendl;
 		return;
 	}
 
 	LLSD gridInfo;
-	if (LLSDSerialize::fromXML(gridInfo, infile) <= 0) {
+	if (LLSDSerialize::fromXML(gridInfo, infile) <= 0) 
+	{
 		llwarns << "Unable to parse grid info file " << fileName << '.' << llendl;		
 		return;
 	}
@@ -755,17 +820,21 @@ void HippoGridManager::parseFile(const std::string &fileName, bool mergeIfNewer)
 
 void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 {
-	if (mergeIfNewer) {
+	if (mergeIfNewer) 
+	{
 		LLSD::array_const_iterator it, end = gridInfo.endArray();
-		for (it = gridInfo.beginArray(); it != end; ++it) {
+		for (it = gridInfo.beginArray(); it != end; ++it) 
+		{
 			LLSD gridMap = *it;
-			if (gridMap.has("default_grids_version")) {
+			if (gridMap.has("default_grids_version")) 
+			{
 				int version = gridMap["default_grids_version"];
 				if (version <= mDefaultGridsVersion) return;
 				else break;
 			}
 		}
-		if (it == end) {
+		if (it == end) 
+		{
 			llwarns << "Grid data has no version number." << llendl;
 			return;
 		}
@@ -774,19 +843,26 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 	llinfos << "Loading grid data." << llendl;
 
 	LLSD::array_const_iterator it, end = gridInfo.endArray();
-	for (it = gridInfo.beginArray(); it != end; ++it) {
+	for (it = gridInfo.beginArray(); it != end; ++it) 
+	{
 		LLSD gridMap = *it;
-		if (gridMap.has("default_grids_version")) {
+		if (gridMap.has("default_grids_version")) 
+		{
 			mDefaultGridsVersion = gridMap["default_grids_version"];
-		} else if (gridMap.has("gridnick") && gridMap.has("loginuri")) {
+		} 
+		else if (gridMap.has("gridnick") && gridMap.has("loginuri")) 
+		{
 			std::string gridnick = gridMap["gridnick"];
 			HippoGridInfo *grid;
 			GridIterator it = mGridInfo.find(gridnick);
 			bool newGrid = (it == mGridInfo.end());
-			if (newGrid) {
+			if (newGrid) 
+			{
 				// create new grid info
 				grid = new HippoGridInfo(gridnick);
-			} else {
+			} 
+			else 
+			{
 				// update existing grid info
 				grid = it->second;
 			}
@@ -822,7 +898,8 @@ void HippoGridManager::saveFile()
 	// add grids
 	S32 i = 1;
 	GridIterator it, end = mGridInfo.end();
-	for (it = mGridInfo.begin(); it != end; ++it, i++) {
+	for (it = mGridInfo.begin(); it != end; ++it, i++) 
+	{
 		HippoGridInfo *grid = it->second;
 		gridInfo[i]["gridnick"] = grid->getGridNick();
 		gridInfo[i]["platform"] = HippoGridInfo::getPlatformString(grid->getPlatform());
@@ -846,11 +923,14 @@ void HippoGridManager::saveFile()
 	std::string fileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "grid_info.xml");
 	llofstream file;
 	file.open(fileName.c_str());
-	if (file.is_open()) {
+	if (file.is_open()) 
+	{
 		LLSDSerialize::toPrettyXML(gridInfo, file);
 		file.close();
 		llinfos << "Saved grids to " << fileName << llendl;
-	} else {
+	} 
+	else 
+	{
 		llerrs << "Unable to open grid info file: " << fileName << llendl;
 	}
 }

@@ -30,6 +30,12 @@ public:
 	//void setDefault();
 	void cancel();
 
+	void clearInfo();
+
+	virtual void draw();
+
+	void refresh();
+
 	// new-style login methods
 	virtual std::string& getPassword();
 	virtual void setPassword(std::string &password);
