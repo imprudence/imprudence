@@ -79,12 +79,12 @@ private:
 	F32					mSelectedDistance;
 
 	bool visibleItemsSelected() const;
-	bool isKickable(const LLUUID &agent_id);
+	bool isKickable(const LLUUID& agent_id);
 
-	std::string getSelectedName(const LLUUID &agent_id);
+	std::string getSelectedName(const LLUUID& agent_id);
 	F32			getSelectedDistance() { return mSelectedDistance; }
 
-	void sendAvatarPropertiesRequest(const LLUUID &agent_id);
+	void sendAvatarPropertiesRequest(const LLUUID& agent_id);
 
 	static void onUseRadarList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
@@ -93,33 +93,29 @@ private:
 	static void onClickIM(void* user_data);
 	static void onClickAddFriend(void* user_data);
 	static void onClickOfferTeleport(void* user_data);
-	static void onClickTeleport(void *userdata);
+	static void onClickTeleport(void* user_data);
 	static void onClickTrack(void* user_data);
 	static void onClickInvite(void* user_data);
-	static void callback_invite_to_group(LLUUID group_id, void *user_data);
+	static void callback_invite_to_group(LLUUID group_id, void* user_data);
 
 	static void onClickCam(void* user_data);
-	static void onClickFreeze(void *user_data);
-	static void onClickUnfreeze(void *user_data);
-	static void onClickEject(void *user_data);
-	static void onClickMute(void *user_data);
-	static void onClickUnmute(void *user_data);
-	static void onClickAR(void *user_data);
-	//static void onClickEjectFromEstate(void *user_data); Not working yet
-	static void onClickBanFromEstate(void *user_data);
+	static void onClickFreeze(void* user_data);
+	static void onClickUnfreeze(void* user_data);
+	static void onClickEject(void* user_data);
+	static void onClickBan(void* user_data);
+	static void onClickMute(void* user_data);
+	static void onClickUnmute(void* user_data);
+	static void onClickAR(void* user_data);
+	//static void onClickEjectFromEstate(void* user_data); Not working yet
+	//static void onClickBanFromEstate(void* user_data);
 
-	static void callbackAR(void *user_data);
-	static bool	callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self);
-	static bool	callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self);
-	//static bool	callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self);
-	static bool callbackBanFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	static void callbackAR(void* user_data);
+	static bool	callbackFreeze(const LLSD& notification, const LLSD& response);
+	static bool	callbackEjectBan(const LLSD& notification, const LLSD& response);
+	//static bool callbackEjectFromEstate(const LLSD& notification, const LLSD& response);
+	static bool callbackBanFromEstate(const LLSD& notification, const LLSD& response);
 
 	static void sendFreeze(const LLUUID& avatar, bool freeze);
-	static void sendEject(const LLUUID& avatar, bool ban);
-	static void cmdEstateEject(const LLUUID &avatar);
-	static void cmdEstateBan(const LLUUID &avatar);
-	static void sendEstateBan(const LLUUID& agent);
-	static void sendEstateMessage(const char* request, const LLUUID &target);
 };
 
 

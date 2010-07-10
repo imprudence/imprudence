@@ -118,6 +118,10 @@
               bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
 
+      <button name="ban_btn" label="Ban..."
+              bottom_delta="-22" left_delta="0" height="20" width="80"
+              follows="top|right" tool_tip="" />
+
       <button name="mute_btn" label="Mute..."
               bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />
@@ -134,9 +138,9 @@
               bottom_delta="-22" left_delta="0" height="20" width="80"
               follows="top|right" tool_tip="" />-->
 
-      <button name="estate_ban_btn" label="Ban..."
+      <!--<button name="estate_ban_btn" label="Ban..."
               bottom_delta="-22" left_delta="0" height="20" width="80"
-              follows="top|right" tool_tip="" />
+              follows="top|right" tool_tip="" />-->
 
     </panel>
   </tab_container>
