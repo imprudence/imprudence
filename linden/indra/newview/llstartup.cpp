@@ -39,7 +39,7 @@
 #else
 #	include <sys/stat.h>		// mkdir()
 #endif
-
+#include "llpluginclassmediaowner.h"
 #include "llviewermedia_streamingaudio.h"
 #include "llaudioengine.h"
 

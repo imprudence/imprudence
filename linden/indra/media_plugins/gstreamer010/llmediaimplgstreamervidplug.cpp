@@ -33,7 +33,7 @@
  * @endcond
  */
 
-#if LL_GSTREAMER010_ENABLED
+///#if LL_GSTREAMER010_ENABLED
 
 #include "linden_common.h"
 
@@ -41,15 +41,29 @@
 #include <gst/video/video.h>
 #include <gst/video/gstvideosink.h>
 
-#include "llmediaimplgstreamer_syms.h"
 #include "llmediaimplgstreamertriviallogging.h"
+//  #include "llthread.h"
 
 #include "llmediaimplgstreamervidplug.h"
-
 
 GST_DEBUG_CATEGORY_STATIC (gst_slvideo_debug);
 #define GST_CAT_DEFAULT gst_slvideo_debug
 
+/* Filter signals and args *//*
+enum
+{
+	*//* FILL ME *//*
+	LAST_SIGNAL
+};
+
+enum
+{
+	ARG_0
+};
+
+#define SLV_SIZECAPS ", width=(int){1,2,4,8,16,32,64,128,256,512,1024}, height=(int){1,2,4,8,16,32,64,128,256,512,1024} "
+#define SLV_ALLCAPS GST_VIDEO_CAPS_RGBx SLV_SIZECAPS ";" GST_VIDEO_CAPS_BGRx SLV_SIZECAPS
+*/
 
 #define SLV_SIZECAPS ", width=(int)[1,2048], height=(int)[1,2048] "
 #define SLV_ALLCAPS GST_VIDEO_CAPS_RGBx SLV_SIZECAPS
@@ -81,9 +95,9 @@ gst_slvideo_base_init (gpointer gclass)
 	};
 	GstElementClass *element_class = GST_ELEMENT_CLASS (gclass);
 	
-	llgst_element_class_add_pad_template (element_class,
-			      llgst_static_pad_template_get (&sink_factory));
-	llgst_element_class_set_details (element_class, &element_details);
+	gst_element_class_add_pad_template (element_class,
+			      gst_static_pad_template_get (&sink_factory));
+	gst_element_class_set_details (element_class, &element_details);
 }
 
 
@@ -94,7 +108,7 @@ gst_slvideo_finalize (GObject * object)
 	slvideo = GST_SLVIDEO (object);
 	if (slvideo->caps)
 	{
-		llgst_caps_unref(slvideo->caps);
+		gst_caps_unref(slvideo->caps);
 	}
 
 	G_OBJECT_CLASS(parent_class)->finalize (object);
@@ -105,7 +119,7 @@ static GstFlowReturn
 gst_slvideo_show_frame (GstBaseSink * bsink, GstBuffer * buf)
 {
 	GstSLVideo *slvideo;
-	llg_return_val_if_fail (buf != NULL, GST_FLOW_ERROR);
+	g_return_val_if_fail (buf != NULL, GST_FLOW_ERROR);
 	
 	slvideo = GST_SLVIDEO(bsink);
 	
@@ -197,7 +211,7 @@ gst_slvideo_get_caps (GstBaseSink * bsink)
 	GstSLVideo *slvideo;
 	slvideo = GST_SLVIDEO(bsink);
 	
-	return llgst_caps_ref (slvideo->caps);
+	return gst_caps_ref (slvideo->caps);
 }
 
 
@@ -207,21 +221,32 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 {
 	GstSLVideo *filter;
 	GstStructure *structure;
+//	GstCaps *intersection;
 	
 	GST_DEBUG ("set caps with %" GST_PTR_FORMAT, caps);
 	
 	filter = GST_SLVIDEO(bsink);
 
-	int width, height;
+/*	
+	intersection = gst_caps_intersect (filter->caps, caps);
+	if (gst_caps_is_empty (intersection))
+	{
+		// no overlap between our caps and requested caps
+		return FALSE;
+	}
+	gst_caps_unref(intersection);
+*/	
+	int width = 0;
+	int height = 0;
 	gboolean ret;
 	const GValue *fps;
 	const GValue *par;
-	structure = llgst_caps_get_structure (caps, 0);
-	ret = llgst_structure_get_int (structure, "width", &width);
-	ret = ret && llgst_structure_get_int (structure, "height", &height);
-	fps = llgst_structure_get_value (structure, "framerate");
+	structure = gst_caps_get_structure (caps, 0);
+	ret = gst_structure_get_int (structure, "width", &width);
+	ret = ret && gst_structure_get_int (structure, "height", &height);
+	fps = gst_structure_get_value (structure, "framerate");
 	ret = ret && (fps != NULL);
-	par = llgst_structure_get_value (structure, "pixel-aspect-ratio");
+	par = gst_structure_get_value (structure, "pixel-aspect-ratio");
 	if (!ret)
 		return FALSE;
 
@@ -231,34 +256,35 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 
 	filter->width = width;
 	filter->height = height;
-
-	filter->fps_n = llgst_value_get_fraction_numerator(fps);
-	filter->fps_d = llgst_value_get_fraction_denominator(fps);
+	filter->fps_n = gst_value_get_fraction_numerator(fps);
+	filter->fps_d = gst_value_get_fraction_denominator(fps);
 	if (par)
 	{
-		filter->par_n = llgst_value_get_fraction_numerator(par);
-		filter->par_d = llgst_value_get_fraction_denominator(par);
+		filter->par_n = gst_value_get_fraction_numerator(par);
+		filter->par_d = gst_value_get_fraction_denominator(par);
 	}
 	else
 	{
 		filter->par_n = 1;
 		filter->par_d = 1;
 	}
+
 	GST_VIDEO_SINK_WIDTH(filter) = width;
 	GST_VIDEO_SINK_HEIGHT(filter) = height;
-	
+
 	// crufty lump - we *always* accept *only* RGBX now.
 	/*
+	
 	filter->format = SLV_PF_UNKNOWN;
-	if (0 == strcmp(llgst_structure_get_name(structure),
+	if (0 == strcmp(gst_structure_get_name(structure),
 			"video/x-raw-rgb"))
 	{
 		int red_mask;
 		int green_mask;
 		int blue_mask;
-		llgst_structure_get_int(structure, "red_mask", &red_mask);
-		llgst_structure_get_int(structure, "green_mask", &green_mask);
-		llgst_structure_get_int(structure, "blue_mask", &blue_mask);
+		gst_structure_get_int(structure, "red_mask", &red_mask);
+		gst_structure_get_int(structure, "green_mask", &green_mask);
+		gst_structure_get_int(structure, "blue_mask", &blue_mask);
 		if ((unsigned int)red_mask   == 0xFF000000 &&
 		    (unsigned int)green_mask == 0x00FF0000 &&
 		    (unsigned int)blue_mask  == 0x0000FF00)
@@ -272,12 +298,13 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 			filter->format = SLV_PF_BGRX;
 			//fprintf(stderr, "\n\nPIXEL FORMAT BGR\n\n");
 		}
-		}*/
-	
+		
+	}*/
+
 	filter->format = SLV_PF_RGBX;
 
 	GST_OBJECT_UNLOCK(filter);
-
+	
 	return TRUE;
 }
 
@@ -324,15 +351,15 @@ gst_slvideo_buffer_alloc (GstBaseSink * bsink, guint64 offset, guint size,
 	// we can ignore these and reverse-negotiate our preferred dimensions with
 	// the peer if we like - we need to do this to obey dynamic resize requests
 	// flowing in from the app.
-	structure = llgst_caps_get_structure (caps, 0);
-	if (!llgst_structure_get_int(structure, "width", &width) ||
-	    !llgst_structure_get_int(structure, "height", &height))
+	structure = gst_caps_get_structure (caps, 0);
+	if (!gst_structure_get_int(structure, "width", &width) ||
+	    !gst_structure_get_int(structure, "height", &height))
 	{
 		GST_WARNING_OBJECT (slvideo, "no width/height in caps %" GST_PTR_FORMAT, caps);
 		return GST_FLOW_NOT_NEGOTIATED;
 	}
 
-	GstBuffer *newbuf = llgst_buffer_new();
+	GstBuffer *newbuf = gst_buffer_new();
 	bool made_bufferdata_ptr = false;
 #define MAXDEPTHHACK 4
 	
@@ -352,19 +379,19 @@ gst_slvideo_buffer_alloc (GstBaseSink * bsink, guint64 offset, guint size,
 		
 			GstCaps *desired_caps;
 			GstStructure *desired_struct;
-			desired_caps = llgst_caps_copy (caps);
-			desired_struct = llgst_caps_get_structure (desired_caps, 0);
+			desired_caps = gst_caps_copy (caps);
+			desired_struct = gst_caps_get_structure (desired_caps, 0);
 			
 			GValue value = {0};
 			g_value_init(&value, G_TYPE_INT);
 			g_value_set_int(&value, slwantwidth);
-			llgst_structure_set_value (desired_struct, "width", &value);
+			gst_structure_set_value (desired_struct, "width", &value);
 			g_value_unset(&value);
 			g_value_init(&value, G_TYPE_INT);
 			g_value_set_int(&value, slwantheight);
-			llgst_structure_set_value (desired_struct, "height", &value);
+			gst_structure_set_value (desired_struct, "height", &value);
 			
-			if (llgst_pad_peer_accept_caps (GST_VIDEO_SINK_PAD (slvideo),
+			if (gst_pad_peer_accept_caps (GST_VIDEO_SINK_PAD (slvideo),
 							desired_caps))
 			{
 				// todo: re-use buffers from a pool?
@@ -375,13 +402,13 @@ gst_slvideo_buffer_alloc (GstBaseSink * bsink, guint64 offset, guint size,
 				GST_BUFFER_SIZE(newbuf) = slwantwidth * slwantheight * MAXDEPTHHACK;
 				GST_BUFFER_MALLOCDATA(newbuf) = (guint8*)g_malloc(GST_BUFFER_SIZE(newbuf));
 				GST_BUFFER_DATA(newbuf) = GST_BUFFER_MALLOCDATA(newbuf);
-				llgst_buffer_set_caps (GST_BUFFER_CAST(newbuf), desired_caps);
+				gst_buffer_set_caps (GST_BUFFER_CAST(newbuf), desired_caps);
 
 				made_bufferdata_ptr = true;
 			} else {
 				// peer hates our cap suggestion
 				INFOMSG("peer hates us :(");
-				llgst_caps_unref(desired_caps);
+				gst_caps_unref(desired_caps);
 			}
 		}
 	}
@@ -393,7 +420,7 @@ gst_slvideo_buffer_alloc (GstBaseSink * bsink, guint64 offset, guint size,
 		GST_BUFFER_SIZE(newbuf) = width * height * MAXDEPTHHACK;
 		GST_BUFFER_MALLOCDATA(newbuf) = (guint8*)g_malloc(GST_BUFFER_SIZE(newbuf));
 		GST_BUFFER_DATA(newbuf) = GST_BUFFER_MALLOCDATA(newbuf);
-		llgst_buffer_set_caps (GST_BUFFER_CAST(newbuf), caps);
+		gst_buffer_set_caps (GST_BUFFER_CAST(newbuf), caps);
 	}
 
 	*buf = GST_BUFFER_CAST(newbuf);
@@ -435,6 +462,20 @@ gst_slvideo_class_init (GstSLVideoClass * klass)
 #undef LLGST_DEBUG_FUNCPTR
 }
 
+/*
+static void
+gst_slvideo_update_caps (GstSLVideo * slvideo)
+{
+	GstCaps *caps;
+
+	// GStreamer will automatically convert colourspace if necessary.
+	// GStreamer will automatically resize media to one of these enumerated
+	// powers-of-two that we ask for (yay GStreamer!)
+	caps = gst_caps_from_string (SLV_ALLCAPS);
+	
+	gst_caps_replace (&slvideo->caps, caps);
+}
+*/
 
 /* initialize the new element
  * instantiate pads and add them to element
@@ -457,24 +498,24 @@ gst_slvideo_init (GstSLVideo * filter,
 	filter->retained_frame_width = filter->width;
 	filter->retained_frame_height = filter->height;
 	filter->retained_frame_format = SLV_PF_UNKNOWN;
-	GstCaps *caps = llgst_caps_from_string (SLV_ALLCAPS);
-	llgst_caps_replace (&filter->caps, caps);
+	GstCaps *caps = gst_caps_from_string (SLV_ALLCAPS);
+	gst_caps_replace (&filter->caps, caps);
 	filter->resize_forced_always = false;
 	filter->resize_try_width = -1;
 	filter->resize_try_height = -1;
 	GST_OBJECT_UNLOCK(filter);
+	
+	//gst_slvideo_update_caps(filter);
 }
 
 static void
 gst_slvideo_set_property (GObject * object, guint prop_id,
 			  const GValue * value, GParamSpec * pspec)
 {
-	llg_return_if_fail (GST_IS_SLVIDEO (object));
+	g_return_if_fail (GST_IS_SLVIDEO (object));
 	
-	switch (prop_id) {
-	default:
+	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
 	}
 }
 
@@ -482,12 +523,10 @@ static void
 gst_slvideo_get_property (GObject * object, guint prop_id,
 			  GValue * value, GParamSpec * pspec)
 {
-	llg_return_if_fail (GST_IS_SLVIDEO (object));
+	g_return_if_fail (GST_IS_SLVIDEO (object));
 
-	switch (prop_id) {
-	default:
+	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
 	}
 }
 
@@ -505,7 +544,7 @@ plugin_init (GstPlugin * plugin)
 	GST_DEBUG_CATEGORY_INIT (gst_slvideo_debug, (gchar*)"private-slvideo-plugin",
 				 0, (gchar*)"Second Life Video Sink");
 
-	return llgst_element_register (plugin, "private-slvideo",
+	return gst_element_register (plugin, "private-slvideo",
 				       GST_RANK_NONE, GST_TYPE_SLVIDEO);
 }
 
@@ -515,20 +554,19 @@ plugin_init (GstPlugin * plugin)
    some g++ versions buggily avoid __attribute__((constructor)) functions -
    so we provide an explicit plugin init function.
  */
-#define PACKAGE (gchar*)"packagehack"
-	// this macro quietly refers to PACKAGE internally
-		GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
-				  GST_VERSION_MINOR,
-				  (gchar*)"private-slvideoplugin", 
-				  (gchar*)"SL Video sink plugin",
-				  plugin_init, (gchar*)"0.1", (gchar*)GST_LICENSE_UNKNOWN,
-				  (gchar*)"Second Life",
-				  (gchar*)"http://www.secondlife.com/");
-#undef PACKAGE
+
 void gst_slvideo_init_class (void)
 {
-	ll_gst_plugin_register_static (&gst_plugin_desc);
-	DEBUGMSG("CLASS INIT");
+	gst_plugin_register_static( GST_VERSION_MAJOR,
+	                            GST_VERSION_MINOR,
+	                            (const gchar *)"private-slvideoplugin", 
+	                            (gchar *)"SL Video sink plugin",
+	                            plugin_init,
+	                            (const gchar *)"0.1",
+	                            GST_LICENSE_UNKNOWN,
+	                            (const gchar *)"Second Life",
+	                            (const gchar *)"Second Life",
+	                            (const gchar *)"http://www.secondlife.com/" );
 }
 
-#endif // LL_GSTREAMER010_ENABLED
+///#endif // LL_GSTREAMER010_ENABLED

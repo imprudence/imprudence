@@ -36,6 +36,7 @@
 #include "linden_common.h"
 #include "llpluginclassmedia.h"
 #include "llviewermedia.h"
+#include "llviewercontrol.h"
 
 #include "llviewermedia_streamingaudio.h"
 
@@ -43,6 +44,8 @@
 #include "llvfs.h"
 #include "lldir.h"
 
+#include "llchat.h"
+#include "llfloaterchat.h"
 
 LLStreamingAudio_MediaPlugins::LLStreamingAudio_MediaPlugins() :
 	mMediaPlugin(NULL),
@@ -153,9 +156,26 @@ std::string LLStreamingAudio_MediaPlugins::getURL()
 	return mURL;
 }
 
+void LLStreamingAudio_MediaPlugins::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
+{
+	if (event == MEDIA_EVENT_NAME_CHANGED)
+	{
+		std::string title = self->getMediaName();
+		if (!title.empty() && gSavedSettings.getBOOL("ShowStreamTitle"))
+		{
+			//llinfos << "Playing: " << title << llendl;
+			LLChat chat;
+			//TODO: set this in XUI
+			std::string playing_msg = "Playing: " + title;
+			chat.mText = playing_msg;
+			LLFloaterChat::addChat(chat, FALSE, FALSE);
+		}
+	}
+}
+
 LLPluginClassMedia* LLStreamingAudio_MediaPlugins::initializeMedia(const std::string& media_type)
 {
-	LLPluginClassMediaOwner* owner = NULL;
+	LLPluginClassMediaOwner* owner = this;
 	S32 default_size = 1; // audio-only - be minimal, doesn't matter
 	LLPluginClassMedia* media_source = LLViewerMediaImpl::newSourceFromMediaType(media_type, owner, default_size, default_size);
 
