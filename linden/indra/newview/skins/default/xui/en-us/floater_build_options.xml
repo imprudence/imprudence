@@ -41,13 +41,13 @@
   
   <spinner bottom="-200" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="X size:" label_width="40" left="20" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="X size:" width="110" />
+     mouse_opaque="true" name="X size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Y size:" label_width="40" left_delta="0" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="Y size:" width="110" />
+     mouse_opaque="true" name="Y size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
      label="Z size:" label_width="40" left_delta="0" max_val="10" min_val="0.01"
-     mouse_opaque="true" name="Z size:" width="110" />
+     mouse_opaque="true" name="Z size" width="110" />
   
   <view_border bevel_style="none" border_thickness="1" bottom="-145" follows="top|left" height="105"
      left="198" name="PivotBorder" width="135"/>
