@@ -1130,9 +1130,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>9469c3732a33a154fa0a2807b9f36ccc</string>
+            <string>4f666348e13362befad62f0bf3e8bc5a</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-linux-0.2-20080828.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux32-0.2.1-20100711.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
