@@ -674,14 +674,24 @@ void LLInventoryView::draw()
 {
  	if (LLInventoryModel::isEverythingFetched())
 	{
-		LLLocale locale(LLLocale::USER_LOCALE);
-		std::ostringstream title;
-		title << "Inventory";
-		std::string item_count_string;
-		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
-		title << " (" << item_count_string << " items)";
-		title << mFilterText;
-		setTitle(title.str());
+		S32 item_count = gInventory.getItemCount();
+
+		//don't let llfloater work more than necessary
+		if (item_count != mOldItemCount || mOldFilterText != mFilterText)
+		{
+			LLLocale locale(LLLocale::USER_LOCALE);
+			std::ostringstream title;
+			title << "Inventory"; //*TODO: make translatable
+			std::string item_count_string;
+			LLResMgr::getInstance()->getIntegerString(item_count_string, item_count);
+			title << " (" << item_count_string << " items)";
+			title << mFilterText;
+			setTitle(title.str());
+		}
+
+		mOldFilterText = mFilterText;
+		mOldItemCount = item_count;
+
 	}
 	if (mActivePanel && mSearchEditor)
 	{

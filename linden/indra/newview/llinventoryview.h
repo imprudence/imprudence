@@ -307,9 +307,10 @@ protected:
 	LLSaveFolderState*			mSavedFolderState;
 
 	std::string					mFilterText;
+	std::string					mOldFilterText;
 
 	S32							mItemCount;
-
+	S32 							mOldItemCount;
 
 	// This container is used to hold all active inventory views. This
 	// is here to support the inventory toggle show button.
