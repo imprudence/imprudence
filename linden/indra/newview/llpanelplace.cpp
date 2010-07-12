@@ -415,11 +415,7 @@ void LLPanelPlace::onClickTeleport(void* data)
 	{
 		parent_floaterp->close();
 	}
-	// LLFloater* parent_floaterp = (LLFloater*)self->getParent();
-	if (parent_viewp)
-	{
-		parent_viewp->setVisible(false);
-	}
+
 	if(self->mLandmarkAssetID.notNull())
 	{
 		gAgent.teleportViaLandmark(self->mLandmarkAssetID);
