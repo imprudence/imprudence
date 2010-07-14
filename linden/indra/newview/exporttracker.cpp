@@ -131,16 +131,12 @@ void ExportTrackerFloater::draw()
 
 	LLRect rec  = getChild<LLPanel>("progress_bar")->getRect();
 
-	S32 bar_width = 180;
-	//S32 bar_left = 10;
+	S32 bar_width = rec.getWidth();
 	S32 left = rec.mLeft, right = rec.mRight;
 	S32 top = rec.mTop;
 	S32 bottom = rec.mBottom;
-	//left = bar_left;
-	//right = left + bar_width;
 
 	gGL.color4f(0.f, 0.f, 0.f, 0.75f);
-	//gl_rect_2d(left, top, right, bottom);
 	gl_rect_2d(rec);
 
 	F32 data_progress = ((F32)JCExportTracker::totalprims/total_objects);
@@ -175,19 +171,19 @@ void ExportTrackerFloater::draw()
 
 		LLDynamicArray<LLViewerObject*> objectlist;
 
-//		if (mObjectSelectionWaitList.empty())
-//		{
+		if (mObjectSelectionWaitList.empty())
+		{
 			objectlist = objectselection;
-//		}
-//		else {
-//			objectlist = mObjectSelectionWaitList;
-//		}
+		}
+		else {
+			objectlist = mObjectSelectionWaitList;
+		}
 		
 
-		LLDynamicArray<LLViewerObject*>::iterator iter=objectselection.begin();
+		LLDynamicArray<LLViewerObject*>::iterator iter=objectlist.begin();
 		LLViewerObject* object = NULL;
 
-		for(iter;iter!=objectselection.end();iter++)
+		for(iter;iter!=objectlist.end();iter++)
 		{
 			object = (*iter);
 			LLVector3 object_pos = object->getPosition();
@@ -195,9 +191,16 @@ void ExportTrackerFloater::draw()
 			LLSD element;
 			element["id"] = llformat("%u",object->getLocalID()); //object->getLocalID();
 
+			LLSD * props=JCExportTracker::received_properties[object->getID()];
+			std::string name = "";
+			if(props!=NULL)
+			{
+				name = std::string((*props)["name"]);
+			}
+
 			element["columns"][0]["column"] = "Name";
 			element["columns"][0]["type"] = "text";
-			element["columns"][0]["value"] = object->getID();
+			element["columns"][0]["value"] = name;
 
 			element["columns"][1]["column"] = "UUID";
 			element["columns"][1]["type"] = "text";
@@ -228,6 +231,19 @@ void ExportTrackerFloater::draw()
 			element["columns"][5]["column"] = "Position";
 			element["columns"][5]["type"] = "text";
 			element["columns"][5]["value"] = sstr.str();
+
+			std::list<PropertiesRequest_t *>::iterator iter=JCExportTracker::requested_properties.begin();
+			for(iter;iter!=JCExportTracker::requested_properties.end();iter++)
+			{
+				PropertiesRequest_t * req=(*iter);
+				if(req->localID==object->getLocalID())
+				{
+					cmdline_printchat("match");
+					element["columns"][6]["column"] = "Retries";
+					element["columns"][6]["type"] = "text";
+					element["columns"][6]["value"] = llformat("%u",req->num_retries);;
+				}
+			}
 
 			mResultList->addElement(element, ADD_BOTTOM);
 		}
@@ -1014,6 +1030,7 @@ void JCExportTracker::exportworker(void *userdata)
 		{
 			req->request_time=time(NULL);
 			req->num_retries++;
+
 			requestPrimProperties(req->localID);
 			kick_count++;
 			//cmdline_printchat("requested property for: " + llformat("%d",req->localID));
@@ -2097,41 +2114,13 @@ void JCAssetExportCallback(LLVFS *vfs, const LLUUID& uuid, LLAssetType::EType ty
 
 		if (mResultList->getItemIndex(info->assetid) >= 0)
 		{
-			mResultList->deleteSingleItem(mResultList->getItemIndex(info->assetid));
+			LLScrollListItem* itemp = mResultList->getItem(info->assetid);
+			itemp->getColumn(4)->setValue("account_id_green.tga");
 
-/*
-			//add to floater list
-			LLSD element;
-			element["id"] = info->assetid; //object->getLocalID();
+			//LLSD temp = mResultList->getColumn(mResultList->getItemIndex(info->assetid))->getValue();
+			//mResultList->deleteSingleItem(mResultList->getItemIndex(info->assetid));
+			//mResultList->addElement(element, ADD_BOTTOM);
 
-			element["columns"][0]["column"] = "Name";
-			element["columns"][0]["type"] = "text";
-			element["columns"][0]["value"] = info->name;
-
-			element["columns"][1]["column"] = "UUID";
-			element["columns"][1]["type"] = "text";
-			element["columns"][1]["value"] = info->assetid;
-
-			//element["columns"][2]["column"] = "Object ID";
-			//element["columns"][2]["type"] = "text";
-			//element["columns"][2]["value"] = llformat("%u",obj->getLocalID());
-
-			//LLVector3 object_pos = obj->getWorldPosition();
-			//std::stringstream sstr;	
-			//sstr <<llformat("%.1f", object_pos.mV[VX]);
-			//sstr <<","<<llformat("%.1f", object_pos.mV[VY]);
-			//sstr <<","<<llformat("%.1f", object_pos.mV[VZ]);
-
-			//element["columns"][3]["column"] = "Position";
-			//element["columns"][3]["type"] = "text";
-			//element["columns"][3]["value"] = sstr.str();
-
-			element["columns"][4]["column"] = "icon_rec";
-			element["columns"][4]["type"] = "icon";
-			element["columns"][4]["value"] = "account_id_green.tga";
-
-			mResultList->addElement(element, ADD_BOTTOM);
-*/
 		}
 		else cmdline_printchat("received unrequested asset");
 		
@@ -2242,6 +2231,13 @@ BOOL JCExportTracker::mirror(LLInventoryObject* item, LLViewerObject* container,
 			element["columns"][3]["column"] = "Position";
 			element["columns"][3]["type"] = "text";
 			element["columns"][3]["value"] = sstr.str();
+
+			//element["columns"][4]["column"] = "Retries";
+			//element["columns"][4]["type"] = "text";
+			//element["columns"][4]["value"] = "0";
+
+			element["columns"][4]["column"] = "icon_rec";
+			element["columns"][4]["type"] = "icon";
 
 			LLScrollListCtrl* mResultList;
 			mResultList = ExportTrackerFloater::sInstance->getChild<LLScrollListCtrl>("inventory_result_list");

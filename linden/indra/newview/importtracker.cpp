@@ -625,7 +625,7 @@ LLSD ImportTracker::parse_hpa_object(LLXmlTreeNode* prim)
 	else if (prim->hasName("grass"))
 		pcode = LL_PCODE_LEGACY_GRASS;
 	else {
-		//cmdline_printchat("ERROR INVALID OBJECT, skipping.");
+		cmdline_printchat("ERROR INVALID OBJECT, skipping.");
 		return NULL;
 	}
 
@@ -1739,7 +1739,7 @@ public:
 		LLViewerObject* objectp = find(data->localid);
 		insert(item, objectp, data);
 	}
-/*
+
 	virtual void error(U32 statusNum, const std::string& reason)
 	{
 		cmdline_printchat("upload error:" + reason + " " + mVFileID.asString());
@@ -1748,6 +1748,33 @@ public:
 		llinfos << "JCPostInvUploadResponder::error " << statusNum 
 			<< " reason: " << reason << llendl;
 
+		//update import queue list
+		LLScrollListCtrl* mResultList;
+		mResultList = ImportTrackerFloater::sInstance->getChild<LLScrollListCtrl>("result_list");
+
+		LLSD element;
+		element["id"] = "tmp";
+		element["columns"][0]["column"] = "Name";
+		element["columns"][0]["type"] = "text";
+		//element["columns"][0]["color"] = gColors.getColor("DefaultListText").getValue();
+		element["columns"][0]["value"] = "tmp";
+		/*
+		element["columns"][LIST_OBJECT_DESC]["column"] = "Description";
+		element["columns"][LIST_OBJECT_DESC]["type"] = "text";
+		element["columns"][LIST_OBJECT_DESC]["value"] = details->desc;//ai->second;
+		element["columns"][LIST_OBJECT_DESC]["color"] = gColors.getColor("DefaultListText").getValue();
+		element["columns"][LIST_OBJECT_OWNER]["column"] = "Owner";
+		element["columns"][LIST_OBJECT_OWNER]["type"] = "text";
+		element["columns"][LIST_OBJECT_OWNER]["value"] = onU;//aifirst;
+		element["columns"][LIST_OBJECT_OWNER]["color"] = gColors.getColor("DefaultListText").getValue();
+		element["columns"][LIST_OBJECT_GROUP]["column"] = "Group";
+		element["columns"][LIST_OBJECT_GROUP]["type"] = "text";
+		element["columns"][LIST_OBJECT_GROUP]["value"] = cnU;//ai->second;
+		element["columns"][LIST_OBJECT_GROUP]["color"] = gColors.getColor("DefaultListText").getValue();
+		*/
+		mResultList->addElement(element, ADD_BOTTOM);
+
+		/*
 		S32 file_size;
 		LLAPRFile infile ;
 		infile.open(data->filename, LL_APR_RB, LLAPRFile::local, &file_size);
@@ -1763,14 +1790,14 @@ public:
 		}
 		else
 			cmdline_printchat("does not exist " + data->filename);
-
+*/
 		//std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
 		//LLSD body;
 		//body["item_id"] = inv_item;
 
 		//LLHTTPClient::post(agent_url, body,
 		//	new JCPostInvUploadResponder(body, data->assetid, data->type,inv_item,data));
-	} */
+	}
 private:
 	LLUUID item_id;
 	InventoryImportInfo* data;
@@ -1835,7 +1862,7 @@ public:
 
 					cmdline_printchat("posting content as " + data->assetid.asString());
 					LLHTTPClient::post(agent_url, body,
-								new JCPostInvUploadResponder(body, data->assetid, LLAssetType::AT_NOTECARD,inv_item,data));
+								new JCPostInvUploadResponder(body, data->assetid, data->type,inv_item,data));
 				}
 				break;
 			case LLAssetType::AT_LSL_TEXT:
@@ -2073,7 +2100,7 @@ void ImportTracker::send_inventory(LLSD& prim)
 							cb);
 					}
 					break;
-				case LLAssetType::AT_SCRIPT://this shouldn't happen as this is legacy shit
+				case LLAssetType::AT_SCRIPT://this shouldn't happen as this is a legacy format
 				case LLAssetType::AT_GESTURE://we don't import you atm...
 				default:
 					break;
@@ -2089,7 +2116,7 @@ void ImportTracker::send_properties(LLSD& prim, int counter)
 {
 	if(prim.has("properties"))
 	{
-		if(counter == 1)//root only shit
+		if(counter == 1)//root only params
 		{
 			//prim["LocalID"]
 			LLMessageSystem* msg = gMessageSystem;
@@ -2605,7 +2632,7 @@ void myupload_new_resource(const LLTransactionID &tid, LLAssetType::EType asset_
 	}
 	else
 	{
-		llinfos << "NewAgentInventory capability not found, FUCK!" << llendl;	
+		llinfos << "NewAgentInventory capability not found" << llendl;	
 	}
 }
 
