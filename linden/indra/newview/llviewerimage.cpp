@@ -545,7 +545,14 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 			destroyRawImage();
 			return FALSE;
 		}
-		
+		if (mRawImage->getComponents()>4)
+		{
+			LL_DEBUGS("Openjpeg")<<"broken raw image" << LL_ENDL;
+			setIsMissingAsset();
+			destroyRawImage();
+			return FALSE;
+		}
+
 		res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
 	}
 
@@ -1058,6 +1065,11 @@ bool LLViewerImage::updateFetch()
 			{
 				if (getComponents() != mRawImage->getComponents())
 				{
+					// We've changed the number of components, so we need to move any
+					// objects using this pool to a different pool.
+					mComponents = mRawImage->getComponents();
+					gImageList.dirtyImage(this);
+/*
 					// Do a quick sanity check to make sure we can actually
 					// use the right number of components here -- MC
 					if ((U32)mRawImage->getComponents() > 4)
@@ -1079,6 +1091,7 @@ bool LLViewerImage::updateFetch()
 						mComponents = mRawImage->getComponents();
 						gImageList.dirtyImage(this);
 					}
+*/
 				}			
 				
 				mFullWidth = mRawImage->getWidth() << mRawDiscardLevel;
