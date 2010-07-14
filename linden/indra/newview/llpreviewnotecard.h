@@ -112,6 +112,9 @@ protected:
 
 	void			initMenu();
 
+	static void		onSaveMenu(void* userdata);
+	static void		onExportTextMenu(void* userdata);
+	static void		onImportTextMenu(void* userdata);
 	static void		onSearchMenu(void* userdata);
 	static void		onUndoMenu(void* userdata);
 	static void		onRedoMenu(void* userdata);
@@ -121,6 +124,9 @@ protected:
 	static void		onSelectAllMenu(void* userdata);
 	static void		onDeselectMenu(void* userdata);
 
+	static BOOL		enableSaveMenu(void* userdata);
+	static BOOL		enableExportTextMenu(void* userdata);
+	static BOOL		enableImportTextMenu(void* userdata);
 	static BOOL		enableUndoMenu(void* userdata);
 	static BOOL		enableRedoMenu(void* userdata);
 	static BOOL		enableCutMenu(void* userdata);

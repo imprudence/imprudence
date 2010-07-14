@@ -40,6 +40,7 @@
 #include "llassetuploadresponders.h"
 #include "llviewerwindow.h"
 #include "llbutton.h"
+#include "llfilepicker.h"
 #include "llfloatersearchreplace.h"
 #include "llinventorymodel.h"
 #include "lllineeditor.h"
@@ -664,7 +665,23 @@ LLTextEditor* LLPreviewNotecard::getEditor()
 
 void LLPreviewNotecard::initMenu()
 {
-	LLMenuItemCallGL* menuItem = getChild<LLMenuItemCallGL>("Undo");
+	// File menu
+
+	LLMenuItemCallGL* menuItem = getChild<LLMenuItemCallGL>("Save Menu");
+	menuItem->setMenuCallback(onSaveMenu, this);
+	menuItem->setEnabledCallback(enableSaveMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Export Text...");
+	menuItem->setMenuCallback(onExportTextMenu, this);
+	menuItem->setEnabledCallback(enableExportTextMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Import Text...");
+	menuItem->setMenuCallback(onImportTextMenu, this);
+	menuItem->setEnabledCallback(enableImportTextMenu);
+
+	// Edit menu
+
+	menuItem = getChild<LLMenuItemCallGL>("Undo");
 	menuItem->setMenuCallback(onUndoMenu, this);
 	menuItem->setEnabledCallback(enableUndoMenu);
 
@@ -695,6 +712,77 @@ void LLPreviewNotecard::initMenu()
 	menuItem = getChild<LLMenuItemCallGL>("Search / Replace...");
 	menuItem->setMenuCallback(onSearchMenu, this);
 	menuItem->setEnabledCallback(NULL);
+}
+
+//static 
+void LLPreviewNotecard::onSaveMenu(void* userdata)
+{
+	LLPreviewNotecard* preview = (LLPreviewNotecard*)userdata;
+	if (preview)
+	{
+		preview->saveIfNeeded();
+	}
+}
+
+//static 
+void LLPreviewNotecard::onExportTextMenu(void* userdata)
+{
+	LLPreviewNotecard* preview = (LLPreviewNotecard*)userdata;
+
+	if (preview)
+	{
+		LLViewerTextEditor* editor = preview->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			LLFilePicker& file_picker = LLFilePicker::instance();
+			const LLViewerInventoryItem *item = preview->getItem();
+			if (!file_picker.getSaveFile(LLFilePicker::FFSAVE_TEXT, item ? LLDir::getScrubbedFileName(item->getName()) : LLStringUtil::null))
+			{
+				return;
+			}
+
+			std::string filename = file_picker.getFirstFile();
+			std::string scriptText = editor->getText();
+			std::ofstream fout(filename.c_str());
+			fout << scriptText;
+			fout.close();
+		}
+	}
+}
+
+//static 
+void LLPreviewNotecard::onImportTextMenu(void* userdata)
+{
+	LLPreviewNotecard* preview = (LLPreviewNotecard*)userdata;
+
+	if (preview)
+	{
+		LLViewerTextEditor* editor = preview->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			LLFilePicker& file_picker = LLFilePicker::instance();
+			if (!file_picker.getOpenFile(LLFilePicker::FFLOAD_TEXT))
+			{
+				return;
+			}
+		
+			std::string filename = file_picker.getFirstFile();
+			std::ifstream fin(filename.c_str());
+
+			editor->clear();
+					
+			std::string line;
+			while (!fin.eof())
+			{ 
+				getline(fin, line);
+				line = line + "\n";
+				editor->insertText(line);
+			}
+			fin.close();
+
+			preview->saveIfNeeded();
+		}
+	}
 }
 
 // static 
@@ -807,6 +895,42 @@ void LLPreviewNotecard::onDeselectMenu(void* userdata)
 			editor->deselect();
 		}
 	}
+}
+
+//static 
+BOOL LLPreviewNotecard::enableSaveMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return !editor->isPristine();
+}
+
+//static 
+BOOL LLPreviewNotecard::enableExportTextMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	
+	// request the asset
+	const LLInventoryItem* item = self->getItem();
+	return (item && (gAgent.allowOperation(PERM_MODIFY, item->getPermissions(), GP_OBJECT_MANIPULATE) || gAgent.isGodlike()));
+}
+
+//static 
+BOOL LLPreviewNotecard::enableImportTextMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+
+	// request the asset
+	const LLInventoryItem* item = self->getItem();
+	return (item && (gAgent.allowOperation(PERM_MODIFY, item->getPermissions(), GP_OBJECT_MANIPULATE) || gAgent.isGodlike()));
 }
 
 // static 
