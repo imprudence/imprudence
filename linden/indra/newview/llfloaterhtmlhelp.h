@@ -50,9 +50,8 @@ public:
 class LLComboBox;
 class LLWebBrowserCtrl;
 
-class LLFloaterMediaBrowser : public LLFloater, public LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >, public LLWebBrowserCtrlObserver
+class LLFloaterMediaBrowser : public LLFloater, public LLFloaterSingleton<LLFloaterMediaBrowser>, public LLWebBrowserCtrlObserver
 {
-	friend class LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >;
 public:
 	LLFloaterMediaBrowser(const LLSD& media_data);
 
@@ -65,9 +64,6 @@ public:
 	void openMedia(const std::string& media_url);
 	void buildURLHistory();
 
-	static LLFloaterMediaBrowser* showInstance(const LLSD& id);
-
-	static void	toggle();
 	static void	helpF1();
 
 private:

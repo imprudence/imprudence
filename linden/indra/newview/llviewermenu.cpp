@@ -5937,7 +5937,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "inworld browser")
 		{
-			LLFloaterMediaBrowser::toggle();
+			LLFloaterMediaBrowser::toggleInstance(LLSD());
 		}
 		else if (floater_name == "beacons")
 		{

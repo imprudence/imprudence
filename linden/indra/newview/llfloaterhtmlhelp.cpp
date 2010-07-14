@@ -95,6 +95,15 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("set_home", onClickSetHome, this);
 
 	buildURLHistory();
+
+	//Show home url if new session, last visited if not
+	std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+	if (last_url.empty())
+	{
+		last_url = gSavedSettings.getString("BrowserHome");
+	}
+	openMedia(last_url);
+
 	return TRUE;
 }
 
@@ -156,33 +165,6 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	childSetEnabled("forward", mBrowser->canNavigateForward());
 	childSetEnabled("reload", TRUE);
 	gSavedSettings.setString("BrowserLastVisited", truncated_url);
-}
-
-LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
-{
-	LLFloaterMediaBrowser* floaterp = LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >::showInstance(media_url);
-
-	floaterp->openMedia(media_url.asString());
-	return floaterp;
-}
-
-//static
-void LLFloaterMediaBrowser::toggle()
-{
-	LLFloaterMediaBrowser* self = LLFloaterMediaBrowser::getInstance();
-
-	if(self->getVisible())
-	{
-		self->close();
-	}
-	else
-	{
-		//Show home url if new session, last visited if not
-		std::string last_url = gSavedSettings.getString("BrowserLastVisited");
-		if(last_url.empty()) 
-			last_url = gSavedSettings.getString("BrowserHome");
-		showInstance(last_url);
-	}
 }
 
 //static
