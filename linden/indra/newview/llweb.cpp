@@ -55,7 +55,7 @@ void LLWeb::loadURL(const std::string& url)
 	}
 	else
 	{
-		LLFloaterMediaBrowser::showInstance(url);
+		LLFloaterMediaBrowser::getInstance()->openMedia(url);
 	}
 }
 
@@ -71,7 +71,7 @@ void LLWeb::loadURLExternal(const std::string& url)
 // static
 void LLWeb::loadURLInternal(const std::string& url)
 {
-	LLFloaterMediaBrowser::showInstance(url);
+	LLFloaterMediaBrowser::getInstance()->openMedia(url);
 }
 
 

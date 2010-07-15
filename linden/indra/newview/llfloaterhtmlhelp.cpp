@@ -438,16 +438,22 @@ void LLFloaterHtmlHelp::show(std::string url, std::string title)
 	floater_html->setVisible(FALSE);
 	
 	url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
-	if (!url.empty()) {
-		if (gSavedSettings.getBOOL("UseExternalBrowser")) {
+	if (!url.empty()) 
+	{
+		if (gSavedSettings.getBOOL("UseExternalBrowser")) 
+		{
 			LLSD payload;
 			payload["url"] = url;
 			LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);
-		} else {
+		} 
+		else 
+		{
 			// don't wait, just do it
-			LLWeb::loadURL(url);
+			LLWeb::loadURLInternal(url);
 		}
-	} else {
+	} 
+	else 
+	{
 		LLNotifications::instance().add("NoSupportUrl");
 	}
 }
@@ -458,10 +464,13 @@ bool LLFloaterHtmlHelp::onClickF1HelpLoadURL(const LLSD& notification, const LLS
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		const std::string &url = notification["payload"]["url"].asString();
-		if (!url.empty()) {
-			LLWeb::loadURL(url);
-		} else {
+		const std::string& url = notification["payload"]["url"].asString();
+		if (!url.empty()) 
+		{
+			LLWeb::loadURLExternal(url);
+		} 
+		else 
+		{
 			llwarns << "Support URL not available." << llendl;
 		}
 	}

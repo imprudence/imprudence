@@ -799,7 +799,7 @@
 
   <menu name="Help" create_jump_keys="true" label="Help"
         opaque="true" tear_off="true">
-    <menu_item_call name="Viewer Help" label="Viewer Help"
+    <menu_item_call name="Grid Help" label="Grid Help"
                     shortcut="F1">
       <on_click function="ShowFloater" userdata="help f1" />
     </menu_item_call>

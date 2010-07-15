@@ -3053,7 +3053,7 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
             break;
         case 1: {   // Help
             const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
-            if (!url.empty()) LLWeb::loadURL(url);
+            if (!url.empty()) LLWeb::loadURLInternal(url);
             break;
         }
         case 2:     // Teleport
