@@ -358,7 +358,7 @@
     <key>Type</key>
     <string>U32</string>
     <key>Value</key>
-    <integer>12</integer>
+    <integer>2</integer>
   </map>
   <key>RenderHighlightSelections</key>
   <map>
@@ -10412,7 +10412,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>5000.0</real>
+      <real>10000.0</real>
     </map>
     <key>ToolHelpRect</key>
     <map>
@@ -12908,7 +12908,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>500000.0</real>
+      <real>5000000.0</real>
     </map>
     <key>YawFromMousePosition</key>
     <map>
