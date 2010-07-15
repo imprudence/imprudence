@@ -109,7 +109,7 @@ LLWLParamManager::~LLWLParamManager()
 void LLWLParamManager::loadPresets(const std::string& file_name)
 {
 	std::string path_name(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/skies", ""));
-	LL_DEBUGS2("AppInit", "Shaders") << "Loading Default WindLight settings from " << path_name << LL_ENDL;
+	LL_DEBUGS2("AppInit", "ShaderLoading") << "Loading Default WindLight settings from " << path_name << LL_ENDL;
 			
 	bool found = true;			
 	while(found) 

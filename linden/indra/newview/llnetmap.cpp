@@ -372,7 +372,7 @@ void LLNetMap::draw()
 				{
 					glyph_color = muted_color;
 				}
-				else if (PanelRadar::isImpDev(avatar_ids[i]))
+				else if (LLFloaterMap::getInstance()->getRadar()->isImpDev(avatar_ids[i]))
 				{
 					glyph_color = imp_dev_color;
 				}
@@ -516,7 +516,7 @@ void LLNetMap::draw()
 
 	LLView::draw();
 
-	LLFloaterMap::getInstance()->getRadar()->populateRadar();
+	LLFloaterMap::getInstance()->getRadar()->updateRadarInfo();
 }
 
 void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)

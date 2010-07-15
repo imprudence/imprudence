@@ -33,6 +33,7 @@
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
+#include "llviewermenu.h"
 #include "llvoavatar.h"
 
 #include "lluictrlfactory.h"
@@ -41,6 +42,8 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_advanced.xml");
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
+
+	childSetAction("reset_btn", onClickResetPrefs, this);
 }
 
 LLPrefsAdvanced::~LLPrefsAdvanced()
@@ -53,11 +56,14 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
-	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ClothingLayerProtection"));
+	childSetValue("windlight_check", gSavedSettings.getBOOL("UseServersideWindlightSettings"));
+	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
-	childSetValue("appearance_stand_check", gSavedSettings.getBOOL("AppearanceForceStand"));
+	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
+	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
+	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 
 	refresh();
 
@@ -72,11 +78,21 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
-	gSavedSettings.setBOOL("AppearanceForceStand", childGetValue("appearance_stand_check"));
+	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
+	gSavedSettings.setBOOL("UseServersideWindlightSettings", childGetValue("windlight_check"));
+	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
-	if (gSavedSettings.getBOOL("ClothingLayerProtection") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
+	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
 	{
+		if(gSavedSettings.getBOOL("ShowMyClientTagToOthers"))
+		{
+			//ShowMyClientTagToOthers works only with ClothingLayerProtection true,
+			//while not showing also works with ClothingLayerProtection false.
+			//since ClothingLayerProtection true is preferrable only switch ON
+			gSavedSettings.setBOOL("ClothingLayerProtection", TRUE);
+		}
+
 		LLVOAvatar* avatar = gAgent.getAvatarObject();
 		if (avatar)
 		{
@@ -85,7 +101,7 @@ void LLPrefsAdvanced::apply()
 			avatar->forceBakeAllTextures(slam_for_debug);
 		}
 	}
-	gSavedSettings.setBOOL("ClothingLayerProtection", childGetValue("client_name_tag_broadcast_check"));
+	gSavedSettings.setBOOL("ShowMyClientTagToOthers", childGetValue("client_name_tag_broadcast_check"));
 
 	// This is bad bad BAD UI from Emerald, I know. 
 	// If anyone wants to do this better, please do -- MC
@@ -117,6 +133,12 @@ void LLPrefsAdvanced::apply()
 		}
 	}
 	gSavedSettings.setBOOL("ShadowsEnabled", childGetValue("shadows_check").asBoolean());
+
+	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
+	{
+		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
+		build_pie_menus();
+	}
 }
 
 void LLPrefsAdvanced::cancel()
@@ -142,4 +164,22 @@ void LLPrefsAdvanced::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
 {
 	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
 	self->refresh();
+}
+
+// static
+void LLPrefsAdvanced::onClickResetPrefs(void* user_data)
+{
+	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
+	LLNotifications::instance().add("ConfirmResetAllPreferences", LLSD(), LLSD(), boost::bind(callbackReset, _1, _2, self));
+}
+
+// static
+bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 )
+	{
+		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
+	}
+	return false;
 }

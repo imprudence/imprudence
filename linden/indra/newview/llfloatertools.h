@@ -79,7 +79,8 @@ public:
 	// button highlights, etc.
 	void updatePopup(LLCoordGL center, MASK mask);
 
-	void toolsPrecision();
+	void updateToolsSizeLimits();
+	void updateToolsPrecision();
 
 	// When the floater is going away, reset any options that need to be 
 	// cleared.

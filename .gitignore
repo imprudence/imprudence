@@ -25,6 +25,7 @@ linden/indra/newview/character/
 linden/indra/newview/app_settings/*.db2
 linden/indra/newview/app_settings/windlight/
 linden/indra/newview/cursors_mac/
+linden/indra/newview/viewer.icns
 
 
 # LIBRARIES

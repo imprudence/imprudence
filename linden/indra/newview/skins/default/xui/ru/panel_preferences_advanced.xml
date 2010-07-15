@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Задействовать язык к объектам" name="language_is_public" tool_tip="Объекты в мире будут знать язык, который Вы предпочитаете."/>
+</panel>

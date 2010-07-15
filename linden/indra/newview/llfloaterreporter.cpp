@@ -45,7 +45,6 @@
 #include "llinventory.h"
 #include "llstring.h"
 #include "llsys.h"
-#include "llversionviewer.h"
 #include "message.h"
 #include "v3math.h"
 
@@ -79,9 +78,9 @@
 #include "llfloateravatarpicker.h"
 #include "lldir.h"
 #include "llselectmgr.h"
-#include "llviewerbuild.h"
 #include "lluictrlfactory.h"
 #include "llviewernetwork.h"
+#include "viewerversion.h"
 
 #include "llassetuploadresponders.h"
 
@@ -738,10 +737,10 @@ LLSD LLFloaterReporter::gatherReport()
 
 	if ( mReportType == BUG_REPORT)
 	{
-		summary << short_platform << " V" << LL_VERSION_MAJOR << "."
-			<< LL_VERSION_MINOR << "."
-			<< LL_VERSION_PATCH << "."
-			<< LL_VIEWER_BUILD
+		summary << short_platform << " V" << ViewerVersion::getLLMajorVersion() << "."
+			<< ViewerVersion::getLLMinorVersion() << "."
+			<< ViewerVersion::getLLPatchVersion() << "."
+			<< ViewerVersion::getLLBuildVersion()
 			<< " (" << regionp->getName() << ")"
 			<< "[" << category_name << "] "
 			<< "\"" << childGetValue("summary_edit").asString() << "\"";
@@ -759,10 +758,10 @@ LLSD LLFloaterReporter::gatherReport()
 	std::ostringstream details;
 	if (mReportType != BUG_REPORT)
 	{
-		details << "V" << LL_VERSION_MAJOR << "."								// client version moved to body of email for abuse reports
-			<< LL_VERSION_MINOR << "."
-			<< LL_VERSION_PATCH << "."
-			<< LL_VIEWER_BUILD << std::endl << std::endl;
+		details << "V" << ViewerVersion::getLLMajorVersion() << "."								// client version moved to body of email for abuse reports
+			<< ViewerVersion::getLLMinorVersion() << "."
+			<< ViewerVersion::getLLPatchVersion() << "."
+			<< ViewerVersion::getLLBuildVersion() << std::endl << std::endl;
 	}
 	std::string object_name = childGetText("object_name");
 	std::string owner_name = childGetText("owner_name");
@@ -783,9 +782,9 @@ LLSD LLFloaterReporter::gatherReport()
 	std::string version_string;
 	version_string = llformat(
 			"%d.%d.%d %s %s %s %s",
-			LL_VERSION_MAJOR,
-			LL_VERSION_MINOR,
-			LL_VERSION_PATCH,
+			ViewerVersion::getLLMajorVersion(),
+			ViewerVersion::getLLMinorVersion(),
+			ViewerVersion::getLLPatchVersion(),
 			platform,
 			gSysCPU.getFamily().c_str(),
 			gGLManager.mGLRenderer.c_str(),

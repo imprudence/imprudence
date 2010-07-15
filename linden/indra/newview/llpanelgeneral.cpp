@@ -44,7 +44,6 @@
 
 #include "llagent.h"
 #include "llviewerregion.h"
-#include "llviewermenu.h"
 
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -59,12 +58,11 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("default_start_location", gSavedSettings.getBOOL("LoginLastLocation") ? "MyLastLocation" : "MyHome");
 	childSetValue("show_location_checkbox", gSavedSettings.getBOOL("ShowStartLocation"));
 	childSetValue("show_all_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitleAll"));
-	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
-
 	childSetValue("show_my_name_checkbox", gSavedSettings.getBOOL("RenderNameHideSelf"));
 	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
 	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
+	childSetValue("afk_timeout_checkbox", gSavedSettings.getBOOL("AllowIdleAFK"));
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
 
@@ -105,8 +103,6 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetVisible("maturity_desired_combobox", can_choose);
 	childSetVisible("maturity_desired_textbox",	!can_choose);
-
-	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 			
 	return TRUE;
 }
@@ -124,11 +120,11 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("LoginLastLocation", childGetValue("default_start_location").asString() == "MyLastLocation");
 	gSavedSettings.setBOOL("ShowStartLocation", childGetValue("show_location_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitleAll", childGetValue("show_all_title_checkbox"));
-	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
 	gSavedSettings.setBOOL("RenderNameHideSelf", childGetValue("show_my_name_checkbox"));
 	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
+	gSavedSettings.setBOOL("AllowIdleAFK", childGetValue("afk_timeout_checkbox"));
 	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
 	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
@@ -157,10 +153,10 @@ void LLPanelGeneral::apply()
 		}
 	}
 
-	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
+	// Keep gAllowIdleAFK around for performance reasons -- MC
+	if (gAllowIdleAFK != (BOOL)childGetValue("afk_timeout_checkbox"))
 	{
-		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
-		build_pie_menus();
+		gAllowIdleAFK = childGetValue("afk_timeout_checkbox");
 	}
 }
 

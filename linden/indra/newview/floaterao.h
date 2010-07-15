@@ -126,4 +126,6 @@ protected:
 
 };
 
+extern AOInvTimer* gAOInvTimer;
+
 #endif

@@ -152,6 +152,9 @@ void LLHUDEffectPointAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	mesgsys->getUUIDFast(_PREHASH_Effect, _PREHASH_ID, dataId, blocknum);
 
 	// ignore messages from ourselves
+	//
+	//ok, this filters if the message is from ourselves, but not the message content, esp not
+	// the "source object" which could be a faked  "ourselves"
 	if (!gAgent.mPointAt.isNull() && dataId == gAgent.mPointAt->getID())
 	{
 		return;
@@ -173,6 +176,11 @@ void LLHUDEffectPointAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	LLViewerObject *objp = gObjectList.findObject(source_id);
 	if (objp && objp->isAvatar())
 	{
+		if (source_id == gAgent.getID()) // faked  "ourselves", isn't it?
+		{
+			LL_DEBUGS("Messaging") << "corrupted source id. Someone might be trying to grief us with the point at animation" << LL_ENDL;
+			return;
+		}
 		setSourceObject(objp);
 	}
 	else

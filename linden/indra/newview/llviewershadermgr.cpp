@@ -313,7 +313,7 @@ void LLViewerShaderMgr::setShaders()
 	gPipeline.setLightingDetail(-1);
 
 	// Shaders
-	LL_INFOS("ShaderLoading") << "\n~~~~~~~~~~~~~~~~~~\n Loading Shaders:\n~~~~~~~~~~~~~~~~~~" << LL_ENDL;
+	LL_DEBUGS("ShaderLoading") << "\n~~~~~~~~~~~~~~~~~~\n Loading Shaders:\n~~~~~~~~~~~~~~~~~~" << LL_ENDL;
 	for (S32 i = 0; i < SHADER_COUNT; i++)
 	{
 		mVertexShaderLevel[i] = 0;

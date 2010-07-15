@@ -1364,8 +1364,10 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 		}
 		else
 		{
-			llwarns << "joint not found: " << llendl;
-			return FALSE;
+			llwarns << "joint not found: " << joint_name << llendl;
+			// Returning here causes certain sits to fail on OpenSim, and this line is commented out of V2.
+			// Seems safe enough to comment out here -- MC
+			//return FALSE;
 		}
 
 		joint_motion->mJointName = joint_name;
@@ -1458,6 +1460,10 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 
 				LLQuaternion::Order ro = StringToOrder("ZYX");
 				rot_key.mRotation = mayaQ(rot_angles.mV[VX], rot_angles.mV[VY], rot_angles.mV[VZ], ro);
+				if(!(rot_key.mRotation.isFinite()))
+				{
+					return FALSE;
+				}
 			}
 			else
 			{
@@ -1536,6 +1542,10 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (old_version)
 			{
 				success = dp.unpackVector3(pos_key.mPosition, "pos");
+				if(!(pos_key.mPosition.isFinite()))
+				{
+					return FALSE;
+				}
 			}
 			else
 			{
@@ -1642,6 +1652,13 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			str = (char*)bin_data;
 			constraintp->mSourceConstraintVolume = mCharacter->getCollisionVolumeID(str);
 
+			if(constraintp->mSourceConstraintVolume == -1)
+			{
+				llwarns << "can't find a valid source collision volume." << llendl;
+				delete constraintp;
+				return FALSE;
+			}
+
 			if (!dp.unpackVector3(constraintp->mSourceConstraintOffset, "source_offset"))
 			{
 				llwarns << "can't read constraint source offset" << llendl;
@@ -1674,6 +1691,12 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			{
 				constraintp->mConstraintTargetType = CONSTRAINT_TARGET_TYPE_BODY;
 				constraintp->mTargetConstraintVolume = mCharacter->getCollisionVolumeID(str);
+				if(constraintp->mTargetConstraintVolume == -1)
+				{
+					llwarns << "can't find a valid target collision volume." << llendl;
+					delete constraintp;
+					return FALSE;
+				}
 			}
 
 			if (!dp.unpackVector3(constraintp->mTargetConstraintOffset, "target_offset"))

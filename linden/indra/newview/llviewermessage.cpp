@@ -138,6 +138,10 @@
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
+#include "llwlparammanager.h"
+#include "llwaterparammanager.h"
+#include "panelradarentry.h"
+
 #include <boost/tokenizer.hpp>
 #include <boost/regex.hpp> // Boost Reg Expresions
 
@@ -2782,7 +2786,11 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				LLFloaterMap::getInstance()->getRadar()->addToTypingList(from_id);
+				PanelRadarEntry* entry = LLFloaterMap::getInstance()->getRadar()->getEntry(from_id);
+				if (entry) 
+				{
+					entry->setStatus(RADAR_STATUS_TYPING);
+				}
 			}
 
 			return;
@@ -2799,7 +2807,11 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				LLFloaterMap::getInstance()->getRadar()->removeFromTypingList(from_id);
+				PanelRadarEntry* entry = LLFloaterMap::getInstance()->getRadar()->getEntry(from_id);
+				if (entry) 
+				{
+					entry->setStatus(RADAR_STATUS_NONE);
+				}
 			}
 
 			return;
@@ -3212,6 +3224,10 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	gCacheName->setUpstream(sim);
 */
 
+	// Reset windlight settings to default
+	LLWLParamManager::instance()->mAnimator.mIsRunning = true;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = true;
+
 	// now, use the circuit info to tell simulator about us!
 	LL_INFOS("Messaging") << "process_teleport_finish() Enabling "
 			<< sim_host << " with code " << msg->mOurCircuitCode << LL_ENDL;
@@ -3439,10 +3455,23 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	if (!gLastVersionChannel.empty())
 	{
-		LLSD payload;
-		payload["message"] = version_channel;
-		LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
 		gHippoLimits->setLimits();
+
+		if (gSavedSettings.getBOOL("ServerVersionChangedChat"))
+		{
+			LLStringUtil::format_map_t args;
+			args["[SERVER_VERSION_INFO]"] = version_channel;
+			LLChat chat;
+			chat.mText = LLTrans::getString("server_version_changed_chat", args);
+			LLFloaterChat::addChat(chat, FALSE, FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ServerVersionChangedNotify"))
+		{
+			LLSD payload;
+			payload["message"] = version_channel;
+			LLNotifications::instance().add("ServerVersionChanged", LLSD(), payload);
+		}
 	}
 
 	gLastVersionChannel = version_channel;
@@ -4229,7 +4258,7 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 	if (!avatarp)
 	{
 		// no agent by this ID...error?
-		LL_WARNS("Messaging") << "Received animation state for unknown avatar" << uuid << LL_ENDL;
+		LL_DEBUGS("Messaging") << "Received animation state for unknown avatar: " << uuid << LL_ENDL;
 		return;
 	}
 
@@ -4247,7 +4276,8 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 			mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
 			mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
 
-			LL_DEBUGS("Messaging") << "Anim sequence ID: " << anim_sequence_id << LL_ENDL;
+			LL_DEBUGS("Messaging") << "Animation id " << animation_id 
+								   << " from self using sequence id " << anim_sequence_id << LL_ENDL;
 
 			avatarp->mSignaledAnimations[animation_id] = anim_sequence_id;
 
@@ -4286,6 +4316,9 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 			mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
 			mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
 			avatarp->mSignaledAnimations[animation_id] = anim_sequence_id;
+			LL_DEBUGS("Messaging") << "Received animation id " << animation_id 
+								   << " from " << uuid 
+								   << " using sequence id " << anim_sequence_id << LL_ENDL;
 		}
 	}
 
@@ -4313,6 +4346,10 @@ void process_avatar_appearance(LLMessageSystem *mesgsys, void **user_data)
 
 void process_camera_constraint(LLMessageSystem *mesgsys, void **user_data)
 {
+	if(gSavedSettings.getBOOL("IgnoreSimulatorCameraConstraints"))
+	{
+		return;
+	}
 	LLVector4 cameraCollidePlane;
 	mesgsys->getVector4Fast(_PREHASH_CameraCollidePlane, _PREHASH_Plane, cameraCollidePlane);
 

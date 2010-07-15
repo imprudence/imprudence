@@ -179,23 +179,30 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <string>7cd15de415dc58b9fb14140f5a2322c4</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100620.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <string>7cd15de415dc58b9fb14140f5a2322c4</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100620.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>7cd15de415dc58b9fb14140f5a2322c4</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100620.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <string>7cd15de415dc58b9fb14140f5a2322c4</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100620.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -567,16 +574,16 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>2b0e8b6a17db9398475b1d40a4563bdf</string>
+            <string>566cc47a572303bc4aef12ca02670902</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux32-20100529.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>6b2071b61e5cdc799f5b7654e4851f40</string>
+            <string>58c11add6b275c163950364df5b2964a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20091231.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20100515.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -698,9 +705,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>47b7c6261940bcedf86e681bd93ec2cc</string>
+            <string>57ec243cf8e05e4fb7c737846a287498</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux32-dbg-20100604.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -1156,9 +1163,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>ae91786e70ddf85caed4f6d3f249f86c</string>
+            <string>88eec3965fc2384436192faef1db2629</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-darwin-20091108.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-darwin-20100620.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
@@ -1279,30 +1286,30 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>23313fda213a2496945435db2a0ee78b</string>
+            <string>f897280ac9338127ff90198e0e2e6d1c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3.0-darwin-20090501.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4.565-darwin-20100620.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>02af0dad64803e0d821bc09e6038682c</string>
+            <string>d4754fa473cbeea6757e560d67b28144</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3-linux-20081124b.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4-linux32-20100526.tar.bz2</uri>
           </map>
           <key>linux64</key>
            <map>
              <key>md5sum</key>
-             <string>c7a951e709984a3d9031554f751247c1</string>
+             <string>5b812951f5a300540a7a51dcf65c39f0</string>
              <key>url</key>
-             <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.3-linux64-20100228.tar.bz2</uri>
+             <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4-linux64-20100526.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>41541a98106894e28a6bf585010fea65</string>
+            <string>8e611d266d9e589bc3913dbe0a08853c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3-windows-20090407.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4.565-windows-20100514.tar.bz2</uri>
           </map>
         </map>
       </map>

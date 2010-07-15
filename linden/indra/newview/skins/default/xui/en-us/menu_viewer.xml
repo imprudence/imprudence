@@ -45,6 +45,11 @@
       <on_click function="Object.Export" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call name="Minimize All Windows"
+                label="Minimize All Windows">
+      <on_click function="File.MinimizeAllWindows"
+                userdata="" />
+    </menu_item_call>
     <menu_item_call name="Close Window"
                     label="Close Window"
                     shortcut="control|W">
@@ -221,7 +226,7 @@
                   userdata="" />
       </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Gestures..." label="Gestures..."
+    <menu_item_call name="Gestures" label="Gestures"
                     shortcut="control|G">
       <on_click function="ShowFloater"
                 userdata="gestures" />
@@ -236,14 +241,14 @@
       <on_enable function="Edit.EnableCustomizeAvatar" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_check name="Friends..." label="Friends..."
+    <menu_item_check name="Friends" label="Friends"
                      shortcut="control|shift|F">
       <on_click function="ShowFloater"
                 userdata="friends" />
       <on_check function="FloaterVisible"
                 userdata="friends" />
     </menu_item_check>
-    <menu_item_call name="Groups..." label="Groups...">
+    <menu_item_call name="Groups" label="Groups">
       <on_click function="ShowAgentGroups"
                 userdata="agent" />
     </menu_item_call>
@@ -339,7 +344,7 @@
       <on_check control="ShowMiniMap" />
     </menu_item_check>
     <menu_item_separator />
-    <menu_item_check label="AO" name="AO" 
+    <menu_item_check label="Animation Overrider" name="AO" 
                      shortcut="control|shift|O">
       <on_click function="View.ToggleAO" userdata="" />
       <on_check function="View.CheckAO" />
@@ -457,7 +462,8 @@
       <on_check control="FlyBtnState" />
     </menu_item_check>
     <menu_item_separator />
-    <menu_item_call name="Create Landmark Here" label="Create Landmark Here">
+    <menu_item_call name="Create Landmark Here" label="Create Landmark Here"
+                    shortcut="control|shift|D">
       <on_click function="World.CreateLandmark" userdata="" />
       <on_enable function="World.EnableCreateLandmark" userdata="" />
     </menu_item_call>
@@ -501,17 +507,17 @@
       <on_click function="ShowFloater" userdata="buy currency" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="My Land..." label="My Land...">
+    <menu_item_call name="My Land" label="My Land">
       <on_click function="ShowFloater" userdata="my land" />
     </menu_item_call>
-    <menu_item_call name="About Land..." label="About Land...">
+    <menu_item_call name="About Land" label="About Land">
       <on_click function="ShowFloater" userdata="about land" />
     </menu_item_call>
     <menu_item_call name="Buy Land..." label="Buy Land...">
       <on_click function="ShowFloater" userdata="buy land" />
       <on_enable function="World.EnableBuyLand" />
     </menu_item_call>
-    <menu_item_call name="Region/Estate..." label="Region/Estate...">
+    <menu_item_call name="Region/Estate" label="Region/Estate">
       <on_click function="ShowFloater" userdata="about region" />
     </menu_item_call>
     <menu_item_separator />
@@ -782,19 +788,19 @@
       <on_click function="ShowFloater" userdata="help tutorial" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Imprudence Blog..."
-                    label="Imprudence Blog...">
+    <menu_item_call name="Imprudence Blog"
+                    label="Imprudence Blog">
       <on_click function="PromptShowURL"
                 userdata="WebLaunchImprudenceBlog,http://www.imprudenceviewer.org/" />
     </menu_item_call>
-    <menu_item_call name="Imprudence Forums..."
-                    label="Imprudence Forums...">
+    <menu_item_call name="Imprudence Forums"
+                    label="Imprudence Forums">
       <on_click function="PromptShowURL"
                 userdata="WebLaunchImprudenceForums,http://www.imprudenceviewer.org/forums/" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Scripting Portal..."
-                    label="Scripting Portal...">
+    <menu_item_call name="Scripting Portal"
+                    label="Scripting Portal">
       <on_click function="PromptShowURL" name="ScriptingPortal_url"
                 userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal" />
     </menu_item_call>
@@ -803,16 +809,16 @@
       <on_click function="ShowFloater"
                 userdata="complaint reporter" />
     </menu_item_call>
-    <menu_item_call name="Bumps, Pushes &amp;amp; Hits..."
-                    label="Bumps, Pushes &amp; Hits...">
+    <menu_item_call name="Bumps, Pushes &amp;amp; Hits"
+                    label="Bumps, Pushes &amp; Hits">
       <on_click function="ShowFloater" userdata="mean events" />
     </menu_item_call>
     <menu_item_call name="Lag Meter" label="Lag Meter">
       <on_click function="ShowFloater" userdata="lag meter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="About Imprudence..."
-                    label="About Imprudence...">
+    <menu_item_call name="About Imprudence"
+                    label="About Imprudence">
       <on_click function="ShowFloater" userdata="about" />
     </menu_item_call>
   </menu>
@@ -867,6 +873,12 @@
       </menu_item_check>
       -->
       <menu_item_separator />
+      <menu_item_call name="Notifications Console" label="Notifications Console"
+                       shortcut="control|shift|5">
+        <on_click function="Advanced.ToggleConsole"
+                  userdata="notifications" />
+      </menu_item_call>
+      <menu_item_separator />
       <menu_item_call name="Region Info to Debug Console"
                       label="Region Info to Debug Console">
         <on_click function="Advanced.DumpInfoToConsole"
@@ -882,7 +894,8 @@
         <on_click function="Advanced.DumpInfoToConsole"
                   userdata="capabilities" />
       </menu_item_call>
-    </menu>
+    
+  </menu>
 
 
     <menu_item_call name="Reload personal setting overrides"
@@ -1340,6 +1353,12 @@
                   userdata="RenderFastAlpha" />
         <on_check control="RenderFastAlpha" />
       </menu_item_check>
+      <menu_item_check name="Animate Trees"
+                 label="Animate Trees">
+        <on_click function="ToggleControl"
+                  userdata="RenderAnimateTrees" />
+        <on_check control="RenderAnimateTrees" />
+      </menu_item_check>
       <menu_item_check name="Animate Textures"
                        label="Animate Textures">
         <on_click function="ToggleControl"
@@ -1658,13 +1677,13 @@
 
     <menu name="XUI" drop_shadow="true"
           opaque="true" tear_off="true">
-      <menu_item_call name="Floater Test..."
-                      label="Floater Test...">
+      <menu_item_call name="Floater Test"
+                      label="Floater Test">
         <on_click function="Advanced.ShowFloaterTest"
                   userdata="" />
       </menu_item_call>
-      <menu_item_call name="Font Test..."
-                      label="Font Test...">
+      <menu_item_call name="Font Test"
+                      label="Font Test">
         <on_click function="Advanced.ShowFontTest"
                   userdata="" />
       </menu_item_call>
@@ -1748,13 +1767,6 @@
       <!-- CHARACTER TESTS -->
       <menu name="Character Tests" drop_shadow="true"
             opaque="true" tear_off="true">
-        <menu_item_check name="Go Away/AFK When Idle"
-                         label="Go Away/AFK When Idle">
-          <on_click function="Advanced.ToggleAllowIdleAFK"
-                    userdata="" />
-          <on_check function="Advanced.CheckAllowIdleAFK"
-                    userdata="" />
-        </menu_item_check>
         <menu_item_call name="Appearance To XML"
                         label="Appearance To XML">
           <on_click function="Advanced.ToggleAppearanceToXML"
@@ -1848,6 +1860,13 @@
         <on_check function="Advanced.CheckShowPointAt"
                   userdata="" />
       </menu_item_check>
+      <menu_item_check name="Private Look/Point At"
+                       label="Private Look/Point At">
+        <on_click function="Advanced.TogglePrivateLookPointAt"
+                  userdata="" />
+        <on_check function="Advanced.CheckPrivateLookPointAt"
+                  userdata="" />
+      </menu_item_check>
       <menu_item_check name="Debug Joint Updates"
                        label="Debug Joint Updates">
         <on_click function="Advanced.ToggleDebugJointUpdates"
@@ -1918,7 +1937,43 @@
       </menu_item_call>
     </menu>
 
+    <!-- CRASH -->
 
+    <menu name="Crash" drop_shadow="true"
+          opaque="true" tear_off="true">
+      <menu_item_call name="Force Bad Memory Access"
+                      label="Force Bad Memory Access">
+        <on_click function="Advanced.Crash"
+                  userdata="deadbeefcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force LLError And Crash"
+                      label="Force LLError And Crash">
+        <on_click function="Advanced.Crash"
+                  userdata="llerrcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Infinite Loop"
+                      label="Force Infinite Loop">
+        <on_click function="Advanced.Crash"
+                  userdata="infiniteloopcrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Driver Crash"
+                      label="Force Driver Crash">
+        <on_click function="Advanced.Crash"
+                  userdata="drivercrash" />
+      </menu_item_call>
+      <menu_item_call name="Force Disconnect Viewer"
+                      label="Force Disconnect Viewer">
+        <on_click function="Advanced.Crash"
+                  userdata="forcedisconnect" />
+      </menu_item_call>
+      <menu_item_separator />
+      <menu_item_check name="Output Debug Minidump"
+                 label="Output Debug Minidump">
+        <on_click function="ToggleControl"
+                  userdata="SaveMinidump" />
+        <on_check control="SaveMinidump" />
+      </menu_item_check>
+    </menu>
 
     <!-- NETWORK -->
 
@@ -2013,6 +2068,33 @@
                   userdata="stop record" />
       </menu_item_call>
     </menu>
+    
+    
+    <!-- ADMIN OPTIONS -->
+
+    <menu name="Admin Options" drop_shadow="true"
+          opaque="true" tear_off="true">
+      <menu_item_check name="View Admin Options"
+                   label="View Admin Options"
+                   shortcut="control|alt|V">
+        <on_click function="Advanced.ToggleViewAdminOptions"
+                  userdata="" />
+        <on_check function="Advanced.CheckViewAdminOptions"
+                  userdata="" />
+      </menu_item_check>
+      <menu_item_call name="Request Admin Status"
+                      label="Request Admin Status"
+                      shortcut="control|alt|G">
+        <on_click function="Advanced.RequestAdminStatus"
+                  userdata="" />
+      </menu_item_call>
+      <menu_item_call name="Leave Admin Status"
+                      label="Leave Admin Status"
+                      shortcut="control|alt|shift|G">
+        <on_click function="Advanced.LeaveAdminStatus"
+                  userdata="" />
+      </menu_item_call>
+    </menu>
 
 
     <menu_item_separator />
@@ -2038,6 +2120,13 @@
                 userdata="LimitSelectDistance" />
       <on_check control="LimitSelectDistance" />
     </menu_item_check>
+    <menu_item_check name="Disable Max Build Constraints"
+           label="Disable Max Build Constraints">
+      <on_click function="Advanced.ToggleMaxBuildConstraints"
+                userdata="" />
+      <on_check function="Advanced.CheckMaxBuildConstraints"
+                userdata="" />
+    </menu_item_check>
     <menu_item_check name="Mouse Smoothing"
                      label="Mouse Smoothing">
       <on_click function="ToggleControl"
@@ -2060,12 +2149,6 @@
       <on_check function="RLVa.Main.Enabled" />
     </menu_item_check>
 
-    <menu_item_check name="Output Debug Minidump"
-                     label="Output Debug Minidump">
-      <on_click function="ToggleControl"
-                userdata="SaveMinidump" />
-      <on_check control="SaveMinidump" />
-    </menu_item_check>
     <menu_item_check name="Allow Multiple Instances"
             label="Allow Multiple Instances">
       <on_click function="Advanced.ToggleMultipleViewers"
@@ -2079,26 +2162,6 @@
     <menu_item_call name="Debug Settings"
                     label="Debug Settings">
       <on_click function="Advanced.ShowDebugSettings"
-                userdata="" />
-    </menu_item_call>
-    <menu_item_check name="View Admin Options"
-                     label="View Admin Options"
-                     shortcut="control|alt|V">
-      <on_click function="Advanced.ToggleViewAdminOptions"
-                userdata="" />
-      <on_check function="Advanced.CheckViewAdminOptions"
-                userdata="" />
-    </menu_item_check>
-    <menu_item_call name="Request Admin Status"
-                    label="Request Admin Status"
-                    shortcut="control|alt|G">
-      <on_click function="Advanced.RequestAdminStatus"
-                userdata="" />
-    </menu_item_call>
-    <menu_item_call name="Leave Admin Status"
-                    label="Leave Admin Status"
-                    shortcut="control|alt|shift|G">
-      <on_click function="Advanced.LeaveAdminStatus"
                 userdata="" />
     </menu_item_call>
 

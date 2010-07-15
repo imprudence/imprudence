@@ -1780,12 +1780,12 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 	// 0.f -> camera zoomed all the way out
 	// 1.f -> camera zoomed all the way in
 	LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
-
+	BOOL disable_min = gSavedSettings.getBOOL("DisableMinZoomDist");
 	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		mHUDTargetZoom = fraction;
 	}
-	else if (mFocusOnAvatar && cameraThirdPerson())
+	else if (mFocusOnAvatar && cameraThirdPerson() && !disable_min)
 	{
 		mCameraZoomFraction = rescale(fraction, 0.f, 1.f, MAX_ZOOM_FRACTION, MIN_ZOOM_FRACTION);
 	}
@@ -1802,7 +1802,7 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 							LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
 							MAX_CAMERA_DISTANCE_FROM_AGENT);
 
-		if (mFocusObject.notNull())
+		if (!disable_min)
 		{
 			if (mFocusObject.notNull())
 			{
@@ -1815,6 +1815,10 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 					min_zoom = OBJECT_MIN_ZOOM;
 				}
 			}
+		}
+		else
+		{
+			min_zoom = 0.f;
 		}
 
 		LLVector3d camera_offset_dir = mCameraFocusOffsetTarget;
@@ -1906,30 +1910,34 @@ void LLAgent::cameraZoomIn(const F32 fraction)
 
 	LLVector3d	camera_offset(mCameraFocusOffsetTarget);
 	LLVector3d	camera_offset_unit(mCameraFocusOffsetTarget);
-	F32 min_zoom = LAND_MIN_ZOOM;
+	F32 min_zoom = 0.f;//LAND_MIN_ZOOM;
 	F32 current_distance = (F32)camera_offset_unit.normalize();
 	F32 new_distance = current_distance * fraction;
 
 	// Don't move through focus point
-	if (mFocusObject)
+	
+	if (!gSavedSettings.getBOOL("DisableMinZoomDist"))
 	{
-		LLVector3 camera_offset_dir((F32)camera_offset_unit.mdV[VX], (F32)camera_offset_unit.mdV[VY], (F32)camera_offset_unit.mdV[VZ]);
-
-		if (mFocusObject->isAvatar())
+		if (mFocusObject)
 		{
-			calcCameraMinDistance(min_zoom);
+			LLVector3 camera_offset_dir((F32)camera_offset_unit.mdV[VX], (F32)camera_offset_unit.mdV[VY], (F32)camera_offset_unit.mdV[VZ]);
+			if (mFocusObject->isAvatar())
+			{
+				calcCameraMinDistance(min_zoom);
+			}
+			else
+			{
+				min_zoom = OBJECT_MIN_ZOOM;
+			}
 		}
-		else
-		{
-			min_zoom = OBJECT_MIN_ZOOM;
-		}
+		new_distance = llmax(new_distance, min_zoom);
 	}
 
 	// Don't zoom too far back
 	// Actually, let's when disable camera constraints is active -- McCabe
 	if (!gSavedSettings.getBOOL("DisableCameraConstraints"))
 	{
-		new_distance = llmax(new_distance, min_zoom);
+		//new_distance = llmax(new_distance, min_zoom);
 
 		F32 max_distance = llmin(mDrawDistance - DIST_FUDGE, 
 								 LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE );
@@ -1947,7 +1955,7 @@ void LLAgent::cameraZoomIn(const F32 fraction)
 			*/
 		}
 
-		if( cameraCustomizeAvatar() )
+		if( cameraCustomizeAvatar() && !gSavedSettings.getBOOL("DisableMinZoomDist"))
 		{
 			new_distance = llclamp( new_distance, APPEARANCE_MIN_ZOOM, APPEARANCE_MAX_ZOOM );
 		}
@@ -3679,7 +3687,8 @@ F32	LLAgent::calcCameraFOVZoomFactor()
 		// don't FOV zoom on mostly transparent objects
 		LLVector3 focus_offset = mFocusObjectOffset;
 		F32 obj_min_dist = 0.f;
-		calcCameraMinDistance(obj_min_dist);
+		if (!gSavedSettings.getBOOL("DisableMinZoomDist"))
+			calcCameraMinDistance(obj_min_dist);
 		F32 current_distance = llmax(0.001f, camera_offset_dir.magVec());
 
 		mFocusObjectDist = obj_min_dist - current_distance;
@@ -3825,7 +3834,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 				camera_distance = local_camera_offset.normalize();
 			}
 
-			mTargetCameraDistance = llmax(camera_distance, MIN_CAMERA_DISTANCE);
+			mTargetCameraDistance = (gSavedSettings.getBOOL("DisableMinZoomDist")) ? camera_distance : llmax(camera_distance, MIN_CAMERA_DISTANCE);
 
 			if (mTargetCameraDistance != mCurrentCameraDistance)
 			{
@@ -4299,14 +4308,14 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 	}
 
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-	if(gSavedSettings.getBOOL("AppearanceForceStand"))
+	if(gSavedSettings.getBOOL("AppearanceAnimate"))
 	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) )
 	{
 		return;
 	}
 // [/RLVa:KB]
 
-	if(gSavedSettings.getBOOL("AppearanceForceStand"))
+	if(gSavedSettings.getBOOL("AppearanceAnimate"))
 		setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -4350,7 +4359,7 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 
 	if (mAvatarObject.notNull())
 	{
-		if(avatar_animate)
+		if(avatar_animate && gSavedSettings.getBOOL("AppearanceAnimate"))
 		{
 				// Remove any pitch from the avatar
 			LLVector3 at = mFrameAgent.getAtAxis();
@@ -4698,7 +4707,7 @@ void LLAgent::heardChat(const LLUUID& id)
 void LLAgent::lookAtLastChat()
 {
 	// Block if camera is animating or not in normal third person camera mode
-	if (mCameraAnimating || !cameraThirdPerson())
+	if (!cameraThirdPerson())
 	{
 		return;
 	}
@@ -4710,60 +4719,29 @@ void LLAgent::lookAtLastChat()
 		if (chatter->isAvatar())
 		{
 			LLVOAvatar *chatter_av = (LLVOAvatar*)chatter;
-			if (mAvatarObject.notNull() && chatter_av->mHeadp)
-			{
-				delta_pos = chatter_av->mHeadp->getWorldPosition() - mAvatarObject->mHeadp->getWorldPosition();
-			}
-			else
-			{
-				delta_pos = chatter->getPositionAgent() - getPositionAgent();
-			}
-			delta_pos.normalize();
 
 			setControlFlags(AGENT_CONTROL_STOP);
 
 			changeCameraToThirdPerson();
 
-			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
-			LLVector3 left = delta_pos % LLVector3::z_axis;
-			left.normalize();
-			LLVector3 up = left % delta_pos;
-			up.normalize();
-			new_camera_pos -= delta_pos * 0.4f;
-			new_camera_pos += left * 0.3f;
-			new_camera_pos += up * 0.2f;
 			if (chatter_av->mHeadp)
 			{
 				setFocusGlobal(getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition()), mLastChatterID);
-				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - gAgent.getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition());
 			}
 			else
 			{
 				setFocusGlobal(chatter->getPositionGlobal(), mLastChatterID);
-				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
 			}
 			setFocusOnAvatar(FALSE, TRUE);
 		}
 		else
 		{
-			delta_pos = chatter->getRenderPosition() - getPositionAgent();
-			delta_pos.normalize();
 
 			setControlFlags(AGENT_CONTROL_STOP);
 
 			changeCameraToThirdPerson();
 
-			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
-			LLVector3 left = delta_pos % LLVector3::z_axis;
-			left.normalize();
-			LLVector3 up = left % delta_pos;
-			up.normalize();
-			new_camera_pos -= delta_pos * 0.4f;
-			new_camera_pos += left * 0.3f;
-			new_camera_pos += up * 0.2f;
-
 			setFocusGlobal(chatter->getPositionGlobal(), mLastChatterID);
-			mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
 			setFocusOnAvatar(FALSE, TRUE);
 		}
 	}
@@ -7122,7 +7100,9 @@ void LLAgent::createStandardWearables(BOOL female)
 		FALSE, //WT_GLOVES
 		TRUE,  //WT_UNDERSHIRT
 		TRUE,  //WT_UNDERPANTS
-		FALSE  //WT_SKIRT
+		FALSE, //WT_SKIRT
+		FALSE, //WT_ALPHA
+		FALSE  //WT_TATTOO
 	};
 
 	for( S32 i=0; i < WT_COUNT; i++ )
@@ -7424,10 +7404,14 @@ void LLAgent::sendAgentSetAppearance()
 			msg->addU8Fast(_PREHASH_TextureIndex, (U8)texture_index);
 		}
 		msg->nextBlockFast(_PREHASH_ObjectData);
-		mAvatarObject->packTEMessage	(
-					 		gMessageSystem, 
-							gSavedSettings.getBOOL("ClothingLayerProtection")
-						);
+
+		int shield = 0;
+		if(gSavedSettings.getBOOL("ClothingLayerProtection"))
+		{
+			if(gSavedSettings.getBOOL("ShowMyClientTagToOthers")) shield = 1;
+			else shield = 2;
+		}
+		mAvatarObject->packTEMessage	( gMessageSystem, shield );
 	}
 	else
 	{
@@ -7633,6 +7617,8 @@ void LLAgent::setWearableOutfit(
 	wearables_to_remove[WT_UNDERPANTS]	= (!gAgent.isTeen()) && remove && gRlvHandler.isRemovable(WT_UNDERPANTS);
 	wearables_to_remove[WT_SKIRT]		= remove && gRlvHandler.isRemovable(WT_SKIRT);
 // [/RLVa:KB]
+	wearables_to_remove[WT_ALPHA]		= remove;
+	wearables_to_remove[WT_TATTOO]		= remove;
 
 	S32 count = wearables.count();
 	llassert( items.count() == count );
@@ -7931,6 +7917,8 @@ void LLAgent::userRemoveAllClothesStep2( BOOL proceed, void* userdata )
 		gAgent.removeWearable( WT_UNDERSHIRT );
 		gAgent.removeWearable( WT_UNDERPANTS );
 		gAgent.removeWearable( WT_SKIRT );
+		gAgent.removeWearable( WT_ALPHA );
+		gAgent.removeWearable( WT_TATTOO );
 	}
 }
 

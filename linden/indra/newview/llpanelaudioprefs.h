@@ -48,7 +48,7 @@ public:
 	LLPanelAudioPrefs();
 	virtual ~LLPanelAudioPrefs();
 	
-	void apply() { refreshValues(); }
+	void apply();
 	void cancel();	// Cancel the changed values.
 
 	virtual BOOL postBuild();

@@ -78,12 +78,12 @@ private:
 
 	void savePersistentNotifications()
 	{
-		llinfos << "Saving open notifications to " << mFileName << llendl;
+		LL_DEBUGS("Notifications") << "Saving open notifications to " << mFileName << LL_ENDL;
 
 		llofstream notify_file(mFileName.c_str());
 		if (!notify_file.is_open()) 
 		{
-			llwarns << "Failed to open " << mFileName << llendl;
+			LL_WARNS("Notifications") << "Failed to open " << mFileName << LL_ENDL;
 			return;
 		}
 
@@ -108,12 +108,12 @@ private:
 
 	void loadPersistentNotifications()
 	{
-		llinfos << "Loading open notifications from " << mFileName << llendl;
+		LL_INFOS("Notifications") << "Loading open notifications from " << mFileName << LL_ENDL;
 
 		llifstream notify_file(mFileName.c_str());
 		if (!notify_file.is_open()) 
 		{
-			llwarns << "Failed to open " << mFileName << llendl;
+			LL_WARNS("Notifications") << "Failed to open " << mFileName << LL_ENDL;
 			return;
 		}
 
@@ -121,7 +121,7 @@ private:
 		LLPointer<LLSDParser> parser = new LLSDXMLParser();
 		if (parser->parse(notify_file, input, LLSDSerialize::SIZE_UNLIMITED) < 0)
 		{
-			llwarns << "Failed to parse open notifications" << llendl;
+			LL_WARNS("Notifications") << "Failed to parse open notifications" << LL_ENDL;
 			return;
 		}
 
@@ -129,7 +129,7 @@ private:
 		std::string version = input["version"];
 		if (version != NOTIFICATION_PERSIST_VERSION)
 		{
-			llwarns << "Bad open notifications version: " << version << llendl;
+			LL_WARNS("Notifications") << "Bad open notifications version: " << version << LL_ENDL;
 			return;
 		}
 		LLSD& data = input["data"];
@@ -1302,7 +1302,7 @@ bool LLNotifications::loadTemplates()
 			continue;
 		}
 		
-		//llinfos << "Parsing " << pTemplate->mName << llendl;
+		LL_DEBUGS("Notifications") << "Parsing " << pTemplate->mName << LL_ENDL;
 		
 		pTemplate->mMessage = item->getTextContents();
 		pTemplate->mDefaultFunctor = pTemplate->mName;

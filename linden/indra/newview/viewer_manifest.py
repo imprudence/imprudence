@@ -545,6 +545,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("libneon.27.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
+                self.path("libopenjpeg.1.4.dylib")
                 self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")
@@ -800,6 +801,7 @@ class LinuxManifest(ViewerManifest):
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
+	    self.path("getvoice.sh")
             self.end_prefix("linux_tools")
 
         self.gather_documents()
@@ -886,7 +888,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
+            self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
             self.path("libz.so.1")
 

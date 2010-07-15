@@ -6,36 +6,36 @@
 	     name="default_start_location" width="220">
     <radio_item bottom="-20" height="20" left="0" name="MyHome" width="50"
 		  tool_tip="Log into my home location by default.">
-      My Home
+      My home
     </radio_item>
     <radio_item bottom="-20" height="20" left="100" name="MyLastLocation" width="50"
 		  tool_tip="Log into my last location by default.">
-      My Last Location
+      My last location
     </radio_item>
   </radio_group>
   <check_box bottom="-44" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="true"
-       label="Show Start Location on Login Screen" left="151" mouse_opaque="true"
+       label="Show start location at login screen" left="151" mouse_opaque="true"
        name="show_location_checkbox" radio_style="false" width="256" />
 	<combo_box bottom_delta="-25" follows="left|top" height="18" left="155"
 	     mouse_opaque="true" name="fade_out_combobox" width="146">
 		<combo_item name="Never" value="Never">
-			Never
+			Never show
 		</combo_item>
 		<combo_item name="Show Temporarily" value="Show Temporarily">
-			Show Temporarily
+			Temporarily show
 		</combo_item>
 		<combo_item name="Always" value="Always">
-			Always
+			Always show
 		</combo_item>
 	</combo_box>
 	<check_box bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
-	     label="Small Avatar Names" left="330" name="small_avatar_names_checkbox"
+	     label="Small avatar names" left="330" name="small_avatar_names_checkbox"
 	     width="200" />
 	<check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Hide My Name On My Screen" left="151" name="show_my_name_checkbox"
+	     label="Hide my name on my screen" left="151" name="show_my_name_checkbox"
 	     width="200" />
 	<text type="string" length="1" bottom_delta="-24" follows="left|top" font="SansSerifSmall" h_pad="0"
 	     halign="left" height="16" left="10" name="group_titles_textbox" v_pad="0"
@@ -44,27 +44,17 @@
 	</text>
 	<check_box bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Hide All Group Titles" left="151" mouse_opaque="true"
+	     label="Hide all group titles" left="151" mouse_opaque="true"
 	     name="show_all_title_checkbox" radio_style="false" width="256" />
 	<check_box bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Hide My Group Title" left="151" name="show_my_title_checkbox"
+	     label="Hide my group title" left="151" name="show_my_title_checkbox"
 	     radio_style="false" width="256" />
-  <text type="string" length="1" bottom_delta="-24" follows="left|top" font="SansSerifSmall" h_pad="0"
-       halign="left" height="16" left="10" name="group_titles_textbox" v_pad="0"
-       width="394">
-      Pie Menus:
-  </text>
-  <check_box bottom_delta="0" enabled="true"
-       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Use legacy pie menus" left="151"
-       mouse_opaque="true" name="legacy_pie_menu_checkbox" radio_style="false"
-       width="256" />
   <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
 	     can_apply_immediately="false" color="1 1 1 1"
-	     enabled="true" follows="left|top" height="48" label="" left="153"
+	     enabled="true" follows="left|top" height="65" label="" left="153"
 	     mouse_opaque="true" name="effect_color_swatch"
-	     tool_tip="Click to open Color Picker" width="32" />
+	     tool_tip="Click to open Color Picker" width="55" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-215" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
@@ -83,6 +73,10 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use resolution independent scale" left="151" mouse_opaque="true"
 	     name="ui_auto_scale" radio_style="false" width="256" />
+  <check_box bottom="-260" enabled="true" follows="left|top"
+		   font="SansSerifSmall" height="16" initial_value="false"
+		   label="Go Away/AFK when idle" left="330" mouse_opaque="true"
+		   name="afk_timeout_checkbox" radio_style="false" width="256" />
   <spinner bottom="-260" decimal_digits="0" enabled="true"
 	     follows="left|top" height="16" increment="1" initial_val="300"
 	     label="Away Timeout:" label_width="141" left="10" max_val="600"
@@ -90,10 +84,10 @@
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-27" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-       mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
-    Mini-map notify:
+       mouse_opaque="true" name="Mini-Map Notify:" v_pad="0" width="128">
+    Mini-Map Notify:
   </text>
-  <check_box bottom_delta="0" enabled="true"
+  <check_box bottom_delta="-4" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Entering chat range" left="151"
 	     mouse_opaque="true" name="mini_map_notify_chat" radio_style="false"
@@ -143,13 +137,13 @@
 	     bottom="-64" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name="show_names_textbox" v_pad="0" width="394">
-		Show Names:
+		Nametags:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-184" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-155" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name="effects_color_textbox" v_pad="0" width="394">
-		Color For My Effects:
+		Selection Beam Color:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-254" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -174,7 +168,7 @@
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="18" left_delta="293" mouse_opaque="true" name="language_textbox2"
 	     v_pad="0" width="400">
-		(Requires restart for full effect)
+		(requires restart for full effect)
 	</text>
 	<string name="region_name_prompt">
 		&lt;Type region name&gt;
@@ -250,12 +244,5 @@
 			한국어 (Korean) - Beta
 		</combo_item>
 	</combo_box>
-	<check_box bottom="-400" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Share language with objects" left="151"
-	     mouse_opaque="true" name="language_is_public"
-	     radio_style="false"
-	     tool_tip="This lets in-world objects know your preferred language."
-	     width="256" />
 
 </panel>

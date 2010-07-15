@@ -30,7 +30,7 @@
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
  */
-
+#include "lluuid.h"
 #ifndef LLVIEWERGENERICMESSAGE_H
 #define LLVIEWERGENERICMESSAGE_H
 

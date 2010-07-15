@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Objekten Sprache mitteilen" name="language_is_public" tool_tip="In-Welt-Objekten wird Ihre bevorzugte Spracheinstellung mitgeteilt."/>
+</panel>

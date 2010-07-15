@@ -45,7 +45,12 @@
 				     use_bounding_rect="true" width="395" />
 			</layout_stack>
 		</layout_panel>
-    <layout_panel auto_resize="false" bottom="0" left="0" min_width="184" mouse_opaque="false"
+    <layout_panel auto_resize="false" bottom="0" left="0" min_width="96" mouse_opaque="false"
+      name="ao_remote_container" use_bounding_rect="true" user_resize="false"
+      width="100">
+      <panel background_visible="false" border="false" bottom="0" name="ao_remote" />
+    </layout_panel>
+    <layout_panel auto_resize="false" bottom="0" left="0" min_width="182" mouse_opaque="false"
      			name="windlight_remote_container" use_bounding_rect="true" user_resize="false"
      			width="186">
       <panel background_visible="false" border="false" bottom="0" name="windlight_remote" />

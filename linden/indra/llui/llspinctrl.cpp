@@ -325,6 +325,11 @@ void LLSpinCtrl::onEditorCommit( LLUICtrl* caller, void *userdata )
 			success = TRUE;
 		}
 	}
+	else
+	{
+		// We want to update the editor in case it fails while blanking -- MC
+		success = TRUE;
+	}
 
 	if( success )
 	{

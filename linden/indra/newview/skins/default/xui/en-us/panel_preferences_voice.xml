@@ -27,7 +27,7 @@
 	     font="SansSerifSmall" height="16" hide_border="true" hide_scrollbar="true"
 	     left_delta="0" max_length="65535" mouse_opaque="true"
 	     name="push_to_talk_heading" width="445" word_wrap="true">
-		Push To Talk
+		Push To Talk:
 	</text>
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-60"
 	     embedded_items="false" enabled="false" follows="left|top"
@@ -61,7 +61,7 @@
 	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-25"
 	     embedded_items="false" enabled="true" follows="left|top" height="16"
 	     left="28" name="privacy_heading" width="445">
-		Privacy Options
+		Privacy:
 	</text>
 	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"

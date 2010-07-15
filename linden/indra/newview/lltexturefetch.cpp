@@ -789,7 +789,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 	if (mState == SEND_HTTP_REQ)
 	{
 		{
-			const S32 HTTP_QUEUE_MAX_SIZE = 32;
+			const S32 HTTP_QUEUE_MAX_SIZE = 8;
 			// *TODO: Integrate this with llviewerthrottle
 			// Note: LLViewerThrottle uses dynamic throttling which makes sense for UDP,
 			// but probably not for Textures.
@@ -808,6 +808,13 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			if (mFormattedImage.notNull())
 			{
 				cur_size = mFormattedImage->getDataSize(); // amount of data we already have
+				if (mFormattedImage->getDiscardLevel() == 0)
+				{
+					// We already have all the data, just decode it
+					mLoadedDiscard = mFormattedImage->getDiscardLevel();
+					mState = DECODE_IMAGE;
+					return false;
+				}
 			}
 			mRequestedSize = mDesiredSize;
 			mRequestedDiscard = mDesiredDiscard;
@@ -1202,8 +1209,10 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 			mBuffer = new U8[data_size];
 			buffer->readAfter(channels.in(), NULL, mBuffer, data_size);
 			mBufferSize += data_size;
-			if (data_size < mRequestedSize || last_block == true)
+			if (data_size < mRequestedSize &&
+				(mRequestedDiscard == 0 || mRequestedSize >= MAX_IMAGE_DATA_SIZE) )
 			{
+				// We requested whole image (by discard or by size,) so assume we got it
 				mHaveAllData = TRUE;
 			}
 			else if (data_size > mRequestedSize)

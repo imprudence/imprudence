@@ -45,6 +45,7 @@
 #include "message.h"
 #include "roles_constants.h"
 
+#include "hbfloatergrouptitles.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llfloatergroupinfo.h"
@@ -233,6 +234,8 @@ BOOL LLPanelGroups::postBuild()
 	
 	childSetAction("Invite...", onBtnInvite, this);
 
+	childSetAction("Titles...", onBtnTitles, this);
+
 	setDefaultBtn("IM");
 
 	childSetDoubleClickCallback("group list", onBtnIM);
@@ -331,6 +334,12 @@ void LLPanelGroups::onBtnSearch(void* userdata)
 {
 	LLPanelGroups* self = (LLPanelGroups*)userdata;
 	if(self) self->search();
+}
+
+void LLPanelGroups::onBtnTitles(void* userdata)
+{
+	LLPanelGroups* self = (LLPanelGroups*)userdata;
+	if(self) self->titles();
 }
 
 void LLPanelGroups::create()
@@ -439,6 +448,12 @@ void LLPanelGroups::invite()
 
 		LLFloaterGroupInvite::showForGroup(group_id);
 }
+
+void LLPanelGroups::titles()
+{
+	HBFloaterGroupTitles::toggle();
+}
+
 
 // static
 bool LLPanelGroups::callbackLeaveGroup(const LLSD& notification, const LLSD& response)

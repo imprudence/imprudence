@@ -767,6 +767,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mFullyLoadedInitialized(FALSE),
 	mFullyLoaded(FALSE),
 	mHasBakedHair( FALSE ),
+	mSupportsAlphaLayers(FALSE),
 	mFirstSetActualBoobGravRan( false ),
 	mFirstSetActualButtGravRan( false ),
 	mFirstSetActualFatGravRan( false )
@@ -3243,11 +3244,16 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
 			client = "Imprudence";
 
-		} else  if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
+		}else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190") ||
+			idx == LLUUID("b6820989-bf42-ff59-ddde-fd3fd3a74fe4"))
 		{
 			avatar_name_color += LLColor4(1.0f,0.9f,0.7f);//Meerkat
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "Meerkat";
+		}else if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
+		{
+			avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);//Meta7
+			client = "Meta7";
 		}else if(idx == LLUUID("ccda2b3b-e72c-a112-e126-fee238b67218"))
 		{
 			avatar_name_color += LLColor4::green;//emerald
@@ -3264,7 +3270,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::pink;//tyk3n
 			avatar_name_color = avatar_name_color * 0.5;
 			client = "tyk3n";
-		}else if(idx == LLUUID("f3fd74a6-fee7-4b2f-93ae-ddcb5991da04") || idx == LLUUID("77662f23-c77a-9b4d-5558-26b757b2144c"))
+		}else if(idx == LLUUID("f3fd74a6-fee7-4b2f-93ae-ddcb5991da04") || 
+			idx == LLUUID("77662f23-c77a-9b4d-5558-26b757b2144c"))
 		{
 			avatar_name_color += (LLColor4::purple);//psl
 			avatar_name_color = avatar_name_color * 0.5;
@@ -3280,7 +3287,10 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::blue;//day oh
 			avatar_name_color = avatar_name_color * 0.5;
 			client = "Day Oh proxy";
-		}else if(idx == LLUUID("e52d21f7-3c8b-819f-a3db-65c432295dac") || idx == LLUUID("0f6723d2-5b23-6b58-08ab-308112b33786"))
+		}else if(idx == LLUUID("e52d21f7-3c8b-819f-a3db-65c432295dac") || 
+			idx == LLUUID("0f6723d2-5b23-6b58-08ab-308112b33786") || 
+			idx == LLUUID("7c4d47a3-0c51-04d1-fa47-e4f3ac12f59b") ||
+			idx == LLUUID("d0091f21-1eef-a4ad-b358-249a8e5432ea"))
 		{
 			avatar_name_color += LLColor4::cyan;//cryolife
 			avatar_name_color += LLColor4::cyan;
@@ -3292,7 +3302,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::pink;//moy
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "MoyMix";
-		}else if(idx == LLUUID("f5a48821-9a98-d09e-8d6a-50cc08ba9a47"))
+		}else if(idx == LLUUID("f5a48821-9a98-d09e-8d6a-50cc08ba9a47") ||
+			idx == LLUUID("d95e0d9a-4d40-ea1b-a054-8db87f583f58"))
 		{
 			avatar_name_color += LLColor4::yellow;//neil
 			avatar_name_color += LLColor4::yellow;//neil
@@ -3303,7 +3314,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4(0.0f,1.0f,1.0f);
 			avatar_name_color = avatar_name_color * 0.5;//phox
 			client = "PhoxSL";
-		}else if(idx == LLUUID("c5b570ca-bb7e-3c81-afd1-f62646b20014") || idx == LLUUID("7c4d47a3-0c51-04d1-fa47-e4f3ac12f59b"))
+		}else if(idx == LLUUID("c5b570ca-bb7e-3c81-afd1-f62646b20014"))
 		{
 			avatar_name_color += LLColor4::white;
 			avatar_name_color += LLColor4::white;
@@ -3321,13 +3332,12 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color = avatar_name_color * 0.5;
-			client = "CryoLife";
-                }else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
-					idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
-					idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
-					idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
-					idx == LLUUID("841ef25b-3b90-caf9-ea3d-5649e755db65")//wat -.-
-					)
+			client = "Copybotter";
+		}else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
+			idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
+			idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
+			idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
+			idx == LLUUID("841ef25b-3b90-caf9-ea3d-5649e755db65")) //wat -.-
 		{
 			avatar_name_color += LLColor4(0.0f,0.5f,1.0f); 
 			avatar_name_color = avatar_name_color * 0.5;   
@@ -3355,6 +3365,55 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::yellow9;
 			avatar_name_color *= (F32)0.333333333333;
 			client = "Gemini";
+		}
+		else if(idx == LLUUID("3da8a69a-58ca-023f-2161-57f2ab3b5702"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Operator";
+		}
+		else if(idx == LLUUID("4da16427-d81e-e816-f346-aaf4741b8056"))
+		{
+			avatar_name_color = LLColor4(2.0f,2.0f,2.0f);
+			avatar_name_color *= 0.33f;
+			client = "iLife";
+		}
+		else if(idx == LLUUID("5262d71a-88f7-ef40-3b15-00ea148ab4b5"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Gemini.Bot";
+		}
+		else if(idx == LLUUID("81b3e921-ee31-aa57-ff9b-ec1f28e41da1"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "Infinity";
+		}
+		else if(idx == LLUUID("d3eb4a5f-aec5-4bcb-b007-cce9efe89d37"))
+		{
+			avatar_name_color = LLColor4(0.0f,0.6f,0.0f);
+			avatar_name_color *= 0.33f;
+			client = "rivlife";
+		}
+		else if(idx == LLUUID("f12457b5-762e-52a7-efad-8f17f3b022ee"))
+		{
+			avatar_name_color = LLColor4(0.69f,0.8f,1.6f);
+			avatar_name_color *= 0.5f;
+			client = "Anti-Life";
+		}
+		else if(idx == LLUUID("f5feab57-bde5-2074-97af-517290213eaa") ||
+			idx == LLUUID("e6f9c019-8783-dc3e-b265-41f1510333fc"))
+		{
+			avatar_name_color = LLColor4(0.4f,0.4f,0.4f);
+			client = "Onyx";
+		}
+		else if(idx == LLUUID("c58fca06-33b3-827d-d81c-a886a631affc"))
+		{
+			avatar_name_color = LLColor4(1.0f,0.61176f,0.0f);
+			client = "Whale";
+		}
+		else if(idx == LLUUID("9ba526b6-f43d-6b60-42de-ce62a25ee7fb"))
+		{
+			avatar_name_color = LLColor4(1.0f,1.0f,1.0f);
+			client = "nolife";
 		}
 	}
 	if(client.empty())
@@ -3485,12 +3544,19 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				
 				LLColor4 avatar_name_color = gColors.getColor( "AvatarNameColor" );
-				if(!mIsSelf) //don't know your own client ?
+				if (gSavedSettings.getBOOL("ShowClientNameTag"))
 				{
-					new_name = TRUE; //lol or see the last client used 
-					if (gSavedSettings.getBOOL("ShowClientNameTag"))
+					if(!mIsSelf) //don't know your own client ?
 					{
-						resolveClient(avatar_name_color,client, this);
+						new_name = TRUE; //lol or see the last client used 
+						{
+							resolveClient(avatar_name_color,client, this);
+						}
+					}
+					else
+					{
+						// Set your own name to the Imprudence color -- MC
+						avatar_name_color = LLColor4(0.79f,0.44f,0.88f);
 					}
 				}
 				avatar_name_color.setAlpha(alpha);
@@ -4706,14 +4772,9 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 
 	if (pass == AVATAR_RENDER_PASS_SINGLE)
 	{
-		const bool should_alpha_mask = mHasBakedHair && isTextureDefined(TEX_HEAD_BAKED) && isTextureDefined(TEX_UPPER_BAKED)
-										&& isTextureDefined(TEX_LOWER_BAKED)
-										&& mBakedTextureData[BAKED_HEAD].mIsLoaded
-										&& mBakedTextureData[BAKED_UPPER].mIsLoaded && mBakedTextureData[BAKED_LOWER].mIsLoaded
-										&& mBakedTextureData[BAKED_HEAD].mIsUsed
-										&& mBakedTextureData[BAKED_UPPER].mIsUsed && mBakedTextureData[BAKED_LOWER].mIsUsed
-										&& !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
-										&& !(isSelf() && gAgent.cameraCustomizeAvatar()); // don't alpha mask if in customize mode
+		const bool should_alpha_mask = mSupportsAlphaLayers && mHasBakedHair
+									    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
+										&& !LLDrawPoolAvatar::sSkipTransparent;
 
 		LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
 
@@ -4826,27 +4887,25 @@ U32 LLVOAvatar::renderRigid()
 		return 0;
 	}
 
+	const bool should_alpha_mask = mSupportsAlphaLayers && mHasBakedHair
+								    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
+									&& !LLDrawPoolAvatar::sSkipTransparent;
+
+
+	LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
+
+	if (should_alpha_mask)
+	{
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
+	}
+ 
 	if (isTextureVisible(TEX_EYES_BAKED) || mIsDummy)
 	{
-		// If the meshes need to be drawn, enable alpha masking but not blending
-		bool should_alpha_mask = mHasBakedHair
-					&& mBakedTextureData[BAKED_EYES].mIsLoaded
-					&& mBakedTextureData[BAKED_EYES].mIsUsed
-					&& !(isSelf() && gAgent.cameraCustomizeAvatar());
-
-		LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
-
-		if (should_alpha_mask)
-		{
-			gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
-		}
-
 		num_indices += mMeshLOD[MESH_ID_EYEBALL_LEFT]->render(mAdjustedPixelArea, TRUE, mIsDummy);
 		num_indices += mMeshLOD[MESH_ID_EYEBALL_RIGHT]->render(mAdjustedPixelArea, TRUE, mIsDummy);
-
-		gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 	}
 
+	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 	return num_indices;
 }
 
@@ -5019,6 +5078,7 @@ void LLVOAvatar::updateTextures()
 			// Spam if this is a baked texture, not set to default image, without valid host info
 			if (isIndexBakedTexture((ETextureIndex)index)
 				&& imagep->getID() != IMG_DEFAULT_AVATAR
+				&& imagep->getID() != IMG_INVISIBLE
 				&& !imagep->getTargetHost().isOk())
 			{
 				LL_WARNS_ONCE("Texture") << "LLVOAvatar::updateTextures No host for texture "
@@ -5829,6 +5889,7 @@ BOOL LLVOAvatar::loadAvatar()
 				if (layer_set->isBodyRegion(baked_dict->mName))
 				{
 					mBakedTextureData[baked_iter->first].mTexLayerSet = layer_set;
+					layer_set->setBakedTexIndex(baked_iter->first);
 					found_baked_entry = true;
 					break;
 				}
@@ -7525,6 +7586,9 @@ void LLVOAvatar::updateMeshTextures()
 
 	}
 
+	// Turn on alpha masking correctly for yourself and other avatars on 1.23+
+	mSupportsAlphaLayers = isSelf() || is_layer_baked[BAKED_HAIR];
+
 	// Baked textures should be requested from the sim this avatar is on. JC
 	const LLHost target_host = getObjectHost();
 	if (!target_host.isOk())
@@ -7554,7 +7618,7 @@ void LLVOAvatar::updateMeshTextures()
 			else
 			{
 				mBakedTextureData[i].mIsLoaded = FALSE;
-				if ( (i == BAKED_HEAD) || (i == BAKED_UPPER) || (i == BAKED_LOWER) )
+				if ((baked_img->getID() != IMG_INVISIBLE) && (i == BAKED_HEAD || i == BAKED_UPPER || i == BAKED_LOWER))
 				{
 					baked_img->setLoadedCallback(onBakedTextureMasksLoaded, MORPH_MASK_REQUESTED_DISCARD, TRUE, TRUE, new LLTextureMaskData( mID ));
 				}
@@ -7826,7 +7890,13 @@ void LLVOAvatar::setNewBakedTexture( ETextureIndex te, const LLUUID& uuid )
 	// Baked textures live on other sims.
 	LLHost target_host = getObjectHost();
 	setTEImage( te, gImageList.getImageFromHost( uuid, target_host ) );
-	updateMeshTextures();
+	if (uuid != IMG_INVISIBLE)
+	{
+		// Do not update textures when setting a new invisible baked texture as
+		// it would result in destroying the calling object (setNewBakedTexture()
+		// is called by LLTexLayerSetBuffer::render()) !
+		updateMeshTextures();
+	}
 	dirtyMesh();
 
 
@@ -7839,7 +7909,7 @@ void LLVOAvatar::setNewBakedTexture( ETextureIndex te, const LLUUID& uuid )
 	if (text_dict->mIsBakedTexture)
 	{
 		llinfos << "New baked texture: " << text_dict->mName << " UUID: " << uuid <<llendl;
-		mBakedTextureData[text_dict->mBakedTextureIndex].mTexLayerSet->requestUpdate();
+		//mBakedTextureData[text_dict->mBakedTextureIndex].mTexLayerSet->requestUpdate();
 	}
 	else
 	{
@@ -8087,6 +8157,10 @@ void LLVOAvatar::dumpAvatarTEs( const std::string& context )
 		{
 			llinfos << "       " << text_dict->mName << ": IMG_DEFAULT" << llendl;
 		}
+		else if (te_image->getID() == IMG_INVISIBLE)
+		{
+			llinfos << "       " << text_dict->mName << ": IMG_INVISIBLE" << llendl;
+		}
 		else if( te_image->getID() == IMG_DEFAULT_AVATAR )
 		{
 			llinfos << "       " << text_dict->mName << ": IMG_DEFAULT_AVATAR" << llendl;
@@ -8258,11 +8332,11 @@ BOOL LLVOAvatar::isWearingWearableType( EWearableType type )
 }
 
 //-----------------------------------------------------------------------------
-// updatedWearable( EWearableType type )
+// wearableUpdated(EWearableType type, BOOL upload_result)
 // forces an update to any baked textures relevant to type.
-// Should be called only on saving the wearable
+// will force an upload of the resulting bake if the second parameter is TRUE
 //-----------------------------------------------------------------------------
-void LLVOAvatar::wearableUpdated( EWearableType type )
+void LLVOAvatar::wearableUpdated(EWearableType type, BOOL upload_result)
 {
 	for (LLVOAvatarDictionary::wearable_map_t::const_iterator wearable_iter = LLVOAvatarDictionary::getInstance()->getWearables().begin();
 		wearable_iter != LLVOAvatarDictionary::getInstance()->getWearables().end();
@@ -8281,8 +8355,8 @@ void LLVOAvatar::wearableUpdated( EWearableType type )
 				{
 					if (mBakedTextureData[index].mTexLayerSet)
 					{
-						mBakedTextureData[index].mTexLayerSet->requestUpdate();
-						mBakedTextureData[index].mTexLayerSet->requestUpload();
+						invalidateComposite(mBakedTextureData[index].mTexLayerSet, upload_result);
+						updateMeshTextures();
 					}
 					break;
 				}
@@ -8381,7 +8455,7 @@ void LLVOAvatar::onFirstTEMessageReceived()
 				LLViewerImage* image = getTEImage( mBakedTextureData[i].mTextureIndex );
 				mBakedTextureData[i].mLastTextureIndex = image->getID();
 				// If we have more than one texture for the other baked layers, we'll want to call this for them too.
-				if ( (i == BAKED_HEAD) || (i == BAKED_UPPER) || (i == BAKED_LOWER) )
+				if ((image->getID() != IMG_INVISIBLE) && (i == BAKED_HEAD || i == BAKED_UPPER || i == BAKED_LOWER))
 				{
 					image->setLoadedCallback( onBakedTextureMasksLoaded, MORPH_MASK_REQUESTED_DISCARD, TRUE, TRUE, new LLTextureMaskData( mID ));
 				}
@@ -8653,7 +8727,7 @@ void LLVOAvatar::onBakedTextureMasksLoaded( BOOL success, LLViewerImage *src_vi,
 				{
 					const ETextureIndex texture_index = iter->first;
 					const LLViewerImage *baked_img = self->getTEImage(texture_index);
-					if (id == baked_img->getID())
+					if (baked_img && id == baked_img->getID())
 					{
 						const EBakedTextureIndex baked_index = text_dict->mBakedTextureIndex;
 						if (self->mBakedTextureData[baked_index].mTexLayerSet)

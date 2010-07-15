@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="0"
+     enabled="true" follows="right|bottom" height="20" left="0" mouse_opaque="true"
+     name="ao_remote" use_bounding_rect="true" width="96">
+  <panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="22" left="0" width="96" />
+  <panel bottom="3" filename="panel_ao_remote_controls.xml" name="panel_ao_controls" height="20" left="0" width="96" />
+</panel>

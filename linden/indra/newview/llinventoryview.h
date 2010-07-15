@@ -391,6 +391,13 @@ std::string get_item_icon_name(LLAssetType::EType asset_type,
 std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 							 BOOL item_is_multi );
 
+// Uses NType only. For when we don't know an asset's inventory type or have no way of finding that information. 
+// Sends a default inv_ntype to use if there are multiple NTypes for an asset type.
+std::string get_item_icon_name(LLAssetType::EType asset_type,
+							   LLInventoryType::NType inv_ntype,
+							   U32 flags,
+							   BOOL item_is_multi);
+
 LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 

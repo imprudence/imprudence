@@ -27,6 +27,9 @@
 	<button bottom="-252" enabled="true" follows="left|bottom" font="SansSerifSmall"
 	     halign="center" height="20" label="Blank" label_selected="Blank" left="4"
 	     mouse_opaque="true" name="Blank" scale_image="true" width="64" />
+	<button bottom="-252" enabled="false" follows="left|bottom" font="SansSerifSmall"
+	     halign="center" height="20" label="Invisible" label_selected="Invisible" left="72"
+	     mouse_opaque="true" name="Invisible" scale_image="true" width="64" />
 	<check_box bottom="-44" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="24" initial_value="true" label="Show Folders" left="175"
 	     mouse_opaque="true" name="show_folders_check" radio_style="false"

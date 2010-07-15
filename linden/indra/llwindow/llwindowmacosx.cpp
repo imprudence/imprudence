@@ -318,6 +318,12 @@ LLWindowMacOSX::LLWindowMacOSX(const std::string& title, const std::string& name
 	stop_glerror();
 }
 
+void LLWindowMacOSX::setWindowTitle(std::string &title)
+{
+	CFStringRef string = CFStringCreateWithCString(NULL, title.c_str(), kCFStringEncodingUTF8);
+	SetWindowTitleWithCFString(mWindow, string);
+}
+
 BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync)
 {
 	OSStatus		err;

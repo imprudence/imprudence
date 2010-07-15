@@ -47,6 +47,9 @@ public:
 
 private:
 	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
+	static void onClickResetPrefs(void* user_data);
+
+	static bool	callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self);
 };
 
 #endif // LLPREFSADVANCED_H

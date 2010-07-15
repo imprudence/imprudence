@@ -283,6 +283,7 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 				break;
 			}
 			object = (LLViewerObject*)object->getParent();
+			is_self = (object == gAgent.getAvatarObject());//refresh since object changed
 		}
 		if (object && is_self)
 		{

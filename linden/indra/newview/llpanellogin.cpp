@@ -45,7 +45,6 @@
 #include "llfontgl.h"
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
-#include "llversionviewer.h"
 #include "v4color.h"
 
 #include "llbutton.h"
@@ -64,7 +63,6 @@
 #include "llui.h"
 #include "lluiconstants.h"
 #include "llurlsimstring.h"
-#include "llviewerbuild.h"
 #include "llviewerimagelist.h"
 #include "llviewermenu.h"			// for handle_preferences()
 #include "llviewernetwork.h"
@@ -76,6 +74,7 @@
 #include "llhttpclient.h"
 #include "llweb.h"
 #include "llwebbrowserctrl.h"
+#include "viewerversion.h"
 
 #include "llfloaterhtml.h"
 
@@ -264,17 +263,17 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	std::string imp_channel = gSavedSettings.getString("VersionChannelName");
 	std::string imp_version = llformat("%d.%d.%d %s",
-		IMP_VERSION_MAJOR,
-		IMP_VERSION_MINOR,
-		IMP_VERSION_PATCH,
-		IMP_VERSION_TEST );
+		ViewerVersion::getImpMajorVersion(),
+		ViewerVersion::getImpMinorVersion(),
+		ViewerVersion::getImpPatchVersion(),
+		ViewerVersion::getImpTestVersion().c_str() );
 
-	std::string ll_channel = LL_VIEWER_NAME;
+	std::string ll_channel = ViewerVersion::getLLViewerName();
 	std::string ll_version = llformat("%d.%d.%d (%d)",
-		LL_VERSION_MAJOR,
-		LL_VERSION_MINOR,
-		LL_VERSION_PATCH,
-		LL_VIEWER_BUILD );
+		ViewerVersion::getLLMajorVersion(),
+		ViewerVersion::getLLMinorVersion(),
+		ViewerVersion::getLLPatchVersion(),
+		ViewerVersion::getLLBuildVersion() );
 
 	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
 	channel_text->setTextArg("[CHANNEL]", imp_channel);
@@ -845,8 +844,8 @@ void LLPanelLogin::loadLoginPage()
 
 	// Channel and Version
 	std::string version = llformat("%d.%d.%d %s",
-	                               IMP_VERSION_MAJOR, IMP_VERSION_MINOR,
-	                               IMP_VERSION_PATCH, IMP_VERSION_TEST);
+		ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(),
+		ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str() );
 
 	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);

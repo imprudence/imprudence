@@ -7,28 +7,32 @@
   
   <check_box bottom="-30" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16"
-       initial_value="false" label="Disable Login/Logout Screens" left="12"
+       initial_value="false" label="Disable login/logout screens" left="12"
        mouse_opaque="true" name="disable_log_screen_check" radio_style="false"
        width="217" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Disable Teleport Screens" left="12" mouse_opaque="true"
+	     label="Disable teleport screen" left="12" mouse_opaque="true"
 	     name="disable_tp_screen_check" radio_style="false" width="217" />
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Show Client Names in Name Tag" left="12" mouse_opaque="true"
+       label="Show client names in nametag" left="12" mouse_opaque="true"
        name="client_name_tag_check" radio_style="false" width="217" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Broadcast Your Client Name to Others" left="12" mouse_opaque="true"
+       label="Broadcast your client name to others" left="12" mouse_opaque="true"
        name="client_name_tag_broadcast_check" radio_style="false" width="217" />
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Enable Shadows (WARNING: unstable and requires Ultra graphics)" left="12" mouse_opaque="true"
+       label="Enable shadows (WARNING: unstable and requires Ultra graphics)" left="12" mouse_opaque="true"
        name="shadows_check" radio_style="false" width="217" />
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="true"
+       label="Use server-side WindLight settings" left="12" mouse_opaque="true"
+       name="windlight_check" radio_style="false" width="217" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Use HTTP Textures" left="12" mouse_opaque="true"
+       label="Use HTTP texture fetching" left="12" mouse_opaque="true"
        name="http_texture_check" radio_style="false" width="217" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
@@ -37,7 +41,7 @@
   <spinner bottom_delta="-18" decimal_digits="0"
        tool_tip="Interval in seconds between each draw distance increment"
        follows="left|top" height="16" increment="1" initial_val="12"
-       label="Step interval every" label_width="105" left_delta="20" max_val="20"
+       label="Step interval every:" label_width="105" left_delta="20" max_val="20"
        min_val="1" mouse_opaque="true" name="speed_rez_interval_spinner" width="145" />
   <text bottom_delta="0" follows="top|left" height="15" left_delta="150"
 	     name="speed_rez_seconds_text" width="115">
@@ -45,7 +49,23 @@
   </text>
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Stand when editing appearance" left="12" mouse_opaque="true"
-       name="appearance_stand_check" radio_style="false" width="217" />
+       tool_tip="Toggle editing animation and standing up when entering appearance mode" 
+       label="Animate avatar when editing appearance" left="12" mouse_opaque="true"
+       name="appearance_anim_check" radio_style="false" width="217" />
+  <check_box bottom_delta="-25" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+       label="Use legacy pie menus" left="12"
+       mouse_opaque="true" name="legacy_pie_menu_checkbox" radio_style="false"
+       width="256" />
+  <check_box bottom_delta="-25" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+       initial_value="false" label="Share language with objects" left="12"
+       mouse_opaque="true" name="language_is_public"
+       radio_style="false" tool_tip="This lets in-world objects know your preferred language."
+       width="256" />
+
+  <button bottom="5" follows="left|top" font="SansSerifSmall" height="20" width="250" 
+       label="Reset All Preferences To Default" name="reset_btn" left="12" 
+       tool_tip="Reset all preferences to their default values (requires a restart)" />
 
 </panel>

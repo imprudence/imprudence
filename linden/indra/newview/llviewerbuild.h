@@ -30,8 +30,10 @@
  * $/LicenseInfo$
  */
 
-#include "llversionviewer.h"
+// This file is not used anymore -- MC
+
+//#include "llversionviewer.h"
 
 // Set the build number in indra/llcommon/llversionviewer.h!
 
-const S32 LL_VIEWER_BUILD = LL_VERSION_BUILD;
+//const S32 LL_VIEWER_BUILD = LL_VERSION_BUILD;

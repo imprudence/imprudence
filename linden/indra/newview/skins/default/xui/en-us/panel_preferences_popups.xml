@@ -2,21 +2,21 @@
 <panel border="true" bottom="0" height="500" label="Popups" left="0" name="popups"
      title="Popups" width="400">
 	<text bottom="-20" follows="top|left" left="15" width="300" name="dont_show_label">
-		Do not show these popups:
+		Hide These Popups:
 	</text>
 	<scroll_list follows="top|left" height="88" left="15" name="disabled_popups" width="480" />
-	<button follows="top|left" height="20" label="Enable this popup" left="15"
+	<button follows="top|left" height="20" label="Enable This Popup" left="15"
 	     name="enable_popup" width="175" />
-	<button follows="top|left" height="20" label="Enable all popups..." left="200"
+	<button follows="top|left" height="20" label="Enable All Popups" left="200"
 	     name="reset_dialogs_btn"
 	     tool_tip="Enable all of the optional popups and &apos;first time use&apos; notifications."
 	     width="175" bottom_delta="0" />
 	<text follows="top|left" left="15" width="128" name="show_label" bottom_delta="-24">
-		Show these popups:
+		Show These Popups:
 	</text>
 	<scroll_list follows="top|left" height="88" left="15" name="enabled_popups" width="480" />
 	<button bottom_delta="-24" follows="top|left" height="20"
-	     label="Disable all these popups..." left="200"
+	     label="Disable All Popups" left="200"
 	     name="skip_dialogs_btn"
 	     tool_tip="Disable all of the optional popups and &apos;first time use&apos; notifications."
 	     width="175" />
@@ -25,7 +25,7 @@
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="10" left="15" mouse_opaque="false" name="text_box2" v_pad="0"
 	     width="270">
-		Offers of notecards, textures and landmarks:
+		Offers of Notecards, Textures and Landmarks:
 	</text>
 	<check_box bottom_delta="-25" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
@@ -37,7 +37,7 @@
 	     name="show_new_inventory" radio_style="false" width="270" />
    	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Automatically show newly accepted objects in inventory" left="18" mouse_opaque="true"
+	     label="Automatically show newly accepted objects in inventory" left="40" mouse_opaque="true"
 	     name="show_in_inventory" radio_style="false" width="270" />
   <check_box bottom_delta="-30" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" initial_value="false"

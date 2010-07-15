@@ -6,7 +6,7 @@
 	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box" v_pad="0" width="200">
-		Maximum Bandwidth:
+		Maximum bandwidth:
 	</text>
 	<slider bottom_delta="-25" can_edit_text="true" control_name="ThrottleBandwidthKBPS"
 	     decimal_digits="0" enabled="true" follows="left|top" height="15"
@@ -25,7 +25,7 @@
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="10" left="12" mouse_opaque="false" name="cache_size_label_l"
 	     v_pad="0" width="200">
-		Disk Cache Size (MB):
+		Disk cache size (MB):
 	</text>
 	<slider bottom_delta="-25" can_edit_text="true" control_name="CacheSize"
 	     decimal_digits="0" enabled="true" follows="left|top" height="15"
@@ -40,7 +40,7 @@
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="10" left="12" mouse_opaque="false" name="cache_location_label"
 	     v_pad="0" width="200">
-		Disk Cache Location:
+		Disk cache location:
 	</text>
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-28"
 	     enabled="false" follows="left|top" font="SansSerif"
@@ -56,12 +56,12 @@
 	     name="reset_cache" scale_image="true" width="100" />
 	<check_box bottom="-173" bottom_delta="-25" control_name="ConnectionPortEnabled"
 	     enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Custom Port Connection" left="12"
+	     initial_value="false" label="Custom port connection" left="12"
 	     mouse_opaque="true" name="connection_port_enabled" radio_style="false"
 	     width="256" />
 	<spinner bottom="-193" bottom_delta="-20" control_name="ConnectionPort"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="1" initial_val="13000" label="Port Number:" label_width="75"
+	     increment="1" initial_val="13000" label="Port number:" label_width="75"
 	     left_delta="20" max_val="13050" min_val="13000" mouse_opaque="true"
 	     name="connection_port" width="150" />
 </panel>

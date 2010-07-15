@@ -91,6 +91,7 @@ BOOL LLPanelAudioPrefs::postBuild()
 {
 	refreshValues(); // initialize member data from saved settings
 	childSetLabelArg("L$ Change Threshold", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	childSetValue("mute_wind_check", !gSavedSettings.getBOOL("MuteWind"));
 
 	return TRUE;
 }
@@ -115,6 +116,13 @@ void LLPanelAudioPrefs::refreshValues()
 
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
+}
+
+void LLPanelAudioPrefs::apply()
+{
+	refreshValues();
+
+	gSavedSettings.setBOOL("MuteWind", !(BOOL)(childGetValue("mute_wind_check").asBoolean()));
 }
 
 void LLPanelAudioPrefs::cancel()

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Dili objeler ile paylaş" name="language_is_public" tool_tip="Bu,iç dünya objelerinin seçtiğiniz dili tanımasını sağlar."/>
+</panel>

@@ -71,6 +71,18 @@
  
 BOOL LLAgent::setLookAt(ELookAtType target_type, LLViewerObject *object, LLVector3 position)
 {
+	if (object && target_type != LOOKAT_TARGET_NONE && gSavedSettings.getBOOL("PrivateLookAtTarget"))
+	{
+		target_type = LOOKAT_TARGET_NONE;
+		object = mAvatarObject;
+		position.clearVec();
+		LLViewerObject* source_obj = mLookAt->getSourceObject();
+		if (source_obj)
+		{
+			mLookAt->setTargetObject(source_obj);
+		}
+	}
+
 	if(object && object->isAttachment())
 	{
 		LLViewerObject* parent = object;
@@ -100,6 +112,13 @@ BOOL LLAgent::setPointAt(EPointAtType target_type, LLViewerObject *object, LLVec
 	if (object && (object->isAttachment() || object->isAvatar()))
 	{
 		return FALSE;
+	}
+
+	if (object && target_type != POINTAT_TARGET_NONE && gSavedSettings.getBOOL("PrivateLookAtTarget"))
+	{
+		target_type = POINTAT_TARGET_NONE;
+		object = NULL;
+		position.clearVec();
 	}
 
 	if(!mPointAt || mPointAt->isDead())

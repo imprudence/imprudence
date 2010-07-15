@@ -88,11 +88,11 @@
      min_val="0" mouse_opaque="true" name="spinner_decimal" width="175" />
 
   <button bottom="2" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="20" label="Cancel" right="-4" 
-       mouse_opaque="true" name="btn_cancel" scale_image="true" width="90" />
-  <button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
-       halign="center" height="20" label="Apply" left_delta="-93"
+       halign="center" height="20" label="Apply" right="-4"
        mouse_opaque="true" name="btn_apply" scale_image="true" width="90" />
+  <button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" label="Cancel" left_delta="-93"
+       mouse_opaque="true" name="btn_cancel" scale_image="true" width="90" />
   <button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
        halign="center" height="20" label="OK" left_delta="-93"
        mouse_opaque="true" name="btn_ok" scale_image="true" width="90" />

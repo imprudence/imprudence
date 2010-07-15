@@ -105,8 +105,11 @@ public:
 	void setLandCommitted(S32 committed);
 
 	void		refresh();
+	// some elements should hide in mouselook
 	void setVisibleForMouselook(bool visible);
-		// some elements should hide in mouselook
+
+	// Update elements that might have changed after login screen
+	void updateElements();
 
 	// ACCESSORS
 	S32			getBalance() const;

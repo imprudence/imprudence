@@ -402,8 +402,14 @@ bool HippoGridInfo::retrieveGridInfo()
 {
 	if (mLoginUri == "") return false;
 
+	// If last character in uri is not "/"
+	std::string uri = mLoginUri;
+	if (uri.compare(uri.length()-1, 1, "/") != 0) 
+	{
+	 	uri += '/';
+	}
 	std::string reply;
-	int result = HippoRestRequest::getBlocking(mLoginUri + "get_grid_info", &reply);
+	int result = HippoRestRequest::getBlocking(uri + "get_grid_info", &reply);
 	if (result != 200) return false;
 
 	llinfos << "Received: " << reply << llendl;

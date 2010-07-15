@@ -50,8 +50,6 @@
 #include "llagent.h"
 #include "llviewerstats.h"
 #include "llviewerregion.h"
-#include "llversionviewer.h"
-#include "llviewerbuild.h"
 #include "lluictrlfactory.h"
 #include "lluri.h"
 #include "llweb.h"
@@ -61,6 +59,7 @@
 #include "llglheaders.h"
 #include "llmediamanager.h"
 #include "llwindow.h"
+#include "viewerversion.h"
 
 #if LL_WINDOWS
 #include "lldxhardware.h"
@@ -118,10 +117,10 @@ LLFloaterAbout::LLFloaterAbout()
 	// Version string
 	std::string version = llformat(
 	  "%s %d.%d.%d %s / %s %d.%d.%d (%d), %s %s\n",
-		IMP_VIEWER_NAME,
-	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH, IMP_VERSION_TEST,
-		LL_VIEWER_NAME,
-	  LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD,
+	  ViewerVersion::getImpViewerName().c_str(),
+	  ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(), ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str(),
+	  ViewerVersion::getLLViewerName().c_str(),
+	  ViewerVersion::getLLMajorVersion(), ViewerVersion::getLLMinorVersion(), ViewerVersion::getLLPatchVersion(), ViewerVersion::getLLBuildVersion(),
 	  __DATE__, __TIME__);
 
 	support_widget->appendColoredText(version, FALSE, FALSE, gColors.getColor("TextFgReadOnlyColor"));
@@ -315,13 +314,13 @@ void LLFloaterAbout::show(void*)
 static std::string get_viewer_release_notes_url()
 {
 	std::ostringstream version;
-	version << IMP_VERSION_MAJOR << "."
-	        << IMP_VERSION_MINOR << "."
-	        << IMP_VERSION_PATCH;
+	version << ViewerVersion::getImpMajorVersion() << "."
+	        << ViewerVersion::getImpMinorVersion() << "."
+	        << ViewerVersion::getImpPatchVersion();
 
 	// Append the test version if it's not empty
-	if( strcmp(IMP_VERSION_TEST, "") != 0 )
-		version << "-" << IMP_VERSION_TEST;
+	if( !(ViewerVersion::getImpTestVersion().empty()) )
+		version << "-" << ViewerVersion::getImpTestVersion();
 
 	std::ostringstream url;
 	url << RELEASE_NOTES_BASE_URL << version.str();

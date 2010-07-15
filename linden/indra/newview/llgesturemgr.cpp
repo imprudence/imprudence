@@ -52,6 +52,7 @@
 #include "llagent.h"
 #include "llchatbar.h"
 #include "lldelayedgestureerror.h"
+#include "llfloaterchat.h"
 #include "llinventorymodel.h"
 #include "llnotify.h"
 #include "llviewermessage.h"
@@ -559,6 +560,18 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					}
 					found_gestures = TRUE;
 				}
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhascookie", cur_token) == 0)
+			{
+				LLChat chat;
+				chat.mText = "I made you a cookie but I eated it";
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+				if (revised_string)
+				{
+					revised_string->assign(LLStringUtil::null);
+				}
+				return TRUE;
 			}
 		}
 		

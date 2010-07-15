@@ -60,6 +60,14 @@ void LLVOAvatarDictionary::initData()
 	mTextureMap[TEX_UPPER_UNDERSHIRT] =          new TextureDictionaryEntry("undershirt",       TRUE,  BAKED_NUM_INDICES, "UIImgDefaultUnderwearUUID", WT_UNDERSHIRT);
 	mTextureMap[TEX_LOWER_UNDERPANTS] =          new TextureDictionaryEntry("underpants",       TRUE,  BAKED_NUM_INDICES, "UIImgDefaultUnderwearUUID", WT_UNDERPANTS);
 	mTextureMap[TEX_SKIRT] =                     new TextureDictionaryEntry("skirt",            TRUE,  BAKED_NUM_INDICES, "UIImgDefaultSkirtUUID",     WT_SKIRT);
+	mTextureMap[TEX_LOWER_ALPHA] =               new TextureDictionaryEntry("lower_alpha",      TRUE,  BAKED_NUM_INDICES, "UIImgDefaultAlphaUUID",     WT_ALPHA);
+	mTextureMap[TEX_UPPER_ALPHA] =               new TextureDictionaryEntry("upper_alpha",      TRUE,  BAKED_NUM_INDICES, "UIImgDefaultAlphaUUID",     WT_ALPHA);
+	mTextureMap[TEX_HEAD_ALPHA] =                new TextureDictionaryEntry("head_alpha",       TRUE,  BAKED_NUM_INDICES, "UIImgDefaultAlphaUUID",     WT_ALPHA);
+	mTextureMap[TEX_EYES_ALPHA] =                new TextureDictionaryEntry("eyes_alpha",       TRUE,  BAKED_NUM_INDICES, "UIImgDefaultAlphaUUID",     WT_ALPHA);
+	mTextureMap[TEX_HAIR_ALPHA] =                new TextureDictionaryEntry("hair_alpha",       TRUE,  BAKED_NUM_INDICES, "UIImgDefaultAlphaUUID",     WT_ALPHA);
+	mTextureMap[TEX_HEAD_TATTOO] =               new TextureDictionaryEntry("head_tattoo",      TRUE,  BAKED_NUM_INDICES, "",     WT_TATTOO);
+	mTextureMap[TEX_UPPER_TATTOO] =              new TextureDictionaryEntry("upper_tattoo",     TRUE,  BAKED_NUM_INDICES, "",     WT_TATTOO);
+	mTextureMap[TEX_LOWER_TATTOO] =              new TextureDictionaryEntry("lower_tattoo",     TRUE,  BAKED_NUM_INDICES, "",     WT_TATTOO);
 	mTextureMap[TEX_HEAD_BAKED] =                new TextureDictionaryEntry("head-baked",       FALSE, BAKED_HEAD);
 	mTextureMap[TEX_UPPER_BAKED] =               new TextureDictionaryEntry("upper-baked",      FALSE, BAKED_UPPER);
 	mTextureMap[TEX_LOWER_BAKED] =               new TextureDictionaryEntry("lower-baked",      FALSE, BAKED_LOWER);
@@ -68,12 +76,12 @@ void LLVOAvatarDictionary::initData()
 	mTextureMap[TEX_SKIRT_BAKED] =               new TextureDictionaryEntry("skirt-baked",      FALSE, BAKED_SKIRT);
 
 	// Baked textures
-	mBakedTextureMap[BAKED_HEAD] =     new BakedDictionaryEntry(TEX_HEAD_BAKED,  "head",       1, TEX_HEAD_BODYPAINT);
-	mBakedTextureMap[BAKED_UPPER] =    new BakedDictionaryEntry(TEX_UPPER_BAKED, "upper_body", 5, TEX_UPPER_SHIRT,TEX_UPPER_BODYPAINT,TEX_UPPER_JACKET,TEX_UPPER_GLOVES,TEX_UPPER_UNDERSHIRT);
-	mBakedTextureMap[BAKED_LOWER] =    new BakedDictionaryEntry(TEX_LOWER_BAKED, "lower_body", 6, TEX_LOWER_PANTS,TEX_LOWER_BODYPAINT,TEX_LOWER_SHOES,TEX_LOWER_SOCKS,TEX_LOWER_JACKET,TEX_LOWER_UNDERPANTS);
-	mBakedTextureMap[BAKED_EYES] =     new BakedDictionaryEntry(TEX_EYES_BAKED,  "eyes",       1, TEX_EYES_IRIS);
+	mBakedTextureMap[BAKED_HEAD] =     new BakedDictionaryEntry(TEX_HEAD_BAKED,  "head",       3, TEX_HEAD_BODYPAINT, TEX_HEAD_TATTOO, TEX_HEAD_ALPHA);
+	mBakedTextureMap[BAKED_UPPER] =    new BakedDictionaryEntry(TEX_UPPER_BAKED, "upper_body", 7, TEX_UPPER_SHIRT, TEX_UPPER_BODYPAINT, TEX_UPPER_JACKET, TEX_UPPER_GLOVES, TEX_UPPER_UNDERSHIRT, TEX_UPPER_TATTOO, TEX_UPPER_ALPHA);
+	mBakedTextureMap[BAKED_LOWER] =    new BakedDictionaryEntry(TEX_LOWER_BAKED, "lower_body", 8, TEX_LOWER_PANTS, TEX_LOWER_BODYPAINT, TEX_LOWER_SHOES, TEX_LOWER_SOCKS, TEX_LOWER_JACKET, TEX_LOWER_UNDERPANTS, TEX_LOWER_TATTOO, TEX_LOWER_ALPHA);
+	mBakedTextureMap[BAKED_EYES] =     new BakedDictionaryEntry(TEX_EYES_BAKED,  "eyes",       2, TEX_EYES_IRIS, TEX_EYES_ALPHA);
 	mBakedTextureMap[BAKED_SKIRT] =    new BakedDictionaryEntry(TEX_SKIRT_BAKED, "skirt",      1, TEX_SKIRT);
-	mBakedTextureMap[BAKED_HAIR] =     new BakedDictionaryEntry(TEX_HAIR_BAKED,  "hair",       1, TEX_HAIR);
+	mBakedTextureMap[BAKED_HAIR] =     new BakedDictionaryEntry(TEX_HAIR_BAKED,  "hair",       2, TEX_HAIR, TEX_HAIR_ALPHA);
 		
 	// Meshes
 	mMeshMap[MESH_ID_HAIR] =           new MeshDictionaryEntry(BAKED_HAIR,  "hairMesh",         6, LLViewerJoint::PN_4);
@@ -86,12 +94,12 @@ void LLVOAvatarDictionary::initData()
 	mMeshMap[MESH_ID_SKIRT] =          new MeshDictionaryEntry(BAKED_SKIRT, "skirtMesh",        5, LLViewerJoint::PN_5);
 
 	// Wearables
-	mWearableMap[BAKED_HEAD] =   new WearableDictionaryEntry("18ded8d6-bcfc-e415-8539-944c0f5ea7a6", 3, WT_SHAPE, WT_SKIN, WT_HAIR);
-	mWearableMap[BAKED_UPPER] =  new WearableDictionaryEntry("338c29e3-3024-4dbb-998d-7c04cf4fa88f", 6, WT_SHAPE, WT_SKIN,	WT_SHIRT, WT_JACKET, WT_GLOVES, WT_UNDERSHIRT);
-	mWearableMap[BAKED_LOWER] =  new WearableDictionaryEntry("91b4a2c7-1b1a-ba16-9a16-1f8f8dcc1c3f", 7, WT_SHAPE, WT_SKIN,	WT_PANTS, WT_SHOES,	 WT_SOCKS,  WT_JACKET,		WT_UNDERPANTS);
-	mWearableMap[BAKED_EYES] =   new WearableDictionaryEntry("b2cf28af-b840-1071-3c6a-78085d8128b5", 1, WT_EYES);
+	mWearableMap[BAKED_HEAD] =   new WearableDictionaryEntry("18ded8d6-bcfc-e415-8539-944c0f5ea7a6", 5, WT_SHAPE, WT_SKIN, WT_HAIR, WT_TATTOO, WT_ALPHA);
+	mWearableMap[BAKED_UPPER] =  new WearableDictionaryEntry("338c29e3-3024-4dbb-998d-7c04cf4fa88f", 8, WT_SHAPE, WT_SKIN, WT_SHIRT, WT_JACKET, WT_GLOVES, WT_UNDERSHIRT, WT_TATTOO, WT_ALPHA);
+	mWearableMap[BAKED_LOWER] =  new WearableDictionaryEntry("91b4a2c7-1b1a-ba16-9a16-1f8f8dcc1c3f", 9, WT_SHAPE, WT_SKIN, WT_PANTS, WT_SHOES, WT_SOCKS, WT_JACKET, WT_UNDERPANTS, WT_TATTOO, WT_ALPHA);
+	mWearableMap[BAKED_EYES] =   new WearableDictionaryEntry("b2cf28af-b840-1071-3c6a-78085d8128b5", 2, WT_EYES, WT_ALPHA);
 	mWearableMap[BAKED_SKIRT] =  new WearableDictionaryEntry("ea800387-ea1a-14e0-56cb-24f2022f969a", 1, WT_SKIRT);
-	mWearableMap[BAKED_HAIR] =   new WearableDictionaryEntry("0af1ef7c-ad24-11dd-8790-001f5bf833e8", 1, WT_HAIR);
+	mWearableMap[BAKED_HAIR] =   new WearableDictionaryEntry("0af1ef7c-ad24-11dd-8790-001f5bf833e8", 2, WT_HAIR, WT_ALPHA);
 }
 
 /*

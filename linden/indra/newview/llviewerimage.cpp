@@ -776,6 +776,10 @@ void LLViewerImage::switchToCachedImage()
 			// We've changed the number of components, so we need to move any
 			// objects using this pool to a different pool.
 			mComponents = mRawImage->getComponents();
+			if ((U32)mComponents > 4)
+			{
+				LL_DEBUGS("Openjpeg") << "Bad number of components for mRawImage: " << (U32)mComponents << "!" << llendl;
+			}
 			gImageList.dirtyImage(this);
 		}			
 
@@ -1054,10 +1058,27 @@ bool LLViewerImage::updateFetch()
 			{
 				if (getComponents() != mRawImage->getComponents())
 				{
-					// We've changed the number of components, so we need to move any
-					// objects using this pool to a different pool.
-					mComponents = mRawImage->getComponents();
-					gImageList.dirtyImage(this);
+					// Do a quick sanity check to make sure we can actually
+					// use the right number of components here -- MC
+					if ((U32)mRawImage->getComponents() > 4)
+					{
+						LL_DEBUGS("Openjpeg") << "Bad number of components for mRawImage->getComponents(): " << (U32)mRawImage->getComponents() << "! Stopping fetching of the texture" << llendl;
+
+						destroyRawImage();
+						setIsMissingAsset();
+						mRawDiscardLevel = INVALID_DISCARD_LEVEL ;
+						mIsFetching = FALSE ;
+						gImageList.deleteImage(this);
+
+						return FALSE;
+					}
+					else
+					{
+						// We've changed the number of components, so we need to move any
+						// objects using this pool to a different pool.
+						mComponents = mRawImage->getComponents();
+						gImageList.dirtyImage(this);
+					}
 				}			
 				
 				mFullWidth = mRawImage->getWidth() << mRawDiscardLevel;

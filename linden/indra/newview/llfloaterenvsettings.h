@@ -78,6 +78,9 @@ public:
 	/// open the advanced water settings menu
 	static void onOpenAdvancedWater(void* userData);
 
+	/// submit windlight settings to the estate
+	static void onSubmitWindlight(void* userData);
+
 	/// sync time with the server
 	static void onUseEstateTime(void* userData);
 

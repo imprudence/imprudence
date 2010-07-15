@@ -50,6 +50,7 @@
 #include "llcheckboxctrl.h"
 #include "llfloater.h"
 
+#include "llfloaterchat.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
 #include "llfloatergroups.h"
@@ -359,10 +360,6 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 	childSetVisible("?",LLPanelAvatar::sAllowFirstLife);
 
 	childSetVisible("online_yes",FALSE);
-
-	// These are cruft but may still exist in some xml files
-	// TODO: remove the following 2 lines once translators grab these changes
-	childSetVisible("online_unknown",FALSE);
 	childSetVisible("online_no",FALSE);
 
 	childSetAction("Find on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
@@ -1249,6 +1246,13 @@ void LLPanelAvatar::setAvatar(LLViewerObject *avatarp)
 
 void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 {
+	// Since setOnlineStatus gets called after setAvatarID
+	// we can do this check here -- MC
+	if (mAvatarID == gAgent.getID())
+	{
+		return;
+	}
+
 	// Online status NO could be because they are hidden
 	// If they are a friend, we may know the truth!
 	if ((ONLINE_STATUS_YES != online_status)
@@ -1259,6 +1263,7 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 	}
 
 	mPanelSecondLife->childSetVisible("online_yes", (online_status == ONLINE_STATUS_YES));
+	mPanelSecondLife->childSetVisible("online_no", (online_status == ONLINE_STATUS_NO));
 
 	BOOL in_prelude = gAgent.inPrelude();
 	if(gAgent.isGodlike())
@@ -1275,18 +1280,6 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 	{
 		childSetEnabled("Offer Teleport...", TRUE);
 		childSetToolTip("Offer Teleport...", childGetValue("TeleportNormal").asString());
-	}
-
-	// Since setOnlineStatus gets called after setAvatarID
-	// need to make sure that "Offer Teleport" doesn't get set
-	// to TRUE again for yourself
-	if (mAvatarID != gAgent.getID())
-	{
-		childSetVisible("Offer Teleport...",TRUE);
-	}
-	else
-	{
-		childSetEnabled("Offer Teleport...", FALSE);
 	}
 }
 
@@ -1404,9 +1397,16 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Unfreeze",FALSE);
 			childSetVisible("csr_btn", FALSE);
 			childSetEnabled("csr_btn", FALSE);
+
+			// if you don't know if you're online or not, there's no helping you -- MC
+			childSetVisible("online_yes",FALSE);
+			childSetVisible("online_no",FALSE);
 		}
 		else
 		{
+			BOOL is_god = FALSE;
+			if (gAgent.isGodlike()) is_god = TRUE;
+
 			childSetVisible("OK",FALSE);
 			childSetEnabled("OK",FALSE);
 
@@ -1425,7 +1425,7 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 
 			childSetVisible("Find on Map",TRUE);
 			// Note: we don't always know online status, so always allow gods to try to track
-			BOOL enable_track = gAgent.isGodlike() || is_agent_mappable(mAvatarID);
+			BOOL enable_track = is_god || is_agent_mappable(mAvatarID);
 			childSetEnabled("Find on Map",enable_track);
 			if (!mIsFriend)
 			{
@@ -1443,9 +1443,6 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...", !avatar_is_friend);
 			childSetVisible("Pay...",TRUE);
 			childSetEnabled("Pay...",FALSE);
-
-			BOOL is_god = FALSE;
-			if (gAgent.isGodlike()) is_god = TRUE;
 			
 			childSetVisible("Kick", is_god);
 			childSetEnabled("Kick", is_god);
@@ -1622,6 +1619,18 @@ void LLPanelAvatar::onClickOfferTeleport(void *userdata)
 void LLPanelAvatar::onClickCopyUUID(void *userdata)
 {
 	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+
+	// Say same info in chat -- MC
+	LLStringUtil::format_map_t targs;
+	targs["[KEY]"] = self->mAvatarID.asString();
+	targs["[AVATAR]"] = self->mPanelSecondLife->getChild<LLNameEditor>("name")->getText();
+	std::string msg = self->mPanelSecondLife->getString("copy_key_info");
+	LLStringUtil::format(msg, targs);
+
+	LLChat chat;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+	chat.mText = msg;
+	LLFloaterChat::addChat(chat);
 
 	std::string buffer;
 	(self->mAvatarID).toString(buffer);

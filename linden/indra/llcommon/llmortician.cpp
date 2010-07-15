@@ -74,3 +74,9 @@ void LLMortician::setZealous(BOOL b)
 {
 	sDestroyImmediate = b;
 }
+
+// static
+BOOL LLMortician::getZealous()
+{
+	return sDestroyImmediate;
+}

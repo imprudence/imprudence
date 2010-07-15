@@ -35,7 +35,6 @@
 #include "llappviewer.h"
 #include "llprimitive.h"
 
-#include "llversionviewer.h"
 #include "llfeaturemanager.h"
 #include "lluictrlfactory.h"
 #include "lltexteditor.h"
@@ -128,6 +127,7 @@
 
 #include "llworld.h"
 #include "llhudeffecttrail.h"
+#include "llhudeffectlookat.h"
 #include "llvectorperfoptions.h"
 #include "llurlsimstring.h"
 #include "llwatchdog.h"
@@ -151,8 +151,10 @@
 #include "llflexibleobject.h" 
 #include "llvosurfacepatch.h"
 #include "llslider.h"
+#include "viewerversion.h"
 
 // includes for idle() idleShutdown()
+#include "floaterao.h"
 #include "llviewercontrol.h"
 #include "lleventnotifier.h"
 #include "llcallbacklist.h"
@@ -234,6 +236,9 @@ BOOL gUseQuickTime = TRUE;
 BOOL gAcceptTOS = FALSE;
 BOOL gAcceptCriticalMessage = FALSE;
 
+std::string gSecondLife;
+std::string gWindowTitle;
+
 eLastExecEvent gLastExecEvent = LAST_EXEC_NORMAL;
 
 LLSD gDebugInfo;
@@ -312,9 +317,6 @@ const char* const VIEWER_WINDOW_CLASSNAME = "Imprudence";
 // File scope definitons
 const char *VFS_DATA_FILE_BASE = "data.db2.x.";
 const char *VFS_INDEX_FILE_BASE = "index.db2.x.";
-
-static std::string gSecondLife;
-static std::string gWindowTitle;
 
 std::string gLoginPage;
 std::vector<std::string> gLoginURIs;
@@ -429,6 +431,8 @@ static void settings_to_globals()
 	LLCubeMap::sUseCubeMaps = LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 
 	LLSlider::setScrollWheelMultiplier( gSavedSettings.getS32("SliderScrollWheelMultiplier") );
+
+	LLHUDEffectLookAt::sDebugLookAt = gSavedSettings.getBOOL("PersistShowLookAt");
 }
 
 static void settings_modify()
@@ -577,7 +581,7 @@ bool LLAppViewer::init()
 	
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
-	gDirUtilp->initAppDirs(IMP_VIEWER_NAME);
+	gDirUtilp->initAppDirs(ViewerVersion::getImpViewerName());
 	// set skin search path to default, will be overridden later
 	// this allows simple skinned file lookups to work
 	gDirUtilp->setSkinFolder("default");
@@ -601,15 +605,15 @@ bool LLAppViewer::init()
 	// Build a string representing the current version number.
     gCurrentVersion = llformat("%s %d.%d.%d %s / %s %d.%d.%d.%d", 
         gSavedSettings.getString("VersionChannelName").c_str(), 
-        IMP_VERSION_MAJOR, 
-        IMP_VERSION_MINOR, 
-        IMP_VERSION_PATCH,
-		IMP_VERSION_TEST,
-        LL_VIEWER_NAME,
-        LL_VERSION_MAJOR, 
-        LL_VERSION_MINOR, 
-        LL_VERSION_PATCH, 
-        LL_VERSION_BUILD );
+		ViewerVersion::getImpMajorVersion(), 
+		ViewerVersion::getImpMinorVersion(), 
+		ViewerVersion::getImpPatchVersion(),
+		ViewerVersion::getImpTestVersion().c_str(),
+		ViewerVersion::getLLViewerName().c_str(),
+		ViewerVersion::getLLMajorVersion(), 
+		ViewerVersion::getLLMinorVersion(), 
+		ViewerVersion::getLLPatchVersion(), 
+		ViewerVersion::getLLBuildVersion() );
 
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -1153,21 +1157,21 @@ bool LLAppViewer::cleanup()
 	LLMortician::setZealous(TRUE);
 
 	if (mQuitRequested)
-	LLVoiceClient::terminate();
+	{
+		LLVoiceClient::terminate();
+	}
 	
 	disconnectViewer();
 
 	llinfos << "Viewer disconnected" << llendflush;
 
-
-
-
-
 	//this deletes all your buddies
 	LLAvatarTracker::instance().reset();
 
 	if (mQuitRequested)
-	display_cleanup(); 
+	{
+		display_cleanup();
+	}
 
 	release_start_screen(); // just in case
 
@@ -1187,8 +1191,15 @@ bool LLAppViewer::cleanup()
 	//clear all the chat off the screen	
 	gConsole->clear();
 
-	if (!mQuitRequested) //if we are doing a soft cleanup, bail here
+	// Cleaned up elsewhere
+	gAOInvTimer = NULL;
+
+	//if we are doing a soft cleanup, bail here
+	// But clean up the messaging system first -- MC
+	if (!mQuitRequested)
 	{
+		gTransferManager.cleanup();
+		LLTransferTargetVFile::updateQueue(true); // shutdown LLTransferTargetVFile
 		return true;
 	}
  	// End TransferManager before deleting systems it depends on (Audio, VFS, AssetStorage)
@@ -1359,13 +1370,24 @@ bool LLAppViewer::cleanup()
 	// Store the time of our current logoff
 	gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());
 
+	// Get filenames of settings files to reset if we do -- MC
+	std::string per_account_settings_filename = gSavedSettings.getString("PerAccountSettingsFile");
+	std::string settings_filename = gSavedSettings.getString("ClientSettingsFile");
+
+	// Reset all preferences to default settings before we save everything -- MC
+	if (gSavedSettings.getBOOL("ResetAllPreferences"))
+	{
+		llinfos << "Resetting all viewer preferences" << llendflush;
+		gSavedSettings.resetToDefaults();
+		gSavedPerAccountSettings.resetToDefaults();
+	}
+
 	// Must do this after all panels have been deleted because panels that have persistent rects
 	// save their rects on delete.
-	gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);	
+	gSavedSettings.saveToFile(settings_filename, TRUE);	
 
 	// PerAccountSettingsFile should be empty if no use has been logged on.
 	// *FIX:Mani This should get really saved in a "logoff" mode. 
-	std::string per_account_settings_filename = gSavedSettings.getString("PerAccountSettingsFile");
 	if (!per_account_settings_filename.empty())
 	{
 		gSavedPerAccountSettings.saveToFile(per_account_settings_filename, TRUE);
@@ -1532,7 +1554,7 @@ bool LLAppViewer::initThreads()
 	LLAppViewer::sImageDecodeThread = new LLImageDecodeThread(enable_threads && true);
 	LLAppViewer::sTextureCache = new LLTextureCache(enable_threads && true);
 	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(), sImageDecodeThread, enable_threads && true);
-	LLImage::initClass();
+	LLImage::initClass(gSavedSettings.getBOOL("UseKDUIfAvailable"));
 
 	// *FIX: no error handling here!
 	return true;
@@ -1685,6 +1707,9 @@ std::string LLAppViewer::getSettingsFilename(const std::string& location_key,
 
 bool LLAppViewer::initConfiguration()
 {	
+	// init Imprudence version - MC
+	ViewerVersion::initViewerVersion();
+
 	//Set up internal pointers	
 	gSettings[sGlobalSettingsName] = &gSavedSettings;
 	gSettings[sPerAccountSettingsName] = &gSavedPerAccountSettings;
@@ -1732,7 +1757,7 @@ bool LLAppViewer::initConfiguration()
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
         gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence.xml"));
 
-	gSavedSettings.setString("VersionChannelName", IMP_VIEWER_NAME);
+	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 
 	//*FIX:Mani - Set default to disabling watchdog mainloop 
 	// timeout for mac and linux. There is no call stack info 
@@ -1970,7 +1995,7 @@ bool LLAppViewer::initConfiguration()
     mYieldTime = gSavedSettings.getS32("YieldTime");
              
 	// XUI:translate
-	gSecondLife = IMP_VIEWER_NAME;
+	gSecondLife = ViewerVersion::getImpViewerName();
 
 	// Read skin/branding settings if specified.
 	//if (! gDirUtilp->getSkinDir().empty() )
@@ -2290,8 +2315,6 @@ void LLAppViewer::cleanupSavedSettings()
 	gSavedSettings.setBOOL("UseEnergy", TRUE);				// force toggle to turn off, since sends message to simulator
 
 	gSavedSettings.setBOOL("DebugWindowProc", gDebugWindowProc);
-		
-	gSavedSettings.setBOOL("AllowIdleAFK", gAllowIdleAFK);
 	gSavedSettings.setBOOL("AllowTapTapHoldRun", gAllowTapTapHoldRun);
 	gSavedSettings.setBOOL("ShowObjectUpdates", gShowObjectUpdates);
 	
@@ -2339,14 +2362,14 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 
@@ -2433,14 +2456,14 @@ void LLAppViewer::handleViewerCrash()
 	//to check against no matter what
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
 
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if ( parcel && parcel->getMusicURL()[0])
@@ -2725,30 +2748,8 @@ void LLAppViewer::requestLogout(bool quit_after)
 
 	llinfos << "requestLogout" << llendl;
 
-	LLViewerRegion* region = gAgent.getRegion();
-	
-	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
-	{
-	LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
-	effectp->setPositionGlobal(gAgent.getPositionGlobal());
-	effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-	LLHUDManager::getInstance()->sendEffects();
-	effectp->markDead() ;//remove it.
-		//send_stats(); if we're quitting the server shouldn't need viewer stats.
-	}
-	else
-	{
-		mQuitRequested=true;
-		LLAppViewer::instance()->forceQuit();
-	}
-
-	// Attempt to close all floaters that might be
-	// editing things.
-	if (gFloaterView)
-	{
-		// application is quitting
-		gFloaterView->closeAllChildren(true);
-	}
+	//NOTE: don't do cleanup here, or you get in trouble with notification callbacks
+	//put cleanup in idleShutdown() instead
 
 	gLogoutTimer.reset();
 }
@@ -2763,11 +2764,10 @@ static bool finish_quit(const LLSD& notification, const LLSD& response)
 	}
 	return false;
 }
-static LLNotificationFunctorRegistration finish_quit_reg("ConfirmQuit", finish_quit);
 
 void LLAppViewer::userQuit()
 {
-	LLNotifications::instance().add("ConfirmQuit");
+	LLNotifications::instance().add("ConfirmQuit", LLSD(), LLSD(), finish_quit);
 }
 
 //static
@@ -2886,7 +2886,7 @@ bool LLAppViewer::initCache()
 	// Purge cache if it belongs to an old version
 	else
 	{
-		static const S32 cache_version = 5;
+		static const S32 cache_version = 6;
 		if (gSavedSettings.getS32("LocalCacheVersion") != cache_version)
 		{
 			mPurgeCache = true;
@@ -2898,16 +2898,21 @@ bool LLAppViewer::initCache()
 	migrateCacheDirectory();
 
 	// Setup and verify the cache location
-	std::string cache_location = gSavedSettings.getString("CacheLocation");
+	std::string cache_location = gSavedSettings.getString("CmdLineCacheLocation");
+	if (cache_location.empty())
+	{
+		cache_location = gSavedSettings.getString("CacheLocation");
+	}
 	std::string new_cache_location = gSavedSettings.getString("NewCacheLocation");
-	if (new_cache_location != cache_location)
+	if ((new_cache_location != cache_location) && new_cache_location != "")
 	{
 		gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation"));
 		purgeCache(); // purge old cache
 		gSavedSettings.setString("CacheLocation", new_cache_location);
+		cache_location = new_cache_location;
 	}
 	
-	if (!gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation")))
+	if (!gDirUtilp->setCacheDir(cache_location))
 	{
 		LL_WARNS("AppCache") << "Unable to set cache location" << LL_ENDL;
 		gSavedSettings.setString("CacheLocation", "");
@@ -3305,6 +3310,14 @@ void LLAppViewer::idle()
 			LLAppViewer::instance()->forceQuit();
 		}
 	}
+	// Handle shutdown process, for example, 
+	// wait for floaters to close, send quit message,
+	// forcibly quit if it has taken too long
+	if (mQuitRequested || mLogoutRequested)
+	{
+		idleShutdown();
+	}
+
 
 	// Must wait until both have avatar object and mute list, so poll
 	// here.
@@ -3641,13 +3654,7 @@ void LLAppViewer::idle()
 		}
 	}
 	
-	// Handle shutdown process, for example, 
-	// wait for floaters to close, send quit message,
-	// forcibly quit if it has taken too long
-	if (mQuitRequested || mLogoutRequested)
-	{
-		idleShutdown();
-	}
+
 
 	stop_glerror();
 }
@@ -3658,6 +3665,31 @@ void LLAppViewer::idleShutdown()
 	if (LLModalDialog::activeCount() > 0)
 	{
 		return;
+	}
+	LLViewerRegion* region = gAgent.getRegion();
+	
+	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
+	{
+		LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
+		effectp->setPositionGlobal(gAgent.getPositionGlobal());
+		effectp->setColor(LLColor4U(gAgent.getEffectColor()));
+		LLHUDManager::getInstance()->sendEffects();
+		effectp->markDead() ;//remove it.
+		//send_stats(); if we're quitting the server shouldn't need viewer stats.
+	}
+	else
+	{
+		mQuitRequested=true;
+//awfixme
+		forceQuit();
+	}
+
+	// Attempt to close all floaters that might be
+	// editing things.
+	if (gFloaterView)
+	{
+		// application is quitting
+		gFloaterView->closeAllChildren(true);
 	}
 
 	// close IM interface
@@ -4115,10 +4147,10 @@ void LLAppViewer::handleLoginComplete()
 	// Store some data to DebugInfo in case of a freeze.
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
 
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();

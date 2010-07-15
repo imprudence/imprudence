@@ -4,10 +4,10 @@
   
   <!-- Imprudence-specific settings -->
 
-  <key>AppearanceForceStand</key>
+  <key>AppearanceAnimate</key>
   <map>
     <key>Comment</key>
-    <string>Unsit avatar when entering appearance mode?</string>
+    <string>Play appearance anim and unsit avatar when entering appearance mode?</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -48,6 +48,28 @@
     <key>Value</key>
     <string></string>
   </map>
+  <key>ChatDistance</key>
+  <map>
+    <key>Comment</key>
+    <string>Default chat distance in meters</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>20</real>
+  </map>
+  <key>CmdLineCacheLocation</key>
+  <map>
+    <key>Comment</key>
+    <string>Command line specified cache location to use.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
   <key>DecimalsForTools</key>
   <map>
     <key>Comment</key>
@@ -63,6 +85,28 @@
   <map>
     <key>Comment</key>
     <string>Disable login/logout screen progress bar screens</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>DisableMaxBuildConstraints</key>
+  <map>
+    <key>Comment</key>
+    <string>Disable maximum prim size limit enforcement in the viewer (i.e. makes the sim enforce size instead). Doesn't actually toggle megas</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>DisableMinZoomDist</key>
+  <map>
+    <key>Comment</key>
+    <string>Disable minimum zoom distance limits</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -92,6 +136,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>EnableWindlightRemote</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable windlight quick access remote in toolbar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>FloaterAnimationListRect</key>
   <map>
     <key>Comment</key>
@@ -106,6 +161,22 @@
       <integer>275</integer>
       <integer>1000</integer>
       <integer>0</integer>
+    </array>
+  </map>
+  <key>FloaterGroupTitlesRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for group titles window</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>0</integer>
+        <integer>400</integer>
+        <integer>500</integer>
+        <integer>0</integer>
     </array>
   </map>
   <key>FloaterPrimImport</key>
@@ -156,6 +227,17 @@
     <string>U32</string>
     <key>Value</key>
     <integer>0</integer>
+  </map>
+  <key>IgnoreSimulatorCameraConstraints</key>
+  <map>
+    <key>Comment</key>
+    <string>Ignores the 'push' the simulator applies to your camera to keep it out of objects.(Requires restart to work correctly)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
   </map>
   <key>LastGrass</key>
   <map>
@@ -316,6 +398,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>PersistShowLookAt</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether or not to show look at info</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>PrivateLookAtTarget</key>
   <map>
     <key>Comment</key>
@@ -337,6 +430,17 @@
     <string>F32</string>
     <key>Value</key>
     <real>0.0</real>
+  </map>
+  <key>ShowLookAtNames</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether or not to show names over who looks at you</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
   </map>
   <key>SpeedRez</key>
   <map>
@@ -370,6 +474,17 @@
     <string>Boolean</string>
     <key>Value</key>
     <integer>1</integer>
+  </map>
+  <key>ResetAllPreferences</key>
+  <map>
+    <key>Comment</key>
+    <string>Reset all preferences to their default values on successful quit</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
   </map>
   <key>RezWithLandGroup</key>
   <map>
@@ -493,6 +608,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>ShowAOSitPopup</key>
+  <map>
+    <key>Comment</key>
+    <string>Show AO sit popup</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>ShowMiniMapRadar</key>
   <map>
     <key>Comment</key>
@@ -569,6 +695,28 @@
     <string>F32</string>
     <key>Value</key>
     <real>1.0</real>
+  </map>
+  <key>UIImgInvisibleUUID</key>
+  <map>
+    <key>Comment</key>
+    <string />
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>f54a0c32-3cd1-d49a-5b4f-7b792bebc204</string>
+  </map>
+  <key>UseKDUIfAvailable</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable KDU DSO</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
   </map>
   <key>VerticalIMTabs</key>
   <map>
@@ -721,6 +869,17 @@
       <integer>100</integer>
     </array>
   </map>
+  <key>EnableAORemote</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable AO quick access remote in toolbar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
 
   <!-- Begin: Boob physics -->
 
@@ -818,7 +977,7 @@
   <key>ShowClientNameTag</key>
   <map>
     <key>Comment</key>
-    <string>Show others clients in name tag</string>
+    <string>Show *others* clients in the name tag</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -826,7 +985,19 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
+  
+  <key>ShowMyClientTagToOthers</key>
+  <map>
+    <key>Comment</key>
+    <string>Show my client name to other viewers capable seeing it (e.g. Emerald, Imprudence, Meerkat)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  
   <key>DownloadClientTags</key>
   <map>
     <key>Comment</key>
@@ -4215,17 +4386,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  <key>EnableWindlightRemote</key>
-  <map>
-    <key>Comment</key>
-    <string>Enable windlight quick access remote in toolbar</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
-  </map>
   <key>EnergyFromTop</key>
   <map>
     <key>Comment</key>
@@ -5035,17 +5195,17 @@
   <key>FloaterMiniMapRect</key>
   <map>
     <key>Comment</key>
-    <string>Rectangle for world map</string>
+    <string>Rectangle for the mini-map</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>Rect</string>
     <key>Value</key>
     <array>
-      <integer>0</integer>
-      <integer>225</integer>
-      <integer>200</integer>
-      <integer>0</integer>
+      <integer>600</integer>
+      <integer>590</integer>
+      <integer>880</integer>
+      <integer>190</integer>
     </array>
   </map>
   <key>FloaterMoveRect2</key>
@@ -9256,6 +9416,32 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+
+<!-- Begin: Notify Server Version Change -->
+    <key>ServerVersionChangedNotify</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether or not to show the server change as notify popup</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ServerVersionChangedChat</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether or not to show the server change as chat message</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+<!-- End: Notify Server Version Change -->
+
     <key>ShareWithGroup</key>
     <map>
       <key>Comment</key>
@@ -10439,7 +10625,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>0.699999988079</real>
+      <real>1.699999988079</real>
     </map>
     <key>ToolboxAutoMove</key>
     <map>
@@ -11369,6 +11555,17 @@
       <key>Value</key>
       <string>5748decc-f629-461c-9a36-a35a221fe21f</string>
     </map>
+    <key>UIImgDefaultAlphaUUID</key>
+    <map>
+      <key>Comment</key>
+      <string />
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string>5748decc-f629-461c-9a36-a35a221fe21f</string>
+    </map>
     <key>UIImgDefaultUnderwearUUID</key>
     <map>
       <key>Comment</key>
@@ -12084,6 +12281,21 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+
+<!-- Begin: Use Serverside Windlight Settings -->
+    <key>UseServersideWindlightSettings</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether or not to use Windlight settings presented by the server.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+<!-- End: Use Serverside Windlight Settings -->
+
     <key>UseStartScreen</key>
     <map>
       <key>Comment</key>

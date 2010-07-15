@@ -52,6 +52,7 @@ class LLStatGraph;
 class LLSlider;
 class LLVoiceRemoteCtrl;
 class LLWindlightRemoteCtrl;
+class AORemoteCtrl;
 
 class LLOverlayBar
 :	public LLPanel
@@ -92,6 +93,7 @@ protected:
 	static void* createMediaRemote(void* userdata);
 	static void* createVoiceRemote(void* userdata);
 	static void* createWindlightRemote(void* userdata);
+	static void* createAORemote(void* userdata);
 	static void* createChatBar(void* userdata);
 
 	void enableMediaButtons();
@@ -100,6 +102,7 @@ protected:
 	LLMediaRemoteCtrl*		mMediaRemote;
 	LLVoiceRemoteCtrl*		mVoiceRemote;
 	LLWindlightRemoteCtrl*	mWindlightRemote;
+	AORemoteCtrl*			mAORemote;
 	bool				mBuilt;	// dialog constructed yet?
 	S32					mMusicState;
 	std::string			mOriginalIMLabel;

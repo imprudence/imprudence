@@ -70,9 +70,16 @@ enum ETextureIndex
 	TEX_SKIRT,
 	TEX_SKIRT_BAKED,		// Pre-composited
 	TEX_HAIR_BAKED,     // Pre-composited
+	TEX_LOWER_ALPHA,
+	TEX_UPPER_ALPHA,
+	TEX_HEAD_ALPHA,
+	TEX_EYES_ALPHA,
+	TEX_HAIR_ALPHA,
+	TEX_HEAD_TATTOO,
+	TEX_UPPER_TATTOO,
+	TEX_LOWER_TATTOO,
 	TEX_NUM_INDICES
-}; // "Note: if TEX_NUM_ENTRIES changes, update AGENT_TEXTURES in llagentinfo.h, mTextureIndexBaked, and BAKED_TEXTURE_COUNT"
-// Seraph - Above comment about order is probably obsolete.
+};
 
 typedef std::vector<ETextureIndex> texture_vec_t;
 	

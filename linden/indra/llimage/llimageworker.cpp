@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -54,9 +54,14 @@ S32 LLImageDecodeThread::update(U32 max_time_ms)
 	{
 		creation_info& info = *iter;
 		ImageRequest* req = new ImageRequest(info.handle, info.image,
-											 info.priority, info.discard, info.needs_aux,
-											 info.responder);
-		addRequest(req);
+						     info.priority, info.discard, info.needs_aux,
+						     info.responder);
+
+		bool res = addRequest(req);
+		if (!res)
+		{
+			llerrs << "request added after LLLFSThread::cleanupClass()" << llendl;
+		}
 	}
 	mCreationList.clear();
 	S32 res = LLQueuedThread::update(max_time_ms);

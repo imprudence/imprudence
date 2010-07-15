@@ -55,6 +55,7 @@ public:
 
 private:
 	static void onClickAdd(void* user_data);
+	static void onClickReload(void* user_data);
 };
 
 

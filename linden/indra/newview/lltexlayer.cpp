@@ -63,7 +63,6 @@ using namespace LLVOAvatarDefines;
 
 // static
 S32 LLTexLayerSetBuffer::sGLByteCount = 0;
-S32 LLTexLayerSetBuffer::sGLBumpByteCount = 0;
 
 //-----------------------------------------------------------------------------
 // LLBakedUploadData()
@@ -92,7 +91,7 @@ LLBakedUploadData::LLBakedUploadData( LLVOAvatar* avatar,
 // LLTexLayerSetBuffer
 // The composite image that a LLTexLayerSet writes to.  Each LLTexLayerSet has one.
 //-----------------------------------------------------------------------------
-LLTexLayerSetBuffer::LLTexLayerSetBuffer( LLTexLayerSet* owner, S32 width, S32 height, BOOL has_bump )
+LLTexLayerSetBuffer::LLTexLayerSetBuffer(LLTexLayerSet* owner, S32 width, S32 height)
 	:
 	// ORDER_LAST => must render these after the hints are created.
 	LLDynamicTexture( width, height, 4, LLDynamicTexture::ORDER_LAST, TRUE ), 
@@ -102,84 +101,39 @@ LLTexLayerSetBuffer::LLTexLayerSetBuffer( LLTexLayerSet* owner, S32 width, S32 h
 	mTexLayerSet( owner )	
 {
 	LLTexLayerSetBuffer::sGLByteCount += getSize();
-	mHasBump = has_bump ;
-	mBumpTex = NULL ;
-
-	createBumpTexture() ;
 }
 
 LLTexLayerSetBuffer::~LLTexLayerSetBuffer()
 {
 	LLTexLayerSetBuffer::sGLByteCount -= getSize();
-
-	if( mBumpTex.notNull())
+	destroyGLTexture();
+	for (S32 order = 0; order < ORDER_COUNT; order++)
 	{
-		mBumpTex = NULL ;
-		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
+		LLDynamicTexture::sInstances[order].erase(this);  // will fail in all but one case.
+	}
+	if (mTexLayerSet->mComposite == this)
+	{
+		// Destroy the pointer on this now gone buffer.
+		mTexLayerSet->mComposite = NULL;
 	}
 }
+
 //virtual 
 void LLTexLayerSetBuffer::restoreGLTexture() 
 {	
-	createBumpTexture() ;
 	LLDynamicTexture::restoreGLTexture() ;
 }
 
 //virtual 
 void LLTexLayerSetBuffer::destroyGLTexture() 
 {
-	if( mBumpTex.notNull() )
-	{
-		mBumpTex = NULL ;
-		//LLImageGL::sGlobalTextureMemoryInBytes -= mWidth * mHeight * 4;
-		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
-	}
-
 	LLDynamicTexture::destroyGLTexture() ;
-}
-
-void LLTexLayerSetBuffer::createBumpTexture()
-{
-	if( mHasBump )
-	{
-		LLGLSUIDefault gls_ui;
-		mBumpTex = new LLImageGL(FALSE) ;
-		if(!mBumpTex->createGLTexture())
-		{
-			mBumpTex = NULL ;
-			return ;
-		}
-
-		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
-		stop_glerror();
-
-		gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
-
-		gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_BILINEAR);
-
-		LLImageGL::setManualImage(GL_TEXTURE_2D, 0, GL_RGBA8, mWidth, mHeight, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-		stop_glerror();
-
-		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-
-		LLImageGL::sGlobalTextureMemoryInBytes += mWidth * mHeight * 4;
-		LLTexLayerSetBuffer::sGLBumpByteCount += mWidth * mHeight * 4;
-
-		if(gAuditTexture)
-		{
-			mBumpTex->setCategory(LLViewerImageBoostLevel::TEXLAYER_BUMP) ;
-			mBumpTex->setTextureSize(mWidth * mHeight * 4) ;
-			mBumpTex->setComponents(4) ;
-			mBumpTex->incTextureCounter() ;
-		}
-	}
 }
 
 // static
 void LLTexLayerSetBuffer::dumpTotalByteCount()
 {
 	llinfos << "Composite System GL Buffers: " << (LLTexLayerSetBuffer::sGLByteCount/1024) << "KB" << llendl;
-	llinfos << "Composite System GL Bump Buffers: " << (LLTexLayerSetBuffer::sGLBumpByteCount/1024) << "KB" << llendl;
 }
 
 void LLTexLayerSetBuffer::requestUpdate()
@@ -233,8 +187,8 @@ void LLTexLayerSetBuffer::popProjection()
 BOOL LLTexLayerSetBuffer::needsRender()
 {
 	LLVOAvatar* avatar = mTexLayerSet->getAvatar();
-	BOOL upload_now = mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal();
-	BOOL needs_update = gAgent.mNumPendingQueries == 0 && (mNeedsUpdate || upload_now) && !avatar->mAppearanceAnimating;
+	BOOL upload_now = mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal() && gAgent.mNumPendingQueries == 0;
+	BOOL needs_update = (mNeedsUpdate || upload_now) && !avatar->mAppearanceAnimating;
 	if (needs_update)
 	{
 		BOOL invalid_skirt = avatar->getBakedTE(mTexLayerSet) == TEX_SKIRT_BAKED && !avatar->isWearingWearableType(WT_SKIRT);
@@ -272,8 +226,6 @@ void LLTexLayerSetBuffer::postRender(BOOL success)
 
 BOOL LLTexLayerSetBuffer::render()
 {
-	U8* baked_bump_data = NULL;
-
 	// Default color mask for tex layer render
 	gGL.setColorMask(true, true);
 
@@ -281,34 +233,6 @@ BOOL LLTexLayerSetBuffer::render()
 	// When do we upload the texture if gAgent.mNumPendingQueries is non-zero?
 	BOOL upload_now = (gAgent.mNumPendingQueries == 0 && mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal());
 	BOOL success = TRUE;
-
-	// Composite bump
-	if( mBumpTex.notNull() )
-	{
-		// Composite the bump data
-		success &= mTexLayerSet->renderBump( mOrigin.mX, mOrigin.mY, mWidth, mHeight );
-		stop_glerror();
-
-		if (success)
-		{
-			LLGLSUIDefault gls_ui;
-
-			// read back into texture (this is done externally for the color data)
-			gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
-			stop_glerror();
-
-			glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mOrigin.mX, mOrigin.mY, mWidth, mHeight);
-			stop_glerror();
-
-			// if we need to upload the data, read it back into a buffer
-			if( upload_now )
-			{
-				baked_bump_data = new U8[ mWidth * mHeight * 4 ];
-				glReadPixels(mOrigin.mX, mOrigin.mY, mWidth, mHeight, GL_RGBA, GL_UNSIGNED_BYTE, baked_bump_data );
-				stop_glerror();
-			}
-		}
-	}
 
 	// Composite the color data
 	LLGLSUIDefault gls_ui;
@@ -319,13 +243,28 @@ BOOL LLTexLayerSetBuffer::render()
 	{
 		if (!success)
 		{
-			delete [] baked_bump_data;
 			llinfos << "Failed attempt to bake " << mTexLayerSet->getBodyRegion() << llendl;
 			mUploadPending = FALSE;
 		}
 		else
 		{
-			readBackAndUpload(baked_bump_data);
+			if (mTexLayerSet->isVisible())
+			{
+				readBackAndUpload();
+			}
+			else
+			{
+				//				mUploadPending = FALSE;//see...
+				// 				mNeedsUpload = FALSE;//     ...below...
+				LLVOAvatar*	avatar = mTexLayerSet->getAvatar();
+				if (avatar)
+				{
+					avatar->setNewBakedTexture(avatar->getBakedTE(mTexLayerSet), IMG_INVISIBLE);
+					llinfos << "Invisible baked texture set for " << mTexLayerSet->getBodyRegion() << llendl;
+				}
+				readBackAndUpload(); 	//... here: Opensim is not happy if we don't
+							//TODO: find out if SL is happy if we do
+			}
 		}
 	}
 
@@ -360,7 +299,7 @@ BOOL LLTexLayerSetBuffer::updateImmediate()
 	return result;
 }
 
-void LLTexLayerSetBuffer::readBackAndUpload(U8* baked_bump_data)
+void LLTexLayerSetBuffer::readBackAndUpload()
 {
 	// pointers for storing data to upload
 	U8* baked_color_data = new U8[ mWidth * mHeight * 4 ];
@@ -390,79 +329,23 @@ void LLTexLayerSetBuffer::readBackAndUpload(U8* baked_bump_data)
 	// writes into baked_color_data
 	const char* comment_text = NULL;
 
-	S32 baked_image_components = mBumpTex.notNull() ? 5 : 4; // red green blue [bump] clothing
+	S32 baked_image_components = 5; // red green blue bump clothing
 	LLPointer<LLImageRaw> baked_image = new LLImageRaw( mWidth, mHeight, baked_image_components );
 	U8* baked_image_data = baked_image->getData();
 	
-	if( mBumpTex.notNull() )
-	{
-		comment_text = LINDEN_J2C_COMMENT_PREFIX "RGBHM"; // 5 channels: rgb, heightfield/alpha, mask
+	comment_text = LINDEN_J2C_COMMENT_PREFIX "RGBHM"; // 5 channels: rgb, heightfield/alpha, mask
 
-		// Hide the alpha for the eyelashes in a corner of the bump map
-		if (mTexLayerSet->getBodyRegion() == "head")
+	S32 i = 0;
+	for (S32 u = 0; u < mWidth; u++)
+	{
+		for (S32 v = 0; v < mHeight; v++)
 		{
-			S32 i = 0;
-			for( S32 u = 0; u < mWidth; u++ )
-			{
-				for( S32 v = 0; v < mHeight; v++ )
-				{
-					baked_image_data[5*i + 0] = baked_color_data[4*i + 0];
-					baked_image_data[5*i + 1] = baked_color_data[4*i + 1];
-					baked_image_data[5*i + 2] = baked_color_data[4*i + 2];
-					baked_image_data[5*i + 3] = baked_color_data[4*i + 3]; // alpha should be correct for eyelashes.
-					baked_image_data[5*i + 4] = baked_mask_data[i];
-					i++;
-				}
-			}
-		}
-		else
-		{
-			S32 i = 0;
-			for( S32 u = 0; u < mWidth; u++ )
-			{
-				for( S32 v = 0; v < mHeight; v++ )
-				{
-					baked_image_data[5*i + 0] = baked_color_data[4*i + 0];
-					baked_image_data[5*i + 1] = baked_color_data[4*i + 1];
-					baked_image_data[5*i + 2] = baked_color_data[4*i + 2];
-					baked_image_data[5*i + 3] = 255; // reserve for alpha 
-					baked_image_data[5*i + 4] = baked_mask_data[i];
-					i++;
-				}
-			}
-		}
-	}
-	else
-	{	
-		if (mTexLayerSet->getBodyRegion() == "skirt" || mTexLayerSet->getBodyRegion() == "hair")
-		{
-			S32 i = 0;
-			for( S32 u = 0; u < mWidth; u++ )
-			{
-				for( S32 v = 0; v < mHeight; v++ )
-				{
-					baked_image_data[4*i + 0] = baked_color_data[4*i + 0];
-					baked_image_data[4*i + 1] = baked_color_data[4*i + 1];
-					baked_image_data[4*i + 2] = baked_color_data[4*i + 2];
-					baked_image_data[4*i + 3] = baked_color_data[4*i + 3];  // Use alpha, not bump
-					i++;
-				}
-			}
-		}
-		else
-		{
-			S32 i = 0;
-			for( S32 u = 0; u < mWidth; u++ )
-			{
-				for( S32 v = 0; v < mHeight; v++ )
-				{
-					baked_image_data[4*i + 0] = baked_color_data[4*i + 0];
-					baked_image_data[4*i + 1] = baked_color_data[4*i + 1];
-					baked_image_data[4*i + 2] = baked_color_data[4*i + 2];
-					baked_image_data[4*i + 3] = 255; // eyes should have no mask - reserve for alpha 
-					i++;
-				}
-			}
+			baked_image_data[5 * i + 0] = baked_color_data[4 * i + 0];
+			baked_image_data[5 * i + 1] = baked_color_data[4 * i + 1];
+			baked_image_data[5 * i + 2] = baked_color_data[4 * i + 2];
+			baked_image_data[5 * i + 3] = baked_color_data[4 * i + 3]; // alpha should be correct for eyelashes.
+			baked_image_data[5 * i + 4] = baked_mask_data[i];
+			i++;
 		}
 	}
 	
@@ -543,7 +426,6 @@ void LLTexLayerSetBuffer::readBackAndUpload(U8* baked_bump_data)
 	}
 
 	delete [] baked_color_data;
-	delete [] baked_bump_data;
 }
 
 
@@ -554,88 +436,63 @@ void LLTexLayerSetBuffer::onTextureUploadComplete(const LLUUID& uuid, void* user
 
 	LLVOAvatar* avatar = gAgent.getAvatarObject();
 
-	if (0 == result && avatar && !avatar->isDead())
+	if (0 == result &&
+		avatar && !avatar->isDead() &&
+		baked_upload_data->mAvatar == avatar && // Sanity check: only the user's avatar should be uploading textures.
+		baked_upload_data->mLayerSet->hasComposite())
 	{
-		// Sanity check: only the user's avatar should be uploading textures.
-		if( baked_upload_data->mAvatar == avatar )
-		{
-			// Composite may have changed since the pointer was stored - need to do some checking. 
-			LLTexLayerSetBuffer* prev_layerset_buffer = baked_upload_data->mLayerSetBuffer;
-			// Can't just call getComposite() because this will trigger creation if none exists.
-			LLTexLayerSetBuffer* curr_layerset_buffer =
-				baked_upload_data->mLayerSet->hasComposite()?baked_upload_data->mLayerSet->getComposite():NULL;
+		LLTexLayerSetBuffer* layerset_buffer = baked_upload_data->mLayerSet->getComposite();
 
-			if (prev_layerset_buffer != curr_layerset_buffer)
+		if (layerset_buffer->mUploadID.isNull())
+		{
+			// The upload got canceled, we should be in the
+			// process of baking a new texture so request an
+			// upload with the new data
+
+			// BAP: does this really belong in this callback, as
+			// opposed to where the cancellation takes place?
+			// suspect this does nothing.
+			layerset_buffer->requestUpload();
+		}
+		else if (baked_upload_data->mID == layerset_buffer->mUploadID)
+		{
+			// This is the upload we're currently waiting for.
+			layerset_buffer->mUploadID.setNull();
+			layerset_buffer->mUploadPending = FALSE;
+
+			if (result >= 0)
 			{
-				llinfos << "Baked texture out of date, composite no longer valid, ignored" << llendl;
+				ETextureIndex baked_te = avatar->getBakedTE(layerset_buffer->mTexLayerSet);
+				U64 now = LLFrameTimer::getTotalTime();		// Record starting time
+				llinfos << "Baked texture upload took " << (S32)((now - baked_upload_data->mStartTime) / 1000) << " ms" << llendl;
+				avatar->setNewBakedTexture(baked_te, uuid);
 			}
 			else
-			{
-				curr_layerset_buffer->mUploadPending = FALSE;
-			
-				if (curr_layerset_buffer->mUploadID.isNull())
-				{
-					// The upload got canceled, we should be in the process of baking a new texture
-					// so request an upload with the new data
-					curr_layerset_buffer->requestUpload();
-				}
-				else if( baked_upload_data->mID == curr_layerset_buffer->mUploadID )
-				{
-					// This is the upload we're currently waiting for.
-					curr_layerset_buffer->mUploadID.setNull();
-
-					if( result >= 0 )
-					{
-						ETextureIndex baked_te = avatar->getBakedTE( curr_layerset_buffer->mTexLayerSet );
-						U64 now = LLFrameTimer::getTotalTime();		// Record starting time
-						llinfos << "Baked texture upload took " << (S32)((now - baked_upload_data->mStartTime) / 1000) << " ms" << llendl;
-						avatar->setNewBakedTexture( baked_te, uuid );
-					}
-					else
-					{
-						llinfos << "Baked upload failed. Reason: " << result << llendl;
-						// *FIX: retry upload after n seconds, asset server could be busy
-					}
-				}
-				else
-				{
-					llinfos << "Received baked texture out of date, ignored." << llendl;
-				}
-
-				avatar->dirtyMesh();
+			{	
+				// Avatar appearance is changing, ignore the upload results
+				llinfos << "Baked upload failed. Reason: " << result << llendl;
+				// *FIX: retry upload after n seconds, asset server could be busy
 			}
 		}
+		else
+		{
+			llinfos << "Received baked texture out of date, ignored." << llendl;
+		}
+
+		avatar->dirtyMesh();
 	}
 	else
 	{
-		// Baked texture failed to upload, but since we didn't set the new baked texture, it means that they'll
-		// try and rebake it at some point in the future (after login?)
+		// Baked texture failed to upload (in which case since we
+		// didn't set the new baked texture, it means that they'll try
+		// and rebake it at some point in the future (after login?)),
+		// or this response to upload is out of date, in which case a
+		// current response should be on the way or already processed.
 		llwarns << "Baked upload failed" << llendl;
 	}
 
 	delete baked_upload_data;
 }
-
-void LLTexLayerSetBuffer::bindBumpTexture( U32 stage )
-{
-	if( mBumpTex.notNull() ) 
-	{
-		gGL.getTexUnit(stage)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
-		gGL.getTexUnit(0)->activate();
-	
-		if( mLastBindTime != LLImageGL::sLastFrameTime )
-		{
-			mLastBindTime = LLImageGL::sLastFrameTime;
-			mBumpTex->updateBoundTexMem();
-		}
-	}
-	else
-	{
-		gGL.getTexUnit(stage)->unbind(LLTexUnit::TT_TEXTURE);
-		gGL.getTexUnit(0)->activate();
-	}
-}
-
 
 //-----------------------------------------------------------------------------
 // LLTexLayerSet
@@ -720,15 +577,19 @@ LLTexLayerSet::LLTexLayerSet( LLVOAvatar* avatar )
 	mComposite( NULL ),
 	mAvatar( avatar ),
 	mUpdatesEnabled( FALSE ),
-	mHasBump( FALSE ),
+	mIsVisible(TRUE),
+	mBakedTexIndex(BAKED_HEAD),
 	mInfo( NULL )
 {
 }
 
 LLTexLayerSet::~LLTexLayerSet()
 {
+	deleteCaches();
 	std::for_each(mLayerList.begin(), mLayerList.end(), DeletePointer());
+	std::for_each(mMaskLayerList.begin(), mMaskLayerList.end(), DeletePointer());
 	delete mComposite;
+	mComposite = NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -751,7 +612,14 @@ BOOL LLTexLayerSet::setInfo(LLTexLayerSetInfo *info)
 			mInfo = NULL;
 			return FALSE;
 		}
-		mLayerList.push_back( layer );
+		if (!layer->isVisibilityMask())
+		{
+			mLayerList.push_back(layer);
+		}
+		else
+		{
+			mMaskLayerList.push_back(layer);
+		}
 	}
 
 	requestUpdate();
@@ -791,6 +659,11 @@ void LLTexLayerSet::deleteCaches()
 		LLTexLayer* layer = *iter;
 		layer->deleteCaches();
 	}
+	for (layer_list_t::iterator iter = mMaskLayerList.begin(); iter != mMaskLayerList.end(); iter++)
+	{
+		LLTexLayer* layer = *iter;
+		layer->deleteCaches();
+	}
 }
 
 // Returns TRUE if at least one packet of data has been received for each of the textures that this layerset depends on.
@@ -807,103 +680,130 @@ BOOL LLTexLayerSet::isLocalTextureDataFinal()
 }
 
 
-BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
+void LLTexLayerSet::renderAlphaMaskTextures(S32 x, S32 y, S32 width, S32 height, bool forceClear)
 {
-	BOOL success = TRUE;
+	const LLTexLayerSetInfo *info = getInfo();
 
-	LLGLSUIDefault gls_ui;
-	LLGLDepthTest gls_depth(GL_FALSE, GL_FALSE);
-	gGL.setColorMask(true, true);
-
-	// composite color layers
-	for( layer_list_t::iterator iter = mLayerList.begin(); iter != mLayerList.end(); iter++ )
-	{
-		LLTexLayer* layer = *iter;
-		if( layer->getRenderPass() == RP_COLOR )
-		{
-			gGL.flush();
-			success &= layer->render( x, y, width, height );
-			gGL.flush();
-		}
-	}
+	gGL.setColorMask(false, true);
+	gGL.setSceneBlendType(LLRender::BT_REPLACE);
 
 	// (Optionally) replace alpha with a single component image from a tga file.
-	if( !getInfo()->mStaticAlphaFileName.empty() )
+	if (!info->mStaticAlphaFileName.empty())
 	{
 		LLGLSNoAlphaTest gls_no_alpha_test;
 		gGL.flush();
-		gGL.setColorMask(false, true);
-		gGL.setSceneBlendType(LLRender::BT_REPLACE);
-
 		{
-			LLImageGL* image_gl = gTexStaticImageList.getImageGL( getInfo()->mStaticAlphaFileName, TRUE );
-			if( image_gl )
+			LLImageGL* image_gl = gTexStaticImageList.getImageGL(info->mStaticAlphaFileName, TRUE);
+			if (image_gl)
 			{
 				LLGLSUIDefault gls_ui;
-				gGL.getTexUnit(0)->bind(image_gl, TRUE);
-				gGL.getTexUnit(0)->setTextureBlendType( LLTexUnit::TB_REPLACE );
-				gl_rect_2d_simple_tex( width, height );
-			}
-			else
-			{
-				success = FALSE;
+				gGL.getTexUnit(0)->bind(image_gl);
+				gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_REPLACE);
+				gl_rect_2d_simple_tex(width, height);
 			}
 		}
 		gGL.flush();
-		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-
-		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
-		gGL.setColorMask(true, true);
-		gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	}
-	else 
-	if( getInfo()->mClearAlpha )
+	else if (forceClear || info->mClearAlpha || (mMaskLayerList.size() > 0))
 	{
 		// Set the alpha channel to one (clean up after previous blending)
+		gGL.flush();
 		LLGLDisable no_alpha(GL_ALPHA_TEST);
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4f( 0.f, 0.f, 0.f, 1.f );
-		gGL.flush();
-		gGL.setColorMask(false, true);
 
 		gl_rect_2d_simple( width, height );
-		
+
 		gGL.flush();
-		gGL.setColorMask(true, true);
 	}
-	stop_glerror();
 
-	return success;
-}
-
-BOOL LLTexLayerSet::renderBump( S32 x, S32 y, S32 width, S32 height )
-{
-	BOOL success = TRUE;
-
-	LLGLSUIDefault gls_ui;
-	LLGLDepthTest gls_depth(GL_FALSE, GL_FALSE);
-
-	//static S32 bump_layer_count = 1;
-
-	for( layer_list_t::iterator iter = mLayerList.begin(); iter != mLayerList.end(); iter++ )
+	// (Optional) Mask out part of the baked texture with alpha masks
+	// will still have an effect even if mClearAlpha is set or the alpha component was replaced
+	if (mMaskLayerList.size() > 0)
 	{
-		LLTexLayer* layer = *iter;
-		if( layer->getRenderPass() == RP_BUMP )
+		gGL.setSceneBlendType(LLRender::BT_MULT_ALPHA);
+		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_REPLACE);
+		for (layer_list_t::iterator iter = mMaskLayerList.begin(); iter != mMaskLayerList.end(); iter++)
 		{
-			success &= layer->render( x, y, width, height );
+			LLTexLayer* layer = *iter;
+			gGL.flush();
+			layer->blendAlphaTexture(x, y, width, height);
+			gGL.flush();
 		}
 	}
 
-	// Set the alpha channel to one (clean up after previous blending)
-	LLGLDisable no_alpha(GL_ALPHA_TEST);
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-	gGL.color4f( 0.f, 0.f, 0.f, 1.f );
-	gGL.setColorMask(false, true);
 
-	gl_rect_2d_simple( width, height );
-	
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	gGL.setColorMask(true, true);
-	stop_glerror();
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
+}
+
+BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
+{
+	BOOL success = TRUE;
+	mIsVisible = TRUE;
+
+	if (mMaskLayerList.size() > 0)
+	{
+		for (layer_list_t::iterator iter = mMaskLayerList.begin(); iter != mMaskLayerList.end(); iter++)
+		{
+			LLTexLayer* layer = *iter;
+			if (layer->isInvisibleAlphaMask())
+			{
+				mIsVisible = FALSE;
+			}
+		}
+	}
+
+	LLGLSUIDefault gls_ui;
+	LLGLDepthTest gls_depth(GL_FALSE, GL_FALSE);
+	gGL.setColorMask(true, true);
+
+	// clear buffer area to ensure we don't pick up UI elements
+	{
+		gGL.flush();
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+		gGL.color4f( 0.f, 0.f, 0.f, 1.f );
+
+		gl_rect_2d_simple( width, height );
+
+		gGL.flush();
+	}
+
+	if (mIsVisible)
+	{
+		// composite color layers
+		for (layer_list_t::iterator iter = mLayerList.begin(); iter != mLayerList.end(); iter++)
+		{
+			LLTexLayer* layer = *iter;
+			if (layer->getRenderPass() == RP_COLOR || layer->getRenderPass() == RP_BUMP)
+			{
+				gGL.flush();
+				success &= layer->render(x, y, width, height);
+				gGL.flush();
+			}
+		}
+
+		renderAlphaMaskTextures(x, y, width, height, false);
+
+		stop_glerror();
+	}
+	else
+	{
+		gGL.flush();
+
+		gGL.setSceneBlendType(LLRender::BT_REPLACE);
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+		gGL.color4f( 0.f, 0.f, 0.f, 0.f );
+
+		gl_rect_2d_simple( width, height );
+		gGL.setSceneBlendType(LLRender::BT_ALPHA);
+
+		gGL.flush();
+	}
 
 	return success;
 }
@@ -943,7 +843,7 @@ void LLTexLayerSet::createComposite()
 			width /= 2;
 			height /= 2;
 		}
-		mComposite = new LLTexLayerSetBuffer( this, width, height, mHasBump );
+		mComposite = new LLTexLayerSetBuffer(this, width, height);
 	}
 }
 
@@ -1004,6 +904,9 @@ void LLTexLayerSet::gatherAlphaMasks(U8 *data, S32 width, S32 height)
 			}
 		}
 	}
+	
+	// Set alpha back to that of our alpha masks.
+	renderAlphaMaskTextures(mComposite->getOriginX(), mComposite->getOriginY(), width, height, true);
 }
 
 void LLTexLayerSet::applyMorphMask(U8* tex_data, S32 width, S32 height, S32 num_components)
@@ -1025,7 +928,8 @@ LLTexLayerInfo::LLTexLayerInfo( )
 	mFixedColor( 0.f, 0.f, 0.f, 0.f ),
 	mLocalTexture( -1 ),
 	mStaticImageIsMask( FALSE ),
-	mUseLocalTextureAlphaOnly( FALSE )
+	mUseLocalTextureAlphaOnly(FALSE),
+	mIsVisibilityMask(FALSE)
 {
 }
 
@@ -1063,6 +967,14 @@ BOOL LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
 	// global color attribute (optional)
 	static LLStdStringHandle global_color_string = LLXmlTree::addAttributeString("global_color");
 	node->getFastAttributeString( global_color_string, mGlobalColor );
+
+	// Visibility mask (optional)
+	BOOL is_visibility;
+	static LLStdStringHandle visibility_mask_string = LLXmlTree::addAttributeString("visibility_mask");
+	if (node->getFastAttributeBOOL(visibility_mask_string, is_visibility))
+	{
+		mIsVisibilityMask = is_visibility;
+	}
 
 	// color attribute (optional)
 	LLColor4U color4u;
@@ -1150,9 +1062,41 @@ BOOL LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
 			{
 				mLocalTexture = TEX_HAIR;
 			}
+			else if ("hair_alpha" == local_texture)
+			{
+				mLocalTexture = TEX_HAIR_ALPHA;
+			}
+			else if ("head_alpha" == local_texture)
+			{
+				mLocalTexture = TEX_HEAD_ALPHA;
+			}
+			else if ("upper_alpha" == local_texture)
+			{
+				mLocalTexture = TEX_UPPER_ALPHA;
+			}
+			else if ("lower_alpha" == local_texture)
+			{
+				mLocalTexture = TEX_LOWER_ALPHA;
+			}
+			else if ("eyes_alpha" == local_texture)
+			{
+				mLocalTexture = TEX_EYES_ALPHA;
+			}
+			else if ("head_tattoo" == local_texture)
+			{
+				mLocalTexture = TEX_HEAD_TATTOO;
+			}
+			else if ("upper_tattoo" == local_texture)
+			{
+				mLocalTexture = TEX_UPPER_TATTOO;
+			}
+			else if ("lower_tattoo" == local_texture)
+			{
+				mLocalTexture = TEX_LOWER_TATTOO;
+			}
 			else
 			{
-				llwarns << "<texture> element has invalid local_texure attribute: " << mName << " " << local_texture << llendl;
+				llwarns << "<texture> element has invalid local_texture attribute: " << mName << " " << local_texture << llendl;
 				return FALSE;
 			}
 		}
@@ -1253,12 +1197,13 @@ LLTexLayer::~LLTexLayer()
 
 BOOL LLTexLayer::setInfo(LLTexLayerInfo* info)
 {
-	llassert(mInfo == NULL);
+	//llassert(mInfo == NULL); // nyx says this is probably bogus but needs investigating
+	if (mInfo != NULL) // above llassert(), but softened into a warning
+	{
+		llwarns << "BAD STUFF!  mInfo != NULL" << llendl;
+	}
 	mInfo = info;
 	//mID = info->mID; // No ID
-
-	if (info->mRenderPass == RP_BUMP)
-		mTexLayerSet->setBump(TRUE);
 
 	{
 		LLTexLayerInfo::morph_name_list_t::iterator iter;
@@ -1351,13 +1296,8 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 	LLGLEnable color_mat(GL_COLOR_MATERIAL);
 	gPipeline.disableLights();
 
-	BOOL success = TRUE;
-	
-	BOOL color_specified = FALSE;
-	BOOL alpha_mask_specified = FALSE;
-
 	LLColor4 net_color;
-	color_specified = findNetColor( &net_color );
+	BOOL color_specified = findNetColor(&net_color);
 
 	if (mTexLayerSet->getAvatar()->mIsDummy)
 	{
@@ -1365,18 +1305,21 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 		net_color = LLVOAvatar::getDummyColor();
 	}
 
+	BOOL success = TRUE;
+	
 	// If you can't see the layer, don't render it.
 	if( is_approx_zero( net_color.mV[VW] ) )
 	{
 		return success;
 	}
 
+	BOOL alpha_mask_specified = FALSE;
 	alpha_list_t::iterator iter = mParamAlphaList.begin();
 	if( iter != mParamAlphaList.end() )
 	{
 		// If we have alpha masks, but we're skipping all of them, skip the whole layer.
 		// However, we can't do this optimization if we have morph masks that need updating.
-		if( mMaskedMorphs.empty() )
+/*		if( mMaskedMorphs.empty() )
 		{
 			BOOL skip_layer = TRUE;
 
@@ -1397,7 +1340,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			{
 				return success;
 			}
-		}
+		}*/
 
 		renderAlphaMasks( x, y, width, height, &net_color );
 		alpha_mask_specified = TRUE;
@@ -1412,6 +1355,11 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 		gGL.flush();
 		gGL.setSceneBlendType(LLRender::BT_REPLACE);
 	}
+	else if (getInfo()->mUseLocalTextureAlphaOnly)
+	{
+		// Use the alpha channel only
+		gGL.setColorMask(false, true);
+	}
 
 	if( (getInfo()->mLocalTexture != -1) && !getInfo()->mUseLocalTextureAlphaOnly )
 	{
@@ -1419,13 +1367,17 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			LLImageGL* image_gl = NULL;
 			if( mTexLayerSet->getAvatar()->getLocalTextureGL((ETextureIndex)getInfo()->mLocalTexture, &image_gl ) )
 			{
+				if (mTexLayerSet->getAvatar()->getLocalTextureID((ETextureIndex)getInfo()->mLocalTexture) == IMG_DEFAULT_AVATAR)
+				{
+					image_gl = NULL;
+				}
 				if( image_gl )
 				{
 					LLGLDisable alpha_test(getInfo()->mWriteAllChannels ? GL_ALPHA_TEST : 0);
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl, TRUE);
+					gGL.getTexUnit(0)->bind(image_gl);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1433,10 +1385,6 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 					gGL.getTexUnit(0)->setTextureAddressMode(old_mode);
 					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
-			}
-			else
-			{
-				success = FALSE;
 			}
 		}
 	}
@@ -1447,7 +1395,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			LLImageGL* image_gl = gTexStaticImageList.getImageGL( getInfo()->mStaticImageFileName, getInfo()->mStaticImageIsMask );
 			if( image_gl )
 			{
-				gGL.getTexUnit(0)->bind(image_gl, TRUE);
+				gGL.getTexUnit(0)->bind(image_gl);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			}
@@ -1477,10 +1425,59 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 		stop_glerror();
 	}
 
+	if (getInfo()->mUseLocalTextureAlphaOnly)
+	{
+		// Restore color + alpha mode.
+		gGL.setColorMask(true, true);
+	}
+
 	if( !success )
 	{
 		llinfos << "LLTexLayer::render() partial: " << getInfo()->mName << llendl;
 	}
+	return success;
+}
+
+BOOL LLTexLayer::blendAlphaTexture(S32 x, S32 y, S32 width, S32 height)
+{
+	BOOL success = TRUE;
+
+	gGL.flush();
+	
+	if (!getInfo()->mStaticImageFileName.empty())
+	{
+		LLImageGL* image_gl = gTexStaticImageList.getImageGL(getInfo()->mStaticImageFileName, getInfo()->mStaticImageIsMask);
+		if (image_gl)
+		{
+			LLGLSNoAlphaTest gls_no_alpha_test;
+			gGL.getTexUnit(0)->bind(image_gl, TRUE);
+			gl_rect_2d_simple_tex(width, height);
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+		}
+		else
+		{
+			success = FALSE;
+		}
+	}
+	else
+	{
+		if (getInfo()->mLocalTexture >=0 && getInfo()->mLocalTexture < TEX_NUM_INDICES)
+		{
+			LLImageGL* image_gl = NULL;
+			if (mTexLayerSet->getAvatar()->getLocalTextureGL((ETextureIndex)getInfo()->mLocalTexture, &image_gl))
+			{
+				if (image_gl)
+				{
+					LLGLSNoAlphaTest gls_no_alpha_test;
+					gGL.getTexUnit(0)->bind(image_gl);
+					gl_rect_2d_simple_tex(width, height);
+					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+					success = TRUE;
+				}
+			}
+		}
+	}
+	
 	return success;
 }
 
@@ -1609,7 +1606,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 	// Approximates a min() function
 	gGL.flush();
-	gGL.blendFunc(LLRender::BF_DEST_ALPHA, LLRender::BF_ZERO);
+	gGL.setSceneBlendType(LLRender::BT_MULT_ALPHA);
 
 	// Accumulate the alpha component of the texture
 	if( getInfo()->mLocalTexture != -1 )
@@ -1624,7 +1621,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl, TRUE);
+					gGL.getTexUnit(0)->bind(image_gl);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1632,10 +1629,6 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 					gGL.getTexUnit(0)->setTextureAddressMode(old_mode);
 					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
-			}
-			else
-			{
-				success = FALSE;
 			}
 		}
 	}
@@ -1650,14 +1643,10 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 					( (image_gl->getComponents() == 1) && getInfo()->mStaticImageIsMask ) )
 				{
 					LLGLSNoAlphaTest gls_no_alpha_test;
-					gGL.getTexUnit(0)->bind(image_gl, TRUE);
+					gGL.getTexUnit(0)->bind(image_gl);
 					gl_rect_2d_simple_tex( width, height );
 					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
-			}
-			else
-			{
-				success = FALSE;
 			}
 		}
 	}
@@ -1677,7 +1666,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 	gGL.setColorMask(true, true);
 	
-	if (!mMorphMasksValid && !mMaskedMorphs.empty())
+	if (success && !mMorphMasksValid && !mMaskedMorphs.empty())
 	{
 		LLCRC alpha_mask_crc;
 		const LLUUID& uuid = mTexLayerSet->getAvatar()->getLocalTextureID((ETextureIndex)getInfo()->mLocalTexture);
@@ -1823,6 +1812,26 @@ void LLTexLayer::addMaskedMorph(LLPolyMorphTarget* morph_target, BOOL invert)
 void LLTexLayer::invalidateMorphMasks()
 {
 	mMorphMasksValid = FALSE;
+}
+
+BOOL LLTexLayer::isVisibilityMask() const
+{
+	return mInfo->mIsVisibilityMask;
+}
+
+BOOL LLTexLayer::isInvisibleAlphaMask()
+{
+	const LLTexLayerInfo *info = getInfo();
+
+	if (info && info->mLocalTexture >= 0 && info->mLocalTexture < TEX_NUM_INDICES)
+	{
+		if (mTexLayerSet->getAvatar()->getLocalTextureID((ETextureIndex)info->mLocalTexture) == IMG_INVISIBLE)
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 //-----------------------------------------------------------------------------
@@ -2095,14 +2104,14 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				// Create the GL texture, and then hang onto it for future use.
 				if( mNeedsCreateTexture )
 				{
-					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw, 0, TRUE, LLViewerImageBoostLevel::TEXLAYER_CACHE);
+					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
 					mNeedsCreateTexture = FALSE;
 					gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
 					mCachedProcessedImageGL->setAddressMode(LLTexUnit::TAM_CLAMP);
 				}
 
 				LLGLSNoAlphaTest gls_no_alpha_test;
-				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL, TRUE);
+				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				stop_glerror();
@@ -2550,7 +2559,7 @@ LLImageGL* LLTexStaticImageList::getImageGL(const std::string& file_name, BOOL i
 				// that once an image is a mask it's always a mask.
 				image_gl->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
 			}
-			image_gl->createGLTexture(0, image_raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
+			image_gl->createGLTexture(0, image_raw);
 
 			gGL.getTexUnit(0)->bind(image_gl);
 			image_gl->setAddressMode(LLTexUnit::TAM_CLAMP);

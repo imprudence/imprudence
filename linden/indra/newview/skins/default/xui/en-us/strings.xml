@@ -8,6 +8,7 @@
   <!-- Imprudence-specific strings -->
   <string name="landmark_created">You created a landmark at</string>
   <string name="new_home_page">Your new Home Page is</string>
+  <string name="server_version_changed_chat">The region you have entered is running a different simulator version: [SERVER_VERSION_INFO]</string>
   <string name="hippo_label_free">free</string>
   <string name="hippo_label_week">week</string>
 

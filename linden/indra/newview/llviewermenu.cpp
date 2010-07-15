@@ -760,7 +760,6 @@ void init_client_menu(LLMenuGL* menu)
 		
 		sub->appendSeparator();
 		
-		// For Imprudence 1.3 - need to XUIfy
 		// Debugging view for unified notifications
 		sub->append(new LLMenuItemCallGL("Notifications Console...",
 						 &handle_show_notifications_console, NULL, NULL, '5', MASK_CONTROL|MASK_SHIFT ));
@@ -1352,8 +1351,6 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->appendMenu(sub_menu);
 
 	sub_menu = new LLMenuGL("Character Tests");
-	sub_menu->append(new LLMenuItemToggleGL("Go Away/AFK When Idle",
-		&gAllowIdleAFK));
 
 	sub_menu->append(new LLMenuItemCallGL("Appearance To XML", 
 		&LLVOAvatar::dumpArchetypeXML));
@@ -1381,7 +1378,7 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemCallGL("Reload Vertex Shader", &reload_vertex_shader, NULL));
 	menu->append(new LLMenuItemToggleGL("Animation Info", &LLVOAvatar::sShowAnimationDebug));
 	menu->append(new LLMenuItemCallGL("Slow Motion Animations", &slow_mo_animations, NULL));
-	menu->append(new LLMenuItemToggleGL("Show Look At", &LLHUDEffectLookAt::sDebugLookAt));
+	menu->append(new LLMenuItemCheckGL( "Show Look At",	&menu_toggle_control, NULL, &menu_check_control, (void*)"PersistShowLookAt"));
 	menu->append(new LLMenuItemToggleGL("Show Point At", &LLHUDEffectPointAt::sDebugPointAt));
 	menu->append(new LLMenuItemToggleGL("Debug Joint Updates", &LLVOAvatar::sJointDebug));
 	menu->append(new LLMenuItemToggleGL("Disable LOD", &LLViewerJoint::sDisableLOD));
@@ -2400,7 +2397,7 @@ bool handle_go_to_confirm()
 	{
 		LLNotifications::instance().add("ConfirmDoubleClickTP", LLSD(), LLSD(), &handle_go_to_callback);
 	}
-	else if (action == "autopilot")
+	else if (action == "move")
 	{
 		LLNotifications::instance().add("ConfirmAutoPilot", LLSD(), LLSD(), &handle_go_to_callback);
 	}
@@ -2443,7 +2440,7 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
 			gAgent.teleportViaLocation(pos + hips_offset);
 		}
-		else if (action == "autopilot")
+		else if (action == "move")
 		{
 			// JAMESDEBUG try simulator autopilot
 			std::vector<std::string> strings;
@@ -8054,6 +8051,26 @@ class LLViewCheckHUDAttachments : public view_listener_t
 	}
 };
 
+
+class LLViewToggleAO : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterAO::show(NULL);
+		return true;
+	}
+};
+
+class LLViewCheckAO: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getInstance());
+		return true;
+	}
+};
+
+
 class LLEditEnableTakeOff : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -8096,6 +8113,14 @@ class LLEditEnableTakeOff : public view_listener_t
 		if (clothing == "skirt")
 		{
 			new_value = LLAgent::selfHasWearable((void *)WT_SKIRT);
+		}
+		if (clothing == "alpha")
+		{
+			new_value = LLAgent::selfHasWearable((void *)WT_ALPHA);
+		}
+		if (clothing == "tattoo")
+		{
+			new_value = LLAgent::selfHasWearable((void *)WT_TATTOO);
 		}
 
 // [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
@@ -8151,6 +8176,14 @@ class LLEditTakeOff : public view_listener_t
 		else if (clothing == "skirt")
 		{
 			LLAgent::userRemoveWearable((void*)WT_SKIRT);
+		}
+		else if (clothing == "alpha")
+		{
+			LLAgent::userRemoveWearable((void*)WT_ALPHA);
+		}
+		else if (clothing == "tattoo")
+		{
+			LLAgent::userRemoveWearable((void*)WT_TATTOO);
 		}
 		else if (clothing == "all")
 		{
@@ -8373,6 +8406,11 @@ class LLAdvancedToggleConsole : public view_listener_t
 		{
 			toggle_visibility( (void*)gDebugView->mMemoryView );
 		}
+		else if ("notifications" == console_type)
+		{
+			// Don't find the instance, it'll force it to show on login screen -- MC
+			LLFloaterNotificationConsole::toggleInstance();
+		}
 		return true;
 	}
 };
@@ -8580,26 +8618,6 @@ class LLAdvancedTogglePhantom: public view_listener_t
 	}
 
 };
-
-
-class LLViewToggleAO : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLFloaterAO::show(NULL);
-		return true;
-	}
-};
-
-class LLViewCheckAO: public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getInstance());
-		return true;
-	}
-};
-
 
 class LLAdvancedCheckPhantom: public view_listener_t
 {
@@ -9769,28 +9787,7 @@ class LLAdvancedEnableGrabBakedTexture : public view_listener_t
 // ALLOW IDLE / AFK //
 //////////////////////
 
-
-class LLAdvancedToggleAllowIdleAFK : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gAllowIdleAFK = !(gAllowIdleAFK);
-		return true;
-	}
-};
-
-class LLAdvancedCheckAllowIdleAFK : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		bool new_value = gAllowIdleAFK;
-		std::string control_name = userdata["control"].asString();
-		gMenuHolder->findControl(control_name)->setValue(new_value);
-		return true;
-	}
-};
-
-
+//aw: moved to llpanelgeneral.cpp
 
 ///////////////////////
 // APPEARANCE TO XML //
@@ -10018,6 +10015,15 @@ class LLAdvancedToggleShowLookAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
+		gSavedSettings.setBOOL("PersistShowLookAt", LLHUDEffectLookAt::sDebugLookAt);
+
+		// If we're enabling it, give the user some idea of what it does
+		// Also, disable private look at to be fair -- MC
+		if (LLHUDEffectLookAt::sDebugLookAt)
+		{
+			gSavedSettings.setBOOL("PrivateLookAtTarget", FALSE);
+			LLNotifications::instance().add("ShowLookAtInfo");
+		}
 		return true;
 	}
 };
@@ -10045,6 +10051,11 @@ class LLAdvancedToggleShowPointAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLHUDEffectPointAt::sDebugPointAt = !(LLHUDEffectPointAt::sDebugPointAt);
+		// Disable private look/point at if we're going to use it. S'only fair -- MC
+		if (LLHUDEffectPointAt::sDebugPointAt)
+		{
+			gSavedSettings.setBOOL("PrivateLookAtTarget", FALSE);
+		}
 		return true;
 	}
 };
@@ -10054,6 +10065,40 @@ class LLAdvancedCheckShowPointAt : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		bool new_value = LLHUDEffectPointAt::sDebugPointAt;
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+/////////////////////
+// PRIVATE LOOK AT //
+/////////////////////
+
+
+class LLAdvancedTogglePrivateLookPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		// Noate: PrivateLookAtTarget also hides point at -- MC
+		bool new_value = !gSavedSettings.getBOOL("PrivateLookAtTarget");
+		if (new_value)
+		{
+			// Disable show look at and show point at if you make yours private. It's only fair, after all -- MC
+			LLHUDEffectLookAt::sDebugLookAt = FALSE;
+			LLHUDEffectPointAt::sDebugPointAt = FALSE;
+		}
+		gSavedSettings.setBOOL("PrivateLookAtTarget", new_value);
+		return true;
+	}
+};
+
+class LLAdvancedCheckPrivateLookPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gSavedSettings.getBOOL("PrivateLookAtTarget");
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -10319,7 +10364,41 @@ class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
 	}
 };
 
+///////////
+// Crash //
+///////////
 
+
+class LLAdvancedCrash : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		std::string command = userdata.asString();
+		if ("deadbeefcrash" == command)
+		{
+			force_error_bad_memory_access(NULL);
+		}
+		else if ("llerrcrash" == command)
+		{
+			force_error_llerror(NULL);
+		}
+		else if ("infiniteloopcrash" == command)
+		{
+			force_error_infinite_loop(NULL);
+		}
+		else if ("drivercrash" == command)
+		{
+			force_error_driver_crash(NULL);
+		}
+		else if ("forcedisconnect" == command)
+		{
+			handle_disconnect_viewer(NULL);
+		}
+
+		return true;
+	}
+
+};
 
 /////////////////
 // MESSAGE LOG //
@@ -10582,11 +10661,9 @@ class LLAvatarReportAbuse : public view_listener_t
 };
 
 
-
 ////////////////////////////
 // ALLOW MULTIPLE VIEWERS //
 ////////////////////////////
-
 
 class LLAdvancedToggleMultipleViewers : public view_listener_t
 {
@@ -10594,16 +10671,45 @@ class LLAdvancedToggleMultipleViewers : public view_listener_t
 	{
 		BOOL cur_val = gSavedSettings.getBOOL("AllowMultipleViewers");
 		gSavedSettings.setBOOL("AllowMultipleViewers", !cur_val );
+
+		// Save settings so the checkbox works right away -- MC
+		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
 		return true;
 	}
 };
-
 
 class LLAdvancedCheckMultipleViewers : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		bool new_value = gSavedSettings.getBOOL("AllowMultipleViewers");
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+///////////////////////////////////
+// DISABLE MAX BUILD CONSTRAINTS //
+///////////////////////////////////
+
+class LLAdvancedToggleMaxBuildConstraints : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		BOOL cur_val = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
+		gSavedSettings.setBOOL("DisableMaxBuildConstraints", !cur_val );
+		gFloaterTools->updateToolsSizeLimits();
+		return true;
+	}
+};
+
+class LLAdvancedCheckMaxBuildConstraints : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -10993,8 +11099,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedEnableGrabBakedTexture(), "Advanced.EnableGrabBakedTexture");
 
 	// Advanced > Character > Character Tests
-	addMenu(new LLAdvancedToggleAllowIdleAFK(), "Advanced.ToggleAllowIdleAFK");
-	addMenu(new LLAdvancedCheckAllowIdleAFK(), "Advanced.CheckAllowIdleAFK");
 	addMenu(new LLAdvancedAppearanceToXML(), "Advanced.AppearanceToXML");
 	addMenu(new LLAdvancedToggleCharacterGeometry(), "Advanced.ToggleCharacterGeometry");
 	addMenu(new LLAdvancedTestMale(), "Advanced.TestMale");
@@ -11016,6 +11120,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckShowLookAt(), "Advanced.CheckShowLookAt");
 	addMenu(new LLAdvancedToggleShowPointAt(), "Advanced.ToggleShowPointAt");
 	addMenu(new LLAdvancedCheckShowPointAt(), "Advanced.CheckShowPointAt");
+	addMenu(new LLAdvancedTogglePrivateLookPointAt(), "Advanced.TogglePrivateLookPointAt");
+	addMenu(new LLAdvancedCheckPrivateLookPointAt(), "Advanced.CheckPrivateLookPointAt");
 	addMenu(new LLAdvancedToggleDebugJointUpdates(), "Advanced.ToggleDebugJointUpdates");
 	addMenu(new LLAdvancedCheckDebugJointUpdates(), "Advanced.CheckDebugJointUpdates");
 	addMenu(new LLAdvancedToggleDisableLOD(), "Advanced.ToggleDisableLOD");
@@ -11033,6 +11139,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
+
+	// Advanced > Crash
+	addMenu(new LLAdvancedCrash(), "Advanced.Crash");
+
 
 	// Advanced > Network
 	addMenu(new LLAdvancedEnableMessageLog(), "Advanced.EnableMessageLog");
@@ -11056,6 +11166,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedLeaveAdminStatus(), "Advanced.LeaveAdminStatus");
 	addMenu(new LLAdvancedToggleMultipleViewers(), "Advanced.ToggleMultipleViewers");
 	addMenu(new LLAdvancedCheckMultipleViewers(), "Advanced.CheckMultipleViewers");
+	addMenu(new LLAdvancedToggleMaxBuildConstraints(), "Advanced.ToggleMaxBuildConstraints");
+	addMenu(new LLAdvancedCheckMaxBuildConstraints(), "Advanced.CheckMaxBuildConstraints");
 
 	// RLVa
 	addMenu(new RLVaMainToggle(), "RLVa.Main.Toggle");

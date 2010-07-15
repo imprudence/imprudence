@@ -924,6 +924,14 @@ bool LLFloaterWindLight::deleteAlertCallback(const LLSD& notification, const LLS
 		if(combo_box->getItemCount() > 0) 
 		{
 			combo_box->setCurrentByIndex(new_index);
+
+			// If we don't update the name here, we crash on next/prev -- MC
+			LLWLParamManager::instance()->mCurParams.mName = combo_box->getSelectedValue().asString();
+			if (LLWLParamManager::instance()->mCurParams.mName.empty())
+			{
+				LLWLParamManager::instance()->mCurParams.mName = "Default";
+			}
+			LLWLParamManager::instance()->loadPreset(LLWLParamManager::instance()->mCurParams.mName, true);
 		}
 	}
 	return false;
@@ -1023,50 +1031,58 @@ void LLFloaterWindLight::deactivateAnimator()
 
 void LLFloaterWindLight::onClickNext(void* user_data)
 {
-	LLWLParamManager * param_mgr = LLWLParamManager::instance();
-	LLWLParamSet& currentParams = param_mgr->mCurParams;
-
 	// find place of current param
 	std::map<std::string, LLWLParamSet>::iterator mIt = 
-		param_mgr->mParamList.find(currentParams.mName);
+		LLWLParamManager::instance()->mParamList.find(LLWLParamManager::instance()->mCurParams.mName);
+
+	// shouldn't happen unless you delete every preset but Default
+	if (mIt == LLWLParamManager::instance()->mParamList.end())
+	{
+		llwarns << "No more presets left!" << llendl;
+		return;
+	}
 
 	// if at the end, loop
-	std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+	std::map<std::string, LLWLParamSet>::iterator last = LLWLParamManager::instance()->mParamList.end(); --last;
 	if(mIt == last) 
 	{
-		mIt = param_mgr->mParamList.begin();
+		mIt = LLWLParamManager::instance()->mParamList.begin();
 	}
 	else
 	{
 		mIt++;
 	}
-	param_mgr->mAnimator.mIsRunning = false;
-	param_mgr->mAnimator.mUseLindenTime = false;
-	param_mgr->loadPreset(mIt->first, true);
+	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+	LLWLParamManager::instance()->loadPreset(mIt->first, true);
 }
 
 void LLFloaterWindLight::onClickPrev(void* user_data)
 {
-	LLWLParamManager * param_mgr = LLWLParamManager::instance();
-	LLWLParamSet& currentParams = param_mgr->mCurParams;
-
 	// find place of current param
 	std::map<std::string, LLWLParamSet>::iterator mIt = 
-		param_mgr->mParamList.find(currentParams.mName);
+		LLWLParamManager::instance()->mParamList.find(LLWLParamManager::instance()->mCurParams.mName);
+
+	// shouldn't happen unless you delete every preset but Default
+	if (mIt == LLWLParamManager::instance()->mParamList.end())
+	{
+		llwarns << "No more presets left!" << llendl;
+		return;
+	}
 
 	// if at the beginning, loop
-	if(mIt == param_mgr->mParamList.begin()) 
+	if(mIt == LLWLParamManager::instance()->mParamList.begin()) 
 	{
-		std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+		std::map<std::string, LLWLParamSet>::iterator last = LLWLParamManager::instance()->mParamList.end(); --last;
 		mIt = last;
 	}
 	else
 	{
 		mIt--;
 	}
-	param_mgr->mAnimator.mIsRunning = false;
-	param_mgr->mAnimator.mUseLindenTime = false;
-	param_mgr->loadPreset(mIt->first, true);
+	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+	LLWLParamManager::instance()->loadPreset(mIt->first, true);
 }
 
 //static

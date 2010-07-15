@@ -208,6 +208,7 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// extract out the sender name and replace it with the hotlinked name.
 	if (chat.mSourceType == CHAT_SOURCE_AGENT &&
 		chat.mFromID != LLUUID::null &&
+		chat.mFromID != gAgent.getID() &&
 // [RLVa] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
 		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
 // [/RLVa]
@@ -218,10 +219,10 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// If the chat line has an associated url, link it up to the name.
 	if ((!chat.mURL.empty() && line.length() > chat.mFromName.length()) && 
 		(line.find(chat.mFromName,0) == 0 || (line.find(chat.mFromName,0) == 4 &&
-		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight
+		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight -- MC
 	{
 		std::string start_line;
-		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: "
+		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: " -- MC
 		{
 			start_line = line.substr(4, chat.mFromName.length() + 1);
 			std::string source = line.substr(0, 4);
