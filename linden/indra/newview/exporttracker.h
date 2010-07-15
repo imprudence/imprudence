@@ -33,6 +33,7 @@
 #include "llagent.h"
 #include "llfloater.h"
 
+#define FOLLOW_PERMS 1
 #define PROP_REQUEST_KICK 10
 #define INV_REQUEST_KICK 10
 
@@ -126,6 +127,8 @@ public:
 	static bool serialize(LLDynamicArray<LLViewerObject*> objects);
 
 	static bool getAsyncData(LLViewerObject * obj);
+
+	static void error(std::string name, U32 localid, LLVector3 object_pos, std::string error_msg);
 
 	//Export idle callback
 	static void exportworker(void *userdata);

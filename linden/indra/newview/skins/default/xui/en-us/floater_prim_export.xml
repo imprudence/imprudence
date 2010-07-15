@@ -72,16 +72,20 @@
   
   <tab_container top="-20" enabled="true" follows="left|top|right|bottom" height="210" bottom="10"
 	     left="220" mouse_opaque="false" name="exporttab" tab_position="top" width="470">
-    <panel border="true" enabled="true" follows="left|top|right|bottom"
-       height="210" label="Errors" left="0" mouse_opaque="true"
-       name="error_panel" width="458">
-      <scroll_list name="error_result_list" left="10" right="-10" top="-10" bottom="10" column_padding="0"
+    <panel border="true" bottom="-219" enabled="true" follows="left|top|right|bottom"
+       height="210" label="Inventory" left="0" mouse_opaque="true"
+       name="inventory_panel" width="458">
+      <scroll_list name="inventory_result_list" left="10" right="-10" top="-10" bottom="10" column_padding="0"
           can_resize="true" follows="left|top|bottom|right" draw_heading="true" multi_select="true"
           search_column="1" tool_tip="Hold shift or control while clicking to select multiple entries">
         <column name="Name" label="Name" width="100" dynamicwidth="true" />
-        <column name="Local ID" label="Local ID" width="100" dynamicwidth="true"/>
-        <column name="Position" label="Position" width="165"/>
-        <column name="Error Message" label="Error Message" width="250" dynamicwidth="true"/>
+        <column name="UUID" label="UUID" width="100"/>
+        <column name="Object ID" label="Object ID" width="75"/>
+        <column name="Position" label="Position" width="65"/>
+        <!--
+        <column name="Retries" label="Retries" width="31"/>
+        -->
+        <column label="Received" name="icon_rec" width="31" />
       </scroll_list>
     </panel>
     <panel border="true" bottom="-219" enabled="true" follows="left|top|right|bottom"
@@ -99,20 +103,16 @@
         <column name="Retries" label="Retries" width="31"/>
       </scroll_list>
     </panel>
-    <panel border="true" bottom="-219" enabled="true" follows="left|top|right|bottom"
-       height="210" label="Inventory" left="0" mouse_opaque="true"
-       name="inventory_panel" width="458">
-      <scroll_list name="inventory_result_list" left="10" right="-10" top="-10" bottom="10" column_padding="0"
+    <panel border="true" enabled="true" follows="left|top|right|bottom"
+       height="210" label="Errors" left="0" mouse_opaque="true"
+       name="error_panel" width="458">
+      <scroll_list name="error_result_list" left="10" right="-10" top="-10" bottom="10" column_padding="0"
           can_resize="true" follows="left|top|bottom|right" draw_heading="true" multi_select="true"
           search_column="1" tool_tip="Hold shift or control while clicking to select multiple entries">
         <column name="Name" label="Name" width="100" dynamicwidth="true" />
-        <column name="UUID" label="UUID" width="100"/>
-        <column name="Object ID" label="Object ID" width="75"/>
-        <column name="Position" label="Position" width="65"/>
-        <!--
-        <column name="Retries" label="Retries" width="31"/>
-        -->
-        <column label="Received" name="icon_rec" width="31" />
+        <column name="Local ID" label="Local ID" width="100" dynamicwidth="true"/>
+        <column name="Position" label="Position" width="165"/>
+        <column name="Error Message" label="Error Message" width="250" dynamicwidth="true"/>
       </scroll_list>
     </panel>
   </tab_container>
