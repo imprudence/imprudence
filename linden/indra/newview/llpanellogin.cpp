@@ -721,7 +721,7 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 
 	if (LLURLSimString::parse())
 	{
-		combo->setCurrentByIndex( 3 );		// BUG?  Maybe 2?
+		combo->setCurrentByIndex( 2 );
 		combo->setTextEntry(LLURLSimString::sInstance.mSimString);
 	}
 	else
