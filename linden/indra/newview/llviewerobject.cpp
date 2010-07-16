@@ -4389,12 +4389,14 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 			mAudioSourcep->play(LLUUID::null);
 		}
 		
-		// Play this sound if region maturity permits
+		/*// Play this sound if region maturity permits
 		if( gAgent.canAccessMaturityAtGlobal(this->getPositionGlobal()) )
 		{
 			//llinfos << "Playing attached sound " << audio_uuid << llendl;
 			mAudioSourcep->play(audio_uuid);
-		}
+		}*/
+		// Actually, always play sounds regardless of maturity -- MC
+		mAudioSourcep->play(audio_uuid);
 	}
 }
 
