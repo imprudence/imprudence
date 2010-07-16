@@ -255,7 +255,7 @@ void log_chat_text(const LLChat& chat)
 // static
 void LLFloaterChat::toggleHistoryChannelControl()
 {
-	LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
+	/*LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
 	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
 	BOOL control = chat_floater->getChild<LLSpinCtrl>("channel_control")->getVisible();
 
@@ -276,7 +276,7 @@ void LLFloaterChat::toggleHistoryChannelControl()
 	input->setRect(input_rect);
 
 	chat_floater->childSetVisible("channel_control", visible);
-	chat_floater->childSetEnabled("channel_control", visible);
+	chat_floater->childSetEnabled("channel_control", visible);*/
 }
 
 // static
