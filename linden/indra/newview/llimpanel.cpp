@@ -2107,8 +2107,41 @@ void LLFloaterIMPanel::sendMsg()
 		{
 			// store sent line in history, duplicates will get filtered
 			if (mInputEditor) mInputEditor->updateHistory();
-			// Truncate and convert to UTF8 for transport
+
+			// Convert to UTF8 for transport
 			std::string utf8_text = wstring_to_utf8str(text);
+
+			if (gSavedSettings.getBOOL("AutoCloseOOC"))
+			{
+				// Try to find any unclosed OOC chat (i.e. an opening
+				// double parenthesis without a matching closing double
+				// parenthesis.
+				if (utf8_text.find("((") != -1 && utf8_text.find("))") == -1)
+				{
+					if (utf8_text.at(utf8_text.length() - 1) == ')')
+					{
+						// cosmetic: add a space first to avoid a closing triple parenthesis
+						utf8_text += " ";
+					}
+					// add the missing closing double parenthesis.
+					utf8_text += "))";
+				}
+			}
+
+			// Convert MU*s style poses into IRC emotes here.
+			if (gSavedSettings.getBOOL("AllowMUpose") && utf8_text.find(":") == 0 && utf8_text.length() > 3)
+			{
+				if (utf8_text.find(":'") == 0)
+				{
+					utf8_text.replace(0, 1, "/me");
+				}
+				else if (isalpha(utf8_text.at(1)))	// Do not prevent smileys and such.
+				{
+					utf8_text.replace(0, 1, "/me ");
+				}
+			}
+
+			// Truncate and convert to UTF8 for transport
 			utf8_text = utf8str_truncate(utf8_text, MAX_MSG_BUF_SIZE - 1);
 			
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
