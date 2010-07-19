@@ -187,6 +187,7 @@
 #include "viewerversion.h"
 
 #include "jcfloater_animation_list.h"
+#include "jcfloaterareasearch.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -3287,6 +3288,7 @@ void pass_processObjectPropertiesFamily(LLMessageSystem *msg, void**)
 	// send it to 'observers'
 	LLSelectMgr::processObjectPropertiesFamily(msg,0);
 	JCFloaterAnimList::processObjectPropertiesFamily(msg,0);
+	JCFloaterAreaSearch::processObjectPropertiesFamily(msg, NULL);
 }
 
 void register_viewer_callbacks(LLMessageSystem* msg)

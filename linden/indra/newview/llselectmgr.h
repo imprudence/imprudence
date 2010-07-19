@@ -719,6 +719,8 @@ private:
 	BOOL					mForceSelection;
 
 	LLAnimPauseRequest		mPauseRequest;
+
+	static std::set<LLUUID> sObjectPropertiesFamilyRequests;
 };
 
 // Utilities

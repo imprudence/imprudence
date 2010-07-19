@@ -75,6 +75,7 @@ set(viewer_SOURCE_FILES
     hippoLimits.cpp
     hippoRestRequest.cpp
     jcfloater_animation_list.cpp
+    jcfloaterareasearch.cpp
     llagent.cpp
     llagentaccess.cpp
     llagentdata.cpp
@@ -504,6 +505,7 @@ set(viewer_HEADER_FILES
     hippoLimits.h
     hippoRestRequest.h
     jcfloater_animation_list.h
+    jcfloaterareasearch.h
     llagent.h
     llagentaccess.h
     llagentdata.h
@@ -1097,6 +1099,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_animation_list.xml
     skins/default/xui/en-us/floater_animation_preview.xml
     skins/default/xui/en-us/floater_ao.xml
+    skins/default/xui/en-us/floater_area_search.xml
     skins/default/xui/en-us/floater_asset_browser.xml
     skins/default/xui/en-us/floater_auction.xml
     skins/default/xui/en-us/floater_audio_volume.xml
