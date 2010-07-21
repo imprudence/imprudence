@@ -2127,12 +2127,6 @@
       <on_click function="Advanced.CompressImage"
                 userdata="" />
     </menu_item_call>
-    <menu_item_check name="Limit Select Distance"
-                     label="Limit Select Distance">
-      <on_click function="ToggleControl"
-                userdata="LimitSelectDistance" />
-      <on_check control="LimitSelectDistance" />
-    </menu_item_check>
     <menu_item_check name="Disable Max Build Constraints"
            label="Disable Max Build Constraints">
       <on_click function="Advanced.ToggleMaxBuildConstraints"

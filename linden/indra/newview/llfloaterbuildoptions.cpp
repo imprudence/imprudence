@@ -118,6 +118,7 @@ BOOL LLFloaterBuildOptions::postBuild()
 	childSetValue("grouplandrez", gSavedSettings.getBOOL("RezWithLandGroup") );
 	childSetValue("GridSubUnit", gSavedSettings.getBOOL("GridSubUnit") );
 	childSetValue("GridCrossSection", gSavedSettings.getBOOL("GridCrossSections") );
+	childSetValue("limit_select_dist_check", gSavedSettings.getBOOL("LimitSelectDistance") );
 
 	childSetValue("GridResolution", gSavedSettings.getF32("GridResolution") );
 	childSetValue("GridDrawSize", gSavedSettings.getF32("GridDrawSize") );
@@ -296,6 +297,7 @@ void LLFloaterBuildOptions::apply()
 	gSavedSettings.setBOOL("RezWithLandGroup", childGetValue("grouplandrez").asBoolean() );
 	gSavedSettings.setBOOL("GridSubUnit", childGetValue("GridSubUnit").asBoolean() );
 	gSavedSettings.setBOOL("GridCrossSections", childGetValue("GridCrossSection").asBoolean() );
+	gSavedSettings.setBOOL("LimitSelectDistance", childGetValue("limit_select_dist_check").asBoolean() );
 
 	gSavedSettings.setF32("GridResolution", childGetValue("GridResolution").asReal() );
 	gSavedSettings.setF32("GridDrawSize", childGetValue("GridDrawSize").asReal() );
@@ -341,6 +343,7 @@ void LLFloaterBuildOptions::reset()
 	childSetValue("grouplandrez", gSavedSettings.getControl("RezWithLandGroup")->getDefault() );
 	childSetValue("GridSubUnit", gSavedSettings.getControl("GridSubUnit")->getDefault() );
 	childSetValue("GridCrossSection", gSavedSettings.getControl("GridCrossSections")->getDefault() );
+	childSetValue("limit_select_dist_check", gSavedSettings.getControl("LimitSelectDistance")->getDefault() );
 
 	childSetValue("GridResolution", gSavedSettings.getControl("GridResolution")->getDefault() );
 	childSetValue("GridDrawSize", gSavedSettings.getControl("GridDrawSize")->getDefault() );
