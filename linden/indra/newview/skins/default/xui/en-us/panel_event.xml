@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="false" bottom="20" can_close="true" can_minimize="true"
-     can_resize="false" follows="bottom|left" height="470" left="330"
-     name="Event" title="Event" width="450">
-	<text bottom="-16" follows="top|left" font="SansSerif" left="20"
+     can_resize="false" follows="bottom|left" height="490" left="330"
+     name="Event" title="Event" width="490">
+	<text bottom="-36" follows="top|left" font="SansSerif" left="20"
 	     name="event_name_label">
 		Name:
 	</text>
-	<text bottom="-16" follows="top|left" font="SansSerif" left="120" name="event_name">
+	<text bottom="-36" follows="top|left" font="SansSerif" left="120" name="event_name">
 		(none)
 	</text>
 	<text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
