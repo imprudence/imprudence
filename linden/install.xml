@@ -1137,9 +1137,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>c5eb5b49d48ee370fc6ed8798e1fc58c</string>
+            <string>67eda3ccd65797df238f97c4efffae41</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux64-0.2-20091129.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux64-0.2.1-20100724.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
