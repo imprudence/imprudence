@@ -59,6 +59,17 @@
     <key>Value</key>
     <real>20</real>
   </map>
+  <key>ConnectingToRegionTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Time (in seconds) until the viewer times out while connecting to region at login</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>45.0</real>
+  </map>
   <key>CmdLineCacheLocation</key>
   <map>
     <key>Comment</key>
@@ -548,7 +559,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://webi.metaverseink.com/opensim/results.jsp?</string>
+    <string>http://gridops.3dhosting.de/websearch/index.php?</string>
   </map>
   <key>SearchURLQuery</key>
   <map>
@@ -574,7 +585,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://webi.metaverseink.com/opensim/results.jsp?query=[QUERY]&amp;vw=os</string>
+    <string>http://gridops.3dhosting.de/websearch/index.php?q=[QUERY]</string>
   </map>
   <key>SearchURLSuffix2</key>
   <map>

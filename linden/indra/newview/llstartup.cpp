@@ -328,6 +328,7 @@ bool idle_startup()
 	LLMemType mt1(LLMemType::MTYPE_STARTUP);
 	
 	const F32 PRECACHING_DELAY = gSavedSettings.getF32("PrecachingDelay");
+	const F32 CONNECTING_REGION_TIMEOUT_SECONDS = gSavedSettings.getF32("ConnectingToRegionTimeout");
 	const F32 TIMEOUT_SECONDS = 10.f; // changed from 5 to 10 seconds for OpenSim lag -- MC
 	const S32 MAX_TIMEOUT_COUNT = 3;
 	static LLTimer timeout;
@@ -2105,7 +2106,7 @@ bool idle_startup()
 
 		// Drop out if we can't connect -- MC
 		connecting_region_timer.start();
-		connecting_region_timer.setTimerExpirySec(10.0f);
+		connecting_region_timer.setTimerExpirySec(CONNECTING_REGION_TIMEOUT_SECONDS);
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
 
 		timeout.reset();
