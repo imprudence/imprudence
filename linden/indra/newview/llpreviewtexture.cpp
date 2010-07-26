@@ -150,6 +150,10 @@ LLPreviewTexture::~LLPreviewTexture()
 		getWindow()->decBusyCount();
 	}
 
+	if(mImage.notNull())
+	{
+		mImage->destroySavedRawImage() ;
+	}
 	mImage = NULL;
 }
 
