@@ -3993,9 +3993,8 @@ void LLAppViewer::disconnectViewer()
 			gFloaterView->restoreAll();
 		}
 
-
 		std::list<LLFloater*> floaters_to_close;
-		for(LLView::child_list_const_iter_t it = gFloaterView->getChildList()->begin();
+		for (LLView::child_list_const_iter_t it = gFloaterView->getChildList()->begin();
 			it != gFloaterView->getChildList()->end();
 			++it)
 		{
@@ -4005,7 +4004,7 @@ void LLAppViewer::disconnectViewer()
 			// floater_animation_preview.xml
 			// files.
 			LLFloater* fl = static_cast<LLFloater*>(*it);
-			if(fl 
+			if (fl 
 				&& (fl->getName() == "Image Preview"
 				|| fl->getName() == "Sound Preview"
 				|| fl->getName() == "Animation Preview"
@@ -4042,7 +4041,8 @@ void LLAppViewer::disconnectViewer()
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();
-	cleanup_menus();
+	// Don't cleanup menus on disconnect in order to avoid crashes -- MC
+	//cleanup_menus();
 	// Also writes cached agent settings to gSavedSettings
 	gAgent.cleanup();
 
