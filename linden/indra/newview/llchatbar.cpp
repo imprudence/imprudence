@@ -557,7 +557,14 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 	if ( (length > 0) && (raw_text[0] != '/') && (!gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
 // [/RLVa:KB]
 	{
-		gAgent.startTyping();
+		if (self->mChanCtrlEnabled && (S32)(self->mChannelControl->get()) != 0)
+		{
+			gAgent.stopTyping();
+		}
+		else
+		{
+			gAgent.startTyping();
+		}
 	}
 	else
 	{
