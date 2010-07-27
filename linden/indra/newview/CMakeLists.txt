@@ -76,6 +76,7 @@ set(viewer_SOURCE_FILES
     hippoRestRequest.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
+    lightshare.cpp
     llagent.cpp
     llagentaccess.cpp
     llagentdata.cpp
@@ -507,6 +508,7 @@ set(viewer_HEADER_FILES
     hippoRestRequest.h
     jcfloater_animation_list.h
     jcfloaterareasearch.h
+    lightshare.h
     llagent.h
     llagentaccess.h
     llagentdata.h

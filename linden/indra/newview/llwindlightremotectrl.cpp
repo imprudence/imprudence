@@ -173,8 +173,7 @@ void LLWindlightRemoteCtrl::refreshPresets()
 		mPresetsCombo->addSimpleElement(getString("midnight"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("revert_region"), ADD_BOTTOM);
 
-		if (mPresetsCombo->getSelectedItemLabel() != currentParams.mName &&
-			!currentParams.mName.empty())
+		if (!currentParams.mName.empty())
 		{
 			mPresetsCombo->selectByValue(LLSD(currentParams.mName));
 		}
