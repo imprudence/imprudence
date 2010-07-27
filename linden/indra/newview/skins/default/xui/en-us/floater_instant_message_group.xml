@@ -2,7 +2,7 @@
 <floater border="true" bottom="-297" can_close="true" can_drag_on_left="false"
      can_minimize="true" can_resize="true" default_tab_group="1" enabled="true"
      follows="left|top|right|bottom" height="296" label="(unknown)" left="1"
-     min_height="200" min_width="360" mouse_opaque="true" name="im_floater"
+     min_height="115" min_width="360" mouse_opaque="true" name="im_floater"
      rect_control="" title="(unknown)" width="501">
 	<string name="ringing">
 		Joining Voice Chat...
