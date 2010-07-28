@@ -287,18 +287,44 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 
 	// pack both target object and position
 	// position interpreted as offset if target object is non-null
+	ELookAtType	target_type 		= mTargetType;
+	LLVector3d	target_offset_global 	= mTargetOffsetGlobal;
+	LLViewerObject* target_object		= (LLViewerObject*)mTargetObject;
+
+	LLViewerObject* source_object = (LLViewerObject*)mSourceObject;
+	LLVOAvatar* source_avatar = NULL;
+
+	if (source_object && source_object->isAvatar()) //strange enough that non-avatar objects try to send a lookat message
+	{
+		source_avatar = (LLVOAvatar*)source_object;
+	}
+
+	if (source_avatar)
+	{
+		bool is_self = source_avatar->isSelf(); //more strange if it is not self.
+		bool is_private = gSavedSettings.getBOOL("PrivateLookAtTarget"); 
+	
+		if (is_private && is_self)
+		{
+			//this mimicks "do nothing"
+			target_type = LOOKAT_TARGET_AUTO_LISTEN;
+			target_offset_global.setVec(2.5, 0.0, 0.0);
+			target_object = mSourceObject;
+		}
+	}
+
 	if (mTargetObject)
 	{
-		htonmemcpy(&(packed_data[TARGET_OBJECT]), mTargetObject->mID.mData, MVT_LLUUID, 16);
+		htonmemcpy(&(packed_data[TARGET_OBJECT]), target_object->mID.mData, MVT_LLUUID, 16);
 	}
 	else
 	{
 		htonmemcpy(&(packed_data[TARGET_OBJECT]), LLUUID::null.mData, MVT_LLUUID, 16);
 	}
 
-	htonmemcpy(&(packed_data[TARGET_POS]), mTargetOffsetGlobal.mdV, MVT_LLVector3d, 24);
+	htonmemcpy(&(packed_data[TARGET_POS]), target_offset_global.mdV, MVT_LLVector3d, 24);
 
-	U8 lookAtTypePacked = (U8)mTargetType;
+	U8 lookAtTypePacked = (U8)target_type;
 	
 	htonmemcpy(&(packed_data[LOOKAT_TYPE]), &lookAtTypePacked, MVT_U8, 1);
 
