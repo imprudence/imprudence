@@ -48,6 +48,10 @@ class WindlightMessage
 	WindlightMessage( LLMessageSystem* msg );
 	~WindlightMessage();
 	static void processWindlight(LLMessageSystem* msg, void**);
+	static bool applyCallback(const LLSD& notification,
+	                          const LLSD& response,
+	                          WindlightMessage* wl);
+
 	bool apply();
 	bool isValid();
 

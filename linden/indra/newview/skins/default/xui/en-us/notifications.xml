@@ -6992,6 +6992,25 @@ Shadows cannot be enabled due to your graphics settings being set too low. Make 
 Note: To comply with the Second Life Terms of Service, Imprudence did not download any texture files for the exported object(s).
 </notification>
 
+<notification
+ name="ConfirmLightShare"
+ type="notify"
+ icon="notify.tga">
+This region has custom sky and water settings.
+
+Apply region settings now?
+  <form name="form">
+    <button
+     index="0"
+     name="Apply"
+     text="Apply"/>
+    <button
+     index="2"
+     name="Ignore"
+     text="Ignore"/>
+  </form>
+</notification>
+
 
 <!--End Imprudence notifications-->
 

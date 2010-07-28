@@ -100,12 +100,43 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 {
 	if( gSavedSettings.getBOOL("UseServersideWindlightSettings") )
 	{
-		WindlightMessage wl = WindlightMessage(msg);
-		if( wl.isValid() )
+		WindlightMessage* wl = new WindlightMessage(msg);
+		if( wl->isValid() )
 		{
-			wl.apply();
+			std::string water = LLWaterParamManager::instance()->mCurParams.mName;
+			std::string sky = LLWLParamManager::instance()->mCurParams.mName;
+
+			// If they are using the default or region settings, just apply
+			// the new settings, don't bother asking.
+			if((sky == "Default" || sky == sSkyPresetName) &&
+			   (water == "Default" || water == sWaterPresetName))
+			{
+				wl->apply();
+				delete wl;
+			}
+			else
+			{
+				LLNotifications::instance()
+					.add("ConfirmLightShare",
+					     LLSD(), LLSD(), 
+					     boost::bind(&applyCallback, _1, _2, wl));
+			}
 		}
 	}
+}
+
+// static
+bool WindlightMessage::applyCallback(const LLSD& notification,
+                                     const LLSD& response,
+                                     WindlightMessage* wl)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if( option == 0 )
+	{
+		wl->apply();
+	}
+	delete wl;
+	return false;
 }
 
 
