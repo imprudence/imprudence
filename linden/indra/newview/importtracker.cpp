@@ -1748,6 +1748,33 @@ public:
 		llinfos << "JCPostInvUploadResponder::error " << statusNum 
 			<< " reason: " << reason << llendl;
 
+		data->retries++;
+
+		if(data->retries <= 10)
+		{
+			cmdline_printchat("RESENDING " + data->filename);
+			/*
+			S32 file_size;
+			LLAPRFile infile ;
+			infile.open(data->filename, LL_APR_RB, LLAPRFile::local, &file_size);
+			if (infile.getFileHandle())
+			{
+				//InventoryImportInfo* data2 = (InventoryImportInfo*)data;
+				//InventoryImportInfo* data2 = new InventoryImportInfo;
+				ImportTracker::import_asset(data);
+
+				//return;
+			}
+			else
+				cmdline_printchat("does not exist " + data->filename);
+			*/
+		}
+		else 
+		{
+			cmdline_printchat("exceeded max retries for " + data->filename + " : itemid = " + item_id.asString() + " assetid = " + data->assetid.asString());
+		}
+
+
 		//update import queue list
 		LLScrollListCtrl* mResultList;
 		mResultList = ImportTrackerFloater::sInstance->getChild<LLScrollListCtrl>("result_list");
@@ -1774,23 +1801,7 @@ public:
 		*/
 		mResultList->addElement(element, ADD_BOTTOM);
 
-		/*
-		S32 file_size;
-		LLAPRFile infile ;
-		infile.open(data->filename, LL_APR_RB, LLAPRFile::local, &file_size);
-		if (infile.getFileHandle())
-		{
-			cmdline_printchat("RESENDING " + data->filename);
 
-			//InventoryImportInfo* data2 = (InventoryImportInfo*)data;
-			//InventoryImportInfo* data2 = new InventoryImportInfo;
-			ImportTracker::import_asset(data);
-
-			//return;
-		}
-		else
-			cmdline_printchat("does not exist " + data->filename);
-*/
 		//std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
 		//LLSD body;
 		//body["item_id"] = inv_item;
@@ -2083,7 +2094,7 @@ void ImportTracker::send_inventory(LLSD& prim)
 						LLPointer<LLInventoryCallback> cb = new JCPostInvCallback(data);
 						LLUUID parent_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_TRASH);
 						create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
-							gInventory.findCategoryUUIDForType(LLAssetType::AT_TRASH), data->tid, data->name,
+							gInventory.findCategoryUUIDForType(LLAssetType::AT_TRASH), LLTransactionID::tnull, data->name,
 							data->description, data->type, LLInventoryType::defaultForAssetType(data->type), data->wear_type,
 							PERM_ALL,
 							cb);
