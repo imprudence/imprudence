@@ -546,6 +546,11 @@ void LLMenuParcelObserver::changed()
 // code required to calculate anything about the menus
 void pre_init_menus()
 {
+	if (gMenuHolder)
+	{
+		cleanup_menus();
+	}
+
 	// static information
 	LLColor4 color;
 	color = gColors.getColor( "MenuDefaultBgColor" );
