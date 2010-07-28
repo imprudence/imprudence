@@ -1104,13 +1104,13 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	std::string mCurGrid = ctrl->getValue().asString();
 	//KOW
 	gHippoGridManager->setCurrentGrid(mCurGrid);
-	// HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
-	// if (gridInfo) {
-	// 	//childSetText("gridnick", gridInfo->getGridNick());
-	// 	//platform->setCurrentByIndex(gridInfo->getPlatform());
-	// 	//childSetText("gridname", gridInfo->getGridName());
-	// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
-	// }
+	HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
+	if (gridInfo) {
+		//childSetText("gridnick", gridInfo->getGridNick());
+		//platform->setCurrentByIndex(gridInfo->getPlatform());
+		//childSetText("gridname", gridInfo->getGridName());
+		LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword());
+	}
 	if (mCurGrid == gHippoGridManager->getConnectedGrid()->getGridNick())
 		gHippoLimits->setLimits();
 	
