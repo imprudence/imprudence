@@ -269,6 +269,51 @@ LLHUDEffectLookAt::~LLHUDEffectLookAt()
 //-----------------------------------------------------------------------------
 void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 {
+	// pack both target object and position
+	// position interpreted as offset if target object is non-null
+	ELookAtType	target_type 		= mTargetType;
+	LLVector3d	target_offset_global 	= mTargetOffsetGlobal;
+	LLViewerObject* target_object		= (LLViewerObject*)mTargetObject;
+
+
+	LLViewerObject* source_object = (LLViewerObject*)mSourceObject;
+	LLVOAvatar* source_avatar = NULL;
+
+	if (!source_object)
+	{
+		markDead();
+		return;
+	}
+	if (source_object->isAvatar()) //strange enough that non-objects try
+							//to send a lookat message ...
+	{
+		source_avatar = (LLVOAvatar*)source_object;
+	}
+	else //... more strange if its an non-avatar object ...
+	{
+		LL_DEBUGS("HUDEffect")<<"Non-Avatar HUDEffectLookAt message for ID: " <<  source_object->getID().asString()<< LL_ENDL;
+		markDead();
+		return;
+	}
+
+
+	bool is_self = source_avatar->isSelf();
+	bool is_private = gSavedSettings.getBOOL("PrivateLookAtTarget");
+	if (!is_self) //... very strange if it is not self. But happens. Also at local opensim.
+	{
+		LL_DEBUGS("HUDEffect")<< "Non-self Avatar HUDEffectLookAt message for ID: " << source_avatar->getID().asString() << LL_ENDL;
+		markDead();
+		return;
+	}
+	else if (is_private && target_type != LOOKAT_TARGET_AUTO_LISTEN)
+	{
+		//this mimicks "do nothing"
+		target_type = LOOKAT_TARGET_AUTO_LISTEN;
+		target_offset_global.setVec(2.5, 0.0, 0.0);
+		target_object = mSourceObject;
+	}
+
+
 	// Pack the default data
 	LLHUDEffect::packData(mesgsys);
 
@@ -280,37 +325,9 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 	{
 		htonmemcpy(&(packed_data[SOURCE_AVATAR]), mSourceObject->mID.mData, MVT_LLUUID, 16);
 	}
-	else
+	else //um ... we already returned ... how's that the case?
 	{
 		htonmemcpy(&(packed_data[SOURCE_AVATAR]), LLUUID::null.mData, MVT_LLUUID, 16);
-	}
-
-	// pack both target object and position
-	// position interpreted as offset if target object is non-null
-	ELookAtType	target_type 		= mTargetType;
-	LLVector3d	target_offset_global 	= mTargetOffsetGlobal;
-	LLViewerObject* target_object		= (LLViewerObject*)mTargetObject;
-
-	LLViewerObject* source_object = (LLViewerObject*)mSourceObject;
-	LLVOAvatar* source_avatar = NULL;
-
-	if (source_object && source_object->isAvatar()) //strange enough that non-avatar objects try to send a lookat message
-	{
-		source_avatar = (LLVOAvatar*)source_object;
-	}
-
-	if (source_avatar)
-	{
-		bool is_self = source_avatar->isSelf(); //more strange if it is not self.
-		bool is_private = gSavedSettings.getBOOL("PrivateLookAtTarget"); 
-	
-		if (is_private && is_self)
-		{
-			//this mimicks "do nothing"
-			target_type = LOOKAT_TARGET_AUTO_LISTEN;
-			target_offset_global.setVec(2.5, 0.0, 0.0);
-			target_object = mSourceObject;
-		}
 	}
 
 	if (mTargetObject)
@@ -396,7 +413,7 @@ void LLHUDEffectLookAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	htonmemcpy(&lookAtTypeUnpacked, &(packed_data[LOOKAT_TYPE]), MVT_U8, 1);
 	if (lookAtTypeUnpacked > 10)
 	{
-		LL_DEBUGS("LookAt")<< "wrong lookAtTypeUnpacked: " << lookAtTypeUnpacked << LL_ENDL;
+		LL_DEBUGS("HUDEffect")<< "wrong lookAtTypeUnpacked: " << lookAtTypeUnpacked << LL_ENDL;
 		lookAtTypeUnpacked = 0;
 	}
 
