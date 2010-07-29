@@ -277,7 +277,7 @@ public:
 	void setDecodePriority(F32 priority = -1.0f);
 
 	bool updateFetch();
-	
+	BOOL hasFetcher() const { return mHasFetcher;}
 	// Override the computation of discard levels if we know the exact output
 	// size of the image.  Used for UI textures to not decode, even if we have
 	// more data.
