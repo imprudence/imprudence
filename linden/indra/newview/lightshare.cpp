@@ -45,6 +45,8 @@
 const std::string WindlightMessage::sWaterPresetName = "(Region settings)";
 const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
 
+WindlightMessage* WindlightMessage::sMostRecent = NULL;
+
 
 WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
 	mPacket(NULL),
@@ -116,10 +118,23 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 			}
 			else
 			{
-				LLNotifications::instance()
-					.add("ConfirmLightShare",
-					     LLSD(), LLSD(), 
-					     boost::bind(&applyCallback, _1, _2, wl));
+				if( sMostRecent == NULL )
+				{
+					// No most recent, so store this and create notification
+					// asking the user whether to apply or not.
+					sMostRecent = wl;
+					LLNotifications::instance()
+						.add("ConfirmLightShare",
+								 LLSD(), LLSD(), 
+								 boost::bind(&applyCallback, _1, _2));
+				}
+				else
+				{
+					// No new notification (to avoid spamming the user), just
+					// store this as most recent.
+					delete sMostRecent;
+					sMostRecent = wl;
+				}
 			}
 		}
 	}
@@ -127,15 +142,17 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 
 // static
 bool WindlightMessage::applyCallback(const LLSD& notification,
-                                     const LLSD& response,
-                                     WindlightMessage* wl)
+                                     const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
-		wl->apply();
+		sMostRecent->apply();
 	}
-	delete wl;
+
+	delete sMostRecent;
+	sMostRecent = NULL;
+
 	return false;
 }
 

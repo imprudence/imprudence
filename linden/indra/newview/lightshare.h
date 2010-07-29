@@ -49,13 +49,14 @@ class WindlightMessage
 	~WindlightMessage();
 	static void processWindlight(LLMessageSystem* msg, void**);
 	static bool applyCallback(const LLSD& notification,
-	                          const LLSD& response,
-	                          WindlightMessage* wl);
+	                          const LLSD& response);
 
 	bool apply();
 	bool isValid();
 
 	private:
+
+	static WindlightMessage* sMostRecent;
 
 	Meta7WindlightPacket* mPacket;
 	LLWaterParamSet* mWater;
