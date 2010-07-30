@@ -51,6 +51,7 @@ class WindlightMessage
 	static void processWindlight(LLMessageSystem* msg, void**);
 	static bool applyCallback(const LLSD& notification,
 	                          const LLSD& response);
+	static void resetRegion();
 
 	bool apply();
 	bool isValid();
@@ -64,6 +65,7 @@ class WindlightMessage
 
 	static WindlightMessage* sMostRecent;
 	static LLTimer* sIgnoreTimer;
+	static bool sIgnoreRegion;
 
 	Meta7WindlightPacket* mPacket;
 	LLWaterParamSet* mWater;

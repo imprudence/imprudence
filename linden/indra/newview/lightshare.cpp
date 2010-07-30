@@ -48,6 +48,7 @@ const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
 
 WindlightMessage* WindlightMessage::sMostRecent = NULL;
 LLTimer* WindlightMessage::sIgnoreTimer = new LLTimer();
+bool WindlightMessage::sIgnoreRegion = false;
 
 
 WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
@@ -132,6 +133,13 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		return;
 	}
 
+	if(sIgnoreRegion)
+	{
+		// We are ignoring new settings until user enters a new region.
+		delete wl;
+		return;
+	}
+
 	if( sMostRecent == NULL )
 	{
 		// No most recent, so store this and create notification
@@ -160,19 +168,36 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 
-	if( option == 0 ) // "Apply"
+	switch(option)
 	{
-		sMostRecent->apply();
-	}
-	else if( option == 2 ) // "Ignore"
-	{
-		resetIgnoreTimer();
+		case 0:{
+			// "Apply"
+			sMostRecent->apply();
+			break;
+		}
+		case 1:{
+			// "Not Now", ignore until the region stops spamming
+			resetIgnoreTimer();
+			break;
+		}
+		case 2:{
+			// "Ignore", ignore all until user leaves the region
+			sIgnoreRegion = true;
+			break;
+		}
 	}
 
 	delete sMostRecent;
 	sMostRecent = NULL;
 
 	return false;
+}
+
+
+// static
+void WindlightMessage::resetRegion()
+{
+	sIgnoreRegion = false;
 }
 
 
