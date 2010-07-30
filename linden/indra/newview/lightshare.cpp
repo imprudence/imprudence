@@ -45,7 +45,9 @@
 const std::string WindlightMessage::sWaterPresetName = "(Region settings)";
 const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
 
+
 WindlightMessage* WindlightMessage::sMostRecent = NULL;
+LLTimer* WindlightMessage::sIgnoreTimer = new LLTimer();
 
 
 WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
@@ -116,6 +118,13 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 				wl->apply();
 				delete wl;
 			}
+			else if( !ignoreTimerHasExpired() )
+			{
+				// The user recently ignored a windlight message, so ignore
+				// this one too, and reset the timer.
+				resetIgnoreTimer();
+				delete wl;
+			}
 			else
 			{
 				if( sMostRecent == NULL )
@@ -145,15 +154,35 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
                                      const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
-	if( option == 0 )
+
+	if( option == 0 ) // "Apply"
 	{
 		sMostRecent->apply();
+	}
+	else if( option == 2 ) // "Ignore"
+	{
+		resetIgnoreTimer();
 	}
 
 	delete sMostRecent;
 	sMostRecent = NULL;
 
 	return false;
+}
+
+
+// static
+void WindlightMessage::resetIgnoreTimer()
+{
+	F32 time = gSavedSettings.getF32("LightShareIgnoreTimer");
+	sIgnoreTimer->start();
+	sIgnoreTimer->setTimerExpirySec( (time < 0) ? 0 : time );
+}
+
+// static
+bool WindlightMessage::ignoreTimerHasExpired()
+{
+	return sIgnoreTimer->hasExpired();
 }
 
 

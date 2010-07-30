@@ -310,6 +310,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>LightShareIgnoreTimer</key>
+  <map>
+    <key>Comment</key>
+    <string>After ignoring a region Windlight settings message, new messages are ignored for this many seconds. The timer starts again each time a message is ignored.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>30</integer>
+  </map>  
   <key>MapShowAgentCount</key>
   <map>
     <key>Comment</key>

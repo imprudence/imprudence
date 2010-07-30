@@ -31,6 +31,7 @@
 
 #include "message.h"
 #include "meta7windlight.h"
+#include "lltimer.h"
 #include "llwaterparamset.h"
 #include "llwlparamset.h"
 
@@ -54,9 +55,15 @@ class WindlightMessage
 	bool apply();
 	bool isValid();
 
+	protected:
+
+	static void resetIgnoreTimer();
+	static bool ignoreTimerHasExpired();
+
 	private:
 
 	static WindlightMessage* sMostRecent;
+	static LLTimer* sIgnoreTimer;
 
 	Meta7WindlightPacket* mPacket;
 	LLWaterParamSet* mWater;
