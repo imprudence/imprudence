@@ -67,6 +67,9 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
+	childSetValue("allow_mupose", gSavedSettings.getBOOL("AllowMUpose"));
+	childSetValue("auto_close_ooc", gSavedSettings.getBOOL("AutoCloseOOC"));
+
 	childSetValue("lightshare_combo",
 	              LLSD((S32)gSavedSettings.getU32("LightShareAllowed")));
 
@@ -90,6 +93,8 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
 	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
 	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
+	gSavedSettings.setBOOL("AllowMUpose", childGetValue("allow_mupose"));
+	gSavedSettings.setBOOL("AutoCloseOOC", childGetValue("auto_close_ooc"));
 	gSavedSettings.setU32("LightShareAllowed",
 	                      (U32)childGetValue("lightshare_combo").asInteger());
 
