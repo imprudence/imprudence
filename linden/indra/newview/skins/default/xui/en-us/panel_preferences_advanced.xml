@@ -14,10 +14,24 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Disable teleport screen" left="12" mouse_opaque="true"
 	     name="disable_tp_screen_check" radio_style="false" width="217" />
-  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+			font="SansSerifsmall" h_pad="0" halign="left" height="16" left="16"
+			mouse_opaque="true" name="online_no" v_pad="0" width="200">
+   Show client names:
+  </text>
+  <check_box bottom_delta="0" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Show client names in nametag" left="12" mouse_opaque="true"
-       name="client_name_tag_check" radio_style="false" width="217" />
+       label="in nametag" left_delta="100" mouse_opaque="true"
+       name="client_name_tag_check" radio_style="false" width="160" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="false"
+       label="changing nametag color" left_delta="80" mouse_opaque="true"
+       name="client_name_color_check" radio_style="false" width="160" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="false"
+       label="in tooltip" left_delta="140" mouse_opaque="true"
+       name="client_name_hover_check" radio_style="false" width="160" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
        label="Broadcast your client name to others" left="12" mouse_opaque="true"

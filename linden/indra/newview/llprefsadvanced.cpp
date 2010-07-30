@@ -58,6 +58,8 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
+	childSetValue("client_name_color_check", gSavedSettings.getBOOL("ShowClientColor"));
+	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
@@ -81,6 +83,8 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
+	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
+	gSavedSettings.setBOOL("ShowClientNameHoverTip", childGetValue("client_name_hover_check"));
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());

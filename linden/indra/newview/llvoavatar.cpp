@@ -3544,21 +3544,29 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				
 				LLColor4 avatar_name_color = gColors.getColor( "AvatarNameColor" );
-				if (gSavedSettings.getBOOL("ShowClientNameTag"))
+				LLColor4 client_color = avatar_name_color;
+
+				if(!mIsSelf) //don't know your own client ?
 				{
-					if(!mIsSelf) //don't know your own client ?
+					new_name = TRUE; //lol or see the last client used 
 					{
-						new_name = TRUE; //lol or see the last client used 
-						{
-							resolveClient(avatar_name_color,client, this);
-						}
-					}
-					else
-					{
-						// Set your own name to the Imprudence color -- MC
-						avatar_name_color = LLColor4(0.79f,0.44f,0.88f);
+						resolveClient(client_color,client, this);
 					}
 				}
+				else
+				{
+					// Set your own name to the Imprudence color -- MC
+					client_color = LLColor4(0.79f,0.44f,0.88f);
+				}
+				if (gSavedSettings.getBOOL("ShowClientColor"))
+				{
+					avatar_name_color = client_color;
+				}
+				if (!gSavedSettings.getBOOL("ShowClientNameTag"))
+				{
+					client.clear();
+				}
+
 				avatar_name_color.setAlpha(alpha);
 				mNameText->setColor(avatar_name_color);
 				

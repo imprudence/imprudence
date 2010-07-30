@@ -658,10 +658,11 @@ private:
 	static LLVector3d sBeamLastAt;
 	static LLSD sClientResolutionList;
 
+public: //anything against having this public?
 	static void resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar);
 //Imprudence FIXME
 //	friend class LLFloaterAvatarList;
-
+//	friend class LLHoverView;
 protected:
 	LLPointer<LLHUDEffectSpiral> mBeam;
 	LLFrameTimer mBeamTimer;
