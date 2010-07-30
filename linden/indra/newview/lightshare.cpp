@@ -102,52 +102,57 @@ WindlightMessage::~WindlightMessage()
 // static
 void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 {
-	if( gSavedSettings.getBOOL("UseServersideWindlightSettings") )
-	{
-		WindlightMessage* wl = new WindlightMessage(msg);
-		if( wl->isValid() )
-		{
-			std::string water = LLWaterParamManager::instance()->mCurParams.mName;
-			std::string sky = LLWLParamManager::instance()->mCurParams.mName;
+	if( !gSavedSettings.getBOOL("UseServersideWindlightSettings") )
+		return;
 
-			// If they are using the default or region settings, just apply
-			// the new settings, don't bother asking.
-			if((sky == "Default" || sky == sSkyPresetName) &&
-			   (water == "Default" || water == sWaterPresetName))
-			{
-				wl->apply();
-				delete wl;
-			}
-			else if( !ignoreTimerHasExpired() )
-			{
-				// The user recently ignored a windlight message, so ignore
-				// this one too, and reset the timer.
-				resetIgnoreTimer();
-				delete wl;
-			}
-			else
-			{
-				if( sMostRecent == NULL )
-				{
-					// No most recent, so store this and create notification
-					// asking the user whether to apply or not.
-					sMostRecent = wl;
-					LLNotifications::instance()
-						.add("ConfirmLightShare",
-								 LLSD(), LLSD(), 
-								 boost::bind(&applyCallback, _1, _2));
-				}
-				else
-				{
-					// No new notification (to avoid spamming the user), just
-					// store this as most recent.
-					delete sMostRecent;
-					sMostRecent = wl;
-				}
-			}
-		}
+	WindlightMessage* wl = new WindlightMessage(msg);
+
+	if( !wl->isValid() )
+		return;
+
+	std::string water = LLWaterParamManager::instance()->mCurParams.mName;
+	std::string sky = LLWLParamManager::instance()->mCurParams.mName;
+
+	// If they are using the default or region settings, just apply
+	// the new settings, don't bother asking.
+	if( (sky == "Default" || sky == sSkyPresetName) &&
+	    (water == "Default" || water == sWaterPresetName) )
+	{
+		wl->apply();
+		delete wl;
+		return;
+	}
+
+	if( !ignoreTimerHasExpired() )
+	{
+		// The user recently ignored a windlight message, so ignore
+		// this one too, and reset the timer.
+		resetIgnoreTimer();
+		delete wl;
+		return;
+	}
+
+	if( sMostRecent == NULL )
+	{
+		// No most recent, so store this and create notification
+		// asking the user whether to apply or not.
+		sMostRecent = wl;
+		LLNotifications::instance()
+			.add("ConfirmLightShare",
+			     LLSD(), LLSD(), 
+			     boost::bind(&applyCallback, _1, _2));
+		return;
+	}
+	else
+	{
+		// No new notification (to avoid spamming the user), just
+		// store this as most recent.
+		delete sMostRecent;
+		sMostRecent = wl;
+		return;
 	}
 }
+
 
 // static
 bool WindlightMessage::applyCallback(const LLSD& notification,
