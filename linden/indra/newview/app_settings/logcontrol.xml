@@ -50,6 +50,7 @@
               <!--<string>AppCache</string>-->
 							<!--<string>APR</string>-->
 							<!--<string>AudioEngine</string>-->
+							<!--<string>BodyPhysics</string>-->
               <!--<string>InitInfo</string>-->
               <!--<string>isOwnedSelf</string>-->
 							<!--<string>HUDEffect</string>-->

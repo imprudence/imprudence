@@ -8560,17 +8560,17 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 
 				if(param->getID() == 507 && newWeight != getActualBoobGrav())
 				{
-					llwarns << "Boob Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Boob Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualBoobGrav(newWeight);
 				}
 				if(param->getID() == 795 && newWeight != getActualButtGrav())
 				{
-					llwarns << "Butt Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Butt Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualButtGrav(newWeight);
 				}
 				if(param->getID() == 157 && newWeight != getActualFatGrav())
 				{
-					llwarns << "Fat Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Fat Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualFatGrav(newWeight);
 				}
 
