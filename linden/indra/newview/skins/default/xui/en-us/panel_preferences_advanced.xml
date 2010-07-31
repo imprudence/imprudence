@@ -63,7 +63,8 @@
        mouse_opaque="true" name="language_is_public"
        radio_style="false" tool_tip="This lets in-world objects know your preferred language."
        width="256" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+  <!-- Uncomment when we start using the crash logger - MC -->
+  <!--<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="18" left="12"
        mouse_opaque="true" name="crash_report_textbox" v_pad="0" width="394">
@@ -81,7 +82,7 @@
     <combo_item type="string" length="1" enabled="true" name="Neversend" value="Never send">
       Never send
     </combo_item>
-  </combo_box>
+  </combo_box>-->
 
   <button bottom="5" follows="left|top" font="SansSerifSmall" height="20" width="250" 
        label="Reset All Preferences To Default" name="reset_btn" left="12" 
