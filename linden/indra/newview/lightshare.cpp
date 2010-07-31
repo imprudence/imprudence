@@ -2,7 +2,7 @@
  * @file lightshare.cpp
  * @brief Handler for Meta7 Lightshare (region-side Windlight settings).
  *
- * Copyright (c) 2010, Tom Meta / Meta7
+ * Copyright (c) 2010, Tom Grimshaw (Tom Meta)
  * Copyright (c) 2010, Jacek Antonelli
  *
  * The source code in this file ("Source Code") is provided to you
@@ -30,8 +30,6 @@
 #include "lightshare.h"
 
 #include "linden_common.h"
-
-#include "lluuid.h"
 #include "llviewercontrol.h"
 #include "llwaterparammanager.h"
 #include "llwaterparamset.h"
@@ -41,7 +39,6 @@
 #include "meta7windlight.h"
 
 
-// The names of the presets where the region settings are stored.
 const std::string WindlightMessage::sWaterPresetName = "(Region settings)";
 const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
 
@@ -82,7 +79,7 @@ WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
 
 	mWater = new LLWaterParamSet();
 	mSky = new LLWLParamSet();
-	mWaterNormal = LLUUID();
+	mWaterNormal = new LLUUID();
 
 	process_packet(&buf[0]);
 	process_water();
@@ -97,6 +94,7 @@ WindlightMessage::~WindlightMessage()
 {
 	delete mWater;
 	delete mSky;
+	delete mWaterNormal;
 }
 
 
@@ -127,8 +125,8 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 	if( !ignoreTimerHasExpired() )
 	{
 		// The user recently ignored a windlight message, so ignore
-		// this one too, and reset the timer.
-		resetIgnoreTimer();
+		// this one too, and restart the timer.
+		restartIgnoreTimer();
 		delete wl;
 		return;
 	}
@@ -145,10 +143,8 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		// No most recent, so store this and create notification
 		// asking the user whether to apply or not.
 		sMostRecent = wl;
-		LLNotifications::instance()
-			.add("ConfirmLightShare",
-			     LLSD(), LLSD(), 
-			     boost::bind(&applyCallback, _1, _2));
+		LLNotifications::instance().add("ConfirmLightShare", LLSD(), LLSD(), 
+		                                boost::bind(&applyCallback, _1, _2));
 		return;
 	}
 	else
@@ -177,7 +173,7 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
 		}
 		case 1:{
 			// "Not Now", ignore until the region stops spamming
-			resetIgnoreTimer();
+			restartIgnoreTimer();
 			break;
 		}
 		case 2:{
@@ -202,7 +198,7 @@ void WindlightMessage::resetRegion()
 
 
 // static
-void WindlightMessage::resetIgnoreTimer()
+void WindlightMessage::restartIgnoreTimer()
 {
 	F32 time = gSavedSettings.getF32("LightShareIgnoreTimer");
 	sIgnoreTimer->start();
@@ -226,7 +222,7 @@ bool WindlightMessage::apply()
 	water_mgr->addParamSet( sWaterPresetName, *mWater );
 	water_mgr->savePreset( sWaterPresetName );
 	water_mgr->loadPreset( sWaterPresetName, true );
-	water_mgr->setNormalMapID( mWaterNormal );
+	water_mgr->setNormalMapID( *mWaterNormal );
 
 	mSky->mName = sSkyPresetName;
 	sky_mgr->mAnimator.mIsRunning = false;
@@ -306,7 +302,7 @@ void WindlightMessage::process_water()
 		(U8)(mPacket->normalMapTexture[14]),
 		(U8)(mPacket->normalMapTexture[15]));
 
-	mWaterNormal.set(uuid);
+	mWaterNormal->set(uuid);
 }
 
 
