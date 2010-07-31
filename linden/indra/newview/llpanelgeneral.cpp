@@ -46,6 +46,7 @@
 #include "llagent.h"
 #include "llpanellogin.h"
 #include "llviewerregion.h"
+#include "viewertime.h"
 
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -100,8 +101,8 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
 	childSetValue("ui_auto_scale", gSavedSettings.getBOOL("UIAutoScale"));
 
-	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
-	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
+	LLComboBox* time_combobox = getChild<LLComboBox>("time_combobox");
+	time_combobox->setCurrentByIndex(gSavedSettings.getU32("TimeFormat"));
 	
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
 
@@ -171,8 +172,9 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
 	gSavedSettings.setString("Language", childGetValue("language_combobox"));
 
-	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
+	LLComboBox* time_combobox = getChild<LLComboBox>("time_combobox");
+	gSavedSettings.setU32("TimeFormat", time_combobox->getCurrentIndex());
+	gViewerTime->updateTimeFormat(time_combobox->getCurrentIndex());
 	
 	// if we have no agent, we can't let them choose anything
 	// if we have an agent, then we only let them choose if they have a choice

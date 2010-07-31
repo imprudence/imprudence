@@ -12,12 +12,6 @@
 	<text type="string" length="12" name="TimeText" tool_tip="현재 시간(태평양 표준시)">
 		12:00 AM
 	</text>
-	<text name="StatBarDaysOfWeek">
-		월요일:화요일:수요일:목요일:금요일:토요일
-	</text>
-	<text name="StatBarMonthsOfYear">
-		1월:2월:3월:4월:5월:6월:7월:8월:9월:10월:11월:12월
-	</text>
 	<button label="" label_selected="" name="scriptout"
 	     tool_tip="스크립트 경고 및 오류" />
 	<button label="" label_selected="" name="health" tool_tip="건강" />

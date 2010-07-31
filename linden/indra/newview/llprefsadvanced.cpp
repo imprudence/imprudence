@@ -30,6 +30,8 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llcombobox.h"
+
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
@@ -64,6 +66,9 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
 
 	refresh();
 
@@ -139,6 +144,9 @@ void LLPrefsAdvanced::apply()
 		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
 		build_pie_menus();
 	}
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
 }
 
 void LLPrefsAdvanced::cancel()

@@ -10,12 +10,6 @@
 	<text name="TimeText" tool_tip="当前时间（太平洋时区）">
 		12:00 AM
 	</text>
-	<string name="StatBarDaysOfWeek">
-		星期日:星期一:星期二:星期三:星期四:星期五:星期六
-	</string>
-	<string name="StatBarMonthsOfYear">
-		一月:二月:三月:四月:五月:六月:七月:八月:九月:十月:十一月:十二月
-	</string>
 	<button label="" label_selected="" name="scriptout" tool_tip="脚本警告及错误。"/>
 	<button label="" label_selected="" name="health" tool_tip="健康"/>
 	<text name="HealthText" tool_tip="健康">

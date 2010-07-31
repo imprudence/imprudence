@@ -12,12 +12,6 @@
 	<text type="string" length="12" name="TimeText" tool_tip="Час (тихоокеанський)">
 		12:00 AM
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Неділя:Понед.:Вівторок:Середа:Четвер:П&apos;ятниця:Субота
-	</string>
-	<string name="StatBarMonthsOfYear">
-		Січень:Лютий:Березень:Квітень:Травень:Червень:Липень:Серпень:Вересень:Жовтень:Листопад:Грудень
-	</string>
 	<button label="" label_selected="" name="scriptout"
 	     tool_tip="Попередження і помилки скриптів" />
 	<button label="" label_selected="" name="health" tool_tip="Здоров&apos;я" />

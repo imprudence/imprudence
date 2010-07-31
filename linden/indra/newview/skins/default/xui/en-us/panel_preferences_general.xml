@@ -161,8 +161,8 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-352" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
-	     mouse_opaque="true" name="crash_report_textbox" v_pad="0" width="394">
-		Crash reports:
+	     mouse_opaque="true" name="time_textbox" v_pad="0" width="394">
+		Clock:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-384" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -182,15 +182,15 @@
 	</string>
 	<combo_box allow_text_entry="false" bottom="-352" enabled="true" follows="left|top"
 	     height="18" left="153" max_chars="20" mouse_opaque="true"
-	     name="crash_behavior_combobox" width="146">
-		<combo_item type="string" length="1" enabled="true" name="Askbeforesending" value="Ask before sending">
-			Ask before sending
+	     name="time_combobox" width="146">
+		<combo_item type="string" length="1" enabled="true" name="12HourTime" value="Use 12 Hour Sim Time">
+			Use 12 Hour Sim Time
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Alwayssend" value="Always send">
-			Always send
+		<combo_item type="string" length="1" enabled="true" name="24HourTime" value="Use 24 Hour Sim Time">
+			Use 24 Hour Sim Time
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Neversend" value="Never send">
-			Never send
+		<combo_item type="string" length="1" enabled="true" name="UTCTime" value="Use UTC Time">
+			Use UTC Time
 		</combo_item>
 	</combo_box>
 	<combo_box allow_text_entry="true" bottom="-382" enabled="true"

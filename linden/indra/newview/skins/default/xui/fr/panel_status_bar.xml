@@ -10,12 +10,6 @@
 	<text length="12" name="TimeText" tool_tip="Heure actuelle (Californie)" type="string">
 		midi
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Sunday:Monday:Tuesday:Wednesday:Thursday:Friday:Saturday
-	</string>
-	<string name="StatBarMonthsOfYear">
-		January:February:March:April:May:June:July:August:September:October:November:December
-	</string>
 	<button label="" label_selected="" name="scriptout" tool_tip="Alertes et erreurs de scripts"/>
 	<button label="" label_selected="" name="health" tool_tip="Santé"/>
 	<text length="1" name="HealthText" tool_tip="Santé" type="string">

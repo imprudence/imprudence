@@ -472,6 +472,7 @@ set(viewer_SOURCE_FILES
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
+    viewertime.cpp
     viewerversion.cpp
     )
 
@@ -914,6 +915,7 @@ set(viewer_HEADER_FILES
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
+    viewertime.h
     viewerversion.h
     )
 

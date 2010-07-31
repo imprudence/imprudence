@@ -11,6 +11,12 @@
   <string name="server_version_changed_chat">The region you have entered is running a different simulator version: [SERVER_VERSION_INFO]</string>
   <string name="hippo_label_free">free</string>
   <string name="hippo_label_week">week</string>
+  <string name="StatBarDaysOfWeek">
+    Sunday:Monday:Tuesday:Wednesday:Thursday:Friday:Saturday
+  </string>
+  <string name="StatBarMonthsOfYear">
+    January:February:March:April:May:June:July:August:September:October:November:December
+  </string>
 
   <!-- Login -->
   <string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>

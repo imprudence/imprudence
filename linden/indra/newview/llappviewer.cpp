@@ -168,7 +168,7 @@
 #include "llimview.h"
 #include "llviewerthrottle.h"
 #include "llparcel.h"
-
+#include "viewertime.h"
 
 #include "llinventoryview.h"
 
@@ -433,6 +433,9 @@ static void settings_to_globals()
 	LLSlider::setScrollWheelMultiplier( gSavedSettings.getS32("SliderScrollWheelMultiplier") );
 
 	LLHUDEffectLookAt::sDebugLookAt = gSavedSettings.getBOOL("PersistShowLookAt");
+
+	ViewerTime::sUse24HourTime = gSavedSettings.getBOOL("Use24HourTime");
+	ViewerTime::sUseUTCTime = gSavedSettings.getBOOL("UseUTCTime");
 }
 
 static void settings_modify()
@@ -1243,6 +1246,15 @@ bool LLAppViewer::cleanup()
 	LLWorldMap::getInstance()->reset(); // release any images
 
 	LLCalc::cleanUp();
+
+	delete gHippoGridManager;
+	gHippoGridManager = NULL;
+
+	delete gHippoLimits;
+	gHippoLimits = NULL;
+
+	delete gViewerTime;
+	gViewerTime = NULL;
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
@@ -1457,7 +1469,7 @@ bool LLAppViewer::cleanup()
 	}
 	
 	// Delete workers first
-	// shotdown all worker threads before deleting them in case of co-dependencies
+	// shutdown all worker threads before deleting them in case of co-dependencies
 	sTextureCache->shutdown();
 	sTextureFetch->shutdown();
 	sImageDecodeThread->shutdown();
@@ -2296,6 +2308,12 @@ bool LLAppViewer::initWindow()
 
 	LLTrans::parseStrings("strings.xml");
 	LLUITrans::parseStrings("ui_strings.xml");
+
+	// Start up the viewer's clock -- MC
+	if (!gViewerTime)
+	{
+		gViewerTime = new ViewerTime();
+	}
 
 	// Show watch cursor
 	gViewerWindow->setCursor(UI_CURSOR_WAIT);
