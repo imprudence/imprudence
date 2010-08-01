@@ -117,7 +117,7 @@
 		 I want to access content rated:
 	</text>
 	<combo_box bottom="-318" follows="left|top" height="18" left="315"
-	     mouse_opaque="true" name="maturity_desired_combobox" width="150" control_name="PreferredMaturity">
+	     mouse_opaque="true" name="maturity_desired_combobox" width="150">
 		<combo_item name="Desired_Adult" value="42">
 			PG, Mature and Adult
 		</combo_item>
