@@ -47,6 +47,14 @@ class WindlightMessage
 {
 	public:
 
+	// The meanings of the LightShareAllowed user setting.
+	enum LIGHTSHARE_ALLOWED
+	{
+		LIGHTSHARE_NEVER  = 0,
+		LIGHTSHARE_ASK    = 1,
+		LIGHTSHARE_ALWAYS = 2,
+	};
+
 	// Constructs a new WindlightMessage instance from a GenericMessage
 	// with the "Windlight" method, such as those sent by a
 	// Lightshare-enabled OpenSim region.

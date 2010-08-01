@@ -101,7 +101,7 @@ WindlightMessage::~WindlightMessage()
 // static
 void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 {
-	if( !gSavedSettings.getBOOL("UseServersideWindlightSettings") )
+	if( gSavedSettings.getU32("UseLightShare") <= LIGHTSHARE_NEVER )
 		return;
 
 	WindlightMessage* wl = new WindlightMessage(msg);
@@ -112,9 +112,10 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 	std::string water = LLWaterParamManager::instance()->mCurParams.mName;
 	std::string sky = LLWLParamManager::instance()->mCurParams.mName;
 
-	// If they are using region settings already, just apply the new
-	// settings, don't bother asking.
-	if( sky == sSkyPresetName && water == sWaterPresetName )
+	// If they are using region settings already, or LightShare is
+	// always allowed, just apply the new settings, don't bother asking.
+	if( gSavedSettings.getU32("UseLightShare") == LIGHTSHARE_ALWAYS ||
+	    (sky == sSkyPresetName && water == sWaterPresetName) )
 	{
 		wl->apply();
 		delete wl;
@@ -137,7 +138,8 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		return;
 	}
 
-	if( sMostRecent == NULL )
+	if( gSavedSettings.getU32("UseLightShare") == LIGHTSHARE_ASK &&
+	    sMostRecent == NULL )
 	{
 		// No most recent, so store this and create notification
 		// asking the user whether to apply or not.
