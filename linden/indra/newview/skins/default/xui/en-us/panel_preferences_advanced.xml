@@ -32,7 +32,7 @@
         follows="top|left">
     Allow region Windlight settings (LightShare):
   </text>
-  <combo_box name="lightshare_combo" control_name="LightShareAllowed"
+  <combo_box name="lightshare_combo"
              bottom_delta="-2" left="240" height="18" width="120"
              allow_text_entry="false" follows="left|top">
     <combo_item type="string" name="never" value="0">
