@@ -112,10 +112,9 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 	std::string water = LLWaterParamManager::instance()->mCurParams.mName;
 	std::string sky = LLWLParamManager::instance()->mCurParams.mName;
 
-	// If they are using the default or region settings, just apply
-	// the new settings, don't bother asking.
-	if( (sky == "Default" || sky == sSkyPresetName) &&
-	    (water == "Default" || water == sWaterPresetName) )
+	// If they are using region settings already, just apply the new
+	// settings, don't bother asking.
+	if( sky == sSkyPresetName && water == sWaterPresetName )
 	{
 		wl->apply();
 		delete wl;
