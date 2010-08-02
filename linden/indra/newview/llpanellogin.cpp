@@ -52,6 +52,7 @@
 #include "llcombobox.h"
 #include "llcurl.h"
 #include "llviewercontrol.h"
+#include "llfirstuse.h"
 #include "llfloaterabout.h"
 #include "llfloatertest.h"
 #include "llfloaterpreference.h"
@@ -329,6 +330,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	refreshLocation( false );
 #endif
 
+	LLFirstUse::useLoginScreen();
 }
 
 void LLPanelLogin::setSiteIsAlive( bool alive )
@@ -801,9 +803,12 @@ void LLPanelLogin::refreshLoginPage()
     // kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build(sInstance);
 	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
-	if (!login_page.empty()) {
+	if (!login_page.empty()) 
+	{
 		LLHTTPClient::head(login_page, gResponsePtr);
-	} else {
+	} 
+	else 
+	{
 		sInstance->setSiteIsAlive(false);
 	}
 }
@@ -815,7 +820,8 @@ void LLPanelLogin::loadLoginPage()
 	
 
 	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
-	if (login_page.empty()) {
+	if (login_page.empty()) 
+	{
 		sInstance->setSiteIsAlive(false);
 		return;
 	}
@@ -1092,35 +1098,45 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	// *NOTE: The paramters for this method are ignored. 
 	// LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)
 	// calls this method.
+	updateGridCombo(LLStringUtil::null);
+}
 
-	// The user twiddled with the grid choice ui.
-	// apply the selection to the grid setting.
-	std::string grid_label;
-	//S32 grid_index;
-
+// static
+void LLPanelLogin::updateGridCombo(std::string grid_nick)
+{
 	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
-	LLSD combo_val = combo->getValue();
 
-	std::string mCurGrid = ctrl->getValue().asString();
-	//KOW
-	gHippoGridManager->setCurrentGrid(mCurGrid);
-	// HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
-	// if (gridInfo) {
-	// 	//childSetText("gridnick", gridInfo->getGridNick());
-	// 	//platform->setCurrentByIndex(gridInfo->getPlatform());
-	// 	//childSetText("gridname", gridInfo->getGridName());
-	// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
-	// }
-	if (mCurGrid == gHippoGridManager->getConnectedGrid()->getGridNick())
-		gHippoLimits->setLimits();
+	if (grid_nick.empty())
+	{
+		// The user twiddled with the grid choice ui.
+		// apply the selection to the grid setting.
+		//std::string grid_label;
+		//S32 grid_index;
+		
+		grid_nick = combo->getValue().asString();
+		
+		// HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
+		// if (gridInfo) {
+		// 	//childSetText("gridnick", gridInfo->getGridNick());
+		// 	//platform->setCurrentByIndex(gridInfo->getPlatform());
+		// 	//childSetText("gridname", gridInfo->getGridName());
+		// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
+		// }
+	}
+	else
+	{
+		combo->setSimple(grid_nick);
+	}
 	
-	llwarns << "current grid = " << mCurGrid << llendl;
+	gHippoGridManager->setCurrentGrid(grid_nick);
+
+	llinfos << "current grid set to " << grid_nick << llendl;
 
 	// grid changed so show new splash screen (possibly)
 	loadLoginPage();
 
 	// save grid choice to settings
-	gSavedSettings.setString("LastSelectedGrid", mCurGrid);
+	gSavedSettings.setString("LastSelectedGrid", grid_nick);
 }
 /*
 void LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)

@@ -1827,6 +1827,7 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstSculptedPrim");
 	LLFirstUse::addConfigVariable("FirstVoice");
 	LLFirstUse::addConfigVariable("FirstMedia");
+	LLFirstUse::addConfigVariable("FirstLoginScreen");
 		
 	// - read command line settings.
 	LLControlGroupCLP clp;

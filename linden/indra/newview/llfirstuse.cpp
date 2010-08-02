@@ -46,6 +46,7 @@
 #include "lltracker.h"
 
 #include "llvoavatar.h"
+#include "floatergriddefault.h"
 #include "hippoGridManager.h"
 
 // [RLVa:KB] - Version: 1.22.11
@@ -308,6 +309,7 @@ void LLFirstUse::useMedia()
 		LLNotifications::instance().add("FirstMedia");
 	}
 }
+
 void LLFirstUse::callbackClientTags(const LLSD& notification, const LLSD& response)
 {
 	gSavedSettings.setWarning("ClientTags", FALSE);
@@ -331,6 +333,7 @@ void LLFirstUse::callbackClientTags(const LLSD& notification, const LLSD& respon
 		gSavedSettings.setBOOL("DownloadClientTags",FALSE);
 	}
 }
+
 // static
 void LLFirstUse::ClientTags()
 {
@@ -340,3 +343,14 @@ void LLFirstUse::ClientTags()
 	}
 }
 
+// static 
+void LLFirstUse::useLoginScreen()
+{
+	if (gSavedSettings.getWarning("FirstLoginScreen"))
+	{
+		gSavedSettings.setWarning("FirstLoginScreen", FALSE);
+
+		FloaterGridDefault::getInstance()->open();
+		FloaterGridDefault::getInstance()->center();
+	}
+}
