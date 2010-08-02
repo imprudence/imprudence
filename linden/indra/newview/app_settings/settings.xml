@@ -789,6 +789,17 @@
     <key>Value</key>
     <string>f54a0c32-3cd1-d49a-5b4f-7b792bebc204</string>
   </map>
+  <key>TimeFormat</key>
+  <map>
+    <key>Comment</key>
+    <string>0 = 12 hr, 1 = 24 hr, 2 = UTC</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>0</real>
+  </map>
   <key>Use24HourTime</key>
   <map>
     <key>Comment</key>

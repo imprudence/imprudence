@@ -32,6 +32,7 @@
 
 #include "llappviewer.h" // for gPacificDaylightTime
 #include "lltrans.h"
+#include "llviewercontrol.h"
 #include "viewertime.h"
 
 // system includes
@@ -43,6 +44,7 @@
 // TODO: support multiple date formats
 
 ViewerTime* gViewerTime = 0;
+// We use statics here for speed reasons
 bool ViewerTime::sUse24HourTime = false;
 bool ViewerTime::sUseUTCTime = false;
 
@@ -257,4 +259,7 @@ void ViewerTime::updateTimeFormat(const U32& index)
 		sUseUTCTime = false;
 		break;
 	}
+
+	gSavedSettings.setBOOL("Use24HourTime", sUse24HourTime);
+	gSavedSettings.setBOOL("UseUTCTime", sUseUTCTime);
 }
