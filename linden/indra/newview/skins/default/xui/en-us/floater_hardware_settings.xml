@@ -19,7 +19,7 @@
 		left="10" mouse_opaque="true" name="Antialiasing:" v_pad="0" width="128">
     Antialiasing:
   </text>
-  <combo_box bottom="-65" control_name="RenderFSAASamples" enabled="true" follows="left|top"
+  <combo_box bottom="-65" enabled="true" follows="left|top"
 		font="SansSerifSmall" height="16" initial_value="false"
 		label="Antialiasing" left="148"
 		mouse_opaque="true" name="fsaa" width="64">

@@ -488,7 +488,7 @@ public:
 			// did we find *something* with that name?
 			if (child)
 			{
-				llwarns << "Found child named " << name << " but of wrong type " << typeid(child).name() << ", expecting " << typeid(T).name() << llendl;
+				LL_DEBUGS("View") << "Found child named " << name << " but of wrong type " << typeid(child).name() << ", expecting " << typeid(T).name() << LL_ENDL;
 			}
 			if (create_if_missing)
 			{
@@ -515,7 +515,7 @@ public:
 			std::string xml_tag = LLWidgetClassRegistry::getInstance()->getTag<T>();
 			if (xml_tag.empty())
 			{
-				llwarns << "No xml tag registered for this class " << llendl;
+				LL_DEBUGS("View") << "No xml tag registered for this class " << LL_ENDL;
 				return NULL;
 			}
 			// create dummy xml node (<button name="foo"/>)
@@ -526,13 +526,13 @@ public:
 			if (widget)
 			{
 				// need non-const to update private dummy widget cache
-				llwarns << "Making dummy " << xml_tag << " named " << name << " in " << getName() << llendl;
+				LL_DEBUGS("View") << "Making dummy " << xml_tag << " named " << name << " in " << getName() << LL_ENDL;
 				mDummyWidgets.insert(std::make_pair(name, widget));
 			}
 			else
 			{
 				// dynamic cast will fail if T::fromXML only registered for base class
-				llwarns << "Failed to create dummy widget of requested type " << llendl;
+				LL_DEBUGS("View") << "Failed to create dummy widget of requested type " << LL_ENDL;
 				return NULL;
 			}
 		}

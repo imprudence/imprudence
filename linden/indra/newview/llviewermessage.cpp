@@ -65,6 +65,7 @@
 #include "lltimer.h"
 #include "llmd5.h"
 
+#include "lightshare.h"
 #include "llagent.h"
 #include "llcallingcard.h"
 #include "llconsole.h"
@@ -138,8 +139,6 @@
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
-#include "llwlparammanager.h"
-#include "llwaterparammanager.h"
 #include "panelradarentry.h"
 
 #include <boost/tokenizer.hpp>
@@ -3224,10 +3223,6 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	gCacheName->setUpstream(sim);
 */
 
-	// Reset windlight settings to default
-	LLWLParamManager::instance()->mAnimator.mIsRunning = true;
-	LLWLParamManager::instance()->mAnimator.mUseLindenTime = true;
-
 	// now, use the circuit info to tell simulator about us!
 	LL_INFOS("Messaging") << "process_teleport_finish() Enabling "
 			<< sim_host << " with code " << msg->mOurCircuitCode << LL_ENDL;
@@ -3259,6 +3254,9 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 //	gTeleportDisplay = TRUE;
 //	gTeleportDisplayTimer.reset();
 //	gViewerWindow->setShowProgress(TRUE);
+
+	// Tell the LightShare handler that we have changed regions.
+	WindlightMessage::resetRegion();
 }
 
 // stuff we have to do every time we get an AvatarInitComplete from a sim
@@ -3506,6 +3504,9 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 
 	LLViewerRegion* regionp = LLWorld::getInstance()->addRegion(region_handle, sim_host);
 	regionp->setSeedCapability(seedCap);
+
+	// Tell the LightShare handler that we have changed regions.
+	WindlightMessage::resetRegion();
 }
 
 

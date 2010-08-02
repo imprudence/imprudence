@@ -546,6 +546,11 @@ void LLMenuParcelObserver::changed()
 // code required to calculate anything about the menus
 void pre_init_menus()
 {
+	if (gMenuHolder)
+	{
+		cleanup_menus();
+	}
+
 	// static information
 	LLColor4 color;
 	color = gColors.getColor( "MenuDefaultBgColor" );
@@ -10143,15 +10148,28 @@ class LLAdvancedTogglePrivateLookPointAt : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		// Noate: PrivateLookAtTarget also hides point at -- MC
-		bool new_value = !gSavedSettings.getBOOL("PrivateLookAtTarget");
-		if (new_value)
+		std::string command = userdata.asString();
+		if ("Look" == command)
 		{
-			// Disable show look at and show point at if you make yours private. It's only fair, after all -- MC
-			LLHUDEffectLookAt::sDebugLookAt = FALSE;
-			LLHUDEffectPointAt::sDebugPointAt = FALSE;
+			bool new_value = !gSavedSettings.getBOOL("PrivateLookAtTarget");
+			if (new_value)
+			{
+				// Disable show look at and show point at if you make yours private. It's only fair, after all -- MC
+				LLHUDEffectLookAt::sDebugLookAt = FALSE;
+				LLHUDEffectPointAt::sDebugPointAt = FALSE;
+			}
+			gSavedSettings.setBOOL("PrivateLookAtTarget", new_value);
 		}
-		gSavedSettings.setBOOL("PrivateLookAtTarget", new_value);
+		else if ("Point" == command)
+		{
+			bool new_value = !gSavedSettings.getBOOL("PrivatePointAtTarget");
+
+			// do not disable show look at and show point at if you make yours private,
+			// since this only hides the arm motion while editing -- AW
+
+			gSavedSettings.setBOOL("PrivatePointAtTarget", new_value);
+		}
+
 		return true;
 	}
 };
@@ -10160,9 +10178,19 @@ class LLAdvancedCheckPrivateLookPointAt : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = gSavedSettings.getBOOL("PrivateLookAtTarget");
-		std::string control_name = userdata["control"].asString();
-		gMenuHolder->findControl(control_name)->setValue(new_value);
+		std::string command = userdata["data"].asString();
+		if ("Look" == command)
+		{
+			bool new_value = gSavedSettings.getBOOL("PrivateLookAtTarget");
+			std::string control_name = userdata["control"].asString();
+			gMenuHolder->findControl(control_name)->setValue(new_value);
+		}
+		else if ("Point" == command)
+		{
+			bool new_value = gSavedSettings.getBOOL("PrivatePointAtTarget");
+			std::string control_name = userdata["control"].asString();
+			gMenuHolder->findControl(control_name)->setValue(new_value);
+		}
 		return true;
 	}
 };

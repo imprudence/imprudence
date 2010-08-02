@@ -1860,12 +1860,19 @@
         <on_check function="Advanced.CheckShowPointAt"
                   userdata="" />
       </menu_item_check>
-      <menu_item_check name="Private Look/Point At"
-                       label="Private Look/Point At">
+      <menu_item_check name="Private Look At"
+                       label="Private Look At">
         <on_click function="Advanced.TogglePrivateLookPointAt"
-                  userdata="" />
+                  userdata="Look" />
         <on_check function="Advanced.CheckPrivateLookPointAt"
-                  userdata="" />
+                  userdata="Look" />
+      </menu_item_check>
+      <menu_item_check name="Private Point At"
+                       label="Private Point At">
+        <on_click function="Advanced.TogglePrivateLookPointAt"
+                  userdata="Point" />
+        <on_check function="Advanced.CheckPrivateLookPointAt"
+                  userdata="Point" />
       </menu_item_check>
       <menu_item_check name="Debug Joint Updates"
                        label="Debug Joint Updates">

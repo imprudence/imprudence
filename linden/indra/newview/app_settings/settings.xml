@@ -4,6 +4,28 @@
   
   <!-- Imprudence-specific settings -->
 
+  <key>AllowMUpose</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow MU* pose style in chat and IM (':' works like '/me ')</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>AutoCloseOOC</key>
+  <map>
+    <key>Comment</key>
+    <string>Auto-close OOC chat (i.e. add \"))\" if not found and \"((\" was used)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>AppearanceAnimate</key>
   <map>
     <key>Comment</key>
@@ -310,6 +332,28 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>LightShareAllowed</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow LightShare (Windlight settings broadcast from the region): Never (0), Ask (1), or Always (2).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>LightShareIgnoreTimer</key>
+  <map>
+    <key>Comment</key>
+    <string>After ignoring a region Windlight settings message, new messages are ignored for this many seconds. The timer starts again each time a message is ignored.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>30</integer>
+  </map>  
   <key>MapShowAgentCount</key>
   <map>
     <key>Comment</key>
@@ -440,6 +484,17 @@
   <map>
     <key>Comment</key>
     <string>If true, viewer won't tell other viewers where your avatar is looking.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>PrivatePointAtTarget</key>
+  <map>
+    <key>Comment</key>
+    <string>If true, viewer won't show the editing arm motion.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -1033,7 +1088,28 @@
   </map>
 
   <!-- Begin: Client Name Tag -->
-
+  <key>ShowClientColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Show *others* clients specific color in the name tag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>ShowClientNameHoverTip</key>
+  <map>
+    <key>Comment</key>
+    <string>Show *others* client in the hovertip</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>ShowClientNameTag</key>
   <map>
     <key>Comment</key>
@@ -1045,7 +1121,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  
+
   <key>ShowMyClientTagToOthers</key>
   <map>
     <key>Comment</key>
@@ -1316,32 +1392,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
-    <!-- Begin: MUpose -->
-    <key>AllowMUpose</key>
-    <map>
-      <key>Comment</key>
-      <string>Allow MU* pose style in chat and IM (with ':' as a synonymous to '/me ')</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>AutoCloseOOC</key>
-    <map>
-      <key>Comment</key>
-      <string>Auto-close OOC chat (i.e. add \"))\" if not found and \"((\" was used)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <!-- End: MUpose -->
-
   <key>AllowIdleAFK</key>
   <map>
     <key>Comment</key>
@@ -12275,21 +12325,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-
-<!-- Begin: Use Serverside Windlight Settings -->
-    <key>UseServersideWindlightSettings</key>
-    <map>
-      <key>Comment</key>
-      <string>Whether or not to use Windlight settings presented by the server.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-<!-- End: Use Serverside Windlight Settings -->
-
     <key>UseStartScreen</key>
     <map>
       <key>Comment</key>

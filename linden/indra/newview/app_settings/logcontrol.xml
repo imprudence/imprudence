@@ -51,8 +51,10 @@
               <!--<string>AppCache</string>-->
 							<!--<string>APR</string>-->
 							<!--<string>AudioEngine</string>-->
+							<!--<string>BodyPhysics</string>-->
               <!--<string>InitInfo</string>-->
               <!--<string>isOwnedSelf</string>-->
+							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
 							<!--<string>MediaImpl</string>-->
 							<!--<string>MediaInfo</string>-->
@@ -69,7 +71,7 @@
 							<!--<string>Openjpeg</string>-->
 							<!--<string>RLV</string>-->
 							<!--<string>VOAvatar</string>-->
-
+							<!--<string>View</string>-->
 							<!--<string>ViewerImages</string>-->
 							<!--<string>Throttle</string>-->
 							<!--<string>Voice</string>-->
