@@ -172,6 +172,12 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
 	gSavedSettings.setString("Language", childGetValue("language_combobox"));
 
+	/*
+	Time Format: 
+	0 - sim 12 hour time
+	1 - sim 24 hour time
+	2 - UTC time
+	*/
 	LLComboBox* time_combobox = getChild<LLComboBox>("time_combobox");
 	gSavedSettings.setU32("TimeFormat", time_combobox->getCurrentIndex());
 	gViewerTime->updateTimeFormat(time_combobox->getCurrentIndex());
