@@ -183,14 +183,14 @@
 	<combo_box allow_text_entry="false" bottom="-352" enabled="true" follows="left|top"
 	     height="18" left="153" max_chars="20" mouse_opaque="true"
 	     name="time_combobox" width="146">
-		<combo_item type="string" length="1" enabled="true" name="12HourTime" value="Use 12 Hour Sim Time">
-			Use 12 Hour Sim Time
+		<combo_item type="string" name="12HourTime" value="PST 12">
+			12-hour PST/PDT
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="24HourTime" value="Use 24 Hour Sim Time">
-			Use 24 Hour Sim Time
+		<combo_item type="string" name="24HourTime" value="PST 24">
+			24-hour PST/PDT
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="UTCTime" value="Use UTC Time">
-			Use UTC Time
+		<combo_item type="string" name="UTCTime" value="UTC">
+			UTC
 		</combo_item>
 	</combo_box>
 	<combo_box allow_text_entry="true" bottom="-382" enabled="true"
