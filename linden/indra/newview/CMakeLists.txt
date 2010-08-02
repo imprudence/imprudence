@@ -69,6 +69,7 @@ set(viewer_SOURCE_FILES
     emeraldboobutils.cpp
     floaterao.cpp
     floaterbusy.cpp
+    floatergriddefault.cpp
     floatergridmanager.cpp
     hbfloatergrouptitles.cpp
     hippoGridManager.cpp
@@ -501,6 +502,7 @@ set(viewer_HEADER_FILES
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
+    floatergriddefault.h
     floatergridmanager.h
     hbfloatergrouptitles.h
     hippoGridManager.h
@@ -1132,6 +1134,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_font_test.xml
     skins/default/xui/en-us/floater_gesture.xml
     skins/default/xui/en-us/floater_god_tools.xml
+    skins/default/xui/en-us/floater_grid_default_selector.xml
     skins/default/xui/en-us/floater_grid_manager.xml
     skins/default/xui/en-us/floater_group_info.xml
     skins/default/xui/en-us/floater_group_titles.xml
