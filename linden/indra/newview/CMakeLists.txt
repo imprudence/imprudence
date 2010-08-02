@@ -1123,6 +1123,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_camera.xml
     skins/default/xui/en-us/floater_chat_history.xml
     skins/default/xui/en-us/floater_chatterbox.xml
+    skins/default/xui/en-us/floater_chatterbox_vertical.xml
     skins/default/xui/en-us/floater_choose_group.xml
     skins/default/xui/en-us/floater_color_picker.xml
     skins/default/xui/en-us/floater_critical.xml
@@ -1158,6 +1159,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_live_lsleditor.xml
     skins/default/xui/en-us/floater_lsl_guide.xml
     skins/default/xui/en-us/floater_media_browser.xml
+    skins/default/xui/en-us/floater_mem_leaking.xml
     skins/default/xui/en-us/floater_mini_map.xml
     skins/default/xui/en-us/floater_moveview.xml
     skins/default/xui/en-us/floater_mute_object.xml
@@ -1193,11 +1195,13 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_region_info.xml
     skins/default/xui/en-us/floater_report_abuse.xml
     skins/default/xui/en-us/floater_report_bug.xml
+    skins/default/xui/en-us/floater_rlv_behaviour.xml
     skins/default/xui/en-us/floater_script_debug.xml
     skins/default/xui/en-us/floater_script_ed_panel.xml
     skins/default/xui/en-us/floater_script_preview.xml
     skins/default/xui/en-us/floater_script_queue.xml
     skins/default/xui/en-us/floater_script_search.xml
+    skins/default/xui/en-us/floater_search_replace.xml
     skins/default/xui/en-us/floater_select_key.xml
     skins/default/xui/en-us/floater_sell_land.xml
     skins/default/xui/en-us/floater_settings_debug.xml
@@ -1307,6 +1311,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/role_actions.xml
     skins/default/xui/en-us/strings.xml
     skins/default/xui/en-us/teleport_strings.xml
+    skins/default/xui/en-us/ui_strings.xml
     skins/default/xui/en-us/xui_version.xml
     )
 
