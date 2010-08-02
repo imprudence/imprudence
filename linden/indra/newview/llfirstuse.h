@@ -112,6 +112,7 @@ public:
 	static void useDebugMenus();
 	static void useSculptedPrim();
 	static void useMedia();
+	static void useLoginScreen();
 	static void callbackClientTags(const LLSD& notification, const LLSD& response);
 	static void ClientTags();
 	
