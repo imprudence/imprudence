@@ -1268,7 +1268,7 @@ std::string LLViewerTextEditor::appendTime(bool prepend_newline)
 	std::string text = llformat("[%02d:%02d", gViewerTime->getCurHour(), gViewerTime->getCurMin());
 	if (!gViewerTime->getCurAMPM().empty())
 	{
-		text += " ";
+		//text += " ";
 		text += gViewerTime->getCurAMPM();
 	}
 	text += "]  ";
