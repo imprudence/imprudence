@@ -87,7 +87,6 @@ void FloaterGridDefault::onClickOK(void* userdata)
 	if (!selected.empty() || selected != gHippoGridManager->getCurrentGridNick())
 	{
 		gHippoGridManager->setDefaultGrid(selected);
-		gHippoGridManager->setCurrentGridAsConnected();
 		gHippoGridManager->saveFile();
 		LLPanelLogin::updateGridCombo(selected);
 	}
