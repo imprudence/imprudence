@@ -150,6 +150,8 @@ void audio_update_volume(bool force_update)
 								  gSavedSettings.getBOOL("MuteUI") ? 0.f : gSavedSettings.getF32("AudioLevelUI"));
 		gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_AMBIENT,
 								  gSavedSettings.getBOOL("MuteAmbient") ? 0.f : gSavedSettings.getF32("AudioLevelAmbient"));
+		gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_GESTURE,
+								  gSavedSettings.getBOOL("MuteGestures") ? 0.f : gSavedSettings.getF32("AudioLevelGestures"));
 	}
 
 	// Streaming Music

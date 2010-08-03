@@ -93,7 +93,8 @@ public:
 		AUDIO_TYPE_SFX     = 1,
 		AUDIO_TYPE_UI      = 2,
 		AUDIO_TYPE_AMBIENT = 3,
-		AUDIO_TYPE_COUNT   = 4 // last
+		AUDIO_TYPE_GESTURE = 4,
+		AUDIO_TYPE_COUNT   = 5 // last
 	};
 	
 	LLAudioEngine();

@@ -3959,6 +3959,19 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
+	// Don't load sounds if we have gestures muted -- MC
+	if ((owner_id != gAgent.getID()) && (object_id == owner_id))
+	{
+		if (gSavedSettings.getBOOL("MuteGestures"))
+		{
+			return;
+		}
+		else
+		{
+			gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_GESTURE, pos_global);
+		}
+	}
+
 	// Don't play sounds from a region with maturity above current agent maturity
 	// Actually, let's -- MC
 	/*if( !gAgent.canAccessMaturityInRegion( region_handle ) )
@@ -4000,11 +4013,12 @@ void process_preload_sound(LLMessageSystem *msg, void **user_data)
 	// help us out.
 
 	// Don't play sounds from a region with maturity above current agent maturity
-	LLVector3d pos_global = objectp->getPositionGlobal();
+	// Actually, let's -- MC
+	/*LLVector3d pos_global = objectp->getPositionGlobal();
 	if( !gAgent.canAccessMaturityAtGlobal( pos_global ) )
 	{
 		return;
-	}
+	}*/
 	
 	// Add audioData starts a transfer internally.
 	sourcep->addAudioData(datap, FALSE);
@@ -4040,11 +4054,12 @@ void process_attached_sound(LLMessageSystem *msg, void **user_data)
 
 	
 	// Don't play sounds from a region with maturity above current agent maturity
-	LLVector3d pos = objectp->getPositionGlobal();
+	// Actually, let's -- MC
+	/*LLVector3d pos = objectp->getPositionGlobal();
 	if( !gAgent.canAccessMaturityAtGlobal(pos) )
 	{
 		return;
-	}
+	}*/
 	
 	objectp->setAttachedSound(sound_id, owner_id, gain, flags);
 }
