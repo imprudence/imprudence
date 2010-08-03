@@ -3931,17 +3931,16 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	msg->getF32Fast(_PREHASH_SoundData, _PREHASH_Gain, gain);
 
 	//If we have sounds muted, don't even try to load or trigger the sound.
-	if(gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+	if (gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+	{
 		return;
+	}
 
 	// adjust sound location to true global coords
 	LLVector3d	pos_global = from_region_handle(region_handle);
 	pos_global.mdV[VX] += pos_local.mV[VX];
 	pos_global.mdV[VY] += pos_local.mV[VY];
 	pos_global.mdV[VZ] += pos_local.mV[VZ];
-
-	// Don't play sounds if sound settings are muted.
-	if (gSavedSettings.getBOOL("MuteSounds")) return;
 
 	// Don't play a trigger sound if you can't hear it due
 	// to parcel "local audio only" settings.
@@ -3961,10 +3960,11 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	}
 
 	// Don't play sounds from a region with maturity above current agent maturity
-	if( !gAgent.canAccessMaturityInRegion( region_handle ) )
+	// Actually, let's -- MC
+	/*if( !gAgent.canAccessMaturityInRegion( region_handle ) )
 	{
 		return;
-	}
+	}*/
 		
 	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global);
 }
