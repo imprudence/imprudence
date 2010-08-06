@@ -40,7 +40,6 @@
 #define LL_LLFLOATERPREFERENCE_H
 
 #include "llfloater.h"
-#include "lltabcontainervertical.h"
 
 class LLPanelGeneral;
 class LLPanelInput;

@@ -47,7 +47,6 @@
 #include "llcheckboxctrl.h"
 #include "llviewercontrol.h"
 #include "lllineeditor.h"
-#include "lltabcontainervertical.h"
 #include "lltextbox.h"
 #include "llviewertexteditor.h"
 #include "lltexturectrl.h"
