@@ -15,12 +15,9 @@
 	     left_delta="93" mouse_opaque="true" name="Apply" scale_image="true"
 	     width="90" />
 	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="20" label="About" label_selected="About" left="9"
-	     mouse_opaque="true" name="About..." scale_image="true" width="90" />
-	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20"
 	     help_url="http://secondlife.com/app/help/technical/preferences.php"
-	     label="Help" label_selected="Help" left_delta="93" mouse_opaque="true"
+	     label="Help" label_selected="Help" left="9" mouse_opaque="true"
 	     name="Help" scale_image="true" width="90" />
 	<tab_container bottom="-431" enabled="true" follows="left|top|right|bottom" height="410"
 	     left="0" mouse_opaque="false" name="pref core" tab_group="1"
