@@ -40,7 +40,6 @@
 #include "lltextbox.h"
 #include "llcriticaldamp.h"
 #include "lluictrlfactory.h"
-#include "lltabcontainervertical.h"
 #include "llrender.h"
 
 const F32 SCROLL_STEP_TIME = 0.4f;

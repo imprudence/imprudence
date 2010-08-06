@@ -64,7 +64,6 @@
 #include "llmultisliderctrl.h"
 #include "llspinctrl.h"
 #include "lltabcontainer.h"
-#include "lltabcontainervertical.h"
 #include "lltextbox.h"
 #include "lltexteditor.h"
 #include "llui.h"

@@ -67,7 +67,6 @@
 #include "llscrolllistctrl.h"
 #include "llstatusbar.h"
 #include "lltabcontainer.h"
-#include "lltabcontainervertical.h"
 #include "llimview.h"
 #include "lltooldraganddrop.h"
 #include "lluiconstants.h"
