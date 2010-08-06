@@ -119,12 +119,10 @@ protected:
 
 	/*virtual*/ void		onClose(bool app_quitting);
 
-	LLButton*	mAboutBtn;
 	LLButton	*mOKBtn;
 	LLButton	*mCancelBtn;
 	LLButton	*mApplyBtn;
 
-	static void		onClickAbout(void*);
 	static void		onBtnOK(void*);
 	static void		onBtnCancel(void*);
 	static void		onBtnApply(void*);
