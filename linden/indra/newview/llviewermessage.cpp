@@ -1566,195 +1566,198 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 		}
 	}*/
-	bool typing_init = false;
-	if( dialog == IM_TYPING_START && !is_muted )
+	if (gSavedPerAccountSettings.getBOOL("InstantMessageResponseEnabled"))
 	{
-		if(!gIMMgr->hasSession(computed_session_id) && gSavedPerAccountSettings.getBOOL("InstantMessageAnnounceIncoming"))
+		bool typing_init = false;
+		if( dialog == IM_TYPING_START && !is_muted )
 		{
-			typing_init = true;
-			if( gSavedPerAccountSettings.getBOOL("InstantMessageAnnounceStealFocus") )
+			if(!gIMMgr->hasSession(computed_session_id) && gSavedPerAccountSettings.getBOOL("InstantMessageAnnounceIncoming"))
 			{
-				/*LLUUID sess =*/ gIMMgr->addSession(name, IM_NOTHING_SPECIAL, from_id);
-				make_ui_sound("UISndNewIncomingIMSession");
-			}
-			gIMMgr->addMessage(
-					computed_session_id,
-					from_id,
-					name,
-					llformat("You sense a disturbance in the force...  (%s is typing)",name.c_str()),
-					name,
-					IM_NOTHING_SPECIAL,
-					parent_estate_id,
-					region_id,
-					position,
-					false);
-		}
-	}
-
-	bool is_auto_response = false;
-	if(dialog == IM_NOTHING_SPECIAL) {
-		// detect auto responses from GreenLife and compatible viewers
-		is_auto_response = ( message.substr(0, 21) == "/me (auto-response): " );
-	}
-
-	bool do_auto_response = false;
-	if( gSavedPerAccountSettings.getBOOL("InstantMessageResponseAnyone" ) )
-		do_auto_response = true;
-
-	// odd name for auto respond to non-friends
-	if( gSavedPerAccountSettings.getBOOL("InstantMessageResponseFriends") &&
-		LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL )
-		do_auto_response = true;
-
-	if( is_muted && !gSavedPerAccountSettings.getBOOL("InstantMessageResponseMuted") )
-		do_auto_response = false;
-
-	if( offline != IM_ONLINE )
-		do_auto_response = false;
-
-	if( is_auto_response )
-		do_auto_response = false;
-
-	// handle cases where IM_NOTHING_SPECIAL is not an IM
-	if( name == SYSTEM_FROM ||
-		from_id.isNull() ||
-		to_id.isNull() )
-		do_auto_response = false;
-
-//	if( do_auto_response )
-// [RLVa:KB] - Alternate: Emerald-370
-	// Emerald specific: auto-response should be blocked if the avie is RLV @sendim=n restricted and the recipient is not an exception
-	if ( (do_auto_response) && ( (!gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM)) || (gRlvHandler.isException(RLV_BHVR_SENDIM, from_id)) ) )
-// [/RLVa:KB]
-	{
-		if((dialog == IM_NOTHING_SPECIAL && !is_auto_response) ||
-			(dialog == IM_TYPING_START && gSavedPerAccountSettings.getBOOL("InstantMessageShowOnTyping"))
-			)
-		{
-			BOOL has = gIMMgr->hasSession(computed_session_id);
-			if(!has || gSavedPerAccountSettings.getBOOL("InstantMessageResponseRepeat") || typing_init)
-			{
-				BOOL show = !gSavedPerAccountSettings.getBOOL("InstantMessageShowResponded");
-				if(!has && show)
+				typing_init = true;
+				if( gSavedPerAccountSettings.getBOOL("InstantMessageAnnounceStealFocus") )
 				{
-					gIMMgr->addSession(name, IM_NOTHING_SPECIAL, from_id);
+					/*LLUUID sess =*/ gIMMgr->addSession(name, IM_NOTHING_SPECIAL, from_id);
+					make_ui_sound("UISndNewIncomingIMSession");
 				}
-				if(show)
-				{
-					gIMMgr->addMessage(
-							computed_session_id,
-							from_id,
-							SYSTEM_FROM,
-							llformat("Autoresponse sent to %s.",name.c_str()),
-							LLStringUtil::null,
-							IM_NOTHING_SPECIAL,
-							parent_estate_id,
-							region_id,
-							position,
-							false);
-				}
-				std::string my_name;
-				gAgent.buildFullname(my_name);
-
-				//<-- Personalized Autoresponse by Madgeek
-				std::string autoresponse = gSavedPerAccountSettings.getText("InstantMessageResponse");
-				//Define Wildcards
-				std::string fname_wildcard = "#f";
-				std::string lname_wildcard = "#l";
-				std::string time_wildcard = "#t";
-				//Extract Name
-				std::string f_name, l_name;
-				std::istringstream inname(name);
-				inname >> f_name >> l_name;
-				//Generate a Timestamp
-				time_t rawtime;
-				time(&rawtime);
-				char * timestamp_chars;
-				timestamp_chars = asctime(localtime(&rawtime));
-				std::string timestamp;
-				timestamp.assign(timestamp_chars);
-				timestamp = timestamp.substr(0, timestamp.find('\n'));
-				//Handle Replacements
-				size_t found = autoresponse.find(fname_wildcard);
-				while(found != std::string::npos)
-				{
-					autoresponse.replace(found, 2, f_name);
-					found = autoresponse.find(fname_wildcard);
-				}
-				found = autoresponse.find(lname_wildcard);
-				while(found != std::string::npos)
-				{
-					autoresponse.replace(found, 2, l_name);
-					found = autoresponse.find(lname_wildcard);
-				}
-				found = autoresponse.find(time_wildcard);
-				while(found != std::string::npos)
-				{
-					autoresponse.replace(found, 2, timestamp);
-					found = autoresponse.find(time_wildcard);
-				}
-				//--> Personalized Autoresponse
-
-				if(gSavedPerAccountSettings.getBOOL("InstantMessageResponseRepeat") && has && !typing_init) {
-					// send as busy auto response instead to prevent endless repeating replies
-					// when other end is a bot or broken client that answers to every usual IM
-					// reasoning for this decision can be found in RFC2812 3.3.2 Notices
-					// where PRIVMSG can be seen as IM_NOTHING_SPECIAL and NOTICE can be seen as
-					// IM_BUSY_AUTO_RESPONSE. The assumption here is that no existing client
-					// responds to IM_BUSY_AUTO_RESPONSE. --TS
-					std::string response = autoresponse;
-					pack_instant_message(
-						gMessageSystem,
-						gAgent.getID(),
-						FALSE,
-						gAgent.getSessionID(),
+				gIMMgr->addMessage(
+						computed_session_id,
 						from_id,
-						my_name,
-						response,
-						IM_OFFLINE,
-						IM_BUSY_AUTO_RESPONSE,
-						session_id);
-				} else {
-					std::string response = "/me (auto-response): "+autoresponse;
-					pack_instant_message(
-						gMessageSystem,
-						gAgent.getID(),
-						FALSE,
-						gAgent.getSessionID(),
-						from_id,
-						my_name,
-						response,
-						IM_OFFLINE,
+						name,
+						llformat("You sense a disturbance in the force...  (%s is typing)",name.c_str()),
+						name,
 						IM_NOTHING_SPECIAL,
-						session_id);
-				}
-				gAgent.sendReliableMessage();
-				if(gSavedPerAccountSettings.getBOOL("InstantMessageResponseItem") && (!has || typing_init))
+						parent_estate_id,
+						region_id,
+						position,
+						false);
+			}
+		}
+
+		bool is_auto_response = false;
+		if(dialog == IM_NOTHING_SPECIAL) {
+			// detect auto responses from compatible viewers
+			is_auto_response = ( message.substr(0, 21) == "/me (auto-response): " );
+		}
+
+		bool do_auto_response = false;
+		if( gSavedPerAccountSettings.getBOOL("InstantMessageResponseAnyone" ) )
+			do_auto_response = true;
+
+		// odd name for auto respond to non-friends
+		if( gSavedPerAccountSettings.getBOOL("InstantMessageResponseFriends") &&
+			LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL )
+			do_auto_response = true;
+
+		if( is_muted && !gSavedPerAccountSettings.getBOOL("InstantMessageResponseMuted") )
+			do_auto_response = false;
+
+		if( offline != IM_ONLINE )
+			do_auto_response = false;
+
+		if( is_auto_response )
+			do_auto_response = false;
+
+		// handle cases where IM_NOTHING_SPECIAL is not an IM
+		if( name == SYSTEM_FROM ||
+			from_id.isNull() ||
+			to_id.isNull() )
+			do_auto_response = false;
+
+	//	if( do_auto_response )
+	// [RLVa:KB] - Alternate: Emerald-370
+		// Emerald specific: auto-response should be blocked if the avie is RLV @sendim=n restricted and the recipient is not an exception
+		if ( (do_auto_response) && ( (!gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM)) || (gRlvHandler.isException(RLV_BHVR_SENDIM, from_id)) ) )
+	// [/RLVa:KB]
+		{
+			if((dialog == IM_NOTHING_SPECIAL && !is_auto_response) ||
+				(dialog == IM_TYPING_START && gSavedPerAccountSettings.getBOOL("InstantMessageShowOnTyping"))
+				)
+			{
+				BOOL has = gIMMgr->hasSession(computed_session_id);
+				if(!has || gSavedPerAccountSettings.getBOOL("InstantMessageResponseRepeat") || typing_init)
 				{
-					LLUUID itemid = (LLUUID)gSavedPerAccountSettings.getString("InstantMessageResponseItemData");
-					LLViewerInventoryItem* item = gInventory.getItem(itemid);
-					if(item)
+					BOOL show = !gSavedPerAccountSettings.getBOOL("InstantMessageShowResponded");
+					if(!has && show)
 					{
-						//childSetValue("im_give_disp_rect_txt","Currently set to: "+item->getName());
-						if(show)
-						{
-							gIMMgr->addMessage(
-									computed_session_id,
-									from_id,
-									SYSTEM_FROM,
-									llformat("Sent %s auto-response item \"%s\"",name.c_str(),item->getName().c_str()),
-									LLStringUtil::null,
-									IM_NOTHING_SPECIAL,
-									parent_estate_id,
-									region_id,
-									position,
-									false);
-						}
-						LLToolDragAndDrop::giveInventory(from_id, item);
+						gIMMgr->addSession(name, IM_NOTHING_SPECIAL, from_id);
 					}
+					if(show)
+					{
+						gIMMgr->addMessage(
+								computed_session_id,
+								from_id,
+								SYSTEM_FROM,
+								llformat("Autoresponse sent to %s.",name.c_str()),
+								LLStringUtil::null,
+								IM_NOTHING_SPECIAL,
+								parent_estate_id,
+								region_id,
+								position,
+								false);
+					}
+					std::string my_name;
+					gAgent.buildFullname(my_name);
+
+					//<-- Personalized Autoresponse by Madgeek
+					std::string autoresponse = gSavedPerAccountSettings.getText("InstantMessageResponse");
+					//Define Wildcards
+					std::string fname_wildcard = "#f";
+					std::string lname_wildcard = "#l";
+					std::string time_wildcard = "#t";
+					//Extract Name
+					std::string f_name, l_name;
+					std::istringstream inname(name);
+					inname >> f_name >> l_name;
+					//Generate a Timestamp
+					time_t rawtime;
+					time(&rawtime);
+					char * timestamp_chars;
+					timestamp_chars = asctime(localtime(&rawtime));
+					std::string timestamp;
+					timestamp.assign(timestamp_chars);
+					timestamp = timestamp.substr(0, timestamp.find('\n'));
+					//Handle Replacements
+					size_t found = autoresponse.find(fname_wildcard);
+					while(found != std::string::npos)
+					{
+						autoresponse.replace(found, 2, f_name);
+						found = autoresponse.find(fname_wildcard);
+					}
+					found = autoresponse.find(lname_wildcard);
+					while(found != std::string::npos)
+					{
+						autoresponse.replace(found, 2, l_name);
+						found = autoresponse.find(lname_wildcard);
+					}
+					found = autoresponse.find(time_wildcard);
+					while(found != std::string::npos)
+					{
+						autoresponse.replace(found, 2, timestamp);
+						found = autoresponse.find(time_wildcard);
+					}
+					//--> Personalized Autoresponse
+
+					if(gSavedPerAccountSettings.getBOOL("InstantMessageResponseRepeat") && has && !typing_init) {
+						// send as busy auto response instead to prevent endless repeating replies
+						// when other end is a bot or broken client that answers to every usual IM
+						// reasoning for this decision can be found in RFC2812 3.3.2 Notices
+						// where PRIVMSG can be seen as IM_NOTHING_SPECIAL and NOTICE can be seen as
+						// IM_BUSY_AUTO_RESPONSE. The assumption here is that no existing client
+						// responds to IM_BUSY_AUTO_RESPONSE. --TS
+						std::string response = autoresponse;
+						pack_instant_message(
+							gMessageSystem,
+							gAgent.getID(),
+							FALSE,
+							gAgent.getSessionID(),
+							from_id,
+							my_name,
+							response,
+							IM_OFFLINE,
+							IM_BUSY_AUTO_RESPONSE,
+							session_id);
+					} else {
+						std::string response = "/me (auto-response): "+autoresponse;
+						pack_instant_message(
+							gMessageSystem,
+							gAgent.getID(),
+							FALSE,
+							gAgent.getSessionID(),
+							from_id,
+							my_name,
+							response,
+							IM_OFFLINE,
+							IM_NOTHING_SPECIAL,
+							session_id);
+					}
+					gAgent.sendReliableMessage();
+					if(gSavedPerAccountSettings.getBOOL("InstantMessageResponseItem") && (!has || typing_init))
+					{
+						LLUUID itemid = (LLUUID)gSavedPerAccountSettings.getString("InstantMessageResponseItemData");
+						LLViewerInventoryItem* item = gInventory.getItem(itemid);
+						if(item)
+						{
+							//childSetValue("im_give_disp_rect_txt","Currently set to: "+item->getName());
+							if(show)
+							{
+								gIMMgr->addMessage(
+										computed_session_id,
+										from_id,
+										SYSTEM_FROM,
+										llformat("Sent %s auto-response item \"%s\"",name.c_str(),item->getName().c_str()),
+										LLStringUtil::null,
+										IM_NOTHING_SPECIAL,
+										parent_estate_id,
+										region_id,
+										position,
+										false);
+							}
+							LLToolDragAndDrop::giveInventory(from_id, item);
+						}
+					}
+					//InstantMessageResponseItem<
+					
 				}
-				//InstantMessageResponseItem<
-				
 			}
 		}
 	}
@@ -3931,17 +3934,16 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	msg->getF32Fast(_PREHASH_SoundData, _PREHASH_Gain, gain);
 
 	//If we have sounds muted, don't even try to load or trigger the sound.
-	if(gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+	if (gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+	{
 		return;
+	}
 
 	// adjust sound location to true global coords
 	LLVector3d	pos_global = from_region_handle(region_handle);
 	pos_global.mdV[VX] += pos_local.mV[VX];
 	pos_global.mdV[VY] += pos_local.mV[VY];
 	pos_global.mdV[VZ] += pos_local.mV[VZ];
-
-	// Don't play sounds if sound settings are muted.
-	if (gSavedSettings.getBOOL("MuteSounds")) return;
 
 	// Don't play a trigger sound if you can't hear it due
 	// to parcel "local audio only" settings.
@@ -3960,11 +3962,25 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
+	// Don't load sounds if we have gestures muted -- MC
+	if ((owner_id != gAgent.getID()) && (object_id == owner_id))
+	{
+		if (gSavedSettings.getBOOL("MuteGestures"))
+		{
+			return;
+		}
+		else
+		{
+			gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_GESTURE, pos_global);
+		}
+	}
+
 	// Don't play sounds from a region with maturity above current agent maturity
-	if( !gAgent.canAccessMaturityInRegion( region_handle ) )
+	// Actually, let's -- MC
+	/*if( !gAgent.canAccessMaturityInRegion( region_handle ) )
 	{
 		return;
-	}
+	}*/
 		
 	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global);
 }
@@ -4000,11 +4016,12 @@ void process_preload_sound(LLMessageSystem *msg, void **user_data)
 	// help us out.
 
 	// Don't play sounds from a region with maturity above current agent maturity
-	LLVector3d pos_global = objectp->getPositionGlobal();
+	// Actually, let's -- MC
+	/*LLVector3d pos_global = objectp->getPositionGlobal();
 	if( !gAgent.canAccessMaturityAtGlobal( pos_global ) )
 	{
 		return;
-	}
+	}*/
 	
 	// Add audioData starts a transfer internally.
 	sourcep->addAudioData(datap, FALSE);
@@ -4040,11 +4057,12 @@ void process_attached_sound(LLMessageSystem *msg, void **user_data)
 
 	
 	// Don't play sounds from a region with maturity above current agent maturity
-	LLVector3d pos = objectp->getPositionGlobal();
+	// Actually, let's -- MC
+	/*LLVector3d pos = objectp->getPositionGlobal();
 	if( !gAgent.canAccessMaturityAtGlobal(pos) )
 	{
 		return;
-	}
+	}*/
 	
 	objectp->setAttachedSound(sound_id, owner_id, gain, flags);
 }

@@ -5443,6 +5443,24 @@ class LLWorldSetBusy : public view_listener_t
 	}
 };
 
+class LLWorldToggleAutoResponse: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gSavedPerAccountSettings.setBOOL("InstantMessageResponseEnabled", !gSavedPerAccountSettings.getBOOL("InstantMessageResponseEnabled"));
+		return true;
+	}
+
+};
+
+class LLWorldCheckAutoResponse: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(gSavedPerAccountSettings.getBOOL("InstantMessageResponseEnabled"));
+		return true;
+	}
+};
 
 class LLWorldCreateLandmark : public view_listener_t
 {
@@ -10947,6 +10965,8 @@ void initialize_menus()
 	addMenu(new LLWorldTeleportHome(), "World.TeleportHome");
 	addMenu(new LLWorldSetAway(), "World.SetAway");
 	addMenu(new LLWorldSetBusy(), "World.SetBusy");
+	addMenu(new LLWorldToggleAutoResponse(), "World.ToggleAutoResponse");
+	addMenu(new LLWorldCheckAutoResponse(), "World.CheckAutoResponse");
 
 	addMenu(new LLWorldEnableCreateLandmark(), "World.EnableCreateLandmark");
 	addMenu(new LLWorldEnableSetHomeLocation(), "World.EnableSetHomeLocation");

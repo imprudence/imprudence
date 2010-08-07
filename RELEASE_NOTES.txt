@@ -4,6 +4,208 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                       1.3.0 RC1                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    RELEASE HIGHLIGHTS
+
+      * Fixed many frequent crashes and memory leaks. You should
+        notice significantly improved viewer stability in this
+        version. Many thanks to our Weeklies testers and everyone else
+        who helped us find and fix these issues!
+
+      * Area Object Search: You can now search for objects in the
+        nearby area by name, description, creator, and/or group name.
+        Thanks to the Emerald Viewer and Henri Beauchamp for this
+        feature.
+
+      * The actions on the Minimap Radar "Estate" tab now work for
+        parcel owners too. Thanks, McCabe!
+
+      * Fixed a long-standing typo that made the object cache useless
+        (SNOW-783). Second Life scenes will now rez much more quickly
+        when visiting them again. (OpenSim does not currently support
+        object caches.) Thanks to Andrew Linden for the tip-off.
+
+      * Other new features: copy worn attachments, MU*-style poses,
+        OOC auto-close, Shift-Enter to whisper, revamped LightShare
+        support, and more. Read on for details!
+
+
+    KNOWN ISSUES
+
+      * Certain audio streams and movies don't play audio, e.g.
+        YouTube MP4 videos. The viewer does not currently include the
+        necessary plugin to play the AAC audio format. We hope to
+        resolve this for the 1.3.0 final release.
+
+      * The viewer does not properly detect the LLKDU image library on
+        some systems. We are investigating this issue.
+
+      * The "Cancel" button is missing when the teleport screen is
+        disabled.
+
+      * The Animation Override window needs to be open when standing
+        up from sitting on the ground in order to activate stands.
+
+      * Tiny prims are sometimes invisible until selected.
+
+
+    CHANGES
+
+      In addition to the Release Highlights above, this version of
+      Imprudence also includes the following changes, as compared to
+      Imprudence 1.3.0 beta 5.
+
+
+      FEATURES / IMPROVEMENTS
+
+        * Re-enabled the ability to copy worn attachments in the
+          inventory window. Thanks to Henri Beauchamp for the patch!
+
+        * Added optional support for MU*-style poses (":" works like
+          "/me") and OOC auto-close (automatically close "((" in
+          chat). You can enable these features in "Preferences >
+          Advanced". Thanks to Henri Beauchamp for these features!
+
+        * You can now choose a clock/timestamp format in
+          "Preferences > General": 12-hour PST/PDT, 24-hour PST/PDT,
+          or UTC. Thanks, McCabe!
+
+        * You can now whisper in chat by pressing Shift-Enter instead
+          of Enter. Thanks to Henri Beauchamp for this feature!
+
+        * The viewer now plays in-world sound effects regardless of
+          the maturity rating of the sim. Thanks, McCabe!
+
+        * The Map window will now let you teleport up to the maximum Z
+          value allowed by the grid (it was limited to 4096 meters
+          before). Thanks, McCabe!
+
+        * Likewise, the minimap maximum zoom-out level is now based on
+          the maximum Z value allowed by the grid. Thanks, McCabe!
+
+        * Added menu entries to take off alpha and tattoo layers (in
+          the Edit menu and pie menus). Thanks, McCabe!
+
+        * Revamped LightShare support. Please see our LightShare wiki
+          page for more information about this feature. Thanks, Jacek!
+
+           - More fine-grained LightShare permission control in
+             "Preferences > Advanced".
+
+           - Teleporting will no longer reset Windlight to the default
+             settings.
+
+           - Added the new OpenSim 0.7 names for the LightShare script
+             functions (prefixed with "ls" instead of "cm") to the
+             script editor. Thanks, McCabe!
+
+        * Increased the maximum building grid size from 50m to 10,000m
+          in Advanced Build Options. Thanks, McCabe!
+
+        * Added "Advanced > Character > Private Point At" to disable
+          telling other viewers where you avatar is pointing (similar
+          to Private Look At).
+
+        * The Script Warning/Error window now has timestamps. Thanks,
+          Jacek!
+
+        * The viewer now automatically enables joystick support on
+          Windows and Linux if a joystick is present. You can disable
+          this by setting the JoystickAutoEnable debug setting to
+          FALSE. Thanks, Armin!
+
+           - Auto-enable is not available on Mac, due to an issue with
+             some mice being detected as joysticks. Mac users can still
+             manually enable joystick support in "Preferences > Input &
+             Camera > Joystick Setup".
+
+        * Added "Advanced > Debug Settings" to the login screen menu.
+
+        * Added a "File" menu to the notecard editor, with "Save",
+          "Import Text", and "Export Text" entries. Thanks, McCabe!
+
+        * Improved viewer framerate slightly by setting the inventory
+          window title more efficiently. Thanks, Armin!
+
+        * Added a "Select a Default Grid" popup the first time you run
+          Imprudence, to help users connect to the grid they want.
+          Thanks, McCabe!
+
+        * You can now access the Grid Manager at any time via
+          "Preferences > General". Thanks, McCabe!
+
+        * Cosmetic UI cleanup in the Advanced Build Options window,
+          pie menus, login screen, grid manager, event search tab, and
+          some notifications. Thanks, McCabe!
+
+        * Tidied up the Advanced menu a bit. Thanks, McCabe!
+
+        * "Limit Select Distance" has been moved from the Advanced
+          menu to the Advanced Build Options window.
+
+        * Renamed "Help > Viewer Help" to "Help > Grid Help" to match
+          what it does. Thanks, McCabe!
+
+        * The chat log timestamp now has a leading zero for hours less
+          than 10 (SNOW-629). Thanks to Ardy Lay for the patch!
+
+
+      BUG FIXES
+
+        * Fixed a nasty crash "LLRefCount: deleting non-zero
+          reference" (#293). Thanks, McCabe!
+
+        * Fixed a crash when http-getting an empty texture (SNOW-698).
+          Thanks for the patch, Thickbrick Sleaford!
+
+        * Fixed a crash when using a custom viewer skin that is
+          missing some color definitions. Thanks to the Emerald Viewer
+          for this fix.
+
+        * Fixed a crash in LLPanelPlace::onClickTeleport (#357).
+          Thanks, McCabe!
+
+        * Fixed several memory leaks. Thanks to Linden Lab and the
+          Emerald Viewer.
+
+        * Fixed the Animation Overrider not playing stand animations
+          after standing up from sitting on an object. (But, it still
+          affects standing up from the ground.) Thanks, McCabe!
+
+        * Fixed your avatar's eyes looking in a weird direction when
+          "Advanced > Character > Private Look At" is enabled. Thanks,
+          Armin!
+
+        * Fixed the "View > Web Browser" menu item not doing anything.
+          Thanks, McCabe!
+
+        * Fixed several Mac compile issues. Thanks, Jacek!
+
+        * When unable to connect, the error message now says the grid
+          name, instead of "Unable to connect to Imprudence". Thanks,
+          McCabe!
+
+        * Fixed chat logs potentially being saved to invalid
+          filenames. Thanks to the Emerald Viewer for this fix.
+
+        * Fixed a crash when trying to use a landmark after logging
+          out. Thanks, Armin!
+
+        * Reduced stuttering and lag in the audio engine. Thanks for
+          the patch, Henri Beauchamp!
+
+        * Fixed the Web Browser window missing its "Home" button.
+          Thanks, McCabe!
+
+        * Fixed the main menu disappearing when the "You have been
+          logged out" alert appears (#327). Thanks, McCabe!
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                     1.3.0 BETA 5                       -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

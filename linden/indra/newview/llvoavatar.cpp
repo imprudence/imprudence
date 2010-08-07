@@ -3428,7 +3428,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 	}
 	if(avatar->getTE(5)->getID() != avatar->getTE(6)->getID() && !client.empty())
 	{
-		client = "Failure";
+		client = "Unknown";
 		avatar_name_color = LLColor4::grey;
 	}
 	if(client.empty() && LLVOAvatar::sClientResolutionList.has("default"))

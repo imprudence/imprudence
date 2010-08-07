@@ -55,7 +55,6 @@ class LLMakeOutfitDialog;
 class LLRadioGroup;
 class LLScrollableContainerView;
 class LLScrollingPanelList;
-class LLTabContainerVertical;
 class LLTextBox;
 class LLTextureCtrl;
 class LLViewerJointMesh;

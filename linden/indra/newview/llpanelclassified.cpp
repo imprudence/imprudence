@@ -54,7 +54,6 @@
 #include "lllineeditor.h"
 #include "llfloateravatarinfo.h"
 #include "llfloaterclassified.h"
-#include "lltabcontainervertical.h"
 #include "lltextbox.h"
 #include "llcombobox.h"
 #include "llviewertexteditor.h"

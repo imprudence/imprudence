@@ -101,7 +101,7 @@ WindlightMessage::~WindlightMessage()
 // static
 void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 {
-	if( gSavedSettings.getU32("UseLightShare") <= LIGHTSHARE_NEVER )
+	if( gSavedSettings.getU32("LightShareAllowed") <= LIGHTSHARE_NEVER )
 		return;
 
 	WindlightMessage* wl = new WindlightMessage(msg);
@@ -114,7 +114,7 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 
 	// If they are using region settings already, or LightShare is
 	// always allowed, just apply the new settings, don't bother asking.
-	if( gSavedSettings.getU32("UseLightShare") == LIGHTSHARE_ALWAYS ||
+	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ALWAYS ||
 	    (sky == sSkyPresetName && water == sWaterPresetName) )
 	{
 		wl->apply();
@@ -138,7 +138,7 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		return;
 	}
 
-	if( gSavedSettings.getU32("UseLightShare") == LIGHTSHARE_ASK &&
+	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ASK &&
 	    sMostRecent == NULL )
 	{
 		// No most recent, so store this and create notification

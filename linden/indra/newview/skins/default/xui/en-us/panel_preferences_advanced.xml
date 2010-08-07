@@ -14,40 +14,33 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Disable teleport screen" left="12" mouse_opaque="true"
 	     name="disable_tp_screen_check" radio_style="false" width="217" />
-   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
-			font="SansSerifsmall" h_pad="0" halign="left" height="16" left="16"
-			mouse_opaque="true" name="online_no" v_pad="0" width="200">
-   Show client names:
-  </text>
-  <check_box bottom_delta="0" enabled="true" follows="left|top"
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="in nametag" left_delta="100" mouse_opaque="true"
+       label="Show client names in nametags" left="12" mouse_opaque="true"
        name="client_name_tag_check" radio_style="false" width="160" />
-  <check_box bottom_delta="0" enabled="true" follows="left|top"
+  <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="changing nametag color" left_delta="80" mouse_opaque="true"
+       label="Show client names with color" left_delta="0" mouse_opaque="true"
        name="client_name_color_check" radio_style="false" width="160" />
-  <check_box bottom_delta="0" enabled="true" follows="left|top"
+  <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="in tooltip" left_delta="140" mouse_opaque="true"
+       label="Show client names in hovertip" left_delta="0" mouse_opaque="true"
        name="client_name_hover_check" radio_style="false" width="160" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Broadcast your client name to others" left="12" mouse_opaque="true"
+       label="Show your client name to others" left_delta="0" mouse_opaque="true"
        name="client_name_tag_broadcast_check" radio_style="false" width="217" />
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
        label="Enable shadows (WARNING: unstable and requires Ultra graphics)" left="12" mouse_opaque="true"
        name="shadows_check" radio_style="false" width="217" />
 
-
-  <text bottom_delta="-25" left="16" height="15" width="220"
+  <text bottom_delta="-25" left="16" height="15" width="300"
         follows="top|left">
-    Allow region Windlight settings (LightShare):
+    Allow region WindLight settings (LightShare):
   </text>
   <combo_box name="lightshare_combo"
-             bottom_delta="-2" left="240" height="18" width="120"
+             bottom_delta="-2" left_delta="250" height="18" width="120"
              allow_text_entry="false" follows="left|top">
     <combo_item type="string" name="never" value="0">
       Never
@@ -59,7 +52,6 @@
       Always
     </combo_item>
   </combo_box>
-
 
   <check_box bottom_delta="-25" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
@@ -94,7 +86,6 @@
        mouse_opaque="true" name="language_is_public"
        radio_style="false" tool_tip="This lets in-world objects know your preferred language."
        width="256" />
-
   <check_box bottom_delta="-25" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" hidden="false"
        initial_value="false" label="Use MU* pose style chat and IM" left="12"
@@ -103,7 +94,7 @@
        width="256" />
   <check_box bottom_delta="0" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-       initial_value="false" label="Auto-close OOC chat" left_delta="180"
+       initial_value="false" label="Auto-close OOC (( )) chat" left_delta="250"
        mouse_opaque="true" name="auto_close_ooc"
        radio_style="false" tool_tip="Auto-close OOC chat (i.e. add )) if not found and (( was used)."
        width="256" />

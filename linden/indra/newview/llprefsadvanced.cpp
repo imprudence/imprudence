@@ -69,6 +69,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 	childSetValue("allow_mupose", gSavedSettings.getBOOL("AllowMUpose"));
 	childSetValue("auto_close_ooc", gSavedSettings.getBOOL("AutoCloseOOC"));
+	childSetValue("shadows_check", gSavedSettings.getBOOL("ShadowsEnabled"));
 
 	childSetValue("lightshare_combo",
 	              LLSD((S32)gSavedSettings.getU32("LightShareAllowed")));
@@ -131,6 +132,7 @@ void LLPrefsAdvanced::apply()
 			childSetValue("shadows_check", FALSE);
 			LLNotifications::instance().add("NoShadows");
 			llwarns << "Attempting to enable shadow rendering while graphics settings less than Ultra or shaders are missing!" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", FALSE);
 		}
 		else if ( (gSavedSettings.getBOOL("WindLightUseAtmosShaders") // If we do, toggle shadows in the correct order
 				&& gSavedSettings.getBOOL("VertexShaderEnable")) )
@@ -138,6 +140,7 @@ void LLPrefsAdvanced::apply()
 			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
 			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
 			llinfos << "Shadow rendering enabled" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", TRUE);
 		}
 	}
 	else if (!childGetValue("shadows_check").asBoolean()) 
@@ -147,9 +150,9 @@ void LLPrefsAdvanced::apply()
 			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
 			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
 			llinfos << "Shadow rendering disabled" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", FALSE);
 		}
 	}
-	gSavedSettings.setBOOL("ShadowsEnabled", childGetValue("shadows_check").asBoolean());
 
 	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
 	{
