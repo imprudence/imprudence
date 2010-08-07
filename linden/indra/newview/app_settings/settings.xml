@@ -636,7 +636,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://gridops.3dhosting.de/websearch/index.php?</string>
+    <string>http://webi.metaverseink.com/opensim/results.jsp?</string>
   </map>
   <key>SearchURLQuery</key>
   <map>
@@ -662,7 +662,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://gridops.3dhosting.de/websearch/index.php?q=[QUERY]</string>
+    <string>http://webi.metaverseink.com/opensim/results.jsp?query=[QUERY]&amp;vw=os</string>
   </map>
   <key>SearchURLSuffix2</key>
   <map>
