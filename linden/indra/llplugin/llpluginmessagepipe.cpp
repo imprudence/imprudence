@@ -98,11 +98,14 @@ void LLPluginMessagePipeOwner::killMessagePipe(void)
 	}
 }
 
-LLPluginMessagePipe::LLPluginMessagePipe(LLPluginMessagePipeOwner *owner, LLSocket::ptr_t socket)
+LLPluginMessagePipe::LLPluginMessagePipe(LLPluginMessagePipeOwner *owner, LLSocket::ptr_t socket):
+	mInputMutex(gAPRPoolp),
+	mOutputMutex(gAPRPoolp),
+	mOwner(owner),
+	mSocket(socket)
 {
-	mOwner = owner;
+	
 	mOwner->setMessagePipe(this);
-	mSocket = socket;
 }
 
 LLPluginMessagePipe::~LLPluginMessagePipe()
@@ -116,6 +119,7 @@ LLPluginMessagePipe::~LLPluginMessagePipe()
 bool LLPluginMessagePipe::addMessage(const std::string &message)
 {
 	// queue the message for later output
+	LLMutexLock lock(&mOutputMutex);
 	mOutput += message;
 	mOutput += MESSAGE_DELIMITER;	// message separator
 	
@@ -151,6 +155,18 @@ void LLPluginMessagePipe::setSocketTimeout(apr_interval_time_t timeout_usec)
 
 bool LLPluginMessagePipe::pump(F64 timeout)
 {
+	bool result = pumpOutput();
+	
+	if(result)
+	{
+		result = pumpInput(timeout);
+	}
+	
+	return result;
+}
+
+bool LLPluginMessagePipe::pumpOutput()
+{
 	bool result = true;
 	
 	if(mSocket)
@@ -158,6 +174,7 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 		apr_status_t status;
 		apr_size_t size;
 		
+		LLMutexLock lock(&mOutputMutex);
 		if(!mOutput.empty())
 		{
 			// write any outgoing messages
@@ -185,6 +202,17 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 				// remove the written part from the buffer and try again later.
 				mOutput = mOutput.substr(size);
 			}
+			else if(APR_STATUS_IS_EOF(status))
+			{
+				// This is what we normally expect when a plugin exits.
+				llinfos << "Got EOF from plugin socket. " << llendl;
+
+				if(mOwner)
+				{
+					mOwner->socketError(status);
+				}
+				result = false;
+			}
 			else 
 			{
 				// some other error
@@ -198,6 +226,19 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 				result = false;
 			}
 		}
+	}
+	
+	return result;
+}
+
+bool LLPluginMessagePipe::pumpInput(F64 timeout)
+{
+	bool result = true;
+
+	if(mSocket)
+	{
+		apr_status_t status;
+		apr_size_t size;
 
 		// FIXME: For some reason, the apr timeout stuff isn't working properly on windows.
 		// Until such time as we figure out why, don't try to use the socket timeout -- just sleep here instead.
@@ -218,8 +259,16 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 			char input_buf[1024];
 			apr_size_t request_size;
 			
-			// Start out by reading one byte, so that any data received will wake us up.
-			request_size = 1;
+			if(timeout == 0.0f)
+			{
+				// If we have no timeout, start out with a full read.
+				request_size = sizeof(input_buf);
+			}
+			else
+			{
+				// Start out by reading one byte, so that any data received will wake us up.
+				request_size = 1;
+			}
 			
 			// and use the timeout so we'll sleep if no data is available.
 			setSocketTimeout((apr_interval_time_t)(timeout * 1000000));
@@ -238,11 +287,14 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 //				LL_INFOS("Plugin") << "after apr_socket_recv, size = " << size << LL_ENDL;
 				
 				if(size > 0)
+				{
+					LLMutexLock lock(&mInputMutex);
 					mInput.append(input_buf, size);
+				}
 
 				if(status == APR_SUCCESS)
 				{
-//					llinfos << "success, read " << size << llendl;
+					LL_DEBUGS("PluginSocket") << "success, read " << size << LL_ENDL;
 
 					if(size != request_size)
 					{
@@ -252,16 +304,28 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 				}
 				else if(APR_STATUS_IS_TIMEUP(status))
 				{
-//					llinfos << "TIMEUP, read " << size << llendl;
+					LL_DEBUGS("PluginSocket") << "TIMEUP, read " << size << LL_ENDL;
 
 					// Timeout was hit.  Since the initial read is 1 byte, this should never be a partial read.
 					break;
 				}
 				else if(APR_STATUS_IS_EAGAIN(status))
 				{
-//					llinfos << "EAGAIN, read " << size << llendl;
+					LL_DEBUGS("PluginSocket") << "EAGAIN, read " << size << LL_ENDL;
 
-					// We've been doing partial reads, and we're done now.
+					// Non-blocking read returned immediately.
+					break;
+				}
+				else if(APR_STATUS_IS_EOF(status))
+				{
+					// This is what we normally expect when a plugin exits.
+					LL_INFOS("PluginSocket") << "Got EOF from plugin socket. " << LL_ENDL;
+
+					if(mOwner)
+					{
+						mOwner->socketError(status);
+					}
+					result = false;
 					break;
 				}
 				else
@@ -278,21 +342,17 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 					break;
 				}
 
-				// Second and subsequent reads should not use the timeout
-				setSocketTimeout(0);
-				// and should try to fill the input buffer
-				request_size = sizeof(input_buf);
+				if(timeout != 0.0f)
+				{
+					// Second and subsequent reads should not use the timeout
+					setSocketTimeout(0);
+					// and should try to fill the input buffer
+					request_size = sizeof(input_buf);
+				}
 			}
 			
 			processInput();
 		}
-	}
-
-	if(!result)
-	{
-		// If we got an error, we're done.
-		LL_INFOS("Plugin") << "Error from socket, cleaning up." << LL_ENDL;
-		delete this;
 	}
 	
 	return result;	
@@ -301,26 +361,27 @@ bool LLPluginMessagePipe::pump(F64 timeout)
 void LLPluginMessagePipe::processInput(void)
 {
 	// Look for input delimiter(s) in the input buffer.
-	int start = 0;
 	int delim;
-	while((delim = mInput.find(MESSAGE_DELIMITER, start)) != std::string::npos)
+	mInputMutex.lock();
+	while((delim = mInput.find(MESSAGE_DELIMITER)) != std::string::npos)
 	{	
 		// Let the owner process this message
 		if (mOwner)
 		{
-			mOwner->receiveMessageRaw(mInput.substr(start, delim - start));
+			// Pull the message out of the input buffer before calling receiveMessageRaw.
+			// It's now possible for this function to get called recursively (in the case where the plugin makes a blocking request)
+			// and this guarantees that the messages will get dequeued correctly.
+			std::string message(mInput, 0, delim);
+			mInput.erase(0, delim + 1);
+			mInputMutex.unlock();
+			mOwner->receiveMessageRaw(message);
+			mInputMutex.lock();
 		}
 		else
 		{
 			LL_WARNS("Plugin") << "!mOwner" << LL_ENDL;
 		}
-		
-		start = delim + 1;
 	}
-	
-	// Remove delivered messages from the input buffer.
-	if(start != 0)
-		mInput = mInput.substr(start);
-	
+	mInputMutex.unlock();
 }
 

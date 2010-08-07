@@ -7,6 +7,7 @@ if(HAVE_64_BIT)
 endif(HAVE_64_BIT)
 
 include(00-Common)
+include(CURL)
 include(LLCommon)
 include(LLImage)
 include(LLMath)
@@ -27,6 +28,7 @@ include_directories(
 
 set(llplugin_SOURCE_FILES
     llpluginclassmedia.cpp
+    llplugincookiestore.cpp
     llplugininstance.cpp
     llpluginmessage.cpp
     llpluginmessagepipe.cpp
@@ -40,6 +42,7 @@ set(llplugin_HEADER_FILES
 
     llpluginclassmedia.h
     llpluginclassmediaowner.h
+    llplugincookiestore.h
     llplugininstance.h
     llpluginmessage.h
     llpluginmessageclasses.h
@@ -65,3 +68,19 @@ list(APPEND llplugin_SOURCE_FILES ${llplugin_HEADER_FILES})
 add_library (llplugin ${llplugin_SOURCE_FILES})
 
 add_subdirectory(slplugin)
+
+# # Add tests
+# include(LLAddBuildTest)
+# # UNIT TESTS
+# SET(llplugin_TEST_SOURCE_FILES
+#   llplugincookiestore.cpp
+#   )
+# 
+# # llplugincookiestore has a dependency on curl, so we need to link the curl library into the test.
+# set_source_files_properties(
+#   llplugincookiestore.cpp
+#   PROPERTIES
+#     LL_TEST_ADDITIONAL_LIBRARIES "${CURL_LIBRARIES}"
+#   )
+# 
+# LL_ADD_PROJECT_UNIT_TESTS(llplugin "${llplugin_TEST_SOURCE_FILES}")

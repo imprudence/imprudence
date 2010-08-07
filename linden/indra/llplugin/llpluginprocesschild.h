@@ -36,6 +36,8 @@
 #ifndef LL_LLPLUGINPROCESSCHILD_H
 #define LL_LLPLUGINPROCESSCHILD_H
 
+#include <queue> //imprudence
+
 #include "llpluginmessage.h"
 #include "llpluginmessagepipe.h"
 #include "llplugininstance.h"
@@ -108,6 +110,11 @@ private:
 	LLTimer mHeartbeat;
 	F64		mSleepTime;
 	F64		mCPUElapsed;
+	bool	mBlockingRequest;
+	bool	mBlockingResponseReceived;
+	std::queue<std::string> mMessageQueue;
+	
+	void deliverQueuedMessages();
 	
 };
 

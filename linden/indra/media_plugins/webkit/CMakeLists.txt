@@ -18,7 +18,7 @@ include(Linking)
 include(PluginAPI)
 include(MediaPluginBase)
 include(FindOpenGL)
-#include(PulseAudio)
+include(PulseAudio)
 
 include(WebKitLibPlugin)
 
@@ -48,6 +48,9 @@ if(NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 		add_definitions(-fPIC)
 	endif(WINDOWS)
 endif (NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
+set(media_plugin_webkit_HEADER_FILES
+    volume_catcher.h
+    )
 
 set(media_plugin_webkit_LINK_LIBRARIES
   ${LLPLUGIN_LIBRARIES}
@@ -58,13 +61,33 @@ set(media_plugin_webkit_LINK_LIBRARIES
   ${PULSEAUDIO_LIBRARIES}
 )
 
+# Select which VolumeCatcher implementation to use
 if (LINUX)
-  list(APPEND media_plugin_webkit_SOURCE_FILES linux_volume_catcher.cpp)
+  if (PULSEAUDIO)
+    list(APPEND media_plugin_webkit_SOURCE_FILES linux_volume_catcher.cpp)
+  endif (PULSEAUDIO)
   list(APPEND media_plugin_webkit_LINK_LIBRARIES
-    ${UI_LIBRARIES}  # for glib/GTK
-    )
-endif(LINUX)
+       ${UI_LIBRARIES}     # for glib/GTK
+       )
+elseif (DARWIN)
+  list(APPEND media_plugin_webkit_SOURCE_FILES mac_volume_catcher.cpp)
+  find_library(CORESERVICES_LIBRARY CoreServices)
+  find_library(AUDIOUNIT_LIBRARY AudioUnit)
+  list(APPEND media_plugin_webkit_LINK_LIBRARIES
+       ${CORESERVICES_LIBRARY}     # for Component Manager calls
+       ${AUDIOUNIT_LIBRARY}        # for AudioUnit calls
+       )
+elseif (WINDOWS)
+  list(APPEND media_plugin_webkit_SOURCE_FILES windows_volume_catcher.cpp)
+else (LINUX)
+  # All other platforms use the dummy volume catcher for now.
+  list(APPEND media_plugin_webkit_SOURCE_FILES dummy_volume_catcher.cpp)
+endif (LINUX)
 
+set_source_files_properties(${media_plugin_webkit_HEADER_FILES}
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
+
+list(APPEND media_plugin_webkit_SOURCE_FILES ${media_plugin_webkit_HEADER_FILES})
 
 add_library(media_plugin_webkit
     SHARED

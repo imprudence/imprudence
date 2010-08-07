@@ -41,6 +41,7 @@
 #include <queue>
 
 class LLPluginClassMedia;
+class LLPluginCookieStore;
 
 class LLPluginClassMediaOwner
 {
@@ -80,6 +81,7 @@ public:
 	
 	virtual ~LLPluginClassMediaOwner() {};
 	virtual void handleMediaEvent(LLPluginClassMedia* /*self*/, EMediaEvent /*event*/) {};
+	virtual void handleCookieSet(LLPluginClassMedia* /*self*/, const std::string &/*cookie*/) {};
 };
 
 #endif // LL_LLPLUGINCLASSMEDIAOWNER_H

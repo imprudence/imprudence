@@ -1144,30 +1144,23 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>38a31c64cbb021320c6f8c0296933f2b</string>
+            <string>becffca6bd8dcb239de284ea2a8b485b</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6-darwin-20100402.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6+cookies-darwin-20100617.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>78e22d53c84c8642fbaa027fed20cc48</string>
+            <string>414d72dd59e3d83c96f0e1531360792e</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20100407.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>d602324a827be7e0a8c90f85d27d6151</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/llqtwebkit-linux64-20100617.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20100618.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>b6ec5fe296b8ad9097b182b5c09a9589</string>
+            <string>df1bdd683128e060d60e435f65d8f7e8</string>
             <key>url</key>
-            <uri>http://viewer-source-downloads.s3.amazonaws.com/install_pkgs/llqtwebkit-windows-qt4.6-20100402.tar.bz2</uri>
+            <uri>http://viewer-source-downloads.s3.amazonaws.com/install_pkgs/llqtwebkit-windows-qt4.6-20100617.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1453,6 +1446,25 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <string>8e611d266d9e589bc3913dbe0a08853c</string>
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.4.565-windows-20100514.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
+      <key>pulseaudio</key>
+      <map>
+        <key>copyright</key>
+        <string>Copyright 2004-2006 Lennart Poettering, Copyright 2006 Pierre Ossman (ossman@cendio.se) for Cendio AB</string>
+        <key>description</key>
+        <string>pulseaudio: headers only</string>
+        <key>license</key>
+        <string>lgpl</string>
+        <key>packages</key>
+        <map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>30cb00069fe2a545fbf7be1070386236</string>
+            <key>url</key>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/linux-pulse-headers-0.9.14.tar.bz2</uri>
           </map>
         </map>
       </map>

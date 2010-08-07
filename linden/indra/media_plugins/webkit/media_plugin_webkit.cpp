@@ -49,13 +49,15 @@
 #if LL_LINUX
 # include <iomanip> 
 # define LL_QTWEBKIT_USES_PIXMAPS 0
+extern "C" {
+# include <glib.h>
+# include <glib-object.h>
+}
 #else
 # define LL_QTWEBKIT_USES_PIXMAPS 0
 #endif // LL_LINUX
 
-#if LL_LINUX
-# include "linux_volume_catcher.h"
-#endif // LL_LINUX
+# include "volume_catcher.h"
 
 #if LL_WINDOWS
 # include <direct.h>
@@ -65,7 +67,7 @@
 #endif
 
 #if LL_WINDOWS
-	// *NOTE:Mani - This captures the module handle fo rthe dll. This is used below
+	// *NOTE:Mani - This captures the module handle for the dll. This is used below
 	// to get the path to this dll for webkit initialization.
 	// I don't know how/if this can be done with apr...
 	namespace {	HMODULE gModuleHandle;};
@@ -122,9 +124,7 @@ private:
 	F32 mBackgroundG;
 	F32 mBackgroundB;
 	
-#if LL_LINUX
-	LinuxVolumeCatcher mLinuxVolumeCatcher;
-#endif // LL_LINUX
+	VolumeCatcher mVolumeCatcher;
 
 	void setInitState(int state)
 	{
@@ -136,11 +136,19 @@ private:
 	//
 	void update(int milliseconds)
 	{
+#if LL_QTLINUX_DOESNT_HAVE_GLIB
+		// pump glib generously, as Linux browser plugins are on the
+		// glib main loop, even if the browser itself isn't - ugh
+		// This is NOT NEEDED if Qt itself was built with glib
+		// mainloop integration.
+		GMainContext *mainc = g_main_context_default();
+		while(g_main_context_iteration(mainc, FALSE));
+#endif // LL_QTLINUX_DOESNT_HAVE_GLIB
+
+		// pump qt
 		LLQtWebKit::getInstance()->pump( milliseconds );
 		
-#if LL_LINUX
-		mLinuxVolumeCatcher.pump();
-#endif // LL_LINUX
+		mVolumeCatcher.pump();
 
 		checkEditState();
 		
@@ -208,6 +216,14 @@ private:
 			return false;
 		}
 		std::string application_dir = std::string( cwd );
+
+#if LL_LINUX
+		// take care to initialize glib properly, because some
+		// versions of Qt don't, and we indirectly need it for (some
+		// versions of) Flash to not crash the browser.
+		if (!g_thread_supported ()) g_thread_init (NULL);
+		g_type_init();
+#endif
 
 #if LL_DARWIN
 		// When running under the Xcode debugger, there's a setting called "Break on Debugger()/DebugStr()" which defaults to being turned on.
@@ -306,11 +322,14 @@ private:
 		// append details to agent string
 		LLQtWebKit::getInstance()->setBrowserAgentId( mUserAgent );
 
+		// Set up window open behavior
+		LLQtWebKit::getInstance()->setWindowOpenBehavior(mBrowserWindowId, LLQtWebKit::WOB_SIMULATE_BLANK_HREF_CLICK);
+		
 #if !LL_QTWEBKIT_USES_PIXMAPS
 		// don't flip bitmap
 		LLQtWebKit::getInstance()->flipWindow( mBrowserWindowId, true );
 #endif // !LL_QTWEBKIT_USES_PIXMAPS
-		
+
 		// set background color
 		// convert background color channels from [0.0, 1.0] to [0, 255];
 		LLQtWebKit::getInstance()->setBackgroundColor( mBrowserWindowId, int(mBackgroundR * 255.0f), int(mBackgroundG * 255.0f), int(mBackgroundB * 255.0f) );
@@ -508,6 +527,19 @@ private:
 	{
 		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "click_nofollow");
 		message.setValue("uri", event.getStringValue());
+		sendMessage(message);
+	}
+	
+
+	////////////////////////////////////////////////////////////////////////////////
+	// virtual
+	void onCookieChanged(const EventType& event)
+	{
+		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "cookie_set");
+		message.setValue("cookie", event.getStringValue());
+		// These could be passed through as well, but aren't really needed.
+//		message.setValue("uri", event.getEventUri());
+//		message.setValueBoolean("dead", (event.getIntValue() != 0))
 		sendMessage(message);
 	}
 	
@@ -1056,6 +1088,10 @@ void MediaPluginWebKit::receiveMessage(const char *message_string)
 				mJavascriptEnabled = message_in.getValueBoolean("enable");
 				//LLQtWebKit::getInstance()->enableJavascript( mJavascriptEnabled );
 			}
+			else if(message_name == "set_cookies")
+			{
+				LLQtWebKit::getInstance()->setCookies(message_in.getValue("cookies"));
+			}
 			else if(message_name == "proxy_setup")
 			{
 				bool val = message_in.getValueBoolean("enable");
@@ -1125,9 +1161,7 @@ void MediaPluginWebKit::receiveMessage(const char *message_string)
 
 void MediaPluginWebKit::setVolume(F32 volume)
 {
-#if LL_LINUX
-	mLinuxVolumeCatcher.setVolume(volume);
-#endif // LL_LINUX
+	mVolumeCatcher.setVolume(volume);
 }
 
 int init_media_plugin(LLPluginInstance::sendMessageFunction host_send_func, void *host_user_data, LLPluginInstance::sendMessageFunction *plugin_send_func, void **plugin_user_data)
