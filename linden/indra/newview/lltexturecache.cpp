@@ -1063,6 +1063,13 @@ void LLTextureCache::writeEntryAndClose(S32 idx, Entry& entry)
 		if (!mReadOnly)
 		{
 			entry.mTime = time(NULL);
+			if(entry.mImageSize < entry.mBodySize)
+			{
+				// Just say no, due to my messing around to cache discards other than 0 we can end up here
+				// after recalling an image from cache at a lower discard than cached. RC
+				return;
+			}
+
 			llassert_always(entry.mImageSize == 0 || entry.mImageSize == -1 || entry.mImageSize > entry.mBodySize);
 			if (entry.mBodySize > 0)
 			{
