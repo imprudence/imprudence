@@ -920,11 +920,17 @@ bool LLTextureFetchWorker::doWork(S32 param)
 
 					//roll back to try UDP
 					if(mCanUseNET)
-				{
+					{
 						mState = INIT ;
 						mCanUseHTTP = false ;
 						setPriority(LLWorkerThread::PRIORITY_HIGH | mWorkPriority);
 						return false ;
+					}
+					else
+					{
+						// UDP is not an option, we are dead
+						resetFormattedData();
+						return true; // failed
 					}
 				}
 				else if (mGetStatus == HTTP_SERVICE_UNAVAILABLE)
@@ -948,7 +954,8 @@ bool LLTextureFetchWorker::doWork(S32 param)
 
 				if (mHTTPFailCount >= max_attempts)
 				{
-					if (cur_size > 0)
+					// Make max_attempts attempt at decoding what data we have, then bail forever on this image
+					if (cur_size > 0 && (mHTTPFailCount < (max_attempts+1)) )
 					{
 						// Use available data
 						mLoadedDiscard = mFormattedImage->getDiscardLevel();
@@ -957,8 +964,20 @@ bool LLTextureFetchWorker::doWork(S32 param)
 					}
 					else
 					{
-						resetFormattedData();
-						return true; // failed
+						//roll back to try UDP
+						if(mCanUseNET)
+						{
+							mState = INIT ;
+							mCanUseHTTP = false ;
+							setPriority(LLWorkerThread::PRIORITY_HIGH | mWorkPriority);
+							return false ;
+						}
+						else
+						{
+							// UDP is not an option, we are dead
+							resetFormattedData();
+							return true; // failed
+						}
 					}
 				}
 				else
