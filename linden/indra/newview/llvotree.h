@@ -129,6 +129,7 @@ public:
 	struct TreeSpeciesData
 	{
 		LLUUID mTextureID;
+		std::string mTextureName;
 		
 		F32				mBranchLength;	// Scale (length) of tree branches
 		F32				mDroop;			// Droop from vertical (degrees) at each branch recursion

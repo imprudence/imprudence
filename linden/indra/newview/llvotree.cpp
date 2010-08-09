@@ -158,6 +158,11 @@ void LLVOTree::initClass()
 			static LLStdStringHandle texture_id_string = LLXmlTree::addAttributeString("texture_id");
 			success &= tree_def->getFastAttributeUUID(texture_id_string, id);
 			newTree->mTextureID = id;
+
+			std::string texname;
+			static LLStdStringHandle texture_name = LLXmlTree::addAttributeString("texture_name");
+			success &= tree_def->getFastAttributeString(texture_name, texname);
+			newTree->mTextureName = texname;
 			
 			static LLStdStringHandle droop_string = LLXmlTree::addAttributeString("droop");
 			success &= tree_def->getFastAttributeF32(droop_string, F32_val);
@@ -319,7 +324,7 @@ U32 LLVOTree::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	//  Load Species-Specific data 
 	//
-	mTreeImagep = gImageList.getImage(sSpeciesTable[mSpecies]->mTextureID);
+	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName);
 	if (mTreeImagep)
 	{
 		gGL.getTexUnit(0)->bind(mTreeImagep.get());
