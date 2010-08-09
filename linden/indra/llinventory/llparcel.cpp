@@ -306,11 +306,11 @@ void LLParcel::setMediaType(const std::string& type)
 	mMediaType = type;
 	mMediaType = rawstr_to_utf8(mMediaType);
 
-	// This code attempts to preserve legacy movie functioning
-	if(mMediaType.empty() && ! mMediaURL.empty())
-	{
-		setMediaType(std::string("video/vnd.secondlife.qt.legacy"));
-	}
+// 	// This legacy code prevents any media different from video from working on OpenSim
+// 	if(mMediaType.empty() && ! mMediaURL.empty())
+// 	{
+// 		setMediaType(std::string("video/vnd.secondlife.qt.legacy"));
+// 	}
 }
 void LLParcel::setMediaWidth(S32 width)
 {
@@ -762,7 +762,8 @@ void LLParcel::unpackMessage(LLMessageSystem* msg)
 	}
 	else
 	{
-		setMediaType(std::string("video/vnd.secondlife.qt.legacy"));
+		setMediaType(std::string("")); 	//having mMediaType empty causes autodetect,
+						// thats what we want -- AW
 		setMediaDesc(std::string("No Description available without Server Upgrade"));
 		mMediaLoop = true;
 		mObscureMedia = true;
