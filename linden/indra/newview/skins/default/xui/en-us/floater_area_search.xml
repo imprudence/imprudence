@@ -32,12 +32,16 @@
 		font="SansSerifSmall" max_length="256" mouse_opaque="true" />
 	<scroll_list name="result_list"
 		left="10" right="-10" top="-103" bottom="32"
-		follows="left|top|bottom|right" can_resize="true"
-		column_padding="0" draw_heading="true" multi_select="false" search_column="1">
-		<column name="Name" label="Name" dynamicwidth="true" tool_tip="Double click on any entry to get a position beacon"/>
-	<column name="Description" label="Description" dynamicwidth="true" tool_tip="Double click on any entry to get a position beacon"/>
-	<column name="Owner" label="Owner" dynamicwidth="true" tool_tip="Double click on any entry to get a position beacon"/>
-		<column name="Group" label="Group" dynamicwidth="true" tool_tip="Double click on any entry to get a position beacon"/>
+		follows="left|top|bottom|right" draw_stripes="true"
+    column_padding="5" draw_heading="true" multi_select="false" search_column="1">
+		<column name="Name" label="Name" dynamicwidth="true" 
+            tool_tip="Double click on any entry to get a position beacon"/>
+	  <column name="Description" label="Description" dynamicwidth="true" 
+            tool_tip="Double click on any entry to get a position beacon"/>
+	  <column name="Owner" label="Owner" dynamicwidth="true" 
+            tool_tip="Double click on any entry to get a position beacon"/>
+		<column name="Group" label="Group" dynamicwidth="true" 
+            tool_tip="Double click on any entry to get a position beacon"/>
 	</scroll_list>
 	<button name="Refresh" label="Refresh" font="SansSerif" mouse_opaque="true"
 		height="20" width="80" left="10" bottom="6" follows="left|bottom"/>
