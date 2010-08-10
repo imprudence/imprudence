@@ -902,6 +902,7 @@ set(viewer_HEADER_FILES
     llworldmapview.h
     llxmlrpctransaction.h
     macmain.h
+    meta7windlight.h
     noise.h
     panelradar.h
     panelradarentry.h
