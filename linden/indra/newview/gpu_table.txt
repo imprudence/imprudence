@@ -184,6 +184,10 @@ Intel Pineview					.*Intel.*Pineview.*					0		1
 Intel Springdale				.*Intel.*Springdale.*				0		0
 Matrox							.*Matrox.*							0		0
 Mesa							.*Mesa.*							0		0
+NVIDIA 210					.*NVIDIA.*GeForce.*210.*			3		1
+NVIDIA 310					.*NVIDIA.*GeForce.*310.*			3		1
+NVIDIA 315					.*NVIDIA.*GeForce.*315.*			3		1
+NVIDIA G100					.*NVIDIA.*GeForce G *100.*			2		1
 NVIDIA 310M						.*NVIDIA.*GeForce 310M.*			0		1
 NVIDIA 310						.*NVIDIA.*GeForce 310.*				0		1
 NVIDIA 320M						.*NVIDIA.*GeForce 320M.*			0		1
@@ -198,7 +202,11 @@ NVIDIA GT 220					.*NVIDIA.*GeForce GT 22.*			0		1
 NVIDIA GT 230					.*NVIDIA.*GeForce GT 23.*			1		1
 NVIDIA GT 240					.*NVIDIA.*GeForce GT 24.*			1		1
 NVIDIA GT 320					.*NVIDIA.*GeForce GT 32.*			0		1
+NVIDIA GT 330					.*NVIDIA.*GeForce GT 33.*			3		1
+NVIDIA GT 340					.*NVIDIA.*GeForce GT 34.*			3		1
 NVIDIA GT 330M					.*NVIDIA.*GeForce GT 330M.*			1		1
+NVIDIA GTS 150					.*NVIDIA.*GeForce GTS 15.*			3		1
+NVIDIA GTS 205					.*NVIDIA.*GeForce GTS 10.*			3		1
 NVIDIA GTS 240					.*NVIDIA.*GeForce GTS 24.*			1		1
 NVIDIA GTS 250					.*NVIDIA.*GeForce GTS 25.*			3		1
 NVIDIA GTS 360M					.*NVIDIA.*GeForce GTS 360M.*		3		1
@@ -206,6 +214,7 @@ NVIDIA GTX 260					.*NVIDIA.*GeForce GTX 26.*			3		1
 NVIDIA GTX 270					.*NVIDIA.*GeForce GTX 27.*			3		1
 NVIDIA GTX 280					.*NVIDIA.*GeForce GTX 28.*			3		1
 NVIDIA GTX 290					.*NVIDIA.*GeForce GTX 29.*			3		1
+NVIDIA GTX 465					.*NVIDIA.*GeForce GTX 46.*		3		1
 NVIDIA GTX 470					.*NVIDIA.*GeForce GTX 47.*			3		1
 NVIDIA GTX 480					.*NVIDIA.*GeForce GTX 48.*			3		1
 NVIDIA C51						.*NVIDIA.*C51.*						0		1
