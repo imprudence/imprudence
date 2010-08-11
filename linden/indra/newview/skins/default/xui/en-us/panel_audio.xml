@@ -51,7 +51,7 @@
 	     left="150" name="mute_wind" tab_stop="false" toggle="true" width="25" />
   <slider bottom_delta="-20" control_name="AudioLevelGestures" follows="left|top|right"
        height="15" increment="0.05" initial_val="0.5" label="Gestures:"
-       label_width="55" left="10" max_val="1" min_val="0" name="Gestures"
+       label_width="55" left="10" max_val="1" min_val="0" name="Gestures Volume"
        show_text="false" volume="true" width="180" />
   <button bottom_delta="0" control_name="MuteGestures" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
