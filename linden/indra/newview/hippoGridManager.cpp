@@ -314,6 +314,27 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 				return "";
 			}
 		}
+		else if (!mSearchUrl.empty())
+		{
+			// Search url sent to us in the login response
+			if (ty == SEARCH_ALL_EMPTY) 
+			{
+				return (mSearchUrl);
+			} 
+			else if (ty == SEARCH_ALL_QUERY) 
+			{
+				return (mSearchUrl + "q=[QUERY]&s=[COLLECTION]&");
+			} 
+			else if (ty == SEARCH_ALL_TEMPLATE) 
+			{
+				return "lang=[LANG]&mat=[MATURITY]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]";
+			} 
+			else 
+			{
+				llinfos << "Illegal search URL type " << ty << llendl;
+				return "";
+			}
+		}
 		else
 		{
 			// OpenSim and other web search defaults
@@ -349,7 +370,7 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
         } 
 		else if (ty == SEARCH_ALL_TEMPLATE) 
 		{
-            return "lang=[LANG]&m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]";
+            return "lang=[LANG]&m=[MATURITY]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]";
         } 
 		else 
 		{
@@ -384,8 +405,8 @@ void HippoGridInfo::onXmlElementStart(void* userData, const XML_Char* name, cons
 		self->mXmlState = XML_REGISTER;
 	else if (strcasecmp(name, "password") == 0)
 		self->mXmlState = XML_PASSWORD;
-	//else if (strcasecmp(name, "search") == 0)
-		//self->mXmlState = XML_SEARCH;
+	else if (strcasecmp(name, "search") == 0)
+		self->mXmlState = XML_SEARCH;
 }
 
 //static
@@ -431,7 +452,7 @@ void HippoGridInfo::onXmlCharacterData(void* userData, const XML_Char* s, int le
 
 		case XML_SEARCH: 
 		{
-			//self->mSearchUrl.assign(s, len);
+			self->mSearchUrl.assign(s, len);
 			//sanitizeQueryUrl(mSearchUrl);
 			break;
 		}
@@ -888,7 +909,7 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 			if (gridMap.has("support")) grid->setSupportUrl(gridMap["support"]);
 			if (gridMap.has("register")) grid->setRegisterUrl(gridMap["register"]);
 			if (gridMap.has("password")) grid->setPasswordUrl(gridMap["password"]);
-			//if (gridMap.has("search")) grid->setSearchUrl(gridMap["search"]);
+			if (gridMap.has("search")) grid->setSearchUrl(gridMap["search"]);
 			if (gridMap.has("render_compat")) grid->setRenderCompat(gridMap["render_compat"]);
 			// if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
 			// if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
@@ -928,7 +949,7 @@ void HippoGridManager::saveFile()
 		// gridInfo[i]["lastname"] = grid->getLastName();
 		// gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
 		
-		//gridInfo[i]["search"] = grid->getSearchUrl();
+		gridInfo[i]["search"] = grid->getSearchUrl();
 		gridInfo[i]["render_compat"] = grid->isRenderCompat();
 	}
 

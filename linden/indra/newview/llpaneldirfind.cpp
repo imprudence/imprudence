@@ -262,11 +262,25 @@ void LLPanelDirFind::focus()
 
 void LLPanelDirFind::navigateToDefaultPage()
 {
-	std::string start_url;
+	std::string start_url = "";
 	// Note: we use the web panel in OpenSim as well as Second Life -- MC
-	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	if (gHippoGridManager->getConnectedGrid()->getSearchUrl().empty() && 
+		!gHippoGridManager->getConnectedGrid()->isSecondLife())
 	{
-		start_url = gSavedSettings.getString("SearchURLDefault");
+		// OS-based but doesn't have its own web search url -- MC
+		start_url = gSavedSettings.getString("SearchURLDefaultOpenSim");
+	}
+	else
+	{
+		if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+		{
+			start_url = gSavedSettings.getString("SearchURLDefault");
+		}
+		else
+		{
+			// OS-based but has its own web search url -- MC
+			start_url = gHippoGridManager->getConnectedGrid()->getSearchUrl();
+		}
 
 		BOOL inc_pg = childGetValue("incpg").asBoolean();
 		BOOL inc_mature = childGetValue("incmature").asBoolean();
@@ -279,13 +293,9 @@ void LLPanelDirFind::navigateToDefaultPage()
 		}
 	
 		start_url += getSearchURLSuffix(inc_pg, inc_mature, inc_adult, true);
-	} 
-	else 
-	{
-		start_url = gSavedSettings.getString("SearchURLDefaultOpenSim");
 	}
 
-	llinfos << "default url: "  << start_url << llendl;
+	llinfos << "default web search url: "  << start_url << llendl;
 
 	if (mWebBrowser)
 	{
@@ -297,9 +307,12 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 										   bool inc_pg, bool inc_mature, bool inc_adult, bool is_web)
 {
 	std::string url;
-	if (search_text.empty()) {
+	if (search_text.empty()) 
+	{
 		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_EMPTY, is_web);
-	} else {
+	} 
+	else 
+	{
 		// Replace spaces with "+" for use by Google search appliance
 		// Yes, this actually works for double-spaces
 		// " foo  bar" becomes "+foo++bar" and works fine. JC
@@ -340,7 +353,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 
 	}
 	url += getSearchURLSuffix(inc_pg, inc_mature, inc_adult, is_web);
-	llinfos << "search url " << url << llendl;
+	llinfos << "web search url " << url << llendl;
 	return url;
 }
 // static
@@ -350,8 +363,9 @@ std::string LLPanelDirFind::getSearchURLSuffix(bool inc_pg, bool inc_mature, boo
 
 	if (!url.empty())
 	{
-		// Note: opensim's template (SearchURLSuffixOpenSim) is currently empty -- MC
-		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+		// Note: opensim's default template (SearchURLSuffixOpenSim) is currently empty -- MC
+		if (gHippoGridManager->getConnectedGrid()->isSecondLife() || 
+			!gHippoGridManager->getConnectedGrid()->getSearchUrl().empty())
 		{
 			// if the mature checkbox is unchecked, modify query to remove 
 			// terms with given phrase from the result set

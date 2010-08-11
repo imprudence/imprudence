@@ -47,6 +47,7 @@ public:
 	const std::string& getSupportUrl()      const;
 	const std::string& getRegisterUrl()     const;
 	const std::string& getPasswordUrl()     const;
+	// Returns the url base used for the Web Search tab
 	const std::string& getSearchUrl()       const;
 	const std::string& getFirstName()       const;
 	const std::string& getLastName()        const;
@@ -72,6 +73,7 @@ public:
 	void setSupportUrl(const std::string& url);
 	void setRegisterUrl(const std::string& url);
 	void setPasswordUrl(const std::string& url);
+	// sets the url base used for the Web Search tab
 	void setSearchUrl(const std::string& url);
 	void setRenderCompat(bool compat);
 	void setMaxAgentGroups(int max)                   { mMaxAgentGroups = max;   }
