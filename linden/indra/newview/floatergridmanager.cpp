@@ -94,7 +94,7 @@ void FloaterGridManager::clearInfo()
 	//getChild<LLLineEditor>("first_name")->clear();
 	//getChild<LLLineEditor>("last_name")->clear();
 	//getChild<LLLineEditor>("avatar_password")->clear();
-	//getChild<LLLineEditor>("search")->clear();
+	getChild<LLLineEditor>("search")->clear();
 	//getChild<LLButton>("btn_delete");
 	//getChild<LLButton>("btn_add")
 	//getChild<LLButton>("btn_copy");
@@ -129,7 +129,7 @@ void FloaterGridManager::refresh()
 	//getChild<LLLineEditor>("first_name")->setEnabled(can_edit);
 	//getChild<LLLineEditor>("last_name")->setEnabled(can_edit);
 	//getChild<LLLineEditor>("avatar_password")->setEnabled(can_edit);
-	//getChild<LLLineEditor>("search")->setEnabled(can_edit);
+	getChild<LLLineEditor>("search")->setEnabled(can_edit);
 	getChild<LLButton>("btn_delete")->setEnabled(can_edit);
 	//getChild<LLButton>("btn_add")
 	//getChild<LLButton>("btn_copy")->setEnabled(can_edit);
@@ -234,52 +234,57 @@ void FloaterGridManager::refreshGrids()
 			// else if(gridInfo->getPasswordUrl().empty())
 			// 	FloaterGridManager::getInstance()->childSetText("avatar_password", std::string(""));
 
-			// if (gridInfo->getPlatform() == HippoGridInfo::PLATFORM_SECONDLIFE) {
-			// 	//childSetEnabled("search", false);
-			// 	//childSetText("search", LLStringExplicit(""));
-			// 	childSetEnabled("render_compat", false);
-			// 	childSetValue("render_compat", false);
-			// } else {
-			// 	//childSetEnabled("search", true);
-			// 	//childSetText("search", gridInfo->getSearchUrl());
-			// 	childSetEnabled("render_compat", true);
-			// 	childSetValue("render_compat", gridInfo->isRenderCompat());
-			// }
+			 if (gridInfo->getPlatform() == HippoGridInfo::PLATFORM_SECONDLIFE) 
+			 {
+			 	FloaterGridManager::getInstance()->childSetEnabled("search", false);
+				FloaterGridManager::getInstance()->childSetText("search", LLStringUtil::null);
+			 	//childSetEnabled("render_compat", false);
+			 	//childSetValue("render_compat", false);
+			 } 
+			 else 
+			 {
+			 	FloaterGridManager::getInstance()->childSetEnabled("search", true);
+			 	FloaterGridManager::getInstance()->childSetText("search", gridInfo->getSearchUrl());
+			 	//childSetEnabled("render_compat", true);
+			 	//childSetValue("render_compat", gridInfo->isRenderCompat());
+			 }
 
 		}	
 		else 
 		{
-			std::string empty = "";
-			FloaterGridManager::getInstance()->childSetText("gridnick", empty);
-			FloaterGridManager::getInstance()->childSetText("gridname", empty);
-			FloaterGridManager::getInstance()->childSetText("loginuri", empty);
-			FloaterGridManager::getInstance()->childSetText("loginpage", empty);
-			FloaterGridManager::getInstance()->childSetText("helperuri", empty);
-			FloaterGridManager::getInstance()->childSetText("website", empty);
-			// FloaterGridManager::getInstance()->childSetText("first_name", empty);
-			// FloaterGridManager::getInstance()->childSetText("last_name", empty);
-			// FloaterGridManager::getInstance()->childSetText("avatar_password", empty);
+			FloaterGridManager::getInstance()->childSetText("gridnick", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("gridname", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("loginuri", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("loginpage", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("helperuri", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("website", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("support", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("register", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("password", LLStringUtil::null);
+			// FloaterGridManager::getInstance()->childSetText("first_name", LLStringUtil::null);
+			// FloaterGridManager::getInstance()->childSetText("last_name", LLStringUtil::null);
+			// FloaterGridManager::getInstance()->childSetText("avatar_password", LLStringUtil::null);
+			FloaterGridManager::getInstance()->childSetText("search", LLStringUtil::null);
 		}
 	} 
 	else if (FloaterGridManager::getInstance()->getState() == ADD_NEW) 
 	{
 		llinfos << "mState == ADD_NEW" << llendl;
 		std::string required = "<required>";
-		std::string empty = "";
 		FloaterGridManager::getInstance()->childSetText("gridnick", required);
-		FloaterGridManager::getInstance()->childSetText("gridname", empty);
+		FloaterGridManager::getInstance()->childSetText("gridname", LLStringUtil::null);
 		FloaterGridManager::getInstance()->childSetText("loginuri", required);
-		FloaterGridManager::getInstance()->childSetText("loginpage", empty);
-		FloaterGridManager::getInstance()->childSetText("helperuri", empty);
-		FloaterGridManager::getInstance()->childSetText("website", empty);
-		FloaterGridManager::getInstance()->childSetText("support", empty);
-		FloaterGridManager::getInstance()->childSetText("register", empty);
-		FloaterGridManager::getInstance()->childSetText("password", empty);
-		// FloaterGridManager::getInstance()->childSetText("first_name", empty);
-		// FloaterGridManager::getInstance()->childSetText("last_name", empty);
-		// FloaterGridManager::getInstance()->childSetText("avatar_password", empty);
+		FloaterGridManager::getInstance()->childSetText("loginpage", LLStringUtil::null);
+		FloaterGridManager::getInstance()->childSetText("helperuri", LLStringUtil::null);
+		FloaterGridManager::getInstance()->childSetText("website", LLStringUtil::null);
+		FloaterGridManager::getInstance()->childSetText("support", LLStringUtil::null);
+		FloaterGridManager::getInstance()->childSetText("register", LLStringUtil::null);
+		FloaterGridManager::getInstance()->childSetText("password", LLStringUtil::null);
+		// FloaterGridManager::getInstance()->childSetText("first_name", LLStringUtil::null);
+		// FloaterGridManager::getInstance()->childSetText("last_name", LLStringUtil::null);
+		// FloaterGridManager::getInstance()->childSetText("avatar_password", LLStringUtil::null);
 		//childSetEnabled("search", true);
-		//childSetText("search", empty);
+		FloaterGridManager::getInstance()->childSetText("search", LLStringUtil::null);
 	} 
 	else if (FloaterGridManager::getInstance()->getState() == ADD_COPY) 
 	{
@@ -316,7 +321,7 @@ void FloaterGridManager::applyChanges()
 			gridInfo->setSupportUrl(childGetValue("support"));
 			gridInfo->setRegisterUrl(childGetValue("register"));
 			gridInfo->setPasswordUrl(childGetValue("password"));
-			//gridInfo->setSearchUrl(childGetValue("search"));
+			gridInfo->setSearchUrl(childGetValue("search"));
 			gridInfo->setRenderCompat(childGetValue("render_compat"));
 			
 			// gridInfo->setFirstName(childGetValue("first_name"));
@@ -387,7 +392,7 @@ bool FloaterGridManager::createNewGrid()
 	grid->setSupportUrl(childGetValue("support"));
 	grid->setRegisterUrl(childGetValue("register"));
 	grid->setPasswordUrl(childGetValue("password"));
-	//grid->setSearchUrl(childGetValue("search"));
+	grid->setSearchUrl(childGetValue("search"));
 	grid->setRenderCompat(childGetValue("render_compat"));
 	gHippoGridManager->addGrid(grid);
 	
@@ -450,7 +455,7 @@ void FloaterGridManager::retrieveGridInfo()
 		if (grid->getSupportUrl() != "") childSetText("support", grid->getSupportUrl());
 		if (grid->getRegisterUrl() != "") childSetText("register", grid->getRegisterUrl());
 		if (grid->getPasswordUrl() != "") childSetText("password", grid->getPasswordUrl());
-		//if (grid->getSearchUrl() != "") childSetText("search", grid->getSearchUrl());
+		if (grid->getSearchUrl() != "") childSetText("search", grid->getSearchUrl());
 	} 
 	else 
 	{

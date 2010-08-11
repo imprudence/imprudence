@@ -129,7 +129,7 @@
       bottom_delta="-30" drop_shadow_visible="true" follows="left|top"
       font="SansSerif" h_pad="0" halign="left" height="16"
       left="195" mouse_opaque="true" name="loginpage_text" v_pad="0" width="120">
-    Grid Info:
+    Grid Info URLs:
   </text>
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="-28" drop_shadow_visible="true" follows="left|top"
@@ -168,7 +168,7 @@
    bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
    font="SansSerifSmall" h_pad="0" halign="left" height="16"
    left_delta="-90" mouse_opaque="true" name="support_text" v_pad="0" width="120">
-    Support URL:
+    Support:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
@@ -179,7 +179,7 @@
    bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
    font="SansSerifSmall" h_pad="0" halign="left" height="16"
    left_delta="-90" mouse_opaque="true" name="register_text" v_pad="0" width="120">
-    Account URL:
+    Account:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
@@ -190,15 +190,26 @@
    bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
    font="SansSerifSmall" h_pad="0" halign="left" height="16"
    left_delta="-90" mouse_opaque="true" name="password_text" v_pad="0" width="120">
-    Password URL:
+    Password:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
 	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
 	     name="password" select_all_on_focus_received="true" width="280" />
 
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+   font="SansSerifSmall" h_pad="0" halign="left" height="16"
+   left_delta="-90" mouse_opaque="true" name="websearch_text" v_pad="0" width="120">
+    Web Search:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
+	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
+	     name="search" select_all_on_focus_received="true" width="280" />
+
   <view_border bevel_style="none" border_thickness="1" bottom_delta="-10" 
-               follows="top|left|right" height="148" left="195" 
+               follows="top|left|right" height="168" left="195" 
                name="OptionalPrefsBorder" width="390" />
 
   <!-- Combo box for multi avatar grid manager avatar name
