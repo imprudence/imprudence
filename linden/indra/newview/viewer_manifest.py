@@ -292,7 +292,7 @@ class WindowsManifest(ViewerManifest):
         #    self.path("libeay32.dll")
         #    self.path("srtp.dll")
         #    self.path("ssleay32.dll")
-            self.path("tntk.dll")
+        #    self.path("tntk.dll")
             self.path("vivoxsdk.dll")
             self.path("ortp.dll")
 
