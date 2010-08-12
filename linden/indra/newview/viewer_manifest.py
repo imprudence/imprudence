@@ -284,20 +284,19 @@ class WindowsManifest(ViewerManifest):
         # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
         # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
         # Vivox runtimes
-        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
         #    self.path("alut.dll")
-        #    self.path("wrap_oal.dll")
-
-        #    self.path("SLVoice.exe")
+            self.path("wrap_oal.dll")
+            self.path("SLVoice.exe")
         #    self.path("SLVoiceAgent.exe")
         #    self.path("libeay32.dll")
         #    self.path("srtp.dll")
         #    self.path("ssleay32.dll")
-        #    self.path("tntk.dll")
-        #    self.path("vivoxsdk.dll")
-        #    self.path("ortp.dll")
+            self.path("tntk.dll")
+            self.path("vivoxsdk.dll")
+            self.path("ortp.dll")
 
-        #    self.end_prefix()
+            self.end_prefix()
 
         # Gstreamer plugins
         if self.prefix(src="lib/gstreamer-plugins", dst=""):
@@ -684,12 +683,12 @@ class DarwinManifest(ViewerManifest):
 
 
                 # SLVoice and vivox lols
-                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
-                #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
-                #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
-                #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
-                #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
+                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
+                self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
+                self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
+                self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 #libfmodwrapper.dylib
                 #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
@@ -808,7 +807,7 @@ class LinuxManifest(ViewerManifest):
         self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
             #self.path("client-readme.txt","README-linux.txt")
-            #self.path("client-readme-voice.txt","README-linux-voice.txt")
+            self.path("client-readme-voice.txt","README-linux-voice.txt")
             #self.path("client-readme-joystick.txt","README-linux-joystick.txt")
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
@@ -986,9 +985,9 @@ class Linux_i686Manifest(LinuxManifest):
             self.end_prefix("lib")
 
             # Vivox runtimes
-            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-            #        self.path("SLVoice")
-            #        self.end_prefix()
+            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+                    self.path("SLVoice")
+                    self.end_prefix()
             
 
 class Linux_x86_64Manifest(LinuxManifest):
@@ -1112,10 +1111,11 @@ class Linux_x86_64Manifest(LinuxManifest):
 #	    self.path("libortp.so")
 #	    self.path("libuuid.so.1")
 #        self.end_prefix("lib32")
+
             # Vivox runtimes
-            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-            #        self.path("SLVoice")
-            #        self.end_prefix()
+            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+                    self.path("SLVoice")
+                    self.end_prefix()
             
 
 if __name__ == "__main__":
