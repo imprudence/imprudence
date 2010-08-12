@@ -334,6 +334,7 @@ void label_sit_or_stand(std::string& label, void*);
 BOOL enable_take();
 void handle_take();
 bool confirm_take(const LLSD& notification, const LLSD& response);
+bool confirm_derender_callback(const LLSD& notification, const LLSD& response);
 BOOL enable_buy(void*); 
 void handle_buy(void *);
 void handle_buy_object(LLSaleInfo sale_info);
@@ -2071,6 +2072,59 @@ class LLObjectDerender : public view_listener_t
 			id = root_key;
 			//LLSelectMgr::getInstance()->removeObjectFromSelections(root_key);
 		}
+
+		LLSD payload;
+		payload["id"] = id;
+
+		// There REALLY needs to be a better (aka centralized) way to get this info
+		LLSD args;
+		std::string name;
+		LLViewerObject *objectp = gObjectList.findObject(id);
+		if (objectp)
+		{
+			if (objectp->isAvatar())
+			{
+				LLNameValue* firstname = objectp->getNVPair("FirstName");
+				LLNameValue* lastname = objectp->getNVPair("LastName");
+				if (firstname && lastname)
+				{
+					name.append(firstname->getString());
+					name.append(1, ' ');
+					name.append(lastname->getString());
+				}
+				else
+				{
+					name.append(LLTrans::getString("TooltipPerson"));
+				}
+			}
+			else
+			{
+				LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode();
+				if (node)
+				{
+					name.append(node->mName);
+				}
+				else
+				{
+					name.append(LLTrans::getString("TooltipNoName"));
+				}
+			}
+		}
+		args["NAME"] = name;
+
+		LLNotifications::instance().add("ConfirmDerender", args, payload, &confirm_derender_callback);
+
+		return true;
+	}
+};
+
+bool confirm_derender_callback(const LLSD& notification, const LLSD& response)
+{
+	LLUUID id = notification["payload"]["id"].asUUID();
+
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
+	{
 		LLSelectMgr::getInstance()->removeObjectFromSelections(id);
 
 		// ...don't kill the avatar
@@ -2082,9 +2136,9 @@ class LLObjectDerender : public view_listener_t
 				gObjectList.killObject(objectp);
 			}
 		}
-		return true;
 	}
-};
+	return false;
+}
 
 
 //---------------------------------------------------------------------------

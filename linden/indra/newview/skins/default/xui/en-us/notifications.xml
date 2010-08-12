@@ -6754,6 +6754,20 @@ Are you sure you want to move here?
 </notification>
 
 <notification
+ icon="alert.tga"
+ name="ConfirmDerender"
+ type="alert">
+Are you sure you want to derender [NAME]?
+
+[NAME] will be hidden until you exit the region.
+  <usetemplate
+    ignoretext="When using derender"
+    name="okcancelignore"
+    notext="Cancel"
+    yestext="Derender"/>
+</notification>
+
+<notification
  icon="alertmodal.tga"
  name="ConfirmDoubleClickTP"
  type="alertmodal">
