@@ -69,7 +69,9 @@
 				<on_click function="Object.Mute" />
 				<on_enable function="Object.EnableMute" />
 			</menu_item_call>
-			<menu_item_separator />
+      <menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
+        <on_click function="Object.DERENDER" />
+      </menu_item_call>
 			<menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Object Inspect">
 				<on_click function="Object.Inspect" />
 				<on_enable function="Object.EnableInspect" />
