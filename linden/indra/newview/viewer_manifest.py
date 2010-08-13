@@ -209,6 +209,8 @@ class WindowsManifest(ViewerManifest):
             self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
+		
+        self.path("imprudence.url")
 
         self.path("featuretable.txt")
 
@@ -248,7 +250,7 @@ class WindowsManifest(ViewerManifest):
 
         # We need this one too, so that llkdu loads at runtime - DEV-41194
         #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
-		self.path("llkdu.dll.2.config")
+        self.path("llkdu.dll.2.config")
 
         # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
         #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
