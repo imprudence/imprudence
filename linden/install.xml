@@ -160,9 +160,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>6a53b02a07527de680f1336e20f74f08</string>
+            <string>f5cf8d121b26f2e7944f7e63cdbff04d</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ares-1.4.0-windows-20080723.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ares-1.6.0-windows-20091105.tar.bz2</uri>
           </map>
         </map>
       </map>
