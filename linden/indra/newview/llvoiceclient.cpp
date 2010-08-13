@@ -1215,7 +1215,7 @@ void LLVoiceClient::terminate()
 
 void LLVoiceClient::updateSettings()
 {
-	setVoiceEnabled(gSavedSettings.getBOOL("EnableVoiceChat"));
+	setVoiceEnabled(gSavedSettings.getBOOL("EnableVoiceChat") && !gSavedSettings.getBOOL("CmdLineDisableVoice"));
 	setUsePTT(gSavedSettings.getBOOL("PTTCurrentlyEnabled"));
 	std::string keyString = gSavedSettings.getString("PushToTalkButton");
 	setPTTKey(keyString);
@@ -5821,7 +5821,7 @@ void LLVoiceClient::setVoiceEnabled(bool enabled)
 
 bool LLVoiceClient::voiceEnabled()
 {
-	return gSavedSettings.getBOOL("EnableVoiceChat") && !gSavedSettings.getBOOL("CmdLineDisableVoice");
+	return LLVoiceClient::getInstance()->mVoiceEnabled;//gSavedSettings.getBOOL("EnableVoiceChat") && !gSavedSettings.getBOOL("CmdLineDisableVoice");
 }
 
 void LLVoiceClient::setLipSyncEnabled(BOOL enabled)
