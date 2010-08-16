@@ -2919,7 +2919,7 @@ bool LLAppViewer::initCache()
 	// Purge cache if it belongs to an old version
 	else
 	{
-		static const S32 cache_version = 6;
+		static const S32 cache_version = 7;
 		if (gSavedSettings.getS32("LocalCacheVersion") != cache_version)
 		{
 			mPurgeCache = true;
