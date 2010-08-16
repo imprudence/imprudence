@@ -136,8 +136,8 @@ void LLViewerImageList::doPreloadImages()
 	//uv_test->setMipFilterNearest(TRUE, TRUE);
 
 	// prefetch specific UUIDs
-	getImage(IMG_SHOT, TRUE);
-	getImage(IMG_SMOKE_POOF, TRUE);
+	gImageList.getImageFromFile(IMG_SHOT.asString()+".j2c", TRUE, TRUE); /*getImage(IMG_SHOT, TRUE);*/
+	gImageList.getImageFromFile(IMG_SMOKE_POOF.asString()+".j2c", TRUE, TRUE); /*getImage(IMG_SMOKE_POOF, TRUE);*/
 	LLViewerImage* image = getImageFromFile("silhouette.j2c", MIPMAP_YES, IMMEDIATE_YES);
 	if (image) 
 	{

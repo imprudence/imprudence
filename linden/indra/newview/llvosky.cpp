@@ -380,7 +380,7 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
 	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
-	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
+	mBloomTexturep = gImageList.getImageFromFile(IMG_BLOOM1.asString()+".j2c", TRUE, TRUE);/*gImageList.getImage(IMG_BLOOM1);*/
 	mBloomTexturep->setNoDelete() ;
 	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
@@ -476,7 +476,7 @@ void LLVOSky::restoreGL()
 	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
 	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
-	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
+	mBloomTexturep = gImageList.getImageFromFile(IMG_BLOOM1.asString()+".j2c", TRUE, TRUE);/*gImageList.getImage(IMG_BLOOM1);*/
 	mBloomTexturep->setNoDelete() ;
 	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
