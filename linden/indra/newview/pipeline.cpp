@@ -2447,7 +2447,8 @@ void LLPipeline::renderHighlights()
 		// Make sure the selection image gets downloaded and decoded
 		if (!mFaceSelectImagep)
 		{
-			mFaceSelectImagep = gImageList.getImage(IMG_FACE_SELECT);
+			// Load the select texture texture from file -- MC
+			mFaceSelectImagep = gImageList.getImageFromFile("a85ac674-cb75-4af6-9499-df7c5aaf7a28.j2c", TRUE, TRUE); /*gImageList.getImage(IMG_FACE_SELECT);*/
 		}
 		mFaceSelectImagep->addTextureStats((F32)MAX_IMAGE_AREA);
 
