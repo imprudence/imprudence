@@ -137,6 +137,8 @@
 <MapFriend value="255, 255, 0, 255" />
 <MapLinden value="0, 0, 255, 255" />
 <MapMuted value="110, 110, 110, 255" />
+<MapSelected value="255, 0, 0, 255" />                  <!-- Selected avatars' glyph color -->
+<MapImpDev value="90, 45, 101, 255" />                  <!-- Imprudence developers glyph color -->
 
 <!-- MINI-MAP -->
 <NetMapBackgroundColor value="0, 0, 0, 77" />
