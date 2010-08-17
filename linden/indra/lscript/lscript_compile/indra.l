@@ -150,6 +150,7 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "AGENT_CROUCHING"		{ count(); yylval.ival = AGENT_CROUCHING; return(INTEGER_CONSTANT); }
 "AGENT_BUSY"			{ count(); yylval.ival = AGENT_BUSY; return(INTEGER_CONSTANT); }
 "AGENT_ALWAYS_RUN"		{ count(); yylval.ival = AGENT_ALWAYS_RUN; return(INTEGER_CONSTANT); }
+"AGENT_AUTOPILOT"		{ count(); yylval.ival = AGENT_AUTOPILOT; return(INTEGER_CONSTANT); }
 
 "CAMERA_PITCH"				{ count(); yylval.ival = FOLLOWCAM_PITCH; return(INTEGER_CONSTANT); }
 "CAMERA_FOCUS_OFFSET"		{ count(); yylval.ival = FOLLOWCAM_FOCUS_OFFSET; return (INTEGER_CONSTANT); }
@@ -232,7 +233,8 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "CHANGED_OWNER"			{ count(); yylval.ival = CHANGED_OWNER; return(INTEGER_CONSTANT); }	
 "CHANGED_REGION"		{ count(); yylval.ival = CHANGED_REGION; return(INTEGER_CONSTANT); }	
 "CHANGED_TELEPORT"		{ count(); yylval.ival = CHANGED_TELEPORT; return(INTEGER_CONSTANT); }	
-"CHANGED_REGION_START"		{ count(); yylval.ival = CHANGED_REGION_START; return(INTEGER_CONSTANT); }	
+"CHANGED_REGION_START"	{ count(); yylval.ival = CHANGED_REGION_START; return(INTEGER_CONSTANT); }
+"CHANGED_MEDIA"		    { count(); yylval.ival = CHANGED_MEDIA; return(INTEGER_CONSTANT); }
 
 "OBJECT_UNKNOWN_DETAIL"	{ count(); yylval.ival = OBJECT_UNKNOWN_DETAIL; return(INTEGER_CONSTANT); }
 "OBJECT_NAME"			{ count(); yylval.ival = OBJECT_NAME; return(INTEGER_CONSTANT); }
@@ -452,6 +454,9 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "PRIM_FULLBRIGHT"		{ count(); yylval.ival = LSL_PRIM_FULLBRIGHT; return(INTEGER_CONSTANT); }
 "PRIM_TEXGEN"			{ count(); yylval.ival = LSL_PRIM_TEXGEN; return(INTEGER_CONSTANT); }
 "PRIM_GLOW"	     		{ count(); yylval.ival = LSL_PRIM_GLOW; return(INTEGER_CONSTANT); }
+"PRIM_TEXT"				{ count(); yylval.ival = LSL_PRIM_TEXT; return(INTEGER_CONSTANT); }
+"PRIM_NAME"				{ count(); yylval.ival = LSL_PRIM_NAME; return(INTEGER_CONSTANT); }
+"PRIM_DESC"				{ count(); yylval.ival = LSL_PRIM_DESC; return(INTEGER_CONSTANT); }
 
 "PRIM_TYPE_BOX"			{ count(); yylval.ival = LSL_PRIM_TYPE_BOX; return(INTEGER_CONSTANT); }
 "PRIM_TYPE_CYLINDER"	{ count(); yylval.ival = LSL_PRIM_TYPE_CYLINDER; return(INTEGER_CONSTANT); }
@@ -610,6 +615,7 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "CLICK_ACTION_OPEN"       { count(); yylval.ival = CLICK_ACTION_OPEN; return(INTEGER_CONSTANT); }
 "CLICK_ACTION_PLAY"       { count(); yylval.ival = CLICK_ACTION_PLAY; return(INTEGER_CONSTANT); }
 "CLICK_ACTION_OPEN_MEDIA" { count(); yylval.ival = CLICK_ACTION_OPEN_MEDIA; return(INTEGER_CONSTANT); }
+"CLICK_ACTION_ZOOM"       { count(); yylval.ival = CLICK_ACTION_ZOOM; return(INTEGER_CONSTANT); }
 
 "TEXTURE_BLANK"           { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "5748decc-f629-461c-9a36-a35a221fe21f"); return(STRING_CONSTANT); }
 "TEXTURE_DEFAULT"         { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "89556747-24cb-43ed-920b-47caed15465f"); return(STRING_CONSTANT); }
@@ -621,6 +627,45 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "TOUCH_INVALID_VECTOR"	  { count(); return(TOUCH_INVALID_VECTOR); }
 "TOUCH_INVALID_TEXCOORD"  { count(); return(TOUCH_INVALID_TEXCOORD); }
 
+"PRIM_MEDIA_ALT_IMAGE_ENABLE"        { count(); yylval.ival = 0; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_CONTROLS"                { count(); yylval.ival = 1; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_CURRENT_URL"             { count(); yylval.ival = 2; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_HOME_URL"                { count(); yylval.ival = 3; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_AUTO_LOOP"               { count(); yylval.ival = 4; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_AUTO_PLAY"               { count(); yylval.ival = 5; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_AUTO_SCALE"              { count(); yylval.ival = 6; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_AUTO_ZOOM"               { count(); yylval.ival = 7; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_FIRST_CLICK_INTERACT"    { count(); yylval.ival = 8; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_WIDTH_PIXELS"            { count(); yylval.ival = 9; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_HEIGHT_PIXELS"           { count(); yylval.ival = 10; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_WHITELIST_ENABLE"        { count(); yylval.ival = 11; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_WHITELIST"               { count(); yylval.ival = 12; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PERMS_INTERACT"          { count(); yylval.ival = 13; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PERMS_CONTROL"           { count(); yylval.ival = 14; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PARAM_MAX"               { count(); yylval.ival = 14; return(INTEGER_CONSTANT); }
+
+"PRIM_MEDIA_CONTROLS_STANDARD"       { count(); yylval.ival = 0; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_CONTROLS_MINI"           { count(); yylval.ival = 1; return(INTEGER_CONSTANT); }
+
+"PRIM_MEDIA_PERM_NONE"               { count(); yylval.ival = 0x0; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PERM_OWNER"              { count(); yylval.ival = 0x1; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PERM_GROUP"              { count(); yylval.ival = 0x3; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_PERM_ANYONE"             { count(); yylval.ival = 0x4; return(INTEGER_CONSTANT); }
+
+"PRIM_MEDIA_MAX_URL_LENGTH"          { count(); yylval.ival = 1024; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_MAX_WHITELIST_SIZE"      { count(); yylval.ival = 1024; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_MAX_WHITELIST_COUNT"     { count(); yylval.ival = 64; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_MAX_WIDTH_PIXELS"        { count(); yylval.ival = 2048; return(INTEGER_CONSTANT); }
+"PRIM_MEDIA_MAX_HEIGHT_PIXELS"       { count(); yylval.ival = 2048; return(INTEGER_CONSTANT); }
+
+"STATUS_OK"                          { count(); yylval.ival = LSL_STATUS_OK; return(INTEGER_CONSTANT); }
+"STATUS_MALFORMED_PARAMS"            { count(); yylval.ival = LSL_STATUS_MALFORMED_PARAMS; return(INTEGER_CONSTANT); }
+"STATUS_TYPE_MISMATCH"               { count(); yylval.ival = LSL_STATUS_TYPE_MISMATCH; return(INTEGER_CONSTANT); }
+"STATUS_BOUNDS_ERROR"                { count(); yylval.ival = LSL_STATUS_BOUNDS_ERROR; return(INTEGER_CONSTANT); }
+"STATUS_NOT_FOUND"                   { count(); yylval.ival = LSL_STATUS_NOT_FOUND; return(INTEGER_CONSTANT); }
+"STATUS_NOT_SUPPORTED"               { count(); yylval.ival = LSL_STATUS_NOT_SUPPORTED; return(INTEGER_CONSTANT); }
+"STATUS_INTERNAL_ERROR"              { count(); yylval.ival = LSL_STATUS_INTERNAL_ERROR; return(INTEGER_CONSTANT); }
+"STATUS_WHITELIST_FAILED"            { count(); yylval.ival = LSL_STATUS_WHITELIST_FAILED; return(INTEGER_CONSTANT); }
 
 {L}({L}|{N})*		{ count(); yylval.sval = new char[strlen(yytext) + 1]; strcpy(yylval.sval, yytext); return(IDENTIFIER); }
 
