@@ -988,10 +988,10 @@ class Linux_i686Manifest(LinuxManifest):
             self.end_prefix("lib")
 
             # Vivox runtimes
-            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-                    self.path("SLVoice")
-                    self.end_prefix()
-            
+#            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+#                    self.path("SLVoice")
+#                    self.end_prefix()
+
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
@@ -1024,7 +1024,7 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
-            self.path("libz.so.1")
+            #self.path("libz.so.1") #not needed
 
             # OpenAL
             self.path("libopenal.so.1")
@@ -1116,10 +1116,10 @@ class Linux_x86_64Manifest(LinuxManifest):
 #        self.end_prefix("lib32")
 
             # Vivox runtimes
-            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-                    self.path("SLVoice")
-                    self.end_prefix()
-            
+#            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+#                    self.path("SLVoice")
+#                    self.end_prefix()
+#
 
 if __name__ == "__main__":
     main()
