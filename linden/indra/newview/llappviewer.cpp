@@ -2072,7 +2072,7 @@ bool LLAppViewer::initConfiguration()
 #elif LL_DEBUG
 	gWindowTitle = gSecondLife + std::string(" [DEBUG] ") + gArgs;
 #else
-	gWindowTitle = gSecondLife + std::string(" ") + gArgs;
+	gWindowTitle = gSecondLife + std::string(" (Pleiades.ca mod) ") + gArgs;
 #endif
 	LLStringUtil::truncate(gWindowTitle, 255);
 
