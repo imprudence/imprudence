@@ -1130,16 +1130,16 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>4f666348e13362befad62f0bf3e8bc5a</string>
+            <string>38abfe002ba073b6824016db98269972</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux32-0.2.1-20100711.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux32-0.3.1-20100817.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>67eda3ccd65797df238f97c4efffae41</string>
+            <string>d1986d287655f159be50d661c125ba19</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux64-0.2.1-20100724.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux64-0.3.1-20100817.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
