@@ -14,7 +14,7 @@
 <DefaultShadowLight value="0, 0, 0, 255"/>
 
 <!-- LABELS -->
-<LabelDisabledColor value="147, 169, 213, 77"/>
+<LabelDisabledColor value="150, 150, 150, 77"/>
 <LabelSelectedColor value="255, 255, 255, 255"/>
 <LabelSelectedDisabledColor value="116, 116, 116, 128"/>
 <LabelTextColor value="200, 200, 200, 255"/>
@@ -30,7 +30,7 @@
 <!-- BUTTONS -->
 <ButtonLabelColor value="220, 220, 220, 255"/>			<!-- Text labels for buttons, like the "OK" text -->
 <ButtonLabelSelectedColor value="220, 220, 220, 255"/>
-<ButtonLabelDisabledColor value="147, 169, 213, 200"/>
+<ButtonLabelDisabledColor value="150, 150, 150, 200"/>
 <ButtonLabelSelectedDisabledColor value="164, 190, 237, 200"/>
 <ButtonSelectedBgColor value="62, 62, 62, 255"/>
 <ButtonSelectedColor value="255, 255, 255, 255"/>
