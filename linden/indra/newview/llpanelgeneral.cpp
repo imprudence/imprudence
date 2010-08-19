@@ -44,6 +44,7 @@
 
 #include "floatergridmanager.h"
 #include "llagent.h"
+#include "llappviewer.h"
 #include "llpanellogin.h"
 #include "llviewerregion.h"
 #include "viewertime.h"

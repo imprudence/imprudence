@@ -4307,16 +4307,14 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 		return;
 	}
 
+//	if(gSavedSettings.getBOOL("AppearanceAnimate"))
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-	if(gSavedSettings.getBOOL("AppearanceAnimate"))
-	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) )
-	{
-		return;
-	}
+	if ( (gSavedSettings.getBOOL("AppearanceAnimate")) &&
+		 ((!gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || ((mAvatarObject.notNull()) && (!mAvatarObject->mIsSitting))) )
 // [/RLVa:KB]
-
-	if(gSavedSettings.getBOOL("AppearanceAnimate"))
+	{
 		setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
+	}
 	gViewerWindow->getWindow()->resetBusyCount();
 
 	if (gFaceEditToolset)
@@ -6285,8 +6283,7 @@ void LLAgent::setTeleportState(ETeleportState state)
 		// We're outa here. Save "back" slurl.
 		mTeleportSourceSLURL = getSLURL();
 	}
-
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.0b
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.0b
 	if ( (rlv_handler_t::isEnabled()) && (TELEPORT_NONE == mTeleportState) )
 	{
 		gRlvHandler.setCanCancelTp(true);
@@ -7473,7 +7470,7 @@ void LLAgent::removeWearable( EWearableType type )
 		return;
 	}
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-07 (RLVa-1.0.0d)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-07 (RLVa-1.0.0d)
 	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isRemovable(type)) )
 	{
 		return;
@@ -7616,9 +7613,9 @@ void LLAgent::setWearableOutfit(
 	wearables_to_remove[WT_UNDERSHIRT]	= (!gAgent.isTeen()) && remove && gRlvHandler.isRemovable(WT_UNDERSHIRT);
 	wearables_to_remove[WT_UNDERPANTS]	= (!gAgent.isTeen()) && remove && gRlvHandler.isRemovable(WT_UNDERPANTS);
 	wearables_to_remove[WT_SKIRT]		= remove && gRlvHandler.isRemovable(WT_SKIRT);
+	wearables_to_remove[WT_ALPHA]		= remove && gRlvHandler.isRemovable(WT_ALPHA);
+	wearables_to_remove[WT_TATTOO]		= remove && gRlvHandler.isRemovable(WT_TATTOO);
 // [/RLVa:KB]
-	wearables_to_remove[WT_ALPHA]		= remove;
-	wearables_to_remove[WT_TATTOO]		= remove;
 
 	S32 count = wearables.count();
 	llassert( items.count() == count );

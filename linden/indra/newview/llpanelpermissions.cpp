@@ -354,10 +354,7 @@ void LLPanelPermissions::refresh()
 		fRlvEnableOwner && owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
 // [/RLVa:KB]
 
-	//if (owner_name != last_owner_name)
-// [RLVa:KB]
-	if ( (owner_name != last_owner_name) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
-// [/RLVa:KB]
+	if (owner_name != last_owner_name)
 	{
 		childSetEnabled("Last Owner:", TRUE);
 		childSetText("Last Owner Name", last_owner_name);
@@ -903,7 +900,13 @@ void LLPanelPermissions::onClickLastOwner(void *data)
 
 	if ( self->mLastOwnerID.notNull() )
 	{
-		LLFloaterAvatarInfo::showFromObject(self->mLastOwnerID);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+		if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+		{
+			LLFloaterAvatarInfo::showFromObject(self->mLastOwnerID);
+		}
+// [/RLVa:KB]
+//		LLFloaterAvatarInfo::showFromObject(self->mLastOwnerID);
 	}
 }
 

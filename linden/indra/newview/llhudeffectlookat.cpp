@@ -41,6 +41,7 @@
 #include "llagent.h"
 #include "llvoavatar.h"
 #include "lldrawable.h"
+#include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
 #include "llrendersphere.h"
@@ -593,11 +594,13 @@ void LLHUDEffectLookAt::render()
 			LLColor4 Color = LLColor4( (*mAttentions)[mTargetType].mColor, 1.0f ); 
 			std::string text = ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->getFullname();
 			
+// [RLVa:KB] - Imprudence-1.3.0
 			// Show anonyms in place of actual names when @shownames=n restricted
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 			{
 				text = gRlvHandler.getAnonym(text);
 			}
+// [/RLVa:KB]
 
 			gViewerWindow->setupViewport();
 			hud_render_utf8text(text, render_pos, *fontp, LLFontGL::NORMAL, -0.5f * fontp->getWidthF32(text), 3.f, Color, FALSE );

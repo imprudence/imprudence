@@ -129,7 +129,7 @@ public:
 
 	static void warnRlvGiveToRLV();
 protected:
-	static void onRlvGiveToRLVConfirmation(S32 idxOption, void* pUserParam);
+	static void onRlvGiveToRLVConfirmation(const LLSD& notification, const LLSD& response);
 // [/RLVa:KB]
 };
 

@@ -56,6 +56,20 @@ Always choose this option
   </form>
 </template>
 
+<template name="okcancelbuttonscanceldefault">
+  <form>
+    <button
+     index="0"
+     name="OK"
+     text="$yestext"/>
+    <button
+     default="true"
+     index="1"
+     name="Cancel"
+     text="$notext"/>
+  </form>
+</template>
+
 <template name="okcancelignore">
   <form>
     <button
@@ -6366,6 +6380,40 @@ You can find example sculpted textures in the inventory library.
  name="FirstMedia"
  type="notify">
 You have begun playing media.  Media can set to play automatically in the preferences window under Audio / Video. Note that this can be a security risk for media sites you do not trust.
+</notification>
+
+<notification
+ icon="notify.tga"
+ name="FirstRLVDetach"
+ type="notify">
+One of your attachments was made nondetachable using Restrained Life.
+Please note that this also disables the &apos;Wear&apos; option on all prim attachments in your inventory unless they are properly named.
+
+For more information search for &apos;Restrained Life&apos; on the SL wiki.
+</notification>
+
+<notification
+ icon="notify.tga"
+ name="FirstRLVFartouch"
+ type="notify">
+You have been fartouch restricted: you will be unable to touch objects farther than 1.5m from your avatar until the restriction is lifted.
+
+Tip: if an object is out of range the mouse cursor will not change as you hover over it and you'll hear an error sound if you try to right-click it.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="FirstRLVGiveToRLV"
+ type="alertmodal">
+Folders starting with &apos;#RLV/~&apos; can automatically be placed under your #RLV shared folder after you accept the inventory offer.
+
+Please note that - if enabled - the accepted inventory items will instantly be available to scripts and will have full use of the RLV API which may cause unexpected or undesirable situations.
+
+Do you want to enable this feature?
+  <usetemplate
+   name="okcancelbuttonscanceldefault"
+   notext="No"
+   yestext="Yes"/>
 </notification>
 
 <notification

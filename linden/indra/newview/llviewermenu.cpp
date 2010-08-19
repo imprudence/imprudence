@@ -1423,7 +1423,7 @@ void init_debug_baked_texture_menu(LLMenuGL* menu)
 	menu->createJumpKeys();
 }
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
 void init_debug_rlva_menu(LLMenuGL* menu)
 {
 	// Debug options
@@ -1709,7 +1709,7 @@ class LLObjectEnableTouch : public view_listener_t
 	{
 		LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
 		bool new_value = obj && obj->flagHandleTouch();
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
 		// TODO-RLVa: this code is rather redundant since we'll never get an active selection to show a pie menu for
 		if ( (new_value) && (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!obj->isAttachment()) || (!obj->permYouOwner())) &&
 			 (dist_vec_squared(gAgent.getPositionAgent(), LLToolPie::getInstance()->getPick().mIntersection) > 1.5f * 1.5f)	)
@@ -2440,13 +2440,6 @@ class LLObjectImportUpload : public view_listener_t
 
 bool handle_go_to_confirm()
 {
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && (gAgent.forwardGrabbed()) && (gRlvHandler.hasLockedAttachment(RLV_LOCK_REMOVE)) )
-	{
-		return true;
-	}
-// [/RLVa:KB]
-
 	std::string action = gSavedSettings.getString("GoAction");
 	LLStringUtil::toLower(action);
 
@@ -2469,7 +2462,7 @@ bool handle_go_to()
  	{
  		return true;
  	}
- // [/RLVa:KB]
+// [/RLVa:KB]
 
 	handle_go_to_callback( LLSD(), LLSD(0) );
 
@@ -2587,17 +2580,14 @@ class LLAvatarFreeze : public view_listener_t
 			std::string fullname = avatar->getFullname();
 			LLSD payload;
 			payload["avatar_id"] = avatar->getID();
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
-			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!fullname.empty()) )
-			{
-				fullname = gRlvHandler.getAnonym(fullname);
-			}
-// [/RLVa:KB]
 
 			if (!fullname.empty())
 			{
 				LLSD args;
-				args["AVATAR_NAME"] = fullname;
+//				args["AVATAR_NAME"] = fullname;
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
+				args["AVATAR_NAME"] = (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : gRlvHandler.getAnonym(fullname);
+// [/RLVa:KB]
 				LLNotifications::instance().add("FreezeAvatarFullname",
 							args,
 							payload,
@@ -2722,7 +2712,7 @@ class LLAvatarEject : public view_listener_t
 			LLSD payload;
 			payload["avatar_id"] = avatar->getID();
 			std::string fullname = avatar->getFullname();
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
 			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!fullname.empty()) )
 			{
 				fullname = gRlvHandler.getAnonym(fullname);
@@ -4068,10 +4058,10 @@ class LLObjectReturn : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		if (LLSelectMgr::getInstance()->getSelection()->isEmpty()) return true;
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-05 (RLVa-1.0.0b)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-05 (RLVa-1.0.0b)
 		if ( (rlv_handler_t::isEnabled()) && (!rlvCanDeleteOrReturn()) ) return true;
 // [/RLVa:KB]
-		
+
 		mObjectSelection = LLSelectMgr::getInstance()->getEditSelection();
 
 		LLNotifications::instance().add("ReturnToOwner", LLSD(), LLSD(), boost::bind(&LLObjectReturn::onReturnToOwner, this, _1, _2));
@@ -4788,8 +4778,6 @@ class LLToolsEnableUnlink : public view_listener_t
 		}
 
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0g
-		// The user might not be allowed to unlink this object due to RLV settings,
-		// because it would unsit them if they are sitting on the object.
 		if ( (new_value) && (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && 
 			 (gAgent.getAvatarObject()) && (gAgent.getAvatarObject()->mIsSitting) )
 		{
@@ -4811,8 +4799,6 @@ class LLToolsUnlink : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0g
-		// The user might not be allowed to unlink this object due to RLV settings,
-		// because it would unsit them if they are sitting on the object.
 		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) && (gAgent.getAvatarObject()->mIsSitting) )
 		{
 			// Allow if the avie isn't sitting on any of the selected objects
@@ -10831,6 +10817,7 @@ class LLAdvancedCheckMaxBuildConstraints : public view_listener_t
 ///////////////
 
 
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
 class RLVaMainToggle : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -10850,7 +10837,7 @@ class RLVaMainCheck : public view_listener_t
 		return true;
 	}
 };
-
+// [/RLVa:KB]
 
 
 ////////////////////
@@ -10858,6 +10845,7 @@ class RLVaMainCheck : public view_listener_t
 ////////////////////
 
 
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
 class RLVaBehaviorsShow : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -10866,7 +10854,7 @@ class RLVaBehaviorsShow : public view_listener_t
 		return true;
 	}
 };
-
+// [/RLVa:KB]
 
 
 static void addMenu(view_listener_t *menu, const char *name)
@@ -11283,8 +11271,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckMaxBuildConstraints(), "Advanced.CheckMaxBuildConstraints");
 
 	// RLVa
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
 	addMenu(new RLVaMainToggle(), "RLVa.Main.Toggle");
 	addMenu(new RLVaMainCheck(), "RLVa.Main.Enabled");
 	addMenu(new RLVaBehaviorsShow(), "RLVa.Behaviors.Show");
+// [/RLVa:KB]
 
 }

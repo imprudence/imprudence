@@ -82,11 +82,11 @@
 #include "llviewerwindow.h"
 #include "llwearable.h"
 
+#include "hippoGridManager.h"
+
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 #include "llvoavatar.h"
 // [/RLVa:KB]
-
-#include "hippoGridManager.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
