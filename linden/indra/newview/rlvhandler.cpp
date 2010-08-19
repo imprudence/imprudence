@@ -116,7 +116,7 @@ static bool rlvParseNotifyOption(const std::string& strOption, S32& nChannel, st
 
 // Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
 RlvHandler::RlvHandler() 
-	: m_fCanCancelTp(false), m_idCurObject(LLUUID::null), m_pCurCommand(NULL), m_pGCTimer(NULL), m_pWLSnapshot(NULL), m_pBhvrNotify(NULL)
+	: m_fCanCancelTp(true), m_idCurObject(LLUUID::null), m_pCurCommand(NULL), m_pGCTimer(NULL), m_pWLSnapshot(NULL), m_pBhvrNotify(NULL)
 {
 	// Array auto-initialization to 0 is non-standard? (Compiler warning in VC-8.0)
 	memset(m_LayersAdd, 0, sizeof(S16) * WT_COUNT);
