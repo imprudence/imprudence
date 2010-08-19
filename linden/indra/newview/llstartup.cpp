@@ -399,7 +399,7 @@ bool idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
 			rlv_handler_t::setEnabled(TRUE);
 // [/RLVa:KB]
@@ -2757,11 +2757,6 @@ bool idle_startup()
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL);
 
-#if 0 // sjb: enable for auto-enabling timer display 
-		gDebugView->mFastTimerView->setVisible(TRUE);
-#endif
-
-
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
 		gRlvHandler.initLookupTables();
@@ -2778,6 +2773,10 @@ bool idle_startup()
 			gRlvHandler.processRetainedCommands();
 		}
 // [/RLVa:KB]
+
+#if 0 // sjb: enable for auto-enabling timer display
+		gDebugView->mFastTimerView->setVisible(TRUE);
+#endif
 
 		return TRUE;
 	}

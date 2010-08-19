@@ -141,7 +141,7 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// Position
 	LLViewerRegion* region = gAgent.getRegion();
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-04 (RLVa-1.0.0a)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-04 (RLVa-1.0.0a)
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 	{
 		support.append(rlv_handler_t::cstrHidden);

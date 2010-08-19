@@ -558,16 +558,16 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 
 	S32 length = raw_text.length();
 
-	//if( (length > 0) && (raw_text[0] != '/') )  // forward slash is used for escape (eg. emote) sequences
-// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
-	if ( (length > 0) && (raw_text[0] != '/') && (!gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
-// [/RLVa:KB]
+	if( (length > 0) && (raw_text[0] != '/') )  // forward slash is used for escape (eg. emote) sequences
 	{
 		if (self->mChanCtrlEnabled && (S32)(self->mChannelControl->get()) != 0)
 		{
 			gAgent.stopTyping();
 		}
-		else
+//		else
+// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
+		else if (!gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT))
+// [/RLVa:KB]
 		{
 			gAgent.startTyping();
 		}

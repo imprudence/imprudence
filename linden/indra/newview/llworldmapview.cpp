@@ -1246,13 +1246,16 @@ BOOL LLWorldMapView::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* stic
 	{
 		LLViewerRegion *region = gAgent.getRegion();
 
+//		std::string message =
+//			llformat("%s (%s)",
+//					 info->mName.c_str(),
+//					 LLViewerRegion::accessToString(info->mAccess).c_str());
+// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-04 (RLVa-1.0.0a)
 		std::string message = 
 			llformat("%s (%s)",
-					 //info->mName.c_str(),
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-04 (RLVa-1.0.0a)
-					 (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? info->mName.c_str() : rlv_handler_t::cstrHidden.c_str(),
-// [/RLVa:KB]
+					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? info->mName.c_str() : rlv_handler_t::cstrHidden.c_str(),
 					 LLViewerRegion::accessToString(info->mAccess).c_str());
+// [/RLVa:KB]
 
 		if (info->mAccess != SIM_ACCESS_DOWN)
 		{

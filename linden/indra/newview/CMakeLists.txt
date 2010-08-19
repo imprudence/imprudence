@@ -909,8 +909,6 @@ set(viewer_HEADER_FILES
     pipeline.h
     primbackup.h
     randgauss.h
-    VertexCache.h
-    VorbisFramework.h
     rlvdefines.h
     rlvevent.h
     rlvhandler.h
@@ -918,6 +916,8 @@ set(viewer_HEADER_FILES
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
+    VertexCache.h
+    VorbisFramework.h
     viewertime.h
     viewerversion.h
     )

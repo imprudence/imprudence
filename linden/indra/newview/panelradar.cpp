@@ -47,6 +47,7 @@
 #include "llscrolllistctrl.h"
 #include "lltracker.h"
 #include "lluictrlfactory.h"
+#include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewermenu.h"
 #include "llviewermessage.h"
@@ -291,12 +292,12 @@ void PanelRadar::updateRadarDisplay()
 			element["id"] = entry->getID();
 			element["columns"][0]["column"] = "avatar_name";
 			element["columns"][0]["type"] = "text";
+//			element["columns"][0]["value"] = typing + entry->getName() + " " + mute_text;
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
-			//element["columns"][0]["value"] = typing + entry->getName() + " " + mute_text;
-			std::string fullname = (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? 
-										gRlvHandler.getAnonym(fullname) : 
-										typing + entry->getName() + " " + mute_text;
-			element["columns"][0]["value"] = fullname;
+			element["columns"][0]["value"] =
+				(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+					? gRlvHandler.getAnonym(entry->getName())
+					: typing + entry->getName() + " " + mute_text;
 // [/RLVa:KB]
 			element["columns"][1]["column"] = "avatar_distance";
 			element["columns"][1]["type"] = "text";

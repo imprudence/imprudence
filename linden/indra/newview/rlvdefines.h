@@ -71,7 +71,7 @@ const S32 RLVa_VERSION_BUILD = 4;
 	// Uncomment to enable the Advanced / RLVa / Unit Tests menu (non-public)
 	//#define RLV_DEBUG_TESTS
 #else
-	// Uncomment if you want extended debugging information on release builds
+	// Uncomment if you want extended debugging information in release builds
 	//#define RLV_DEBUG
 	// Don't halt execution on errors in release
 	#define RLV_ERRS  LL_WARNS("RLV")
@@ -82,7 +82,7 @@ const S32 RLVa_VERSION_BUILD = 4;
 #define RLV_ROOT_FOLDER					"#RLV"
 #define RLV_CMD_PREFIX					'@'
 #define RLV_PUTINV_PREFIX				"#RLV/~"
-#define RLV_SETROT_OFFSET				F_PI_BY_TWO		// @setrot is off by 90Â° with the rest of SL
+#define RLV_SETROT_OFFSET				F_PI_BY_TWO		// @setrot is off by 90° with the rest of SL
 
 #define RLV_FOLDER_FLAG_NOSTRIP			"nostrip"
 #define RLV_FOLDER_PREFIX_HIDDEN		'.'
