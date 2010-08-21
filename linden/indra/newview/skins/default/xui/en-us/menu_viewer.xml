@@ -1595,6 +1595,11 @@
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>
+      <menu_item_call name="Clear Cached Group Info"
+                  label="Clear Cached Group Info">
+        <on_click function="Advanced.ClearGroupCache"
+                  userdata="" />
+      </menu_item_call>
       <menu_item_separator />
       <menu_item_check name="Debug SelectMgr"
                        label="Debug SelectMgr">
@@ -2150,11 +2155,6 @@
                 userdata="ShowCrosshairs" />
       <on_check control="ShowCrosshairs" />
     </menu_item_check>
-    <menu_item_call name="Clear Group Cache"
-                    label="Clear Group Cache">
-      <on_click function="Advanced.ClearGroupCache"
-                userdata="" />
-    </menu_item_call>
 
     <menu_item_separator />
 
