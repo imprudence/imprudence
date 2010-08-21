@@ -969,6 +969,9 @@
       <on_click function="Advanced.ToggleSit" userdata="" />
       <on_Check function="Advanced.CheckSit" userdata="" />
     </menu_item_call>
+    <menu_item_call name="Teleport to Ground" label="Teleport to Ground">
+      <on_click function="Advanced.TPToGround" userdata="" />
+    </menu_item_call>
     <menu_item_check label="Phantom Avatar" name="Phantom" 
                      shortcut="control|alt|p">
       <on_click function="Advanced.TogglePhantom" userdata="" />
