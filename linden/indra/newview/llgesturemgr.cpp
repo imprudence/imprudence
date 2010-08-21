@@ -55,8 +55,10 @@
 #include "llfloaterchat.h"
 #include "llinventorymodel.h"
 #include "llnotify.h"
+#include "llpreviewtexture.h"
 #include "llviewermessage.h"
 #include "llvoavatar.h"
+#include "llviewerimagelist.h"
 #include "llviewerstats.h"
 
 LLGestureManager gGestureManager;
@@ -561,7 +563,28 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					found_gestures = TRUE;
 				}
 			}
-			else if (LLStringUtil::compareInsensitive("/icanhascookie", cur_token) == 0)
+			else if (LLStringUtil::compareInsensitive("/icanhaseasteregg", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhaseastereggs", cur_token) == 0)
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("easteregg.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "Easter Egg!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhascookie", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhascookies", cur_token) == 0)
 			{
 				LLChat chat;
 				chat.mText = "I made you a cookie but I eated it";
