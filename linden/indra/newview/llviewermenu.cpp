@@ -8669,6 +8669,24 @@ class LLAdvancedCheckSit : public view_listener_t
 	}
 };
 
+//////////////////
+// TP TO GROUND //
+//////////////////
+
+class LLAdvancedTPToGround: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVector3 agentPos = gAgent.getPositionAgent();
+        U64 agentRegion = gAgent.getRegion()->getHandle();
+        LLVector3 targetPos(agentPos.mV[0],agentPos.mV[1],LLWorld::getInstance()->resolveLandHeightAgent(agentPos));
+        LLVector3d pos_global = from_region_handle(agentRegion);
+        pos_global += LLVector3d((F64)targetPos.mV[0],(F64)targetPos.mV[1],(F64)targetPos.mV[2]);
+        gAgent.teleportViaLocation(pos_global);
+		return true;
+	}
+};
+
 
 /////////////
 // PHANTOM //
@@ -11112,6 +11130,7 @@ void initialize_menus()
 	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
 	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
 	addMenu(new LLAdvancedCheckSit(), "Advanced.CheckSit");
+	addMenu(new LLAdvancedTPToGround(), "Advanced.TPToGround");
 	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
 	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
 	addMenu(new LLAdvancedToggleAssetBrowser(),"Advanced.ToggleAssetBrowser");
