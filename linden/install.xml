@@ -1224,9 +1224,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>7c33758dc0a047c244de03133dd76c2a</string>
+            <string>79bb92dcc79e310ff9aebf7fbe6b10e5</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/openal-soft-1.6.372-windows-01262009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-soft-1.12.854-windows-20100822.tar.bz2</uri>
           </map>
         </map>
       </map>
