@@ -832,16 +832,14 @@ bool LLTextureCache::updateTextureEntryList(const LLUUID& id, S32 bodysize)
 			S32 idx = openAndReadEntry(id, entry, false);
 			if (idx < 0)
 			{
-				// TODO: change to llwarns
-				llerrs << "Failed to open entry: " << id << llendl;
+				llwarns << "Failed to open entry: " << id << llendl;
 				mHeaderMutex.unlock();
 				removeFromCache(id);
 				return false;
 			}			
 			else if (oldbodysize != entry.mBodySize)
 			{
-				// TODO: change to llwarns
-				llerrs << "Entry mismatch in mTextureSizeMap / mHeaderIDMap"
+				llwarns << "Entry mismatch in mTextureSizeMap / mHeaderIDMap"
 					   << " idx=" << idx << " oldsize=" << oldbodysize << " entrysize=" << entry.mBodySize << llendl;
 			}
 			entry.mBodySize = bodysize;
