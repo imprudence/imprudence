@@ -6807,7 +6807,7 @@ Are you sure you want to move here?
  type="alert">
 Are you sure you want to derender [NAME]?
 
-[NAME] will be hidden until you exit the region.
+[NAME] will be hidden until you exit the region or they change outfits.
   <usetemplate
     ignoretext="When using derender"
     name="okcancelignore"
