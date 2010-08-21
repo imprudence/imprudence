@@ -1582,9 +1582,16 @@ void JCExportTracker::finalize()
 					LLXMLNodePtr shear_xml = prim_xml->createChild("top_shear", FALSE);
 					shear_xml->createChild("x", TRUE)->setValue(llformat("%.5f", shear_x));
 					shear_xml->createChild("y", TRUE)->setValue(llformat("%.5f", shear_y));
-					
-				
 				}
+				else
+				{	
+					// Dimple
+					//<dimple begin="0.0" end="1.0" />
+					LLXMLNodePtr shear_xml = prim_xml->createChild("dimple", FALSE);
+					shear_xml->createChild("begin", TRUE)->setValue(llformat("%.5f", adv_cut_begin));
+					shear_xml->createChild("end", TRUE)->setValue(llformat("%.5f", adv_cut_end));
+				}
+
 				if (selected_item == "box" || selected_item == "cylinder" || selected_item == "prism")
 				{
 					// Taper

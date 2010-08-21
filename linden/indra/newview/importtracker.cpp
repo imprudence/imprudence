@@ -817,6 +817,12 @@ LLSD ImportTracker::parse_hpa_object(LLXmlTreeNode* prim)
 				param->getAttributeF32("amount", hollow);
 				param->getAttributeS32("shape", selected_hole);
 			}
+			//<dimple begin="0.00000" end="0.00000" />
+			else if (param->hasName("dimple"))
+			{
+				param->getAttributeF32("begin", adv_cut_begin);
+				param->getAttributeF32("end", adv_cut_end);
+			}
 			//<topology val="1" />
 			else if (param->hasName("topology"))
 				param->getAttributeU8("val", topology);
