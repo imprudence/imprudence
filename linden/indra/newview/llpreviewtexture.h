@@ -56,6 +56,7 @@ public:
 		const std::string& title,
 		const LLUUID& asset_id,
 		BOOL copy_to_inv = FALSE);
+	LLPreviewTexture(const LLRect& rect, const std::string& title, LLViewerImage* imagep);
 	~LLPreviewTexture();
 
 	virtual void		draw();
