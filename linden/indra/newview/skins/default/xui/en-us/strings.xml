@@ -20,6 +20,9 @@
   <string name="TitleBarMultiple">
     [FIRST_NAME] [LAST_NAME] on [GRID_NAME]
   </string>
+  <string name="copy_obj_key_info">
+    Copied key(s) for:
+  </string>
 
   <!-- Login -->
   <string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>

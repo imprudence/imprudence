@@ -74,6 +74,7 @@ protected:
 	static void onClickGroup(void*);
 	static void cbGroupID(LLUUID group_id, void* userdata);
 	static void onClickDeedToGroup(void*);
+	static void onClickCopyObjKey(void*);
 
 	static void onCommitPerm(LLUICtrl *ctrl, void *data, U8 field, U32 perm);
 

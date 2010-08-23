@@ -54,13 +54,16 @@
 #include "llstatusbar.h"		// for getBalance()
 #include "lllineeditor.h"
 #include "llradiogroup.h"
+#include "llchat.h"
 #include "llcombobox.h"
 #include "llfloateravatarinfo.h"
+#include "llfloaterchat.h"
 #include "lluiconstants.h"
 #include "lldbstrings.h"
 #include "llfloatergroupinfo.h"
 #include "llfloatergroups.h"
 #include "llnamebox.h"
+#include "lltrans.h"
 #include "llviewercontrol.h"
 #include "lluictrlfactory.h"
 #include "roles_constants.h"
@@ -95,6 +98,8 @@ BOOL LLPanelPermissions::postBuild()
 	this->childSetCommitCallback("checkbox share with group",LLPanelPermissions::onCommitGroupShare,this);
 
 	this->childSetAction("button deed",LLPanelPermissions::onClickDeedToGroup,this);
+
+	this->childSetAction("button copy key",LLPanelPermissions::onClickCopyObjKey,this);
 
 	this->childSetCommitCallback("checkbox allow everyone move",LLPanelPermissions::onCommitEveryoneMove,this);
 
@@ -258,6 +263,8 @@ void LLPanelPermissions::refresh()
 		childSetVisible("E:",false);
 		childSetVisible("N:",false);
 		childSetVisible("F:",false);
+
+		childSetEnabled("button copy key",false);
 
 		return;
 	}
@@ -844,6 +851,8 @@ void LLPanelPermissions::refresh()
 	}
 	childSetEnabled("label click action",is_perm_modify && all_volume);
 	childSetEnabled("clickaction",is_perm_modify && all_volume);
+
+	childSetEnabled("button copy key",true);
 }
 
 
@@ -975,6 +984,49 @@ void LLPanelPermissions::onClickDeedToGroup(void* data)
 	LLSD args;
 	args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	LLNotifications::instance().add( "DeedObjectToGroup", args, LLSD(), callback_deed_to_group);
+}
+
+void LLPanelPermissions::onClickCopyObjKey(void* data)
+{
+	std::string output;
+	std::string keys;
+	const std::string separator = ", ";
+	LLChat chat;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+
+	for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
+		iter != LLSelectMgr::getInstance()->getSelection()->root_end(); iter++)
+	{
+		LLSelectNode* selectNode = *iter;
+		LLViewerObject* object = selectNode->getObject();
+		if (object)
+		{
+			if (!output.empty()) 
+			{
+				output.append(separator);
+			}
+			output.append(selectNode->mName);
+			output.append(": ");
+			output.append(object->getID().asString());
+
+			if (!keys.empty())
+			{
+				keys.append(separator);
+			}
+			keys.append(object->getID().asString());
+		}
+	}
+
+	if (!output.empty()) 
+	{
+		chat.mText = LLTrans::getString("copy_obj_key_info") + "\n" + output;
+		LLFloaterChat::addChat(chat);
+	}
+
+	if (!keys.empty())
+	{
+		gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(keys));
+	}
 }
 
 ///----------------------------------------------------------------------------
