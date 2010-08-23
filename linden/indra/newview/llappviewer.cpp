@@ -3734,6 +3734,8 @@ void LLAppViewer::idleShutdown()
 	// close IM interface
 	if(gIMMgr)
 	{
+		// Save group chat ignore list -- MC
+		gIMMgr->saveIgnoreGroup();
 		gIMMgr->disconnectAllSessions();
 	}
 	
