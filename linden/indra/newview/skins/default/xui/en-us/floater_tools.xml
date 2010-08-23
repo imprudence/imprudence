@@ -473,7 +473,7 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
            bottom="-262" drop_shadow_visible="true" follows="left|top|right"
            font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
-           mouse_opaque="true" name="Next owner can:" v_pad="0" width="250">
+           mouse_opaque="true" name="Anyone can:" v_pad="0" width="250">
         Anyone Can:
       </text>
       <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"

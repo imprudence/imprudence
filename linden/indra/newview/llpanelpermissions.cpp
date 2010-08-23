@@ -222,6 +222,7 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("checkbox allow everyone copy",false);
 
 		//Next owner can:
+		childSetEnabled("Anyone can:",false);
 		childSetEnabled("Next owner can:",false);
 		childSetValue("checkbox next owner can modify",FALSE);
 		childSetEnabled("checkbox next owner can modify",false);
@@ -651,12 +652,14 @@ void LLPanelPermissions::refresh()
 
 	if (has_change_perm_ability)
 	{
+		childSetEnabled("Anyone can:", TRUE);
 		childSetEnabled("checkbox share with group",true);
 		childSetEnabled("checkbox allow everyone move",owner_mask_on & PERM_MOVE);
 		childSetEnabled("checkbox allow everyone copy",owner_mask_on & PERM_COPY && owner_mask_on & PERM_TRANSFER);
 	}
 	else
 	{
+		childSetEnabled("Anyone can:", FALSE);
 		childSetEnabled("checkbox share with group", FALSE);
 		childSetEnabled("checkbox allow everyone move", FALSE);
 		childSetEnabled("checkbox allow everyone copy", FALSE);
