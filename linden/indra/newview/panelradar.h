@@ -77,6 +77,7 @@ private:
 	LLScrollListCtrl*   mRadarList;
 	LLUUID              mSelectedAvatar;
 	F32					mSelectedDistance;
+	bool				mSimWide;
 
 	bool visibleItemsSelected() const;
 	bool isKickable(const LLUUID& agent_id);
@@ -88,6 +89,8 @@ private:
 
 	static void onUseRadarList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
+	static void onCheckSimWide(LLUICtrl* ctrl, void* user_data);
+	void updateRangeControls();
 
 	static void onClickProfile(void* user_data);
 	static void onClickIM(void* user_data);
