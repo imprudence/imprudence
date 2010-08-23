@@ -436,42 +436,48 @@
 			     mouse_opaque="true" name="button deed" scale_image="TRUE"
 			     tool_tip="Group shared objects can be deeded by a group officer."
 			     width="78" />
-			<check_box bottom="-206" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Allow anyone to move" left="10"
-			     mouse_opaque="true" name="checkbox allow everyone move" width="142" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Allow anyone to copy" left="10"
-			     mouse_opaque="true" name="checkbox allow everyone copy" width="141" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+      <check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Show in search" left="10" name="search_check"
 			     tool_tip="Let people see this object in search results" width="78" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+      <check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="For sale:" left="10" mouse_opaque="true"
 			     name="checkbox for sale" width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="90"
 			     mouse_opaque="true" name="Cost" v_pad="0" width="78">
-				Price: [CURRENCY]
-			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+        Price: [CURRENCY]
+      </text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 			     follows="left|top|right" font="SansSerifSmall" height="16" left_delta="80"
 			     max_length="25" mouse_opaque="true" name="Edit Cost" width="75" />
-			<radio_group bottom="-286" draw_border="false" follows="left|top|right" height="16"
+      <radio_group bottom_delta="-20" draw_border="false" follows="left|top|right" height="16"
 			     left="42" mouse_opaque="true" name="sale type" width="218">
-				<radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
+        <radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
 				     name="Original" width="70">
-					Original
-				</radio_item>
-				<radio_item bottom="-16" follows="left|top" height="16" left="70" mouse_opaque="true"
+          Original
+        </radio_item>
+        <radio_item bottom="-16" follows="left|top" height="16" left="70" mouse_opaque="true"
 				     name="Copy" width="70">
-					Copy
-				</radio_item>
-				<radio_item bottom="-16" follows="left|top" height="16" left="140" mouse_opaque="true"
+          Copy
+        </radio_item>
+        <radio_item bottom="-16" follows="left|top" height="16" left="140" mouse_opaque="true"
 				     name="Contents" width="76">
-					Contents
-				</radio_item>
-			</radio_group>
+          Contents
+        </radio_item>
+      </radio_group>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-262" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+           mouse_opaque="true" name="Next owner can:" v_pad="0" width="250">
+        Anyone Can:
+      </text>
+      <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
+           initial_value="false" label="Move" left="10"
+           mouse_opaque="true" name="checkbox allow everyone move" width="142" />
+      <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Copy" left_delta="60"
+			     mouse_opaque="true" name="checkbox allow everyone copy" width="141" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-298" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
