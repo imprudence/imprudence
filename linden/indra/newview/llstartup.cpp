@@ -2173,7 +2173,14 @@ bool idle_startup()
 		// Change the window title to include the avatar name if we're using multiple viewers -- MC
 		if (gSavedSettings.getBOOL("AllowMultipleViewers"))
 		{
-			gWindowTitle = gSecondLife + " - " + firstname + " " + lastname;
+			LLStringUtil::format_map_t args;
+			args["[FIRST_NAME]"] = firstname;
+			args["[LAST_NAME]"] = lastname;
+			args["[GRID_NAME]"] = (gHippoGridManager->getConnectedGrid()->getGridName().empty()) ? 
+				gHippoGridManager->getConnectedGrid()->getGridNick() :
+				gHippoGridManager->getConnectedGrid()->getGridName();
+			std::string title_text = LLTrans::getString("TitleBarMultiple", args);
+			gWindowTitle = gSecondLife + " - " + title_text;
 			LLStringUtil::truncate(gWindowTitle, 255);
 			gViewerWindow->getWindow()->setWindowTitle(gWindowTitle);
 		}

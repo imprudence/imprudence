@@ -17,6 +17,9 @@
   <string name="StatBarMonthsOfYear">
     January:February:March:April:May:June:July:August:September:October:November:December
   </string>
+  <string name="TitleBarMultiple">
+    [FIRST_NAME] [LAST_NAME] on [GRID_NAME]
+  </string>
 
   <!-- Login -->
   <string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>
