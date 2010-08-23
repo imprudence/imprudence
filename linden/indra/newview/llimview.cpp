@@ -53,6 +53,7 @@
 #include "llhttpnode.h"
 #include "llimpanel.h"
 #include "llresizebar.h"
+#include "llsdserialize.h"
 #include "lltabcontainer.h"
 #include "llviewercontrol.h"
 #include "llfloater.h"
@@ -534,6 +535,8 @@ LLIMMgr::LLIMMgr() :
 
 	mPendingInvitations = LLSD::emptyMap();
 	mPendingAgentListUpdates = LLSD::emptyMap();
+
+	loadIgnoreGroup();
 }
 
 LLIMMgr::~LLIMMgr()
@@ -594,6 +597,30 @@ void LLIMMgr::addMessage(
 	// create IM window as necessary
 	if(!floater)
 	{
+		if (!mIgnoreGroupList.empty())
+		{
+			// Check to see if we're blocking this group's chat
+			LLGroupData *group_data = NULL;
+
+			// Search for this group in the agent's groups list
+			LLDynamicArray<LLGroupData>::iterator i;
+
+			for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
+			{
+				if (i->mID == session_id)
+				{
+					group_data = &*i;
+					break;
+				}
+			}
+
+			// If the group is in our list then return
+			if (group_data && (mIgnoreGroupList.count(group_data->mID) == 1))
+			{
+				return;
+			}
+		}
+
 		std::string name = from;
 		if(!session_name.empty() && session_name.size()>1)
 		{
@@ -1274,6 +1301,95 @@ void LLIMMgr::updateFloaterSessionID(
 		floater->sessionInitReplyReceived(new_session_id);
 	}
 }
+
+void LLIMMgr::loadIgnoreGroup()
+{
+	// Load groups we want to ignore in chat -- MC
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
+
+	LLSD settings_llsd;
+	llifstream file;
+	file.open(filename);
+	if (file.is_open())
+	{
+		llinfos << "loading ignore_groups.xml" << llendl;
+		LLSDSerialize::fromXML(settings_llsd, file);
+	}
+	else
+	{
+		llinfos << "creating blank ignore_groups.xml" << llendl;
+		FILE* fp = LLFile::fopen(filename, "w+");
+		fclose(fp);
+	}
+
+	for (LLSD::map_const_iterator iter = settings_llsd.beginMap();
+		 iter != settings_llsd.endMap(); ++iter)
+	{
+		llinfos << "group chat for id " << iter->first << " is ignored? " << iter->second << llendl;
+		mIgnoreGroupList.insert(std::make_pair(LLUUID(iter->first), (bool)(iter->second.asBoolean())));
+	}
+}
+
+void LLIMMgr::saveIgnoreGroup()
+{
+	// Save groups we want to ignore in chat before killing gIMMgr
+	std::string user_dir = gDirUtilp->getLindenUserDir();
+	if (!user_dir.empty())
+	{
+		llinfos << "saving ignore_groups.xml" << llendl;
+		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
+		LLSD settings_llsd;
+
+		for(std::map<LLUUID, bool>::iterator iter = mIgnoreGroupList.begin(); 
+			iter != mIgnoreGroupList.end(); ++iter)
+		{
+			settings_llsd[iter->first.asString()] = iter->second;
+		}
+
+		llofstream file;
+		file.open(filename);
+		LLSDSerialize::toPrettyXML(settings_llsd, file);
+	}
+}
+
+void LLIMMgr::updateIgnoreGroup(const LLUUID& group_id, const bool& ignore)
+{
+	if (group_id.notNull())
+	{
+		std::map<LLUUID, bool>::iterator found_it = mIgnoreGroupList.find(group_id);
+		if (found_it != mIgnoreGroupList.end())
+		{
+			llinfos << "existing group " << group_id << " updated to " << ignore << llendl;
+			mIgnoreGroupList[group_id] = ignore;
+		}
+		else
+		{
+			llinfos << "new group " << group_id << " created and set to " << ignore << llendl;
+			mIgnoreGroupList.insert(std::make_pair(group_id, ignore));
+		}
+	}
+}
+
+bool LLIMMgr::getIgnoreGroup(const LLUUID& group_id)
+{
+	if (group_id.notNull())
+	{
+		std::map<LLUUID, bool>::iterator found_it = mIgnoreGroupList.find(group_id);
+		if (found_it != mIgnoreGroupList.end())
+		{
+			llinfos << "group found in ignore_groups.xml, " << found_it->second << llendl;
+			return found_it->second;
+		}
+	}
+	llinfos << "no group info found in ignore_groups.xml" << llendl;
+	return false;
+}
+
+
+//////////////////////
+///// ChatterBox /////
+//////////////////////
+
 
 LLFloaterChatterBox* LLIMMgr::getFloater()
 { 

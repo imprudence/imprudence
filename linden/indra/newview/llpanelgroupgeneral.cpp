@@ -47,6 +47,7 @@
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
 #include "lldbstrings.h"
+#include "llimview.h"
 #include "lllineeditor.h"
 #include "llnamebox.h"
 #include "llnamelistctrl.h"
@@ -89,6 +90,7 @@ LLPanelGroupGeneral::LLPanelGroupGeneral(const std::string& name,
 	mCtrlEnrollmentFee(NULL),
 	mSpinEnrollmentFee(NULL),
 	mCtrlReceiveNotices(NULL),
+	mCtrlReceiveChat(NULL),
 	mCtrlListGroup(NULL),
 	mActiveTitleLabel(NULL),
 	mComboActiveTitle(NULL)
@@ -216,6 +218,15 @@ BOOL LLPanelGroupGeneral::postBuild()
 		mCtrlReceiveNotices->setCallbackUserData(this);
 		mCtrlReceiveNotices->set(accept_notices);
 		mCtrlReceiveNotices->setEnabled(data.mID.notNull());
+	}
+
+	mCtrlReceiveChat = getChild<LLCheckBoxCtrl>("receive_chat", recurse);
+	if (mCtrlReceiveChat)
+	{
+		mCtrlReceiveChat->setCommitCallback(onCommitUserOnly);
+		mCtrlReceiveChat->setCallbackUserData(this);
+		mCtrlReceiveChat->set(!gIMMgr->getIgnoreGroup(mGroupID));
+		mCtrlReceiveChat->setEnabled(mGroupID.notNull());
 	}
 	
 	mCtrlListGroup = getChild<LLCheckBoxCtrl>("list_groups_in_profile", recurse);
@@ -534,6 +545,7 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 	}
 
 	BOOL receive_notices = false;
+	BOOL receive_chat = false;
 	BOOL list_in_profile = false;
 	if (mCtrlReceiveNotices)
 		receive_notices = mCtrlReceiveNotices->get();
@@ -541,6 +553,15 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 		list_in_profile = mCtrlListGroup->get();
 
 	gAgent.setUserGroupFlags(mGroupID, receive_notices, list_in_profile);
+
+	if (mCtrlReceiveChat)
+	{
+		receive_chat = mCtrlReceiveChat->get();
+	}
+
+	gIMMgr->updateIgnoreGroup(mGroupID, receive_chat);
+	// Save here too in case we crash somewhere down the road -- MC
+	gIMMgr->saveIgnoreGroup();
 
 	mChanged = FALSE;
 
@@ -758,6 +779,13 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 		mCtrlReceiveNotices->resetDirty();
 	}
 
+	if (mCtrlReceiveChat)
+	{
+		mCtrlReceiveChat->setVisible(is_member);
+		mCtrlReceiveChat->setEnabled(TRUE);
+		mCtrlReceiveChat->resetDirty();
+	}
+
 
 	if (mInsignia) mInsignia->setEnabled(mAllowEdit && can_change_ident);
 	if (mEditCharter) mEditCharter->setEnabled(mAllowEdit && can_change_ident);
@@ -902,6 +930,7 @@ void LLPanelGroupGeneral::updateChanged()
 		mCtrlEnrollmentFee,
 		mSpinEnrollmentFee,
 		mCtrlReceiveNotices,
+		mCtrlReceiveChat,
 		mCtrlListGroup,
 		mActiveTitleLabel,
 		mComboActiveTitle
