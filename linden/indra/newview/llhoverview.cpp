@@ -454,6 +454,27 @@ void LLHoverView::updateText()
 				}
 				mText.push_back(line);
 			}
+			line.clear();
+			S32 prim_count = LLSelectMgr::getInstance()->getHoverObjects()->getObjectCount();
+			line.append(llformat("Prims: %d", prim_count));
+			mText.push_back(line);
+
+			line.clear();
+			line.append("Position: ");
+
+			LLViewerRegion *region = gAgent.getRegion();
+			LLVector3 position = region->getPosRegionFromGlobal(hit_object->getPositionGlobal());//regionp->getOriginAgent();
+			LLVector3 mypos = region->getPosRegionFromGlobal(gAgent.getPositionGlobal());
+			
+
+			LLVector3 delta = position - mypos;
+			F32 distance = (F32)delta.magVec();
+
+			line.append(llformat("<%.02f,%.02f,%.02f>",position.mV[0],position.mV[1],position.mV[2]));
+			mText.push_back(line);
+			line.clear();
+			line.append(llformat("Distance: %.02fm",distance));
+			mText.push_back(line);
 			
 			//  If the hover tip shouldn't be shown, delete all the object text
 			if (suppressObjectHoverDisplay)
