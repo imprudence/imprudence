@@ -70,6 +70,7 @@ protected:
 	static void onClickCreator(void*);
 	static void onClickOwner(void*);
 	static void onClickLastOwner(void*);
+	static void onClickGroupName(void*);
 	static void onClickGroup(void*);
 	static void cbGroupID(LLUUID group_id, void* userdata);
 	static void onClickDeedToGroup(void*);

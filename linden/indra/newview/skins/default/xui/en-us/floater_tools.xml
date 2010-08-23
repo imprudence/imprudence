@@ -349,6 +349,7 @@
 			     follows="left|top|right" font="SansSerifSmall" height="16" left="88"
 			     max_length="127" mouse_opaque="true" name="Object Description"
 			     select_all_on_focus_received="true" width="172" />
+      
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-66" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -358,29 +359,25 @@
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-66" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Creator Name" v_pad="0" width="88">
-				Thrax Linden
-			</text>
-			<button bottom="-66" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button creator profile" scale_image="TRUE"
-			     width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     mouse_opaque="true" name="Creator Name" v_pad="0" width="145"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
+      </text>
+
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-86" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 			     mouse_opaque="true" name="Owner:" v_pad="0" width="78">
-				Owner:
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Owner:
+      </text>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-86" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Owner Name" v_pad="0" width="88">
-				Thrax Linden
-			</text>
-			<button bottom="-86" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button owner profile" scale_image="TRUE"
-			     width="78" />
+			     mouse_opaque="true" name="Owner Name" v_pad="0" width="174"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
+      </text>
+      
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -390,24 +387,22 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Last Owner Name" v_pad="0" width="88">
-        Thrax Linden
+			     mouse_opaque="true" name="Last Owner Name" v_pad="0" width="174"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
       </text>
-      <button bottom_delta="0" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button last owner profile" scale_image="TRUE"
-			     width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 			     mouse_opaque="true" name="Group:" v_pad="0" width="78">
-				Group:
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Group:
+      </text>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
 			     mouse_opaque="true" name="Group Name Proxy" v_pad="0" visible="false"
-			     width="88">
+			     width="88" hover="true" hover_color="50 115 185" font-style="UNDERLINE">
 				The Lindens
 			</text>
 			<button bottom="-126" follows="top|right" font="SansSerifSmall" halign="center"

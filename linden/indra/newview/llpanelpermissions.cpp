@@ -85,10 +85,10 @@ BOOL LLPanelPermissions::postBuild()
 	this->childSetCommitCallback("Object Description",LLPanelPermissions::onCommitDesc,this);
 	this->childSetPrevalidate("Object Description",LLLineEditor::prevalidatePrintableNotPipe);
 
-	
-	this->childSetAction("button owner profile",LLPanelPermissions::onClickOwner,this);
-	this->childSetAction("button last owner profile",LLPanelPermissions::onClickLastOwner,this);
-	this->childSetAction("button creator profile",LLPanelPermissions::onClickCreator,this);
+	this->getChild<LLTextBox>("Creator Name")->setClickedCallback(onClickCreator, this);
+	this->getChild<LLTextBox>("Owner Name")->setClickedCallback(onClickOwner, this);
+	this->getChild<LLTextBox>("Last Owner Name")->setClickedCallback(onClickLastOwner, this);
+	this->getChild<LLTextBox>("Group Name Proxy")->setClickedCallback(onClickGroupName, this);
 
 	this->childSetAction("button set group",LLPanelPermissions::onClickGroup,this);
 
@@ -116,8 +116,13 @@ BOOL LLPanelPermissions::postBuild()
 	LLTextBox* group_rect_proxy = getChild<LLTextBox>("Group Name Proxy");
 	if(group_rect_proxy )
 	{
+		// God I hate leaving this hardcoded styling here, ick ick ick -- MC
 		mLabelGroupName = new LLNameBox("Group Name", group_rect_proxy->getRect());
 		addChild(mLabelGroupName);
+		mLabelGroupName->setClickedCallback(onClickGroupName, this);
+		mLabelGroupName->setHoverActive(TRUE);
+		mLabelGroupName->setHoverColor(LLColor4(50, 115, 185));
+		mLabelGroupName->setFontStyle(LLFontGL::UNDERLINE);
 	}
 	else
 	{
@@ -177,17 +182,14 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Creator:",false);
 		childSetText("Creator Name",LLStringUtil::null);
 		childSetEnabled("Creator Name",false);
-		childSetEnabled("button creator profile",false);
 
 		childSetEnabled("Owner:",false);
 		childSetText("Owner Name",LLStringUtil::null);
 		childSetEnabled("Owner Name",false);
-		childSetEnabled("button owner profile",false);
 
 		childSetEnabled("Last Owner:",false);
 		childSetText("Last Owner Name",LLStringUtil::null);
 		childSetEnabled("Last Owner Name",false);
-		childSetEnabled("button last owner profile",false);
 
 		childSetEnabled("Group:",false);
 		childSetText("Group Name",LLStringUtil::null);
@@ -297,8 +299,7 @@ void LLPanelPermissions::refresh()
 													  creator_name);
 
 	childSetText("Creator Name",creator_name);
-	childSetEnabled("Creator Name",TRUE);
-	childSetEnabled("button creator profile", creators_identical && mCreatorID.notNull() );
+	childSetEnabled("Creator Name",creators_identical && mCreatorID.notNull());
 
 	// Update owner text field
 	childSetEnabled("Owner:",true);
@@ -347,10 +348,9 @@ void LLPanelPermissions::refresh()
 // [/RLVa:KB]
 
 	childSetText("Owner Name",owner_name);
-	childSetEnabled("Owner Name",TRUE);
-//	childSetEnabled("button owner profile",owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
-	childSetEnabled("button owner profile",
+//	childSetEnabled("Owner Name",TRUE);
+// [RLVa:KB] - Checked: 2010-08-23 (RLVa-imp-edit)
+	childSetEnabled("Owner Name",
 		fRlvEnableOwner && owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
 // [/RLVa:KB]
 
@@ -359,14 +359,12 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Last Owner:", TRUE);
 		childSetText("Last Owner Name", last_owner_name);
 		childSetEnabled("Last Owner Name", TRUE);
-		childSetEnabled("button last owner profile", TRUE);
 	}
 	else
 	{
 		childSetEnabled("Last Owner:", FALSE);
 		childSetText("Last Owner Name", LLStringUtil::null);
 		childSetEnabled("Last Owner Name", FALSE);
-		childSetEnabled("button last owner profile", FALSE);
 	}
 
 	// update group text field
@@ -868,7 +866,10 @@ void LLPanelPermissions::onClickCreator(void *data)
 {
 	LLPanelPermissions *self = (LLPanelPermissions *)data;
 
-	LLFloaterAvatarInfo::showFromObject(self->mCreatorID);
+	if (self->mCreatorID.notNull())
+	{
+		LLFloaterAvatarInfo::showFromObject(self->mCreatorID);
+	}
 }
 
 // static
@@ -882,7 +883,7 @@ void LLPanelPermissions::onClickOwner(void *data)
 		LLSelectMgr::getInstance()->selectGetGroup(group_id);
 		LLFloaterGroupInfo::showFromUUID(group_id);
 	}
-	else
+	else if (self->mOwnerID.notNull())
 	{
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 		if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
@@ -907,6 +908,15 @@ void LLPanelPermissions::onClickLastOwner(void *data)
 		}
 // [/RLVa:KB]
 //		LLFloaterAvatarInfo::showFromObject(self->mLastOwnerID);
+	}
+}
+
+void LLPanelPermissions::onClickGroupName(void *data)
+{
+	LLUUID group_id;
+	if (LLSelectMgr::getInstance()->selectGetGroup(group_id))
+	{
+		LLFloaterGroupInfo::showFromUUID(group_id);
 	}
 }
 
