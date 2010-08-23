@@ -74,6 +74,16 @@ public:
 	static void 	onCommitPhantom(		LLUICtrl* ctrl, void* userdata);
 	static void 	onCommitCastShadows(	LLUICtrl* ctrl, void* userdata);
 
+	static void 	onCopyPos(				void* user_data);
+	static void 	onPastePos(				void* user_data);
+	static void 	onPastePosClip(				void* user_data);
+	static void 	onCopySize(				void* user_data);
+	static void 	onPasteSize(			void* user_data);
+	static void 	onPasteSizeClip(			void* user_data);
+	static void 	onCopyRot(				void* user_data);
+	static void 	onPasteRot(				void* user_data);
+	static void 	onPasteRotClip(				void* user_data);
+
 	static void 	onCommitParametric(LLUICtrl* ctrl, void* userdata);
 
 	static void 	onCommitMaterial(		LLUICtrl* ctrl, void* userdata);
@@ -101,6 +111,11 @@ protected:
 	void 			getVolumeParams(LLVolumeParams& volume_params);
 	
 protected:
+
+	static LLVector3 mClipboardPos;
+	static LLVector3 mClipboardSize;
+	static LLVector3 mClipboardRot;
+
 	S32				mComboMaterialItemCount;
 
 	LLTextBox*		mLabelMaterial;
@@ -162,6 +177,21 @@ protected:
 	LLSpinCtrl*		mCtrlRotX;
 	LLSpinCtrl*		mCtrlRotY;
 	LLSpinCtrl*		mCtrlRotZ;
+
+	LLButton		*mBtnCopyPos;
+	LLButton		*mBtnPastePos;
+	LLButton		*mBtnPastePosClip;
+	
+	LLButton		*mBtnCopySize;
+	LLButton		*mBtnPasteSize;
+	LLButton		*mBtnPasteSizeClip;
+	
+	LLButton		*mBtnCopyRot;
+	LLButton		*mBtnPasteRot;
+	LLButton		*mBtnPasteRotClip;
+	
+	LLButton		*mBtnCopyParams;
+	LLButton		*mBtnPasteParams;
 
 	LLCheckBoxCtrl	*mCheckLock;
 	LLCheckBoxCtrl	*mCheckPhysics;

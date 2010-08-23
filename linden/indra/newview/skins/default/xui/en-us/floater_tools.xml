@@ -645,6 +645,16 @@
 			     increment="0.01" initial_val="0" label="Z" label_width="10" left="10"
 			     max_val="4096" min_val="0" mouse_opaque="true" name="Pos Z"
 			     text_enabled_color="0, 67, 132, 255" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copypos" enabled="true"
+       tool_tip="Copy Position"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pastepos"  enabled="true"
+       tool_tip="Paste Position"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pasteposclip"  enabled="true"
+       tool_tip="Paste Position from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -663,6 +673,16 @@
 			     increment="0.01" initial_val="0" label="Z" label_width="10" left="10"
 			     mouse_opaque="true" name="Scale Z"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copysize"  enabled="true"
+       tool_tip="Copy Size"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pastesize"  enabled="true"
+       tool_tip="Paste Size"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pastesizeclip"  enabled="true"
+       tool_tip="Paste Size from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -681,6 +701,16 @@
 			     increment="1" initial_val="0" label="Z" label_width="10" left="10"
 			     max_val="9999" min_val="-9999" mouse_opaque="true" name="Rot Z"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copyrot"  enabled="true"
+       tool_tip="Copy Rotation"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pasterot"  enabled="true"
+       tool_tip="Paste Rotation"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pasterotclip"  enabled="true"
+       tool_tip="Paste Rotation from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
