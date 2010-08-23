@@ -2244,7 +2244,7 @@ void LLPanelObject::onPastePos(void* user_data)
 	LLCalc* calcp = LLCalc::getInstance();
 	mClipboardPos.mV[VX] = llclamp( mClipboardPos.mV[VX], 0.f, 256.f);
 	mClipboardPos.mV[VY] = llclamp( mClipboardPos.mV[VY], 0.f, 256.f);
-	mClipboardPos.mV[VZ] = llclamp( mClipboardPos.mV[VZ], 0.f, 4096.f);
+	mClipboardPos.mV[VZ] = llclamp( mClipboardPos.mV[VZ], 0.f, gHippoLimits->getMaxHeight());
 
 	self->mCtrlPosX->set( mClipboardPos.mV[VX] );
 	self->mCtrlPosY->set( mClipboardPos.mV[VY] );
@@ -2262,9 +2262,9 @@ void LLPanelObject::onPasteSize(void* user_data)
 
 	LLPanelObject* self = (LLPanelObject*) user_data;
 	LLCalc* calcp = LLCalc::getInstance();
-	mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], 0.01f, 10.f);
-	mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], 0.01f, 10.f);
-	mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], 0.01f, 10.f);
+	mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
+	mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
+	mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
 
 	self->mCtrlScaleX->set( mClipboardSize.mV[VX] );
 	self->mCtrlScaleY->set( mClipboardSize.mV[VY] );
@@ -2323,7 +2323,7 @@ void LLPanelObject::onPastePosClip(void* user_data)
 
 	mClipboardPos.mV[VX] = llclamp(mClipboardPos.mV[VX], 0.f, 256.f);
 	mClipboardPos.mV[VY] = llclamp(mClipboardPos.mV[VY], 0.f, 256.f);
-	mClipboardPos.mV[VZ] = llclamp(mClipboardPos.mV[VZ], 0.f, 4096.f);
+	mClipboardPos.mV[VZ] = llclamp(mClipboardPos.mV[VZ], 0.f, gHippoLimits->getMaxHeight());
 
 	self->mCtrlPosX->set( mClipboardPos.mV[VX] );
 	self->mCtrlPosY->set( mClipboardPos.mV[VY] );
@@ -2345,9 +2345,9 @@ void LLPanelObject::onPasteSizeClip(void* user_data)
 	std::string stringVec = wstring_to_utf8str(temp_string);
 	if(!getvectorfromclip(stringVec, &mClipboardSize)) return;
 
-	mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], 0.01f, 10.f);
-	mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], 0.01f, 10.f);
-	mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], 0.01f, 10.f);
+	mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
+	mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
+	mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], gHippoLimits->getMinPrimScale(), gHippoLimits->getMaxPrimScale());
 
 	self->mCtrlScaleX->set( mClipboardSize.mV[VX] );
 	self->mCtrlScaleY->set( mClipboardSize.mV[VY] );
