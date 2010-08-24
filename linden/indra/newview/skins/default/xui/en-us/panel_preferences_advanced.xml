@@ -73,6 +73,115 @@
            tool_tip="Reset all preferences to their default values (requires a restart)" />
     </panel>
 
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="CmdLine"
+       left="1" mouse_opaque="true" name="CmdLine" width="418">
+      <button bottom="-25" follows="left|top" font="SansSerifSmall" height="18" label="?"
+         name="EmeraldHelp_CmdLine" tool_tip="Click here for help regarding the settings in this page."
+         right="490" width="18"/>
+      <check_box bottom="-25" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+         initial_value="false" label="Enable usage of chat bar as a command line" left="5"
+         mouse_opaque="true" name="chat_cmd_toggle" radio_style="false" width="270" control_name="EmeraldCmdLine"/>
+      <text bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="16" left_delta="10"
+         name="loltxt2" width="512">        Teleport within sim (usage: cmd x y z)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLinePos" control_name="EmeraldCmdLinePos" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt3" width="512">        Teleport to ground (usage: cmd)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineGround" control_name="EmeraldCmdLineGround" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt4" width="512">        Teleport to altitude (usage: cmd z)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineHeight" control_name="EmeraldCmdLineHeight" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt5" width="512">        Teleport home (usage: cmd)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineTeleportHome" control_name="EmeraldCmdLineTeleportHome"
+         width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt6" width="512">        Rez a platform (usage: cmd 0 - 30)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineRezPlatform" control_name="EmeraldCmdLineRezPlatform"
+         width="200"/>
+      <slider bottom_delta="-20" left="15" name="EmeraldCmdLinePlatformSize" control_name="EmeraldCmdLinePlatformSize"
+         decimal_digits="1" enabled="true" follows="left|top" height="18" increment="0.5"
+         initial_val="5" label="Width" label_width="30" max_val="30" min_val="5"
+         mouse_opaque="true" show_text="true" width="200" auto_resize="false" tool_tip="How big do you want the platform to appear to be?"/>
+      <text bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt7" width="512">        Teleport to sim x (usage: cmd simname)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineMapTo" control_name="EmeraldCmdLineMapTo" width="200"/>
+      <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+         initial_value="false" label="Use same position between sims" left_delta="0" mouse_opaque="true"
+         name="toggle" radio_style="false" width="270" control_name="EmeraldCmdLineMapToKeepPos"/>
+      <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt8" width="512">        Calc. expressions (usage: cmd SIN(2+2))</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineCalc" control_name="EmeraldCmdLineCalc" width="200"/>
+      <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         width="512">Add autocorrect word(cmd list|bad|good)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineAutocorrect" control_name="EmeraldCmdLineAutocorrect" width="200"/>
+
+      <text bottom_delta="326" follows="left|top" font="SansSerifSmall" height="16" left_delta="230"
+         name="loltxt9" width="512">        Change Draw Distance (usage: cmd meters)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineDrawDistance" control_name="EmeraldCmdLineDrawDistance"
+         width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt10" width="512">        Teleport to cam position (usage: cmd)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdTeleportToCam" control_name="EmeraldCmdTeleportToCam"
+         width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt11" width="512">        Get avatar name from key (usage: cmd key)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineKeyToName" control_name="EmeraldCmdLineKeyToName"
+         width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt12" width="512">        Offer teleport to avatar (usage: cmd key)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineOfferTp" control_name="EmeraldCmdLineOfferTp" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt13" width="512">        Teleport to avatar (usage: cmd name)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="The syntax of this command allows partial names and is not case sensitive. Better results if used while the Radar is open."
+         name="EmeraldCmdLineTP2" control_name="EmeraldCmdLineTP2" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt14" width="512">        Turn AO on/off (usage: cmd on/off)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="" name="EmeraldCmdLineAO" control_name="EmeraldCmdLineAO" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="loltxt15" width="512">        Clear the chat history (usage: cmd)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+         tool_tip="Clears the Chat History to prevent lag effects from chat spammers." name="EmeraldCmdLineClearChat" control_name="EmeraldCmdLineClearChat" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+            name="loltxt15" width="512">        Set the media url (usage: cmd url type)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+            font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+            tool_tip="Sets and plays your media stream to the entered url" name="EmeraldCmdLineMedia" control_name="EmeraldCmdLineMedia" width="200"/>
+      <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+            name="loltxt15" width="512">        Set the music stream url (usage: cmd url)</text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+            font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+            tool_tip="sets and plays your music stream to the entered url" name="EmeraldCmdLineMusic" control_name="EmeraldCmdLineMusic" width="200"/>
+    </panel>
+    
     <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="SpellCheck"
        left="1" mouse_opaque="true" name="SpellCheck" width="418">
       <button bottom="-25" follows="left|top" font="SansSerifSmall" height="18" label="?"

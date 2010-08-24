@@ -361,6 +361,28 @@ LLUUID LLInventoryModel::findCatUUID(LLAssetType::EType preferred_type)
 	return LLUUID::null;
 }
 
+LLUUID LLInventoryModel::findCategoryByName(std::string name)
+{
+	LLUUID root_id = gAgent.getInventoryRootID();
+	if(root_id.notNull())
+	{
+		cat_array_t* cats = NULL;
+		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
+		if(cats)
+		{
+			S32 count = cats->count();
+			for(S32 i = 0; i < count; ++i)
+			{
+				if(cats->get(i)->getName() == name)
+				{
+					return cats->get(i)->getUUID();
+				}
+			}
+		}
+	}
+	return LLUUID::null;
+}
+
 // Convenience function to create a new category. You could call
 // updateCategory() with a newly generated UUID category, but this
 // version will take care of details like what the name should be

@@ -84,6 +84,22 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 
+	childSetCommitCallback("EmeraldCmdLinePos", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineGround", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineHeight", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineTeleportHome", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineRezPlatform", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineMapTo", onCommitApplyControl);	
+	childSetCommitCallback("EmeraldCmdLineCalc", onCommitApplyControl);
+
+	childSetCommitCallback("EmeraldCmdLineDrawDistance", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdTeleportToCam", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineKeyToName", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineOfferTp", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineTP2", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineAO", onCommitApplyControl);
+	childSetCommitCallback("EmeraldCmdLineClearChat", onCommitApplyControl);
+
 	getChild<LLComboBox>("EmeraldSpellBase")->setCommitCallback(onSpellBaseComboBoxCommit);
 	getChild<LLButton>("EmSpell_EditCustom")->setClickedCallback(onSpellEditCustom, this);
 	getChild<LLButton>("EmSpell_GetMore")->setClickedCallback(onSpellGetMore, this);
@@ -248,6 +264,17 @@ bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& respon
 		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
 	}
 	return false;
+}
+
+//workaround for lineeditor dumbness in regards to control_name
+void LLPrefsAdvanced::onCommitApplyControl(LLUICtrl* caller, void* user_data)
+{
+	LLLineEditor* line = (LLLineEditor*)caller;
+	if(line)
+	{
+		LLControlVariable *var = line->findControl(line->getControlName());
+		if(var)var->setValue(line->getValue());
+	}
 }
 
 void LLPrefsAdvanced::onSpellAdd(void* data)
