@@ -111,6 +111,7 @@
 #include "llhudmanager.h"
 #include "llhttpclient.h"
 #include "llimagebmp.h"
+#include "llimview.h" // for gIMMgr
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
@@ -1715,6 +1716,9 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setVoiceConnector(tmp);
 			gHippoGridManager->saveFile();
 			gHippoLimits->setLimits();
+
+			// Load list of groups to ignore incoming chat from.
+			gIMMgr->loadIgnoreGroup();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.

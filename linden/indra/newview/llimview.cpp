@@ -535,8 +535,6 @@ LLIMMgr::LLIMMgr() :
 
 	mPendingInvitations = LLSD::emptyMap();
 	mPendingAgentListUpdates = LLSD::emptyMap();
-
-	loadIgnoreGroup();
 }
 
 LLIMMgr::~LLIMMgr()
@@ -615,8 +613,9 @@ void LLIMMgr::addMessage(
 			}
 
 			// If the group is in our list then return
-			if (group_data && (mIgnoreGroupList.count(group_data->mID) == 1))
+			if (group_data && getIgnoreGroup(group_data->mID))
 			{
+				// llinfos << "ignoring chat from group " << group_data->mID << llendl;
 				return;
 			}
 		}
@@ -1304,7 +1303,6 @@ void LLIMMgr::updateFloaterSessionID(
 
 void LLIMMgr::loadIgnoreGroup()
 {
-	// Load groups we want to ignore in chat -- MC
 	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
 
 	LLSD settings_llsd;
@@ -1312,38 +1310,41 @@ void LLIMMgr::loadIgnoreGroup()
 	file.open(filename);
 	if (file.is_open())
 	{
-		llinfos << "loading ignore_groups.xml" << llendl;
+		// llinfos << "loading group chat ignore from " << filename << "..." << llendl;
 		LLSDSerialize::fromXML(settings_llsd, file);
+
+		mIgnoreGroupList.clear();
+
+		for(LLSD::array_const_iterator iter = settings_llsd.beginArray();
+		    iter != settings_llsd.endArray(); ++iter)
+		{
+			// llinfos << "added " << iter->asUUID()
+			//         << " to group chat ignore list" << llendl;
+			mIgnoreGroupList.push_back( iter->asUUID() );
+		}
 	}
 	else
 	{
-		llinfos << "creating blank ignore_groups.xml" << llendl;
-		FILE* fp = LLFile::fopen(filename, "w+");
-		fclose(fp);
-	}
-
-	for (LLSD::map_const_iterator iter = settings_llsd.beginMap();
-		 iter != settings_llsd.endMap(); ++iter)
-	{
-		llinfos << "group chat for id " << iter->first << " is ignored? " << iter->second << llendl;
-		mIgnoreGroupList.insert(std::make_pair(LLUUID(iter->first), (bool)(iter->second.asBoolean())));
+		// llinfos << "can't load " << filename
+		//         << " (probably it doesn't exist yet)" << llendl;
 	}
 }
 
 void LLIMMgr::saveIgnoreGroup()
 {
-	// Save groups we want to ignore in chat before killing gIMMgr
+	// llinfos << "saving ignore_groups.xml" << llendl;
+
 	std::string user_dir = gDirUtilp->getLindenUserDir();
 	if (!user_dir.empty())
 	{
-		llinfos << "saving ignore_groups.xml" << llendl;
 		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
-		LLSD settings_llsd;
 
-		for(std::map<LLUUID, bool>::iterator iter = mIgnoreGroupList.begin(); 
-			iter != mIgnoreGroupList.end(); ++iter)
+		LLSD settings_llsd = LLSD::emptyArray();
+
+		for(std::list<LLUUID>::iterator iter = mIgnoreGroupList.begin(); 
+		    iter != mIgnoreGroupList.end(); ++iter)
 		{
-			settings_llsd[iter->first.asString()] = iter->second;
+			settings_llsd.append(*iter);
 		}
 
 		llofstream file;
@@ -1356,16 +1357,27 @@ void LLIMMgr::updateIgnoreGroup(const LLUUID& group_id, const bool& ignore)
 {
 	if (group_id.notNull())
 	{
-		std::map<LLUUID, bool>::iterator found_it = mIgnoreGroupList.find(group_id);
-		if (found_it != mIgnoreGroupList.end())
+		std::list<LLUUID>::iterator found =
+			std::find( mIgnoreGroupList.begin(), mIgnoreGroupList.end(),
+			           group_id);
+
+		if (found != mIgnoreGroupList.end() && !ignore)
 		{
-			llinfos << "existing group " << group_id << " updated to " << ignore << llendl;
-			mIgnoreGroupList[group_id] = ignore;
+			// change from ignored to not ignored
+			// llinfos << "unignoring group " << group_id << llendl;
+			mIgnoreGroupList.remove(group_id);
+		}
+		else if (found == mIgnoreGroupList.end() && ignore)
+		{
+			// change from not ignored to ignored
+			// llinfos << "ignoring group " << group_id << llendl;
+			mIgnoreGroupList.push_back(group_id);
 		}
 		else
 		{
-			llinfos << "new group " << group_id << " created and set to " << ignore << llendl;
-			mIgnoreGroupList.insert(std::make_pair(group_id, ignore));
+			// nothing to do
+			// llinfos << "no change to group " << group_id << ", it is already "
+			//         << (ignore ? "" : "not ") << "ignored" << llendl;
 		}
 	}
 }
@@ -1374,14 +1386,17 @@ bool LLIMMgr::getIgnoreGroup(const LLUUID& group_id)
 {
 	if (group_id.notNull())
 	{
-		std::map<LLUUID, bool>::iterator found_it = mIgnoreGroupList.find(group_id);
-		if (found_it != mIgnoreGroupList.end())
+		std::list<LLUUID>::iterator found =
+			std::find( mIgnoreGroupList.begin(), mIgnoreGroupList.end(),
+			           group_id);
+
+		if (found != mIgnoreGroupList.end())
 		{
-			llinfos << "group found in ignore_groups.xml, " << found_it->second << llendl;
-			return found_it->second;
+			// llinfos << "group " << group_id << " is ignored." << llendl;
+			return true;
 		}
 	}
-	llinfos << "no group info found in ignore_groups.xml" << llendl;
+	// llinfos << "group " << group_id << " is not ignored." << llendl;
 	return false;
 }
 
