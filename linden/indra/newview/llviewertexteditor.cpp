@@ -943,6 +943,7 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 BOOL LLViewerTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = childrenHandleRightMouseDown(x, y, mask) != NULL;
+	if(!handled)handled = LLTextEditor::handleRightMouseDown(x, y, mask);
 
 	// *TODO: Add right click menus for SLURLs
 // 	if(! handled)

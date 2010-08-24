@@ -1217,6 +1217,12 @@ void LLControlGroup::resetWarnings()
 	}
 }
 
+template <>					void jc_rebind::rebind_callback<S32>(const LLSD &data, S32 *reciever){ *reciever = data.asInteger(); }
+template <>					void jc_rebind::rebind_callback<F32>(const LLSD &data, F32 *reciever){ *reciever = data.asReal(); }
+template <>					void jc_rebind::rebind_callback<U32>(const LLSD &data, U32 *reciever){ *reciever = data.asInteger(); }
+template <>					void jc_rebind::rebind_callback<std::string>(const LLSD &data, std::string *reciever){ *reciever = data.asString(); }
+template <>					void jc_rebind::rebind_callback<LLColor4>(const LLSD &data, LLColor4 *reciever){ *reciever = LLColor4(LLColor4U(data)); }
+
 //============================================================================
 
 #ifdef TEST_HARNESS

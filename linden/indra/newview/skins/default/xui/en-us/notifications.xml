@@ -7053,11 +7053,20 @@ Note: To comply with the Second Life Terms of Service, Imprudence did not downlo
 </notification>
 
 <notification
+  icon="alertmodal.tga"
+  label="Emerald Help"
+  name="EmeraldHelp_SpellCheck"
+  type="alertmodal">
+To Spell Check a word, right click on it and choose its replacement.
+You may choose a base dictionary which stores the language style and basic words
+You may also choose to install other word lists by choosing them from the list and "Install"
+</notification>
+
+<notification
  name="ConfirmLightShare"
  type="notify"
  icon="notify.tga">
 This region is broadcasting custom sky and water settings.
-
 Apply this region's settings? (&quot;Ignore&quot; will ignore all region settings until you leave this region.)
   <form name="form">
     <button index="0" name="apply"  text="Apply"/>

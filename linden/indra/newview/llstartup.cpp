@@ -187,6 +187,7 @@
 #include "llagentlanguage.h"
 #include "viewerversion.h"
 
+#include "lgghunspell_wrapper.h"
 #include "jcfloater_animation_list.h"
 #include "jcfloaterareasearch.h"
 
@@ -400,7 +401,9 @@ bool idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
+		glggHunSpell->initSettings();
+
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
 			rlv_handler_t::setEnabled(TRUE);
 // [/RLVa:KB]
@@ -960,6 +963,9 @@ bool idle_startup()
 
 		std::string user_windlight_days_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/days", ""));
 		LLFile::mkdir(user_windlight_days_path_name.c_str());
+
+		std::string dictionariesFolder(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries",""));
+		LLFile::mkdir(dictionariesFolder.c_str());
 
 
 		if (show_connect_box)

@@ -10,7 +10,9 @@ include(DirectX)
 include(ELFIO)
 include(FMOD)
 include(OPENAL)
+include(HUNSPELL)
 include(FindOpenGL)
+include(JsonCpp)
 include(LLAddBuildTest)
 include(LLAudio)
 include(LLCharacter)
@@ -44,7 +46,9 @@ endif (WINDOWS)
 
 include_directories(
     ${DBUSGLIB_INCLUDE_DIRS}
+    ${HUNSPELL_INCLUDE_DIR}
     ${ELFIO_INCLUDE_DIR}
+    ${JSONCPP_INCLUDE_DIRS}
     ${LLAUDIO_INCLUDE_DIRS}
     ${LLCHARACTER_INCLUDE_DIRS}
     ${LLCOMMON_INCLUDE_DIRS}
@@ -65,6 +69,9 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	lggautocorrect.cpp
+	lgghunspell_wrapper.cpp
+	lggdicdownload.cpp
 	aoremotectrl.cpp
     emeraldboobutils.cpp
     floaterao.cpp
@@ -378,6 +385,7 @@ set(viewer_SOURCE_FILES
     lltoolview.cpp
     lltracker.cpp
     lltrans.cpp
+    lltranslate.cpp
     lluploaddialog.cpp
     llurl.cpp
     llurldispatcher.cpp
@@ -514,6 +522,9 @@ set(viewer_HEADER_FILES
     jcfloater_animation_list.h
     jcfloaterareasearch.h
     lightshare.h
+	lggautocorrect.h
+	lggdicdownload.h
+	lgghunspell_wrapper.h
     llagent.h
     llagentaccess.h
     llagentdata.h
@@ -816,6 +827,7 @@ set(viewer_HEADER_FILES
     lltoolview.h
     lltracker.h
     lltrans.h
+    lltranslate.h
     lluiconstants.h
     lluploaddialog.h
     llurl.h
@@ -1336,12 +1348,14 @@ target_link_libraries(${VIEWER_BINARY_NAME}
     ${FMODWRAPPER_LIBRARY}
     ${OPENGL_LIBRARIES}
     ${MOZLIB_LIBRARIES}
+    ${JSONCPP_LIBRARIES}
     ${SDL_LIBRARY}
     ${SMARTHEAP_LIBRARY}
     ${UI_LIBRARIES}
     ${WINDOWS_LIBRARIES}
     ${XMLRPCEPI_LIBRARIES}
     ${ELFIO_LIBRARIES}
+    ${HUNSPELL_LIBRARY}
     )
 
 build_version(viewer)
