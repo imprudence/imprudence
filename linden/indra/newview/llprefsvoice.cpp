@@ -194,6 +194,7 @@ void LLPrefsVoice::onCommitEnableVoiceChat(LLUICtrl* ctrl, void* user_data)
 	self->childSetEnabled("set_voice_hotkey_button", enable);
 	self->childSetEnabled("set_voice_middlemouse_button", enable);
 	self->childSetEnabled("device_settings_btn", enable);
+	self->childSetEnabled("reset_voice", enable);
 }
 
 //static
