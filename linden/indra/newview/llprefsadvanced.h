@@ -46,10 +46,22 @@ public:
 	void refresh();
 
 private:
+	static LLPrefsAdvanced* sInstance;
+
 	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
 	static void onClickResetPrefs(void* user_data);
 
 	static bool	callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self);
+
+	static void onSpellAdd(void* data);
+	static void onSpellRemove(void* data);
+	static void onSpellGetMore(void* data);
+	static void onSpellEditCustom(void* data);
+	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
+
+protected:
+	void initHelpBtn(const std::string& name, const std::string& xml_alert);
+	static void onClickHelp(void* data);
 };
 
 #endif // LLPREFSADVANCED_H

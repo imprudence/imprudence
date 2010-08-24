@@ -35,12 +35,19 @@
 #include "llviewercontrol.h"
 #include "llviewermenu.h"
 #include "llvoavatar.h"
+#include "lgghunspell_wrapper.h"
+#include "llcombobox.h"
 
 #include "lluictrlfactory.h"
+
+LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
 LLPrefsAdvanced::LLPrefsAdvanced()
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_advanced.xml");
+	if(sInstance)delete sInstance;
+	sInstance = this;
+
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
 
 	childSetAction("reset_btn", onClickResetPrefs, this);
@@ -49,6 +56,18 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 LLPrefsAdvanced::~LLPrefsAdvanced()
 {
 	// Children all cleaned up by default view destructor.
+	sInstance = NULL;
+}
+
+void LLPrefsAdvanced::initHelpBtn(const std::string& name, const std::string& xml_alert)
+{
+	childSetAction(name, onClickHelp, new std::string(xml_alert));
+}
+
+void LLPrefsAdvanced::onClickHelp(void* data)
+{
+	std::string* xml_alert = (std::string*)data;
+	LLNotifications::instance().add(*xml_alert);
 }
 
 BOOL LLPrefsAdvanced::postBuild()
@@ -64,6 +83,15 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
+
+	getChild<LLComboBox>("EmeraldSpellBase")->setCommitCallback(onSpellBaseComboBoxCommit);
+	getChild<LLButton>("EmSpell_EditCustom")->setClickedCallback(onSpellEditCustom, this);
+	getChild<LLButton>("EmSpell_GetMore")->setClickedCallback(onSpellGetMore, this);
+	getChild<LLButton>("EmSpell_Add")->setClickedCallback(onSpellAdd, this);
+	getChild<LLButton>("EmSpell_Remove")->setClickedCallback(onSpellRemove, this);
+
+
+	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
 	refresh();
 
@@ -157,6 +185,44 @@ void LLPrefsAdvanced::refresh()
 		childDisable("speed_rez_interval_spinner");
 		childDisable("speed_rez_seconds_text");
 	}
+
+	LLComboBox* comboBox = getChild<LLComboBox>("EmeraldSpellBase");
+	if(comboBox != NULL) 
+	{
+		comboBox->removeall();
+		std::vector<std::string> names = glggHunSpell->getDicts();
+		for(int i=0; i<(int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->setSimple(gSavedSettings.getString("EmeraldSpellBase"));
+	}
+	comboBox = getChild<LLComboBox>("EmSpell_Avail");
+	if(comboBox != NULL) 
+	{
+		comboBox->removeall();
+
+		comboBox->add("");
+		std::vector<std::string> names = glggHunSpell->getAvailDicts();
+		for(int i=0; i<(int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->setSimple(std::string(""));
+	}
+	comboBox = getChild<LLComboBox>("EmSpell_Installed");
+	if(comboBox != NULL) 
+	{
+		comboBox->removeall();
+
+		comboBox->add("");
+		std::vector<std::string> names = glggHunSpell->getInstalledDicts();
+		for(int i=0; i<(int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->setSimple(std::string(""));
+	}
 }
 
 //static
@@ -182,4 +248,44 @@ bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& respon
 		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
 	}
 	return false;
+}
+
+void LLPrefsAdvanced::onSpellAdd(void* data)
+{
+	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
+	if(panel)
+	{
+		glggHunSpell->addButton(panel->childGetValue("EmSpell_Avail").asString());
+	}
+	panel->refresh();
+}
+void LLPrefsAdvanced::onSpellRemove(void* data)
+{
+	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
+	if(panel)
+	{
+		glggHunSpell->removeButton(panel->childGetValue("EmSpell_Installed").asString());
+	}
+	panel->refresh();
+}
+void LLPrefsAdvanced::onSpellGetMore(void* data)
+{
+	glggHunSpell->getMoreButton(data);
+}
+void LLPrefsAdvanced::onSpellEditCustom(void* data)
+{
+	glggHunSpell->editCustomButton();
+}
+void LLPrefsAdvanced::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
+{
+
+	LLComboBox* box = (LLComboBox*)ctrl;
+	if(box)
+	{
+		glggHunSpell->newDictSelection(box->getValue().asString());
+		//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;//box->getParent();
+		if(sInstance)sInstance->refresh();
+	}
+	//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;
+	//if(panel)panel->refresh();
 }

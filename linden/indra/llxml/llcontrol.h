@@ -242,4 +242,84 @@ public:
 	void resetWarnings();
 };
 
+///////////////////////
+namespace jc_you_suck
+{
+class jc_rebind
+{
+	template <typename REC>		static void rebind_callback(const LLSD &data, REC *reciever){ *reciever = data; }
+
+	typedef boost::signal<void(const LLSD&)> signal_t;
+
+public:
+
+//#define binder_debug
+
+	template <typename RBTYPE> static RBTYPE* rebind_llcontrol(std::string name, LLControlGroup* controlgroup, bool init)
+	{
+		static std::map<LLControlGroup*, std::map<std::string, void*> > references;
+
+#ifdef binder_debug
+		llinfos << "rebind_llcontrol" << llendl;
+#endif
+
+		RBTYPE* type = NULL;
+		if(controlgroup)
+		{
+			if(references.find(controlgroup) == references.end())
+			{
+#ifdef binder_debug
+				llinfos << "was no map for a group, adding" << llendl;
+#endif
+				references[controlgroup] = std::map<std::string, void*>();
+			}
+
+			if(references[controlgroup].find(name) != references[controlgroup].end())
+			{
+#ifdef binder_debug
+				llinfos << "pulling type from map for " << name << llendl;
+#endif
+				type = (RBTYPE*)(references[controlgroup][name]);
+				if(type == NULL)llerrs << "bad type stored" << llendl;
+			}else
+			{
+#ifdef binder_debug
+				llinfos << "creating type in map for " << name << llendl;
+#endif
+				type = new RBTYPE();
+				references[controlgroup][name] = (void*)type;
+				LLControlVariable* control = controlgroup->getControl(name);
+				if(control)
+				{
+#ifdef binder_debug
+					llinfos << "control there " << name << llendl;
+#endif
+					signal_t* signal = control->getSignal();
+					if(signal)
+					{
+#ifdef binder_debug
+						llinfos << "signal there" << name << llendl;
+#endif
+						signal->connect(boost::bind(&jc_rebind::rebind_callback<RBTYPE>, _1, type));
+						if(init)jc_rebind::rebind_callback<RBTYPE>(control->getValue(),type);
+					}else llerrs << "no signal!" << llendl;
+				}else llerrs << "no control for " << name << "!" << llendl;
+			}
+		}
+		return type;
+	}
+};
+
+template <>					void jc_rebind::rebind_callback<S32>(const LLSD &data, S32 *reciever);
+template <>					void jc_rebind::rebind_callback<F32>(const LLSD &data, F32 *reciever);
+template <>					void jc_rebind::rebind_callback<U32>(const LLSD &data, U32 *reciever);
+template <>					void jc_rebind::rebind_callback<std::string>(const LLSD &data, std::string *reciever);
+template <>					void jc_rebind::rebind_callback<LLColor4>(const LLSD &data, LLColor4 *reciever);
+
+}
+using namespace jc_you_suck;
+#define rebind_llcontrol jc_rebind::rebind_llcontrol
+
+///////////////////////
+
 #endif

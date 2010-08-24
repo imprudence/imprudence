@@ -16,6 +16,7 @@ set(debug_files
     nssckbi.dll
     openal32.dll
     openjpegd.dll
+    libhunspell.dll
     plc4.dll
     plds4.dll
     smime3.dll
@@ -92,6 +93,7 @@ set(release_files
     nssckbi.dll
     openal32.dll
     openjpeg.dll
+    libhunspell.dll
     plc4.dll
     plds4.dll
     smime3.dll
