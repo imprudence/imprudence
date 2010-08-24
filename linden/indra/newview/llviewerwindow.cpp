@@ -1660,10 +1660,6 @@ void LLViewerWindow::initWorldUI()
 	mRootView->addChild(gHoverView);
 		
 	gIMMgr = LLIMMgr::getInstance();
-	if (gIMMgr)
-	{
-		gIMMgr->loadIgnoreGroup();
-	}
 
 	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
 	{

@@ -545,7 +545,6 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 	}
 
 	BOOL receive_notices = false;
-	BOOL receive_chat = false;
 	BOOL list_in_profile = false;
 	if (mCtrlReceiveNotices)
 		receive_notices = mCtrlReceiveNotices->get();
@@ -556,12 +555,11 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 
 	if (mCtrlReceiveChat)
 	{
-		receive_chat = mCtrlReceiveChat->get();
+		bool receive_chat = mCtrlReceiveChat->get();
+		gIMMgr->updateIgnoreGroup(mGroupID, !receive_chat);
+		// Save here too in case we crash somewhere down the road -- MC
+		gIMMgr->saveIgnoreGroup();
 	}
-
-	gIMMgr->updateIgnoreGroup(mGroupID, receive_chat);
-	// Save here too in case we crash somewhere down the road -- MC
-	gIMMgr->saveIgnoreGroup();
 
 	mChanged = FALSE;
 
