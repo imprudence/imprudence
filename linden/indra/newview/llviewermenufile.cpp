@@ -794,7 +794,7 @@ void upload_new_resource(const std::string& src_filename, std::string name,
 	{
 		// Unknown extension
 		// *TODO: Translate?
-		error_message = llformat("Unknown file extension .%s\nExpected .wav, .tga, .bmp, .jpg, .jpeg, or .bvh", exten.c_str());
+		error_message = llformat("Unknown file extension .%s\nExpected .wav, .tga, .bmp, .jpg, .jpeg, .png, or .bvh", exten.c_str());
 		error = TRUE;;
 	}
 
