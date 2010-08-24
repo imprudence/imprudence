@@ -35,6 +35,7 @@
 
 #include "llprefsvoice.h"
 
+#include "floatervoicelicense.h"
 #include "llcheckboxctrl.h"
 #include "llfloatervoicedevicesettings.h"
 #include "llfocusmgr.h"
@@ -136,8 +137,6 @@ BOOL LLPrefsVoice::postBuild()
 
 void LLPrefsVoice::apply()
 {
-	gSavedSettings.setBOOL("EnableVoiceChat", childGetValue("enable_voice_check"));
-
 	gSavedSettings.setString("PushToTalkButton", childGetValue("modifier_combo"));
 	gSavedSettings.setBOOL("VoiceCallsFriendsOnly", childGetValue("voice_call_friends_only_check"));
 	gSavedSettings.setBOOL("AutoDisengageMic", childGetValue("auto_disengage_mic_check"));
@@ -148,6 +147,18 @@ void LLPrefsVoice::apply()
 	if(voice_device_settings)
 	{
 		voice_device_settings->apply();
+	}
+
+	bool enable_voice = childGetValue("enable_voice_check");
+	if (enable_voice && !gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+	{
+		// This window enables voice chat if license is accepted
+		FloaterVoiceLicense::getInstance()->open();
+		FloaterVoiceLicense::getInstance()->center();
+	}
+	else
+	{
+		gSavedSettings.setBOOL("EnableVoiceChat", enable_voice);
 	}
 }
 
