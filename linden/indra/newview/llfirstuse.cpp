@@ -45,9 +45,11 @@
 #include "llappviewer.h"
 #include "lltracker.h"
 
-#include "llvoavatar.h"
 #include "floatergriddefault.h"
+#include "floatervoicelicense.h"
 #include "hippoGridManager.h"
+#include "llstartup.h"
+#include "llvoavatar.h"
 
 // static
 std::set<std::string> LLFirstUse::sConfigVariables;
@@ -385,5 +387,21 @@ void LLFirstUse::useLoginScreen()
 
 		FloaterGridDefault::getInstance()->open();
 		FloaterGridDefault::getInstance()->center();
+	}
+}
+
+// static
+void LLFirstUse::voiceLicenseAgreement()
+{
+	if (gSavedSettings.getWarning("FirstVoiceLicense"))
+	{
+		gSavedSettings.setWarning("FirstVoiceLicense", FALSE);
+
+		FloaterVoiceLicense::getInstance()->open();
+		FloaterVoiceLicense::getInstance()->center();
+	}
+	else // currently in STATE_LOGIN_VOICE_LICENSE when arriving here
+	{
+		LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
 	}
 }

@@ -71,6 +71,7 @@ set(viewer_SOURCE_FILES
     floaterbusy.cpp
     floatergriddefault.cpp
     floatergridmanager.cpp
+    floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
@@ -503,6 +504,7 @@ set(viewer_HEADER_FILES
     floaterbusy.h
     floatergriddefault.h
     floatergridmanager.h
+    floatervoicelicense.h
     hbfloatergrouptitles.h
     hippoGridManager.h
     hippoLimits.h
@@ -1215,6 +1217,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_top_objects.xml
     skins/default/xui/en-us/floater_tos.xml
     skins/default/xui/en-us/floater_url_entry.xml
+    skins/default/xui/en-us/floater_voice_license.xml
     skins/default/xui/en-us/floater_voice_wizard.xml
     skins/default/xui/en-us/floater_water.xml
     skins/default/xui/en-us/floater_wearable_save_as.xml

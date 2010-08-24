@@ -1045,9 +1045,27 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		// skipping over STATE_UPDATE_CHECK because that just waits for input
-		LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+		if (gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+		{
+			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
+			// skipping over STATE_UPDATE_CHECK because that just waits for input
+			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+		}
+		else
+		{
+			LLStartUp::setStartupState(STATE_LOGIN_VOICE_LICENSE);
+			LLFirstUse::voiceLicenseAgreement();
+		}
 
+		return FALSE;
+	}
+
+	if (STATE_LOGIN_VOICE_LICENSE == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_VOICE_LICENSE" << LL_ENDL;
+		// prompt the user to agree to the voice license before enabling voice.
+		// only send users here on first login, otherwise continue
+		// on to STATE_LOGIN_AUTH_INIT
 		return FALSE;
 	}
 
@@ -3642,6 +3660,7 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 		RTNENUM( STATE_LOGIN_SHOW );
 		RTNENUM( STATE_LOGIN_WAIT );
 		RTNENUM( STATE_LOGIN_CLEANUP );
+		RTNENUM( STATE_LOGIN_VOICE_LICENSE );
 		RTNENUM( STATE_UPDATE_CHECK );
 		RTNENUM( STATE_LOGIN_AUTH_INIT );
 		RTNENUM( STATE_LOGIN_AUTHENTICATE );

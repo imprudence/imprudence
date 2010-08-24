@@ -877,6 +877,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>VivoxLicenseAccepted</key>
+  <map>
+    <key>Comment</key>
+    <string>By setting to true, you agree to accept the Vivox personal license agreement at http://www.vivox.com/vivox_aup.html</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>WarnFirstAO</key>
   <map>
     <key>Comment</key>
@@ -903,6 +914,17 @@
   <map>
     <key>Comment</key>
     <string>Enables FirstMiniMap warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>WarnFirstVoiceLicense</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables FirstVoiceLicense window on login</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -4564,7 +4586,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>1</integer>
+    <integer>0</integer>
   </map>
   <key>EnergyFromTop</key>
   <map>

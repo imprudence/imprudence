@@ -115,6 +115,7 @@ public:
 	static void useLoginScreen();
 	static void callbackClientTags(const LLSD& notification, const LLSD& response);
 	static void ClientTags();
+	static void voiceLicenseAgreement();
 	
 protected:
 	static std::set<std::string> sConfigVariables;
