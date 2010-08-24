@@ -11,6 +11,8 @@
 		<column name="icon_visible_map" tool_tip="Freund kann Sie auf der Karte finden" />
 		<column name="icon_edit_mine"
 		     tool_tip="Freunde können Objekte bearbeiten, löschen und an sich nehmen" />
+		<column name="icon_visible_map_theirs"
+		     tool_tip="Sie können den Freund auf der Karte finden" width="20" />
 		<column name="icon_edit_theirs"
 		     tool_tip="Sie können die Objekte dieses Freunds bearbeiten" />
 	</scroll_list>

@@ -17,6 +17,8 @@
 		     tool_tip="Friend can locate you on the map" width="20" />
 		<column image="ff_edit_mine_button.tga" name="icon_edit_mine"
 		     tool_tip="Friend can edit, delete or take objects" width="20" />
+		<column image="ff_visible_map_button.tga" name="icon_visible_map_theirs"
+		     tool_tip="You can  locate this friend on the map" width="20" />
 		<column image="ff_edit_theirs_button.tga" name="icon_edit_theirs"
 		     tool_tip="You can edit this friend&apos;s objects" width="20" />
 		<column name="friend_last_update_generation" width="0" />
