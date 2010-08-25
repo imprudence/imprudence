@@ -6,7 +6,8 @@
 	     name="event_name_label">
 		Name:
 	</text>
-	<text bottom="-36" follows="top|left" font="SansSerif" left="120" name="event_name">
+	<text bottom="-36" follows="top|left" font="SansSerif" left="120" name="event_name"
+        width="310">
 		(none)
 	</text>
 	<text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
@@ -50,15 +51,15 @@
 		Run By:
 	</text>
 	<text bottom_delta="0" follows="top|left" font="SansSerif" left="120"
-	     name="event_runby">
-		(none)
-	</text>
-	<text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
+	     name="event_runby" width="310">
+    (none)
+  </text>
+  <text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
 	     name="event_location_label">
-		Location:
-	</text>
-	<text bottom_delta="0" follows="top|left" font="SansSerif" left="120"
-	     name="event_location">
+    Location:
+  </text>
+  <text bottom_delta="0" follows="top|left" font="SansSerif" left="120"
+	     name="event_location" width="310">
 		(none)
 	</text>
 	<text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
