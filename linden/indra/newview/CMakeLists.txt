@@ -69,10 +69,12 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	lggautocorrectfloater.cpp
 	lggautocorrect.cpp
 	lgghunspell_wrapper.cpp
 	lggdicdownload.cpp
 	aoremotectrl.cpp
+	chatbar_as_cmdline.cpp
     emeraldboobutils.cpp
     floaterao.cpp
     floaterbusy.cpp
@@ -508,6 +510,7 @@ set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
     aoremotectrl.h
+	chatbar_as_cmdline.h
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
@@ -522,6 +525,7 @@ set(viewer_HEADER_FILES
     jcfloater_animation_list.h
     jcfloaterareasearch.h
     lightshare.h
+	lggautocorrectfloater.h
 	lggautocorrect.h
 	lggdicdownload.h
 	lgghunspell_wrapper.h

@@ -1537,6 +1537,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>EmeraldAutoCorrectCount</key>
+  <map>
+    <key>Comment</key>
+    <string>How many words have been auto replaced.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>EmeraldTranslateReplace</key>
   <map>
     <key>Comment</key>
@@ -1581,7 +1592,7 @@
     <key>Value</key>
     <string>English (United States of America)</string>
   </map>
-
+  
   <!-- End: Spellcheck & Translation -->
 
   <key>RestrainedLife</key>

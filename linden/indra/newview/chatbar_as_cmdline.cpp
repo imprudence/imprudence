@@ -72,7 +72,7 @@
 #include "audioengine.h"
 #include "llviewerparcelmediaautoplay.h"
 #include "lloverlaybar.h"
-//KOW #include "lggautocorrectfloater.h"
+#include "lggautocorrectfloater.h"
 #include "lggautocorrect.h"
 
 //#define JC_PROFILE_GSAVED
@@ -623,13 +623,13 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
 					cmdline_tp2name(name);
 				}
 				return false;
-			} /*
+			}
 			else if(revised_text == "/ac")
 			{
 				lggAutoCorrectFloaterStart::show(TRUE,NULL);
 				cmdline_printchat("Displaying AutoCorrection Floater.");
 				return false;
-			} */
+			}
 			else if(command == *sEmeraldCmdLineAutocorrect)
 			{
 				if (revised_text.length() <= command.length() + 1) //KOW: verify that we have params

@@ -204,6 +204,8 @@
 
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
+
+#include "lggautocorrect.h"
 //
 // exported globals
 //
@@ -402,6 +404,8 @@ bool idle_startup()
 		//
 
 		glggHunSpell->initSettings();
+
+		LGGAutoCorrect::getInstance()->loadFromDisk();
 
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
