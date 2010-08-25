@@ -71,6 +71,7 @@ set(viewer_SOURCE_FILES
     floaterbusy.cpp
     floatergriddefault.cpp
     floatergridmanager.cpp
+    floaterlocalassetbrowse.cpp
     floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
     hippoGridManager.cpp
@@ -504,6 +505,7 @@ set(viewer_HEADER_FILES
     floaterbusy.h
     floatergriddefault.h
     floatergridmanager.h
+    floaterlocalassetbrowse.h
     floatervoicelicense.h
     hbfloatergrouptitles.h
     hippoGridManager.h

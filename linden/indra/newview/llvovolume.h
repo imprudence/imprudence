@@ -211,6 +211,9 @@ public:
 	BOOL isVolumeGlobal() const;
 	BOOL canBeFlexible() const;
 	BOOL setIsFlexible(BOOL is_flexible);
+
+	// tag: vaa emerald local_asset_browser
+	void setSculptChanged(BOOL has_changed) { mSculptChanged = has_changed; }
 			
 protected:
 	S32	computeLODDetail(F32	distance, F32 radius);

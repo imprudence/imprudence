@@ -313,6 +313,9 @@ public:
 
 	void        addFace(LLFace* facep) ;
 	void        removeFace(LLFace* facep) ;
+
+	friend class LocalBitmap; // tag: vaa emerald local_asset_browser
+
 private:
 	/*virtual*/ void cleanup(); // Cleanup the LLViewerImage (so we can reinitialize it)
 
