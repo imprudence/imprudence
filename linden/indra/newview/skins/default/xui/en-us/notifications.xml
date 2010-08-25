@@ -6931,10 +6931,19 @@ Note: To comply with the Second Life Terms of Service, Imprudence did not downlo
 </notification>
 
 <notification
-  icon="alertmodal.tga"
-  label="Emerald Help"
-  name="EmeraldHelp_SpellCheck"
-  type="alertmodal">
+ icon="alertmodal.tga"
+ label="Emerald Help"
+ name="EmeraldHelp_CmdLine"
+ type="alertmodal">
+Various Options For Command Line features.
+To use a command, type it in your chat bar (Local chat) and press enter.
+</notification>
+  
+<notification
+ icon="alertmodal.tga"
+ label="Emerald Help"
+ name="EmeraldHelp_SpellCheck"
+ type="alertmodal">
 To Spell Check a word, right click on it and choose its replacement.
 You may choose a base dictionary which stores the language style and basic words
 You may also choose to install other word lists by choosing them from the list and "Install"
