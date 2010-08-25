@@ -274,7 +274,15 @@ void LLPanelDirFind::navigateToDefaultPage()
 	{
 		if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
 		{
-			start_url = gSavedSettings.getString("SearchURLDefault");
+			if (mBrowserName == "showcase_browser")
+			{
+				// note that the showcase URL in floater_directory.xml is no longer used
+				start_url = gSavedSettings.getString("ShowcaseURLDefault");
+			}
+			else
+			{
+				start_url = gSavedSettings.getString("SearchURLDefault");
+			}
 		}
 		else
 		{
