@@ -69,6 +69,7 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	lggautocorrectfloater.cpp
 	lggautocorrect.cpp
 	lgghunspell_wrapper.cpp
 	lggdicdownload.cpp
@@ -517,9 +518,7 @@ set(viewer_HEADER_FILES
 	chatbar_as_cmdline.h
     importtracker.h
 	exporttracker.h
-
-
-
+	lggautocorrectfloater.h
 	lggautocorrect.h
 	lggdicdownload.h
 	lgghunspell_wrapper.h

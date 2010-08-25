@@ -36,9 +36,80 @@
 #include "llviewermenu.h"
 #include "llvoavatar.h"
 #include "lgghunspell_wrapper.h"
+#include "lggautocorrectfloater.h"
 #include "llcombobox.h"
 
 #include "lluictrlfactory.h"
+
+////////begin drop utility/////////////
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Class JCInvDropTarget
+//
+// This handy class is a simple way to drop something on another
+// view. It handles drop events, always setting itself to the size of
+// its parent.
+//
+// altered to support a callback so i can slap it in things and it just return the item to a func of my choice
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+JCInvDropTarget::JCInvDropTarget(const std::string& name, const LLRect& rect,
+								 void (*callback)(LLViewerInventoryItem*)) :
+LLView(name, rect, NOT_MOUSE_OPAQUE, FOLLOWS_ALL),
+mDownCallback(callback)
+{
+}
+
+JCInvDropTarget::~JCInvDropTarget()
+{
+}
+
+void JCInvDropTarget::doDrop(EDragAndDropType cargo_type, void* cargo_data)
+{
+	llinfos << "JCInvDropTarget::doDrop()" << llendl;
+}
+
+BOOL JCInvDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+										EDragAndDropType cargo_type,
+										void* cargo_data,
+										EAcceptance* accept,
+										std::string& tooltip_msg)
+{
+	BOOL handled = FALSE;
+	if(getParent())
+	{
+		handled = TRUE;
+		// check the type
+		//switch(cargo_type)
+		//{
+		//case DAD_ANIMATION:
+		//{
+		LLViewerInventoryItem* inv_item = (LLViewerInventoryItem*)cargo_data;
+		if(gInventory.getItem(inv_item->getUUID()))
+		{
+			*accept = ACCEPT_YES_COPY_SINGLE;
+			if(drop)
+			{
+				//printchat("accepted");
+				mDownCallback(inv_item);
+			}
+		}
+		else
+		{
+			*accept = ACCEPT_NO;
+		}
+		//	break;
+		//}
+		//default:
+		//	*accept = ACCEPT_NO;
+		//	break;
+		//}
+	}
+	return handled;
+}
+////////end drop utility///////////////
 
 LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
@@ -106,6 +177,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	getChild<LLButton>("EmSpell_Add")->setClickedCallback(onSpellAdd, this);
 	getChild<LLButton>("EmSpell_Remove")->setClickedCallback(onSpellRemove, this);
 
+	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
 
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
@@ -315,4 +387,9 @@ void LLPrefsAdvanced::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 	}
 	//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;
 	//if(panel)panel->refresh();
+}
+
+void LLPrefsAdvanced::onAutoCorrectButton(void * data)
+{
+	lggAutoCorrectFloaterStart::show(TRUE,data);
 }

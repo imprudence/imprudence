@@ -32,6 +32,26 @@
 #define LLPREFSADVANCED_H
 
 #include "llpanel.h"
+#include "llviewerinventory.h"
+
+class JCInvDropTarget : public LLView
+{
+public:
+	JCInvDropTarget(const std::string& name, const LLRect& rect, void (*callback)(LLViewerInventoryItem*));
+	~JCInvDropTarget();
+
+	void doDrop(EDragAndDropType cargo_type, void* cargo_data);
+
+	//
+	// LLView functionality
+	virtual BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+		EDragAndDropType cargo_type,
+		void* cargo_data,
+		EAcceptance* accept,
+		std::string& tooltip_msg);
+protected:
+	void	(*mDownCallback)(LLViewerInventoryItem*);
+};
 
 class LLPrefsAdvanced : public LLPanel
 {
@@ -60,6 +80,7 @@ private:
 	static void onSpellGetMore(void* data);
 	static void onSpellEditCustom(void* data);
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
+	static void onAutoCorrectButton(void * data);
 
 protected:
 	void initHelpBtn(const std::string& name, const std::string& xml_alert);

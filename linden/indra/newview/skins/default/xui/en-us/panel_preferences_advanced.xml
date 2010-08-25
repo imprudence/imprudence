@@ -218,6 +218,8 @@
         To spellcheck, right click a misspelled word
         (red or not) and click on its replacement
       </text>
+      <button name="ac_button" label="AutoCorrect Options…" halign="center" tool_tip="Modify the AutoCorrect word list and settings" left="5"
+        bottom_delta="-64" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
     </panel>
   </tab_container>
 </panel>
