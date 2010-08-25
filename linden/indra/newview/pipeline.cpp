@@ -1417,20 +1417,15 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_cl
 
 	camera.disableUserClipPlane();
 
-	if (gSky.mVOSkyp.notNull() && gSky.mVOSkyp->mDrawable.notNull())
+	// Render non-windlight sky.
+	if (hasRenderType(LLPipeline::RENDER_TYPE_SKY) &&
+	    gSky.mVOSkyp.notNull() &&
+	    gSky.mVOSkyp->mDrawable.notNull())
 	{
-		// Hack for sky - always visible.
-		if (hasRenderType(LLPipeline::RENDER_TYPE_SKY)) 
-		{
-			gSky.mVOSkyp->mDrawable->setVisible(camera);
-			sCull->pushDrawable(gSky.mVOSkyp->mDrawable);
-			gSky.updateCull();
-			stop_glerror();
-		}
-	}
-	else
-	{
-		llinfos << "No sky drawable!" << llendl;
+		gSky.mVOSkyp->mDrawable->setVisible(camera);
+		sCull->pushDrawable(gSky.mVOSkyp->mDrawable);
+		gSky.updateCull();
+		stop_glerror();
 	}
 
 	if (hasRenderType(LLPipeline::RENDER_TYPE_GROUND) && 
