@@ -477,6 +477,7 @@ public:
 	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
+	virtual void performAction(LLFolderView* folder, LLInventoryModel* model, std::string action);
 
 protected:
 	LLNotecardBridge(LLInventoryPanel* inventory, const LLUUID& uuid) :

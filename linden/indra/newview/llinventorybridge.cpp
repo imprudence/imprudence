@@ -813,12 +813,6 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 		folder_view_itemp->getListener()->pasteFromClipboard();
 		return;
 	}
-	else if ("load_windlight" == action)
-	{
-		LLInventoryItem* itemp = model->getItem(mUUID);
-		if(!itemp) return;
-		LLWLParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
-	}
 }
 
 void LLItemBridge::selectItem()
@@ -828,6 +822,16 @@ void LLItemBridge::selectItem()
 	{
 		item->fetchFromServer();
 	}
+
+ 	if (item && item->isComplete())
+ 	{
+		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+		if(is_windlight)
+		{
+			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
+		}
+	}
+
 }
 
 void LLItemBridge::restoreItem()
@@ -3060,7 +3064,9 @@ void LLNotecardBridge::openItem()
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
-		open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
+		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+		if(!is_windlight)
+			open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
 	}
 }
  
@@ -3087,43 +3093,32 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 		if(is_windlight)
 		{
-			items.push_back(std::string("Use Windlight Settings"));
+			items.push_back(std::string("Use WindLight Settings"));
+			items.push_back(std::string("Edit WindLight Settings"));
 		}
 		items.push_back(std::string("Properties"));
 		getClipboardEntries(true, items, disabled_items, flags);
 	}
 	hideContextEntries(menu, items, disabled_items);
-/*
---
+}
 
+void LLNotecardBridge::performAction(LLFolderView* folder, LLInventoryModel* model, std::string action)
+{
+	LLViewerInventoryItem* itemp = model->getItem(mUUID);
+	if(!itemp) return;
 
-
-	menuentry_vec_t items;
-	menuentry_vec_t disabled_items;
-	if(isItemInTrash())
+	if ("load_windlight" == action)
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		LLWLParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
+	}
+	else if ("edit_windlight" == action)
+	{
+		open_notecard(itemp, getPrefix() + itemp->getName(), LLUUID::null, FALSE);
 	}
 	else
 	{
-		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-		items.push_back(std::string("Share"));
-		if (!canShare())
-		{
-			disabled_items.push_back(std::string("Share"));
-		}
-		
-		addOpenRightClickMenuOption(items);
-		if(is_windlight)
-		{
-			items.push_back(std::string("Use Windlight Settings"));
-		}
-		items.push_back(std::string("Properties"));
-		
-		getClipboardEntries(true, items, disabled_items, flags);
+		LLItemBridge::performAction(folder, model, action);
 	}
-	hide_context_entries(menu, items, disabled_items);
-*/
 }
 
 LLUIImagePtr LLNotecardBridge::getIcon() const

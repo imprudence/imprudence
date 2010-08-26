@@ -141,9 +141,13 @@
 	     name="Open" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="open" />
 	</menu_item_call>
-	<menu_item_call bottom_delta="-18" height="18" label="Use Windlight Settings" left="0" mouse_opaque="true" 
-			name="Use Windlight Settings" width="128">
+	<menu_item_call bottom_delta="-18" height="18" label="Use WindLight Settings" left="0" mouse_opaque="true" 
+			name="Use WindLight Settings" width="128">
         	<on_click filter="" function="Inventory.DoToSelected" userdata="load_windlight" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Edit WindLight Settings" left="0" mouse_opaque="true" 
+			name="Edit WindLight Settings" width="128">
+        	<on_click filter="" function="Inventory.DoToSelected" userdata="edit_windlight" />
 	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" label="Properties" left="0" mouse_opaque="true"
 	     name="Properties" width="128">
