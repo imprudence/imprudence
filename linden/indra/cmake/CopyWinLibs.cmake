@@ -36,6 +36,7 @@ set(debug_files
     iconv.dll
     libxml2.dll
 	libcairo-2.dll
+	libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -48,6 +49,7 @@ set(debug_files
 	libgpg-error-0.dll
 	libgstapp.dll
 	libgstaudio.dll
+	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
 	libgstcdda.dll
 	libgstcontroller-0.10.dll
@@ -119,6 +121,7 @@ set(release_files
     iconv.dll
     libxml2.dll
 	libcairo-2.dll
+	libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -131,6 +134,7 @@ set(release_files
 	libgpg-error-0.dll
 	libgstapp.dll
 	libgstaudio.dll
+	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
 	libgstcdda.dll
 	libgstcontroller-0.10.dll

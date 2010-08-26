@@ -646,9 +646,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>c432e168a46d782688e86bc9f7144f15</string>
+            <string>da6c3fd73a7e5c9bef768edab8a38c2f</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20100105.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20100825.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -682,9 +682,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>77b954b9313459cb7cd6046bf91de296</string>
+            <string>a5c7e5f2dbd5ed247f6e9c54f03a8b42</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-20090903.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-20100825.tar.bz2</uri>
           </map>
         </map>
       </map>
