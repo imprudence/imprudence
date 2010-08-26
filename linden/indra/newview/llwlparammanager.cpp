@@ -159,6 +159,66 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 
 }
 
+bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool check_if_real /* = false */)
+{
+	LLSD paramsData(LLSD::emptyMap());
+	
+	LLPointer<LLSDParser> parser = new LLSDXMLParser();
+	
+	if(parser->parse(preset_stream, paramsData, LLSDSerialize::SIZE_UNLIMITED) == LLSDParser::PARSE_FAILURE)
+	{
+		return false;
+	}
+	
+	if(check_if_real)
+	{
+		static const char* expected_windlight_settings[] = {
+			"ambient",
+			"blue_density",
+			"blue_horizon",
+			"cloud_color",
+			"cloud_pos_density1",
+			"cloud_pos_density2",
+			"cloud_scale",
+			"cloud_scroll_rate",
+			"cloud_shadow",
+			"density_multiplier",
+			"distance_multiplier",
+			"east_angle",
+			"enable_cloud_scroll",
+			"gamma",
+			"glow",
+			"haze_density",
+			"haze_horizon",
+			"lightnorm",
+			"max_y",
+			"star_brightness",
+			"sun_angle",
+			"sunlight_color"
+		};
+		static S32 expected_count = LL_ARRAY_SIZE(expected_windlight_settings);
+		for(S32 i = 0; i < expected_count; ++i)
+		{
+			if(!paramsData.has(expected_windlight_settings[i]))
+			{
+				LL_WARNS("WindLight") << "Attempted to load WindLight param set without " << expected_windlight_settings[i] << LL_ENDL;
+				return false;
+			}
+		}
+	}
+	
+	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
+	if(mIt == mParamList.end())
+	{
+		addParamSet(name, paramsData);
+	}
+	else 
+	{
+		setParamSet(name, paramsData);
+	}
+	return true;
+}
+ 
 void LLWLParamManager::savePresets(const std::string & fileName)
 {
 	//Nobody currently calls me, but if they did, then its reasonable to write the data out to the user's folder
@@ -211,21 +271,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 
 	if (presetsXML)
 	{
-		LLSD paramsData(LLSD::emptyMap());
-
-		LLPointer<LLSDParser> parser = new LLSDXMLParser();
-
-		parser->parse(presetsXML, paramsData, LLSDSerialize::SIZE_UNLIMITED);
-
-		std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
-		if(mIt == mParamList.end())
-		{
-			addParamSet(name, paramsData);
-		}
-		else 
-		{
-			setParamSet(name, paramsData);
-		}
+		loadPresetXML(name, presetsXML);
 		presetsXML.close();
 	} 
 	else 
