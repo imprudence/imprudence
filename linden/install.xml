@@ -661,9 +661,9 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>058bd48bca4038473bd39d4fc2fd8731</string>
+            <string>27a111bd9b12f413b577ae239c10aa7c</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-darwin-20091107.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-darwin-20100826.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>

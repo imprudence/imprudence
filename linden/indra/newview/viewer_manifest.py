@@ -553,6 +553,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("libgstvideo-0.10.dylib")
 
                 self.path("libxml2.2.dylib")
+                self.path("libfaad.2.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
                 self.path("libpng12.0.dylib")
@@ -630,6 +631,7 @@ class DarwinManifest(ViewerManifest):
                     self.path("libgstdecodebin2.so")
                     self.path("libgstdeinterlace2.so")
                     self.path("libgstequalizer.so")
+                    self.path("libgstfaad.so")
                     self.path("libgstffmpeg.so")
                     self.path("libgstffmpegcolorspace.so")
                     self.path("libgstffmpegscale.so")
