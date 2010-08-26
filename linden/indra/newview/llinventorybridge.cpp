@@ -86,6 +86,7 @@
 #include "lluictrlfactory.h"
 #include "llselectmgr.h"
 #include "llfloateropenobject.h"
+#include "llwlparammanager.h"
 
 // Helpers
 // bug in busy count inc/dec right now, logic is complex... do we really need it?
@@ -811,6 +812,12 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 
 		folder_view_itemp->getListener()->pasteFromClipboard();
 		return;
+	}
+	else if ("load_windlight" == action)
+	{
+		LLInventoryItem* itemp = model->getItem(mUUID);
+		if(!itemp) return;
+		LLWLParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
 	}
 }
 
@@ -3059,7 +3066,68 @@ void LLNotecardBridge::openItem()
 		open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
 	}
 }
+ 
+void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
+{
+	// *TODO: Translate
+	lldebugs << "LLNotecardBridge::buildContextMenu()" << llendl;
+	std::vector<std::string> items;
+	std::vector<std::string> disabled_items;
+	if(isInTrash())
+	{
+		items.push_back(std::string("Purge Item"));
+		if (!isItemRemovable())
+		{
+			disabled_items.push_back(std::string("Purge Item"));
+		}
 
+		items.push_back(std::string("Restore Item"));
+	}
+
+	else
+	{
+		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+
+		if(is_windlight)
+		{
+			items.push_back(std::string("Use Windlight Settings"));
+		}
+		items.push_back(std::string("Properties"));
+		getClipboardEntries(true, items, disabled_items, flags);
+	}
+	hideContextEntries(menu, items, disabled_items);
+/*
+--
+
+
+
+	menuentry_vec_t items;
+	menuentry_vec_t disabled_items;
+	if(isItemInTrash())
+	{
+		addTrashContextMenuOptions(items, disabled_items);
+	}
+	else
+	{
+		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+		items.push_back(std::string("Share"));
+		if (!canShare())
+		{
+			disabled_items.push_back(std::string("Share"));
+		}
+		
+		addOpenRightClickMenuOption(items);
+		if(is_windlight)
+		{
+			items.push_back(std::string("Use Windlight Settings"));
+		}
+		items.push_back(std::string("Properties"));
+		
+		getClipboardEntries(true, items, disabled_items, flags);
+	}
+	hide_context_entries(menu, items, disabled_items);
+*/
+}
 
 // +=================================================+
 // |        LLGestureBridge                          |

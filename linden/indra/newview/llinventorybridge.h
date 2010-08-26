@@ -476,6 +476,7 @@ public:
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
+	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 
 protected:
 	LLNotecardBridge(LLInventoryPanel* inventory, const LLUUID& uuid) :

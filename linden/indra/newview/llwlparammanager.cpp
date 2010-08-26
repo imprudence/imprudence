@@ -60,6 +60,14 @@
 #include "llfloaterdaycycle.h"
 #include "llfloaterenvsettings.h"
 
+
+// For notecard loading
+#include "llvfile.h"
+#include "llnotecard.h"
+#include "llmemorystream.h"
+#include "llnotify.h"
+#include "llagent.h"
+
 #include "curl/curl.h"
 
 LLWLParamManager * LLWLParamManager::sInstance = NULL;
@@ -159,7 +167,7 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 
 }
 
-bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool check_if_real /* = false */)
+bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool propagate /* = false */, bool check_if_real /* = false */)
 {
 	LLSD paramsData(LLSD::emptyMap());
 	
@@ -216,9 +224,28 @@ bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& pres
 	{
 		setParamSet(name, paramsData);
 	}
+
+	if(propagate)
+	{
+		getParamSet(name, mCurParams);
+		propagateParameters();
+	}
 	return true;
 }
- 
+void LLWLParamManager::loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id)
+{
+	gAssetStorage->getInvItemAsset(LLHost::invalid,
+								   gAgent.getID(),
+								   gAgent.getSessionID(),
+								   gAgent.getID(),
+								   LLUUID::null,
+								   inv_id,
+								   asset_id,
+								   LLAssetType::AT_NOTECARD,
+								   &loadWindlightNotecard,
+								   (void*)name.c_str());
+}
+
 void LLWLParamManager::savePresets(const std::string & fileName)
 {
 	//Nobody currently calls me, but if they did, then its reasonable to write the data out to the user's folder
@@ -618,6 +645,31 @@ LLWLParamManager * LLWLParamManager::instance()
 	}
 
 	return sInstance;
+}
+
+void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status)
+{
+	std::string name = std::string((char*)user_data);
+	if(LL_ERR_NOERR == status)
+	{
+		LLVFile file(vfs, asset_id, asset_type, LLVFile::READ);
+		S32 file_length = file.getSize();
+		std::vector<char> buffer(file_length + 1);
+		file.read((U8*)&buffer[0], file_length);
+		buffer[file_length] = 0;
+		LLNotecard notecard(LLNotecard::MAX_SIZE);
+		LLMemoryStream str((U8*)&buffer[0], file_length + 1);
+		notecard.importStream(str);
+		std::string settings = notecard.getText();
+		LLMemoryStream settings_str((U8*)settings.c_str(), settings.length());
+		bool is_real_setting = sInstance->loadPresetXML(name, settings_str, true, true);
+		if(!is_real_setting)
+		{
+			LLSD subs;
+			subs["NAME"] = name;
+			LLNotifications::getInstance()->add("KittyInvalidWindlightNotecard", subs);
+		}
+	}
 }
 
 // static
