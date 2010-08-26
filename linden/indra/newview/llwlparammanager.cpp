@@ -273,7 +273,17 @@ void LLWLParamManager::savePresets(const std::string & fileName)
 
 void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 {
-	
+	// Check if we already have the preset before we try loading it again.
+	if(mParamList.find(name) != mParamList.end())
+	{
+		if(propagate)
+		{
+			getParamSet(name, mCurParams);
+			propagateParameters();
+		}
+		return;
+	}
+
 	// bugfix for SL-46920: preventing filenames that break stuff.
 	char * curl_str = curl_escape(name.c_str(), name.size());
 	std::string escaped_filename(curl_str);
@@ -662,9 +672,15 @@ void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id,
 		notecard.importStream(str);
 		std::string settings = notecard.getText();
 		LLMemoryStream settings_str((U8*)settings.c_str(), settings.length());
+		bool is_animator_running = sInstance->mAnimator.mIsRunning;
+		bool animator_linden_time = sInstance->mAnimator.mUseLindenTime;
+		sInstance->mAnimator.mIsRunning = false;
+		sInstance->mAnimator.mUseLindenTime = false;
 		bool is_real_setting = sInstance->loadPresetXML(name, settings_str, true, true);
 		if(!is_real_setting)
 		{
+			sInstance->mAnimator.mIsRunning = is_animator_running;
+			sInstance->mAnimator.mUseLindenTime = animator_linden_time;
 			LLSD subs;
 			subs["NAME"] = name;
 			LLNotifications::getInstance()->add("KittyInvalidWindlightNotecard", subs);
