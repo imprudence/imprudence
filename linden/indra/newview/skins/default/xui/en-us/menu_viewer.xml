@@ -2165,8 +2165,8 @@
       <on_check control="ShowConsoleWindow" />
     </menu_item_check>
 
-    <menu_item_check name="Restrained Life Support"
-                     label="Restrained Life Support">
+    <menu_item_check name="Restrained Love Support"
+                     label="Restrained Love Support">
       <on_click function="RLVa.Main.Toggle" />
       <on_check function="RLVa.Main.Enabled" />
     </menu_item_check>
