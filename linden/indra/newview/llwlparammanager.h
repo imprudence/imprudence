@@ -154,9 +154,12 @@ public:
 	
 	/// Load an individual preset from a notecard.
 	void loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id);
-
+	
 	/// save the parameter presets to file
 	void savePreset(const std::string & name);
+	
+	/// save the parameter presets to file
+	bool savePresetToNotecard(const std::string & name);
 
 	/// Set shader uniforms dirty, so they'll update automatically.
 	void propagateParameters(void);

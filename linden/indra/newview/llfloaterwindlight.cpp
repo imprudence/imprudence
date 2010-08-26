@@ -50,6 +50,10 @@
 #include "lltabcontainer.h"
 #include "llboost.h"
 
+#include "llagent.h"
+#include "llinventorymodel.h"
+#include "llviewerinventory.h"
+
 #include "v4math.h"
 #include "llviewerdisplay.h"
 #include "llviewercontrol.h"
@@ -222,6 +226,7 @@ void LLFloaterWindLight::initCallbacks(void) {
 	//childSetAction("WLLoadPreset", onLoadPreset, comboBox);
 	childSetAction("WLNewPreset", onNewPreset, comboBox);
 	childSetAction("WLSavePreset", onSavePreset, comboBox);
+	childSetAction("WLSaveNotecard", onSaveNotecard, comboBox);
 	childSetAction("WLDeletePreset", onDeletePreset, comboBox);
 
 	comboBox->setCommitCallback(onChangePresetName);
@@ -837,6 +842,76 @@ void LLFloaterWindLight::onSavePreset(void* userData)
 
 	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
 }
+class KVFloaterWindLightNotecardCreatedCallback : public LLInventoryCallback
+{
+public:
+	void fire(const LLUUID& inv_item);
+};
+
+void LLFloaterWindLight::onSaveNotecard(void* userData)
+{
+	// get the name
+	LLComboBox* comboBox = sWindLight->getChild<LLComboBox>( 
+		"WLPresetsCombo");
+
+	// don't save the empty name
+	if(comboBox->getSelectedItemLabel() == "")
+	{
+		return;
+	}
+	
+	// Check if this is already a notecard.
+	if(LLWLParamManager::instance()->mCurParams.mInventoryID.notNull())
+	{
+		LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
+	}
+	else
+	{
+		// Make sure we have a ".wl" extension.
+		std::string name = comboBox->getSelectedItemLabel();
+		if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
+		{
+			name += ".wl";
+		}
+		LLPointer<KVFloaterWindLightNotecardCreatedCallback> cb = new KVFloaterWindLightNotecardCreatedCallback();
+		// Create a notecard and then save it.
+		create_inventory_item(gAgent.getID(), 
+							  gAgent.getSessionID(),
+							  LLUUID::null,
+							  LLTransactionID::tnull,
+							  name,
+							  "WindLight settings (Kitty Viewer compatible)",
+							  LLAssetType::AT_NOTECARD,
+							  LLInventoryType::IT_NOTECARD,
+							  NOT_WEARABLE,
+							  PERM_ITEM_UNRESTRICTED,
+							  cb);
+		
+	}
+}
+
+void KVFloaterWindLightNotecardCreatedCallback::fire(const LLUUID& inv_item)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	param_mgr->setParamSet(param_mgr->mCurParams.mName, param_mgr->mCurParams);
+	param_mgr->mParamList[param_mgr->mCurParams.mName].mInventoryID = inv_item;
+	param_mgr->mCurParams.mInventoryID = inv_item;
+	LL_INFOS("WindLight") << "Created inventory item " << inv_item << LL_ENDL;
+	param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+}
+
+bool LLFloaterWindLight::saveNotecardCallback(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	// if they choose save, do it.  Otherwise, don't do anything
+	if(option == 0) 
+	{
+		LLWLParamManager * param_mgr = LLWLParamManager::instance();
+		param_mgr->setParamSet(param_mgr->mCurParams.mName, param_mgr->mCurParams);
+		param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+	}
+	return false;
+}
 
 bool LLFloaterWindLight::saveAlertCallback(const LLSD& notification, const LLSD& response)
 {
@@ -948,9 +1023,10 @@ void LLFloaterWindLight::onChangePresetName(LLUICtrl* ctrl, void * userData)
 	{
 		return;
 	}
-	
-	LLWLParamManager::instance()->loadPreset(
-		combo_box->getSelectedValue().asString());
+	//impfixme fix of an mystherious crash? : kittyviewer: if(!data.empty())
+	//
+	LLWLParamManager::instance()->loadPreset(combo_box->getSelectedValue().asString());
+	LL_INFOS("WindLight") << "Current inventory ID: " << LLWLParamManager::instance()->mCurParams.mInventoryID << LL_ENDL;
 	sWindLight->syncMenu();
 }
 

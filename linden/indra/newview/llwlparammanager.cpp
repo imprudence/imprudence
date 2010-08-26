@@ -67,6 +67,10 @@
 #include "llmemorystream.h"
 #include "llnotify.h"
 #include "llagent.h"
+#include "llinventorymodel.h"
+#include "llviewerinventory.h"
+#include "llviewerregion.h"
+#include "llassetuploadresponders.h"
 
 #include "curl/curl.h"
 
@@ -243,7 +247,7 @@ void LLWLParamManager::loadPresetNotecard(const std::string& name, const LLUUID&
 								   asset_id,
 								   LLAssetType::AT_NOTECARD,
 								   &loadWindlightNotecard,
-								   (void*)name.c_str());
+								   (void*)&inv_id);
 }
 
 void LLWLParamManager::savePresets(const std::string & fileName)
@@ -269,6 +273,63 @@ void LLWLParamManager::savePresets(const std::string & fileName)
 	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
 
 	presetsXML.close();
+
+	propagateParameters();
+}
+
+bool LLWLParamManager::savePresetToNotecard(const std::string & name)
+{
+	// make an empty llsd
+	LLSD paramsData(LLSD::emptyMap());
+
+	// fill it with LLSD windlight params
+	paramsData = mParamList[name].getAll();
+
+	// get some XML
+	std::ostringstream presetsXML;
+	LLPointer<LLSDFormatter> formatter = new LLSDXMLFormatter();
+	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
+
+	// Write it to a notecard
+	LLNotecard notecard;
+	notecard.setText(presetsXML.str());
+ 
+	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
+	if(!item)
+	{
+		mParamList[name].mInventoryID = LLUUID::null;
+		return false;
+	}
+	std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
+	if(!agent_url.empty())
+	{
+		LLTransactionID tid;
+		LLAssetID asset_id;
+		tid.generate();
+		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
+		
+		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
+		
+		std::ostringstream stream;
+		notecard.exportStream(stream);
+		std::string buffer = stream.str();
+		
+		S32 size = buffer.length() + 1;
+		file.setMaxSize(size);
+		file.write((U8*)buffer.c_str(), size);
+		LLSD body;
+		body["item_id"] = item->getUUID();
+		LL_INFOS("WindLight") << body << LL_ENDL;
+		LLHTTPClient::post(agent_url, body, new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+	}
+	else
+	{
+		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
+		return false;
+	}
+	
+	propagateParameters();
+	return true;
 }
 
 void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
@@ -659,7 +720,14 @@ LLWLParamManager * LLWLParamManager::instance()
 
 void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status)
 {
-	std::string name = std::string((char*)user_data);
+	LLUUID inventory_id(*((LLUUID*)user_data));
+	std::string name = "WindLight Setting.wl";
+	LLViewerInventoryItem *item = gInventory.getItem(inventory_id);
+	if(item)
+	{
+		inventory_id = item->getUUID();
+		name = item->getName();
+	}
 	if(LL_ERR_NOERR == status)
 	{
 		LLVFile file(vfs, asset_id, asset_type, LLVFile::READ);
@@ -684,6 +752,11 @@ void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id,
 			LLSD subs;
 			subs["NAME"] = name;
 			LLNotifications::getInstance()->add("KittyInvalidWindlightNotecard", subs);
+		}
+		else
+		{
+			// We can do this because we know mCurParams 
+			sInstance->mParamList[name].mInventoryID = inventory_id;
 		}
 	}
 }
