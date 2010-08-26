@@ -245,6 +245,9 @@ public:
 
 	/// save the parameter presets to file
 	void savePreset(const std::string & name);
+	
+	/// save the parameter presets to file
+	bool savePresetToNotecard(const std::string & name);
 
 	/// send the parameters to the shaders
 	void propagateParameters(void);

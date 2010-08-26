@@ -298,6 +298,62 @@ void LLWaterParamManager::savePreset(const std::string & name)
 	propagateParameters();
 }
 
+// Yes, this function is completely identical to LLWLParamManager::savePresetToNotecard.
+// I feel some refactoring of this whole WindLight thing would be generally beneficial.
+// Damned if I'm going to be the one to do it, though.
+bool LLWaterParamManager::savePresetToNotecard(const std::string & name)
+{
+	// make an empty llsd
+	LLSD paramsData(LLSD::emptyMap());
+	
+	// fill it with LLSD windlight params
+	paramsData = mParamList[name].getAll();
+	
+	// get some XML
+	std::ostringstream presetsXML;
+	LLPointer<LLSDFormatter> formatter = new LLSDXMLFormatter();
+	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
+	
+	// Write it to a notecard
+	LLNotecard notecard;
+	notecard.setText(presetsXML.str());
+	
+	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
+	if(!item)
+	{
+		mParamList[name].mInventoryID = LLUUID::null;
+		return false;
+	}
+	std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
+	if(!agent_url.empty())
+	{
+		LLTransactionID tid;
+		LLAssetID asset_id;
+		tid.generate();
+		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
+		
+		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
+		
+		std::ostringstream stream;
+		notecard.exportStream(stream);
+		std::string buffer = stream.str();
+		
+		S32 size = buffer.length() + 1;
+		file.setMaxSize(size);
+		file.write((U8*)buffer.c_str(), size);
+		LLSD body;
+		body["item_id"] = item->getUUID();
+		LLHTTPClient::post(agent_url, body, new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+	}
+	else
+	{
+		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
+		return false;
+	}
+	
+	propagateParameters();
+	return true;
+}
 
 void LLWaterParamManager::propagateParameters(void)
 {
