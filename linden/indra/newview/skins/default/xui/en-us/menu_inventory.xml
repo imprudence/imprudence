@@ -145,6 +145,10 @@
 			name="Use WindLight Settings" width="128">
         	<on_click filter="" function="Inventory.DoToSelected" userdata="load_windlight" />
 	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Use Water Settings" left="0" mouse_opaque="true" 
+			name="Use WaterLight Settings" width="128">
+        	<on_click filter="" function="Inventory.DoToSelected" userdata="load_waterlight" />
+	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" label="Edit WindLight Settings" left="0" mouse_opaque="true" 
 			name="Edit WindLight Settings" width="128">
         	<on_click filter="" function="Inventory.DoToSelected" userdata="edit_windlight" />

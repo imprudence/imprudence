@@ -3102,6 +3102,10 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			{
 				items.push_back(std::string("Use WindLight Settings"));
 			}
+			else if(isWaterSetting())
+			{
+				items.push_back(std::string("Use WaterLight Settings"));
+			}
 			items.push_back(std::string("Edit WindLight Settings"));
 		}
 		items.push_back(std::string("Properties"));

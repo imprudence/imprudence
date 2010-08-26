@@ -378,5 +378,5 @@
 
    <!-- Kitty Viewer Art -->
    <texture name="Inv_WindLight" file_name="Inv_WindLight.png" preload="false" />
-
+   <texture name="Inv_WaterLight" file_name="Inv_WaterLight.png" preload="false" />
 </textures>
