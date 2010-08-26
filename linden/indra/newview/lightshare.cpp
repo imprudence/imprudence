@@ -78,7 +78,11 @@ WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
 												 buf, size, 0, 249);
 
 	mWater = new LLWaterParamSet();
-	mSky = new LLWLParamSet();
+// 	mSky = new LLWLParamSet();
+	LLWLParamManager * wl_param_mgr = LLWLParamManager::instance();
+	static LLWLParamSet & sSky = wl_param_mgr->mCurParams;
+	mSky = &sSky;
+
 	mWaterNormal = new LLUUID();
 
 	process_packet(&buf[0]);
@@ -93,7 +97,7 @@ WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
 WindlightMessage::~WindlightMessage()
 {
 	delete mWater;
-	delete mSky;
+//	delete mSky;
 	delete mWaterNormal;
 }
 
