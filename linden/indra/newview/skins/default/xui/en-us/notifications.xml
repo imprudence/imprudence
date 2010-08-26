@@ -7068,7 +7068,32 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
 
 
 <!--End Imprudence notifications-->
+ <!-- [KITTY VIEWER] -->
+  <notification
+   icon="alertmodal.tga"
+   name="KittyInvalidWaterlightNotecard"
+   type="alert">
+[NAME] is not a valid water settings asset.
+  </notification>
 
+  <notification
+   icon="alertmodal.tga"
+   name="KittyInvalidWindlightNotecard"
+   type="alert">
+[NAME] is not a valid WindLight settings asset.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="KittyWLSaveNotecardAlert"
+   type="alertmodal">
+Do you wish to overwrite the saved preset?
+    <usetemplate
+     name="okcancelbuttons"
+     notext="No"
+     yestext="Yes"/>
+  </notification>
+ <!-- [/KITTY VIEWER] -->
 
 <global name="UnsupportedCPU">
 - Your CPU speed does not meet the minimum requirements.
