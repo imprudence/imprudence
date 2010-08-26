@@ -2999,10 +2999,7 @@ BOOL LLCallingCardBridge::dragOrDrop(MASK mask, BOOL drop,
 std::string LLNotecardBridge::sPrefix("Note: ");
 
 
-LLUIImagePtr LLNotecardBridge::getIcon() const
-{
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
-}
+
 
 void open_notecard(LLViewerInventoryItem* inv_item,
 				   const std::string& title,
@@ -3127,6 +3124,19 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	}
 	hide_context_entries(menu, items, disabled_items);
 */
+}
+
+LLUIImagePtr LLNotecardBridge::getIcon() const
+{
+	bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+	if(is_windlight)
+	{
+		return LLUI::getUIImage("Inv_WindLight");
+	}
+	else
+	{
+		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
+	}
 }
 
 // +=================================================+

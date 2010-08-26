@@ -375,4 +375,8 @@
   <texture name="default_land_picture.j2c"/>
   <texture name="default_profile_picture.j2c"/>
   <texture name="locked_image.j2c"/>
+
+   <!-- Kitty Viewer Art -->
+   <texture name="Inv_WindLight" file_name="Inv_WindLight.png" preload="false" />
+
 </textures>
