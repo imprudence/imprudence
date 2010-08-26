@@ -3065,8 +3065,14 @@ void LLNotecardBridge::openItem()
 	if (item)
 	{
 		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-		if(!is_windlight)
+		if(isSkySetting())
+ 		{
+			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
+ 		}
+		else
+		{
 			open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
+		}
 	}
 }
  
@@ -3089,11 +3095,13 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 	else
 	{
-		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
 
-		if(is_windlight)
+		if(isWindLight())
 		{
-			items.push_back(std::string("Use WindLight Settings"));
+			if(isSkySetting())
+			{
+				items.push_back(std::string("Use WindLight Settings"));
+			}
 			items.push_back(std::string("Edit WindLight Settings"));
 		}
 		items.push_back(std::string("Properties"));
@@ -3123,8 +3131,7 @@ void LLNotecardBridge::performAction(LLFolderView* folder, LLInventoryModel* mod
 
 LLUIImagePtr LLNotecardBridge::getIcon() const
 {
-	bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-	if(is_windlight)
+	if(isSkySetting())
 	{
 		return LLUI::getUIImage("Inv_WindLight");
 	}
@@ -3132,6 +3139,21 @@ LLUIImagePtr LLNotecardBridge::getIcon() const
 	{
 		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 	}
+}
+
+bool LLNotecardBridge::isSkySetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+}
+
+bool LLNotecardBridge::isWaterSetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
+}
+
+bool LLNotecardBridge::isWindLight() const
+{
+	return (isSkySetting() || isWaterSetting());
 }
 
 // +=================================================+

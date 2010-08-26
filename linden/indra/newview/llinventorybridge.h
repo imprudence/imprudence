@@ -475,6 +475,9 @@ public:
 	virtual const std::string& getPrefix() { return sPrefix; }
 
 	virtual LLUIImagePtr getIcon() const;
+	bool isSkySetting() const;
+	bool isWaterSetting() const;
+	bool isWindLight() const;
 	virtual void openItem();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 	virtual void performAction(LLFolderView* folder, LLInventoryModel* model, std::string action);
