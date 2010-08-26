@@ -63,7 +63,7 @@
 	         follows="left|top|right|bottom" height="245" left="0" mouse_opaque="true"
 	         name="inventory panel" sort_order="TexturePickerSortOrder" width="271" />
     </panel>
-    <panel border="false" bottom_delta="0" follows="left|top" height="300" label="My Computer" left="175" mouse_opaque="false" name="local_tab" width="410">
+    <panel border="false" bottom_delta="0" follows="left|top" height="300" label="Computer" left="175" mouse_opaque="false" name="local_tab" width="410">
   <!-- tag: vaa emerald local_asset_browser [begin] -->
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
            bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -81,7 +81,7 @@
               name="Remove" scale_image="true" width="70" visible="true" />
       <button bottom_delta="0" enabled="true" follows="left|top" 
               font="SansSerifSmall" halign="center" height="20" 
-              label="More Info" left_delta="103" mouse_opaque="true" 
+              label="Properties..." left_delta="103" mouse_opaque="true" 
               name="Browser" scale_image="true" width="90" visible="true" />
       <scroll_list
               name="local_name_list"

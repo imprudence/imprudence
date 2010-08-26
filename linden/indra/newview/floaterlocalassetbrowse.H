@@ -244,8 +244,6 @@ private:
 	// Widgets
 	LLButton* mAddBtn;
 	LLButton* mDelBtn;
-	LLButton* mMoreBtn;
-	LLButton* mLessBtn;
 	LLButton* mUploadBtn;
 
 	LLScrollListCtrl* mBitmapList;
@@ -271,7 +269,6 @@ private:
     static FloaterLocalAssetBrowser* sLFInstance;
 
 	// non-widget functions
-	static void FloaterResize(bool expand);
 	static void UpdateRightSide(void);
 
 public:

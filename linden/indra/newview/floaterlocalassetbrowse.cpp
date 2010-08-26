@@ -59,6 +59,7 @@ this feature is still a work in progress.
 /* misc headers */
 #include <time.h>
 #include <ctime>
+#include "hippoGridManager.h"
 #include "llviewerimagelist.h"
 #include "llviewerobjectlist.h"
 #include "llfilepicker.h"
@@ -748,8 +749,6 @@ FloaterLocalAssetBrowser::FloaterLocalAssetBrowser()
 	// setting element/xui children:
 	mAddBtn         = getChild<LLButton>("add_btn");
 	mDelBtn         = getChild<LLButton>("del_btn");
-	mMoreBtn        = getChild<LLButton>("more_btn");
-	mLessBtn        = getChild<LLButton>("less_btn");
 	mUploadBtn      = getChild<LLButton>("upload_btn");
 
 	mBitmapList     = getChild<LLScrollListCtrl>("bitmap_list");
@@ -781,8 +780,6 @@ FloaterLocalAssetBrowser::FloaterLocalAssetBrowser()
 	// setting button callbacks:
 	mAddBtn->setClickedCallback(         onClickAdd,         this);
 	mDelBtn->setClickedCallback(         onClickDel,         this);
-	mMoreBtn->setClickedCallback(        onClickMore,        this);
-	mLessBtn->setClickedCallback(        onClickLess,        this);
 	mUploadBtn->setClickedCallback(      onClickUpload,      this);
 	
 	// combo callback
@@ -794,13 +791,18 @@ FloaterLocalAssetBrowser::FloaterLocalAssetBrowser()
 	// checkbox callbacks
 	mUpdateChkBox->setCommitCallback(onClickUpdateChkbox);
 
+	mUpdateChkBox->set(true);
+	mUploadBtn->setLabelArg("[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 }
 
 void FloaterLocalAssetBrowser::show(void*)
 {
     if (!sLFInstance)
-	sLFInstance = new FloaterLocalAssetBrowser();
+	{
+		sLFInstance = new FloaterLocalAssetBrowser();
+	}
     sLFInstance->open();
+	sLFInstance->center();
 	sLFInstance->UpdateBitmapScrollList();
 }
 
@@ -817,18 +819,6 @@ void FloaterLocalAssetBrowser::onClickAdd(void* userdata)
 void FloaterLocalAssetBrowser::onClickDel(void* userdata)
 {
 	gLocalBrowser->DelBitmap( sLFInstance->mBitmapList->getAllSelected() );
-}
-
-/* what stopped me from using a single button and simply changing it's label
-   is the fact that i'd need to hardcode the button labels here, and that is griff. */
-void FloaterLocalAssetBrowser::onClickMore(void* userdata)
-{
-	FloaterResize(true);
-}
-
-void FloaterLocalAssetBrowser::onClickLess(void* userdata)
-{
-	FloaterResize(false);
 }
 
 void FloaterLocalAssetBrowser::onClickUpload(void* userdata)
@@ -874,39 +864,6 @@ void FloaterLocalAssetBrowser::onCommitTypeCombo(LLUICtrl* ctrl, void *userdata)
 	}
 }
 
-void FloaterLocalAssetBrowser::FloaterResize(bool expand)
-{
-	sLFInstance->mMoreBtn->setVisible(!expand);
-	sLFInstance->mLessBtn->setVisible(expand);
-	sLFInstance->mTextureView->setVisible(expand);
-	sLFInstance->mUpdateChkBox->setVisible(expand);
-	sLFInstance->mCaptionPathTxt->setVisible(expand);
-	sLFInstance->mCaptionUUIDTxt->setVisible(expand);
-	sLFInstance->mCaptionLinkTxt->setVisible(expand);
-	sLFInstance->mCaptionNameTxt->setVisible(expand);
-	sLFInstance->mCaptionTimeTxt->setVisible(expand);
-	sLFInstance->mTypeComboBox->setVisible(expand);
-
-	sLFInstance->mTimeTxt->setVisible(expand);
-	sLFInstance->mPathTxt->setVisible(expand);
-	sLFInstance->mUUIDTxt->setVisible(expand);
-	sLFInstance->mLinkTxt->setVisible(expand);
-	sLFInstance->mNameTxt->setVisible(expand);
-
-	if(expand)
-	{ 
-		sLFInstance->reshape(LF_FLOATER_EXPAND_WIDTH, LF_FLOATER_HEIGHT); 
-		sLFInstance->setResizeLimits(LF_FLOATER_EXPAND_WIDTH, LF_FLOATER_HEIGHT);
-		sLFInstance->UpdateRightSide();
-	}
-	else
-	{ 
-		sLFInstance->reshape(LF_FLOATER_CONTRACT_WIDTH, LF_FLOATER_HEIGHT);
-		sLFInstance->setResizeLimits(LF_FLOATER_CONTRACT_WIDTH, LF_FLOATER_HEIGHT);
-	}
-
-}
-
 void FloaterLocalAssetBrowser::UpdateBitmapScrollList()
 {
 	if ( !sLFInstance ) { return; }
@@ -937,10 +894,7 @@ void FloaterLocalAssetBrowser::UpdateBitmapScrollList()
 void FloaterLocalAssetBrowser::UpdateRightSide()
 {
 	/*
-	Since i'm not keeping a bool on if the floater is expanded or not, i'll
-	just check if one of the widgets that shows when the floater is expanded is visible.
-
-	Also obviously before updating - checking if something IS actually selected :o
+	Before updating - checking if something IS actually selected :o
 	*/
 
 	if ( !sLFInstance->mTextureView->getVisible() ) { return; }
@@ -961,6 +915,7 @@ void FloaterLocalAssetBrowser::UpdateRightSide()
 			sLFInstance->mTypeComboBox->selectNthItem( unit->getType() );
 
 			sLFInstance->mTextureView->setEnabled(true);
+			sLFInstance->mUpdateChkBox->set(true);
 			sLFInstance->mUpdateChkBox->setEnabled(true);
 			sLFInstance->mTypeComboBox->setEnabled(true);
 		}
