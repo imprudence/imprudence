@@ -3022,7 +3022,8 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (!is_muted && !is_busy)
 			{
-				visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
+				static BOOL* sUseChatBubbles = rebind_llcontrol<BOOL>("UseChatBubbles", &gSavedSettings, true);
+				visible_in_chat_bubble = *sUseChatBubbles;
 				((LLVOAvatar*)chatter)->addChat(chat);
 			}
 		}

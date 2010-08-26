@@ -1056,7 +1056,9 @@ void click_apply_to_selection(void* user)
 
 void commit_select_tool(LLUICtrl *ctrl, void *data)
 {
-	S32 show_owners = gSavedSettings.getBOOL("ShowParcelOwners");
+	static BOOL* sShowParcelOwners = rebind_llcontrol<BOOL>("ShowParcelOwners", &gSavedSettings, true);
+	
+	S32 show_owners = *sShowParcelOwners;
 	gFloaterTools->setEditTool(data);
 	gSavedSettings.setBOOL("ShowParcelOwners", show_owners);
 }

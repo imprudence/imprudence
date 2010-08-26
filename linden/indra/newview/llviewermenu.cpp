@@ -7509,7 +7509,9 @@ class LLViewEnableMouselook : public view_listener_t
 	{
 		// You can't go directly from customize avatar to mouselook.
 		// TODO: write code with appropriate dialogs to handle this transition.
-		bool new_value = (CAMERA_MODE_CUSTOMIZE_AVATAR != gAgent.getCameraMode() && !gSavedSettings.getBOOL("FreezeTime"));
+		static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
+
+		bool new_value = (CAMERA_MODE_CUSTOMIZE_AVATAR != gAgent.getCameraMode() && !(*sFreezeTime));
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}

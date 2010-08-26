@@ -298,7 +298,9 @@ public:
 		U32 ypos = 64;
 		const U32 y_inc = 20;
 
-		if (gSavedSettings.getBOOL("DebugShowTime"))
+		static BOOL *sDebugShowTime = rebind_llcontrol<BOOL>("DebugShowTime", &gSavedSettings, true);
+
+		if(*sDebugShowTime)
 		{
 			const U32 y_inc2 = 15;
 			for (std::map<S32,LLFrameTimer>::reverse_iterator iter = gDebugTimers.rbegin();
@@ -513,8 +515,10 @@ public:
 			addText(xpos, ypos, llformat("%d %d %d %d", color[0], color[1], color[2], color[3]));
 			ypos += y_inc;
 		}
+		static BOOL* sBeaconsEnabled = rebind_llcontrol<BOOL>("BeaconsEnabled", &gSavedSettings, true);
+
 		// only display these messages if we are actually rendering beacons at this moment
-		if (LLPipeline::getRenderBeacons(NULL) && gSavedSettings.getBOOL("BeaconsEnabled"))
+		if (LLPipeline::getRenderBeacons(NULL) && *sBeaconsEnabled)
 		{
 			if (LLPipeline::getRenderParticleBeacons(NULL))
 			{
@@ -2048,7 +2052,9 @@ void LLViewerWindow::draw()
 	//S32 screen_x, screen_y;
 
 	// HACK for timecode debugging
-	if (gSavedSettings.getBOOL("DisplayTimecode"))
+	static BOOL* sDisplayTimecode = rebind_llcontrol<BOOL>("DisplayTimecode", &gSavedSettings, true);
+
+	if (*sDisplayTimecode)
 	{
 		// draw timecode block
 		std::string text;
@@ -2509,7 +2515,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 	LLVector2 mouse_vel; 
 
-	if (gSavedSettings.getBOOL("MouseSmooth"))
+	static BOOL* sMouseSmooth = rebind_llcontrol<BOOL>("MouseSmooth", &gSavedSettings, true);
+
+	if (*sMouseSmooth)
 	{
 		static F32 fdx = 0.f;
 		static F32 fdy = 0.f;
@@ -2664,7 +2672,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	// Show a new tool tip (or update one that is alrady shown)
 	BOOL tool_tip_handled = FALSE;
 	std::string tool_tip_msg;
-	F32 tooltip_delay = gSavedSettings.getF32( "ToolTipDelay" );
+	static F32 *sToolTipDelay = rebind_llcontrol<F32>("ToolTipDelay", &gSavedSettings, true);
+
+	F32 tooltip_delay = (*sToolTipDelay);
 	//HACK: hack for tool-based tooltips which need to pop up more quickly
 	//Also for show xui names as tooltips debug mode
 	if ((mouse_captor && !mouse_captor->isView()) || LLUI::sShowXUINames)
@@ -2715,9 +2725,10 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		{
 			mToolTip->setVisible( tooltip_vis );
 		}
-	}		
+	}	
+	static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
 	
-	if (tool && tool != gToolNull  && tool != LLToolCompInspect::getInstance() && tool != LLToolDragAndDrop::getInstance() && !gSavedSettings.getBOOL("FreezeTime"))
+	if (tool && tool != gToolNull  && tool != LLToolCompInspect::getInstance() && tool != LLToolDragAndDrop::getInstance() && !(*sFreezeTime))
 	{ 
 		LLMouseHandler *captor = gFocusMgr.getMouseCapture();
 		// With the null, inspect, or drag and drop tool, don't muck

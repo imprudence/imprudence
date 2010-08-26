@@ -334,7 +334,9 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 	}
 
 	{
-		const U32 max_buffer_bytes = gSavedSettings.getS32("RenderMaxVBOSize")*1024;
+		static S32* sRenderMaxVBOSize = rebind_llcontrol<S32>("RenderMaxVBOSize", &gSavedSettings, true);
+
+		const U32 max_buffer_bytes = (*sRenderMaxVBOSize)*1024;
 		const U32 data_mask = LLDrawPoolWLSky::SKY_VERTEX_DATA_MASK;
 		const U32 max_verts = max_buffer_bytes / LLVertexBuffer::calcStride(data_mask);
 
