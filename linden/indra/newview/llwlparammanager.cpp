@@ -718,6 +718,7 @@ LLWLParamManager * LLWLParamManager::instance()
 	return sInstance;
 }
 
+// static
 void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status)
 {
 	LLUUID inventory_id(*((LLUUID*)user_data));

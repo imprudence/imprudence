@@ -39,6 +39,10 @@
 #include "llviewercamera.h"
 #include "v4color.h"
 
+#include "llassettype.h" // Ugh.
+
+class LLVFS;
+
 const F32 WATER_FOG_LIGHT_CLAMP = 0.3f;
 
 // color control
@@ -231,6 +235,13 @@ public:
 	/// load an individual preset into the sky
 
 	void loadPreset(const std::string & name,bool propagate=true);
+	
+	/// load an individual preset into the sky from an LLSD stream
+	/// Returns whether the stream was actually reasonable XML to load from.
+	bool loadPresetXML(const std::string& name, std::istream& preset_stream, bool propogate=false, bool check_if_real=false);
+	
+	/// Load an individual preset from a notecard.
+	void loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id);
 
 	/// save the parameter presets to file
 	void savePreset(const std::string & name);
@@ -322,6 +333,8 @@ private:
 
 	// our parameter manager singleton instance
 	static LLWaterParamManager * sInstance;
+
+	static void loadWaterNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
 };
 
 inline void LLWaterParamManager::setDensitySliderValue(F32 val)

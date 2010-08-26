@@ -78,6 +78,7 @@
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
+#include "llwaterparammanager.h"
 #include "llwearable.h"
 #include "llwearablelist.h"
 #include "llviewermessage.h" 
@@ -3068,7 +3069,11 @@ void LLNotecardBridge::openItem()
 		if(isSkySetting())
  		{
 			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
- 		}
+		}
+		else if(isWaterSetting())
+		{
+			LLWaterParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
+		}
 		else
 		{
 			open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
@@ -3122,6 +3127,10 @@ void LLNotecardBridge::performAction(LLFolderView* folder, LLInventoryModel* mod
 	if ("load_windlight" == action)
 	{
 		LLWLParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
+	}
+	else if ("load_waterlight" == action)
+	{
+		LLWaterParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
 	}
 	else if ("edit_windlight" == action)
 	{
