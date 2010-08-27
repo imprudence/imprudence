@@ -668,9 +668,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>62b96bb2721798958743d92a403d122a</string>
+            <string>cda184fd2eb36fde3195f5f70568d174</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091125.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20100826.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
