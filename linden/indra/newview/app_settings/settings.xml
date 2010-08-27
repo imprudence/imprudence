@@ -907,7 +907,7 @@
   <key>VivoxLicenseAccepted</key>
   <map>
     <key>Comment</key>
-    <string>By setting to true, you agree to accept the Vivox personal license agreement at http://www.vivox.com/vivox_aup.html</string>
+    <string>By setting to true, you indicate your agreement to the Vivox Acceptable Use Policy at http://www.vivox.com/vivox_aup.html</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
