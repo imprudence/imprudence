@@ -944,7 +944,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libgstvideo-0.10.so.0")
 
             # Gstreamer plugin dependencies
-            self.path("libfaad.so.2")
+	    self.path("libfaad.so.0")
             self.path("libogg.so.0")
             self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
@@ -1072,6 +1072,7 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libgstvideo-0.10.so.0")
 
             # Gstreamer plugin dependencies
+            self.path("libfaad.so.0")
             self.path("libogg.so.0")
             self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
@@ -1091,6 +1092,7 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.path("libgstdecodebin2.so")
                 self.path("libgstdecodebin.so")
                 self.path("libgstesd.so")
+		self.path("libgstfaad.so")
                 self.path("libgstffmpeg.so")
                 self.path("libgstffmpegcolorspace.so")
                 self.path("libgstgnomevfs.so")
