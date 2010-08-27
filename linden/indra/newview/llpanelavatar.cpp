@@ -1902,7 +1902,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		targs["[DAYS]"] = numberString.str();
 		std::string born_msg = self->mPanelSecondLife->getString("days_old_text");
 		LLStringUtil::format(born_msg, targs);
-		born_on += "  ";
+		born_on += " ";
 		born_on += born_msg;
 		self->mPanelSecondLife->childSetValue("born", born_on);
 
