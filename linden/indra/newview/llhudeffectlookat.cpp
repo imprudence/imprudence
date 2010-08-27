@@ -280,17 +280,17 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 	LLViewerObject* source_object = (LLViewerObject*)mSourceObject;
 	LLVOAvatar* source_avatar = NULL;
 
-	if (!source_object)
+	if (!source_object)//imprudence TODO: find out why this happens at all and fix there
 	{
+		LL_DEBUGS("HUDEffect")<<"NULL-Object HUDEffectLookAt message" <<  LL_ENDL;
 		markDead();
 		return;
 	}
-	if (source_object->isAvatar()) //strange enough that non-objects try
-							//to send a lookat message ...
+	if (source_object->isAvatar())
 	{
 		source_avatar = (LLVOAvatar*)source_object;
 	}
-	else //... more strange if its an non-avatar object ...
+	else //imprudence TODO: find out why this happens at all and fix there
 	{
 		LL_DEBUGS("HUDEffect")<<"Non-Avatar HUDEffectLookAt message for ID: " <<  source_object->getID().asString()<< LL_ENDL;
 		markDead();
@@ -300,7 +300,7 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 
 	bool is_self = source_avatar->isSelf();
 	bool is_private = gSavedSettings.getBOOL("PrivateLookAtTarget");
-	if (!is_self) //... very strange if it is not self. But happens. Also at local opensim.
+	if (!is_self) //imprudence TODO: find out why this happens at all and fix there
 	{
 		LL_DEBUGS("HUDEffect")<< "Non-self Avatar HUDEffectLookAt message for ID: " << source_avatar->getID().asString() << LL_ENDL;
 		markDead();
