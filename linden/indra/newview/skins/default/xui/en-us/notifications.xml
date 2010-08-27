@@ -6190,7 +6190,6 @@ Grant this request?
  name="ScriptDialog"
  type="notify">
 [FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
-
 [MESSAGE]
   <form name="form">
     <button
@@ -6205,7 +6204,6 @@ Grant this request?
  name="ScriptDialogGroup"
  type="notify">
 [GROUPNAME]&apos;s &apos;[TITLE]&apos;
-
 [MESSAGE]
   <form name="form">
     <button
