@@ -1127,11 +1127,17 @@ class Linux_x86_64Manifest(LinuxManifest):
 #	    self.path("libuuid.so.1")
 #        self.end_prefix("lib32")
 
-            # Vivox runtimes
-#            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-#                    self.path("SLVoice")
-#                    self.end_prefix()
-#
+
+            # Vivox runtimes and libs
+            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+                self.path("SLVoice")
+                self.end_prefix("bin")
+
+            if self.prefix(src="vivox-runtime/i686-linux", dst="lib32"):
+                self.path("libalut.so")
+                self.path("libortp.so")
+                self.path("libvivoxsdk.so")
+                self.end_prefix("lib32")
 
 if __name__ == "__main__":
     main()
