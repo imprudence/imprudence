@@ -1377,6 +1377,9 @@ public:
 	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
+	bool isSkySetting() const;
+	bool isWaterSetting() const;
+	bool isWindLight() const;
 };
 
 LLTaskNotecardBridge::LLTaskNotecardBridge(
@@ -1385,11 +1388,6 @@ LLTaskNotecardBridge::LLTaskNotecardBridge(
 	const std::string& name) :
 	LLTaskInvFVBridge(panel, uuid, name)
 {
-}
-
-LLUIImagePtr LLTaskNotecardBridge::getIcon() const
-{
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 }
 
 void LLTaskNotecardBridge::openItem()
@@ -1410,6 +1408,10 @@ void LLTaskNotecardBridge::openItem()
 		return;
 	}
 // [/RLVa:KB]
+	if(isWindLight())
+	{
+		return;
+	}
 	if(object->permModify() || gAgent.isGodlike())
 	{
 		S32 left, top;
@@ -1434,6 +1436,37 @@ BOOL LLTaskNotecardBridge::removeItem()
 	LLPreview::hide(mUUID);
 	return LLTaskInvFVBridge::removeItem();
 }
+LLUIImagePtr LLTaskNotecardBridge::getIcon() const
+{
+	if(isSkySetting())
+	{
+		return LLUI::getUIImage("Inv_WindLight");
+	}
+	else if(isWaterSetting())
+	{
+		return LLUI::getUIImage("Inv_WaterLight");
+	}
+	else
+	{
+		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
+	}
+}
+
+bool LLTaskNotecardBridge::isSkySetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+}
+
+bool LLTaskNotecardBridge::isWaterSetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
+}
+
+bool LLTaskNotecardBridge::isWindLight() const
+{
+	return (isSkySetting() || isWaterSetting());
+}
+
 
 ///----------------------------------------------------------------------------
 /// Class LLTaskGestureBridge
