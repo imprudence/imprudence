@@ -900,9 +900,6 @@ void LLViewerObjectList::killObjects(LLViewerRegion *regionp)
 		if (objectp->mRegionp == regionp)
 		{
 			killObject(objectp);
-			// invalidate region pointer. region will become invalid, but 
-			// refcounted objects may survive the cleanDeadObjects() call below
-			objectp->mRegionp = NULL;
 		}
 	}
 
