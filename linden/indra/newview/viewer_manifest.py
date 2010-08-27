@@ -991,10 +991,16 @@ class Linux_i686Manifest(LinuxManifest):
             
             self.end_prefix("lib")
 
-            # Vivox runtimes
-#            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-#                    self.path("SLVoice")
-#                    self.end_prefix()
+            # Vivox runtimes and libs
+            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+                self.path("SLVoice")
+                self.end_prefix("bin")
+
+            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
+                self.path("libalut.so")
+                self.path("libortp.so")
+                self.path("libvivoxsdk.so")
+                self.end_prefix("lib")
 
 
 class Linux_x86_64Manifest(LinuxManifest):
