@@ -4,6 +4,258 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                       1.3.0 RC2                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    RELEASE HIGHLIGHTS
+
+      * Vivox voice chat support is now included with Imprudence.
+
+      * Streaming audio/video now supports the AAC codec (sound
+        encoding), which is commonly used in MP4 videos.
+
+      * Fixed numerous bugs from 1.3.0 RC1.
+
+
+    KNOWN ISSUES
+
+      * The "Cancel" button is missing when the teleport screen is
+        disabled.
+
+      * The Animation Overrider window needs to be open when standing
+        up from sitting on the ground in order to activate stands.
+
+      * Tiny prims are sometimes invisible until selected.
+
+      * Lossless textures sometimes appear corrupt/black when using
+        OpenJPEG (the workaround is to copy llkdu from an SL 1.23
+        installation).
+
+      * Building grid ruler marks are invisible when stretching prims
+        if "Disable Max Build Constraints" is enabled.
+
+      * Prim position and rotation are sometimes improperly rounded to
+        >4 decimal places.
+
+      * Avatar textures may appear invisible when HTTP textures is
+        enabled (a rebake fixes it).
+
+
+    CHANGES
+
+      In addition to the Release Highlights above, this version of
+      Imprudence also includes the following changes, as compared to
+      Imprudence 1.3.0 RC1.
+
+
+      FEATURES / IMPROVEMENTS
+
+        * Vivox voice chat support is now included with Imprudence.
+          Thanks McCabe, Armin, and Jacek!
+
+        * Streaming audio and video encoded with AAC now plays audio
+          (e.g. MP4 videos). Thanks McCabe, Armin, and Jacek!
+
+        * Added ability to ignore group chat from individual groups.
+          Uncheck the "Join group chat" checkbox in a group's info
+          window to ignore incoming chat from that group.
+          Thanks, McCabe and Jacek!
+
+        * Added Reconnect to Voice button in Preferences > Voice.
+          Thanks to the Emerald Viewer for this feature.
+
+        * Chat logs and user-specifc settings are now stored in
+          firstname_lastname@grid folders in the user settings. (To
+          access your old chat logs and settings in the new format,
+          copy the contents of your firstname_lastname folder to
+          folders using the new firstname_lastname@grid naming
+          convention.) Thanks, McCabe!
+
+        * Added Gestures slider to the audio controls, allowing you to
+          adjust the volume of gesture sounds. Thanks, McCabe!
+
+        * Added menu option for toggling IM auto-responses in the
+          World menu. Thanks, McCabe!
+
+        * Added Teleport to Ground option in the Advanced menu.
+          Thanks, McCabe, and thanks to the Emerald Viewer for this
+          feature!
+
+        * The window title bar now shows the grid name (in addition to
+          the user name) when "Allow Multiple Instances" is enabled.
+          Thanks, McCabe!
+
+        * Profiles now show avatar's age (#405). Thanks, Ansariel
+          Hiller, and thanks to Chalice Yao for this feature!
+
+        * Updated the list of supported graphics cards (gpu_table.txt)
+          to the latest from Viewer 2. Thanks, McCabe!
+
+        * maps.secondlife.com-style SLURLs now work.
+          Thanks, Makomk Makosen!
+
+        * Disable Max Build Constraints now also disables position
+          limits. Thanks, McCabe!
+
+        * Re-enabled search url fetching in the Grid Manager.
+          Thanks, McCabe!
+
+        * Increased the script editor font size for readability.
+          Thanks, McCabe!
+
+
+      BUG FIXES
+
+        * Fixed crash when quitting and having voice enabled i.e.
+          "Imprudence not remembering preferences" (#381).
+          Thanks, McCabe!
+
+        * Fixed inworld audio sporadically enabling on Windows.
+          Thanks, McCabe!
+
+        * Fixed inworld audio not completely enabling regardless of
+          maturity setting. Thanks, McCabe!
+
+        * Fixed numerous RLVa bugs. Thanks, Kitty Barnett!
+
+        * Fixed memory leak in LLImageFormatted (SNOW-793).
+          Thanks, Thickbrick Sleaford!
+
+        * Fixed LightShare skies not updating fluently (#415).
+          Thanks, tx Oh!
+
+        * Fixed a potential memory leak in LightShare. Thanks, Armin!
+
+        * Potential fixes for several crashes when using HTTP
+          textures. Thanks, McCabe!
+
+        * Fixed crash when logging into a region with progress screens
+          disabled. Thanks, McCabe!
+
+        * Fixed crash when encountering textures with bogus
+          parameters. Thanks, McCabe!
+
+        * Fixed "crash" in lltexturecache. Thanks, McCabe!
+
+        * Fixed account-specific settings being overwritten when
+          teleporting between grids. Thanks, McCabe!
+
+        * Fixed llkdu.dll not being correctly detected on Windows.
+          Thanks, McCabe!
+
+        * Fixed proper detection of Windows 7, backported from
+          Snowglobe (#424). Thanks, Ansariel Hiller!
+
+        * Fixed the Search window loading the wrong search page when
+          connected to OpenSim. Thanks, Jacek!
+
+        * Fixed Grid Manager being nearly empty when the viewer fails
+          to download the grid list the first time. Thanks, Jacek!
+
+        * Fixed regression: local lights not disabling when editing
+          appearance. Thanks, McCabe!
+
+        * Fixed the Preferences > Advanced > Enable shadows checkbox
+          not showing whether or not shadows were enabled.
+          Thanks, McCabe!
+
+        * Fixed minimum size of the Contacts window being too small.
+          Thanks, McCabe!
+
+        * Fixed libndofdev detection on Linux. Thanks, Armin!
+
+        * Fixed missing quotes in Linux scripts. Thanks, Armin!
+
+        * Fixed tooltips taking longer than normal to appear.
+          Thanks, McCabe!
+
+        * Fixed missing constants from the script editor and added
+          llGetLinkNumberOfSides(). Thanks, McCabe!
+
+        * Fixed [[Build Math Expressions|Build Math]] help button
+          overlapping some UI text (#384). Thanks, McCabe!
+
+        * Fixed Preferences > Advanced layout being off in RC1.
+          Thanks, McCabe!
+
+        * Fixed lowercase "c"s in build window labels. Thanks, McCabe!
+
+        * Fixed event names overrunning the search window.
+          Thanks, McCabe!
+
+        * Fixed unknown viewer tags being shown as "Failure".
+          Thanks, McCabe!
+
+        * Fixed prim sizes not working at 5 decimal places.
+          Thanks, McCabe!
+
+        * Fixed scripted notifications showing a blank whitespace
+          below the owner name. Thanks, McCabe!
+
+
+      OTHER CHANGES
+
+        * The ParticleChat setting is now off by default.
+          Thanks, Jacek!
+
+        * Removed the "About" button in the preferences window.
+          Thanks, McCabe!
+
+        * Moved Clear Group Cache to "Advanced > UI > Clear Cached
+          Group Info". Thanks, McCabe!
+
+        * Renamed "Show IMs in: Main console" to "Show IMS in: Main
+          chat" in Preferences > Communication. Thanks, McCabe!
+
+        * Added Cool VL Viewer and Kitty Barnett to the "thanks"
+          section of the viewer credits in Help > About Imprudence.
+          Thanks, McCabe!
+
+
+    KNOWN ISSUES WITH OPENSIM
+
+      If you're using Imprudence to explore the larger metaverse, here
+      are a few OpenSim bugs that you should be aware of:
+
+      * Clearing cache causes "body parts not found" error and your
+        avatar to login as a cloud. This will also happen on first
+        login to many OpenSim grids. The workaround is to change your
+        shape then relog.
+
+      * Megaregion teleports fail except in the root (SW) region.
+
+      * The "Cancel" button does not appear during teleports on most
+        OpenSim-based grids.
+
+      * When sitting, the camera's default center is the root prim,
+        not the prim you're actually sitting on.
+
+      * OpenSims using CS2JK to bake avatar textures might corrupt an
+        avatar's appearance (looking "rainbow" or "checker-boarded")
+        when using openjpeg. A rebake will generally fix this.
+
+      * Sometimes OpenSim loses an avatar's appearance, causing
+        changing clothing to fail and the avatar to permanently look
+        white, even after a rebake or a relog.
+
+      * Sometimes prims or land become corrupted (i.e. look "rainbow")
+        an excessive amount. The workaround for this is to copy llkdu
+        from a Second Life 1.23 install into the main Imprudence
+        folder.
+
+      * Creating new outfits causes the viewer to crash on many
+        OpenSim-based grids.
+
+      * Right clicking a landmark and selecting "About Landmark"
+        causes the viewer to crash on most OpenSim-based grids.
+
+      * Sometimes avatars become stuck as unbaked (i.e. white) on
+        OpenSim. Having stuck avatars rebake fixes this in most cases.
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                       1.3.0 RC1                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
