@@ -668,16 +668,16 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>cda184fd2eb36fde3195f5f70568d174</string>
+            <string>973aabcba37f6ee0ceab2e3d063eea84</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20100826.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20100827.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>8e21045776401973c5034de30258ce8c</string>
+            <string>663c29f3885ab8429ad6841d80181c31</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux64-20091203.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux64-20100827.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
