@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false" can_resize="false"
      height="350" min_height="350" min_width="250" name="default_grid"
-     title="Select a Default Grid" width="250">
+     title="Select a Default Grid" width="260">
   <text top="-18" follows="top|left" font="SansSerifSmall" left="10"
       halign="left" h_pad="0" v_pad="0" height="16" name="select_label">
     Or use the Grid Manager to add a new one
@@ -9,7 +9,7 @@
   <scroll_list background_visible="true" bottom_delta="30" draw_border="true"
       draw_stripes="false" sort_column="0"
       follows="top|left|bottom" height="280" left="10" multi_select="false"
-      name="grid_list" width="230">
+      name="grid_list" width="240">
     <column label="" name="grid" width="230" />
   </scroll_list>
   <button bottom="5" follows="bottom|right" height="20" label="Cancel"
