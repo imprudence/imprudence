@@ -146,8 +146,7 @@
 			</text>
 			<button label="양도..." label_selected="양도..." name="button deed"
 			     tool_tip="그룹 공유 오브젝트는 그룹 운영진이 양도할 수 있습니다." />
-			<check_box label="아무나 이동 허용" name="checkbox allow everyone move" />
-			<check_box label="아무나 복사 허용" name="checkbox allow everyone copy" />
+			<check_box label="복사" name="checkbox allow everyone copy" />
 			<check_box label="검색 보기" name="search_check"
 			     tool_tip="사람들이 이 오브젝트 검색 결과를 보게 합니다." />
 			<check_box label="판매 여부" name="checkbox for sale" />

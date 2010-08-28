@@ -122,8 +122,11 @@
 				Deed
 			</string>
 			<button label="Dedikér..." label_selected="Dedikér..." name="button deed" tool_tip="Gruppedelte genstande kan dedikeres af en gruppeadministrator."/>
-			<check_box label="Tillad enhver at flytte" name="checkbox allow everyone move"/>
-			<check_box label="Tillad enhver at kopiére" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				Enhver:
+			</text>
+			<check_box label="Flytte" name="checkbox allow everyone move"/>
+			<check_box label="Kopiére" name="checkbox allow everyone copy"/>
 			<check_box label="Vis i søgning" name="search_check" tool_tip="Lad folk se dette objekt i søgeresultater"/>
 			<check_box label="Til salg" name="checkbox for sale"/>
 			<text name="Cost">
@@ -134,7 +137,7 @@
 					Original
 				</radio_item>
 				<radio_item name="Copy">
-					Kopi
+					Kopiére
 				</radio_item>
 				<radio_item name="Contents">
 					Indhold
@@ -145,7 +148,7 @@
 			</text>
 			<check_box label="Redigére" name="checkbox next owner can modify"/>
 			<check_box label="Kopiére" name="checkbox next owner can copy" left_delta="80"/>
-			<check_box label="Sælge/Give væk" name="checkbox next owner can transfer" left_delta="67"/>
+			<check_box label="Sælge/give væk" name="checkbox next owner can transfer" left_delta="67"/>
 			<text name="label click action">
 				Når der venstreklikkes:
 			</text>

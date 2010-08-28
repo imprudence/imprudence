@@ -122,8 +122,11 @@
 				譲渡
 			</string>
 			<button label="譲渡..." label_selected="譲渡..." name="button deed" tool_tip="グループ共有のオブジェクトは、グループ・オフィサーにより譲渡可能です。"/>
-			<check_box label="誰に対しても移動を許可" name="checkbox allow everyone move"/>
-			<check_box label="誰に対してもコピーを許可" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				全員：
+			</text>
+			<check_box label="移動" name="checkbox allow everyone move"/>
+			<check_box label="コピー" name="checkbox allow everyone copy"/>
 			<check_box label="検索に表示" name="search_check" tool_tip="検索結果で、このオブジェクトを人に見せる"/>
 			<check_box label="売り出し中" name="checkbox for sale"/>
 			<text name="Cost">

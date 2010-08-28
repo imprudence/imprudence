@@ -123,8 +123,11 @@
 				Cedi al gruppo
 			</string>
 			<button left_delta="152" width="98" label="Cedi al gruppo..." label_selected="Cedi al gruppo..." name="button deed" tool_tip="Gli oggetti condivisi con il gruppo possono essere ceduti da un funzionario del gruppo."/>
-			<check_box label="Permetti a chiunque di spostare" name="checkbox allow everyone move"/>
-			<check_box label="Permetti a chiunque di copiare" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				Chiunque:
+			</text>
+			<check_box label="Sposta" name="checkbox allow everyone move"/>
+			<check_box label="Copia" name="checkbox allow everyone copy"/>
 			<check_box label="Mostra nella ricerca" name="search_check" tool_tip="Permetti che l&apos;oggetto sia visibile nella ricerca"/>
 			<check_box label="In vendita" name="checkbox for sale"/>
 			<text name="Cost">

@@ -122,8 +122,7 @@
 				Дело
 			</string>
 			<button label="Дело..." label_selected="Дело..." name="button deed" tool_tip="Офицер группы может передать групповые объекты для применения."/>
-			<check_box label="Разрешить двигать всем" name="checkbox allow everyone move"/>
-			<check_box label="Разрешить копировать всем" name="checkbox allow everyone copy"/>
+			<check_box label="Копир" name="checkbox allow everyone copy"/>
 			<check_box label="Показывать в поиске" name="search_check" tool_tip="Позволяет людям видеть объект в результатах поиска"/>
 			<check_box label="Для продажи" name="checkbox for sale"/>
 			<text name="Cost" left_delta="110" width="78">

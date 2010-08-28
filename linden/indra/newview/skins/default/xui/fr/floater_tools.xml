@@ -122,8 +122,11 @@
 				Transférer
 			</string>
 			<button label="Céder..." label_selected="Céder..." name="button deed" tool_tip="Les objets partagés par un groupe peuvent être cédés par un officier."/>
-			<check_box label="Autoriser tout le monde à déplacer" name="checkbox allow everyone move"/>
-			<check_box label="Autoriser tout le monde à copier" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				N&apos;importe qui :
+			</text>
+			<check_box label="Bouger" name="checkbox allow everyone move"/>
+			<check_box label="Copier" name="checkbox allow everyone copy"/>
 			<check_box label="Afficher dans la recherche" name="search_check" tool_tip="Afficher l&apos;objet dans les résultats de recherche"/>
 			<check_box label="À vendre" name="checkbox for sale"/>
 			<text name="Cost">

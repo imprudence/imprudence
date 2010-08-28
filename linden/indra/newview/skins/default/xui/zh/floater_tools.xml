@@ -122,8 +122,7 @@
 				转让
 			</string>
 			<button label="契约..." label_selected="契约..." name="button deed" tool_tip="社团共享的物体可被社团官员认可。"/>
-			<check_box label="允许任何人移动" name="checkbox allow everyone move"/>
-			<check_box label="允许任何人复制" name="checkbox allow everyone copy"/>
+			<check_box label="复制" name="checkbox allow everyone copy"/>
 			<check_box label="在搜索中显示" name="search_check" tool_tip="让别人可以在搜索结果中看到这件物体。"/>
 			<check_box label="出售" name="checkbox for sale"/>
 			<text name="Cost">

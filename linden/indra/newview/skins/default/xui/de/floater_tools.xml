@@ -122,8 +122,11 @@
 				Übertragung
 			</string>
 			<button label="Übertragung..." label_selected="Übertragung..." name="button deed" tool_tip="In der Gruppe gemeinsam verwendete Objekte können von einem Gruppenfunktionär übertragen werden."/>
-			<check_box label="Verschieben durch beliebige Personen zulassen" left="6" name="checkbox allow everyone move"/>
-			<check_box label="Kopieren durch beliebige Personen zulassen" left="6" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				Jeder:
+			</text>
+			<check_box label="Bewegen" name="checkbox allow everyone move"/>
+			<check_box label="Kopieren" name="checkbox allow everyone copy"/>
 			<check_box label="In Suche anzeigen" left="6" name="search_check" tool_tip="Dieses Objekt in Suchergebnissen anzeigen"/>
 			<check_box label="Zu verkaufen" left="6" name="checkbox for sale"/>
 			<text name="Cost">

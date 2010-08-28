@@ -122,8 +122,7 @@
 				Справа
 			</string>
 			<button label="Справа..." label_selected="Справа..." name="button deed" tool_tip="Офіцер групи може передати групові об&apos;єкти для застосування."/>
-			<check_box label="Дозволити рухати усім" name="checkbox allow everyone move"/>
-			<check_box label="Дозволити копіювати усім" name="checkbox allow everyone copy"/>
+			<check_box label="Коп." name="checkbox allow everyone copy"/>
 			<check_box label="Показувати в пошуку" name="search_check" tool_tip="Дозволяє людям бачити об&apos;єкт в результатах пошуку"/>
 			<check_box label="Для продажу" name="checkbox for sale"/>
 			<text name="Cost" left_delta="110" width="78">
