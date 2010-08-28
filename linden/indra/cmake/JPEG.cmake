@@ -12,7 +12,11 @@ else (STANDALONE)
   if (LINUX)
     set(JPEG_LIBRARIES jpeg)
   elseif (DARWIN)
-    set(JPEG_LIBRARIES jpeg)
+    find_library(JPEG_LIBRARIES
+      NAMES jpeg.62
+      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      NO_DEFAULT_PATH
+      )
   elseif (WINDOWS)
     set(JPEG_LIBRARIES jpeglib)
   endif (LINUX)
