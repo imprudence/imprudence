@@ -60,6 +60,7 @@
 #include "llvoavatar.h"
 #include "llviewerimagelist.h"
 #include "llviewerstats.h"
+#include "llweb.h"
 
 LLGestureManager gGestureManager;
 
@@ -587,13 +588,18 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					 LLStringUtil::compareInsensitive("/icanhascookies", cur_token) == 0)
 			{
 				LLChat chat;
-				chat.mText = "I made you a cookie but I eated it";
+				chat.mText = "I made you a cookie but I eated it :(";
 				chat.mSourceType = CHAT_SOURCE_SYSTEM;
 				LLFloaterChat::addChat(chat);
 				if (revised_string)
 				{
 					revised_string->assign(LLStringUtil::null);
 				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasfailbook", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://failbook.failblog.org/");
 				return TRUE;
 			}
 		}
