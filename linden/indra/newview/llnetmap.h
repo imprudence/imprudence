@@ -118,7 +118,6 @@ private:
 	LLUUID				mClosestAgentToCursor;
 	LLUUID				mClosestAgentAtLastRightClick;
 
-	static BOOL		sRotateMap;
 	static LLNetMap*	sInstance;
 	static BOOL isAgentUnderCursor(void*) { return sInstance && sInstance->mClosestAgentToCursor.notNull(); }
 	static BOOL outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y);
@@ -151,6 +150,18 @@ private:
 	};
 
 	class LLCheckRotateMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLShowObjects : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLCheckShowObjects : public LLMemberListener<LLNetMap>
 	{
 	public:
 		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);

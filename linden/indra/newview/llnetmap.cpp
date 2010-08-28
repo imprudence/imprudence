@@ -108,6 +108,8 @@ LLNetMap::LLNetMap(const std::string& name) :
 	(new LLCheckCenterMap())->registerListener(this, "MiniMap.CheckCenter");
 	(new LLRotateMap())->registerListener(this, "MiniMap.Rotate");
 	(new LLCheckRotateMap())->registerListener(this, "MiniMap.CheckRotate");
+	(new LLShowObjects())->registerListener(this, "MiniMap.ShowObjects");
+	(new LLCheckShowObjects())->registerListener(this, "MiniMap.CheckShowObjects");
 	(new LLShowWorldMap())->registerListener(this, "MiniMap.ShowWorldMap");
 	(new LLStopTracking())->registerListener(this, "MiniMap.StopTracking");
 	(new LLEnableTracking())->registerListener(this, "MiniMap.EnableTracking");
@@ -302,8 +304,12 @@ void LLNetMap::draw()
 			U8 *default_texture = mObjectRawImagep->getData();
 			memset( default_texture, 0, mObjectImagep->getWidth() * mObjectImagep->getHeight() * mObjectImagep->getComponents() );
 
-			// Draw objects
-			gObjectList.renderObjectsForMap(*this);
+			// Draw buildings
+			//gObjectList.renderObjectsForMap(*this);
+			if (gSavedSettings.getBOOL("MiniMapShowObjects"))
+			{
+				gObjectList.renderObjectsForMap(*this);
+			}
 
 			mObjectImagep->setSubImage(mObjectRawImagep, 0, 0, mObjectImagep->getWidth(), mObjectImagep->getHeight());
 			
@@ -1007,6 +1013,22 @@ bool LLNetMap::LLCheckCenterMap::handleEvent(LLPointer<LLEvent> event, const LLS
 	EMiniMapCenter center = (EMiniMapCenter)userdata["data"].asInteger();
 	BOOL enabled = (gSavedSettings.getS32("MiniMapCenter") == center);
 
+	self->findControl(userdata["control"].asString())->setValue(enabled);
+	return true;
+}
+
+bool LLNetMap::LLShowObjects::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	BOOL show = gSavedSettings.getBOOL("MiniMapShowObjects");
+	gSavedSettings.setBOOL("MiniMapShowObjects", !show);
+
+	return true;
+}
+
+bool LLNetMap::LLCheckShowObjects::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	LLNetMap *self = mPtr;
+	BOOL enabled = gSavedSettings.getBOOL("MiniMapShowObjects");
 	self->findControl(userdata["control"].asString())->setValue(enabled);
 	return true;
 }
