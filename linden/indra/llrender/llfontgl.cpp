@@ -725,17 +725,18 @@ F32 LLFontGL::getWidthF32(const std::string& utf8text, const S32 begin_offset, c
 
 F32 LLFontGL::getWidthF32(const llwchar* wchars, const S32 begin_offset, const S32 max_chars, BOOL use_embedded) const
 {
+	if (!wchars || !wchars[0] || max_chars == 0)
+	{
+		return 0;
+	}
+
 	const S32 LAST_CHARACTER = LLFont::LAST_CHAR_FULL;
 
 	F32 cur_x = 0;
 	const S32 max_index = begin_offset + max_chars;
-	for (S32 i = begin_offset; i < max_index; i++)
+	for (S32 i = begin_offset; i < max_index && wchars[i] != 0; i++)
 	{
-		const llwchar wch = wchars[i];
-		if (wch == 0)
-		{
-			break; // done
-		}
+		llwchar wch = wchars[i];
 		const embedded_data_t* ext_data = use_embedded ? getEmbeddedCharData(wch) : NULL;
 		if (ext_data)
 		{
@@ -762,6 +763,11 @@ F32 LLFontGL::getWidthF32(const llwchar* wchars, const S32 begin_offset, const S
 		}
 		// Round after kerning.
 		cur_x = (F32)llfloor(cur_x + 0.5f);
+	}
+
+	if (cur_x == 0)
+	{
+		return cur_x;
 	}
 
 	return cur_x / sScaleX;
