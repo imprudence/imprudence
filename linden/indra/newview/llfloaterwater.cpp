@@ -160,9 +160,8 @@ void LLFloaterWater::initCallbacks(void) {
 
 	//childSetAction("WaterLoadPreset", onLoadPreset, comboBox);
 	childSetAction("WaterNewPreset", onNewPreset, comboBox);
-	childSetAction("WaterSavePreset", onSavePreset, comboBox);
-	childSetAction("WaterSaveNotecard", onSaveNotecard, comboBox);
 	childSetAction("WaterDeletePreset", onDeletePreset, comboBox);
+	childSetCommitCallback("WaterSavePreset", onSavePreset, this);
 
 	// wave direction
 	childSetCommitCallback("WaterWave1DirX", onVector2ControlXMoved, &param_mgr->mWave1Dir);
@@ -623,78 +622,11 @@ void LLFloaterWater::onNewPreset(void* userData)
 	LLNotifications::instance().add("NewWaterPreset", LLSD(),  LLSD(), newPromptCallback);
 }
 
-void LLFloaterWater::onSavePreset(void* userData)
-{
-	// get the name
-	LLComboBox* comboBox = sWaterMenu->getChild<LLComboBox>("WaterPresetsCombo");
-
-	// don't save the empty name
-	if(comboBox->getSelectedItemLabel() == "")
-	{
-		return;
-	}
-
-	LLWaterParamManager::instance()->mCurParams.mName = 
-		comboBox->getSelectedItemLabel();
-
-	// check to see if it's a default and shouldn't be overwritten
-	std::set<std::string>::iterator sIt = sDefaultPresets.find(
-		comboBox->getSelectedItemLabel());
-	if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("WaterEditPresets")) 
-	{
-		LLNotifications::instance().add("WLNoEditDefault");
-		return;
-	}
-
-	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
-}
-
 class KVFloaterWaterNotecardCreatedCallback : public LLInventoryCallback
 {
 public:
 	void fire(const LLUUID& inv_item);
 };
-
-void LLFloaterWater::onSaveNotecard(void* userData)
-{
-	// get the name
-	LLComboBox* comboBox = sWaterMenu->getChild<LLComboBox>("WaterPresetsCombo");
-
-	// don't save the empty name
-	if(comboBox->getSelectedItemLabel() == "")
-	{
-		return;
-	}
-	
-	// Check if this is already a notecard.
-	if(LLWaterParamManager::instance()->mCurParams.mInventoryID.notNull())
-	{
-                LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
-	}
-	else
-	{
-		// Make sure we have a ".ww" extension.
-		std::string name = comboBox->getSelectedItemLabel();
-		if(name.length() > 2 && name.compare(name.length() - 3, 3, ".ww") != 0)
-		{
-			name += ".ww";
-		}
-		LLPointer<KVFloaterWaterNotecardCreatedCallback> cb = new KVFloaterWaterNotecardCreatedCallback();
-		// Create a notecard and then save it.
-		create_inventory_item(gAgent.getID(), 
-							  gAgent.getSessionID(),
-							  LLUUID::null,
-							  LLTransactionID::tnull,
-							  name,
-							  "Water settings (Kitty Viewer compatible)",
-							  LLAssetType::AT_NOTECARD,
-							  LLInventoryType::IT_NOTECARD,
-							  NOT_WEARABLE,
-							  PERM_ITEM_UNRESTRICTED,
-							  cb);
-		
-	}
-}
 
 void KVFloaterWaterNotecardCreatedCallback::fire(const LLUUID& inv_item)
 {
@@ -704,6 +636,66 @@ void KVFloaterWaterNotecardCreatedCallback::fire(const LLUUID& inv_item)
 	param_mgr->mCurParams.mInventoryID = inv_item;
 	LL_INFOS("WindLight") << "Created inventory item " << inv_item << LL_ENDL;
 	param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+}
+
+void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
+{
+	// get the name
+	LLComboBox* comboBox = sWaterMenu->getChild<LLComboBox>("WaterPresetsCombo");
+
+	// don't save the empty name
+	if(comboBox->getSelectedItemLabel() == "")
+	{
+		return;
+	}
+
+	if (ctrl->getValue().asString() == "save_disk_item")
+	{
+		LLWaterParamManager::instance()->mCurParams.mName = 
+			comboBox->getSelectedItemLabel();
+
+		// check to see if it's a default and shouldn't be overwritten
+		std::set<std::string>::iterator sIt = sDefaultPresets.find(
+			comboBox->getSelectedItemLabel());
+		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("WaterEditPresets")) 
+		{
+			LLNotifications::instance().add("WLNoEditDefault");
+			return;
+		}
+
+		LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
+	}
+	else if (ctrl->getValue().asString() == "save_inventory_item")
+	{	
+		// Check if this is already a notecard.
+		if(LLWaterParamManager::instance()->mCurParams.mInventoryID.notNull())
+		{
+			LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
+		}
+		else
+		{
+			// Make sure we have a ".ww" extension.
+			std::string name = comboBox->getSelectedItemLabel();
+			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".ww") != 0)
+			{
+				name += ".ww";
+			}
+			LLPointer<KVFloaterWaterNotecardCreatedCallback> cb = new KVFloaterWaterNotecardCreatedCallback();
+			// Create a notecard and then save it.
+			create_inventory_item(gAgent.getID(), 
+								  gAgent.getSessionID(),
+								  LLUUID::null,
+								  LLTransactionID::tnull,
+								  name,
+								  "Water settings (Imprudence compatible)",
+								  LLAssetType::AT_NOTECARD,
+								  LLInventoryType::IT_NOTECARD,
+								  NOT_WEARABLE,
+								  PERM_ITEM_UNRESTRICTED,
+								  cb);
+			
+		}
+	}
 }
 
 bool LLFloaterWater::saveNotecardCallback(const LLSD& notification, const LLSD& response)

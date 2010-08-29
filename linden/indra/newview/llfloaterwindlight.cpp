@@ -225,9 +225,8 @@ void LLFloaterWindLight::initCallbacks(void) {
 
 	//childSetAction("WLLoadPreset", onLoadPreset, comboBox);
 	childSetAction("WLNewPreset", onNewPreset, comboBox);
-	childSetAction("WLSavePreset", onSavePreset, comboBox);
-	childSetAction("WLSaveNotecard", onSaveNotecard, comboBox);
 	childSetAction("WLDeletePreset", onDeletePreset, comboBox);
+	childSetCommitCallback("WLSavePreset", onSavePreset, this);
 
 	comboBox->setCommitCallback(onChangePresetName);
 
@@ -816,79 +815,11 @@ void LLFloaterWindLight::onNewPreset(void* userData)
 	LLNotifications::instance().add("NewSkyPreset", LLSD(), LLSD(), newPromptCallback);
 }
 
-void LLFloaterWindLight::onSavePreset(void* userData)
-{
-	// get the name
-	LLComboBox* comboBox = sWindLight->getChild<LLComboBox>( 
-		"WLPresetsCombo");
-
-	// don't save the empty name
-	if(comboBox->getSelectedItemLabel() == "")
-	{
-		return;
-	}
-
-	// check to see if it's a default and shouldn't be overwritten
-	std::set<std::string>::iterator sIt = sDefaultPresets.find(
-		comboBox->getSelectedItemLabel());
-	if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
-	{
-		LLNotifications::instance().add("WLNoEditDefault");
-		return;
-	}
-
-	LLWLParamManager::instance()->mCurParams.mName = 
-		comboBox->getSelectedItemLabel();
-
-	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
-}
 class KVFloaterWindLightNotecardCreatedCallback : public LLInventoryCallback
 {
 public:
 	void fire(const LLUUID& inv_item);
 };
-
-void LLFloaterWindLight::onSaveNotecard(void* userData)
-{
-	// get the name
-	LLComboBox* comboBox = sWindLight->getChild<LLComboBox>( 
-		"WLPresetsCombo");
-
-	// don't save the empty name
-	if(comboBox->getSelectedItemLabel() == "")
-	{
-		return;
-	}
-	
-	// Check if this is already a notecard.
-	if(LLWLParamManager::instance()->mCurParams.mInventoryID.notNull())
-	{
-		LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
-	}
-	else
-	{
-		// Make sure we have a ".wl" extension.
-		std::string name = comboBox->getSelectedItemLabel();
-		if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
-		{
-			name += ".wl";
-		}
-		LLPointer<KVFloaterWindLightNotecardCreatedCallback> cb = new KVFloaterWindLightNotecardCreatedCallback();
-		// Create a notecard and then save it.
-		create_inventory_item(gAgent.getID(), 
-							  gAgent.getSessionID(),
-							  LLUUID::null,
-							  LLTransactionID::tnull,
-							  name,
-							  "WindLight settings (Kitty Viewer compatible)",
-							  LLAssetType::AT_NOTECARD,
-							  LLInventoryType::IT_NOTECARD,
-							  NOT_WEARABLE,
-							  PERM_ITEM_UNRESTRICTED,
-							  cb);
-		
-	}
-}
 
 void KVFloaterWindLightNotecardCreatedCallback::fire(const LLUUID& inv_item)
 {
@@ -898,6 +829,67 @@ void KVFloaterWindLightNotecardCreatedCallback::fire(const LLUUID& inv_item)
 	param_mgr->mCurParams.mInventoryID = inv_item;
 	LL_INFOS("WindLight") << "Created inventory item " << inv_item << LL_ENDL;
 	param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+}
+
+void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
+{
+	// get the name
+	LLComboBox* comboBox = sWindLight->getChild<LLComboBox>( 
+		"WLPresetsCombo");
+
+	// don't save the empty name
+	if(comboBox->getSelectedItemLabel() == "")
+	{
+		return;
+	}
+
+	if (ctrl->getValue().asString() == "save_disk_item")
+	{
+		// check to see if it's a default and shouldn't be overwritten
+		std::set<std::string>::iterator sIt = sDefaultPresets.find(
+			comboBox->getSelectedItemLabel());
+		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
+		{
+			LLNotifications::instance().add("WLNoEditDefault");
+			return;
+		}
+
+		LLWLParamManager::instance()->mCurParams.mName = 
+			comboBox->getSelectedItemLabel();
+
+		LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
+	}
+	else if (ctrl->getValue().asString() == "save_inventory_item")
+	{
+		// Check if this is already a notecard.
+		if(LLWLParamManager::instance()->mCurParams.mInventoryID.notNull())
+		{
+			LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
+		}
+		else
+		{
+			// Make sure we have a ".wl" extension.
+			std::string name = comboBox->getSelectedItemLabel();
+			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
+			{
+				name += ".wl";
+			}
+			LLPointer<KVFloaterWindLightNotecardCreatedCallback> cb = new KVFloaterWindLightNotecardCreatedCallback();
+			// Create a notecard and then save it.
+			create_inventory_item(gAgent.getID(), 
+								  gAgent.getSessionID(),
+								  LLUUID::null,
+								  LLTransactionID::tnull,
+								  name,
+								  "WindLight settings (Imprudence compatible)",
+								  LLAssetType::AT_NOTECARD,
+								  LLInventoryType::IT_NOTECARD,
+								  NOT_WEARABLE,
+								  PERM_ITEM_UNRESTRICTED,
+								  cb);
+			
+		}
+	}
 }
 
 bool LLFloaterWindLight::saveNotecardCallback(const LLSD& notification, const LLSD& response)

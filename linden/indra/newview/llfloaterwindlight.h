@@ -92,10 +92,7 @@ public:
 	static void onNewPreset(void* userData);
 
 	/// when user hits the save to file button
-	static void onSavePreset(void* userData);
-
-	/// when user hits the save to inventory button
-	static void onSaveNotecard(void* userData);
+	static void onSavePreset(LLUICtrl* ctrl, void* userData);
 	
 	/// prompts a user when overwriting a preset notecard
 	static bool saveNotecardCallback(const LLSD& notification, const LLSD& response);
