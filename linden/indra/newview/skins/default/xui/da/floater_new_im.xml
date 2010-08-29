@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="New IM" name="New IM" title="Ny Personlig besked (IM)">
+	<button label="Start" label_selected="Start" name="start_btn" />
+	<button label="Luk" label_selected="Luk" name="close_btn" />
+	<string name="name_format">
+		[FIRST] [LAST]
+	</string>
+	<string name="online_descriptor">
+		(online)
+	</string>
+</floater>

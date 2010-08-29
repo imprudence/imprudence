@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -70,6 +71,18 @@
  
 BOOL LLAgent::setLookAt(ELookAtType target_type, LLViewerObject *object, LLVector3 position)
 {
+	if (object && target_type != LOOKAT_TARGET_NONE && gSavedSettings.getBOOL("PrivateLookAtTarget"))
+	{
+		target_type = LOOKAT_TARGET_NONE;
+		object = mAvatarObject;
+		position.clearVec();
+		LLViewerObject* source_obj = mLookAt->getSourceObject();
+		if (source_obj)
+		{
+			mLookAt->setTargetObject(source_obj);
+		}
+	}
+
 	if(object && object->isAttachment())
 	{
 		LLViewerObject* parent = object;
@@ -99,6 +112,13 @@ BOOL LLAgent::setPointAt(EPointAtType target_type, LLViewerObject *object, LLVec
 	if (object && (object->isAttachment() || object->isAvatar()))
 	{
 		return FALSE;
+	}
+
+	if (object && target_type != POINTAT_TARGET_NONE && gSavedSettings.getBOOL("PrivateLookAtTarget"))
+	{
+		target_type = POINTAT_TARGET_NONE;
+		object = NULL;
+		position.clearVec();
 	}
 
 	if(!mPointAt || mPointAt->isDead())

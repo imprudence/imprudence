@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -98,18 +99,18 @@ void LLDelayedGestureError::onIdle(void *userdata)
 //static 
 bool LLDelayedGestureError::doDialog(const LLErrorEntry &ent, bool uuid_ok)
 {
-	LLStringUtil::format_map_t args;
+	LLSD args;
 	LLInventoryItem *item = gInventory.getItem( ent.mItemID );
 
 	if ( item )
 	{
-		args["[NAME]"] = item->getName();
+		args["NAME"] = item->getName();
 	}
 	else
 	{
 		if ( uuid_ok || ent.mTimer.getElapsedTimeF32() > MAX_NAME_WAIT_TIME )
 		{
-			args["[NAME]"] = std::string( ent.mItemID.asString() );
+			args["NAME"] = ent.mItemID.asString();
 		}
 		else
 		{
@@ -118,7 +119,7 @@ bool LLDelayedGestureError::doDialog(const LLErrorEntry &ent, bool uuid_ok)
 	}
 	 
 
-	LLNotifyBox::showXml(ent.mNotifyName, args);
+	LLNotifications::instance().add(ent.mNotifyName, args);
 
 	return true;
 }

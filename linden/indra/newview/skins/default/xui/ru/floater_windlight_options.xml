@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="WindLight floater"
+     title="Расширенный редактор неба">
+	<text type="string" length="1" name="KeyFramePresetsText">
+		Настройка неба:
+	</text>
+	<button label="Новый" label_selected="Новый" name="WLNewPreset" />
+	<button label="Сохранить" label_selected="Сохранить"
+	     name="WLSavePreset"  left_delta="72" width="80"/>
+	<button label="Удалить" label_selected="Удалить" name="WLDeletePreset" left_delta="82"/>
+	<button label="Редактор цикла дня"
+	     label_selected="Редактор цикла дня"
+	     name="WLDayCycleMenuButton" font="SansSerifSmall"  width="165" left_delta="85"/>
+	<tab_container name="WindLight Tabs">
+		<panel label="Атмосфера" name="Atmosphere">
+			<text type="string" length="1" name="BHText">
+				Пятно горизонта
+			</text>
+			<button label="?" name="WLBlueHorizonHelp" />
+			<text type="string" length="1" name="BHText2">
+				R
+			</text>
+			<text type="string" length="1" name="BHText3">
+				G
+			</text>
+			<text type="string" length="1" name="BHText4">
+				B
+			</text>
+			<text type="string" length="1" name="BHText5">
+				I
+			</text>
+			<slider label="" name="WLBlueHorizonR" />
+			<slider label="" name="WLBlueHorizonG" />
+			<slider label="" name="WLBlueHorizonB" />
+			<slider label="" name="WLBlueHorizonI" />
+			<text type="string" length="1" name="BDensText">
+				Горизонт тумана
+			</text>
+			<button label="?" name="WLHazeHorizonHelp" />
+			<slider label="" name="WLHazeHorizon" />
+			<text type="string" length="1" name="BDensText2">
+				Плотность пятна
+			</text>
+			<button label="?" name="WLBlueDensityHelp" />
+			<text type="string" length="1" name="BHText6">
+				R
+			</text>
+			<text type="string" length="1" name="BHText7">
+				G
+			</text>
+			<text type="string" length="1" name="BHText8">
+				B
+			</text>
+			<text type="string" length="1" name="BHText9">
+				I
+			</text>
+			<slider label="" name="WLBlueDensityR" />
+			<slider label="" name="WLBlueDensityG" />
+			<slider label="" name="WLBlueDensityB" />
+			<slider label="" name="WLBlueDensityI" />
+			<text type="string" length="1" name="HDText">
+				Плотность тумана
+			</text>
+			<button label="?" name="WLHazeDensityHelp" />
+			<slider label="" name="WLHazeDensity" />
+			<text type="string" length="1" name="DensMultText">
+				Множитель плотности
+			</text>
+			<button label="?" name="WLDensityMultHelp" />
+			<slider label="" name="WLDensityMult" />
+			<text type="string" length="1" name="WLDistanceMultText">
+				Множитель дистанции
+			</text>
+			<button label="?" name="WLDistanceMultHelp" />
+			<slider label="" name="WLDistanceMult" />
+			<text type="string" length="1" name="MaxAltText">
+				Максимальная высота
+			</text>
+			<button label="?" name="WLMaxAltitudeHelp" />
+			<slider label="" name="WLMaxAltitude" />
+		</panel>
+		<panel label="Освещение" name="Lighting">
+			<text type="string" length="1" name="SLCText">
+				Цвет Солнца/Луны
+			</text>
+			<button label="?" name="WLSunlightColorHelp" />
+			<text type="string" length="1" name="BHText">
+				R
+			</text>
+			<text type="string" length="1" name="BHText2">
+				G
+			</text>
+			<text type="string" length="1" name="BHText3">
+				B
+			</text>
+			<text type="string" length="1" name="BHText4">
+				I
+			</text>
+			<slider label="" name="WLSunlightR" />
+			<slider label="" name="WLSunlightG" />
+			<slider label="" name="WLSunlightB" />
+			<slider label="" name="WLSunlightI" />
+			<text type="string" length="1" name="TODText">
+				Позиция Солнца/Луны
+			</text>
+			<button label="?" name="WLTimeOfDayHelp" />
+			<slider label="" name="WLSunAngle" />
+			<text type="string" length="1" name="WLAmbientText">
+				Окружающий
+			</text>
+			<button label="?" name="WLAmbientHelp" />
+			<text type="string" length="1" name="BHText5">
+				R
+			</text>
+			<text type="string" length="1" name="BHText6">
+				G
+			</text>
+			<text type="string" length="1" name="BHText7">
+				B
+			</text>
+			<text type="string" length="1" name="BHText8">
+				I
+			</text>
+			<slider label="" name="WLAmbientR" />
+			<slider label="" name="WLAmbientG" />
+			<slider label="" name="WLAmbientB" />
+			<slider label="" name="WLAmbientI" />
+			<text type="string" length="1" name="WLEastAngleText">
+				Восточный угол
+			</text>
+			<button label="?" name="WLEastAngleHelp" />
+			<slider label="" name="WLEastAngle" />
+			<text type="string" length="1" name="SunGlowText">
+				Свечение Солнца
+			</text>
+			<button label="?" name="WLSunGlowHelp" />
+			<slider label="Фокус" name="WLGlowB" />
+			<slider label="Размер" name="WLGlowR" />
+			<text type="string" length="1" name="SceneGammaText">
+				Гамма сцены
+			</text>
+			<button label="?" name="WLSceneGammaHelp" />
+			<slider label="" name="WLGamma" />
+			<text type="string" length="1" name="WLStarText">
+				Яркость звезд
+			</text>
+			<button label="?" name="WLStarBrightnessHelp" />
+			<slider label="" name="WLStarAlpha" />
+		</panel>
+		<panel label="Облака" name="Clouds">
+			<text type="string" length="1" name="WLCloudColorText">
+				Цвет облаков
+			</text>
+			<button label="?" name="WLCloudColorHelp" />
+			<text type="string" length="1" name="BHText">
+				R
+			</text>
+			<text type="string" length="1" name="BHText2">
+				G
+			</text>
+			<text type="string" length="1" name="BHText3">
+				B
+			</text>
+			<text type="string" length="1" name="BHText4">
+				I
+			</text>
+			<slider label="" name="WLCloudColorR" />
+			<slider label="" name="WLCloudColorG" />
+			<slider label="" name="WLCloudColorB" />
+			<slider label="" name="WLCloudColorI" />
+			<text type="string" length="1" name="WLCloudColorText2">
+				XY/плотность облаков
+			</text>
+			<button label="?" name="WLCloudDensityHelp" />
+			<text type="string" length="1" name="BHText5">
+				X
+			</text>
+			<text type="string" length="1" name="BHText6">
+				Y
+			</text>
+			<text type="string" length="1" name="BHText7">
+				D
+			</text>
+			<slider label="" name="WLCloudX" />
+			<slider label="" name="WLCloudY" />
+			<slider label="" name="WLCloudDensity" />
+			<text type="string" length="1" name="WLCloudCoverageText">
+				Облачность
+			</text>
+			<button label="?" name="WLCloudCoverageHelp" />
+			<slider label="" name="WLCloudCoverage" />
+			<text type="string" length="1" name="WLCloudScaleText">
+				Размеры облаков
+			</text>
+			<button label="?" name="WLCloudScaleHelp" />
+			<slider label="" name="WLCloudScale" />
+			<text type="string" length="1" name="WLCloudDetailText" font="SansSerifSmall">
+				Детальность облаков
+  (XY/плотность)
+			</text>
+			<button label="?" name="WLCloudDetailHelp" />
+			<text type="string" length="1" name="BHText8" bottom="-113">
+				X
+			</text>
+			<text type="string" length="1" name="BHText9">
+				Y
+			</text>
+			<text type="string" length="1" name="BHText10">
+				D
+			</text>
+			<slider bottom="-127" name="WLCloudDetailX"/>
+			<slider label="" name="WLCloudDetailY" />
+			<slider label="" name="WLCloudDetailDensity" />
+			<text type="string" length="1" name="WLCloudScrollXText">
+				Облака по X
+			</text>
+			<button label="?" name="WLCloudScrollXHelp" left="560"/>
+			<check_box label="Заблокировать" name="WLCloudLockX" left="585"/>
+			<slider label="" name="WLCloudScrollX" />
+			<text type="string" length="1" name="WLCloudScrollYText">
+				Облака по Y
+			</text>
+			<button label="?" name="WLCloudScrollYHelp" left="560"/>
+			<check_box label="Заблокировать" name="WLCloudLockY" left="585"/>
+			<slider label="" name="WLCloudScrollY" />
+			<check_box label="Рисовать классические &#10;облака"
+			     name="DrawClassicClouds" />
+			<button label="?" name="WLClassicCloudsHelp" left="645"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultSkyNames">
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</string>
+</floater>

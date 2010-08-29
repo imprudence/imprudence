@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,16 +52,12 @@
 #include "llviewerregion.h"
 #include "lscript_rt_interface.h"
 #include "llviewercontrol.h"
-#include "llviewerobject.h"
-#include "llviewerregion.h"
 #include "llresmgr.h"
 #include "llbutton.h"
 #include "lldir.h"
 #include "llfloaterchat.h"
 #include "llviewerstats.h"
 #include "lluictrlfactory.h"
-#include "llselectmgr.h"
-
 #include "llselectmgr.h"
 
 ///----------------------------------------------------------------------------
@@ -525,9 +522,9 @@ void LLFloaterCompileQueue::onSaveTextComplete(const LLUUID& asset_id, void* use
 	if (status)
 	{
 		llwarns << "Unable to save text for script." << llendl;
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("CompileQueueSaveText", args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("CompileQueueSaveText", args);
 	}
 }
 
@@ -546,9 +543,9 @@ void LLFloaterCompileQueue::onSaveBytecodeComplete(const LLUUID& asset_id, void*
 	else
 	{
 		llwarns << "Unable to save bytecode for script." << llendl;
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("CompileQueueSaveBytecode", args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("CompileQueueSaveBytecode", args);
 	}
 	delete data;
 	data = NULL;

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -65,7 +66,9 @@ public:
 	void setRegionID(const LLUUID& region_id) { mRegionID = region_id; }
 	void setSnapshot(const LLUUID& snapshot_id);
 	void setLocationString(const std::string& location);
+	void setLandTypeString(const std::string& land_type);
 	void setErrorStatus(U32 status, const std::string& reason);
+	void resetName(const std::string& name);
 
 	void sendParcelInfoRequest();
 	void displayParcelInfo(const LLVector3& pos_region,
@@ -83,7 +86,7 @@ protected:
 	static void onClickAuction(void* data);
 
 	// Go to auction web page if user clicked OK
-	static void callbackAuctionWebPage(S32 option, void* data);
+	static bool callbackAuctionWebPage(const LLSD& notification, const LLSD& response);
 
 protected:
 	LLUUID			mParcelID;
@@ -103,7 +106,8 @@ protected:
 	LLTextBox* mNameEditor;
 	LLTextEditor* mDescEditor;
 	LLTextBox* mInfoEditor;
-	LLTextBox* mLocationEditor;
+	LLTextBox* mLandTypeEditor;
+	LLTextBox* mLocationDisplay; //not calling it "editor" because it isn't
 
 	LLButton*	mTeleportBtn;
 	LLButton*	mMapBtn;

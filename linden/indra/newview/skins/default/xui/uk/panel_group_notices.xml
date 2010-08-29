@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Повідомлення" name="notices_tab">
+	<string name="help_text">
+		Повідомлення - це найбільш швидкий спосіб спілкування всередині групи. Можна розіслати повідомлення одразу всім, можливо навіть з прикріпленим до нього предметом.
+Повідомлення відправляються тільки тим членам групи, які мають право на отримання повідомлень.
+Ви можете вимкнути повідомлення на головній вкладці панелі груп.
+	</string>
+	<string name="no_notices_text">
+		Немає старих повідомлень.
+	</string>
+	<button label="?" label_selected="?" name="help_button" />
+	<text name="lbl">
+		Архів повідомлень групи
+	</text>
+	<text name="lbl2">
+		Повідомл. зберіг. 15 днів. Для перегляду виберіть повід. зі списку.
+Натисніть кнопку &apos;Оновити&apos; для перевірки нових повідомлень.
+Список обмежений 200 повідомленнями в день.
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon" />
+		<column label="Тема" name="subject" />
+		<column label="Від кого" name="from" />
+		<column label="Дата" name="date" />
+	</scroll_list>
+	<text name="notice_list_none_found">
+		Не знайдено.
+	</text>
+	<button label="Створити нов.повід."
+	     label_selected="Створити нов.повід."
+	     name="create_new_notice" />
+	<button label="Оновити" label_selected="Оновити список"
+	     name="refresh_notices" />
+	<panel label="Створити нов.повід." name="panel_create_new_notice">
+		<text name="lbl">
+			Створити нове повідомлення
+		</text>
+		<text name="lbl2">
+			Укажіть тему повідомлення. Також можна вибрати один 
+предмет в якості додатку, перетягнувши його сюди з 
+Інвентаря. Прикл. предмет д.б. копійов. і перед-мим. 
+Однак Ви не можете відправити папку.
+		</text>
+		<text name="lbl3">
+			Тема:
+		</text>
+		<text name="lbl4">
+			Повідом.:
+		</text>
+		<text name="lbl5">
+			Дод.:
+		</text>
+		<button label="Прибр. додаток"
+		     label_selected="Видалити додаток" name="remove_attachment" />
+		<button label="Відправ. повідомлення"
+		     label_selected="Відправ. повідомлення"
+		     name="send_notice" width="155" left="259"/>
+		<panel name="drop_target"
+		     tool_tip="Перетягніть предмет з Інвентаря в повідомлення, щоб відправити його в повідомлені. Ви повинні мати права на копіювання і передачу цього предмета." />
+	</panel>
+	<panel label="Переглянути старе повідомлення"
+	     name="panel_view_past_notice">
+		<text name="lbl">
+			Архівувати повідомлення
+		</text>
+		<text name="lbl2">
+			Щоб відправити повідомлення, натисніть &apos;Створити нов.повід.&apos;.
+		</text>
+		<text name="lbl3">
+			Тема:
+		</text>
+		<text name="lbl4">
+			Повідомлення:
+		</text>
+		<button label="Откр. Дод." label_selected="Откр. Дод."
+		     name="open_attachment" />
+	</panel>
+</panel>

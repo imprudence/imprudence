@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,7 +50,6 @@ class LLScrollListCtrl;
 class LLViewerObject;
 struct 	LLEntryAndEdCore;
 class LLMenuBarGL;
-class LLFloaterScriptSearch;
 class LLKeywordToken;
 
 // Inner, implementation class.  LLPreviewScript and LLLiveLSLEditor each own one of these.
@@ -58,7 +58,6 @@ class LLScriptEdCore : public LLPanel
 	friend class LLPreviewScript;
 	friend class LLPreviewLSL;
 	friend class LLLiveLSLEditor;
-	friend class LLFloaterScriptSearch;
 
 public:
 	LLScriptEdCore(
@@ -80,10 +79,13 @@ public:
 
 	BOOL			canClose();
 
-	static void		handleSaveChangesDialog(S32 option, void* userdata);
-	static void		handleReloadFromServerDialog(S32 option, void* userdata);
+	void            setScriptText(const std::string& text, BOOL is_valid);
 
-	static void		onHelpWebDialog(S32 option, void* userdata);
+	bool			handleSaveChangesDialog(const LLSD& notification, const LLSD& response);
+	bool			handleReloadFromServerDialog(const LLSD& notification, const LLSD& response);
+
+	static bool		onHelpWebDialog(const LLSD& notification, const LLSD& response);
+	static bool		onHelpAutoscript(const LLSD& notification, const LLSD& response);
 	static void		onBtnHelp(void* userdata);
 	static void		onBtnDynamicHelp(void* userdata);
 	static void		onCheckLock(LLUICtrl*, void*);
@@ -97,6 +99,7 @@ public:
 	static void		onBtnUndoChanges(void*);
 	static void		onBtnSaveToDisc(void*);
 	static void		onBtnLoadFromDisc(void*);
+	static void		onBtnAutoscript(void* userdata);
 	static void		onSearchMenu(void* userdata);
 
 	static void		onUndoMenu(void* userdata);
@@ -151,6 +154,7 @@ private:
 	LLFrameTimer	mLiveHelpTimer;
 	S32				mLiveHelpHistorySize;
 	BOOL			mEnableSave;
+	BOOL			mHasScriptData;
 };
 
 
@@ -190,6 +194,7 @@ protected:
 	static void onSaveBytecodeComplete(const LLUUID& asset_uuid, void* user_data, S32 status, LLExtStat ext_status);
 public:
 	static LLPreviewLSL* getInstance(const LLUUID& uuid);
+	LLTextEditor* getEditor() { return mScriptEd->mEditor; }
 protected:
 	static void* createScriptEdPanel(void* userdata);
 

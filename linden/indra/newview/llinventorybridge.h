@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,6 +64,8 @@ enum EInventoryIcon
 	CLOTHING_UNDERSHIRT_ICON_NAME,
 	CLOTHING_UNDERPANTS_ICON_NAME,
 	CLOTHING_SKIRT_ICON_NAME,
+	CLOTHING_ALPHA_ICON_NAME,
+	CLOTHING_TATTOO_ICON_NAME,
 	
 	ANIMATION_ICON_NAME,
 	GESTURE_ICON_NAME,
@@ -244,10 +247,9 @@ public:
 
 	virtual void selectItem();
 	virtual void restoreItem();
-
 	virtual void restoreToWorld();
 	virtual void restoreToWorldConfirm();
-	static  void restoreToWorldCallback(S32 option, void *userdata);
+	static  bool restoreToWorldCallback(const LLSD& notification, const LLSD& response, LLItemBridge *self);
 
 
 	virtual LLUIImagePtr getIcon() const;
@@ -262,6 +264,8 @@ public:
 	virtual BOOL copyToClipboard() const;
 	virtual BOOL hasChildren() const { return FALSE; }
 	virtual BOOL isUpToDate() const { return TRUE; }
+
+	virtual LLFontGL::StyleFlags getLabelStyle() const;
 
 	// override for LLInvFVBridge
 	virtual void clearDisplayName() { mDisplayName.clear(); }
@@ -326,6 +330,8 @@ protected:
 	static void createNewGloves(void* user_data);
 	static void createNewUndershirt(void* user_data);
 	static void createNewUnderpants(void* user_data);
+	static void createNewAlpha(void* user_data);
+	static void createNewTattoo(void* user_data);
 	static void createNewShape(void* user_data);
 	static void createNewSkin(void* user_data);
 	static void createNewHair(void* user_data);

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -95,14 +96,20 @@ public:
 	void		debitBalance(S32 debit);
 	void		creditBalance(S32 credit);
 
+	// Request the latest currency balance from the server
+	static void sendMoneyBalanceRequest();
+
 	void		setHealth(S32 percent);
 
 	void setLandCredit(S32 credit);
 	void setLandCommitted(S32 committed);
 
 	void		refresh();
+	// some elements should hide in mouselook
 	void setVisibleForMouselook(bool visible);
-		// some elements should hide in mouselook
+
+	// Update elements that might have changed after login screen
+	void updateElements();
 
 	// ACCESSORS
 	S32			getBalance() const;

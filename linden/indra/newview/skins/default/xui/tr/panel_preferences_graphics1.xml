@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Grafik" name="Display panel">
+	<button label="?" name="GraphicsPreferencesHelpButton"/>
+	<check_box label="Second Life&apos;ı pencerede çalıştır" name="windowed mode"/>
+	<text_editor length="1" name="FullScreenInfo" type="string">
+		Eğer işaretlenmezse,görüntüleyici tam ekrana dönüşecektir.
+	</text_editor>
+	<text length="1" name="WindowSizeLabel" type="string">
+		Pencere boyutu:
+	</text>
+	<combo_box name="windowsize combo">
+		<combo_item length="1" name="640x480" type="string">
+			640x480
+		</combo_item>
+		<combo_item length="1" name="800x600" type="string">
+			800x600
+		</combo_item>
+		<combo_item length="1" name="720x480" type="string">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item length="1" name="768x576" type="string">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item length="1" name="1024x768" type="string">
+			1024x768
+		</combo_item>
+	</combo_box>
+	<text length="1" name="DisplayResLabel" type="string">
+		Görüntü çözünürlüğü:
+	</text>
+	<text length="1" name="AspectRatioLabel1" tool_tip="genişlik / uzunluk" type="string">
+		Görüntü oranı:
+	</text>
+	<combo_box name="aspect_ratio" tool_tip="width / height">
+		<combo_item length="1" name="4:3(StandardCRT)" type="string">
+			4:3 (Standart CRT)
+		</combo_item>
+		<combo_item length="1" name="5:4(1280x1024LCD)" type="string">
+			5:4 (1280x1024 LCD)
+		</combo_item>
+		<combo_item length="1" name="8:5(Widescreen)" type="string">
+			8:5 (Geniş ekran)
+		</combo_item>
+		<combo_item length="1" name="16:9(Widescreen)" type="string">
+			16:9 (Geniş ekran)
+		</combo_item>
+	</combo_box>
+	<check_box label="Oranı otomatik tanımla" name="aspect_auto_detect"/>
+	<text length="1" name="HigherText" type="string">
+		Kalite ve
+	</text>
+	<text length="1" name="QualityText" type="string">
+		performans:
+	</text>
+	<text length="1" name="FasterText" type="string">
+		Daha hızlı
+	</text>
+	<text length="1" name="ShadersPrefText" type="string">
+		Düşük
+	</text>
+	<text length="1" name="ShadersPrefText2" type="string">
+		Orta
+	</text>
+	<text length="1" name="ShadersPrefText3" type="string">
+		Yüksek
+	</text>
+	<text length="1" name="ShadersPrefText4" type="string">
+		Ultra
+	</text>
+	<text length="1" name="HigherText2" type="string">
+		Daha yüksek
+	</text>
+	<text length="1" name="QualityText2" type="string">
+		kalite
+	</text>
+	<slider label="" name="QualityPerformanceSelection"/>
+	<check_box label="Özel" name="CustomSettings" left="410"/>
+	<text length="1" name="ShadersText" type="string">
+		Gölgelendiriciler:
+	</text>
+	<check_box label="Kartografi ve parlaklığı çarpıştır" name="BumpShiny"/>
+	<check_box label="Temel gölgelendiriciler" name="BasicShaders" tool_tip="Bu seçeneği devre dışı bırakmak bazı ekran kartı sürücülerinden doğan çakışmaları engelleyebilir."/>
+	<check_box label="Atmosferik gölgelendiriciler" name="WindLightUseAtmosShaders"/>
+	<check_box label="Su yansımaları" name="Reflections"/>
+	<text length="1" name="ReflectionDetailText" type="string">
+		Yansıma detayı:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item length="1" name="0" type="string">
+			Zemin ve ağaçlar
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Tüm statik objeler
+		</radio_item>
+		<radio_item length="1" name="2" type="string">
+			Tüm karakterler ve objeler
+		</radio_item>
+		<radio_item length="1" name="3" type="string">
+			Herşey
+		</radio_item>
+	</radio_group>
+	<text length="1" name="AvatarRenderingText" type="string">
+		Karakter dokuması:
+	</text>
+	<check_box label="Avatar Impostors" name="AvatarImpostors"/>
+	<check_box label="Donanım süzmesi" name="AvatarVertexProgram"/>
+	<check_box label="Karakter giyimi" name="AvatarCloth"/>
+	<text length="1" name="DrawDistanceMeterText1" type="string">
+		m
+	</text>
+	<text length="1" name="DrawDistanceMeterText2" type="string">
+		m
+	</text>
+	<slider label="Çizim uzaklığı:" name="DrawDistance"/>
+	<slider label="Maksimum tanecik sayısı:" name="MaxParticleCount"/>
+	<slider label="Sonraki işlem kalitesi:" name="RenderPostProcess"/>
+	<text length="1" name="MeshDetailText" type="string">
+		Göz detayı:
+	</text>
+	<slider label="  Objeler:" name="ObjectMeshDetail"/>
+	<slider label="  Esnek primler:" name="FlexibleMeshDetail"/>
+	<slider label="  Ağaçlar:" name="TreeMeshDetail"/>
+	<slider label="  Karakterler:" name="AvatarMeshDetail"/>
+	<slider label="  Zemin:" name="TerrainMeshDetail"/>
+	<slider label="  Hava:" name="SkyMeshDetail"/>
+	<text length="1" name="PostProcessText" type="string">
+		Low
+	</text>
+	<text length="1" name="ObjectMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="FlexibleMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="TreeMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="AvatarMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="TerrainMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="SkyMeshDetailText" type="string">
+		Low
+	</text>
+	<text length="1" name="LightingDetailText" type="string">
+		Aydınlatma detayı:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item length="1" name="SunMoon" type="string">
+			Sadece Güneş ve Ay
+		</radio_item>
+		<radio_item length="1" name="LocalLights" type="string">
+			Yakındaki lokal ışıklar
+		</radio_item>
+	</radio_group>
+	<text length="1" name="TerrainDetailText" type="string">
+		Zemin detayı:
+	</text>
+	<radio_group name="TerrainDetailRadio">
+		<radio_item length="1" name="0" type="string">
+			Düşük
+		</radio_item>
+		<radio_item length="1" name="2" type="string">
+			Yüksek
+		</radio_item>
+	</radio_group>
+	<button label="Önerilen ayarlar" name="Defaults"/>
+	<button label="Donanım ayarları" label_selected="Donanım ayarları" name="GraphicsHardwareButton"/>
+	<string name="resolution_format">
+		[RES_X] x [RES_Y]
+	</string>
+	<string name="aspect_ratio_text">
+		[NUM]:[DEN]
+	</string>
+</panel>

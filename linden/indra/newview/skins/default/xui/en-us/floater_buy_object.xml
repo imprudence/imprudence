@@ -26,7 +26,7 @@
 	     bottom_delta="-28" drop_shadow_visible="true" follows="left|right|bottom"
 	     font="SansSerif" h_pad="0" halign="left" height="24" left="15"
 	     mouse_opaque="true" name="buy_text" v_pad="0" width="281">
-		Buy for L$[AMOUNT] from [NAME]?
+		Buy for [CURRENCY][AMOUNT] from [NAME]?
 	</text>
 	<button bottom="-244" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Cancel" label_selected="Cancel" left="216"

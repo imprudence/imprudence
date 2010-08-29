@@ -30,8 +30,8 @@
     <combo_item name="mature" value="Mature">
       Mature Content
     </combo_item>
-    <combo_item name="not_mature" value="Not Mature">
-      Not Mature Content
+    <combo_item name="pg" value="PG">
+      PG Content
     </combo_item>
   </combo_box>
 	<combo_box bg_readonly_color="grey" bottom="445" follows="left|top" height="18" label=""
@@ -40,7 +40,7 @@
 	<button bottom="400" follows="left|top" height="20" label="Update" left="30"
 	     name="classified_update_btn" width="70" />
 	<string name="ad_placed_paid">
-		Ad placed: [DATE], Paid L$[AMT] for listing.
+		Ad placed: [DATE], Paid [CURRENCY][AMT] for listing.
 	</string>
 	<string name="update_txt">
 		Update

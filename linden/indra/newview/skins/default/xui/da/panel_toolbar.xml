@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<string name="Redock Windows">
+		Fastgør vinduer
+	</string>
+	<layout_stack name="toolbar_stack">
+		<button label="" name="chat_btn" tool_tip="Vis chat linie. (Enter)" />
+		<flyout_button label="Kommunikér" name="communicate_btn"
+		     tool_tip="Kommunikér med dine venner og grupper." />
+		<button label="Flyv" label_selected="Stop flyvning" name="fly_btn"
+		     tool_tip="Begynd at flyve. Brug E/C eller PgUp/PgDn for at flyve op og ned." />
+		<button label="Foto" name="snapshot_btn"
+		     tool_tip="Tag et billede og gem det i din beholdning." />
+		<button label="Søg" name="directory_btn"
+		     tool_tip="Søg efter steder, events, personer og mere." />
+		<button label="Byg" name="build_btn" tool_tip="Lav nye objekter." />
+		<button label="Verdenskort" name="map_btn"
+		     tool_tip="Kort over hele SL verden. (Ctrl-M)" />
+		<button label="Mini-kort" name="radar_btn"
+		     tool_tip="Kort over området omkring dig. (Ctrl-Shift-M)" />
+		<button label="Beholdning" name="inventory_btn"
+		     tool_tip="Her er alle dine ting. (Ctrl-I)" />
+	</layout_stack>
+</panel>

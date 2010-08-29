@@ -2,8 +2,8 @@
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button halign="right" label="Anrufen" name="start_call_btn"/>
-			<button label="Anruf beenden" name="end_call_btn"/>
+			<button label="Anrufen" name="start_call_btn" width="145" />
+			<button label="Anruf beenden" name="end_call_btn" width="145"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier um eine Liste der aktiven Teilnehmer dieser IM-Sitzung anzuzeigen."/>
 			<line_editor label="Für Instant Message hier klicken" name="chat_editor"/>
 			<button label="Senden" name="send_btn"/>

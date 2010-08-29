@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -34,6 +35,7 @@
 
 #include "llprefsim.h"
 
+#include "floaterbusy.h"
 #include "llpanel.h"
 #include "llcheckboxctrl.h"
 #include "llstring.h"
@@ -63,6 +65,8 @@ public:
 	
 	static void onClickLogPath(void* user_data);
 	static void onCommitLogging(LLUICtrl* ctrl, void* user_data);
+
+	static void onClickBusyAdvanced(void* user_data);
 
 protected:
  
@@ -135,6 +139,8 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetAction("log_path_button", onClickLogPath, this);
 	childSetCommitCallback("log_chat",onCommitLogging,this);
 	childSetCommitCallback("log_instant_messages",onCommitLogging,this);
+
+	childSetAction("busy_adv_btn", onClickBusyAdvanced, this);
 	
 	return TRUE;
 }
@@ -284,6 +290,13 @@ void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_e
 	childSetLabelArg("send_im_to_email", "[EMAIL]", display_email);
 }
 
+
+// static
+void LLPrefsIMImpl::onClickBusyAdvanced(void* user_data)
+{
+	FloaterBusy::getInstance()->open();
+	FloaterBusy::getInstance()->center();
+}
 
 // static
 void LLPrefsIMImpl::onClickLogPath(void* user_data)

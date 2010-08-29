@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="Hirdetés feladása">
+	<text name="explanation_text">
+		A hirdetések feladástól számított egy hétig 
+maradnak érvényben. 
+ 
+Minél több pénzt fordítasz hirdetésre, annál 
+magasabb helyre rangsorolják a hirdetéseket.
+	</text>
+	<text name="price_text">
+		Hirdetés ára (L$):
+	</text>
+	<button label="Mégsem" name="cancel_btn" />
+	<button label="Árat beállít" name="set_price_btn" />
+</floater>

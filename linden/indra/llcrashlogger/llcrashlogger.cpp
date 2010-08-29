@@ -17,7 +17,8 @@
 * There are special exceptions to the terms and conditions of the GPL as
 * it is applied to this Source Code. View the full text of the exception
 * in the file doc/FLOSS-exception.txt in this software distribution, or
-* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+* online at
+* http://secondlifegrid.net/programs/open_source/licensing/flossexception
 * 
 * By copying, modifying or distributing this software, you acknowledge
 * that you have read and understood your obligations described above,
@@ -206,7 +207,10 @@ void LLCrashLogger::gatherFiles()
 		mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");
 	}
 
+#if !LL_DARWIN
 	if(mCrashInPreviousExec)
+#else
+#endif
 	{
 		// Replace the log file ext with .old, since the 
 		// instance that launched this process has overwritten
@@ -391,7 +395,7 @@ bool LLCrashLogger::init()
 	if( gDirUtilp )
 	{
 		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.exec_marker");
-		ll_apr_file_remove( marker_file );
+		LLAPRFile::remove( marker_file );
 	}
 	
 	return true;

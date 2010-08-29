@@ -53,7 +53,7 @@ const S32 RLVa_VERSION_BUILD = 4;
 
 // The official viewer version we're patching against
 #define RLV_MAKE_TARGET(x, y, z)	((x << 16) | (y << 8) | z)
-#define RLV_TARGET					RLV_MAKE_TARGET(1, 22, 11)
+#define RLV_TARGET					RLV_MAKE_TARGET(1, 23, 4)
 
 // Defining these makes it easier if we ever need to change our tag
 #define RLV_WARNS	LL_WARNS("RLV")

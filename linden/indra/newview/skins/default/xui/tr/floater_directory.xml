@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Second Life&apos;da Ara">
+	<tab_container name="Directory Tabs">
+		<panel label="Tümü" name="find_all_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<line_editor label="Ara" name="search_editor" tool_tip="Second Life&apos;da Ara"/>
+			<button label="Geri" name="back_btn"/>
+			<button label="İleri" name="forward_btn"/>
+			<button label="Ara" name="search_btn"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Herhangi bir kategori
+				</combo_item>
+				<combo_item name="Events">
+					Aktiviteler
+				</combo_item>
+				<combo_item name="Groups">
+					Gruplar
+				</combo_item>
+				<combo_item name="People">
+					İnsanlar
+				</combo_item>
+				<combo_item name="Places">
+					Lokasyonlar
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
+				Yüklüyor...
+			</string>
+			<string name="done_text">
+				Bitti
+			</string>
+		</panel>
+		<panel label="İlanlar" name="classified_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Herhangi bir kategori
+				</combo_item>
+				<combo_item name="Shopping">
+					Alışveriş
+				</combo_item>
+				<combo_item name="LandRental">
+					Arazi kiralama
+				</combo_item>
+				<combo_item name="PropertyRental">
+					Mülk kiralama
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					Özel aktivite
+				</combo_item>
+				<combo_item name="NewProducts">
+					Yeni ürünler
+				</combo_item>
+				<combo_item name="Employment">
+					İş
+				</combo_item>
+				<combo_item name="Wanted">
+					Aranan
+				</combo_item>
+				<combo_item name="Service">
+					Servis
+				</combo_item>
+				<combo_item name="Personal">
+					Kişisel
+				</combo_item>
+			</combo_box>
+			<button label="Göz at" label_selected="Göz at" name="Browse"/>
+			<button label="Ara" label_selected="Ara" name="Search"/>
+			<button label="Reklam ver..." label_selected="Reklam ver..." name="Place an Ad..."/>
+			<button label="Sil" label_selected="Sil" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Ad" name="name"/>
+				<column label="Ücret" name="price"/>
+			</scroll_list>
+			<button label="İleri &gt;" label_selected="İleri &gt;" name="Next &gt;"/>
+			<button label="&lt; Geri" label_selected="&lt; Geri" name="&lt; Prev"/>
+		</panel>
+		<panel label="Aktiviteler" name="events_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="text2">
+				Bul:
+			</text>
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					Mevcut ve gelecek
+				</radio_item>
+				<radio_item name="date">
+					Tarih
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="Geçmiş bir güne git"/>
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Gelecek bir güne git"/>
+			<button label="Bugün" label_selected="Bugün" name="Today" tool_tip="Bugünün aktivitelerini göster"/>
+			<text name="text">
+				Kategori:
+			</text>
+			<combo_box name="category combo">
+				<combo_item name="All">
+					Herhangi Bir Kategori
+				</combo_item>
+				<combo_item name="Discussion">
+					Tartışma
+				</combo_item>
+				<combo_item name="Sports">
+					Spor
+				</combo_item>
+				<combo_item name="LiveMusic">
+					Canlı müzik
+				</combo_item>
+				<combo_item name="Commercial">
+					Ticari
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					Gece hayatı/eğlence
+				</combo_item>
+				<combo_item name="Games/Contests">
+					Oyunlar/yarışmalar
+				</combo_item>
+				<combo_item name="Pageants">
+					Gösteriler
+				</combo_item>
+				<combo_item name="Education">
+					Eğitim
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					Sanat ve kültür
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					Gönüllü/destek grupları
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					Karışık
+				</combo_item>
+			</combo_box>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<button label="Ara" label_selected="Ara" name="Search" tool_tip="Ara"/>
+			<button label="Sil" label_selected="Sil" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Ad" name="name"/>
+				<column label="Zaman (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="Time" name="time"/>
+			</scroll_list>
+			<button label="İleri &gt;" label_selected="İleri &gt;" name="Next &gt;"/>
+			<button label="&lt; Geri" label_selected="&lt; Geri" name="&lt; Prev"/>
+		</panel>
+		<panel label="Gösterim" name="showcase_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<button label="Geri" name="back_btn"/>
+			<button label="İleri" name="forward_btn"/>
+			<string name="loading_text">
+				Yüklüyor...
+			</string>
+			<string name="done_text">
+				Bitti
+			</string>
+		</panel>
+		<panel label="Arazi Satışları" name="land_sales_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<string name="land_help_text">
+				Arazi doğrudan Linden Doları (L$) ile veya açık arttırmada hem L$ hem de U$ ile satın alınabilir.
+Doğrudan satın almak için, araziyi ziyaret ediniz ve başlık çubuğundaki lokasyon adına tıklayınız.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<combo_box name="type">
+				<combo_item name="AllTypes">
+					Tüm tipler
+				</combo_item>
+				<combo_item name="Auction">
+					Açık arttırma
+				</combo_item>
+				<combo_item name="MainlandSales">
+					Satılık - anakara
+				</combo_item>
+				<combo_item name="EstateSales">
+					Satılık - emlak
+				</combo_item>
+			</combo_box>
+			<check_box label="Ücret &#8804; " name="pricecheck"/>
+			<text left="180" name="pricecheck_symbol">
+				L$
+			</text>
+			<check_box label="Alan &#8805; " name="areacheck"/>
+			<text left="180" name="areacheck_symbol">
+				m²
+			</text>
+			<line_editor left="125" name="priceedit"/>
+			<line_editor left="125" name="areaedit"/>
+			<button label="Ara" label_selected="Ara" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Ad" name="name"/>
+				<column label="Tür" name="landtype"/>
+				<column label="L$ Ücreti" name="price"/>
+				<column label="Alan" name="area"/>
+				<column label="L$/m²" name="per_meter"/>
+			</scroll_list>
+			<button label="İleri &gt;" label_selected="İleri &gt;" name="Next &gt;"/>
+			<button label="&lt; Geri" label_selected="&lt; Geri" name="&lt; Prev"/>
+		</panel>
+		<panel label="Lokasyonlar" name="places_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Herhangi bir kategori
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden lokasyonu
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Sanat &amp; kültür
+				</combo_item>
+				<combo_item name="Business">
+					Mesleki
+				</combo_item>
+				<combo_item name="Educational">
+					Eğitimsel
+				</combo_item>
+				<combo_item name="Gaming">
+					Oyun
+				</combo_item>
+				<combo_item name="Hangout">
+					Takılma
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Başlangıç
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Bahçeler &amp; doğa
+				</combo_item>
+				<combo_item name="Residential">
+					Yerleşim
+				</combo_item>
+				<combo_item name="Shopping">
+					Alışveriş
+				</combo_item>
+				<combo_item name="Other">
+					Diğer
+				</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Herhangi Bir Kategori
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden Lokasyonu
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Sanat &amp; Kültür
+				</combo_item>
+				<combo_item name="Business">
+					Ticari
+				</combo_item>
+				<combo_item name="Educational">
+					Eğitici
+				</combo_item>
+				<combo_item name="Gaming">
+					Oyun
+				</combo_item>
+				<combo_item name="Hangout">
+					Sık gidilen
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Yeni gelen , Arkadaşça
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parklar &amp; Doğa
+				</combo_item>
+				<combo_item name="Residential">
+					Yerleşim
+				</combo_item>
+				<combo_item name="Shopping">
+					Alışveriş
+				</combo_item>
+				<combo_item name="Other">
+					Diğer
+				</combo_item>
+			</combo_box>
+			<button label="Ara" label_selected="Ara" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Ad" name="name"/>
+				<column label="Trafik" name="dwell"/>
+			</scroll_list>
+			<button label="İleri &gt;" label_selected="İleri &gt;" name="Next &gt;"/>
+			<button label="&lt; Geri" label_selected="&lt; Geri" name="&lt; Prev"/>
+		</panel>
+		<panel label="İnsanlar" name="people_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<button label="Ara" label_selected="Ara" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Ad" name="name"/>
+			</scroll_list>
+			<button label="İleri &gt;" label_selected="İleri &gt;" name="Next &gt;"/>
+			<button label="&lt; Geri" label_selected="&lt; Geri" name="&lt; Prev"/>
+		</panel>
+		<panel label="Gruplar" name="groups_panel">
+			<string name="searching_text">
+				Aranıyor...
+			</string>
+			<string name="not_found_text">
+				Bulunamadı.
+			</string>
+			<text name="find">
+				Bul:
+			</text>
+			<line_editor label="Ara" name="search_editor" tool_tip="Second Life&apos;da Ara"/>
+			<button label="Geri" name="back_btn"/>
+			<button label="İleri" name="forward_btn"/>
+			<button label="Ara" name="search_btn"/>
+			<check_box label="PG İçerik" name="incpg"/>
+			<check_box label="Mature İçerik" name="incmature"/>
+			<check_box label="Adult İçerik" name="incadult"/>
+			<string name="loading_text">
+				Yüklüyor...
+			</string>
+			<string name="done_text">
+				Bitti
+			</string>
+		</panel>
+	</tab_container>
+</floater>

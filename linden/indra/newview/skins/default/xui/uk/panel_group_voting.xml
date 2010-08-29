@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Пропозиції" name="voting_tab">
+	<string name="help_text">
+		Пропозиції групи можуть використовуватися, щоб отримати підтвердження того, чого хоче Група, або як Група ставиться до чого-небудь. Якщо Ви маєте відповідну владу, Ви можете створити пропозицію, проголосувати по існуючому або переглянути старі пропозиції.
+	</string>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Відкрити пропозиції Групи
+	</text>
+	<text name="proposal_instructions">
+		Двічі натисніть по Пропозиції, щоб проголосувати, або створіть
+нову Пропозицію відповідною кнопкою.
+	</text>
+	<text name="proposal_lbl">
+		Опис голосування
+	</text>
+	<text name="proposal_voting_lbl">
+		Голосування                                      Кінець Голосування        Ваш голос?
+	</text>
+	<button label="Створити Пропозицію"
+	     label_selected="Створити Пропозицію" name="btn_proposal" />
+	<button label="Пер. Пропозицію"
+	     label_selected="Пер. Пропозицію" name="btn_view_proposal_item" />
+	<button label="Переглянути"
+	     label_selected="Переглянути"
+	     name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Кворум:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="Число голосів, необхідне для прийняття результатів голосування" />
+	<text name="quorum_text">
+		всі з [MEMBERS] учасників мають проголосувати.
+	</text>
+	<text name="duration_lbl">
+		Тривалість:
+	</text>
+	<spinner name="duration"
+	     tool_tip="# число днів до кінця голосування." />
+	<text name="duration_text">
+		днів
+	</text>
+	<radio_group name="majority"
+	     tool_tip="Більшість голосів, необхідна для перемоги">
+		Проста Більшість
+2/3 голосів
+Одностайно
+	</radio_group>
+	<text name="start_lbl">
+		Початок:
+	</text>
+	<text name="end_lbl">
+		Кінець:
+	</text>
+	<button label="Відправити Пропозицію"
+	     label_selected="Відправити Пропозицію"
+	     name="btn_submit" font="SansSerifSmall" left="170" width="160" />
+	<button label="Відміна" label_selected="Відміна" name="btn_cancel" left_delta="165" font="SansSerifSmall"/>
+	<button label="Так" label_selected="Так" name="btn_yes" width="53" />
+	<button label="Ні" label_selected="Ні" name="btn_no" width="53" left_delta="60" />
+	<button label="Утримався" label_selected="Утримався"
+	     name="btn_abstain"  width="93" left_delta="58" font="SansSerifSmall"/>
+	<text name="txt">
+		Історія закінчених голосувань
+	</text>
+	<text name="instructions">
+		Двічі натисніть на Пропозицію, або виберіть зі списку,
+щоб побачити результати.
+	</text>
+	<text name="history_list_lbl">
+		Старі голосування                           Голосування завершено.
+	</text>
+	<button label="Пер. елемент" label_selected="Пер. елемент"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Результати голосування
+	</text>
+	<button label="Переглянути Список"
+	     label_selected="Переглянути Список"
+	     name="btn_view_history_list" width="150" left="257"/>
+	<string name="proposals_header_view_txt">
+		Відкрити Пропозиції Групи
+	</string>
+	<string name="proposals_header_view_inst">
+		Двічі натисніть на Пропозицію, щоб проголосувати,
+або створіть нову Пропозицію відп. кнопкою.
+	</string>
+	<string name="proposals_header_create_txt">
+		Створити Пропозицію
+	</string>
+	<string name="proposals_header_create_inst">
+		Введіть опис нової Пропозиції. Ви можете змінювати 
+Кворум, Тривалість і Більшість для завершення голосування.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Голос:
+	</string>
+	<string name="proposals_header_vote_inst">
+		Натисніть кнопку &apos;&apos;Так&apos;&apos; або &apos;&apos;Ні&apos;&apos; для вибору голоса, або
+Утримався для пропуску.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Ви проголосували: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		Ваша Пропозиція поки що пуста. Спочатку заповніть її.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Відправ. голос &apos;&apos;Так&apos;&apos;
+	</string>
+	<string name="proposals_submit_no_txt">
+		Відправ. голос &apos;&apos;Ні&apos;&apos;
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Відправ. голос &apos;&apos;Утримався&apos;&apos;
+	</string>
+	<string name="proposals_submit_new_txt">
+		Відправ. нову Пропозицію
+	</string>
+	<string name="vote_recorded">
+		Ваш голос прийнято
+	</string>
+	<string name="vote_previously_recorded">
+		Ви вже проголосували. Голосувати можно тільки один раз.
+	</string>
+</panel>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="オブジェクトの情報">
+	<text name="LabelItemNameTitle">
+		オブジェクト：
+	</text>
+	<text name="LabelSlurlTitle">
+		位置：
+	</text>
+	<text name="Unknown_Slurl">
+		（位置情報が利用できません）
+	</text>
+	<text name="LabelOwnerNameTitle">
+		オーナー：
+	</text>
+	<button label="オーナーを無視" label_selected="オーナーを無視" name="Mute"/>
+</floater>

@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,17 +36,9 @@
 #define IDREMOVE                        3
 #define IDI_LL_ICON                     103
 #define IDC_GRABHAND                    104
-#define IDR_MENU1                       112
-#define IDD_DIALOG1                     113
-#define IDI_INSTALL_ICON                133
 #define IDC_CURSOR1                     134
 #define IDC_CURSOR2                     136
-#define IDB_BITMAP1                     138
-#define IDB_BITMAP2                     140
-#define IDB_BITMAP3                     144
 #define IDC_CURSOR3                     147
-#define IDB_BITMAP4                     148
-#define IDB_BITMAP5                     149
 #define IDB_LOGIN                       149
 #define IDC_CURSOR4                     153
 #define IDC_CURSOR5                     154

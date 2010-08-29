@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+
+	<string name="pay group">
+		Paga il gruppo:
+	</string>
+	<string name="pay resident">
+		Paga il residente:
+	</string>
+
+	<text name="via object" left="10">
+		Mediante l&apos;oggetto: [OBJECT]
+	</text>
+
+	<text name="fastpay text" left="10" width="120">
+		Pagamento veloce:
+	</text>
+
+	<button name="fastpay 1"  label="1 L$"  left="130"      />
+	<button name="fastpay 5"  label="5 L$"  left_delta="80" />
+	<button name="fastpay 10" label="10 L$" left="130"      />
+	<button name="fastpay 20" label="20 L$" left_delta="80" />
+
+	<text name="amount text" left="10">
+		Ammontare:
+	</text>
+
+	<text name="L$ text" left_delta="82">
+		L$
+	</text>
+
+	<button name="pay btn"    label="Paga"    />
+	<button name="cancel btn" label="Annulla" />
+
+</floater>

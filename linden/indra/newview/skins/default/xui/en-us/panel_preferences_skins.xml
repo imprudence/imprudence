@@ -2,21 +2,36 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Skins" left="102" mouse_opaque="true"
      name="Skins panel" width="517">
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-	     mouse_opaque="true" name="muting_text" v_pad="0" width="400">
-		Select a skin (requires restart):
-	</text>
-  <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="12"
-	     name="skin_selection" width="480">
-    <radio_item bottom="-20" height="20" left="0" name="default" width="480">
-      Default
-    </radio_item>
-    <radio_item bottom="-180" height="20" left="0" name="silver" width="480">
-      Silver
-    </radio_item>
-  </radio_group>
-  <button left="130" bottom="-160" width="298" height="130" name="classic_preview" label="" scale_image="true" image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png"/>
-  <button left="130" bottom="-320" width="298" height="130" name="silver_preview" label="" scale_image="true" image_selected="skin_thumbnail_silver.png" image_hover_selected="skin_thumbnail_silver.png" image_unselected="skin_thumbnail_silver.png" image_hover_unselected="skin_thumbnail_silver.png"/>
+          <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left="200"
+               name="EmSkin_txt1" width="512">Selected Skin</text>
+          <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="-110" follows="left|top" height="18"
+			max_chars="200" mouse_opaque="true" name="emrd_skin_combo" width="300"
+			control_name="emrd_skin_combo" tool_tip=""/>
+          <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16" left_delta="20"
+               name="EmSkin_txt2" width="512">Primary Author</text>
+		<view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="-0"
+               mouse_opaque="false" name="emrd_box1" width="260"/>
+          <text bottom_delta="-0" follows="left|top" font="SansSerifSmall" height="16" left_delta="3"
+               name="emrd_skin_author" width="512">skin author</text>
+          <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16" left_delta="-3"
+               name="EmSkin_txt3" width="512">Additional Authors</text>
+		<view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="-0"
+               mouse_opaque="false" name="emrd_box2" width="260"/>
+          <text bottom_delta="-0" follows="left|top" font="SansSerifSmall" height="16" left_delta="3"
+               name="emrd_skin_ad_authors" width="512">additional skin authors</text>
+          <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16" left_delta="-3"
+               name="EmSkin_txt4" width="512">Skin folder</text>
+		<view_border blevel_style="in" bottom_delta="-18" follows="left|top" height="16" left_delta="-0"
+               mouse_opaque="false" name="emrd_box3" width="260"/>
+          <text bottom_delta="-0" follows="left|top" font="SansSerifSmall" height="16" left_delta="3"
+               name="emrd_skin_folder" width="512">skin folder</text>
+  <button scale_image="true" image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png"
+          bottom_delta="-150" default_image_name="None" follows="left|top" label="" width="298" height="130"
+		     left_delta="-20" mouse_opaque="true" name="emrd_skin_preview" tool_tip="Skin Preview" />
+          <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16" left_delta="110"
+               name="EmSkin_txt5" width="512">Additional info</text>
+		<text_editor bottom_delta="-40" embedded_items="false"
+		     enabled="false" follows="left|top" font="SansSerifSmall" height="40"
+		     is_unicode="false" left_delta="-135" max_length="511" mouse_opaque="true"
+		     name="emrd_skin_info" width="350" word_wrap="true" />
 </panel>

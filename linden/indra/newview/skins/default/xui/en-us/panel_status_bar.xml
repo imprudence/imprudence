@@ -20,12 +20,12 @@
 	     v_pad="2" width="76">
 		Loading...
 	</text>
-	<button bottom="-17" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="16"
-	     image_selected="status_buy_currency_pressed.tga"
-	     image_unselected="status_buy_currency.tga" label="" label_selected=""
+	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerifSmall"
+	     halign="center" height="18" 
+	     image_selected="button_enabled_selected_32x128.tga"
+	     image_unselected="button_enabled_32x128.tga" label="[CURRENCY]"
 	     left="-210" mouse_opaque="true" name="buycurrency" scale_image="true"
-	     tool_tip="Buy currency" width="16" />
+	     tool_tip="Buy currency" width="36" />
 	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="TimeTextColor" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"

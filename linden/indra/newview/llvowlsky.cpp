@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -319,7 +320,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 		mFanVerts->allocateBuffer(getFanNumVerts(), getFanNumIndices(), TRUE);
 
 		BOOL success = mFanVerts->getVertexStrider(vertices)
-			&& mFanVerts->getTexCoordStrider(texCoords)
+			&& mFanVerts->getTexCoord0Strider(texCoords)
 			&& mFanVerts->getIndexStrider(indices);
 
 		if(!success) 
@@ -379,7 +380,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 
 			// lock the buffer
 			BOOL success = segment->getVertexStrider(vertices)
-				&& segment->getTexCoordStrider(texCoords)
+				&& segment->getTexCoord0Strider(texCoords)
 				&& segment->getIndexStrider(indices);
 
 			if(!success) 

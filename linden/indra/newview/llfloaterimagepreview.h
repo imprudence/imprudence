@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -80,6 +81,7 @@ public:
 
 	void setPreviewTarget(const std::string& joint_name, const std::string& mesh_name, LLImageRaw* imagep, F32 distance, BOOL male);
 	void setTexture(U32 name) { mTextureName = name; }
+	void clearPreviewTexture(const std::string& mesh_name);
 
 	BOOL	render();
 	void	refresh();
@@ -116,6 +118,8 @@ public:
 
 	static void onMouseCaptureLostImagePreview(LLMouseHandler*);
 	static void setUploadAmount(S32 amount) { sUploadAmount = amount; }
+
+	void clearAllPreviewTextures();
 
 protected:
 	static void		onPreviewTypeCommit(LLUICtrl*,void*);

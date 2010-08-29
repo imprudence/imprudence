@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="active_speakers_panel" width="200">
+	<string name="moderator_label">
+		(Модератор)
+	</string>
+	<layout_stack name="panels" width="200">
+		<layout_panel name="moderation_mode_panel" width="200">
+			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					Голоси увімкнені за замовчуванням
+				</combo_item>
+				<combo_item name="ModeratedVoice">
+					Голоси вимкнені за замовчуванням
+				</combo_item>
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel" width="200">
+			<scroll_list name="speakers_list" right="200">
+				<column label="Ім&apos;я" name="speaker_name" />
+				<column label="" name="speaking_status" />
+			</scroll_list>
+			<panel name="speaker_controls">
+				<button label="" name="profile_btn" />
+				<text name="resident_name">
+					Rumplstiltskin Califragilistic
+				</text>
+				<button label="" name="mute_btn"
+				     tool_tip="Вимкнути голос цього резидента" />
+				<check_box label="Заблокований текст" name="mute_text_btn" />
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls" width="200">
+			<text name="moderator_controls_label">
+				Управління Модератора:
+			</text>
+			<check_box name="moderator_allow_voice">
+				Дозволити Голосовий Чат
+			</check_box>
+			<check_box name="moderator_allow_text">
+				Дозволити текстовий чат
+			</check_box>
+		</layout_panel>
+	</layout_stack>
+</panel>

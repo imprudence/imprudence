@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="İlan reklamı yayını">
+	<text name="explanation_text">
+		İlan reklamınız,yayınlandığı tarihten itibaren 
+1 hafta süreyle görünecektir. 
+ 
+Reklamınızın ilanlar listesindeki pozisyonu 
+yaptığınız ödeme tutarı ile tespit edilir.
+Yüksek ödemeli reklamlar listenin başına giderler 
+ve aramalarda yüksek sonuç verirler.
+	</text>
+	<text name="price_text">
+		Reklam ücreti (L$):
+	</text>
+	<button label="İptal" name="cancel_btn" />
+	<button label="Ücret belirle" name="set_price_btn" />
+</floater>

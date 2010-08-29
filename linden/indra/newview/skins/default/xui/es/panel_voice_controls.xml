@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voice_controls" width="138">
+	<button label="" name="speakers_btn" tool_tip="Ver una lista de los residentes que usan el chat de voz cerca de usted"/>
+	<button label="Hablar" name="push_to_talk" tool_tip="Mantenga pulsado el botón para hablar" width="74"/>
+	<button label="" name="ptt_lock" tool_tip="Pulse bloquear para cambiar el modo de hablar"/>
+	<icon name="voice_volume" left_delta="52" />
+	<button label="" name="show_channel" tool_tip="Pulse para ver el canal de voz actual" left_delta="18"/>
+</panel>

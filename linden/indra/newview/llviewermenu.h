@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,6 +49,8 @@ void init_menus();
 void cleanup_menus();
 
 void show_debug_menus(); // checks for if menus should be shown first.
+// builds either current or legacy pie menus depending upon LegacyPieEnabled
+void build_pie_menus();
 void show_context_menu( S32 x, S32 y, MASK mask );
 void show_build_mode_context_menu(S32 x, S32 y, MASK mask);
 BOOL enable_save_into_inventory(void*);
@@ -79,7 +82,6 @@ BOOL is_agent_friend(const LLUUID& agent_id);
 BOOL is_agent_mappable(const LLUUID& agent_id);
 
 void menu_toggle_control( void* user_data );
-void check_toggle_control( LLUICtrl *, void* user_data );
 void confirm_replace_attachment(S32 option, void* user_data);
 void handle_detach_from_avatar(void* user_data);
 void attach_label(std::string& label, void* user_data);
@@ -151,13 +153,14 @@ extern LLPieMenu	*gPieHUD;
 extern LLPieMenu	*gPieLand;
 
 // Pie menus
+/*
 extern LLPieMenu	*gPieSelfSimple;
 extern LLPieMenu	*gPieAvatarSimple;
 extern LLPieMenu	*gPieObjectSimple;
 extern LLPieMenu	*gPieAttachmentSimple;
 extern LLPieMenu	*gPieHUDSimple;
 extern LLPieMenu	*gPieLandSimple;
-
+*/
 // Needed to build menus when attachment site list available
 extern LLMenuGL* gAttachSubMenu;
 extern LLMenuGL* gDetachSubMenu;
@@ -171,8 +174,8 @@ extern LLPieMenu* gDetachBodyPartPieMenus[8];
 
 extern LLMenuItemCallGL* gAFKMenu;
 extern LLMenuItemCallGL* gBusyMenu;
-extern LLMenuItemCallGL* gMutePieMenu;
-extern LLMenuItemCallGL* gMuteObjectPieMenu;
+//extern LLMenuItemCallGL* gMutePieMenu;
+//extern LLMenuItemCallGL* gMuteObjectPieMenu;
 extern LLMenuItemCallGL* gBuyPassPieMenu;
 
 #endif

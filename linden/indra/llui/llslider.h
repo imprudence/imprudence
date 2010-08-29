@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -55,6 +56,9 @@ public:
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static  LLView* fromXML(LLXMLNodePtr node, LLView *parent, class LLUICtrlFactory *factory);
 
+  static void setScrollWheelMultiplier( S32 mult );
+  static S32 getScrollWheelMultiplier();
+
 	void			setValue( F32 value, BOOL from_event = FALSE );
 	F32				getValueF32() const { return mValue; }
 
@@ -77,6 +81,7 @@ public:
 	virtual BOOL	handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
 	virtual BOOL	handleKeyHere(KEY key, MASK mask);
 	virtual void	draw();
 
@@ -105,6 +110,8 @@ private:
 	
 	void			(*mMouseDownCallback)(LLUICtrl* ctrl, void* userdata);
 	void			(*mMouseUpCallback)(LLUICtrl* ctrl, void* userdata);
+
+  static S32 sScrollWheelMultiplier;
 };
 
 #endif  // LL_LLSLIDER_H

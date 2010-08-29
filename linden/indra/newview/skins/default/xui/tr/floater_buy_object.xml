@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="contents" title="Obje kopyası satın alımı">
+	<text name="contents_text">
+		ve içerdikleri:
+	</text>
+	<text name="buy_text">
+		[NAME] kişisinden [AMOUNT] L$ ücretine alınsın mı?
+	</text>
+	<button label="İptal" label_selected="İptal" name="cancel_btn" />
+	<button label="Satın al" label_selected="Satın al" name="buy_btn" />
+	<string name="title_buy_text">
+		Satın al
+	</string>
+	<string name="title_buy_copy_text">
+		Kopyasını satın al
+	</string>
+	<string name="no_copy_text">
+		(kopyalanamaz)
+	</string>
+	<string name="no_modify_text">
+		(modifiye edilemez)
+	</string>
+	<string name="no_transfer_text">
+		(transfer edilemez)
+	</string>
+</floater>

@@ -5,38 +5,38 @@
 	     name="Membership">
 		<action description="邀请加入社团"
 		     longdescription="使用 ‘会员和角色’ 标签页 &gt; ‘会员’子标签页下的 ‘邀请一个新人 ...’ 按钮邀请别人加入这个社团。"
-		     name="member invite" value="1" />
+		     name="member invite" />
 		<action description="从社团驱逐团员"
 		     longdescription="使用 ‘会员和角色’ 标签页 &gt; ‘会员’ 子标签页下的 ‘从社团中驱逐’ 按钮将团员从社团关于土地 &gt; 一般踢出。一位 ‘团长’ 可以驱逐除了另一位 ‘团长’ 以外的所有人。如果您不是 ‘团长’，团员只有当且仅当他们只有 ‘普通人’ 角色，而 *没有* 其他角色的时候，才可以被驱逐。要将团员从角色移除，你需要有 ‘从角色移除会员’ 的能力。"
-		     name="member eject" value="2" />
+		     name="member eject" />
 		<action description="切换 ‘公开注册’ 并更改 ‘注册费用‘ "
 		     longdescription="切换 ‘公开注册’ 来让新会员不需要邀请就可以加入，并且更改一般标签页下社团偏好设定一栏中的 ‘注册费用’。"
-		     name="member options" value="3" />
+		     name="member options" />
 	</action_set>
 	<action_set
 	     description="这些能力包括添加，移除或改变社团角色的权利，从角色中添加或移除组员的权利，以及为角色分配能力的权利"
 	     name="Roles">
 		<action description="创建新角色"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘角色’ 子标签页下创建角色。"
-		     name="role create" value="4" />
+		     name="role create" />
 		<action description="删除角色"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘角色’ 子标签页下删除角色。"
-		     name="role delete" value="5" />
+		     name="role delete" />
 		<action description="改变角色的名字, 头衔和其他描述"
 		     longdescription="选择角色后，在 ‘会员和角色’ 标签页 &gt; ‘角色’ 子标签页下改变角色的名字、头衔和其他描述。"
-		     name="role properties" value="6" />
+		     name="role properties" />
 		<action description="给会员分配分配者的角色"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘会员’ 子标签页下给团员分配 ‘已分配的角色’ 一栏中的角色。有这个能力的团员只能给团员添加分配者已经有的角色。"
-		     name="role assign member limited" value="7" />
+		     name="role assign member limited" />
 		<action description="给会员分配任何角色"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘会员’ 子标签页下给团员分配任意角色。 *警告* 任何具有该角色的会员拥有这项能力后，都可以给他们自己——以及任何其他的会员各种角色——分配权利比他们目前所拥有的权利大得多的角色，并可能提拔他们自己到相近于团长权利的位置上。请在分配这项能力之前确定自己这么做将带来的后果。"
-		     name="role assign member" value="8" />
+		     name="role assign member" />
 		<action description="禁止会员继续扮演该项角色"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘角色’ 子标签页下从移除会员的角色。团长不能被移除。"
-		     name="role remove member" value="9" />
+		     name="role remove member"  />
 		<action description="分配或移除角色能力"
 		     longdescription="在 ‘会员和角色’ 标签页 &gt; ‘角色’ 子标签页下为角色分配或移除能力的能力。*警告* 任何具有该角色的会员拥有这项能力后，都可以给他们自己——或者其他会员——分配所有的能力，甚至可以提拔他们自己到相近于团长权利的位置上。请在分配这项能力之前确定自己这么做将带来的后果。"
-		     name="role change actions" value="10" />
+		     name="role change actions" />
 	</action_set>
 	<action_set
 	     description="这些能力包括修改社团标识的权利，例如更改公众可见度、宪章和徽章"
@@ -44,142 +44,142 @@
 		<action
 		     description="改变宪章、徽章、 ‘在搜索中显示‘"
 		     longdescription="改变宪章、徽章、 ‘在搜索中显示‘。这些动作在 ‘一般’ 标签页中完成。"
-		     name="group change identity" value="11" />
+		     name="group change identity" />
 	</action_set>
 	<action_set
 	     description="这些能力包括转让、修改、并出售社团所拥有的土地的权利。要转到 “关于土地” 窗口，在地面上点击右键并选择 “关于土地...”，或者点击在菜单条上的土地信息。"
 	     name="Parcel Management">
 		<action description="转让土地或购买土地给社团"
 		     longdescription="转让土地，以及为社团购买土地。这在 关于土地 &gt; 一般 标签页中完成。"
-		     name="land deed" value="12" />
+		     name="land deed" />
 <!-- 不是说过 Governor Linden 不翻译吗?! -->
 		<action description="把土地放弃还给 Governor Linden"
 		     longdescription="放弃土地，转移所有权给 Governor Linden。  *警告* 任何具有该角色的会员拥有这项能力后，都可以在 关于土地 &gt; 一般 选项卡中放弃土地，将其返还为林登所有而不需要通过交易! 请在分配这项能力之前确定自己这么做将带来的后果。"
-		     name="land release" value="13" />
+		     name="land release" />
 		<action description="设置土地待售信息"
 		     longdescription="设置土地待售信息。 *警告*  任何具有该角色的会员拥有这项能力后都可以在 关于土地 &gt; 一般 选项卡中任意销售社团拥有的土地! 请在分配这项能力之前确定自己这么做将带来的后果。"
-		     name="land set sale info" value="14" />
+		     name="land set sale info" />
 		<action description="分割及合并土地"
 		     longdescription="分割及合并地块。 右键点击地面，选择 ‘编辑地形’，然后拖动鼠标选择土地。要分割土地，选择想要分割的区域然后点击 ‘分割...’。 要合并，选择两个或两个以上相邻的地块，然后点击 ‘合并...’。"
-		     name="land divide join" value="15" />
+		     name="land divide join" />
 	</action_set>
 	<action_set
 	     description="这些能力包括改变土地名称和发布设置，查找目的地可见度，选择着陆点和闪电传运点的路线的权利。"
 	     name="Parcel Identity">
 		<action description="切换 ‘在查找地点中显示’ 并设定分类"
 		     longdescription="关于土地 &gt; 选项 标签页中切换 ‘在查找地点中显示’，并设定地块的分类。"
-		     name="land find places" value="17" />
+		     name="land find places" />
 		<action
 		     description="改变土地名称、描述和 ‘在网络上发布’ 的设置"
 		     longdescription="改变土地名称、描述和 ‘在网络上发布’ 的设置。这些动作在 关于土地 &gt; 选项 标签页中完成。"
-		     name="land change identity" value="18" />
+		     name="land change identity" />
 		<action description="设置着陆点并设置瞬间移动路径"
 		     longdescription="在社团用有的地块上，具有拥有这项能力的角色的会员可以设定着陆点，也就是瞬间移动抵达的位置，以及详细控制瞬间移动路径。这些动作在 关于土地 &gt; 选项 标签页中完成。"
-		     name="land set landing point" value="19" />
+		     name="land set landing point" />
 	</action_set>
 	<action_set
 	     description="这些能力包括影响影响土地选项的权利，例如 “创建物体”，“编辑地形”，音乐和媒体设置等。"
 	     name="Parcel Settings">
 		<action description="改变音乐和多媒体设置"
 		     longdescription="在关于土地 &gt; 选项 标签页中改变音乐和多媒体设置。"
-		     name="land change media" value="20" />
+		     name="land change media" />
 		<action description="切换 &apos;编辑地形&apos;"
 		     longdescription="切换 &apos;编辑地形&apos;。 *警告* 关于土地 &gt; 选项 &gt; 编辑地形 允许任何人编辑土地的地形，以及放置或移动林登植被。请在分配这项能力之前确定自己这么做将带来的后果。编辑地形 在 关于土地 &gt; 选项 下。"
-		     name="land edit" value="21" />
+		     name="land edit" />
 		<action description="编辑各种 关于土地 &gt; 选项 下的设置"
 		     longdescription="在关于土地 &gt; 选项 标签页中切换 ‘安全 (无损伤)’、 ‘飞翔’, 以及允许其他居民在社团所拥有的土地上: ‘创建物体’、 ‘编辑地形’、 ‘创造地标’、 以及 ‘运行脚本‘。"
-		     name="land options" value="22" />
+		     name="land options" />
 	</action_set>
 	<action_set
 	     description="这些能力包括允许团员绕过社团拥有土地上的限制的权限。"
 	     name="Parcel Powers">
 		<action description="永远允许 &apos;编辑地形&apos;"
 		     longdescription="具有拥有这项能力的角色的会员可以在社团拥有的地块上编辑地形，即使 关于土地 &gt; 选项 中的相关设置被关闭。"
-		     name="land allow edit land" value="23" />
+		     name="land allow edit land" />
 		<action description="永远允许 &apos;飞翔&apos;"
 		     longdescription="具有拥有这项能力的角色的会员可以在社团拥有的地块上飞行，即使 关于土地 &gt; 选项 中的相关设置被关闭。"
-		     name="land allow fly" value="24" />
+		     name="land allow fly" />
 		<action description="永远允许&apos;创建物体&apos;"
 		     longdescription="具有拥有这项能力的角色的会员可以在社团拥有的地块上创建物体，即使 关于土地 &gt; 选项 中的相关设置被关闭。"
-		     name="land allow create" value="25" />
+		     name="land allow create" />
 		<action description="永远允许 &apos;创建地标&apos;"
 		     longdescription="具有拥有这项能力的角色的会员可以创建社团拥有的地块的地标，即使 关于土地 &gt; 选项 中的相关设置被关闭。"
-		     name="land allow landmark" value="26" />
+		     name="land allow landmark" />
 		<action description="允许在社团土地上&apos;把家建在这里&apos;"
 		     longdescription="具有拥有这项能力的角色的会员可以在社团的土地上使用 世界菜单 &gt; 把家设在这里 (无论是捐献的还是持有的)。"
-		     name="land allow set home" value="28" />
+		     name="land allow set home" />
 	</action_set>
 	<action_set
 	     description="这些能力包括允许或限制访问社团拥有的土地的权限，包括冻结和驱逐居民的权限。"
 	     name="Parcel Access">
 		<action description="管理土地允许进入名单"
 		     longdescription="在 关于土地 &gt; 访问 标签页下管理允许进入名单。"
-		     name="land manage allowed" value="29" />
+		     name="land manage allowed" />
 		<action description="管理土地禁止进入名单"
 		     longdescription="在 关于土地 &gt; 访问 标签页下管理禁止进入名单。"
-		     name="land manage banned" value="30" />
+		     name="land manage banned" />
 		<action description="改变土地上 ‘出售通行证...’ 的设置"
 		     longdescription="在 关于土地 &gt; 访问 标签页下改变 ‘出售通行证...’ 的设置。"
-		     name="land manage passes" value="31" />
+		     name="land manage passes" />
 		<action description="从土地上驱逐或冻结居民"
 		     longdescription="具有拥有这项能力的角色的会员可以对不受欢迎的居民使用右键点击，选择“更多 &gt; 冻结...” 或者 “驱逐...”。"
-		     name="land admin" value="32" />
+		     name="land admin" />
 	</action_set>
 	<action_set
 	     description="这些能力包括允许组员返还物体、放置或移动林登植被。这在组员清理垃圾和美化景观时很有用，但这些能力在使用时应该注意，因为一旦物体归还就无法撤销。"
 	     name="Parcel Content">
 		<action description="归还社团拥有的物体"
 		     longdescription="在 关于土地 &gt; 物体 标签页下归还社团拥有的土地上社团所拥有的物体。"
-		     name="land return group owned" value="48" />
+		     name="land return group owned" />
 		<action description="归还放置在社团处的物体"
 		     longdescription="在 关于土地 &gt; 物体 标签页下归还社团土地上设置到社团的物体。"
-		     name="land return group set" value="33" />
+		     name="land return group set" />
 		<action description="归还非社团所有的物体"
 		     longdescription="在 关于土地 &gt; 物体 标签页下归还社团土地上非社团的物体。"
-		     name="land return non group" value="34" />
+		     name="land return non group" />
 		<action description="使用林登植物美化土地"
 		     longdescription="放置和移动林登树木、花草。这些东西可以在你的库存的 Library &gt; Objects 文件夹下找到，也可以用 建造 按钮创建。"
-		     name="land gardening" value="35" />
+		     name="land gardening" />
 	</action_set>
 	<action_set
 	     description="这些能力包括转让、修改和销售社团拥有的物体的权限。这些更改在 编辑工具 &gt; 一般标签页中完成。右键点击物体选择 ‘编辑’ 来查看设置。"
 	     name="Object Management">
 		<action description="转让物体给社团"
 		     longdescription="在 编辑工具 &gt; 一般 标签页下转让物体。"
-		     name="object deed" value="36" />
+		     name="object deed" />
 		<action description="处理 (移动、复制、修改) 社团拥有的物体"
 		     longdescription="在 编辑工具 &gt; 一般 标签页下处理 (移动、复制、修改) 社团拥有的物体。"
-		     name="object manipulate" value="38" />
+		     name="object manipulate" />
 		<action description="把社团拥有的物体设为待售"
 		     longdescription="在 编辑工具 &gt; 一般 标签页下设定社团拥有的物体予以出售。"
-		     name="object set sale" value="39" />
+		     name="object set sale" />
 	</action_set>
 	<action_set
 	     description="这些能力包括要求组员偿还社团贷款和获得社团红利，以及限制访问社团帐号历史纪录的权利。"
 	     name="Accounting">
 		<action description="偿还社团债务/获得社团红利"
 		     longdescription="具有拥有这项能力的角色的会员将会自动社团债务及取得社团红利。这意味着他们将每天收到社团土地销售额的一部分，以及为例如地块刊登费等的东西掏腰包。"
-		     name="accounting accountable" value="40" />
+		     name="accounting accountable" />
 	</action_set>
 	<action_set
 	     description="这些能力包括允许组员发送，接受和浏览社团通知的权利"
 	     name="Notices">
 		<action description="发送通知"
 		     longdescription="具有拥有这项能力的角色的会员可以在 社团信息 &gt; 通知 标签页中发送通知。"
-		     name="notices send" value="42" />
+		     name="notices send" />
 		<action description="接受通知/回顾原来的通知"
 		     longdescription="具有拥有这项能力的角色的会员可以在 社团信息 &gt; 通知 标签页中接受和查看以前的通知。"
-		     name="notices receive" value="43" />
+		     name="notices receive" />
 	</action_set>
 	<action_set
 	     description="这些能力包括允许组员提出议案，为议案投票，和浏览投票历史纪录的权利"
 	     name="Proposals">
 		<action description="创建议案"
 		     longdescription="具有拥有这项能力的角色的会员可以在 社团信息 &gt; 议案 标签页中创建议案以供投票。"
-		     name="proposal start" value="44" />
+		     name="proposal start" />
 		<action description="为议案投票"
 		     longdescription="具有拥有这项能力的角色的会员可以在 社团信息 &gt; 议案 标签页中对议案投票。"
-		     name="proposal vote" value="45" />
+		     name="proposal vote" />
 	</action_set>
 	<action_set
 		 description="这些能力包括允许或限制社团聊天会话及社团语音会话的权限。"
@@ -188,17 +188,17 @@
 			 description="加入社团聊天"
 			 longdescription="具有拥有这项能力的角色的会员可以加入社团文字或语音聊天。"
 			 name="join group chat"
-			 value="16" />
+			 />
 		<action
 			 description="加入社团语音聊天"
 			 longdescription="具有拥有这项能力的角色的会员可以加入社团语音聊天会话。注意: 需要加入社团聊天能力 才能访问语音聊天会话。"
 			 name="join voice chat"
-			 value="27" />	
+			 />	
 		<action
 			 description="管理社团聊天"
 			 longdescription="具有拥有这项能力的角色的会员可以控制社团文字和语音聊天的访问，并且可以管理社团和语音聊天。"
 			 name="moderate group chat"
-			 value="37" />
+			 />
 	</action_set>
 
 </role_actions>

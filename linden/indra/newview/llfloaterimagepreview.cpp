@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,11 +52,15 @@
 #include "llui.h"
 #include "llviewercamera.h"
 #include "llviewerwindow.h"
+#include "llviewerobjectlist.h"
 #include "llvoavatar.h"
 #include "pipeline.h"
 #include "lluictrlfactory.h"
 #include "llviewerimagelist.h"
 #include "llstring.h"
+#include "llviewercontrol.h"
+
+#include "hippoGridManager.h"
 
 //static
 S32 LLFloaterImagePreview::sUploadAmount = 10;
@@ -71,7 +76,9 @@ const S32 PREVIEW_TEXTURE_HEIGHT = 300;
 // LLFloaterImagePreview()
 //-----------------------------------------------------------------------------
 LLFloaterImagePreview::LLFloaterImagePreview(const std::string& filename) : 
-	LLFloaterNameDesc(filename)
+	LLFloaterNameDesc(filename),
+	mAvatarPreview(NULL),
+	mSculptedPreview(NULL)
 {
 	mLastMouseX = 0;
 	mLastMouseY = 0;
@@ -89,7 +96,7 @@ BOOL LLFloaterImagePreview::postBuild()
 		return FALSE;
 	}
 
-	childSetLabelArg("ok_btn", "[AMOUNT]", llformat("%d",sUploadAmount));
+	childSetLabelArg("ok_btn", "[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getUploadFee());
 
 	LLCtrlSelectionInterface* iface = childGetSelectionInterface("clothing_type_combo");
 	if (iface)
@@ -106,7 +113,7 @@ BOOL LLFloaterImagePreview::postBuild()
 
 	childHide("bad_image_text");
 
-	if (mRawImagep.notNull())
+	if (mRawImagep.notNull() && gAgent.getRegion() != NULL)
 	{
 		mAvatarPreview = new LLImagePreviewAvatar(256, 256);
 		mAvatarPreview->setPreviewTarget("mPelvis", "mUpperBodyMesh0", mRawImagep, 2.f, FALSE);
@@ -116,6 +123,9 @@ BOOL LLFloaterImagePreview::postBuild()
 
 		if (mRawImagep->getWidth() * mRawImagep->getHeight () <= LL_IMAGE_REZ_LOSSLESS_CUTOFF * LL_IMAGE_REZ_LOSSLESS_CUTOFF)
 			childEnable("lossless_check");
+
+		gSavedSettings.setBOOL("EmeraldTemporaryUpload",FALSE);
+		childSetValue("temp_check",FALSE);
 	}
 	else
 	{
@@ -134,6 +144,8 @@ BOOL LLFloaterImagePreview::postBuild()
 //-----------------------------------------------------------------------------
 LLFloaterImagePreview::~LLFloaterImagePreview()
 {
+	clearAllPreviewTextures();
+
 	mRawImagep = NULL;
 	delete mAvatarPreview;
 	delete mSculptedPreview;
@@ -201,6 +213,24 @@ void	LLFloaterImagePreview::onPreviewTypeCommit(LLUICtrl* ctrl, void* userdata)
 	fp->mSculptedPreview->refresh();
 }
 
+
+//-----------------------------------------------------------------------------
+// clearAllPreviewTextures()
+//-----------------------------------------------------------------------------
+void LLFloaterImagePreview::clearAllPreviewTextures()
+{
+	if (mAvatarPreview)
+	{
+		mAvatarPreview->clearPreviewTexture("mHairMesh0");
+		mAvatarPreview->clearPreviewTexture("mUpperBodyMesh0");
+		mAvatarPreview->clearPreviewTexture("mLowerBodyMesh0");
+		mAvatarPreview->clearPreviewTexture("mHeadMesh0");
+		mAvatarPreview->clearPreviewTexture("mUpperBodyMesh0");
+		mAvatarPreview->clearPreviewTexture("mLowerBodyMesh0");
+		mAvatarPreview->clearPreviewTexture("mSkirtMesh0");
+	}
+}
+
 //-----------------------------------------------------------------------------
 // draw()
 //-----------------------------------------------------------------------------
@@ -233,8 +263,7 @@ void LLFloaterImagePreview::draw()
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mImagep->getTexName());
 				stop_glerror();
 
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_BILINEAR);
 				
 				gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 				if (mAvatarPreview)
@@ -592,7 +621,7 @@ LLImagePreviewAvatar::LLImagePreviewAvatar(S32 width, S32 height) : LLDynamicTex
 	mCameraPitch = 0.f;
 	mCameraZoom = 1.f;
 
-	mDummyAvatar = new LLVOAvatar(LLUUID::null, LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
+	mDummyAvatar = (LLVOAvatar*)gObjectList.createObjectViewer(LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
 	mDummyAvatar->createDrawable(&gPipeline);
 	mDummyAvatar->mIsDummy = TRUE;
 	mDummyAvatar->mSpecialRenderMode = 2;
@@ -643,6 +672,22 @@ void LLImagePreviewAvatar::setPreviewTarget(const std::string& joint_name, const
 	mCameraPitch = 0.f;
 	mCameraYaw = 0.f;
 	mCameraOffset.clearVec();
+}
+
+//-----------------------------------------------------------------------------
+// clearPreviewTexture()
+//-----------------------------------------------------------------------------
+void LLImagePreviewAvatar::clearPreviewTexture(const std::string& mesh_name)
+{
+	if (mDummyAvatar)
+	{
+		LLViewerJointMesh *mesh = (LLViewerJointMesh*)mDummyAvatar->mRoot.findJoint(mesh_name);
+		// clear out existing test mesh
+		if (mesh)
+		{
+			mesh->setTestTexture(0);
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -762,27 +807,11 @@ LLImagePreviewSculpted::LLImagePreviewSculpted(S32 width, S32 height) : LLDynami
 	
 	F32 const HIGHEST_LOD = 4.0f;
 	mVolume = new LLVolume(volume_params,  HIGHEST_LOD);
-
-	/*
-	mDummyAvatar = new LLVOAvatar(LLUUID::null, LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
-	mDummyAvatar->createDrawable(&gPipeline);
-	mDummyAvatar->mIsDummy = TRUE;
-	mDummyAvatar->mSpecialRenderMode = 2;
-	mDummyAvatar->setPositionAgent(LLVector3::zero);
-	mDummyAvatar->slamPosition();
-	mDummyAvatar->updateJointLODs();
-	mDummyAvatar->updateGeometry(mDummyAvatar->mDrawable);
-	gPipeline.markVisible(mDummyAvatar->mDrawable, *LLViewerCamera::getInstance());
-	mTextureName = 0;
-	*/
 }
 
 
 LLImagePreviewSculpted::~LLImagePreviewSculpted()
 {
-	/*
-	mDummyAvatar->markDead();
-	*/
 }
 
 

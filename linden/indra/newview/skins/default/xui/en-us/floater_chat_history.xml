@@ -24,7 +24,48 @@
 	<string name="IM_end_log_string">
 		-- End of Log --
 	</string>
-	<layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
+
+  <string name="ScriptQuestionCautionChatGranted">
+'[OBJECTNAME]', an object owned by '[OWNERNAME]', located in [REGIONNAME] at [REGIONPOS], has been granted permission to: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+'[OBJECTNAME]', an object owned by '[OWNERNAME]', located in [REGIONNAME] at [REGIONPOS], has been denied permission to: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+      Take currency from you
+  </string>
+  <string name="ActOnControlInputs">
+      Act on your control inputs
+  </string>
+  <string name="RemapControlInputs">
+      Remap your control inputs
+  </string>
+  <string name="AnimateYourAvatar">
+      Animate your avatar
+  </string>
+  <string name="AttachToYourAvatar">
+      Attach to your avatar
+  </string>
+  <string name="ReleaseOwnership">
+      Release ownership and become public
+  </string>
+  <string name="LinkAndDelink">
+      Link and delink from other objects
+  </string>
+  <string name="AddAndRemoveJoints">
+      Add and remove joints with other objects
+  </string>
+  <string name="ChangePermissions">
+      Change its permissions
+  </string>
+  <string name="TrackYourCamera">
+      Track your camera
+  </string>
+  <string name="ControlYourCamera">
+      Control your camera
+  </string>
+
+  <layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
 	     orientation="horizontal" width="430" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" height="130" left="0"
 		     min_width="275" name="im_contents_panel" width="305">
@@ -35,7 +76,7 @@
 				</combo_item>
 			</combo_box>
 			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="20" initial_value="false" label="Show Muted Text" left_delta="125"
+			     height="20" initial_value="false" label="Show muted text" left_delta="125"
 			     name="show mutes" radio_style="false" width="116" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
 			     label_selected="&gt; &gt;" left="272" name="toggle_active_speakers_btn"

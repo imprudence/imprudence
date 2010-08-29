@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -138,6 +139,16 @@ void LLNameEditor::setValue( const LLSD& value )
 LLSD LLNameEditor::getValue() const
 {
 	return LLSD(mNameID);
+}
+
+// virtual
+LLXMLNodePtr LLNameEditor::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLLineEditor::getXML();
+
+	node->setName(LL_NAME_EDITOR_TAG);
+
+	return node;
 }
 
 LLView* LLNameEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)

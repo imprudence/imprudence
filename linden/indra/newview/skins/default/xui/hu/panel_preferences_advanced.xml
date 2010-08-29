@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Nyelv felderítése" name="language_is_public" tool_tip="Lehetővé teszi kliens nyelvének felderítését."/>
+</panel>

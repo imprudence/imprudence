@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Event">
+	<text name="event_name_label">
+		Ad:
+	</text>
+	<text name="event_name">
+		(yok)
+	</text>
+	<text name="event_category_label">
+		Tür:
+	</text>
+	<text name="event_category">
+		(yok)
+	</text>
+	<text name="event_mature_label">
+		Mature İçerik:
+	</text>
+	<text name="event_mature_yes">
+		Evet
+	</text>
+	<text name="event_mature_no">
+		Hayır
+	</text>
+	<text name="event_date_label">
+		Tarih:
+	</text>
+	<text name="event_date">
+		(yok)
+	</text>
+	<text name="event_duration_label">
+		Aktivite süresi:
+	</text>
+	<text name="event_duration">
+		(yok)
+	</text>
+	<text name="event_runby_label">
+		Düzenleyen:
+	</text>
+	<text name="event_runby">
+		(yok)
+	</text>
+	<text name="event_location_label">
+		Lokasyon:
+	</text>
+	<text name="event_location">
+		(yok)
+	</text>
+	<text name="event_cover_label">
+		Katılım ücreti:
+	</text>
+	<text name="event_cover">
+		(yok)
+	</text>
+	<text name="event_desc_label">
+		Tanım:
+	</text>
+	<button label="Işınlan" name="teleport_btn"/>
+	<button label="Haritada göster" name="map_btn"/>
+	<button label="Duyur" name="notify_btn"/>
+	<button label="Aktivite yarat..." name="create_event_btn"/>
+	<string name="none">
+		yok
+	</string>
+	<string name="notify">
+		Duyur
+	</string>
+	<string name="dont_notify">
+		Duyurma
+	</string>
+</panel>

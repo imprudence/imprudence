@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Lokasyon">
+	<text name="name_label">
+		İsim:
+	</text>
+	<text name="description_label">
+		Tanım:
+	</text>
+	<text name="information_label">
+		Bilgi:
+	</text>
+	<text name="location_label">
+		Lokasyon:
+	</text>
+	<button label="Işınlan" name="teleport_btn"/>
+	<button label="Haritada göster" name="map_btn"/>
+	<button label="Bahisler..." name="auction_btn"/>
+	<string name="traffic_text">
+		Trafik: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Alan: [AREA] m².
+	</string>
+	<string name="forsale_text">
+		[PRICE]L$ ile satılık
+	</string>
+	<string name="auction_text">
+		A.Arttırma No [ID].
+	</string>
+	<string name="server_update_text">
+		Sunucu güncellemesi olmadan lokasyon bilgisi mevcut değil.
+	</string>
+	<string name="server_error_text">
+		Bu lokasyon hakkındaki bilgi şu anda mevcut değil, lütfen daha sonra tekrar deneyiniz.
+	</string>
+	<string name="server_forbidden_text">
+		Bu lokasyon hakkındaki bilgi izin kısıtlamalarına göre mevcut değil.  Lütfen parsel sahibi ile izinlerinizi kontrol ediniz.
+	</string>
+</panel>

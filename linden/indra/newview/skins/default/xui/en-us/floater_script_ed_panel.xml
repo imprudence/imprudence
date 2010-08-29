@@ -73,6 +73,8 @@
 		     width="112">
 			<menu_item_call bottom="-30" enabled="true" height="20" label="Help..." left="0"
 			     mouse_opaque="true" name="Help..." width="112" />
+      <menu_item_call bottom="-30" enabled="true" height="20" label="Launch Autoscript..." left="0"
+           mouse_opaque="true" name="Launch Autoscript..." width="112" />
 			<menu_item_call bottom="-30" enabled="true" height="20" label="LSL Wiki Help..." left="0"
 			     mouse_opaque="true" name="LSL Wiki Help..." width="112" />
 		</menu>
@@ -89,4 +91,7 @@
 	<string name="script_running">
 		Running
 	</string>
+  <string name="autoscript_url">
+    http://www.3greeneggs.com/autoscript/
+  </string>
 </panel>

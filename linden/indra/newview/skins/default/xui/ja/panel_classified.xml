@@ -1,33 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Classified" title="クラシファイド広告">
-	<line_editor name="given_name_editor"
-	     tool_tip="名前は、句読点でなく、文字または数字で始める必要があります。" />
-	<line_editor name="location_editor"
-	     tool_tip="クラシファイド広告用のロケーションをあなたの現在位置に設定してください。" />
-	<button label="設定" name="set_location_btn" />
-	<button label="テレポート" name="classified_teleport_btn" />
-	<button label="地図上に表示" name="classified_map_btn" />
-	<button label="プロフィール" name="classified_profile_btn" />
-	<check_box label="成人" name="classified_mature_check"  width="160">
+	<line_editor name="given_name_editor" tool_tip="名前は、句読点でなく、文字または数字で始める必要があります。"/>
+	<line_editor name="location_editor" tool_tip="クラシファイド広告用のロケーションをあなたの現在位置に設定してください。"/>
+	<button label="設定" name="set_location_btn"/>
+	<button label="テレポート" name="classified_teleport_btn"/>
+	<button label="地図上に表示" name="classified_map_btn"/>
+	<button label="プロフィール" name="classified_profile_btn"/>
+	<combo_box name="classified_mature_check" width="160">
 		<combo_item name="select_mature">
-			-成熟度を選択-
+			- Matureの選択 -
 		</combo_item>
 		<combo_item name="mature">
-			成人向けコンテンツ
+			Matureコンテンツ
 		</combo_item>
-		<combo_item name="not_mature">
-			非成人向けコンテンツ
+		<combo_item name="pg">
+			PGコンテンツ
 		</combo_item>
-	</check_box>
-	<combo_box label="" name="classified_category_combo" />
-	<button label="更新" name="classified_update_btn" />
+	</combo_box>
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="更新" name="classified_update_btn"/>
 	<string name="ad_placed_paid">
 		広告掲載： [DATE]、L$[AMT] 支払い済み
 	</string>
-	<text name="update_txt">
+	<string name="update_txt">
 		更新
-	</text>
-	<text name="publish_txt">
+	</string>
+	<string name="publish_txt">
 		公開．．．
-	</text>
+	</string>
 </panel>

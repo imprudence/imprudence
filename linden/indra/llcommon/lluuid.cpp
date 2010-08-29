@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -208,7 +209,7 @@ std::string LLUUID::asString() const
 
 BOOL LLUUID::set(const char* in_string, BOOL emit)
 {
-	return set(ll_safe_string(in_string));
+	return set(ll_safe_string(in_string),emit);
 }
 
 BOOL LLUUID::set(const std::string& in_string, BOOL emit)
@@ -230,7 +231,7 @@ BOOL LLUUID::set(const std::string& in_string, BOOL emit)
 		{
 			if(emit)
 			{
-				llinfos << "Warning! Using broken UUID string format" << llendl;
+				llwarns << "Warning! Using broken UUID string format" << llendl;
 			}
 			broken_format = TRUE;
 		}
@@ -239,7 +240,8 @@ BOOL LLUUID::set(const std::string& in_string, BOOL emit)
 			// Bad UUID string.  Spam as INFO, as most cases we don't care.
 			if(emit)
 			{
-				llinfos << "Bad UUID string: " << in_string << llendl;
+				//don't spam the logs because a resident can't spell.
+				llwarns << "Bad UUID string: " << in_string << llendl;
 			}
 			setNull();
 			return FALSE;
@@ -906,6 +908,21 @@ BOOL LLUUID::parseUUID(const std::string& buf, LLUUID* value)
 		return TRUE;
 	}
 	return FALSE;
+}
+
+//static
+LLUUID LLUUID::generateNewID(std::string hash_string)
+{
+	LLUUID new_id;
+	if (hash_string.empty())
+	{
+		new_id.generate();
+	}
+	else
+	{
+		new_id.generate(hash_string);
+	}
+	return new_id;
 }
 
 LLAssetID LLTransactionID::makeAssetID(const LLUUID& session) const

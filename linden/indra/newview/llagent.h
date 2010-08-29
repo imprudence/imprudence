@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,6 +40,7 @@
 #include "llcontrol.h"
 #include "llcoordframe.h"
 #include "llevent.h"
+#include "llagentaccess.h"
 #include "llagentconstants.h"
 #include "llanimationstates.h"
 #include "lldbstrings.h"
@@ -210,7 +212,7 @@ public:
 
 	void			heardChat(const LLUUID& id);
 	void			lookAtLastChat();
-	F32			getTypingTime() { return mTypingTimer.getElapsedTimeF32(); }
+	F32				getTypingTime() { return mTypingTimer.getElapsedTimeF32(); }
 
 	void			setAFK();
 	void			clearAFK();
@@ -226,8 +228,8 @@ public:
 	void			clearBusy();
 	BOOL			getBusy() const;
 
-	void			setAdminOverride(BOOL b)	{ mAdminOverride = b; }
-	void			setGodLevel(U8 god_level)	{ mGodLevel = god_level; }
+	void			setAdminOverride(BOOL b);
+	void			setGodLevel(U8 god_level);
 	void			setFirstLogin(BOOL b)		{ mFirstLogin = b; }
 	void			setGenderChosen(BOOL b)		{ mGenderChosen = b; }
 
@@ -253,9 +255,31 @@ public:
 		
 	BOOL			isGodlike() const;
 	U8				getGodLevel() const;
+	// note: this is a prime candidate for pulling out into a Maturity class
+	// rather than just expose the preference setting, we're going to actually
+	// expose what the client code cares about -- what the user should see
+	// based on a combination of the is* and prefers* flags, combined with God bit.
+	bool wantsPGOnly() const;
+	bool canAccessMature() const;
+	bool canAccessAdult() const;
+	bool canAccessMaturityInRegion( U64 region_handle ) const;
+	bool canAccessMaturityAtGlobal( LLVector3d pos_global ) const;
+	bool prefersPG() const;
+	bool prefersMature() const;
+	bool prefersAdult() const;
 	bool isTeen() const;
+	bool isMature() const;
+	bool isAdult() const;
 	void setTeen(bool teen);
-	void convertTextToMaturity(char text);// HACK: remove when based on 1.23
+	void setMaturity(char text);
+	static int convertTextToMaturity(char text);
+	bool sendMaturityPreferenceToServer(int preferredMaturity);
+	
+	const LLAgentAccess&  getAgentAccess();
+	
+	// This function can go away after the AO transition (see llstartup.cpp)
+	void setAOTransition();
+	
 	BOOL			isGroupTitleHidden() const		{ return mHideGroupTitle; }
 	BOOL			isGroupMember() const		{ return !mGroupID.isNull(); }		// This is only used for building titles!
 	const LLUUID	&getGroupID() const			{ return mGroupID; }
@@ -265,7 +289,7 @@ public:
 	F32				getFocusObjectDist() const	{ return mFocusObjectDist; }
 	BOOL			inPrelude();
 	BOOL			canManageEstate() const;
-	BOOL			getAdminOverride() const	{ return mAdminOverride; }
+	BOOL			getAdminOverride() const;
 
 	LLUUID			getLastChatter() const { return mLastChatterID; }
 	bool			getAlwaysRun() const { return mbAlwaysRun; }
@@ -475,7 +499,7 @@ public:
 	// go home
 	void teleportHome();
 	void teleportHomeConfirm();
-	static void teleportHomeCallback(S32 option, void *userdata);
+	static bool teleportHomeCallback(const LLSD& notification, const LLSD& response );
 
 	// to an invited location
 	void teleportViaLure(const LLUUID& lure_id, BOOL godlike);
@@ -555,6 +579,7 @@ public:
 	void			setHomePosRegion( const U64& region_handle, const LLVector3& pos_region );
 	BOOL			getHomePosGlobal( LLVector3d* pos_global );
 	void			setCameraAnimating( BOOL b )	{ mCameraAnimating = b; }
+	BOOL			getCameraAnimating( )			{ return mCameraAnimating; }
 	void			setAnimationDuration( F32 seconds ) { mAnimationDuration = seconds; }
 
 	F32				getNearChatRadius() { return mNearChatRadius; }
@@ -603,10 +628,8 @@ public:
 	//--------------------------------------------------------------------
 	// Wearables
 	//--------------------------------------------------------------------
-	BOOL			getWearablesLoaded() const	{ return mWearablesLoaded; }
-
 	void			setWearable( LLInventoryItem* new_item, LLWearable* wearable );
-	static void		onSetWearableDialog( S32 option, void* userdata );
+	static bool		onSetWearableDialog( const LLSD& notification, const LLSD& response, LLWearable* wearable );
 	void			setWearableFinal( LLInventoryItem* new_item, LLWearable* new_wearable );
 	void			setWearableOutfit( 	const LLInventoryItem::item_array_t& items, const LLDynamicArray< LLWearable* >& wearables, BOOL remove );
 	void			queryWearableCache();
@@ -636,7 +659,7 @@ public:
 	void			makeNewOutfitDone(S32 index);
 
 	void			removeWearable( EWearableType type );
-	static void		onRemoveWearableDialog( S32 option, void* userdata );
+	static bool		onRemoveWearableDialog(const LLSD& notification, const LLSD& response );
 	void			removeWearableFinal( EWearableType type );
 	
 	void			sendAgentWearablesUpdate();
@@ -681,7 +704,7 @@ public:
 	static void		userRemoveWearable( void* userdata );	// userdata is EWearableType
 
   static void   userRemoveAllClothesConfirm();
-	static void   userRemoveAllClothesCallback(S32 option, void *userdata);
+	static bool   userRemoveAllClothesCallback(const LLSD& notification, const LLSD& response );
 	static void   userRemoveAllClothes( void* userdata );	// userdata is NULL
 	static void   userRemoveAllClothesStep2(BOOL proceed, void* userdata ); // userdata is NULL
 
@@ -737,7 +760,6 @@ public:
 
 	BOOL			mInitialized;
 
-	static BOOL		sDebugDisplayTarget;
 	S32				mNumPendingQueries;
 	S32*			mActiveCacheQueries;
 
@@ -757,8 +779,8 @@ private:
 	bool mbAlwaysRun; // should the avatar run by default rather than walk
 	bool mbRunning;	// is the avatar trying to run right now
 
-	// Access or "maturity" level
-	U8				mAccess;	// SIM_ACCESS_MATURE or SIM_ACCESS_PG
+	LLAgentAccess   mAgentAccess;
+	
 	ETeleportState	mTeleportState;
 	std::string		mTeleportMessage;
 
@@ -774,9 +796,11 @@ private:
 	std::set<U64>	mRegionsVisited;				// stat - what distinct regions has the avatar been to?
 	F64				mDistanceTraveled;				// stat - how far has the avatar moved?
 	LLVector3d		mLastPositionGlobal;			// Used to calculate travel distance
+protected:
+
 
 	LLPointer<LLVOAvatar> mAvatarObject;			// NULL until avatar object sent down from simulator
-
+private:
 	U8				mRenderState;					// Current behavior state of agent
 	LLFrameTimer	mTypingTimer;
 
@@ -814,10 +838,7 @@ private:
 	
 	static BOOL		sPhantom;
 
-	
-	//Ventrella
 	LLVector3		mCameraUpVector;				// camera's up direction in world coordinates (determines the 'roll' of the view)
-	//End Ventrella
 
 	LLPointer<LLViewerObject> mSitCameraReferenceObject;	// object to which camera is related when sitting
 
@@ -833,7 +854,6 @@ private:
 
 	LLCoordFrame	mFrameAgent;					// Agent position and view, agent-region coordinates
 
-	BOOL			mCrouching;
 	BOOL			mIsBusy;
 
 	S32 			mAtKey;							// Either 1, 0, or -1... indicates that movement-key is pressed
@@ -887,16 +907,14 @@ private:
 	LLFrameTimer	mChatTimer;
 	LLUUID			mLastChatterID;
 	F32				mNearChatRadius;
-	BOOL			mAdminOverride;
 
-	// See indra_constants.h for values.
-	U8				mGodLevel;
 	LLFrameTimer	mFidgetTimer;
 	LLFrameTimer	mFocusObjectFadeTimer;
 	F32				mNextFidgetTime;
 	S32				mCurrentFidget;
 	BOOL			mFirstLogin;
 	BOOL			mGenderChosen;
+
 	
 	//--------------------------------------------------------------------
 	// Wearables

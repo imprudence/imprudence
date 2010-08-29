@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="O Grupie">
+	<string name="default_needs_apply_text">
+		Niestety, zmiany nie zostały zastosowane.
+	</string>
+	<string name="want_apply_text">
+		Czy chcesz zastosować te zmiany?
+	</string>
+	<button label="Zastosuj" label_selected="Zastosuj" name="btn_apply" />
+	<button label="Anuluj" label_selected="Anuluj" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Odśwież" label_selected="Odśwież" name="btn_refresh" />
+</panel>

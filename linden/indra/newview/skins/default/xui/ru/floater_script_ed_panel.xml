@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script panel">
+	<text_editor type="string" length="1" name="Script Editor">
+		Загрузка...
+	</text_editor>
+	<button label="Сохранить" label_selected="Сохранить" name="Save_btn" />
+	<combo_box label="Вставить" name="Insert..." />
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call label="Сохранить" name="Save" />
+			<menu_item_call label="Отменить все изменения" name="Revert All Changes" />
+		</menu>
+		<menu name="Edit">
+			<menu_item_call label="Отменить" name="Undo" />
+			<menu_item_call label="Повторить" name="Redo" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="Вырезать" name="Cut" />
+			<menu_item_call label="Скопировать" name="Copy" />
+			<menu_item_call label="Вставить" name="Paste" />
+			<menu_item_separator label="-----------" name="separator2" />
+			<menu_item_call label="Выделить все" name="Select All" />
+			<menu_item_call label="Снять выделение" name="Deselect" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu_item_call label="Найти / Заменить..." name="Search / Replace..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call label="Помощь..." name="Help..." />
+			<menu_item_call label="Вики по LSL..." name="LSL Wiki Help..." />
+		</menu>
+	</menu_bar>
+	<string name="loading">
+		Загрузка...
+	</string>
+	<string name="can_not_view">
+		У Вас нет прав для просмотра скрипта
+	</string>
+	<string name="public_objects_can_not_run">
+		Публичные объекты не могут выполнять скриптов
+	</string>
+	<string name="script_running">
+		Выполнение
+	</string>
+</panel>

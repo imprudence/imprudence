@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Место">
+	<text name="name_label">
+		Назв.:
+	</text>
+	<text name="description_label">
+		Описание:
+	</text>
+	<text name="information_label">
+		Инфо:
+	</text>
+	<text name="land_type_label">
+		Тип земли:
+	</text>
+	<text name="location_label">
+		Располож.:
+	</text>
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показ.на карте" name="map_btn" width="125"/>
+	<button label="Заявки..." name="auction_btn"/>
+	<string name="traffic_text">
+		Трафик: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Площадь: [AREA] м².
+	</string>
+	<string name="forsale_text">
+		Продается за L$[PRICE]
+	</string>
+	<string name="auction_text">
+		ID аукциона [ID].
+	</string>
+	<string name="server_update_text">
+		Размещение информации недоступно без обновления сервера.
+	</string>
+	<string name="server_error_text">
+		Информация об этом месте в данный момент недоступна, пожалуйста повторите позже.
+	</string>
+	<string name="server_forbidden_text">
+		Информация об этом месте недоступна из-за ограничений в доступе. Пожалуйста проверьте Ваши разрешения у владельца участка.
+	</string>
+</panel>

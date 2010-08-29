@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,14 +64,7 @@
 #endif
 
 #if LL_DBUS_ENABLED
-# include "llappviewerlinux_api_dbus.h"
-
-// regrettable hacks to give us better runtime compatibility with older systems inside llappviewerlinux_api.h:
-#define llg_return_if_fail(COND) do{if (!(COND)) return;}while(0)
-#undef g_return_if_fail
-#define g_return_if_fail(COND) llg_return_if_fail(COND)
-// The generated API
-# include "llappviewerlinux_api.h"
+#include "llappviewerlinux_api.h"
 #endif
 
 namespace
@@ -164,14 +158,14 @@ static inline BOOL do_basic_glibc_backtrace()
 // amazing backtrace.
 static inline BOOL do_basic_glibc_backtrace()
 {
-	void *array[MAX_STACK_TRACE_DEPTH];
+	void *stackarray[MAX_STACK_TRACE_DEPTH];
 	size_t size;
 	char **strings;
 	size_t i;
 	BOOL success = FALSE;
 
-	size = backtrace(array, MAX_STACK_TRACE_DEPTH);
-	strings = backtrace_symbols(array, size);
+	size = backtrace(stackarray, MAX_STACK_TRACE_DEPTH);
+	strings = backtrace_symbols(stackarray, size);
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
@@ -185,8 +179,13 @@ static inline BOOL do_basic_glibc_backtrace()
 	if (size)
 	{
 		for (i = 0; i < size; i++)
-			fputs((std::string(strings[i])+"\n").c_str(),
-			      StraceFile);
+		{
+			// the format of the StraceFile is very specific, to allow (kludgy) machine-parsing
+			fprintf(StraceFile, "%-3lu ", (unsigned long)i);
+			fprintf(StraceFile, "%-32s\t", "unknown");
+			fprintf(StraceFile, "%p ", stackarray[i]);
+			fprintf(StraceFile, "%s\n", strings[i]);
+		}
 
 		success = TRUE;
 	}
@@ -204,7 +203,7 @@ static inline BOOL do_basic_glibc_backtrace()
 // extraction without exporting symbols (which'd cause subtle, fatal bugs).
 static inline BOOL do_elfio_glibc_backtrace()
 {
-	void *array[MAX_STACK_TRACE_DEPTH];
+	void *stackarray[MAX_STACK_TRACE_DEPTH];
 	size_t btsize;
 	char **strings;
 	BOOL success = FALSE;
@@ -221,8 +220,8 @@ static inline BOOL do_elfio_glibc_backtrace()
 	}
 
 	// get backtrace address list and basic symbol info
-	btsize = backtrace(array, MAX_STACK_TRACE_DEPTH);
-	strings = backtrace_symbols(array, btsize);
+	btsize = backtrace(stackarray, MAX_STACK_TRACE_DEPTH);
+	strings = backtrace_symbols(stackarray, btsize);
 
 	// create ELF reader for our app binary
 	IELFI* pReader;
@@ -256,7 +255,8 @@ static inline BOOL do_elfio_glibc_backtrace()
 	size_t btpos;
 	for (btpos = 0; btpos < btsize; ++btpos)
 	{
-		fprintf(StraceFile, "%d:\t", btpos);
+		// the format of the StraceFile is very specific, to allow (kludgy) machine-parsing
+		fprintf(StraceFile, "%-3ld ", (long)btpos);
 		int symidx;
 		for (symidx = 0; symidx < nSymNo; ++symidx)
 		{
@@ -265,9 +265,13 @@ static inline BOOL do_elfio_glibc_backtrace()
 					       bind, type, section))
 			{
 				// check if trace address within symbol range
-				if (uintptr_t(array[btpos]) >= value &&
-				    uintptr_t(array[btpos]) < value+ssize)
+				if (uintptr_t(stackarray[btpos]) >= value &&
+				    uintptr_t(stackarray[btpos]) < value+ssize)
 				{
+					// symbol is inside viewer
+					fprintf(StraceFile, "%-32s\t", "com.secondlife.indra.viewer");
+					fprintf(StraceFile, "%p ", stackarray[btpos]);
+
 					char *demangled_str = NULL;
 					int demangle_result = 1;
 					demangled_str =
@@ -277,20 +281,19 @@ static inline BOOL do_elfio_glibc_backtrace()
 					if (0 == demangle_result &&
 					    NULL != demangled_str) {
 						fprintf(StraceFile,
-							"ELF(%s", demangled_str);
+							"%s", demangled_str);
 						free(demangled_str);
 					}
 					else // failed demangle; print it raw
 					{
 						fprintf(StraceFile,
-							"ELF(%s", name.c_str());
+							"%s", name.c_str());
 					}
 					// print offset from symbol start
 					fprintf(StraceFile,
-						"+0x%lx) [%p]\n",
-						uintptr_t(array[btpos]) -
-						value,
-						array[btpos]);
+						" + %lu\n",
+						uintptr_t(stackarray[btpos]) -
+						value);
 					goto got_sym; // early escape
 				}
 			}
@@ -298,6 +301,8 @@ static inline BOOL do_elfio_glibc_backtrace()
 		// Fallback:
 		// Didn't find a suitable symbol in the binary - it's probably
 		// a symbol in a DSO; use glibc's idea of what it should be.
+		fprintf(StraceFile, "%-32s\t", "unknown");
+		fprintf(StraceFile, "%p ", stackarray[btpos]);
 		fprintf(StraceFile, "%s\n", strings[btpos]);
 	got_sym:;
 	}
@@ -331,6 +336,12 @@ LLAppViewerLinux::~LLAppViewerLinux()
 
 bool LLAppViewerLinux::init()
 {
+	// g_thread_init() must be called before *any* use of glib, *and*
+	// before any mutexes are held, *and* some of our third-party
+	// libraries likes to use glib functions; in short, do this here
+	// really early in app startup!
+	if (!g_thread_supported ()) g_thread_init (NULL);
+	
 	return LLAppViewer::init();
 }
 
@@ -354,33 +365,11 @@ static void viewerappapi_class_init(ViewerAppAPIClass *klass);
 
 ///
 
-// regrettable hacks to give us better runtime compatibility with older systems in general
-static GType llg_type_register_static_simple_ONCE(GType parent_type,
-						  const gchar *type_name,
-						  guint class_size,
-						  GClassInitFunc class_init,
-						  guint instance_size,
-						  GInstanceInitFunc instance_init,
-						  GTypeFlags flags)
-{
-	static GTypeInfo type_info;
-	memset(&type_info, 0, sizeof(type_info));
-
-	type_info.class_size = class_size;
-	type_info.class_init = class_init;
-	type_info.instance_size = instance_size;
-	type_info.instance_init = instance_init;
-
-	return g_type_register_static(parent_type, type_name, &type_info, flags);
-}
-#define llg_intern_static_string(S) (S)
-#define g_intern_static_string(S) llg_intern_static_string(S)
-#define g_type_register_static_simple(parent_type, type_name, class_size, class_init, instance_size, instance_init, flags) llg_type_register_static_simple_ONCE(parent_type, type_name, class_size, class_init, instance_size, instance_init, flags)
-
 G_DEFINE_TYPE(ViewerAppAPI, viewerappapi, G_TYPE_OBJECT);
 
 void viewerappapi_class_init(ViewerAppAPIClass *klass)
 {
+	LL_DEBUGS("DBUS")<< "Debug DBUS1"<< LL_ENDL;
 }
 
 static bool dbus_server_init = false;
@@ -388,26 +377,31 @@ static bool dbus_server_init = false;
 void viewerappapi_init(ViewerAppAPI *server)
 {
 	// Connect to the default DBUS, register our service/API.
-
+	LL_DEBUGS("DBUS")<< "Debug DBUS2"<< LL_ENDL;
 	if (!dbus_server_init)
 	{
+		LL_DEBUGS("DBUS")<< "Debug DBUS3"<< LL_ENDL;
 		GError *error = NULL;
 		
-		server->connection = lldbus_g_bus_get(DBUS_BUS_SESSION, &error);
+		server->connection = dbus_g_bus_get(DBUS_BUS_SESSION, &error);
+		LL_DEBUGS("DBUS")<< "Debug DBUS4"<< LL_ENDL;
 		if (server->connection)
 		{
-			lldbus_g_object_type_install_info(viewerappapi_get_type(), &dbus_glib_viewerapp_object_info);
-			
-			lldbus_g_connection_register_g_object(server->connection, VIEWERAPI_PATH, G_OBJECT(server));
-			
-			DBusGProxy *serverproxy = lldbus_g_proxy_new_for_name(server->connection, DBUS_SERVICE_DBUS, DBUS_PATH_DBUS, DBUS_INTERFACE_DBUS);
+			dbus_g_object_type_install_info(viewerappapi_get_type(), &dbus_glib_viewerapp_object_info);
+			LL_DEBUGS("DBUS")<< "Debug DBUS5"<< LL_ENDL;			
+			dbus_g_connection_register_g_object(server->connection, VIEWERAPI_PATH, G_OBJECT(server));
+			LL_DEBUGS("DBUS")<< "Debug DBUS6"<< LL_ENDL;
+
+			DBusGProxy *serverproxy = dbus_g_proxy_new_for_name(server->connection, DBUS_SERVICE_DBUS, DBUS_PATH_DBUS, DBUS_INTERFACE_DBUS);
+			LL_DEBUGS("DBUS")<< "Debug DBUS7"<< LL_ENDL;
 
 			guint request_name_ret_unused;
 			// akin to org_freedesktop_DBus_request_name
-			if (lldbus_g_proxy_call(serverproxy, "RequestName", &error, G_TYPE_STRING, VIEWERAPI_SERVICE, G_TYPE_UINT, 0, G_TYPE_INVALID, G_TYPE_UINT, &request_name_ret_unused, G_TYPE_INVALID))
+			if (dbus_g_proxy_call(serverproxy, "RequestName", &error, G_TYPE_STRING, VIEWERAPI_SERVICE, G_TYPE_UINT, 0, G_TYPE_INVALID, G_TYPE_UINT, &request_name_ret_unused, G_TYPE_INVALID))
 			{
 				// total success.
 				dbus_server_init = true;
+				LL_DEBUGS("DBUS")<< "Debug DBUS8"<< LL_ENDL;
 			}
 			else 
 			{
@@ -415,6 +409,7 @@ void viewerappapi_init(ViewerAppAPI *server)
 			}
 	
 			g_object_unref(serverproxy);
+			LL_DEBUGS("DBUS")<< "Debug DBUS9"<< LL_ENDL;
 		}
 		else
 		{
@@ -422,8 +417,16 @@ void viewerappapi_init(ViewerAppAPI *server)
 		}
 
 		if (error)
+		{
 			g_error_free(error);
+			LL_DEBUGS("DBUS")<< "Debug DBUS10"<< LL_ENDL;
+		}
+
 	}
+	else
+		LL_DEBUGS("DBUS")<< "Debug DBUS11"<< LL_ENDL;
+
+	LL_DEBUGS("DBUS")<< "Debug DBUS End"<< LL_ENDL;
 }
 
 gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **success_rtn, GError **error)
@@ -432,8 +435,10 @@ gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **succ
 
 	llinfos << "Was asked to go to slurl: " << slurl << llendl;
 
-	const bool from_external_browser = true;
-	if (LLURLDispatcher::dispatch(slurl, from_external_browser))
+	std::string url = slurl;
+	LLWebBrowserCtrl* web = NULL;
+	const bool trusted_browser = false;
+	if (LLURLDispatcher::dispatch(url, web, trusted_browser))
 	{
 		// bring window to foreground, as it has just been "launched" from a URL
 		// todo: hmm, how to get there from here?
@@ -452,26 +457,30 @@ gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **succ
 //virtual
 bool LLAppViewerLinux::initSLURLHandler()
 {
-	if (!grab_dbus_syms(DBUSGLIB_DYLIB_DEFAULT_NAME))
-	{
-		return false; // failed
-	}
+	if (gSavedSettings.getBOOL("DisableDBUS"))
+		return false;
 
 	g_type_init();
+	LL_DEBUGS("DBUS")<< "Debug DBUS Start"<< LL_ENDL;
 
 	//ViewerAppAPI *api_server = (ViewerAppAPI*)
-	g_object_new(viewerappapi_get_type(), NULL);
 
+	g_object_new(viewerappapi_get_type(), NULL, (void*)NULL);
+///	also possible instead:
+/*	GType obj_type = viewerappapi_get_type();
+	g_object_newv(obj_type, 0, NULL);	//gpointer g_object_newv  (GType object_type,
+						//				guint n_parameters,
+						//				GParameter *parameters);
+
+*/
 	return true;
 }
 
 //virtual
 bool LLAppViewerLinux::sendURLToOtherInstance(const std::string& url)
 {
-	if (!grab_dbus_syms(DBUSGLIB_DYLIB_DEFAULT_NAME))
-	{
-		return false; // failed
-	}
+	if (gSavedSettings.getBOOL("DisableDBUS"))
+		return false;
 
 	bool success = false;
 	DBusGConnection *bus;
@@ -479,14 +488,14 @@ bool LLAppViewerLinux::sendURLToOtherInstance(const std::string& url)
 
 	g_type_init();
 	
-	bus = lldbus_g_bus_get (DBUS_BUS_SESSION, &error);
+	bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
 	if (bus)
 	{
 		gboolean rtn = FALSE;
 		DBusGProxy *remote_object =
-			lldbus_g_proxy_new_for_name(bus, VIEWERAPI_SERVICE, VIEWERAPI_PATH, VIEWERAPI_INTERFACE);
+			dbus_g_proxy_new_for_name(bus, VIEWERAPI_SERVICE, VIEWERAPI_PATH, VIEWERAPI_INTERFACE);
 
-		if (lldbus_g_proxy_call(remote_object, "GoSLURL", &error,
+		if (dbus_g_proxy_call(remote_object, "GoSLURL", &error,
 					G_TYPE_STRING, url.c_str(), G_TYPE_INVALID,
 				       G_TYPE_BOOLEAN, &rtn, G_TYPE_INVALID))
 		{
@@ -537,9 +546,11 @@ void LLAppViewerLinux::handleCrashReporting(bool reportFreeze)
 	cmd += gDirUtilp->getDirDelimiter();
 #if LL_LINUX
 	cmd += "linux-crash-logger.bin";
-#else // LL_SOLARIS
-	cmd += "bin/solaris-crash-logger";
-#endif // LL_LINUX
+#elif LL_SOLARIS
+	cmd += "solaris-crash-logger";
+#else
+# error Unknown platform
+#endif
 
 	if(reportFreeze)
 	{
@@ -620,7 +631,10 @@ void LLAppViewerLinux::handleCrashReporting(bool reportFreeze)
 bool LLAppViewerLinux::beingDebugged()
 {
 	static enum {unknown, no, yes} debugged = unknown;
-	
+
+#if LL_SOLARIS
+	return debugged == no;	// BUG: fix this for Solaris
+#else
 	if (debugged == unknown)
 	{
 		pid_t ppid = getppid();
@@ -655,6 +669,7 @@ bool LLAppViewerLinux::beingDebugged()
 	}
 
 	return debugged == yes;
+#endif
 }
 
 bool LLAppViewerLinux::initLogging()

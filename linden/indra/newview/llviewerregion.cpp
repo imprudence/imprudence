@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -55,6 +56,7 @@
 #include "llhttpnode.h"
 #include "llsdutil.h"
 #include "llstartup.h"
+#include "lltrans.h"
 #include "llviewerobjectlist.h"
 #include "llviewerparceloverlay.h"
 #include "llvlmanager.h"
@@ -161,6 +163,11 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mSimAccess( SIM_ACCESS_MIN ),
 	mBillableFactor(1.0),
 	mMaxTasks(DEFAULT_MAX_REGION_WIDE_PRIM_COUNT),
+	mClassID(0),
+	mCPURatio(0),
+	mColoName("unknown"),
+	mProductSKU("unknown"),
+	mProductName("unknown"),
 	mCacheLoaded(FALSE),
 	mCacheEntriesCount(0),
 	mCacheID(),
@@ -192,6 +199,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	}
 	else
 	{
+		delete mParcelOverlay;
 		mParcelOverlay = NULL;
 	}
 
@@ -237,6 +245,7 @@ void LLViewerRegion::initStats()
 
 LLViewerRegion::~LLViewerRegion() 
 {
+	LL_DEBUGS("VOAvatar")<< "LLViewerRegion dtor begin" << llendl;
 	if(mHttpResponderPtr)
 	{
 		(static_cast<BaseCapabilitiesComplete*>(mHttpResponderPtr.get()))->setRegion(NULL) ;
@@ -253,6 +262,7 @@ LLViewerRegion::~LLViewerRegion()
 
 	delete mCompositionp;
 	delete mParcelOverlay;
+	mParcelOverlay = NULL;
 	delete mLandp;
 	delete mEventPoll;
 	LLHTTPSender::clearSender(mHost);
@@ -260,6 +270,7 @@ LLViewerRegion::~LLViewerRegion()
 	saveCache();
 
 	std::for_each(mObjectPartition.begin(), mObjectPartition.end(), DeletePointer());
+	LL_DEBUGS("VOAvatar")<< "LLViewerRegion dtor end" << llendl;
 }
 
 
@@ -538,61 +549,27 @@ std::string LLViewerRegion::regionFlagsToString(U32 flags)
 	return result;
 }
 
-// *TODO:Translate
-const char* SIM_ACCESS_STR[] = { "Free Trial",
-						   "PG",
-						   "Mature",
-						   "Adult",
-						   "Offline",
-						   "Unknown" };
-							
 // static
 std::string LLViewerRegion::accessToString(U8 sim_access)
 {
 	switch(sim_access)
 	{
-	case SIM_ACCESS_TRIAL:
-		return SIM_ACCESS_STR[0];
-
 	case SIM_ACCESS_PG:
-		return SIM_ACCESS_STR[1];
+		return LLTrans::getString("SIM_ACCESS_PG");
 
 	case SIM_ACCESS_MATURE:
-		return SIM_ACCESS_STR[2];
+		return LLTrans::getString("SIM_ACCESS_MATURE");
 
 	case SIM_ACCESS_ADULT:
-		return SIM_ACCESS_STR[3];
+		return LLTrans::getString("SIM_ACCESS_ADULT");
 
 	case SIM_ACCESS_DOWN:
-		return SIM_ACCESS_STR[4];
+		return LLTrans::getString("SIM_ACCESS_DOWN");
 
 	case SIM_ACCESS_MIN:
 	default:
-		return SIM_ACCESS_STR[5];
+		return LLTrans::getString("SIM_ACCESS_MIN");
 	}
-}
-
-// static
-U8 LLViewerRegion::stringToAccess(const std::string& access_str)
-{
-	U8 sim_access = SIM_ACCESS_MIN;
-	if (access_str == SIM_ACCESS_STR[0])
-	{
-		sim_access = SIM_ACCESS_TRIAL;
-	}
-	else if (access_str == SIM_ACCESS_STR[1])
-	{
-		sim_access = SIM_ACCESS_PG;
-	}
-	else if (access_str == SIM_ACCESS_STR[2])
-	{
-		sim_access = SIM_ACCESS_MATURE;
-	}
-	else if (access_str == SIM_ACCESS_STR[3])
-	{
-		sim_access = SIM_ACCESS_ADULT;
-	}
-	return sim_access;
 }
 
 // static
@@ -602,9 +579,6 @@ std::string LLViewerRegion::accessToShortString(U8 sim_access)
 	{
 	case SIM_ACCESS_PG:
 		return "PG";
-
-	case SIM_ACCESS_TRIAL:
-		return "TR";
 
 	case SIM_ACCESS_MATURE:
 		return "M";
@@ -917,12 +891,19 @@ bool LLViewerRegion::isAlive()
 
 BOOL LLViewerRegion::isOwnedSelf(const LLVector3& pos)
 {
-	if (mParcelOverlay && !gDisconnected)
+	if (mParcelOverlay)
 	{
+		LL_DEBUGS("isOwnedSelf")<< "has mParceloverlay" << LL_ENDL; 
+		if (gDisconnected)
+		{
+			LL_DEBUGS("isOwnedSelf")<< "but is gDisconnected" << LL_ENDL;
+			return FALSE;
+		}
 		return mParcelOverlay->isOwnedSelf(pos);
 	} 
 	else 
 	{
+		LL_DEBUGS("isOwnedSelf")<< "has NO mParceloverlay" << LL_ENDL; 
 		return FALSE;
 	}
 }
@@ -1328,6 +1309,32 @@ void LLViewerRegion::unpackRegionHandshake()
 	LLUUID region_id;
 	msg->getUUID("RegionInfo2", "RegionID", region_id);
 	setRegionID(region_id);
+	
+	// Retrieve the CR-53 (Homestead/Land SKU) information
+	S32 classID = 0;
+	S32 cpuRatio = 0;
+	std::string coloName;
+	std::string productSKU;
+	std::string productName;
+
+	// the only reasonable way to decide if we actually have any data is to
+	// check to see if any of these fields have positive sizes
+	if (msg->getSize("RegionInfo3", "ColoName") > 0 ||
+	    msg->getSize("RegionInfo3", "ProductSKU") > 0 ||
+	    msg->getSize("RegionInfo3", "ProductName") > 0)
+	{
+		msg->getS32     ("RegionInfo3", "CPUClassID",  classID);
+		msg->getS32     ("RegionInfo3", "CPURatio",    cpuRatio);
+		msg->getString  ("RegionInfo3", "ColoName",    coloName);
+		msg->getString  ("RegionInfo3", "ProductSKU",  productSKU);
+		msg->getString  ("RegionInfo3", "ProductName", productName);
+		
+		mClassID = classID;
+		mCPURatio = cpuRatio;
+		mColoName = coloName;
+		mProductSKU = productSKU;
+		mProductName = productName;
+	}
 
 	LLVLComposition *compp = getComposition();
 	if (compp)
@@ -1412,9 +1419,9 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
 	capabilityNames.append("FetchInventory");
-	capabilityNames.append("WebFetchInventoryDescendents");
 	capabilityNames.append("FetchLib");
 	capabilityNames.append("FetchLibDescendents");
+	capabilityNames.append("GetTexture");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
 	capabilityNames.append("MapLayer");
@@ -1422,6 +1429,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelVoiceInfoRequest");
+	capabilityNames.append("ProductInfoRequest");
 	capabilityNames.append("ProvisionVoiceAccountRequest");
 	capabilityNames.append("RemoteParcelRequest");
 	capabilityNames.append("RequestTextureDownload");
@@ -1432,6 +1440,8 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("SendUserReportWithScreenshot");
 	capabilityNames.append("ServerReleaseNotes");
 	capabilityNames.append("StartGroupProposal");
+	capabilityNames.append("TextureStats");
+	capabilityNames.append("UntrustedSimulatorMessage");
 	capabilityNames.append("UpdateAgentInformation");
 	capabilityNames.append("UpdateAgentLanguage");
 	capabilityNames.append("UpdateGestureAgentInventory");
@@ -1440,9 +1450,10 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("UpdateGestureTaskInventory");
 	capabilityNames.append("UpdateNotecardTaskInventory");
 	capabilityNames.append("UpdateScriptTask");
+	capabilityNames.append("UploadBakedTexture");
 	capabilityNames.append("ViewerStartAuction");
-	capabilityNames.append("UntrustedSimulatorMessage");
 	capabilityNames.append("ViewerStats");
+	capabilityNames.append("WebFetchInventoryDescendents");
 	// Please add new capabilities alphabetically to reduce
 	// merge conflicts.
 

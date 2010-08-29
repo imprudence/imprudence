@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Apariencias" name="Skins panel">
+	<text name="muting_text">
+		Elija una apariencia (requiere reiniciar):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Por defecto
+		</radio_item>
+		<radio_item name="silver">
+			Plateada
+		</radio_item>
+	</radio_group>
+</panel>

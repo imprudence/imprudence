@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory" title="Inventory">
+	<search_editor label="Aramak için buraya yazınız" name="inventory search editor" />
+	<tab_container name="inventory filter tabs">
+		<inventory_panel label="Tüm Ürünler" name="All Items" />
+		<inventory_panel label="Son Ürünler" name="Recent Items" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu label="Dosya" name="File">
+			<menu_item_call label="Aç" name="Open" />
+			<menu_item_call label="Yeni pencere" name="New Window" />
+			<menu_item_call label="Filtreleri göster" name="Show Filters" />
+			<menu_item_call label="Filtreleri yenile" name="Reset Current" />
+			<menu_item_call label="Tüm klasörleri kapat" name="Close All Folders" />
+			<menu_item_call label="Çöpü boşalt" name="Empty Trash" />
+		</menu>
+		<menu label="Yarat" name="Create">
+			<menu_item_call label="Yeni dosya" name="New Folder" />
+			<menu_item_call label="Yeni betik" name="New Script" />
+			<menu_item_call label="Yeni not" name="New Note" />
+			<menu_item_call label="Yeni hareket" name="New Gesture" />
+			<menu name="New Clothes">
+				<menu_item_call label="Yeni gömlek" name="New Shirt" />
+				<menu_item_call label="Yeni pantolon" name="New Pants" />
+				<menu_item_call label="Yeni ayakkabılar" name="New Shoes" />
+				<menu_item_call label="Yeni çoraplar" name="New Socks" />
+				<menu_item_call label="Yeni ceket" name="New Jacket" />
+				<menu_item_call label="Yeni etek" name="New Skirt" />
+				<menu_item_call label="Yeni eldivenler" name="New Gloves" />
+				<menu_item_call label="Yeni fanila" name="New Undershirt" />
+				<menu_item_call label="Yeni külot" name="New Underpants" />
+			</menu>
+			<menu name="New Body Parts">
+				<menu_item_call label="Yeni vücut şekli" name="New Shape" />
+				<menu_item_call label="Yeni vücut teni" name="New Skin" />
+				<menu_item_call label="Yeni saç" name="New Hair" />
+				<menu_item_call label="Yeni gözler" name="New Eyes" />
+			</menu>
+		</menu>
+		<menu label="Ayır" name="Sort">
+			<menu_item_check label="Ad ile" name="By Name" />
+			<menu_item_check label="Tarih ile" name="By Date" />
+			<menu_item_check label="Dosyaları her zaman ad ile" name="Folders Always By Name" />
+			<menu_item_check label="Sistem dosyalarını başa" name="System Folders To Top" />
+		</menu>
+	</menu_bar>
+</floater>

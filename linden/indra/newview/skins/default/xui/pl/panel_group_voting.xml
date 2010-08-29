@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Propozycje" name="voting_tab">
+	<string name="help_text">
+		Propozycje grupowe to wygodny sposób by dowiedzieć się co jest potrzebne w grupie lub czego grupa potrzebuje. 
+Jeżeli posiadasz odpowiednie prawa, możesz stworzyć nową propozycję, głosować na obecnie otwartą lub sprawdzić przeszłe propozycje.
+	</string>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Otwórz Propozycję Grupy
+	</text>
+	<text name="proposal_instructions">
+		Kliknij podwójnie na propozycję, na którą chcesz głosować.
+	</text>
+	<text name="proposal_lbl">
+		Opis Propozycji
+	</text>
+	<text name="proposal_voting_lbl">
+		Propozycja                                                                             Zakończone                     Zagłosować?
+	</text>
+	<button label="Stwórz Propozycję" label_selected="Stwórz Propozycję"
+	     name="btn_proposal" />
+	<button label="Zobacz Propozycję" label_selected="Zobacz Propozycję"
+	     name="btn_view_proposal_item" />
+	<button label="Zobacz Listę" label_selected="Zobacz Listę"
+	     name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Kworum:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="# of total voting members needed for election results to be binding." />
+	<text name="quorum_text">
+		[MEMBERS] członków musi zagłosować.
+	</text>
+	<text name="duration_lbl">
+		Okres trwania:
+	</text>
+	<spinner name="duration" tool_tip="Ilość dni, w których odbywa się elekcja" />
+	<text name="duration_text">
+		dni
+	</text>
+	<radio_group name="majority" tool_tip="">
+		Większość
+		2/3 Większości
+		Jednogłośnie
+	</radio_group>
+	<text name="start_lbl">
+		Rozpoczęcie Głosowania:
+	</text>
+	<text name="end_lbl">
+		Zakończenie Głosowania:
+	</text>
+	<button label="Zatwierdź" label_selected="Zatwierdź" name="btn_submit" />
+	<button label="Anuluj" label_selected="Anuluj" name="btn_cancel" />
+	<button label="Tak" label_selected="Tak" name="btn_yes" />
+	<button label="Nie" label_selected="Nie" name="btn_no" />
+	<button label="Anuluj" label_selected="Anuluj" name="btn_abstain" />
+	<text name="txt">
+		Historia Głosowania
+	</text>
+	<text name="instructions">
+		Kliknij podwójnie na przeszłe głosowania by zobaczyć wyniki.
+	</text>
+	<text name="history_list_lbl">
+		Przeszłe                                                          Zakończone
+	</text>
+	<button label="Zobacz" label_selected="Zobacz" name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Wyniki:
+	</text>
+	<button label="Zobacz Listę" label_selected="Zobacz Listę"
+	     name="btn_view_history_list" />
+	<string name="proposals_header_view_txt">
+		Otwórz Propozycje Grupy
+	</string>
+	<string name="proposals_header_view_inst">
+		Podwójnie kliknij na propozycję, na którą chcesz zagłosować.
+	</string>
+	<string name="proposals_header_create_txt">
+		Stwórz Propozycję
+	</string>
+	<string name="proposals_header_create_inst">
+		Wpisz opis dla nowej propozycji.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Głosy Propozycji
+	</string>
+	<string name="proposals_header_vote_inst">
+		Wybierz Tak lub Nie by zagłosować na propozycję. Wybierz Anuluj jeżeli
+wstrzymujesz się od głosowania.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Głos: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		Niestety, Twoja propozycja nie może zostać stworzona ze względu na brak treści w opisie. Proszę wypełnić wszystkie pola zanim zdecydujesz się stworzyć propozycję.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Zatwierdź Tak dla propozycji...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Zatwierdź Nie dla propozycji...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Zatwierdź Anuluj dla propozycji...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Zatwierdź nową propozycję...
+	</string>
+	<string name="vote_recorded">
+		Twój głos został dodany do bazy.
+	</string>
+	<string name="vote_previously_recorded">
+		Oddałeś już swój głos. Dozwolone jest tylko jedno udzielenie głosu w danej elekcji propozycji.
+	</string>
+</panel>

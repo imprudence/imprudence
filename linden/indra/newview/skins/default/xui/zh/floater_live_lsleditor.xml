@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="script ed float" title="脚本：新的脚本">
-	<button label="重置" label_selected="重置" name="Reset" />
-	<check_box label="运行" name="running" />
-	<string
-		 name="script_running">
+	<button label="重置" label_selected="重置" name="Reset"/>
+	<check_box label="运行" name="running"/>
+	<check_box label="Mono" name="mono"/>
+	<string name="not_allowed">
+		您无权查看该脚本
+	</string>
+	<string name="script_running">
 		运行
 	</string>
-	<check_box label="Mono" name="mono" />
 </floater>

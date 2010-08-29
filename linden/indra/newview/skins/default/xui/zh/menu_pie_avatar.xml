@@ -4,6 +4,7 @@
 	<menu_item_call label="屏蔽" name="Avatar Mute" />
 	<!--TODO-->
 	<menu_item_call label="去往" name="Go To" />
+	<menu_item_call label="报告..." name="abuse"/>
 	<menu_item_call label="添加好友..." name="Add Friend" />
 	<menu_item_call label="付款..." name="Pay..." />
 	<pie_menu label="更多 &gt;" name="More &gt;">

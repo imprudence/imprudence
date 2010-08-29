@@ -1,6 +1,7 @@
 /** 
  * @file llwindowsdl.cpp
  * @brief SDL implementation of LLWindow class
+ * @author This module has many fathers, and it shows.
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -17,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -82,8 +84,6 @@ static bool ATIbug = false;
 // maintain in the constructor and destructor.  This assumes that there will
 // be only one object of this class at any time.  Currently this is true.
 static LLWindowSDL *gWindowImplementation = NULL;
-
-static BOOL was_fullscreen = FALSE;
 
 
 void maybe_lock_display(void)
@@ -156,6 +156,8 @@ bool LLWindowSDL::ll_try_gtk_init(void)
 			llwarns << "- GTK COMPATIBILITY WARNING: " <<
 				gtk_warning << llendl;
 			gtk_is_good = FALSE;
+		} else {
+			llinfos << "- GTK version is good." << llendl;
 		}
 
 		done_gtk_diag = TRUE;
@@ -201,10 +203,6 @@ LLWindowSDL::LLWindowSDL(const std::string& title, S32 x, S32 y, S32 width,
 
 	// Ignore use_gl for now, only used for drones on PC
 	mWindow = NULL;
-	mCursorDecoupled = FALSE;
-	mCursorLastEventDeltaX = 0;
-	mCursorLastEventDeltaY = 0;
-	mCursorIgnoreNextDelta = FALSE;
 	mNeedsResize = FALSE;
 	mOverrideAspectRatio = 0.f;
 	mGrabbyKeyFlags = 0;
@@ -273,7 +271,7 @@ static SDL_Surface *Load_BMP_Resource(const char *basename)
 #if LL_X11
 // This is an XFree86/XOrg-specific hack for detecting the amount of Video RAM
 // on this machine.  It works by searching /var/log/var/log/Xorg.?.log or
-// /var/log/XFree86.?.log for a ': (VideoRAM|Memory): (%d+) kB' regex, where
+// /var/log/XFree86.?.log for a ': (VideoRAM ?|Memory): (%d+) kB' regex, where
 // '?' is the X11 display number derived from $DISPLAY
 static int x11_detect_VRAM_kb_fp(FILE *fp, const char *prefix_str)
 {
@@ -287,6 +285,8 @@ static int x11_detect_VRAM_kb_fp(FILE *fp, const char *prefix_str)
 		// favourite regex implementation - libboost_regex - is
 		// quite a heavy and troublesome dependency for the client, so
 		// it seems a shame to introduce it for such a simple task.
+		// *FIXME: libboost_regex is a dependency now anyway, so we may
+		// as well use it instead of this hand-rolled nonsense.
 		const char *part1_template = prefix_str;
 		const char part2_template[] = " kB";
 		char *part1 = strstr(line_buf, part1_template);
@@ -324,8 +324,7 @@ static int x11_detect_VRAM_kb_fp(FILE *fp, const char *prefix_str)
 
 static int x11_detect_VRAM_kb()
 {
-#if LL_SOLARIS
-#error Can this be done without an explicit architecture test, ie a test FOR xorg? Was followed by: && defined(__sparc)
+#if LL_SOLARIS && defined(__sparc)
       //  NOTE: there's no Xorg server on SPARC so just return 0
       //        and allow SDL to attempt to get the amount of VRAM
       return(0);
@@ -364,8 +363,17 @@ static int x11_detect_VRAM_kb()
 			fp = fopen(fname.c_str(), "r");
 			if (fp)
 			{
-				rtn = x11_detect_VRAM_kb_fp(fp, ": Memory: ");
+				rtn = x11_detect_VRAM_kb_fp(fp, ": Video RAM: ");
 				fclose(fp);
+				if (0 == rtn)
+				{
+					fp = fopen(fname.c_str(), "r");
+					if (fp)
+					{
+						rtn = x11_detect_VRAM_kb_fp(fp, ": Memory: ");
+						fclose(fp);
+					}
+				}
 			}
 		}
 	}
@@ -406,6 +414,11 @@ static int x11_detect_VRAM_kb()
 }
 #endif // LL_X11
 
+void LLWindowSDL::setWindowTitle(std::string &title)
+{
+	SDL_WM_SetCaption(title.c_str(), title.c_str());
+}
+
 BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync)
 {
 	//bool			glneedsinit = false;
@@ -421,7 +434,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		llinfos << "sdl_init() failed! " << SDL_GetError() << llendl;
-		setupFailure("window creation error", "error", OSMB_OK);
+		setupFailure("sdl_init() failure,  window creation error", "error", OSMB_OK);
 		return false;
 	}
 
@@ -442,7 +455,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	if (!videoInfo)
 	{
 		llinfos << "SDL_GetVideoInfo() failed! " << SDL_GetError() << llendl;
-		setupFailure("Window creation error", "Error", OSMB_OK);
+		setupFailure("SDL_GetVideoInfo() failed, Window creation error", "Error", OSMB_OK);
 		return FALSE;
 	}
 
@@ -498,7 +511,6 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
         // *FIX: try to toggle vsync here?
 
 	mFullscreen = fullscreen;
-	was_fullscreen = fullscreen;
 
 	int sdlflags = SDL_OPENGL | SDL_RESIZABLE | SDL_ANYFORMAT;
 
@@ -574,7 +586,6 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 		if (mWindow)
 		{
 			mFullscreen = TRUE;
-			was_fullscreen = TRUE;
 			mFullscreenWidth   = mWindow->w;
 			mFullscreenHeight  = mWindow->h;
 			mFullscreenBits    = mWindow->format->BitsPerPixel;
@@ -591,7 +602,6 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			llwarns << "createContext: fullscreen creation failure. SDL: " << SDL_GetError() << llendl;
 			// No fullscreen support
 			mFullscreen = FALSE;
-			was_fullscreen = FALSE;
 			mFullscreenWidth   = -1;
 			mFullscreenHeight  = -1;
 			mFullscreenBits    = -1;
@@ -673,8 +683,8 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	// fixme: actually, it's REALLY important for picking that we get at
 	// least 8 bits each of red,green,blue.  Alpha we can be a bit more
 	// relaxed about if we have to.
-#if LL_SOLARIS
-#error && defined(__sparc)
+#if LL_SOLARIS && defined(__sparc)
+//  again the __sparc required because Xsun support, 32bit are very pricey on SPARC
 	if(colorBits < 24)		//HACK:  on SPARC allow 24-bit color
 #else
 	if (colorBits < 32)
@@ -682,8 +692,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	{
 		close();
 		setupFailure(
-#if LL_SOLARIS
-#error && defined(__sparc)
+#if LL_SOLARIS && defined(__sparc)
 			"Second Life requires at least 24-bit color on SPARC to run in a window.\n"
 			"Please use fbconfig to set your default color depth to 24 bits.\n"
 			"You may also need to adjust the X11 setting in SMF.  To do so use\n"
@@ -927,7 +936,6 @@ BOOL LLWindowSDL::getSize(LLCoordScreen *size)
 	return (TRUE);
     }
 
-    llwarns << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
     return (FALSE);
 }
 
@@ -940,7 +948,6 @@ BOOL LLWindowSDL::getSize(LLCoordWindow *size)
 	return (TRUE);
     }
 
-    llwarns << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
     return (FALSE);
 }
 
@@ -959,11 +966,18 @@ BOOL LLWindowSDL::setSize(const LLCoordScreen size)
 {
 	if(mWindow)
 	{
-        // *FIX: (???)
-		//SizeWindow(mWindow, size.mX, size.mY, true);
-	}
+		// Push a resize event onto SDL's queue - we'll handle it
+		// when it comes out again.
+		SDL_Event event;
+		event.type = SDL_VIDEORESIZE;
+		event.resize.w = size.mX;
+		event.resize.h = size.mY;
+		SDL_PushEvent(&event); // copied into queue
 
-	return TRUE;
+		return TRUE;
+	}
+		
+	return FALSE;
 }
 
 void LLWindowSDL::swapBuffers()
@@ -1013,11 +1027,7 @@ BOOL LLWindowSDL::isCursorHidden()
 // Constrains the mouse to the window.
 void LLWindowSDL::setMouseClipping( BOOL b )
 {
-	//llinfos << "LLWindowSDL::setMouseClipping " << b << llendl;
-	// Just stash the requested state.  We'll simulate this when the cursor is hidden by decoupling.
-	mIsMouseClipping = b;
     //SDL_WM_GrabInput(b ? SDL_GRAB_ON : SDL_GRAB_OFF);
-	adjustCursorDecouple();
 }
 
 BOOL LLWindowSDL::setCursorPosition(const LLCoordWindow position)
@@ -1032,10 +1042,10 @@ BOOL LLWindowSDL::setCursorPosition(const LLCoordWindow position)
 
 	//llinfos << "setCursorPosition(" << screen_pos.mX << ", " << screen_pos.mY << ")" << llendl;
 
-    SDL_WarpMouse(screen_pos.mX, screen_pos.mY);
-
-	// Under certain circumstances, this will trigger us to decouple the cursor.
-	adjustCursorDecouple(true);
+	// do the actual forced cursor move.
+	SDL_WarpMouse(screen_pos.mX, screen_pos.mY);
+	
+	//llinfos << llformat("llcw %d,%d -> scr %d,%d", position.mX, position.mY, screen_pos.mX, screen_pos.mY) << llendl;
 
 	return result;
 }
@@ -1055,33 +1065,6 @@ BOOL LLWindowSDL::getCursorPosition(LLCoordWindow *position)
 	return convertCoords(screen_pos, position);
 }
 
-void LLWindowSDL::adjustCursorDecouple(bool warpingMouse)
-{
-	if(mIsMouseClipping && mCursorHidden)
-	{
-		if(warpingMouse)
-		{
-			// The cursor should be decoupled.  Make sure it is.
-			if(!mCursorDecoupled)
-			{
-				//			llinfos << "adjustCursorDecouple: decoupling cursor" << llendl;
-				//CGAssociateMouseAndMouseCursorPosition(false);
-				mCursorDecoupled = true;
-				mCursorIgnoreNextDelta = TRUE;
-			}
-		}
-	}
-	else
-	{
-		// The cursor should not be decoupled.  Make sure it isn't.
-		if(mCursorDecoupled)
-		{
-			//			llinfos << "adjustCursorDecouple: recoupling cursor" << llendl;
-			//CGAssociateMouseAndMouseCursorPosition(true);
-			mCursorDecoupled = false;
-		}
-	}
-}
 
 F32 LLWindowSDL::getNativeAspectRatio()
 {
@@ -1138,24 +1121,28 @@ F32 LLWindowSDL::getPixelAspectRatio()
 }
 
 
-// some of this stuff is to support 'temporarily windowed' mode so that
-// dialogs are still usable in fullscreen.  HOWEVER! - it's not enabled/working
-// yet.
-static LLCoordScreen old_size;
-static BOOL old_fullscreen;
+// This is to support 'temporarily windowed' mode so that
+// dialogs are still usable in fullscreen.
 void LLWindowSDL::beforeDialog()
 {
+	bool running_x11 = false;
+#if LL_X11
+	running_x11 = (mSDL_XWindowID != None);
+#endif //LL_X11
+
 	llinfos << "LLWindowSDL::beforeDialog()" << llendl;
 
-	if (SDLReallyCaptureInput(FALSE) // must ungrab input so popup works!
-	    && getSize(&old_size))
+	if (SDLReallyCaptureInput(FALSE)) // must ungrab input so popup works!
 	{
-		old_fullscreen = was_fullscreen;
-		
-		if (old_fullscreen)
+		if (mFullscreen)
 		{
-			// NOT YET WORKING
-			//switchContext(FALSE, old_size, TRUE);
+			// need to temporarily go non-fullscreen; bless SDL
+			// for providing a SDL_WM_ToggleFullScreen() - though
+			// it only works in X11
+			if (running_x11 && mWindow)
+			{
+				SDL_WM_ToggleFullScreen(mWindow);
+			}
 		}
 	}
 
@@ -1181,17 +1168,24 @@ void LLWindowSDL::beforeDialog()
 
 void LLWindowSDL::afterDialog()
 {
+	bool running_x11 = false;
+#if LL_X11
+	running_x11 = (mSDL_XWindowID != None);
+#endif //LL_X11
+
 	llinfos << "LLWindowSDL::afterDialog()" << llendl;
 
 	maybe_unlock_display();
 
-	if (old_fullscreen && !was_fullscreen)
+	if (mFullscreen)
 	{
-		// *FIX: NOT YET WORKING (see below)
-		//switchContext(TRUE, old_size, TRUE);
+		// need to restore fullscreen mode after dialog - only works
+		// in X11
+		if (running_x11 && mWindow)
+		{
+			SDL_WM_ToggleFullScreen(mWindow);
+		}
 	}
-	// *FIX: we need to restore the GL context using
-	// LLViewerWindow::restoreGL() - but how??
 }
 
 
@@ -1358,7 +1352,6 @@ BOOL LLWindowSDL::copyTextToPrimary(const LLWString &s)
 {
 	return FALSE;  // unsupported
 }
-
 #endif // LL_GTK
 
 LLWindow::LLWindowResolution* LLWindowSDL::getSupportedResolutions(S32 &num_resolutions)
@@ -1559,7 +1552,7 @@ U32 LLWindowSDL::SDLCheckGrabbyKeys(SDLKey keysym, BOOL gain)
 	/* part of the fix for SL-13243: Some popular window managers like
 	   to totally eat alt-drag for the purposes of moving windows.  We
 	   spoil their day by acquiring the exclusive X11 mouse lock for as
-	   long as LALT is held down, so the window manager can't easily
+	   long as ALT is held down, so the window manager can't easily
 	   see what's happening.  Tested successfully with Metacity.
 	   And... do the same with CTRL, for other darn WMs.  We don't
 	   care about other metakeys as SL doesn't use them with dragging
@@ -1574,10 +1567,12 @@ U32 LLWindowSDL::SDLCheckGrabbyKeys(SDLKey keysym, BOOL gain)
 	{
 	case SDLK_LALT:
 		mask = 1U << 0; break;
-	case SDLK_LCTRL:
+	case SDLK_RALT:
 		mask = 1U << 1; break;
-	case SDLK_RCTRL:
+	case SDLK_LCTRL:
 		mask = 1U << 2; break;
+	case SDLK_RCTRL:
+		mask = 1U << 3; break;
 	default:
 		break;
 	}
@@ -1596,7 +1591,7 @@ U32 LLWindowSDL::SDLCheckGrabbyKeys(SDLKey keysym, BOOL gain)
 // virtual
 void LLWindowSDL::processMiscNativeEvents()
 {
-#if LL_GTK && (LL_LLMOZLIB_ENABLED || LL_DBUS_ENABLED)
+#if LL_GTK
 	// Pump GTK events to avoid starvation for:
 	// * Embedded Gecko
 	// * DBUS servicing
@@ -1623,7 +1618,7 @@ void LLWindowSDL::processMiscNativeEvents()
 
 	    setlocale(LC_ALL, saved_locale.c_str() );
     }
-#endif // LL_GTK && (LL_LLMOZLIB_ENABLED || LL_DBUS_ENABLED)
+#endif // LL_GTK
 }
 
 void LLWindowSDL::gatherInput()
@@ -1717,10 +1712,9 @@ void LLWindowSDL::gatherInput()
     				    mCallbacks->handleMouseDown(this, openGlCoord, mask);
                 }
 
-                else if (event.button.button == SDL_BUTTON_RIGHT)  // right ... yes, it's 3, not 2, in SDL...
+                else if (event.button.button == SDL_BUTTON_RIGHT)  // right
                 {
-                    // right double click isn't handled right now in Second Life ... if (isDoubleClick)
-				    mCallbacks->handleRightMouseDown(this, openGlCoord, mask);
+			mCallbacks->handleRightMouseDown(this, openGlCoord, mask);
                 }
 
                 else if (event.button.button == SDL_BUTTON_MIDDLE)  // middle
@@ -1743,13 +1737,11 @@ void LLWindowSDL::gatherInput()
 		MASK mask = gKeyboard->currentMask(TRUE);
 
                 if (event.button.button == SDL_BUTTON_LEFT)  // left
-				    mCallbacks->handleMouseUp(this, openGlCoord, mask);
-                else if (event.button.button == SDL_BUTTON_RIGHT)  // right ... yes, it's 3, not 2, in SDL...
-				    mCallbacks->handleRightMouseUp(this, openGlCoord, mask);
+			mCallbacks->handleMouseUp(this, openGlCoord, mask);
+                else if (event.button.button == SDL_BUTTON_RIGHT)  // right
+			mCallbacks->handleRightMouseUp(this, openGlCoord, mask);
                 else if (event.button.button == SDL_BUTTON_MIDDLE)  // middle
-		{
 			mCallbacks->handleMiddleMouseUp(this, openGlCoord, mask);
-		}
                 // don't handle mousewheel here...
 
                 break;
@@ -1793,12 +1785,12 @@ void LLWindowSDL::gatherInput()
 			// which confuses the focus code [SL-24071].
 			if (event.active.gain != mHaveInputFocus)
 			{
-				if (event.active.gain)
+				mHaveInputFocus = !!event.active.gain;
+
+				if (mHaveInputFocus)
 					mCallbacks->handleFocus(this);
 				else
 					mCallbacks->handleFocusLost(this);
-			
-				mHaveInputFocus = !!event.active.gain;
 			}
                 }
                 if (event.active.state & SDL_APPACTIVE)
@@ -1806,10 +1798,10 @@ void LLWindowSDL::gatherInput()
 			// Change in iconification/minimization state.
 			if ((!event.active.gain) != mIsMinimized)
 			{
-				mCallbacks->handleActivate(this, !!event.active.gain);
-				llinfos << "SDL deiconification state switched to " << BOOL(event.active.gain) << llendl;
-	
 				mIsMinimized = (!event.active.gain);
+
+				mCallbacks->handleActivate(this, !mIsMinimized);
+				llinfos << "SDL deiconification state switched to " << BOOL(event.active.gain) << llendl;
 			}
 			else
 			{
@@ -2057,8 +2049,6 @@ void LLWindowSDL::hideCursor()
 	{
 		// llinfos << "hideCursor: already hidden" << llendl;
 	}
-
-	adjustCursorDecouple();
 }
 
 void LLWindowSDL::showCursor()
@@ -2074,8 +2064,6 @@ void LLWindowSDL::showCursor()
 	{
 		// llinfos << "showCursor: already visible" << llendl;
 	}
-
-	adjustCursorDecouple();
 }
 
 void LLWindowSDL::showCursorFromMouseMove()
@@ -2141,10 +2129,7 @@ S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 typ
 	if(gWindowImplementation != NULL)
 		gWindowImplementation->beforeDialog();
 
-	if (LLWindowSDL::ll_try_gtk_init()
-	    // We can NOT expect to combine GTK and SDL's aggressive fullscreen
-	    && ((NULL==gWindowImplementation) || (!was_fullscreen))
-	    )
+	if (LLWindowSDL::ll_try_gtk_init())
 	{
 		GtkWidget *win = NULL;
 
@@ -2248,10 +2233,7 @@ BOOL LLWindowSDL::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
 
 	beforeDialog();
 
-	if (ll_try_gtk_init()
-	    // We can NOT expect to combine GTK and SDL's aggressive fullscreen
-	    && !was_fullscreen
-	    )
+	if (ll_try_gtk_init())
 	{
 		GtkWidget *win = NULL;
 
@@ -2435,7 +2417,7 @@ void LLWindowSDL::bringToFront()
 }
 
 //static
-std::string LLWindowSDL::getFontListSans()
+std::vector<std::string> LLWindowSDL::getDynamicFallbackFontList()
 {
 	// Use libfontconfig to find us a nice ordered list of fallback fonts
 	// specific to this system.
@@ -2452,7 +2434,7 @@ std::string LLWindowSDL::getFontListSans()
 	// renderable range if for some reason our FreeType actually fails
 	// to use some of the fonts we want it to.
 	const bool elide_unicode_coverage = true;
-	std::string rtn;
+	std::vector<std::string> rtns;
 	FcFontSet *fs = NULL;
 	FcPattern *sortpat = NULL;
 	int font_count = 0;
@@ -2486,7 +2468,8 @@ std::string LLWindowSDL::getFontListSans()
 	if (!FcInit())
 	{
 		llwarns << "FontConfig failed to initialize." << llendl;
-		return final_fallback;
+		rtns.push_back(final_fallback);
+		return rtns;
 	}
 
 	sortpat = FcNameParse((FcChar8*) sort_order.c_str());
@@ -2511,17 +2494,24 @@ std::string LLWindowSDL::getFontListSans()
 								&filename)
 			    && filename)
 			{
-				rtn += std::string((const char*)filename)+";";
+				rtns.push_back(std::string((const char*)filename));
 				++font_count;
 			}
 		}
 		FcFontSetDestroy (fs);
 	}
 
-	lldebugs << "Using font list: " << rtn << llendl;
+	lldebugs << "Using font list: " << llendl;
+	for (std::vector<std::string>::iterator it = rtns.begin();
+		 it != rtns.end();
+		 ++it)
+	{
+		lldebugs << "  file: " << *it << llendl;
+	}
 	llinfos << "Using " << font_count << " system font(s)." << llendl;
 
-	return rtn + final_fallback;
+	rtns.push_back(final_fallback);
+	return rtns;
 }
 
 #endif // LL_SDL

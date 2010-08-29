@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="The Lindens - інформація про групу">
+	<tab_container name="tab">
+		<panel label="Загальні" name="gen">
+			<text name="title_box">
+				Інформація про групу
+			</text>
+			<text name="txt">
+				Групи готові співпрацювати з Вашими друзями
+			</text>
+			<text name="txt2">
+				Групи, що дозволяють Вам мати титул, звання і рейтинг
+			</text>
+			<text name="txt3">
+				Будь-хто може створити групу. Кожний може перебувати максимум в 15 групах.
+			</text>
+			<text name="txt4">
+				Група має складатися мінімум з 3 людей, щоб лишатися активною
+			</text>
+			<text name="group_create_text">
+				Створення групи коштує L$100.
+			</text>
+			<text name="lbl">
+				Назва:
+			</text>
+			<text name="founder_label">
+				Засновник:
+			</text>
+			<text name="lbl2">
+				Статут:
+			</text>
+			<check_box label="Показати список групи" name="sho" />
+			<check_box label="Показати Учасників в списку групи"
+			     name="sho_mem" />
+			<check_box label="Опублікувати в Інтернет" name="allow_publish"
+			     tool_tip="Публікувати інформацію про Ваш профіль в Інтернет" />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box name="mature" />
+		</panel>
+		<panel label="Титули" name="tit">
+			<text name="txt">
+				Титули Групи
+			</text>
+			<text name="txt2">
+				Групи можуть мати офіцерів і учасників, кожний з яких може мати спеціальний титул.
+			</text>
+			<text name="txt3">
+				Ці титули показуються над іменем аватара в світі, в чаті і в IM.
+			</text>
+			<text name="lbl">
+				Титул Офіцера:
+			</text>
+			<text name="lbl2">
+				Титул Учасника:
+			</text>
+			<text name="lbl3">
+				Перетягніть текстуру з Інвентаря для установки прапора групи.
+			</text>
+			<texture_picker name="insig"
+			     tool_tip="Натисніть, щоб вибрати зображення" />
+		</panel>
+		<panel label="Учасники" name="mem">
+			<text name="txt">
+				Учасники Групи:
+			</text>
+			<text name="txt2">
+				Поточні Офіцери і Учасники Групи
+			</text>
+			<text name="txt3">
+				Натисніть на ім&apos;я, щоб бачити профіль учасника.
+			</text>
+			<text name="lbl">
+				Офіцери:
+			</text>
+			<text name="members_label">
+				Учасники:
+			</text>
+			<button label="Виключити Учасника"
+			     label_selected="Виключити Учасника"
+			     name="eject_member_btn" />
+		</panel>
+		<panel label="Голосувати" name="voting">
+			<tab_container name="tab">
+				<panel label="Вибори" name="recall">
+					<text name="txt">
+						Вибори в Групі
+					</text>
+					<text name="instructions">
+						Для початку голосування натисніть &apos;&apos;Почати голосування&apos;&apos;
+В кандитати включаються всі учасники групи крім офіцерів.
+					</text>
+					<text name="lbl">
+						Кандидати:
+					</text>
+					<button label="Голосувати &apos;&apos;за&apos;&apos;"
+					     label_selected="Голосувати" name="btn_vote" />
+					<button label="Утриматися" label_selected="Утриматися"
+					     name="btn_abstain" />
+					<button label="Почати голосування"
+					     label_selected="Почати голосування"
+					     name="btn_start_election" />
+					<text name="lbl2">
+						Кворум:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="Число голосів, необхідне для прийняття результатів голосування" />
+					<text name="quorum_text">
+						більше 111 всіх учасників групи.
+					</text>
+					<text name="lbl3">
+						Більшість:
+					</text>
+					<radio_group name="majority"
+					     tool_tip="Більшість голосів, необхідна для перемоги">
+						<radio_item name="radio">
+							Проста Більшість
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 голосів
+						</radio_item>
+						<radio_item name="radio3">
+							Одностайно
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Тривалість:
+					</text>
+					<spinner name="duration"
+					     tool_tip="Число днів до закінчення голосування" />
+					<text name="duration_days">
+						днів
+					</text>
+					<text name="start_lbl">
+						Початок Голосування:
+					</text>
+					<text name="end_lbl">
+						Кінець Голосування:
+					</text>
+				</panel>
+				<panel label="Пропозиція" name="panel_group_proposals">
+					<text name="txt">
+						Пропозиції Групи
+					</text>
+					<text name="instructions">
+						Активних Пропозицій немає, натисніть на кнопку &apos;&apos;Створити Пропозицію&apos;&apos;, щоб створити нове.
+Створити Нове Пропозицію
+					</text>
+					<text name="proposal_lbl">
+						Пропозиції:
+					</text>
+					<button label="Так" label_selected="Так" name="btn_yes" />
+					<button label="Ні" label_selected="Ні" name="btn_no" />
+					<button label="Утримався" label_selected="Утримався"
+					     name="btn_abstain" />
+					<button label="Подивитися Список"
+					     label_selected="Подивитися Список" name="btn_view_list" />
+					<button label="Подивитися елемент"
+					     label_selected="Подивитися Елемент" name="btn_view_item" />
+					<button label="Створити Пропозиція"
+					     label_selected="Створити Пропозиція" name="btn_proposal" />
+					<button label="Відправити" label_selected="Відправити"
+					     name="btn_submit" />
+					<text name="quorum_lbl">
+						Кворум:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="Число учасників голосування, необхідне для його здійснення." />
+					<text name="quorum_text">
+						більше 111 всіх учасників групи.
+					</text>
+					<text name="majority_lbl">
+						Більшість:
+					</text>
+					<radio_group name="majority"
+					     tool_tip="Більшість голосів, необхідна для перемоги">
+						<radio_item name="radio">
+							Проста Більшість
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 голосів
+						</radio_item>
+						<radio_item name="radio3">
+							Одностайно
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Тривалість:
+					</text>
+					<spinner name="duration"
+					     tool_tip="Число днів до закінчення голосування" />
+					<text name="duration_text">
+						днів
+					</text>
+					<text name="start_lbl">
+						Початок Голосування:
+					</text>
+					<text name="end_lbl">
+						Кінець Голосування:
+					</text>
+				</panel>
+				<panel label="Історія" name="History">
+					<text name="txt">
+						Історія Голосувань Групи
+					</text>
+					<text name="instructions">
+						Вы можете переглянути результати голосувань обравши голосув.
+					</text>
+					<text name="instructions2">
+						натиснути &apos;&apos;Перегляд Елемента&apos;&apos;
+					</text>
+					<text name="history_list_lbl">
+						Минулі голосування:
+					</text>
+					<text name="vote_text_lbl">
+						Результати голосування
+					</text>
+					<button label="Подивитися Список"
+					     label_selected="Подивитися Список" name="btn_view_list" />
+					<button label="Подивитися елемент"
+					     label_selected="Подивитися Елемент" name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Запрошення" name="inv">
+			<text name="txt">
+				Запрошення в групу
+			</text>
+			<text name="txt2">
+				Запрошення відправляються через IM
+			</text>
+			<text name="txt3">
+				Натисніть, щоб додати користувачів в список.
+			</text>
+			<text name="lbl">
+				Офіцери:
+			</text>
+			<button label="Додати Офіцера:"
+			     label_selected="Додати Офіцера:" name="add_officer_btn" />
+			<button label="Прибрати Обраного"
+			     label_selected="Прибрати Обраного"
+			     name="remove_officer_btn" />
+			<text name="lbl2">
+				Учасники:
+			</text>
+			<button label="Додати Учасника:"
+			     label_selected="Додати Учасника:" name="add_member_btn" />
+			<button label="Прибрати Обраного"
+			     label_selected="Прибрати Обраного" name="remove_member_btn" />
+			<text name="lbl3">
+				Ставка вступу:
+			</text>
+			<check_box
+			     label="Відкритий вступ (запрошення не потрібне)"
+			     name="open" />
+		</panel>
+		<panel label="Земля" name="land">
+			<text name="txt">
+				Група Володіє Землею
+			</text>
+			<text name="lbl">
+				Всього Землі:
+			</text>
+			<button label="Карта..." label_selected="Карта..." name="map_btn" />
+			<text name="lbl2">
+				Всього Землі у користуванні:
+			</text>
+			<text name="lbl3">
+				Землі доступно:
+			</text>
+			<button label="Зробити Внесок"
+			     label_selected="Зробити Внесок" name="set_contrib_btn" />
+			<text name="warning_label">
+				ПОПЕРЕДЖЕННЯ: Група має дуже багато Землі. Учасники групи мають вкладати більше..
+			</text>
+		</panel>
+		<panel label="Гроші" name="mon">
+			<tab_container name="group money history tab">
+				<panel label="Планування" name="money panel" />
+				<panel label="Деталі" name="money panel2">
+					<button label="&lt; Раніше" label_selected="&lt; Раніше"
+					     name="&lt; Earlier" tool_tip="Раніше" />
+					<button label="Пізніше &gt;" label_selected="Пізніше &gt;"
+					     name="Later &gt;" tool_tip="Пізніше" />
+				</panel>
+				<panel label="Продажі" name="money panel3">
+					<button label="&lt; Раніше" label_selected="&lt; Раніше"
+					     name="&lt; Earlier" tool_tip="Раніше" />
+					<button label="Пізніше &gt;" label_selected="Пізніше &gt;"
+					     name="Later &gt;" tool_tip="Пізніше" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Відміна" label_selected="Відміна" name="Cancel" />
+</floater>

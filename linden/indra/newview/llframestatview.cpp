@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -164,24 +165,24 @@ void LLFrameStatView::draw()
 
 		left = left + 15;
 		// Draw the label.
-		LLFontGL::sMonospace->renderUTF8(mLabels[i], 0, left, top,
+		LLFontGL::getFontMonospace()->renderUTF8(mLabels[i], 0, left, top,
 			LLColor4(1.f, 1.f, 1.f, 1.f),
 			LLFontGL::LEFT, LLFontGL::TOP);
 	
-		left = left + LLFontGL::sMonospace->getWidth(mLabels[i]) + 10;
+		left = left + LLFontGL::getFontMonospace()->getWidth(mLabels[i]) + 10;
 		if ((i + 1) < mNumStats)
 		{
-			if ((left + LLFontGL::sMonospace->getWidth(mLabels[i+1])) > (getRect().getWidth() - 10))
+			if ((left + LLFontGL::getFontMonospace()->getWidth(mLabels[i+1])) > (getRect().getWidth() - 10))
 			{
 				left = 10;
-				top -= llfloor(LLFontGL::sMonospace->getLineHeight());
-				key_height += LLFontGL::sMonospace->getLineHeight();
+				top -= llfloor(LLFontGL::getFontMonospace()->getLineHeight());
+				key_height += LLFontGL::getFontMonospace()->getLineHeight();
 			}
 		}
 	}
 
-	top -= llfloor(LLFontGL::sMonospace->getLineHeight());
-	bottom = top - llfloor(LLFontGL::sMonospace->getLineHeight());
+	top -= llfloor(LLFontGL::getFontMonospace()->getLineHeight());
+	bottom = top - llfloor(LLFontGL::getFontMonospace()->getLineHeight());
 	F32 total_time = 0.f;
 	F32 bin_means[32];
 
@@ -210,7 +211,7 @@ void LLFrameStatView::draw()
 
 		tick_label = llformat("%.2f", tick_value);
 		// draw labels for the tick marks
-		LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
+		LLFontGL::getFontMonospace()->renderUTF8(tick_label, 0, left, bottom,
 			LLColor4(1.f, 1.f, 1.f, 0.5f),
 			LLFontGL::LEFT, LLFontGL::TOP);
 	}
@@ -260,7 +261,7 @@ void LLFrameStatView::draw()
 
 			tick_label = llformat("%.2f", tick_value);
 			// draw labels for the tick marks
-			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
+			LLFontGL::getFontMonospace()->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),
 				LLFontGL::LEFT, LLFontGL::TOP);
 		}
@@ -285,7 +286,7 @@ void LLFrameStatView::draw()
 
 			tick_label = llformat("%.2f", tick_value);
 			// draw labels for the tick marks
-			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
+			LLFontGL::getFontMonospace()->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),
 				LLFontGL::LEFT, LLFontGL::TOP);
 		}

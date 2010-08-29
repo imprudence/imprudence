@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Del sprog med objekter" name="language_is_public" tool_tip="Dette lader objekter i verden vide hvad dit foretrukne sprog er."/>
+</panel>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Joystick i Kamera" name="Input panel">
+	<text length="1" name=" Mouselook Options:" type="string">
+		Widok Panoramiczny:
+	</text>
+	<text length="1" name=" Mouse Sensitivity:" type="string">
+		Czułość Myszki:
+	</text>
+	<slider_bar name="mouse_sensitivity"/>
+	<check_box label="Zamień klawisze myszy" name="invert_mouse"/>
+	<text length="1" name=" Auto Fly Options:" type="string">
+		Automatczne Latanie:
+	</text>
+	<check_box label="Lataj/Ląduj Używając Klawiszy PgUp/PgDn" name="automatic_fly"/>
+	<text length="1" name=" Camera Options:" type="string">
+		Ustawienia Kamery:
+	</text>
+	<text name="camera_fov_label">
+		Kąt Widoku Kamery:
+	</text>
+	<text length="1" name="Camera Follow Distance:" type="string">
+		Dystans Kamery:
+	</text>
+	<check_box label="Edycja - Automatyczny Ruch Kamery" name="edit_camera_movement" tool_tip="Używaj automatycznego ustawienia kamery podczas włączania i wyłączania trybu edycji"/>
+	<check_box label="Wygląd - Automatyczny Ruch Kamery" name="appearance_camera_movement" tool_tip="Używaj automatycznego ustawienia kamery w trybu edycji"/>
+	<text length="1" name="text2" type="string">
+		Wyświetlanie Awatara:
+	</text>
+	<check_box label="Awatar Widoczny w Trybie Panoramicznym" name="first_person_avatar_visible"/>
+	<button label="Ustawienia Joysticka" name="joystick_setup_button"/>
+</panel>

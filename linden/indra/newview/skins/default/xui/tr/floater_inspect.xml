@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inspect" title="Obje Araştırma">
+	<scroll_list name="object_list"
+	     tool_tip="İç dünyada parlatmak için bu listeden bir obje seçiniz">
+		<column label="Obje adı" name="object_name" />
+		<column label="Sahibi" name="owner_name" />
+		<column label="Yaratıcısı" name="creator_name" />
+		<column label="Yaratım tarihi" name="creation_date" />
+	</scroll_list>
+	<button label="Sahip profili..." label_selected="" name="button owner"
+	     tool_tip="Parlatılan objenin sahibinin profilini görün" />
+	<button label="Yaratıcı profili..." label_selected="" name="button creator"
+	     tool_tip="Parlatılan objenin orjinal yaratıcısının profilini görün" />
+</floater>

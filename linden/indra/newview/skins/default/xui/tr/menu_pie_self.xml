@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Profil..." name="Profile..." />
+	<menu_item_call label="Gruplar..." name="Groups..." />
+	<menu_item_call label="Git..." name="Go..." />
+	<menu_item_call label="Ayağa kalk" name="Stand Up" />
+	<menu_item_call label="Arkadaşlar..." name="Friends..." />
+	<menu_item_call label="Hareketler..." name="Gestures..." />
+	<pie_menu label="Çıkar &gt;" name="Take Off &gt;">
+		<pie_menu label="Giysiler &gt;" name="Clothes &gt;">
+			<menu_item_call label="Gömlek" name="Shirt" />
+			<menu_item_call label="Pantalon" name="Pants" />
+			<menu_item_call label="Ayakkabılar" name="Shoes" />
+			<menu_item_call label="Çoraplar" name="Socks" />
+			<menu_item_call label="Ceket" name="Jacket" />
+			<menu_item_call label="Eldivenler" name="Gloves" />
+			<pie_menu label="More &gt;" name="More &gt;">
+				<menu_item_call label="Fanila" name="Self Undershirt" />
+				<menu_item_call label="Tüm giysiler" name="All Clothes" />
+				<menu_item_call label="Külot" name="Self Underpants" />
+			</pie_menu>
+			<menu_item_call label="Etek" name="Skirt" />
+		</pie_menu>
+		<pie_menu label="HUD &gt;" name="Object Detach HUD" />
+		<pie_menu label="Çıkar &gt;" name="Object Detach" />
+		<menu_item_call label="Tümünü çıkar" name="Detach All" />
+	</pie_menu>
+	<menu_item_call label="Görünüm..." name="Appearance..." />
+</pie_menu>

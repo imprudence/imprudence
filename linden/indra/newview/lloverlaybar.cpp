@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,6 +37,7 @@
 
 #include "lloverlaybar.h"
 
+#include "aoremotectrl.h"
 #include "audioengine.h"
 #include "llrender.h"
 #include "llagent.h"
@@ -54,7 +56,6 @@
 #include "llviewerjoystick.h"
 #include "llviewermedia.h"
 #include "llviewermenu.h"	// handle_reset_view()
-#include "llviewermedia.h"
 #include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
 #include "lluictrlfactory.h"
@@ -148,6 +149,13 @@ void* LLOverlayBar::createWindlightRemote(void* userdata)
 	return self->mWindlightRemote;
 }
 
+void* LLOverlayBar::createAORemote(void* userdata)
+{
+	LLOverlayBar *self = (LLOverlayBar*)userdata;	
+	self->mAORemote = new AORemoteCtrl();
+	return self->mAORemote;
+}
+
 void* LLOverlayBar::createChatBar(void* userdata)
 {
 	gChatBar = new LLChatBar();
@@ -159,6 +167,7 @@ LLOverlayBar::LLOverlayBar()
 		mMediaRemote(NULL),
 		mVoiceRemote(NULL),
 		mWindlightRemote(NULL),
+		mAORemote(NULL),
 		mMusicState(STOPPED),
 		mOriginalIMLabel("")
 {
@@ -171,6 +180,7 @@ LLOverlayBar::LLOverlayBar()
 	factory_map["media_remote"] = LLCallbackMap(LLOverlayBar::createMediaRemote, this);
 	factory_map["voice_remote"] = LLCallbackMap(LLOverlayBar::createVoiceRemote, this);
 	factory_map["windlight_remote"] = LLCallbackMap(LLOverlayBar::createWindlightRemote, this);
+	factory_map["ao_remote"] = LLCallbackMap(LLOverlayBar::createAORemote, this);
 	factory_map["chat_bar"] = LLCallbackMap(LLOverlayBar::createChatBar, this);
 	
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_overlaybar.xml", &factory_map);
@@ -183,6 +193,7 @@ BOOL LLOverlayBar::postBuild()
 	childSetAction("Flycam",onClickFlycam,this);
 	childSetAction("Mouselook",onClickMouselook,this);
 	childSetAction("Stand Up",onClickStandUp,this);
+ 	childSetAction("Flycam",onClickFlycam,this);
 	childSetVisible("chat_bar", gSavedSettings.getBOOL("ChatVisible"));
 
 	setFocusRoot(TRUE);
@@ -329,7 +340,7 @@ void LLOverlayBar::refresh()
 		buttons_changed = TRUE;
 	}
 
-
+	moveChildToBackOfTabGroup(mAORemote);
 	moveChildToBackOfTabGroup(mWindlightRemote);
 	moveChildToBackOfTabGroup(mMediaRemote);
 	moveChildToBackOfTabGroup(mVoiceRemote);
@@ -340,6 +351,7 @@ void LLOverlayBar::refresh()
 		childSetVisible("media_remote_container", FALSE);
 		childSetVisible("voice_remote_container", FALSE);
 		childSetVisible("windlight_remote_container", FALSE);
+		childSetVisible("ao_remote_container", FALSE);
 		childSetVisible("state_buttons", FALSE);
 	}
 	else
@@ -348,6 +360,7 @@ void LLOverlayBar::refresh()
 		childSetVisible("media_remote_container", TRUE);
 		childSetVisible("voice_remote_container", LLVoiceClient::voiceEnabled());
 		childSetVisible("windlight_remote_container", gSavedSettings.getBOOL("EnableWindlightRemote"));
+		childSetVisible("ao_remote_container", gSavedSettings.getBOOL("EnableAORemote"));
 		childSetVisible("state_buttons", TRUE);
 	}
 

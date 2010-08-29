@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -82,7 +83,7 @@ public:
 	void start(void);
 
 	apr_pool_t *getAPRPool() { return mAPRPoolp; }
-	
+
 private:
 	bool				mPaused;
 	
@@ -130,10 +131,13 @@ public:
 	LLMutex(apr_pool_t *apr_poolp); // NULL pool constructs a new pool for the mutex
 	~LLMutex();
 	
-	void lock();		// blocks
-	void unlock();
+	void lock() { apr_thread_mutex_lock(mAPRMutexp); }
+	void unlock() { apr_thread_mutex_unlock(mAPRMutexp); }
+	// Returns true if lock was obtained successfully.
+	bool tryLock() { return !APR_STATUS_IS_EBUSY(apr_thread_mutex_trylock(mAPRMutexp)); }
+
 	bool isLocked(); 	// non-blocking, but does do a lock/unlock so not free
-	
+
 protected:
 	apr_thread_mutex_t *mAPRMutexp;
 	apr_pool_t			*mAPRPoolp;

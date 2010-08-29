@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="Публиковать объявление">
+	<text name="explanation_text">
+		Ваше объявление будет действительно 
+в течение недели после публикации. 
+
+Позиция Вашего объявления зависит от того,
+сколько Вы заплатите. Самое дорогое 
+объявление окажется наверху списка, 
+и будет в первых рядах в поиске.
+	</text>
+	<text name="price_text">
+		Оплатить (L$):
+	</text>
+	<button label="Отменить" name="cancel_btn" />
+	<button label="Установить цену" name="set_price_btn" />
+</floater>

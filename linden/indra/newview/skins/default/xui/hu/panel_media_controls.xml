@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<icon label="" name="music_icon"
+	     tool_tip="Zene (streaming) lejátszása/megállítása" />
+	<button label="" name="music_play"
+	     tool_tip="Zene (streaming) lejátszása/megállítása" />
+	<button label="" name="music_pause" tool_tip="Zene (streaming) megállítása" />
+	<button label="" name="music_stop" tool_tip="Zene (streaming) kikapcsolása" />
+	<icon label="" name="media_icon"
+	     tool_tip="Zene (streaming) lejátszása/megállítása" />
+	<button label="" name="media_play"
+	     tool_tip="Zene (streaming) lejátszása/megállítása" />
+	<button label="" name="media_pause" tool_tip="Média (streaming) megállítása" />
+	<button label="" name="media_stop" tool_tip="Média (streaming) kikapcsolása" />
+	<volume_slider name="volume_slider" tool_tip="Fő hangerő" />
+	<button label="" name="mute_master" tool_tip="Fő elnémító" />
+	<button label="" name="expand" tool_tip="Egyedi hangerőszintek alkalmazása" />
+	<string name="play_label">
+		Lejátszik
+	</string>
+	<string name="stop_label">
+		Kikapcsol
+	</string>
+	<string name="pause_label">
+		Megállít
+	</string>
+	<string name="default_tooltip_label">
+		Nincs média beállítva
+	</string>
+	<string name="media_hidden_label">
+		(URL elrejtve a tulajdonos által)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Ezen a helyszínen a webtartalmak megjelenítésre kerülnek. Kattints a lejátszik gombra a webtartalom megjelenítéséhez.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Ezen a helyszínen a videótartalmak megjelenítésre kerülnek. Kattints a lejátszik gombra a videótartalom megjelenítéséhez.
+	</string>
+	<string name="media_play_tooltip">
+		Webtartalom megjelenítése ezen a helyen.
+	</string>
+</panel>

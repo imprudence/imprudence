@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="buy currency" title="Купить Валюту">
+	<text name="info_buying">
+		Покупка Валюты:
+	</text>
+	<text name="info_cannot_buy">
+		Невозможно купить сейчас:
+	</text>
+	<text name="info_need_more">
+		Вам нужно больше валюты:
+	</text>
+	<text name="error_message">
+		Что-то не так
+	</text>
+	<button label="Перейти на вебсайт" name="error_web" width="150"/>
+	<text name="contacting">
+		Связываемся с LindeX...
+	</text>
+	<text name="buy_action_unknown">
+		Покупка L$ на обменном пункте LindeX
+	</text>
+	<text name="buy_action">
+		[NAME] L$ [PRICE]
+	</text>
+	<text name="currency_action" width="60">
+		Купить L$
+	</text>
+	<line_editor name="currency_amt" width="45" left_delta="62">
+		1234
+	</line_editor>
+	<text name="currency_est" width="165" left_delta="48">
+		приблизительно US$[USD]
+	</text>
+	<text name="getting_data">
+		Ждем данные...
+	</text>
+	<text name="balance_label">
+		В настоящее время у вас
+	</text>
+	<text name="balance_amount">
+		L$ [AMT]
+	</text>
+	<text name="buying_label">
+		Вы покупаете
+	</text>
+	<text name="buying_amount">
+		L$ [AMT]
+	</text>
+	<text name="total_label">
+		Ваш баланс будет
+	</text>
+	<text name="total_amount">
+		L$ [AMT]
+	</text>
+	<text name="purchase_warning_repurchase" height="48" bottom_delta="-64" right="-10">
+		Подтверждение того, что Вы только
+покупаете валюту Вы должны повторить
+операцию еще раз.
+	</text>
+	<text name="purchase_warning_notenough" bottom_delta="16" right="-10">
+		Вы приобрели недостаточно валюты.
+Увеличить количество валюты, чтобы купить.
+	</text>
+	<button label="Отмена" name="cancel_btn" />
+	<button label="Купить" name="buy_btn" />
+	<string name="buy_currency">
+		Покупка L$ [LINDENS] приблиз. US$ [USD]
+	</string>
+</floater>

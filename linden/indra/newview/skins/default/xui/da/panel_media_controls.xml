@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<icon label="" name="music_icon" tool_tip="Afspil/pause musik" />
+	<button label="" name="music_play" tool_tip="Afspil/pause musik" />
+	<button label="" name="music_pause" tool_tip="Pause musik" />
+	<button label="" name="music_stop" tool_tip="Stop musik" />
+	<icon label="" name="media_icon" tool_tip="Afspil/pause musik" />
+	<button label="" name="media_play" tool_tip="Afspil/pause musik" />
+	<button label="" name="media_pause" tool_tip="Pause musik" />
+	<button label="" name="media_stop" tool_tip="Stop streaming media" />
+	<volume_slider name="volume_slider" tool_tip="Overordnet lydniveau" />
+	<button label="" name="mute_master" tool_tip="Sluk alt lyd" />
+	<button label="" name="expand" tool_tip="Indstil individelle lydniveauer" />
+	<string name="play_label">
+		Afspil
+	</string>
+	<string name="stop_label">
+		Stop
+	</string>
+	<string name="pause_label">
+		Pause
+	</string>
+	<string name="default_tooltip_label">
+		Intet medie angivet
+	</string>
+	<string name="media_hidden_label">
+		(URL skjult af ejer)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Dette sted viser indhold fra WWW. Klik på afspil knappen for at se indhold.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Dette sted viser video indhold. Klik på afspil knappen for at se video.
+	</string>
+	<string name="media_play_tooltip">
+		Vis web indhold på dette sted
+	</string>
+</panel>

@@ -1,53 +1,76 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-197" can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" enabled="true" height="140" left="439" min_height="100"
-     min_width="100" mouse_opaque="true" name="Give Money"
-     rect_control="FloaterPayRectB" title="" width="300">
-	<button bottom="-74" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="L$1" label_selected="L$1" left="108" mouse_opaque="true"
-	     name="fastpay 1" scale_image="true" width="80" />
-	<button bottom="-74" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="L$5" label_selected="L$5" left="203" mouse_opaque="true"
-	     name="fastpay 5" scale_image="true" width="80" />
-	<button bottom="-98" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="L$10" label_selected="L$10" left="108" mouse_opaque="true"
-	     name="fastpay 10" scale_image="true" width="80" />
-	<button bottom="-98" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="L$20" label_selected="L$20" left="203" mouse_opaque="true"
-	     name="fastpay 20" scale_image="true" width="80" />
-	<button bottom="-132" enabled="false" font="SansSerif" halign="center" height="20"
-	     label="Pay" label_selected="Pay" left="120" mouse_opaque="true"
-	     name="pay btn" scale_image="true" width="80" />
-	<button bottom="-132" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="Cancel" label_selected="Cancel" left="203" mouse_opaque="true"
-	     name="cancel btn" scale_image="true" width="80" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="left" height="18" left="12"
-	     mouse_opaque="true" name="payee_label" v_pad="0" width="75">
-		Pay resident:
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="left" height="18" left="85"
-	     mouse_opaque="true" name="payee_name" v_pad="0" width="210">
-		[FIRST] [LAST]
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-72" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="right" height="18" left="5"
-	     mouse_opaque="true" name="fastpay text" v_pad="0" width="95">
+
+<floater name="Give Money" title="Pay resident: [FIRST] [LAST]"
+         bottom="-197" left="439" height="185" width="300"
+         min_height="100" min_width="100" rect_control="FloaterPayRectB"
+         can_minimize="true" can_resize="false">
+
+
+	<text name="fastpay text"
+	      bottom="-50" left="15" height="18" width="100"
+	      follows="left|top" font="SansSerif">
 		Fast Pay:
 	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-130" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="left" height="18" left="12"
-	     mouse_opaque="true" name="amount text" v_pad="0" width="75">
-		Amount:
+
+	<button name="fastpay 1" label="[CURRENCY]1"
+	        bottom_delta="0" left="95" height="20" width="75"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+	<button name="fastpay 5" label="[CURRENCY]5"
+	        bottom_delta="0" left_delta="85" height="20" width="75"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+	<button name="fastpay 10" label="[CURRENCY]10"
+	        bottom_delta="-25" left="95" height="20" width="75"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+	<button name="fastpay 20" label="[CURRENCY]20"
+	        bottom_delta="0" left_delta="85" height="20" width="75"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+
+	<view_border name="separator left"
+	             bottom_delta="-12" left="8" height="1" width="282"
+	             bevel_style="in" border_thickness="1" follows="top|left" />
+
+
+	<text name="message text"
+	      bottom_delta="-32" left="15" height="18" width="60"
+	      follows="left|top" font="SansSerif">
+	  Message:
 	</text>
-	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-130"
-	     enabled="true" follows="left|top|right" font="SansSerif"
-	     handle_edit_keys_directly="false" height="18" left="58" max_length="9"
-	     mouse_opaque="true" name="amount" select_all_on_focus_received="false"
-	     select_on_focus="false" width="57" />
+
+	<line_editor name="message" max_length="140"
+	             bottom_delta="1" left="80" height="18" right="-15"
+	             bevel_style="in" border_style="line" border_thickness="1"
+	             follows="left|top|right" font="SansSerif" />
+
+
+	<text name="amount text"
+	      bottom_delta="-28" left="15" height="18" width="70"
+	      follows="left|top" font="SansSerif">
+	  Amount:
+	</text>
+
+	<text name="currency text"
+	      bottom_delta="0" left_delta="67" height="18" width="15"
+	      follows="left|top" font="SansSerif">
+	  [CURRENCY]
+	</text>
+
+	<line_editor name="amount" max_length="9"
+	             bottom_delta="1" left_delta="18" height="18" width="70"
+	             bevel_style="in" border_style="line" border_thickness="1"
+	             follows="left|top|right" font="SansSerif" />
+
+	<button name="pay btn" label="Pay"
+	        bottom_delta="-2" left_delta="80" height="20" width="75"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+
+	<button name="cancel btn" label="Cancel"
+	        bottom="5" right="-5" height="20" width="85"
+	        font="SansSerif" halign="center" scale_image="true" />
+
+
 </floater>

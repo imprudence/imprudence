@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -111,7 +112,9 @@ public:
 		const std::string& label,
 		PermissionMask immediate_filter_perm_mask,
 		PermissionMask non_immediate_filter_perm_mask,
-		BOOL can_apply_immediately);
+		BOOL can_apply_immediately,
+		const std::string& fallback_image_name);
+
 	virtual ~LLFloaterTexturePicker();
 
 	// LLView overrides
@@ -151,6 +154,7 @@ public:
 	static void		onBtnPipette( void* userdata );
 	//static void		onBtnRevert( void* userdata );
 	static void		onBtnWhite( void* userdata );
+	static void		onBtnInvisible( void* userdata );
 	static void		onBtnNone( void* userdata );
 	static void		onBtnClear( void* userdata );
 	static void		onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
@@ -164,12 +168,14 @@ protected:
 	LLTextureCtrl*		mOwner;
 
 	LLUUID				mImageAssetID; // Currently selected texture
+	std::string			mFallbackImageName; // What to show if currently selected texture is null.
 
 	LLUUID				mWhiteImageAssetID;
+	LLUUID				mInvisibleImageAssetID;
 	LLUUID				mSpecialCurrentImageAssetID;  // Used when the asset id has no corresponding texture in the user's inventory.
 	LLUUID				mOriginalImageAssetID;
 
-	std::string         mLabel;
+	std::string			mLabel;
 
 	LLTextBox*			mTentativeLabel;
 	LLTextBox*			mResolutionLabel;
@@ -194,7 +200,8 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	const std::string& label,
 	PermissionMask immediate_filter_perm_mask,
 	PermissionMask non_immediate_filter_perm_mask,
-	BOOL can_apply_immediately)
+	BOOL can_apply_immediately,
+	const std::string& fallback_image_name)
 	:
 	LLFloater( std::string("texture picker"),
 		rect,
@@ -203,7 +210,9 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 		TEX_PICKER_MIN_WIDTH, TEX_PICKER_MIN_HEIGHT ),
 	mOwner( owner ),
 	mImageAssetID( owner->getImageAssetID() ),
+	mFallbackImageName( fallback_image_name ),
 	mWhiteImageAssetID( gSavedSettings.getString( "UIImgWhiteUUID" ) ),
+	mInvisibleImageAssetID(gSavedSettings.getString("UIImgInvisibleUUID")),
 	mOriginalImageAssetID(owner->getImageAssetID()),
 	mLabel(label),
 	mTentativeLabel(NULL),
@@ -225,6 +234,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	childSetAction("Default",LLFloaterTexturePicker::onBtnSetToDefault,this);
 	childSetAction("None", LLFloaterTexturePicker::onBtnNone,this);
 	childSetAction("Blank", LLFloaterTexturePicker::onBtnWhite,this);
+	childSetAction("Invisible", LLFloaterTexturePicker::onBtnInvisible,this);
 
 		
 	childSetCommitCallback("show_folders_check", onShowFolders, this);
@@ -550,7 +560,12 @@ void LLFloaterTexturePicker::draw()
 		if(mImageAssetID.notNull())
 		{
 			mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-			mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+			mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
+		}
+		else if (!mFallbackImageName.empty())
+		{
+			mTexturep = gImageList.getImageFromFile(mFallbackImageName);
+			mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 		}
 
 		if (mTentativeLabel)
@@ -560,6 +575,7 @@ void LLFloaterTexturePicker::draw()
 
 		childSetEnabled("Default",  mImageAssetID != mOwner->getDefaultImageAssetID());
 		childSetEnabled("Blank",   mImageAssetID != mWhiteImageAssetID );
+		childSetEnabled("Invisible", mOwner->getAllowInvisibleTexture() && mImageAssetID != mInvisibleImageAssetID );
 		childSetEnabled("None", mOwner->getAllowNoTexture() && !mImageAssetID.isNull() );
 
 		LLFloater::draw();
@@ -690,6 +706,15 @@ void LLFloaterTexturePicker::onBtnWhite(void* userdata)
 {
 	LLFloaterTexturePicker* self = (LLFloaterTexturePicker*) userdata;
 	self->setImageID( self->mWhiteImageAssetID );
+	self->commitIfImmediateSet();
+}
+
+
+// static
+void LLFloaterTexturePicker::onBtnInvisible(void* userdata)
+{
+	LLFloaterTexturePicker* self = (LLFloaterTexturePicker*) userdata;
+	self->setImageID(self->mInvisibleImageAssetID);
 	self->commitIfImmediateSet();
 }
 
@@ -907,6 +932,7 @@ LLTextureCtrl::LLTextureCtrl(
 	mDefaultImageName( default_image_name ),
 	mLabel( label ),
 	mAllowNoTexture( FALSE ),
+	mAllowInvisibleTexture(FALSE),
 	mImmediateFilterPermMask( PERM_NONE ),
 	mNonImmediateFilterPermMask( PERM_NONE ),
 	mCanApplyImmediately( FALSE ),
@@ -918,21 +944,21 @@ LLTextureCtrl::LLTextureCtrl(
 	mCaption = new LLTextBox( label, 
 		LLRect( 0, BTN_HEIGHT_SMALL, getRect().getWidth(), 0 ),
 		label,
-		LLFontGL::sSansSerifSmall );
+		LLFontGL::getFontSansSerifSmall() );
 	mCaption->setFollows( FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM );
 	addChild( mCaption );
 
 	S32 image_top = getRect().getHeight();
 	S32 image_bottom = BTN_HEIGHT_SMALL;
 	S32 image_middle = (image_top + image_bottom) / 2;
-	S32 line_height = llround(LLFontGL::sSansSerifSmall->getLineHeight());
+	S32 line_height = llround(LLFontGL::getFontSansSerifSmall()->getLineHeight());
 
 	mTentativeLabel = new LLTextBox( std::string("Multiple"), 
 		LLRect( 
 			0, image_middle + line_height / 2,
 			getRect().getWidth(), image_middle - line_height / 2 ),
 		std::string("Multiple"),
-		LLFontGL::sSansSerifSmall );
+		LLFontGL::getFontSansSerifSmall() );
 	mTentativeLabel->setHAlign( LLFontGL::HCENTER );
 	mTentativeLabel->setFollowsAll();
 	addChild( mTentativeLabel );
@@ -958,11 +984,15 @@ LLXMLNodePtr LLTextureCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_TEXTURE_CTRL_TAG);
+
 	node->createChild("label", TRUE)->setStringValue(getLabel());
 
 	node->createChild("default_image_name", TRUE)->setStringValue(getDefaultImageName());
 
 	node->createChild("allow_no_texture", TRUE)->setBoolValue(mAllowNoTexture);
+
+	node->createChild("allow_invisible_texture", TRUE)->setBoolValue(mAllowInvisibleTexture);
 
 	node->createChild("can_apply_immediately", TRUE)->setBoolValue(mCanApplyImmediately );
 
@@ -992,6 +1022,9 @@ LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	BOOL allow_no_texture = FALSE;
 	node->getAttributeBOOL("allow_no_texture", allow_no_texture);
 
+	BOOL allow_invisible_texture = FALSE;
+	node->getAttributeBOOL("allow_invisible_texture", allow_invisible_texture);
+
 	BOOL can_apply_immediately = FALSE;
 	node->getAttributeBOOL("can_apply_immediately", can_apply_immediately);
 
@@ -1008,6 +1041,7 @@ LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 									LLUUID(default_image_id), 
 									default_image_name );
 	texture_picker->setAllowNoTexture(allow_no_texture);
+	texture_picker->setAllowInvisibleTexture(allow_invisible_texture);
 	texture_picker->setCanApplyImmediately(can_apply_immediately);
 
 	texture_picker->initFromXML(node, parent);
@@ -1133,7 +1167,9 @@ void LLTextureCtrl::showPicker(BOOL take_focus)
 			mLabel,
 			mImmediateFilterPermMask,
 			mNonImmediateFilterPermMask,
-			mCanApplyImmediately);
+			mCanApplyImmediately,
+			mFallbackImageName);
+
 		mFloaterHandle = floaterp->getHandle();
 
 		gFloaterView->getParentFloater(this)->addDependentFloater(floaterp);
@@ -1292,16 +1328,26 @@ void LLTextureCtrl::draw()
 {
 	mBorder->setKeyboardFocusHighlight(hasFocus());
 
-	if (mImageAssetID.isNull() || !mValid)
+	if (!mValid)
 	{
 		mTexturep = NULL;
 	}
-	else
+	else if (!mImageAssetID.isNull())
 	{
 		mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-		mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+		mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 	}
-	
+	else if (!mFallbackImageName.empty())
+	{
+		// Show fallback image.
+		mTexturep = gImageList.getImageFromFile(mFallbackImageName);
+		mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
+	}
+	else	// mImageAssetID == LLUUID::null
+	{
+		mTexturep = NULL;
+	}
+
 	// Border
 	LLRect border( 0, getRect().getHeight(), getRect().getWidth(), BTN_HEIGHT_SMALL );
 	gl_rect_2d( border, mBorderColor, FALSE );
@@ -1339,7 +1385,7 @@ void LLTextureCtrl::draw()
 		 (mTexturep->getDiscardLevel() != 1) &&
 		 (mTexturep->getDiscardLevel() != 0))
 	{
-		LLFontGL* font = LLFontGL::sSansSerifBig;
+		LLFontGL* font = LLFontGL::getFontSansSerifBig();
 		font->renderUTF8(
 			mLoadingPlaceholderString, 0,
 			llfloor(interior.mLeft+10), 

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2009, Linden Research, Inc.
+ * Copyright (c) 2000-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -34,8 +35,9 @@
 
 #include "lluuid.h"
 #include "llstring.h"
-#include "llmemory.h"
+//#include "llmemory.h"
 #include "llthread.h"
+#include "llmemtype.h"
 
 const S32 MIN_IMAGE_MIP =  2; // 4x4, only used for expand/contract power of 2
 const S32 MAX_IMAGE_MIP = 11; // 2048x2048
@@ -48,7 +50,8 @@ const S32 MAX_IMAGE_AREA = MAX_IMAGE_SIZE * MAX_IMAGE_SIZE;
 const S32 MAX_IMAGE_COMPONENTS = 8;
 const S32 MAX_IMAGE_DATA_SIZE = MAX_IMAGE_AREA * MAX_IMAGE_COMPONENTS;
 
-// Note!  These CANNOT be changed without invalidating the viewer VFS files, I think?
+// Note!  These CANNOT be changed without modifying simulator code
+// *TODO: change both to 1024 when SIM texture fetching is deprecated
 const S32 FIRST_PACKET_SIZE = 600;
 const S32 MAX_IMG_PACKET_SIZE = 1000;
 
@@ -59,7 +62,6 @@ const S32 MAX_IMG_PACKET_SIZE = 1000;
 class LLImageFormatted;
 class LLImageRaw;
 class LLColor4U;
-class LLWorkerThread;
 
 typedef enum e_image_codec
 {
@@ -80,7 +82,7 @@ typedef enum e_image_codec
 class LLImage
 {
 public:
-	static void initClass(LLWorkerThread* workerthread);
+	static void initClass(const bool& useDSO);
 	static void cleanupClass();
 
 	static const std::string& getLastError();
@@ -129,7 +131,7 @@ public:
 
 protected:
 	// special accessor to allow direct setting of mData and mDataSize by LLImageFormatted
-	void setDataAndSize(U8 *data, S32 size) { mData = data; mDataSize = size; };
+	void setDataAndSize(U8 *data, S32 size) { mData = data; mDataSize = size; }
 	
 public:
 	static void generateMip(const U8 *indata, U8* mipdata, int width, int height, S32 nchannels);
@@ -190,6 +192,7 @@ public:
 	void contractToPowerOfTwo(S32 max_dim = MAX_IMAGE_SIZE, BOOL scale_image = TRUE);
 	void biasedScaleToPowerOfTwo(S32 max_dim = MAX_IMAGE_SIZE);
 	BOOL scale( S32 new_width, S32 new_height, BOOL scale_image = TRUE );
+	BOOL scaleDownWithoutBlending( S32 new_width, S32 new_height) ;
 
 	// Fill the buffer with a constant color
 	void fill( const LLColor4U& color );
@@ -237,6 +240,8 @@ protected:
 	void compositeRowScaled4onto3( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len );
 
 	U8	fastFractionalMult(U8 a,U8 b);
+
+	void setDataAndSize(U8 *data, S32 width, S32 height, S8 components) ;
 
 public:
 	static S32 sGlobalRawMemory;
@@ -308,7 +313,7 @@ protected:
 protected:
 	S8 mCodec;
 	S8 mDecoding;
-	S8 mDecoded;
+	S8 mDecoded;  // unused, but changing LLImage layout requires recompiling static Mac/Linux libs. 2009-01-30 JC
 	S8 mDiscardLevel;
 	
 public:

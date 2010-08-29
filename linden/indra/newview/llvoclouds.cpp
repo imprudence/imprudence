@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -61,7 +62,7 @@ LLVOClouds::LLVOClouds(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mbCanSelect = FALSE;
 	setNumTEs(1);
 	LLViewerImage* image = gImageList.getImage(gCloudTextureID);
-	image->setBoostLevel(LLViewerImage::BOOST_CLOUDS);
+	image->setBoostLevel(LLViewerImageBoostLevel::BOOST_CLOUDS);
 	setTEImage(0, image);
 }
 
@@ -100,7 +101,7 @@ void LLVOClouds::setPixelAreaAndAngle(LLAgent &agent)
 	mPixelArea = 1500*100;
 }
 
-void LLVOClouds::updateTextures(LLAgent &agent)
+void LLVOClouds::updateTextures()
 {
 	getTEImage(0)->addTextureStats(mPixelArea);
 }

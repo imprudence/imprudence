@@ -36,6 +36,8 @@
 #include "llfloaterfriends.h"
 #include "llfloatergroupinvite.h"
 #include "llfloatergroups.h"
+#include "llfloatermap.h"
+#include "llfloaterregioninfo.h"
 #include "llfloaterreporter.h"
 #include "llimview.h"
 #include "llmutelist.h"
@@ -53,23 +55,23 @@
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
 #include "llworld.h"
+#include "panelradarentry.h"
 
 
 PanelRadar::PanelRadar()
 	:
 	LLPanel(),
-	mSelectedAvatar(LLUUID::null)
+	mSelectedAvatar(LLUUID::null),
+	mSelectedDistance(-1.0f)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_radar.xml");
-
-	mChatAvatars.clear();
-	mTypingAvatars.clear();
-	mSimAvatars.clear();
 }
 
 
 BOOL PanelRadar::postBuild()
 {
+	mRadarTabs = getChild<LLTabContainer>("radar_tab_container");
+
 	mRadarList = getChild<LLScrollListCtrl>("RadarList");
 	childSetCommitCallback("RadarList", onUseRadarList, this);
 	mRadarList->setDoubleClickCallback(onClickIM);
@@ -77,31 +79,31 @@ BOOL PanelRadar::postBuild()
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
 	childSetAction("offer_teleport_btn", onClickOfferTeleport, this);
+	childSetAction("teleport_btn", onClickTeleport, this);
 	childSetAction("track_btn", onClickTrack, this);
 	childSetAction("invite_btn", onClickInvite, this);
 	childSetAction("add_btn", onClickAddFriend, this);
+	childSetAction("cam_btn", onClickCam, this);
 	childSetAction("freeze_btn", onClickFreeze, this);
 	childSetAction("eject_btn", onClickEject, this);
 	childSetAction("mute_btn", onClickMute, this);
 	childSetAction("unmute_btn", onClickUnmute, this);
 	childSetAction("ar_btn", onClickAR, this);
-	childSetAction("estate_eject_btn", onClickEjectFromEstate, this);
+	//childSetAction("estate_eject_btn", onClickEjectFromEstate, this);
+	childSetAction("estate_ban_btn", onClickBanFromEstate, this);
 
 	setDefaultBtn("im_btn");
 
-	populateRadar();
+	updateRadarInfo();
 
 	return TRUE;
 }
-
 
 PanelRadar::~PanelRadar()
 {
 }
 
-
-//static
-bool PanelRadar::isImpDev(LLUUID agent_id)
+bool PanelRadar::isImpDev(const LLUUID& agent_id)
 {
 	// We use strings here as avatar keys change across grids. 
 	// Feel free to add/remove yourself.
@@ -111,320 +113,332 @@ bool PanelRadar::isImpDev(LLUUID agent_id)
 	        agent_name == "Armin Weatherwax");
 }
 
-
-void PanelRadar::populateRadar()
+void PanelRadar::updateRadarInfo()
 {
 	if (!getVisible())
 	{
 		return;
 	}
 
-	if (visibleItemsSelected())
-	{
-		mSelectedAvatar = mRadarList->getFirstSelected()->getUUID();
-	}
-	else
-	{
-		mSelectedAvatar.setNull();
-	}
-
-	S32 scroll_pos = mRadarList->getScrollPos();
-
-	// clear count
-	std::stringstream avatar_count; 
-	avatar_count.str("");
-
-	// find what avatars you can see
-	F32 range = gSavedSettings.getF32("NearMeRange");
-	LLVector3d current_pos = gAgent.getPositionGlobal();
+	// find what avatars we can know about
 	std::vector<LLUUID> avatar_ids;
 	std::vector<LLVector3d> positions;
 	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions);
-
-	LLSD element;
-
-	mRadarList->deleteAllItems();
 
 	if (!avatar_ids.empty())
 	{
 		for (U32 i=0; i<avatar_ids.size(); i++)
 		{
-			if (avatar_ids[i] == gAgent.getID() ||
-				avatar_ids[i].isNull())
+			// This actually happens sometimes O.o
+			if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 			{
 				continue;
 			}
 
-			// Add to list only if we get their name
-			std::string fullname = getSelectedName(avatar_ids[i]);
-			if (!fullname.empty())
+			// Determine if they're in the list already--getEntry checks for null keys
+			PanelRadarEntry* entry = getEntry(avatar_ids[i]);
+
+			// If they aren't, create a new entry
+			// If they are, see if we need to update any values
+			// List them as "(Unknown)" if we can't get their name
+			if (!entry)
 			{
-				bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
-				bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
-	// [RLVa:KB] - Alternate: Imprudence-1.2.0
-				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+				mAvatars.insert(std::pair<LLUUID, PanelRadarEntry>(avatar_ids[i], PanelRadarEntry(avatar_ids[i], 
+																	getSelectedName(avatar_ids[i]),
+																	calculateDistance(avatar_ids[i], positions[i]),
+																	positions[i],
+																	RADAR_STATUS_NONE,
+																	RADAR_NOTIFIED_NONE)
+																	));
+			}
+			else
+			{
+				if (entry->getName() == getString("unknown_avatar"))
 				{
-					fullname = gRlvHandler.getAnonym(fullname);
-					notify_chat = false;
-					notify_sim = false;
+					// Try to find the name again
+					entry->setName(getSelectedName(avatar_ids[i]));
 				}
-	// [/RLVa:KB]
-
-				// check if they're in certain ranges and notify user if we've enabled that
-				LLVector3d temp = positions[i];
-				if (positions[i].mdV[VZ] == 0.0f) // LL only sends height value up to 1024m, try to work around it
+				if (entry->getPosition() != positions[i])
 				{
-					LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-					if (av_obj != NULL && av_obj->isAvatar())
-					{
-						LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-						if (avatarp != NULL)
-						{
-							temp = avatarp->getPositionGlobal();
-						}
-					}
+					entry->setPosition(positions[i]);
 				}
-				F64 distance = dist_vec(temp, current_pos); 
-				// we round for accuracy when avs tp in
-				std::string dist_string = llformat("%.1f", llround((F32)distance, 0.1f));
-
-				/*llinfos << "Avatar :" << fullname << " Position: " << positions[i] << " Your Position: " 
-					<< current_pos << " Distance: " << distance << llendl;*/
-
-				if (notify_chat)
+				if (entry->getStatusTimer().hasExpired())
 				{
-					if (distance < 20.0f)
-					{
-						if (!isInChatList(avatar_ids[i]))
-						{
-							addToChatList(avatar_ids[i], dist_string);
-						}
-					}
-					else
-					{
-						if (isInChatList(avatar_ids[i]))
-						{
-							removeFromChatList(avatar_ids[i]);
-						}
-					}
-					updateChatList(avatar_ids);
+					entry->setStatus(RADAR_STATUS_NONE);
 				}
-				else if (!mChatAvatars.empty())
-				{
-					mChatAvatars.clear();
-				}
-
-				if (notify_sim)
-				{
-					if (!isInChatList(avatar_ids[i]) && !isInSimAvList(avatar_ids[i]))
-					{
-						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-						if (av_obj != NULL && av_obj->isAvatar())
-						{
-							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-							if (avatarp != NULL)
-							{
-								if (avatarp->getRegion() == gAgent.getRegion())
-								{
-									addToSimAvList(avatar_ids[i], dist_string);
-								}
-							}
-						}
-					}
-					updateSimAvList(avatar_ids);
-				}
-				else if (!mSimAvatars.empty())
-				{
-					mSimAvatars.clear();
-				}
-
-				// only display avatars in range
-				if (distance <= range)
-				{
-					// append typing string
-					std::string typing = "";
-					if (isTyping(avatar_ids[i]))
-					{
-						typing = getString("is_typing")+ " ";
-					}
-
-					std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("is_muted") : "";
-					element["id"] = avatar_ids[i];
-					element["columns"][0]["column"] = "avatar_name";
-					element["columns"][0]["type"] = "text";
-					element["columns"][0]["value"] = typing + fullname + " " + mute_text;
-					element["columns"][1]["column"] = "avatar_distance";
-					element["columns"][1]["type"] = "text";
-					element["columns"][1]["value"] = dist_string+"m";
-
-					mRadarList->addElement(element, ADD_BOTTOM);
-				}
+				entry->setDistance(calculateDistance(avatar_ids[i], positions[i]));
 			}
 		}
+		removeDeadEntries(avatar_ids);
+	}
+	else // avatar_ids empty
+	{
+		mRadarList->deleteAllItems();
+		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
+		LLUIString av_count_string = getString("avatars_in_plural");
+		av_count_string.setArg("[COUNT]", "0");
+		childSetText("avatar_count", av_count_string.getString());
+		return;
+	}
 
-		mRadarList->sortItems();
-		mRadarList->setScrollPos(scroll_pos);
-		if (mSelectedAvatar.notNull())
-		{
-			mRadarList->selectByID(mSelectedAvatar);
-		}
-		avatar_count << (int)avatar_ids.size();
+	updateRadarDisplay();
+}
+
+void PanelRadar::updateRadarDisplay()
+{
+	if (visibleItemsSelected())
+	{
+		mSelectedAvatar = mRadarList->getFirstSelected()->getUUID();
+		//TODO: as we expand columns, make these numbers enums
+		mSelectedDistance = mRadarList->getFirstSelected()->getColumn(1)->getValue().asReal(); 
 	}
 	else
 	{
-		mTypingAvatars.clear();
-		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
-		avatar_count << "0";
+		mSelectedAvatar.setNull();
+		mSelectedDistance = -1.0f;
 	}
 
-	childSetText("lblAvatarCount", avatar_count.str());
+	S32 scroll_pos = mRadarList->getScrollPos();
+
+	LLSD element;
+
+	// Zap all the avie names. Zap zap zap!
+	mRadarList->deleteAllItems();
+
+	U32 chat_distance = gSavedSettings.getU32("ChatDistance");
+	F32 range = gSavedSettings.getF32("NearMeRange");
+	bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
+	bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	{
+		notify_chat = false;
+		notify_sim = false;
+	}
+// [/RLVa:KB]
+
+	std::map<LLUUID, PanelRadarEntry>::iterator mIt;
+	for (mIt = mAvatars.begin(); mIt != mAvatars.end(); ++mIt)
+	{
+		PanelRadarEntry* entry = &mIt->second;
+
+		LL_DEBUGS("Radar") << "Avatar :" << entry->getName()
+						   << " Position: " << entry->getPosition()
+						   << " Your Position: " << gAgent.getPositionGlobal()
+						   << " Distance: " << entry->getDistance()
+						   << " Status: " << entry->getStatus()
+						   << " Notified: " << entry->getNotified()
+						   << " Timer Seconds: " << entry->getStatusTimer().getElapsedTimeF32()
+						   << LL_ENDL;
+
+		// Check if they're in certain ranges and notify user if we've enabled that, starting with chat range
+		// We round for accuracy when avs tp in
+		std::string dist_string = llformat("%.1f", llround(entry->getDistance(), 0.1f));
+
+		// Don't notify if we don't know their name. It takes a few seconds for names to load on OpenSim, anyway
+		if (entry->getName() != getString("unknown_avatar"))
+		{
+			if (notify_sim && 
+				(entry->getNotified() < RADAR_NOTIFIED_SIM))
+			{
+				LLViewerObject *av_obj = gObjectList.findObject(entry->getID());
+				if (av_obj != NULL && av_obj->isAvatar())
+				{
+					LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+					if (avatarp != NULL)
+					{
+						if (avatarp->getRegion() == gAgent.getRegion())
+						{
+							LLChat chat;
+							LLUIString notify = getString("entering_sim_range");
+							notify.setArg("[NAME]", entry->getName());
+							notify.setArg("[DISTANCE]", dist_string);
+							chat.mText = notify;
+							chat.mSourceType = CHAT_SOURCE_SYSTEM;
+							LLFloaterChat::addChat(chat, FALSE, FALSE);
+							entry->setNotified(RADAR_NOTIFIED_SIM);
+						}
+					}
+				}
+			}
+			else if (notify_chat && 
+					(entry->getDistance() < chat_distance) && 
+					(entry->getNotified() < RADAR_NOTIFIED_CHAT))
+			{
+				LLChat chat;
+				LLUIString notify = getString("entering_chat_range");
+				notify.setArg("[NAME]", entry->getName());
+				notify.setArg("[DISTANCE]", dist_string);
+				chat.mText = notify;
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat, FALSE, FALSE);
+				entry->setNotified(RADAR_NOTIFIED_CHAT);
+			}
+		}
+
+		// Only display avatars in range
+		if (entry->getDistance() <= range)
+		{
+			// Append typing string
+			std::string typing = "";
+			if (entry->getStatus() == RADAR_STATUS_TYPING)
+			{
+				typing = getString("is_typing")+ " ";
+			}
+
+			std::string mute_text = LLMuteList::getInstance()->isMuted(entry->getID()) ? getString("is_muted") : "";
+			element["id"] = entry->getID();
+			element["columns"][0]["column"] = "avatar_name";
+			element["columns"][0]["type"] = "text";
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+			//element["columns"][0]["value"] = typing + entry->getName() + " " + mute_text;
+			std::string fullname = (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? 
+										gRlvHandler.getAnonym(fullname) : 
+										typing + entry->getName() + " " + mute_text;
+			element["columns"][0]["value"] = fullname;
+// [/RLVa:KB]
+			element["columns"][1]["column"] = "avatar_distance";
+			element["columns"][1]["type"] = "text";
+			element["columns"][1]["value"] = dist_string+"m";
+
+			mRadarList->addElement(element, ADD_BOTTOM);
+		}
+	}
+
+	mRadarList->sortItems();
+	mRadarList->setScrollPos(scroll_pos);
+	if (mSelectedAvatar.notNull())
+	{
+		mRadarList->selectByID(mSelectedAvatar);
+	}
+
+	LLUIString av_count_string = (mRadarList->getItemCount() == 1) ? getString("avatars_in_singular") : getString("avatars_in_plural");
+	av_count_string.setArg("[COUNT]", llformat("%d", mRadarList->getItemCount()));
+	childSetText("avatar_count", av_count_string.getString());
 
 	updateButtonStates();
 
-	//llinfos << "mSelectedAvatar: " << mSelectedAvatar.asString() << llendl;
+	LL_DEBUGS("Radar") << "mSelectedAvatar: " << mSelectedAvatar.asString() << LL_ENDL;
 }
 
-
-void PanelRadar::updateChatList(std::vector<LLUUID> agent_ids)
+void PanelRadar::removeDeadEntries(const std::vector<LLUUID>& agent_ids)
 {
-	std::set<LLUUID>::iterator it;
-	std::vector<LLUUID>::iterator result;
-	for (it = mChatAvatars.begin(); it != mChatAvatars.end(); )
+	if (agent_ids.empty())
 	{
-		result = find(agent_ids.begin(), agent_ids.end(), *it);
-		if (result == agent_ids.end())
+		return;
+	}
+
+	// TODO: this should really be a part of updateRadarDisplay
+	std::vector<LLUUID>::const_iterator vIt;
+	std::map<LLUUID, PanelRadarEntry>::iterator mIt;
+	for (mIt = mAvatars.begin(); mIt != mAvatars.end();)
+	{
+		vIt = std::find(agent_ids.begin(), agent_ids.end(), mIt->first);
+		if (vIt == agent_ids.end())
 		{
-			mChatAvatars.erase(it++);
+			// Remember, removing from the map triggers the entry's default dtor
+			mAvatars.erase(mIt++);
 		}
 		else
 		{
-			it++;
+			mIt++;
 		}
 	}
 }
-
-
-bool PanelRadar::isInChatList(LLUUID agent_id)
+			
+PanelRadarEntry* PanelRadar::getEntry(const LLUUID& agent_id)
 {
-	return (mChatAvatars.count(agent_id) > 0);
-}
-
-
-void PanelRadar::addToChatList(LLUUID agent_id, std::string distance)
-{
-	mChatAvatars.insert(agent_id);
-	LLChat chat;
-
-	LLUIString notify = getString("entering_chat_range");
-	notify.setArg("[NAME]", getSelectedName(agent_id));
-	notify.setArg("[DISTANCE]", distance);
-
-	chat.mText = notify;
-	chat.mSourceType = CHAT_SOURCE_SYSTEM;
-	LLFloaterChat::addChat(chat, FALSE, FALSE);	
-}
-
-
-void PanelRadar::removeFromChatList(LLUUID agent_id)
-{
-	// Do we want to add a notice?
-	mChatAvatars.erase(agent_id);
-}
-
-
-bool PanelRadar::isTyping(LLUUID agent_id)
-{
-	return (mTypingAvatars.count(agent_id) > 0);
-}
-
-
-void PanelRadar::addToTypingList(LLUUID agent_id)
-{
-	mTypingAvatars.insert(agent_id);
-}
-
-
-void PanelRadar::removeFromTypingList(LLUUID agent_id)
-{
-	mTypingAvatars.erase(agent_id);
-}
-
-
-void PanelRadar::updateSimAvList(std::vector<LLUUID> agent_ids)
-{
-	std::set<LLUUID>::iterator it;
-	std::vector<LLUUID>::iterator result;
-	for (it = mSimAvatars.begin(); it != mSimAvatars.end(); )
+	if (agent_id.isNull())
 	{
-		result = find(agent_ids.begin(), agent_ids.end(), *it);
-		if (result == agent_ids.end())
-		{
-			mSimAvatars.erase(it++);
-		}
-		else
-		{
-			it++;
-		}
+		return NULL;
 	}
-}
-
-
-void PanelRadar::addToSimAvList(LLUUID agent_id, std::string distance)
-{
-	mSimAvatars.insert(agent_id);
-	LLChat chat;
-
-	LLUIString notify = getString("entering_sim_range");
-	notify.setArg("[NAME]", getSelectedName(agent_id));
-	notify.setArg("[DISTANCE]", distance);
-
-	chat.mText = notify;
-	chat.mSourceType = CHAT_SOURCE_SYSTEM;
-	LLFloaterChat::addChat(chat, FALSE, FALSE);	
-}
-
-
-bool PanelRadar::isInSimAvList(LLUUID agent_id)
-{
-	if (mSimAvatars.count(agent_id) > 0)
+	else
 	{
-		return true;
+		std::map<LLUUID, PanelRadarEntry>::iterator mIt;
+		mIt = mAvatars.find(agent_id);
+		if (mIt != mAvatars.end())
+		{
+			return &mIt->second;
+		}
+		return NULL;
 	}
-	return false;
 }
 
+F32 PanelRadar::calculateDistance(const LLUUID& agent_id, LLVector3d agent_position)
+{
+	// LL only sends height value up to 1024m, try to work around it if we can by using draw distance
+	if (agent_position.mdV[VZ] == 0.0f)
+	{
+		LLViewerObject *av_obj = gObjectList.findObject(agent_id);
+		if (av_obj != NULL && av_obj->isAvatar())
+		{
+			LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+			if (avatarp != NULL)
+			{
+				agent_position = avatarp->getPositionGlobal();
+			}
+		}
+	}
+	return F32(dist_vec(agent_position, gAgent.getPositionGlobal())); // don't need F64 here (what dist_vec returns)
+}
+
+bool PanelRadar::isKnown(const LLUUID& agent_id)
+{
+	return (mAvatars.count(agent_id) > 0);
+}
 
 void PanelRadar::updateButtonStates()
 {
-	bool enable = false;
-	bool enable_unmute = false;
-	bool enable_track = false;
-	bool enable_estate = false;
-	bool enable_friend = false;
-	if (hasFocus())
+	static bool enable = false;
+	static bool enable_unmute = false;
+	static bool enable_track = false;
+	static bool enable_estate = false;
+	static bool enable_friend = false;
+	static bool enable_cam = false;
+
+	if (mRadarTabs->getCurrentPanelIndex() == 0) // Avatar tab
 	{
-		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : false;
-		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : false;
-		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
+		mRadarList->setDoubleClickCallback(onClickIM);
+	}
+	else // Estate tab
+	{
+		mRadarList->setDoubleClickCallback(onClickCam);
+	}
+	
+	if (hasFocus() && mSelectedAvatar.notNull())
+	{
+		enable = visibleItemsSelected();
 		enable_estate = isKickable(mSelectedAvatar);
+		enable_unmute = LLMuteList::getInstance()->isMuted(mSelectedAvatar);
+		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
 		enable_friend = !is_agent_friend(mSelectedAvatar);
+		enable_cam = mSelectedDistance >= 0 && mSelectedDistance <= gSavedSettings.getF32("NearMeRange");
 	}
 	else
 	{
 		mRadarList->deselect();
+		enable = false;
+		enable_estate = false;
+		enable_unmute = false;
+		enable_track = false;
+		enable_friend = false;
+		enable_cam = false;
 	}
 
 	childSetEnabled("im_btn", enable);
 	childSetEnabled("profile_btn", enable);
 	childSetEnabled("offer_teleport_btn", enable);
+	childSetEnabled("teleport_btn", enable);
 	childSetEnabled("track_btn", enable_track);
 	childSetEnabled("invite_btn", enable);
 	childSetEnabled("add_btn", enable);
+	childSetEnabled("cam_btn", enable_cam);
 	childSetEnabled("freeze_btn", enable_estate);
 	childSetEnabled("eject_btn", enable_estate);
 	childSetEnabled("mute_btn", enable);
 	childSetEnabled("ar_btn", enable);
-	childSetEnabled("estate_eject_btn", enable_estate);
+	//childSetEnabled("estate_eject_btn", enable_estate);
+	childSetEnabled("estate_ban_btn", enable_estate);
 
 	if (enable_unmute)
 	{
@@ -451,6 +465,8 @@ void PanelRadar::updateButtonStates()
 			childSetEnabled("add_btn", false);
 			childSetEnabled("mute_btn", false);
 			childSetEnabled("unmute_btn", false);
+			childSetEnabled("cam_btn", false);
+			childSetEnabled("teleport_btn", false);
 		}
 
 		// Even though the avie is in the same sim (so they already know
@@ -530,21 +546,35 @@ LLUUID PanelRadar::getSelected()
 }
 
 
-//static 
 std::string PanelRadar::getSelectedName(const LLUUID &agent_id)
 {
 	std::string agent_name;
-	if(gCacheName->getFullName(agent_id, agent_name) && agent_name != " ")
+	if(!(gCacheName->getFullName(agent_id, agent_name) && agent_name != " "))
 	{
-		return agent_name;
+		agent_name = getString("unknown_avatar");
 	}
-	return LLStringUtil::null;
+	return agent_name;
+}
+
+void PanelRadar::sendAvatarPropertiesRequest(const LLUUID &agent_id)
+{
+	LL_DEBUGS("Radar") << "PanelRadar::sendAvatarPropertiesRequest()" << LL_ENDL; 
+	LLMessageSystem *msg = gMessageSystem;
+
+	msg->newMessageFast(_PREHASH_AvatarPropertiesRequest);
+	msg->nextBlockFast( _PREHASH_AgentData);
+	msg->addUUIDFast(   _PREHASH_AgentID, gAgent.getID() );
+	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+	msg->addUUIDFast(   _PREHASH_AvatarID, agent_id);
+	gAgent.sendReliableMessage();
 }
 
 
-//
-// Avatar tab
-//
+//////////////////////////////////////////////////////////////
+//															//
+//						* AVATAR TAB*						//
+//															//
+//////////////////////////////////////////////////////////////
 
 // static
 void PanelRadar::onClickIM(void* user_data)
@@ -555,10 +585,9 @@ void PanelRadar::onClickIM(void* user_data)
 	{
 		LLUUID agent_id = item->getUUID();
 		gIMMgr->setFloaterOpen(TRUE);
-		gIMMgr->addSession(getSelectedName(agent_id), IM_NOTHING_SPECIAL, agent_id);
+		gIMMgr->addSession(self->getSelectedName(agent_id), IM_NOTHING_SPECIAL, agent_id);
 	}
 }
-
 
 // static
 void PanelRadar::onClickProfile(void* user_data)
@@ -572,7 +601,6 @@ void PanelRadar::onClickProfile(void* user_data)
 	}
 }
 
-
 // static
 void PanelRadar::onClickOfferTeleport(void* user_data)
 {
@@ -585,6 +613,31 @@ void PanelRadar::onClickOfferTeleport(void* user_data)
 	}
 }
 
+//static
+void PanelRadar::onClickTeleport(void* userdata)
+{
+	PanelRadar *self = (PanelRadar*)userdata;
+ 	LLScrollListItem *item =   self->mRadarList->getFirstSelected();
+
+	if (item)
+	{
+		LLUUID agent_id = item->getUUID();
+		std::string agent_name = self->getSelectedName(agent_id);
+		if (!agent_name.empty())
+		{
+			LLViewerObject *av_obj = gObjectList.findObject(agent_id);
+			if (av_obj != NULL && av_obj->isAvatar())
+			{
+				LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+				if (avatarp != NULL)
+				{
+					LLVector3d pos = avatarp->getPositionGlobal();
+					gAgent.teleportViaLocation(pos);
+				}
+			}
+		}
+	}
+}
 
 // static
 void PanelRadar::onClickTrack(void* user_data)
@@ -602,11 +655,10 @@ void PanelRadar::onClickTrack(void* user_data)
 		if (item != NULL)
 		{
 			LLUUID agent_id = item->getUUID();
-			LLTracker::trackAvatar(agent_id, getSelectedName(agent_id));
+			LLTracker::trackAvatar(agent_id, self->getSelectedName(agent_id));
 		}
 	}
 }
-
 
 // static
 void PanelRadar::onClickInvite(void* user_data)
@@ -627,7 +679,6 @@ void PanelRadar::onClickInvite(void* user_data)
 	}
 }
 
-
 // static
 void PanelRadar::callback_invite_to_group(LLUUID group_id, void *user_data)
 {
@@ -637,7 +688,6 @@ void PanelRadar::callback_invite_to_group(LLUUID group_id, void *user_data)
 	LLFloaterGroupInvite::showForGroup(group_id, &agent_ids);
 }
 
-
 // static
 void PanelRadar::onClickAddFriend(void* user_data)
 {
@@ -646,83 +696,142 @@ void PanelRadar::onClickAddFriend(void* user_data)
 	if (item != NULL)
 	{
 		LLUUID agent_id = item->getUUID();
-		LLPanelFriends::requestFriendshipDialog(agent_id, getSelectedName(agent_id));
+		LLPanelFriends::requestFriendshipDialog(agent_id, self->getSelectedName(agent_id));
 	}
 }
 
 
+//////////////////////////////////////////////////////////////
+//															//
+//						* ESTATE TAB *						//
+//															//
+//////////////////////////////////////////////////////////////
 
-//
-// Estate tab
-//
-
-//static 
-void PanelRadar::callbackFreeze(S32 option, void *user_data)
+// static 
+void PanelRadar::onClickCam(void* user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
+	self->lookAtAvatar(self->getSelected());
+}
 
-	if ( option == 0 )
+void PanelRadar::lookAtAvatar(const LLUUID& agent_id)
+{
+    LLViewerObject* voavatar = gObjectList.findObject(agent_id);
+    if (voavatar && voavatar->isAvatar())
+    {
+        gAgent.setFocusOnAvatar(FALSE, FALSE);
+        gAgent.changeCameraToThirdPerson();
+        gAgent.setFocusGlobal(voavatar->getPositionGlobal(), agent_id);
+        gAgent.setCameraPosAndFocusGlobal(voavatar->getPositionGlobal() 
+                + LLVector3d(3.5,1.35,0.75) * voavatar->getRotation(), 
+                                                voavatar->getPositionGlobal(), 
+                                                agent_id );
+    }
+}
+
+//static
+bool PanelRadar::callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
 	{
 		sendFreeze(self->mSelectedAvatar, true);
 	}
-	else if ( option == 1 )
+	else if (option == 1)
 	{
 		sendFreeze(self->mSelectedAvatar, false);
 	}
+	return false;
 }
 
-
-//static 
-void PanelRadar::callbackEject(S32 option, void *user_data)
+//static
+bool PanelRadar::callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
- 
-	if ( option == 0 )
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
 	{
 		sendEject(self->mSelectedAvatar, false);
 	}
-	else if ( option == 1 )
+	else if (option == 1)
 	{
 		sendEject(self->mSelectedAvatar, true);
 	}
+	return false;
 }
 
+//static
+//bool PanelRadar::callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self)
+//{
+//	S32 option = LLNotification::getSelectedOption(notification, response);
+//	if (option == 0)
+//	{
+//		strings_t strings;
+//		strings.push_back(self->getSelected().asString());
+//		sendEstateOwnerMessage(gMessageSystem, "kickestate", LLFloaterRegionInfo::getLastInvoice(), strings);
+//	} 
+//	return false;
+//}
 
-//static 
-void PanelRadar::callbackEjectFromEstate(S32 option, void *user_data)
+// static
+bool PanelRadar::callbackBanFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
-
-	if ( option == 0 )
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
 	{
-		cmdEstateEject(self->mSelectedAvatar);
-	} 
-	else if ( option == 1 )
-	{
-		cmdEstateBan(self->mSelectedAvatar);
+		LLPanelEstateInfo::sendEstateAccessDelta(ESTATE_ACCESS_BANNED_AGENT_ADD | ESTATE_ACCESS_ALLOWED_AGENT_REMOVE | ESTATE_ACCESS_NO_REPLY, self->getSelected());
 	}
+	else if (option == 1)
+	{
+		LLViewerRegion* regionp = gAgent.getRegion();
+		if (regionp)
+		{
+			U32 flags = ESTATE_ACCESS_BANNED_AGENT_ADD | ESTATE_ACCESS_ALLOWED_AGENT_REMOVE | ESTATE_ACCESS_NO_REPLY;
+			if (regionp->getOwner() == gAgent.getID() || gAgent.isGodlike())
+			{
+				flags |= ESTATE_ACCESS_APPLY_TO_ALL_ESTATES;
+			}
+			else if (regionp->isEstateManager())
+			{
+				flags |= ESTATE_ACCESS_APPLY_TO_MANAGED_ESTATES;
+			}
+			LLPanelEstateInfo::sendEstateAccessDelta(flags, self->getSelected());
+		}
+	}
+	return false;
 }
 
-
+// static
 void PanelRadar::onClickFreeze(void *user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
-	args["[AVATAR_NAME]"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("FreezeAvatarFullname",	args, callbackFreeze, user_data);
+	LLSD args;
+	args["AVATAR_NAME"] = self->getSelectedName(self->mSelectedAvatar);
+	LLNotifications::instance().add("FreezeAvatarFullname", 
+		args, 
+		LLSD(), 
+		boost::bind(&callbackFreeze, _1, _2, self));
+}
+
+
+// static
+void PanelRadar::onClickUnfreeze(void *user_data)
+{
+	PanelRadar *self = (PanelRadar*)user_data;
+	sendFreeze(self->getSelected(), false);
 }
 
 
 //static
-void PanelRadar::onClickEject(void *user_data)
-{
-	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
-	args["AVATAR_NAME"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("EjectAvatarFullName", args, callbackEject, user_data);
-}
+//void PanelRadar::onClickEjectFromEstate(void *user_data)
+//{
+//	PanelRadar *self = (PanelRadar*)user_data;
+//	LLSD args;
+//	args["AVATAR_NAME"] = self->getSelectedName(self->mSelectedAvatar);
+//	LLNotifications::instance().add("EjectAvatarFullnameNoBan", 
+//		args, 
+//		LLSD(), 
+//		boost::bind(&callbackEjectFromEstate, _1, _2, self));
+//}
 
 
 //static
@@ -733,7 +842,7 @@ void PanelRadar::onClickMute(void *user_data)
 	if (item != NULL)
 	{
 		LLUUID agent_id = item->getUUID();
-		std::string agent_name = getSelectedName(agent_id);
+		std::string agent_name = self->getSelectedName(agent_id);
 		if (LLMuteList::getInstance()->isMuted(agent_id))
 		{
 			//LLMute mute(agent_id, agent_name, LLMute::AGENT);
@@ -757,7 +866,7 @@ void PanelRadar::onClickUnmute(void *user_data)
 	if (item != NULL)
 	{
 		LLUUID agent_id = item->getUUID();
-		std::string agent_name = getSelectedName(agent_id);
+		std::string agent_name = self->getSelectedName(agent_id);
 		if (LLMuteList::getInstance()->isMuted(agent_id))
 		{
 			LLMute mute(agent_id, agent_name, LLMute::AGENT);
@@ -774,13 +883,15 @@ void PanelRadar::onClickUnmute(void *user_data)
 
 
 //static
-void PanelRadar::onClickEjectFromEstate(void *user_data)
+void PanelRadar::onClickEject(void *user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
-	args["EVIL_USER"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("EstateKickUser", args, callbackEjectFromEstate, user_data);
+	LLSD args;
+	args["EVIL_USER"] = self->getSelectedName(self->mSelectedAvatar);
+	LLNotifications::instance().add("EstateKickUser", 
+		args, 
+		LLSD(),
+		boost::bind(&callbackEject, _1, _2, self));
 }
 
 
@@ -794,6 +905,16 @@ void PanelRadar::onClickAR(void *user_data)
 	{
 			LLFloaterReporter::showFromObject(agent_id);
 	}
+}
+
+
+//static
+void PanelRadar::onClickBanFromEstate(void *user_data)
+{
+	PanelRadar *self = (PanelRadar*)user_data;
+	LLSD args;
+	args["ALL_ESTATES"] = "all estates";
+	LLNotifications::instance().add("EstateBannedAgentAdd", args, LLSD(), boost::bind(&callbackBanFromEstate, _1, _2, self));
 }
 
 
@@ -933,3 +1054,37 @@ void PanelRadar::sendEstateBan(const LLUUID& agent)
 
 	gAgent.sendReliableMessage();
 }
+
+//typedef std::vector<std::string> strings_t;
+//static void sendEstateOwnerMessage(
+//	LLMessageSystem* msg,
+//	const std::string& request,
+//	const LLUUID& invoice,
+//	const strings_t& strings)
+//{
+//	llinfos << "Sending estate request '" << request << "'" << llendl;
+//	msg->newMessage("EstateOwnerMessage");
+//	msg->nextBlockFast(_PREHASH_AgentData);
+//	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+//	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+//	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null); //not used
+//	msg->nextBlock("MethodData");
+//	msg->addString("Method", request);
+//	msg->addUUID("Invoice", invoice);
+//	if(strings.empty())
+//	{
+//		msg->nextBlock("ParamList");
+//		msg->addString("Parameter", NULL);
+//	}
+//	else
+//	{
+//		strings_t::const_iterator it = strings.begin();
+//		strings_t::const_iterator end = strings.end();
+//		for(; it != end; ++it)
+//		{
+//			msg->nextBlock("ParamList");
+//			msg->addString("Parameter", *it);
+//		}
+//	}
+//	msg->sendReliable(gAgent.getRegion()->getHost());
+//}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(unknown)" name="im_floater" title="(unknown)">
+	<string name="ringing">
+		Sesli sohbete bağlanılıyor...
+	</string>
+	<string name="connected">
+		Bağlandı, kapatmak için Kapat butonuna tıklayınız
+	</string>
+	<string name="hang_up">
+		Sesli sohbet terk edildi
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		[NAME] ile hızlı mesajlaşma
+	</string>
+	<string name="typing_start_string">
+		[NAME] yazıyor...
+	</string>
+	<string name="session_start_string">
+		[NAME] ile oturum başlatılıyor,lütfen bekleyiniz.
+	</string>
+	<string name="moderated_chat_label">
+		(Konuşma devre dışı)
+	</string>
+	<string name="default_text_label">
+		Hızlı mesaj yazmak için buraya tıklayınız.
+	</string>
+	<string name="muted_text_label">
+		Sohbet yazınız grup sorumlusu tarafından engellendi.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Grup bilgisi" name="group_info_btn" />
+			<button label="Ara" name="start_call_btn" halign="center"/>
+			<button label="Kapat" name="end_call_btn" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Bu HM oturumundaki etkin konuşmacıların listesini görmek için buraya tıklayınız." />
+			<button label="Gönder" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+</floater>

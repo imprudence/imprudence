@@ -11,7 +11,7 @@
 	</text>
 	<check_box bottom="-46" control_name="RenderAnisotropic" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Anisotropic Filtering (slower when enabled)" left="148"
+	     label="Anisotropic filtering (slower when enabled)" left="148"
 	     mouse_opaque="true" name="ani" radio_style="false" width="256" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		bottom="-61" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -59,7 +59,7 @@
 	</text>
 	<check_box bottom_delta="-5" control_name="RenderVBOEnable" enabled="true" follows="left|top"
 		font="SansSerifSmall" height="16" initial_value="true"
-		label="Enable OpenGL Vertex Buffer Objects" left="148"
+		label="Enable OpenGL vertex buffer objects" left="148"
 		mouse_opaque="true" name="vbo" radio_style="false"
 		tool_tip="Enabling this on modern hardware gives a performance gain.  However, older hardware often has poor implementations of VBOs and you may get crashes when this is enabled."
 		width="315" />

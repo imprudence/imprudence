@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -108,7 +109,7 @@ LLWLParamManager::~LLWLParamManager()
 void LLWLParamManager::loadPresets(const std::string& file_name)
 {
 	std::string path_name(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/skies", ""));
-	LL_INFOS2("AppInit", "Shaders") << "Loading Default WindLight settings from " << path_name << LL_ENDL;
+	LL_DEBUGS2("AppInit", "ShaderLoading") << "Loading Default WindLight settings from " << path_name << LL_ENDL;
 			
 	bool found = true;			
 	while(found) 
@@ -195,7 +196,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	escaped_filename += ".xml";
 
 	std::string pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/skies", escaped_filename));
-	llinfos << "Loading WindLight sky setting from " << pathName << llendl;
+	LL_DEBUGS2("AppInit", "Shaders") << "Loading WindLight sky setting from " << pathName << LL_ENDL; 
 
 	llifstream presetsXML;
 	presetsXML.open(pathName.c_str());
@@ -204,7 +205,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	if(!presetsXML)
 	{
 		pathName=gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/skies", escaped_filename);
-		llinfos << "Loading User WindLight sky setting from " << pathName << llendl;
+		LL_DEBUGS2("AppInit", "Shaders")<< "Loading User WindLight sky setting from "  << LL_ENDL; 
 		presetsXML.open(pathName.c_str());
 	}
 

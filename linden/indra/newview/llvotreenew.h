@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -155,7 +156,7 @@ public:
 	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
 
 	/*virtual*/ void render(LLAgent &agent);
-	/*virtual*/ void updateTextures(LLAgent &agent);
+	/*virtual*/ void updateTextures();
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);

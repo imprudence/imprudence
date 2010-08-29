@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<string name="Redock Windows">
+		Перезакріпити Вікна
+	</string>
+	<layout_stack name="toolbar_stack">
+		<button label="" name="chat_btn" tool_tip="Показати Рядок Чату." />
+		<flyout_button label="Спілкуватися" name="communicate_btn"
+		     tool_tip="Спілкуватися зі своїми Друзями і Групами" />
+		<button label="Літати" label_selected="Зупин. Політ" name="fly_btn"
+		     tool_tip="Почати Політ. Використовуйте E/C або PgUp/PgDn, щоб летіти вгору або вниз." />
+		<button label="Скріншот" name="snapshot_btn"
+		     tool_tip="Зберегти скріншот на диск або в інвентар." />
+		<button label="Пошук" name="directory_btn"
+		     tool_tip="Шукати місця, події, людей і інше." />
+		<button label="Будувати" name="build_btn"
+		     tool_tip="Створювати нові об&apos;єкти." />
+		<button label="Карта" name="map_btn" tool_tip="Карта світу. (Ctrl-M)" />
+		<button label="Міні-Карта" name="radar_btn"
+		     tool_tip="Карта площі навкруги Вас. (Ctrl-Shift-M)" />
+		<button label="Інвентар" name="inventory_btn"
+		     tool_tip="Ваші предмети. (Ctrl-I)" />
+	</layout_stack>
+</panel>

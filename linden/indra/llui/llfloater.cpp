@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -147,6 +148,7 @@ LLFloater::LLFloater() :
 	}
 	mDragHandle = NULL;
 	mHandle.bind(this);
+	mNotificationContext = new LLFloaterNotificationContext(getHandle());
 }
 
 LLFloater::LLFloater(const std::string& name)
@@ -220,6 +222,7 @@ void LLFloater::initFloater(const std::string& title,
 					 BOOL drag_on_left, BOOL minimizable, BOOL close_btn)
 {
 	mHandle.bind(this);
+	mNotificationContext = new LLFloaterNotificationContext(getHandle());
 
 	// Init function can be called more than once, so clear out old data.
 	for (S32 i = 0; i < BUTTON_COUNT; i++)
@@ -429,6 +432,9 @@ void LLFloater::initFloater(const std::string& title,
 // virtual
 LLFloater::~LLFloater()
 {
+	delete mNotificationContext;
+	mNotificationContext = NULL;
+
 	control_map_t::iterator itor;
 	for (itor = mFloaterControls.begin(); itor != mFloaterControls.end(); ++itor)
 	{
@@ -685,11 +691,11 @@ void LLFloater::applyTitle()
 
 	if (isMinimized() && !mShortTitle.empty())
 	{
-		mDragHandle->setTitle( mShortTitle );
+		mDragHandle->setTitle( mShortTitle.getString() );
 	}
 	else
 	{
-		mDragHandle->setTitle ( mTitle );
+		mDragHandle->setTitle ( mTitle.getString() );
 	}
 }
 
@@ -700,7 +706,7 @@ const std::string& LLFloater::getCurrentTitle() const
 
 void LLFloater::setTitle( const std::string& title )
 {
-	mTitle = title;
+	mTitle.assign(title);
 	applyTitle();
 }
 
@@ -712,13 +718,13 @@ std::string LLFloater::getTitle()
 	}
 	else
 	{
-		return mTitle;
+		return mTitle.getString();
 	}
 }
 
 void LLFloater::setShortTitle( const std::string& short_title )
 {
-	mShortTitle = short_title;
+	mShortTitle.assign(short_title);
 	applyTitle();
 }
 
@@ -730,10 +736,24 @@ std::string LLFloater::getShortTitle()
 	}
 	else
 	{
-		return mShortTitle;
+		return mShortTitle.getString();
 	}
 }
 
+
+BOOL LLFloater::setTitleArg( const std::string& key, const LLStringExplicit& text )
+{
+	mTitle.setArg(key, text);
+	applyTitle();
+	return TRUE;
+}
+
+BOOL LLFloater::setShortTitleArg( const std::string& key, const LLStringExplicit& text )
+{
+	mShortTitle.setArg(key, text);
+	applyTitle();
+	return TRUE;
+}
 
 
 BOOL LLFloater::canSnapTo(const LLView* other_view)
@@ -774,7 +794,7 @@ void LLFloater::snappedTo(const LLView* snap_view)
 
 void LLFloater::userSetShape(const LLRect& new_rect)
 {
-	const LLRect& old_rect = getRect();
+	const LLRect old_rect = getRect();
 	LLView::userSetShape(new_rect);
 
 	// if not minimized, adjust all snapped dependents to new shape
@@ -1703,7 +1723,7 @@ void LLFloater::buildButtons()
 			LLStringUtil::null,
 			sButtonCallbacks[i],
 			this,
-			LLFontGL::sSansSerif);
+			LLFontGL::getFontSansSerif());
 
 		buttonp->setTabStop(FALSE);
 		buttonp->setFollowsTop();
@@ -2151,6 +2171,37 @@ void LLFloaterView::destroyAllChildren()
 	LLView::deleteAllChildren();
 }
 
+void LLFloaterView::minimizeAllChildren()	
+{
+	// iterate over a copy of the list, because closing windows will destroy
+	// some windows on the list.
+	child_list_t child_list = *(getChildList());
+
+	for (child_list_const_iter_t it = child_list.begin(); it != child_list.end(); ++it)
+	{
+		LLView* viewp = *it;
+		child_list_const_iter_t exists = std::find(getChildList()->begin(), getChildList()->end(), viewp);
+		if (exists == getChildList()->end())
+		{
+			// this floater has already been removed
+			continue;
+		}
+
+		LLFloater* floaterp = (LLFloater*)viewp;
+
+		if (floaterp)
+		{
+			if (!floaterp->isDead()  
+				&& floaterp->getVisible()
+				&& floaterp->isMinimizeable() 
+				&& !floaterp->isMinimized())
+			{
+				floaterp->setMinimized(TRUE);
+			}
+		}
+	}
+}
+
 void LLFloaterView::closeAllChildren(bool app_quitting)
 {
 	// iterate over a copy of the list, because closing windows will destroy
@@ -2507,6 +2558,15 @@ LLMultiFloater::LLMultiFloater(
 	
 }
 
+// virtual
+LLXMLNodePtr LLMultiFloater::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLFloater::getXML();
+
+	node->setName(LL_MULTI_FLOATER_TAG);
+
+	return node;
+}
 
 void LLMultiFloater::open()	/* Flawfinder: ignore */
 {
@@ -2929,6 +2989,8 @@ void LLMultiFloater::updateResizeLimits()
 LLXMLNodePtr LLFloater::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLPanel::getXML();
+
+	node->setName(LL_FLOATER_TAG);
 
 	node->createChild("title", TRUE)->setStringValue(getCurrentTitle());
 

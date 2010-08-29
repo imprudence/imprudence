@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -71,6 +72,8 @@
 #include "llchatbar.h"
 #include "lllogchat.h"
 #include "lltexteditor.h"
+#include "lltextparser.h"
+#include "llfloaterhtml.h"
 #include "llweb.h"
 #include "llstylemap.h"
 
@@ -205,6 +208,7 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// extract out the sender name and replace it with the hotlinked name.
 	if (chat.mSourceType == CHAT_SOURCE_AGENT &&
 		chat.mFromID != LLUUID::null &&
+		chat.mFromID != gAgent.getID() &&
 // [RLVa] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
 		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
 // [/RLVa]
@@ -215,10 +219,10 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// If the chat line has an associated url, link it up to the name.
 	if ((!chat.mURL.empty() && line.length() > chat.mFromName.length()) && 
 		(line.find(chat.mFromName,0) == 0 || (line.find(chat.mFromName,0) == 4 &&
-		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight
+		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight -- MC
 	{
 		std::string start_line;
-		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: "
+		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: " -- MC
 		{
 			start_line = line.substr(4, chat.mFromName.length() + 1);
 			std::string source = line.substr(0, 4);
@@ -330,6 +334,9 @@ void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
 
 	history_editor->setParseHTML(TRUE);
 	history_editor_with_mute->setParseHTML(TRUE);
+	
+	history_editor->setParseHighlights(TRUE);
+	history_editor_with_mute->setParseHighlights(TRUE);
 	
 	if (!chat.mMuted)
 	{
@@ -495,9 +502,12 @@ void LLFloaterChat::addChat(const LLChat& chat,
 	if(from_instant_message && gSavedPerAccountSettings.getBOOL("LogChatIM"))
 		log_chat_text(chat);
 	
-	if(from_instant_message && gSavedSettings.getBOOL("IMInChatHistory"))
+	if(from_instant_message && gSavedSettings.getBOOL("IMInChatHistory")) 	 
 		addChatHistory(chat,false);
-	
+
+	LLTextParser* highlight = LLTextParser::getInstance();
+	highlight->triggerAlerts(gAgent.getID(), gAgent.getPositionGlobal(), chat.mText, gViewerWindow->getWindow());
+
 	if(!from_instant_message)
 		addChatHistory(chat);
 }

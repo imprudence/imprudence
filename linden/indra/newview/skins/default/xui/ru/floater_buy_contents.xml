@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_buy_contents" title="Купить Содержимое" width="340" min_width="340">
+	<text name="contains_text">
+		[NAME] содержит:
+	</text>
+	<scroll_list name="item_list" width="310"/>
+	<text name="buy_text" width="320">
+		Купить за L$[AMOUNT] у [NAME]?
+	</text>
+	<button label="Отмена" label_selected="Отмена" name="cancel_btn" left="256"/>
+	<button label="Купить" label_selected="Купить" name="buy_btn" />
+	<check_box label="Надеть одежду сейчас" name="wear_check" left_delta="-179"/>
+	<string name="no_copy_text">
+		(не копировать)
+	</string>
+	<string name="no_modify_text">
+		(не модифицировать)
+	</string>
+	<string name="no_transfer_text">
+		(не передавать)
+	</string>
+</floater>

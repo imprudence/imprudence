@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -76,6 +77,7 @@ public:
 protected:
 	void updateEnabled(bool autoenable);
 	void terminate();
+	void handleRun(F32 inc);
 	void agentSlide(F32 inc);
 	void agentPush(F32 inc);
 	void agentFly(F32 inc);
@@ -96,6 +98,7 @@ private:
 	F32						mPerfScale;
 	bool					mCameraUpdated;
 	bool 					mOverrideCamera;
+	U32						mJoystickRun;
 	
 	static F32				sLastDelta[7];
 	static F32				sDelta[7];

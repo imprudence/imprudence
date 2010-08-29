@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		Nazwa:
+	</text>
+	<text name="description_label">
+		Opis:
+	</text>
+	<text name="preview_label">
+		Pliki do załadowania:
+	</text>
+	<button label="Anuluj" name="cancel_btn" />
+	<button label="Załaduj (L$10)" name="ok_btn" />
+	<text name="preview_label2">
+		Przegląd Obrazu:
+	</text>
+</floater>

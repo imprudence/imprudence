@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="Berendezés: Megjelölt helyszínek">
+	<check_box label="Mappák megjelenítése" name="show_folders_check" />
+	<button label="Új" label_selected="Új" name="New" />
+	<button label="Átnevez" label_selected="Átnevez" name="Rename" />
+	<button label="Új mappa" label_selected="Új mappa" name="NewFolder" />
+	<button label="Szerkeszt" label_selected="Szerkeszt" name="Edit" />
+	<button label="Töröl" label_selected="Töröl" name="Delete" />
+	<button label="Bezár" label_selected="Bezár" name="Close" />
+</floater>

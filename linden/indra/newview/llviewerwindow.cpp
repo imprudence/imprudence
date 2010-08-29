@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -69,7 +70,6 @@
 #include "object_flags.h"
 #include "lltimer.h"
 #include "timing.h"
-#include "llviewermenu.h"
 
 // newview includes
 #include "llagent.h"
@@ -114,6 +114,7 @@
 #include "llhudview.h"
 #include "llimagebmp.h"
 #include "llimagej2c.h"
+#include "llimageworker.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
@@ -182,6 +183,9 @@
 #include "llviewernetwork.h"
 #include "llpostprocess.h"
 
+#include "llfloatertest.h" // HACK!
+#include "llfloaternotificationsconsole.h"
+
 #if LL_WINDOWS
 #include <tchar.h> // For Unicode conversion methods
 #endif
@@ -189,7 +193,7 @@
 //
 // Globals
 //
-void render_ui();
+void render_ui(F32 zoom_factor = 1.f, int subfield = 0);
 LLBottomPanel* gBottomPanel = NULL;
 
 extern BOOL gDebugClicks;
@@ -244,6 +248,7 @@ std::string	LLViewerWindow::sSnapshotDir;
 std::string	LLViewerWindow::sMovieBaseName;
 
 extern void toggle_debug_menus(void*);
+
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -441,7 +446,7 @@ public:
 			if (gPipeline.mBatchCount > 0)
 			{
 				addText(xpos, ypos, llformat("Batch min/max/mean: %d/%d/%d", gPipeline.mMinBatchSize, gPipeline.mMaxBatchSize, 
-					gPipeline.mMeanBatchSize));
+					gPipeline.mTrianglesDrawn/gPipeline.mBatchCount));
 
 				gPipeline.mMinBatchSize = gPipeline.mMaxBatchSize;
 				gPipeline.mMaxBatchSize = 0;
@@ -458,9 +463,46 @@ public:
 			
 			ypos += y_inc;
 
+			addText(xpos,ypos, llformat("%d Lights visible", LLPipeline::sVisibleLightCount));
+			
+			ypos += y_inc;
+
 			LLVertexBuffer::sBindCount = LLImageGL::sBindCount = 
 				LLVertexBuffer::sSetCount = LLImageGL::sUniqueCount = 
-				gPipeline.mNumVisibleNodes = 0;
+				gPipeline.mNumVisibleNodes = LLPipeline::sVisibleLightCount = 0;
+		}
+		if (gSavedSettings.getBOOL("DebugShowRenderMatrices"))
+		{
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLProjection[12], gGLProjection[13], gGLProjection[14], gGLProjection[15]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLProjection[8], gGLProjection[9], gGLProjection[10], gGLProjection[11]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLProjection[4], gGLProjection[5], gGLProjection[6], gGLProjection[7]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLProjection[0], gGLProjection[1], gGLProjection[2], gGLProjection[3]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, "Projection Matrix");
+			ypos += y_inc;
+
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLModelView[12], gGLModelView[13], gGLModelView[14], gGLModelView[15]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLModelView[8], gGLModelView[9], gGLModelView[10], gGLModelView[11]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLModelView[4], gGLModelView[5], gGLModelView[6], gGLModelView[7]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, llformat("%.4f    .%4f    %.4f    %.4f", gGLModelView[0], gGLModelView[1], gGLModelView[2], gGLModelView[3]));
+			ypos += y_inc;
+
+			addText(xpos, ypos, "View Matrix");
+			ypos += y_inc;
 		}
 		if (gSavedSettings.getBOOL("DebugShowColor"))
 		{
@@ -513,7 +555,7 @@ public:
 			 iter != mLineList.end(); ++iter)
 		{
 			const Line& line = *iter;
-			LLFontGL::sMonospace->renderUTF8(line.text, 0, (F32)line.x, (F32)line.y, mTextColor,
+			LLFontGL::getFontMonospace()->renderUTF8(line.text, 0, (F32)line.x, (F32)line.y, mTextColor,
 											 LLFontGL::LEFT, LLFontGL::TOP,
 											 LLFontGL::NORMAL, S32_MAX, S32_MAX, NULL, FALSE);
 		}
@@ -1092,8 +1134,9 @@ void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 	case SLURL_MESSAGE_TYPE:
 		// received URL
 		std::string url = (const char*)data;
-		const bool from_external_browser = true;
-		if (LLURLDispatcher::dispatch(url, from_external_browser))
+		LLWebBrowserCtrl* web = NULL;
+		const bool trusted_browser = false;
+		if (LLURLDispatcher::dispatch(url, web, trusted_browser))
 		{
 			// bring window to foreground, as it has just been "launched" from a URL
 			mWindow->bringToFront();
@@ -1172,6 +1215,12 @@ LLViewerWindow::LLViewerWindow(
 	mIsFullscreenChecked(false),
 	mCurrResolutionIndex(0)
 {
+	LLNotificationChannel::buildChannel("VW_alerts", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "alert"));
+	LLNotificationChannel::buildChannel("VW_alertmodal", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "alertmodal"));
+
+	LLNotifications::instance().getChannel("VW_alerts")->connectChanged(&LLViewerWindow::onAlert);
+	LLNotifications::instance().getChannel("VW_alertmodal")->connectChanged(&LLViewerWindow::onAlert);
+
 	// Default to application directory.
 	LLViewerWindow::sSnapshotBaseName = "Snapshot";
 	LLViewerWindow::sMovieBaseName = "SLmovie";
@@ -1261,6 +1310,7 @@ LLViewerWindow::LLViewerWindow(
 
 	// Init the image list.  Must happen after GL is initialized and before the images that
 	// LLViewerWindow needs are requested.
+	LLImageGL::initClass(LLViewerImageBoostLevel::MAX_GL_IMAGE_CATEGORY) ;
 	gImageList.init();
 	LLViewerImage::initClass();
 	gBumpImageList.init();
@@ -1282,8 +1332,6 @@ LLViewerWindow::LLViewerWindow(
 	mOverlayTitle = gSavedSettings.getString("OverlayTitle");
 	// Can't have spaces in settings.ini strings, so use underscores instead and convert them.
 	LLStringUtil::replaceChar(mOverlayTitle, '_', ' ');
-
-	LLAlertDialog::setDisplayCallback(alertCallback); // call this before calling any modal dialogs
 
 	// sync the keyboard's setting with the saved setting
 	gSavedSettings.getControl("NumpadControl")->firePropertyChanged();
@@ -1367,33 +1415,16 @@ void LLViewerWindow::initBase()
 	gFloaterView->setVisible(TRUE);
 
 	gSnapshotFloaterView = new LLSnapshotFloaterView("Snapshot Floater View", full_window);
-	gSnapshotFloaterView->setVisible(TRUE);
+	// Snapshot floater must start invisible otherwise it eats all
+	// the tooltips. JC
+	gSnapshotFloaterView->setVisible(FALSE);
 
 	// Console
 	llassert( !gConsole );
-	LLRect console_rect = full_window;
-	console_rect.mTop    -= 24;
-
-	console_rect.mBottom += getChatConsoleBottomPad();
-
-	// TODO: Eliminate magic constants - please used named constants if changing this - don't be a programmer hater
-	console_rect.mLeft   += 24; //gSavedSettings.getS32("StatusBarButtonWidth") + gSavedSettings.getS32("StatusBarPad");
-
-	if (gSavedSettings.getBOOL("ChatFullWidth"))
-	{
-		console_rect.mRight -= 10;
-	}
-	else
-	{
-		// Make console rect somewhat narrow so having inventory open is
-		// less of a problem.
-		console_rect.mRight  = console_rect.mLeft + 2 * width / 3;
-	}
-
 	gConsole = new LLConsole(
 		"console",
 		gSavedSettings.getS32("ConsoleBufferSize"),
-		console_rect,
+		getChatConsoleRect(),
 		gSavedSettings.getS32("ChatFontSize"),
 		gSavedSettings.getF32("ChatPersistTime") );
 	gConsole->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
@@ -1473,13 +1504,24 @@ void adjust_rect_top_right(const std::string& control, const LLRect& window)
 	}
 }
 
+// *TODO: Adjust based on XUI XML
+const S32 TOOLBAR_HEIGHT = 64;
+
+void adjust_rect_bottom_left(const std::string& control, const LLRect& window)
+{
+	LLRect r = gSavedSettings.getRect(control);
+	if (r.mLeft == 0 && r.mBottom == 0)
+	{
+		r.setOriginAndSize(0, TOOLBAR_HEIGHT, r.getWidth(), r.getHeight());
+		gSavedSettings.setRect(control, r);
+	}
+}
+
 void adjust_rect_bottom_center(const std::string& control, const LLRect& window)
 {
 	LLRect r = gSavedSettings.getRect(control);
 	if (r.mLeft == 0 && r.mBottom == 0)
 	{
-		// *TODO: Adjust based on XUI XML
-		const S32 TOOLBAR_HEIGHT = 64;
 		r.setOriginAndSize(
 			window.getWidth()/2 - r.getWidth()/2,
 			TOOLBAR_HEIGHT,
@@ -1537,6 +1579,23 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 	adjust_rect_top_right("FloaterLagMeter", window);
 
 	adjust_rect_top_left("FloaterBuildOptionsRect", window);
+
+	adjust_rect_bottom_left("FloaterActiveSpeakersRect", window);
+
+	adjust_rect_bottom_left("FloaterBumpRect", window);
+
+	adjust_rect_bottom_left("FloaterRegionInfo", window);
+
+	adjust_rect_bottom_left("FloaterEnvRect", window);
+
+	adjust_rect_bottom_left("FloaterAdvancedSkyRect", window);
+
+	adjust_rect_bottom_left("FloaterAdvancedWaterRect", window);
+
+	adjust_rect_bottom_left("FloaterDayCycleRect", window);
+
+	adjust_rect_top_right("FloaterStatisticsRect", window);
+
 
 	// bottom-right
 	r = gSavedSettings.getRect("FloaterInventoryRect");
@@ -1628,7 +1687,13 @@ void LLViewerWindow::initWorldUI()
 	//
 
 	// Toolbox floater
-	init_menus();
+
+	// Make sure we only create menus once per session -- MC
+	if (!gMenuHolder)
+	{
+		init_menus();
+	}
+
 	if (!gFloaterTools)
 	{
 		gFloaterTools = new LLFloaterTools();
@@ -1901,7 +1966,7 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 
 void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
 {
-   	LLStringUtil::format_map_t args;
+    LLSD args;
     LLColor4 new_bg_color;
 
     if(god_mode && LLViewerLogin::getInstance()->isInProductionGrid())
@@ -1954,12 +2019,6 @@ void LLViewerWindow::draw()
 	stop_glerror();
 	
 	LLUI::setLineWidth(1.f);
-	//popup alerts from the UI
-	LLAlertInfo alert;
-	while (LLPanel::nextAlert(alert))
-	{
-		alertXml(alert.mLabel, alert.mArgs);
-	}
 
 	LLUI::setLineWidth(1.f);
 	// Reset any left-over transforms
@@ -2041,7 +2100,7 @@ void LLViewerWindow::draw()
 		// Draw tooltips
 		// Adjust their rectangle so they don't go off the top or bottom
 		// of the screen.
-		if( mToolTip && mToolTip->getVisible() )
+		if( mToolTip && mToolTip->getVisible() && !mToolTipBlocked )
 		{
 			glMatrixMode(GL_MODELVIEW);
 			LLUI::pushMatrix();
@@ -2068,7 +2127,7 @@ void LLViewerWindow::draw()
 		{
 			// Used for special titles such as "Second Life - Special E3 2003 Beta"
 			const S32 DIST_FROM_TOP = 20;
-			LLFontGL::sSansSerifBig->renderUTF8(
+			LLFontGL::getFontSansSerifBig()->renderUTF8(
 				mOverlayTitle, 0,
 				llround( getWindowWidth() * 0.5f),
 				getWindowHeight() - DIST_FROM_TOP,
@@ -2088,6 +2147,16 @@ void LLViewerWindow::draw()
 // Takes a single keydown event, usually when UI is visible
 BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 {
+	// Hide tooltips on keypress
+	mToolTipBlocked = TRUE; // block until next time mouse is moved
+
+	// Also hide hover info on keypress
+	if (gHoverView)
+	{
+		gHoverView->cancelHover();
+		gHoverView->setTyping(TRUE);
+	}
+
 	if (gFocusMgr.getKeyboardFocus() 
 		&& !(mask & (MASK_CONTROL | MASK_ALT))
 		&& !gFocusMgr.getKeystrokesOnly())
@@ -2110,17 +2179,6 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		}
 	}
 
-	// Hide tooltips on keypress
-	mToolTipBlocked = TRUE; // block until next time mouse is moved
-
-	// Also hide hover info on keypress
-	if (gHoverView)
-	{
-		gHoverView->cancelHover();
-
-		gHoverView->setTyping(TRUE);
-	}
-
 	// Explicit hack for debug menu.
 	if ((mask == (MASK_SHIFT | MASK_CONTROL)) &&
 		('G' == key || 'g' == key))
@@ -2133,6 +2191,17 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 			// Initialize visibility (and don't force visibility - use prefs)
 			LLPanelLogin::refreshLocation( false );
 		}
+	}
+
+	// Debugging view for unified notifications: CTRL-SHIFT-5
+	// *FIXME: Having this special-cased right here (just so this can be invoked from the login screen) sucks.
+	if ((MASK_SHIFT & mask) 
+	    && (!(MASK_ALT & mask))
+	    && (MASK_CONTROL & mask)
+	    && ('5' == key))
+	{
+		LLFloaterNotificationConsole::toggleInstance();
+		return TRUE;
 	}
 
 	// handle escape key
@@ -2730,7 +2799,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		}
 
 		// Always update console
-		LLRect console_rect = gConsole->getRect();
+		LLRect console_rect = getChatConsoleRect();
 		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad();
 		gConsole->reshape(console_rect.getWidth(), console_rect.getHeight());
 		gConsole->setRect(console_rect);
@@ -3188,9 +3257,9 @@ void LLViewerWindow::schedulePick(LLPickInfo& pick_info)
 		LLGLState scissor_state(GL_SCISSOR_TEST);
 		scissor_state.enable();
 		glScissor(pick_info.mScreenRegion.mLeft, pick_info.mScreenRegion.mBottom, pick_info.mScreenRegion.getWidth(), pick_info.mScreenRegion.getHeight());
-	glClearColor(0.f, 0.f, 0.f, 0.f);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClearColor(0.f, 0.f, 0.f, 0.f);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	
 	// build perspective transform and picking viewport
@@ -3743,6 +3812,10 @@ void LLViewerWindow::playSnapshotAnimAndSound()
 
 BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type)
 {
+	return rawSnapshot(raw, preview_width, preview_height, FALSE, FALSE, show_ui, do_rebuild, type);
+	
+	// *TODO below code was broken in deferred pipeline
+	/*
 	if ((!raw) || preview_width < 10 || preview_height < 10)
 	{
 		return FALSE;
@@ -3774,7 +3847,7 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 	LLVOAvatar::updateFreezeCounter(1) ; //pause avatar updating for one frame
 	
 	S32 w = preview_width ;
-	S32 h = preview_height ;	
+	S32 h = preview_height ;
 	LLVector2 display_scale = mDisplayScale ;
 	mDisplayScale.setVec((F32)w / mWindowRect.getWidth(), (F32)h / mWindowRect.getHeight()) ;
 	LLRect window_rect = mWindowRect;
@@ -3813,7 +3886,7 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 		gltype = GL_UNSIGNED_BYTE ;
 	}
 
-	raw->resize(w, h, glpixel_length);	
+	raw->resize(w, h, glpixel_length);
 	glReadPixels(0, 0, w, h, glformat, gltype, raw->getData());
 
 	if(SNAPSHOT_TYPE_DEPTH == type)
@@ -3875,7 +3948,7 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 	
 	gSavedSettings.setS32("RenderName", render_name);	
 	
-	return TRUE;
+	return TRUE;*/
 }
 
 // Saves the image from the screen to the specified filename and path.
@@ -3925,7 +3998,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		F32 ratio = llmin( (F32)window_width / image_width , (F32)window_height / image_height) ;
 		snapshot_width = (S32)(ratio * image_width) ;
 		snapshot_height = (S32)(ratio * image_height) ;
-		scale_factor = llmax(1.0f, 1.0f / ratio) ;	
+		scale_factor = llmax(1.0f, 1.0f / ratio) ;
 	}
 	else //the scene(window) proportion needs to be maintained.
 	{
@@ -3942,7 +4015,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 					
 					snapshot_width = image_width;
 					snapshot_height = image_height;
-					target.allocate(snapshot_width, snapshot_height, GL_RGBA, TRUE, LLTexUnit::TT_RECT_TEXTURE, TRUE);
+					target.allocate(snapshot_width, snapshot_height, GL_RGBA, TRUE, TRUE, LLTexUnit::TT_RECT_TEXTURE, TRUE);
 					window_width = snapshot_width;
 					window_height = snapshot_height;
 					scale_factor = 1.f;
@@ -4019,9 +4092,10 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 			}
 			else
 			{
-				display(do_rebuild, scale_factor, subimage_x+(subimage_y*llceil(scale_factor)), TRUE);
+				const U32 subfield = subimage_x+(subimage_y*llceil(scale_factor));
+				display(do_rebuild, scale_factor, subfield, TRUE);
 				// Required for showing the GUI in snapshots?  See DEV-16350 for details. JC
-				render_ui();
+				render_ui(scale_factor, subfield);
 			}
 
 			S32 subimage_x_offset = llclamp(buffer_x_offset - (subimage_x * window_width), 0, window_width);
@@ -4318,7 +4392,7 @@ void LLViewerWindow::stopGL(BOOL save_state)
 		gBumpImageList.destroyGL();
 		stop_glerror();
 
-		LLFontGL::destroyGL();
+		LLFontGL::destroyAllGL();
 		stop_glerror();
 
 		LLVOAvatar::destroyGL();
@@ -4348,7 +4422,7 @@ void LLViewerWindow::stopGL(BOOL save_state)
 		gGLManager.mIsDisabled = TRUE;
 		stop_glerror();
 		
-		llinfos << "Remaining allocated texture memory: " << LLImageGL::sGlobalTextureMemory << " bytes" << llendl;
+		llinfos << "Remaining allocated texture memory: " << LLImageGL::sGlobalTextureMemoryInBytes << " bytes" << llendl;
 	}
 }
 
@@ -4405,42 +4479,33 @@ void LLViewerWindow::restoreGL(const std::string& progress_message)
 
 void LLViewerWindow::initFonts(F32 zoom_factor)
 {
-	LLFontGL::destroyGL();
+	LLFontGL::destroyAllGL();
 	LLFontGL::initDefaultFonts( gSavedSettings.getF32("FontScreenDPI"),
-				    mDisplayScale.mV[VX] * zoom_factor,
-				    mDisplayScale.mV[VY] * zoom_factor,
-				    gSavedSettings.getString("FontMonospace"),
-				    gSavedSettings.getF32("FontSizeMonospace"),
-				    gSavedSettings.getString("FontSansSerif"), 
-				    gSavedSettings.getString("FontSansSerifFallback"),
-				    gSavedSettings.getF32("FontSansSerifFallbackScale"),
-				    gSavedSettings.getF32("FontSizeSmall"),	
-				    gSavedSettings.getF32("FontSizeMedium"), 
-				    gSavedSettings.getF32("FontSizeLarge"),			 
-				    gSavedSettings.getF32("FontSizeHuge"),			 
-				    gSavedSettings.getString("FontSansSerifBold"),
-				    gSavedSettings.getF32("FontSizeMedium"),
-				    gDirUtilp->getAppRODataDir()
-				    );
+								mDisplayScale.mV[VX] * zoom_factor,
+								mDisplayScale.mV[VY] * zoom_factor,
+								gDirUtilp->getAppRODataDir(),
+								LLUICtrlFactory::getXUIPaths());
 }
 
 
 void LLViewerWindow::toggleFullscreenConfirm()
 {
-	gViewerWindow->alertXml("ConfirmToggleFullscreen",
-	                        LLViewerWindow::toggleFullscreenCallback,
-	                        (void *)this);
+	LLNotifications::instance().add("ConfirmToggleFullscreen", 
+		LLSD(), 
+		LLSD(), 
+		boost::bind(&toggleFullscreenCallback, _1, _2, this));
 }
 
 
-// static
-void LLViewerWindow::toggleFullscreenCallback(S32 option, void *userdata)
+bool LLViewerWindow::toggleFullscreenCallback(const LLSD& notification, const LLSD& response, LLViewerWindow *self)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// User confirmed it. Here we go!
-		((LLViewerWindow *)userdata)->toggleFullscreen( TRUE );
+		self->toggleFullscreen( TRUE );
 	}
+	return false;
 }
 
 
@@ -4513,8 +4578,6 @@ BOOL LLViewerWindow::checkSettings()
 		}
 
 		mResDirty = false;
-		// This will force a state update the next frame.
-		mStatesDirty = true;
 	}
 		
 	BOOL is_fullscreen = mWindow->getFullscreen();
@@ -4665,10 +4728,10 @@ BOOL LLViewerWindow::changeDisplaySettings(BOOL fullscreen, LLCoordScreen size, 
 
 	if (!result_first_try)
 	{
-		LLStringUtil::format_map_t args;
-		args["[RESX]"] = llformat("%d",size.mX);
-		args["[RESY]"] = llformat("%d",size.mY);
-		alertXml("ResolutionSwitchFail", args);
+		LLSD args;
+		args["RESX"] = llformat("%d",size.mX);
+		args["RESY"] = llformat("%d",size.mY);
+		LLNotifications::instance().add("ResolutionSwitchFail", args);
 		size = old_size; // for reshape below
 	}
 
@@ -4781,48 +4844,47 @@ S32 LLViewerWindow::getChatConsoleBottomPad()
 	return offset;
 }
 
-//----------------------------------------------------------------------------
-
-// static
-bool LLViewerWindow::alertCallback(S32 modal)
+LLRect LLViewerWindow::getChatConsoleRect()
 {
-	if (gNoRender)
+	LLRect full_window(0, getWindowHeight(), getWindowWidth(), 0);
+	LLRect console_rect = full_window;
+
+	const S32 CONSOLE_PADDING_TOP = 24;
+	const S32 CONSOLE_PADDING_LEFT = 24;
+	const S32 CONSOLE_PADDING_RIGHT = 10;
+
+	console_rect.mTop    -= CONSOLE_PADDING_TOP;
+	console_rect.mBottom += getChatConsoleBottomPad();
+
+	console_rect.mLeft   += CONSOLE_PADDING_LEFT; 
+
+	if (gSavedSettings.getBOOL("ChatFullWidth"))
 	{
-		return false;
+		console_rect.mRight -= CONSOLE_PADDING_RIGHT;
 	}
 	else
 	{
-// 		if (modal) // we really always want to take you out of mouselook
-		{
-			// If we're in mouselook, the mouse is hidden and so the user can't click 
-			// the dialog buttons.  In that case, change to First Person instead.
-			if( gAgent.cameraMouselook() )
-			{
-				gAgent.changeCameraToDefault();
-			}
-		}
-		return true;
+		// Make console rect somewhat narrow so having inventory open is
+		// less of a problem.
+		console_rect.mRight  = console_rect.mLeft + 2 * getWindowWidth() / 3;
 	}
-}
 
-LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename,
-							  LLAlertDialog::alert_callback_t callback, void* user_data)
-{
-	LLStringUtil::format_map_t args;
-	return alertXml( xml_filename, args, callback, user_data );
+	return console_rect;
 }
+//----------------------------------------------------------------------------
 
-LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
-							  LLAlertDialog::alert_callback_t callback, void* user_data)
+
+//static 
+bool LLViewerWindow::onAlert(const LLSD& notify)
 {
+	LLNotificationPtr notification = LLNotifications::instance().find(notify["id"].asUUID());
+
 	if (gNoRender)
 	{
-		llinfos << "Alert: " << xml_filename << llendl;
-		if (callback)
-		{
-			callback(-1, user_data);
-		}
-		return NULL;
+		llinfos << "Alert: " << notification->getName() << llendl;
+		notification->respond(LLSD::emptyMap());
+		LLNotifications::instance().cancel(notification);
+		return false;
 	}
 
 	// If we're in mouselook, the mouse is hidden and so the user can't click 
@@ -4831,46 +4893,7 @@ LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename, const L
 	{
 		gAgent.changeCameraToDefault();
 	}
-
-	// Note: object adds, removes, and destroys itself.
-	return LLAlertDialog::showXml( xml_filename, args, callback, user_data );
-}
-
-LLAlertDialog* LLViewerWindow::alertXmlEditText(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
-									  LLAlertDialog::alert_callback_t callback, void* user_data,
-									  LLAlertDialog::alert_text_callback_t text_callback, void *text_data,
-									  const LLStringUtil::format_map_t& edit_args, BOOL draw_asterixes)
-{
-	if (gNoRender)
-	{
-		llinfos << "Alert: " << xml_filename << llendl;
-		if (callback)
-		{
-			callback(-1, user_data);
-		}
-		return NULL;
-	}
-
-	// If we're in mouselook, the mouse is hidden and so the user can't click 
-	// the dialog buttons.  In that case, change to First Person instead.
-	if( gAgent.cameraMouselook() )
-	{
-		gAgent.changeCameraToDefault();
-	}
-
-	// Note: object adds, removes, and destroys itself.
-	LLAlertDialog* alert = LLAlertDialog::createXml( xml_filename, args, callback, user_data );
-	if (alert)
-	{
-		if (text_callback)
-		{
-			alert->setEditTextCallback(text_callback, text_data);
-		}
-		alert->setEditTextArgs(edit_args);
-		alert->setDrawAsterixes(draw_asterixes);
-		alert->show();
-	}
-	return alert;
+	return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy land" title="Föld vásárlása">
+	<text name="region_name_label">
+		Régió:
+	</text>
+	<text name="region_name_text">
+		(ismeretlen)
+	</text>
+	<text name="region_type_label">
+		Típus:
+	</text>
+	<text name="region_type_text">
+		(ismeretlen)
+	</text>
+	<text name="estate_name_label">
+		Telek:
+	</text>
+	<text name="estate_name_text">
+		(ismeretlen)
+	</text>
+	<text name="estate_owner_label">
+		Telektulajdonos:
+	</text>
+	<text name="estate_owner_text">
+		(ismeretlen)
+	</text>
+	<text name="resellable_changeable_label">
+		Föld ebben a régióban:
+	</text>
+	<text name="resellable_clause">
+		Eladható vagy nem eladható.
+	</text>
+	<text name="changeable_clause">
+		Egyesíthető, felosztható vagy nem egyesíthető, felosztható.
+	</text>
+	<text name="covenant_text">
+		A főbérlői szerződést el kell fogadnod:
+	</text>
+	<text_editor name="covenant_editor">
+		Betöltés folyamatban...
+	</text_editor>
+	<check_box label="Egyetértek a fenti főbérlői szerződéssel." name="agree_covenant"/>
+	<text name="info_parcel_label">
+		Terület:
+	</text>
+	<text name="info_parcel">
+		Scotopteryx 138,204
+	</text>
+	<text name="info_size_label">
+		Méret:
+	</text>
+	<text name="info_size">
+		1024 m²
+	</text>
+	<text name="info_price_label">
+		Ár:
+	</text>
+	<text name="info_price">
+		1500 L$
+(1.1/m² L$)
+eladva tárgyakkal együtt
+	</text>
+	<text name="info_action" width="350">
+		Ennek a fölnek a megvásárlása:
+	</text>
+	<text name="error_message">
+		Sikertelen művelet.
+	</text>
+	<button label="Honlapot megnyit" name="error_web"/>
+	<text name="account_action">
+		Prémium előfizetésre váltás.
+	</text>
+	<text name="account_reason">
+		Csak prémium előfizetéssel lehet föld a tulajdonodban.
+	</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">
+			9,95 US$/hónap, havi számlázás
+		</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">
+			7,50 US$/hónap, negyedéves számlázás
+		</combo_item>
+		<combo_item name="US$6.00/month,billedannually">
+			6,00 US$/hónap, éves számlázás
+		</combo_item>
+	</combo_box>
+	<text name="land_use_action">
+		A havi földhasználati díjad megemelése 40 US$/hónapra.
+	</text>
+	<text name="land_use_reason">
+		1309 m² területű földdel rendelkezel. 
+Ez a telek 512 m² területű föld.
+	</text>
+	<text name="purchase_action">
+		Fizess Joe nevű lakónak 4000 L$ összeget a földért
+	</text>
+	<text name="currency_reason">
+		2100 L$ rendelkezésre áll.
+	</text>
+	<text name="currency_action">
+		További L$ vásárlása
+	</text>
+	<line_editor name="currency_amt">
+		1000
+	</line_editor>
+	<text name="currency_est">
+		kb. [AMOUNT2] US$
+	</text>
+	<text name="currency_balance">
+		2100 L$ rendelkezésre áll.
+	</text>
+	<check_box label="[AMOUNT] m² területű földhozzájárulásnak eltávolítása a csoportból." name="remove_contribution"/>
+	<button label="Megvásárol" name="buy_btn"/>
+	<button label="Mégsem" name="cancel_btn"/>
+	<string name="can_resell">
+		Eladható
+	</string>
+	<string name="can_not_resell">
+		Nem eladható
+	</string>
+	<string name="can_change">
+		Egyesíthető vagy felosztható
+	</string>
+	<string name="can_not_change">
+		Nem egyesíthető vagy nem osztható fel
+	</string>
+	<string name="cant_buy_for_group">
+		Nincs jogosultságod föld vásárlásra a jelenleg aktív csoportod számára.
+	</string>
+	<string name="no_land_selected">
+		Nincs kijelölt föld.
+	</string>
+	<string name="multiple_parcels_selected">
+		Több különböző telek került kijelölésre.
+Próbálj kijelölni egy kisebb területet.
+	</string>
+	<string name="no_permission">
+		Nincs jogosultságod föld vásárlásra a jelenleg aktív csoportod számára.
+	</string>
+	<string name="parcel_not_for_sale">
+		A kijelölt terület nem adható el.
+	</string>
+	<string name="group_already_owns">
+		A csoportnak már van tulajdonjoga a területen.
+	</string>
+	<string name="you_already_own">
+		A terület már a tulajdonodban van.
+	</string>
+	<string name="set_to_sell_to_other">
+		A kijelölt terület harmadik fél részére kerül eladásra.
+	</string>
+	<string name="no_public_land">
+		A kijelölt területnek nincs nyilvános része.
+	</string>
+	<string name="not_owned_by_you">
+		Harmadik személy által birtokolt föld került kijelölésre.
+Próbálj kijelölni egy kisebb területet.
+	</string>
+	<string name="processing">
+		Vásárlás folyamatban...
+ 
+(Ez egy vagy két percig is eltarthat.)
+	</string>
+	<string name="fetching_error">
+		Hiba a föld vásárlásával kapcsolatos információk megjelenítésében.
+	</string>
+	<string name="buying_will">
+		Megvásárlása ennek a földnek:
+	</string>
+	<string name="buying_for_group">
+		A föld vásárlásának feltételei a csoport részére:
+	</string>
+	<string name="cannot_buy_now">
+		Nem vásárolhatod meg most:
+	</string>
+	<string name="not_for_sale">
+		Nem eladható:
+	</string>
+	<string name="none_needed">
+		nem szükséges
+	</string>
+	<string name="must_upgrade">
+		Prémium előfizetéssel kell, hogy rendelkezz föld megszerzéséhez.
+	</string>
+	<string name="cant_own_land">
+		Az előfizetéseddel vásárolhatsz földet.
+	</string>
+	<string name="land_holdings">
+		Jelenleg a tulajdonodban van [BUYER] m² föld.
+	</string>
+	<string name="pay_to_for_land">
+		L$ fizetése a földért ennek az eladónak: [SELLER]
+	</string>
+	<string name="buy_for_US">
+		[AMOUNT] L$ vásárlása kb. [AMOUNT2] US$ értékben,
+	</string>
+	<string name="parcel_meters">
+		Ennek a földnek a területe [AMOUNT] m².
+	</string>
+	<string name="premium_land">
+		Ez prémium földterület és az ára [AMOUNT] m².
+	</string>
+	<string name="discounted_land">
+		Ez a föld megszünt és az ára [AMOUNT] m².
+	</string>
+	<string name="meters_supports_object">
+		[AMOUNT] m²
+[AMOUNT2] tárgy rendelkezésre áll
+	</string>
+	<string name="sold_with_objects">
+		eladva a tárgyakkal.
+	</string>
+	<string name="sold_without_objects">
+		tárgyakat nem tartalmazza
+	</string>
+	<string name="info_price_string">
+		[PRICE] L$
+([PRICE_PER_SQM] L$/m²)
+[SOLD_WITH_OBJECTS]
+	</string>
+	<string name="insufficient_land_credits">
+		A [GROUP] csoportnak elegendő földhozzájárulással kell rendelkeznie a telek megvásárláshoz.
+	</string>
+	<string name="have_enough_lindens">
+		[AMOUNT] L$ összeggel rendelkezel, mely elegendő a föld megvásárlásához.
+	</string>
+	<string name="not_enough_lindens">
+		Csak [AMOUNT] L$ összeg áll rendelkezésre, szükséged van [AMOUNT2] L$ vagy több összegre.
+	</string>
+	<string name="balance_left">
+		A vásárlás után [AMOUNT] L$ összeg maradt.
+	</string>
+	<string name="balance_needed">
+		Legalább [AMOUNT] L$ pénzt kell vásárolnod a föld fenntartásához.
+	</string>
+	<string name="no_parcel_selected">
+		(nincs terület kiválasztva)
+	</string>
+	<string name="buy_currency">
+		[LINDENS] L$ vásárlása kb [USD] US$ összegért.
+	</string>
+</floater>

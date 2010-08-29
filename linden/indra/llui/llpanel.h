@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,23 +50,13 @@ const BOOL BORDER_YES = TRUE;
 const BOOL BORDER_NO = FALSE;
 
 
-struct LLAlertInfo
-{
-	std::string mLabel;
-	LLStringUtil::format_map_t mArgs;
-
-	LLAlertInfo(std::string label, LLStringUtil::format_map_t args) : mLabel(label), mArgs(args) { }
-	LLAlertInfo(){}
-};
-
-
 /*
  * General purpose concrete view base class.
  * Transparent or opaque,
  * With or without border,
  * Can contain LLUICtrls.
  */
-class LLPanel : public LLUICtrl 
+class LLPanel : public LLUICtrl, public boost::signals::trackable
 {
 public:
 
@@ -205,7 +196,7 @@ public:
 	// LLTabContainer
 	void childShowTab(const std::string& id, const std::string& tabname, bool visible = true);
 	LLPanel *childGetVisibleTab(const std::string& id) const;
-	void childSetTabChangeCallback(const std::string& id, const std::string& tabname, void (*on_tab_clicked)(void*, bool), void *userdata);
+	void childSetTabChangeCallback(const std::string& id, const std::string& tabname, void (*on_tab_clicked)(void*, bool), void *userdata, void (*on_precommit)(void*,bool) = NULL);
 
 	// LLTextBox
 	void childSetWrappedText(const std::string& id, const std::string& text, bool visible = true);
@@ -227,8 +218,6 @@ public:
 	void childNotFound(const std::string& id) const;
 	void childDisplayNotFound();
 
-	static void		alertXml(const std::string& label, LLStringUtil::format_map_t args = LLStringUtil::format_map_t());
-	static BOOL		nextAlert(LLAlertInfo &alert);
 	static LLView*	fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 	
 protected:
@@ -266,8 +255,6 @@ private:
 
 	std::string		mRequirementsError;
 
-	typedef std::queue<LLAlertInfo> alert_queue_t;
-	static alert_queue_t sAlertQueue;
 }; // end class LLPanel
 
 
@@ -292,8 +279,16 @@ public:
 	S32 getMinWidth() const { return mMinWidth; }
 	S32 getMinHeight() const { return mMinHeight; }
 	
-	void addPanel(LLPanel* panel, S32 min_width, S32 min_height, BOOL auto_resize, BOOL user_resize, S32 index = S32_MAX);
+	typedef enum e_animate
+	{
+		NO_ANIMATE,
+		ANIMATE
+	} EAnimate;
+
+	void addPanel(LLPanel* panel, S32 min_width, S32 min_height, BOOL auto_resize, BOOL user_resize, EAnimate animate = NO_ANIMATE, S32 index = S32_MAX);
 	void removePanel(LLPanel* panel);
+	void collapsePanel(LLPanel* panel, BOOL collapsed = TRUE);
+	S32 getNumPanels() { return mPanels.size(); }
 
 private:
 	struct LLEmbeddedPanel;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Запросити учасника" name="invite_panel" width="228">
+	<text name="help_text" height="72" bottom_delta="-96" width="218">
+		Ви можете обрати декілька
+резидентів для запрошення у 
+групу. Натисніть &apos;Відкрити Вибір 
+Резидентів&apos;, щоб почати.
+	</text>
+	<button bottom_delta="-10" label="Відкрити Вибір Резидентів" name="add_button" tool_tip=""/>
+	<name_list height="156" bottom_delta="-160" name="invitee_list"
+	     tool_tip="Щоб вибрати декількох резидентів, натискайте по ним, утримуючи кнопку Ctrl" />
+	<button label="Видалити вибраних зі списку"
+	     name="remove_button"
+	     tool_tip="Видалити вибраних резидентів зі списку запрошень." />
+	<text name="role_text" width="214">
+		Виберіть яку Роль їм призначити:
+	</text>
+	<combo_box name="role_name"
+	     tool_tip="Виберіть зі списку Ролей ті, які Ви можете призначити Учасникам." />
+	<button width="160" label="Відправити запрошення" name="ok_button" />
+	<button left_delta="163" width="60" label="Відміна" name="cancel_button" />
+	<string name="confirm_invite_owner_str">
+		Ви впевнені, що хочете запросити нових власників? Цю дію неможна відмінити.
+	</string>
+	<string name="loading">
+		(завантаження...)
+	</string>
+</panel>

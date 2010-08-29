@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -247,16 +248,10 @@ EJoystickQuadrant LLJoystick::quadrantFromName(const std::string& sQuadrant)
 
 LLXMLNodePtr LLJoystick::getXML(bool save_children) const
 {
-	LLXMLNodePtr node = LLUICtrl::getXML();
+	LLXMLNodePtr node = LLButton::getXML();
 
-	node->createChild("halign", TRUE)->setStringValue(LLFontGL::nameFromHAlign(getHAlign()));
 	node->createChild("quadrant", TRUE)->setStringValue(nameFromQuadrant(mInitialQuadrant));
-
-	addImageAttributeToXML(node,getImageUnselectedName(),getImageUnselectedID(),std::string("image_unselected"));
-	addImageAttributeToXML(node,getImageSelectedName(),getImageSelectedID(),std::string("image_selected"));
 	
-	node->createChild("scale_image", TRUE)->setBoolValue(getScaleImage());
-
 	return node;
 }
 
@@ -324,6 +319,15 @@ void LLJoystickAgentTurn::onHeldDown()
 			gAgent.moveAt(-1);
 		}
 	}
+}
+
+LLXMLNodePtr LLJoystickAgentTurn::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLJoystick::getXML();
+
+	node->setName(LL_JOYSTICK_TURN);
+
+	return node;
 }
 
 LLView* LLJoystickAgentTurn::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
@@ -433,6 +437,15 @@ void LLJoystickAgentSlide::onHeldDown()
 	}
 }
 
+
+LLXMLNodePtr LLJoystickAgentSlide::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLJoystick::getXML();
+
+	node->setName(LL_JOYSTICK_SLIDE);
+
+	return node;
+}
 
 // static
 LLView* LLJoystickAgentSlide::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
@@ -638,7 +651,7 @@ void LLJoystickCameraRotate::draw()
 }
 
 // Draws image rotated by multiples of 90 degrees
-void LLJoystickCameraRotate::drawRotatedImage( const LLImageGL* image, S32 rotations )
+void LLJoystickCameraRotate::drawRotatedImage( LLImageGL* image, S32 rotations )
 {
 	S32 width = image->getWidth();
 	S32 height = image->getHeight();

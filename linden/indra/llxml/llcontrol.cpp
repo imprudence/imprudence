@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -101,11 +102,12 @@ bool LLControlVariable::llsd_compare(const LLSD& a, const LLSD & b)
 
 LLControlVariable::LLControlVariable(const std::string& name, eControlType type,
 							 LLSD initial, const std::string& comment,
-							 bool persist)
+							 bool persist, bool hidefromsettingseditor)
 	: mName(name),
 	  mComment(comment),
 	  mType(type),
-	  mPersist(persist)
+	  mPersist(persist),
+	  mHideFromSettingsEditor(hidefromsettingseditor)
 {
 	if (mPersist && mComment.empty())
 	{
@@ -212,6 +214,12 @@ void LLControlVariable::setPersist(bool state)
 	mPersist = state;
 }
 
+void LLControlVariable::setHiddenFromSettingsEditor(bool hide)
+{
+	// mHideFromSettingsEditor = hide; //no, not really
+	mHideFromSettingsEditor = false;
+}
+
 void LLControlVariable::setComment(const std::string& comment)
 {
 	mComment = comment;
@@ -295,17 +303,30 @@ std::string LLControlGroup::typeEnumToString(eControlType typeenum)
 	return mTypeString[typeenum];
 }
 
-BOOL LLControlGroup::declareControl(const std::string& name, eControlType type, const LLSD initial_val, const std::string& comment, BOOL persist)
+BOOL LLControlGroup::declareControl(const std::string& name, eControlType type, const LLSD initial_val, const std::string& comment, BOOL persist, BOOL hidefromsettingseditor)
 {
-	if(mNameTable.find(name) != mNameTable.end())
-	{
-		llwarns << "LLControlGroup::declareControl: Control named " << name << " already exists." << llendl;
-		mNameTable[name]->setValue(initial_val);
-		return TRUE;
+	LLControlVariable* existing_control = getControl(name);
+	if (existing_control)
+ 	{
+		if (persist && existing_control->isType(type))
+		{
+			if (!existing_control->llsd_compare(existing_control->getDefault(), initial_val))
+			{
+				// Sometimes we need to declare a control *after* it has been loaded from a settings file.
+				LLSD cur_value = existing_control->getValue(); // get the current value
+				existing_control->setDefaultValue(initial_val); // set the default to the declared value
+				existing_control->setValue(cur_value); // now set to the loaded value
+			}
+		}
+		else
+		{
+			llwarns << "Control named " << name << " already exists, ignoring new declaration." << llendl;
+		}
+ 		return TRUE;
 	}
 
 	// if not, create the control and add it to the name table
-	LLControlVariable* control = new LLControlVariable(name, type, initial_val, comment, persist);
+	LLControlVariable* control = new LLControlVariable(name, type, initial_val, comment, persist, hidefromsettingseditor);
 	mNameTable[name] = control;	
 	return TRUE;
 }
@@ -1042,9 +1063,10 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 	}
 
 	U32	validitems = 0;
-	bool persist = false;
+	bool hidefromsettingseditor = false;
 	for(LLSD::map_const_iterator itr = settings.beginMap(); itr != settings.endMap(); ++itr)
 	{
+		bool persist = true;
 		name = (*itr).first;
 		control_map = (*itr).second;
 		
@@ -1052,6 +1074,30 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 		{
 			persist = control_map["Persist"].asInteger();
 		}
+		
+		// Sometimes we want to use the settings system to provide cheap persistence, but we
+		// don't want the settings themselves to be easily manipulated in the UI because 
+		// doing so can cause support problems. So we have this option:
+
+		// To actually only hide  adult settings and the world search url.
+		// Upside of the latter is that it also makes it harder to use the viewer with OpenSim.
+		// And teenagers never would dare ever to touch the settings.xml file.
+		// 
+		// For it's anyway useful to be able to change them we should add in future
+		// a possibility to unhide them again, e.g. typing "I'm up to no good" to channel 666,
+		// tripple-rightclick the avatars nose and then play a "I will tell your MUM that you 
+		// changed ADULT setting in the DEBUG MENU!" gesture in world.
+		//
+/*
+		if(control_map.has("HideFromEditor"))
+		{
+			hidefromsettingseditor = control_map["HideFromEditor"].asInteger();
+		}
+		else
+		{
+			hidefromsettingseditor = false;
+		}
+*/
 		
 		// If the control exists just set the value from the input file.
 		LLControlVariable* existing_control = getControl(name);
@@ -1066,6 +1112,7 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 				{
 					existing_control->setDefaultValue(control_map["Value"]);
 					existing_control->setPersist(persist);
+					existing_control->setHiddenFromSettingsEditor(hidefromsettingseditor);
 					existing_control->setComment(control_map["Comment"].asString());
 				}
 				else
@@ -1089,7 +1136,8 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 						   typeStringToEnum(control_map["Type"].asString()), 
 						   control_map["Value"], 
 						   control_map["Comment"].asString(), 
-						   persist
+						   persist,
+						   hidefromsettingseditor
 						   );
 		}
 		
@@ -1139,13 +1187,13 @@ static std::string get_warn_name(const std::string& name)
 
 void LLControlGroup::addWarning(const std::string& name)
 {
+	// Note: may get called more than once per warning
+	//  (e.g. if allready loaded from a settings file),
+	//  but that is OK, declareBOOL will handle it
 	std::string warnname = get_warn_name(name);
-	if(mNameTable.find(warnname) == mNameTable.end())
-	{
-		std::string comment = std::string("Enables ") + name + std::string(" warning dialog");
-		declareBOOL(warnname, TRUE, comment);
-		mWarnings.insert(warnname);
-	}
+	std::string comment = std::string("Enables ") + name + std::string(" warning dialog");
+	declareBOOL(warnname, TRUE, comment);
+	mWarnings.insert(warnname);
 }
 
 BOOL LLControlGroup::getWarning(const std::string& name)
@@ -1168,6 +1216,12 @@ void LLControlGroup::resetWarnings()
 		setBOOL(*iter, TRUE);
 	}
 }
+
+template <>					void jc_rebind::rebind_callback<S32>(const LLSD &data, S32 *reciever){ *reciever = data.asInteger(); }
+template <>					void jc_rebind::rebind_callback<F32>(const LLSD &data, F32 *reciever){ *reciever = data.asReal(); }
+template <>					void jc_rebind::rebind_callback<U32>(const LLSD &data, U32 *reciever){ *reciever = data.asInteger(); }
+template <>					void jc_rebind::rebind_callback<std::string>(const LLSD &data, std::string *reciever){ *reciever = data.asString(); }
+template <>					void jc_rebind::rebind_callback<LLColor4>(const LLSD &data, LLColor4 *reciever){ *reciever = LLColor4(LLColor4U(data)); }
 
 //============================================================================
 

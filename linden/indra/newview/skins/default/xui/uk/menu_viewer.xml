@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Main Menu">
+	<menu label="Файл" name="File">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu label="Завантажити" name="upload">
+			<menu_item_call label="Зображення (L$[COST])..." name="Upload Image"/>
+			<menu_item_call label="Звук (L$[COST])..." name="Upload Sound"/>
+			<menu_item_call label="Анімація (L$[COST])..." name="Upload Animation"/>
+			<menu_item_call label="Комплект (L$[COST] за файл)..." name="Bulk Upload"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Встановити права за замовчуванням..." name="perm prefs"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Закрити вікно" name="Close Window"/>
+		<menu_item_call label="Закрити всі вікна" name="Close All Windows"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Зберегти текстуру як..." name="Save Texture As..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Зробити скріншот" name="Take Snapshot"/>
+		<menu_item_call label="Скріншот на диск" name="Snapshot to Disk"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Вихід" name="Quit"/>
+	</menu>
+	<menu label="Правка" name="Edit">
+		<menu_item_call label="Відмінити" name="Undo"/>
+		<menu_item_call label="Повторити" name="Redo"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Вирізати" name="Cut"/>
+		<menu_item_call label="Копіювати" name="Copy"/>
+		<menu_item_call label="Вставити" name="Paste"/>
+		<menu_item_call label="Видалити" name="Delete"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Пошук..." name="Search..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Виділити всі" name="Select All"/>
+		<menu_item_call label="Зняти виділення" name="Deselect"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Дублікат" name="Duplicate"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu label="Прикріпити об&apos;єкт" name="Attach Object"/>
+		<menu label="Відкріпити об&apos;єкт" name="Detach Object"/>
+		<menu label="Зняти весь одяг" name="Take Off Clothing">
+			<menu_item_call label="Сорочка" name="Shirt"/>
+			<menu_item_call label="Штани" name="Pants"/>
+			<menu_item_call label="Взуття" name="Shoes"/>
+			<menu_item_call label="Шкарпетки" name="Socks"/>
+			<menu_item_call label="Піджак" name="Jacket"/>
+			<menu_item_call label="Рукавиці" name="Gloves"/>
+			<menu_item_call label="Майка" name="Menu Undershirt"/>
+			<menu_item_call label="Труси" name="Menu Underpants"/>
+			<menu_item_call label="Спідниця" name="Skirt"/>
+			<menu_item_call label="Весь одяг" name="All Clothes"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Жести..." name="Gestures..."/>
+		<menu_item_call label="Профіль..." name="Profile..."/>
+		<menu_item_call label="Зовнішність..." name="Appearance..."/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu_item_check label="Друзі..." name="Friends..."/>
+		<menu_item_call label="Групи..." name="Groups..."/>
+		<menu_item_separator label="-----------" name="separator8"/>
+		<menu_item_call label="Настройки..." name="Preferences..."/>
+	</menu>
+	<menu label="Вид" name="View">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu_item_call label="Вид мишкою" name="Mouselook"/>
+		<menu_item_check label="Будувати" name="Build"/>
+		<menu_item_check label="Вид джойстиком" name="Joystick Flycam"/>
+		<menu_item_call label="Скинути вид" name="Reset View"/>
+		<menu_item_call label="Дивитися на співрозмовника" name="Look at Last Chatter"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Панель інструм." name="Toolbar"/>
+		<menu_item_check label="Чат" name="Chat History"/>
+		<menu_item_check label="Повідомлення" name="Instant Message"/>
+		<menu_item_check label="Інвентар" name="Inventory"/>
+		<menu_item_check label="Активні голоси" name="Active Speakers"/>
+		<menu_item_check label="Список заглушених" name="Mute List"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="Управл.камерою" name="Camera Controls"/>
+		<menu_item_check label="Управл.рухом" name="Movement Controls"/>
+		<menu_item_check label="Карта світу" name="World Map"/>
+		<menu_item_check label="Міні-карта" name="Mini-Map"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="Статистика" name="Statistics Bar"/>
+		<menu_item_check label="Власність" name="Property Lines"/>
+		<menu_item_check label="Лінії заборони" name="Banlines"/>
+		<menu_item_check label="Власники землі" name="Land Owners"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu label="Подсказки" name="Hover Tips">
+			<menu_item_check label="Показ.підказки" name="Show Tips"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_check label="Підказки по землі" name="Land Tips"/>
+			<menu_item_check label="Підказки по всім об&apos;єктам" name="Tips On All Objects"/>
+		</menu>
+		<menu_item_check label="Підсвічувати прозорі" name="Highlight Transparent"/>
+		<menu_item_check label="Мітки" name="beacons"/>
+		<menu_item_check label="Сховати Частинки" name="Hide Particles"/>
+		<menu_item_check label="Показувати HUD-додатки" name="Show HUD Attachments"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Ближче" name="Zoom In"/>
+		<menu_item_call label="Справжній розмір" name="Zoom Default"/>
+		<menu_item_call label="Далі" name="Zoom Out"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="На весь екран" name="Toggle Fullscreen"/>
+		<menu_item_call label="Розмір UI за замовчуванням" name="Set UI Size to Default"/>
+	</menu>
+	<menu label="Світ" name="World">
+		<menu_item_call label="Чат" name="Chat"/>
+		<menu_item_check label="Завжди бігти" name="Always Run"/>
+		<menu_item_check label="Літати" name="Fly"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Зробити тут закладку" name="Create Landmark Here"/>
+		<menu_item_call label="Установити Дім тут" name="Set Home to Here"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Телепортуватися додому" name="Teleport Home"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Отошел" name="Set Away"/>
+		<menu_item_call label="Занят" name="Set Busy"/>
+		<menu_item_call label="Зупинити Анімацію Аватара" name="Stop Animating My Avatar"/>
+		<menu_item_call label="Відпустити кнопки" name="Release Keys"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Історія акаунта..." name="Account History..."/>
+		<menu_item_call label="Управління акаунтом..." name="Manage My Account..."/>
+		<menu_item_call label="Купити L$..." name="Buy and Sell L$..."/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Моя земля..." name="My Land..."/>
+		<menu_item_call label="Про землю..." name="About Land..."/>
+		<menu_item_call label="Купити землю..." name="Buy Land..."/>
+		<menu_item_call label="Регіон/Маєток..." name="Region/Estate..."/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu label="Настройки оточуючого середовища" name="Environment Settings">
+			<menu_item_call label="Схід" name="Sunrise"/>
+			<menu_item_call label="Полудень" name="Noon"/>
+			<menu_item_call label="Захід" name="Sunset"/>
+			<menu_item_call label="Північ" name="Midnight"/>
+			<menu_item_call label="Повернути регіону настройки за замовчуванням" name="Revert to Region Default"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Редактор оточ. середовища" name="Environment Editor"/>
+		</menu>
+	</menu>
+	<menu label="Інструменти" name="Tools">
+		<menu label="Вибір інструм." name="Select Tool">
+			<menu_item_call label="Фокус" name="Focus"/>
+			<menu_item_call label="Рухати" name="Move"/>
+			<menu_item_call label="Правка" name="Edit"/>
+			<menu_item_call label="Створити" name="Create"/>
+			<menu_item_call label="Земля" name="Land"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Обрати тільки мої об&apos;єкти" name="Select Only My Objects"/>
+		<menu_item_check label="Обрати тільки рухомі об&apos;єкти" name="Select Only Movable Objects"/>
+		<menu_item_check label="Вибір тих що поряд" name="Select By Surrounding"/>
+		<menu_item_check label="Показати/сховати обране" name="Show Hidden Selection"/>
+		<menu_item_check label="Показувати радіус освітлення при виборі" name="Show Light Radius for Selection"/>
+		<menu_item_check label="Показати промінь вибору" name="Show Selection Beam"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="Прив&apos;язати до сітки" name="Snap to Grid"/>
+		<menu_item_call label="Прив&apos;язати об&apos;єкт XY до сітки" name="Snap Object XY to Grid"/>
+		<menu_item_call label="Використовувати вибір для сітки" name="Use Selection for Grid"/>
+		<menu_item_call label="Опції сітки..." name="Grid Options..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="Правка об&apos;эдн. частин" name="Edit Linked Parts"/>
+		<menu_item_call label="Об&apos;єднати" name="Link"/>
+		<menu_item_call label="Від&apos;єданти" name="Unlink"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Фокус на обраному" name="Focus on Selection"/>
+		<menu_item_call label="Наблизити до обраного" name="Zoom to Selection"/>
+		<menu_item_call label="Купити об&apos;єкт" name="Menu Object Take">
+			<on_enable userdata="Купити,Взяти" name="EnableBuyOrTake"/>
+		</menu_item_call>
+		<menu_item_call label="Взяти копію" name="Take Copy"/>
+		<menu_item_call label="Зберегти предмет назад в зміст об&apos;єкту" name="Save Object Back to Object Contents"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Показати вікно налагод. скриптів" name="Show Script Warning/Error Window"/>
+		<menu label="Перекомпілювати обрані скрипти" name="Recompile Scripts in Selection">
+			<menu_item_call label="Моно" name="Mono"/>
+			<menu_item_call label="LSL" name="LSL"/>
+		</menu>
+		<menu_item_call label="Скинути обраний скрипт" name="Reset Scripts in Selection"/>
+		<menu_item_call label="Запустити обрані скрипти" name="Set Scripts to Running in Selection"/>
+		<menu_item_call label="Зупинити обрані скрипты" name="Set Scripts to Not Running in Selection"/>
+	</menu>
+	<menu label="Допомога" name="Help">
+		<menu_item_call label="Допомога по Second Life" name="Second Life Help"/>
+		<menu_item_call label="Підручник" name="Tutorial"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Офіційний Linden-Блог..." name="Official Linden Blog..."/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Портал по скриптам..." name="Scripting Portal..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Порушення..." name="Report Abuse..."/>
+		<menu_item_call label="Удари, вибухи, толкання..." name="Bumps, Pushes &amp;amp; Hits..."/>
+		<menu_item_call label="Лаги" name="Lag Meter"/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu label="Повідомити про помилку" name="Bug Reporting">
+			<menu_item_call label="Публічний контроль помилок" name="Public Issue Tracker..."/>
+			<menu_item_call label="Допомога по Публічному контролю помилок" name="Publc Issue Tracker Help..."/>
+			<menu_item_separator label="-----------" name="separator7"/>
+			<menu_item_call label="Повідомити про помилку 101..." name="Bug Reporing 101..."/>
+			<menu_item_call label="Зауваження по безпеці..." name="Security Issues..."/>
+			<menu_item_call label="ПВ Wiki" name="QA Wiki..."/>
+			<menu_item_separator label="-----------" name="separator9"/>
+			<menu_item_call label="Звіт про помилку..." name="Report Bug..."/>
+		</menu>
+		<menu_item_call label="Про Second Life..." name="About Second Life..."/>
+	</menu>
+</menu_bar>

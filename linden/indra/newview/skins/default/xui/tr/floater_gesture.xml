@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gestures" title="Aktif Hareketler">
+	<text name="help_label">
+		Animasyonları ve sesleri oynatmak için harekete çift tıklayınız.
+	</text>
+	<scroll_list name="gesture_list">
+		<column label="Kısayol" name="trigger" />
+		<column label="Tuş" name="shortcut" />
+		<column label="" name="key" />
+		<column label="Ad" name="name" />
+	</scroll_list>
+	<button label="Yeni" name="new_gesture_btn" />
+	<button label="Düzenle" name="edit_btn" />
+	<button label="Oynat" name="play_btn" />
+	<button label="Durdur" name="stop_btn" />
+</floater>

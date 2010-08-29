@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Отладка" name="Debug">
+	<text name="region_text_lbl">
+		Регион:
+	</text>
+	<text name="region_text">
+		(неизвестно)
+	</text>
+	<check_box label="Выключить Скрипты" name="disable_scripts_check" tool_tip="Выключить все скрипты в этом регионе"/>
+	<button label="?" name="disable_scripts_help"/>
+	<check_box label="Блок. столкновения" name="disable_collisions_check" tool_tip="Блокировать столкновения неаватаров в этом регионе."/>
+	<button label="?" name="disable_collisions_help"/>
+	<check_box label="Выключить физику" name="disable_physics_check" tool_tip="Выключить всю физику в этом регионе"/>
+	<button label="?" name="disable_physics_help"/>
+	<button label="Применить" name="apply_btn"/>
+	<text name="objret_text_lbl" width="130">
+		Возврат объектов
+	</text>
+	<text name="resident_text_lbl">
+		Резидент:
+	</text>
+	<line_editor name="target_avatar_name">
+		(нет)
+	</line_editor>
+	<button label="Выберите..." name="choose_avatar_btn"/>
+	<text name="options_text_lbl">
+		Опции:
+	</text>
+	<check_box label="Вернуть только эти объекты со скриптами." name="return_scripts" tool_tip="Вернуть только объекты со скриптами."/>
+	<check_box label="Вернуть только эти объекты на чьей-то земле" name="return_other_land" tool_tip="Вернуть только объекты, которые находятся на земле, которая принадлежит кому-то другому"/>
+	<check_box label="Возвращает объекты в каждом регионе этого поместья" name="return_estate_wide" tool_tip="Возвращает объекты во всех регионах, которые образуют это поместье"/>
+	<button label="Вернуть" name="return_btn"/>
+	<button label="ТОП столкновений..." name="top_colliders_btn" tool_tip="Список объектов, испытывающие большинство потенциальных столкновений"/>
+	<button label="?" name="top_colliders_help"/>
+	<button label="ТОП скриптов..." name="top_scripts_btn" tool_tip="Список объектов, больше всех нагружающих сим скриптами"/>
+	<button label="?" name="top_scripts_help"/>
+	<button label="Перезапуск" name="restart_btn" tool_tip="2 мин. на обратный отсчет и перезапуск региона" width="170"/>
+	<button label="?" name="restart_help" left="190"/>
+	<button label="Отл. перезап." name="cancel_restart_btn" tool_tip="Отложить перезапуск региона на 1 час" width="170"/>
+</panel>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -276,11 +277,7 @@ void LLPanelEvent::onClickLandmark(void* data)
 // static
 void LLPanelEvent::onClickCreateEvent(void* data)
 {
-	LLPanelEvent* self = (LLPanelEvent*)data;
-	
-	gViewerWindow->alertXml("PromptGoToEventsPage",
-		callbackCreateEventWebPage, 
-		self); 
+	LLNotifications::instance().add("PromptGoToEventsPage", LLSD(), LLSD(), callbackCreateEventWebPage); 
 }
 
 // static
@@ -301,12 +298,14 @@ void LLPanelEvent::onClickNotify(void *data)
 }
 
 // static
-void LLPanelEvent::callbackCreateEventWebPage(S32 option, void* data)
+bool LLPanelEvent::callbackCreateEventWebPage(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		llinfos << "Loading events page " << EVENTS_URL << llendl;
 
 		LLWeb::loadURL(EVENTS_URL);
 	}
+	return false;
 }

@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="Panel Avatar">
-	<tab_container name="tab">
-		<panel label="2ème vie" name="2nd Life">
+<panel name="Panel Avatar" width="470">
+	<tab_container name="tab" width="459">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
+[AGEVERIFICATION]
 			</string>
 			<string name="AcctTypeResident">
 				Résident
@@ -16,7 +17,7 @@
 				Membre originaire
 			</string>
 			<string name="AcctTypeEmployee">
-				Employé de Linden Lab
+				Employé(e) de Linden Lab
 			</string>
 			<string name="PaymentInfoUsed">
 				Infos de paiement utilisées
@@ -25,7 +26,7 @@
 				Infos de paiement enregistrées
 			</string>
 			<string name="NoPaymentInfoOnFile">
-				Aucune info de paiement enregistrée
+				Aucune info de paiement
 			</string>
 			<string name="AgeVerified">
 				Âge vérifié
@@ -42,14 +43,17 @@
 			<text name="label">
 				Né(e) le :
 			</text>
+			<line_editor name="born" />
 			<text name="label2">
 				Compte :
 			</text>
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Partenaire sur Second Life. Pour en savoir plus, allez sur www.secondlife.com/partner">
 				Partenaire :
 			</text>
-			<button label="i" label_selected="i" left_delta="62" name="partner_info" tool_tip="Cliquez pour ouvrir le profil du partenaire"/>
-			<button label="?" label_selected="?" left_delta="24" name="partner_help"/>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Cliquez pour ouvrir le profil du partenaire" />
+			<button label="?" label_selected="?" name="partner_help"/>
 			<line_editor name="partner_edit" tool_tip="Partenaire sur Second Life. Pour en savoir plus, allez sur www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
@@ -60,28 +64,34 @@
 			<text name="Groups:">
 				Groupes :
 			</text>
+			<scroll_list name="groups" />
 			<text name="About:">
 				À propos :
 			</text>
 			<text name="(500 chars)">
 				(500 car.)
 			</text>
-			<text name="Give item:" height="20" bottom="-397">
+			<text_editor name="about" />
+			<text name="Give item:">
 				Donner des 
-objets :</text>
+objets :
+			</text>
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
 			<text name="Give inventory" tool_tip="Mettez les objets de l&apos;inventaire ici pour les donner à cette personne.">
 				Mettez les objets à transférer ici.
 			</text>
 			<check_box label="Afficher dans la recherche" name="allow_publish" tool_tip="Publiez des infos suplémentaires telles qu&apos;une description et une image dans la Recherche."/>
-			<button label="?" label_selected="?" left_delta="160" name="?"/>
+			<button label="?" label_selected="?" name="?"/>
 			<button label="Localiser" label_selected="Localiser" name="Find on Map"/>
-			<button label="Proposer téléportation..." label_selected="Proposer téléportation..." name="Offer Teleport..."/>
-			<button label="Devenir amis..." label_selected="Devenir amis..." name="Add Friend..."/>
+			<button label="Proposer téléportation..." label_selected="Proposer téléportation..." name="Offer Teleport..." />
+			<button label="Devenir amis..." label_selected="Devenir amis..." name="Add Friend..." />
 			<button label="Payer..." label_selected="Payer..." name="Pay..."/>
-			<button label="Message instantané..." label_selected="Message instantané..." name="Instant Message..." tool_tip="Message instantané (IM)"/>
-			<button label="Ignorer" label_selected="Ignorer" name="Mute"/>
+			<button label="Message instantané..." label_selected="Message instantané..." name="Instant Message..." tool_tip="Message instantané (IM)" />
+			<button label="Ignorer" label_selected="Ignorer" name="Mute" />
 		</panel>
 		<panel label="Web" name="WebProfile">
+		  <line_editor name="url_edit" />
 			<flyout_button label="Charger" label_selected="Charger" name="load" tool_tip="Charger cette page du profil avec le navigateur web incorporé.">
 				<flyout_button_item name="open_item">
 					Dans un navigateur externe
@@ -92,48 +102,54 @@ objets :</text>
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="Charger directement la page web" name="auto_load" tool_tip="Charger automatiquement toutes les pages web des profils sans demander au préalable."/>
+			<web_browser name="profile_html" />
 		</panel>
 		<panel label="Intérêts" name="Interests">
-			<text left="2" name="I Want To:">
+			<text name="I Want To:">
 				Je veux :
 			</text>
 			<check_box label="Construire" name="chk0"/>
-			<check_box label="Explorer" left_delta="160" name="chk1"/>
-			<check_box label="Faire des rencontres" left_delta="-160" name="chk2"/>
-			<check_box label="Être engagé" left_delta="160" name="chk6"/>
-			<check_box label="Rejoindre un groupe" left_delta="-160" name="chk3"/>
-			<check_box label="Acheter" left_delta="160" name="chk4"/>
-			<check_box label="Vendre" left_delta="-160" name="chk5"/>
-			<check_box label="Recruter" left_delta="160" name="chk7"/>
-			<text left="2" name="Skills:">
+			<check_box label="Explorer" name="chk1"/>
+			<check_box label="Faire des rencontres" name="chk2"/>
+			<check_box label="Être engagé" name="chk6"/>
+			<check_box label="Rejoindre un groupe" name="chk3"/>
+			<check_box label="Acheter" name="chk4"/>
+			<check_box label="Vendre" name="chk5"/>
+			<check_box label="Recruter" name="chk7"/>
+			<line_editor name="want_to_edit" />
+			<text name="Skills:">
 				Mes talents :
 			</text>
 			<check_box label="Textures" name="schk0"/>
-			<check_box label="Architecture" left_delta="160" name="schk1"/>
+			<check_box label="Architecture" name="schk1"/>
 			<check_box label="Organisation d&apos;événements" name="schk2"/>
-			<check_box label="Modélisation" left_delta="-160" name="schk3"/>
+			<check_box label="Modélisation" name="schk3"/>
 			<check_box label="Rédaction de scripts" name="schk4"/>
-			<check_box label="Customisation de personnages" left_delta="160" name="schk5"/>
-			<text left="2" name="Languages:">
+			<check_box label="Customisation de personnages" name="schk5"/>
+			<line_editor name="skills_edit" />
+			<text name="Languages:">
 				Langues :
 			</text>
+			<line_editor name="languages_edit" />
 		</panel>
 		<panel label="Favoris" name="Picks">
-			<text left="10" name="Tell everyone about your favorite places in Second Life." width="412">
-				Faites connaître aux autres résidents vos endroits favoris dans Second Life.
+			<text left="10" name="Tell everyone about your favorite places in Second Life.">
+				Faites connaître aux autres résidents vos endroits favoris.
 			</text>
 			<button label="Créer..." label_selected="Créer..." name="New..."/>
-			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..."/>
+			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+			<tab_container name="picks tab" />
 			<text name="loading_text">
 				Chargement...
 			</text>
 		</panel>
 		<panel label="Annonces" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
-				Passez une petite annonce sur Second Life.
+				Passez une petite annonce.
 			</text>
 			<button label="Créer..." label_selected="Créer..." name="New..."/>
-			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..."/>
+			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+			<tab_container name="classified tab" />
 			<text name="loading_text">
 				Chargement...
 			</text>
@@ -149,18 +165,19 @@ objets :</text>
 			<text name="(250 chars)">
 				(250 car.)
 			</text>
+			<text_editor name="about" />
 		</panel>
 		<panel label="Mes notes" name="My Notes">
 			<string name="Loading">
 				Chargement...
 			</string>
 			<text name="label">
-				Dans cet espace, vous pouvez enregistrer vos remarques au sujet de ce
-résident ou prendre des notes sur certains projets. Vous êtes le seul à
-pouvoir accéder à cette page et même le résident dont vous consultez le profil
-ne pourra pas voir ce que vous avez écrit.
+				Dans cet espace, vous pouvez enregistrer vos remarques au sujet de ce résident ou
+prendre des notes sur certains projets. Vous êtes le seul à pouvoir accéder à cette
+page et même le résident dont vous consultez le profil ne pourra pas voir ce que
+vous avez écrit.
 			</text>
-			<text_editor bottom_delta="-260" height="240" name="notes edit"/>
+			<text_editor name="notes edit" />
 		</panel>
 	</tab_container>
 	<button label="OK" label_selected="OK" name="OK"/>

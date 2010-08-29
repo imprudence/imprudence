@@ -9,20 +9,23 @@
 	<text name="information_label">
 		Informações:
 	</text>
+	<text name="land_type_label">
+		Tipo de Terra:
+	</text>
 	<text name="location_label">
 		Localidade:
 	</text>
-	<button label="Tele-transportar" name="teleport_btn"/>
-	<button label="Mostrar no mapa" name="map_btn"/>
+	<button label="Teletransportar" name="teleport_btn"/>
+	<button label="Mostrar no mapa" name="map_btn" width="125"/>
 	<button label="Ofertas..." name="auction_btn"/>
 	<string name="traffic_text">
 		Tráfego: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Área: [AREA] m2
+		Área: [AREA] m².
 	</string>
 	<string name="forsale_text">
-		À venda por L$ [PRICE]
+		À venda por L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID do Leilão [ID].
@@ -34,6 +37,6 @@
 		Informações sobre esta localidade estão indisponíveis no momento, por favor tente novamente mais tarde.
 	</string>
 	<string name="server_forbidden_text">
-		Informações sobre esta localidade estão indisponíveis. Por favor, verifique suas permissões com o dono do terreno.
+		Informações sobre esta localidade estão indisponíveis. Por favor, verifique suas permissões com o dono do lote.
 	</string>
 </panel>

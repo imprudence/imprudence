@@ -6,6 +6,6 @@
 		另存物品为:
 	</text>
 	<line_editor name="name ed">
-		新的[DESC]
+		New [DESC]
 	</line_editor>
 </floater>

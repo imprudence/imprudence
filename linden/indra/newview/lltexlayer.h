@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,6 +41,7 @@
 #include "lluuid.h"
 #include "llviewerimage.h"
 #include "llviewervisualparam.h"
+#include "llvoavatardefines.h"
 #include "llwearable.h"
 #include "v4color.h"
 #include "llfloater.h"
@@ -185,6 +187,7 @@ protected:
 	std::string				mStaticImageFileName;
 	BOOL					mStaticImageIsMask;
 	BOOL					mUseLocalTextureAlphaOnly;	// Ignore RGB channels from the input texture.  Use alpha as a mask
+	BOOL					mIsVisibilityMask;
 
 	typedef std::vector<std::pair<std::string,BOOL> > morph_name_list_t;
 	morph_name_list_t		mMorphNameList;
@@ -204,14 +207,13 @@ protected:
 class LLTexLayerSetBuffer : public LLDynamicTexture
 {
 public:
-	LLTexLayerSetBuffer( LLTexLayerSet*	owner, S32 width, S32 height, BOOL has_bump );
+	LLTexLayerSetBuffer(LLTexLayerSet*	owner, S32 width, S32 height);
 	virtual ~LLTexLayerSetBuffer();
 
 	virtual void			preRender(BOOL clear_depth);
 	virtual void			postRender(BOOL success);
 	virtual BOOL			render();
 	BOOL					updateImmediate();
-	void					bindBumpTexture( U32 stage );
 	bool					isInitialized(void) const;
 	BOOL					needsRender();
 	void					requestUpdate();
@@ -219,8 +221,7 @@ public:
 	void					cancelUpload();
 	BOOL					uploadPending() { return mUploadPending; }
 	BOOL					render( S32 x, S32 y, S32 width, S32 height );
-	void					readBackAndUpload(U8* baked_bump_data);
-	void                    createBumpTexture() ;
+	void					readBackAndUpload();
 
 	static void				onTextureUploadComplete( const LLUUID& uuid,
 													 void* userdata,
@@ -235,16 +236,13 @@ private:
 	void					popProjection();
 
 private:
-	BOOL                    mHasBump ;
 	BOOL					mNeedsUpdate;
 	BOOL					mNeedsUpload;
 	BOOL					mUploadPending;
 	LLUUID					mUploadID;		// Identifys the current upload process (null if none).  Used to avoid overlaps (eg, when the user rapidly makes two changes outside of Face Edit)
 	LLTexLayerSet*			mTexLayerSet;
-	LLPointer<LLImageGL>	mBumpTex;	// zero if none
 
 	static S32				sGLByteCount;
-	static S32				sGLBumpByteCount;
 };
 
 //-----------------------------------------------------------------------------
@@ -253,6 +251,7 @@ private:
 //-----------------------------------------------------------------------------
 class LLTexLayerSet
 {
+	friend class LLTexLayerSetBuffer;
 public:
 	LLTexLayerSet( LLVOAvatar* avatar );
 	~LLTexLayerSet();
@@ -263,7 +262,7 @@ public:
 	BOOL					setInfo(LLTexLayerSetInfo *info);
 	
 	BOOL					render( S32 x, S32 y, S32 width, S32 height );
-	BOOL					renderBump( S32 x, S32 y, S32 width,S32 height );
+	void					renderAlphaMaskTextures(S32 x, S32 y, S32 width, S32 height, bool forceClear = false);
 	BOOL					isBodyRegion( const std::string& region ) { return mInfo->mBodyRegion == region; }
 	LLTexLayerSetBuffer*	getComposite();
 	void					requestUpdate();
@@ -282,8 +281,9 @@ public:
 	void					applyMorphMask(U8* tex_data, S32 width, S32 height, S32 num_components);
 	const std::string		getBodyRegion() 				{ return mInfo->mBodyRegion; }
 	BOOL					hasComposite()					{ return (mComposite != NULL); }
-	void					setBump( BOOL b )				{ mHasBump = b; }
-	BOOL					hasBump()						{ return mHasBump; }
+	LLVOAvatarDefines::EBakedTextureIndex getBakedTexIndex() { return mBakedTexIndex; }
+	void					setBakedTexIndex(LLVOAvatarDefines::EBakedTextureIndex index) { mBakedTexIndex = index; }
+	BOOL					isVisible() const 				{ return mIsVisible; }
 
 public:
 	static BOOL		sHasCaches;
@@ -291,11 +291,14 @@ public:
 protected:
 	typedef std::vector<LLTexLayer *> layer_list_t;
 	layer_list_t			mLayerList;
+	layer_list_t			mMaskLayerList;
 	LLTexLayerSetBuffer*	mComposite;
 	// Backlink only; don't make this an LLPointer.
 	LLVOAvatar*				mAvatar;
 	BOOL					mUpdatesEnabled;
-	BOOL					mHasBump;
+	BOOL					mIsVisible;
+
+	LLVOAvatarDefines::EBakedTextureIndex mBakedTexIndex;
 
 	LLTexLayerSetInfo 		*mInfo;
 };
@@ -347,6 +350,9 @@ public:
 	BOOL					renderImageRaw( U8* in_data, S32 in_width, S32 in_height, S32 in_components, S32 width, S32 height, BOOL is_mask );
 	BOOL					renderAlphaMasks(  S32 x, S32 y, S32 width, S32 height, LLColor4* colorp );
 	BOOL					hasAlphaParams() { return (!mParamAlphaList.empty());}
+	BOOL					blendAlphaTexture(S32 x, S32 y, S32 width, S32 height);
+	BOOL					isVisibilityMask() const;
+	BOOL					isInvisibleAlphaMask();
 
 protected:
 	LLTexLayerSet*			mTexLayerSet;
@@ -532,18 +538,26 @@ public:
 	S32 mTGABytes;
 };
 
-
 // Used by LLTexLayerSetBuffer for a callback.
+
+// For DEV-DEV-31590, "Heap corruption and crash after outfit
+// changes", added the mLayerSet member.  The current
+// LLTexLayerSetBuffer can be found by querying mLayerSet->mComposite,
+// but we still store the original mLayerSetBuffer here so we can
+// detect when an upload is out of date.  This prevents a memory
+// stomp.  See LLTexLayerSetBuffer::onTextureUploadComplete() for usage.
 class LLBakedUploadData
 {
 public:
-	LLBakedUploadData( LLVOAvatar* avatar, LLTexLayerSetBuffer* layerset_buffer );
+	LLBakedUploadData( LLVOAvatar* avatar, LLTexLayerSet* layerset, LLTexLayerSetBuffer* layerset_buffer, const LLUUID & id);
 	~LLBakedUploadData() {}
 
 	LLUUID					mID;
 	LLVOAvatar*				mAvatar;	 // just backlink, don't LLPointer 
+	LLTexLayerSet*			mLayerSet;
 	LLTexLayerSetBuffer*	mLayerSetBuffer;
 	LLUUID					mWearableAssets[WT_COUNT];
+	U64						mStartTime;		// Used to measure time baked texture upload requires
 };
 
 extern LLTexStaticImageList gTexStaticImageList;

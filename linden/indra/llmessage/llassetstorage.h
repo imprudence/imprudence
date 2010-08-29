@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -203,7 +204,16 @@ typedef std::map<LLUUID,U64,lluuid_less> toxic_asset_map_t;
 typedef void (*LLGetAssetCallback)(LLVFS *vfs, const LLUUID &asset_id,
 										 LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
 
-class LLAssetStorage
+class LLTempAssetStorage
+{
+public:
+	virtual ~LLTempAssetStorage() =0;
+	virtual void addTempAssetData(const LLUUID& asset_id,
+								  const LLUUID& agent_id,
+								  const std::string& host_name) = 0;
+};
+
+class LLAssetStorage : public LLTempAssetStorage
 {
 public:
 	// VFS member is public because static child methods need it :(

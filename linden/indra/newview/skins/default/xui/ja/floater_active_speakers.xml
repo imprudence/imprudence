@@ -5,7 +5,7 @@
 			<column label="名前" name="speaker_name" />
 		</scroll_list>
 		<panel name="volume_container">
-			<button label="ミュート" name="mute_btn"
+			<button label="" name="mute_btn"
 			     tool_tip="この住人のボイスをミュート（消声）します。" />
 		</panel>
 	</panel>

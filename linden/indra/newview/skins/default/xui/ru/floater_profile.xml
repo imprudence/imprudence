@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatarinfo" title="Профиль" width="490">
+	<panel name="Panel Avatar" width="500" />
+</floater>

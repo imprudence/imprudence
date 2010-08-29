@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -196,8 +197,9 @@ LLQueuedThread::handle_t LLQueuedThread::generateHandle()
 	{
 		mNextHandle++;
 	}
+	const LLQueuedThread::handle_t res = mNextHandle++;
 	unlockData();
-	return mNextHandle++;
+	return res;
 }
 
 // MAIN thread
@@ -346,9 +348,9 @@ bool LLQueuedThread::completeRequest(handle_t handle)
 #if _DEBUG
 // 		llinfos << llformat("LLQueuedThread::Completed req [%08d]",handle) << llendl;
 #endif
-		mRequestHash.erase(handle);
-		req->deleteRequest();
-// 		check();
+		//re insert to the queue to schedule for a delete later
+		req->setStatus(STATUS_DELETE);
+		mRequestQueue.insert(req);
 		res = true;
 	}
 	unlockData();
@@ -392,11 +394,19 @@ S32 LLQueuedThread::processNextRequest()
 		}
 		req = *mRequestQueue.begin();
 		mRequestQueue.erase(mRequestQueue.begin());
+
+		if(req->getStatus() == STATUS_DELETE)
+		{
+				mRequestHash.erase(req);
+				req->deleteRequest();
+				continue;
+		}
+
 		if ((req->getFlags() & FLAG_ABORT) || (mStatus == QUITTING))
 		{
 			req->setStatus(STATUS_ABORTED);
 			req->finishRequest(false);
-			if (req->getFlags() & FLAG_AUTO_COMPLETE)
+			if ((req->getFlags() & FLAG_AUTO_COMPLETE))
 			{
 				mRequestHash.erase(req);
 				req->deleteRequest();
@@ -425,14 +435,17 @@ S32 LLQueuedThread::processNextRequest()
 		{
 			lockData();
 			req->setStatus(STATUS_COMPLETE);
+			unlockData();
+
 			req->finishRequest(true);
-			if (req->getFlags() & FLAG_AUTO_COMPLETE)
+
+			if ((req->getFlags() & FLAG_AUTO_COMPLETE))
 			{
+				lockData();
 				mRequestHash.erase(req);
 				req->deleteRequest();
-// 				check();
+				unlockData();
 			}
-			unlockData();
 		}
 		else
 		{
@@ -448,26 +461,12 @@ S32 LLQueuedThread::processNextRequest()
 		}
 	}
 
-	S32 res;
 	S32 pending = getPending();
-	if (pending == 0)
-	{
-		if (isQuitting())
-		{
-			res = -1; // exit thread
-		}
-		else
-		{
-			res = 0;
-		}
-	}
-	else
-	{
-		res = pending;
-	}
-	return res;
+
+	return pending;
 }
 
+// virtual
 bool LLQueuedThread::runCondition()
 {
 	// mRunCondition must be locked here
@@ -477,35 +476,52 @@ bool LLQueuedThread::runCondition()
 		return true;
 }
 
+// virtual
 void LLQueuedThread::run()
 {
+	// call checPause() immediately so we don't try to do anything before the class is fully constructed
+	checkPause();
+	startThread();
+	
 	while (1)
 	{
 		// this will block on the condition until runCondition() returns true, the thread is unpaused, or the thread leaves the RUNNING state.
 		checkPause();
 		
 		if(isQuitting())
+		{
+			endThread();
 			break;
-
-		//llinfos << "QUEUED THREAD RUNNING, queue size = " << mRequestQueue.size() << llendl;
+		}
 
 		mIdleThread = FALSE;
+		
+		threadedUpdate();
 		
 		int res = processNextRequest();
 		if (res == 0)
 		{
 			mIdleThread = TRUE;
+			ms_sleep(1);
 		}
-		
-		if (res < 0) // finished working and want to exit
-		{
-			break;
-		}
-
 		//LLThread::yield(); // thread should yield after each request		
 	}
+	llinfos << "LLQueuedThread " << mName << " EXITING." << llendl;
+		}
+		
+// virtual
+void LLQueuedThread::startThread()
+		{
+		}
 
-	llinfos << "QUEUED THREAD " << mName << " EXITING." << llendl;
+// virtual
+void LLQueuedThread::endThread()
+{
+	}
+
+// virtual
+void LLQueuedThread::threadedUpdate()
+{
 }
 
 //============================================================================

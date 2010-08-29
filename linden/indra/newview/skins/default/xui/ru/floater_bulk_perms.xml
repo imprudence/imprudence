@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="Смена прав контента по типам">
+	<text name="applyto">
+		Типы контента
+	</text>
+	<check_box label="Анимация" name="check_animation"/>
+	<check_box label="Части тела" name="check_bodypart"/>
+	<check_box label="Одежда" name="check_clothing"/>
+	<check_box label="Жесты" name="check_gesture"/>
+	<check_box label="Закладки" name="check_landmark"/>
+	<check_box label="Заметки" name="check_notecard"/>
+	<check_box label="Объекты" name="check_object"/>
+	<check_box label="Скрипты" name="check_script"/>
+	<check_box label="Звуки" name="check_sound"/>
+	<check_box label="Текстуры" name="check_texture"/>
+	<button label="Выбрать Все" label_selected="Все" name="check_all"/>
+	<button label="Отменить Все" label_selected="Ничего" name="check_none"/>
+	<text name="newperms">
+		Новые Права
+	</text>
+	<check_box label="Поделиться с группой" name="share_with_group"/>
+	<check_box label="Разрешить всем копировать" name="everyone_copy"/>
+	<text name="NextOwnerLabel">
+		Следующий владелец может:
+	</text>
+	<check_box label="Модифицировать" name="next_owner_modify"/>
+	<check_box label="Копировать" name="next_owner_copy" left_delta="125"/>
+	<check_box label="Продавать/&#10;Отдавать" name="next_owner_transfer" left_delta="92"/>
+	<scroll_list bottom="40" height="124" name="queue output" />
+	<button label="Помощь" name="help"/>
+	<button label="Применить" name="apply"/>
+	<button label="Закрыть" name="close"/>
+	<string name="nothing_to_modify_text">
+		Выбранное не содержит контента, который можно редактировать.
+	</string>
+	<string name="status_text">
+		Устанавливаем права на [NAME]
+	</string>
+	<string name="start_text">
+		Начинаем запрос на смену прав...
+	</string>
+	<string name="done_text">
+		Запрос на смену прав завершен.
+	</string>
+</floater>

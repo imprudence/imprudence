@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="Kiválasztás: Textúra">
+	<string name="choose_picture">
+		Kattints ide a kép kiválasztásához
+	</string>
+	<text type="string" length="1" name="Multiple">
+		Többszörös
+	</text>
+	<text type="string" length="1" name="unknown">
+		Méret: [DIMENSIONS]
+	</text>
+	<button label="Alapértelmezett" label_selected="Alapértelmezett" name="Default" width="100"/>
+	<button label="Nincs" label_selected="Nincs" name="None" left="106"/>
+	<button label="Üres" label_selected="Üres" name="Blank" />
+	<check_box label="Mappák megjelenítése" name="show_folders_check" />
+	<search_editor label="Kereséshez ide írj" name="inventory search editor" />
+	<check_box label="Alkalmaz most" name="apply_immediate_check" />
+	<button label="" label_selected="" name="Pipette" />
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel" />
+	<button label="Kijelöl" label_selected="Kijelöl" name="Select" />
+	<text name="pick title">
+		Kiválaszt:
+	</text>
+</floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -96,7 +97,7 @@ public:
 									 LLHost request_from_host = LLHost()
 									 );
 	
-	LLViewerImage * getImageFromFile(const std::string& filename,
+	LLViewerImage * getImageFromUrl(const std::string& url,
 									 BOOL usemipmap = TRUE,
 									 BOOL level_immediate = FALSE,		// Get the requested level immediately upon creation.
 									 LLGLint internal_format = 0,
@@ -104,6 +105,14 @@ public:
 									 const LLUUID& force_id = LLUUID::null
 									 );
 
+	LLViewerImage * getImageFromFile(const std::string& filename,
+									 BOOL usemipmap = TRUE,
+									 BOOL level_immediate = FALSE,		// Get the requested level immediately upon creation.
+									 LLGLint internal_format = 0,
+									 LLGLenum primary_format = 0,
+									 const LLUUID& force_id = LLUUID::null
+									 );
+	
 	// Request image from a specific host, used for baked avatar textures.
 	// Implemented in header in case someone changes default params above. JC
 	LLViewerImage* getImageFromHost(const LLUUID& image_id, LLHost host)
@@ -120,6 +129,7 @@ public:
 	
 	// Using image stats, determine what images are necessary, and perform image updates.
 	void updateImages(F32 max_time);
+	void bumpToMaxDecodePriority(LLViewerImage* imagep) ;
 
 	// Decode and create textures for all images currently in list.
 	void decodeAllImages(F32 max_decode_time); 
@@ -128,8 +138,8 @@ public:
 
 	void setUpdateStats(BOOL b)			{ mUpdateStats = b; }
 
-	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMem; }
-	S32 getMaxTotalTextureMem() const   { return mMaxTotalTextureMem;}
+	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMemInMegaBytes; }
+	S32 getMaxTotalTextureMem() const   { return mMaxTotalTextureMemInMegaBytes;}
 	S32 getNumImages()					{ return mImageList.size(); }
 
 	void updateMaxResidentTexMem(S32 mem);
@@ -170,8 +180,8 @@ private:
 	std::set<LLPointer<LLViewerImage> > mImagePreloads;
 
 	BOOL mUpdateStats;
-	S32	mMaxResidentTexMem;
-	S32 mMaxTotalTextureMem;
+	S32	mMaxResidentTexMemInMegaBytes;
+	S32 mMaxTotalTextureMemInMegaBytes;
 	LLFrameTimer mForceDecodeTimer;
 	
 public:

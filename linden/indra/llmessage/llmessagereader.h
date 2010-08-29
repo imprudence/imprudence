@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,6 +43,12 @@ class LLUUID;
 class LLVector3;
 class LLVector3d;
 class LLVector4;
+
+// Error return values for getSize() functions
+const S32 LL_BLOCK_NOT_IN_MESSAGE = -1;
+const S32 LL_VARIABLE_NOT_IN_BLOCK = -2;
+const S32 LL_MESSAGE_ERROR = -3;
+
 
 class LLMessageReader
 {

@@ -1,0 +1,14 @@
+<llsd>
+    <map>
+    <key>skin_name</key>
+        <string>Silver</string>
+    <key>author_name</key>
+        <string>Linden Lab</string>
+    <key>additional_author_names</key>
+        <string></string>
+    <key>skin_info</key>
+        <string>This is the alternate skin for the lindens second life viewer.</string>
+    <key>folder_name</key>
+        <string>silver</string>
+    </map>
+</llsd>

@@ -1,56 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="gesture_preview" title="动作">
+	<string name="stop_txt">
+		停止
+	</string>
+	<string name="preview_txt">
+		预览
+	</string>
+	<string name="none_text">
+		-- 没有 --
+	</string>
 	<text name="desc_label">
 		描述:
 	</text>
 	<text name="trigger_label">
 		命令:
 	</text>
-	<text name="replace_text"
-	     tool_tip="将命令词用这些词替换。例如说，命令‘你好’替换为‘好呀！’ 将会将对话 ‘我想说你好’ 变成 ‘我想说好呀！’ 并同时播放动作。">
+	<text name="replace_text" tool_tip="将命令词用这些词替换。例如说，命令‘你好’替换为‘好呀！’ 将会将对话 ‘我想说你好’ 变成 ‘我想说好呀！’ 并同时播放动作。">
 		替换为:
 	</text>
-	<line_editor name="replace_editor"
-	     tool_tip="将命令词用这些词替换。例如说，命令‘你好’替换为‘好呀！’ 将会将对话 ‘我想说你好’ 变成 ‘我想说好呀！’ 并同时播放动作。" />
+	<line_editor name="replace_editor" tool_tip="将命令词用这些词替换。例如说，命令‘你好’替换为‘好呀！’ 将会将对话 ‘我想说你好’ 变成 ‘我想说好呀！’ 并同时播放动作。"/>
 	<text name="key_label">
 		快捷键:
 	</text>
-	<combo_box label="无" name="modifier_combo" />
-	<combo_box label="无" name="key_combo" />
-	<text>
+	<combo_box label="无" name="modifier_combo"/>
+	<combo_box label="无" name="key_combo"/>
+	<text name="library_label">
 		库:
 	</text>
-	<text>
-		步骤:
+	<text name="steps_label">
+		阶段：
 	</text>
-	<scroll_list
-		 draw_border="true"
-		 name="library_list">
-		Animation
-Sound
-Chat
-Wait
+	<scroll_list name="library_list">
+		动画
+声音
+聊天
+等待
 	</scroll_list>
-	<button label="添加&gt;&gt;" name="add_btn" />
-	<button label="上移" name="up_btn" />
-	<button label="下移" name="down_btn" />
-	<button label="移除" name="delete_btn" />
+	<button label="添加&gt;&gt;" name="add_btn"/>
+	<button label="上移" name="up_btn"/>
+	<button label="下移" name="down_btn"/>
+	<button label="移除" name="delete_btn"/>
 	<text name="help_label">
 		所有的步骤都同时发生，
 除非你添加了等待步骤。
 	</text>
 	<radio_group name="animation_trigger_type">
-		<radio_item>
+		<radio_item name="start">
 			开始
 		</radio_item>
-		<radio_item>
+		<radio_item name="stop">
 			停止
 		</radio_item>
 	</radio_group>
-	<check_box label="直到动画完成" name="wait_anim_check" />
-	<check_box label="等待时间, 以秒计" name="wait_time_check" />
-	<check_box label="激活" name="active_check"
-	     tool_tip="激活的动作可以被命令或快捷键启动。动作一般当按键冲突时会成为不激活的状态。" />
-	<button label="预览" name="preview_btn" />
-	<button label="存储" name="save_btn" />
+	<check_box label="直到动画完成" name="wait_anim_check"/>
+	<check_box label="等待时间, 以秒计" name="wait_time_check"/>
+	<check_box label="激活" name="active_check" tool_tip="激活的动作可以被命令或快捷键启动。动作一般当按键冲突时会成为不激活的状态。"/>
+	<button label="预览" name="preview_btn"/>
+	<button label="存储" name="save_btn"/>
 </floater>

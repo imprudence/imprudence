@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Land Pie">
+	<menu_item_call label="Arazi hakkında..." name="About Land..." />
+	<menu_item_call label="Yarat" name="Create" />
+	<menu_item_call label="Buraya git" name="Go Here" />
+	<menu_item_call label="Buraya otur" name="Sit Here" />
+	<menu_item_call label="Şifre al..." name="Land Buy Pass" />
+	<menu_item_call label="Zemini düzenle" name="Edit Terrain" />
+	<menu_item_call label="Araziyi satın al..." name="Land Buy" />
+</pie_menu>

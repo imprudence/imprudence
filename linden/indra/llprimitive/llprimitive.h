@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -83,7 +84,6 @@ extern const F32 OBJECT_TWIST_LINEAR_MIN;
 extern const F32 OBJECT_TWIST_LINEAR_MAX;
 extern const F32 OBJECT_TWIST_LINEAR_INC;
 
-extern const F32 OBJECT_MIN_HOLE_SIZE;
 extern const F32 OBJECT_MAX_HOLE_SIZE_X;
 extern const F32 OBJECT_MAX_HOLE_SIZE_Y;
 
@@ -338,7 +338,7 @@ public:
 	void copyTEs(const LLPrimitive *primitive);
 	S32 packTEField(U8 *cur_ptr, U8 *data_ptr, U8 data_size, U8 last_face_index, EMsgVariableType type) const;
 	S32 unpackTEField(U8 *cur_ptr, U8 *buffer_end, U8 *data_ptr, U8 data_size, U8 face_count, EMsgVariableType type);
-	BOOL packTEMessage(LLMessageSystem *mesgsys) const;
+	BOOL packTEMessage(LLMessageSystem *mesgsys, int shield = 0) const;
 	BOOL packTEMessage(LLDataPacker &dp) const;
 	S32 unpackTEMessage(LLMessageSystem *mesgsys, char *block_name);
 	S32 unpackTEMessage(LLMessageSystem *mesgsys, char *block_name, const S32 block_num); // Variable num of blocks

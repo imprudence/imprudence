@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_auction" title="Linden föld eladásának megkezdése">
+	<check_box label="Sárga kerítés alkalmazása a bekerítéshez" name="fence_check" />
+	<button label="Fénykép" label_selected="Fénykép" name="snapshot_btn" />
+	<button label="OK" label_selected="OK" name="ok_btn" />
+	<text name="already for sale">
+		Nem kínálhatsz olyan telket aukcióra, amely eladás alatt van.
+	</text>
+</floater>

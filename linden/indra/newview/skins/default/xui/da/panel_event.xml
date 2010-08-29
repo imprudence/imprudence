@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Event">
+	<text name="event_name_label">
+		Navn:
+	</text>
+	<text name="event_name">
+		(ikke angivet)
+	</text>
+	<text name="event_category_label">
+		Type:
+	</text>
+	<text name="event_category">
+		(intet)
+	</text>
+	<text name="event_mature_label">
+		Mature indhold:
+	</text>
+	<text name="event_mature_yes">
+		Ja
+	</text>
+	<text name="event_mature_no">
+		Nej
+	</text>
+	<text name="event_date_label">
+		Dato:
+	</text>
+	<text name="event_date">
+		(intet)
+	</text>
+	<text name="event_duration_label">
+		Varighed:
+	</text>
+	<text name="event_duration">
+		(ikke angivet)
+	</text>
+	<text name="event_runby_label">
+		Afholdes af:
+	</text>
+	<text name="event_runby">
+		(ikke angivet)
+	</text>
+	<text name="event_location_label">
+		Sted:
+	</text>
+	<text name="event_location">
+		(ikke angivet)
+	</text>
+	<text name="event_cover_label">
+		Deltagerpris:
+	</text>
+	<text name="event_cover">
+		(intet)
+	</text>
+	<text name="event_desc_label">
+		Beskrivelse:
+	</text>
+	<button label="Teleport" name="teleport_btn"/>
+	<button label="Vis på kort" name="map_btn" width="150"/>
+	<button label="Giv besked" name="notify_btn"/>
+	<button label="Opret et arrangement..." name="create_event_btn" width="150"/>
+	<string name="none">
+		gratis
+	</string>
+	<string name="notify">
+		Giv besked
+	</string>
+	<string name="dont_notify">
+		Giv ikke besked
+	</string>
+</panel>

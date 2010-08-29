@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="Tömeges jogosultság változtatás">
+	<text name="applyto">
+		Tartalom típusok
+	</text>
+	<check_box label="Animáció" name="check_animation"/>
+	<check_box label="Testrészek" name="check_bodypart"/>
+	<check_box label="Ruházat" name="check_clothing"/>
+	<check_box label="Gesztusok" name="check_gesture"/>
+	<check_box label="Jelzőpontok" name="check_landmark"/>
+	<check_box label="Jegyzetek" name="check_notecard"/>
+	<check_box label="Tárgyak" name="check_object"/>
+	<check_box label="Scriptek" name="check_script"/>
+	<check_box label="Hangok" name="check_sound"/>
+	<check_box label="Textúrák" name="check_texture"/>
+	<button label="Összeset jelöl" label_selected="Összes" name="check_all" width="110"/>
+	<button label="Összeset kivesz" label_selected="Nincs" name="check_none" width="110"/>
+	<text name="newperms">
+		Új jogosultságok
+	</text>
+	<check_box label="Csoporttal megoszt" name="share_with_group"/>
+	<check_box label="Bárki másolhatja" name="everyone_copy"/>
+	<text name="NextOwnerLabel">
+		Következő tulajdonos jogosultsága:
+	</text>
+	<check_box label="Módosítás" name="next_owner_modify"/>
+	<check_box label="Másolás" name="next_owner_copy"/>
+	<check_box label="Eladás/Átadás" name="next_owner_transfer"/>
+	<button label="Segítség" name="help"/>
+	<button label="Alkalmaz" name="apply"/>
+	<button label="Bezár" name="close"/>
+	<string name="nothing_to_modify_text">
+		Kijelölés nem tartalmaz szerkeszthető részt.
+	</string>
+	<string name="status_text">
+		Jogosultság beállítása ennél: [NAME]
+	</string>
+	<string name="start_text">
+		Kérés a jogosultság megváltoztatására megkezdődött...
+	</string>
+	<string name="done_text">
+		Jogosultság változtatásának kérése befejeződött.
+	</string>
+</floater>

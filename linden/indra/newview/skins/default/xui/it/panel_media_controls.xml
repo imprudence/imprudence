@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_controls">
+	<icon label="" name="music_icon" tool_tip="Suona/pausa musica in streaming"/>
+	<button label="" name="music_play" tool_tip="Suona o pausa la musica in streaming del luogo"/>
+	<button label="" name="music_pause" tool_tip="Pausa musica streaming"/>
+	<button label="" name="music_stop" tool_tip="Stop musica streaming"/>
+	<icon label="" name="media_icon" tool_tip="Suona/pausa media in streaming"/>
+	<button label="" name="media_play" tool_tip="Suona/pausa media in streaming"/>
+	<button label="" name="media_pause" tool_tip="Pausa media streaming"/>
+	<button label="" name="media_stop" tool_tip="Stop media streaming"/>
+	<volume_slider name="volume_slider" tool_tip="Volume Master"/>
+	<button label="" name="mute_master" tool_tip="Muta Master"/>
+	<button label="" name="expand" tool_tip="Aggiusta i livelli dei volumi individuali"/>
+	<string name="play_label">
+		Play
+	</string>
+	<string name="stop_label">
+		Stop
+	</string>
+	<string name="pause_label">
+		Pausa
+	</string>
+	<string name="default_tooltip_label">
+		Nessun Media Specificato
+	</string>
+	<string name="media_hidden_label">
+		(URL del media nascosto dal proprietario dell&apos;appezzamento)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Questo luogo mostra contenuto web. Clicca il bottone Play per vedere il contenuto web.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Questo luogo mostra contenuti video. Clicca il bottone Play per vedere i contenuti video
+	</string>
+	<string name="media_play_tooltip">
+		Mostra il contenuto web in questo posto.
+	</string>
+</panel>

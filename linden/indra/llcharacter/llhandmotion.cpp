@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -112,9 +113,9 @@ BOOL LLHandMotion::onActivate()
 		// Note: 0 is the default
 		for (S32 i = 1; i < LLHandMotion::NUM_HAND_POSES; i++)
 		{
-			mCharacter->setVisualParamWeight(gHandPoseNames[i], 0.f);
+			mCharacter->setVisualParamWeight(getHandPoseName((eHandPose)i).c_str(), 0.f);
 		}
-		mCharacter->setVisualParamWeight(gHandPoseNames[mCurrentPose], 1.f);
+		mCharacter->setVisualParamWeight(getHandPoseName(mCurrentPose).c_str(), 1.f);
 		mCharacter->updateVisualParams();
 	}
 	return TRUE;
@@ -137,7 +138,7 @@ BOOL LLHandMotion::onUpdate(F32 time, U8* joint_mask)
 	{
 		if (mNewPose != HAND_POSE_RELAXED && mNewPose != mCurrentPose)
 		{
-			mCharacter->setVisualParamWeight(gHandPoseNames[mNewPose], 0.f);
+			mCharacter->setVisualParamWeight(getHandPoseName(mNewPose).c_str(), 0.f);
 		}
 		mNewPose = HAND_POSE_RELAXED;
 	}
@@ -146,7 +147,7 @@ BOOL LLHandMotion::onUpdate(F32 time, U8* joint_mask)
 		// this is a new morph we didn't know about before
 		if (*requestedHandPose != mNewPose && mNewPose != mCurrentPose && mNewPose != HAND_POSE_SPREAD)
 		{
-			mCharacter->setVisualParamWeight(gHandPoseNames[mNewPose], 0.f);
+			mCharacter->setVisualParamWeight(getHandPoseName(mNewPose).c_str(), 0.f);
 		}
 		mNewPose = *requestedHandPose;
 	}
@@ -165,18 +166,18 @@ BOOL LLHandMotion::onUpdate(F32 time, U8* joint_mask)
 
 		if (mNewPose != HAND_POSE_SPREAD)
 		{
-			incomingWeight = mCharacter->getVisualParamWeight(gHandPoseNames[mNewPose]);
+			incomingWeight = mCharacter->getVisualParamWeight(getHandPoseName(mNewPose).c_str());
 			incomingWeight += (timeDelta / HAND_MORPH_BLEND_TIME);
 			incomingWeight = llclamp(incomingWeight, 0.f, 1.f);
-			mCharacter->setVisualParamWeight(gHandPoseNames[mNewPose], incomingWeight);
+			mCharacter->setVisualParamWeight(getHandPoseName(mNewPose).c_str(), incomingWeight);
 		}
 
 		if (mCurrentPose != HAND_POSE_SPREAD)
 		{
-			outgoingWeight = mCharacter->getVisualParamWeight(gHandPoseNames[mCurrentPose]);
+			outgoingWeight = mCharacter->getVisualParamWeight(getHandPoseName(mCurrentPose).c_str());
 			outgoingWeight -= (timeDelta / HAND_MORPH_BLEND_TIME);
 			outgoingWeight = llclamp(outgoingWeight, 0.f, 1.f);
-			mCharacter->setVisualParamWeight(gHandPoseNames[mCurrentPose], outgoingWeight);
+			mCharacter->setVisualParamWeight(getHandPoseName(mCurrentPose).c_str(), outgoingWeight);
 		}
 
 		mCharacter->updateVisualParams();
@@ -198,6 +199,8 @@ void LLHandMotion::onDeactivate()
 {
 }
 
+//Zwag: Changed the defaults here so things look right. Otherwise the hand ends up
+// in a pose that nobody is used to when something messes up.
 //-----------------------------------------------------------------------------
 // LLHandMotion::getHandPoseName()
 //-----------------------------------------------------------------------------
@@ -207,7 +210,8 @@ std::string LLHandMotion::getHandPoseName(eHandPose pose)
 	{
 		return std::string(gHandPoseNames[pose]);
 	}
-	return LLStringUtil::null;
+	LL_WARNS("Bounds") << "Was passed an invalid hand pose: " << (S32)pose << LL_ENDL;
+	return std::string("Hands_Relaxed");
 }
 
 LLHandMotion::eHandPose LLHandMotion::getHandPose(std::string posename)
@@ -219,7 +223,7 @@ LLHandMotion::eHandPose LLHandMotion::getHandPose(std::string posename)
 			return (eHandPose)pose;
 		}
 	}
-	return (eHandPose)0;
+	return (eHandPose)1;
 }
 
 // End

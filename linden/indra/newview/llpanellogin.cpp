@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,21 +33,23 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpanellogin.h"
+
 #include "llpanelgeneral.h"
 
 #include "hippoGridManager.h"
+#include "hippoLimits.h"
+
 #include "floaterlogin.h"
 
 #include "indra_constants.h"		// for key and mask constants
 #include "llfontgl.h"
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
-#include "llversionviewer.h"
 #include "v4color.h"
 
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
-#include "llcommandhandler.h"
+#include "llcommandhandler.h"		// for secondlife:///app/login/
 #include "llcombobox.h"
 #include "llcurl.h"
 #include "llviewercontrol.h"
@@ -60,7 +63,6 @@
 #include "llui.h"
 #include "lluiconstants.h"
 #include "llurlsimstring.h"
-#include "llviewerbuild.h"
 #include "llviewerimagelist.h"
 #include "llviewermenu.h"			// for handle_preferences()
 #include "llviewernetwork.h"
@@ -72,6 +74,7 @@
 #include "llhttpclient.h"
 #include "llweb.h"
 #include "llwebbrowserctrl.h"
+#include "viewerversion.h"
 
 #include "llfloaterhtml.h"
 
@@ -86,9 +89,6 @@
 
 #define USE_VIEWER_AUTH 0
 
-std::string load_password_from_disk(void);
-void save_password_to_disk(const char* hashed_password);
-
 const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
 
@@ -100,8 +100,8 @@ class LLLoginRefreshHandler : public LLCommandHandler
 {
 public:
 	// don't allow from external browsers
-	LLLoginRefreshHandler() : LLCommandHandler("login_refresh", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	LLLoginRefreshHandler() : LLCommandHandler("login_refresh", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map, LLWebBrowserCtrl* web)
 	{	
 		if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)
 		{
@@ -114,98 +114,6 @@ public:
 LLLoginRefreshHandler gLoginRefreshHandler;
 
 
-//parses the input url and returns true if afterwards
-//a web-login-key, firstname and lastname  is set
-bool LLLoginHandler::parseDirectLogin(std::string url)
-{
-	LLURI uri(url);
-	parse(uri.queryMap());
-
-	if (mWebLoginKey.isNull() ||
-		mFirstName.empty() ||
-		mLastName.empty())
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-
-
-void LLLoginHandler::parse(const LLSD& queryMap)
-{
-	mWebLoginKey = queryMap["web_login_key"].asUUID();
-	mFirstName = queryMap["first_name"].asString();
-	mLastName = queryMap["last_name"].asString();
-	
-	const std::string &grid = queryMap["grid"].asString();
-	if (grid != "") gHippoGridManager->setCurrentGrid(grid);
-	std::string startLocation = queryMap["location"].asString();
-
-	if (startLocation == "specify")
-	{
-		LLURLSimString::setString(queryMap["region"].asString());
-	}
-	else if (startLocation == "home")
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", FALSE);
-		LLURLSimString::setString(LLStringUtil::null);
-	}
-	else if (startLocation == "last")
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", TRUE);
-		LLURLSimString::setString(LLStringUtil::null);
-	}
-}
-
-bool LLLoginHandler::handle(const LLSD& tokens,
-						  const LLSD& queryMap)
-{	
-	parse(queryMap);
-	
-	//if we haven't initialized stuff yet, this is 
-	//coming in from the GURL handler, just parse
-	if (STATE_FIRST == LLStartUp::getStartupState())
-	{
-		return true;
-	}
-	
-	std::string password = queryMap["password"].asString();
-
-	if (!password.empty())
-	{
-		gSavedSettings.setBOOL("RememberPassword", TRUE);
-
-		if (password.substr(0,3) != "$1$")
-		{
-			LLMD5 pass((unsigned char*)password.c_str());
-			char md5pass[33];		/* Flawfinder: ignore */
-			pass.hex_digest(md5pass);
-			password = ll_safe_string(md5pass, 32);
-			save_password_to_disk(password.c_str());
-		}
-	}
-	else
-	{
-		save_password_to_disk(NULL);
-		gSavedSettings.setBOOL("RememberPassword", FALSE);
-	}
-			
-
-	if  (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)  //on splash page
-	{
-		if (mWebLoginKey.isNull()) {
-			LLPanelLogin::loadLoginPage();
-		} else {
-			LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
-		}
-	}
-	return true;
-}
-
-LLLoginHandler gLoginHandler;
 
 // helper class that trys to download a URL from a web site and calls a method 
 // on parent class indicating if the web server is working or not
@@ -355,17 +263,17 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	std::string imp_channel = gSavedSettings.getString("VersionChannelName");
 	std::string imp_version = llformat("%d.%d.%d %s",
-		IMP_VERSION_MAJOR,
-		IMP_VERSION_MINOR,
-		IMP_VERSION_PATCH,
-		IMP_VERSION_TEST );
+		ViewerVersion::getImpMajorVersion(),
+		ViewerVersion::getImpMinorVersion(),
+		ViewerVersion::getImpPatchVersion(),
+		ViewerVersion::getImpTestVersion().c_str() );
 
-	std::string ll_channel = LL_VIEWER_NAME;
+	std::string ll_channel = ViewerVersion::getLLViewerName();
 	std::string ll_version = llformat("%d.%d.%d (%d)",
-		LL_VERSION_MAJOR,
-		LL_VERSION_MINOR,
-		LL_VERSION_PATCH,
-		LL_VIEWER_BUILD );
+		ViewerVersion::getLLMajorVersion(),
+		ViewerVersion::getLLMinorVersion(),
+		ViewerVersion::getLLPatchVersion(),
+		ViewerVersion::getLLBuildVersion() );
 
 	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
 	channel_text->setTextArg("[CHANNEL]", imp_channel);
@@ -385,7 +293,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// get the web browser control
 	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("login_html");
 	// Need to handle login secondlife:///app/ URLs
-	web_browser->setOpenAppSLURLs( true );
+	web_browser->setTrusted( true );
 
 	// observe browser events
 	web_browser->addObserver( this );
@@ -553,7 +461,7 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 	if ( KEY_F1 == key )
 	{
 		llinfos << "Spawning HTML help window" << llendl;
-		LLFloaterMediaBrowser::helpF1();
+		gViewerHtmlHelp.show();
 		return TRUE;
 	}
 
@@ -653,8 +561,9 @@ void LLPanelLogin::show(const LLRect &rect,
 }
 
 // static
-void LLPanelLogin::setFields(const std::string& firstname, const std::string& lastname, const std::string& password,
-							 BOOL remember)
+void LLPanelLogin::setFields(const std::string& firstname,
+			     const std::string& lastname,
+			     const std::string& password)
 {
 	if (!sInstance)
 	{
@@ -688,8 +597,6 @@ void LLPanelLogin::setFields(const std::string& firstname, const std::string& la
 		pass.hex_digest(munged_password);
 		sInstance->mMungedPassword = munged_password;
 	}
-
-	sInstance->childSetValue("remember_check", remember);
 }
 
 
@@ -728,7 +635,23 @@ void LLPanelLogin::addServer(const std::string& server)
 	}
 	else
 	{
-		std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
+		std::string last_grid = gSavedSettings.getString("CmdLineGridChoice");//imprudence TODO:errorcheck
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if (!last_grid.empty()&& cmd_line_login_uri.empty())//don't use --grid if --loginuri is also given
+		{
+			 //give user chance to change their mind, even with --grid set
+			gSavedSettings.setString("CmdLineGridChoice","");
+		}
+		else if (!cmd_line_login_uri.empty())
+		{
+			last_grid = cmd_line_login_uri;
+			 //also clear --grid no matter if it was given
+			gSavedSettings.setString("CmdLineGridChoice","");
+		}
+		else if (last_grid.empty())
+		{
+			last_grid = gSavedSettings.getString("LastSelectedGrid");
+		}
 		if (last_grid.empty()) last_grid = defaultGrid;
 		grids->setSimple(last_grid);
 	}
@@ -739,8 +662,9 @@ void LLPanelLogin::addServer(const std::string& server)
 }
 
 // static
-void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std::string &password,
-							BOOL &remember)
+void LLPanelLogin::getFields(std::string *firstname,
+			     std::string *lastname,
+			     std::string *password)
 {
 	if (!sInstance)
 	{
@@ -748,14 +672,13 @@ void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std:
 		return;
 	}
 
-	firstname = sInstance->childGetText("first_name_edit");
-	LLStringUtil::trim(firstname);
+	*firstname = sInstance->childGetText("first_name_edit");
+	LLStringUtil::trim(*firstname);
 
-	lastname = sInstance->childGetText("last_name_edit");
-	LLStringUtil::trim(lastname);
+	*lastname = sInstance->childGetText("last_name_edit");
+	LLStringUtil::trim(*lastname);
 
-	password = sInstance->mMungedPassword;
-	remember = sInstance->childGetValue("remember_check");
+	*password = sInstance->mMungedPassword;
 }
 
 // static
@@ -920,8 +843,9 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Channel and Version
-	std::string version = llformat("%d.%d.%d (%d)",
-						LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
+	std::string version = llformat("%d.%d.%d %s",
+		ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(),
+		ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str() );
 
 	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);
@@ -969,17 +893,17 @@ void LLPanelLogin::loadLoginPage()
 			location = "home";
 		}
 	}
-	
+
 	std::string firstname, lastname;
 
-    if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
-    {
-        LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+	if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
+	{
+		LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 		firstname = cmd_line_login[0].asString();
 		lastname = cmd_line_login[1].asString();
-        password = cmd_line_login[2].asString();
-    }
-    	
+		password = cmd_line_login[2].asString();
+	}
+
 	if (firstname.empty())
 	{
 		firstname = gSavedSettings.getString("FirstName");
@@ -1072,17 +996,10 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 		else
 		{
-			if (gHideLinks)
-			{
-				gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
-			}
-			else
-			{
-			gViewerWindow->alertXml("MustHaveAccountToLogIn",
-									LLPanelLogin::newAccountAlertCallback);
+			LLNotifications::instance().add("MustHaveAccountToLogIn", LLSD(), LLSD(),
+										LLPanelLogin::newAccountAlertCallback);
 		}
 	}
-}
 }
 
 void LLPanelLogin::onClickGrid(void *)
@@ -1094,24 +1011,32 @@ void LLPanelLogin::onClickGrid(void *)
 }
 
 // static
-void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
+bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
-		llinfos << "Going to account creation URL" << llendl;
-		LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
+		onClickNewAccount(0);
 	}
 	else
 	{
 		sInstance->setFocus(TRUE);
 	}
+	return false;
 }
 
 
 // static
 void LLPanelLogin::onClickNewAccount(void*)
 {
-	LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
+	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+	if (!url.empty()) {
+		llinfos << "Going to account creation URL." << llendl;
+		LLWeb::loadURLExternal(url);
+	} else {
+		llinfos << "Account creation URL is empty." << llendl;
+		sInstance->setFocus(TRUE);
+	}
 }
 
 
@@ -1142,7 +1067,12 @@ void LLPanelLogin::onClickForgotPassword(void*)
 {
 	if (sInstance )
 	{
-		LLWeb::loadURLExternal(sInstance->getString( "forgot_password_url" ));
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordUrl();
+		if (!url.empty()) {
+			LLWeb::loadURLExternal(url);
+		} else {
+			llwarns << "Link for 'forgotton password' not set." << llendl;
+		}
 	}
 }
 
@@ -1151,7 +1081,7 @@ void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
 {
 	if (gKeyboard->getKeyDown(KEY_CAPSLOCK) && sCapslockDidNotification == FALSE)
 	{
-		LLNotifyBox::showXml("CapsKeyOn");
+		LLNotifications::instance().add("CapsKeyOn");
 		sCapslockDidNotification = TRUE;
 	}
 }
@@ -1174,14 +1104,15 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	std::string mCurGrid = ctrl->getValue().asString();
 	//KOW
 	gHippoGridManager->setCurrentGrid(mCurGrid);
-	// HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
-	// if (gridInfo) {
-	// 	//childSetText("gridnick", gridInfo->getGridNick());
-	// 	//platform->setCurrentByIndex(gridInfo->getPlatform());
-	// 	//childSetText("gridname", gridInfo->getGridName());
-	// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
-	// }
-
+	HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
+	if (gridInfo) {
+		//childSetText("gridnick", gridInfo->getGridNick());
+		//platform->setCurrentByIndex(gridInfo->getPlatform());
+		//childSetText("gridname", gridInfo->getGridName());
+		LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword());
+	}
+	if (mCurGrid == gHippoGridManager->getConnectedGrid()->getGridNick())
+		gHippoLimits->setLimits();
 	
 	llwarns << "current grid = " << mCurGrid << llendl;
 

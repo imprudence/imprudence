@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -187,7 +188,7 @@ LLButton::LLButton(const std::string& name, const LLRect& rect,
 
 void LLButton::init(void (*click_callback)(void*), void *callback_data, const LLFontGL* font, const std::string& control_name)
 {
-	mGLFont = ( font ? font : LLFontGL::sSansSerif);
+	mGLFont = ( font ? font : LLFontGL::getFontSansSerif());
 
 	// Hack to make sure there is space for at least one character
 	if (getRect().getWidth() - (mRightHPad + mLeftHPad) < mGLFont->getWidth(std::string(" ")))
@@ -241,7 +242,7 @@ void LLButton::onCommit()
 	{
 		(*mMouseUpCallback)(mCallbackUserData);
 	}
-
+/*
 	if (getSoundFlags() & MOUSE_DOWN)
 	{
 		make_ui_sound("UISndClick");
@@ -251,7 +252,7 @@ void LLButton::onCommit()
 	{
 		make_ui_sound("UISndClickRelease");
 	}
-
+*/
 	if (mIsToggle)
 	{
 		toggleState();
@@ -327,7 +328,7 @@ BOOL LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
 	
 	if (getSoundFlags() & MOUSE_DOWN)
 	{
-		make_ui_sound("UISndClick");
+		//make_ui_sound("UISndClick");
 	}
 
 	return TRUE;
@@ -354,11 +355,11 @@ BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 		// DO THIS AT THE VERY END to allow the button to be destroyed as a result of being clicked.
 		// If mouseup in the widget, it's been clicked
 		if (pointInView(x, y))
-		{
+		{ /*
 			if (getSoundFlags() & MOUSE_UP)
 			{
 				make_ui_sound("UISndClickRelease");
-			}
+			} */
 
 			if (mIsToggle)
 			{
@@ -422,13 +423,7 @@ void LLButton::draw()
 	// Unselected image assignments
 	S32 local_mouse_x;
 	S32 local_mouse_y;
-	LLCoordWindow cursor_pos_window;
-	getWindow()->getCursorPosition(&cursor_pos_window);
-	LLCoordGL cursor_pos_gl;
-	getWindow()->convertCoords(cursor_pos_window, &cursor_pos_gl);
-	cursor_pos_gl.mX = llround((F32)cursor_pos_gl.mX / LLUI::sGLScaleFactor.mV[VX]);
-	cursor_pos_gl.mY = llround((F32)cursor_pos_gl.mY / LLUI::sGLScaleFactor.mV[VY]);
-	screenPointToLocal(cursor_pos_gl.mX, cursor_pos_gl.mY, &local_mouse_x, &local_mouse_y);
+	LLUI::getCursorPositionLocal(this, &local_mouse_x, &local_mouse_y);
 
 	BOOL pressed = pressed_by_keyboard 
 					|| (hasMouseCapture() && pointInView(local_mouse_x, local_mouse_y)) 
@@ -984,6 +979,8 @@ void LLButton::addImageAttributeToXML(LLXMLNodePtr node,
 LLXMLNodePtr LLButton::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_BUTTON_TAG);
 
 	node->createChild("label", TRUE)->setStringValue(getLabelUnselected());
 	node->createChild("label_selected", TRUE)->setStringValue(getLabelSelected());

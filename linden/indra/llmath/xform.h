@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,12 +36,15 @@
 #include "m4math.h"
 #include "llquaternion.h"
 
+//const F32 MIN_OBJECT_Z 		= -256.f; //not used
+
+/*
+//all these are set by HippoLimits now:
 const F32 MAX_OBJECT_Z 		= 4096.f; // should match REGION_HEIGHT_METERS, Pre-havok4: 768.f
-const F32 MIN_OBJECT_Z 		= -256.f;
-//const F32 DEFAULT_MAX_PRIM_SCALE = 10.f; set in llmanipscale.cpp now
+const F32 DEFAULT_MAX_PRIM_SCALE = 10.f;
 const F32 MIN_PRIM_SCALE = 0.01f;
 const F32 MAX_PRIM_SCALE = 65536.f;	// something very high but not near FLT_MAX
-
+*/
 
 class LLXform
 {

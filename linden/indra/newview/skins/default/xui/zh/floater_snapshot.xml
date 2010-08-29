@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Snapshot" title="快照预览">
 	<text name="type_label">
 		截图类型
@@ -8,45 +8,39 @@
 			通过电子邮件发送
 		</radio_item>
 		<radio_item name="texture">
-			保存至库存 (L$10)
+			保存至库存 (L$[AMOUNT])
 		</radio_item>
 		<radio_item name="local">
 			保存至硬盘
 		</radio_item>
 	</radio_group>
+	<text name="file_size_label">
+		文件尺寸: [SIZE] KB
+	</text>
+	<button label="刷新截图" name="new_snapshot_btn"/>
+	<button label="发送" name="send_btn"/>
+	<button label="上传 (L$[AMOUNT])" name="upload_btn"/>
+	<flyout_button label="保存" list_position="below" name="save_btn" tool_tip="保存图像到文件">
+		<flyout_button_item name="save_item">
+			保存
+		</flyout_button_item>
+		<flyout_button_item name="saveas_item">
+			另存为...
+		</flyout_button_item>
+	</flyout_button>
+	<button label="放弃" name="discard_btn"/>
+	<button label="更多 &gt;&gt;" name="more_btn" tool_tip="高级选项"/>
+	<button label="&lt;&lt; 较少" name="less_btn" tool_tip="高级选项"/>
 	<text name="type_label2">
 		尺寸
 	</text>
-	<text
-		 name="file_size_label">
-		文件尺寸: [SIZE] KB
+	<text name="format_label">
+		格式
 	</text>
-	<button label="刷新截图" name="new_snapshot_btn" />
-	<button label="上传 (L$10)" name="upload_btn" />
-	<button label="发送" name="send_btn" />
-	<flyout_button
-		 label="保存"
-		 list_position="below"
-		 name="save_btn"
-		 tool_tip="保存图像到文件">
-			<flyout_button_item
-			 value="save">保存</flyout_button_item>
-			<flyout_button_item
-			 value="save as">另存为...</flyout_button_item>
-	</flyout_button>
-	<button label="放弃" name="discard_btn" />
-	<button
-		 label="更多 >>"
-		 name="more_btn"
-		 tool_tip="高级选项" />
-		<button
-		 label="&lt;&lt; 较少"
-		 name="less_btn"
-		 tool_tip="高级选项" />
-
-
-	
 	<combo_box label="分辨率" name="postcard_size_combo">
+		<combo_item name="CurrentWindow">
+			当前窗口
+		</combo_item>
 		<combo_item name="640x480">
 			640x480
 		</combo_item>
@@ -55,9 +49,6 @@
 		</combo_item>
 		<combo_item name="1024x768">
 			1024x768
-		</combo_item>
-		<combo_item name="CurrentWindow">
-			当前窗口
 		</combo_item>
 		<combo_item name="Custom">
 			自定义
@@ -106,26 +97,21 @@
 			自定义
 		</combo_item>
 	</combo_box>
-	<combo_box
-	 	label="格式"
-		 name="local_format_combo">
-			<combo_item
-			 name="PNG">
-				PNG
-			</combo_item>
-			<combo_item
-			 name="JPEG">
-				JPEG
-			</combo_item>
-			<combo_item
-			 name="BMP">
-				BMP
-			</combo_item>
+	<combo_box label="格式" name="local_format_combo">
+		<combo_item name="PNG">
+			PNG
+		</combo_item>
+		<combo_item name="JPEG">
+			JPEG
+		</combo_item>
+		<combo_item name="BMP">
+			BMP
+		</combo_item>
 	</combo_box>
-	<spinner label="宽度" name="snapshot_width" />
-	<spinner label="高度" name="snapshot_height" />
-	<check_box label="保持画面宽高比" name="keep_aspect_check" />
-	<slider label="图像质量" name="image_quality_slider" />
+	<spinner label="宽度" name="snapshot_width"/>
+	<spinner label="高度" name="snapshot_height"/>
+	<check_box label="保持画面宽高比" name="keep_aspect_check"/>
+	<slider label="图像质量" name="image_quality_slider"/>
 	<text name="layer_type_label">
 		获取:
 	</text>
@@ -140,17 +126,12 @@
 			物体轮廓
 		</combo_item>
 	</combo_box>
-	<text name="file_size_label">
-		文件尺寸: [SIZE] 千字节
-	</text>
-	<check_box label="截图中显示界面" name="ui_check" />
-	<!---->
-	<check_box label="在截图中显示显示屏附件" name="hud_check" />
-	<check_box label="保存后保持窗口开启" name="keep_open_check" />
-		<check_box label="冻结当前画面(全屏预览)" name="freeze_frame_check" />
-	<check_box label="自动截图" name="auto_snapshot_check" />
-		<text
-		 name="unknown">未知</text>
-
+	<check_box label="截图中显示界面" name="ui_check"/>
+	<check_box label="在截图中显示显示屏附件" name="hud_check"/>
+	<check_box label="保存后保持窗口开启" name="keep_open_check"/>
+	<check_box label="冻结当前画面(全屏预览)" name="freeze_frame_check"/>
+	<check_box label="自动截图" name="auto_snapshot_check"/>
+	<string name="unknown">
+		未知
+	</string>
 </floater>
-<!--Translated for Second Life 1.21.0 (95157)-->

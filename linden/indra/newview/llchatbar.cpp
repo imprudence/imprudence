@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -66,9 +67,9 @@
 #include "llinventorymodel.h"
 #include "llmultigesture.h"
 #include "llui.h"
-#include "llviewermenu.h"
 #include "lluictrlfactory.h"
 
+#include "chatbar_as_cmdline.h"
 
 //
 // Globals
@@ -153,7 +154,7 @@ BOOL LLChatBar::postBuild()
 		mInputEditor->setPassDelete(TRUE);
 		mInputEditor->setReplaceNewlinesWithSpaces(FALSE);
 
-		mInputEditor->setMaxTextLength(1023);
+		mInputEditor->setMaxTextLength(DB_CHAT_MSG_STR_LEN);
 		mInputEditor->setEnableLineHistory(TRUE);
 	}
 
@@ -421,6 +422,8 @@ void LLChatBar::sendChat( EChatType type )
 			utf8_revised_text = utf8str_trim(utf8_revised_text);
 
 			if (!utf8_revised_text.empty())
+
+			if (!utf8_revised_text.empty() && cmd_line_chat(utf8_revised_text, type))
 			{
 				// Chat with animation
 				sendChatFromViewer(utf8_revised_text, type, TRUE);
@@ -565,7 +568,8 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 		{
 			if (self->mInputEditor)
 			{
-				self->mInputEditor->setText(utf8_out_str);
+				std::string rest_of_match = utf8_out_str.substr(utf8_trigger.size());
+				self->mInputEditor->setText(utf8_trigger + rest_of_match); // keep original capitalization for user-entered part
 				S32 outlength = self->mInputEditor->getLength(); // in characters
 			
 				// Select to end of line, starting from the character
@@ -622,8 +626,12 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 
 	LLWString out_text = stripChannelNumber(wtext, &channel);
 	std::string utf8_out_text = wstring_to_utf8str(out_text);
-	std::string utf8_text = wstring_to_utf8str(wtext);
+	if (!utf8_out_text.empty())
+	{
+		utf8_out_text = utf8str_truncate(utf8_out_text, MAX_MSG_STR_LEN);
+	}
 
+	std::string utf8_text = wstring_to_utf8str(wtext);
 	utf8_text = utf8str_trim(utf8_text);
 	if (!utf8_text.empty())
 	{
@@ -792,10 +800,11 @@ class LLChatHandler : public LLCommandHandler
 {
 public:
 	// not allowed from outside the app
-	LLChatHandler() : LLCommandHandler("chat", false) { }
+	LLChatHandler() : LLCommandHandler("chat", true) { }
 
     // Your code here
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web)
 	{
 		if (tokens.size() < 2) return false;
 		S32 channel = tokens[0].asInteger();

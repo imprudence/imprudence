@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(ukendt)" name="im_floater" title="(ukendt)">
+	<string name="ringing">
+		Forbinder til Stemme Chat...
+	</string>
+	<string name="connected">
+		Forbundet, Tryk på afslut for at afslutte
+	</string>
+	<string name="hang_up">
+		Stemme chat afsluttet
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Velkommen til hjælpesystem ***
+Undersøg venligst først Second Life hjælpesiderne ved at trykke F1 eller ved at besøge vidensdatabasen http://secondlife.com/knowledgebase/
+Hvis ikke du kan finde svaret der, så indtast venligst dit spørgsmål og vent lidt på at tilgångelige hjælpere kan svare.
+-=-=- Svartiderne kan variere, specielt i travle perioder. *BEMæRK*: Hjælp vil normalt altid foregå på engelsk. -=-=-
+	</string>
+	<string name="title_string">
+		Privat chat med [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] skriver...
+	</string>
+	<string name="session_start_string">
+		Starter session med [NAME], vent venligst.
+	</string>
+	<string name="moderated_chat_label">
+		(Styret centralt: Stemmer slået fra som standard)
+	</string>
+	<string name="default_text_label">
+		Klik her for at sende privat besked (IM).
+	</string>
+	<string name="muted_text_label">
+		Din tekst chat er blevet deaktiveret af gruppe moderator.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Gruppe info" name="group_info_btn" />
+			<button label="Deltag i opkald" name="start_call_btn" width="126" />
+			<button label="Afslut" name="end_call_btn"  width="126" halign="center"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Tryk her for at se/skjule liste med aktive deltagere i denne samtale." />
+			<button label="Send" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+</floater>

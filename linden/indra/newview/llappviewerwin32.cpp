@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2009, Linden Research, Inc.
+ * Copyright (c) 2007-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,7 +78,32 @@ extern "C" {
 #endif
 #endif
 
-const std::string LLAppViewerWin32::sWindowClass = "Second Life";
+// Force Imprudence to link against the correct boost libraries -- McCabe
+#if defined(_MSC_VER)
+#if _MSC_VER >= 1500
+#ifdef LL_DEBUG
+#pragma comment( lib, "libboost_signals-vc90-mt-gd-1_36.lib" )
+#pragma comment( lib, "libboost_regex-vc90-mt-gd-1_36.lib" )
+#pragma comment( lib, "libboost_program_options-vc90-mt-gd-1_36.lib" )
+#else
+#pragma comment( lib, "libboost_signals-vc90-mt-1_36.lib" )
+#pragma comment( lib, "libboost_regex-vc90-mt-1_36.lib" )
+#pragma comment( lib, "libboost_program_options-vc90-mt-1_36.lib" )
+#endif
+#elif _MSC_VER >= 1400
+#ifdef LL_DEBUG
+#pragma comment( lib, "libboost_signals-vc80-mt-gd-1_36.lib" )
+#pragma comment( lib, "libboost_regex-vc80-mt-gd-1_36.lib" )
+#pragma comment( lib, "libboost_program_options-vc80-mt-gd-1_36.lib" )
+#else
+#pragma comment( lib, "libboost_signals-vc80-mt-1_36.lib" )
+#pragma comment( lib, "libboost_regex-vc80-mt-1_36.lib" )
+#pragma comment( lib, "libboost_program_options-vc80-mt-1_36.lib" )
+#endif
+#endif
+#endif
+
+const std::string LLAppViewerWin32::sWindowClass = "Imprudence";
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
 {
@@ -158,9 +184,31 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
                      int       nCmdShow)
 {
 	LLMemType mt1(LLMemType::MTYPE_STARTUP);
+
+	const S32 MAX_HEAPS = 255;
+	DWORD heap_enable_lfh_error[MAX_HEAPS];
+	S32 num_heaps = 0;
 	
 #if WINDOWS_CRT_MEM_CHECKS && !INCLUDE_VLD
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); // dump memory leaks on exit
+#elif 1
+	// Experimental - enable the low fragmentation heap
+	// This results in a 2-3x improvement in opening a new Inventory window (which uses a large numebr of allocations)
+	// Note: This won't work when running from the debugger unless the _NO_DEBUG_HEAP environment variable is set to 1
+
+	_CrtSetDbgFlag(0); // default, just making explicit
+	
+	ULONG ulEnableLFH = 2;
+	HANDLE* hHeaps = new HANDLE[MAX_HEAPS];
+	num_heaps = GetProcessHeaps(MAX_HEAPS, hHeaps);
+	for(S32 i = 0; i < num_heaps; i++)
+	{
+		bool success = HeapSetInformation(hHeaps[i], HeapCompatibilityInformation, &ulEnableLFH, sizeof(ulEnableLFH));
+		if (success)
+			heap_enable_lfh_error[i] = 0;
+		else
+			heap_enable_lfh_error[i] = GetLastError();
+	}
 #endif
 	
 	// *FIX: global
@@ -182,8 +230,21 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 		llwarns << "Application init failed." << llendl;
 		return -1;
 	}
-
-		// Run the application main loop
+	
+	// Have to wait until after logging is initialized to display LFH info
+	if (num_heaps > 0)
+	{
+		llinfos << "Attempted to enable LFH for " << num_heaps << " heaps." << llendl;
+		for(S32 i = 0; i < num_heaps; i++)
+		{
+			if (heap_enable_lfh_error[i])
+			{
+				llinfos << "  Failed to enable LFH for heap: " << i << " Error: " << heap_enable_lfh_error[i] << llendl;
+			}
+		}
+	}
+	
+	// Run the application main loop
 	if(!LLApp::isQuitting()) 
 	{
 		viewer_app_ptr->mainLoop();
@@ -439,7 +500,7 @@ bool LLAppViewerWin32::initHardwareTest()
 			if (OSBTN_NO== button)
 			{
 				LL_INFOS("AppInit") << "User quitting after failed DirectX 9 detection" << LL_ENDL;
-				LLWeb::loadURLExternal(DIRECTX_9_URL);
+				//LLWeb::loadURLExternal(DIRECTX_9_URL); DIRECTX_9_URL removed in ca315cbe -- MC
 				return false;
 			}
 			gSavedSettings.setWarning("AboutDirectX9", FALSE);

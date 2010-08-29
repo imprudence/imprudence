@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -769,7 +770,7 @@ void LLSelectMgr::addAsIndividual(LLViewerObject *objectp, S32 face, BOOL undoab
 }
 
 
-LLObjectSelectionHandle LLSelectMgr::setHoverObject(LLViewerObject *objectp)
+LLObjectSelectionHandle LLSelectMgr::setHoverObject(LLViewerObject *objectp, S32 face)
 {
 	// Always blitz hover list when setting
 	mHoverObjects->deleteAllNodes();
@@ -801,6 +802,7 @@ LLObjectSelectionHandle LLSelectMgr::setHoverObject(LLViewerObject *objectp)
 	{
 		LLViewerObject* cur_objectp = *iter;
 		LLSelectNode* nodep = new LLSelectNode(cur_objectp, FALSE);
+		nodep->selectTE(face, TRUE);
 		mHoverObjects->addNodeAtEnd(nodep);
 	}
 
@@ -2696,7 +2698,8 @@ void LLSelectMgr::selectDelete()
 		return;
 	}
 
-	LLObjectSelectionHandle* selection_handlep = new LLObjectSelectionHandle(getSelection());
+	LLNotification::Params params("ConfirmObjectDeleteLock");
+	params.functor(boost::bind(&LLSelectMgr::confirmDelete, _1, _2, getSelection()));
 
 	if(locked_but_deleteable_object ||
 	   no_copy_but_deleteable_object ||
@@ -2712,72 +2715,55 @@ void LLSelectMgr::selectDelete()
 		if(locked_but_deleteable_object && !no_copy_but_deleteable_object && all_owned_by_you)
 		{
 			//Locked only
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteLock",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteLock");
 		}
 		else if(!locked_but_deleteable_object && no_copy_but_deleteable_object && all_owned_by_you)
 		{
 			//No Copy only
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteNoCopy",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteNoCopy");
 		}
 		else if(!locked_but_deleteable_object && !no_copy_but_deleteable_object && !all_owned_by_you)
 		{
 			//not owned only
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteNoOwn",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteNoOwn");
 		}
 		else if(locked_but_deleteable_object && no_copy_but_deleteable_object && all_owned_by_you)
 		{
 			//locked and no copy
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteLockNoCopy",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteLockNoCopy");
 		}
 		else if(locked_but_deleteable_object && !no_copy_but_deleteable_object && !all_owned_by_you)
 		{
 			//locked and not owned
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteLockNoOwn",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteLockNoOwn");
 		}
 		else if(!locked_but_deleteable_object && no_copy_but_deleteable_object && !all_owned_by_you)
 		{
 			//no copy and not owned
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteNoCopyNoOwn",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteNoCopyNoOwn");
 		}
 		else
 		{
 			//locked, no copy and not owned
-			gViewerWindow->alertXml(  "ConfirmObjectDeleteLockNoCopyNoOwn",
-								  &LLSelectMgr::confirmDelete,
-								  selection_handlep);
+			params.name("ConfirmObjectDeleteLockNoCopyNoOwn");
 		}
 		
-		
-		
+		LLNotifications::instance().add(params);
 	}
 	else
 	{
-		confirmDelete(0, (void*)selection_handlep);
+		LLNotifications::instance().forceResponse(params, 0);
 	}
 }
 
 // static
-void LLSelectMgr::confirmDelete(S32 option, void* data)
+bool LLSelectMgr::confirmDelete(const LLSD& notification, const LLSD& response, LLObjectSelectionHandle handle)
 {
-	LLObjectSelectionHandle handle = *(LLObjectSelectionHandle*)data;
-	delete (LLObjectSelectionHandle*)data;
-
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (!handle->getObjectCount())
 	{
 		llwarns << "Nothing to delete!" << llendl;
-		return;
+		return false;
 	}
 
 	switch(option)
@@ -2816,6 +2802,7 @@ void LLSelectMgr::confirmDelete(S32 option, void* data)
 	default:
 		break;
 	}
+	return false;
 }
 
 
@@ -3451,20 +3438,12 @@ void LLSelectMgr::deselectAllIfTooFar()
 	}
 
 	LLVector3d selectionCenter = getSelectionCenterGlobal();
-
-//	if (gSavedSettings.getBOOL("LimitSelectDistance")
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
-	BOOL fRlvFartouch = gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH) && gFloaterTools->getVisible();
-	if ( (gSavedSettings.getBOOL("LimitSelectDistance") || (fRlvFartouch) )
-// [/RLVa:KB]
+	if (gSavedSettings.getBOOL("LimitSelectDistance")
 		&& (!mSelectedObjects->getPrimaryObject() || !mSelectedObjects->getPrimaryObject()->isAvatar())
 		&& !mSelectedObjects->isAttachment()
 		&& !selectionCenter.isExactlyZero())
 	{
-//		F32 deselect_dist = gSavedSettings.getF32("MaxSelectDistance");
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
-		F32 deselect_dist = (!fRlvFartouch) ? gSavedSettings.getF32("MaxSelectDistance") : 1.5f;
-// [/RLVa:KB]
+		F32 deselect_dist = gSavedSettings.getF32("MaxSelectDistance");
 		F32 deselect_dist_sq = deselect_dist * deselect_dist;
 
 		LLVector3d select_delta = gAgent.getPositionGlobal() - selectionCenter;
@@ -4594,54 +4573,7 @@ void LLSelectMgr::updateSilhouettes()
 	
 	std::vector<LLViewerObject*> changed_objects;
 
-	if (mSelectedObjects->getNumNodes())
-	{
-		//gGLSPipelineSelection.set();
-
-		//mSilhouetteImagep->bindTexture();
-		//glAlphaFunc(GL_GREATER, sHighlightAlphaTest);
-
-		for (S32 pass = 0; pass < 2; pass++)
-		{
-			for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
-				 iter != mSelectedObjects->end(); iter++)
-			{
-				LLSelectNode* node = *iter;
-				LLViewerObject* objectp = node->getObject();
-				if (!objectp)
-					continue;
-				// do roots first, then children so that root flags are cleared ASAP
-				BOOL roots_only = (pass == 0);
-				BOOL is_root = (objectp->isRootEdit());
-				if (roots_only != is_root || objectp->mDrawable.isNull())
-				{
-					continue;
-				}
-
-				if (!node->mSilhouetteExists 
-					|| objectp->isChanged(LLXform::SILHOUETTE)
-					|| (objectp->getParent() && objectp->getParent()->isChanged(LLXform::SILHOUETTE)))
-				{
-					if (num_sils_genned++ < MAX_SILS_PER_FRAME)// && objectp->mDrawable->isVisible())
-					{
-						generateSilhouette(node, LLViewerCamera::getInstance()->getOrigin());
-						changed_objects.push_back(objectp);
-					}
-					else if (objectp->isAttachment())
-					{
-						//RN: hack for orthogonal projection of HUD attachments
-						LLViewerJointAttachment* attachment_pt = (LLViewerJointAttachment*)objectp->getRootEdit()->mDrawable->getParent();
-						if (attachment_pt && attachment_pt->getIsHUDAttachment())
-						{
-							LLVector3 camera_pos = LLVector3(-10000.f, 0.f, 0.f);
-							generateSilhouette(node, camera_pos);
-						}
-					}
-				}
-			}
-		}
-	}
-
+	updateSelectionSilhouette(mSelectedObjects, num_sils_genned, changed_objects);
 	if (mRectSelectedObjects.size() > 0)
 	{
 		//gGLSPipelineSelection.set();
@@ -4835,6 +4767,56 @@ void LLSelectMgr::updateSilhouettes()
 	//gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 }
 
+void LLSelectMgr::updateSelectionSilhouette(LLObjectSelectionHandle object_handle, S32& num_sils_genned, std::vector<LLViewerObject*>& changed_objects)
+{
+	if (object_handle->getNumNodes())
+	{
+		//gGLSPipelineSelection.set();
+
+		//mSilhouetteImagep->bindTexture();
+		//glAlphaFunc(GL_GREATER, sHighlightAlphaTest);
+
+		for (S32 pass = 0; pass < 2; pass++)
+		{
+			for (LLObjectSelection::iterator iter = object_handle->begin();
+				iter != object_handle->end(); iter++)
+			{
+				LLSelectNode* node = *iter;
+				LLViewerObject* objectp = node->getObject();
+				if (!objectp)
+					continue;
+				// do roots first, then children so that root flags are cleared ASAP
+				BOOL roots_only = (pass == 0);
+				BOOL is_root = (objectp->isRootEdit());
+				if (roots_only != is_root || objectp->mDrawable.isNull())
+				{
+					continue;
+				}
+
+				if (!node->mSilhouetteExists 
+					|| objectp->isChanged(LLXform::SILHOUETTE)
+					|| (objectp->getParent() && objectp->getParent()->isChanged(LLXform::SILHOUETTE)))
+				{
+					if (num_sils_genned++ < MAX_SILS_PER_FRAME)// && objectp->mDrawable->isVisible())
+					{
+						generateSilhouette(node, LLViewerCamera::getInstance()->getOrigin());
+						changed_objects.push_back(objectp);
+					}
+					else if (objectp->isAttachment())
+					{
+						//RN: hack for orthogonal projection of HUD attachments
+						LLViewerJointAttachment* attachment_pt = (LLViewerJointAttachment*)objectp->getRootEdit()->mDrawable->getParent();
+						if (attachment_pt && attachment_pt->getIsHUDAttachment())
+						{
+							LLVector3 camera_pos = LLVector3(-10000.f, 0.f, 0.f);
+							generateSilhouette(node, camera_pos);
+						}
+					}
+				}
+			}
+		}
+	}
+}
 void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 {
 	if (!mRenderSilhouettes || !LLSelectMgr::sRenderSelectionHighlights)
@@ -4968,32 +4950,29 @@ void LLSelectMgr::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_
 // Utility classes
 //
 LLSelectNode::LLSelectNode(LLViewerObject* object, BOOL glow)
+:	mObject(object),
+	mIndividualSelection(FALSE),
+	mTransient(FALSE),
+	mValid(FALSE),
+	mPermissions(new LLPermissions()),
+	mInventorySerial(0),
+	mSilhouetteExists(FALSE),
+	mDuplicated(FALSE),
+	mTESelectMask(0),
+	mLastTESelected(0),
+	mName(LLStringUtil::null),
+	mDescription(LLStringUtil::null),
+	mTouchName(LLStringUtil::null),
+	mSitName(LLStringUtil::null),
+	mCreationDate(0)
 {
-	mObject = object;
 	selectAllTEs(FALSE);
-	mIndividualSelection	= FALSE;
-	mTransient		= FALSE;
-	mValid			= FALSE;
-	mPermissions	= new LLPermissions();
-	mInventorySerial = 0;
-	mName = LLStringUtil::null;
-	mDescription = LLStringUtil::null;
-	mTouchName = LLStringUtil::null;
-	mSitName = LLStringUtil::null;
-	mSilhouetteExists = FALSE;
-	mDuplicated = FALSE;
-	mCreationDate = 0;
-
 	saveColors();
 }
 
 LLSelectNode::LLSelectNode(const LLSelectNode& nodep)
 {
-	S32 i;
-	for (i = 0; i < SELECT_MAX_TES; i++)
-	{
-		mTESelected[i] = nodep.mTESelected[i];
-	}
+	mTESelectMask = nodep.mTESelectMask;
 	mLastTESelected = nodep.mLastTESelected;
 
 	mIndividualSelection = nodep.mIndividualSelection;
@@ -5046,10 +5025,7 @@ LLSelectNode::~LLSelectNode()
 
 void LLSelectNode::selectAllTEs(BOOL b)
 {
-	for (S32 i = 0; i < SELECT_MAX_TES; i++)
-	{
-		mTESelected[i] = b;
-	}
+	mTESelectMask = b ? 0xFFFFFFFF : 0x0;
 	mLastTESelected = 0;
 }
 
@@ -5059,7 +5035,14 @@ void LLSelectNode::selectTE(S32 te_index, BOOL selected)
 	{
 		return;
 	}
-	mTESelected[te_index] = selected;
+	if (selected)
+	{
+		mTESelectMask |= (0x1 << te_index);
+	}
+	else
+	{
+		mTESelectMask &= ~(0x1 << te_index);
+	}
 	mLastTESelected = te_index;
 }
 
@@ -5069,7 +5052,7 @@ BOOL LLSelectNode::isTESelected(S32 te_index)
 	{
 		return FALSE;
 	}
-	return mTESelected[te_index];
+	return (mTESelectMask & (0x1 << te_index)) != 0;
 }
 
 S32 LLSelectNode::getLastSelectedTE()
@@ -5426,6 +5409,11 @@ void dialog_refresh_all()
 		gPieObject->arrange();
 	}
 
+	if( gPieAttachment->getVisible() )
+	{
+		gPieAttachment->arrange();
+	}
+
 	LLFloaterProperties::dirtyAll();
 	LLFloaterInspect::dirty();
 }
@@ -5513,11 +5501,11 @@ void LLSelectMgr::updateSelectionCenter()
 		LLVector3d select_center;
 		// keep a list of jointed objects for showing the joint HUDEffects
 
-		std::vector < LLViewerObject *> jointed_objects;
-
 		// Initialize the bounding box to the root prim, so the BBox orientation
 		// matches the root prim's (affecting the orientation of the manipulators).
 		bbox.addBBoxAgent( (mSelectedObjects->getFirstRootObject(TRUE))->getBoundingBoxAgent() );
+		
+		std::vector < LLViewerObject *> jointed_objects;
 
 		for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
 			 iter != mSelectedObjects->end(); iter++)

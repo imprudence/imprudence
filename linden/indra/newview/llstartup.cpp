@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -29,14 +30,7 @@
  * $/LicenseInfo$
  */
 
-// #include "llviewerprecompiledheaders.h"
-
-
-#if LL_WINDOWS
-	#define WIN32_LEAN_AND_MEAN
-	#include <winsock2.h>
-	#include <windows.h>
-#endif
+#include "llviewerprecompiledheaders.h"
 
 #include "llstartup.h"
 
@@ -65,6 +59,7 @@
 #include "llfocusmgr.h"
 #include "llhttpsender.h"
 #include "imageids.h"
+#include "llimageworker.h"
 #include "lllandmark.h"
 #include "llloginflags.h"
 #include "llmd5.h"
@@ -78,7 +73,6 @@
 #include "llsecondlifeurls.h"
 #include "llstring.h"
 #include "lluserrelations.h"
-#include "llversionviewer.h"
 #include "llvfs.h"
 #include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
@@ -120,6 +114,7 @@
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
+#include "llloginhandler.h"			// gLoginHandler, SLURL support
 #include "llpanellogin.h"
 #include "llmutelist.h"
 #include "llnotify.h"
@@ -134,12 +129,14 @@
 #include "llpanelgroupnotices.h"
 #include "llpreview.h"
 #include "llpreviewscript.h"
+#include "llproductinforequest.h"
 #include "llsecondlifeurls.h"
 #include "llselectmgr.h"
 #include "llsky.h"
 #include "llsrv.h"
 #include "llstatview.h"
 #include "lltrans.h"
+#include "llstatusbar.h"		// sendMoneyBalanceRequest(), owns L$ balance
 #include "llsurface.h"
 #include "lltexturecache.h"
 #include "lltexturefetch.h"
@@ -187,8 +184,12 @@
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
 #include "llagentlanguage.h"
+#include "viewerversion.h"
 
+
+#include "lgghunspell_wrapper.h"
 #include "exporttracker.h"
+#include "jcfloater_animation_list.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -199,8 +200,12 @@
 #include "lldxhardware.h"
 #endif
 
+#include "floaterao.h"
+
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
+
+#include "lggautocorrect.h"
 //
 // exported globals
 //
@@ -216,6 +221,8 @@ std::string SCREEN_LAST_FILENAME = "screen_last.bmp";
 //
 extern S32 gStartImageWidth;
 extern S32 gStartImageHeight;
+extern std::string gSecondLife;
+extern std::string gWindowTitle;
 
 //
 // local globals
@@ -235,6 +242,7 @@ static bool gUseCircuitCallbackCalled = false;
 EStartupState LLStartUp::gStartupState = STATE_FIRST;
 bool LLStartUp::mStartedOnce = false;
 bool LLStartUp::mShouldAutoLogin = false;
+bool LLStartUp::sLoginFailed = false;
 
 //
 // local function declaration
@@ -242,22 +250,19 @@ bool LLStartUp::mShouldAutoLogin = false;
 
 void login_show();
 void login_callback(S32 option, void* userdata);
-std::string load_password_from_disk();
-void save_password_to_disk(const char* hashed_password);
 bool is_hex_string(U8* str, S32 len);
 void show_first_run_dialog();
-void first_run_dialog_callback(S32 option, void* userdata);
+bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
-void login_alert_status(S32 option, void* user_data);
+bool login_alert_status(const LLSD& notification, const LLSD& response);
 void update_app(BOOL mandatory, const std::string& message);
-void update_dialog_callback(S32 option, void *userdata);
+bool update_dialog_callback(const LLSD& notification, const LLSD& response);
 void login_packet_failed(void**, S32 result);
 void use_circuit_callback(void**, S32 result);
 void register_viewer_callbacks(LLMessageSystem* msg);
 void init_stat_view();
 void asset_callback_nothing(LLVFS*, const LLUUID&, LLAssetType::EType, void*, S32);
-void dialog_choose_gender_first_start();
-void callback_choose_gender(S32 option, void* userdata);
+bool callback_choose_gender(const LLSD& notification, const LLSD& response);
 void init_start_screen(S32 location_id);
 void release_start_screen();
 void apply_udp_blacklist(const std::string& csv);
@@ -327,12 +332,13 @@ bool idle_startup()
 	LLMemType mt1(LLMemType::MTYPE_STARTUP);
 	
 	const F32 PRECACHING_DELAY = gSavedSettings.getF32("PrecachingDelay");
-	const F32 TIMEOUT_SECONDS = 5.f;
+	const F32 TIMEOUT_SECONDS = 10.f; // changed from 5 to 10 seconds for OpenSim lag -- MC
 	const S32 MAX_TIMEOUT_COUNT = 3;
 	static LLTimer timeout;
 	static S32 timeout_count = 0;
 
 	static LLTimer login_time;
+	static LLTimer connecting_region_timer;
 	static LLFrameTimer wearables_timer;
 
 	// until this is encapsulated, this little hack for the
@@ -362,7 +368,6 @@ bool idle_startup()
 	static S32  location_which = START_LOCATION_ID_LAST;
 
 	static bool show_connect_box = true;
-	static BOOL remember_password = TRUE;
 
 	static bool stipend_since_login = false;
 
@@ -388,6 +393,7 @@ bool idle_startup()
 
 	if ( STATE_FIRST == LLStartUp::getStartupState() )
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_FIRST" << LL_ENDL;
 		gViewerWindow->showCursor();
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_WAIT);
 
@@ -396,6 +402,10 @@ bool idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
+		glggHunSpell->initSettings();
+
+		LGGAutoCorrect::getInstance()->loadFromDisk();
+
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
 			rlv_handler_t::setEnabled(TRUE);
@@ -403,16 +413,16 @@ bool idle_startup()
 
 		if (LLFeatureManager::getInstance()->isSafe())
 		{
-			gViewerWindow->alertXml("DisplaySetToSafe");
+			LLNotifications::instance().add("DisplaySetToSafe");
 		}
 		else if ((gSavedSettings.getS32("LastFeatureVersion") < LLFeatureManager::getInstance()->getVersion()) &&
 				 (gSavedSettings.getS32("LastFeatureVersion") != 0))
 		{
-			gViewerWindow->alertXml("DisplaySetToRecommended");
+			LLNotifications::instance().add("DisplaySetToRecommended");
 		}
 		else if (!gViewerWindow->getInitAlert().empty())
 		{
-			gViewerWindow->alertXml(gViewerWindow->getInitAlert());
+			LLNotifications::instance().add(gViewerWindow->getInitAlert());
 		}
 			
 		gSavedSettings.setS32("LastFeatureVersion", LLFeatureManager::getInstance()->getVersion());
@@ -435,10 +445,11 @@ bool idle_startup()
 		}
 		if (!xml_ok)
 		{
-			// *TODO:translate (maybe - very unlikely error message)
-			// Note: alerts.xml may be invalid - if this gets translated it will need to be in the code
-			std::string bad_xui_msg = "An error occured while updating Second Life. Please download the latest version from www.secondlife.com.";
-            LLAppViewer::instance()->earlyExit(bad_xui_msg);
+			// If XML is bad, there's a good possibility that notifications.xml is ALSO bad.
+			// If that's so, then we'll get a fatal error on attempting to load it, 
+			// which will display a nontranslatable error message that says so.
+			// Otherwise, we'll display a reasonable error message that IS translatable.
+			LLAppViewer::instance()->earlyExit("BadInstallation");
 		}
 		//
 		// Statistics stuff
@@ -456,9 +467,9 @@ bool idle_startup()
 
 		if (ll_init_ares() == NULL || !gAres->isInitialized())
 		{
-			LL_WARNS("AppInit") << "Could not start address resolution system" << LL_ENDL;
-			std::string msg = LLTrans::getString("LoginFailedNoNetwork");
-			LLAppViewer::instance()->earlyExit(msg);
+			std::string diagnostic = "Could not start address resolution system";
+			LL_WARNS("AppInit") << diagnostic << LL_ENDL;
+			LLAppViewer::instance()->earlyExit("LoginFailedNoNetwork", LLSD().insert("DIAGNOSTIC", diagnostic));
 		}
 		
 		//
@@ -495,18 +506,33 @@ bool idle_startup()
 			  }
 
 			LLHTTPSender::setDefaultSender(new LLNullHTTPSender());
+
+			// TODO parameterize 
+			const F32 circuit_heartbeat_interval = 5;
+			const F32 circuit_timeout = 180; //seconds until llcircuit decides
+							 //it isn't alive.
+							 //Since we are on OpenSim we need to
+							 //relax about 'bad' ping. Was for SL: 100;
+
+			const LLUseCircuitCodeResponder* responder = NULL;
+			bool failure_is_fatal = true;
+			
 			if(!start_messaging_system(
 				   message_template_path,
 				   port,
-				   LL_VERSION_MAJOR,
-				   LL_VERSION_MINOR,
-				   LL_VERSION_PATCH,
+				   ViewerVersion::getLLMajorVersion(),
+				   ViewerVersion::getLLMinorVersion(),
+				   ViewerVersion::getLLPatchVersion(),
 				   FALSE,
-				   std::string()))
+				   std::string(),
+				   responder,
+				   failure_is_fatal,
+				   circuit_heartbeat_interval,
+				   circuit_timeout))
 			{
-				std::string msg = LLTrans::getString("LoginFailedNoNetwork");
-				msg.append(llformat(" Error: %d", gMessageSystem->getErrorCode()));
-				LLAppViewer::instance()->earlyExit(msg);
+				std::string diagnostic = llformat(" Error: %d", gMessageSystem->getErrorCode());
+				LL_WARNS("AppInit") << diagnostic << LL_ENDL;
+				LLAppViewer::instance()->earlyExit("LoginFailedNoNetwork", LLSD().insert("DIAGNOSTIC", diagnostic));
 			}
 
 			#if LL_WINDOWS
@@ -529,7 +555,7 @@ bool idle_startup()
 		}
 		else
 		{
-			LLAppViewer::instance()->earlyExit("Message Template " + message_template_path + " not found.");
+			LLAppViewer::instance()->earlyExit("MessageTemplateNotFound", LLSD().insert("PATH", message_template_path));
 		}
 
 		if(gMessageSystem && gMessageSystem->isOK())
@@ -660,20 +686,27 @@ bool idle_startup()
 		//
 		// Log on to system
 		//
-		if ((!gLoginHandler.mFirstName.empty() &&
-			 !gLoginHandler.mLastName.empty() &&
-			 !gLoginHandler.mWebLoginKey.isNull())		
-			|| gLoginHandler.parseDirectLogin(LLStartUp::sSLURLCommand) )
+		if (!LLStartUp::sSLURLCommand.empty())
 		{
-			firstname = gLoginHandler.mFirstName;
-			lastname = gLoginHandler.mLastName;
-			web_login_key = gLoginHandler.mWebLoginKey;
-
-			show_connect_box = false;
+			// this might be a secondlife:///app/login URL
+			gLoginHandler.parseDirectLogin(LLStartUp::sSLURLCommand);
 		}
-        else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
-        {
-            LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+		if (!gLoginHandler.getFirstName().empty()
+			|| !gLoginHandler.getLastName().empty()
+			|| !gLoginHandler.getWebLoginKey().isNull() )
+		{
+			// We have at least some login information on a SLURL
+			firstname = gLoginHandler.getFirstName();
+			lastname = gLoginHandler.getLastName();
+			web_login_key = gLoginHandler.getWebLoginKey();
+
+			// Show the login screen if we don't have everything
+			show_connect_box = 
+				firstname.empty() || lastname.empty() || web_login_key.isNull();
+		}
+		else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
+		{
+			LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 			firstname = cmd_line_login[0].asString();
 			lastname = cmd_line_login[1].asString();
 
@@ -681,7 +714,6 @@ bool idle_startup()
 			char md5pass[33];               /* Flawfinder: ignore */
 			pass.hex_digest(md5pass);
 			password = md5pass;
-			remember_password = gSavedSettings.getBOOL("RememberPassword");
 			
 #ifdef USE_VIEWER_AUTH
 			show_connect_box = true;
@@ -689,14 +721,13 @@ bool idle_startup()
 			show_connect_box = false;
 #endif
 			gSavedSettings.setBOOL("AutoLogin", TRUE);
-        }
+		}
 		else if (gSavedSettings.getBOOL("AutoLogin"))
 		{
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
-			password = load_password_from_disk();
+			password = LLStartUp::loadPasswordFromDisk();
 			gSavedSettings.setBOOL("RememberPassword", TRUE);
-			remember_password = TRUE;
 			
 #ifdef USE_VIEWER_AUTH
 			show_connect_box = true;
@@ -707,11 +738,13 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = load_password_from_disk();
-			
-			remember_password = gSavedSettings.getBOOL("RememberPassword");
+			// a valid grid is selected (in llpanellogin, for some reason?)
+			// This should get the right values from the grid manager now -Patrick Sapinski (Monday, August 17, 2009)
+			HippoGridInfo *gridInfo = gHippoGridManager->getCurrentGrid();
+			firstname = gridInfo->getFirstName();
+			lastname = gridInfo->getLastName();
+			password = gridInfo->getAvatarPassword();
+
 			show_connect_box = true;
 		}
 
@@ -724,7 +757,7 @@ bool idle_startup()
 	
 	if (STATE_BROWSER_INIT == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_BROWSER_INIT" << LL_ENDL;
+		LL_DEBUGS("AppInitStartupState") << "STATE_BROWSER_INIT" << LL_ENDL;
 		std::string msg = LLTrans::getString("LoginInitializingBrowser");
 		set_startup_status(0.03f, msg.c_str(), gAgent.mMOTD.c_str());
 		display_startup();
@@ -742,8 +775,6 @@ bool idle_startup()
 		sAuthUriNum = -1;
 		
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
-		// Push our window frontmost
-		gViewerWindow->getWindow()->show();
 
 		timeout_count = 0;
 		
@@ -757,7 +788,7 @@ bool idle_startup()
 			// Load all the name information out of the login view
 			// NOTE: Hits "Attempted getFields with no login view shown" warning, since we don't
 			// show the login view until login_show() is called below.  
-			// LLPanelLogin::getFields(firstname, lastname, password, remember_password);
+			// LLPanelLogin::getFields(firstname, lastname, password);
 
 			if (gNoRender)
 			{
@@ -769,7 +800,7 @@ bool idle_startup()
 			// Show the login dialog
 			login_show();
 			// connect dialog is already shown, so fill in the names
-			LLPanelLogin::setFields( firstname, lastname, password, remember_password );
+			LLPanelLogin::setFields( firstname, lastname, password);
 
 			LLPanelLogin::giveFocus();
 
@@ -790,7 +821,7 @@ bool idle_startup()
 		// *NOTE: This is where gMuteList used to get allocated before becoming LLMuteList::getInstance().
 
 		// Initialize UI
-		if (!gNoRender)
+		if (!gNoRender && !LLStartUp::getLoginFailed())
 		{
 			// Initialize all our tools.  Must be done after saved settings loaded.
 			// NOTE: This also is where gToolMgr used to be instantiated before being turned into a singleton.
@@ -804,6 +835,10 @@ bool idle_startup()
 		gLoginMenuBarView->setVisible( TRUE );
 		gLoginMenuBarView->setEnabled( TRUE );
 
+		// Push our window frontmost
+		gViewerWindow->getWindow()->show();
+		display_startup();
+
 		// DEV-16927.  The following code removes errant keystrokes that happen while the window is being 
 		// first made visible.
 #ifdef _WIN32
@@ -816,6 +851,7 @@ bool idle_startup()
 
 	if (STATE_LOGIN_WAIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_WAIT" << LL_ENDL;
 		// Don't do anything.  Wait for the login view to call the login_callback,
 		// which will push us to the next state.
 
@@ -826,14 +862,16 @@ bool idle_startup()
 
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_CLEANUP" << LL_ENDL;
 		//reset the values that could have come in from a slurl
-		if (!gLoginHandler.mWebLoginKey.isNull())
+		if (!gLoginHandler.getWebLoginKey().isNull())
 		{
-			firstname = gLoginHandler.mFirstName;
-			lastname = gLoginHandler.mLastName;
-			web_login_key = gLoginHandler.mWebLoginKey;
+			firstname = gLoginHandler.getFirstName();
+			lastname = gLoginHandler.getLastName();
+			web_login_key = gLoginHandler.getWebLoginKey();
 		}
 		
+		/* Jacek - Grid manager stuff that's changed with 1.23
 		if(!gLoginHandler.mPassword.empty())
 		{
 			firstname = gLoginHandler.mFirstName;
@@ -844,13 +882,13 @@ bool idle_startup()
 			gLoginHandler.mLastName = "";
 			gLoginHandler.mPassword = "";
 			LLStartUp::setShouldAutoLogin(false);
-		}
+		}*/
 				
 		if (show_connect_box)
 		{
 			// TODO if not use viewer auth
 			// Load all the name information out of the login view
-			LLPanelLogin::getFields(firstname, lastname, password, remember_password);
+			LLPanelLogin::getFields(&firstname, &lastname, &password);
 			// end TODO
 	 
 			// HACK: Try to make not jump on login
@@ -862,35 +900,33 @@ bool idle_startup()
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
 
-			if (remember_password)
-			{
-				   save_password_to_disk(password.c_str());
-			}
-			else
-			{
-				   save_password_to_disk(NULL);
-			}
-			gSavedSettings.setBOOL("RememberPassword", remember_password);
-
 			//LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
-        gHippoGridManager->setCurrentGridAsConnected();
+		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
+		{
+			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
+		}
+
+		gHippoGridManager->setCurrentGridAsConnected();
+		gHippoLimits->setLimits();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-    	LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		LLFile::mkdir(gDirUtilp->getLindenUserDir());
 
-        // Set PerAccountSettingsFile to the default value.
+		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
 			gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, 
-				LLAppViewer::instance()->getSettingsFileName("PerAccount")
+				LLAppViewer::instance()->getSettingsFilename("Default", "PerAccount")
 				)
 			);
 
 		// Overwrite default user settings with user settings								 
-		LLAppViewer::instance()->loadSettingsFromDirectory(LL_PATH_PER_SL_ACCOUNT);
+		LLAppViewer::instance()->loadSettingsFromDirectory("Account");
 
 		// Need to set the LastLogoff time here if we don't have one.  LastLogoff is used for "Recent Items" calculation
 		// and startup time is close enough if we don't have a real value.
@@ -927,6 +963,9 @@ bool idle_startup()
 
 		std::string user_windlight_days_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/days", ""));
 		LLFile::mkdir(user_windlight_days_path_name.c_str());
+
+		std::string dictionariesFolder(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries",""));
+		LLFile::mkdir(dictionariesFolder.c_str());
 
 
 		if (show_connect_box)
@@ -1007,7 +1046,7 @@ bool idle_startup()
 		}
 
 		// Display the startup progress bar.
-		gViewerWindow->setShowProgress(TRUE);
+		gViewerWindow->setShowProgress(!gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 		gViewerWindow->setProgressCancelButtonVisible(TRUE, std::string("Quit")); // *TODO: Translate
 
 		// Poke the VFS, which could potentially block for a while if
@@ -1028,12 +1067,14 @@ bool idle_startup()
 
 	if (STATE_UPDATE_CHECK == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_UPDATE_CHECK" << LL_ENDL;
 		// wait for user to give input via dialog box
 		return FALSE;
 	}
 
 	if(STATE_LOGIN_AUTH_INIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_AUTH_INIT" << LL_ENDL;
 //#define LL_MINIMIAL_REQUESTED_OPTIONS
 		gDebugInfo["GridName"] = LLViewerLogin::getInstance()->getGridLabel();
 
@@ -1095,7 +1136,7 @@ bool idle_startup()
 
 	if (STATE_LOGIN_AUTHENTICATE == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_LOGIN_AUTHENTICATE" << LL_ENDL;
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_AUTHENTICATE" << LL_ENDL;
 		set_startup_status(progress, auth_desc, auth_message);
 		progress += 0.02f;
 		display_startup();
@@ -1172,7 +1213,7 @@ bool idle_startup()
 
 	if(STATE_LOGIN_NO_DATA_YET == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_LOGIN_NO_DATA_YET" << LL_ENDL;
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_NO_DATA_YET" << LL_ENDL;
 		// If we get here we have gotten past the potential stall
 		// in curl, so take "may appear frozen" out of progress bar. JC
 		auth_desc = "Logging in...";
@@ -1197,7 +1238,7 @@ bool idle_startup()
 
 	if(STATE_LOGIN_DOWNLOADING == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_LOGIN_DOWNLOADING" << LL_ENDL;
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_DOWNLOADING" << LL_ENDL;
 		// Process messages to keep from dropping circuit.
 		LLMessageSystem* msg = gMessageSystem;
 		while (msg->checkAllMessages(gFrameCount, gServicePump))
@@ -1218,9 +1259,10 @@ bool idle_startup()
 
 	if(STATE_LOGIN_PROCESS_RESPONSE == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_LOGIN_PROCESS_RESPONSE" << LL_ENDL;
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_PROCESS_RESPONSE" << LL_ENDL;
 		std::ostringstream emsg;
 		bool quit = false;
+		static bool presence_retry = true;
 		std::string login_response;
 		std::string reason_response;
 		std::string message_response;
@@ -1264,11 +1306,7 @@ bool idle_startup()
 				reason_response = LLUserAuth::getInstance()->getResponse("reason");
 				message_response = LLUserAuth::getInstance()->getResponse("message");
 
-				if (gHideLinks && reason_response == "disabled")
-				{
-					emsg << gDisabledMessage;
-				}
-				else if (!message_response.empty())
+				if (!message_response.empty())
 				{
 					// XUI: fix translation for strings returned during login
 					// We need a generic table for translations
@@ -1349,6 +1387,19 @@ bool idle_startup()
 						return false;
 					}
 				}
+				// The "You appear to be already logged in, wait 5 minutes" message
+				// Only do this once per each login button press -- MC
+				if (presence_retry && (reason_response == "presence"))
+				{
+					// Only do this on OS as SL will lock us out -- MC
+					if (gHippoGridManager->getConnectedGrid()->isOpenSimulator() && show_connect_box)
+					{
+						LL_INFOS("AppInit") << "Login Failed. " << message_response << " Retrying now." << LL_ENDL;
+						LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+						presence_retry = false;
+						return false;
+					}
+				}
 			}
 			break;
 		case LLUserAuth::E_COULDNT_RESOLVE_HOST:
@@ -1372,6 +1423,8 @@ bool idle_startup()
 			}
 			break;
 		}
+
+		presence_retry = true;
 
 		// Version update and we're not showing the dialog
 		if(quit)
@@ -1416,24 +1469,25 @@ bool idle_startup()
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
 
-			if (remember_password)
+			if (gSavedSettings.getBOOL("RememberPassword"))
 			{
-				   save_password_to_disk(password.c_str());
+				// Successful login means the password is valid, so save it.
+				// functionality replaced in grid manager. -Patrick Sapinski (Monday, March 08, 2010)
+				//LLStartUp::savePasswordToDisk(password);
 			}
 			else
 			{
-				   save_password_to_disk(NULL);
+				// Don't leave password from previous session sitting around
+				// during this login session.
+				LLStartUp::deletePasswordFromDisk();
 			}
-			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
-			// This fixes Imprudence 1.2 thinking it's a teen. 
-			// Will need fixing for the 1.23 merge.
 			// this is their actual ability to access content
 			text = LLUserAuth::getInstance()->getResponse("agent_access_max");
 			if (!text.empty())
 			{
 				// agent_access can be 'A', 'M', and 'PG'.
-				gAgent.convertTextToMaturity(text[0]);
+				gAgent.setMaturity(text[0]);
 			}
 			else // we're on an older sim version (prolly an opensim)
 			{
@@ -1445,6 +1499,26 @@ bool idle_startup()
 				else
 				{
 					gAgent.setTeen(true);
+				}
+			}
+			
+			// this is the value of their preference setting for that content
+			// which will always be <= agent_access_max
+			text = LLUserAuth::getInstance()->getResponse("agent_region_access");
+			if (!text.empty())
+			{
+				int preferredMaturity = LLAgent::convertTextToMaturity(text[0]);
+				gSavedSettings.setU32("PreferredMaturity", preferredMaturity);
+			}
+			// During the AO transition, this flag will be true. Then the flag will
+			// go away. After the AO transition, this code and all the code that
+			// uses it can be deleted.
+			text = LLUserAuth::getInstance()->getResponse("ao_transition");
+			if (!text.empty())
+			{
+				if (text == "1")
+				{
+					gAgent.setAOTransition();
 				}
 			}
 
@@ -1626,13 +1700,14 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("search");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("real_currency");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
-            tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
-            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
-            gHippoGridManager->saveFile();
+			tmp = LLUserAuth::getInstance()->getResponse("currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+			gHippoGridManager->saveFile();
+			gHippoLimits->setLimits();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.
@@ -1654,9 +1729,10 @@ bool idle_startup()
 					exit(0);
 				}
 				// Bounce back to the login screen.
-				LLStringUtil::format_map_t args;
-				args["[ERROR_MESSAGE]"] = emsg.str();
-				gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
+				LLStartUp::setLoginFailed(true);
+				LLSD args;
+				args["ERROR_MESSAGE"] = emsg.str();
+				LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
 				LLStartUp::resetLogin();
 				gSavedSettings.setBOOL("AutoLogin", FALSE);
 				//this might be redundant
@@ -1667,7 +1743,7 @@ bool idle_startup()
 			// Pass the user information to the voice chat server interface.
 			gVoiceClient->userAuthorized(firstname, lastname, gAgentID);
 		}
-		else
+		else // if(successful_login)
 		{
 			if (gNoRender)
 			{
@@ -1676,16 +1752,15 @@ bool idle_startup()
 				exit(0);
 			}
 			// Bounce back to the login screen.
-			LLStringUtil::format_map_t args;
-			args["[ERROR_MESSAGE]"] = emsg.str();
-			gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
+			LLStartUp::setLoginFailed(true);
+			LLSD args;
+			args["ERROR_MESSAGE"] = emsg.str();
+			LLNotifications::instance().add("ErrorMessage", args, LLSD(), login_alert_done);
 			LLStartUp::resetLogin();
 			gSavedSettings.setBOOL("AutoLogin", FALSE);
 			//this might be redundant
 			LLStartUp::setShouldAutoLogin(false);
 			show_connect_box = true;
-			// Don't save an incorrect password to disk.
-			save_password_to_disk(NULL);
 		}
 		return FALSE;
 	}
@@ -1695,6 +1770,7 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_WORLD_INIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_WORLD_INIT" << LL_ENDL;
 		set_startup_status(0.40f, LLTrans::getString("LoginInitializingWorld"), gAgent.mMOTD);
 		gDisconnected=FALSE;
 		display_startup();
@@ -1769,6 +1845,7 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_MULTIMEDIA_INIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_MULTIMEDIA_INIT" << LL_ENDL;
 		LLStartUp::multimediaInit();
 		LLStartUp::setStartupState( STATE_SEED_GRANTED_WAIT );
 		return FALSE;
@@ -1779,6 +1856,7 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if(STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_SEED_GRANTED_WAIT" << LL_ENDL;
 		return FALSE;
 	}
 
@@ -1789,6 +1867,7 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_SEED_CAP_GRANTED == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_SEED_CAP_GRANTED" << LL_ENDL;
 		update_texture_fetch();
 
 		if ( gViewerWindow != NULL)
@@ -1833,7 +1912,10 @@ bool idle_startup()
 			LLError::logToFixedBuffer(gDebugView->mDebugConsolep);
 			// set initial visibility of debug console
 			gDebugView->mDebugConsolep->setVisible(gSavedSettings.getBOOL("ShowDebugConsole"));
-			gDebugView->mFloaterStatsp->setVisible(gSavedSettings.getBOOL("ShowDebugStats"));
+			if (gSavedSettings.getBOOL("ShowDebugStats"))
+			{
+				LLFloaterStats::showInstance();
+			}
 		}
 
 		//
@@ -1900,6 +1982,7 @@ bool idle_startup()
 		}
 
 		// Make sure agent knows correct aspect ratio
+		// FOV limits depend upon aspect ratio so this needs to happen before initializing the FOV below
 		LLViewerCamera::getInstance()->setViewHeightInPixels(gViewerWindow->getWindowDisplayHeight());
 		if (gViewerWindow->mWindow->getFullscreen())
 		{
@@ -1909,6 +1992,8 @@ bool idle_startup()
 		{
 			LLViewerCamera::getInstance()->setAspect( (F32) gViewerWindow->getWindowWidth() / (F32) gViewerWindow->getWindowHeight());
 		}
+		// Initialize FOV
+		LLViewerCamera::getInstance()->setDefaultFOV(gSavedSettings.getF32("CameraAngle")); 
 
 		// Move agent to starting location. The position handed to us by
 		// the space server is in global coordinates, but the agent frame
@@ -1925,7 +2010,13 @@ bool idle_startup()
 		{
 			LL_DEBUGS("AppInit") << "Initializing sky..." << LL_ENDL;
 			// Initialize all of the viewer object classes for the first time (doing things like texture fetches.
+			LLGLState::checkStates();
+			LLGLState::checkTextureChannels();
+
 			gSky.init(initial_sun_direction);
+
+			LLGLState::checkStates();
+			LLGLState::checkTextureChannels();
 		}
 
 		LL_DEBUGS("AppInit") << "Decoding images..." << LL_ENDL;
@@ -2024,9 +2115,13 @@ bool idle_startup()
 			LLHUDManager::getInstance()->sendEffects();
 		}
 
+		// Drop out if we can't connect -- MC
+		connecting_region_timer.start();
+		connecting_region_timer.setTimerExpirySec(10.0f);
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
 
 		timeout.reset();
+
 		return FALSE;
 	}
 
@@ -2035,6 +2130,22 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_AGENT_WAIT == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_AGENT_WAIT" << LL_ENDL;
+		if (connecting_region_timer.hasExpired())
+		{
+			// Bounce back to the login screen -- MC
+			LL_WARNS("AppInit") << "Bad login - can't connect to this region for some reason" << LL_ENDL;
+			LLStartUp::setLoginFailed(true);
+			LLNotifications::instance().add("ConnectingToRegionError", LLSD(), LLSD(), login_alert_done);
+			LLStartUp::resetLogin();
+			gSavedSettings.setBOOL("AutoLogin", FALSE);
+			//this might be redundant
+			LLStartUp::setShouldAutoLogin(false);
+			show_connect_box = true;
+			connecting_region_timer.stop();
+			connecting_region_timer.reset();
+		}
+
 		LLMessageSystem* msg = gMessageSystem;
 		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
@@ -2057,6 +2168,7 @@ bool idle_startup()
 		if (gAgentMovementCompleted)
 		{
 			LLStartUp::setStartupState( STATE_INVENTORY_SEND );
+			connecting_region_timer.stop();
 		}
 
 		return FALSE;
@@ -2067,6 +2179,16 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_INVENTORY_SEND == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_INVENTORY_SEND" << LL_ENDL;
+
+		// Change the window title to include the avatar name if we're using multiple viewers -- MC
+		if (gSavedSettings.getBOOL("AllowMultipleViewers"))
+		{
+			gWindowTitle = gSecondLife + " - " + firstname + " " + lastname;
+			LLStringUtil::truncate(gWindowTitle, 255);
+			gViewerWindow->getWindow()->setWindowTitle(gWindowTitle);
+		}
+
 		// unpack thin inventory
 		LLUserAuth::options_t options;
 		options.clear();
@@ -2233,13 +2355,7 @@ bool idle_startup()
 
 		// Get L$ and ownership credit information
 		llinfos << "Requesting Money Balance" << llendl;
-		msg->newMessageFast(_PREHASH_MoneyBalanceRequest);
-		msg->nextBlockFast(_PREHASH_AgentData);
-		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-		msg->nextBlockFast(_PREHASH_MoneyData);
-		msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null );
-		gAgent.sendReliableMessage();
+		LLStatusBar::sendMoneyBalanceRequest();
 
 		// request all group information
 		llinfos << "Requesting Agent Data" << llendl;
@@ -2268,6 +2384,7 @@ bool idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_MISC == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_MISC" << LL_ENDL;
 		// We have a region, and just did a big inventory download.
 		// We can estimate the user's connection speed, and set their
 		// max bandwidth accordingly.  JC
@@ -2412,23 +2529,23 @@ bool idle_startup()
 				// location is not your expected location. So, if this is
 				// your first login, then you do not have an expectation,
 				// thus, do not show this alert.
-				LLStringUtil::format_map_t args;
+				LLSD args;
 				if (url_ok)
 				{
-					args["[TYPE]"] = "desired";
-					args["[HELP]"] = "";
+					args["TYPE"] = "desired";
+					args["HELP"] = "";
 				}
 				else if (gSavedSettings.getBOOL("LoginLastLocation"))
 				{
-					args["[TYPE]"] = "last";
-					args["[HELP]"] = "";
+					args["TYPE"] = "last";
+					args["HELP"] = "";
 				}
 				else
 				{
-					args["[TYPE]"] = "home";
-					args["[HELP]"] = "You may want to set a new home location.";
+					args["TYPE"] = "home";
+					args["HELP"] = "You may want to set a new home location.";
 				}
-				gViewerWindow->alertXml("AvatarMoved", args);
+				LLNotifications::instance().add("AvatarMoved", args);
 			}
 			else
 			{
@@ -2458,6 +2575,7 @@ bool idle_startup()
 
 	if (STATE_PRECACHE == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_PRECACHE" << LL_ENDL;
 		F32 timeout_frac = timeout.getElapsedTimeF32()/PRECACHING_DELAY;
 
 		// We now have an inventory skeleton, so if this is a user's first
@@ -2485,8 +2603,14 @@ bool idle_startup()
 		{
 			update_texture_fetch();
 			set_startup_status(0.60f + 0.30f * timeout_frac,
-				"Loading world...",
+				LLTrans::getString("LoginPrecaching"),
 					gAgent.mMOTD);
+			display_startup();
+			if (!LLViewerShaderMgr::sInitialized)
+			{
+				LLViewerShaderMgr::sInitialized = TRUE;
+				LLViewerShaderMgr::instance()->setShaders();
+			}
 		}
 
 		return TRUE;
@@ -2494,7 +2618,7 @@ bool idle_startup()
 
 	if (STATE_WEARABLES_WAIT == LLStartUp::getStartupState())
 	{
-
+		LL_DEBUGS("AppInitStartupState") << "STATE_WEARABLES_WAIT" << LL_ENDL;
 		const F32 wearables_time = wearables_timer.getElapsedTimeF32();
 		const F32 MAX_WEARABLES_TIME = 10.f;
 
@@ -2508,16 +2632,15 @@ bool idle_startup()
 			// initial outfit, but if the load hasn't started
 			// already then something is wrong so fall back
 			// to generic outfits. JC
-			gViewerWindow->alertXml("WelcomeChooseSex",
-				callback_choose_gender, NULL);
+			LLNotifications::instance().add("WelcomeChooseSex", LLSD(), LLSD(),
+				callback_choose_gender);
 			LLStartUp::setStartupState( STATE_CLEANUP );
 			return TRUE;
 		}
 		
 		if (wearables_time > MAX_WEARABLES_TIME)
 		{
-			// It's taken too long to load, show the world
-			gViewerWindow->alertXml("ClothingLoading");
+			LLNotifications::instance().add("ClothingLoading");
 			LLViewerStats::getInstance()->incStat(LLViewerStats::ST_WEARABLES_TOO_LONG);
 			LLStartUp::setStartupState( STATE_CLEANUP );
 			return TRUE;
@@ -2537,7 +2660,7 @@ bool idle_startup()
 		else
 		{
 			// OK to just get the wearables
-			if ( gAgent.getWearablesLoaded() )
+			if ( gAgent.areWearablesLoaded() )
 			{
 				// We have our clothing, proceed.
 				//llinfos << "wearables loaded" << llendl;
@@ -2555,7 +2678,22 @@ bool idle_startup()
 
 	if (STATE_CLEANUP == LLStartUp::getStartupState())
 	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_CLEANUP" << LL_ENDL;
 		set_startup_status(1.0, "", "");
+
+		// Make sure all the branding is in order -- MC
+		if (gStatusBar)
+		{
+			gStatusBar->updateElements();
+		}
+
+		// Start the AO now that settings have loaded and login successful -- MC
+		if (!gAOInvTimer)
+		{
+			gAOInvTimer = new AOInvTimer();
+		}
+
+		LLFirstUse::ClientTags();
 
 		// Let the map know about the inventory.
 		if(gFloaterWorldMap)
@@ -2597,11 +2735,27 @@ bool idle_startup()
 		// If we've got a startup URL, dispatch it
 		LLStartUp::dispatchURL();
 
+		// Retrieve information about the land data
+		// (just accessing this the first time will fetch it,
+		// then the data is cached for the viewer's lifetime)
+		LLProductInfoRequestManager::instance();
+		
 		// Clean up the userauth stuff.
 		LLUserAuth::getInstance()->reset();
 
 		LLStartUp::setStartupState( STATE_STARTED );
 		LLStartUp::setStartedOnce(true);
+		LLStartUp::setLoginFailed(false);
+
+		if (gSavedSettings.getBOOL("SpeedRez"))
+		{
+			// Speed up rezzing if requested.
+			F32 dist1 = gSavedSettings.getF32("RenderFarClip");
+			F32 dist2 = gSavedSettings.getF32("SavedRenderFarClip");
+			gSavedDrawDistance = (dist1 >= dist2 ? dist1 : dist2);
+			gSavedSettings.setF32("SavedRenderFarClip", gSavedDrawDistance);
+			gSavedSettings.setF32("RenderFarClip", 32.0f);
+		}
 
 		// Unmute audio if desired and setup volumes.
 		// Unmute audio if desired and setup volumes.
@@ -2618,36 +2772,6 @@ bool idle_startup()
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
 
-		// HACK: remove this when based on 1.23
-		// Send our preferred maturity.
-		// Update agent access preference on the server
-		std::string url = gAgent.getRegion()->getCapability("UpdateAgentInformation");
-		if (!url.empty())
-		{
-			U32 preferredMaturity = gSavedSettings.getU32("PreferredMaturity");
-			// Set new access preference
-			LLSD access_prefs = LLSD::emptyMap();
-			if (preferredMaturity == SIM_ACCESS_PG)
-			{
-				access_prefs["max"] = "PG";
-			}
-			else if (preferredMaturity == SIM_ACCESS_MATURE)
-			{
-				access_prefs["max"] = "M";
-			}
-			if (preferredMaturity == SIM_ACCESS_ADULT)
-			{
-				access_prefs["max"] = "A";
-			}
-			
-			LLSD body = LLSD::emptyMap();
-			body["access_prefs"] = access_prefs;
-			llinfos << "Sending access prefs update to " << (access_prefs["max"].asString()) << " via capability to: "
-			<< url << llendl;
-			LLHTTPClient::post(url, body, new LLHTTPClient::Responder());    // Ignore response
-		}
-
-		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
 
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
@@ -2720,16 +2844,11 @@ void login_callback(S32 option, void *userdata)
 	{
 		// Make sure we don't save the password if the user is trying to clear it.
 		std::string first, last, password;
-		BOOL remember = TRUE;
-		LLPanelLogin::getFields(first, last, password, remember);
-		if (!remember)
+		LLPanelLogin::getFields(&first, &last, &password);
+		if (!gSavedSettings.getBOOL("RememberPassword"))
 		{
 			// turn off the setting and write out to disk
-			gSavedSettings.setBOOL("RememberPassword", FALSE);
 			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile") , TRUE );
-
-			// stomp the saved password on disk
-			save_password_to_disk(NULL);
 		}
 
 		// Next iteration through main loop should shut down the app cleanly.
@@ -2747,8 +2866,18 @@ void login_callback(S32 option, void *userdata)
 	}
 }
 
-std::string load_password_from_disk()
+
+// static
+std::string LLStartUp::loadPasswordFromDisk()
 {
+	// Only load password if we also intend to save it (otherwise the user
+	// wonders what we're doing behind his back).  JC
+	BOOL remember_password = gSavedSettings.getBOOL("RememberPassword");
+	if (!remember_password)
+	{
+		return std::string("");
+	}
+
 	std::string hashed_password("");
 
 	// Look for legacy "marker" password from settings.ini
@@ -2800,40 +2929,44 @@ std::string load_password_from_disk()
 	return hashed_password;
 }
 
-void save_password_to_disk(const char* hashed_password)
+
+// static
+void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 {
 	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
 													   "password.dat");
-	if (!hashed_password)
+	LLFILE* fp = LLFile::fopen(filepath, "wb");		/* Flawfinder: ignore */
+	if (!fp)
 	{
-		// No password, remove the file.
-		LLFile::remove(filepath);
+		return;
 	}
-	else
+
+	// Encipher with MAC address
+	const S32 HASHED_LENGTH = 32;
+	U8 buffer[HASHED_LENGTH+1];
+
+	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
+
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.encrypt(buffer, HASHED_LENGTH);
+
+	if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)
 	{
-		LLFILE* fp = LLFile::fopen(filepath, "wb");		/* Flawfinder: ignore */
-		if (!fp)
-		{
-			return;
-		}
-
-		// Encipher with MAC address
-		const S32 HASHED_LENGTH = 32;
-		U8 buffer[HASHED_LENGTH+1];
-
-		LLStringUtil::copy((char*)buffer, hashed_password, HASHED_LENGTH+1);
-
-		LLXORCipher cipher(gMACAddress, 6);
-		cipher.encrypt(buffer, HASHED_LENGTH);
-
-		if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)
-		{
-			LL_WARNS("AppInit") << "Short write" << LL_ENDL;
-		}
-
-		fclose(fp);
+		LL_WARNS("AppInit") << "Short write" << LL_ENDL;
 	}
+
+	fclose(fp);
 }
+
+
+// static
+void LLStartUp::deletePasswordFromDisk()
+{
+	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
+														  "password.dat");
+	LLFile::remove(filepath);
+}
+
 
 bool is_hex_string(U8* str, S32 len)
 {
@@ -2871,40 +3004,71 @@ bool is_hex_string(U8* str, S32 len)
 
 void show_first_run_dialog()
 {
-	gViewerWindow->alertXml("FirstRun", first_run_dialog_callback, NULL);
+	LLNotifications::instance().add("FirstRun", LLSD(), LLSD(), first_run_dialog_callback);
 }
 
-void first_run_dialog_callback(S32 option, void* userdata)
+bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		LL_DEBUGS("AppInit") << "First run dialog cancelling" << LL_ENDL;
-		LLWeb::loadURL( CREATE_ACCOUNT_URL );
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+		if (!url.empty()) {
+			LLWeb::loadURL(url);
+		} else {
+			llwarns << "Account creation URL is empty" << llendl;
+		}
 	}
 
 	LLPanelLogin::giveFocus();
+	return false;
 }
 
 
-
+std::string last_d;
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg)
 {
-	gViewerWindow->setProgressPercent(frac*100);
-	gViewerWindow->setProgressString(string);
+	if(gSavedSettings.getBOOL("DisableLoginLogoutScreens"))
+	{
+		std::string new_d = string;
+		if(new_d != last_d)
+		{
+			last_d = new_d;
+			LLChat chat;
+			chat.mText = new_d;
+			chat.mSourceType = CHAT_SOURCE_SYSTEM;
+			LLFloaterChat::addChat(chat);
+			if(new_d == LLTrans::getString("LoginWaitingForRegionHandshake"))
+			{
+				chat.mText = "MOTD: "+msg;
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+			}
+		}
+	}
+	else
+	{
+		gViewerWindow->setProgressPercent(frac*100);
+		gViewerWindow->setProgressString(string);
 
-	gViewerWindow->setProgressMessage(msg);
+		gViewerWindow->setProgressMessage(msg);
+	}
 }
 
-void login_alert_status(S32 option, void* user_data)
+bool login_alert_status(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
     // Buttons
     switch( option )
     {
         case 0:     // OK
             break;
-        case 1:     // Help
-            LLWeb::loadURL( SUPPORT_URL );
+        case 1: {   // Help
+            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+            if (!url.empty()) LLWeb::loadURL(url);
             break;
+        }
         case 2:     // Teleport
             // Restart the login process, starting at our home locaton
             LLURLSimString::setString(LLURLSimString::sLocationStringHome);
@@ -2915,6 +3079,7 @@ void login_alert_status(S32 option, void* user_data)
     }
 
 	LLPanelLogin::giveFocus();
+	return false;
 }
 
 void update_app(BOOL mandatory, const std::string& auth_msg)
@@ -2930,68 +3095,66 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 	{
 		msg = "(" + auth_msg + ") \n";
 	}
-	LLStringUtil::format_map_t args;
-	args["[MESSAGE]"] = msg;
+
+	LLSD args;
+	args["MESSAGE"] = msg;
 	
-	// represent a bool as a null/non-null pointer
-	void *mandatoryp = mandatory ? &mandatory : NULL;
+	LLSD payload;
+	payload["mandatory"] = mandatory;
 
+/*
+ We're constructing one of the following 6 strings here:
+	 "DownloadWindowsMandatory"
+	 "DownloadWindowsReleaseForDownload"
+	 "DownloadWindows"
+	 "DownloadMacMandatory"
+	 "DownloadMacReleaseForDownload"
+	 "DownloadMac"
+ 
+ I've called them out explicitly in this comment so that they can be grepped for.
+ 
+ Also, we assume that if we're not Windows we're Mac. If we ever intend to support 
+ Linux with autoupdate, this should be an explicit #elif LL_DARWIN, but 
+ we'd rather deliver the wrong message than no message, so until Linux is supported
+ we'll leave it alone.
+ */
+	std::string notification_name = "Download";
+	
 #if LL_WINDOWS
+	notification_name += "Windows";
+#else
+	notification_name += "Mac";
+#endif
+	
 	if (mandatory)
 	{
-		gViewerWindow->alertXml("DownloadWindowsMandatory", args,
-								update_dialog_callback,
-								mandatoryp);
+		notification_name += "Mandatory";
 	}
 	else
 	{
 #if LL_RELEASE_FOR_DOWNLOAD
-		gViewerWindow->alertXml("DownloadWindowsReleaseForDownload", args,
-								update_dialog_callback,
-								mandatoryp);
-#else
-		gViewerWindow->alertXml("DownloadWindows", args,
-								update_dialog_callback,
-								mandatoryp);
+		notification_name += "ReleaseForDownload";
 #endif
 	}
-#else
-	if (mandatory)
-	{
-		gViewerWindow->alertXml("DownloadMacMandatory", args,
-								update_dialog_callback,
-								mandatoryp);
-	}
-	else
-	{
-#if LL_RELEASE_FOR_DOWNLOAD
-		gViewerWindow->alertXml("DownloadMacReleaseForDownload", args,
-								update_dialog_callback,
-								mandatoryp);
-#else
-		gViewerWindow->alertXml("DownloadMac", args,
-								update_dialog_callback,
-								mandatoryp);
-#endif
-	}
-#endif
-
+	
+	LLNotifications::instance().add(notification_name, args, payload, update_dialog_callback);
+	
 }
 
-
-void update_dialog_callback(S32 option, void *userdata)
+bool update_dialog_callback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	std::string update_exe_path;
-	bool mandatory = userdata != NULL;
+	bool mandatory = notification["payload"]["mandatory"].asBoolean();
 
 #if !LL_RELEASE_FOR_DOWNLOAD
 	if (option == 2)
 	{
 		LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT ); 
-		return;
+		return false;
 	}
 #endif
-	
+
 	if (option == 1)
 	{
 		// ...user doesn't want to do it
@@ -3003,7 +3166,7 @@ void update_dialog_callback(S32 option, void *userdata)
 		{
 			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
 		}
-		return;
+		return false;
 	}
 	
 	LLSD query_map = LLSD::emptyMap();
@@ -3014,12 +3177,15 @@ void update_dialog_callback(S32 option, void *userdata)
 	query_map["os"] = "mac";
 #elif LL_LINUX
 	query_map["os"] = "lnx";
+#elif LL_SOLARIS
+	query_map["os"] = "sol";
 #endif
 	// *TODO change userserver to be grid on both viewer and sim, since
 	// userserver no longer exists.
 	query_map["userserver"] = LLViewerLogin::getInstance()->getGridLabel();
 	query_map["channel"] = gSavedSettings.getString("VersionChannelName");
 	// *TODO constantize this guy
+	// *NOTE: This URL is also used in win_setup/lldownloader.cpp
 	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
 	
 /*	if(LLAppViewer::sUpdaterInfo)
@@ -3038,7 +3204,7 @@ void update_dialog_callback(S32 option, void *userdata)
 		// We're hosed, bail
 		LL_WARNS("AppInit") << "LLDir::getTempFilename() failed" << LL_ENDL;
 		LLAppViewer::instance()->forceQuit();
-		return;
+		return false;
 	}
 
 	LLAppViewer::sUpdaterInfo->mUpdateExePath += ".exe";
@@ -3059,7 +3225,7 @@ void update_dialog_callback(S32 option, void *userdata)
 
 		LL_WARNS("AppInit") << "Unable to copy the updater!" << LL_ENDL;
 		LLAppViewer::instance()->forceQuit();
-		return;
+		return false;
 	}
 
 	// if a sim name was passed in via command line parameter (typically through a SLURL)
@@ -3098,13 +3264,14 @@ void update_dialog_callback(S32 option, void *userdata)
 */
 	//system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
 /*
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
 		"Please download the latest version from www.secondlife.com.",
 		LLStringUtil::null, OSMB_OK);
 #endif
 	LLAppViewer::instance()->forceQuit();
 	*/
+	return false;
 }
 
 void use_circuit_callback(void**, S32 result)
@@ -3118,8 +3285,7 @@ void use_circuit_callback(void**, S32 result)
 		{
 			// Make sure user knows something bad happened. JC
 			LL_WARNS("AppInit") << "Backing up to login screen!" << LL_ENDL;
-			gViewerWindow->alertXml("LoginPacketNeverReceived",
-				login_alert_status, NULL);
+			LLNotifications::instance().add("LoginPacketNeverReceived", LLSD(), LLSD(), login_alert_status);
 			LLStartUp::resetLogin();
 		}
 		else
@@ -3134,6 +3300,7 @@ void pass_processObjectPropertiesFamily(LLMessageSystem *msg, void**)
 {
 	// send it to 'observers'
 	LLSelectMgr::processObjectPropertiesFamily(msg,0);
+	JCFloaterAnimList::processObjectPropertiesFamily(msg,0);
 }
 
 void pass_processObjectProperties(LLMessageSystem *msg, void**)
@@ -3336,570 +3503,6 @@ void init_stat_view()
 	LLFrameStatView *frameviewp = gDebugView->mFrameStatView;
 	frameviewp->setup(gFrameStats);
 	frameviewp->mShowPercent = FALSE;
-
-	LLRect rect;
-	LLStatBar *stat_barp;
-	rect = gDebugView->mFloaterStatsp->getRect();
-
-	//
-	// Viewer advanced stats
-	//
-	LLStatView *stat_viewp = NULL;
-
-	//
-	// Viewer Basic
-	//
-	stat_viewp = new LLStatView("basic stat view", "Basic",	"OpenDebugStatBasic", rect);
-	gDebugView->mFloaterStatsp->addStatView(stat_viewp);
-
-	stat_barp = stat_viewp->addStat("FPS", &(LLViewerStats::getInstance()->mFPSStat));
-	stat_barp->setUnitLabel(" fps");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 45.f;
-	stat_barp->mTickSpacing = 7.5f;
-	stat_barp->mLabelSpacing = 15.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mDisplayBar = TRUE;
-	stat_barp->mDisplayHistory = TRUE;
-
-	stat_barp = stat_viewp->addStat("Bandwidth", &(LLViewerStats::getInstance()->mKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 900.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 300.f;
-	stat_barp->mDisplayBar = TRUE;
-	stat_barp->mDisplayHistory = FALSE;
-
-	stat_barp = stat_viewp->addStat("Packet Loss", &(LLViewerStats::getInstance()->mPacketsLostPercentStat));
-	stat_barp->setUnitLabel(" %");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 5.f;
-	stat_barp->mTickSpacing = 1.f;
-	stat_barp->mLabelSpacing = 1.f;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayMean = TRUE;
-	stat_barp->mPrecision = 1;
-
-	stat_barp = stat_viewp->addStat("Ping Sim", &(LLViewerStats::getInstance()->mSimPingStat));
-	stat_barp->setUnitLabel(" msec");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-
-	stat_viewp = new LLStatView("advanced stat view", "Advanced", "OpenDebugStatAdvanced", rect);
-	gDebugView->mFloaterStatsp->addStatView(stat_viewp);
-
-
-	LLStatView *render_statviewp;
-	render_statviewp = new LLStatView("render stat view", "Render", "OpenDebugStatRender", rect);
-	stat_viewp->addChildAtEnd(render_statviewp);
-
-	stat_barp = render_statviewp->addStat("KTris Drawn", &(gPipeline.mTrianglesDrawnStat));
-	stat_barp->setUnitLabel("/fr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 500.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = render_statviewp->addStat("KTris Drawn", &(gPipeline.mTrianglesDrawnStat));
-	stat_barp->setUnitLabel("/sec");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 3000.f;
-	stat_barp->mTickSpacing = 250.f;
-	stat_barp->mLabelSpacing = 1000.f;
-	stat_barp->mPrecision = 1;
-
-	stat_barp = render_statviewp->addStat("Total Objs", &(gObjectList.mNumObjectsStat));
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 10000.f;
-	stat_barp->mTickSpacing = 2500.f;
-	stat_barp->mLabelSpacing = 5000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = render_statviewp->addStat("New Objs", &(gObjectList.mNumNewObjectsStat));
-	stat_barp->setLabel("New Objs");
-	stat_barp->setUnitLabel("/sec");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPerSec = TRUE;
-	stat_barp->mDisplayBar = FALSE;
-
-
-	// Texture statistics
-	LLStatView *texture_statviewp;
-	texture_statviewp = new LLStatView("texture stat view", "Texture", "", rect);
-	render_statviewp->addChildAtEnd(texture_statviewp);
-
-	stat_barp = texture_statviewp->addStat("Count", &(gImageList.sNumImagesStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 8000.f;
-	stat_barp->mTickSpacing = 2000.f;
-	stat_barp->mLabelSpacing = 4000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = texture_statviewp->addStat("Raw Count", &(gImageList.sNumRawImagesStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 8000.f;
-	stat_barp->mTickSpacing = 2000.f;
-	stat_barp->mLabelSpacing = 4000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = texture_statviewp->addStat("GL Mem", &(gImageList.sGLTexMemStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 400.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = texture_statviewp->addStat("Formatted Mem", &(gImageList.sFormattedMemStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 400.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = texture_statviewp->addStat("Raw Mem", &(gImageList.sRawMemStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 400.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = texture_statviewp->addStat("Bound Mem", &(gImageList.sGLBoundMemStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 400.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPrecision = 1;
-	stat_barp->mPerSec = FALSE;
-
-	
-	// Network statistics
-	LLStatView *net_statviewp;
-	net_statviewp = new LLStatView("network stat view", "Network", "OpenDebugStatNet", rect);
-	stat_viewp->addChildAtEnd(net_statviewp);
-
-	stat_barp = net_statviewp->addStat("Packets In", &(LLViewerStats::getInstance()->mPacketsInStat));
-	stat_barp->setUnitLabel("/sec");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Packets Out", &(LLViewerStats::getInstance()->mPacketsOutStat));
-	stat_barp->setUnitLabel("/sec");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Objects", &(LLViewerStats::getInstance()->mObjectKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Texture", &(LLViewerStats::getInstance()->mTextureKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Asset", &(LLViewerStats::getInstance()->mAssetKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Layers", &(LLViewerStats::getInstance()->mLayersKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mDisplayBar = FALSE;
-
-	stat_barp = net_statviewp->addStat("Actual In", &(LLViewerStats::getInstance()->mActualInKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1024.f;
-	stat_barp->mTickSpacing = 128.f;
-	stat_barp->mLabelSpacing = 256.f;
-	stat_barp->mDisplayBar = TRUE;
-	stat_barp->mDisplayHistory = FALSE;
-
-	stat_barp = net_statviewp->addStat("Actual Out", &(LLViewerStats::getInstance()->mActualOutKBitStat));
-	stat_barp->setUnitLabel(" kbps");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 512.f;
-	stat_barp->mTickSpacing = 128.f;
-	stat_barp->mLabelSpacing = 256.f;
-	stat_barp->mDisplayBar = TRUE;
-	stat_barp->mDisplayHistory = FALSE;
-
-	stat_barp = net_statviewp->addStat("VFS Pending Ops", &(LLViewerStats::getInstance()->mVFSPendingOperations));
-	stat_barp->setUnitLabel(" ");
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-
-
-	// Simulator stats
-	LLStatView *sim_statviewp = new LLStatView("sim stat view", "Simulator", "OpenDebugStatSim", rect);
-	gDebugView->mFloaterStatsp->addStatView(sim_statviewp);
-
-	stat_barp = sim_statviewp->addStat("Time Dilation", &(LLViewerStats::getInstance()->mSimTimeDilation));
-	stat_barp->mPrecision = 2;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1.f;
-	stat_barp->mTickSpacing = 0.25f;
-	stat_barp->mLabelSpacing = 0.5f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Sim FPS", &(LLViewerStats::getInstance()->mSimFPS));
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 200.f;
-	stat_barp->mTickSpacing = 20.f;
-	stat_barp->mLabelSpacing = 100.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Physics FPS", &(LLViewerStats::getInstance()->mSimPhysicsFPS));
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 66.f;
-	stat_barp->mTickSpacing = 33.f;
-	stat_barp->mLabelSpacing = 33.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	LLStatView *phys_details_viewp;
-	phys_details_viewp = new LLStatView("phys detail view", "Physics Details", "", rect);
-	sim_statviewp->addChildAtEnd(phys_details_viewp);
-
-	stat_barp = phys_details_viewp->addStat("Pinned Objects", &(LLViewerStats::getInstance()->mPhysicsPinnedTasks));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 500.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 40.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = phys_details_viewp->addStat("Low LOD Objects", &(LLViewerStats::getInstance()->mPhysicsLODTasks));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 500.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 40.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = phys_details_viewp->addStat("Memory Allocated", &(LLViewerStats::getInstance()->mPhysicsMemoryAllocated));
-	stat_barp->setUnitLabel(" MB");
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1024.f;
-	stat_barp->mTickSpacing = 128.f;
-	stat_barp->mLabelSpacing = 256.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Agent Updates/Sec", &(LLViewerStats::getInstance()->mSimAgentUPS));
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 100.f;
-	stat_barp->mTickSpacing = 25.f;
-	stat_barp->mLabelSpacing = 50.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Main Agents", &(LLViewerStats::getInstance()->mSimMainAgents));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 80.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 40.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Child Agents", &(LLViewerStats::getInstance()->mSimChildAgents));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 5.f;
-	stat_barp->mLabelSpacing = 10.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Objects", &(LLViewerStats::getInstance()->mSimObjects));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 30000.f;
-	stat_barp->mTickSpacing = 5000.f;
-	stat_barp->mLabelSpacing = 10000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Active Objects", &(LLViewerStats::getInstance()->mSimActiveObjects));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 800.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Active Scripts", &(LLViewerStats::getInstance()->mSimActiveScripts));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 800.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Script Events", &(LLViewerStats::getInstance()->mSimScriptEPS));
-	stat_barp->setUnitLabel(" eps");
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 20000.f;
-	stat_barp->mTickSpacing = 2500.f;
-	stat_barp->mLabelSpacing = 5000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Packets In", &(LLViewerStats::getInstance()->mSimInPPS));
-	stat_barp->setUnitLabel(" pps");
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 2000.f;
-	stat_barp->mTickSpacing = 250.f;
-	stat_barp->mLabelSpacing = 1000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Packets Out", &(LLViewerStats::getInstance()->mSimOutPPS));
-	stat_barp->setUnitLabel(" pps");
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 2000.f;
-	stat_barp->mTickSpacing = 250.f;
-	stat_barp->mLabelSpacing = 1000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Pending Downloads", &(LLViewerStats::getInstance()->mSimPendingDownloads));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 800.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 200.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Pending Uploads", &(LLViewerStats::getInstance()->mSimPendingUploads));
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 100.f;
-	stat_barp->mTickSpacing = 25.f;
-	stat_barp->mLabelSpacing = 50.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_statviewp->addStat("Total Unacked Bytes", &(LLViewerStats::getInstance()->mSimTotalUnackedBytes));
-	stat_barp->setUnitLabel(" kb");
-	stat_barp->mPrecision = 0;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 100000.f;
-	stat_barp->mTickSpacing = 25000.f;
-	stat_barp->mLabelSpacing = 50000.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	LLStatView *sim_time_viewp;
-	sim_time_viewp = new LLStatView("sim perf view", "Time (ms)", "", rect);
-	sim_statviewp->addChildAtEnd(sim_time_viewp);
-
-	stat_barp = sim_time_viewp->addStat("Total Frame Time", &(LLViewerStats::getInstance()->mSimFrameMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Net Time", &(LLViewerStats::getInstance()->mSimNetMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Physics Time", &(LLViewerStats::getInstance()->mSimSimPhysicsMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Simulation Time", &(LLViewerStats::getInstance()->mSimSimOtherMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Agent Time", &(LLViewerStats::getInstance()->mSimAgentMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Images Time", &(LLViewerStats::getInstance()->mSimImagesMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Script Time", &(LLViewerStats::getInstance()->mSimScriptMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	stat_barp = sim_time_viewp->addStat("Spare Time", &(LLViewerStats::getInstance()->mSimSpareMsec));
-	stat_barp->setUnitLabel("ms");
-	stat_barp->mPrecision = 1;
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40.f;
-	stat_barp->mTickSpacing = 10.f;
-	stat_barp->mLabelSpacing = 20.f;
-	stat_barp->mPerSec = FALSE;
-	stat_barp->mDisplayBar = FALSE;
-	stat_barp->mDisplayMean = FALSE;
-
-	
-	// 2nd level time blocks under 'Details' second
-	LLStatView *detailed_time_viewp;
-	detailed_time_viewp = new LLStatView("sim perf view", "Time Details (ms)", "", rect);
-	sim_time_viewp->addChildAtEnd(detailed_time_viewp);
-	{
-		stat_barp = detailed_time_viewp->addStat("  Physics Step", &(LLViewerStats::getInstance()->mSimSimPhysicsStepMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = detailed_time_viewp->addStat("  Update Physics Shapes", &(LLViewerStats::getInstance()->mSimSimPhysicsShapeUpdateMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = detailed_time_viewp->addStat("  Physics Other", &(LLViewerStats::getInstance()->mSimSimPhysicsOtherMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = detailed_time_viewp->addStat("  Sleep Time", &(LLViewerStats::getInstance()->mSimSleepMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = detailed_time_viewp->addStat("  Pump IO", &(LLViewerStats::getInstance()->mSimPumpIOMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-	}
-
-	LLRect r = gDebugView->mFloaterStatsp->getRect();
-
-	// Reshape based on the parameters we set.
-	gDebugView->mFloaterStatsp->reshape(r.getWidth(), r.getHeight());
 }
 
 void asset_callback_nothing(LLVFS*, const LLUUID&, LLAssetType::EType, void*, S32)
@@ -3917,8 +3520,9 @@ const S32 OPT_CLOSED_WINDOW = -1;
 const S32 OPT_MALE = 0;
 const S32 OPT_FEMALE = 1;
 
-void callback_choose_gender(S32 option, void* userdata)
-{
+bool callback_choose_gender(const LLSD& notification, const LLSD& response)
+{	
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	switch(option)
 	{
 	case OPT_MALE:
@@ -3931,6 +3535,7 @@ void callback_choose_gender(S32 option, void* userdata)
 		LLStartUp::loadInitialOutfit( FEMALE_OUTFIT_FOLDER, "female" );
 		break;
 	}
+	return false;
 }
 
 void LLStartUp::loadInitialOutfit( const std::string& outfit_folder_name,
@@ -3973,8 +3578,8 @@ void LLStartUp::loadInitialOutfit( const std::string& outfit_folder_name,
 	// This is really misnamed -- it means we have started loading
 	// an outfit/shape that will give the avatar a gender eventually. JC
 	gAgent.setGenderChosen(TRUE);
+
 }
-			
 
 // Loads a bitmap to display during load
 // location_id = 0 => last position
@@ -4028,7 +3633,7 @@ void init_start_screen(S32 location_id)
 	}
 
 	raw->expandToPowerOfTwo();
-	gStartImageGL->createGLTexture(0, raw);
+	gStartImageGL->createGLTexture(0, raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
 }
 
 
@@ -4091,6 +3696,13 @@ void LLStartUp::setStartedOnce(bool started)
 }
 
 
+//static
+void LLStartUp::setLoginFailed(bool login_failed)
+{
+	sLoginFailed = login_failed;
+}
+
+
 //displays the screen and cleans up UI
 // static
 void LLStartUp::resetLogin()
@@ -4123,7 +3735,7 @@ void LLStartUp::multimediaInit()
 {
 	LL_DEBUGS("AppInit") << "Initializing Multimedia...." << LL_ENDL;
 	std::string msg = LLTrans::getString("LoginInitializingMultimedia");
-	set_startup_status(0.50f, msg.c_str(), gAgent.mMOTD.c_str());
+	set_startup_status(0.42f, msg.c_str(), gAgent.mMOTD.c_str());
 	display_startup();
 
 	LLViewerMedia::initClass();
@@ -4135,8 +3747,9 @@ bool LLStartUp::dispatchURL()
 	// ok, if we've gotten this far and have a startup URL
 	if (!sSLURLCommand.empty())
 	{
-		const bool from_external_browser = true;
-		LLURLDispatcher::dispatch(sSLURLCommand, from_external_browser);
+		LLWebBrowserCtrl* web = NULL;
+		const bool trusted_browser = false;
+		LLURLDispatcher::dispatch(sSLURLCommand, web, trusted_browser);
 	}
 	else if (LLURLSimString::parse())
 	{
@@ -4152,17 +3765,19 @@ bool LLStartUp::dispatchURL()
 			|| (dy*dy > SLOP*SLOP) )
 		{
 			std::string url = LLURLSimString::getURL();
-			const bool from_external_browser = true;
-			LLURLDispatcher::dispatch(url, from_external_browser);
+			LLWebBrowserCtrl* web = NULL;
+			const bool trusted_browser = false;
+			LLURLDispatcher::dispatch(url, web, trusted_browser);
 		}
 		return true;
 	}
 	return false;
 }
 
-void login_alert_done(S32 option, void* user_data)
+bool login_alert_done(const LLSD& notification, const LLSD& response)
 {
 	LLPanelLogin::giveFocus();
+	return false;
 }
 
 

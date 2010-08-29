@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * 2010, McCabe Maxsted
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,6 +41,8 @@
 
 #include "llfloater.h"
 
+class InvDropTarget;
+class LLViewerInventoryItem;
 
 class LLFloaterBuildOptions
 :	public LLFloater
@@ -48,12 +52,39 @@ protected:
 	~LLFloaterBuildOptions();
 
 public:
+	BOOL			postBuild();
+
 	static void		show(void*);
 	static LLFloaterBuildOptions* getInstance();
 	static BOOL		visible(void*);
 
+	void apply();
+	void cancel();
+	void refresh();
+	void reset();
+
+	void setItem(const LLUUID& item);
+	void setTexture(const LLUUID& texture);
+
 protected:
 	static LLFloaterBuildOptions*	sInstance;
+
+private:
+	static InvDropTarget*	sBuildObjectDropTarget;
+	LLUUID					mBuildItemUUID;
+	LLUUID					mBuildTextureUUID;
+
+	static void onTexturePickerCommit(LLUICtrl* ctrl, void* userdata);
+	static void onComboBoxCommit(LLUICtrl* ctrl, void* userdata);
+	static void BuildAutoResponseItemDrop(LLViewerInventoryItem* item);
+
+	static void onClickOK(void* userdata);
+	static void onClickApply(void* userdata);
+	static void onClickCancel(void* userdata);
+	static void onClickClear(void* userdata);
+	static void onClickReset(void* userdata);
+	
+	void refreshItem();
 };
 
 #endif

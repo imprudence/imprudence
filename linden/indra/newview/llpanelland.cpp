@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +48,8 @@
 #include "roles_constants.h"
 
 #include "lluictrlfactory.h"
+
+#include "hippoGridManager.h"
 
 LLPanelLandSelectObserver* LLPanelLandInfo::sObserver = NULL;
 LLPanelLandInfo* LLPanelLandInfo::sInstance = NULL;
@@ -212,6 +215,7 @@ void LLPanelLandInfo::refresh()
 								   &dwell);
 		if(is_public || (is_for_sale && LLViewerParcelMgr::getInstance()->getParcelSelection()->getWholeParcelSelected()))
 		{
+			childSetTextArg("label_area_price","[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 			childSetTextArg("label_area_price","[PRICE]", llformat("%d",claim_price));
 			childSetTextArg("label_area_price","[AREA]", llformat("%d",area));
 			childSetVisible("label_area_price",true);
@@ -272,16 +276,5 @@ void LLPanelLandInfo::onClickAbout(void*)
 
 void LLPanelLandInfo::onShowOwnersHelp(void* user_data)
 {
-	LLPanelLandInfo* self = static_cast<LLPanelLandInfo*>(user_data);
-
-	const char* xml_alert = "ShowOwnersHelp";
-	LLAlertDialog* dialogp = gViewerWindow->alertXml(xml_alert);
-	if (dialogp)
-	{
-		LLFloater* root_floater = gFloaterView->getParentFloater(self);
-		if (root_floater)
-		{
-			root_floater->addDependentFloater(dialogp);
-		}
-	}	
+	LLNotifications::instance().add("ShowOwnersHelp");
 }

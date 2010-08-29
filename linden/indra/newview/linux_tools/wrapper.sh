@@ -41,6 +41,10 @@
 ##   driver bug, try enabling this option and report whether it helps:
 #export LL_ATI_MOUSE_CURSOR_BUG=x
 
+## - If you experience crashes with streaming video and music, you can
+##   disable these by enabling this option:
+#export LL_DISABLE_GSTREAMER=x
+
 
 ## Everything below this line is just for advanced troubleshooters.
 ##-------------------------------------------------------------------
@@ -83,9 +87,7 @@ cd "${RUN_PATH}"
 ./register_secondlifeprotocol.sh
 ## Before we mess with LD_LIBRARY_PATH, save the old one to restore for
 ##  subprocesses that care.
-if [ "${LD_LIBRARY_PATH+isset}" = "isset" ]; then
-    export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-fi
+export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 if [ -n "$LL_TCMALLOC" ]; then
     tcmalloc_libs='/usr/lib/libtcmalloc.so.0 /usr/lib/libstacktrace.so.0 /lib/libpthread.so.0'
@@ -105,9 +107,15 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
+if ([ "`uname -m`" = "x86_64" ] && [ -d ${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/ ]); then
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
 
-export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
+else
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+fi
+
 export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-imprudence-bin'
 export SL_OPT="`cat gridargs.dat` $@"
 
@@ -119,18 +127,8 @@ if [ -n "$LL_RUN_ERR" ]; then
 	LL_RUN_ERR_MSG=""
 	if [ "$LL_RUN_ERR" = "runerr" ]; then
 		# generic error running the binary
-		echo '*** Unclean shutdown. ***'
-		if [ "`uname -m`" = "x86_64" ]; then
-			echo
-			cat << EOFMARKER
-You are running the Imprudence Viewer on a x86_64 platform.  The
-most common problems when launching the Viewer (particularly
-'bin/do-not-directly-run-imprudence-bin: not found' and 'error while
-loading shared libraries') may be solved by installing your Linux
-distribution's 32-bit compatibility packages.
-For example, on Ubuntu and other Debian-based Linuxes you might run:
-$ sudo apt-get install ia32-libs ia32-libs-gtk ia32-libs-kde ia32-libs-sdl
-EOFMARKER
-		fi
+		echo '*** Bad shutdown. ***'
+
+
 	fi
 fi

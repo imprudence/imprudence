@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Вибрати">
+	<button label="Розміщення" name="set_location_btn" left="190"/>
+	<button label="Телепорт" name="pick_teleport_btn" width="80"/>
+	<button label="На карті" name="pick_map_btn" left="90"/>
+	<text name="sort_order_text">
+		Сортувати:
+	</text>
+	<check_box label="Увімкнути" name="enabled_check" />
+</panel>

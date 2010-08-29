@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -78,7 +79,7 @@
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
 #include "llvoavatar.h"
 // [/RLVa:KB]
-
+#include "hippoLimits.h"
 //
 // Constants
 //
@@ -336,7 +337,7 @@ void LLPanelObject::getState( )
 		// *FIX: shouldn't we just keep the child?
 		if (objectp)
 		{
-			LLViewerObject* parentp = objectp->getSubParent();
+			LLViewerObject* parentp = objectp->getRootEdit();
 
 			if (parentp)
 			{
@@ -424,6 +425,8 @@ void LLPanelObject::getState( )
 	mCtrlPosX->setEnabled(enable_move);
 	mCtrlPosY->setEnabled(enable_move);
 	mCtrlPosZ->setEnabled(enable_move);
+
+	mCtrlPosZ->setMaxValue(gHippoLimits->getMaxHeight());
 
 	if (enable_scale)
 	{
@@ -631,9 +634,9 @@ void LLPanelObject::getState( )
 	}
 	else
 	{
-		mCtrlScaleX->setMaxValue(LLManipScale::getMaxPrimSize());
-		mCtrlScaleY->setMaxValue(LLManipScale::getMaxPrimSize());
-		mCtrlScaleZ->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleX->setMaxValue(gHippoLimits->getMaxPrimScale());
+		mCtrlScaleY->setMaxValue(gHippoLimits->getMaxPrimScale());
+		mCtrlScaleZ->setMaxValue(gHippoLimits->getMaxPrimScale());
 
 		// Only allowed to change these parameters for objects
 		// that you have permissions on AND are not attachments.
@@ -992,9 +995,9 @@ void LLPanelObject::getState( )
 		mSpinScaleY->set( scale_y );
 		calcp->setVar(LLCalc::X_HOLE, scale_x);
 		calcp->setVar(LLCalc::Y_HOLE, scale_y);
-		mSpinScaleX->setMinValue(OBJECT_MIN_HOLE_SIZE);
+		mSpinScaleX->setMinValue(gHippoLimits->getMinHoleSize());
 		mSpinScaleX->setMaxValue(OBJECT_MAX_HOLE_SIZE_X);
-		mSpinScaleY->setMinValue(OBJECT_MIN_HOLE_SIZE);
+		mSpinScaleY->setMinValue(gHippoLimits->getMinHoleSize());
 		mSpinScaleY->setMaxValue(OBJECT_MAX_HOLE_SIZE_Y);
 		break;
 	default:
@@ -1030,7 +1033,7 @@ void LLPanelObject::getState( )
 	else 
 	{
 		mSpinHollow->setMinValue(0.f);
-		mSpinHollow->setMaxValue(95.f);
+		mSpinHollow->setMaxValue(gHippoLimits->getMaxHollow() * 100.0f);
 	}
 
 	// Update field enablement
@@ -1582,11 +1585,11 @@ void LLPanelObject::getVolumeParams(LLVolumeParams& volume_params)
 	{
 		scale_x = llclamp(
 			scale_x,
-			OBJECT_MIN_HOLE_SIZE,
+			gHippoLimits->getMinHoleSize(),
 			OBJECT_MAX_HOLE_SIZE_X);
 		scale_y = llclamp(
 			scale_y,
-			OBJECT_MIN_HOLE_SIZE,
+			gHippoLimits->getMinHoleSize(),
 			OBJECT_MAX_HOLE_SIZE_Y);
 
 		// Limit radius offset, based on taper and hole size y.
@@ -1679,7 +1682,7 @@ void LLPanelObject::sendRotation(BOOL btn_down)
 	// Note: must compare before conversion to radians
 	LLVector3 delta = new_rot - mCurEulerDegrees;
 
-	if (delta.magVec() >= 0.0005f)
+	if (delta.magVec() >= 0.0001f)
 	{
 		mCurEulerDegrees = new_rot;
 		new_rot *= DEG_TO_RAD;
@@ -1725,7 +1728,7 @@ void LLPanelObject::sendScale(BOOL btn_down)
 	LLVector3 newscale(mCtrlScaleX->get(), mCtrlScaleY->get(), mCtrlScaleZ->get());
 
 	LLVector3 delta = newscale - mObject->getScale();
-	if (delta.magVec() >= 0.0005f)
+	if (delta.magVec() >= 0.0001f)
 	{
 		// scale changed by more than 1/2 millimeter
 
@@ -1796,7 +1799,7 @@ void LLPanelObject::sendPosition(BOOL btn_down)
 		LLVector3d old_pos_global = mObject->getPositionGlobal();
 		LLVector3d delta = new_pos_global - old_pos_global;
 		// moved more than 1/2 millimeter
-		if (delta.magVec() >= 0.0005f)
+		if (delta.magVec() >= 0.0001f)
 		{			
 			if (mRootObject != mObject)
 			{
@@ -1986,8 +1989,8 @@ void LLPanelObject::clearCtrls()
 	
 	childSetEnabled("scale_hole", FALSE);
 	childSetEnabled("scale_taper", FALSE);
-	childSetEnabled( "advanced_cut", FALSE );
-	childSetEnabled( "advanced_dimple", FALSE );
+	childSetEnabled("advanced_cut", FALSE);
+	childSetEnabled("advanced_dimple", FALSE);
 	childSetVisible("advanced_slice", FALSE);
 
 	childSetEnabled("build_math_constants",false);
@@ -2133,5 +2136,5 @@ void LLPanelObject::onCommitSculptType(LLUICtrl *ctrl, void* userdata)
 // static
 void LLPanelObject::onClickBuildConstants(void *)
 {
-	gViewerWindow->alertXml("ClickBuildConstants");
+	LLNotifications::instance().add("ClickBuildConstants");
 }

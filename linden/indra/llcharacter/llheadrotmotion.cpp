@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -505,6 +506,20 @@ BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 	LLQuaternion right_eye_rot = target_eye_rot;
 	vergence_quat.transQuat();
 	right_eye_rot = vergence_quat * eye_jitter_rot * right_eye_rot;
+
+	//if in appearance, set the eyes straight forward
+	if(mCharacter->getAppearanceFlag()) // no idea why this variable is reversed
+	{
+		LLVector3		forward(1.f, 0.0, 0.0);
+		LLVector3		left;
+		LLVector3		up;
+		left.setVec(forward % forward);
+		up.setVec(forward % left);
+		target_eye_rot = LLQuaternion(forward, left, up);
+		mLeftEyeState->setRotation( target_eye_rot );
+		mRightEyeState->setRotation( target_eye_rot );
+		return TRUE;
+	}
 
 	mLeftEyeState->setRotation( left_eye_rot );
 	mRightEyeState->setRotation( right_eye_rot );

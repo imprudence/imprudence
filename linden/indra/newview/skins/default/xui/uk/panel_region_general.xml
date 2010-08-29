@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Регіон" name="General">
+	<text name="region_text_lbl">
+		Регіон:
+	</text>
+	<text name="region_text">
+		невідомо
+	</text>
+	<text name="version_channel_text_lbl">
+		Версія:
+	</text>
+	<text name="version_channel_text">
+		невідомо
+	</text>
+	<text name="region_type_lbl">
+		Тип:
+	</text>
+	<text name="region_type">
+		невідомо
+	</text>
+	<check_box label="Блок. Ізм. Ландшафту" name="block_terraform_check"/>
+	<button label="?" name="terraform_help"/>
+	<check_box label="Блок. Польоти" name="block_fly_check"/>
+	<button label="?" name="fly_help"/>
+	<check_box label="Дозв. Пошкодження" name="allow_damage_check"/>
+	<button label="?" name="damage_help"/>
+	<check_box label="Запр. Штовх." name="restrict_pushobject"/>
+	<button label="?" name="restrict_pushobject_help"/>
+	<check_box label="Дозв. перепродаж землі" name="allow_land_resell_check"/>
+	<button label="?" name="land_resell_help"/>
+	<check_box label="Дозв. розділ./об&apos;єд. маєтків" name="allow_parcel_changes_check"/>
+	<button label="?" name="parcel_changes_help"/>
+	<check_box label="Не показ. ділянку в пошуку" name="block_parcel_search_check" tool_tip="Дозволити людям бачити регіон і його ділянки в Пошуку"/>
+	<button label="?" name="parcel_search_help"/>
+	<spinner label="Ліміт Агентів" name="agent_limit_spin"/>
+	<button label="?" name="agent_limit_help"/>
+	<spinner label="Бонус Об&apos;єкта" name="object_bonus_spin"/>
+	<button label="?" name="object_bonus_help"/>
+	<text label="Рейтинг" name="access_text">
+		Рейтинг:
+	</text>
+	<combo_box label="Mature" name="access_combo">
+		<combo_item name="Adult">
+			Adult
+		</combo_item>
+		<combo_item name="Mature">
+			Mature
+		</combo_item>
+		<combo_item name="PG">
+			PG
+		</combo_item>
+	</combo_box>
+	<button label="?" name="access_help"/>
+	<button label="Застосув." name="apply_btn"/>
+	<button label="Відправ.додому одного користувача..." name="kick_btn"/>
+	<button label="Відправ.додому всіх користувачів..." name="kick_all_btn"/>
+	<button label="Відправ. повідомлення в Регіон..." name="im_btn" width="220"/>
+	<button label="Упр. Телехабом..." name="manage_telehub_btn" width="210"/>
+</panel>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="Indryk annonce">
+	<text name="explanation_text">
+		Din annonce vil løbe en uge fra den dag den
+er blevet udgivet. 
+ 
+Din annonce&apos;s position i annonce siderne 
+bestemmes af hvor meget du vælger at betale
+De højest betalte annoncer vises øverst på listen, 
+og vises højere i søgningen.
+	</text>
+	<text name="price_text" width="146" bottom="44">
+		Pris for annonce (L$):
+	</text>
+	<line_editor left="136" name="price_edit" />
+	<button label="Annullér" name="cancel_btn" />
+	<button label="Sæt pris" name="set_price_btn" />
+</floater>

@@ -51,9 +51,9 @@
 		<combo_item name="Age__Adult_resident_on_Teen_Second_Life">
 			연령관련 &gt; 틴 세컨드라이프내의 성인 주민
 		</combo_item>
-		<combo_item name="Age__Underage_resident_on_Adult_Second_Life">
-			연령관련 &gt; 세컨드라이프의 미성년자 주민
-		</combo_item>
+		
+		
+		
 		<combo_item name="Assault__Combat_sandbox___unsafe_area">
 			폭력관련 &gt; 전투 샌드박스/위험 지대
 		</combo_item>
@@ -126,15 +126,15 @@
 		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
 			외설 관련&gt; 노골적으로 불쾌한 컨텐츠 또는 행동
 		</combo_item>
-		<combo_item name="Indecency__Broadly_visible_mature_content">
-			외설 관련 &gt; 노골적인 성인용 컨텐츠
-		</combo_item>
+		
+		
+		
 		<combo_item name="Indecency__Inappropriate_avatar_name">
 			외설 관련 &gt; 부적절한 아바타 이름
 		</combo_item>
-		<combo_item name="Indecency__Mature_content_in_PG_region">
-			외설 관련 &gt; PG 지역에서 성인용 컨텐츠 사용
-		</combo_item>
+		
+		
+		
 		<combo_item name="Intolerance">
 			참을 수 없는 행위
 		</combo_item>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,6 +40,7 @@
 #include "llassetuploadresponders.h"
 #include "llviewerwindow.h"
 #include "llbutton.h"
+#include "llfloatersearchreplace.h"
 #include "llinventorymodel.h"
 #include "lllineeditor.h"
 #include "llnotify.h"
@@ -58,6 +60,7 @@
 #include "llviewercontrol.h"		// gSavedSettings
 #include "llappviewer.h"		// app_abort_quit()
 #include "lllineeditor.h"
+#include "llmenugl.h"
 #include "lluictrlfactory.h"
 
 ///----------------------------------------------------------------------------
@@ -145,7 +148,7 @@ LLPreviewNotecard::LLPreviewNotecard(const std::string& name,
 		editor->setHandleEditKeysDirectly(TRUE);
 	}
 
-	gAgent.changeCameraToDefault();
+	initMenu();
 }
 
 LLPreviewNotecard::~LLPreviewNotecard()
@@ -214,6 +217,12 @@ BOOL LLPreviewNotecard::handleKeyHere(KEY key, MASK mask)
 		return TRUE;
 	}
 
+	if(('F' == key) && (MASK_CONTROL == (mask & MASK_CONTROL)))
+	{
+		LLFloaterSearchReplace::show(getChild<LLViewerTextEditor>("Notecard Editor"));
+		return TRUE;
+	}
+
 	return LLPreview::handleKeyHere(key, mask);
 }
 
@@ -229,9 +238,7 @@ BOOL LLPreviewNotecard::canClose()
 	else
 	{
 		// Bring up view-modal dialog: Save changes? Yes, No, Cancel
-		gViewerWindow->alertXml("SaveChanges",
-								  &LLPreviewNotecard::handleSaveChangesDialog,
-								  this);
+		LLNotifications::instance().add("SaveChanges", LLSD(), LLSD(), boost::bind(&LLPreviewNotecard::handleSaveChangesDialog,this, _1, _2));
 								  
 		return FALSE;
 	}
@@ -403,15 +410,15 @@ void LLPreviewNotecard::onLoadComplete(LLVFS *vfs,
 			if( LL_ERR_ASSET_REQUEST_NOT_IN_DATABASE == status ||
 				LL_ERR_FILE_EMPTY == status)
 			{
-				LLNotifyBox::showXml("NotecardMissing");
+				LLNotifications::instance().add("NotecardMissing");
 			}
 			else if (LL_ERR_INSUFFICIENT_PERMISSIONS == status)
 			{
-				LLNotifyBox::showXml("NotecardNoPermissions");
+				LLNotifications::instance().add("NotecardNoPermissions");
 			}
 			else
 			{
-				LLNotifyBox::showXml("UnableToLoadNotecard");
+				LLNotifications::instance().add("UnableToLoadNotecard");
 			}
 
 			llwarns << "Problem loading notecard: " << status << llendl;
@@ -578,7 +585,7 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 			}
 			else
 			{
-				gViewerWindow->alertXml("SaveNotecardFailObjectNotFound");
+				LLNotifications::instance().add("SaveNotecardFailObjectNotFound");
 			}
 		}
 		// Perform item copy to inventory
@@ -601,9 +608,9 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 	else
 	{
 		llwarns << "Problem saving notecard: " << status << llendl;
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("SaveNotecardFailReason",args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("SaveNotecardFailReason", args);
 	}
 
 	std::string uuid_string;
@@ -614,20 +621,19 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 	delete info;
 }
 
-// static
-void LLPreviewNotecard::handleSaveChangesDialog(S32 option, void* userdata)
+bool LLPreviewNotecard::handleSaveChangesDialog(const LLSD& notification, const LLSD& response)
 {
-	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	switch(option)
 	{
 	case 0:  // "Yes"
-		self->mCloseAfterSave = TRUE;
-		LLPreviewNotecard::onClickSave((void*)self);
+		mCloseAfterSave = TRUE;
+		LLPreviewNotecard::onClickSave((void*)this);
 		break;
 
 	case 1:  // "No"
-		self->mForceClose = TRUE;
-		self->close();
+		mForceClose = TRUE;
+		close();
 		break;
 
 	case 2: // "Cancel"
@@ -636,6 +642,7 @@ void LLPreviewNotecard::handleSaveChangesDialog(S32 option, void* userdata)
 		LLAppViewer::instance()->abortQuit();
 		break;
 	}
+	return false;
 }
 
 void LLPreviewNotecard::reshape(S32 width, S32 height, BOOL called_from_parent)
@@ -649,5 +656,228 @@ void LLPreviewNotecard::reshape(S32 width, S32 height, BOOL called_from_parent)
 		gSavedSettings.setRect("NotecardEditorRect", getRect());
 	}
 }
+
+LLTextEditor* LLPreviewNotecard::getEditor()
+{
+	return getChild<LLViewerTextEditor>("Notecard Editor");
+}
+
+void LLPreviewNotecard::initMenu()
+{
+	LLMenuItemCallGL* menuItem = getChild<LLMenuItemCallGL>("Undo");
+	menuItem->setMenuCallback(onUndoMenu, this);
+	menuItem->setEnabledCallback(enableUndoMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Redo");
+	menuItem->setMenuCallback(onRedoMenu, this);
+	menuItem->setEnabledCallback(enableRedoMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Cut");
+	menuItem->setMenuCallback(onCutMenu, this);
+	menuItem->setEnabledCallback(enableCutMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Copy");
+	menuItem->setMenuCallback(onCopyMenu, this);
+	menuItem->setEnabledCallback(enableCopyMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Paste");
+	menuItem->setMenuCallback(onPasteMenu, this);
+	menuItem->setEnabledCallback(enablePasteMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Select All");
+	menuItem->setMenuCallback(onSelectAllMenu, this);
+	menuItem->setEnabledCallback(enableSelectAllMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Deselect");
+	menuItem->setMenuCallback(onDeselectMenu, this);
+	menuItem->setEnabledCallback(enableDeselectMenu);
+
+	menuItem = getChild<LLMenuItemCallGL>("Search / Replace...");
+	menuItem->setMenuCallback(onSearchMenu, this);
+	menuItem->setEnabledCallback(NULL);
+}
+
+// static 
+void LLPreviewNotecard::onSearchMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			LLFloaterSearchReplace::show(editor);
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onUndoMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->undo();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onRedoMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->redo();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onCutMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->cut();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onCopyMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->copy();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onPasteMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->paste();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onSelectAllMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->selectAll();
+		}
+	}
+}
+
+// static 
+void LLPreviewNotecard::onDeselectMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (self)
+	{
+		LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+		if (editor)
+		{
+			editor->deselect();
+		}
+	}
+}
+
+// static 
+BOOL LLPreviewNotecard::enableUndoMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canUndo();
+}
+
+// static 
+BOOL LLPreviewNotecard::enableRedoMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canRedo();
+}
+
+// static 
+BOOL LLPreviewNotecard::enableCutMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canCut();
+}
+
+// static 
+BOOL LLPreviewNotecard::enableCopyMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canCopy();
+}
+
+// static 
+BOOL LLPreviewNotecard::enablePasteMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canPaste();
+}
+
+// static 
+BOOL LLPreviewNotecard::enableSelectAllMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canSelectAll();
+}
+
+// static 
+BOOL LLPreviewNotecard::enableDeselectMenu(void* userdata)
+{
+	LLPreviewNotecard* self = (LLPreviewNotecard*)userdata;
+	if (!self) return FALSE;
+	LLViewerTextEditor* editor = self->getChild<LLViewerTextEditor>("Notecard Editor");
+	if (!editor) return FALSE;
+	return editor->canDeselect();
+}
+
 
 // EOF

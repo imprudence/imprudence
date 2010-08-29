@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,7 +36,7 @@
  *
  */
 
-#include <tut/tut.h>
+#include <tut/tut.hpp>
 #include "linden_common.h"
 
 // These are too slow on Windows to actually include in the build. JC
@@ -345,7 +346,7 @@ namespace tut
 		// won't ever let it run.  Instead get from a known LLSD
 		// source and compare results with the non-blocking get which
 		// is tested against the mini server earlier.
-		skip_fail("secondlife.com is not reliable enough for unit tests.");
+		skip("secondlife.com is not reliable enough for unit tests.");
 
 
 		LLSD expected;

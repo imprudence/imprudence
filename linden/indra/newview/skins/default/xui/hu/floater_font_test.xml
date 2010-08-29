@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="Font teszt">
+	<text name="linea">
+		Felülírási teszt, Times használata. (From default/xui/en-us)
+	</text>
+</floater>

@@ -23,8 +23,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 SetOverwrite on				; overwrite files
 SetCompress auto			; compress iff saves space
+SetCompressor /solid lzma	; compress whole installer as one block
 SetDatablockOptimize off	; only saves us 0.1%, not worth it
 XPStyle on                  ; add an XP manifest to the installer
+RequestExecutionLevel admin	; on Vista we must be admin because we write to Program Files
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Project flags
@@ -51,8 +53,8 @@ Name ${INSTNAME}
 SubCaption 0 $(LicenseSubTitleSetup)	; override "license agreement" text
 
 BrandingText " "						; bottom of window text
-Icon %%SOURCE%%\res\install_icon.ico	; our custom icon
-UninstallIcon %%SOURCE%%\res\uninstall_icon.ico    ; our custom icon
+Icon          %%SOURCE%%\res\imp_icon.ico
+UninstallIcon %%SOURCE%%\res\imp_icon.ico
 WindowIcon on							; show our icon in left corner
 BGGradient off							; no big background window
 CRCCheck on								; make sure CRC is OK
@@ -68,7 +70,6 @@ DirText $(DirectoryChooseTitle) $(DirectoryChooseUpdate)
 !else
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
 !endif
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Variables
@@ -310,14 +311,47 @@ Function CloseSecondLife
     Return
 FunctionEnd
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Test our connection to secondlife.com
+; Also allows us to count attempted installs by examining web logs.
+; *TODO: Return current SL version info and have installer check
+; if it is up to date.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Function CheckNetworkConnection
+;     Push $0
+;     Push $1
+;     Push $2	# Option value for GetOptions
+;     DetailPrint $(CheckNetworkConnectionDP)
+;     ; Look for a tag value from the stub installer, used for statistics
+;     ; to correlate installs.  Default to "" if not found on command line.
+;     StrCpy $2 ""
+;     ${GetOptions} $COMMANDLINE "/STUBTAG=" $2
+;     GetTempFileName $0
+;     !define HTTP_TIMEOUT 5000 ; milliseconds
+;     ; Don't show secondary progress bar, this will be quick.
+;     NSISdl::download_quiet \
+;         /TIMEOUT=${HTTP_TIMEOUT} \
+;         "http://install.secondlife.com/check/?stubtag=$2&version=${VERSION_LONG}" \
+;         $0
+;     Pop $1 ; Return value, either "success", "cancel" or an error message
+;     ; MessageBox MB_OK "Download result: $1"
+;     ; Result ignored for now
+; 	; StrCmp $1 "success" +2
+; 	;	DetailPrint "Connection failed: $1"
+;     Delete $0 ; temporary file
+;     Pop $2
+;     Pop $1
+;     Pop $0
+;     Return
+; FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\SecondLife\cache
-; Delete files in Documents and Settings\All Users\SecondLife\cache
+; Delete files in Documents and Settings\<user>\Imprudence\cache
+; Delete files in Documents and Settings\All Users\Imprudence\cache
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Function RemoveCacheFiles
 ;
-;; Delete files in Documents and Settings\<user>\SecondLife
+;; Delete files in Documents and Settings\<user>\Imprudence
 ;Push $0
 ;Push $1
 ;Push $2
@@ -336,7 +370,7 @@ FunctionEnd
 ;    ExpandEnvStrings $2 $2
 ;
 ;	; When explicitly uninstalling, everything goes away
-;    RMDir /r "$2\Application Data\SecondLife\cache"
+;    RMDir /r "$2\Application Data\Imprudence\cache"
 ;
 ;  CONTINUE:
 ;    IntOp $0 $0 + 1
@@ -346,17 +380,17 @@ FunctionEnd
 ;Pop $1
 ;Pop $0
 ;
-;; Delete files in Documents and Settings\All Users\SecondLife
+;; Delete files in Documents and Settings\All Users\Imprudence
 ;Push $0
 ;  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
 ;  StrCmp $0 "" +2
-;  RMDir /r "$0\SecondLife\cache"
+;  RMDir /r "$0\Imprudence\cache"
 ;Pop $0
 ;
-;; Delete filse in C:\Windows\Application Data\SecondLife
+;; Delete filse in C:\Windows\Application Data\Imprudence
 ;; If the user is running on a pre-NT system, Application Data lives here instead of
 ;; in Documents and Settings.
-;RMDir /r "$WINDIR\Application Data\SecondLife\cache"
+;RMDir /r "$WINDIR\Application Data\Imprudence\cache"
 ;
 ;FunctionEnd
 
@@ -406,12 +440,12 @@ FunctionEnd
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\SecondLife
-; Delete files in Documents and Settings\All Users\SecondLife
+; Delete files in Documents and Settings\<user>\Imprudence
+; Delete files in Documents and Settings\All Users\Imprudence
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.DocumentsAndSettingsFolder
 
-; Delete files in Documents and Settings\<user>\SecondLife
+; Delete files in Documents and Settings\<user>\Imprudence
 Push $0
 Push $1
 Push $2
@@ -434,11 +468,13 @@ Push $2
 	; Otherwise (preview/dmz etc) just remove cache
     StrCmp $INSTFLAGS "" RM_ALL RM_CACHE
       RM_ALL:
-        RMDir /r "$2\Application Data\SecondLife"
-        GoTo CONTINUE
+        RMDir /r "$2\Application Data\NotImprudence"
       RM_CACHE:
-        RMDir /r "$2\Application Data\SecondLife\Cache"
-        Delete "$2\Application Data\SecondLife\user_settings\settings_windlight.xml"
+        # Local Settings directory is the cache, there is no "cache" subdir
+        RMDir /r "$2\Local Settings\Application Data\NotImprudence"
+        # Vista version of the same
+        RMDir /r "$2\AppData\Local\NotImprudence"
+        Delete "$2\Application Data\NotImprudence\user_settings\settings_windlight.xml"
 
   CONTINUE:
     IntOp $0 $0 + 1
@@ -449,17 +485,17 @@ Pop $2
 Pop $1
 Pop $0
 
-; Delete files in Documents and Settings\All Users\SecondLife
+; Delete files in Documents and Settings\All Users\Imprudence
 Push $0
   ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
-  RMDir /r "$0\SecondLife"
+  RMDir /r "$0\NotImprudence"
 Pop $0
 
-; Delete filse in C:\Windows\Application Data\SecondLife
+; Delete filse in C:\Windows\Application Data\NotImprudence
 ; If the user is running on a pre-NT system, Application Data lives here instead of
 ; in Documents and Settings.
-RMDir /r "$WINDIR\Application Data\SecondLife"
+RMDir /r "$WINDIR\Application Data\NotImprudence"
 
 FunctionEnd
 
@@ -502,7 +538,7 @@ Function un.RemovePassword
 DetailPrint "Removing Second Life password"
 
 SetShellVarContext current
-Delete "$APPDATA\SecondLife\user_settings\password.dat"
+Delete "$APPDATA\NotImprudence\user_settings\password.dat"
 SetShellVarContext all
 
 FunctionEnd
@@ -859,7 +895,6 @@ Function un.onInit
 	StrCpy $LANGUAGE $0
 
 FunctionEnd
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Sections

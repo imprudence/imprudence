@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="chat_bar">
 	<button label="Conversa local" label_selected="Histórico" name="History" tool_tip="Clique aqui para ver o que foi dito"/>
-	<line_editor label="Clique aqui para iniciar o chat" name="Chat Editor" tool_tip="Pressione Enter para dizer"/>
+	<line_editor label="Clique aqui para iniciar a conversa" name="Chat Editor" tool_tip="Pressione Enter para falar, Ctrl-Enter para gritar"/>
 	<flyout_button label="Falar" label_selected="Dizer" name="Say" tool_tip="Enter">
 		<flyout_button_item name="shout_item">
 			Gritar
@@ -14,5 +14,7 @@
 		</flyout_button_item>
 	</flyout_button>
 	<combo_box label="Gestos" name="Gesture"/>
-	<string name="gesture_label">Gestos</string>
+	<string name="gesture_label">
+		Gestos
+	</string>
 </panel>

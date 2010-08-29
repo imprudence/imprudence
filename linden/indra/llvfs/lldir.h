@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -31,6 +32,11 @@
 
 #ifndef LL_LLDIR_H
 #define LL_LLDIR_H
+
+#if LL_SOLARIS
+#include <sys/param.h>
+#define MAX_PATH MAXPATHLEN
+#endif
 
 // these numbers *may* get serialized, so we need to be explicit
 typedef enum ELLPath
@@ -126,6 +132,9 @@ class LLDir
 
 	virtual void dumpCurrentDirectories();
 	
+	// Utility routine
+	std::string buildSLOSCacheDir() const;
+
 protected:
 	std::string mAppName;               // install directory under progams/ ie "SecondLife"   
 	std::string mExecutablePathAndName; // full path + Filename of .exe
@@ -140,8 +149,9 @@ protected:
 	std::string mChatLogsDir;		 // Location for chat logs.
 	std::string mCAFile;				 // Location of the TLS certificate authority PEM file.
 	std::string mTempDir;
-	std::string mCacheDir;
-	std::string mOSCacheDir;
+	std::string mCacheDir;			// cache directory as set by user preference
+	std::string mDefaultCacheDir;	// default cache diretory
+	std::string mOSCacheDir;		// operating system cache dir
 	std::string mDirDelimiter;
 	std::string mSkinDir;			// Location for current skin info.
 	std::string mDefaultSkinDir;			// Location for default skin info.

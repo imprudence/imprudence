@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Аудіо і Відео" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Гучність:
+	</text>
+	<text type="string" length="1" name="streaming_prefs_text">
+		Настройки потоку:
+	</text>
+	<text type="string" length="1" name="audio_prefs_text">
+		Настройки звуку:
+	</text>
+	<panel label="Гучність" name="Volume Panel" />
+	<check_box
+	     label="Грати потокове аудіо, якщо доступно (повільніше)"
+	     name="streaming_music" />
+	<check_box
+	     label="Грати потокове медіа, якщо доступно (повільніше)"
+	     name="streaming_video" />
+	<check_box label="Автоматично грати медіа"
+	     name="auto_streaming_video" />
+	<check_box label="Вимикати звук при звертанні вікна"
+	     name="mute_when_minimized" />
+	<slider label="Ефект доплера:" name="Doppler Effect" />
+	<slider label="Фактор відстані:" name="Distance Factor" />
+	<slider label="Фактор розсіювання:" name="Rolloff Factor" />
+	<spinner label="Поріг зміни L$" name="L$ Change Threshold" />
+	<spinner label="Поріг зм. здоров&apos;я" name="Health Change Threshold" />
+</panel>

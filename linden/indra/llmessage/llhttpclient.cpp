@@ -1,4 +1,4 @@
- /** 
+/** 
  * @file llhttpclient.cpp
  * @brief Implementation of classes for making HTTP requests.
  *
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -160,9 +161,10 @@ namespace
 				fstream.seekg(0, std::ios::end);
 				U32 fileSize = fstream.tellg();
 				fstream.seekg(0, std::ios::beg);
-				std::vector<char> fileBuffer(fileSize);
-				fstream.read(&fileBuffer[0], fileSize);
-				ostream.write(&fileBuffer[0], fileSize);
+				char* fileBuffer;
+				fileBuffer = new char [fileSize];
+				fstream.read(fileBuffer, fileSize);
+				ostream.write(fileBuffer, fileSize);
 				fstream.close();
 				eos = true;
 				return STATUS_DONE;
@@ -189,9 +191,10 @@ namespace
 			
 			LLVFile vfile(gVFS, mUUID, mAssetType, LLVFile::READ);
 			S32 fileSize = vfile.getSize();
-			std::vector<U8> fileBuffer(fileSize);
-			vfile.read(&fileBuffer[0], fileSize);
-			ostream.write((char*)&fileBuffer[0], fileSize);
+			U8* fileBuffer;
+			fileBuffer = new U8 [fileSize];
+			vfile.read(fileBuffer, fileSize);
+			ostream.write((char*)fileBuffer, fileSize);
 			eos = true;
 			return STATUS_DONE;
 		}
@@ -399,6 +402,14 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 	curl_easy_setopt(curlp, CURLOPT_ERRORBUFFER, curl_error_buffer);
 	curl_easy_setopt(curlp, CURLOPT_FAILONERROR, 1);
 
+	struct curl_slist *header_list = NULL;
+	header_list = curl_slist_append(header_list, "Accept: application/llsd+xml");
+	CURLcode curl_result = curl_easy_setopt(curlp, CURLOPT_HTTPHEADER, header_list);
+	if ( curl_result != CURLE_OK )
+	{
+		llinfos << "Curl is hosed - can't add Accept header for llsd+xml" << llendl;
+	}
+
 	LLSD response = LLSD::emptyMap();
 
 	S32 curl_success = curl_easy_perform(curlp);
@@ -420,6 +431,12 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 		response["body"] = http_buffer.asLLSD();
 	}
 	
+	if(header_list)
+	{	// free the header list  
+		curl_slist_free_all(header_list); 
+		header_list = NULL;
+	}
+
 	curl_easy_cleanup(curlp);
 
 	return response;

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Partager la langue avec les objets" name="language_is_public" tool_tip="Cette option permet de faire connaître aux objets du Monde votre langue favorite."/>
+</panel>

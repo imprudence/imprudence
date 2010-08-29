@@ -141,6 +141,8 @@
   <texture name="inv_item_texture.tga"/>
   <texture name="inv_item_underpants.tga"/>
   <texture name="inv_item_undershirt.tga"/>
+  <texture name="inv_item_alpha.tga"/>
+  <texture name="inv_item_tattoo.tga"/>
   
   <texture name="lag_status_critical.tga"/>
   <texture name="lag_status_good.tga"/>
@@ -204,8 +206,6 @@
   
   <texture name="status_no_build.tga"/>
   <texture name="status_voice.tga"/>
-  <texture name="status_buy_currency.tga"/>
-  <texture name="status_buy_currency_pressed.tga"/>
   <texture name="status_buy_land.tga"/>
   <texture name="status_buy_land_pressed.tga"/>
   <texture name="status_no_fly.tga"/>
@@ -371,4 +371,8 @@
   
   <texture name="skin_thumbnail_default.png" preload="true" />
   <texture name="skin_thumbnail_silver.png" preload="true" />
+
+  <texture name="default_land_picture.j2c"/>
+  <texture name="default_profile_picture.j2c"/>
+  <texture name="locked_image.j2c"/>
 </textures>

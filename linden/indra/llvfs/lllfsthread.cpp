@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -183,8 +184,9 @@ bool LLLFSThread::Request::processRequest()
 	if (mOperation ==  FILE_READ)
 	{
 		llassert(mOffset >= 0);
-		apr_file_t* filep = ll_apr_file_open(mFileName, LL_APR_RB, mThread->mAPRPoolp);
-		if (!filep)
+		LLAPRFile infile ;
+		infile.open(mFileName, LL_APR_RB, LLAPRFile::local);
+		if (!infile.getFileHandle())
 		{
 			llwarns << "LLLFS: Unable to read file: " << mFileName << llendl;
 			mBytesRead = 0; // fail
@@ -192,13 +194,13 @@ bool LLLFSThread::Request::processRequest()
 		}
 		S32 off;
 		if (mOffset < 0)
-			off = ll_apr_file_seek(filep, APR_END, 0);
+			off = infile.seek(APR_END, 0);
 		else
-			off = ll_apr_file_seek(filep, APR_SET, mOffset);
+			off = infile.seek(APR_SET, mOffset);
 		llassert_always(off >= 0);
-		mBytesRead = ll_apr_file_read(filep, mBuffer, mBytes );
-		apr_file_close(filep);
+		mBytesRead = infile.read(mBuffer, mBytes );
 		complete = true;
+		infile.close() ;
 // 		llinfos << "LLLFSThread::READ:" << mFileName << " Bytes: " << mBytesRead << llendl;
 	}
 	else if (mOperation ==  FILE_WRITE)
@@ -206,8 +208,9 @@ bool LLLFSThread::Request::processRequest()
 		apr_int32_t flags = APR_CREATE|APR_WRITE|APR_BINARY;
 		if (mOffset < 0)
 			flags |= APR_APPEND;
-		apr_file_t* filep = ll_apr_file_open(mFileName, flags, mThread->mAPRPoolp);
-		if (!filep)
+		LLAPRFile outfile ;
+		outfile.open(mFileName, flags, LLAPRFile::local);
+		if (!outfile.getFileHandle())
 		{
 			llwarns << "LLLFS: Unable to write file: " << mFileName << llendl;
 			mBytesRead = 0; // fail
@@ -215,18 +218,17 @@ bool LLLFSThread::Request::processRequest()
 		}
 		if (mOffset >= 0)
 		{
-			S32 seek = ll_apr_file_seek(filep, APR_SET, mOffset);
+			S32 seek = outfile.seek(APR_SET, mOffset);
 			if (seek < 0)
 			{
-				apr_file_close(filep);
 				llwarns << "LLLFS: Unable to write file (seek failed): " << mFileName << llendl;
 				mBytesRead = 0; // fail
 				return true;
 			}
 		}
-		mBytesRead = ll_apr_file_write(filep, mBuffer, mBytes );
+		mBytesRead = outfile.write(mBuffer, mBytes );
 		complete = true;
-		apr_file_close(filep);
+
 // 		llinfos << "LLLFSThread::WRITE:" << mFileName << " Bytes: " << mBytesRead << "/" << mBytes << " Offset:" << mOffset << llendl;
 	}
 	else

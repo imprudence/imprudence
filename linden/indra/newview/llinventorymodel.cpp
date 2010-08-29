@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -351,6 +352,28 @@ LLUUID LLInventoryModel::findCatUUID(LLAssetType::EType preferred_type)
 			for(S32 i = 0; i < count; ++i)
 			{
 				if(cats->get(i)->getPreferredType() == preferred_type)
+				{
+					return cats->get(i)->getUUID();
+				}
+			}
+		}
+	}
+	return LLUUID::null;
+}
+
+LLUUID LLInventoryModel::findCategoryByName(std::string name)
+{
+	LLUUID root_id = gAgent.getInventoryRootID();
+	if(root_id.notNull())
+	{
+		cat_array_t* cats = NULL;
+		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
+		if(cats)
+		{
+			S32 count = cats->count();
+			for(S32 i = 0; i < count; ++i)
+			{
+				if(cats->get(i)->getName() == name)
 				{
 					return cats->get(i)->getUUID();
 				}
@@ -1066,7 +1089,7 @@ void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 	S32 count = content["items"].size();
 	bool all_one_folder = true;
 	LLUUID folder_id;
-	// Does this loop ever execute more than once? -Gigs
+	// Does this loop ever execute more than once?
 	for(S32 i = 0; i < count; ++i)
 	{
 		LLPointer<LLViewerInventoryItem> titem = new LLViewerInventoryItem;
@@ -2646,7 +2669,7 @@ void LLInventoryModel::processFetchInventoryReply(LLMessageSystem* msg, void**)
 
 bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 {
-	//make sure our added inventory observer is active -Gigs
+	//make sure our added inventory observer is active
 	start_new_inventory_observer();
 
 	LLUUID agent_id;
@@ -2662,7 +2685,7 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_InventoryData);
 	bool all_one_folder = true;
 	LLUUID folder_id;
-	// Does this loop ever execute more than once? -Gigs
+	// Does this loop ever execute more than once?
 	for(S32 i = 0; i < count; ++i)
 	{
 		LLPointer<LLViewerInventoryItem> titem = new LLViewerInventoryItem;
@@ -3817,7 +3840,6 @@ void LLInventoryAddedObserver::changed(U32 mask)
 
 	// *HACK: If this was in response to a packet off
 	// the network, figure out which item was updated.
-	// Code from Gigs Taggert, sin allowed by JC.
 	LLMessageSystem* msg = gMessageSystem;
 
 	std::string msg_name;

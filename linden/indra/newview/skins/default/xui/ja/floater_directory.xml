@@ -1,27 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="directory" title="検索">
 	<tab_container name="Directory Tabs">
-		<panel label="すべて" name="all_panel">
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<text name="find">
-				検索：
-			</text>
-			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けコンテンツを含める" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="名前" name="name" />
-				<column label="価格" name="price" />
-				<column label="時間 (PT)" name="date" />
-				<column label="時間" name="time" />
-				<column label="ﾄﾗﾌｨｯｸ" name="dwell" />
-				<column label="面積" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="オンライン" name="online" />
-				<column label="メンバー" name="members" />
-			</scroll_list>
-		</panel>
 		<panel label="全て" name="find_all_panel">
 			<string name="searching_text">
 				検索中...
@@ -29,16 +8,16 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
-			<button label="戻る" name="back_btn" />
-			<button label="進む" name="forward_btn" />
-			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
-			<button label="検索" name="search_btn" />
+			<text name="find">
+				検索：
+			</text>
+			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索"/>
+			<button label="戻る" name="back_btn"/>
+			<button label="進む" name="forward_btn"/>
+			<button label="検索" name="search_btn"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					全カテゴリー
-				</combo_item>
-				<combo_item name="Classifieds">
-					クラシファイド広告
 				</combo_item>
 				<combo_item name="Events">
 					イベント
@@ -56,16 +35,19 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-			<check_box label="成人向けコンテンツを含む" name="mature_check" />
-			<text name="loading_text">
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
 				ローディング中...
-			</text>
-			<text name="done_text">
+			</string>
+			<string name="done_text">
 				完了
-			</text>
-			<text name="redirect_404_url">
+			</string>
+			<string name="redirect_404_url">
 				http://secondlife.com/app/search/notfound.html
-			</text>
+			</string>
 		</panel>
 		<panel label="クラシファイド広告" name="classified_panel">
 			<string name="searching_text">
@@ -74,12 +56,12 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
 				検索：
 			</text>
-			<check_box label="成人向けコンテンツを含める" name="incmature" />
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					全カテゴリー
@@ -112,17 +94,18 @@
 					個人
 				</combo_item>
 			</combo_box>
-			<button label="閲覧" label_selected="閲覧" name="Browse" />
-			<button label="検索" label_selected="検索" name="Search" />
-			<button label="広告を載せる..." label_selected="広告を載せる..."
-			     name="Place an Ad..." />
-			<button label="削除" label_selected="削除" name="Delete" />
+			<button label="閲覧" label_selected="閲覧" name="Browse"/>
+			<button label="検索" label_selected="検索" name="Search"/>
+			<button label="広告を載せる..." label_selected="広告を載せる..." name="Place an Ad..."/>
+			<button label="削除" label_selected="削除" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="価格" name="price" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="名前" name="name"/>
+				<column label="価格" name="price"/>
 			</scroll_list>
+			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="イベント" name="events_panel">
 			<string name="searching_text">
@@ -131,6 +114,9 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
+			<text name="text2">
+				検索：
+			</text>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					進行中と近日予定
@@ -139,24 +125,18 @@
 					日付
 				</radio_item>
 			</radio_group>
-			<button label="&lt;&lt; " label_selected="&lt;&lt; " name="&lt;&lt;"
-			     tool_tip="1日前に戻る" />
+			<button label="&lt;&lt; " label_selected="&lt;&lt; " name="&lt;&lt;" tool_tip="1日前に戻る"/>
 			<text name="date_text">
 				6/6
 			</text>
-			<button label="&gt;&gt; " label_selected="&gt;&gt; " name="&gt;&gt;"
-			     tool_tip="1日先に進む" />
-			<button label="今日" label_selected="今日" name="Today"
-			     tool_tip="今日のイベントを表示" />
+			<button label="&gt;&gt; " label_selected="&gt;&gt; " name="&gt;&gt;" tool_tip="1日先に進む"/>
+			<button label="今日" label_selected="今日" name="Today" tool_tip="今日のイベントを表示"/>
 			<text name="text">
 				カテゴリー：
 			</text>
-			<text name="text2">
-				名前／説明:
-			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="206">
 				<combo_item name="All">
-					すべて
+					全カテゴリ
 				</combo_item>
 				<combo_item name="Discussion">
 					ディスカッション
@@ -192,42 +172,21 @@
 					その他
 				</combo_item>
 			</combo_box>
-			<check_box label="成人を表示" name="incmature" />
-			<button label="検索" label_selected="検索" name="Search" tool_tip="検索" />
-			<button label="削除" label_selected="削除" name="Delete" />
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
+			<button label="検索" label_selected="検索" name="Search" tool_tip="検索"/>
+			<button label="削除" label_selected="削除" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="時間 (PT)" name="date" />
-				<column label="" name="event_id" />
-				<column label="時間" name="time" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="名前" name="name"/>
+				<column label="時間 (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="時間" name="time"/>
 			</scroll_list>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-		</panel>
-		<panel label="人気のある場所" name="popular_panel">
-			<string name="searching_text">
-				検索中...
-			</string>
-			<string name="not_found_text">
-				何も見つかりませんでした
-			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<check_box label="写真のある場所だけ表示" name="incpictures" />
-			<check_box label="成人向けコンテンツがある区画を含める" name="incmature" />
-			<text
-			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				交通量や人々の滞在時間から見て、これらは世界でも
-大変人気のある場所です。
-			</text>
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="ﾄﾗﾌｨｯｸ" name="dwell" />
-			</scroll_list>
+			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="ショーケース" name="showcase_panel">
 			<string name="searching_text">
@@ -236,8 +195,8 @@
 			<string name="not_found_text">
 				何も見つかりませんでした。
 			</string>
-			<button label="戻る" name="back_btn" />
-			<button label="進む" name="forward_btn" />
+			<button label="戻る" name="back_btn"/>
+			<button label="進む" name="forward_btn"/>
 			<string name="loading_text">
 				ロード中...
 			</string>
@@ -252,9 +211,17 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<combo_box name="type">
+			<string name="land_help_text">
+				土地は直接リンデンドル（L$）、またはオークションでL$かUS$を用いて購入できます。
+直接買うには土地に行きタイトルバーの地名をクリックしてください。
+			</string>
+			<text name="find">
+				検索：
+			</text>
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
+			<combo_box bottom="-64" left="224" name="type" width="168">
 				<combo_item name="AllTypes">
 					全種類
 				</combo_item>
@@ -268,34 +235,28 @@
 					売り出し – 不動産
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					PGと成人
-				</combo_item>
-				<combo_item name="PGonly">
-					PGのみ
-				</combo_item>
-				<combo_item name="Matureonly">
-					成人専用
-				</combo_item>
-			</combo_box>
-			<check_box label="価格 &lt;= L$" name="pricecheck" />
-			<check_box bottom_delta="-22" label="面積 &gt;= 平方メートル" name="areacheck" />
-			<line_editor bottom_delta="-20" left="275" name="areaedit" width="50" />
-			<button label="検索" label_selected="検索" left="330" name="Search" width="63" />
-			<text left="406" name="land">
-				土地はL$で直接買うか、L$建またはUS$建のオークションで買え
-ます。直接購買は土地に行きタイトル・バーの土地の名前をクリ
-ックしてください。
+			<check_box label="価格 &#8804; " name="pricecheck"/>
+			<text name="pricecheck_symbol">
+				L$
 			</text>
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="L$ 価格" name="price" />
-				<column label="面積" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+			<check_box label="面積 &#8805; " name="areacheck"/>
+			<text left="190" name="areacheck_symbol" width="75">
+				平方メートル
+			</text>
+			<line_editor left="135" name="priceedit"/>
+			<line_editor left="135" name="areaedit"/>
+			<button bottom="-66" label="検索" label_selected="検索" left="140" name="Search" width="80"/>
+			<scroll_list height="438" name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="名前" name="name"/>
+				<column label="種類" name="landtype"/>
+				<column label="L$ 価格" name="price"/>
+				<column label="面積" name="area"/>
+				<column label="L$/平方メートル" name="per_meter"/>
 			</scroll_list>
+			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="場所" name="places_panel">
 			<string name="searching_text">
@@ -304,21 +265,18 @@
 			<string name="not_found_text">
 				何も見つかりませんでした。
 			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
 				検索：
 			</text>
-			<check_box label="成人向けコンテンツのある区画を含める" name="incmature" />
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					全カテゴリー
 				</combo_item>
 				<combo_item name="LindenLocation">
 					Linden所在地
-				</combo_item>
-				<combo_item name="Adult">
-					成人
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
 					アート&amp;カルチャー
@@ -351,13 +309,56 @@
 					その他
 				</combo_item>
 			</combo_box>
-			<button label="検索" label_selected="検索" name="Search" />
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					全カテゴリ
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden所在地
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					アートとカルチャー
+				</combo_item>
+				<combo_item name="Business">
+					ビジネス
+				</combo_item>
+				<combo_item name="Educational">
+					教育的
+				</combo_item>
+				<combo_item name="Gaming">
+					ゲーム
+				</combo_item>
+				<combo_item name="Hangout">
+					たまり場
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					新住人に好意的
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					公園と自然
+				</combo_item>
+				<combo_item name="Residential">
+					住宅用
+				</combo_item>
+				<combo_item name="Shopping">
+					ショッピング
+				</combo_item>
+				<combo_item name="Other">
+					その他
+				</combo_item>
+			</combo_box>
+			<button label="検索" label_selected="検索" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="ﾄﾗﾌｨｯｸ" name="dwell" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="名前" name="name"/>
+				<column label="ﾄﾗﾌｨｯｸ" name="dwell"/>
 			</scroll_list>
+			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="人々" name="people_panel">
 			<string name="searching_text">
@@ -366,17 +367,17 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
-				検索:
+				検索：
 			</text>
-			<button label="検索" label_selected="検索" name="Search" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
+			<button label="検索" label_selected="検索" name="Search"/>
+			<scroll_list name="results" width="286">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="名前" name="name" width="234"/>
 			</scroll_list>
+			<button right="290" label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button right="204" label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="グループ" name="groups_panel">
 			<string name="searching_text">
@@ -385,25 +386,16 @@
 			<string name="not_found_text">
 				何も見つかりませんでした。
 			</string>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
 				検索：
 			</text>
-			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けグループを含める" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="名前" name="name" />
-				<column label="メンバー" name="members" />
-				<column label="" name="score" />
-			</scroll_list>
-			<button label="戻る" name="back_btn" />
-			<button label="進む" name="forward_btn" />
-			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
-			<button label="検索" name="search_btn" />
-			<check_box label="成人向けコンテンツを含める" name="mature_check" />
+			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索"/>
+			<button label="戻る" name="back_btn"/>
+			<button label="進む" name="forward_btn"/>
+			<button label="検索" name="search_btn"/>
+			<check_box left="440" label="PGコンテンツ" name="incpg"/>
+			<check_box left="440" label="Matureコンテンツ" name="incmature"/>
+			<check_box left="440" label="Adultコンテンツ" name="incadult"/>
 			<string name="loading_text">
 				ロード中...
 			</string>
@@ -411,31 +403,6 @@
 				完了
 			</string>
 		</panel>
-		<panel label="全(旧)" name="find_all_old_panel">
-			<string name="searching_text">
-				検索中...
-			</string>
-			<string name="not_found_text">
-				何も見つかりませんでした
-			</string>
-			<button label="＜戻る" label_selected="＜戻る" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<text name="find">
-				検索
-			</text>
-			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けコンテンツを含む" name="incmature" />
-			<scroll_list name="results">
-				<column label="名前" name="name" />
-				<column label="価格" name="price" />
-				<column label="時間（太平洋時間）" name="date" />
-				<column label="時間" name="time" />
-				<column label="交通量" name="dwell" />
-				<column label="面積" name="area" />
-				<column label="L$／平方メートル" name="per_meter" />
-				<column label="オンライン" name="online" />
-				<column label="メンバー" name="members" />
-			</scroll_list>
-		</panel>
 	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470" />
 </floater>

@@ -3,16 +3,27 @@
  * @author andrew@lindenlab.com
  * @brief A template for determining which prims in a set are linkable
  *
- * $LicenseInfo:firstyear=2007&license=internal$
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
  * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
- * The following source code is PROPRIETARY AND CONFIDENTIAL. Use of
- * this source code is governed by the Linden Lab Source Code Disclosure
- * Agreement ("Agreement") previously entered between you and Linden
- * Lab. By accessing, using, copying, modifying or distributing this
- * software, you acknowledge that you have been informed of your
- * obligations under the Agreement and agree to abide by those obligations.
+ * Second Life Viewer Source Code
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
  * 
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
@@ -39,7 +50,7 @@
 
 const F32 MAX_OBJECT_SPAN = 54.f;		// max distance from outside edge of an object to the farthest edge
 const F32 OBJECT_SPAN_BONUS = 2.f;		// infinitesimally small prims can always link up to this distance
-const S32 MAX_PRIMS_PER_OBJECT = 255;
+const S32 MAX_PRIMS_PER_OBJECT = 256;
 
 
 template < typename DATA_TYPE >

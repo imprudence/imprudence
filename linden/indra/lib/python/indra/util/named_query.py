@@ -65,7 +65,9 @@ def _init_g_named_manager(sql_dir = None):
 
     # extra fallback directory in case config doesn't return what we want
     if sql_dir is None:
-        sql_dir = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "web", "dataservice", "sql")
+        sql_dir = os.path.abspath(
+            os.path.join(
+            os.path.realpath(os.path.dirname(__file__)), "..", "..", "..", "..", "web", "dataservice", "sql"))
 
     global _g_named_manager
     _g_named_manager = NamedQueryManager(

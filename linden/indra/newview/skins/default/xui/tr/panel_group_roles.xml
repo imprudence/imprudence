@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Üyeler &amp; Görevler" name="roles_tab">
+	<string name="default_needs_apply_text">
+		Mevcut alt sekmede uygulanmamış değişiklikler var.
+	</string>
+	<string name="want_apply_text">
+		Bu değişiklikleri uygulamak istiyor musunuz?
+	</string>
+	<button label="?" name="help_button"/>
+	<panel name="members_header">
+		<text name="static">
+			Üyeler &amp; görevler
+		</text>
+		<text name="static2">
+			Grup üyeleri yetenekleri olan görevlere atanırlar.Bu ayarlar daha büyük 
+organizasyon ve esnekliğe izin verilebilmek için kolayca özelleştirilebilir.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">
+			Görevler
+		</text>
+		<text name="role_properties_modifiable">
+			Aşağıdan bir görev seçiniz.  Adını, tanımını ve üye başlığını modifiye edebilirsiniz.
+		</text>
+		<text name="role_properties_not_modifiable">
+			Üyeler ve yetenekleri gibi özelliklerini görmek için aşağıdan bir görev seçiniz.
+		</text>
+		<text name="role_actions_modifiable">
+			Ayrıca bu göreve yetenekler atayabilirsiniz.
+		</text>
+		<text name="role_actions_not_modifiable">
+			Atanan yetenekleri görebilir fakat modifiye edemeyebilirsiniz.
+		</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">
+			Yetenekler
+		</text>
+		<text name="static2">
+			Bir yeteneğin tanımını görebilir,hangi görevler ve üyelerin 
+bu yeteneğe sahip olduğunu öğrenebilirsiniz.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel label="Üyeler" name="members_sub_tab" tool_tip="Üyeler">
+			<button label="Ara" name="search_button"/>
+			<button label="Tümünü göster" name="show_all_button"/>
+			<name_list name="member_list">
+				<column label="Üye adı" name="name"/>
+				<column label="Vergi bağışı" name="donated"/>
+				<column label="Son giriş" name="online"/>
+			</name_list>
+			<button label="Yeni üye davet et ..." name="member_invite"/>
+			<button label="Gruptan çıkar" name="member_eject"/>
+			<string name="help_text">
+				Üyelere görevler atayabilir veya onlardan görevleri kaldırabilirsiniz.
+Ctrl tuşuna basılı tutarak ve isimlerine
+tıklayarak çoklu üye seçimi yapabilirsiniz.
+			</string>
+		</panel>
+		<panel label="Görevler" name="roles_sub_tab">
+			<button label="Ara" name="search_button"/>
+			<button label="Tümünü Göster" name="show_all_button"/>
+			<scroll_list name="role_list">
+				<column label="Görev adı" name="name"/>
+				<column label="Başlık" name="title"/>
+				<column label="Üyeler" name="members"/>
+			</scroll_list>
+			<button label="Yeni görev yarat ..." name="role_create"/>
+			<button label="Görev sil" name="role_delete"/>
+			<string name="help_text">
+				Görevlerin,başlıkları ve üyelerin sahip olabilecekleri 
+yeteneklerin listesi vardır.Üyeler bir veya daha fazla 
+göreve atanabilirler.Bir grup,herkes ve sahip
+görevleri ile beraber 10 kadar görev içerebilir.
+			</string>
+			<string name="cant_delete_role">
+				&apos;Herkes&apos; ve &apos;Sahipler&apos; görevleri özeldir ve silinemezler.
+			</string>
+		</panel>
+		<panel label="Yetenekler" name="actions_sub_tab">
+			<button label="Ara" name="search_button"/>
+			<button label="Tümünü göster" name="show_all_button"/>
+			<scroll_list name="action_list" tool_tip="Daha fazla detay görüntülemek için bir yetenek seçiniz.">
+				<column label="" name="icon"/>
+				<column label="" name="action"/>
+			</scroll_list>
+			<string name="help_text">
+				Yetenekler,görevleri olan üyelerin bu grup içinde
+özel şeyler yapabilmelerine izin verir. 
+Geniş çapta görevler bulunmaktadır.
+			</string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">
+			Atanan görevler
+		</text>
+		<text name="static2">
+			İzinli yetenekler
+		</text>
+		<scroll_list name="member_assigned_roles">
+			<column label="" name="checkbox"/>
+			<column label="" name="role"/>
+		</scroll_list>
+		<scroll_list name="member_allowed_actions" tool_tip="İzinli her bir yeteneğin detayları için Detaylar sekmesine göz atınız.">
+			<column label="" name="icon"/>
+			<column label="" name="action"/>
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">
+			Ad
+		</text>
+		<text name="static2">
+			Tanım
+		</text>
+		<line_editor name="role_name">
+			Görevli
+		</line_editor>
+		<text name="static3">
+			Başlık
+		</text>
+		<line_editor name="role_title">
+			(bekleniyor)
+		</line_editor>
+		<text_editor name="role_description">
+			(bekleniyor)
+		</text_editor>
+		<text name="static4">
+			Atanan üyeler
+		</text>
+		<text name="static5" tool_tip="Seçilen göreve ait yetenek listesi.">
+			İzinli yetenekler
+		</text>
+		<check_box label="Üyeler görünürler" name="role_visible_in_list" tool_tip="Bu görevde bulunan üyelerin grup dışındaki insanlara Genel sekmesinden görünüp görünmeyeceklerini belirler."/>
+		<scroll_list name="role_allowed_actions" tool_tip="İzinli her bir yeteneğin detayları için Detaylar sekmesine göz atınız.">
+			<column label="" name="icon"/>
+			<column label="" name="checkbox"/>
+			<column label="" name="action"/>
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">
+			Tanım
+		</text>
+		<text_editor name="action_description">
+			Bu yetenek &apos;Bu gruptan üyeleri atar&apos;. Sadece bir sahip diğer bir sahibi atabilir.
+		</text_editor>
+		<text name="static2">
+			Yetenekli görevler
+		</text>
+		<text name="static3">
+			Yetenekli üyeler
+		</text>
+	</panel>
+</panel>

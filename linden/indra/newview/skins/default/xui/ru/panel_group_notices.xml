@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Уведомления" name="notices_tab">
+	<string name="help_text">
+		Уведомления - это наиболее быстрый способ общения внутри группы. Можно разослать сообщение сразу всем, возможно даже с прикрепленным к нему предметом.
+Уведомления отправляются только тем членам группы, которые имеют право на получение уведомлений.
+Вы можете отключить уведомления на главной вкладке панели групп.
+	</string>
+	<string name="no_notices_text">
+		Нет старых уведомлений.
+	</string>
+	<button label="?" label_selected="?" name="help_button" />
+	<text name="lbl">
+		Архив уведомлений группы
+	</text>
+	<text name="lbl2">
+		Уведомл. хранятся 15 дней. Для просмотра выберите уведомл. из 
+списка. Нажмите кнопку &apos;Обновить&apos; для проверки новых 
+уведомлений. Список ограничен 200 уведомлениями в день.
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon" />
+		<column label="Тема" name="subject" />
+		<column label="От кого" name="from" />
+		<column label="Дата" name="date" />
+	</scroll_list>
+	<text name="notice_list_none_found">
+		Не найдено.
+	</text>
+	<button label="Создать нов. уведомл."
+	     label_selected="Создать нов. уведомл."
+	     name="create_new_notice"  width="170"/>
+	<button label="Обновить" label_selected="Обновить список"
+	     name="refresh_notices" />
+	<panel label="Создать нов. уведомл." name="panel_create_new_notice">
+		<text name="lbl">
+			Создать новое уведомление
+		</text>
+		<text name="lbl2">
+			Укажите тему уведомления. Также можно выбрать один
+предмет в качестве приложения, перетащив его сюда 
+из Инвентаря. Прилож. предмет д.б. копируемым и 
+перед-мым. Однако Вы не можете послать папку.
+		</text>
+		<text name="lbl3">
+			Тема:
+		</text>
+		<text name="lbl4">
+			Сообщ.:
+		</text>
+		<text name="lbl5">
+			Прилож.:
+		</text>
+		<button label="Убрать приложение"
+		     label_selected="Удалить Приложение"
+		     name="remove_attachment" />
+		<button label="Послать уведомление"
+		     label_selected="Послать уведомление" name="send_notice" width="155" left="259"/>
+		<panel name="drop_target"
+		     tool_tip="Перетащите предмет из Инвентаря в сообщение, чтобы отправить его в уведомлении. Вы должны иметь права на копирование и передачу этого предмета." />
+	</panel>
+	<panel label="Просмотреть старое уведомление"
+	     name="panel_view_past_notice">
+		<text name="lbl">
+			Архивировать уведомление
+		</text>
+		<text name="lbl2">
+			Чтобы послать уведомление, кликните &apos;Создать нов. уведомл.&apos;.
+		</text>
+		<text name="lbl3">
+			Тема:
+		</text>
+		<text name="lbl4">
+			Сообщение:
+		</text>
+		<button label="Откр. Прилож." label_selected="Откр. Прилож."
+		     name="open_attachment" />
+	</panel>
+</panel>

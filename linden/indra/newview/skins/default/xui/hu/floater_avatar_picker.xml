@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="Choose Resident">
+	<tab_container name="ResidentChooserTabs">
+		<panel label="Keres" name="SearchPanel">
+			<text name="InstructSearchResidentName">
+				Írd ide a lakó nevének részletét:
+			</text>
+			<button label="Keres" label_selected="Keres" name="Find"/>
+		</panel>
+		<panel label="Hívókártyák" name="CallingCardsPanel">
+			<text name="InstructSelectCallingCard">
+				Hívókártya kiválasztása:
+			</text>
+		</panel>
+		<panel label="Közeli" name="NearMePanel">
+			<text name="InstructSelectResident">
+				Közeli lakó kiválasztása:
+			</text>
+			<button font="SansSerifSmall" label="Lista frissítése" label_selected="Lista frissítése" name="Refresh" left_delta="16" width="100"/>
+			<slider label="Távolság" name="near_me_range"/>
+			<text name="meters">
+				Méter
+			</text>
+		</panel>
+	</tab_container>
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel"/>
+	<string name="not_found">
+		&apos;[TEXT]&apos; nem található
+	</string>
+	<string name="no_one_near">
+		Nincs közelben senki
+	</string>
+	<string name="no_results">
+		Nincs eredmény
+	</string>
+	<string name="searching">
+		Keresés folyamatban...
+	</string>
+</floater>

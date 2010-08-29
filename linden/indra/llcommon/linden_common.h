@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -74,6 +75,7 @@
 #pragma warning (disable : 4396) // the inline specifier cannot be used when a friend declaration refers to a specialization of a function template
 #pragma warning (disable : 4512) // assignment operator could not be generated
 #pragma warning (disable : 4706) // assignment within conditional (even if((x = y)) )
+#pragma warning (disable : 4265) // boost 1.36.0, non-virtual destructor in boost::exception_detail::*
 #endif	//	LL_WINDOWS
 
 // Linden only libs in alpha-order other than stdtypes.h

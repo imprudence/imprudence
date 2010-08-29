@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -100,17 +101,15 @@ public:
     static void processClassifiedInfoReply(LLMessageSystem* msg, void**);
 
 	// Confirmation dialogs flow in this order
-	static void callbackConfirmMature(S32 option, void* data);
-	void confirmMature(S32 option);
+	bool confirmMature(const LLSD& notification, const LLSD& response);
 	void gotMature();
 	static void callbackGotPriceForListing(S32 option, std::string text, void* data);
-	static void callbackConfirmPublish(S32 option, void* data);
-	void confirmPublish(S32 option);
+	bool confirmPublish(const LLSD& notification, const LLSD& response);
 
 	void sendClassifiedClickMessage(const std::string& type);
 
 protected:
-	static void saveCallback(S32 option, void* data);
+	bool saveCallback(const LLSD& notification, const LLSD& response);
 
 	static void onClickUpdate(void* data);
     static void onClickTeleport(void* data);
@@ -121,6 +120,8 @@ protected:
 	static void focusReceived(LLFocusableElement* ctrl, void* data);
 	static void onCommitAny(LLUICtrl* ctrl, void* data);
 
+	void setDefaultAccessCombo(); // Default AO and PG regions to proper classified access
+	
 	BOOL checkDirty();		// Update and return mDirty
 
 protected:

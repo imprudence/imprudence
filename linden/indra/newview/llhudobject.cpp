@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -130,7 +131,7 @@ void LLHUDObject::cleanupHUDObjects()
 		(*object_it)->markDead();
 		if ((*object_it)->getNumRefs() > 1)
 		{
-			llinfos << "LLHUDObject " << (LLHUDObject *)(*object_it) << " has " << (*object_it)->getNumRefs() << " refs!" << llendl;
+			llinfos << "LLHUDObject " << (LLHUDObject *)(*object_it) << " type " << (S32)(*object_it)->getType() << " has " << (*object_it)->getNumRefs() << " refs!" << llendl;			
 		}
 	}
 	sHUDObjects.clear();
@@ -302,6 +303,27 @@ void LLHUDObject::renderAllForSelect()
 		else if (hud_objp->isVisible())
 		{
 			hud_objp->renderForSelect();
+		}
+	}
+}
+
+// static
+void LLHUDObject::renderAllForTimer()
+{
+	LLHUDObject *hud_objp;
+	
+	hud_object_list_t::iterator object_it;
+	for (object_it = sHUDObjects.begin(); object_it != sHUDObjects.end(); )
+	{
+		hud_object_list_t::iterator cur_it = object_it++;
+		hud_objp = (*cur_it);
+		if (hud_objp->getNumRefs() == 1)
+		{
+			sHUDObjects.erase(cur_it);
+		}
+		else if (hud_objp->isVisible())
+		{
+			hud_objp->renderForTimer();
 		}
 	}
 }

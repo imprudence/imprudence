@@ -30,30 +30,30 @@ $/LicenseInfo$
 import re, sys, os, commands
 
 # Methods for gathering version information from
-# llversionviewer.h and llversionserver.h
+# viewerversion.xml
 
 def get_src_root():
     indra_lib_python_indra_path = os.path.dirname(__file__)
     return os.path.abspath(os.path.realpath(indra_lib_python_indra_path + "/../../../../../"))
 
 def get_version_file_contents(version_type):
-    filepath = get_src_root() + '/indra/llcommon/llversion%s.h' % version_type
+    filepath = get_src_root() + '/indra/newview/app_settings/viewerversion.xml'
     file = open(filepath,"r")
     file_str = file.read()
     file.close()
     return file_str
 
-def get_version(version_type):
+def get_version(version_type, revision=0):
     file_str = get_version_file_contents(version_type)
-    m = re.search('const S32 IMP_VERSION_MAJOR = (\d+);', file_str)
+    m = re.search('<viewer version_major="(\d+)" />', file_str)
     VER_MAJOR = m.group(1)
-    m = re.search('const S32 IMP_VERSION_MINOR = (\d+);', file_str)
+    m = re.search('<viewer version_minor="(\d+)" />', file_str)
     VER_MINOR = m.group(1)
-    m = re.search('const S32 IMP_VERSION_PATCH = (\d+);', file_str)
+    m = re.search('<viewer version_patch="(\d+)" />', file_str)
     VER_PATCH = m.group(1)
-    m = re.search('const S32 IMP_VERSION_TEST = (\d+);', file_str)
+    m = re.search('<viewer version_test="(.*)" />', file_str)
     VER_BUILD = m.group(1)
-    version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s.%(VER_TEST)s" % locals()
+    version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s-%(VER_TEST)s" % locals()
     return version
 
 def get_channel(version_type):
@@ -61,11 +61,11 @@ def get_channel(version_type):
     m = re.search('const char \* const LL_CHANNEL = "(.+)";', file_str)
     return m.group(1)
     
-def get_viewer_version():
-    return get_version('viewer')
+def get_viewer_version(revision=0):
+    return get_version('viewer', revision)
 
-def get_server_version():
-    return get_version('server')
+def get_server_version(revision=0):
+    return get_version('server', revision)
 
 def get_viewer_channel():
     return get_channel('viewer')

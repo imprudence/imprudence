@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -70,6 +71,9 @@ void *APR_THREAD_FUNC LLThread::staticRun(apr_thread_t *apr_threadp, void *datap
 
 	// Set thread state to running
 	threadp->mStatus = RUNNING;
+
+	// Create a thread local APRFile pool.
+	LLVolatileAPRPool::createLocalAPRFilePool();
 
 	// Run the user supplied function
 	threadp->run();
@@ -279,7 +283,6 @@ LLMutex::LLMutex(apr_pool_t *poolp) :
 	apr_thread_mutex_create(&mAPRMutexp, APR_THREAD_MUTEX_UNNESTED, mAPRPoolp);
 }
 
-
 LLMutex::~LLMutex()
 {
 #if _DEBUG
@@ -293,29 +296,14 @@ LLMutex::~LLMutex()
 	}
 }
 
-
-void LLMutex::lock()
-{
-	apr_thread_mutex_lock(mAPRMutexp);
-}
-
-void LLMutex::unlock()
-{
-	apr_thread_mutex_unlock(mAPRMutexp);
-}
-
 bool LLMutex::isLocked()
 {
-	apr_status_t status = apr_thread_mutex_trylock(mAPRMutexp);
-	if (APR_STATUS_IS_EBUSY(status))
+  	if (!tryLock())
 	{
 		return true;
 	}
-	else
-	{
-		apr_thread_mutex_unlock(mAPRMutexp);
-		return false;
-	}
+	apr_thread_mutex_unlock(mAPRMutexp);
+	return false;
 }
 
 //============================================================================
@@ -328,13 +316,11 @@ LLCondition::LLCondition(apr_pool_t *poolp) :
 	apr_thread_cond_create(&mAPRCondp, mAPRPoolp);
 }
 
-
 LLCondition::~LLCondition()
 {
 	apr_thread_cond_destroy(mAPRCondp);
 	mAPRCondp = NULL;
 }
-
 
 void LLCondition::wait()
 {

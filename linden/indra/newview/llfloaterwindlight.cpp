@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -239,16 +240,8 @@ void LLFloaterWindLight::onClickHelp(void* data)
 {
 	LLFloaterWindLight* self = LLFloaterWindLight::instance();
 
-	const std::string* xml_alert = (std::string*)data;
-	LLAlertDialog* dialogp = gViewerWindow->alertXml(*xml_alert);
-	if (dialogp)
-	{
-		LLFloater* root_floater = gFloaterView->getParentFloater(self);
-		if (root_floater)
-		{
-			root_floater->addDependentFloater(dialogp);
-		}
-	}		
+	const std::string xml_alert = *(std::string*)data;
+	LLNotifications::instance().add(self->contextualNotification(xml_alert));
 }
 
 void LLFloaterWindLight::initHelpBtn(const std::string& name, const std::string& xml_alert)
@@ -256,11 +249,14 @@ void LLFloaterWindLight::initHelpBtn(const std::string& name, const std::string&
 	childSetAction(name, onClickHelp, new std::string(xml_alert));
 }
 
-void LLFloaterWindLight::newPromptCallback(S32 option, const std::string& text, void* userData)
+bool LLFloaterWindLight::newPromptCallback(const LLSD& notification, const LLSD& response)
 {
+	std::string text = response["message"].asString();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
 	if(text == "")
 	{
-		return;
+		return false;
 	}
 
 	if(option == 0) {
@@ -309,9 +305,10 @@ void LLFloaterWindLight::newPromptCallback(S32 option, const std::string& text, 
 		} 
 		else 
 		{
-			gViewerWindow->alertXml("ExistsSkyPresetAlert");
+			LLNotifications::instance().add("ExistsSkyPresetAlert");
 		}
 	}
+	return false;
 }
 
 void LLFloaterWindLight::syncMenu()
@@ -811,8 +808,7 @@ void LLFloaterWindLight::onStarAlphaMoved(LLUICtrl* ctrl, void* userData)
 
 void LLFloaterWindLight::onNewPreset(void* userData)
 {
-	gViewerWindow->alertXmlEditText("NewSkyPreset", LLStringUtil::format_map_t(), 
-		NULL, NULL, newPromptCallback, NULL);
+	LLNotifications::instance().add("NewSkyPreset", LLSD(), LLSD(), newPromptCallback);
 }
 
 void LLFloaterWindLight::onSavePreset(void* userData)
@@ -832,18 +828,19 @@ void LLFloaterWindLight::onSavePreset(void* userData)
 		comboBox->getSelectedItemLabel());
 	if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
 	{
-		gViewerWindow->alertXml("WLNoEditDefault");
+		LLNotifications::instance().add("WLNoEditDefault");
 		return;
 	}
 
 	LLWLParamManager::instance()->mCurParams.mName = 
 		comboBox->getSelectedItemLabel();
 
-	gViewerWindow->alertXml("WLSavePresetAlert", saveAlertCallback, sWindLight);
+	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
 }
 
-void LLFloaterWindLight::saveAlertCallback(S32 option, void* userdata)
+bool LLFloaterWindLight::saveAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose save, do it.  Otherwise, don't do anything
 	if(option == 0) 
 	{
@@ -854,7 +851,7 @@ void LLFloaterWindLight::saveAlertCallback(S32 option, void* userdata)
 		// comment this back in to save to file
 		param_mgr->savePreset(param_mgr->mCurParams.mName);
 	}
-
+	return false;
 }
 
 void LLFloaterWindLight::onDeletePreset(void* userData)
@@ -867,17 +864,20 @@ void LLFloaterWindLight::onDeletePreset(void* userData)
 		return;
 	}
 
-	LLStringUtil::format_map_t args;
-	args["[SKY]"] = combo_box->getSelectedValue().asString();
-	gViewerWindow->alertXml("WLDeletePresetAlert", args, deleteAlertCallback, sWindLight);
+	LLSD args;
+	args["SKY"] = combo_box->getSelectedValue().asString();
+	LLNotifications::instance().add("WLDeletePresetAlert", args, LLSD(), 
+									boost::bind(&LLFloaterWindLight::deleteAlertCallback, sWindLight, _1, _2));
 }
 
-void LLFloaterWindLight::deleteAlertCallback(S32 option, void* userdata)
+bool LLFloaterWindLight::deleteAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
 	// if they choose delete, do it.  Otherwise, don't do anything
 	if(option == 0) 
 	{
-		LLComboBox* combo_box = sWindLight->getChild<LLComboBox>( 
+		LLComboBox* combo_box = getChild<LLComboBox>( 
 			"WLPresetsCombo");
 		LLFloaterDayCycle* day_cycle = NULL;
 		LLComboBox* key_combo = NULL;
@@ -897,8 +897,8 @@ void LLFloaterWindLight::deleteAlertCallback(S32 option, void* userdata)
 		std::set<std::string>::iterator sIt = sDefaultPresets.find(name);
 		if(sIt != sDefaultPresets.end()) 
 		{
-			gViewerWindow->alertXml("WLNoEditDefault");
-			return;
+			LLNotifications::instance().add("WLNoEditDefault");
+			return false;
 		}
 
 		LLWLParamManager::instance()->removeParamSet(name, true);
@@ -924,8 +924,17 @@ void LLFloaterWindLight::deleteAlertCallback(S32 option, void* userdata)
 		if(combo_box->getItemCount() > 0) 
 		{
 			combo_box->setCurrentByIndex(new_index);
+
+			// If we don't update the name here, we crash on next/prev -- MC
+			LLWLParamManager::instance()->mCurParams.mName = combo_box->getSelectedValue().asString();
+			if (LLWLParamManager::instance()->mCurParams.mName.empty())
+			{
+				LLWLParamManager::instance()->mCurParams.mName = "Default";
+			}
+			LLWLParamManager::instance()->loadPreset(LLWLParamManager::instance()->mCurParams.mName, true);
 		}
 	}
+	return false;
 }
 
 
@@ -1022,50 +1031,58 @@ void LLFloaterWindLight::deactivateAnimator()
 
 void LLFloaterWindLight::onClickNext(void* user_data)
 {
-	LLWLParamManager * param_mgr = LLWLParamManager::instance();
-	LLWLParamSet& currentParams = param_mgr->mCurParams;
-
 	// find place of current param
 	std::map<std::string, LLWLParamSet>::iterator mIt = 
-		param_mgr->mParamList.find(currentParams.mName);
+		LLWLParamManager::instance()->mParamList.find(LLWLParamManager::instance()->mCurParams.mName);
+
+	// shouldn't happen unless you delete every preset but Default
+	if (mIt == LLWLParamManager::instance()->mParamList.end())
+	{
+		llwarns << "No more presets left!" << llendl;
+		return;
+	}
 
 	// if at the end, loop
-	std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+	std::map<std::string, LLWLParamSet>::iterator last = LLWLParamManager::instance()->mParamList.end(); --last;
 	if(mIt == last) 
 	{
-		mIt = param_mgr->mParamList.begin();
+		mIt = LLWLParamManager::instance()->mParamList.begin();
 	}
 	else
 	{
 		mIt++;
 	}
-	param_mgr->mAnimator.mIsRunning = false;
-	param_mgr->mAnimator.mUseLindenTime = false;
-	param_mgr->loadPreset(mIt->first, true);
+	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+	LLWLParamManager::instance()->loadPreset(mIt->first, true);
 }
 
 void LLFloaterWindLight::onClickPrev(void* user_data)
 {
-	LLWLParamManager * param_mgr = LLWLParamManager::instance();
-	LLWLParamSet& currentParams = param_mgr->mCurParams;
-
 	// find place of current param
 	std::map<std::string, LLWLParamSet>::iterator mIt = 
-		param_mgr->mParamList.find(currentParams.mName);
+		LLWLParamManager::instance()->mParamList.find(LLWLParamManager::instance()->mCurParams.mName);
+
+	// shouldn't happen unless you delete every preset but Default
+	if (mIt == LLWLParamManager::instance()->mParamList.end())
+	{
+		llwarns << "No more presets left!" << llendl;
+		return;
+	}
 
 	// if at the beginning, loop
-	if(mIt == param_mgr->mParamList.begin()) 
+	if(mIt == LLWLParamManager::instance()->mParamList.begin()) 
 	{
-		std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+		std::map<std::string, LLWLParamSet>::iterator last = LLWLParamManager::instance()->mParamList.end(); --last;
 		mIt = last;
 	}
 	else
 	{
 		mIt--;
 	}
-	param_mgr->mAnimator.mIsRunning = false;
-	param_mgr->mAnimator.mUseLindenTime = false;
-	param_mgr->loadPreset(mIt->first, true);
+	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
+	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+	LLWLParamManager::instance()->loadPreset(mIt->first, true);
 }
 
 //static

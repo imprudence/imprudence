@@ -8,7 +8,7 @@
 #include <stdtypes.h>
 #include <llhttpclient.h>
 #include <llmemory.h>
-#include <llversionviewer.h>
+//#include <llversionviewer.h>
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
 #include "llweb.h"

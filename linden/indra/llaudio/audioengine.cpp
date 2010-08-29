@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -98,13 +99,13 @@ void LLAudioEngine::setDefaults()
 	mInternetStreamGain = 0.125f;
 	mNextWindUpdate = 0.f;
 
-	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
-		mSecondaryGain[i] = 1.0f;
-
 	mInternetStreamMedia = NULL;
 	mInternetStreamURL.clear();
 
 	mStatus = LLMediaBase::STATUS_UNKNOWN;
+
+	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
+		mSecondaryGain[i] = 1.0f;
 }
 
 
@@ -1664,7 +1665,9 @@ bool LLAudioSource::hasPendingPreloads() const
 	for (iter = mPreloadMap.begin(); iter != mPreloadMap.end(); iter++)
 	{
 		LLAudioData *adp = iter->second;
-		if (!adp->hasDecodedData())
+		// note: a bad UUID will forever be !hasDecodedData()
+		// but also !hasValidData(), hence the check for hasValidData()
+		if (!adp->hasDecodedData() && adp->hasValidData())
 		{
 			// This source is still waiting for a preload
 			return true;

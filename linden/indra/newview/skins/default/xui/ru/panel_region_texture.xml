@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Текстуры Земли" name="Textures">
+	<text name="region_text_lbl">
+		Регион:
+	</text>
+	<text name="region_text">
+		неизвестно
+	</text>
+	<text name="detail_texture_text" width="380">
+		Текстуры ландшафта (требования 512x512, 24 bit .tga файлы)
+	</text>
+	<text name="height_text_lbl">
+		1 (Нижний)
+	</text>
+	<text name="height_text_lbl2">
+		2
+	</text>
+	<text name="height_text_lbl3">
+		3
+	</text>
+	<text name="height_text_lbl4">
+		4 (Высший)
+	</text>
+	<text name="height_text_lbl5">
+		Диапазон высот текстуры
+	</text>
+	<text name="height_text_lbl6">
+		Юго-запад
+	</text>
+	<text name="height_text_lbl7">
+		Северо-запад
+	</text>
+	<text name="height_text_lbl8">
+		Юго-восток
+	</text>
+	<text name="height_text_lbl9">
+		Северо-восток
+	</text>
+	<spinner label="нижн." name="height_start_spin_0" />
+	<spinner label="нижн." name="height_start_spin_1" />
+	<spinner label="нижн." name="height_start_spin_2" />
+	<spinner label="нижн." name="height_start_spin_3" />
+	<spinner label="высш." name="height_range_spin_0" />
+	<spinner label="высш." name="height_range_spin_1" />
+	<spinner label="высш." name="height_range_spin_2" />
+	<spinner label="высш." name="height_range_spin_3" />
+	<text name="height_text_lbl10">
+		Эти значения отображают диапазон перекрытия вышеперечисленных
+текстур.
+	</text>
+	<text name="height_text_lbl11" bottom_delta="-32">
+		Измеряется в метрах, меньшее значение -- это максимальная высота
+	</text>
+	<text name="height_text_lbl12">
+		    текстуры 1, и высшеей значение минимума высоты текстуры 4.
+	</text>
+	<button label="Применить" name="apply_btn" />
+</panel>

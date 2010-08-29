@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -150,6 +151,13 @@ protected:
 	BOOL				getMousePointOnPlaneAgent(LLVector3& point, S32 x, S32 y, LLVector3 origin, LLVector3 normal);
 	BOOL				nearestPointOnLineFromMouse( S32 x, S32 y, const LLVector3& b1, const LLVector3& b2, F32 &a_param, F32 &b_param );
 	LLColor4			setupSnapGuideRenderPass(S32 pass);
+private:
+	static void			initPivot();
+	static void			updateActualRoot(const LLSD &data);
+	static void			updatePivotIsPercent(const LLSD &data);
+	static void			updatePivotX(const LLSD &data);
+	static void			updatePivotY(const LLSD &data);
+	static void			updatePivotZ(const LLSD &data);
 protected:
 	LLFrameTimer		mHelpTextTimer;
 	BOOL				mInSnapRegime;
@@ -164,6 +172,12 @@ protected:
 	static F32			sGridMaxSubdivisionLevel;
 	static F32			sGridMinSubdivisionLevel;
 	static LLVector2	sTickLabelSpacing;
+
+	static bool			sActualRoot;
+	static bool			sPivotPerc;
+	static F32			sPivotX;
+	static F32			sPivotY;
+	static F32			sPivotZ;
 };
 
 

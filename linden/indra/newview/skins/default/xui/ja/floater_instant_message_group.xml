@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(不明）" name="im_floater" title="(不明）">
+<floater label="(不明）" name="im_floater" title="(不明）" min_width="492" width="501">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="グループ情報" name="group_info_btn" width="120"/>
@@ -10,9 +10,9 @@
 			<button label="送信" name="send_btn"/>
 			<text name="live_help_dialog">
 				*** ヘルプリクエストへようこそ *** 
-			まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。
-			そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。
-			-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
+まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。
+そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。
+-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
 			</text>
 			<text name="title_string">
 				[NAME]とインスタントメッセージ
@@ -24,7 +24,7 @@
 				[NAME]とセッションを開始します。お待ちください。
 			</text>
 		</layout_panel>
-		<layout_panel name="active_speakers_panel">
+		<layout_panel name="active_speakers_panel" min_width="200" width="200">
 			<scroll_list name="speakers_list">
 				<column label="名前" name="speaker_name"/>
 			</scroll_list>
@@ -41,7 +41,7 @@
 		</layout_panel>
 	</layout_stack>
 	<string name="ringing">
-		ボイスチャットに参加する．．．
+		ボイスチャットに参加する...
 	</string>
 	<string name="connected">
 		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。
@@ -54,9 +54,9 @@
 	</string>
 	<string name="live_help_dialog">
 		*** ヘルプリクエストへようこそ ***  
-	まず「F1」キーを押してSLヘルプページを開くか、知識ベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。 
-	そこで回答が見つからない場合は質問を入力し、ヘルパーが応答するまで、しばらくお持ちください。
-	-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
+まず「F1」キーを押してSLヘルプページを開くか、知識ベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。 
+そこで回答が見つからない場合は質問を入力し、ヘルパーが応答するまで、しばらくお持ちください。
+-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
 	</string>
 	<string name="title_string">
 		[NAME]とＩＭ

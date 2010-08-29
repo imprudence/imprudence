@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
-					<button label="IM erhalten" label_selected="IM erhalten" name="IM Received"
-					     tool_tip="Sie haben eine unbeantwortete Instant Message. Klicken Sie, um IMs anzuzeigen." />
-					<button label="Beschäftigt aus" 
-					     label_selected="Beschäftigt aus" name="Set Not Busy" font="SansSerifSmall"
-					     tool_tip="Chat und IM sind ausgeblendet. Klicken Sie hier, um den Beschäftigt-Modus zu verlassen." />
-					<button label="Tasten freigeben" label_selected="Tasten freigeben" name="Release Keys" font="SansSerifSmall"
-					     tool_tip="Ein Skript hat die Steuerung übernommen. Klicken Sie hier, um die Steuerung wieder freizugeben." />
-					<button label="Mouselook" label_selected="Mouselook" name="Mouselook"
-					     tool_tip="Mit der Maus steuern Sie die Anzeige. Wenn Sie eine Waffe haben, klicken Sie, um zu schießen." />
-					<button label="Aufstehen" label_selected="Aufstehen" name="Stand Up"
-					     tool_tip="Klicken Sie hier, um aufzustehen." />
+					<button label="IM erhalten" label_selected="IM erhalten" name="IM Received" tool_tip="Sie haben eine unbeantwortete Instant Message. Klicken Sie, um IMs anzuzeigen."/>
+					<button font="SansSerifSmall" label="Beschäftigt aus" label_selected="Beschäftigt aus" name="Set Not Busy" tool_tip="Chat und IM sind ausgeblendet. Klicken Sie hier, um den Beschäftigt-Modus zu verlassen."/>
+					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="Ihre Kamera wird vom Joystick gesteuert, hier klicken, um dies abzuschalten."/>
+					<button label="Mouselook" label_selected="Mouselook" name="Mouselook" tool_tip="Mit der Maus steuern Sie die Anzeige. Wenn Sie eine Waffe haben, klicken Sie, um zu schießen."/>
+					<button label="Aufstehen" label_selected="Aufstehen" name="Stand Up" tool_tip="Klicken Sie hier, um aufzustehen."/>
 				</layout_panel>
 			</layout_stack>
 		</layout_panel>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gestures" title="Активные жесты">
+	<text name="help_label">
+		Щелкните дважды для проигр. анимации и звуков
+	</text>
+	<scroll_list name="gesture_list">
+		<column label="Триггер" name="trigger" />
+		<column label="Ключ" name="shortcut" />
+		<column label="" name="key" />
+		<column label="Имя" name="name" />
+	</scroll_list>
+	<button label="Новый" name="new_gesture_btn" />
+	<button label="Правка" name="edit_btn" />
+	<button label="Играть" name="play_btn" />
+	<button label="Стоп" name="stop_btn" />
+</floater>

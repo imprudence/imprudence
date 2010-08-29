@@ -4,7 +4,7 @@
 	<button name="speakers_btn"
 	     tool_tip="Affichez la liste des résidents utilisant le chat vocal près de vous" />
 	<button label="Parler" name="push_to_talk" tool_tip="Appuyez sur le bouton pour parler"  width="74" />
-	<button name="ptt_lock" tool_tip="Cliquez sur Verrouiller pour passer au mode Parler" />
+	<button name="ptt_lock" tool_tip="Cliquez sur le petit cadenas pour laisser le micro constamment ouvert ou le fermer" />
 	<icon name="voice_volume" left_delta="50" />
 	<button name="show_channel" tool_tip="Cliquez pour afficher le canal vocal utilisé" left_delta="20"/>
 </panel>

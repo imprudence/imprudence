@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Land Pie">
+	<menu_item_call label="O Posiadłości..." name="About Land..." />
+	<menu_item_call label="Stwórz" name="Create" />
+	<menu_item_call label="Idź Tu" name="Go Here" />
+	<menu_item_call label="Usiądź Tu" name="Sit Here" />
+	<menu_item_call label="Kup Przepustkę" name="Land Buy Pass" />
+	<menu_item_call label="Edytuj Teren" name="Edit Terrain" />
+	<menu_item_call label="Kup Posiadłość" name="Land Buy" />
+</pie_menu>

@@ -1,22 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-
-<floater
-	 min_height="340"
-	 min_width="200"
-	 name="avatarpicker"
-	 title="选择居民">
-	<text
-		 name="instruct_search_resident_name">
-		键入这个人的部分姓名:
-	</text>
-	<button label="寻找" label_selected="寻找" name="Find" />
-	<text
-		 name="Or select their calling card:">
-		或者选择一张通话卡:
-	</text>
-	<button label="选择" label_selected="选择" name="Select" />
-	<button label="关闭" label_selected="关闭" name="Close" />
-	<string name="NotFound">
-		没有找到 &apos;[TEXT]&apos;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater min_height="340" min_width="200" name="avatarpicker" title="选择居民">
+	<tab_container name="ResidentChooserTabs">
+		<panel label="搜索" name="SearchPanel">
+			<text name="InstructSearchResidentName">
+				输入此居民的部分姓名
+			</text>
+			<button label="寻找" label_selected="寻找" name="Find"/>
+		</panel>
+		<panel label="通话卡" name="CallingCardsPanel">
+			<text name="InstructSelectCallingCard">
+				选择一张通话卡：
+			</text>
+		</panel>
+		<panel label="在我附近" name="NearMePanel">
+			<text name="InstructSelectResident">
+				选择附近的居民：
+			</text>
+			<button label="刷新列表" label_selected="刷新列表" name="Refresh"/>
+			<slider label="范围" name="near_me_range"/>
+			<text name="meters">
+				米
+			</text>
+		</panel>
+	</tab_container>
+	<button label="选择" label_selected="选择" name="Select"/>
+	<button label="取消" label_selected="取消" name="Cancel"/>
+	<string name="not_found">
+		没有找到“[TEXT]”
+	</string>
+	<string name="no_one_near">
+		附近没有任何人
+	</string>
+	<string name="no_results">
+		没有结果
+	</string>
+	<string name="searching">
+		搜索中...
 	</string>
 </floater>

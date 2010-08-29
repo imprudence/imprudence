@@ -21,35 +21,33 @@
 	<text name="classifieds_label">
 		광고
 	</text>
-	<check_box label=" " name="class_chk" />
+	<check_box label="" name="class_chk" />
 	<text name="person_label">
 		아바타
 	</text>
-	<check_box label=" " name="people_chk" />
+	<check_box label="" name="people_chk" />
 	<text name="infohub_label">
 		인포허브
 	</text>
-	<check_box label=" " name="infohub_chk" />
+	<check_box label="" name="infohub_chk" />
 	<text name="telehub_label">
 		텔레허브
 	</text>
-	<check_box label=" " name="telehubchk" />
+	<check_box label="" name="telehubchk" />
 	<text name="popular_label">
 		인기장소
 	</text>
-	<check_box label=" " name="popular_chk" />
+	<check_box label="" name="popular_chk" />
 	<text name="land_for_sale_label2">
 		토지 매물
 	</text>
-	<check_box label=" " name="land_for_sale_chk" />
+	<check_box label="" name="land_for_sale_chk" />
 	<text name="events_label">
 		이벤트
 	</text>
-	<check_box label=" " name="event_chk" />
-	<text name="events_mature_label">
-		이벤트(성인)
-	</text>
-	<check_box label=" " name="event_mature_chk" />
+	<check_box label="" name="event_chk" />
+
+	<check_box label="" name="event_mature_chk" />
 	<combo_box label="온라인 친구 보기" name="friend combo"
 	     tool_tip="Friend to Show on Map">
 		<combo_item name="none_selected">

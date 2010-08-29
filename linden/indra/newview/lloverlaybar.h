@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,6 +52,7 @@ class LLStatGraph;
 class LLSlider;
 class LLVoiceRemoteCtrl;
 class LLWindlightRemoteCtrl;
+class AORemoteCtrl;
 
 class LLOverlayBar
 :	public LLPanel
@@ -91,6 +93,7 @@ protected:
 	static void* createMediaRemote(void* userdata);
 	static void* createVoiceRemote(void* userdata);
 	static void* createWindlightRemote(void* userdata);
+	static void* createAORemote(void* userdata);
 	static void* createChatBar(void* userdata);
 
 	void enableMediaButtons();
@@ -99,6 +102,7 @@ protected:
 	LLMediaRemoteCtrl*		mMediaRemote;
 	LLVoiceRemoteCtrl*		mVoiceRemote;
 	LLWindlightRemoteCtrl*	mWindlightRemote;
+	AORemoteCtrl*			mAORemote;
 	bool				mBuilt;	// dialog constructed yet?
 	S32					mMusicState;
 	std::string			mOriginalIMLabel;

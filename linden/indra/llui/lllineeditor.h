@@ -26,7 +26,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,6 +78,7 @@ public:
 				 LLViewBorder::EStyle border_style = LLViewBorder::STYLE_LINE,
 				 S32 border_thickness = 1);
 
+	
 	virtual ~LLLineEditor();
 
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
@@ -90,15 +92,30 @@ public:
 	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleDoubleClick(S32 x,S32 y,MASK mask);
 	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x,S32 y,MASK mask);
+	/*virtual*/ BOOL	handleRightMouseDown( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL	handleKeyHere(KEY key, MASK mask );
 	/*virtual*/ BOOL	handleUnicodeCharHere(llwchar uni_char);
 	/*virtual*/ void	onMouseCaptureLost();
 
+	struct SpellMenuBind
+	{
+		LLLineEditor* origin;
+		void * menuItem;
+		std::string word;
+		S32 wordPositionStart;
+		S32 wordPositionEnd;
+	};
+
+	virtual void spellReplace(SpellMenuBind* spellData);
+	virtual void insert(std::string what,S32 wher);
+
 	// LLEditMenuHandler overrides
 	virtual void	cut();
 	virtual BOOL	canCut() const;
+
 	virtual void	copy();
 	virtual BOOL	canCopy() const;
+
 	virtual void	paste();
 	virtual BOOL	canPaste() const;
 
@@ -116,8 +133,20 @@ public:
 	virtual void	deselect();
 	virtual BOOL	canDeselect() const;
 
+	static void context_cut(void* data);
+	static void context_copy(void* data);
+	static void spell_correct(void* data);
+	static void spell_show(void* data);
+	static void translateText(void * data);
+	static void spell_add(void* data);
+	static void context_paste(void* data);
+	static void context_delete(void* data);
+	static void context_selectall(void* data);
+	std::vector<S32> getMisspelledWordsPositions();
 	// view overrides
 	virtual void	draw();
+	void autoCorrectText();
+	void drawMisspelled(LLRect background);
 	virtual void	reshape(S32 width,S32 height,BOOL called_from_parent=TRUE);
 	virtual void	onFocusReceived();
 	virtual void	onFocusLost();
@@ -132,6 +161,8 @@ public:
 	virtual void	onCommit();
 	virtual BOOL	isDirty() const { return mText.getString() != mPrevText; }	// Returns TRUE if user changed value at all
 	virtual void	resetDirty() { mPrevText = mText.getString(); }		// Clear dirty state
+	virtual BOOL	isSpellDirty() const { return mText.getString() != mPrevSpelledText; }	// Returns TRUE if user changed value at all
+	virtual void	resetSpellDirty() { mPrevSpelledText = mText.getString(); }		// Clear dirty state
 
 	// assumes UTF8 text
 	virtual void	setValue(const LLSD& value ) { setText(value.asString()); }
@@ -167,6 +198,7 @@ public:
 	void setWriteableBgColor( const LLColor4& c )	{ mWriteableBgColor = c; }
 	void setReadOnlyBgColor( const LLColor4& c )	{ mReadOnlyBgColor = c; }
 	void setFocusBgColor(const LLColor4& c)			{ mFocusBgColor = c; }
+	void setOverRideAndShowMisspellings(BOOL b)		{ mOverRideAndShowMisspellings =b;}
 
 	const LLColor4& getFgColor() const			{ return mFgColor; }
 	const LLColor4& getReadOnlyFgColor() const	{ return mReadOnlyFgColor; }
@@ -212,7 +244,7 @@ public:
 	static BOOL		prevalidateASCII(const LLWString &str);
 
 	static BOOL		postvalidateFloat(const std::string &str);
-	
+
 	BOOL			evaluateFloat();
 
 	// line history support:
@@ -224,11 +256,12 @@ public:
 private:
 	// private helper methods
 
-	void                    pasteHelper(bool is_primary);
+	void            pasteHelper(bool is_primary);
 
 	void			removeChar();
 	void			addChar(const llwchar c);
 	void			setCursorAtLocalPos(S32 local_mouse_x);
+	S32				calculateCursorFromMouse(S32 local_mouse_x);
 	S32				findPixelNearestPos(S32 cursor_offset = 0) const;
 	void			reportBadKeystroke();
 	BOOL			handleSpecialKey(KEY key, MASK mask);
@@ -252,14 +285,24 @@ private:
 	virtual S32		getPreeditFontSize() const;
 
 protected:
+	LLHandle<LLView> mPopupMenuHandle;
 	LLUIString		mText;					// The string being edited.
 	std::string		mPrevText;				// Saved string for 'ESC' revert
 	LLUIString		mLabel;					// text label that is visible when no user text provided
+	std::string		mPrevSpelledText;		// saved string so we know whether to respell or not
+	std::vector<S32> misspellLocations;     // where all the mispelled words are
+	S32				mStartSpellHere;		// the position of the first char on the screen, stored so we know when to update
+	S32				mEndSpellHere;			// the location of the last char on the screen
+	BOOL		mOverRideAndShowMisspellings;
+	LLFrameTimer mSpellTimer;
+	//to keep track of what we have to remove before showing menu
+	std::vector<SpellMenuBind* > suggestionMenuItems;
 
 	// line history support:
 	BOOL		mHaveHistory;				// flag for enabled line history
-	std::vector<std::string> mLineHistory;		// line history storage
-	U32			mCurrentHistoryLine;		// currently browsed history line
+	typedef	std::vector<std::string>	line_history_t;
+	line_history_t				mLineHistory;			// line history storage
+	line_history_t::iterator	mCurrentHistoryLine;	// currently browsed history line
 
 	LLViewBorder* mBorder;
 	const LLFontGL*	mGLFont;
@@ -362,6 +405,8 @@ private:
 		BOOL	mIsSelecting;
 		S32		mSelectionStart;
 		S32		mSelectionEnd;
+
+		
 	}; // end class LLLineEditorRollback
 
 }; // end class LLLineEditor
@@ -384,6 +429,7 @@ public:
 
 	/*virtual*/ void	draw();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	void setText(const LLStringExplicit &new_text) { mSearchEdit->setText(new_text); }

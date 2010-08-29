@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,18 +41,35 @@
 #include "linden_common.h"
 
 #include "llclassifiedflags.h"
- 
-ClassifiedFlags pack_classified_flags(BOOL is_mature, BOOL auto_renew)
+
+ClassifiedFlags pack_classified_flags_request(BOOL auto_renew, BOOL inc_pg, BOOL inc_mature, BOOL inc_adult)
 {
 	U8 rv = 0;
-	if(is_mature) rv |= CLASSIFIED_FLAG_MATURE;
+	if(inc_pg) rv |= CLASSIFIED_QUERY_INC_PG;
+	if(inc_mature) rv |= CLASSIFIED_QUERY_INC_MATURE;
+	if (inc_pg && !inc_mature) rv |= CLASSIFIED_FLAG_MATURE;
+	if(inc_adult) rv |= CLASSIFIED_QUERY_INC_ADULT;
+	if(auto_renew) rv |= CLASSIFIED_FLAG_AUTO_RENEW;
+	return rv;
+}
+
+ClassifiedFlags pack_classified_flags(BOOL auto_renew, BOOL inc_pg, BOOL inc_mature, BOOL inc_adult)
+{
+	U8 rv = 0;
+	if(inc_pg) rv |= CLASSIFIED_QUERY_INC_PG;
+	if(inc_mature)
+    {
+        rv |= CLASSIFIED_QUERY_INC_MATURE;
+        rv |= CLASSIFIED_FLAG_MATURE;
+    }
+	if(inc_adult) rv |= CLASSIFIED_QUERY_INC_ADULT;
 	if(auto_renew) rv |= CLASSIFIED_FLAG_AUTO_RENEW;
 	return rv;
 }
 
 bool is_cf_mature(ClassifiedFlags flags)
 {
-	return ((flags & CLASSIFIED_FLAG_MATURE) != 0);
+	return ((flags & CLASSIFIED_FLAG_MATURE) != 0) || ((flags & CLASSIFIED_QUERY_INC_MATURE) != 0);
 }
 
 // Deprecated, but leaving commented out because someday we might

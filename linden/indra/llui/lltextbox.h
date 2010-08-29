@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -54,7 +55,10 @@ public:
 
 	// "Simple" constructors for text boxes that have the same name and label *TO BE DEPRECATED*
 	LLTextBox(const std::string& name_and_label, const LLRect& rect);
-	LLTextBox(const std::string& name_and_label);
+
+	// Consolidate common member initialization
+	// 20+ initializers times 3+ constructors is unmaintainable.
+	void initDefaults(); 
 
 	virtual ~LLTextBox() {}
 
@@ -122,6 +126,8 @@ private:
 	U8				mFontStyle; // style bit flags for font
 	BOOL			mBorderDropShadowVisible;
 	BOOL			mUseEllipses;
+
+	S32				mLineSpacing;
 
 	S32				mHPad;
 	S32				mVPad;

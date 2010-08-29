@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -46,6 +47,7 @@
 #include "llxmlrpctransaction.h"
 #include "llviewernetwork.h"
 
+#include "hippoGridManager.h"
 
 const F64 CURRENCY_ESTIMATE_FREQUENCY = 2.0;
 	// how long of a pause in typing a currency buy amount before an
@@ -120,7 +122,8 @@ LLCurrencyUIManager::Impl::Impl(LLPanel& dialog)
 	: mPanel(dialog),
 	mHidden(false),
 	mError(false),
-	mUserCurrencyBuy(1000), mUserEnteredCurrencyBuy(false),
+	mUserCurrencyBuy(2000), // note, this is a default, real value set in llfloaterbuycurrency.cpp
+	mUserEnteredCurrencyBuy(false),
 	mSiteCurrencyEstimated(false),
 	  mSiteCurrencyEstimatedCost(0),
 	mBought(false),
@@ -236,17 +239,11 @@ void LLCurrencyUIManager::Impl::finishCurrencyBuy()
 void LLCurrencyUIManager::Impl::startTransaction(TransactionType type,
 		const char* method, LLXMLRPCValue params)
 {
-	static std::string transactionURI;
-	if (transactionURI.empty())
-	{
-		transactionURI = LLViewerLogin::getInstance()->getHelperURI() + "currency.php";
-	}
-
 	delete mTransaction;
 
 	mTransactionType = type;
 	mTransaction = new LLXMLRPCTransaction(
-		transactionURI,
+		LLViewerLogin::getInstance()->getHelperURI() + "currency.php",
 		method,
 		params,
 		false /* don't use gzip */
@@ -370,6 +367,7 @@ void LLCurrencyUIManager::Impl::updateUI()
 	}
 
 	mPanel.childShow("currency_action");
+	mPanel.childSetTextArg("currency_action", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	LLLineEditor* lindenAmount = mPanel.getChild<LLLineEditor>("currency_amt");
 	if (lindenAmount) 
@@ -476,7 +474,9 @@ void LLCurrencyUIManager::buy(const std::string& buy_msg)
 
 	LLUIString msg = buy_msg;
 	msg.setArg("[LINDENS]", llformat("%d", impl.mUserCurrencyBuy));
+	msg.setArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	msg.setArg("[USD]", llformat("%#.2f", impl.mSiteCurrencyEstimatedCost / 100.0));
+	msg.setArg("[REALCURRENCY]", gHippoGridManager->getConnectedGrid()->getRealCurrencySymbol());
 	LLConfirmationManager::confirm(impl.mSiteConfirm,
 								   msg,
 								   impl,

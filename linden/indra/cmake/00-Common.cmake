@@ -9,9 +9,9 @@ include(Variables)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-D_DEBUG -DLL_DEBUG=1")
 set(CMAKE_CXX_FLAGS_RELEASE
-    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -DNDEBUG")
+    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
-    "-DLL_RELEASE=1 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
+    "-DLL_RELEASE=1 -D_SECURE_SCL=0 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
 
 
 # Don't bother with a MinSizeRel build.
@@ -26,14 +26,23 @@ if (WINDOWS)
   # Don't build DLLs.
   set(BUILD_SHARED_LIBS OFF)
 
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /Zi /MTd"
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /Zi /MDd"
       CACHE STRING "C++ compiler debug options" FORCE)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
-      "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od /Zi /MT"
+      "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od /Zi /MD"
       CACHE STRING "C++ compiler release-with-debug options" FORCE)
-  set(CMAKE_CXX_FLAGS_RELEASE
-      "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2 /Oi /Ot /GT /Zi /MT"
+  if (MSVC80)
+      set(CMAKE_CXX_FLAGS_RELEASE
+      "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2 /Oi /Ot /GT /Zi /MD"
       CACHE STRING "C++ compiler release options" FORCE)
+  else (MSVC80)
+      set(CMAKE_CXX_FLAGS_RELEASE
+      "${CMAKE_CXX_FLAGS_RELEASE} ${LL_CXX_FLAGS} /O2 /Zi /MD"
+      CACHE STRING "C++ compiler release options" FORCE)
+  endif (MSVC80)
+
+  set(CMAKE_CXX_STANDARD_LIBRARIES "")
+  set(CMAKE_C_STANDARD_LIBRARIES "")
 
   add_definitions(
       /DLL_WINDOWS=1
@@ -153,10 +162,15 @@ if (LINUX)
   if (VIEWER)
     add_definitions(-DAPPID=imprudence)
     add_definitions(-fvisibility=hidden)
+    # don't catch SIGCHLD in our base application class for the viewer - some of our 3rd party libs may need their *own* SIGCHLD handler to work.  Sigh!  The viewer doesn't need to catch SIGCHLD anyway.
+    add_definitions(-DLL_IGNORE_SIGCHLD)
     if (NOT STANDALONE)
       # this stops us requiring a really recent glibc at runtime
       add_definitions(-fno-stack-protector)
     endif (NOT STANDALONE)
+    if (${ARCH} STREQUAL "x86_64")
+       add_definitions( -DLINUX64=1 )
+    endif (${ARCH} STREQUAL "x86_64")
   endif (VIEWER)
 
   set(CMAKE_CXX_FLAGS_DEBUG "-fno-inline ${CMAKE_CXX_FLAGS_DEBUG}")
@@ -184,7 +198,7 @@ if (LINUX OR DARWIN)
     set(GCC_WARNINGS "${GCC_WARNINGS} -Werror")
   endif (NOT GCC_DISABLE_FATAL_WARNINGS)
 
-  set(GCC_CXX_WARNINGS "${GCC_WARNINGS} -Wno-reorder")
+  set(GCC_CXX_WARNINGS "${GCC_WARNINGS} -Wno-reorder -Wno-non-virtual-dtor")
 
   set(CMAKE_C_FLAGS "${GCC_WARNINGS} ${CMAKE_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${GCC_CXX_WARNINGS} ${CMAKE_CXX_FLAGS}")
@@ -198,15 +212,29 @@ if (STANDALONE)
     add_definitions(-march=pentiumpro)
   endif (LINUX AND ${ARCH} STREQUAL "i686")
 
-else (STANDALONE)
-  set(${ARCH}_linux_INCLUDES
-      ELFIO
-      atk-1.0
-      glib-2.0
-      gstreamer-0.10
-      gtk-2.0
-      pango-1.0
-      )
+else (STANDALONE)    
+  if (${ARCH} STREQUAL "i686")
+    set(${ARCH}_linux_INCLUDES
+        ELFIO
+        atk-1.0
+        glib-2.0
+        gstreamer-0.10
+        gtk-2.0
+        pango-1.0
+        )
+   else(${ARCH} STREQUAL "i686")
+     if (${ARCH} STREQUAL "x86_64")
+       set(${ARCH}_linux_INCLUDES
+          ELFIO
+          atk-1.0
+          glib-2.0
+          gstreamer-0.10
+          gtk-2.0
+          pango-1.0
+	  )
+     endif (${ARCH} STREQUAL "x86_64")
+   endif (${ARCH} STREQUAL "i686")
+
 endif (STANDALONE)
 
 if(SERVER)

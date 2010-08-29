@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="groupinfo" title="Linden家 – [グループ情報]">
 	<tab_container name="tab">
 		<panel label="一般" name="gen">
@@ -29,13 +29,11 @@
 			<text name="lbl2">
 				理念：
 			</text>
-			<check_box label="グループ・リストに表示" name="sho" />
-			<check_box label="グループ・リストに会員を表示" name="sho_mem" />
-			<check_box label="ウェブ上で公開" name="allow_publish"
-			     tool_tip="自分のプロファイル情報をウェブ上で公開します。" />
-			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="成人" name="mature"
-			     tool_tip="あなたのプロファイル情報は成人向けと見なされています。" />
+			<check_box label="グループ・リストに表示" name="sho"/>
+			<check_box label="グループ・リストに会員を表示" name="sho_mem"/>
+			<check_box label="ウェブ上で公開" name="allow_publish" tool_tip="自分のプロファイル情報をウェブ上で公開します。"/>
+			<button label="?" label_selected="?" name="publish_help_btn"/>
+			<check_box label="Mature" name="mature" tool_tip="あなたのプロフィール情報はMatureとなっています。"/>
 		</panel>
 		<panel label="肩書き" name="tit">
 			<text name="txt">
@@ -56,7 +54,7 @@
 			<text name="lbl3">
 				テクスチャーを持ち物の外にドラッグし、グループの記章を設定します。
 			</text>
-			<texture_picker name="insig" tool_tip="写真をクリックして選択" />
+			<texture_picker name="insig" tool_tip="写真をクリックして選択"/>
 		</panel>
 		<panel label="メンバー" name="mem">
 			<text name="txt">
@@ -74,8 +72,7 @@
 			<text name="members_label">
 				メンバー：
 			</text>
-			<button label="メンバーを追放" label_selected="メンバーを追放"
-			     name="eject_member_btn" />
+			<button label="メンバーを追放" label_selected="メンバーを追放" name="eject_member_btn"/>
 		</panel>
 		<panel label="投票" name="voting">
 			<tab_container name="tab">
@@ -90,14 +87,13 @@
 					<text name="lbl">
 						候補者：
 					</text>
-					<button label="投票" label_selected="投票" name="btn_vote" />
-					<button label="やめる" label_selected="やめる" name="btn_abstain" />
-					<button label="選挙開始" label_selected="選挙開始" name="btn_start_election" />
+					<button label="投票" label_selected="投票" name="btn_vote"/>
+					<button label="やめる" label_selected="やめる" name="btn_abstain"/>
+					<button label="選挙開始" label_selected="選挙開始" name="btn_start_election"/>
 					<text name="lbl2">
 						定足数：
 					</text>
-					<spinner name="quorum"
-					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<spinner name="quorum" tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#"/>
 					<text name="quorum_text">
 						グループ・メンバー総数111のうち。
 					</text>
@@ -118,7 +114,7 @@
 					<text name="duration_lbl">
 						継続期間：
 					</text>
-					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<spinner name="duration" tool_tip="残りの選挙日数#"/>
 					<text name="duration_days">
 						日数
 					</text>
@@ -140,20 +136,17 @@
 					<text name="proposal_lbl">
 						提案：
 					</text>
-					<button label="はい" label_selected="はい" name="btn_yes" />
-					<button label="いいえ" label_selected="いいえ" name="btn_no" />
-					<button label="やめる" label_selected="やめる" name="btn_abstain" />
-					<button label="リストを表示" label_selected="リストを表示"
-					     name="btn_view_list" />
-					<button label="アイテムを表示" label_selected="アイテムを表示"
-					     name="btn_view_item" />
-					<button label="提案を作成" label_selected="提案を作成" name="btn_proposal" />
-					<button label="提出" label_selected="提出" name="btn_submit" />
+					<button label="はい" label_selected="はい" name="btn_yes"/>
+					<button label="いいえ" label_selected="いいえ" name="btn_no"/>
+					<button label="やめる" label_selected="やめる" name="btn_abstain"/>
+					<button label="リストを表示" label_selected="リストを表示" name="btn_view_list"/>
+					<button label="アイテムを表示" label_selected="アイテムを表示" name="btn_view_item"/>
+					<button label="提案を作成" label_selected="提案を作成" name="btn_proposal"/>
+					<button label="提出" label_selected="提出" name="btn_submit"/>
 					<text name="quorum_lbl">
 						定足数：
 					</text>
-					<spinner name="quorum"
-					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<spinner name="quorum" tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#"/>
 					<text name="quorum_text">
 						グループ・メンバー総数111のうち。
 					</text>
@@ -174,7 +167,7 @@
 					<text name="duration_lbl">
 						継続期間：
 					</text>
-					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<spinner name="duration" tool_tip="残りの選挙日数#"/>
 					<text name="duration_text">
 						日数
 					</text>
@@ -201,10 +194,8 @@
 					<text name="vote_text_lbl">
 						投票結果：
 					</text>
-					<button label="リストを表示" label_selected="リストを表示"
-					     name="btn_view_list" />
-					<button label="アイテムを表示" label_selected="アイテムを表示"
-					     name="btn_view_item" />
+					<button label="リストを表示" label_selected="リストを表示" name="btn_view_list"/>
+					<button label="アイテムを表示" label_selected="アイテムを表示" name="btn_view_item"/>
 				</panel>
 			</tab_container>
 		</panel>
@@ -221,21 +212,17 @@
 			<text name="lbl">
 				オフィサー：
 			</text>
-			<button label="オフィサーを追加..."
-			     label_selected="オフィサーを追加..." name="add_officer_btn" />
-			<button label="選択したものを削除"
-			     label_selected="選択したものを削除" name="remove_officer_btn" />
+			<button label="オフィサーを追加..." label_selected="オフィサーを追加..." name="add_officer_btn"/>
+			<button label="選択したものを削除" label_selected="選択したものを削除" name="remove_officer_btn"/>
 			<text name="lbl2">
 				メンバー：
 			</text>
-			<button label="メンバーを追加..." label_selected="メンバーを追加..."
-			     name="add_member_btn" />
-			<button label="選択したものを削除"
-			     label_selected="選択したものを削除" name="remove_member_btn" />
+			<button label="メンバーを追加..." label_selected="メンバーを追加..." name="add_member_btn"/>
+			<button label="選択したものを削除" label_selected="選択したものを削除" name="remove_member_btn"/>
 			<text name="lbl3">
 				参加費用：
 			</text>
-			<check_box label="会員募集（招待不要）" name="open" />
+			<check_box label="会員募集（招待不要）" name="open"/>
 		</panel>
 		<panel label="土地" name="land">
 			<text name="txt">
@@ -244,36 +231,32 @@
 			<text name="lbl">
 				寄付された土地の合計
 			</text>
-			<button label="地図..." label_selected="地図..." name="map_btn" />
+			<button label="地図..." label_selected="地図..." name="map_btn"/>
 			<text name="lbl2">
 				土地利用の合計:
 			</text>
 			<text name="lbl3">
 				利用可の土地：
 			</text>
-			<button label="貢献を設定" label_selected="貢献を設定" name="set_contrib_btn" />
+			<button label="貢献を設定" label_selected="貢献を設定" name="set_contrib_btn"/>
 			<text name="warning_label">
 				警告： グループは土地を持ちすぎています。 グループのメンバーは、寄付を増やしてください。
 			</text>
 		</panel>
 		<panel label="お金" name="mon">
 			<tab_container name="group money history tab">
-				<panel label="計画" name="money panel" />
+				<panel label="計画" name="money panel"/>
 				<panel label="詳細" name="money panel2">
-					<button label="＜前" label_selected="＜前" name="&lt; Earlier"
-					     tool_tip="時間を戻す" />
-					<button label="あとで＞" label_selected="あとで＞" name="Later &gt;"
-					     tool_tip="時間を進める" />
+					<button label="＜前" label_selected="＜前" name="&lt; Earlier" tool_tip="時間を戻す"/>
+					<button label="あとで＞" label_selected="あとで＞" name="Later &gt;" tool_tip="時間を進める"/>
 				</panel>
 				<panel label="販売" name="money panel3">
-					<button label="＜前" label_selected="＜前" name="&lt; Earlier"
-					     tool_tip="時間を戻す" />
-					<button label="あとで＞" label_selected="あとで＞" name="Later &gt;"
-					     tool_tip="時間を進める" />
+					<button label="＜前" label_selected="＜前" name="&lt; Earlier" tool_tip="時間を戻す"/>
+					<button label="あとで＞" label_selected="あとで＞" name="Later &gt;" tool_tip="時間を進める"/>
 				</panel>
 			</tab_container>
 		</panel>
 	</tab_container>
-	<button label="OK" label_selected="OK" name="OK" />
-	<button label="取り消し" label_selected="取り消し" name="Cancel" />
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="取り消し" label_selected="取り消し" name="Cancel"/>
 </floater>

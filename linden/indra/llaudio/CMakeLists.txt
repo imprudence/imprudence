@@ -2,6 +2,7 @@
 
 project(llaudio)
 
+# Current starting point for CMake. Seems rather arbitrary - MC
 include(00-Common)
 include(Audio)
 include(OPENAL)

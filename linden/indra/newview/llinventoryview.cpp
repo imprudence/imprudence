@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -592,6 +593,9 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 
     }
 
+	//Initialize item count - rkeast
+	mItemCount = gSavedPerAccountSettings.getS32("InventoryPreviousCount");
+
 
 	mSearchEditor = getChild<LLSearchEditor>("inventory search editor");
 	if (mSearchEditor)
@@ -847,7 +851,26 @@ void LLInventoryView::changed(U32 mask)
 		LLLocale locale(LLLocale::USER_LOCALE);
 		std::string item_count_string;
 		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
-		title << " (Fetched " << item_count_string << " items...)";
+
+		//Displays a progress indication for loading the inventory, but not if it hasn't been loaded before on this PC, or we load more than expected - rkeast
+		if(mItemCount == -1)
+		{
+			title << " (Fetched " << item_count_string << " items...)";
+		}
+		else
+		{
+			S32 remaining = mItemCount - gInventory.getItemCount();
+			std::string total_items;
+			std::string items_remaining;
+			LLResMgr::getInstance()->getIntegerString(total_items, mItemCount);
+			LLResMgr::getInstance()->getIntegerString(items_remaining, remaining);
+			if(remaining < 0) title << " (Fetched " << item_count_string << " items...)";
+			else title << " (Fetched " << item_count_string << " items of ~" << total_items << " - ~" << items_remaining << " remaining...)";
+		}
+	}
+	else
+	{
+		gSavedPerAccountSettings.setS32("InventoryPreviousCount", gInventory.getItemCount());
 	}
 	title << mFilterText;
 	setTitle(title.str());
@@ -1462,6 +1485,12 @@ std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 		case LLInventoryType::NIT_SKIRT:
 			idx = CLOTHING_SKIRT_ICON_NAME;
 			break;
+		case LLInventoryType::NIT_ALPHA:
+			idx = CLOTHING_ALPHA_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_TATTOO:
+			idx = CLOTHING_TATTOO_ICON_NAME;
+			break;
 
 		case LLInventoryType::NIT_CLOTHING:
 			idx = CLOTHING_ICON_NAME;
@@ -1553,6 +1582,137 @@ std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 			break;
 	}
 
+	return ICON_NAME[idx];
+}
+
+std::string get_item_icon_name(LLAssetType::EType asset_type,
+                               LLInventoryType::NType inv_ntype,
+                               U32 flags,
+                               BOOL item_is_multi)
+{
+	EInventoryIcon idx = OBJECT_ICON_NAME;
+	if ( item_is_multi )
+	{
+		idx = OBJECT_MULTI_ICON_NAME;
+	}
+	
+	switch(asset_type)
+	{
+	case LLAssetType::AT_TEXTURE:
+		if(LLInventoryType::NIT_SNAPSHOT == inv_ntype)
+		{
+			idx = SNAPSHOT_ICON_NAME;
+		}
+		else
+		{
+			idx = TEXTURE_ICON_NAME;
+		}
+		break;
+
+	case LLAssetType::AT_SOUND:
+		idx = SOUND_ICON_NAME;
+		break;
+	case LLAssetType::AT_CALLINGCARD:
+		if(flags != 0)
+		{
+			idx = CALLINGCARD_ONLINE_ICON_NAME;
+		}
+		else
+		{
+			idx = CALLINGCARD_OFFLINE_ICON_NAME;
+		}
+		break;
+	case LLAssetType::AT_LANDMARK:
+		if(flags!= 0)
+		{
+			idx = LANDMARK_VISITED_ICON_NAME;
+		}
+		else
+		{
+			idx = LANDMARK_ICON_NAME;
+		}
+		break;
+	case LLAssetType::AT_SCRIPT:
+	case LLAssetType::AT_LSL_TEXT:
+	case LLAssetType::AT_LSL_BYTECODE:
+		idx = SCRIPT_ICON_NAME;
+		break;
+	case LLAssetType::AT_CLOTHING:
+		idx = CLOTHING_ICON_NAME;
+		switch(LLInventoryItem::II_FLAGS_WEARABLES_MASK & flags)
+		{
+		case WT_SHIRT:
+			idx = CLOTHING_SHIRT_ICON_NAME;
+			break;
+		case WT_PANTS:
+			idx = CLOTHING_PANTS_ICON_NAME;
+			break;
+		case WT_SHOES:
+			idx = CLOTHING_SHOES_ICON_NAME;
+			break;
+		case WT_SOCKS:
+			idx = CLOTHING_SOCKS_ICON_NAME;
+			break;
+		case WT_JACKET:
+			idx = CLOTHING_JACKET_ICON_NAME;
+			break;
+		case WT_GLOVES:
+			idx = CLOTHING_GLOVES_ICON_NAME;
+			break;
+		case WT_UNDERSHIRT:
+			idx = CLOTHING_UNDERSHIRT_ICON_NAME;
+			break;
+		case WT_UNDERPANTS:
+			idx = CLOTHING_UNDERPANTS_ICON_NAME;
+			break;
+		case WT_SKIRT:
+			idx = CLOTHING_SKIRT_ICON_NAME;
+			break;
+		case WT_ALPHA:
+			idx = CLOTHING_ALPHA_ICON_NAME;
+			break;
+		case WT_TATTOO:
+			idx = CLOTHING_TATTOO_ICON_NAME;
+			break;
+		default:
+			// no-op, go with choice above
+			break;
+		}
+		break;
+	case LLAssetType::AT_BODYPART:
+		idx = BODYPART_ICON_NAME;
+		switch(LLInventoryItem::II_FLAGS_WEARABLES_MASK & flags)
+		{
+		case WT_SHAPE:
+			idx = BODYPART_SHAPE_ICON_NAME;
+			break;
+		case WT_SKIN:
+			idx = BODYPART_SKIN_ICON_NAME;
+			break;
+		case WT_HAIR:
+			idx = BODYPART_HAIR_ICON_NAME;
+			break;
+		case WT_EYES:
+			idx = BODYPART_EYES_ICON_NAME;
+			break;
+		default:
+			// no-op, go with choice above
+			break;
+		}
+		break;
+	case LLAssetType::AT_NOTECARD:
+		idx = NOTECARD_ICON_NAME;
+		break;
+	case LLAssetType::AT_ANIMATION:
+		idx = ANIMATION_ICON_NAME;
+		break;
+	case LLAssetType::AT_GESTURE:
+		idx = GESTURE_ICON_NAME;
+		break;
+	default:
+		break;
+	}
+	
 	return ICON_NAME[idx];
 }
 
@@ -1652,6 +1812,8 @@ LLInventoryPanel::~LLInventoryPanel()
 LLXMLNodePtr LLInventoryPanel::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLPanel::getXML(false); // Do not print out children
+
+	node->setName(LL_INVENTORY_PANEL_TAG);
 
 	node->createChild("allow_multi_select", TRUE)->setBoolValue(mFolders->getAllowMultiSelect());
 

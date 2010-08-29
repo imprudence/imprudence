@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,6 +39,8 @@
 class LLPanelSkins : public LLPanel
 {
 public:
+
+	std::vector<LLSD> datas;
 	LLPanelSkins();
 	virtual ~LLPanelSkins();
 
@@ -45,14 +48,12 @@ public:
 	void refresh();
 	void apply();
 	void cancel();
-
-private:
-	static void onSelectSkin(LLUICtrl* ctrl, void* data);
-	static void onClickClassic(void* data);
-	static void onClickSilver(void* data);
-
-private:
+	static void onComboBoxCommit(LLUICtrl* ctrl, void* userdata);
 	std::string mSkin;
+private:
+
+	static LLPanelSkins* sInstance;
+	std::string oldSkin;
 };
 
 #endif // LL_LLPANELSKINS_H

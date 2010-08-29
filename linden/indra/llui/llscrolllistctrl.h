@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +48,7 @@
 #include "llcombobox.h"
 #include "llscrollbar.h"
 #include "llresizebar.h"
+#include "lldate.h"
 
 /*
  * Represents a cell in a scrollable table.
@@ -133,6 +135,18 @@ private:
 	static U32 sCount;
 };
 
+
+class LLScrollListDate : public LLScrollListText
+{
+public:
+	LLScrollListDate( const LLDate& date, const LLFontGL* font, S32 width=0, U8 font_style = LLFontGL::NORMAL, LLFontGL::HAlign font_alignment = LLFontGL::LEFT, LLColor4& color = LLColor4::black, BOOL use_color = FALSE, BOOL visible = TRUE);
+	virtual void	setValue(const LLSD& value);
+	virtual const LLSD getValue() const;
+
+private:
+	LLDate		mDate;
+};
+
 /*
  * Cell displaying an image.
  */
@@ -185,88 +199,11 @@ private:
 class LLScrollListColumn
 {
 public:
-	// Default constructor
-	LLScrollListColumn() : 
-		mName(), 
-		mSortingColumn(), 
-		mSortAscending(TRUE), 
-		mLabel(), 
-		mWidth(-1), 
-		mRelWidth(-1.0), 
-		mDynamicWidth(FALSE), 
-		mMaxContentWidth(0),
-		mIndex(-1), 
-		mParentCtrl(NULL), 
-		mHeader(NULL), 
-		mFontAlignment(LLFontGL::LEFT)
-	{ }
+	LLScrollListColumn();
+	LLScrollListColumn(const LLSD &sd, LLScrollListCtrl* parent);
 
-	LLScrollListColumn(std::string name, std::string label, S32 width, F32 relwidth) : 
-		mName(name), 
-		mSortingColumn(name), 
-        	mSortAscending(TRUE), 
-		mLabel(label), 
-		mWidth(width), 
-		mRelWidth(relwidth), 
-		mDynamicWidth(FALSE), 
-		mMaxContentWidth(0),
-		mIndex(-1), 
-		mParentCtrl(NULL), 
-		mHeader(NULL),
-		mFontAlignment(LLFontGL::LEFT)
-	{ }
-
-	LLScrollListColumn(const LLSD &sd)
-	{
-		mMaxContentWidth = 0;
-
-		mName = sd.get("name").asString();
-		mSortingColumn = mName;
-		if (sd.has("sort"))
-		{
-			mSortingColumn = sd.get("sort").asString();
-		}
-		mSortAscending = TRUE;
-		if (sd.has("sort_ascending"))
-		{
-			mSortAscending = sd.get("sort_ascending").asBoolean();
-		}
-		mLabel = sd.get("label").asString();
-		if (sd.has("relwidth") && (F32)sd.get("relwidth").asReal() > 0)
-		{
-			mRelWidth = (F32)sd.get("relwidth").asReal();
-			if (mRelWidth < 0) mRelWidth = 0;
-			if (mRelWidth > 1) mRelWidth = 1;
-			mDynamicWidth = FALSE;
-			mWidth = 0;
-		}
-		else if(sd.has("dynamicwidth") && (BOOL)sd.get("dynamicwidth").asBoolean() == TRUE)
-		{
-			mDynamicWidth = TRUE;
-			mRelWidth = -1;
-			mWidth = 0;
-		}
-		else
-		{
-			mWidth = sd.get("width").asInteger();
-			mDynamicWidth = FALSE;
-			mRelWidth = -1;
-		}
-
-		if (sd.has("halign"))
-		{
-			mFontAlignment = (LLFontGL::HAlign)llclamp(sd.get("halign").asInteger(), (S32)LLFontGL::LEFT, (S32)LLFontGL::HCENTER);
-		}
-		else
-		{
-			mFontAlignment = LLFontGL::LEFT;
-		}
-
-		mIndex = -1;
-		mParentCtrl = NULL;
-		mHeader = NULL;
-		mFontAlignment = LLFontGL::LEFT;
-	}
+	void setWidth(S32 width);
+	S32 getWidth() const { return mWidth; }
 
 	// Public data is fine so long as this remains a simple struct-like data class.
 	// If it ever gets any smarter than that, these should all become private
@@ -275,7 +212,6 @@ public:
 	std::string			mSortingColumn;
 	BOOL				mSortAscending;
 	std::string			mLabel;
-	S32					mWidth;
 	F32					mRelWidth;
 	BOOL				mDynamicWidth;
 	S32					mMaxContentWidth;
@@ -283,6 +219,10 @@ public:
 	LLScrollListCtrl*	mParentCtrl;
 	class LLColumnHeader*		mHeader;
 	LLFontGL::HAlign	mFontAlignment;
+
+private:
+	S32					mWidth;
+
 };
 
 class LLColumnHeader : public LLComboBox
@@ -301,6 +241,7 @@ public:
 	void setImage(const std::string &image_name);
 	LLScrollListColumn* getColumn() { return mColumn; }
 	void setHasResizableElement(BOOL resizable);
+	void updateResizeBars();
 	BOOL canResize();
 	void enableResizeBar(BOOL enable);
 	std::string getLabel() { return mOrigLabel; }
@@ -552,8 +493,7 @@ public:
 
 	virtual S32		getScrollPos() const;
 	virtual void	setScrollPos( S32 pos );
-
-	S32				getSearchColumn() { return mSearchColumn; }
+	S32 getSearchColumn();
 	void			setSearchColumn(S32 column) { mSearchColumn = column; }
 	S32				getColumnIndexFromOffset(S32 x);
 	S32				getColumnOffsetFromIndex(S32 index);
@@ -614,8 +554,9 @@ public:
 	virtual void	deselect();
 	virtual BOOL	canDeselect() const;
 
-	void setNumDynamicColumns(int num) { mNumDynamicWidthColumns = num; }
-	void setTotalStaticColumnWidth(int width) { mTotalStaticColumnWidth = width; }
+	void setNumDynamicColumns(S32 num) { mNumDynamicWidthColumns = num; }
+	void updateStaticColumnWidth(LLScrollListColumn* col, S32 new_width);
+	S32 getTotalStaticColumnWidth() { return mTotalStaticColumnWidth; }
 
 	std::string     getSortColumnName();
 	BOOL			getSortAscending() { return mSortColumns.empty() ? TRUE : mSortColumns.back().second; }
@@ -720,6 +661,7 @@ private:
 	S32				mSearchColumn;
 	S32				mNumDynamicWidthColumns;
 	S32				mTotalStaticColumnWidth;
+	S32				mTotalColumnPadding;
 
 	BOOL			mSorted;
 	

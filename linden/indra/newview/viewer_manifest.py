@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -29,6 +30,13 @@
 # WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 # COMPLETENESS OR PERFORMANCE.
 # $/LicenseInfo$
+
+# DO NOT RUN THIS FILE DIRECTLY
+# Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
+#   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
+# to generate the "package" project in Visual Studio 2005
+# Note: as of Imprudence 1.3, this defaults to on for Windows
+
 import sys
 import os.path
 import re
@@ -70,34 +78,35 @@ class ViewerManifest(LLManifest):
             self.path("LiberationSans-Bold.ttf")
             self.path("LiberationSans-Regular.ttf")
             self.path("VeraMono.ttf")
-            self.path("*.txt")
+            self.path("GPL.txt")
+            self.path("Liberation-License.txt")
+            self.path("Vera-License.txt")
             self.end_prefix("fonts")
 
         # skins
         if self.prefix(src="skins"):
-            self.path("paths.xml")
-            
-            # include the entire textures directory recursively
-            if self.prefix(src="*/textures"):
-                self.path("*.tga")
-                self.path("*.j2c")
-                self.path("*.jpg")
-                self.path("*.png")
-                self.path("textures.xml")
-                self.end_prefix("*/textures")
-
-            self.path("*/xui/*/*.xml")
-            self.path("*/*.xml")
-
-            # Local HTML files (e.g. loading screen)
-            if self.prefix(src="*/html"):
-                self.path("*.png")
-                self.path("*/*/*.html")
-                self.path("*/*/*.gif")
-                self.end_prefix("*/html")
+                self.path("paths.xml")
+                # include the entire textures directory recursively
+                if self.prefix(src="*/textures"):
+                        self.path("*.tga")
+                        self.path("*.j2c")
+                        self.path("*.jpg")
+                        self.path("*.png")
+                        self.path("textures.xml")
+                        self.end_prefix("*/textures")
+                self.path("*/xui/*/*.xml")
+                self.path("*/*.xml")
                 
-            self.end_prefix("skins")
-            
+                # Local HTML files (e.g. loading screen)
+                if self.prefix(src="*/html"):
+                        self.path("*.png")
+                        self.path("*/*/*.html")
+                        self.path("*/*/*.gif")
+                        self.path("*/*/*.png")
+                        self.end_prefix("*/html")
+                self.end_prefix("skins")
+        
+        # Files in the newview/ directory
         self.path("gpu_table.txt")
 
 
@@ -109,7 +118,7 @@ class ViewerManifest(LLManifest):
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
             self.path("RELEASE_NOTES.txt")
-            self.path("ChangeLog.txt")
+            self.path("ChangeLog.txt", required=False)
             self.end_prefix("../../..")
 
         # From the linden directory
@@ -139,7 +148,7 @@ class ViewerManifest(LLManifest):
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
-        return self.channel().replace("Second Life", "").strip()
+        return self.channel().replace("Imprudence", "").strip()
     def channel_oneword(self):
         return "".join(self.channel_unique().split())
     def channel_lowerword(self):
@@ -192,7 +201,7 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        self.path(self.find_existing_file('../build-VC90/newview/debug/imprudence-bin.exe', '../build-VC90/newview/release/imprudence-bin.exe', '../build-VC90/newview/relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
 
         self.gather_documents()
 
@@ -223,7 +232,7 @@ class WindowsManifest(ViewerManifest):
         # Mozilla appears to force a dependency on these files so we need to ship it (CP) - updated to vc8 versions (nyx)
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
-        if self.prefix(src=self.args['configuration'], dst=""):
+        if self.prefix(src="", dst=""):
             if self.args['configuration'] == 'Debug':
                 self.path("msvcr80d.dll")
                 self.path("msvcp80d.dll")
@@ -237,7 +246,6 @@ class WindowsManifest(ViewerManifest):
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("freebl3.dll")
-            self.path("gksvggdiplus.dll")
             self.path("js3250.dll")
             self.path("nspr4.dll")
             self.path("nss3.dll")
@@ -263,13 +271,10 @@ class WindowsManifest(ViewerManifest):
 
         # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
         # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
-        # The config file name needs to match the exe's name.
-        self.path("SecondLife.exe.config", dst=self.final_exe() + ".config")
-
         # Vivox runtimes
-        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
         #    self.path("alut.dll")
-            self.path("wrap_oal.dll")
+        #    self.path("wrap_oal.dll")
 
         #    self.path("SLVoice.exe")
         #    self.path("SLVoiceAgent.exe")
@@ -280,7 +285,64 @@ class WindowsManifest(ViewerManifest):
         #    self.path("vivoxsdk.dll")
         #    self.path("ortp.dll")
 
+        #    self.end_prefix()
+
+        # Gstreamer plugins
+        if self.prefix(src="lib/gstreamer-plugins", dst=""):
+            self.path("*.dll", dst="lib/gstreamer-plugins/*.dll")
             self.end_prefix()
+
+        # Gstreamer libs
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+            self.path("iconv.dll")
+            self.path("libxml2.dll")
+            self.path("libcairo-2.dll")
+            self.path("libgio-2.0-0.dll")
+            self.path("libglib-2.0-0.dll")
+            self.path("libgmodule-2.0-0.dll")
+            self.path("libgobject-2.0-0.dll")
+            self.path("libgthread-2.0-0.dll")
+            self.path("charset.dll")
+            self.path("intl.dll")
+            self.path("libgcrypt-11.dll")
+            self.path("libgnutls-26.dll")
+            self.path("libgpg-error-0.dll")
+            self.path("libgstapp.dll")
+            self.path("libgstaudio.dll")
+            self.path("libgstbase-0.10.dll")
+            self.path("libgstcdda.dll")
+            self.path("libgstcontroller-0.10.dll")
+            self.path("libgstdataprotocol-0.10.dll")
+            self.path("libgstdshow.dll")
+            self.path("libgstfft.dll")
+            self.path("libgstinterfaces.dll")
+            self.path("libgstnet-0.10.dll")
+            self.path("libgstnetbuffer.dll")
+            self.path("libgstpbutils.dll")
+            self.path("libgstreamer-0.10.dll")
+            self.path("libgstriff.dll")
+            self.path("libgstrtp.dll")
+            self.path("libgstrtsp.dll")
+            self.path("libgstsdp.dll")
+            self.path("libgsttag.dll")
+            self.path("libgstvideo.dll")
+            self.path("libjpeg.dll")
+            self.path("libmp3lame-0.dll")
+            self.path("libneon-27.dll")
+            self.path("libogg-0.dll")
+            self.path("liboil-0.3-0.dll")
+            self.path("libopenjpeg-2.dll")
+            self.path("libpng12-0.dll")
+            self.path("libschroedinger-1.0-0.dll")
+            self.path("libspeex-1.dll")
+            self.path("libtheora-0.dll")
+            self.path("libvorbis-0.dll")
+            self.path("libvorbisenc-2.dll")
+            self.path("libxml2-2.dll")
+            self.path("glew32.dll")
+            self.path("xvidcore.dll")
+            self.path("zlib1.dll")
+            self.end_prefix()            
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -289,10 +351,16 @@ class WindowsManifest(ViewerManifest):
 #                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
 #                  dst="win_crash_logger.exe")
         self.path(src=self.find_existing_file(
-                "../win_updater/debug/windows-updater.exe",
-                "../win_updater/release/windows-updater.exe",
-                "../win_updater/relwithdebinfo/windows-updater.exe"),
+                "../build-VC90/win_updater/debug/windows-updater.exe",
+                "../build-VC90/win_updater/release/windows-updater.exe",
+                "../build-VC90/win_updater/relwithdebinfo/windows-updater.exe"),
                   dst="updater.exe")
+
+        # For google-perftools tcmalloc allocator.
+        #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+        #        self.path("libtcmalloc_minimal.dll")
+        #        self.end_prefix()
+
 
     def nsi_file_commands(self, install=True):
         def wpath(path):
@@ -340,9 +408,9 @@ class WindowsManifest(ViewerManifest):
     def package_finish(self):
         # a standard map of strings for replacing in the templates
         substitution_strings = {
-            'version' : '.'.join(self.args['version']),
-            'version_short' : '.'.join(self.args['version'][:-1]),
-            'version_dashes' : '-'.join(self.args['version']),
+            'version' : '.'.join(self.args['version']).replace(' ', '_'),
+            'version_short' : '.'.join(self.args['version'][:-1]).replace(' ', '_'),
+            'version_dashes' : '-'.join(self.args['version']).replace(' ', '_'),
             'final_exe' : self.final_exe(),
             'grid':self.args['grid'],
             'grid_caps':self.args['grid'].upper(),
@@ -411,9 +479,17 @@ class WindowsManifest(ViewerManifest):
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
-        NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
+        # We use the Unicode version of NSIS, available from
+        # http://www.scratchpaper.com/
+        NSIS_path = 'C:\\Program Files (x86)\\NSIS\\Unicode\\makensis.exe'
         self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
+        # If we're on a build machine, sign the code using our Authenticode certificate. JC
+        sign_py = 'C:\\buildscripts\\code-signing\\sign.py'
+        if os.path.exists(sign_py):
+            self.run_command(sign_py + ' ' + self.dst_path_of(installer_file))
+        else:
+            print "Skipping code signing,", sign_py, "does not exist"
         self.created_path(self.dst_path_of(installer_file))
         self.package_file = installer_file
 
@@ -465,12 +541,15 @@ class DarwinManifest(ViewerManifest):
                 self.path("libxml2.2.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
+                self.path("libpng12.0.dylib")
                 self.path("libneon.27.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
+                self.path("libopenjpeg.1.4.dylib")
                 self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")
+                self.path("libvorbisfile.3.dylib")
 
                 self.end_prefix("../../libraries/universal-darwin/lib_release")
 
@@ -505,6 +584,18 @@ class DarwinManifest(ViewerManifest):
                 self.path("German.lproj")
                 self.path("Japanese.lproj")
                 self.path("Korean.lproj")
+                self.path("da.lproj")
+                self.path("es.lproj")
+                self.path("fr.lproj")
+                self.path("hu.lproj")
+                self.path("it.lproj")
+                self.path("nl.lproj")
+                self.path("pl.lproj")
+                self.path("pt.lproj")
+                self.path("ru.lproj")
+                self.path("tr.lproj")
+                self.path("uk.lproj")
+                self.path("zh-Hans.lproj")
 
 
                 if self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
@@ -706,9 +797,11 @@ class LinuxManifest(ViewerManifest):
         if self.prefix("linux_tools", dst=""):
             #self.path("client-readme.txt","README-linux.txt")
             #self.path("client-readme-voice.txt","README-linux-voice.txt")
+            #self.path("client-readme-joystick.txt","README-linux-joystick.txt")
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
+	    self.path("getvoice.sh")
             self.end_prefix("linux_tools")
 
         self.gather_documents()
@@ -735,8 +828,8 @@ class LinuxManifest(ViewerManifest):
             else:
                 installer_name += '_' + self.channel_oneword().upper()
 
-                # Fix access permissions
-                self.run_command("""
+        # Fix access permissions
+        self.run_command("""
                 find %(dst)s -type d | xargs --no-run-if-empty chmod 755;
                 find %(dst)s -type f -perm 0700 | xargs --no-run-if-empty chmod 0755;
                 find %(dst)s -type f -perm 0500 | xargs --no-run-if-empty chmod 0555;
@@ -769,7 +862,6 @@ class LinuxManifest(ViewerManifest):
         #             'dst': self.get_dst_prefix(),
         #             'inst': self.build_path_of(installer_name)})
 
-
 class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
@@ -796,7 +888,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
+            self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
             self.path("libz.so.1")
 
@@ -809,13 +901,13 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libcairo.so.2")
             self.path("libfontconfig.so.1")
             self.path("libfreetype.so.6")
-            self.path("libgdk_pixbuf-2.0.so.0")
+           # self.path("libgdk_pixbuf-2.0.so.0") # see linux64 why
             self.path("libgdk-x11-2.0.so.0")
             self.path("libgtk-x11-2.0.so.0")
-            self.path("libpango-1.0.so.0")
-            self.path("libpangoft2-1.0.so.0")
-            self.path("libpangox-1.0.so.0")
-            self.path("libpangoxft-1.0.so.0")
+           # self.path("libpango-1.0.so.0")	 # dto.
+           # self.path("libpangoft2-1.0.so.0")
+           # self.path("libpangox-1.0.so.0")
+           # self.path("libpangoxft-1.0.so.0")
             self.path("libpixman-1.so.0")
 
             # Gstreamer libs
@@ -892,6 +984,7 @@ class Linux_x86_64Manifest(LinuxManifest):
         super(Linux_x86_64Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")
@@ -899,7 +992,119 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.end_prefix("res-sdl")
 
         self.path("featuretable_linux.txt")
-        self.path("secondlife-i686.supp")
+        #self.path("secondlife-x86_64.supp")
+
+        self.path("app_settings/mozilla-runtime-linux-x86_64")
+
+        if self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
+            self.path("libapr-1.so.0")
+            self.path("libaprutil-1.so.0")
+            self.path("libdb-4.2.so")
+            self.path("libcrypto.so.0.9.8")
+            self.path("libexpat.so.1")
+            self.path("libssl.so.0.9.8")
+            self.path("libuuid.so", "libuuid.so.1")
+            self.path("libSDL-1.2.so.0")
+            self.path("libELFIO.so")
+            self.path("libjpeg.so.7")
+            self.path("libpng12.so.0")
+            self.path("libopenjpeg.so.2")
+            self.path("libxml2.so.2")
+            self.path("libz.so.1")
+
+            # OpenAL
+            self.path("libopenal.so.1")
+            self.path("libalut.so.0")
+
+            # GTK+ and dependencies
+            self.path("libatk-1.0.so.0")
+            self.path("libcairo.so.2")
+            self.path("libfontconfig.so.1")
+            self.path("libfreetype.so.6")
+#            self.path("libgdk_pixbuf-2.0.so.0")	# use systems gdk pixbufs instead
+            self.path("libgdk-x11-2.0.so.0")
+            self.path("libgtk-x11-2.0.so.0")
+#            self.path("libpango-1.0.so.0")		# use systems pango instead
+#            self.path("libpangoft2-1.0.so.0")		# Both gdk pixbufs and pango would load systems modules
+#            self.path("libpangox-1.0.so.0")		# and crash if not compatible or present. 
+#            self.path("libpangoxft-1.0.so.0")		# So we depend system gdk pixbufs and pango anyway.
+            self.path("libpixman-1.so.0")
+
+            # Gstreamer libs
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstreamer-0.10.so.0")
+            self.path("libgstaudio-0.10.so.0")
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstcontroller-0.10.so.0")
+            self.path("libgstdataprotocol-0.10.so.0")
+            self.path("libgstinterfaces-0.10.so.0")
+            self.path("libgstnetbuffer-0.10.so.0")
+            self.path("libgstpbutils-0.10.so.0")
+            self.path("libgstriff-0.10.so.0")
+            self.path("libgstrtp-0.10.so.0")
+            self.path("libgstrtsp-0.10.so.0")
+            self.path("libgstsdp-0.10.so.0")
+            self.path("libgsttag-0.10.so.0")
+            self.path("libgstvideo-0.10.so.0")
+
+            # Gstreamer plugin dependencies
+            self.path("libogg.so.0")
+            self.path("libtheora.so.0")
+            self.path("libvorbis.so.0")
+            self.path("libvorbisenc.so.2")
+            self.path("liboil-0.3.so.0")
+
+            # Gstreamer plugins
+            if self.prefix("gstreamer-plugins"):
+                self.path("libgstalsa.so")
+                self.path("libgstasf.so")
+                self.path("libgstaudioconvert.so")
+                self.path("libgstaudioresample.so")
+                self.path("libgstautodetect.so")
+                self.path("libgstavi.so")
+                self.path("libgstcoreelements.so")
+                self.path("libgstcoreindexers.so")
+                self.path("libgstdecodebin2.so")
+                self.path("libgstdecodebin.so")
+                self.path("libgstesd.so")
+                self.path("libgstffmpeg.so")
+                self.path("libgstffmpegcolorspace.so")
+                self.path("libgstgnomevfs.so")
+                self.path("libgsticydemux.so")
+                self.path("libgstid3demux.so")
+                self.path("libgstmpegdemux.so")
+                self.path("libgstmultifile.so")
+                self.path("libgstmultipart.so")
+                self.path("libgstogg.so")
+                self.path("libgstossaudio.so")
+                self.path("libgstplaybin.so")
+                self.path("libgstpulse.so")
+                self.path("libgstqtdemux.so")
+                self.path("libgstqueue2.so")
+                self.path("libgsttcp.so")
+                self.path("libgsttheora.so")
+                self.path("libgsttypefindfunctions.so")
+                self.path("libgstudp.so")
+                self.path("libgstvideoscale.so")
+                self.path("libgstvolume.so")
+                self.path("libgstvorbis.so")
+                self.path("libgstwavparse.so")
+                
+                self.end_prefix("gstreamer-plugins")
+            self.end_prefix("lib64")
+        
+#	if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
+#            self.path("libalut.so")
+#	    self.path("libidn.so.11")
+#	    self.path("libopenal.so.1")
+#	    self.path("libortp.so")
+#	    self.path("libuuid.so.1")
+#        self.end_prefix("lib32")
+            # Vivox runtimes
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+            #        self.path("SLVoice")
+            #        self.end_prefix()
+            
 
 if __name__ == "__main__":
     main()

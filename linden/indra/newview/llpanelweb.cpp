@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,6 +37,7 @@
 
 // project includes
 #include "llcheckboxctrl.h"
+#include "hippoGridManager.h"
 #include "llmediamanager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
@@ -99,6 +101,17 @@ BOOL LLPanelWeb::postBuild()
 	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
 	childSetValue("web_proxy_port", gSavedSettings.getS32("BrowserProxyPort"));
 
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQuery")) ;
+	}
+	else
+	{	
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQueryOpenSim")) ;
+	}
+	childSetAction("world_search_reset_default", onClickDefault, this);
+	childSetAction("world_search_clear", onClickClear, this);
+
 	childSetEnabled("proxy_text_label", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetEnabled("web_proxy_editor", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetEnabled("web_proxy_port", gSavedSettings.getBOOL("BrowserProxyEnabled"));
@@ -119,6 +132,14 @@ void LLPanelWeb::apply()
 	gSavedSettings.setBOOL("BrowserProxyEnabled", childGetValue("web_proxy_enabled"));
 	gSavedSettings.setString("BrowserProxyAddress", childGetValue("web_proxy_editor"));
 	gSavedSettings.setS32("BrowserProxyPort", childGetValue("web_proxy_port"));
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));
+	}
+	else
+	{
+		gSavedSettings.setString("SearchURLQueryOpenSim", childGetValue("world_search_editor"));
+	}
 
 	bool value = childGetValue("use_external_browser").asString() == "external" ? true : false;
 	gSavedSettings.setBOOL("UseExternalBrowser", value);
@@ -143,12 +164,13 @@ void LLPanelWeb::cancel()
 // static
 void LLPanelWeb::onClickClearCache(void*)
 {
-	gViewerWindow->alertXml("ConfirmClearBrowserCache", callback_clear_browser_cache, 0);
+	LLNotifications::instance().add("ConfirmClearBrowserCache", LLSD(), LLSD(), callback_clear_browser_cache);
 }
 
 //static
-void LLPanelWeb::callback_clear_browser_cache(S32 option, void* userdata)
+bool LLPanelWeb::callback_clear_browser_cache(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 ) // YES
 	{
 		LLMediaBase *media_source = get_web_media();
@@ -156,8 +178,42 @@ void LLPanelWeb::callback_clear_browser_cache(S32 option, void* userdata)
 			media_source->clearCache();
 		free_web_media(media_source);
 	}
+	return false;
 }
 
+// static
+void LLPanelWeb::onClickClearCookies(void*)
+{
+	LLNotifications::instance().add("ConfirmClearCookies", LLSD(), LLSD(), callback_clear_cookies);
+}
+
+//static
+bool LLPanelWeb::callback_clear_cookies(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 ) // YES
+	{
+		LLMediaBase *media_source = get_web_media();
+		if (media_source)
+			media_source->clearCookies();
+		free_web_media(media_source);
+	}
+	return false;
+}
+
+// static
+void LLPanelWeb::onCommitCookies(LLUICtrl* ctrl, void* data)
+{
+  LLPanelWeb* self = (LLPanelWeb*)data;
+  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+  if (!self || !check) return;
+
+  LLMediaBase *media_source = get_web_media();
+  if (media_source)
+	  media_source->enableCookies(check->get());
+  free_web_media(media_source);
+}
 // static
 void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 {
@@ -170,4 +226,33 @@ void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 	self->childSetEnabled("proxy_text_label", check->get());
 
 
+}
+
+// static
+void LLPanelWeb::onClickDefault(void* user_data)
+{
+	LLPanelWeb* self = (LLPanelWeb*)user_data;
+	LLControlVariable* controlp = 
+		(gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+		? 
+		gSavedSettings.getControl("SearchURLQuery")
+		:
+		gSavedSettings.getControl("SearchURLQueryOpenSim");
+
+	if (controlp)
+	{
+		self->childSetValue("world_search_editor",controlp->getDefault().asString()) ;
+	}
+	else
+	{
+		llwarns << "SearchURLQuery or SearchURLQueryOpenSim missing from settings.xml - thats bad!" << llendl;
+	}
+
+}
+
+// static
+void LLPanelWeb::onClickClear(void* user_data)
+{
+	LLPanelWeb* self = (LLPanelWeb*)user_data;
+	self->childSetValue("world_search_editor","") ;
 }

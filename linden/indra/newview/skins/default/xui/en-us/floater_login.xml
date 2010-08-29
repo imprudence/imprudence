@@ -49,8 +49,6 @@
 	     height="20" left_delta="90" max_length="40" mouse_opaque="true"
 	     name="gridnick" select_all_on_focus_received="true" width="200" />
 
-
-  <!--
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="16"
@@ -84,6 +82,7 @@
 	     height="20" left_delta="90" max_length="16" mouse_opaque="true"
 	     name="avatar_password" select_all_on_focus_received="true" width="200" />
 
+  <!--
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="16"

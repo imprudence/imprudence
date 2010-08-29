@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -70,6 +71,8 @@
 
 #include "llhudmanager.h" // For testing effects
 #include "llhudeffect.h"
+
+#include "hippoGridManager.h"
 
 //
 // Constants
@@ -386,7 +389,7 @@ void LLHoverView::updateText()
 
 					if (object->flagTakesMoney() || (parent && parent->flagTakesMoney()) )
 					{
-						line.append(LLTrans::getString("TooltipFlagL$") + " ");
+						line.append(gHippoGridManager->getConnectedGrid()->getCurrencySymbol() + " ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
@@ -432,6 +435,7 @@ void LLHoverView::updateText()
 					else if (for_sale)
 					{
 						LLStringUtil::format_map_t args;
+						args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 						args["[AMOUNT]"] = llformat("%d", nodep->mSaleInfo.getSalePrice());
 						line.append(LLTrans::getString("TooltipForSaleL$", args));
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
@@ -450,6 +454,27 @@ void LLHoverView::updateText()
 				}
 				mText.push_back(line);
 			}
+			line.clear();
+			S32 prim_count = LLSelectMgr::getInstance()->getHoverObjects()->getObjectCount();
+			line.append(llformat("Prims: %d", prim_count));
+			mText.push_back(line);
+
+			line.clear();
+			line.append("Position: ");
+
+			LLViewerRegion *region = gAgent.getRegion();
+			LLVector3 position = region->getPosRegionFromGlobal(hit_object->getPositionGlobal());//regionp->getOriginAgent();
+			LLVector3 mypos = region->getPosRegionFromGlobal(gAgent.getPositionGlobal());
+			
+
+			LLVector3 delta = position - mypos;
+			F32 distance = (F32)delta.magVec();
+
+			line.append(llformat("<%.02f,%.02f,%.02f>",position.mV[0],position.mV[1],position.mV[2]));
+			mText.push_back(line);
+			line.clear();
+			line.append(llformat("Distance: %.02fm",distance));
+			mText.push_back(line);
 			
 			//  If the hover tip shouldn't be shown, delete all the object text
 			if (suppressObjectHoverDisplay)
@@ -613,6 +638,7 @@ void LLHoverView::updateText()
 		if (hover_parcel && hover_parcel->getParcelFlag(PF_FOR_SALE))
 		{
 			LLStringUtil::format_map_t args;
+			args["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 			args["[AMOUNT]"] = llformat("%d", hover_parcel->getSalePrice());
 			line = LLTrans::getString("TooltipForSaleL$", args);
 			mText.push_back(line);

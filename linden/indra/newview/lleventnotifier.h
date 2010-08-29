@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,7 +57,6 @@ public:
 
 	typedef std::map<U32, LLEventNotification *> en_map;
 
-	static void notifyCallback(S32 option, void *user_data);
 protected:
 	en_map	mEventNotifications;
 	LLFrameTimer	mNotificationTimer;
@@ -78,6 +78,7 @@ public:
 	time_t				getEventDate() const			{ return mEventDate; }
 	const std::string	&getEventDateStr() const		{ return mEventDateStr; }
 	LLVector3d			getEventPosGlobal() const		{ return mEventPosGlobal; }
+	bool				handleResponse(const LLSD& notification, const LLSD& payload);
 protected:
 	U32			mEventID;			// EventID for this event
 	std::string	mEventName;

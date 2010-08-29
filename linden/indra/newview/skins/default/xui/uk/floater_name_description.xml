@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Name/Description" title="">
+	<text name="name_label">
+		Ім&apos;я:
+	</text>
+	<text name="description_label">
+		Опис:
+	</text>
+	<button label="Відміна" name="cancel_btn" />
+	<button label="Завантаж. (L$[AMOUNT])" name="ok_btn" width="140" />
+</floater>

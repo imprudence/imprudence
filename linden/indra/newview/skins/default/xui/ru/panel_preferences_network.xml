@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Сеть" name="network">
+	<text length="1" name="text_box" type="string">
+		Макс.ширина канала:
+	</text>
+	<text length="1" name="text_box2" type="string">
+		kbps (килобит в секунду)
+	</text>
+	<text length="1" name="cache_size_label_l" type="string">
+		Объем кэша:
+	</text>
+	<text name="text_box5">
+		МБ
+	</text>
+	<button label="Очистить кэш" name="clear_cache"/>
+	<text length="1" name="cache_location_label" type="string">
+		Путь к кэшу на диске:
+	</text>
+	<button label="Установить" label_selected="Установить" name="set_cache"/>
+	<button label="Сбросить" label_selected="Установить" name="reset_cache"/>
+	<check_box label="Соединение на заданный порт" name="connection_port_enabled"/>
+	<spinner label="Номер порта:" name="connection_port" width="180" label_width="105"/>
+</panel>

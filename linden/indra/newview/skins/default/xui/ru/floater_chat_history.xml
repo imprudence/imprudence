@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Местный Чат" min_width="515" width="515">
+	<string name="ringing">
+		Соединение с Голосовым Чатом
+	</string>
+	<string name="connected">
+		Соединились
+	</string>
+	<string name="unavailable">
+		Голос недоступен в этом месте
+	</string>
+	<string name="hang_up">
+		Отсоединились от Голосового Чата
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Протоколирование Мгновенных Сообщений включено --
+	</string>
+	<string name="IM_end_log_string">
+		-- Конец Лога --
+	</string>
+	<string name="ScriptQuestionCautionChatGranted">
+		&apos;[OBJECTNAME]&apos;, объект принадлежащий &apos;[OWNERNAME]&apos;,находящийся в [REGIONNAME] at [REGIONPOS], получил разрешения: [PERMISSIONS].
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		&apos;[OBJECTNAME]&apos;, объект принадлежащий &apos;[OWNERNAME]&apos;, находящийся в [REGIONNAME] at [REGIONPOS], потерял разрешения: [PERMISSIONS].
+	</string>
+	<string name="ScriptTakeMoney">
+		Получить с Вас Линден-доллары (L$)
+	</string>
+	<string name="ActOnControlInputs">
+		Работать на Ваших клавишах
+	</string>
+	<string name="RemapControlInputs">
+		Перенастроить управление
+	</string>
+	<string name="AnimateYourAvatar">
+		Анимировать Ваш аватар
+	</string>
+	<string name="AttachToYourAvatar">
+		Прикрепить к Вашему аватару
+	</string>
+	<string name="ReleaseOwnership">
+		Убрать из собственности и сделать достоянием общественности
+	</string>
+	<string name="LinkAndDelink">
+		Соединить/отсоединить от других объектов
+	</string>
+	<string name="AddAndRemoveJoints">
+		Добавьте и удалите соединения с другими объектами
+	</string>
+	<string name="ChangePermissions">
+		Изменить его права
+	</string>
+	<string name="TrackYourCamera">
+		Слежение за Вашей камерой
+	</string>
+	<string name="ControlYourCamera">
+		Управление Вашей камерой
+	</string>
+	<layout_stack name="panels" width="510">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Жесты" name="Gesture">
+				<combo_item name="Gestures">
+					Жесты
+				</combo_item>
+			</combo_box>
+			<check_box label="Показать заглуш. текст" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Кликните сюда для показа активных участников IM сессии."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Жесты
+				</string>
+				<line_editor label="Нажмите сюда, чтобы открыть Чат." name="Chat Editor" right="-90"/>
+				<flyout_button label="Сказать" left="-85" name="Say" tool_tip="(Ввод)" width="90">
+					<flyout_button_item name="shout_item">
+						Крикнуть
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Сказать
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Прошептать
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+		<layout_panel min_width="200" name="active_speakers_panel" width="200" />
+	</layout_stack>
+</floater>

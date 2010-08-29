@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -153,6 +154,9 @@ const U8    LL_PCODE_PATH_IGNORE    = 0x00;
 const U8	LL_PCODE_PATH_MIN		= 0x01;		// min/max needs to be >> 4 of real min/max
 const U8    LL_PCODE_PATH_LINE      = 0x10;
 const U8    LL_PCODE_PATH_CIRCLE    = 0x20;
+//<-- Working33 by Gregory Maurer
+const U8    LL_PCODE_PATH_CIRCLE_33 = 0x21;
+//Working33 -->
 const U8    LL_PCODE_PATH_CIRCLE2   = 0x30;
 const U8    LL_PCODE_PATH_TEST      = 0x40;
 const U8    LL_PCODE_PATH_FLEXIBLE  = 0x80;
@@ -942,8 +946,8 @@ public:
 	
 	void sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, S32 sculpt_level);
 private:
-	F32 sculptGetSurfaceArea(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data);
 	void sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, U8 sculpt_type);
+	F32 sculptGetSurfaceArea();
 	void sculptGeneratePlaceholder();
 	void sculptCalcMeshResolution(U16 width, U16 height, U8 type, S32& s, S32& t);
 

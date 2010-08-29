@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -59,6 +60,7 @@
 #include "llresmgr.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
+#include "lltooldraganddrop.h"
 #include "lltoolmgr.h"
 #include "lltoolpie.h"
 #include "llkeyboard.h"
@@ -166,7 +168,7 @@ U64 LLViewerObjectList::getIndex(const U32 local_id,
 
 BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject &object)
 {
-	if (object.mRegionp)
+	if(object.getRegion())
 	{
 		U32 local_id = object.mLocalID;
 		LLHost region_host = object.getRegion()->getHost();
@@ -176,7 +178,22 @@ BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject &object)
 		U32 index = sIPAndPortToIndex[ipport];
 
 		U64	indexid = (((U64)index) << 32) | (U64)local_id;
-		return sIndexAndLocalIDToUUID.erase(indexid) > 0 ? TRUE : FALSE;
+		
+		std::map<U64, LLUUID>::iterator iter = sIndexAndLocalIDToUUID.find(indexid);
+		if (iter == sIndexAndLocalIDToUUID.end())
+		{
+			return FALSE;
+		}
+		
+		// Found existing entry
+		if (iter->second == object.getID())
+		{   // Full UUIDs match, so remove the entry
+			sIndexAndLocalIDToUUID.erase(iter);
+			return TRUE;
+		}
+		// UUIDs did not match - this would zap a valid entry, so don't erase it
+		//llinfos << "Tried to erase entry where id in table (" 
+		//		<< iter->second	<< ") did not match object " << object.getID() << llendl;
 	}
 	return FALSE;
 }
@@ -435,13 +452,27 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 
 		// This looks like it will break if the local_id of the object doesn't change
 		// upon boundary crossing, but we check for region id matching later...
-		if (objectp && (objectp->mLocalID != local_id))
+		// Reset object local id and region pointer if things have changed
+		if (objectp && 
+			((objectp->mLocalID != local_id) ||
+			 (objectp->getRegion() != regionp)))
 		{
 			removeFromLocalIDTable(*objectp);
 			setUUIDAndLocal(fullid,
 							local_id,
 							gMessageSystem->getSenderIP(),
 							gMessageSystem->getSenderPort());
+			
+			if (objectp->mLocalID != local_id)
+			{    // Update local ID in object with the one sent from the region
+				objectp->mLocalID = local_id;
+			}
+			
+			if (objectp->getRegion() != regionp)
+			{    // Object changed region, so update it
+				objectp->setRegion(regionp);
+				objectp->updateRegion(regionp); // for LLVOAvatar
+			}
 		}
 
 		if (!objectp)
@@ -483,20 +514,6 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			}
 			justCreated = TRUE;
 			mNumNewObjects++;
-		}
-		else
-		{
-			if (objectp->getRegion() != regionp)
-			{
-				// Object has changed region!  Update lookup tables, set region pointer.
-				removeFromLocalIDTable(*objectp);
-				setUUIDAndLocal(fullid,
-								local_id,
-								gMessageSystem->getSenderIP(),
-								gMessageSystem->getSenderPort());
-				objectp->setRegion(regionp);
-			}
-			objectp->updateRegion(regionp); // for LLVOAvatar
 		}
 
 
@@ -618,7 +635,7 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 
 			//  Update distance & gpw 
 			objectp->setPixelAreaAndAngle(agent); // Also sets the approx. pixel area
-			objectp->updateTextures(agent);	// Update the image levels of textures for this object.
+			objectp->updateTextures();	// Update the image levels of textures for this object.
 		}
 	}
 
@@ -843,10 +860,17 @@ void LLViewerObjectList::removeDrawable(LLDrawable* drawablep)
 
 	for (S32 i = 0; i < drawablep->getNumFaces(); i++)
 	{
-		LLViewerObject* objectp = drawablep->getFace(i)->getViewerObject();
+		LLFace* facep = drawablep->getFace(i) ;
+		if(facep)
+		{
+			   LLViewerObject* objectp = facep->getViewerObject();
+			   if(objectp)
+			   {
 					   mSelectPickList.erase(objectp);
 			   }
 		}
+	}
+}
 
 BOOL LLViewerObjectList::killObject(LLViewerObject *objectp)
 {
@@ -882,10 +906,6 @@ void LLViewerObjectList::killObjects(LLViewerRegion *regionp)
 		if (objectp->mRegionp == regionp)
 		{
 			killObject(objectp);
-
-			// invalidate region pointer. region will become invalid, but 
-			// refcounted objects may survive the cleanDeadObjects() call below
-			objectp->mRegionp = NULL;	 
 		}
 	}
 
@@ -923,7 +943,7 @@ void LLViewerObjectList::killAllObjects()
 	if (!mMapObjects.empty())
 	{
 		llwarns << "Some objects still on map object list!" << llendl;
-		mActiveObjects.clear();
+		mMapObjects.clear();
 	}
 }
 

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -45,7 +46,9 @@
 #include "llwindow.h"
 #include "llappviewer.h"
 
-static const S32 STANDARD_BUY_AMOUNT = 1000;
+#include "hippoGridManager.h"
+
+static const S32 STANDARD_BUY_AMOUNT = 2000;
 static const S32 MINIMUM_BALANCE_AMOUNT = 0;
 
 class LLFloaterBuyCurrencyUI
@@ -262,9 +265,11 @@ void LLFloaterBuyCurrencyUI::updateUI()
 				childSetVisible("buy_action", true);
 				childSetTextArg("buy_action", "[NAME]", mTargetName);
 				childSetTextArg("buy_action", "[PRICE]", llformat("%d",mTargetPrice));
+				childSetTextArg("buy_action", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 			}
 			else
 			{
+				childSetTextArg("buy_action_unknown", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 				childSetVisible("buy_action_unknown", true);
 			}
 		}
@@ -273,16 +278,21 @@ void LLFloaterBuyCurrencyUI::updateUI()
 		childShow("balance_label");
 		childShow("balance_amount");
 		childSetTextArg("balance_amount", "[AMT]", llformat("%d", balance));
+		childSetTextArg("balance_amount", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 		
 		S32 buying = mManager.getAmount();
 		childShow("buying_label");
 		childShow("buying_amount");
 		childSetTextArg("buying_amount", "[AMT]", llformat("%d", buying));
+		childSetTextArg("buying_amount", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 		
 		S32 total = balance + buying;
 		childShow("total_label");
 		childShow("total_amount");
 		childSetTextArg("total_amount", "[AMT]", llformat("%d", total));
+		childSetTextArg("total_amount", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+
+		childSetTextArg("currency_est", "[REALCURRENCY]", gHippoGridManager->getConnectedGrid()->getRealCurrencySymbol());
 
 		childSetVisible("purchase_warning_repurchase", false);
 		childSetVisible("purchase_warning_notenough", false);

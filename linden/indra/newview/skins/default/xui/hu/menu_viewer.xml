@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Main Menu">
+	<menu label="Fájl" name="File">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu label="Feltöltés" name="upload">
+			<menu_item_call label="Kép ([COST] L$)..." name="Upload Image"/>
+			<menu_item_call label="Hang ([COST] L$)..." name="Upload Sound"/>
+			<menu_item_call label="Animáció ([COST] L$)..." name="Upload Animation"/>
+			<menu_item_call label="Tömeges ([COST] L$/fájl)..." name="Bulk Upload"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Jogosultságok alapbeállítása..." name="perm prefs"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Ablak bezárása" name="Close Window"/>
+		<menu_item_call label="Minden ablak bezárása" name="Close All Windows"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Textúra mentése másként..." name="Save Texture As..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Fénykép készítése" name="Take Snapshot"/>
+		<menu_item_call label="Fénykép mentése" name="Snapshot to Disk"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Kilépés" name="Quit"/>
+	</menu>
+	<menu label="Szerkesztés" name="Edit">
+		<menu_item_call label="Visszavon" name="Undo"/>
+		<menu_item_call label="Mégis" name="Redo"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Kivág" name="Cut"/>
+		<menu_item_call label="Másol" name="Copy"/>
+		<menu_item_call label="Beszúr" name="Paste"/>
+		<menu_item_call label="Töröl" name="Delete"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Keresés..." name="Search..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Összes kijelölése" name="Select All"/>
+		<menu_item_call label="Kijelölés megszüntetése" name="Deselect"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Másolat készítése" name="Duplicate"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu label="Tárgy csatolása" name="Attach Object"/>
+		<menu label="Tárgy leválasztása" name="Detach Object"/>
+		<menu label="Ruházat levétele" name="Take Off Clothing">
+			<menu_item_call label="Ing" name="Shirt"/>
+			<menu_item_call label="Nadrág" name="Pants"/>
+			<menu_item_call label="Cipő" name="Shoes"/>
+			<menu_item_call label="Harisnya" name="Socks"/>
+			<menu_item_call label="Kabát" name="Jacket"/>
+			<menu_item_call label="Kesztyű" name="Gloves"/>
+			<menu_item_call label="Alsóing" name="Menu Undershirt"/>
+			<menu_item_call label="Alsónadrág" name="Menu Underpants"/>
+			<menu_item_call label="Szoknya" name="Skirt"/>
+			<menu_item_call label="Egész öltözet" name="All Clothes"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Gesztusok..." name="Gestures..."/>
+		<menu_item_call label="Adatlap..." name="Profile..."/>
+		<menu_item_call label="Megjelenés..." name="Appearance..."/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu_item_check label="Barátok..." name="Friends..."/>
+		<menu_item_call label="Csoportok..." name="Groups..."/>
+		<menu_item_separator label="-----------" name="separator8"/>
+		<menu_item_call label="Tulajdonságok..." name="Preferences..."/>
+	</menu>
+	<menu label="Nézet" name="View">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu_item_call label="Egér nézet" name="Mouselook"/>
+		<menu_item_check label="Építés" name="Build"/>
+		<menu_item_check label="Joystick Flycam" name="Joystick Flycam"/>
+		<menu_item_call label="Nézet visszaállítása" name="Reset View"/>
+		<menu_item_call label="Utolsó beszélgetés megtekintése" name="Look at Last Chatter"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Menüsor" name="Toolbar"/>
+		<menu_item_check label="Beszélgetés előzménye" name="Chat History"/>
+		<menu_item_check label="Azonnali üzenet" name="Instant Message"/>
+		<menu_item_check label="Készlettár" name="Inventory"/>
+		<menu_item_check label="Aktív beszélgetők" name="Active Speakers"/>
+		<menu_item_check label="Némítási lista" name="Mute List"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="Kamera vezérlése" name="Camera Controls"/>
+		<menu_item_check label="Mozgás vezérlése" name="Movement Controls"/>
+		<menu_item_check label="Világtérkép" name="World Map"/>
+		<menu_item_check label="Mini térkép" name="Mini-Map"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="Statisztika" name="Statistics Bar"/>
+		<menu_item_check label="Ingatlanhatárok" name="Property Lines"/>
+		<menu_item_check label="Tiltóhatár" name="Banlines"/>
+		<menu_item_check label="Földtulajdonosok" name="Land Owners"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu label="Gyorstippek" name="Hover Tips">
+			<menu_item_check label="Tippek megjelenítése" name="Show Tips"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_check label="Földdel kapcsolatos tippek" name="Land Tips"/>
+			<menu_item_check label="Tárgyakkal kapcsolatos tippek" name="Tips On All Objects"/>
+		</menu>
+		<menu_item_check label="Átlátszó tárgyak megjelenítése" name="Highlight Transparent"/>
+		<menu_item_check label="Beacon elemek" name="beacons"/>
+		<menu_item_check label="Partikulák elrejtése" name="Hide Particles"/>
+		<menu_item_check label="HUD csatolások megjelenítése" name="Show HUD Attachments"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Nagyít" name="Zoom In"/>
+		<menu_item_call label="Eredeti méret" name="Zoom Default"/>
+		<menu_item_call label="Kicsinyít" name="Zoom Out"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Teljes képernyő" name="Toggle Fullscreen"/>
+		<menu_item_call label="Alapértelmezett UI méret beállítása" name="Set UI Size to Default"/>
+	</menu>
+	<menu label="Világ" name="World">
+		<menu_item_call label="Üzenetküldés" name="Chat"/>
+		<menu_item_check label="Mindig fut" name="Always Run"/>
+		<menu_item_check label="Repül" name="Fly"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Jelzőpont letétele itt" name="Create Landmark Here"/>
+		<menu_item_call label="Kiindulópont megjelölése itt" name="Set Home to Here"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Teleportálás a kiindulóponthoz" name="Teleport Home"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Nincs a gépnél" name="Set Away"/>
+		<menu_item_call label="Elfoglalt" name="Set Busy"/>
+		<menu_item_call label="Avatár animációjának leállítása" name="Stop Animating My Avatar"/>
+		<menu_item_call label="Feloldó gomb" name="Release Keys"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Felhasználói eseménytörténet..." name="Account History..."/>
+		<menu_item_call label="Felhasználó fiók beállításai..." name="Manage My Account..."/>
+		<menu_item_call label="L$ tranzakciók..." name="Buy and Sell L$..."/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Saját föld..." name="My Land..."/>
+		<menu_item_call label="Föld információk..." name="About Land..."/>
+		<menu_item_call label="Föld vásárlása..." name="Buy Land..."/>
+		<menu_item_call label="Régió/Telek..." name="Region/Estate..."/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu label="Környezeti beállítások" name="Environment Settings">
+			<menu_item_call label="Napfelkelte" name="Sunrise"/>
+			<menu_item_call label="Dél" name="Noon"/>
+			<menu_item_call label="Naplemente" name="Sunset"/>
+			<menu_item_call label="Éjszaka" name="Midnight"/>
+			<menu_item_call label="Régió alapbeállítása" name="Revert to Region Default"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Környezet szerkesztése" name="Environment Editor"/>
+		</menu>
+	</menu>
+	<menu label="Eszközök" name="Tools">
+		<menu label="Eszköz kiválasztása" name="Select Tool">
+			<menu_item_call label="Fókuszál" name="Focus"/>
+			<menu_item_call label="Mozgat" name="Move"/>
+			<menu_item_call label="Szerkeszt" name="Edit"/>
+			<menu_item_call label="Létrehoz" name="Create"/>
+			<menu_item_call label="Föld" name="Land"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Csak a saját tárgyak kijelölése" name="Select Only My Objects"/>
+		<menu_item_check label="Csak a mozgatható tárgyak kijelölése" name="Select Only Movable Objects"/>
+		<menu_item_check label="Környező tárgyak kijelölése" name="Select By Surrounding"/>
+		<menu_item_check label="Rejtett tárgyak megjelenítése" name="Show Hidden Selection"/>
+		<menu_item_check label="Kijelölések körüli zóna megjelenítése" name="Show Light Radius for Selection"/>
+		<menu_item_check label="Kijelölés közeppontjának megjelenítése" name="Show Selection Beam"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="Gridhez illeszt" name="Snap to Grid"/>
+		<menu_item_call label="Tárgy XY koordinátájának Gridhez illesztése" name="Snap Object XY to Grid"/>
+		<menu_item_call label="Kijelölés alkalmazása a Gridnél" name="Use Selection for Grid"/>
+		<menu_item_call label="Grid beállításai..." name="Grid Options..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="Összefűzött elemek szerkesztése" name="Edit Linked Parts"/>
+		<menu_item_call label="Összefűz" name="Link"/>
+		<menu_item_call label="Összefűzés megszüntetése" name="Unlink"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Kijelölésre fókuszál" name="Focus on Selection"/>
+		<menu_item_call label="Kijelölésre nagyít" name="Zoom to Selection"/>
+		<menu_item_call label="Tárgy visszavétele" name="Menu Object Take">
+			<on_enable userdata="Vásárol,Visszavesz" name="EnableBuyOrTake"/>
+		</menu_item_call>
+		<menu_item_call label="Másolat készítése" name="Take Copy"/>
+		<menu_item_call label="Tárgy elmentése a tartalmi elemek közé" name="Save Object Back to Object Contents"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Figyelmeztetés/Hiba megjelenítése" name="Show Script Warning/Error Window"/>
+		<menu label="Kód újragenerálása a kijelölt területen" name="Recompile Scripts in Selection">
+			<menu_item_call label="Mono" name="Mono"/>
+			<menu_item_call label="LSL" name="LSL"/>
+		</menu>
+		<menu_item_call label="Kód visszaállítása a kijelölt területen" name="Reset Scripts in Selection"/>
+		<menu_item_call label="Kód futtatásának engedélyezése a kijelölt területen" name="Set Scripts to Running in Selection"/>
+		<menu_item_call label="Kód futtatásának tiltása a kijelölt területen" name="Set Scripts to Not Running in Selection"/>
+	</menu>
+	<menu label="Segítség" name="Help">
+		<menu_item_call label="Second Life támogatás" name="Second Life Help"/>
+		<menu_item_call label="Oktatási anyagok" name="Tutorial"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Hivatalos Linden blog..." name="Official Linden Blog..."/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Programozási portál..." name="Scripting Portal..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Szabálytalanságok jelentése..." name="Report Abuse..."/>
+		<menu_item_call label="Ütközések, akadályok megjelenítése..." name="Bumps, Pushes &amp;amp; Hits..."/>
+		<menu_item_call label="Csomagvesztések mérése" name="Lag Meter"/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu label="Hibabejelentés" name="Bug Reporting">
+			<menu_item_call label="Nyilvános bejelentések követése..." name="Public Issue Tracker..."/>
+			<menu_item_call label="Nyilvános hibabejelentések követése..." name="Publc Issue Tracker Help..."/>
+			<menu_item_separator label="-----------" name="separator7"/>
+			<menu_item_call label="101-es hiba jelentése..." name="Bug Reporing 101..."/>
+			<menu_item_call label="Biztonsági információk..." name="Security Issues..."/>
+			<menu_item_call label="Kérdések és válaszok Wiki..." name="QA Wiki..."/>
+			<menu_item_separator label="-----------" name="separator9"/>
+			<menu_item_call label="Hiba jelentése..." name="Report Bug..."/>
+		</menu>
+		<menu_item_call label="Second Life-ról..." name="About Second Life..."/>
+	</menu>
+</menu_bar>

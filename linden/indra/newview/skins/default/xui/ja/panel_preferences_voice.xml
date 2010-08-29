@@ -16,9 +16,8 @@
 		プッシュ・トゥ・トーク
 	</text>
 	<text_editor name="voice_chat_description">
-		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
+		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイスチャットから切断されます。
 	</text_editor>
-	<check_box label="プッシュ・トゥ・トークモードでビュアーを起動" name="push_to_talk_check"/>
 	<check_box label="切り替えモードで、プッシュ・トゥ・トークを使用" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
 		プッシュ・トゥ・トークトリガー：
@@ -29,9 +28,9 @@
 		プライバシーオプション
 	</text>
 	<check_box label="自分のフレンドリストにある人からのみ、ボイスコールを受け付ける" name="voice_call_friends_only_check"/>
-	<text_editor name="device_settings_text">
-		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。変更は即座に適用されます。
-	</text_editor>
+	<check_box label="IMコールが終了したらマイクのスイッチを切る" name="auto_disengage_mic_check"/>
 	<button label="機器の設定" name="device_settings_btn"/>
-	<button label="ボイス・チャットの設定" name="launch_voice_wizard_button"/>
+	<text_editor name="device_settings_text">
+		注意：「機器の設定」を実行すると、一時的にボイスチャットから切断されます。変更は即座に適用されます。
+	</text_editor>
 </panel>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="advanced_panel">
+	<check_box label="Compartir el idioma con los objetos" name="language_is_public" tool_tip="Hace que los objetos con script del mundo sepan su idioma preferido."/>
+</panel>

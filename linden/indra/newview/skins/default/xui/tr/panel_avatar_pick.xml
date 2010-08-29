@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Seç">
+	<button label="Lokasyon belirle" name="set_location_btn"/>
+	<button label="Işınlan" name="pick_teleport_btn"/>
+	<button label="Haritada göster" name="pick_map_btn"/>
+	<text name="sort_order_text" width="100">
+		Sırala:
+	</text>
+	<check_box label="Etkin" name="enabled_check"/>
+</panel>

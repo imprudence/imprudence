@@ -52,6 +52,16 @@
       <string>CmdLineGridChoice</string>
     </map>
 
+    <key>cache</key>
+    <map>
+      <key>desc</key>
+      <string>Specify the location of the local cache directory.</string>
+      <key>count</key>
+      <integer>1</integer>
+      <key>map-to</key>
+      <string>CmdLineCacheLocation</string>
+    </map>
+
     <key>loginuri</key>
     <map>
       <key>desc</key>
@@ -331,6 +341,14 @@
       <string>Crashes on startup. For QA use.</string>
       <key>map-to</key>
       <string>CrashOnStartup</string>
+    </map>
+
+    <key>disabledbus</key>
+    <map>
+      <key>desc</key>
+      <string>Disable DBUS API (get SLURL from Webbrowser atm).</string>
+      <key>map-to</key>
+      <string>DisableDBUS</string>
     </map>
 
   </map>

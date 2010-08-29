@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -54,11 +55,11 @@ LLResMgr::LLResMgr()
 	{
 		mUSAFonts[i] = NULL;
 	}
-	mUSAFonts[ LLFONT_OCRA ]			= LLFontGL::sMonospace;
-	mUSAFonts[ LLFONT_SANSSERIF ]		= LLFontGL::sSansSerif;
-	mUSAFonts[ LLFONT_SANSSERIF_SMALL ]	= LLFontGL::sSansSerifSmall;
-	mUSAFonts[ LLFONT_SANSSERIF_BIG ]	= LLFontGL::sSansSerifBig;
-	mUSAFonts[ LLFONT_SMALL ]			= LLFontGL::sMonospace;
+	mUSAFonts[ LLFONT_OCRA ]			= LLFontGL::getFontMonospace();
+	mUSAFonts[ LLFONT_SANSSERIF ]		= LLFontGL::getFontSansSerif();
+	mUSAFonts[ LLFONT_SANSSERIF_SMALL ]	= LLFontGL::getFontSansSerifSmall();
+	mUSAFonts[ LLFONT_SANSSERIF_BIG ]	= LLFontGL::getFontSansSerifBig();
+	mUSAFonts[ LLFONT_SMALL ]			= LLFontGL::getFontMonospace();
 /*
 	// USA Strings
 	for( i=0; i<LLSTR_COUNT; i++ )

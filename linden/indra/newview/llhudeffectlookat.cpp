@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,6 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llhudeffectlookat.h"
+#include "llhudrender.h"
 
 #include "llrender.h"
 
@@ -40,10 +42,11 @@
 #include "llvoavatar.h"
 #include "lldrawable.h"
 #include "llviewerobjectlist.h"
+#include "llviewerwindow.h"
 #include "llrendersphere.h"
 #include "llselectmgr.h"
 #include "llglheaders.h"
-
+#include "llresmgr.h"
 
 #include "llxmltree.h"
 
@@ -365,6 +368,12 @@ void LLHUDEffectLookAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 
 	U8 lookAtTypeUnpacked = 0;
 	htonmemcpy(&lookAtTypeUnpacked, &(packed_data[LOOKAT_TYPE]), MVT_U8, 1);
+	if (lookAtTypeUnpacked > 10)
+	{
+		LL_DEBUGS("LookAt")<< "wrong lookAtTypeUnpacked: " << lookAtTypeUnpacked << LL_ENDL;
+		lookAtTypeUnpacked = 0;
+	}
+
 	mTargetType = (ELookAtType)lookAtTypeUnpacked;
 
 	if (mTargetType == LOOKAT_TARGET_NONE)
@@ -520,6 +529,38 @@ void LLHUDEffectLookAt::render()
 			gGL.vertex3f(0.f, 0.f, 1.f);
 		} gGL.end();
 		gGL.popMatrix();
+
+		if( gSavedSettings.getBOOL("ShowLookAtNames") )
+		{
+			const LLFontGL* fontp = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
+			LLGLEnable color_mat(GL_COLOR_MATERIAL);
+			LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
+			LLGLState gls_blend(GL_BLEND, TRUE);
+			LLGLState gls_alpha(GL_ALPHA_TEST, TRUE);
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
+			gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
+
+			// Well.. after that nasty complex try at somehow getting it to work initialising all sorts of stuff
+			// It seems to work and fix the previous bug of merely displaying untextured cubes, 
+			// probably due to the helpful getTexUnit->enable. - Nexii
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+			LLVector3 render_pos = target + LLVector3( 0.f, 0.f, 0.25f );
+			LLColor4 Color = LLColor4( (*mAttentions)[mTargetType].mColor, 1.0f ); 
+			std::string text = ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->getFullname();
+			
+			// Show anonyms in place of actual names when @shownames=n restricted
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				text = gRlvHandler.getAnonym(text);
+			}
+
+			gViewerWindow->setupViewport();
+			hud_render_utf8text(text, render_pos, *fontp, LLFontGL::NORMAL, -0.5f * fontp->getWidthF32(text), 3.f, Color, FALSE );
+			
+			glPopMatrix();
+		}
 	}
 }
 

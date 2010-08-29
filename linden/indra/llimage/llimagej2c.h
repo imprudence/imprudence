@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -86,6 +87,10 @@ protected:
 	void updateRawDiscardLevel();
 
 	S32 mMaxBytes; // Maximum number of bytes of data to use...
+	
+	S32 mDataSizes[MAX_DISCARD_LEVEL+1];		// Size of data required to reach a given level
+	U32 mAreaUsedForDataSizeCalcs;				// Height * width used to calculate mDataSizes
+
 	S8  mRawDiscardLevel;
 	F32 mRate;
 	BOOL mReversible;

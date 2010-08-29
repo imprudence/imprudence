@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="Linden Labs - Gruppe information">
+	<tab_container name="tab">
+		<panel label="Generelt" name="gen">
+			<text name="title_box">
+				Gruppe info
+			</text>
+			<text name="txt">
+				Grupper giver mulighed for at samarbejde og kommunikere med dine venner på en sjov måde
+			</text>
+			<text name="txt2">
+				Grupper giver dig mulighed for at have en titel, rang og at stemme.
+			</text>
+			<text name="txt3">
+				Alle kan oprette en gruppe. Hver person kan være med i op til 25 grupper.
+			</text>
+			<text name="txt4">
+				Grupper skal have mindst 3 medlemmer for at forblive aktive.
+			</text>
+			<text name="group_create_text">
+				Det koster L$100 at oprette en gruppe.
+			</text>
+			<text name="lbl">
+				Navn:
+			</text>
+			<text name="founder_label">
+				Oprettet af:
+			</text>
+			<text name="lbl2">
+				Vedtægt:
+			</text>
+			<check_box name="sho" />
+			<check_box name="sho_mem" />
+			<check_box name="allow_publish" tool_tip="Vis profilinformation på web." />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box name="mature" />
+		</panel>
+		<panel label="Titles" name="tit">
+			<text name="txt">
+				Gruppe titler
+			</text>
+			<text name="txt2">
+				Grupper kan have administratorer og medlemmer, som hver kan have specielle titler.
+			</text>
+			<text name="txt3">
+				Disse titler vises over navnet i Second Life, i chat og i personlige samtaler (IM).
+			</text>
+			<text name="lbl">
+				Administrator titel:
+			</text>
+			<text name="lbl2">
+				Medlem titel:
+			</text>
+			<text name="lbl3">
+				Træk en tekstur ud fra din beholdning for at angive gruppens signatur.
+			</text>
+			<texture_picker name="insig" tool_tip="Klik for at vælge et billede" />
+		</panel>
+		<panel label="Members" name="mem">
+			<text name="txt">
+				Gruppe medlemmer
+			</text>
+			<text name="txt2">
+				Nuværende administratorer og medlemmer.
+			</text>
+			<text name="txt3">
+				Klik på et navn for at se medlemmets profil.
+			</text>
+			<text name="lbl">
+				Administratorer:
+			</text>
+			<text name="members_label">
+				Medlemmer:
+			</text>
+			<button label="Eject Member" label_selected="Eject Member" name="eject_member_btn" />
+		</panel>
+		<panel label="Voting" name="voting">
+			<tab_container name="tab">
+				<panel label="Election" name="recall">
+					<text name="txt">
+						Gruppe afstemning
+					</text>
+					<text name="instructions">
+						Tryk på &apos;Start afstemning&apos; for at igangsætte en ny afstemning.
+						Deltagere vil være alle medlemmer som ikke er administratorer.
+					</text>
+					<text name="lbl">
+						Kandidater:
+					</text>
+					<button name="btn_vote" />
+					<button name="btn_abstain" />
+					<button name="btn_start_election" />
+					<text name="lbl2">
+						Quorum:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="Antal stemmende medlemmer der kræves for at afstemning skal være gyldig." />
+					<text name="quorum_text">
+						ud af i alt 111 gruppe medlemmer totalt.
+					</text>
+					<text name="lbl3">
+						Krævet flertal:
+					</text>
+					<radio_group name="majority" tool_tip="Flertal der er krævet for at vinde afstemning.">
+						<radio_item name="radio">
+							Simpelt flertal
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 flertal
+						</radio_item>
+						<radio_item name="radio3">
+							Enstemmighed
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Varighed:
+					</text>
+					<spinner name="duration" tool_tip="Antal dage afstemning vil vare." />
+					<text name="duration_days">
+						dage
+					</text>
+					<text name="start_lbl">
+						Afstemning start:
+					</text>
+					<text name="end_lbl">
+						Afstemning slutter:
+					</text>
+				</panel>
+				<panel label="Proposal" name="panel_group_proposals">
+					<text name="txt">
+						Gruppe forslag
+					</text>
+					<text name="instructions">
+						Der er ingen aktive forslag. Tryk på &apos;Opret forslag&apos; for at 
+oprette nyt forslag.
+					</text>
+					<text name="proposal_lbl">
+						Forslag:
+					</text>
+					<button name="btn_yes" />
+					<button name="btn_no" />
+					<button name="btn_abstain" />
+					<button name="btn_view_list" />
+					<button name="btn_view_item" />
+					<button name="btn_proposal" />
+					<button name="btn_submit" />
+					<text name="quorum_lbl">
+						Quorum:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="Antal stemmende medlemmer der er krævet for at afstemning skal være bindende." />
+					<text name="quorum_text">
+						ud af 111 gruppemedlemer totalt.
+					</text>
+					<text name="majority_lbl">
+						Flertal krævet:
+					</text>
+					<radio_group name="majority" tool_tip="Flertal der kræves for at vinde afstemning.">
+						<radio_item name="radio">
+							Simpelt flertal
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 flertal
+						</radio_item>
+						<radio_item name="radio3">
+							Enstemmighed
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Varighed:
+					</text>
+					<spinner name="duration" tool_tip="Antal dage afstemning vil vare." />
+					<text name="duration_text">
+						dage
+					</text>
+					<text name="start_lbl">
+						Afstemning start:
+					</text>
+					<text name="end_lbl">
+						Afstemning slutter:
+					</text>
+				</panel>
+				<panel label="History" name="History">
+					<text name="txt">
+						Gruppens afstemningshistorik
+					</text>
+					<text name="instructions">
+						Du kan se de sidste afstemninger ved at vælge afstemning og
+					</text>
+					<text name="instructions2">
+						trykke på &apos;Se&apos; knappen.
+					</text>
+					<text name="history_list_lbl">
+						Tidligere afstemninger:
+					</text>
+					<text name="vote_text_lbl">
+						Aftsemningsresultat:
+					</text>
+					<button name="btn_view_list" />
+					<button name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Invite" name="inv">
+			<text name="txt">
+				Gruppe invitationer
+			</text>
+			<text name="txt2">
+				Invitationer er sendt ud via personlige beskeder (IM).
+			</text>
+			<text name="txt3">
+				Klik på Tilføj knappen for at tilføje brugere til listen.
+			</text>
+			<text name="lbl">
+				Administratorer:
+			</text>
+			<button name="add_officer_btn" />
+			<button name="remove_officer_btn" />
+			<text name="lbl2">
+				Medlemmer:
+			</text>
+			<button name="add_member_btn" />
+			<button name="remove_member_btn" />
+			<text name="lbl3">
+				Gebyr:
+			</text>
+			<check_box name="open" />
+		</panel>
+		<panel label="Land" name="land">
+			<text name="txt">
+				Gruppe-ejet land
+			</text>
+			<text name="lbl">
+				Total bidraget til land:
+			</text>
+			<button label="Kort..." label_selected="Kort..." name="map_btn" />
+			<text name="lbl2">
+				Land i brug i alt:
+			</text>
+			<text name="lbl3">
+				Land til rådighed:
+			</text>
+			<button name="set_contrib_btn" />
+			<text name="warning_label">
+				ADVARSEL: Gruppen har for meget land. Gruppens medlemmer skal bidrage med mere.
+			</text>
+		</panel>
+		<panel label="Money" name="mon">
+			<tab_container name="group money history tab">
+				<panel name="money panel" />
+				<panel name="money panel2">
+					<button name="&lt; Earlier"
+					     tool_tip="Gå tilbage i tid" />
+					<button name="Later &gt;"
+					     tool_tip="Gå frem i tid" />
+				</panel>
+				<panel name="money panel3">
+					<button name="&lt; Earlier"
+					     tool_tip="Gå tilbage i tid" />
+					<button name="Later &gt;"
+					     tool_tip="Gå frem i tid" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Annullér" label_selected="Annullér" name="Cancel" />
+</floater>

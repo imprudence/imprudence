@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="Otrzymane IM" label_selected="Otrzymane IM" name="IM Received" tool_tip="Otrzymałeś wiadomość (IM). Kliknij by ją zobaczyć."/>
+					<button font="SansSerifSmall" label="Przestań Pracować" label_selected="Przestań Pracować" name="Set Not Busy" tool_tip="Czat oraz wiadomości (IM) są ukryte dla Ciebie. Kliknij by opuścić tryb pracy."/>
+					<button label="Wolna kamera" label_selected="Wolna kamera" name="Flycam" tool_tip="Twoja kamera jest kontrolowana przez joystick, kliknij tutaj, zeby ją uwolnić."/>
+					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="Widok z Twojej kamery znajduje się poza zasięgiem kontroli joysticka. Kliknij tutaj by go odblokować."/>
+					<button font="SansSerifSmall" label="Widok Panoramiczny" label_selected="Widok Panoramiczny" name="Mouselook" tool_tip="Użyj widoku panoramicznego by sterować swoim widokiem. By zacząć strzelać z broni, aktywuj ten widok."/>
+					<button label="Wstań" label_selected="Wstań" name="Stand Up" tool_tip="Kliknij, aby wstać."/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</panel>

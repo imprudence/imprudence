@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script search" title="Найти / Заменить" width="320">
+	<check_box label="Без учета регистра" name="case_text" left="65"/>
+	<button label="Поиск" label_selected="Поиск" name="search_btn" width="85" />
+	<button label="Замена" label_selected="Заменить" name="replace_btn" left="100" width="85" />
+	<button label="Заменить все" label_selected="Заменить все"
+	     name="replace_all_btn" left="190" width="122"/>
+	<text type="string" length="1" name="txt" width="60">
+		Поиск
+	</text>
+	<text type="string" length="1" name="txt2" width="60">
+		Заменить
+	</text>
+	<line_editor left="65" name="search_text" width="240" />
+	<line_editor left="65" name="replace_text" width="240" />
+</floater>

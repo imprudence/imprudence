@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="preview_notecard">
-	<text_editor type="string" length="1" name="Notecard Editor">
+	<text_editor length="1" name="Notecard Editor" type="string">
 		Cargando...
 	</text_editor>
-	<text type="string" length="1" name="desc txt">
+	<text length="1" name="desc txt" type="string">
 		Descripción:
 	</text>
-	<button label="Mantener" label_selected="Mantener" name="Keep" />
-	<button label="Descartar" label_selected="Descartar" name="Discard" />
+	<button label="Mantenerla" label_selected="Mantenerla" name="Keep"/>
+	<button label="Descartarla" label_selected="Descartarla" name="Discard"/>
+	<string name="no_object">
+		No se ha podido encontrar el objeto que contiene esta nota:
+	</string>
+	<string name="not_allowed">
+		No esta autorizado a ver esta nota.
+	</string>
 </floater>

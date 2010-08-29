@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,6 +44,10 @@
 
 static LLRegisterWidget<LLSlider> r1("slider_bar");
 static LLRegisterWidget<LLSlider> r2("volume_slider");
+
+
+// This is overridden based on user's settings.
+S32 LLSlider::sScrollWheelMultiplier = 1;
 
 
 LLSlider::LLSlider( 
@@ -221,6 +226,27 @@ BOOL LLSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
+
+// static
+void LLSlider::setScrollWheelMultiplier( S32 mult )
+{
+	sScrollWheelMultiplier = mult;
+}
+
+// static
+S32 LLSlider::getScrollWheelMultiplier()
+{
+	return sScrollWheelMultiplier;
+}
+
+BOOL LLSlider::handleScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	S32 mult = LLSlider::getScrollWheelMultiplier();
+	setValueAndCommit(getValueF32() - (getIncrement() * (F32)clicks * mult));
+	return TRUE;
+}
+
+
 BOOL LLSlider::handleKeyHere(KEY key, MASK mask)
 {
 	BOOL handled = FALSE;
@@ -289,6 +315,15 @@ void LLSlider::draw()
 LLXMLNodePtr LLSlider::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	if (mVolumeSlider)
+	{
+		node->setName(LL_VOLUME_SLIDER_CTRL_TAG);
+	}
+	else
+	{
+		node->setName(LL_SLIDER_TAG);
+	}
 
 	node->createChild("initial_val", TRUE)->setFloatValue(getInitialValue());
 	node->createChild("min_val", TRUE)->setFloatValue(getMinValue());

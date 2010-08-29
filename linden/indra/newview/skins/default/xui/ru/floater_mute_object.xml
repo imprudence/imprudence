@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute by name" title="Глушить объект по имени">
+	<text name="message" bottom_delta="-40">
+		Глушение объектов действует только на чат и IM,
+но не на звуки.
+Вы должны набрать точное название объекта.
+	</text>
+	<line_editor name="object_name" bottom_delta="-58">
+		Название объекта
+	</line_editor>
+	<button label="ОК" name="OK" />
+	<button label="Отмена" name="Cancel" />
+</floater>

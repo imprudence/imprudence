@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<string name="Redock Windows">
+		Okna Dialogowe
+	</string>
+	<layout_stack name="toolbar_stack">
+		<button label="" name="chat_btn" tool_tip="Pokaż panel czatu. (Enter)" />
+		<flyout_button label="Komunikacja" name="communicate_btn"
+		     tool_tip="Rozmawiaj ze znajomymi i grupami" />
+		<button label="Zacznij Latać" label_selected="Przestań Latać" name="fly_btn"
+		     tool_tip="Zacznij latać. Użyj E/C lub PgUp/PgDn aby latać w górę i w dół." />
+		<button label="Zrób Zdjęcie" name="snapshot_btn"
+		     tool_tip="Zrób zdjęcie i zapisz je w szafie lub na twardym dysku." />
+		<button label="Szukaj" name="directory_btn"
+		     tool_tip="Szukaj miejsc, imprez, ludzi itd." />
+		<button label="Buduj" name="build_btn" tool_tip="Stwórz nowe obiekty" />
+		<button label="Mapa" name="map_btn" tool_tip="Mapa świata. (Ctrl-M)" />
+		<button label="Mini-Mapa" name="radar_btn"
+		     tool_tip="Mapa obszaru, w którym się znajdujesz. (Ctrl-Shift-M)" />
+		<button label="Moja Szafa" name="inventory_btn"
+		     tool_tip="Twoje obiekty i artykuły. (Ctrl-I)" />
+	</layout_stack>
+</panel>

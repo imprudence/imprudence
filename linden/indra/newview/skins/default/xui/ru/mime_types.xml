@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<mimetypes name="default">
+	<widgetset name="web">
+		<label name="web_label">
+			Содержимое веб
+		</label>
+		<tooltip name="web_tooltip">
+			Это место имеет веб-контент
+		</tooltip>
+		<playtip name="web_playtip">
+			Показать веб-контент
+		</playtip>
+	</widgetset>
+	<widgetset name="movie">
+		<label name="movie_label">
+			Фильм
+		</label>
+		<tooltip name="movie_tooltip">
+			Здесь проигрывается фильм
+		</tooltip>
+		<playtip name="movie_playtip">
+			Проигрывать фильм
+		</playtip>
+	</widgetset>
+	<widgetset name="none">
+		<label name="none_label">
+			Нет содержания
+		</label>
+		<tooltip name="none_tooltip">
+			Здесь нет медиа
+		</tooltip>
+	</widgetset>
+	<widgetset name="image">
+		<label name="image_label">
+			Изображение
+		</label>
+		<tooltip name="image_tooltip">
+			В этом месте есть изображение
+		</tooltip>
+		<playtip name="image_playtip">
+			Просмотреть изображение в этом месте
+		</playtip>
+	</widgetset>
+	<widgetset name="audio">
+		<label name="audio_label">
+			Аудио
+		</label>
+		<tooltip name="audio_tooltip">
+			В этом месте проигрывается аудио
+		</tooltip>
+		<playtip name="audio_playtip">
+			Прослушать аудио в этом месте
+		</playtip>
+	</widgetset>
+	<scheme name="rtsp">
+		<label name="rtsp_label">
+			Поток в реальном времени
+		</label>
+	</scheme>
+	<mimetype name="blank">
+		<label name="blank_label">
+			- Нет -
+		</label>
+	</mimetype>
+	<mimetype name="none/none">
+		<label name="none/none_label">
+			- Нет -
+		</label>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label name="audio2_label">
+			Аудио
+		</label>
+	</mimetype>
+	<mimetype name="video/*">
+		<label name="video2_label">
+			Видео
+		</label>
+	</mimetype>
+	<mimetype name="image/*">
+		<label name="image2_label">
+			Изображение
+		</label>
+	</mimetype>
+	<mimetype name="video/vnd.secondlife.qt.legacy">
+		<label name="vnd.secondlife.qt.legacy_label">
+			Фильм (QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label name="application/javascript_label">
+			Javascript
+		</label>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label name="application/ogg_label">
+			Ogg Аудио/Видео
+		</label>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label name="application/pdf_label">
+			PDF документ
+		</label>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label name="application/postscript_label">
+			Postscript документ
+		</label>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label name="application/rtf_label">
+			Rich Text (RTF)
+		</label>
+	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">
+			Synchronized Multimedia Integration Language (SMIL)
+		</label>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label name="application/xhtml+xml_label">
+			Web Page (XHTML)
+		</label>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label name="application/x-director_label">
+			Macromedia Director
+		</label>
+	</mimetype>
+	<mimetype name="application/x-shockwave-flash">
+		<label name="application/x-shockwave-flash_label">
+			Flash
+		</label>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label name="audio/mid_label">
+			Аудио (MIDI)
+		</label>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label name="audio/mpeg_label">
+			Аудио (MP3)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label name="audio/x-aiff_label">
+			Аудио (AIFF)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label name="audio/x-wav_label">
+			Аудио (WAV)
+		</label>
+	</mimetype>
+	<mimetype name="image/bmp">
+		<label name="image/bmp_label">
+			Изображение (BMP)
+		</label>
+	</mimetype>
+	<mimetype name="image/gif">
+		<label name="image/gif_label">
+			Изображение (GIF)
+		</label>
+	</mimetype>
+	<mimetype name="image/jpeg">
+		<label name="image/jpeg_label">
+			Изображение (JPEG)
+		</label>
+	</mimetype>
+	<mimetype name="image/png">
+		<label name="image/png_label">
+			Изображение (PNG)
+		</label>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label name="image/svg+xml_label">
+			Изображение (SVG)
+		</label>
+	</mimetype>
+	<mimetype name="image/tiff">
+		<label name="image/tiff_label">
+			Изображение (TIFF)
+		</label>
+	</mimetype>
+	<mimetype name="text/html">
+		<label name="text/html_label">
+			Веб-страница
+		</label>
+	</mimetype>
+	<mimetype name="text/plain">
+		<label name="text/plain_label">
+			Текст
+		</label>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label name="text/xml_label">
+			XML
+		</label>
+	</mimetype>
+	<mimetype name="video/mpeg">
+		<label name="video/mpeg_label">
+			Фильм (MPEG)
+		</label>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label name="video/mp4_label">
+			Фильм (MP4)
+		</label>
+	</mimetype>
+	<mimetype name="video/quicktime">
+		<label name="video/quicktime_label">
+			Фильм (QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label name="video/x-ms-asf_label">
+			Фильм (Windows Media ASF)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label name="video/x-ms-wmv_label">
+			Фильм (Windows Media WMV)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-msvideo">
+		<label name="video/x-msvideo_label">
+			Фильм  (AVI)
+		</label>
+	</mimetype>
+</mimetypes>

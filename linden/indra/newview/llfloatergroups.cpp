@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -44,6 +45,7 @@
 #include "message.h"
 #include "roles_constants.h"
 
+#include "hbfloatergrouptitles.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llfloatergroupinfo.h"
@@ -56,6 +58,8 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llimview.h"
+
+#include "hippoLimits.h"
 
 // static
 std::map<const LLUUID, LLFloaterGroupPicker*> LLFloaterGroupPicker::sInstances;
@@ -199,7 +203,7 @@ void LLPanelGroups::reset()
 		group_list->operateOnAll(LLCtrlListInterface::OP_DELETE);
 	}
 	childSetTextArg("groupcount", "[COUNT]", llformat("%d",gAgent.mGroups.count()));
-	childSetTextArg("groupcount", "[MAX]", llformat("%d",MAX_AGENT_GROUPS));
+	childSetTextArg("groupcount", "[MAX]", llformat("%d", gHippoLimits->getMaxAgentGroups()));
 
 	const std::string none_text = getString("none");
 	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), none_text);
@@ -211,7 +215,7 @@ BOOL LLPanelGroups::postBuild()
 	childSetCommitCallback("group list", onGroupList, this);
 
 	childSetTextArg("groupcount", "[COUNT]", llformat("%d",gAgent.mGroups.count()));
-	childSetTextArg("groupcount", "[MAX]", llformat("%d",MAX_AGENT_GROUPS));
+	childSetTextArg("groupcount", "[MAX]", llformat("%d", gHippoLimits->getMaxAgentGroups()));
 
 	const std::string none_text = getString("none");
 	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), none_text);
@@ -229,6 +233,8 @@ BOOL LLPanelGroups::postBuild()
 	childSetAction("Search...", onBtnSearch, this);
 	
 	childSetAction("Invite...", onBtnInvite, this);
+
+	childSetAction("Titles...", onBtnTitles, this);
 
 	setDefaultBtn("IM");
 
@@ -269,7 +275,7 @@ void LLPanelGroups::enableButtons()
 		childDisable("IM");
 		childDisable("Leave");
 	}
-	if(gAgent.mGroups.count() < MAX_AGENT_GROUPS)
+	if(gAgent.mGroups.count() < gHippoLimits->getMaxAgentGroups())
 	{
 		childEnable("Create");
 	}
@@ -328,6 +334,12 @@ void LLPanelGroups::onBtnSearch(void* userdata)
 {
 	LLPanelGroups* self = (LLPanelGroups*)userdata;
 	if(self) self->search();
+}
+
+void LLPanelGroups::onBtnTitles(void* userdata)
+{
+	LLPanelGroups* self = (LLPanelGroups*)userdata;
+	if(self) self->titles();
 }
 
 void LLPanelGroups::create()
@@ -408,10 +420,11 @@ void LLPanelGroups::leave()
 		}
 		if(i < count)
 		{
-			LLUUID* cb_data = new LLUUID((const LLUUID&)group_id);
-			LLStringUtil::format_map_t args;
-			args["[GROUP]"] = gAgent.mGroups.get(i).mName;
-			gViewerWindow->alertXml("GroupLeaveConfirmMember", args, callbackLeaveGroup, (void*)cb_data);
+			LLSD args;
+			args["GROUP"] = gAgent.mGroups.get(i).mName;
+			LLSD payload;
+			payload["group_id"] = group_id;
+			LLNotifications::instance().add("GroupLeaveConfirmMember", args, payload, callbackLeaveGroup);
 		}
 	}
 }
@@ -436,11 +449,18 @@ void LLPanelGroups::invite()
 		LLFloaterGroupInvite::showForGroup(group_id);
 }
 
-// static
-void LLPanelGroups::callbackLeaveGroup(S32 option, void* userdata)
+void LLPanelGroups::titles()
 {
-	LLUUID* group_id = (LLUUID*)userdata;
-	if(option == 0 && group_id)
+	HBFloaterGroupTitles::toggle();
+}
+
+
+// static
+bool LLPanelGroups::callbackLeaveGroup(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLUUID group_id = notification["payload"]["group_id"].asUUID();
+	if(option == 0)
 	{
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_LeaveGroupRequest);
@@ -448,10 +468,10 @@ void LLPanelGroups::callbackLeaveGroup(S32 option, void* userdata)
 		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 		msg->nextBlockFast(_PREHASH_GroupData);
-		msg->addUUIDFast(_PREHASH_GroupID, *group_id);
+		msg->addUUIDFast(_PREHASH_GroupID, group_id);
 		gAgent.sendReliableMessage();
 	}
-	delete group_id;
+	return false;
 }
 
 void LLPanelGroups::onGroupList(LLUICtrl* ctrl, void* userdata)

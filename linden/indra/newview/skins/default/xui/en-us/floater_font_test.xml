@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="800" min_height="175" min_width="154" name="contents"
+     title="Font Test" width="500">
+
+<text font="SansSerifSmall" follows="left|top|right" bottom_delta="-40" left="16" height="16">
+SansSerifSmall
+</text>
+
+<text font="SansSerifMedium" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerifMedium
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerif, no size or style (should be same as medium)
+</text>
+
+<text font="SansSerifLarge" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerifLarge
+</text>
+
+<text font="SansSerifHuge" follows="left|top|right" bottom_delta="-36" left="16" height="32">
+SansSerifHuge
+</text>
+
+<text font="Monospace" follows="left|top|right" bottom_delta="-40" left="16" height="16">
+Monospace
+</text>
+
+<text font="Monospace" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large">
+Monospace size=Large
+</text>
+
+<text font="SansSerifLarge" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_style="BOLD">
+SansSerifLarge style=BOLD
+</text>
+
+<text font="SansSerifBold" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerifBold
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_style="BOLD">
+SansSerif style=BOLD (should be same as SansSerifBold)
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+SansSerif style=ITALIC
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+SansSerif style=BOLD|ITALIC
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC|DROP_SHADOW_SOFT">
+SansSerif style=BOLD|ITALIC|DROP_SHADOW_SOFT
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="UNDERLINE">
+SansSerif style=UNDERLINE
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="DROP_SHADOW">
+SansSerif style=DROP_SHADOW
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="DROP_SHADOW_SOFT">
+SansSerif style=DROP_SHADOW_SOFT
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+DejaVu
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD">
+DejaVu style=BOLD
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+DejaVu style=ITALIC
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+DejaVu style=BOLD|ITALIC
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large" font-style="BOLD|ITALIC">
+DejaVu size=Large style=BOLD|ITALIC
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+Helvetica
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD">
+Helvetica style=BOLD
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+Helvetica style=ITALIC
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+Helvetica style=BOLD|ITALIC
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large" font-style="BOLD|ITALIC">
+Helvetica size=Large style=BOLD|ITALIC
+</text>
+
+<text name="linea" font="OverrideTest" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+OverrideTest, should be times, from default/xui/en-us
+</text>
+
+<text font="BogusFontName" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+BogusFontName
+</text>
+
+</floater>

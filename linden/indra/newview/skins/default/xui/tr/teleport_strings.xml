@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			Işınlanma isteğiniz sırasında bir problem ile karşılaşıldı. Işınlanmadan önce sistemden çıkış yapıp tekrar giriş yapmanız gerekebilir. Eğer bu mesajı almaya devam ederseniz,lütfen Tech Support FAQ&apos;yu inceleyiniz:
+www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			Bölge geçiş işleminiz sırasında bir problem ile karşılaşıldı. Bölgelere geçiş yapmadan önce sistemden çıkış yapıp tekrar giriş yapmanız gerekebilir. Eğer bu mesajı almaya devam ederseniz,lütfen Tech Support FAQ&apos;yu inceleyiniz:
+www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Üzgünüz, ışınlanma şu an devre dışı.Birazdan tekrar deneyiniz. Eğer hala ışınlanamıyorsanız,lütfen sorunu çözmek için sistemden çıkıp tekrar giriş yapınız.
+		</message>
+		<message name="nolandmark_tport">
+			Üzgünüz,fakat sistem yer imi hedefinin yerini saptayamadı.
+		</message>
+		<message name="timeout_tport">
+			Üzgünüz,fakat sistem ışınlanma bağlantınızı tamamlayamadı.
+Birazdan tekrar deneyiniz.
+		</message>
+		<message name="noaccess_tport">
+			Üzgünüz,bu hedefe ışınlanma yetkiniz bulunmamaktadır.
+		</message>
+		<message name="missing_attach_tport">
+			Aksesuarlarınız henüz ulaşmadı. Birkaç saniye daha beklemeyi deneyiniz veya tekrar ışınlanmaya kalkışmadan önce sistemden çıkıp tekrar giriş yapınız.
+		</message>
+		<message name="too_many_uploads_tport">
+			Bu bölge için varlık sırası şu an dolu,bu yüzden mevcut zamandaki ışınlanma isteğiniz başarılı olmayacaktır.
+Lütfen birkaç dakika içinde tekrar deneyiniz veya az yoğun olan bir lokasyona gidiniz.
+		</message>
+		<message name="expired_tport">
+			Üzgünüz,fakat sistem mevcut zamandaki ışınlanma isteğinizi tamamlayamadı.Lütfen birkaç dakika içinde tekrar deneyiniz.
+		</message>
+		<message name="expired_region_handoff">
+			Üzgünüz,fakat sistem mevcut zamandaki bölge geçişinizi tamamlayamadı. Lütfen birkaç dakika içinde tekrar deneyiniz.
+		</message>
+		<message name="no_host">
+			Işınlanılacak hedef bulunamıyor.Hedef geçici süre ile devre dışı veya artık var olmuyor olabilir. Lütfen birkaç dakika içinde tekrar deneyiniz.
+		</message>
+		<message name="no_inventory_host">
+			Envanter sistemi şu anda devre dışı.
+		</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">
+			Hedefe gönderiliyor.
+		</message>
+		<message name="redirecting">
+			Farklı bir lokasyona yönlendiriliyor.
+		</message>
+		<message name="relaying">
+			Hedefe yayın yapılıyor.
+		</message>
+		<message name="sending_home">
+			Ev lokasyon isteği gönderiliyor.
+		</message>
+		<message name="sending_landmark">
+			Yer imi lokasyon isteği gönderiliyor.
+		</message>
+		<message name="completing">
+			Işınlanma tamamlanıyor.
+		</message>
+		<message name="resolving">
+			Hedef çözümleniyor.
+		</message>
+		<message name="contacting">
+			Yeni bölge ile temasa geçiliyor.
+		</message>
+		<message name="arriving">
+			Ulaşılıyor...
+		</message>
+		<message name="requesting">
+			Işınlanma isteniyor...
+		</message>
+	</message_set>
+</teleport_messages>

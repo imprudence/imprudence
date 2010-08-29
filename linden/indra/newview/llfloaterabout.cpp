@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,13 +44,12 @@
 #include "llimagej2c.h"
 #include "audioengine.h"
 
+#include "hippoGridManager.h"
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
 #include "llagent.h"
 #include "llviewerstats.h"
 #include "llviewerregion.h"
-#include "llversionviewer.h"
-#include "llviewerbuild.h"
 #include "lluictrlfactory.h"
 #include "lluri.h"
 #include "llweb.h"
@@ -58,7 +58,12 @@
 #include "llappviewer.h" 
 #include "llglheaders.h"
 #include "llmediamanager.h"
+#include "llwindow.h"
+#include "viewerversion.h"
 
+#if LL_WINDOWS
+#include "lldxhardware.h"
+#endif
 
 extern LLCPUInfo gSysCPU;
 extern LLMemoryInfo gSysMemory;
@@ -112,10 +117,10 @@ LLFloaterAbout::LLFloaterAbout()
 	// Version string
 	std::string version = llformat(
 	  "%s %d.%d.%d %s / %s %d.%d.%d (%d), %s %s\n",
-		IMP_VIEWER_NAME,
-	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH, IMP_VERSION_TEST,
-		LL_VIEWER_NAME,
-	  LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD,
+	  ViewerVersion::getImpViewerName().c_str(),
+	  ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(), ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str(),
+	  ViewerVersion::getLLViewerName().c_str(),
+	  ViewerVersion::getLLMajorVersion(), ViewerVersion::getLLMinorVersion(), ViewerVersion::getLLPatchVersion(), ViewerVersion::getLLBuildVersion(),
 	  __DATE__, __TIME__);
 
 	support_widget->appendColoredText(version, FALSE, FALSE, gColors.getColor("TextFgReadOnlyColor"));
@@ -123,6 +128,16 @@ LLFloaterAbout::LLFloaterAbout()
 
 	std::string support;
 	support.append("\n\n");
+	support.append("Grid: " + gHippoGridManager->getConnectedGrid()->getGridName()
+					+ " (" + gHippoGridManager->getConnectedGrid()->getGridNick() + ")\n\n");
+
+#if LL_MSVC
+    support.append(llformat("Built with MSVC version %d\n\n", _MSC_VER));
+#endif
+
+#if LL_GNUC
+    support.append(llformat("Built with GCC version %d\n\n", GCC_VERSION));
+#endif
 
 	// Position
 	LLViewerRegion* region = gAgent.getRegion();
@@ -194,6 +209,20 @@ LLFloaterAbout::LLFloaterAbout()
 	support.append("Graphics Card: ");
 	support.append( (const char*) glGetString(GL_RENDERER) );
 	support.append("\n");
+
+#if LL_WINDOWS
+    getWindow()->incBusyCount();
+    getWindow()->setCursor(UI_CURSOR_ARROW);
+    support.append("Windows Graphics Driver Version: ");
+    LLSD driver_info = gDXHardware.getDisplayInfo();
+    if (driver_info.has("DriverVersion"))
+    {
+        support.append(driver_info["DriverVersion"]);
+    }
+    support.append("\n");
+    getWindow()->decBusyCount();
+    getWindow()->setCursor(UI_CURSOR_ARROW);
+#endif
 
 	support.append("OpenGL Version: ");
 	support.append( (const char*) glGetString(GL_VERSION) );
@@ -285,13 +314,13 @@ void LLFloaterAbout::show(void*)
 static std::string get_viewer_release_notes_url()
 {
 	std::ostringstream version;
-	version << IMP_VERSION_MAJOR << "."
-	        << IMP_VERSION_MINOR << "."
-	        << IMP_VERSION_PATCH;
+	version << ViewerVersion::getImpMajorVersion() << "."
+	        << ViewerVersion::getImpMinorVersion() << "."
+	        << ViewerVersion::getImpPatchVersion();
 
 	// Append the test version if it's not empty
-	if( strcmp(IMP_VERSION_TEST, "") != 0 )
-		version << "-" << IMP_VERSION_TEST;
+	if( !(ViewerVersion::getImpTestVersion().empty()) )
+		version << "-" << ViewerVersion::getImpTestVersion();
 
 	std::ostringstream url;
 	url << RELEASE_NOTES_BASE_URL << version.str();

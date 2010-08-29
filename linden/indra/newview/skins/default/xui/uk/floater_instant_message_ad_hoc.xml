@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(невідомо)" name="im_floater" title="(невідомо)" min_width="325">
+	<string name="ringing">
+		Приєднуємося до Голосового Чату...
+	</string>
+	<string name="connected">
+		Під&apos;єдналися. Натисніть тут, щоб закінчити.
+	</string>
+	<string name="hang_up">
+		Покинути Голосовий Чат
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Миттєві повідомлення з [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] друкує...
+	</string>
+	<string name="session_start_string">
+		Початок сесії з [NAME], зачекайте будь ласка.
+	</string>
+	<string name="default_text_label">
+		Натисніть тут для Миттєвих Повідомлень.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Дзвінок" name="start_call_btn" width="145"/>
+			<button label="Закінчити Дзвінок" name="end_call_btn" width="145" halign="right" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Натисніть сюди для показу активних учасників IM сесії." />
+			<line_editor label="Натисніть сюди для IM" name="chat_editor"  width="406"/>
+			<button label="Відправити" name="send_btn" left="416" width="80"/>
+		</layout_panel>
+		<layout_panel min_width="200" name="active_speakers_panel" width="200" />
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Ласкаво просимо у запит про допомогу *** 
+Будь ласка, перегляньте спочатку сторінки допомоги по SL, натиснувши F1, або зверніться до Бази Знань http://secondlife.com/knowledgebase/ 
+Якщо Вашої відповіді тут немає, то напишіть своє питання, і зачекайте декілька хвилин доки доступний помічник не відповість Вам.
+ -=-=- Час відповіді може бути різним, особливо в години пік -=-=-
+	</string>
+</floater>

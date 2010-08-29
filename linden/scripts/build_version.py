@@ -20,18 +20,20 @@ def get_version(filename):
     fp.close()
 
     vals = {}
-    m = re.search('const S32 IMP_VERSION_MAJOR = (\d+);', data)
+    m = re.search('<viewer version_major="(\d+)" />', data)
     vals['major'] = m.group(1)
-    m = re.search('const S32 IMP_VERSION_MINOR = (\d+);', data)
+    m = re.search('<viewer version_minor="(\d+)" />', data)
     vals['minor'] = m.group(1)
-    m = re.search('const S32 IMP_VERSION_PATCH = (\d+);', data)
+    m = re.search('<viewer version_patch="(\d+)" />', data)
     vals['patch'] = m.group(1)
-    m = re.search('const char \* const IMP_VERSION_TEST = "(.*)";', data)
+    m = re.search('<viewer version_test="(.*)" />', data)
     vals['test'] = m.group(1)
 
     version = "%(major)s.%(minor)s.%(patch)s" % vals
 
     if len(vals['test']) > 0:
+        # Replace some puncuation and spaces with '-' in the test version
+        vals['test'] = re.sub('[ \t:;,+/\\"\'`]+', '-', vals['test'])
         version += "-%(test)s" % vals
 
     return version

@@ -31,8 +31,10 @@
 
 
 #include "llpanel.h"
-#include "llscrolllistctrl.h"
 
+class PanelRadarEntry;
+class LLScrollListCtrl;
+class LLTabContainer;
 
 class PanelRadar : public LLPanel
 {
@@ -42,44 +44,47 @@ public:
 
 	BOOL postBuild();
 
-	// returns true if agent_id belongs to an Imprudence developer
-	static bool isImpDev(LLUUID agent_id);
-
+	// Returns true if agent_id belongs to an Imprudence developer
+	bool isImpDev(const LLUUID& agent_id);
+	// Change the camera focus to an avatar
+	void lookAtAvatar(const LLUUID& agent_id);
+	
+	// Returns UUID of currently selected avatar
 	LLUUID getSelected();
 
-	void addToTypingList(LLUUID agent_id);
-	void removeFromTypingList(LLUUID agent_id);
-
+	// Updates the radar button states
 	void updateButtonStates();
-	void populateRadar();
+	// Update the list of known avatars
+	void updateRadarInfo();
+	// Update the radar UI. Call updateRadarInfo first
+	void updateRadarDisplay();
+
+	// Returns PanelRadarEntry* if key is found, NULL if not
+	PanelRadarEntry* getEntry(const LLUUID& agent_id);
+	// Returns true if avatar is in the radar's list
+	bool isKnown(const LLUUID& agent_id);
 
 private:
 
-	// TODO: move all this info into its own object. It's stupid 
-	// and bug-prone to keep it all in separate containers, but 
-	// I want to get this out for 1.2 -- McCabe
-	std::set<LLUUID>    mChatAvatars;
-	std::set<LLUUID>    mTypingAvatars;
-	std::set<LLUUID>    mSimAvatars;
+	std::map<LLUUID, PanelRadarEntry> mAvatars;
 
+	// Returns your distance from an avatar's position
+	F32 calculateDistance(const LLUUID& agent_id, LLVector3d agent_position);
+	// Removes avatar IDs no longer known to the viewer
+	void removeDeadEntries(const std::vector<LLUUID>& agent_ids);
+
+	LLTabContainer*		mRadarTabs;
 	LLScrollListCtrl*   mRadarList;
 	LLUUID              mSelectedAvatar;
-
-	void updateChatList(std::vector<LLUUID> agent_ids);
-	bool isInChatList(LLUUID agent_id);
-	void addToChatList(LLUUID agent_id, std::string distance);
-	void removeFromChatList(LLUUID agent_id);
-
-	bool isInSimAvList(LLUUID agent_id);
-	void addToSimAvList(LLUUID agent_id, std::string distance);
-	void updateSimAvList(std::vector<LLUUID> agent_ids);
-
-	bool isTyping(LLUUID agent_id);
+	F32					mSelectedDistance;
 
 	bool visibleItemsSelected() const;
 	bool isKickable(const LLUUID &agent_id);
 
-	static std::string getSelectedName(const LLUUID &agent_id);
+	std::string getSelectedName(const LLUUID &agent_id);
+	F32			getSelectedDistance() { return mSelectedDistance; }
+
+	void sendAvatarPropertiesRequest(const LLUUID &agent_id);
 
 	static void onUseRadarList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
@@ -88,29 +93,33 @@ private:
 	static void onClickIM(void* user_data);
 	static void onClickAddFriend(void* user_data);
 	static void onClickOfferTeleport(void* user_data);
+	static void onClickTeleport(void *userdata);
 	static void onClickTrack(void* user_data);
 	static void onClickInvite(void* user_data);
 	static void callback_invite_to_group(LLUUID group_id, void *user_data);
 
+	static void onClickCam(void* user_data);
 	static void onClickFreeze(void *user_data);
+	static void onClickUnfreeze(void *user_data);
 	static void onClickEject(void *user_data);
 	static void onClickMute(void *user_data);
 	static void onClickUnmute(void *user_data);
 	static void onClickAR(void *user_data);
-	static void onClickEjectFromEstate(void *user_data);
+	//static void onClickEjectFromEstate(void *user_data); Not working yet
+	static void onClickBanFromEstate(void *user_data);
 
-	static void callbackFreeze(S32 option, void *user_data);
-	static void callbackEject(S32 option, void *user_data);
 	static void callbackAR(void *user_data);
-	static void callbackEjectFromEstate(S32 option, void *user_data);
+	static bool	callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	static bool	callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	//static bool	callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	static bool callbackBanFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self);
 
-	static void sendFreeze(const LLUUID &avatar, bool);
-	static void sendEject(const LLUUID &avatar, bool);
+	static void sendFreeze(const LLUUID& avatar, bool freeze);
+	static void sendEject(const LLUUID& avatar, bool ban);
 	static void cmdEstateEject(const LLUUID &avatar);
 	static void cmdEstateBan(const LLUUID &avatar);
 	static void sendEstateBan(const LLUUID& agent);
 	static void sendEstateMessage(const char* request, const LLUUID &target);
-
 };
 
 

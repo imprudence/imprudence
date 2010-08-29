@@ -1,6 +1,6 @@
 /** 
  * @file llfloaterpreference.cpp
- * @brief LLPreferenceCore class implementation
+ * @brief Global preferences with and without persistence.
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -61,6 +62,7 @@
 #include "llpanelmsgs.h"
 #include "llpanelweb.h"
 #include "llpanelskins.h"
+#include "llprefsadvanced.h"
 #include "llprefschat.h"
 #include "llprefsvoice.h"
 #include "llprefsim.h"
@@ -89,9 +91,10 @@ LLFloaterPreference* LLFloaterPreference::sInstance = NULL;
 class LLPreferencesHandler : public LLCommandHandler
 {
 public:
-	// don't allow from external browsers
-	LLPreferencesHandler() : LLCommandHandler("preferences", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	// requires trusted browser
+	LLPreferencesHandler() : LLCommandHandler("preferences", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web)
 	{
 		LLFloaterPreference::show(NULL);
 		return true;
@@ -130,7 +133,8 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
-	mLCDPanel(NULL)
+	mLCDPanel(NULL),
+	mPrefsAdvanced(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -189,6 +193,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mSkinsPanel = new LLPanelSkins();
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mSkinsPanel->setDefaultBtn(default_btn);
+
+	mPrefsAdvanced = new LLPrefsAdvanced();
+	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsAdvanced->setDefaultBtn(default_btn);
 
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
@@ -249,6 +257,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mSkinsPanel;
 		mSkinsPanel = NULL;
 	}
+	if (mPrefsAdvanced)
+	{
+		delete mPrefsAdvanced;
+		mPrefsAdvanced = NULL;
+	}
 
 }
 
@@ -259,11 +272,13 @@ void LLPreferenceCore::apply()
 	mInputPanel->apply();
 	mNetworkPanel->apply();
 	mDisplayPanel->apply();
+	mAudioPanel->apply();
 	mPrefsChat->apply();
 	mPrefsVoice->apply();
 	mPrefsIM->apply();
 	mMsgPanel->apply();
 	mSkinsPanel->apply();
+	mPrefsAdvanced->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -292,6 +307,7 @@ void LLPreferenceCore::cancel()
 	mPrefsIM->cancel();
 	mMsgPanel->cancel();
 	mSkinsPanel->cancel();
+	mPrefsAdvanced->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();
@@ -477,6 +493,7 @@ void LLFloaterPreference::onBtnApply( void* userdata )
 void LLFloaterPreference::onClose(bool app_quitting)
 {
 	LLPanelLogin::setAlwaysRefresh(false);
+	cancel(); // will be a no-op if OK or apply was performed just prior.
 	LLFloater::onClose(app_quitting);
 }
 
@@ -493,8 +510,7 @@ void LLFloaterPreference::onBtnCancel( void* userdata )
 			cur_focus->onCommit();
 		}
 	}
-	fp->cancel();
-	fp->close();
+	fp->close(); // side effect will also cancel any unsaved changes.
 }
 
 

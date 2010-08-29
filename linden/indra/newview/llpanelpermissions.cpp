@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,6 +64,8 @@
 #include "llviewercontrol.h"
 #include "lluictrlfactory.h"
 #include "roles_constants.h"
+
+#include "hippoGridManager.h"
 
 ///----------------------------------------------------------------------------
 /// Class llpanelpermissions
@@ -133,6 +136,9 @@ LLPanelPermissions::~LLPanelPermissions()
 
 void LLPanelPermissions::refresh()
 {
+	LLStringUtil::format_map_t argsCurrency;
+	argsCurrency["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
+
 	LLButton*	BtnDeedToGroup = getChild<LLButton>("button deed");
 	if(BtnDeedToGroup)
 	{	
@@ -233,7 +239,7 @@ void LLPanelPermissions::refresh()
 		}
 		
 		childSetEnabled("Cost",false);
-		childSetText("Cost",getString("Cost Default"));
+		childSetText("Cost", getString("Cost Default", argsCurrency));
 		childSetText("Edit Cost",LLStringUtil::null);
 		childSetEnabled("Edit Cost",false);
 		
@@ -397,17 +403,19 @@ void LLPanelPermissions::refresh()
 	{
 		edit_name_desc = TRUE;
 	}
+
+	childSetEnabled("Name:",true);
+	LLLineEditor* LineEditorObjectName = getChild<LLLineEditor>("Object Name");
+	childSetEnabled("Description:",true);
+	LLLineEditor*	LineEditorObjectDesc = getChild<LLLineEditor>("Object Description");
+
 	if(is_one_object)
 	{
-		childSetEnabled("Name:",true);
-		LLLineEditor* LineEditorObjectName = getChild<LLLineEditor>("Object Name");
 		if(keyboard_focus_view != LineEditorObjectName)
 		{
 			childSetText("Object Name",nodep->mName);
 		}
 
-		childSetEnabled("Description:",true);
-		LLLineEditor*	LineEditorObjectDesc = getChild<LLLineEditor>("Object Description");
 		if(LineEditorObjectDesc)
 		{
 			if(keyboard_focus_view != LineEditorObjectDesc)
@@ -415,6 +423,11 @@ void LLPanelPermissions::refresh()
 				LineEditorObjectDesc->setText(nodep->mDescription);
 			}
 		}
+	}
+	else
+	{
+		childSetText("Object Name",LLStringUtil::null);
+		LineEditorObjectDesc->setText(LLStringUtil::null);
 	}
 
 	if(edit_name_desc)
@@ -457,11 +470,11 @@ void LLPanelPermissions::refresh()
 		// If there are multiple items for sale then set text to PRICE PER UNIT.
 		if (num_for_sale > 1)
 		{
-			childSetText("Cost",getString("Cost Per Unit"));
+			childSetText("Cost",getString("Cost Per Unit", argsCurrency));
 		}
 		else
 		{
-			childSetText("Cost",getString("Cost Default"));
+			childSetText("Cost",getString("Cost Default", argsCurrency));
 		}
 		
 		LLLineEditor *editPrice = getChild<LLLineEditor>("Edit Cost");
@@ -502,15 +515,15 @@ void LLPanelPermissions::refresh()
 
 		// If multiple items are for sale, set text to TOTAL PRICE.
 		if (num_for_sale > 1)
-			childSetText("Cost",getString("Cost Total"));
+			childSetText("Cost", getString("Cost Total", argsCurrency));
 		else
-			childSetText("Cost",getString("Cost Default"));
+			childSetText("Cost", getString("Cost Default", argsCurrency));
 	}
 	// This is a public object.
 	else
 	{
 		childSetEnabled("Cost",false);
-		childSetText("Cost",getString("Cost Default"));
+		childSetText("Cost", getString("Cost Default", argsCurrency));
 		
 		childSetText("Edit Cost",LLStringUtil::null);
 		childSetEnabled("Edit Cost",false);
@@ -928,8 +941,9 @@ void LLPanelPermissions::cbGroupID(LLUUID group_id, void* userdata)
 	LLSelectMgr::getInstance()->sendGroup(group_id);
 }
 
-void callback_deed_to_group(S32 option, void*)
+bool callback_deed_to_group(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		LLUUID group_id;
@@ -940,12 +954,14 @@ void callback_deed_to_group(S32 option, void*)
 //			LLViewerStats::getInstance()->incStat(LLViewerStats::ST_RELEASE_COUNT);
 		}
 	}
+	return false;
 }
 
 void LLPanelPermissions::onClickDeedToGroup(void* data)
 {
-			gViewerWindow->alertXml( "DeedObjectToGroup",
-			callback_deed_to_group, NULL);
+	LLSD args;
+	args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
+	LLNotifications::instance().add( "DeedObjectToGroup", args, LLSD(), callback_deed_to_group);
 }
 
 ///----------------------------------------------------------------------------
@@ -1051,6 +1067,9 @@ void LLPanelPermissions::setAllSaleInfo()
 	llinfos << "LLPanelPermissions::setAllSaleInfo()" << llendl;
 	LLSaleInfo::EForSale sale_type = LLSaleInfo::FS_NOT;
 
+	LLStringUtil::format_map_t argsCurrency;
+	argsCurrency["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
+
 	LLCheckBoxCtrl *checkPurchase = getChild<LLCheckBoxCtrl>("checkbox for sale");
 	
 	// Set the sale type if the object(s) are for sale.
@@ -1084,7 +1103,7 @@ void LLPanelPermissions::setAllSaleInfo()
 	{
 		// Don't extract the price if it's labeled as MIXED or is empty.
 		const std::string& editPriceString = editPrice->getText();
-		if (editPriceString != getString("Cost Mixed") &&
+		if (editPriceString != getString("Cost Mixed", argsCurrency) &&
 			!editPriceString.empty())
 		{
 			price = atoi(editPriceString.c_str());
@@ -1144,7 +1163,7 @@ void LLPanelPermissions::onCommitClickAction(LLUICtrl* ctrl, void*)
 		LLSelectMgr::getInstance()->selectGetSaleInfo(sale_info);
 		if (!sale_info.isForSale())
 		{
-			gViewerWindow->alertXml("CantSetBuyObject");
+			LLNotifications::instance().add("CantSetBuyObject");
 
 			// Set click action back to its old value
 			U8 click_action = 0;
@@ -1162,7 +1181,7 @@ void LLPanelPermissions::onCommitClickAction(LLUICtrl* ctrl, void*)
 		if (!can_pay)
 		{
 			// Warn, but do it anyway.
-			gViewerWindow->alertXml("ClickActionNotPayable");
+			LLNotifications::instance().add("ClickActionNotPayable");
 		}
 	}
 	LLSelectMgr::getInstance()->selectionSetClickAction(click_action);

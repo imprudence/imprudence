@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="sell land" title="Arazi Satışı">
+	<text name="info_parcel_label">
+		Parsel:
+	</text>
+	<text name="info_parcel">
+		PARCEL NAME
+	</text>
+	<text name="info_size_label">
+		Boyut:
+	</text>
+	<text name="info_size">
+		[AREA] m²
+	</text>
+	<text name="info_action">
+		Bu parseli satmak için:
+	</text>
+	<text name="price_label">
+		Ücret belirleyin:
+	</text>
+	<text name="price_text">
+		Bu arazi için uygun ücreti giriniz.
+	</text>
+	<text name="price_ld">
+		L$
+	</text>
+	<text name="price_per_m">
+		([PER_METER] L$/m²)
+	</text>
+	<text name="sell_to_label">
+		Satılacak kişi:
+	</text>
+	<text name="sell_to_text">
+		Herhangi birine veya belirli bir üyeye satmak için seçim yapınız.
+	</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">
+			-- birini seçiniz --
+		</combo_item>
+		<combo_item name="Anyone">
+			Herhangi biri
+		</combo_item>
+		<combo_item name="Specificuser:">
+			Belirli üye:
+		</combo_item>
+	</combo_box>
+	<button label="Seç..." name="sell_to_select_agent"/>
+	<text name="sell_objects_label">
+		Objeleri arazi ile birlikte mi satacaksınız?
+	</text>
+	<text name="sell_objects_text">
+		Parsel üzerinde transfer olabilen objelerinizin sahiplikleri değişecektir.
+	</text>
+	<radio_group name="sell_objects">
+		<radio_item name="no">
+			Hayır, objelerin sahipliğine devam et.
+		</radio_item>
+		<radio_item name="yes">
+			Evet, objeleri arazi ile birlikte sat.
+		</radio_item>
+	</radio_group>
+	<button label="Objeleri göster" name="show_objects"/>
+	<text name="nag_message_label">
+		UNUTMAYIN: Tüm satışlar sonlanır.
+	</text>
+	<button label="Araziyi satışa çıkar" name="sell_btn"/>
+	<button label="İptal" name="cancel_btn"/>
+</floater>

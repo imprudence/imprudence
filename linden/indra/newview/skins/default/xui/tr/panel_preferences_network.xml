@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Ağ Bağlantısı" name="network">
+	<text type="string" length="1" name="text_box">
+		Maksimum bant genişliği:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (saniyedeki kilobit)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Disk ön bellek boyutu:
+	</text>
+	<text type="string" length="1" name="text_box5">
+		MB
+	</text>
+	<button label="Ön belleği temizle" name="clear_cache" width="120"/>
+	<text type="string" length="1" name="cache_location_label">
+		Disk ön bellek lokasyonu:
+	</text>
+	<button label="Düzenle" label_selected="Düzenle" name="set_cache" />
+	<button label="Yenile" label_selected="Yenile" name="reset_cache" />
+	<check_box label="Özel port bağlantısı" name="connection_port_enabled" />
+	<spinner label="Port numarası:" name="connection_port" />
+</panel>

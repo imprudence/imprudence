@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="godtools floater" title="Rendszergazda eszközök">
+	<tab_container name="GodTools Tabs">
+		<panel label="Grid" name="grid">
+			<button label="Összes felhasználó kirúgása"
+			     label_selected="Összes felhasználó kirúgása" name="Kick all users" width="180"/>
+			<button label="A régió térkép adatainak újratöltése"
+			     label_selected="A régió térkép adatainak újratöltése"
+			     name="A régió térkép adatainak újratöltése" />
+		</panel>
+		<panel label="Régió" name="region">
+			<text name="Sim Name:">
+				Sim név:
+			</text>
+			<check_box label="Prelude" name="check prelude"
+			     tool_tip="Régió beindításához ezt állítsd be." />
+			<check_box label="Nap rögzítése" name="check fixed sun"
+			     tool_tip="Nap pozíciójaának rögzítése (hasonlóan, mint a régió/telek esetén.)" />
+			<check_box label="Kezdő helyszín visszaállítása &#10; a teleportáláshoz"
+			     name="check reset home"
+			     tool_tip="Amikor a lakók teleportálnak, az általuk meghatározott kezdő helyük átállítása az érkezési helyszínre." />
+			<check_box label="Látható" name="check visible"
+			     tool_tip="A régió láthatóvá tétele a nem rendszergazdai joggal rendelkezők részére." bottom_delta="-32"/>
+			<check_box label="Károkozás" name="check damage"
+			     tool_tip="Károkozás engedélyezése ezen a régión." />
+			<check_box label="Forgalom követésének tiltása" name="block dwell"
+			      />
+			<text name="estate id">
+				Telek azonosító:
+			</text>
+			<text name="parent id">
+				Parent ID:
+			</text>
+		</panel>
+	</tab_container>
+</floater>

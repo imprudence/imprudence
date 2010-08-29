@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Земля &amp; L$" name="land_money_tab">
+	<string name="help_text">
+		Ділянки, якими володіє група, вказані разом з деталями вкладу. Якщо у користуванні знаходиться меньша або рівна Загальному Вкладу кількість Всієї землі, з&apos;явиться попередження. Вкладки Планування, Деталі і Продаж надають інформацію про фінанси групи.
+	</string>
+	<button label="?" name="help_button"/>
+	<string name="cant_view_group_land_text">
+		Ви не маєте прав для перегляду землі, що належить групі
+	</string>
+	<string name="cant_view_group_accounting_text">
+		Ви не маєте прав для перегляду інформації про рахунки групи.
+	</string>
+	<string name="loading_txt">
+		Завантаж...
+	</string>
+	<text name="group_land_heading">
+		Земля групи
+	</text>
+	<scroll_list name="group_parcel_list">
+		<column label="Назва ділянки" name="name"/>
+		<column label="Регіон" name="location"/>
+		<column label="Тип" name="type"/>
+		<column label="Площ." name="area"/>
+		<column label="" name="hidden"/>
+	</scroll_list>
+	<button label="На карті" label_selected="На карті" name="map_button"/>
+	<text name="total_contributed_land_label">
+		Всього внесків:
+	</text>
+	<text name="total_contributed_land_value">
+		[AREA] кв. м.
+	</text>
+	<text name="total_land_in_use_label">
+		Землі використов.:
+	</text>
+	<text name="total_land_in_use_value">
+		[AREA] кв. м.
+	</text>
+	<text name="land_available_label">
+		Земли доступно:
+	</text>
+	<text name="land_available_value">
+		[AREA] кв. м.
+	</text>
+	<text name="your_contribution_label">
+		Ваші внески:
+	</text>
+	<string name="land_contrib_error">
+		Неможливо встановити Ваші внески
+	</string>
+	<text name="your_contribution_max_value">
+		кв. м. ([AMOUNT] макс)
+	</text>
+	<text name="group_over_limit_text">
+		Учасники групи мають внести більше внесків для підтримки землі.
+	</text>
+	<text name="group_money_heading">
+		L$ групи
+	</text>
+	<tab_container name="group_money_tab_container">
+		<panel label="Планування" name="group_money_planning_tab">
+			<text_editor name="group_money_planning_text">
+				Розрахунок...
+			</text_editor>
+		</panel>
+		<panel label="Деталі" name="group_money_details_tab">
+			<text_editor name="group_money_details_text">
+				Розрахунок...
+			</text_editor>
+			<button label="&lt; Раніше" label_selected="&lt; Раніше" name="earlier_details_button" tool_tip="Раніше"/>
+			<button label="Пізніше &gt;" label_selected="Пізніше &gt;" name="later_details_button" tool_tip="Пізніше"/>
+		</panel>
+		<panel label="Продажі" name="group_money_sales_tab">
+			<text_editor name="group_money_sales_text">
+				Розрахунок...
+			</text_editor>
+			<button label="&lt; Раніше" label_selected="&lt; Раніше" name="earlier_sales_button" tool_tip="Раніше"/>
+			<button label="Пізніше &gt;" label_selected="Пізніше &gt;" name="later_sales_button" tool_tip="Пізніше"/>
+		</panel>
+	</tab_container>
+</panel>

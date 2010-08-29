@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money">
+
+	<string name="pay group">
+		Betal gruppe:
+	</string>
+	<string name="pay resident">
+		Betal beboer:
+	</string>
+
+	<text name="via object">
+		Via objekt: [OBJECT]
+	</text>
+
+	<text name="fastpay text">
+		Hurtig betal:
+	</text>
+
+	<button name="fastpay 1"  label="L$1"  />
+	<button name="fastpay 5"  label="L$5"  />
+	<button name="fastpay 10" label="L$10" />
+	<button name="fastpay 20" label="L$20" />
+
+	<text name="amount text">
+		Beløb:
+	</text>
+
+	<button name="pay btn"    label="Betal"    />
+	<button name="cancel btn" label="Annullér" />
+
+</floater>

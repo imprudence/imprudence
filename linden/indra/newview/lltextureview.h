@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -75,5 +76,40 @@ public:
 	static std::set<LLViewerImage*> sDebugImages;
 };
 
+class LLGLTexSizeBar;
+class LLTextureSizeView : public LLView
+{
+public:
+	LLTextureSizeView(const std::string& name);
+	~LLTextureSizeView();
+
+	/*virtual*/ void draw();
+	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask) ;
+	
+	void setType(S32 type) {mType = type ;}
+	enum
+	{
+		TEXTURE_MEM_OVER_SIZE,
+		TEXTURE_MEM_OVER_CATEGORY
+	};
+private:
+	//draw background for TEXTURE_MEM_OVER_SIZE
+	F32 drawTextureSizeDistributionGraph() ;
+	//draw real-time texture mem bar over size
+	void drawTextureSizeGraph();
+
+	//draw background for TEXTURE_MEM_OVER_CATEGORY
+	F32 drawTextureCategoryDistributionGraph() ;
+	//draw real-time texture mem bar over category
+	void drawTextureCategoryGraph();
+
+private:
+	std::vector<LLGLTexSizeBar*> mTextureSizeBar ;
+	LLRect mTextureSizeBarRect ;
+	S32    mTextureSizeBarWidth ;	
+	S32    mType ;
+};
 extern LLTextureView *gTextureView;
+extern LLTextureSizeView *gTextureSizeView;
+extern LLTextureSizeView *gTextureCategoryView;
 #endif // LL_TEXTURE_VIEW_H

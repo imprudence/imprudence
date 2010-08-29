@@ -4,19 +4,20 @@
 		Volume:
 	</text>
 	<text name="streaming_prefs_text">
-		Preferências de &#10;Streaming:
+		Preferências de 
+Streaming:
 	</text>
 	<text name="audio_prefs_text">
 		Preferências de Áudio:
 	</text>
 	<panel label="Volume" name="Volume Panel"/>
 	<check_box label="Tocar música em streaming quando disponível (usa mais banda)" name="streaming_music"/>
-	<check_box label="Tocar corrente de Media quando disponível (usa mais banda)" name="streaming_video"/>
+	<check_box label="Tocar streaming de Mídia quando disponível (usa mais banda)" name="streaming_video"/>
 	<check_box label="Tocar mídia automaticamente" name="auto_streaming_video"/>
 	<check_box label="Silenciar Áudio quando minimizar janela" name="mute_when_minimized"/>
 	<slider label="Efeito Doppler" name="Doppler Effect"/>
 	<slider label="Fator Distância" name="Distance Factor"/>
 	<slider label="Fator Rolloff" name="Rolloff Factor"/>
-	<spinner label="Alerta de L$" name="L$ Change Threshold"/>
-	<spinner label="Alerta de Saúde" name="Health Change Threshold"/>
+	<spinner label="Mudar nível de alerta de L$" name="L$ Change Threshold" label_width="165" width="229"/>
+	<spinner label="Mudar nível de alerta de Saúde" name="Health Change Threshold" label_width="165" width="229"/>
 </panel>

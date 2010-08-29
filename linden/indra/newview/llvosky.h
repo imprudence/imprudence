@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -146,7 +147,7 @@ protected:
 
 	static S32 getResolution()						{ return sResolution; }
 	static S32 getCurrent()						{ return sCurrent; }
-	static S32 stepCurrent()					{ return (sCurrent = (sCurrent+1) % 2); }
+	static S32 stepCurrent()					{ sCurrent++; sCurrent&=1; return sCurrent; }
 	static S32 getNext()						{ return ((sCurrent+1) % 2); }
 	static S32 getWhich(const BOOL curr)		{ return curr ? sCurrent : getNext(); }
 
@@ -491,7 +492,7 @@ public:
 	
 	// Graphical stuff for objects - maybe broken out into render class
 	// later?
-	/*virtual*/ void updateTextures(LLAgent &agent);
+	/*virtual*/ void updateTextures();
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
 

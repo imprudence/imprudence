@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="Új üzenet" name="New IM" title="Új üzenet">
+	<button label="Indít" label_selected="Indít" name="start_btn" />
+	<button label="Bezár" label_selected="Bezár" name="close_btn" />
+	<text name="name_format">
+		[FIRST] [LAST]
+	</text>
+	<text name="online_descriptor">
+		(online)
+	</text>
+</floater>

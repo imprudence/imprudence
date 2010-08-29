@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -30,7 +31,7 @@
  * $/LicenseInfo$
  */
 
-#include <tut/tut.h>
+#include <tut/tut.hpp>
 
 #if !LL_WINDOWS
 #include <netinet/in.h>
@@ -242,7 +243,7 @@ namespace tut
 		
 		try
 		{
-			ensure_equals(msg, w, v);
+			ensure_equals(msg.c_str(), w, v);
 		}
 		catch (...)
 		{
@@ -490,7 +491,7 @@ namespace tut
 			LLSD parsed_result;
 			mParser->reset();	// reset() call is needed since test code re-uses mParser
 			S32 parsed_count = mParser->parse(input, parsed_result, in.size());
-			ensure_equals(msg, parsed_result, expected_value);
+			ensure_equals(msg.c_str(), parsed_result, expected_value);
 
 			// This count check is really only useful for expected
 			// parse failures, since the ensures equal will already
@@ -1283,7 +1284,7 @@ namespace tut
 				count4,
 				count3);
 			ensure_equals(
-				msg + " (binaryandnotation)",
+				(msg + " (binaryandnotation)").c_str(),
 				actual_value_notation,
 				input);
 		}
@@ -1318,7 +1319,7 @@ namespace tut
 				"ensureBinaryAndXML xml count2",
 				count4,
 				count3);
-			ensure_equals(msg + " (binaryandxml)", actual_value_xml, input);
+			ensure_equals((msg + " (binaryandxml)").c_str(), actual_value_xml, input);
 		}
 	};
 

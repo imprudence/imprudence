@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="Panel Avatar">
-	<tab_container name="tab">
-		<panel label="セカンドライフ" name="2nd Life">
+<panel name="Panel Avatar" width="470">
+	<tab_container name="tab" width="459">
+		<panel label="Avatar" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
-				[ACCTTYPE]
+[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
 			</string>
@@ -43,13 +43,16 @@
 			<text name="label">
 				生年月日：
 			</text>
+			<line_editor name="born" />
 			<text name="label2">
 				アカウント：
 			</text>
+			<view_border name="acct_border" />
+			<text name="acct" />
 			<text name="partner_label" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
-				ﾊﾟｰﾄﾅｰ：
+				パートナー：
 			</text>
-			<button label="i" label_selected="i" name="partner_info" tool_tip="クリックして、パートナーのプロフィールを開けてください。"/>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="クリックして、パートナーのプロフィールを開けてください。" />
 			<button label="?" label_selected="?" name="partner_help"/>
 			<line_editor name="partner_edit" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
 				[FIRST] [LAST]
@@ -61,28 +64,33 @@
 			<text name="Groups:">
 				グループ：
 			</text>
+			<scroll_list name="groups" />
 			<text name="About:">
 				情報：
 			</text>
 			<text name="(500 chars)">
 				(500字)
 			</text>
+			<text_editor name="about" />
 			<text name="Give item:">
 				品目を贈る：
 			</text>
+			<view_border name="drop_target_rect" />
+			<view_border name="drop_target_rect_vis" />
 			<text name="Give inventory" tool_tip="ここに物品目をドロップしてこの人に贈ります">
 				持ち物アイテムをここにドロップします
 			</text>
 			<check_box label="検索に表示" name="allow_publish" tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。"/>
 			<button label="?" label_selected="?" name="?"/>
 			<button label="地図上で検索" label_selected="地図上で検索" name="Find on Map"/>
-			<button label="テレポートを贈る" label_selected="テレポートを贈る" name="Offer Teleport..."/>
-			<button label="フレンドを追加" label_selected="フレンドを追加" name="Add Friend..."/>
+			<button label="テレポートを送る" label_selected="テレポートを送る" name="Offer Teleport..." />
+			<button label="フレンドに追加" label_selected="フレンドに追加" name="Add Friend..." />
 			<button label="支払う" label_selected="支払う" name="Pay..."/>
-			<button label="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" label_selected="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)"/>
-			<button label="無視する" label_selected="無視する" name="Mute"/>
+			<button label="IMを送る" label_selected="IMを送る" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)" />
+			<button label="無視する" label_selected="無視する" name="Mute" />
 		</panel>
 		<panel label="ウェブ" name="WebProfile">
+		  <line_editor name="url_edit" />
 			<flyout_button label="ロード" label_selected="ロード" name="load" tool_tip="プロファイル・ページを内蔵ブラウザーでロードします。">
 				<flyout_button_item name="open_item">
 					内蔵ブラウザ
@@ -93,11 +101,12 @@
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="ウェブ・プロフィール自動ロード" name="auto_load" tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする"/>
+			<web_browser name="profile_html" />
 		</panel>
 		<panel label="興味" name="Interests">
-			<text name="I Want To:" width="74">
-				したいこと：
-			</text>
+      <text name="I Want To:">
+        したいこと：
+      </text>
 			<check_box label="作成" name="chk0"/>
 			<check_box label="探検" name="chk1"/>
 			<check_box label="出会い" name="chk2"/>
@@ -106,6 +115,7 @@
 			<check_box label="購入" name="chk4"/>
 			<check_box label="販売" name="chk5"/>
 			<check_box label="雇用" name="chk7"/>
+			<line_editor name="want_to_edit" />
 			<text name="Skills:">
 				スキル：
 			</text>
@@ -115,11 +125,14 @@
 			<check_box label="モデル" name="schk3"/>
 			<check_box label="スクリプト" name="schk4"/>
 			<check_box label="キャラクターのカスタム" name="schk5"/>
+			<line_editor name="skills_edit" />
 			<text name="Languages:">
 				言語：
 			</text>
+			<line_editor name="languages_edit" />
 		</panel>
 		<panel label="ピック" name="Picks">
+			<tab_container name="picks tab" />
 			<text name="Tell everyone about your favorite places in Second Life.">
 				Second Lifeのお気入りの場所を皆に教えてください
 			</text>
@@ -129,7 +142,8 @@
 				ロード中．．．
 			</text>
 		</panel>
-		<panel label="クラシファイド広告" name="Classified">
+		<panel label="広告" name="Classified">
+			<tab_container name="classified tab" />
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				SecondLifeのクラシファイドリストに広告を載せます。
 			</text>
@@ -140,6 +154,7 @@
 			</text>
 		</panel>
 		<panel label="リアルライフ" name="1st Life">
+			<text_editor name="about" />
 			<text name="Photo:">
 				写真：
 			</text>
@@ -151,7 +166,8 @@
 				(250字)
 			</text>
 		</panel>
-		<panel label="私の記録" name="My Notes">
+		<panel label="メモ" name="My Notes">
+			<text_editor name="notes edit" />
 			<string name="Loading">
 				ロード中．．．
 			</string>
@@ -165,7 +181,7 @@
 	<button label="取り消し" label_selected="取り消し" name="Cancel"/>
 	<button label="キック" label_selected="キック" name="Kick"/>
 	<button label="フリーズ" label_selected="フリーズ" name="Freeze" tool_tip="この住人の動きと会話を停止します。"/>
-	<button label="解凍" label_selected="解凍" name="Unfreeze" tool_tip="住人のフリーズを解除"/>
+	<button label="解除" label_selected="解除" name="Unfreeze" tool_tip="住人のフリーズを解除"/>
 	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="この住人のカスタマー・サービス・ツールを開きます。"/>
 	<string name="ShowOnMapNonFriend">
 		地図上でロケーションを表示します。
@@ -182,11 +198,11 @@
 		あなたのロケーションに強制テレポート
 	</string>
 	<string name="TeleportPrelude">
-		あなたのロケーションへのテレポートを贈ります。
+		あなたのロケーションへのテレポートを送ります。
 あなたがオリエンテーション・アイランドを去るまで無効です。
 	</string>
 	<string name="TeleportNormal">
-		あなたのロケーションへのテレポートを贈ります。
+		あなたのロケーションへのテレポートを送ります。
 	</string>
 	<string name="Loading">
 		ローディング．．．

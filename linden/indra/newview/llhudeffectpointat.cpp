@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -151,6 +152,9 @@ void LLHUDEffectPointAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	mesgsys->getUUIDFast(_PREHASH_Effect, _PREHASH_ID, dataId, blocknum);
 
 	// ignore messages from ourselves
+	//
+	//ok, this filters if the message is from ourselves, but not the message content, esp not
+	// the "source object" which could be a faked  "ourselves"
 	if (!gAgent.mPointAt.isNull() && dataId == gAgent.mPointAt->getID())
 	{
 		return;
@@ -172,6 +176,11 @@ void LLHUDEffectPointAt::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	LLViewerObject *objp = gObjectList.findObject(source_id);
 	if (objp && objp->isAvatar())
 	{
+		if (source_id == gAgent.getID()) // faked  "ourselves", isn't it?
+		{
+			LL_DEBUGS("Messaging") << "corrupted source id. Someone might be trying to grief us with the point at animation" << LL_ENDL;
+			return;
+		}
 		setSourceObject(objp);
 	}
 	else

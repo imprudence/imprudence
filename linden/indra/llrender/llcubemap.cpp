@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,7 +40,6 @@
 #include "v3dmath.h"
 #include "m3math.h"
 #include "m4math.h"
-#include "llcamera.h"
 
 #include "llrender.h"
 
@@ -85,27 +85,28 @@ void LLCubeMap::initGL()
 		// Not initialized, do stuff.
 		if (mImages[0].isNull())
 		{
-			GLuint texname = 0;
+			U32 texname = 0;
 			
-			glGenTextures(1, &texname);
+			LLImageGL::generateTextures(1, &texname);
 
 			for (int i = 0; i < 6; i++)
 			{
 				mImages[i] = new LLImageGL(64, 64, 4, (use_cube_mipmaps? TRUE : FALSE));
 				mImages[i]->setTarget(mTargets[i], LLTexUnit::TT_CUBE_MAP);
 				mRawImages[i] = new LLImageRaw(64, 64, 4);
-				mImages[i]->createGLTexture(0, mRawImages[i], texname);
+				mImages[i]->createGLTexture(0, mRawImages[i], texname, TRUE);
 				
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_CUBE_MAP, texname); 
-				mImages[i]->setClampCubemap (TRUE, TRUE, TRUE);
+				mImages[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 				stop_glerror();
 			}
+			gGL.getTexUnit(0)->disable();
 		}
 		disable();
 	}
 	else
 	{
-		llwarns << "Using cube map without extension!" << llendl
+		llwarns << "Using cube map without extension!" << llendl;
 	}
 }
 
@@ -311,8 +312,8 @@ void LLCubeMap::restoreMatrix()
 void LLCubeMap::setReflection (void)
 {
 	gGL.getTexUnit(mTextureStage)->bindManual(LLTexUnit::TT_CUBE_MAP, getGLName());
-	mImages[0]->setMipFilterNearest (FALSE, FALSE);
-	mImages[0]->setClampCubemap (TRUE, TRUE);
+	mImages[0]->setFilteringOption(LLTexUnit::TFO_ANISOTROPIC);
+	mImages[0]->setAddressMode(LLTexUnit::TAM_CLAMP);
 }
 
 LLVector3 LLCubeMap::map(U8 side, U16 v_val, U16 h_val) const

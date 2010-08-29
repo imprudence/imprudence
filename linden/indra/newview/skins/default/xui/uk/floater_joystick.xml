@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Настройки Джойстика">
+	<check_box name="enable_joystick">
+		Увімкнути Джойстик:
+	</check_box>
+	<text left="160" name="joystick_type" width="340"/>
+	<spinner label="Вісь X" name="JoystickAxis1"/>
+	<spinner label="Вісь Y" name="JoystickAxis2"/>
+	<spinner label="Вісь Z" name="JoystickAxis0"/>
+	<spinner label="Крок" name="JoystickAxis4"/>
+	<spinner label="Відхилення" name="JoystickAxis5"/>
+	<spinner label="Прокрутка" name="JoystickAxis3"/>
+	<spinner label="Масштаб." name="JoystickAxis6"/>
+	<check_box label="Пряме масштаб." name="ZoomDirect"/>
+	<check_box label="3D курсор" name="Cursor3D"/>
+	<check_box label="Авто Рівень" name="AutoLeveling"/>
+	<text length="1" name="Control Modes:" type="string">
+		Режими управл.:
+	</text>
+	<check_box name="JoystickAvatarEnabled">
+		Аватар
+	</check_box>
+	<check_box name="JoystickBuildEnabled" left="192">
+		Будівн
+	</check_box>
+	<check_box name="JoystickFlycamEnabled">
+		Політ
+	</check_box>
+	<text name="XScale">
+		Шкала Х
+	</text>
+	<text name="YScale">
+		Шкала Y
+	</text>
+	<text name="ZScale">
+		Шкала Z
+	</text>
+	<text name="PitchScale">
+		Шкала Кроку
+	</text>
+	<text name="YawScale">
+		Шкала Відхил.
+	</text>
+	<text name="RollScale">
+		Шкала Прокр.
+	</text>
+	<text name="XDeadZone">
+		Мер.Зона по X
+	</text>
+	<text name="YDeadZone">
+		Мер.Зона по Y
+	</text>
+	<text name="ZDeadZone">
+		Мер.Зона по Z
+	</text>
+	<text name="PitchDeadZone" left="3" width="112">
+		Мер.Зона Кроку
+	</text>
+	<text name="YawDeadZone" left="3" width="112">
+		Мер.Зона Відхил.
+	</text>
+	<text name="RollDeadZone" left="3" width="112">
+		Мер.Зона Прокр.
+	</text>
+	<text name="Feathering">
+		Розтяжка
+	</text>
+	<slider label="" name="AvatarFeathering"/>
+	<slider label="" name="BuildFeathering"/>
+	<slider label="" name="FlycamFeathering"/>
+	<text name="ZoomScale2" width="135" left="6">
+		Шкала Масштаб.
+	</text>
+	<spinner label="" name="FlycamAxisScale6"/>
+	<text name="ZoomDeadZone" width="135" left="6">
+		Мер.Зона Масштаб.
+	</text>
+	<spinner label="" name="FlycamAxisDeadZone6"/>
+	<button label="За замовчуванням SpaceNavigator" name="SpaceNavigatorDefaults" font="SansSerifSmall" left="330" width="210"/>
+	<button label="OK" label_selected="OK" name="ok_btn" left="330"/>
+	<button label="Відміна" label_selected="Відміна" name="cancel_btn" left_delta="120"/>
+	<string name="JoystickMonitor">
+		Моніторинг Джойстика
+	</string>
+	<string name="Axis">
+		Вісь [NUM]
+	</string>
+	<string name="NoDevice">
+		обладнання не знайдено
+	</string>
+</floater>

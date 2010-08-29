@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -89,7 +90,7 @@ void LLPanelNetwork::onClickClearCache(void*)
 {
 	// flag client cache for clearing next time the client runs
 	gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);
-	gViewerWindow->alertXml("CacheWillClear");
+	LLNotifications::instance().add("CacheWillClear");
 }
 
 // static
@@ -110,7 +111,7 @@ void LLPanelNetwork::onClickSetCache(void* user_data)
 	if (!dir_name.empty() && dir_name != cur_name)
 	{
 		self->childSetText("cache_location", dir_name);
-		gViewerWindow->alertXml("CacheWillBeMoved");
+		LLNotifications::instance().add("CacheWillBeMoved");
 		gSavedSettings.setString("NewCacheLocation", dir_name);
 	}
 	else
@@ -127,7 +128,7 @@ void LLPanelNetwork::onClickResetCache(void* user_data)
 	if (!gSavedSettings.getString("CacheLocation").empty())
 	{
 		gSavedSettings.setString("NewCacheLocation", "");
-		gViewerWindow->alertXml("CacheWillBeMoved");
+		LLNotifications::instance().add("CacheWillBeMoved");
 	}
 	std::string cache_location = gDirUtilp->getCacheDir(true);
 	self->childSetText("cache_location", cache_location);
@@ -141,5 +142,5 @@ void LLPanelNetwork::onCommitPort(LLUICtrl* ctrl, void* data)
 
   if (!self || !check) return;
   self->childSetEnabled("connection_port", check->get());
-  gViewerWindow->alertXml("ChangeConnectionPort");
+  LLNotifications::instance().add("ChangeConnectionPort");
 }

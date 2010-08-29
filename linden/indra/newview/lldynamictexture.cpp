@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -110,8 +111,8 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 		mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
 	}
 // 	llinfos << "ALLOCATING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
-	mTexture->createGLTexture(0, raw_image);
-	mTexture->setClamp(mClamp, mClamp);
+	mTexture->createGLTexture(0, raw_image, 0, TRUE, LLViewerImageBoostLevel::DYNAMIC_TEX);
+	mTexture->setAddressMode((mClamp) ? LLTexUnit::TAM_CLAMP : LLTexUnit::TAM_WRAP);
 	mTexture->setGLTextureCreated(false);
 }
 

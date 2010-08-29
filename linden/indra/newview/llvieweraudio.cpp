@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -71,8 +72,8 @@ void init_audio()
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndChatFromObject")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndClick")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndClickRelease")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndHealthReductionF")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndHealthReductionM")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndHealthReductionF")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndHealthReductionM")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndIncomingChat")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndIncomingIM")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndInvApplyToObject")));
@@ -84,23 +85,23 @@ void init_audio()
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndObjectCreate")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndObjectDelete")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndObjectRezIn")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndObjectRezOut")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuAppear")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuHide")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight0")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight1")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight2")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight3")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight4")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight5")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight6")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight7")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndObjectRezOut")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuAppear")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuHide")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight0")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight1")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight2")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight3")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight4")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight5")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight6")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndPieMenuSliceHighlight7")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndSnapshot")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndStartAutopilot")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndStartFollowpilot")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndStartIM")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndStopAutopilot")));
-		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndTeleportOut")));
+		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndTeleportOut")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndTextureApplyToObject")));
 		//gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndTextureCopyToInv")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndTyping")));

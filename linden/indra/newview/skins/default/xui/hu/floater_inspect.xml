@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inspect" title="Tárgyak ellenőrzése">
+	<scroll_list name="object_list" tool_tip="Válassz ki egy tárgyat a kijelöléshez">
+		<column label="Tárgy neve" name="object_name" />
+		<column label="Tulajdonos" name="owner_name" />
+		<column label="Készítő" name="creator_name" />
+		<column label="Létrehozás ideje" name="creation_date" />
+	</scroll_list>
+	<button label="Tulajdonos adatlapja" label_selected="" name="button owner"
+	     tool_tip="Tekintsd meg a kijelölt tárgy tulajdonosának adatlapját" />
+	<button label="Készítő adatlapja" label_selected="" name="button creator"
+	     tool_tip="Tekintsd meg a kijelölt tárgy eredeti készítőjének adatlapját" />
+</floater>

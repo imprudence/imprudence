@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="Szabálytalanságok jelentése">
+	<texture_picker label="" name="screenshot"/>
+	<check_box label="Képet mellékel" name="screen_check"/>
+	<text name="reporter_title" width="100">
+		Bejelentő:
+	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
+	<text name="sim_title">
+		Régió:
+	</text>
+	<text name="sim_field">
+		Régió neve
+	</text>
+	<text name="pos_title" width="110">
+		Koordináta:
+	</text>
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
+	<text name="select_object_label">
+		Kattints a gombra, majd a tárgyra:
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Tárgy kiválasztó - Jelölj ki egy tárgyat, amire a bejelentés irányul"/>
+	<text name="object_name_label">
+		Név:
+	</text>
+	<text name="object_name" width="120">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Tulajdonos:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo" tool_tip="Kategória -- válaszd ki azt a kategóriát, amely a legjobban jellemző a bejelentésre">
+		<combo_item name="Select_category">
+			Kategória kiválasztása
+		</combo_item>
+		<combo_item name="Age__Age_play">
+			Kor &gt; Korral való visszaélés
+		</combo_item>
+		<combo_item name="Age__Adult_resident_on_Teen_Second_Life">
+			Kor &gt; Felnőtt lakó a Teen Second Life területén
+		</combo_item>
+		<combo_item name="Age__Underage_resident_outside_of_Teen_Second_Life">
+			Kor &gt; Korhatár alatti lakó a Teen Second Life-on kívül
+		</combo_item>
+		<combo_item name="Assault__Combat_sandbox___unsafe_area">
+			Támadás &gt; Homokozó harcokhoz / Nem biztonságos terület
+		</combo_item>
+		<combo_item name="Assault__Safe_area">
+			Támadás &gt; Biztonságos terület
+		</combo_item>
+		<combo_item name="Assault__Weapons_testing_sandbox">
+			Támadás &gt; Fegyverek tesztelése homokozón
+		</combo_item>
+		<combo_item name="Commerce__Failure_to_deliver_product_or_service">
+			Kereskedelem &gt; Termékek és szolgáltatások szállításának hiánya
+		</combo_item>
+		<combo_item name="Disclosure__Real_world_information">
+			Közzététel &gt; Való világgal kapcsolatos információ
+		</combo_item>
+		<combo_item name="Disclosure__Remotely_monitoring chat">
+			Közzététel &gt; Üzenetek távoli monitorozása
+		</combo_item>
+		<combo_item name="Disclosure__Second_Life_information_chat_IMs">
+			Közzététel &gt; Second Life információ / Üzenet
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unfair_use_of_region_resources">
+			Nyugalom megzavarása &gt; Régiós eszközök tisztességtelen használata
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Excessive_scripted_objects">
+			Nyugalom megzavarása &gt; Végtelenített scriptelt tárgyak
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Object_littering">
+			Nyugalom megzavarása &gt; Szemetelés tárgyakkal
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Repetitive_spam">
+			Nyugalom megzavarása &gt; Ismétlődő spam
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unwanted_advert_spam">
+			Nyugalom megzavarása &gt; Kéretlen reklámspam
+		</combo_item>
+		<combo_item name="Fraud__L$">
+			Csalás &gt; L$
+		</combo_item>
+		<combo_item name="Fraud__Land">
+			Csalás &gt; Föld
+		</combo_item>
+		<combo_item name="Fraud__Pyramid_scheme_or_chain_letter">
+			Csalás &gt; Piramis játék és lánclevél
+		</combo_item>
+		<combo_item name="Fraud__US$">
+			Csalás &gt; US$
+		</combo_item>
+		<combo_item name="Harassment__Advert_farms___visual_spam">
+			Zaklatás &gt; Reklámfarmok / Vizuális spam
+		</combo_item>
+		<combo_item name="Harassment__Defaming_individuals_or_groups">
+			Zaklatás &gt; Személyek vagy csoportok rágalmazása
+		</combo_item>
+		<combo_item name="Harassment__Impeding_movement">
+			Zaklatás &gt; Mozgás megakadályozása
+		</combo_item>
+		<combo_item name="Harassment__Sexual_harassment">
+			Zaklatás &gt; Szexuális zaklatás
+		</combo_item>
+		<combo_item name="Harassment__Solicting_inciting_others_to_violate_ToS">
+			Zaklatás &gt; Bátorítás ToS szabályok megszegésére
+		</combo_item>
+		<combo_item name="Harassment__Verbal_abuse">
+			Zaklatás &gt; Sértegetés
+		</combo_item>
+		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
+			Durvaság &gt; Sértő tartalom vagy magatartás
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_avatar_name">
+			Durvaság &gt; Nem megfelelő avatárnév
+		</combo_item>
+		<combo_item name="Indecency__Mature_content_in_PG_region">
+			Szemérmetlenség &gt; Nem megfelelő tartalom vagy viselkedés PG régión
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_content_in_Mature_region">
+			Szemérmetlenség &gt; Nem megfelelő tartalom vagy viselkedés Mature régión
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_Content_Removal">
+			Szellemi jogsértés &gt; Tartalom törlése
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_CopyBot_or_Permissions_Exploit">
+			Szellemi jogsértés &gt; CopyBot vagy jogosultságok hamisítása
+		</combo_item>
+		<combo_item name="Intolerance">
+			Türelmetlenség
+		</combo_item>
+		<combo_item name="Land__Abuse_of_sandbox_resources">
+			Föld &gt; Visszaélések a homokozó erőforrásaival
+		</combo_item>
+		<combo_item name="Land__Encroachment__Objects_textures">
+			Föld &gt; Jogsértés &gt; Tárgyak / Textúrák
+		</combo_item>
+		<combo_item name="Land__Encroachment__Particles">
+			Föld &gt; Jogsértés &gt; Partikulák
+		</combo_item>
+		<combo_item name="Land__Encroachment__Trees_plants">
+			Föld &gt; Jogsérelem &gt; Fák / Növények
+		</combo_item>
+		<combo_item name="Wagering_gambling">
+			Fogadás / Szerencsejáték
+		</combo_item>
+		<combo_item name="Other">
+			Egyéb
+		</combo_item>
+	</combo_box>
+	<text name="abuser_name_title">
+		Szabálytalankodó neve:
+	</text>
+	<button label="Lakó kiválasztása" label_selected="" name="select_abuser" tool_tip="Válaszd ki azt a lakót a listából, aki a visszaélést végezte"/>
+	<check_box label="Nem ismerem a szabálytalankodó nevét" name="omit_abuser_name" tool_tip="Jelöld itt, amennyiben a szabálytalankodó nevét nem tudod megadni"/>
+	<text name="abuser_name_title2">
+		Szabálytalanság helyszíne:
+	</text>
+	<text name="sum_title">
+		Összefoglaló:
+	</text>
+	<text name="dscr_title">
+		Részletek:
+	</text>
+	<text name="bug_aviso">
+		Kérjük pontosan add meg a dátumot, helyszínt, 
+szabálytalankodás környezetét, ehhez kapcsolódó 
+üzenetek előzményeit és jelöld ki az ehhez tartozó tárgyat 
+is, ha lehetséges.
+	</text>
+	<text_editor bottom_delta="-154" height="140" left="16" name="details_edit" width="356"/>
+	<text name="incomplete_title" bottom_delta="-22">
+		Megjegyzés: Hiányos jelentések nem kerülnek kivizsgálásra.
+	</text>
+	<button label="Töröl" label_selected="Töröl" name="cancel_btn"/>
+	<button label="Bejelent" label_selected="Bejelent" name="send_btn"/>
+</floater>

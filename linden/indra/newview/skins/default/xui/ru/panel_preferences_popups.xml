@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Уведомления" name="popups" title="Уведомления">
+	<text name="dont_show_label">
+		Не показывать всплывающие окна:
+	</text>
+	<button label="Вкл. это Уведомл." name="enable_popup"/>
+	<button width="225" label="Включить все вспл.окна..." name="reset_dialogs_btn" tool_tip="Включить все показываемые &apos;впервые&apos; уведомл."/>
+	<text name="show_label" width="300">
+		Показывать эти всплывающие окна:
+	</text>
+	<button width="225" label="Выключить все вспл.окна..." name="skip_dialogs_btn" tool_tip="Выключить все показываемые &apos;впервые&apos; уведомления."/>
+	<text length="1" name="text_box2" type="string">
+		Разрешения для заметок, текстур и закладок:
+	</text>
+	<check_box label="Принимать автоматически" name="accept_new_inventory"/>
+	<check_box label="Автоматический просмотр при получении" name="show_new_inventory"/>
+	<check_box label="Автоматически показывать принятые предметы в инвентаре" name="show_in_inventory"/>
+</panel>

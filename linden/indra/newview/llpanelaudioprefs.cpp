@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -61,6 +62,8 @@
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 
+#include "hippoGridManager.h"
+
 //
 // Static functions
 //
@@ -86,6 +89,15 @@ LLPanelAudioPrefs::~LLPanelAudioPrefs()
 
 BOOL LLPanelAudioPrefs::postBuild()
 {
+	refreshValues(); // initialize member data from saved settings
+	childSetLabelArg("L$ Change Threshold", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	childSetValue("mute_wind_check", !gSavedSettings.getBOOL("MuteWind"));
+
+	return TRUE;
+}
+
+void LLPanelAudioPrefs::refreshValues()
+{
 	mPreviousVolume = gSavedSettings.getF32("AudioLevelMaster");
 	mPreviousSFX = gSavedSettings.getF32("AudioLevelSFX");
 	mPreviousUI = gSavedSettings.getF32("AudioLevelUI");
@@ -104,9 +116,13 @@ BOOL LLPanelAudioPrefs::postBuild()
 
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
+}
 
-	return TRUE;
+void LLPanelAudioPrefs::apply()
+{
+	refreshValues();
 
+	gSavedSettings.setBOOL("MuteWind", !(BOOL)(childGetValue("mute_wind_check").asBoolean()));
 }
 
 void LLPanelAudioPrefs::cancel()

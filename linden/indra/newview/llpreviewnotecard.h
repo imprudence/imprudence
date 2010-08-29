@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,8 +43,10 @@
 // This class allows us to edit notecards
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class LLTextEditor;
 class LLViewerTextEditor;
 class LLButton;
+class LLMenuBarGL;
 
 class LLPreviewNotecard : public LLPreview
 {
@@ -83,10 +86,12 @@ public:
 	// asset system. :(
 	void refreshFromInventory();
 
+	LLTextEditor* getEditor();
+
+	bool saveIfNeeded(LLInventoryItem* copyitem = NULL);
 protected:
 
 	virtual void loadAsset();
-	bool saveIfNeeded(LLInventoryItem* copyitem = NULL);
 
 	static LLPreviewNotecard* getInstance(const LLUUID& uuid);
 
@@ -101,9 +106,28 @@ protected:
 							   void* user_data,
 							   S32 status, LLExtStat ext_status);
 
-	static void handleSaveChangesDialog(S32 option, void* userdata);
+	bool handleSaveChangesDialog(const LLSD& notification, const LLSD& response);
 
 	virtual const char *getTitleName() const { return "Note"; }
+
+	void			initMenu();
+
+	static void		onSearchMenu(void* userdata);
+	static void		onUndoMenu(void* userdata);
+	static void		onRedoMenu(void* userdata);
+	static void		onCutMenu(void* userdata);
+	static void		onCopyMenu(void* userdata);
+	static void		onPasteMenu(void* userdata);
+	static void		onSelectAllMenu(void* userdata);
+	static void		onDeselectMenu(void* userdata);
+
+	static BOOL		enableUndoMenu(void* userdata);
+	static BOOL		enableRedoMenu(void* userdata);
+	static BOOL		enableCutMenu(void* userdata);
+	static BOOL		enableCopyMenu(void* userdata);
+	static BOOL		enablePasteMenu(void* userdata);
+	static BOOL		enableSelectAllMenu(void* userdata);
+	static BOOL		enableDeselectMenu(void* userdata);
 
 protected:
 	LLViewerTextEditor* mEditor;

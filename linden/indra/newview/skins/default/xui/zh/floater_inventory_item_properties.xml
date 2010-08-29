@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="item properties" title="物品属性">
 	<text name="LabelItemNameTitle">
 		名字:
@@ -12,53 +12,53 @@
 	<text name="LabelCreatorName">
 		Nicole Linden
 	</text>
-	<button label="档案..." label_selected="" name="BtnCreator" />
+	<button label="档案..." label_selected="" name="BtnCreator"/>
 	<text name="LabelOwnerTitle">
 		主人:
 	</text>
 	<text name="LabelOwnerName">
 		Thrax Linden
 	</text>
-	<button label="档案..." label_selected="" name="BtnOwner" />
+	<button label="档案..." label_selected="" name="BtnOwner"/>
 	<text name="LabelAcquiredTitle">
 		获得时间:
 	</text>
 	<text name="LabelAcquiredDate">
-		2006年 5月 24日 星期三 12:50:46 
+		2006年 5月 24日 星期三 12:50:46
 	</text>
 	<text name="OwnerLabel">
 		你可以：
 	</text>
-	<check_box label="修改" name="CheckOwnerModify" />
-	<check_box label="复制" name="CheckOwnerCopy" />
-	<check_box label="转卖/赠与" name="CheckOwnerTransfer" />
-	<!--<text name="BaseMaskDebug">
-		基:
+	<check_box label="修改" name="CheckOwnerModify"/>
+	<check_box label="复制" name="CheckOwnerCopy"/>
+	<check_box label="转卖/赠与" name="CheckOwnerTransfer"/>
+	<text name="BaseMaskDebug">
+		B:
 	</text>
 	<text name="OwnerMaskDebug">
-		主:
+		O:
 	</text>
 	<text name="GroupMaskDebug">
-		团:
+		G:
 	</text>
 	<text name="EveryoneMaskDebug">
-		众:
+		E:
 	</text>
 	<text name="NextMaskDebug">
-		受:
-	</text>-->
-	<check_box label="与社团分享" name="CheckShareWithGroup" />
-	<check_box label="允许任何人复制" name="CheckEveryoneCopy" />
+		N:
+	</text>
+	<check_box label="与社团分享" name="CheckShareWithGroup"/>
+	<check_box label="允许任何人复制" name="CheckEveryoneCopy"/>
 	<text name="NextOwnerLabel">
 		下个拥有者可以:
 	</text>
-	<check_box label="修改" name="CheckNextOwnerModify" />
-	<check_box label="复制" name="CheckNextOwnerCopy" />
-	<check_box label="转卖/赠与" name="CheckNextOwnerTransfer" />
+	<check_box label="修改" name="CheckNextOwnerModify"/>
+	<check_box label="复制" name="CheckNextOwnerCopy"/>
+	<check_box label="转卖/赠与" name="CheckNextOwnerTransfer"/>
 	<text name="SaleLabel">
 		标记项目为:
 	</text>
-	<check_box label="可出售" name="CheckPurchase" />
+	<check_box label="可出售" name="CheckPurchase"/>
 	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
 			原件
@@ -70,8 +70,16 @@
 	<text name="TextPrice">
 		价格：L$
 	</text>
-	<text name="unknown">(未知)</text>
-	<text name="public">(公共的)</text>
-	<text name="you_can">你可以:</text>
-	<text name="owner_can">拥有者可以:</text>
+	<string name="unknown">
+		(未知)
+	</string>
+	<string name="public">
+		(公共的)
+	</string>
+	<string name="you_can">
+		你可以:
+	</string>
+	<string name="owner_can">
+		拥有者可以:
+	</string>
 </floater>

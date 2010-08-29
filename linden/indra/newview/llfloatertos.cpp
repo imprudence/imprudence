@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -33,21 +34,25 @@
 
 #include "llfloatertos.h"
 
-#include "llbutton.h"
-#include "llradiogroup.h"
-#include "llvfile.h"
-#include "lltextbox.h"
-#include "llviewertexteditor.h"
+// viewer includes
+#include "llagent.h"
 #include "llappviewer.h"
 #include "llstartup.h"
-#include "message.h"
-#include "llagent.h"
-#include "lluictrlfactory.h"
-#include "llviewerwindow.h"
 #include "llviewerstats.h"
-#include "llui.h"
+#include "llviewertexteditor.h"
+#include "llviewerwindow.h"
+
+// linden library includes
+#include "llbutton.h"
 #include "llhttpclient.h"
+#include "llhttpstatuscodes.h"	// for HTTP_FOUND
 #include "llradiogroup.h"
+#include "lltextbox.h"
+#include "llui.h"
+#include "lluictrlfactory.h"
+#include "llvfile.h"
+#include "message.h"
+
 
 // static 
 LLFloaterTOS* LLFloaterTOS::sInstance = NULL;
@@ -114,7 +119,13 @@ class LLIamHere : public LLHTTPClient::Responder
 		virtual void error( U32 status, const std::string& reason )
 		{
 			if ( mParent )
-				mParent->setSiteIsAlive( false );
+			{
+				// *HACK: For purposes of this alive check, 302 Found
+				// (aka Moved Temporarily) is considered alive.  The web site
+				// redirects this link to a "cache busting" temporary URL. JC
+				bool alive = (status == HTTP_FOUND);
+				mParent->setSiteIsAlive( alive );
+			}
 		};
 };
 
@@ -184,12 +195,6 @@ void LLFloaterTOS::setSiteIsAlive( bool alive )
 			// but if the page is unavailable, we need to do this now
 			LLCheckBoxCtrl* tos_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
 			tos_agreement->setEnabled( true );
-
-			if ( web_browser )
-			{
-				// hide browser control (revealing default text message)
-				web_browser->setVisible( FALSE );
-			};
 		};
 	};
 }
@@ -257,7 +262,7 @@ void LLFloaterTOS::onCancel( void* userdata )
 {
 	LLFloaterTOS* self = (LLFloaterTOS*) userdata;
 	llinfos << "User disagrees with TOS." << llendl;
-	gViewerWindow->alertXml("MustAgreeToLogIn", login_alert_done);
+	LLNotifications::instance().add("MustAgreeToLogIn", LLSD(), LLSD(), login_alert_done);
 	LLStartUp::setStartupState( STATE_LOGIN_SHOW );
 	self->mLoadCompleteCount = 0;  // reset counter for next time we come to TOS
 	self->close(); // destroys this object

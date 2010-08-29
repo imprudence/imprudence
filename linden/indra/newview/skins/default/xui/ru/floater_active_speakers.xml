@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="active_speakers" title="Активные Голоса">
+	<panel name="active_speakers_panel">
+		<scroll_list name="speakers_list">
+			<column label="Имя" name="speaker_name" />
+			<column label="" name="speaking_status" />
+		</scroll_list>
+		<panel name="volume_container">
+			<button name="mute_btn" tool_tip="Заглушить этого резидента" />
+		</panel>
+	</panel>
+</floater>

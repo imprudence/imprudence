@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -85,6 +86,14 @@ void LLServiceBuilder::createServiceDefinition(
 	}
 }
 
+static
+bool starts_with(const std::string& text, const char* prefix)
+{
+	return text.substr(0, strlen(prefix)) == prefix;
+}
+
+// TODO: Build a real services.xml for windows development.
+//       and remove the base_url logic below.
 std::string LLServiceBuilder::buildServiceURI(const std::string& service_name)
 {
 	std::ostringstream service_url;
@@ -95,7 +104,19 @@ std::string LLServiceBuilder::buildServiceURI(const std::string& service_name)
 		LLApp* app = LLApp::instance();
 		if(app)
 		{
-			LLSD base_url = app->getOption("services-base-url");
+			// We define a base-url for some development configurations
+			// In production neither of these are defined and all services have full urls
+			LLSD base_url;
+
+			if (starts_with(service_name,"cap"))
+			{
+				base_url = app->getOption("cap-base-url");
+			}
+
+			if (base_url.asString().empty())
+			{
+				base_url = app->getOption("services-base-url");
+			}
 			service_url << base_url.asString();
 		}
 		service_url << mServiceMap[service_name];

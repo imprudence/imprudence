@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Land Pie">
+	<menu_item_call label="A földről" name="About Land..." />
+	<menu_item_call label="Készít" name="Create" />
+	<menu_item_call label="Ide megy" name="Go Here" />
+	<menu_item_call label="Ide ül" name="Sit Here" />
+	<menu_item_call label="Átjárás vásárlása" name="Land Buy Pass" />
+	<menu_item_call label="Domborzat szerkesztése" name="Edit Terrain" />
+	<menu_item_call label="Föld vásárlása" name="Land Buy" />
+</pie_menu>

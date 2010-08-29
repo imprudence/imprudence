@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,7 +40,15 @@
 #include "llcoord.h"
 #include "llrect.h"
 
+#include "llfontregistry.h"
+
 class LLColor4;
+
+// Key used to request a font.
+class LLFontDescriptor;
+
+// Structure used to store previously requested fonts.
+class LLFontRegistry;
 
 class LLFontGL : public LLFont
 {
@@ -85,18 +94,13 @@ public:
 	LLFontGL &operator=(const LLFontGL &source);
 
 	static BOOL initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
-								 const std::string& monospace_file, F32 monospace_size,
-								 const std::string& sansserif_file,
-								 const std::string& sansserif_fallback_file, F32 ss_fallback_scale,
-								 F32 small_size, F32 medium_size, F32 large_size, F32 huge_size,
-								 const std::string& sansserif_bold_file, F32 bold_size,
-								 const std::string& app_dir = LLStringUtil::null);
+								 const std::string& app_dir,
+								 const std::vector<std::string>& xui_paths);
 
 	static void	destroyDefaultFonts();
-	static void destroyGL();
+	static void destroyAllGL();
+	void destroyGL();
 
-	static bool loadFaceFallback(LLFontList *fontp, const std::string& fontname, const F32 point_size);
-	static bool loadFace(LLFontGL *fontp, const std::string& fontname, const F32 point_size, LLFontList *fallback_fontp);
 	/* virtual*/ BOOL loadFace(const std::string& filename,
 							    const F32 point_size, const F32 vert_dpi, const F32 horz_dpi,
 							    const S32 components, BOOL is_fallback);
@@ -180,7 +184,7 @@ public:
 								 F32* drawn_pixels = NULL) const;
 
 	// Returns the index of the first complete characters from text that can be drawn in max_pixels
-	// starting on the right side (at character start_pos).
+	// given that the character at start_pos should be the last character (or as close to last as possible).
 	virtual S32	firstDrawableChar(const llwchar* wchars, F32 max_pixels, S32 text_len, S32 start_pos=S32_MAX, S32 max_chars = S32_MAX) const;
 
 	// Returns the index of the character closest to pixel position x (ignoring text to the right of max_pixels and max_chars)
@@ -191,12 +195,11 @@ public:
 
 	LLImageGL *getImageGL() const;
 
-	void	   addEmbeddedChar( llwchar wc, LLImageGL* image, const std::string& label);
-	void	   addEmbeddedChar( llwchar wc, LLImageGL* image, const LLWString& label);
-	void	   removeEmbeddedChar( llwchar wc );
+	void	   addEmbeddedChar( llwchar wc, LLImageGL* image, const std::string& label) const;
+	void	   addEmbeddedChar( llwchar wc, LLImageGL* image, const LLWString& label) const;
+	void	   removeEmbeddedChar( llwchar wc ) const;
 
 	static std::string nameFromFont(const LLFontGL* fontp);
-	static LLFontGL* fontFromName(const std::string& name);
 
 	static std::string nameFromHAlign(LLFontGL::HAlign align);
 	static LLFontGL::HAlign hAlignFromName(const std::string& name);
@@ -227,20 +230,14 @@ public:
 	static BOOL     sDisplayFont ;
 	static std::string sAppDir;			// For loading fonts
 		
-	static LLFontGL*	sMonospace;		// medium
-	static LLFontList*	sMonospaceFallback;
-
-	static LLFontGL*	sSansSerifSmall;	// small
-	static LLFontList*	sSSSmallFallback;
-	static LLFontGL*	sSansSerif;		// medium
-	static LLFontList*	sSSFallback;
-	static LLFontGL*	sSansSerifBig;		// large
-	static LLFontList*	sSSBigFallback;
-	static LLFontGL*	sSansSerifHuge;	// very large
-	static LLFontList*	sSSHugeFallback;
-
-	static LLFontGL*	sSansSerifBold;	// medium, bolded
-	static LLFontList*	sSSBoldFallback;
+	static LLFontGL* getFontMonospace();
+	static LLFontGL* getFontSansSerifSmall();
+	static LLFontGL* getFontSansSerif();
+	static LLFontGL* getFontSansSerifBig();
+	static LLFontGL* getFontSansSerifHuge();
+	static LLFontGL* getFontSansSerifBold();
+	static LLFontGL* getFontExtChar();
+	static LLFontGL* getFont(const LLFontDescriptor& desc);
 
 	static LLColor4 sShadowColor;
 
@@ -248,19 +245,26 @@ public:
 	friend class LLHUDText;
 
 protected:
-	/*virtual*/ BOOL addChar(const llwchar wch);
+	/*virtual*/ BOOL addChar(const llwchar wch) const;
+
+protected:
+	typedef std::map<llwchar,embedded_data_t*> embedded_map_t;
+	mutable embedded_map_t mEmbeddedChars;
+	
+	LLFontDescriptor mFontDesc;
+
+	// Registry holds all instantiated fonts.
+	static LLFontRegistry* sFontRegistry;
+
+public:
 	static std::string getFontPathLocal();
 	static std::string getFontPathSystem();
 
-protected:
-	LLPointer<LLImageRaw>	mRawImageGLp;
-	LLPointer<LLImageGL>	mImageGLp;
-	typedef std::map<llwchar,embedded_data_t*> embedded_map_t;
-	embedded_map_t mEmbeddedChars;
-	
-public:
 	static LLCoordFont sCurOrigin;
 	static std::vector<LLCoordFont> sOriginStack;
+
+	const LLFontDescriptor &getFontDesc() const { return mFontDesc; }
+	void setFontDesc(const LLFontDescriptor& font_desc) { mFontDesc = font_desc; }
 };
 
 #endif

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_buy_contents" title="İçerik satın alımı">
+	<text name="contains_text">
+		[NAME] içerdikleri:
+	</text>
+	<text name="buy_text">
+		[NAME] kişisinden [AMOUNT] L$ ücretine alınsın mı?
+	</text>
+	<button label="İptal" label_selected="Cancel" name="cancel_btn" />
+	<button label="Satın al" label_selected="Buy" name="buy_btn" />
+	<check_box label="Giysiyi şimdi giy" name="wear_check" />
+	<string name="no_copy_text">
+		(kopyalanamaz)
+	</string>
+	<string name="no_modify_text">
+		(modifiye edilemez)
+	</string>
+	<string name="no_transfer_text">
+		(transfer edilemez)
+	</string>
+</floater>

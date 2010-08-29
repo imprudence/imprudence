@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,7 +58,7 @@ void default_unix_signal_handler(int signum, siginfo_t *info, void *);
 /* OSX doesn't support SIGRT* */
 S32 LL_SMACKDOWN_SIGNAL = SIGUSR1;
 S32 LL_HEARTBEAT_SIGNAL = SIGUSR2;
-# else
+# else // linux or (assumed) other similar unixoid
 /* We want reliable delivery of our signals - SIGRT* is it. */
 /* Old LinuxThreads versions eat SIGRTMIN+0 to SIGRTMIN+2, avoid those. */
 /* Note that SIGRTMIN/SIGRTMAX may expand to a glibc function call with a
@@ -89,6 +90,12 @@ LLAppChildCallback LLApp::sDefaultChildCallback = NULL;
 
 LLApp::LLApp() : mThreadErrorp(NULL)
 {
+	commonCtor();
+	startErrorThread();
+}
+
+void LLApp::commonCtor()
+{
 	// Set our status to running
 	setStatus(APP_STATUS_RUNNING);
 
@@ -96,9 +103,9 @@ LLApp::LLApp() : mThreadErrorp(NULL)
 
 #if !LL_WINDOWS
 	// This must be initialized before the error handler.
-	sSigChildCount = new LLAtomicU32(0);	
+	sSigChildCount = new LLAtomicU32(0);
 #endif
-	
+
 	// Setup error handling
 	setupErrorHandling();
 
@@ -118,6 +125,13 @@ LLApp::LLApp() : mThreadErrorp(NULL)
 
 	// Set the application to this instance.
 	sApplication = this;
+
+}
+
+LLApp::LLApp(LLErrorThread *error_thread) :
+	mThreadErrorp(error_thread)
+{
+	commonCtor();
 }
 
 
@@ -261,16 +275,19 @@ void LLApp::setupErrorHandling()
 
 #endif
 
+}
+
+void LLApp::startErrorThread()
+{
 	//
 	// Start the error handling thread, which is responsible for taking action
 	// when the app goes into the APP_STATUS_ERROR state
 	//
-	llinfos << "LLApp::setupErrorHandling - Starting error thread" << llendl;
+	llinfos << "Starting error thread" << llendl;
 	mThreadErrorp = new LLErrorThread();
 	mThreadErrorp->setUserData((void *) this);
-	mThreadErrorp->start();
+	mThreadErrorp->start();	
 }
-
 
 void LLApp::setErrorHandler(LLAppErrorHandler handler)
 {
@@ -542,7 +559,9 @@ void setup_signals()
 	sigaction(LL_SMACKDOWN_SIGNAL, &act, NULL);
 
 	// Asynchronous signals that are normally ignored
+#ifndef LL_IGNORE_SIGCHLD
 	sigaction(SIGCHLD, &act, NULL);
+#endif // LL_IGNORE_SIGCHLD
 	sigaction(SIGUSR2, &act, NULL);
 
 	// Asynchronous signals that result in attempted graceful exit
@@ -576,7 +595,9 @@ void clear_signals()
 	sigaction(LL_SMACKDOWN_SIGNAL, &act, NULL);
 
 	// Asynchronous signals that are normally ignored
+#ifndef LL_IGNORE_SIGCHLD
 	sigaction(SIGCHLD, &act, NULL);
+#endif // LL_IGNORE_SIGCHLD
 
 	// Asynchronous signals that result in attempted graceful exit
 	sigaction(SIGHUP, &act, NULL);

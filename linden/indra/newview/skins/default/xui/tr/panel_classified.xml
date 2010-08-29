@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="İlan">
+	<line_editor name="given_name_editor" tool_tip="İsim harf veya sayı ile başlamalıdır, noktalama işareti ile değil."/>
+	<line_editor name="location_editor" tool_tip="Bu ilan için lokasyonu bulunduğunuz pozisyona düzenleyiniz."/>
+	<button label="Düzenle" name="set_location_btn"/>
+	<button label="Işınlan" name="classified_teleport_btn"/>
+	<button label="Haritada göster" name="classified_map_btn"/>
+	<button label="Profil" name="classified_profile_btn"/>
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Yetişkinlik seçimi -
+		</combo_item>
+		<combo_item name="mature">
+			Mature İçerik
+		</combo_item>
+		<combo_item name="pg">
+			PG İçerik
+		</combo_item>
+	</combo_box>
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="Güncelle" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Reklam yerleştirildi: [DATE], bu listeleme için [AMT]L$ ödendi.
+	</string>
+	<string name="update_txt">
+		Güncelle
+	</string>
+	<string name="publish_txt">
+		Yayınla...
+	</string>
+</panel>

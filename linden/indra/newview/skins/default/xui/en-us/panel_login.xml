@@ -19,7 +19,7 @@
   <!-- START LOCATION -->
 
 	<text name="start_location_text" 
-	      bottom="8" left="24" height="16" width="95"
+	      bottom="8" left="10" height="16" right="115"
         follows="left|bottom" h_pad="0" halign="right" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -27,7 +27,7 @@
 		Start Location:
 	</text>
 	<combo_box name="start_location_combo"
-             bottom_delta="2" left_delta="100" height="16" width="150"
+             bottom_delta="2" left="120" height="16" width="150"
              follows="left|bottom" font="SansSerifSmall"
              mouse_opaque="true" allow_text_entry="true" max_chars="128">
 		<combo_item name="MyHome" value="My Home">
@@ -56,8 +56,8 @@
                bottom_delta="-20" left_delta="0" height="20" width="120"
                follows="left|bottom" font="SansSerif"
                bevel_style="in" border_style="line" border_thickness="1" 
-               max_length="16" mouse_opaque="true"
-	             handle_edit_keys_directly="true"
+               max_length="31" mouse_opaque="true"
+               handle_edit_keys_directly="true"
                select_all_on_focus_received="true" />
 
 
@@ -75,8 +75,8 @@
                bottom_delta="-20" left_delta="0" height="20" width="120"
                follows="left|bottom" font="SansSerif"
                bevel_style="in" border_style="line" border_thickness="1" 
-               max_length="16" mouse_opaque="true"
-	             handle_edit_keys_directly="true"
+               max_length="31" mouse_opaque="true"
+               handle_edit_keys_directly="true"
                select_all_on_focus_received="true" />
 
 
@@ -99,7 +99,7 @@
                select_all_on_focus_received="true" />
 	<check_box name="remember_check" label="Remember password"
              bottom_delta="-24" left_delta="0" height="16" width="140"
-             follows="left|bottom" font="SansSerifSmall" 
+             follows="left|bottom" font="SansSerifSmall" control_name="RememberPassword" 
 	           initial_value="false" mouse_opaque="true"  />
 
 
@@ -163,6 +163,6 @@
         border_visible="false" border_drop_shadow_visible="false"
         font="SansSerifSmall" mouse_opaque="true"
         hover="true" hover_color="50 115 185">
-		[CHANNEL] [VERSION]
-	</text>
+    [CHANNEL] [VERSION]
+  </text>
 </panel>

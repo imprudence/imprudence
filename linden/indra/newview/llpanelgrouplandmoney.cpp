@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,15 +43,19 @@
 #include "llagent.h"
 #include "lliconctrl.h"
 #include "lllineeditor.h"
+#include "llproductinforequest.h"
 #include "llscrolllistctrl.h"
 #include "lltextbox.h"
 #include "lltabcontainer.h"
+#include "lltrans.h"
 #include "lltransactiontypes.h"
 #include "lluictrlfactory.h"
 
 #include "llstatusbar.h"
 #include "llfloaterworldmap.h"
 #include "llviewermessage.h"
+
+#include "hippoGridManager.h"
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -231,10 +236,7 @@ void LLPanelGroupLandMoney::impl::onMapButton()
 	if (!itemp) return;
 
 	const LLScrollListCell* cellp;
-	// name
-	// location
-	// area
-	cellp = itemp->getColumn(3);	// hidden
+	cellp = itemp->getColumn(itemp->getNumColumns() - 1);	// hidden column is last
 
 	F32 global_x = 0.f;
 	F32 global_y = 0.f;
@@ -413,6 +415,9 @@ void LLPanelGroupLandMoney::impl::processGroupLand(LLMessageSystem* msg)
 		F32 global_x;
 		F32 global_y;
 		std::string sim_name;
+		std::string land_sku;
+		std::string land_type;
+		
 		for(S32 i = first_block; i < count; ++i)
 		{
 			msg->getUUID("QueryData", "OwnerID", owner_id, i);
@@ -424,6 +429,18 @@ void LLPanelGroupLandMoney::impl::processGroupLand(LLMessageSystem* msg)
 			msg->getF32("QueryData", "GlobalX", global_x, i);
 			msg->getF32("QueryData", "GlobalY", global_y, i);
 			msg->getString("QueryData", "SimName", sim_name, i);
+
+			if ( msg->getSizeFast(_PREHASH_QueryData, i, _PREHASH_ProductSKU) > 0 )
+			{
+				msg->getStringFast(	_PREHASH_QueryData, _PREHASH_ProductSKU, land_sku, i);
+				llinfos << "Land sku: " << land_sku << llendl;
+				land_type = LLProductInfoRequestManager::instance().getDescriptionForSku(land_sku);
+			}
+			else
+			{
+				land_sku.clear();
+				land_type = LLTrans::getString("land_type_unknown");
+			}
 
 			S32 region_x = llround(global_x) % REGION_WIDTH_UNITS;
 			S32 region_y = llround(global_y) % REGION_WIDTH_UNITS;
@@ -437,6 +454,7 @@ void LLPanelGroupLandMoney::impl::processGroupLand(LLMessageSystem* msg)
 			{
 				area = llformat("%d / %d", billable_area, actual_area);	
 			}
+			
 			std::string hidden;
 			hidden = llformat("%f %f", global_x, global_y);
 
@@ -454,8 +472,13 @@ void LLPanelGroupLandMoney::impl::processGroupLand(LLMessageSystem* msg)
 			row["columns"][2]["value"] = area;
 			row["columns"][2]["font"] = "SANSSERIFSMALL";
 			
-			row["columns"][3]["column"] = "hidden";
-			row["columns"][3]["value"] = hidden;
+			row["columns"][3]["column"] = "type";
+			row["columns"][3]["value"] = land_type;
+			row["columns"][3]["font"] = "SANSSERIFSMALL";
+			
+			// hidden is always last column
+			row["columns"][4]["column"] = "hidden";
+			row["columns"][4]["value"] = hidden;
 			
 			mGroupParcelsp->addElement(row, ADD_SORTED);
 		}
@@ -506,6 +529,9 @@ void LLPanelGroupLandMoney::activate()
 			tabp->selectFirstTab();
 			mImplementationp->mBeenActivated = true;
 		}
+
+		setLabelArg("[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+		childSetTextArg("group_money_heading", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 		//fill in the max contribution
 
@@ -705,7 +731,7 @@ BOOL LLPanelGroupLandMoney::postBuild()
 	textp = getChild<LLTextEditor>("group_money_planning_text", true);
 	panelp = getChild<LLPanel>("group_money_planning_tab", true);
 
-	if ( 1 ) //!can_view
+	if ( !can_view )
 	{
 		textp->setText(mImplementationp->mCantViewAccountsText);
 	}
@@ -758,7 +784,9 @@ void LLPanelGroupLandMoney::processPlacesReply(LLMessageSystem* msg, void**)
 	LLPanelGroupLandMoney* selfp = sGroupIDs.getIfThere(group_id);
 	if(!selfp)
 	{
-		llinfos << "Group Panel Land L$ " << group_id << " no longer in existence."
+		llinfos << "Group Panel Land "
+				<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+				<< ' ' << group_id << " no longer in existence."
 				<< llendl;
 		return;
 	}
@@ -1095,7 +1123,9 @@ void LLPanelGroupLandMoney::processGroupAccountDetailsReply(LLMessageSystem* msg
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1266,7 +1296,9 @@ void LLPanelGroupLandMoney::processGroupAccountTransactionsReply(LLMessageSystem
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1407,15 +1439,24 @@ void LLGroupMoneyPlanningTabEventHandler::processReply(LLMessageSystem* msg,
 		text.append("The next stipend day is ");
 		text.append(next_stipend_date);
 		text.append("\n\n");
-		text.append(llformat("%-24sL$%6d\n", "Balance", balance ));
+		text.append(llformat("%-24s%s%6d\n", "Balance",
+			gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str(),
+			balance));
 		text.append(1, '\n');
 	}
 
-	text.append( "                      Group       Individual Share\n");
-	text.append(llformat( "%-24s %6d      %6d \n", "Credits", total_credits, (S32)floor((F32)total_credits/(F32)non_exempt_members)));
-	text.append(llformat( "%-24s %6d      %6d \n", "Debits", total_debits, (S32)floor((F32)total_debits/(F32)non_exempt_members)));
-	text.append(llformat( "%-24s %6d      %6d \n", "Total", total_credits + total_debits,  (S32)floor((F32)(total_credits + total_debits)/(F32)non_exempt_members)));
+	// [DEV-29503] Hide the individual info since
+	// non_exempt_member here is a wrong choice to calculate individual shares.
+	// text.append( "                      Group       Individual Share\n");
+	// text.append(llformat( "%-24s %6d      %6d \n", "Credits", total_credits, (S32)floor((F32)total_credits/(F32)non_exempt_members)));
+	// text.append(llformat( "%-24s %6d      %6d \n", "Debits", total_debits, (S32)floor((F32)total_debits/(F32)non_exempt_members)));
+	// text.append(llformat( "%-24s %6d      %6d \n", "Total", total_credits + total_debits,  (S32)floor((F32)(total_credits + total_debits)/(F32)non_exempt_members)));
 
+	text.append( "                      Group\n");
+	text.append(llformat( "%-24s %6d\n", "Credits", total_credits));
+	text.append(llformat( "%-24s %6d\n", "Debits", total_debits));
+	text.append(llformat( "%-24s %6d\n", "Total", total_credits + total_debits));
+	
 	if ( mImplementationp->mTextEditorp )
 	{
 		mImplementationp->mTextEditorp->setText(text);
@@ -1430,7 +1471,9 @@ void LLPanelGroupLandMoney::processGroupAccountSummaryReply(LLMessageSystem* msg
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group L$ history reply for another agent!" << llendl;
+		llwarns << "Got group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " history reply for another agent!" << llendl;
 		return;
 	}
 
@@ -1442,7 +1485,9 @@ void LLPanelGroupLandMoney::processGroupAccountSummaryReply(LLMessageSystem* msg
 	self = LLGroupMoneyTabEventHandler::sInstanceIDs.getIfThere(request_id);
 	if (!self)
 	{
-		llwarns << "GroupAccountSummary recieved for non-existent group L$ planning tab." << llendl;
+		llwarns << "GroupAccountSummary recieved for non-existent group "
+			<< gHippoGridManager->getConnectedGrid()->getCurrencySymbol()
+			<< " planning tab." << llendl;
 		return;
 	}
 

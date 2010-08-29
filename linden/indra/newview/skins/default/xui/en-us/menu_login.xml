@@ -25,8 +25,8 @@
 		     mouse_opaque="true" name="Viewer Help" shortcut="F1" width="166">
 			<on_click function="ShowFloater" userdata="help f1" />
 		</menu_item_call>
-		<menu_item_call bottom="-48" enabled="true" height="19" label="About Imprudence..." left="0"
-		     mouse_opaque="true" name="About Imprudence..." width="166">
+		<menu_item_call bottom="-48" enabled="true" height="19" label="About Imprudence" left="0"
+		     mouse_opaque="true" name="About Imprudence" width="166">
 			<on_click function="ShowFloater" userdata="about" />
 		</menu_item_call>
 	</menu>

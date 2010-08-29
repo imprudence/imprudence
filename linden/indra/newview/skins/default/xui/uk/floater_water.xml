@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Water Floater" title="Розшир. редактор води">
+	<text type="string" length="1" name="KeyFramePresetsText">
+		Настройки води:
+	</text>
+	<button label="Новий" label_selected="Новий" name="WaterNewPreset" width="80"/>
+	<button label="Зберегти" label_selected="Зберегти"
+	     name="WaterSavePreset" width="80" left_delta="90"/>
+	<button label="Видалити" label_selected="Видалити"
+	     name="WaterDeletePreset" width="80" left_delta="90"/>
+	<tab_container name="Water Tabs">
+		<panel label="Установки" name="Settings">
+			<text type="string" length="1" name="BHText">
+				Колір водного туману
+			</text>
+			<button label="?" name="WaterFogColorHelp" />
+			<color_swatch label="" name="WaterFogColor"
+			     tool_tip="Натисніть для вибору кольору" />
+			<text type="string" length="1" name="WaterFogDensText">
+				Щільність туману
+			</text>
+			<button label="?" name="WaterFogDensityHelp" />
+			<slider label="" name="WaterFogDensity" />
+			<text type="string" length="1" name="WaterUnderWaterFogModText">
+				Підводний коеф-т
+			</text>
+			<button label="?" name="WaterUnderWaterFogModHelp" />
+			<slider label="" name="WaterUnderWaterFogMod" />
+			<text type="string" length="1" name="BDensText">
+				Рівень відобр. хвиль
+			</text>
+			<button label="?" name="WaterNormalScaleHelp" />
+			<text type="string" length="1" name="BHText2">
+				1
+			</text>
+			<text type="string" length="1" name="BHText3">
+				2
+			</text>
+			<text type="string" length="1" name="BHText4">
+				3
+			</text>
+			<slider label="" name="WaterNormalScaleX" />
+			<slider label="" name="WaterNormalScaleY" />
+			<slider label="" name="WaterNormalScaleZ" />
+			<text type="string" length="1" name="HDText">
+				Масштаб Френеля
+			</text>
+			<button label="?" name="WaterFresnelScaleHelp" />
+			<slider label="" name="WaterFresnelScale" />
+			<text type="string" length="1" name="FresnelOffsetText">
+				Зсув Френеля
+			</text>
+			<button label="?" name="WaterFresnelOffsetHelp" />
+			<slider label="" name="WaterFresnelOffset" />
+			<text type="string" length="1" name="DensMultText">
+				Масштаб заломлення вище
+			</text>
+			<button label="?" name="WaterScaleAboveHelp"  left="664"/>
+			<slider label="" name="WaterScaleAbove" />
+			<text type="string" length="1" name="WaterScaleBelowText">
+				Масштаб заломлення нижче
+			</text>
+			<button label="?" name="WaterScaleBelowHelp"  left="664"/>
+			<slider label="" name="WaterScaleBelow" />
+			<text type="string" length="1" name="MaxAltText">
+				Коеф-т плями
+			</text>
+			<button label="?" name="WaterBlurMultiplierHelp" />
+			<slider label="" name="WaterBlurMult" />
+		</panel>
+		<panel label="Image" name="Waves">
+			<text type="string" length="1" name="BHText">
+				Напрям великих хвиль
+			</text>
+			<button label="?" name="WaterWave1Help" />
+			<text type="string" length="1" name="WaterWave1DirXText">
+				X
+			</text>
+			<text type="string" length="1" name="WaterWave1DirYText">
+				Y
+			</text>
+			<slider label="" name="WaterWave1DirX" />
+			<slider label="" name="WaterWave1DirY" />
+			<text type="string" length="1" name="BHText2">
+				Напрям малих хвиль
+			</text>
+			<button label="?" name="WaterWave2Help" />
+			<text type="string" length="1" name="WaterWave2DirXText">
+				X
+			</text>
+			<text type="string" length="1" name="WaterWave2DirYText">
+				Y
+			</text>
+			<slider label="" name="WaterWave2DirX" />
+			<slider label="" name="WaterWave2DirY" />
+			<text type="string" length="1" name="BHText3">
+				Звичайна карта
+			</text>
+			<button label="?" name="WaterNormalMapHelp" />
+			<texture_picker label="" name="WaterNormalMap" />
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</string>
+</floater>

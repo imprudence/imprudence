@@ -4,6 +4,1067 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 5                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    NEW FEATURES
+
+      * Animation Overrider (AO) can now be enabled/disabled from the
+        toolbar. Thanks, McCabe!
+
+      * Added support for Alpha and Tattoo layers. Thanks for the
+        patch, Henri Beauchamp, and Armin for applying it!
+
+      * Align planar textures in build window. Allows texture
+        alignment across multiple prims when planar textures are used.
+        Thanks for the patch, Thickbrick Sleaford!
+
+      * Added "File > Minimize All" to minimizes all open windows.
+        Thanks, McCabe!
+
+      * Added "Advanced > Rendering > Animate Trees" to enables Linden
+        tree swaying (warning: more cpu intensive). Thanks, McCabe!
+
+      * Advanced > Rendering > Show Look At now shows the names of
+        avatars along with their look at beacon. Thanks to the Meerkat
+        Viewer for developing this feature and Tom Meta for porting
+        it!
+
+      * Added "Advanced > Character > Private Look/Point At" to
+        opt-out of sending look at/point at data. Thanks to Henri
+        Beauchamp for the patch, and McCabe for tweaking it!
+
+      * Added "Advanced > Crash menu for triggering viewer crashes.
+        Thanks, Armin!
+
+      * Added "TP To..." button in the radar Avatar tab to teleport to
+        an avatar's position. Thanks, Armin!
+
+      * Added "Cam To..." button in the radar Estate tab to cam to an
+        avatar's position. Thanks, McCabe!
+
+      * Added "Reset All Preferences" button in Preferences >
+        Advanced. Thanks, McCabe!
+
+      * Added "Titles..." button in the group window for selecting
+        your group title titles. Thanks for the patch, Henri
+        Beauchamp!
+
+      * Added "Invisible" button in the texture picker. Thanks for the
+        patch, Henri Beauchamp!
+
+      * Added "Preferences > General > Go away/AFK when idle". Thanks,
+        Armin!
+
+      * Added "Preferences > Input & Camera > Disable minimum zoom
+        distance" to disable the "push" when zooming close to/inside
+        prims. Thanks, McCabe!
+
+      * Moved "Mute wind" into Preferences > Audio & Video and renamed
+        it to "Enable wind generation". Thanks, McCabe!
+
+
+    OPENSIM-SPECIFIC CHANGES
+
+      * Added new currency button in the status bar (currently shows
+        OS$ on OpenSim, L$ on Second Life). Thanks, McCabe!
+
+      * Added support for tiny/nano prims (0.001m small). Thanks,
+        McCabe!
+
+      * Added support for LightShare. Thanks, Tom Meta and the Meta7
+        team!
+
+      * Added "Preferences > Advanced > Use server-side Windlight
+        settings" to toggles LightShare. Thanks, Tom Meta!
+
+      * Added "Advanced > Disable Max Build Constraints" to disable
+        the viewer-side size limit on megaprims. Thanks, McCabe!
+
+      * Added support for linking more than 255 prims at once. Thanks,
+        Armin!
+
+      * Added support for OpenSim-specific functions and their
+        tooltips in the script editor. Thanks to WhiteStar and Meerkat
+        for the info and Jacek for cleaning up the tooltips!
+
+      * Viewer no longer gets stuck at "Connecting to region..." when
+        logging in. Thanks, McCabe!
+
+      * Workaround for 1.23-based viewers not being able to toggle
+        voice parcel settings on OpenSim. Thanks, McCabe!
+
+
+    OTHER CHANGES
+
+      * Changed View > AO to View > Animation Overrider Thanks,
+        McCabe!
+
+      * Changed "Copy Key" in the profile window to also say the name
+        of the avatar and the key in chat. Thanks, McCabe!
+
+      * Several changes to reduce log spam. Thanks, McCabe!
+
+      * Moved Admin options into Advanced > Admin Options submenu.
+        Thanks, McCabe!
+
+      * Double-clicking in the radar's Estate tab now cams to the
+        selected avatar. Thanks, McCabe!
+
+      * Increased the default mini-map width. Thanks, McCabe!
+
+      * Changed the new server version popup show as chat instead.
+        This behavior can be altered by toggling the
+        ServerVersionChangedNotify and ServerVersionChangedChat Debug
+        Settings. Thanks, Armin!
+
+      * Updated the viewer's version of OpenJpeg. Thanks, McCabe!
+
+      * Texture repeats can now be set up to 10,000. Thanks, McCabe!
+
+      * Camera now doesn't block your view when using Look At Last
+        Chatter. Thanks, Geneko Nameth!
+
+      * Included getvoice.sh for installing voice on Linux. Thanks,
+        Armin!
+
+      * Simulator camera "push" when moving around objects now ignored
+        by default. This behavior can be toggled with the
+        IgnoreSimulatorCameraConstraints Debug Setting. Thanks to the
+        Emerald Viewer for discovering this, and McCabe for porting
+        it!
+
+      * Changed the build math cheat sheet buttons from "?" to "Build
+        Math" so they're more discoverable. Thanks, McCabe!
+
+      * Moved "Output Debug Minidump" to Advanced > Crash menu.
+        Thanks, McCabe!
+
+      * Added "Reload All" button to Notifications Console for easier
+        debugging. Thanks, McCabe!
+
+      * Disabled editing appearance animation when standing up when
+        editing your appearance is also disabled. Thanks, McCabe!
+
+      * Increased the time it takes for tooltips to display. Thanks,
+        McCabe!
+
+      * Added a --cache command line flag to set cache location.
+        Thanks, Tom Meta!
+
+      * Your own nametag now uses the Imprudence color when client
+        detection is enabled. Thanks, McCabe!
+
+      * Advanced > Allow Multiple Instances now applies when toggled
+        (previously you had to relog for it to work). Thanks, McCabe!
+
+      * Avatar name now displayed in window title when Advanced >
+        Allow Multiple Instances is enabled. Thanks to the FrozenGlobe
+        Viewer for the patch, and McCabe for tweaking it!
+
+      * Made preferences follow Mac and Windows user interface
+        guidelines. Thanks, McCabe!
+
+      * Made menu ellipses follow standard user interface guidelines.
+        Thanks, McCabe!
+
+      * Moved "Legacy pie menus" into Preferences > Advanced. Thanks,
+        McCabe!
+
+      * Moved "Share language with objects" into Preferences >
+        Advanced. Thanks, McCabe!
+
+      * Added a new shortcut for creating landmarks: CTRL-SHIFT-D.
+        Thanks, McCabe!
+
+      * Changed "Continue" to "Cancel" when confirming quitting.
+        Thanks, McCabe!
+
+      * ClothingLayerProtection is now always enabled. Thanks, Armin!
+
+      * Automatically try logging in again when the "Login Failed. You
+        appear to be already logged in" error happens on OpenSim.
+        Thanks, McCabe!
+
+      * Windows installer now branded to Imprudence. Thanks, McCabe!
+
+      * Added UseKDUIfAvailable Debug Setting to switch between llkdu
+        and openjpeg on relog. Thanks, Tom Meta!
+
+
+    BUG FIXES
+
+      * Fix for "flashing" avatars, where a bake would switch between
+        white/texture repeatedly. Thanks, McCabe!
+
+      * Fix for corrupt textures on objects when using openjpeg.
+        Thanks, McCabe!
+
+      * Fix for crashing when camming around a sim. Thanks, McCabe!
+
+      * Several fixes for issues with malicious viewers use. Thanks,
+        McCabe, Armin, Robin Cornelius, and KirstenLee Cinquetti!
+
+      * Fixed radar spamming chat with "avatar is entering chat
+        range/sim" updates. Thanks, McCabe!
+
+      * Fixed radar showing avatars stuck as typing. Thanks, McCabe!
+
+      * Fixed radar not appearing in mouselook. Thanks, McCabe!
+
+      * Fixed radar not showing people in the list who are in the
+        mini-map. Thanks, McCabe!
+
+      * Fixed Autopilot > Move not working. Thanks, McCabe!
+
+      * Fixed crash when creating/loading WindLight presets with
+        spaces in their names. Thanks, McCabe!
+
+      * Fixed crash when updating WindLight after a teleport. Thanks,
+        McCabe!
+
+      * Fixed crash when sim crashes/disconnects. Thanks, Armin!
+
+      * Fixed crash in "Quit" confirmation after logout. Thanks,
+        Armin!
+
+      * Fixed crash when logging out with messages in the queue.
+        Thanks, McCabe!
+
+      * Fixed crash when using the Show Look At feature. Thanks,
+        McCabe!
+
+      * Fixed spinners in the Object, Features, and Textures build
+        tabs not updating after their contents are deleted. Thanks,
+        McCabe!
+
+      * Fixed Notifications Console missing from Advanced > Consoles.
+        Thanks, McCabe!
+
+      * Fixed group creation alert showing the price as
+        "GROUPCREATEFEE". Thanks, McCabe!
+
+      * Fixed issue with certain sit animations not playing (avatar
+        appears to be standing instead of being animated). Thanks,
+        McCabe!
+
+      * Fixed bad indentations in alerts and notifications. Thanks,
+        McCabe!
+
+      * Fixed the Infamous Wright Plaza Crash of Doom
+        (mRawImage.notNull() crash). Thanks for the patch, Robin
+        Cornelius, and the repro, Nebadon and Warin on OSGrid!
+
+      * Fixed confusing "opacity" sliders in Preferences > Text Chat.
+        Thanks, McCabe!
+
+      * Fixed Grid Manager failing to get grid info if the port
+        doesn't end in a slash ("/"). Thanks, McCabe!
+
+      * Fixed small typo in the AO template notecard. Thanks, McCabe!
+
+      * Fixed your own name being highlighted in Local Chat. Thanks,
+        McCabe!
+
+      * Fixed the status bar info "disappearing" when connecting after
+        a failed login. Thanks, McCabe!
+
+      * Fixed left-clicking attachments not moving the avatar. Thanks,
+        Armin!
+
+      * Fixed group notice history showing wrong icons for attached
+        inventory. Thanks, McCabe!
+
+      * Fixed the Advanced Build Window's Cancel and Apply buttons
+        being switched. Thanks, McCabe!
+
+      * Fixed Alpha layers not visible to other viewers when
+        ClothingLayerProtection enabled. Thanks to Emerald Viewer for
+        the fix!
+
+      * Fixed issue with Alpha layers and OpenSim. Thanks, Armin!
+
+      * Fixed HTTP textures not loading sculpties. Thanks for the
+        patch, Thickbrick Sleaford!
+
+      * Fixed "Gestures" button's tooltip not being informative.
+        Thanks, McCabe!
+
+      * Fixed "You Have Been Disconnecting From The Region" causing
+        the viewer to quit while logging into an OpenSim that won't
+        let you in. Thanks, McCabe!
+
+      * Fixed glib and gtk not being friendly on Debian Lenny 32bit.
+        Thanks, Armin!
+
+      * Fixed Animation Overrider not starting on login. Thanks,
+        McCabe!
+
+
+    KNOWN ISSUES
+
+      * Sometimes an avatar's textures stay "white" for an extended
+        period of time with ClothingLayerProtection enabled. The
+        workaround is to set this to FALSE in Advanced > Debug
+        Settings.
+
+      * Eyes get stuck looking sideways with Private Look At enabled.
+
+      * Tooltips don't disappear with mouseclicks or when your mouse
+        moves from a specific control. The workaround for this is to
+        clear the tooltip with your mousewheel or set ToolTipDelay to
+        999999 in the Debug Settings.
+
+      * Some animations may not display their joints correctly.
+
+      * Creating new Alpha or Tattoo layers only works in the
+        Inventory.
+
+      * Avatar layers may appear invisible when using HTTP textures.
+        The workaround for this is to copy llkdu from a Second Life
+        1.23 install into the main Imprudence folder.
+
+      * While sitting on an object, your avatar may appear invisible
+        to users of unpatched viewers based on 1.22 or lower, such as
+        Hippo Viewer 5.0.1. See VWR-9137 for more info.
+
+      * Streaming audio/video that use the AAC codec will have no
+        sound. This is caused by our inability to distribute
+        libgstfaad due to licensing reasons.
+
+      * Sometimes inworld sounds (OpenAL) stops working on Windows XP.
+        A relog usually fixes the problem.
+
+
+    KNOWN ISSUES WITH OPENSIM
+
+      If you're using Imprudence to explore the larger metaverse, here
+      are a few OpenSim bugs that you should be aware of:
+
+      * Clearing cache causes "body parts not found" error and your
+        avatar to login as a cloud. This will also happen on first
+        login to many OpenSim grids. The workaround is to change your
+        shape then relog.
+
+      * Megaregion teleports fail except in the root (SW) region.
+
+      * The "Cancel" button does not appear during teleports.
+
+      * When sitting, the camera's default center is the root prim,
+        not the prim you're actually sitting on.
+
+      * OpenSims using CS2JK to bake avatar textures might corrupt an
+        avatar's appearance (looking "rainbow" or "checker-boarded")
+        when using openjpeg. A rebake will generally fix this.
+
+      * Sometimes OpenSim loses an avatar's appearance, causing
+        changing clothing to fail and the avatar to permanently look
+        white, even after a rebake or a relog.
+
+      * Sometimes prims or land become corrupted (i.e. look
+        "rainbow"). The workaround for this is to copy llkdu from a
+        Second Life 1.23 install into the main Imprudence folder.
+
+      * Creating new outfits causes the viewer to crash on OpenSim.
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 4                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.3.0 beta 4 is a hotfix release to fix a serious bug
+   when rezzing objects from your inventory in Second Life while the
+   Build window is open.
+
+
+   CHANGES
+
+     * The following features from the Advanced Build Options window
+       have been removed to prevent unintentional modification of
+       objects rezzed from your inventory:
+
+        - "Settings" and "Texture" control the default settings and
+          textures for newly created prims.
+
+        - Ability to embed an inventory item into newly created prims.
+
+     * The following change in 1.3.0 beta 3 has been reverted, to
+       avoid possible negative effects on private/group voice
+       conversations:
+
+       - If the current region does not have any support for voice
+         chat (e.g. OpenSim regions with no voice module), the viewer
+         will temporarily deactivate voice chat and hide the voice
+         chat controls on the toolbar. The viewer will check again for
+         voice chat again whenever you move to another parcel.
+
+     * Fixed the "Show Selection Outlines" checkbox in the Advanced
+       Build Options window not working correctly.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 3                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Improved OpenSim support.
+
+        - Support for up to 100 groups, 99% hollow prims, 1% hole
+          size, megaprims up to 256m in size, and prim Z position up
+          to 10km. Thanks to the Hippo Viewer for these improvements!
+
+        - Implemented the "--grid" command line flag to select a grid
+          to login to by name, e.g. "--grid osgrid --login Firstname
+          Lastname Password". Thanks, Armin!
+
+        - Various links now go to the proper web page for the current
+          grid, instead of always a Second Life web page: F1 Help,
+          "Sign up for account", "Forgot your name or password?".
+          Thanks, Armin!
+
+        - The Search window's Groups tab has been reverted to a
+          non-web based version, like the Hippo Viewer has. The All
+          tab is also no longer web based, but a new "All (web)" tab
+          has been added for the web based search. Thanks to the Hippo
+          Viewer and McCabe for this!
+
+        - The "All (web)" Search tab now uses metaverseink.com for
+          searches on non-Second Life grids. Thanks, McCabe!
+
+     * Built-in Animation Overrider (View > AO, Ctrl-Shift-O). See our
+       "Animation Overrider" wiki page for full details. Thanks to
+       Emerald Viewer for this feature, and McCabe for porting and
+       improving it!
+
+     * IM Autoresponse (Prefences > Communication > IM Response
+       Options). The viewer can now perform a variety of actions when
+       you receive an Instant Message, such as sending a response
+       automatically. Thanks to Emerald Viewer for this feature, and
+       McCabe for porting it!
+
+     * Tools > Advanced Build Options (Ctrl-Shift-B). The old "Grid
+       Options" window has been renamed and extended with a bunch of
+       great new options and features to help builders. See our
+       "Advanced Build Options" wiki page for full details. Thanks to
+       McCabe for setting up the Advanced Build Options window.
+
+        - "Pivot Point" and "Show axis on root prim" affect the
+          placement of the 3D build axes widget. Thanks to the Emerald
+          Viewer for this feature!
+
+        - "Rez objects using land group" automatically rezzes objects
+          using the correct group for the land, if you are a member.
+          Thanks to the Emerald Viewer for this feature!
+
+        - "Edit object decimal places" controls the numerical
+          precision shown for object position, rotation, and size.
+          Thanks to the Cool VL Viewer for this feature!
+
+        - "Object Size", "Settings", and "Texture" controls the
+          default settings for newly created prims. Thanks to the
+          Emerald Viewer for this feature!
+
+        - Ability to embed an inventory item into newly created
+          prims. Thanks to the Emerald Viewer for this feature!
+
+     * To make the viewer compliant with the Second Life Policy on
+       Third-Party Viewers, the object export feature no longer
+       downloads textures from Second Life. Other grids are not
+       affected. (Ported from version 1.2.2.)
+
+
+   KNOWN ISSUES
+
+     * Textures on other avatars may flicker or appear corrupted on
+       your computer, if they are using viewers based on Second Life
+       1.22 or earlier. This is due to a change in avatar texture
+       format introduced in Second Life 1.23. We are investigating
+       solutions to this problem.
+
+     * Textures may not load fully or may appear corrupted when using
+       OpenJPEG when "Use HTTP Textures" is enabled. If you want to
+       benefit from HTTP textures in this release, you should copy the
+       "libkdu" and "libllkdu" from a Second Life 1.23.5 installation
+       to the corresponding location within the Imprudence directory.
+
+     * Due to an oversight, the "World > Buy OS$" menu item is active
+       on OpenSim in this release, but will be disabled in the future
+       to prevent confusion on grids that don't support currencies.
+
+     * When your avatar is sitting on an object, it may appear
+       invisible to users of older viewers, such as Hippo Viewer
+       version 5.0.1.
+
+     * In the grid manager, the "Get Grid Info" button does not work
+       for OpenSim-based grids unless the login URI has a trailing
+       slash ("/"). You should end login URIs for OpenSim-based grids
+       with a trailing slash, e.g. "http://osgrid.org:8002/", not
+       "http://osgrid.org:8002".
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.3.0 beta 2.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * Added a new "Advanced" section in Preferences, with several
+         new options. Thanks, McCabe!
+
+          - "Disable Login/Logout Screens". When this option is checked,
+            the viewer will not show the progress bar screen when
+            logging in, logging out, or quitting the viewer.
+
+          - "Disable Teleport Screens". When this option is checked, the
+            viewer will not show the progress bar screen when
+            teleporting.
+
+          - "Show Client Names in Name Tag" and "Broadcast Your Client
+            Name to Others". These control the Client Identification
+            feature. (See the wiki for more information.)
+
+          - "Enable Shadows". This enables experimental support for
+            dynamic shadow rendering in the viewer. WARNING: This is
+            potentially unstable and requires a very good video card.
+
+          - "Use HTTP Textures". This enables support for downloading
+            textures via HTTP when available. This can improve the
+            speed and reliability of texture downloads when connected
+            to a service that supports HTTP textures, such as OpenSim
+            0.6.9-RC2 or later. If the service does not support HTTP
+            textures (such as Second Life or older OpenSim versions),
+            this option has no benefit.
+
+          - "Increase rez speed via draw distance stepping". This
+            controls the "SpeedRez" feature added in 1.3.0 beta 2.
+            There is also an option to adjust the time between draw
+            distance steps.
+
+          - "Stand when editing appearance". When turned off, you will
+            no longer Stand Up when you edit your avatar appearance
+            while sitting. (Currently the "turn around" animation still
+            plays, but that behavior will likely change in the future.)
+
+       * The inventory window title now remembers the inventory count
+         from your previous session, and indicates how many items are
+         still remaining to fetch. Thanks to Emerald Viewer for this
+         feature!
+
+       * The script editor now has tooltips for new LSL features added
+         in SL serve 1.38 (prim media and linkset functions). Thanks
+         to Linden Lab and McCabe!
+
+       * Tweaked the avatar height calculator in the Appearance window
+         to be more accurate, using values from SNOW-197. Thanks to
+         Archimedies Plutonian, Soft Linden, McCabe, and Jacek!
+
+       * Objects with no name (or unknown name) now appear as ">>" in
+         chat, instead of appearing as "no name". Thanks, McCabe!
+
+       * If the current region does not have any support for voice
+         chat (e.g. OpenSim regions with no voice module), the viewer
+         will temporarily deactivate voice chat and hide the voice
+         chat controls on the toolbar. The viewer will check again for
+         voice chat again whenever you move to another parcel.
+
+       * The viewer will deactivate voice chat for the current session
+         if the SLVoice program is not found, rather than repeatedly
+         checking for it. (See our "How to Re-enable Voice Chat" wiki
+         page for instructions for installing SLVoice.)
+
+       * By default, the statistics window (Ctrl-Shift-1) no longer
+         hides when entering Mouselook mode. You can adjust this
+         behavior with the ShowStatusBarInMouselook debug setting.
+
+       * Tooltips now disappear when you type, to prevent them from
+         obscuring the UI while typing (SNOW-384). Thanks for the
+         patch, Ardy Lay!
+
+       * Tweaked some ugly layouts in several avatar profile tabs and
+         Search window tabs. Thanks, McCabe!
+
+       * Uploads that cost nothing (on OpenSim) now say "free" instead
+         of "L$0". Thanks to the Hippo Viewer for this!
+
+
+     BUG FIXES
+
+       * Fixed a bug where some objects would be invisible after a
+         very long-distance teleport (#239). Thanks, Armin!
+
+       * Fixed the "Advanced > Animation List" window not updating.
+         Thanks, McCabe!
+
+       * Fixed "Advanced > Phantom Avatar" not working correctly on
+         Second Life. Thanks, McCabe!
+
+       * Fixed some UI layout problems in the login screen and avatar
+         profile window when the viewer is set to certain non-English
+         languages (#192, #231). Thanks, Jacek and McCabe!
+
+       * Fixed a crash in the script editor related to OpenSim
+         reporting a syntax error with a negative line number (#245).
+         Thanks, McCabe!
+
+       * Fixed a crash caused by some malformed animations (SNOW-484).
+         Thanks to Robin Cornelius for the patch!
+
+       * Fixed a crash when quitting, related to the LLAgent class
+         destructor. Thanks, McCabe!
+
+       * Fixed the "Quit" button not working in the dialog that
+         informs you of a lost connection (#199). Thanks, McCabe!
+
+       * Fixed a rare crash in the payment dialog in laggy situations.
+         Thanks to to Hippo Viewer for the fix!
+
+       * The "File > Import + Upload" menu item no longer erroneously
+         shows "(L$10 per texture)" when connected to OpenSim. Thanks,
+         McCabe!
+
+       * Fixed several hardcoded references to Second Life and the
+         Second Life website. Thanks, McCabe!
+
+       * Repositioned the "Temporary Image" checkbox on the image
+         upload window so it doesn't extend beyond the window. Thanks,
+         McCabe!
+
+       * Fixed an ambiguous use of NULL in the media code which may
+         have caused crashes for 64-bit Linux users. Thanks, Armin!
+
+
+     OTHER CHANGES
+
+       * "Sub-Unit Snapping" is now enabled by default. You can
+         toggle it in the "Tools > Advanced Build Options" window
+         (Ctrl-Shift-O).
+
+       * When connected to grids other than Second Life, the currency
+         symbol is now "OS$" instead of "L$" (#237).
+
+       * As a temporary measure, you can now only purchase currency in
+         the viewer when connected to Second Life. On OpenSim, the
+         "L$" button is hidden and clicking your "OS$" amount will not
+         open the window to buy currency. This functionality will be
+         re-enabled when we are certain it will work correctly on
+         OpenSim, and can detect whether the grid supports it.
+
+       * Renamed some tabs in the Profile window: "2nd Life" and "1st
+         Life" are now "Avatar" and "Real Life". Thanks, McCabe!
+
+       * The OpenAL library for Linux (32-bit and 64-bit) has been
+         updated to version 1.11.753. This should hopefully address
+         some issues related to PulseAudio. Thanks, Armin!
+
+       * The viewer now sends the correct version number when loading
+         login splash page. It now sends the Imprudence version,
+         instead of the version of Second Life it was based on.
+         (Ported from version 1.2.2.)
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.2                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.2.2 is a small maintenance release to attempt to make
+   the viewer compliant with the new Second Life Terms of Service and
+   the Policy on Third Party Viewers.
+
+   Please see the Imprudence 1.2.0 Release Notes for information about
+   the changes in Imprudence 1.2.
+
+
+   CHANGES
+
+     * The object export feature no longer downloads textures from
+       Second Life. Other grids are not affected.
+
+     * The viewer now sends the correct version number when loading
+       login splash page. It now sends the Imprudence version, instead
+       of the version of Second Life it was based on.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 2                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Temporary (Free) Texture Uploads. When uploading an image,
+       select "Temporary Image (Free)" to upload it for free, but with
+       some caveats (see below). Thanks to the Emerald viewer for this
+       feature, and Armin for porting it!
+
+        - Temporary textures are intended for testing and preview
+          purposes only. They exist only on the sim they are uploaded
+          to, will disappear from your inventory when you log off, and
+          may disappear from the sim when it restarts.
+
+     * Breast Physics. By popular demand, we have ported breast
+       physics simulation (i.e. jiggly boobs) from the Emerald Viewer.
+       Thanks to Danny Nolan and the Emerald devs for creating this
+       feature, and Armin for porting it!
+
+        - Currently, this feature can only be configured via Debug
+          Settings: EmeraldBreastPhysicsToggle (to disable/enable the
+          feature entirely), EmeraldBoobMass, EmeraldBoobHardness,
+          etc.
+
+     * SpeedRez. After teleporting, the viewer will temporarily
+       decrease the draw distance to encourage nearby objects and 
+       textures to rez first. Thanks for the patch, Henri Beauchamp!
+
+        - You can disable this feature by setting the SpeedRez debug
+          setting to FALSE, or adjust the timing by editing the
+          SpeedRezInterval debug setting (smaller numbers restore the
+          old draw distance sooner).
+
+     * Building hotkeys to cycle through prims in a link set
+       (SNOW-97). See the "Tools > Select Linked Parts" menu. Thanks
+       for the patch, Thickbrick Sleaford!
+
+
+   KNOWN ISSUES
+
+     * Linux: The viewer may crash on some Ubuntu Karmic 64-bit
+       installs, most likely due to a bug in glib2. As a work around,
+       users affected by this issue can modify the "imprudence" launch
+       script to add the following code near the top of the script
+       (for example on the second line):
+
+         export LL_WRAPPER='strace -o /dev/null'
+
+     * All known issues listed for 1.3.0 beta 1 still apply to this
+       this version.
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.3.0 beta 1.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * Opening SLURLs ("secondlife://...") from another application
+         is now handled nicely on Linux. If Imprudence is already
+         running, the SLURL will open in the current instance of
+         Imprudence. Otherwise, it will launch a new instance of
+         Imprudence. Thanks, Armin!
+
+       * The notecard editor now has Search/Replace functionality.
+         Thanks for the patch, Kitty Barnett!
+
+       * The notecard editor now has an "Edit" menu. Thanks for the
+         patch, Henri Beauchamp!
+
+       * The password field on the login screen now uses solid black
+         circles (•) instead of asterisks (*), for a cleaner look.
+         Thanks, Geneko Nemeth!
+
+       * Added PrivateLookAtTarget debug setting. When enabled, the
+         viewer will no longer tell other users where your avatar is
+         looking. Thanks, Armin!
+
+
+     BUG FIXES
+
+       * Fixed: Possible crash related to ShowLookAt targets. Thanks, Armin!
+
+       * Fixed: Pie menu remains after switch to Mouselook (VWR-2425).
+         Thanks for the patch, Kitty Barnett!
+
+       * Fixed: Some menu entries were missing from the Advanced menu.
+         Thanks, Jacek!
+
+          - Advanced > UI > Use default system color picker
+          - Advanced > UI > Show search panel in overlay bar
+          - Advanced > UI > Show Matrices
+          - Advanced > XUI > Font Test...
+
+       * Fixed: Clicking the "Advanced > UI > Double-Click Auto-Pilot"
+         menu entry would crash the viewer, so it has been removed.
+         (As of Imprudence 1.2, double-click autopilot is configured
+         in "Preferences > Input & Camera.) Thanks, Jacek!
+
+       * Applied several bug fixes from Henri Beauchamp. Thanks, Henri!
+
+          - Fixed: The viewer would sometimes crash when touching or
+            focusing the camera on an object that was being rezzed.
+
+          - Fixed: The viewer did not properly use the .tga file
+            extension when saving textures to your computer.
+
+          - Fixed: The viewer would sometimes crash when encountering
+            avatars using "extra" attachment points (multiple
+            attachments on the same body part).
+
+       * Fixed: Some pop-up notifications behaved incorrectly: Build
+         Math Expressions help pop-ups, and the "Restore to Last
+         Position" warning.
+
+       * Fixed: Several cases where the viewer could pause or freeze
+         when downloading textures (SNOW-196, SNOW-408, SNOW-434,
+         SNOW-435, SNOW-485). Thanks for the patches, Aleric
+         Inglewood, Merov Linden, Robin Cornelius, and Vex Streeter!
+
+
+     OTHER CHANGES
+
+       * ELFIO has been reactivated on 64-bit Linux. It had been
+         disabled in 1.3.0 beta 1 as a possible fix for a crash for
+         some 64-bit Linux users, but the problem turned out to be
+         something else (see Known Issues, above). Thank, Armin!
+
+       * Linux: You can now disable disable DBUS support by passing
+         the "--disableDBUS" command line option or setting the
+         "DisableDBUS" Debug Setting to TRUE. This is meant as a
+         work-around for users who crash when using DBUS. Thank,
+         Armin!
+
+       * The pre-packaged 32-bit GStreamer plugins will be now be
+         available to GStreamer when running the 32-bit Linux build on
+         a 64-bit Linux system. Thank, Armin!
+
+       * To save developers' time and effort, the ChangeLog.txt file
+         is now automatically generated from Git commit messages,
+         instead of being edited by hand. Thanks, Jacek!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 1                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Textures and objects now rez more quickly, due to improved
+       texture and object engines from Snowglobe. Thanks to the
+       Snowglobe devs for creating it, and Armin and Jacek for porting
+       it!
+
+     * Imprudence's code base has been updated to Second Life 1.23.5.
+       That means Imprudence has gained most of the new features and
+       bug fixes from SL 1.23. Thanks to Linden Lab for writing it,
+       and to Jacek, McCabe, and Armin for their hard work merging it!
+       Thanks also to Lilly Zenovka for her assistance.
+
+     * Optional legacy pie menus. Enable "Preferences > General > Use
+       legacy pie menus" to switch to a pie menu layout similar to SL
+       1.22 and earlier. Thanks, McCabe!
+
+     * Clothing layer protection and client identification from
+       Meerkat/Emerald. See the Client Identification page on our wiki
+       for information about these features. Thanks to the Meerkat and
+       Emerald teams for creating them, and Armin for porting them!
+
+
+   KNOWN ISSUES
+
+     * Imprudence may crash on Linux when changing "Antialiasing" or
+       "Anisotropic Filtering" in "Preferences > Graphics > Hardware
+       Settings".
+
+        - This is a known bug in SL 1.23 (VWR-13286). We will try our
+          best to fix it.
+
+        - As a work around, you can open "Advanced > Debug Settings",
+          modify RenderFSAASamples (antialiasing) and
+          RenderAnisotropic (anisotropic filtering), then restart the
+          viewer.
+
+     * The "View > Web Browser" menu entry does not work.
+
+     * Legacy pie menus always appear in English, even if you are
+       using another language.
+
+     * The "File > Import + Upload" menu item's price always says
+       "L$10 per texture", even when uploads are actually free, such
+       as on OpenSim.
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.2.1.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * You can now type in an optional message when paying L$ to a
+         Resident (SNOW-436, formerly VWR-9597). The message will
+         appear in that Resident's transaction history online. Thanks,
+         Jacek!
+
+          - The layout for the Pay Resident and Pay Object windows
+            have been cleaned up, too. Thanks, Jacek!
+
+       * You can now adjust numerical sliders with the mouse wheel.
+         Position the mouse pointer over a slider (e.g. sound volume,
+         draw distance, etc.) and scroll the mouse wheel up and down.
+         Thanks, Armin!
+
+          - You can change the direction and speed by editing the
+            SliderScrollWheelMultiplier debug setting. Thanks, Jacek!
+
+       * In the IM window, the "Profile" button now has a drop-down
+         menu with "Pay" and "Offer Teleport" options. Thanks, McCabe!
+
+       * User profiles now have a "Copy Key" button to copy that
+         user's key (agent UUID) to your clipboard. You can then paste
+         it into a script, for example. Thanks, McCabe!
+
+       * Color chooser widgets now display opacity in a way that makes
+         sense. Thanks, Geneko Nemeth!
+
+       * The Script editor's Help menu now has a link to the
+         Autoscript scripting helper, to help generate .
+
+       * You can now drag-and-drop inventory items anywhere on
+         someone's profile to send them. In Imprudence 1.2, you had to
+         drag to specific area in the bottom right corner. Thanks,
+         McCabe!
+
+       * There is now a new debug setting to save inventory scripts as
+         Mono (SNOW-378). If you enable SaveInventoryScriptsAsMono in
+         Debug Settings, new scripts that you create in your inventory
+         will default to Mono. Thanks, Henri Beauchamp!
+
+       * You can now set a custom "world search" URL to use instead of
+         SL's search pages. See "Preferences > Web > World Search".
+         This is mostly useful for users of third-party grids. We hope
+         to provide per-grid search URLs in the future.
+
+
+     BUG FIXES
+
+       * Fixed the login screen not allowing login names longer than
+         16 letters. It now allows up to 31 letters per name, like it
+         should.
+
+       * Fixed #155: Double clicking your avatar triggers a TP
+         request. Thanks, Armin!
+
+       * Fixed #184: Opening notecards resets the camera. Thanks,
+         Armin!
+
+       * Fixed #197: Windlight toolbar can't be hidden. Thanks, Jacek!
+
+       * Fixed VWR-4232: Some particles don't disappear when UI is
+         hidden. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed VWR-14267: Clicking send in an IM window does not add
+         the sent text to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-14278: Gesture auto-completion adds uncommitted
+         suggestions to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-11172: A source coding mistake prevents number-pad
+         keys from specifying Ctrl+digit shortcuts on Windows. Thanks,
+         Alissa Sabre!
+
+       * Fixed VWR-14475: Load from XML is broken. Thanks, Admiral
+         Admiral and Mm Alder!
+
+       * Fixed VWR-15310: Save to XML doesn't set proper XML tags.
+         Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-376: Clean up handling of the maximum length of
+         chat messages. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-413: Potential null pointer exception in
+         multi-slider control. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-488: Malformed animation crash. Thanks, Robin
+         Cornelius!
+
+       * Fixed SNOW-492: LLDataPacker::unpackstring() is unsafe.
+         Thanks, Robin Cornelius!
+
+       * Fixed a rare crash from textures with too many components.
+         (This has only been observed in the Lbsa Plaza sim on OSGrid,
+         so far.) Thanks, Armin!
+
+
+     OTHER CHANGES
+
+       * To help protect our users' privacy, the viewer no longer
+         sends "ViewerStats" to Linden Lab's servers. This was a
+         feature of the SL viewer which would collect and send various
+         pieces of information to Linden Lab without the user's active
+         consent. Thanks, Patrick Sapinski!
+
+       * The Linux (32 and 64 bit) builds are no longer distributed
+         with Pango or GDK-PixBuf, due to a number of bugs that was
+         causing. Linux users should install the following on their
+         systems:
+
+          - Pango 1.26 (or compatible), including freetype support.
+
+          - GTK+ 1.16 (or compatible)
+
+       * The "Notify when Linden dollars (L$) spent or received"
+         checkbox has been moved to "Preferences > Popups". Thanks,
+         McCabe!
+
+       * Removed unnecessary XUI files from the Silver skin. This
+         helps keep the UI layouts of both skins in sync. Thanks,
+         McCabe!
+
+       * There have been numerous changes and improvements to the
+         viewer compile system and software libraries. Thanks to
+         Armin, Jacek, McCabe, and Patrick Sapinski, and the Snowglobe
+         devs!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.1                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.2.1 is a small bugfix release, which updates and fixes
+   some libraries that are distributed with Imprudence.
+
+   Please see the Imprudence 1.2.0 Release Notes for information about
+   the changes in Imprudence 1.2.
+
+
+   CHANGES
+
+     * Updated OpenAL on Windows to fix error messages flooding the
+       logs.
+
+     * Recompiled GStreamer, GStreamer plugins, and liboil on Linux,
+       to use the correct version of glibc.
+
+     * libxml2 is now distributed with Imprudence on Linux. It was
+       accidently left out of past releases.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.2.0                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -539,7 +1600,7 @@
          feature, but this will serve for now. Thanks to the Hippo
          Viewer and Meerkat Viewer for this, and to Armin for helping
          import it!
-       
+
        * Restrained Life support. Imprudence now provides optional
          support for the Restrained Life API (used by BDSM items and
          various scripted gadgets). Enable it with "Advanced >
@@ -852,7 +1913,7 @@
          feedback. Thanks, McCabe!
 
           - Check out the Pie Menus wiki page for pictures and
-            descriptions of all the changes! 
+            descriptions of all the changes!
             <http://imprudenceviewer.org/wiki/Pie_Menus>
 
        * Ctrl-D has been reverted to Edit > Duplicate. (It had been
@@ -1185,7 +2246,7 @@
          message, "You created a landmark at _____", will appear in
          chat history when creating a landmark. Thanks, McCabe!
 
-       * Moved "View > Show HUD Attachments" to 
+       * Moved "View > Show HUD Attachments" to
          "Advanced > Rendering > Features > HUD Attachments", and
          removed its keyboard shortcut.
 
@@ -1269,7 +2330,7 @@
          changes in SL 1.22 (VWR-8012). Thanks to CG Linden for
          pointing to the fix!
 
-       * Lip sync for voice chat is enabled by default 
+       * Lip sync for voice chat is enabled by default
          ("Advanced > Character > Enable Lip Sync"). Thanks, McCabe!
 
        * The colors.xml files (for setting skin colors) now has helpful

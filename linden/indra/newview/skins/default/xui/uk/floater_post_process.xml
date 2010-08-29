@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Post-Process Floater" title="Настройки постобробки">
+	<tab_container name="Post-Process Tabs">
+		<panel label="Фільтр кольору" name="wmiColorFilterPanel">
+			<check_box label="Увімкнути" name="wmiColorFilterToggle" />
+			<text type="string" length="1" name="wmiColorFilterBrightnessText">
+				Яскравість
+			</text>
+			<slider label="" name="wmiColorFilterBrightness" />
+			<text type="string" length="1" name="wmiColorFilterSaturationText">
+				Насиченість
+			</text>
+			<slider label="" name="wmiColorFilterSaturation" />
+			<text type="string" length="1" name="wmiColorFilterContrastText">
+				Контраст
+			</text>
+			<slider label="" name="wmiColorFilterContrast" />
+			<text type="string" length="1" name="wmiColorFilterBaseText">
+				Колір контрасту
+			</text>
+			<slider label="R" name="wmiColorFilterBaseR" />
+			<slider label="G" name="wmiColorFilterBaseG" />
+			<slider label="B" name="wmiColorFilterBaseB" />
+			<slider label="I" name="wmiColorFilterBaseI" />
+		</panel>
+		<panel label="Нічне бачення" name="wmiNightVisionPanel">
+			<check_box label="Увімкнути" name="wmiNightVisionToggle" />
+			<text type="string" length="1" name="wmiNightVisionBrightMultText">
+				Посилення світла
+			</text>
+			<slider label="" name="wmiNightVisionBrightMult" />
+			<text type="string" length="1" name="wmiNightVisionNoiseSizeText">
+				Розмір шуму
+			</text>
+			<slider label="" name="wmiNightVisionNoiseSize" />
+			<text type="string" length="1" name="wmiNightVisionNoiseStrengthText">
+				Рівень шуму
+			</text>
+			<slider label="" name="wmiNightVisionNoiseStrength" />
+		</panel>
+		<panel label="Мутність" name="wmiBloomPanel">
+			<check_box label="Увімкнути" name="wmiBloomToggle" />
+			<text type="string" length="1" name="wmiBloomExtractText">
+				Рівень яскравості
+			</text>
+			<slider label="" name="wmiBloomExtract" />
+			<text type="string" length="1" name="wmiBloomSizeText">
+				Розмір мутності
+			</text>
+			<slider label="" name="wmiBloomSize" />
+			<text type="string" length="1" name="wmiBloomStrengthText">
+				Рівень мутності
+			</text>
+			<slider label="" name="wmiBloomStrength" />
+		</panel>
+		<panel label="Екстра" name="Extras">
+			<button label="Загр.Ефект" label_selected="ЗавЕфект"
+			     name="PPLoadEffect" />
+			<button label="Збер.Ефект" label_selected="ЗберЕфект"
+			     name="PPSaveEffect" />
+			<line_editor label="Ім&apos;я ефекта" name="PPEffectNameEditor" />
+		</panel>
+	</tab_container>
+</floater>

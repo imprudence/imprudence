@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,19 +33,26 @@
 #ifndef LL_LLVERSIONVIEWER_H
 #define LL_LLVERSIONVIEWER_H
 
-const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 22;
-const S32 LL_VERSION_PATCH = 11;
-const S32 LL_VERSION_BUILD = 0;
+// Version info should be accessed using newview\viewerversion.h -- MC
 
-const char * const LL_CHANNEL = "Imprudence";
+const S32 LL_VERSION_MAJOR = 1;
+const S32 LL_VERSION_MINOR = 23;
+const S32 LL_VERSION_PATCH = 5;
+const S32 LL_VERSION_BUILD = 136262;
 
 const char * const LL_VIEWER_NAME = "Second Life";
+
+// These aren't used anymore. 
+// The channel is ViewerChannelName in settings.xml
+// The Imprudence version is set in app_settings\viewerversion.xml -- MC
+
+/*const char * const LL_CHANNEL = "Imprudence";
+
 const char * const IMP_VIEWER_NAME = "Imprudence";
 
 const S32 IMP_VERSION_MAJOR = 1;
-const S32 IMP_VERSION_MINOR = 2;
+const S32 IMP_VERSION_MINOR = 3;
 const S32 IMP_VERSION_PATCH = 0;
-const char * const IMP_VERSION_TEST = "";
+const char * const IMP_VERSION_TEST = "beta 4";*/
 
 #endif

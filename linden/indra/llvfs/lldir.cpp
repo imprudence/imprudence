@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -215,22 +216,12 @@ const std::string  LLDir::getCacheDir(bool get_default) const
 {
 	if (mCacheDir.empty() || get_default)
 	{
-		std::string res;
-		if (getOSCacheDir().empty())
-		{
-			if (getOSUserAppDir().empty())
-			{
-				res = "data";
-			}
-			else
-			{
-				res = getOSUserAppDir() + mDirDelimiter + "cache";
-			}
+		if (!mDefaultCacheDir.empty())
+		{	// Set at startup - can't set here due to const API
+			return mDefaultCacheDir;
 		}
-		else
-		{
-			res = getOSCacheDir() + mDirDelimiter + "Imprudence";
-		}
+		
+		std::string res = buildSLOSCacheDir();
 		return res;
 	}
 	else
@@ -238,6 +229,30 @@ const std::string  LLDir::getCacheDir(bool get_default) const
 		return mCacheDir;
 	}
 }
+
+// Return the default cache directory
+std::string LLDir::buildSLOSCacheDir() const
+{
+	std::string res;
+	if (getOSCacheDir().empty())
+	{
+		if (getOSUserAppDir().empty())
+		{
+			res = "data";
+		}
+		else
+		{
+			res = getOSUserAppDir() + mDirDelimiter + "cache";
+		}
+	}
+	else
+	{
+		res = getOSCacheDir() + mDirDelimiter + "Imprudence";
+	}
+	return res;
+}
+
+
 
 const std::string &LLDir::getOSCacheDir() const
 {
@@ -378,7 +393,7 @@ std::string LLDir::getExpandedFilename(ELLPath location, const std::string& subd
 	case LL_PATH_EXECUTABLE:
 		prefix = getExecutableDir();
 		break;
-
+		
 	default:
 		llassert(0);
 	}
@@ -418,7 +433,7 @@ std::string LLDir::getExpandedFilename(ELLPath location, const std::string& subd
 		expanded_filename.assign("");
 	}
 
-	//llinfos << "*** EXPANDED FILENAME: <" << mExpandedFilename << ">" << llendl;
+	//llinfos << "*** EXPANDED FILENAME: <" << expanded_filename << ">" << llendl;
 
 	return expanded_filename;
 }
@@ -527,16 +542,16 @@ void LLDir::setLindenUserDir(const std::string &grid, const std::string &first, 
 	{
 		// some platforms have case-sensitive filesystems, so be
 		// utterly consistent with our firstname/lastname case.
-		// std::string gridlower(grid);
-		// LLStringUtil::toLower(gridlower);
+		std::string gridlower(grid);
+		LLStringUtil::toLower(gridlower);
 		std::string firstlower(first);
 		LLStringUtil::toLower(firstlower);
 		std::string lastlower(last);
 		LLStringUtil::toLower(lastlower);
 		mLindenUserDir = getOSUserAppDir();
 		mLindenUserDir += mDirDelimiter;
-		// mLindenUserDir += gridlower;
-		// mLindenUserDir += "-";
+		mLindenUserDir += gridlower;
+		mLindenUserDir += "-";
 		mLindenUserDir += firstlower;
 		mLindenUserDir += "_";
 		mLindenUserDir += lastlower;
@@ -568,16 +583,16 @@ void LLDir::setPerAccountChatLogsDir(const std::string &grid, const std::string 
 	{
 		// some platforms have case-sensitive filesystems, so be
 		// utterly consistent with our firstname/lastname case.
-		// std::string gridlower(grid);
-		// LLStringUtil::toLower(gridlower);
+		std::string gridlower(grid);
+		LLStringUtil::toLower(gridlower);
 		std::string firstlower(first);
 		LLStringUtil::toLower(firstlower);
 		std::string lastlower(last);
 		LLStringUtil::toLower(lastlower);
 		mPerAccountChatLogsDir = getChatLogsDir();
 		mPerAccountChatLogsDir += mDirDelimiter;
-		// mPerAccountChatLogsDir += gridlower;
-		// mPerAccountChatLogsDir += "-";
+		mPerAccountChatLogsDir += gridlower;
+		mPerAccountChatLogsDir += "-";
 		mPerAccountChatLogsDir += firstlower;
 		mPerAccountChatLogsDir += "_";
 		mPerAccountChatLogsDir += lastlower;
@@ -654,6 +669,11 @@ void LLDir::dumpCurrentDirectories()
 	LL_DEBUGS2("AppInit","Directories") << "  TempDir:               " << getTempDir() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  CAFile:				 " << getCAFile() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  SkinDir:               " << getSkinDir() << LL_ENDL;
+
+#if LL_LIBXUL_ENABLED
+ 	LL_DEBUGS2("AppInit","Directories") << "  HTML Path:             " << getExpandedFilename( LL_PATH_HTML, "" ) << llendl;
+ 	LL_DEBUGS2("AppInit","Directories") << "  Mozilla Profile Path:  " << getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) << llendl;
+#endif
 }
 
 

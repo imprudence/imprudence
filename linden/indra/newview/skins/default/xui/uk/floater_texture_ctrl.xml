@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="Вибір: Текстури">
+	<string name="choose_picture">
+		Натисніть для вибору картинки
+	</string>
+	<text type="string" length="1" name="Multiple">
+		Складна
+	</text>
+	<text type="string" length="1" name="unknown">
+		Розміри: [DIMENSIONS]
+	</text>
+	<button label="За замовч." label_selected="За замовч." name="Default" width="100"/>
+	<button label="Нічого" label_selected="Нічого" name="None" left="106"/>
+	<button label="З нуля" label_selected="З нуля" name="Blank" />
+	<check_box label="Показати папки" name="show_folders_check" />
+	<search_editor label="Ввести тут для пошуку" name="inventory search editor" />
+	<check_box label="Застосув. негайно" name="apply_immediate_check" />
+	<button label="" label_selected="" name="Pipette" />
+	<button label="Відміна" label_selected="Відміна" name="Cancel" />
+	<button label="Вибір" label_selected="Вибір" name="Select" />
+	<string name="pick title">
+		Вибрати:
+	</string>
+</floater>

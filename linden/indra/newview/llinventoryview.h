@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -307,6 +308,8 @@ protected:
 
 	std::string					mFilterText;
 
+	S32							mItemCount;
+
 
 	// This container is used to hold all active inventory views. This
 	// is here to support the inventory toggle show button.
@@ -387,6 +390,13 @@ std::string get_item_icon_name(LLAssetType::EType asset_type,
 
 std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 							 BOOL item_is_multi );
+
+// Uses NType only. For when we don't know an asset's inventory type or have no way of finding that information. 
+// Sends a default inv_ntype to use if there are multiple NTypes for an asset type.
+std::string get_item_icon_name(LLAssetType::EType asset_type,
+							   LLInventoryType::NType inv_ntype,
+							   U32 flags,
+							   BOOL item_is_multi);
 
 LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,

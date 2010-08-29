@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel min_width="410" name="main_panel" width="410">
+			<layout_stack name="chatbar_and_buttons" right="410">
+				<layout_panel name="padding" width="410"/>
+				<layout_panel name="state_buttons" width="410">
+					<button label="HM alındı" label_selected="HM alındı" name="IM Received" tool_tip="Bekleyen hızlı mesajınız var.HM&apos;leri görüntülemek için tıklayınız."/>
+					<button label="Meşgulden çık" label_selected="Meşgulden çık" name="Set Not Busy" tool_tip="Sohbet ve HM sizin için saklandı.Kendinizi meşgul durumdan çıkarmak için buraya tıklayınız."/>
+					<button label="Uçan kamera" label_selected="Uçan kamera" name="Flycam" tool_tip="Kameranız oyun çubuğu kontrolü altında, onu serbest bırakmak için buraya tıklayınız."/>
+					<button label="Farebakışı" label_selected="Farebakışı" name="Mouselook" tool_tip="Görünümünüze yön vermek için fareyi kullanınız.Eğer silahınız varsa,tıklamak ateş ettirecektir."/>
+					<button label="Ayağa kalk" label_selected="Ayağa kalk" name="Stand Up" tool_tip="Ayağa kalkmak için buraya tıklayınız."/>
+				</layout_panel>
+				<layout_panel name="chat_bar"/>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel min_width="220" name="media_remote_container" width="220"/>
+		<layout_panel min_width="138" name="voice_remote_container" width="140"/>
+	</layout_stack>
+</panel>

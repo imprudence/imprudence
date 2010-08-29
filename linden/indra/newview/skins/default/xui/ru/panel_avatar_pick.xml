@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Выбрать">
+	<button label="Расположение" name="set_location_btn" left="190"/>
+	<button label="Телепорт" name="pick_teleport_btn" width="80"/>
+	<button label="На карте" name="pick_map_btn" left="90"/>
+	<text name="sort_order_text">
+		Сортировать:
+	</text>
+	<check_box label="Включить" name="enabled_check" />
+</panel>

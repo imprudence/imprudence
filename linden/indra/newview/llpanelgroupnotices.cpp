@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -53,6 +54,7 @@
 #include "roles_constants.h"
 #include "llviewerwindow.h"
 #include "llviewermessage.h"
+#include "llnotifications.h"
 
 const S32 NOTICE_DATE_STRING_SIZE = 30;
 
@@ -195,7 +197,8 @@ LLPanelGroupNotices::~LLPanelGroupNotices()
 	if (mInventoryOffer)
 	{
 		// Cancel the inventory offer.
-		inventory_offer_callback( IOR_DECLINE , mInventoryOffer); 
+		mInventoryOffer->forceResponse(IOR_DECLINE);
+
 		mInventoryOffer = NULL;
 	}
 }
@@ -317,7 +320,7 @@ void LLPanelGroupNotices::setItem(LLPointer<LLInventoryItem> inv_item)
 	};
 
 	std::string icon_name = get_item_icon_name(inv_item->getType(),
-										inv_item->getInventoryType(),
+										inv_item->getNInventoryType(),
 										inv_item->getFlags(),
 										item_is_multi );
 
@@ -345,7 +348,7 @@ void LLPanelGroupNotices::onClickOpenAttachment(void* data)
 {
 	LLPanelGroupNotices* self = (LLPanelGroupNotices*)data;
 
-	inventory_offer_callback( IOR_ACCEPT , self->mInventoryOffer);
+	self->mInventoryOffer->forceResponse(IOR_ACCEPT);
 	self->mInventoryOffer = NULL;
 	self->mBtnOpenAttachment->setEnabled(FALSE);
 }
@@ -357,7 +360,7 @@ void LLPanelGroupNotices::onClickSendMessage(void* data)
 	if (self->mCreateSubject->getText().empty())
 	{
 		// Must supply a subject
-		gViewerWindow->alertXml("MustSpecifyGroupNoticeSubject");
+		LLNotifications::instance().add("MustSpecifyGroupNoticeSubject");
 		return;
 	}
 	send_group_notice(
@@ -384,7 +387,7 @@ void LLPanelGroupNotices::onClickNewMessage(void* data)
 
 	if (self->mInventoryOffer)
 	{
-		inventory_offer_callback( IOR_DECLINE , self->mInventoryOffer);
+		self->mInventoryOffer->forceResponse(IOR_DECLINE);
 		self->mInventoryOffer = NULL;
 	}
 
@@ -476,7 +479,7 @@ void LLPanelGroupNotices::processNotices(LLMessageSystem* msg)
 		{
 			std::string icon_name = get_item_icon_name(
 									(LLAssetType::EType)asset_type,
-									LLInventoryType::IT_NONE,FALSE, FALSE);
+									LLInventoryType::NIT_NONE,FALSE, FALSE);
 			row["columns"][0]["type"] = "icon";
 			row["columns"][0]["value"] = icon_name;
 		}
@@ -535,7 +538,7 @@ void LLPanelGroupNotices::showNotice(const std::string& subject,
 	if (mInventoryOffer)
 	{
 		// Cancel the inventory offer for the previously viewed notice
-		inventory_offer_callback( IOR_DECLINE , mInventoryOffer); 
+		mInventoryOffer->forceResponse(IOR_DECLINE); 
 		mInventoryOffer = NULL;
 	}
 
@@ -544,7 +547,7 @@ void LLPanelGroupNotices::showNotice(const std::string& subject,
 		mInventoryOffer = inventory_offer;
 
 		std::string icon_name = get_item_icon_name(mInventoryOffer->mType,
-												LLInventoryType::IT_TEXTURE,
+												LLInventoryType::NIT_TEXTURE,
 												0, FALSE);
 
 		mViewInventoryIcon->setImage(icon_name);

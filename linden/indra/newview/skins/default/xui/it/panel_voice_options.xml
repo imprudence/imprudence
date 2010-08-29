@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Usa le opzioni seguenti per configurare la tua esperienza voice.
+	</text_editor>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Ascolta la voice chat dalla posizione della tua telecamera.
+		</radio_item>
+		<radio_item name="1">
+			Ascolta la voice chat dalla posizione degli avatar.
+		</radio_item>
+	</radio_group>
+	<check_box label="Permetti solo agli amici di inviare chiamate in voice" name="friends_only_check"/>
+	<check_box label="Usa il &apos;premi per parlare&apos; con on/off sul tasto" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		Tasto &apos;Premi per parlare&apos;:
+	</text>
+	<button label="Imposta chiave" name="set_voice_hotkey_button"/>
+	<button label="Bottone centrale del mouse" name="set_voice_middlemouse_button"/>
+</panel>

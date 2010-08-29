@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -128,24 +129,6 @@ class PlatformSetup(object):
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-G %(generator)r %(opts)s %(dir)r' % args)
 
-    def run(self, command, name=None):
-        '''Run a program.  If the program fails, raise an exception.'''
-        ret = os.system(command)
-        if ret:
-            if name is None:
-                name = command.split(None, 1)[0]
-            if os.WIFEXITED(ret):
-                event = 'exited'
-                status = 'status %d' % os.WEXITSTATUS(ret)
-            elif os.WIFSIGNALED(ret):
-                event = 'was killed'
-                status = 'signal %d' % os.WTERMSIG(ret)
-            else:
-                event = 'died unexpectedly (!?)'
-                status = '16-bit status %d' % ret
-            raise CommandError('the command %r %s with %s' %
-                               (name, event, status))
-
     def run_cmake(self, args=[]):
         '''Run cmake.'''
 
@@ -207,9 +190,27 @@ class PlatformSetup(object):
 
         return os.path.isdir(os.path.join(self.script_dir, 'newsim'))
 
+    def find_in_path(self, name, defval=None, basename=False):
+        for ext in self.exe_suffixes:
+            name_ext = name + ext
+            if os.sep in name_ext:
+                path = os.path.abspath(name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+            for p in os.getenv('PATH', self.search_path).split(os.pathsep):
+                path = os.path.join(p, name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+        if defval:
+            return [defval]
+        return []
+
 
 class UnixSetup(PlatformSetup):
     '''Generic Unixy build instructions.'''
+
+    search_path = '/usr/bin:/usr/local/bin'
+    exe_suffixes = ('',)
 
     def __init__(self):
         super(UnixSetup, self).__init__()
@@ -224,12 +225,33 @@ class UnixSetup(PlatformSetup):
             cpu = 'i386'
         elif cpu.endswith('86'):
             cpu = 'i686'
+        elif cpu in ('x86_64'):
+            cpu = 'x86_64'	    
         elif cpu in ('athlon',):
             cpu = 'i686'
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu
-        
+
+    def run(self, command, name=None):
+        '''Run a program.  If the program fails, raise an exception.'''
+        ret = os.system(command)
+        if ret:
+            if name is None:
+                name = command.split(None, 1)[0]
+            if os.WIFEXITED(ret):
+                st = os.WEXITSTATUS(ret)
+                if st == 127:
+                    event = 'was not found'
+                else:
+                    event = 'exited with status %d' % st
+            elif os.WIFSIGNALED(ret):
+                event = 'was killed by signal %d' % os.WTERMSIG(ret)
+            else:
+                event = 'died unexpectedly (!?) with 16-bit status %d' % ret
+            raise CommandError('the command %r %s' %
+                               (name, event))
+
 
 class LinuxSetup(UnixSetup):
     def __init__(self):
@@ -256,15 +278,6 @@ class LinuxSetup(UnixSetup):
             return ['server-' + platform_build]
         else:
             return ['viewer-' + platform_build]
-
-    def find_in_path(self, name, defval=None, basename=False):
-        for p in os.getenv('PATH', '/usr/bin').split(':'):
-            path = os.path.join(p, name)
-            if os.access(path, os.X_OK):
-                return [basename and os.path.basename(path) or path]
-        if defval:
-            return [defval]
-        return []
 
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         args = dict(
@@ -425,8 +438,7 @@ class DarwinSetup(UnixSetup):
             targets = ' '.join(['-target ' + repr(t) for t in targets])
         else:
             targets = ''
-        cmd = ('xcodebuild -parallelizeTargets '
-               '-configuration %s %s %s' %
+        cmd = ('xcodebuild -configuration %s %s %s' %
                (self.build_type, ' '.join(opts), targets))
         for d in self.build_dirs():
             try:
@@ -450,11 +462,19 @@ class WindowsSetup(PlatformSetup):
         'vc90' : {
             'gen' : r'Visual Studio 9 2008',
             'ver' : r'9.0'
+            },
+        'vc100' : {
+            'gen' : r'Visual Studio 10',
+            'ver' : r'10.0'
             }
         }
     gens['vs2003'] = gens['vc71']
     gens['vs2005'] = gens['vc80']
     gens['vs2008'] = gens['vc90']
+    gens['vs2010'] = gens['vc100']
+
+    search_path = r'C:\windows'
+    exe_suffixes = ('.exe', '.bat', '.com')
 
     def __init__(self):
         super(WindowsSetup, self).__init__()
@@ -463,21 +483,14 @@ class WindowsSetup(PlatformSetup):
 
     def _get_generator(self):
         if self._generator is None:
-            for version in 'vc80 vc90 vc71'.split():
+            for version in 'vc80 vc90 vc100 vc71'.split():
                 if self.find_visual_studio(version):
                     self._generator = version
                     print 'Building with ', self.gens[version]['gen']
                     break
             else:
-                print >> sys.stderr, 'Cannot find a Visual Studio installation, testing for express editions'
-                for version in 'vc80 vc90 vc71'.split():
-                    if self.find_visual_studio_express(version):
-                        self._generator = version
-                        print 'Building with ', self.gens[version]['gen'] , "Express edition"
-                        break
-                else:
-                    print >> sys.stderr, 'Cannot find any Visual Studio installation'
-                    eys.exit(1)
+                print >> sys.stderr, 'Cannot find a Visual Studio installation!'
+                sys.exit(1)
         return self._generator
 
     def _set_generator(self, gen):
@@ -500,7 +513,8 @@ class WindowsSetup(PlatformSetup):
             unattended=self.unattended,
             project_name=self.project_name
             )
-        #if simple:
+        # default to packaging enabled
+        # if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
                 '-DSTANDALONE:BOOL=%(standalone)s '
@@ -508,49 +522,35 @@ class WindowsSetup(PlatformSetup):
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '%(opts)s "%(dir)s"' % args)
 
+    def get_HKLM_registry_value(self, key_str, value_str):
+        import _winreg
+        reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+        key = _winreg.OpenKey(reg, key_str)
+        value = _winreg.QueryValueEx(key, value_str)[0]
+        print 'Found: %s' % value
+        return value
+        
     def find_visual_studio(self, gen=None):
         if gen is None:
             gen = self._generator
         gen = gen.lower()
+        value_str = (r'EnvironmentDirectory')
+        key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
+                   self.gens[gen]['ver'])
+        print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
+               (key_str, value_str))
         try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
-                       self.gens[gen]['ver'])
-            value_str = (r'EnvironmentDirectory')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]
-            print 'Found: %s' % value
-            return value
+            return self.get_HKLM_registry_value(key_str, value_str)           
         except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
+            key_str = (r'SOFTWARE\Wow6432Node\Microsoft\VisualStudio\%s\Setup\VS' %
+                       self.gens[gen]['ver'])
 
-    def find_visual_studio_express(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
         try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
-                       self.gens[gen]['ver'])
-            value_str = (r'ProductDir')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
-            print 'Found: %s' % value
-            return value
-        except WindowsError, err:
+            return self.get_HKLM_registry_value(key_str, value_str)
+        except:
             print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
+            
+        return ''
 
     def get_build_cmd(self):
         if self.incredibuild:
@@ -558,34 +558,28 @@ class WindowsSetup(PlatformSetup):
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
                 config = '\"%s|Win32\"' % config
 
-            return "buildconsole %s.sln /build %s" % (self.project_name, config)
-           
-        environment = self.find_visual_studio()
-        if environment == '':
-            environment = self.find_visual_studio_express()
-            if environment == '':
-                 print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
-            else:
-                 print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
-                 build_dirs=self.build_dirs();
-                 print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
-                 print >> sys.stderr, "Set %s as startup project" % self.project_name
-                 print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
-                 exit(0)   
+            executable = 'buildconsole'
+            cmd = "%(bin)s %(prj)s.sln /build /cfg=%(cfg)s" % {'prj': self.project_name, 'cfg': config, 'bin': executable}
+            return (executable, cmd)
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
-        return ('"%sdevenv.com" %s.sln /build %s' % 
-               (environment, self.project_name, self.build_type))
+        executable = '%sdevenv.com' % (self.find_visual_studio(),)
+        cmd = ('"%s" %s.sln /build %s' % 
+                (executable, self.project_name, self.build_type))
+        return (executable, cmd)
 
-    # this override of run exists because the PlatformSetup version
-    # uses Unix/Mac only calls. Freakin' os module!
     def run(self, command, name=None):
         '''Run a program.  If the program fails, raise an exception.'''
         ret = os.system(command)
         if ret:
             if name is None:
                 name = command.split(None, 1)[0]
-            raise CommandError('the command %r exited with %s' %
+            path = self.find_in_path(name)
+            if not path:
+                ret = 'was not found'
+            else:
+                ret = 'exited with status %d' % ret
+            raise CommandError('the command %r %s' %
                                (name, ret))
 
     def run_cmake(self, args=[]):
@@ -674,17 +668,16 @@ Options:
   -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or VC90 (VS2008)
+                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or 
+                          VC90 (VS2008)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
   -p | --project=NAME   set the root project name. (Doesn't effect makefiles)
                         
 Commands:
-  build       configure and build default target
-  clean       delete all build directories (does not affect sources)
-  configure   configure project by running cmake
-
-If you do not specify a command, the default is "configure".
+  build      configure and build default target
+  clean      delete all build directories, does not affect sources
+  configure  configure project by running cmake (default command if none given)
 
 Command-options for "configure":
   We use cmake variables to change the build configuration.
@@ -697,7 +690,7 @@ Examples:
   Set up a viewer-only project for your system:
     develop.py configure -DSERVER:BOOL=OFF
   
-  Set up a Visual Studio 2005 project with package target (to build installer):
+  Set up a Visual Studio 2005 project with "package" target:
     develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 '''
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="区域" name="General">
 	<text name="region_text_lbl">
 		区域:
@@ -6,43 +6,54 @@
 	<text name="region_text">
 		未知
 	</text>
-	<text
-		 name="version_channel_text_lbl">
-		版本: 
+	<text name="version_channel_text_lbl">
+		版本:
 	</text>
-	<text
-		 name="version_channel_text">
+	<text name="version_channel_text">
 		未知
 	</text>
-
-
-	<check_box label="锁定地形" name="block_terraform_check" />
-	<check_box label="锁定飞翔" name="block_fly_check" />
-	<check_box label="允许伤害" name="allow_damage_check" />
-	<check_box label="限制推动" name="restrict_pushobject" />
-	<check_box label="允许土地转卖" name="allow_land_resell_check" />
-	<check_box label="允许土地合并/分割" name="allow_parcel_changes_check" />
-	<check_box
-		 label="不要在搜索中显示土地"
-		 name="block_parcel_search_check"
-		 tool_tip="让人们在搜索结果中看到这个区域和它的地块" />
-	<spinner label="化身数目限制" name="agent_limit_spin" />
-	<spinner label="额外物体因数" name="object_bonus_spin" />
-	<text label="成人内容" name="access_text">
-		成人内容:
+	<text name="region_type_lbl">
+		类型：
 	</text>
-	<combo_box label="成人" name="access_combo">
-		<combo_item name="PG">
-			非限制级
+	<text name="region_type">
+		未知
+	</text>
+	<check_box label="锁定地形" name="block_terraform_check"/>
+	<button label="?" name="terraform_help"/>
+	<check_box label="锁定飞翔" name="block_fly_check"/>
+	<button label="?" name="fly_help"/>
+	<check_box label="允许伤害" name="allow_damage_check"/>
+	<button label="?" name="damage_help"/>
+	<check_box label="限制推动" name="restrict_pushobject"/>
+	<button label="?" name="restrict_pushobject_help"/>
+	<check_box label="允许土地转卖" name="allow_land_resell_check"/>
+	<button label="?" name="land_resell_help"/>
+	<check_box label="允许土地合并/分割" name="allow_parcel_changes_check"/>
+	<button label="?" name="parcel_changes_help"/>
+	<check_box label="不要在搜索中显示土地" name="block_parcel_search_check" tool_tip="让人们在搜索结果中看到这个区域和它的地块"/>
+	<button label="?" name="parcel_search_help"/>
+	<spinner label="化身数目限制" name="agent_limit_spin"/>
+	<button label="?" name="agent_limit_help"/>
+	<spinner label="额外物体因数" name="object_bonus_spin"/>
+	<button label="?" name="object_bonus_help"/>
+	<text label="成人内容" name="access_text">
+		分级：
+	</text>
+	<combo_box label="Mature" name="access_combo">
+		<combo_item name="Adult">
+			Adult
 		</combo_item>
 		<combo_item name="Mature">
-			限制级
+			Mature
+		</combo_item>
+		<combo_item name="PG">
+			PG
 		</combo_item>
 	</combo_box>
-	<button label="?" name="access_help" />
-	<button label="应用" name="apply_btn" />
-	<button label="瞬间移动用户回家..." name="kick_btn" />
-	<button label="所有用户瞬间移动回家..." name="kick_all_btn" />
-	<button label="向区域发送消息" name="im_btn" />
-	<button label="管理着陆点..." name="manage_telehub_btn" />
+	<button label="?" name="access_help"/>
+	<button label="应用" name="apply_btn"/>
+	<button label="瞬间移动用户回家..." name="kick_btn"/>
+	<button label="所有用户瞬间移动回家..." name="kick_all_btn"/>
+	<button label="向区域发送消息" name="im_btn"/>
+	<button label="管理着陆点..." name="manage_telehub_btn"/>
 </panel>

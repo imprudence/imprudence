@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Åben" name="Open" />
+	<menu_item_call label="Byg" name="Create" />
+	<menu_item_call label="Berør" name="Object Touch">
+		<on_enable userdata="Berør" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Sid her" name="Object Sit">
+		<on_enable userdata="Sid her,Stå op" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Tag" name="Pie Object Take">
+		<on_enable userdata="Køb,Tag" name="EnableBuyOrTake"/>
+	</menu_item_call>
+	<menu_item_call label="Betal..." name="Pay..." />
+	<pie_menu label="Mere &gt;" name="More &gt;">
+		<menu_item_call label="Slet" name="Delete" />
+		<menu_item_call label="Tag på" name="Wear" />
+		<menu_item_call label="Tag kopi" name="Take Copy" />
+		<pie_menu label="Vedhæft på HUD &gt;" name="Object Attach HUD" />
+		<pie_menu label="Vedhæft" name="Object Attach" />
+		<menu_item_call label="Returnér..." name="Return..." />
+		<pie_menu label="Mere &gt;" name="Rate Menu">
+			<menu_item_call label="Rapportér..." name="Report Abuse..." />
+			<menu_item_call label="Sluk for lyd" name="Object Mute" />
+			<menu_item_call label="Undersøg" name="Object Inspect" />
+		</pie_menu>
+		<menu_item_call label="Køb..." name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="Redigér..." name="Edit..." />
+</pie_menu>

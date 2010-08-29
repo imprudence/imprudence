@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -59,6 +60,7 @@
 #include "pipeline.h"
 #include "llappviewer.h"		// for do_disconnect()
 
+#include "hippoLimits.h"
 //
 // Globals
 //
@@ -110,7 +112,7 @@ LLWorld::LLWorld() :
 	
 	mDefaultWaterTexturep = new LLViewerImage(raw, FALSE);
 	gGL.getTexUnit(0)->bind(mDefaultWaterTexturep.get());
-	mDefaultWaterTexturep->setClamp(TRUE, TRUE);
+	mDefaultWaterTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 }
 
@@ -127,6 +129,10 @@ void LLWorld::destroyClass()
 	LLViewerPartSim::getInstance()->destroyClass();
 }
 
+F32	LLWorld::getRegionMaxHeight() const
+{
+	return gHippoLimits->getMaxHeight();
+}
 
 LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host)
 {
@@ -877,7 +883,7 @@ void LLWorld::updateWaterObjects()
 													 y + rwidth/2,
 													 256.f+DEFAULT_WATER_HEIGHT));
 				waterp->setScale(LLVector3((F32)rwidth, (F32)rwidth, 512.f));
-				gPipeline.addObject(waterp);
+				gPipeline.createObject(waterp);
 				mHoleWaterObjects.push_back(waterp);
 			}
 		}
@@ -928,7 +934,7 @@ void LLWorld::updateWaterObjects()
 			waterp = mEdgeWaterObjects[dir];
 			waterp->setUseTexture(FALSE);
 			waterp->setIsEdgePatch(TRUE);
-			gPipeline.addObject(waterp);
+			gPipeline.createObject(waterp);
 		}
 
 		waterp->setRegion(gAgent.getRegion());

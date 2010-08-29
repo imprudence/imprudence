@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,6 +36,7 @@
 #include "llfloater.h"
 #include "lluuid.h"
 #include "llstring.h"
+#include "llvoavatardefines.h"
 
 class LLTextureCtrl;
 
@@ -57,26 +59,7 @@ private:
 private:
 	LLUUID	mID;
 	std::string mTitle;
-	LLTextureCtrl* mBakedHead;
-	LLTextureCtrl* mBakedEyes;
-	LLTextureCtrl* mBakedUpper;
-	LLTextureCtrl* mBakedLower;
-	LLTextureCtrl* mBakedSkirt;
-	LLTextureCtrl* mHair;
-	LLTextureCtrl* mMakeup;
-	LLTextureCtrl* mEye;
-	LLTextureCtrl* mShirt;
-	LLTextureCtrl* mUpperTattoo;
-	LLTextureCtrl* mUpperJacket;
-	LLTextureCtrl* mGloves;
-	LLTextureCtrl* mUndershirt;
-	LLTextureCtrl* mPants;
-	LLTextureCtrl* mLowerTattoo;
-	LLTextureCtrl* mShoes;
-	LLTextureCtrl* mSocks;
-	LLTextureCtrl* mJacket;
-	LLTextureCtrl* mUnderpants;
-	LLTextureCtrl* mSkirt;
+	LLTextureCtrl* mTextures[LLVOAvatarDefines::TEX_NUM_INDICES];
 };
 
 #endif

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="Organisér: Landemærker">
+	<check_box label="Vis mapper" name="show_folders_check" />
+	<button label="Ny" label_selected="Ny" name="New" />
+	<button label="Omdøb" label_selected="Omdøb" name="Rename" />
+	<button label="Ny mappe" label_selected="Ny mappe" name="NewFolder" />
+	<button label="Redigér" label_selected="Redigér" name="Edit" />
+	<button label="Slet" label_selected="Slet" name="Delete" />
+	<button label="Luk" label_selected="Luk" name="Close" />
+</floater>

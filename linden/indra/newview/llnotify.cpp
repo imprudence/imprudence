@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -53,7 +54,8 @@
 #include "llfloaterchat.h"	// for add_chat_history()
 #include "lloverlaybar.h" // for gOverlayBar
 #include "lluictrlfactory.h"
-#include "llversionviewer.h"
+
+#include "hippoGridManager.h"
 
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
 #include "rlvhandler.h"
@@ -63,133 +65,83 @@
 LLNotifyBoxView* gNotifyBoxView = NULL;
 
 const F32 ANIMATION_TIME = 0.333f;
+const S32 BOTTOM_PAD = VPAD * 3;
+
 
 // statics
 S32 LLNotifyBox::sNotifyBoxCount = 0;
 const LLFontGL* LLNotifyBox::sFont = NULL;
 const LLFontGL* LLNotifyBox::sFontSmall = NULL;
 std::map<std::string, LLNotifyBox*> LLNotifyBox::sOpenUniqueNotifyBoxes;
-LLPointer<LLNotifyBoxTemplate> LLNotifyBox::sDefaultTemplate;
 
-
-LLNotifyBox::template_map_t LLNotifyBox::sNotifyTemplates;
-
-LLNotifyBox::LLNotifyBehavior::LLNotifyBehavior(notify_callback_t callback, void* data) :
-	mCallback(callback),
-	mData(data)
-{
-}
 
 //---------------------------------------------------------------------------
 // LLNotifyBox
 //---------------------------------------------------------------------------
 
-//static
-LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, notify_callback_t callback, void *user_data)
+//static 
+void LLNotifyBox::initClass()
 {
-	return showXml(xml_desc, LLStringUtil::format_map_t(), callback, user_data);
+	LLNotificationChannel::buildChannel("Notifications", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "notify"));
+	LLNotificationChannel::buildChannel("NotificationTips", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "notifytip"));
+
+	LLNotifications::instance().getChannel("Notifications")->connectChanged(&LLNotifyBox::onNotification);
+	LLNotifications::instance().getChannel("NotificationTips")->connectChanged(&LLNotifyBox::onNotification);
 }
 
-
-//static
-LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args, BOOL is_caution,
-						   notify_callback_t callback, void *user_data)
+//static 
+bool LLNotifyBox::onNotification(const LLSD& notify)
 {
-	// for script permission prompts
-	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
-	LLNotifyBox* notify = findExistingNotify(xml_template, args);
-	if (notify)
-	{
-		delete notify->mBehavior;
-		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
-	}
-	else
-	{
-		notify = new LLNotifyBox(xml_template, args, callback, user_data, is_caution);
-		gNotifyBoxView->addChildAtEnd(notify);
-		notify->moveToBack();
-	}
-	return notify;
-}
+	LLNotificationPtr notification = LLNotifications::instance().find(notify["id"].asUUID());
+	
+	if (!notification) return false;
 
-//static
-LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
-						   notify_callback_t callback, void *user_data)
-{
-	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
-	LLNotifyBox* notify = findExistingNotify(xml_template, args);
-	if (notify)
+	if(notify["sigtype"].asString() == "add" || notify["sigtype"].asString() == "change")
 	{
-		delete notify->mBehavior;
-		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
-	}
-	else
-	{
-		notify = new LLNotifyBox(xml_template, args, callback, user_data);
-		gNotifyBoxView->addChildAtEnd(notify);
-		notify->moveToBack();
-	}
-	return notify;
-}
-
-//static
-LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
-						   notify_callback_t callback, void *user_data,
-						   const option_list_t& options,
-						   BOOL layout_script_dialog)
-{
-	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
-	LLNotifyBox* notify = findExistingNotify(xml_template, args);
-	if (notify)
-	{
-		delete notify->mBehavior;
-		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
-	}
-	else
-	{
-		notify = new LLNotifyBox(xml_template, args, callback, user_data, FALSE, options, layout_script_dialog);
-		gNotifyBoxView->addChild(notify);
-	}
-	return notify;
-}
-
-//static
-LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t &args)
-{
-	if(notify_template->mUnique)
-	{
-		std::string message = notify_template->mMessage;
-		format(message, args);
-		unique_map_t::iterator found_it = sOpenUniqueNotifyBoxes.find(notify_template->mLabel + message);
-		if (found_it != sOpenUniqueNotifyBoxes.end())
+		//bring existing notification to top
+		LLNotifyBox* boxp = LLNotifyBox::getInstance(notification->getID());
+		if (boxp && !boxp->isDead())
 		{
-			return found_it->second;
+			gNotifyBoxView->showOnly(boxp);
+		}
+		else
+		{
+			bool is_script_dialog = (notification->getName() == "ScriptDialog" || notification->getName() == "ScriptDialogGroup");
+			LLNotifyBox* notify_box = new LLNotifyBox(
+				notification,
+				is_script_dialog); //layout_script_dialog);
+
+			gNotifyBoxView->addChild(notify_box);
 		}
 	}
-	return NULL;
-}
+	else if (notify["sigtype"].asString() == "delete")
+	{
+		LLNotifyBox* boxp = LLNotifyBox::getInstance(notification->getID());
+		if (boxp && !boxp->isDead())
+		{
+			boxp->close();
+		}
+	}
 
-//static
-void LLNotifyBox::cleanup()
-{
-	sDefaultTemplate = NULL;
+	return false;
 }
 
 //---------------------------------------------------------------------------
-
-LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLStringUtil::format_map_t& args,
-						 notify_callback_t callback, void* user_data, BOOL is_caution,
-						 const option_list_t& extra_options,
+LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 						 BOOL layout_script_dialog)
-	: LLPanel(xml_template->mLabel, LLRect(), BORDER_NO),
-	  LLEventTimer(xml_template->mDuration),
-	  mIsTip(FALSE),
+	:	LLPanel(notification->getName(), LLRect(), BORDER_NO),
+		LLEventTimer(notification->getExpiration() == LLDate() 
+			? LLDate(LLDate::now().secondsSinceEpoch() + (F64)gSavedSettings.getF32("NotifyTipDuration")) 
+			: notification->getExpiration()),
+		LLInstanceTracker<LLNotifyBox, LLUUID>(notification->getID()),
+	  mNotification(notification),
+	  mIsTip(notification->getType() == "notifytip"),
 	  mAnimating(TRUE),
-	  mUnique(xml_template->mUnique),
 	  mNextBtn(NULL),
-	  mBehavior(new LLNotifyBehavior(callback, user_data)),
 	  mNumOptions(0),
-	  mDefaultOption(0)
+	  mNumButtons(0),
+	  mAddedDefaultBtn(FALSE),
+	  mLayoutScriptDialog(layout_script_dialog)
 {
 	// clicking on a button does not steal current focus
 	setIsChrome(TRUE);
@@ -197,45 +149,33 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	// class init
 	if (!sFont)
 	{
-		sFont = LLFontGL::sSansSerif;
-		sFontSmall = LLFontGL::sSansSerifSmall;
+		sFont = LLFontGL::getFontSansSerif();
+		sFontSmall = LLFontGL::getFontSansSerifSmall();
 	}
 
 	// setup paramaters
-	
-	mMessage = xml_template->mMessage;
-	format(mMessage, args);
-
-	// use name + formatted text as unique key
-	if (mUnique)
-	{
-		sOpenUniqueNotifyBoxes[xml_template->mLabel + mMessage] = this;
-	}
-
-	option_list_t options = xml_template->mOptions;
-	options.insert(options.end(), extra_options.begin(), extra_options.end());
+	mMessage = notification->getMessage();
 
 	// initialize
-
-	mIsTip = xml_template->mIsTip;
 	setFocusRoot(!mIsTip);
 
 	// caution flag can be set explicitly by specifying it in the
-	// call to the c'tor, or it can be set implicitly if the
+	// notification payload, or it can be set implicitly if the
 	// notify xml template specifies that it is a caution
 	//
 	// tip-style notification handle 'caution' differently -
 	// they display the tip in a different color
-	mIsCaution = (xml_template->mIsCaution || is_caution);
+	mIsCaution = notification->getPriority() >= NOTIFICATION_PRIORITY_HIGH;
 
-	// Don't animate if behind other windows
+	// Only animate first window
 	if( gNotifyBoxView->getChildCount() > 0 )
 		mAnimating = FALSE;
 	else
 		mAnimating = TRUE;
 
-	mNumOptions = options.size();
-	mDefaultOption = xml_template->mDefaultOption;
+	LLNotificationFormPtr form(notification->getForm());
+
+	mNumOptions = form->getNumElements();
 		  
 	LLRect rect = mIsTip ? getNotifyTipRect(mMessage)
 		   		  		 : getNotifyRect(mNumOptions, layout_script_dialog, mIsCaution);
@@ -289,7 +229,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		caution_box->setColor(gColors.getColor("NotifyCautionWarnColor"));
 		caution_box->setBackgroundColor(gColors.getColor("NotifyCautionBoxColor"));
 		caution_box->setBorderVisible(FALSE);
-		caution_box->setWrappedText(LLNotifyBox::getTemplateMessage("ScriptQuestionCautionWarn"));
+		caution_box->setWrappedText(notification->getMessage());
 		
 		addChild(caution_box);
 
@@ -297,36 +237,38 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		// it appears below the caution textbox
 		y = y - caution_height;
 	}
+	else
+	{
 
-	const S32 BOTTOM_PAD = VPAD * 3;
-	const S32 BTN_TOP = BOTTOM_PAD + (((mNumOptions-1+2)/3)) * (BTN_HEIGHT+VPAD);
+		const S32 BTN_TOP = BOTTOM_PAD + (((mNumOptions-1+2)/3)) * (BTN_HEIGHT+VPAD);
 
-	// Tokenization on \n is handled by LLTextBox
+		// Tokenization on \n is handled by LLTextBox
 
-	const S32 MAX_LENGTH = 512 + 20 + 
-		DB_FIRST_NAME_BUF_SIZE + 
-		DB_LAST_NAME_BUF_SIZE +
-		DB_INV_ITEM_NAME_BUF_SIZE;  // For script dialogs: add space for title.
+		const S32 MAX_LENGTH = 512 + 20 + 
+			DB_FIRST_NAME_BUF_SIZE + 
+			DB_LAST_NAME_BUF_SIZE +
+			DB_INV_ITEM_NAME_BUF_SIZE;  // For script dialogs: add space for title.
 
-	text = new LLTextEditor(std::string("box"),
-							LLRect(x, y, getRect().getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
-							MAX_LENGTH,
-							mMessage,
-							sFont,
-							FALSE);
-	text->setWordWrap(TRUE);
-	text->setTabStop(FALSE);
-	text->setMouseOpaque(FALSE);
-	text->setBorderVisible(FALSE);
-	text->setTakesNonScrollClicks(FALSE);
-	text->setHideScrollbarForShortDocs(TRUE);
-	text->setReadOnlyBgColor ( LLColor4::transparent ); // the background color of the box is manually 
-	                                                    // rendered under the text box, therefore we want 
-														// the actual text box to be transparent
-	text->setReadOnlyFgColor ( gColors.getColor("NotifyTextColor") );
-	text->setEnabled(FALSE); // makes it read-only
-	text->setTabStop(FALSE); // can't tab to it (may be a problem for scrolling via keyboard)
-	addChild(text);
+		text = new LLTextEditor(std::string("box"),
+								LLRect(x, y, getRect().getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
+								MAX_LENGTH,
+								mMessage,
+								sFont,
+								FALSE);
+		text->setWordWrap(TRUE);
+		text->setTabStop(FALSE);
+		text->setMouseOpaque(FALSE);
+		text->setBorderVisible(FALSE);
+		text->setTakesNonScrollClicks(FALSE);
+		text->setHideScrollbarForShortDocs(TRUE);
+		text->setReadOnlyBgColor ( LLColor4::transparent ); // the background color of the box is manually 
+															// rendered under the text box, therefore we want 
+															// the actual text box to be transparent
+		text->setReadOnlyFgColor ( gColors.getColor("NotifyTextColor") );
+		text->setEnabled(FALSE); // makes it read-only
+		text->setTabStop(FALSE); // can't tab to it (may be a problem for scrolling via keyboard)
+		addChild(text);
+	}
 
 	if (mIsTip)
 	{
@@ -358,61 +300,31 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		addChild(btn);
 		mNextBtn = btn;
 
-		// make caution notification buttons slightly narrower
-		// so that 3 of them can fit without overlapping the "next" button
-		S32 btn_width = mIsCaution? 84 : 90;
-		LLRect btn_rect;
-
 		for (S32 i = 0; i < mNumOptions; i++)
 		{
-			S32 index = i;
-			S32 btn_height= BTN_HEIGHT;
-			const LLFontGL* font = sFont;
-			S32 ignore_pad = 0;
 
-			if (layout_script_dialog)
+			LLSD form_element = form->getElement(i);
+			if (form_element["type"].asString() != "button") 
 			{
-				// Add two "blank" option spaces, before the "Ignore" button
-				index = i + 2;
-				if (i == 0)
-				{
-					// Ignore button is smaller, less wide
-					btn_height = BTN_HEIGHT_SMALL;
-					font = sFontSmall;
-					ignore_pad = 10;
-				}
+				continue;
 			}
 
-			btn_rect.setOriginAndSize(x + (index % 3) * (btn_width+HPAD+HPAD) + ignore_pad,
-									  BOTTOM_PAD + (index / 3) * (BTN_HEIGHT+VPAD),
-									  btn_width - 2*ignore_pad,
-									  btn_height);
+			addButton(form_element["name"].asString(), form_element["text"].asString(), TRUE, form_element["default"].asBoolean());
+		}
 
-			InstanceAndS32* userdata = new InstanceAndS32;
-			userdata->mSelf = this;
-			userdata->mButton = i;
-
-			mBtnCallbackData.push_back(userdata);
-
-			btn = new LLButton(options[i], btn_rect, LLStringUtil::null, onClickButton, userdata);
-			btn->setFont(font);
-
-			if (mIsCaution)
-			{
-				btn->setImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
-				btn->setDisabledImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
-			}
-
-			addChild(btn, -1);
-
-			if (i == mDefaultOption)
-			{
-				setDefaultBtn(btn);
-			}
+		if (mNumButtons == 0)
+		{
+			addButton("OK", "OK", FALSE, TRUE);
+			mAddedDefaultBtn = TRUE;
 		}
 		
 		sNotifyBoxCount++;
 
+		if (sNotifyBoxCount <= 0)
+		{
+			llwarns << "A notification was mishandled. sNotifyBoxCount = " << sNotifyBoxCount << llendl;
+		}
+		
 		// If this is the only notify box, don't show the next button
 		if (sNotifyBoxCount == 1
 			&& mNextBtn)
@@ -425,27 +337,77 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 // virtual
 LLNotifyBox::~LLNotifyBox()
 {
-	delete mBehavior;
-	mBehavior = NULL;
-
 	std::for_each(mBtnCallbackData.begin(), mBtnCallbackData.end(), DeletePointer());
-
-	if (mUnique)
-	{
-		sOpenUniqueNotifyBoxes.erase(getName() + mMessage);
-	}
 }
 
 // virtual
+LLButton* LLNotifyBox::addButton(const std::string& name, const std::string& label, BOOL is_option, BOOL is_default)
+{
+	// make caution notification buttons slightly narrower
+	// so that 3 of them can fit without overlapping the "next" button
+	S32 btn_width = mIsCaution? 84 : 90;
+
+	LLRect btn_rect;
+	LLButton* btn;
+	S32 btn_height= BTN_HEIGHT;
+	const LLFontGL* font = sFont;
+	S32 ignore_pad = 0;
+	S32 button_index = mNumButtons;
+	S32 index = button_index;
+	S32 x = (HPAD * 4) + 32;
+
+	if (mLayoutScriptDialog)
+	{
+		// Add two "blank" option spaces, before the "Ignore" button
+		index = button_index + 2;
+		if (button_index == 0)
+		{
+			// Ignore button is smaller, less wide
+			btn_height = BTN_HEIGHT_SMALL;
+			font = sFontSmall;
+			ignore_pad = 10;
+		}
+	}
+
+	btn_rect.setOriginAndSize(x + (index % 3) * (btn_width+HPAD+HPAD) + ignore_pad,
+		BOTTOM_PAD + (index / 3) * (BTN_HEIGHT+VPAD),
+		btn_width - 2*ignore_pad,
+		btn_height);
+
+	InstanceAndS32* userdata = new InstanceAndS32;
+	userdata->mSelf = this;
+	userdata->mButtonName = is_option ? name : "";
+
+	mBtnCallbackData.push_back(userdata);
+
+
+	btn = new LLButton(name, btn_rect, "", onClickButton, userdata);
+	btn->setLabel(label);
+	btn->setFont(font);
+
+	if (mIsCaution)
+	{
+		btn->setImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
+		btn->setDisabledImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
+	}
+
+	addChild(btn, -1);
+
+	if (is_default)
+	{
+		setDefaultBtn(btn);
+	}
+
+	mNumButtons++;
+	return btn;
+}
+
 BOOL LLNotifyBox::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (mIsTip)
 	{
-		if (mBehavior->mCallback)
-		{
-			mBehavior->mCallback(0, mBehavior->mData);
-			mBehavior->mCallback = NULL; // Notification callbacks only expect to be called once ever
-		}
+		mNotification->respond(mNotification->getResponseTemplate(LLNotification::WITH_DEFAULT_BUTTON));
+
 		close();
 		return TRUE;
 	}
@@ -583,10 +545,18 @@ void LLNotifyBox::close()
 
 void LLNotifyBox::format(std::string& msg, const LLStringUtil::format_map_t& args)
 {
-	// XUI:translate!
 	LLStringUtil::format_map_t targs = args;
-	targs["[SECOND_LIFE]"] = "Second Life";
-	targs["[VIEWER]"] = IMP_VIEWER_NAME;
+
+	// These sort of things are actually set in llui/llnotifications.cpp
+	// so that they will affect all notifications, not just boxes.
+
+	// targs["[SECOND_LIFE]"] = LLNotifications::instance().getGlobalString("SECOND_LIFE");
+	// targs["[VIEWER_NAME]"] = LLNotifications::instance().getGlobalString("VIEWER_NAME");
+
+	//targs["[GRID_NAME]"] = gHippoGridManager->getConnectedGrid()->getGridName();
+	//targs["[GRID_SITE]"] = gHippoGridManager->getConnectedGrid()->getWebSite();
+	//targs["[CURRENCY]"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
+
 	LLStringUtil::format(msg, targs);
 }
 
@@ -771,26 +741,14 @@ void LLNotifyBox::onClickButton(void* data)
 {
 	InstanceAndS32* self_and_button = (InstanceAndS32*)data;
 	LLNotifyBox* self = self_and_button->mSelf;
-	S32 button = self_and_button->mButton;
+	std::string button_name = self_and_button->mButtonName;
 
-	// for caution notifications, check if the last button in the prompt was clicked
-	// unless it is the only button, in which case it will just be an "OK" button
-	if ((self->mIsCaution) && (button > 0) && (button == (self->mNumOptions - 1)))
+	LLSD response = self->mNotification->getResponseTemplate();
+	if (!self->mAddedDefaultBtn && !button_name.empty())
 	{
-		// show an alert dialog containing more explanation about the debit permission
-		LLAlertDialog::showXml("DebitPermissionDetails");
-
-		// keep this notification open
-		return;
+		response[button_name] = true;
 	}
-
-	if (self->mBehavior->mCallback)
-	{
-		self->mBehavior->mCallback(button, self->mBehavior->mData);
-		self->mBehavior->mCallback = NULL; // Notification callbacks only expect to be called once ever
-	}
-
-	self->close();
+	self->mNotification->respond(response);
 }
 
 
@@ -801,174 +759,6 @@ void LLNotifyBox::onClickNext(void* data)
 	self->moveToBack(true);
 }
 
-// static
-LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const std::string& xml_desc)
-{
-	// get template
-	
-	if (!sDefaultTemplate)
-	{
-		// default template is non-unique, of course
-		sDefaultTemplate = new LLNotifyBoxTemplate(FALSE, gSavedSettings.getF32("NotifyTipDuration"));
-		sDefaultTemplate->addOption("OK", FALSE);
-	}
-	
-	LLPointer<LLNotifyBoxTemplate> xml_template;
-	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
-	if (iter != sNotifyTemplates.end())
-	{
-		xml_template = iter->second;
-	}
-	else
-	{
-		std::string tmsg = "[Notification template not found:\n " + xml_desc + " ]";
-		sDefaultTemplate->setMessage(tmsg);
-		xml_template = sDefaultTemplate;
-	}
-
-	return xml_template;
-}
-
-//-----------------------------------------------------------------------------
-
-//static
-const std::string LLNotifyBox::getTemplateMessage(const std::string& xml_desc, const LLStringUtil::format_map_t& args)
-{
-	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
-	if (iter != sNotifyTemplates.end())
-	{
-		std::string message = iter->second->mMessage;
-		format(message, args);
-		return message;
-	}
-	else
-	{
-		return xml_desc;
-	}
-}
-
-//static
-const std::string LLNotifyBox::getTemplateMessage(const std::string& xml_desc)
-{
-	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
-	if (iter != sNotifyTemplates.end())
-	{
-		return iter->second->mMessage;
-	}
-	else
-	{
-		return xml_desc;
-	}
-}
-
-// method to check whether a given notify template show as a caution or not
-BOOL LLNotifyBox::getTemplateIsCaution(const std::string& xml_desc)
-{
-	BOOL is_caution = FALSE;
-
-	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
-	if (iter != sNotifyTemplates.end())
-	{
-		is_caution = iter->second->mIsCaution;
-	}
-
-	return is_caution;
-}
-
-//static
-bool LLNotifyBox::parseNotify(const std::string& xml_filename)
-{
-	LLXMLNodePtr root;
-
-	BOOL success  = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
-
-	if (!success || root.isNull() || !root->hasName( "notifications" ))
-	{
-		llerrs << "Problem reading UI Notify file: " << xml_filename << llendl;
-		return false;
-	}
-
-	for (LLXMLNode* notify = root->getFirstChild();
-		 notify != NULL; notify = notify->getNextSibling())
-	{
-		if (!notify->hasName("notify"))
-		{
-			continue;
-		}
-
-		BOOL unique = FALSE;
-		notify->getAttributeBOOL("unique", unique);
-
-		F32 duration = gSavedSettings.getF32("NotifyTipDuration");
-		notify->getAttributeF32("duration", duration);
-		
-		LLPointer<LLNotifyBoxTemplate> xml_template = new LLNotifyBoxTemplate(unique, duration);
-
-		// label=
-		std::string notify_name;
-		if (notify->getAttributeString("name", notify_name))
-		{
-			xml_template->mLabel = notify_name;
-		}
-		else
-		{
-			llwarns << "Unable to parse notify with no name" << llendl;
-			continue;
-		}
-		// modal=
-		BOOL tip;
-		if (notify->getAttributeBOOL("tip", tip))
-		{
-			xml_template->mIsTip = tip;
-		}
-
-		// parse a bool attribute named "caution" to determine
-		// whether this notification gets cautionary special handling
-		BOOL caution = FALSE;
-		if (notify->getAttributeBOOL("caution", caution))
-		{
-			if (xml_template)
-			{
-				xml_template->mIsCaution = caution;
-			}
-		}
-		
-				
-		S32 btn_idx = 0;
-		for (LLXMLNode* child = notify->getFirstChild();
-			 child != NULL; child = child->getNextSibling())
-		{
-			// <message>
-			if (child->hasName("message"))
-			{
-				xml_template->mMessage = child->getTextContents();
-			}
-
-			// <option>
-			if (child->hasName("option"))
-			{
-				std::string label = child->getValue();
-				BOOL is_default = FALSE;
-				child->getAttributeBOOL("default", is_default);
-				std::string ignore_text;
-				if (!child->getAttributeString("ignore", ignore_text))
-				{
-					ignore_text = label;
-				}
-				xml_template->addOption(label, is_default);
-				btn_idx++;
-			}
-		}
-
-		//*TODO:translate
-		if (xml_template->mOptions.empty())
-		{
-			xml_template->addOption("OK", FALSE);
-		}
-		sNotifyTemplates[xml_template->mLabel] = xml_template;
-	}
-	return true;
-}
 
 LLNotifyBoxView::LLNotifyBoxView(const std::string& name, const LLRect& rect, BOOL mouse_opaque, U32 follows)
 	: LLUICtrl(name,rect,mouse_opaque,NULL,NULL,follows) 
@@ -1045,7 +835,7 @@ void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
 		}
 
 		LLNotifyBox* notification = (LLNotifyBox*)*iter;
-		if(matcher.matches(notification->getNotifyCallback(), notification->getUserData()))
+		if(matcher.matches(notification->getNotification()))
 		{
 			removeChild(notification);
 		}

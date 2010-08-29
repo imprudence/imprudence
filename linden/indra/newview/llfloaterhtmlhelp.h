@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,6 +36,16 @@
 #include "llhtmlhelp.h"
 #include "llfloater.h"
 #include "llwebbrowserctrl.h"
+
+class LLViewerHtmlHelp : public LLHtmlHelp
+{
+public:
+	LLViewerHtmlHelp();
+	virtual ~LLViewerHtmlHelp();
+
+	/*virtual*/ void show();
+	/*virtual*/ void show(std::string start_url);
+};
 
 class LLComboBox;
 class LLWebBrowserCtrl;
@@ -58,6 +69,8 @@ public:
 
 	static void	toggle();
 	static void	helpF1();
+
+private:
 	static void onEnterAddress(LLUICtrl* ctrl, void* user_data);
 	static void onClickRefresh(void* user_data);
 	static void onClickBack(void* user_data);
@@ -68,15 +81,14 @@ public:
 	static void onClickAssign(void* user_data);
 	static void onClickHome(void* user_data);
 	static void onClickSetHome(void* user_data);
-	static void onClickF1HelpLoadURL(S32 option, void* userdata);
+	static bool onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response);
 
-private:
 	LLWebBrowserCtrl* mBrowser;
 	LLComboBox* mAddressCombo;
 	std::string mCurrentURL;
-
-	static LLFloaterMediaBrowser* sInstance;
 };
+
+extern LLViewerHtmlHelp gViewerHtmlHelp;
 
 #endif  // LL_LLFLOATERHTMLHELP_H
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Duyurular" name="notices_tab">
+	<string name="help_text">
+		Duyurular,bir mesajı ileterek ve opsiyonal olarak 
+bir ürün göndererek grup içinde hızlı bir iletişim yolu sağlar.
+Duyurular,sadece duyuruları alabilme gücüne 
+sahip görevlerdeki üyelere gider. 
+Duyuruları Genel sekmesinden kapatabilirsiniz.
+	</string>
+	<string name="no_notices_text">
+		Geçmiş duyurular bulunmuyor.
+	</string>
+	<button label="?" label_selected="?" name="help_button"/>
+	<text name="lbl">
+		Grup duyuru arşivi
+	</text>
+	<text name="lbl2">
+		Duyurular 14 gün saklanır.Aşağıdan görüntülemek istediğiniz duyuruya 
+tıklayınız. Yeni duyuru alıp almadığınızı kontrol etmek için Yenile butonuna 
+tıklayınız. Duyuru listeleri grup başına günlük olarak 200 duyuru ile sınırlıdır.
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon"/>
+		<column label="Konu" name="subject"/>
+		<column label="Gönderen" name="from"/>
+		<column label="Tarih" name="date"/>
+	</scroll_list>
+	<text name="notice_list_none_found">
+		Bulunamadı.
+	</text>
+	<button label="Yeni duyuru yarat" label_selected="Yeni duyuru yarat" name="create_new_notice"/>
+	<button label="Yenile" label_selected="Yenile" name="refresh_notices"/>
+	<panel label="Yeni duyuru yarat" name="panel_create_new_notice">
+		<text name="lbl">
+			Yeni duyuru yarat
+		</text>
+		<text name="lbl2">
+			Duyuru gönderebilmek için konu girmelisiniz. 
+Envanterinizden bu panele sürükleyerek duyuruya tek bir ürün
+ekleyebilirsiniz.Ekli ürünler kopyalanabilir ve transfer edilebilir 
+olmalıdırlar ve klasör gönderemezsiniz.
+		</text>
+		<text name="lbl3">
+			Konu:
+		</text>
+		<text name="lbl4">
+			Mesaj:
+		</text>
+		<text name="lbl5">
+			Ek:
+		</text>
+		<button label="Eki çıkar" label_selected="Eki çıkar" name="remove_attachment"/>
+		<button label="Duyuruyu gönder" label_selected="Duyuruyu gönder" name="send_notice"/>
+		<panel name="drop_target" tool_tip="Duyuru ile göndermek için,envanter ürününü mesaj kutusu üzerine sürükleyiniz. Duyuru ile birlikte objeyi gönderebilmeniz için kopyalama ve transfer etme izinlerine sahip olmanız gerekir."/>
+	</panel>
+	<panel label="Geçmiş duyuru görüntüle" name="panel_view_past_notice">
+		<text name="lbl">
+			Arşivlenmiş duyuru
+		</text>
+		<text name="lbl2">
+			Yeni duyuru göndermek için,Yeni Duyuru Yarat butonuna tıklayınız.
+		</text>
+		<text name="lbl3">
+			Konu:
+		</text>
+		<text name="lbl4">
+			Mesaj:
+		</text>
+		<button label="Eki aç" label_selected="Eki aç" name="open_attachment"/>
+	</panel>
+</panel>

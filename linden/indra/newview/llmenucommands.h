@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,7 +43,6 @@ void handle_mini_map(void*);
 void handle_find(void*);
 void handle_events(void*);
 void handle_inventory(void*);
-void handle_clothing(void*);
 void handle_chat(void*);
 void handle_return_key(void*);
 void handle_slash_key(void*);

@@ -47,7 +47,9 @@ enum	EWearableType  // If you change this, update LLWearable::getTypeName(), get
 	WT_UNDERSHIRT = 10,
 	WT_UNDERPANTS = 11,
 	WT_SKIRT	= 12,
-	WT_COUNT	= 13,
+	WT_ALPHA	= 13,
+	WT_TATTOO	= 14,
+	WT_COUNT	= 15,
 	WT_INVALID	= 255
 };
 

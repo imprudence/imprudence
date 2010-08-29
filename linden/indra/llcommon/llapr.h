@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,6 +49,7 @@
 #include "llstring.h"
 
 extern apr_thread_mutex_t* gLogMutexp;
+extern apr_thread_mutex_t* gCallStacksLogMutexp;
 
 /** 
  * @brief initialize the common apr constructs -- apr itself, the
@@ -60,18 +62,59 @@ void ll_init_apr();
  */
 void ll_cleanup_apr();
 
+//
+//LL apr_pool
+//manage apr_pool_t, destroy allocated apr_pool in the destruction function.
+//
 class LLAPRPool
 {
 public:
-	LLAPRPool(apr_pool_t *parent = NULL, apr_size_t size = 0) ;
+	LLAPRPool(apr_pool_t *parent = NULL, apr_size_t size = 0, BOOL releasePoolFlag = TRUE) ;
 	~LLAPRPool() ;
 
-	apr_pool_t* getAPRPool() {return mPool ; }
+	apr_pool_t* getAPRPool() ;
 	apr_status_t getStatus() {return mStatus ; }
 
+protected:
+	void releaseAPRPool() ;
+	void createAPRPool() ;
+
+protected:
+	apr_pool_t*  mPool ;              //pointing to an apr_pool
+	apr_pool_t*  mParent ;			  //parent pool
+	apr_size_t   mMaxSize ;           //max size of mPool, mPool should return memory to system if allocated memory beyond this limit. However it seems not to work.
+	apr_status_t mStatus ;            //status when creating the pool
+	BOOL         mReleasePoolFlag ;   //if set, mPool is destroyed when LLAPRPool is deleted. default value is true.
+};
+
+//
+//volatile LL apr_pool
+//which clears memory automatically.
+//so it can not hold static data or data after memory is cleared
+//
+class LLVolatileAPRPool : protected LLAPRPool
+{
+public:
+	LLVolatileAPRPool(apr_pool_t *parent = NULL, apr_size_t size = 0, BOOL releasePoolFlag = TRUE);
+	~LLVolatileAPRPool(){}
+
+	apr_pool_t* getVolatileAPRPool() ;
+	
+	void        clearVolatileAPRPool() ;
+
+	BOOL        isFull() ;
+	BOOL        isEmpty() {return !mNumActiveRef ;}
+
+	static void initLocalAPRFilePool();
+	static void createLocalAPRFilePool();
+	static void destroyLocalAPRFilePool(void* thread_local_data);
+	static LLVolatileAPRPool* getLocalAPRFilePool();
+
 private:
-	apr_pool_t*  mPool ;
-	apr_status_t mStatus ;
+	S32 mNumActiveRef ; //number of active pointers pointing to the apr_pool.
+	S32 mNumTotalRef ;  //number of total pointers pointing to the apr_pool since last creating.   
+
+	static apr_threadkey_t*		sLocalAPRFilePoolKey;
 } ;
 
 /** 
@@ -144,24 +187,70 @@ typedef LLAtomic32<S32> LLAtomicS32;
 #define LL_APR_WB (APR_CREATE|APR_TRUNCATE|APR_WRITE|APR_BINARY) // "wb"
 #define LL_APR_RPB (APR_READ|APR_WRITE|APR_BINARY) // "r+b"
 #define LL_APR_WPB (APR_CREATE|APR_TRUNCATE|APR_READ|APR_WRITE|APR_BINARY) // "w+b"
-apr_file_t* ll_apr_file_open(const std::string& filename, apr_int32_t flags, S32* sizep, apr_pool_t* pool);
-apr_file_t* ll_apr_file_open(const std::string& filename, apr_int32_t flags, S32* sizep);
-apr_file_t* ll_apr_file_open(const std::string& filename, apr_int32_t flags, apr_pool_t* pool);
-apr_file_t* ll_apr_file_open(const std::string& filename, apr_int32_t flags);
-// Returns actual offset, -1 if seek fails
-S32 ll_apr_file_seek(apr_file_t* apr_file, apr_seek_where_t where, S32 offset);
-// Returns bytes read/written, 0 if read/write fails:
-S32 ll_apr_file_read(apr_file_t* apr_file, void* buf, S32 nbytes);
-S32 ll_apr_file_read_ex(const std::string& filename, apr_pool_t* pool, void *buf, S32 offset, S32 nbytes);
-S32 ll_apr_file_write(apr_file_t* apr_file, const void* buf, S32 nbytes);
-S32 ll_apr_file_write_ex(const std::string& filename, apr_pool_t* pool, void *buf, S32 offset, S32 nbytes);
-// returns false if failure:
-bool ll_apr_file_remove(const std::string& filename, apr_pool_t* pool = NULL);
-bool ll_apr_file_rename(const std::string& filename, const std::string& newname, apr_pool_t* pool = NULL);
-bool ll_apr_file_exists(const std::string& filename, apr_pool_t* pool = NULL);
-S32 ll_apr_file_size(const std::string& filename, apr_pool_t* pool = NULL);
-bool ll_apr_dir_make(const std::string& dirname, apr_pool_t* pool = NULL);
-bool ll_apr_dir_remove(const std::string& dirname, apr_pool_t* pool = NULL);
+
+//
+//apr_file manager
+//which: 1)only keeps one file open;
+//       2)closes the open file in the destruction function
+//       3)informs the apr_pool to clean the memory when the file is closed.
+//Note: please close an open file at the earliest convenience. 
+//      especially do not put some time-costly operations between open() and close().
+//      otherwise it might lock the APRFilePool.
+//there are two different apr_pools the APRFile can use:
+//      1, a temperary pool passed to an APRFile function, which is used within this function and only once.
+//      2, a global pool.
+//
+
+class LLAPRFile : boost::noncopyable
+{
+	// make this non copyable since a copy closes the file
+private:
+	apr_file_t* mFile ;
+	LLVolatileAPRPool *mCurrentFilePoolp ; //currently in use apr_pool, could be one of them: sAPRFilePoolp, or a temp pool. 
+
+public:
+	enum access_t {
+		global,		// Use a global pool for long-lived file accesses. This should really only happen from the main thread.
+		local		// Use a thread-local volatile pool for short file accesses.
+	};
+
+	LLAPRFile() ;
+	LLAPRFile(const std::string& filename, apr_int32_t flags, access_t access_type);
+	~LLAPRFile() ;
+
+	apr_status_t open(const std::string& filename, apr_int32_t flags, access_t access_type, S32* sizep = NULL);
+	apr_status_t close() ;
+
+	// Returns actual offset, -1 if seek fails
+	S32 seek(apr_seek_where_t where, S32 offset);
+	apr_status_t eof() { return apr_file_eof(mFile);}
+
+	// Returns bytes read/written, 0 if read/write fails:
+	S32 read(void* buf, S32 nbytes);
+	S32 write(const void* buf, S32 nbytes);
+	
+	apr_file_t* getFileHandle() {return mFile;}	
+
+//
+//*******************************************************************************************************************************
+//static components
+//
+private:
+	static S32 seek(apr_file_t* file, apr_seek_where_t where, S32 offset);
+public:
+	// returns false if failure:
+	static bool remove(const std::string& filename);
+	static bool rename(const std::string& filename, const std::string& newname);
+	static bool isExist(const std::string& filename, apr_int32_t flags = APR_READ);
+	static S32 size(const std::string& filename);
+	static bool makeDir(const std::string& dirname);
+	static bool removeDir(const std::string& dirname);
+
+	// Returns bytes read/written, 0 if read/write fails:
+	static S32 readEx(const std::string& filename, void *buf, S32 offset, S32 nbytes);
+	static S32 writeEx(const std::string& filename, void *buf, S32 offset, S32 nbytes);
+//*******************************************************************************************************************************
+};
 
 /**
  * @brief Function which approprately logs error or remains quiet on

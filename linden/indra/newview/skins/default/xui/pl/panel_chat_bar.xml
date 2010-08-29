@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<panel/>
+	<button label="Czat Lokalny" name="History" tool_tip="Kliknij by zobaczyć historię czatu lokalnego."/>
+	<line_editor label="Wpisz treść wiadomości" name="Chat Editor" tool_tip="Wciśnij Enter by mówić oraz Ctrl-Enter by krzyczeć."/>
+	<flyout_button label="Mów" name="Say" tool_tip="(Enter)">
+		<flyout_button_item name="shout_item">
+			Krzycz
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			Mów
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			Szept
+		</flyout_button_item>
+	</flyout_button>
+	<combo_box label="Gesty" name="Gesture"/>
+	<string name="gesture_label">
+		Gesty
+	</string>
+</panel>

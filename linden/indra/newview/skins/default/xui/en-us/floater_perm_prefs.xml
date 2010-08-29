@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="perm prefs" title="Default Upload Permissions"
+     width="315" height="180" rect_control="FloaterPermPrefsRect" 
+     can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="false" >
+    <panel label="Permissions" name="permissions" width="315" height="120" left="10"
+        border="false" bottom="-140" enabled="true" follows="left|top|right|bottom"
+        mouse_opaque="true" >
+    	<button name="help" label="?" label_selected="?" halign="center" follows="left"
+			     bottom_delta="-25" height="18" width="22" left="260" font="SansSerif" />
+    	<check_box bottom_delta="0" follows="left|top" width="106" height="16" left="10"
+    	     initial_value="false" label="Share with group" 
+    	     mouse_opaque="true" radio_style="false" font="SansSerifSmall" 
+    	     name="share_with_group" control_name="ShareWithGroup" />
+    	<check_box bottom_delta="-32" follows="left|top" width="130" height="16"
+    	     initial_value="false" label="Allow anyone to copy" left="10"
+    	     mouse_opaque="true" radio_style="false" font="SansSerifSmall" 
+    	     name="everyone_copy" control_name="EveryoneCopy" />
+    	<text bottom_delta="-26" bg_visible="false" border_drop_shadow_visible="false" 
+    	     drop_shadow_visible="true" follows="left|top" border_visible="false"
+    	     font="SansSerifSmall" h_pad="0" halign="left" left="10"
+    	     mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="190" height="10" >
+    		Next owner can:
+    	</text>
+    	<check_box bottom_delta="-30" follows="left|top" width="78" height="16"
+    	     radio_style="false" font="SansSerifSmall" 
+    	     initial_value="false" label="Modify" left="10" mouse_opaque="true"
+    	     name="next_owner_modify" control_name="NextOwnerModify" />
+    	<check_box bottom_delta="0" follows="left|top" width="88" height="16"
+    	     left_delta="78" radio_style="false" font="SansSerifSmall" 
+    	     initial_value="false" label="Copy" mouse_opaque="true"
+    	     name="next_owner_copy" control_name="NextOwnerCopy" />
+    	<check_box bottom_delta="0" follows="left|top" width="106" height="16"
+    	     left_delta="88" radio_style="false" font="SansSerifSmall" 
+    	     initial_value="true" label="Resell/Give away" mouse_opaque="true" enabled="false" 
+    	     name="next_owner_transfer" control_name="NextOwnerTransfer" />
+    </panel>
+    <button bottom_delta="-30" font="SansSerif" halign="center" height="20" label="OK"
+	     label_selected="OK" left="90" mouse_opaque="true" name="ok" width="100" />
+    <button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Cancel"
+	     label_selected="Cancel" left_delta="105" mouse_opaque="true" name="cancel"
+	     width="100" />    
+</floater>

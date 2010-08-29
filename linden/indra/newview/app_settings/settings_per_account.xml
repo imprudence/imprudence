@@ -1,5 +1,590 @@
 <llsd>
     <map>
+
+      <!-- Imprudence-specific settings -->
+
+      <key>InventoryPreviousCount</key>
+      <map>
+        <key>Comment</key>
+        <string>Used to keep track of the number of items in inventory when fetching for progress reasons. DO NOT EDIT.</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>S32</string>
+        <key>Value</key>
+        <integer>-1</integer>
+      </map>
+      <key>InventorySearchType</key>
+      <map>
+        <key>Comment</key>
+        <string>Controls what type of inventory search we perform.</string>
+        <key>Persist</key>
+        <integer>0</integer>
+        <key>Type</key>
+        <string>U32</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InventoryPartialSearch</key>
+      <map>
+        <key>Comment</key>
+        <string>Toggles whether to search using partial search filters on normal (name, desc, creator) searches.</string>
+        <key>Persist</key>
+        <integer>0</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      
+      <!-- Begin AO -->
+
+      <key>AOConfigNotecardID</key>
+      <map>
+        <key>Comment</key>
+        <string>InventoryItemID of the AO config notecard</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultWalk</key>
+      <map>
+        <key>Comment</key>
+        <string>Default walk anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultSit</key>
+      <map>
+        <key>Comment</key>
+        <string>Default sit anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultRun</key>
+      <map>
+        <key>Comment</key>
+        <string>Default run anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultJump</key>
+      <map>
+        <key>Comment</key>
+        <string>Default jump anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultGroundSit</key>
+      <map>
+        <key>Comment</key>
+        <string>Default groundsit anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultCrouch</key>
+      <map>
+        <key>Comment</key>
+        <string>Default crouch anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultCrouchWalk</key>
+      <map>
+        <key>Comment</key>
+        <string>Default crouchwalk anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFall</key>
+      <map>
+        <key>Comment</key>
+        <string>Default fall anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultHover</key>
+      <map>
+        <key>Comment</key>
+        <string>Default hover anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFly</key>
+      <map>
+        <key>Comment</key>
+        <string>Default fly anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlySlow</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flyslow anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlyUp</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flyup anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultFlyDown</key>
+      <map>
+        <key>Comment</key>
+        <string>Default flydown anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultLand</key>
+      <map>
+        <key>Comment</key>
+        <string>Default land anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultStandUp</key>
+      <map>
+        <key>Comment</key>
+        <string>Default standup anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>AODefaultPreJump</key>
+      <map>
+        <key>Comment</key>
+        <string>Default prejump anim</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      
+      <!-- End AO -->
+
+      <!-- Begin build -->
+
+      <key>BuildPrefs_Xsize</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Size For New Objects to be created X</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>0.5</real>
+      </map>
+      <key>BuildPrefs_Ysize</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Size For New Objects to be created Y</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>0.5</real>
+      </map>
+      <key>BuildPrefs_Zsize</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Size For New Objects to be created Z</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>0.5</real>
+      </map>
+      <key>BuildPrefs_Phantom</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Setting For New Objects to be created, phantom flag</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>BuildPrefs_Temporary</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Setting For New Objects to be created, temp flag</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>BuildPrefs_Physical</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Setting For New Objects to be created, physical flag</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>BuildPrefs_EmbedItem</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to add item to objects</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>1</integer>
+      </map>
+      <key>BuildPrefs_Material</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Setting For New Objects to be created, physical flag</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string>Wood</string>
+      </map>
+      <key>BuildPrefs_Color</key>
+      <map>
+        <key>Comment</key>
+        <string>Color of new objects textures</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Color4</string>
+        <key>Value</key>
+        <array>
+          <real>1.0</real>
+          <real>1.0</real>
+          <real>1.0</real>
+          <real>1.0</real>
+        </array>
+      </map>
+      <key>BuildPrefs_Texture</key>
+      <map>
+        <key>Comment</key>
+        <string>Texture used as 'Default' for new object created</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string>89556747-24cb-43ed-920b-47caed15465f</string>
+      </map>
+      <key>BuildPrefs_Item</key>
+      <map>
+        <key>Comment</key>
+        <string>item added to new object created</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>BuildPrefs_Alpha</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Alpha For New Objects to be created</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>0.0</real>
+      </map>
+      <key>BuildPrefs_Glow</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Glow For New Objects to be created</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>0.0</real>
+      </map>
+      <key>BuildPrefs_FullBright</key>
+      <map>
+        <key>Comment</key>
+        <string>Default Setting For New Objects to be created, whether textures are full bright</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>BuildPrefs_Shiny</key>
+      <map>
+        <key>Comment</key>
+        <string>Shiny level used as 'Default' for new objects created</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string>None</string>
+      </map>
+      <key>BuildPrefs_PivotX</key>
+      <map>
+        <key>Comment</key>
+        <string>Pivot point on the X axis</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>50</real>
+      </map>
+      <key>BuildPrefs_PivotY</key>
+      <map>
+        <key>Comment</key>
+        <string>Pivot point on the Y axis</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>50</real>
+      </map>
+      <key>BuildPrefs_PivotZ</key>
+      <map>
+        <key>Comment</key>
+        <string>Pivot point on the Z axis</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>F32</string>
+        <key>Value</key>
+        <real>50</real>
+      </map>
+      <key>BuildPrefs_PivotIsPercent</key>
+      <map>
+        <key>Comment</key>
+        <string>Consider the Pivot points values as a percentage</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>1</integer>
+      </map>
+      <key>BuildPrefs_ActualRoot</key>
+      <map>
+        <key>Comment</key>
+        <string>Show the axis on the actual root of a linkset instead of mass center</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      
+      <!-- End build-->
+
+      <!-- Begin IM auto-response -->
+
+      <key>InstantMessageResponseFriends</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to non-friends</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseMuted</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to muted people</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseAnyone</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to auto-respond to anyone</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageShowResponded</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to hide IMs entirely from those you have chosen to send autoresponses</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageShowOnTyping</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to perform the autorespond the moment they begin to type instead of waiting for a actual message</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseRepeat</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to keep on resending the autoresponse every line they send</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponseItem</key>
+      <map>
+        <key>Comment</key>
+        <string>Whether to send a item along with the autoresponse</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageResponse</key>
+      <map>
+        <key>Comment</key>
+        <string>Auto response to instant messages</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string>This is an autoresponse!</string>
+      </map>
+      <key>InstantMessageResponseItemData</key>
+      <map>
+        <key>Comment</key>
+        <string>UUID</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <string></string>
+      </map>
+      <key>InstantMessageAnnounceIncoming</key>
+      <map>
+        <key>Comment</key>
+        <string>Open a new IM tab when another person begins typing to you and announce that they are doing so.</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+      </map>
+      <key>InstantMessageAnnounceStealFocus</key>
+      <map>
+        <key>Comment</key>
+        <string>Steal focus when opening new IM tab due to other person begins first typing this session</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>1</integer>
+      </map>
+      
+      <!-- End IM auto-response -->
+      
       <key>RLVaLoginLastLocation</key>
       <map>
         <key>Comment</key>

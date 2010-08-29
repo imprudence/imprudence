@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -367,6 +368,9 @@ public:
 						BOOL* toggle, 
 						KEY key = KEY_NONE, MASK mask = MASK_NONE );
 
+	// there is no getXML() because we cannot reference the toggled global variable by XML
+	// use LLMenuItemCheckGL instead.
+
 	virtual std::string getType() const	{ return "toggle"; }
 
 	// called to rebuild the draw label
@@ -437,6 +441,13 @@ public:
 
 	// Add the menu item to this menu.
 	virtual BOOL append( LLMenuItemGL* item );
+
+	// Remove a menu item from this menu.
+	virtual BOOL remove( LLMenuItemGL* item );
+
+	// *NOTE:Mani - appendNoArrange() should be removed when merging to skinning/viewer2.0
+	// Its added as a fix to a viewer 1.23 bug that has already been address by skinning work.
+	virtual BOOL appendNoArrange( LLMenuItemGL* item ); 
 
 	// add a separator to this menu
 	virtual BOOL appendSeparator( const std::string &separator_name = LLStringUtil::null );
@@ -631,6 +642,7 @@ public:
 	LLPieMenu(const std::string& name);
 	virtual ~LLPieMenu() {}
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	void initXML(LLXMLNodePtr node, LLView *context, LLUICtrlFactory *factory);
 
 	// LLView Functionality
@@ -795,6 +807,7 @@ class LLMenuItemTearOffGL : public LLMenuItemGL
 public:
 	LLMenuItemTearOffGL( LLHandle<LLFloater> parent_floater_handle = LLHandle<LLFloater>());
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	virtual std::string getType() const { return "tearoff_menu"; }
 
 	virtual void doIt(void);

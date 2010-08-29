@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,6 +40,7 @@
 #include "llpanel.h"
 #include "lluuid.h"
 #include "lltabcontainer.h"
+#include "llnotifications.h"
 #include <set>
 
 class LLDragHandle;
@@ -46,6 +48,7 @@ class LLResizeHandle;
 class LLResizeBar;
 class LLButton;
 class LLMultiFloater;
+class LLFloater;
 
 const S32 LLFLOATER_VPAD = 6;
 const S32 LLFLOATER_HPAD = 6;
@@ -69,6 +72,20 @@ const BOOL CLOSE_NO = FALSE;
 
 const BOOL ADJUST_VERTICAL_YES = TRUE;
 const BOOL ADJUST_VERTICAL_NO = FALSE;
+
+// associates a given notification instance with a particular floater
+class LLFloaterNotificationContext : 
+	public LLNotificationContext
+{
+public:
+	LLFloaterNotificationContext(LLHandle<LLFloater> floater_handle) :
+		mFloaterHandle(floater_handle)
+	{}
+
+	LLFloater* getFloater() { return mFloaterHandle.get(); }
+private:
+	LLHandle<LLFloater> mFloaterHandle;
+};
 
 
 class LLFloater : public LLPanel
@@ -148,6 +165,8 @@ public:
 	std::string		getTitle();
 	void			setShortTitle( const std::string& short_title );
 	std::string		getShortTitle();
+	BOOL setTitleArg( const std::string& key, const LLStringExplicit& text );
+	BOOL setShortTitleArg( const std::string& key, const LLStringExplicit& text );
 	void			setTitleVisible(bool visible);
 	virtual void	setMinimized(BOOL b);
 	void			moveResizeHandlesToFront();
@@ -213,6 +232,11 @@ public:
 	// handle refocusing.
 	static void		closeFocusedFloater();
 
+	LLNotification::Params contextualNotification(const std::string& name) 
+	{ 
+	    return LLNotification::Params(name).context(mNotificationContext); 
+	}
+
 	static void		onClickClose(void *userdata);
 	static void		onClickMinimize(void *userdata);
 	static void		onClickTearOff(void *userdata);
@@ -254,8 +278,8 @@ private:
 	BOOL			mMinimized;
 	BOOL			mForeground;
 	LLHandle<LLFloater>	mDependeeHandle;
-	std::string		mTitle;
-	std::string		mShortTitle;
+	LLUIString		mTitle;
+	LLUIString		mShortTitle;
 
 	BOOL			mFirstLook;			// TRUE if the _next_ time this floater is visible will be the first time in the session that it is visible.
 
@@ -299,7 +323,7 @@ private:
 	S32				mPreviousMinimizedBottom;
 	S32				mPreviousMinimizedLeft;
 	
-private:
+	LLFloaterNotificationContext* mNotificationContext;
 	LLRootHandle<LLFloater>		mHandle;	
 };
 
@@ -342,6 +366,7 @@ public:
 	// attempt to close all floaters
 	void			closeAllChildren(bool app_quitting);
 	BOOL			allChildrenClosed();
+	void			minimizeAllChildren();
 
 	LLFloater* getFrontmost();
 	LLFloater* getBackmost();
@@ -376,6 +401,7 @@ public:
 	virtual ~LLMultiFloater() {};
 
 	virtual BOOL postBuild();
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	/*virtual*/ void open();	/* Flawfinder: ignore */
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();
@@ -461,12 +487,11 @@ public:
 
 
 // singleton implementation for floaters (provides visibility policy)
-// https://wiki.lindenlab.com/mediawiki/index.php?title=LLFloaterSingleton&oldid=79410
+// https://wiki.lindenlab.com/mediawiki/index.php?title=LLFloaterSingleton&oldid=164990
 
 template <class T> class LLFloaterSingleton : public LLUISingleton<T, VisibilityPolicy<LLFloater> >
 {
 };
-
 
 extern LLFloaterView* gFloaterView;
 

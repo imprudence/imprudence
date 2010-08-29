@@ -8,7 +8,7 @@
 		se connecter pour changer
 	</text>
 	<check_box label="Envoyer les IM à mon adresse e-mail ([EMAIL])" name="send_im_to_email"/>
-	<check_box label="Afficher les IM dans le chat" name="include_im_in_chat_history"/>
+	<check_box label="Afficher les IM dans la console du chat" name="include_im_in_chat_console"/>
 	<check_box label="Afficher l&apos;heure dans les IM" name="show_timestamps_check"/>
 	<check_box label="Me prévenir quand des amis se connectent" name="friends_online_notify_checkbox"/>
 	<text name="text_box3">

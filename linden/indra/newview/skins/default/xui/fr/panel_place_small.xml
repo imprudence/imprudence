@@ -6,28 +6,30 @@
 	<text name="description_label">
 		Description :
 	</text>
-	<text name="information_label">
-		Informations :
+	<text name="information_label"/>
+	<text left="20" name="info_editor" width="420"/>
+	<text name="land_type_label">
+		Type de terrain :
 	</text>
-	<text left="103" name="info_editor" width="338"/>
+	<text left="113" name="land_type_display" width="338" />
 	<text name="location_label">
 		Lieu :
 	</text>
-	<text left="103" name="location_editor" width="338"/>
+	<text left="113" name="location_editor" width="338"/>
 	<button label="Téléporter" name="teleport_btn"/>
 	<button label="Voir sur la carte" name="map_btn"/>
 	<button label="Enchères..." name="auction_btn"/>
 	<string name="traffic_text">
-		Trafic : [TRAFFIC]
+		Trafic : [TRAFFIC]. 
 	</string>
 	<string name="area_text">
-		Surface : [AREA] m²
+		Surface : [AREA] m². 
 	</string>
 	<string name="forsale_text">
-		En vente pour [PRICE] L$
+		En vente pour [PRICE] L$.
 	</string>
 	<string name="auction_text">
-		Code de l&apos;enchère [ID].
+		Enchère : [ID]
 	</string>
 	<string name="server_update_text">
 		Les informations sur le lieu ne sont pas disponibles sans mise à jour du serveur.
@@ -36,6 +38,6 @@
 		Aucune information sur ce lieu n&apos;est disponible actuellement, veuillez réessayer ultérieurement.
 	</string>
 	<string name="server_forbidden_text">
-		Les informations sur ce lieu ne sont pas disponibles car l&apos;accès y est restreint. Veuillez vérifier vos permissions avec le propriétaire de la parcelle.
+		Les informations sur ce lieu ne sont pas disponibles car l&apos;accès y est restreint. Veuillez vérifier vos droits avec le propriétaire de la parcelle.
 	</string>
 </panel>

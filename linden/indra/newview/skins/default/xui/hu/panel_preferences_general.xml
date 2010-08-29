@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Általános" name="general_panel">
+	<radio_group name="default_start_location">
+		<radio_item name="MyHome" tool_tip="Belépéskor a kiindulópontra való érkezés alapértelmezettként.">
+			Saját helyszín
+		</radio_item>
+		<radio_item name="MyLastLocation" tool_tip="Belépéskor az utolsó helyszínemre való érkezés alapértelmezettként.">
+			Utolsó helyszínem
+		</radio_item>
+	</radio_group>
+	<check_box label="Kezdő helyszín megjelenítése a belépő ablakban" name="show_location_checkbox"/>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Soha
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Átmenetileg
+		</combo_item>
+		<combo_item name="Always">
+			Mindig
+		</combo_item>
+	</combo_box>
+	<check_box label="Kicsinyített avatár név megjelenítése" name="small_avatar_names_checkbox"/>
+	<check_box label="Saját név elrejtése nálam" name="show_my_name_checkbox"/>
+	<text length="1" name="group_titles_textbox" type="string">
+		Csoport beosztások:
+	</text>
+	<check_box label="Minden csoportbeosztás elrejtése" name="show_all_title_checkbox"/>
+	<check_box label="Saját csoportbeosztás elrejtése" name="show_my_title_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="Kattints ide a színpaletta megnyitásához"/>
+	<text length="1" name="UI Size:" type="string">
+		UI méret:
+	</text>
+	<check_box label="Felbontás független méretezés használata" name="ui_auto_scale"/>
+	<spinner label="Nincs a gépnél idő:" name="afk_timeout_spinner"/>
+	<check_box label="Értesítés linden dollár (L$) kiadásakor és fogadásakor" name="notify_money_change_checkbox"/>
+	<text name="maturity_desired_label">
+		Minősítés:
+	</text>
+	<text name="maturity_desired_prompt">
+		Minősítéssel rendelkező területre való belépési szándék:
+	</text>
+	<combo_box name="maturity_desired_combobox">
+		<combo_item name="Desired_Adult">
+			PG, Mature és Adult
+		</combo_item>
+		<combo_item name="Desired_Mature">
+			PG és Mature
+		</combo_item>
+		<combo_item name="Desired_PG">
+			Csak PG
+		</combo_item>
+	</combo_box>
+	<text name="maturity_desired_textbox">
+		Csak PG
+	</text>
+	<text length="1" name="start_location_textbox" type="string">
+		Induló helyszín:
+	</text>
+	<text length="1" name="show_names_textbox" type="string">
+		Avatárneveket mutat:
+	</text>
+	<text length="1" name="effects_color_textbox" type="string">
+		Cselekményeim színe:
+	</text>
+	<text length="1" name="seconds_textbox" type="string">
+		mp
+	</text>
+	<text length="1" name="crash_report_textbox" type="string">
+		Hibajelentés küldése:
+	</text>
+	<text length="1" name="language_textbox" type="string">
+		Nyelv:
+	</text>
+	<text left_delta="313" length="1" name="language_textbox2" type="string">
+		(A változtatás után újraindítás kell)
+	</text>
+	<string name="region_name_prompt">
+		&lt;Írd be a régió nevét&gt;
+	</string>
+	<combo_box name="crash_behavior_combobox" width="166">
+		<combo_item length="1" name="Askbeforesending" type="string">
+			Elküldés előtt megkérdez
+		</combo_item>
+		<combo_item length="1" name="Alwayssend" type="string">
+			Mindig elküld
+		</combo_item>
+		<combo_item length="1" name="Neversend" type="string">
+			Sosem küld
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox" width="166">
+		<combo_item length="1" name="System Default Language" type="string">
+			Alapértelmezett
+		</combo_item>
+		<combo_item length="1" name="English" type="string">
+			English
+		</combo_item>
+		<combo_item name="Danish">
+			Dansk (Dán) - Beta
+		</combo_item>
+		<combo_item length="1" name="Deutsch(German)" type="string">
+			Deutsch (German) - Beta
+		</combo_item>
+		<combo_item length="1" name="Spanish" type="string">
+			Español (Spanish) - Beta
+		</combo_item>
+		<combo_item length="1" name="French" type="string">
+			Français (French) - Beta
+		</combo_item>
+		<combo_item name="Italian">
+			Italiano (Olasz) - Beta
+		</combo_item>
+		<combo_item length="1" name="Hungarian" type="string">
+			Magyar - Beta
+		</combo_item>
+		<combo_item name="Dutch">
+			Nederlands (Holland) - Beta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski (Lengyel) - Beta
+		</combo_item>
+		<combo_item name="Portugese">
+			Portugués (Portugál) - Beta
+		</combo_item>
+		<combo_item name="Russian">
+			Русский (Orosz) - Beta
+		</combo_item>
+		<combo_item name="Turkish">
+			Türkçe (Török) - Beta
+		</combo_item>
+		<combo_item name="Ukrainian">
+			Українська (Ukrán) - Beta
+		</combo_item>
+		<combo_item length="1" name="Chinese" type="string">
+			中文 (简体) (Kínai) - Beta
+		</combo_item>
+		<combo_item length="1" name="(Japanese)" type="string">
+			日本語 (Japanese) - Beta
+		</combo_item>
+		<combo_item length="1" name="(Korean)" type="string">
+			한국어 (Korean) - Beta
+		</combo_item>
+	</combo_box>
+	<check_box label="Nyelv felderítése" name="language_is_public" tool_tip="Lehetővé teszi kliens nyelvének felderítését."/>
+</panel>

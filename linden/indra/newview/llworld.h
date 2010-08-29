@@ -22,7 +22,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -118,8 +119,7 @@ public:
 	// region X and Y size in meters
 	F32						getRegionWidthInMeters() const	{ return mWidthInMeters; }
 	F32						getRegionMinHeight() const		{ return -mWidthInMeters; }
-	F32						getRegionMaxHeight() const		{ return MAX_OBJECT_Z; }
-
+	F32						getRegionMaxHeight() const;
 	void					updateRegions(F32 max_update_time);
 	void					updateVisibilities();
 	void					updateParticles();

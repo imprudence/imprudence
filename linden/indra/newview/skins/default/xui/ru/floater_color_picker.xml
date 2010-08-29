@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="ColorPicker" title="Показать цвет">
+	<spinner left="90" name="rspin" width="44"/>
+	<spinner left="90" name="gspin" width="44"/>
+	<spinner left="90" name="bspin" width="44"/>
+	<spinner left="90" name="hspin" width="44"/>
+	<spinner left="90" name="sspin" width="44"/>
+	<spinner left="90" name="lspin" width="44"/>
+	<text name="r_val_text">
+		Красный:
+	</text>
+	<text name="g_val_text">
+		Зеленый:
+	</text>
+	<text name="b_val_text">
+		Синий:
+	</text>
+	<text name="h_val_text">
+		Оттенок:
+	</text>
+	<text name="s_val_text">
+		Насыщеность:
+	</text>
+	<text name="l_val_text">
+		Яркость:
+	</text>
+	<check_box label="Применить" name="apply_immediate" />
+	<button label="" label_selected="" name="color_pipette" />
+	<button label="Отмена" label_selected="Отмена" name="cancel_btn" />
+	<button label="Выбор" label_selected="Выбор" name="select_btn" />
+	<text name="Current color:">
+		Текущий цвет:
+	</text>
+	<text name="(Drag below to save.)">
+		(перетащите ниже,
+ чтобы сохранить.)
+	</text>
+</floater>

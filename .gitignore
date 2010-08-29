@@ -10,41 +10,56 @@
 # ARTWORK
 
 linden/LICENSE-logos.txt
-linden/indra/newview/skins/**/textures/
+linden/indra/newview/skins/default/textures/*.tga
+linden/indra/newview/skins/default/textures/*.j2c
+linden/indra/newview/skins/silver/textures/*.tga
+linden/indra/newview/skins/silver/textures/*.j2c
 linden/indra/newview/skins/default/html/btn_purplepill_bg.png
 linden/indra/newview/skins/default/html/en-us/loading/sl_logo_rotate_black.gif
+linden/indra/newview/skins/default/html/en-us/loading/Thumbs.db
+linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
 linden/indra/newview/skins/default/html/unabletoconnect.png
 linden/indra/newview/res/
 linden/indra/newview/res-sdl/
 linden/indra/newview/character/
 linden/indra/newview/app_settings/*.db2
 linden/indra/newview/app_settings/windlight/
+linden/indra/newview/cursors_mac/
+linden/indra/newview/viewer.icns
 
 
 # LIBRARIES
 
 linden/LICENSES/
 linden/LICENSE-libraries-*.txt
-linden/indra/newview/app_settings/mozilla-runtime-*/
+linden/libraries/
+linden/indra/newview/app_settings/mozilla*/
 linden/indra/newview/fonts/
+linden/indra/newview/lib/
+linden/indra/newview/dbghelp.dll
 linden/indra/newview/linux_tools/client-readme-voice.txt
 linden/indra/newview/vivox-runtime/
-linden/libraries/
-linden/indra/lib_releasefordownload_client/
-linden/indra/llwindow/glh/
-*.pyc
+linden/indra/newview/*.lproj/
+linden/indra/newview/mozilla-theme/
+linden/indra/test_apps/
 
 
 # COMPILED STUFF
 
 linden/indra/viewer-*
+linden/indra/build-*
 linden/installed.xml
-linden/indra/CMakeFiles
-linden/indra/temp
-linden/indra/test_apps
+*.pyc
 
 
-# PATCHES 
+# PATCHES
 
-*.diff
-*.patch
+*.diff*
+*.patch*
+
+
+# MISCELLANEOUS
+
+ChangeLog.txt
+.DS_Store
+*.zip

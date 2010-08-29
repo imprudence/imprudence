@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Hardware Settings Floater" title="Настройки Оборудования">
+	<text length="1" name="Filtering:" type="string">
+		Фільтри:
+	</text>
+	<check_box label="Анизотропная фильтрация (медленнее, якщо увімк.)" name="ani"/>
+	<text length="1" name="Antialiasing:" type="string">
+		Згладжування:
+	</text>
+	<combo_box label="Згладжування" name="fsaa" width="84">
+		<combo_item name="FSAADisabled">
+			Вимк.
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
+	<spinner label="Гама:" name="gamma"/>
+	<text length="1" name="(brightness, lower is brighter)" type="string">
+		(яскравість, чим нижче, тим яскрав.,
+0=за замовч.)
+	</text>
+	<text length="1" name="Enable VBO:" type="string" bottom_delta="-40">
+		Увімкнути VBO:
+	</text>
+	<check_box label="Увімкнути OpenGL Vertex Buffer Об&apos;єкти" name="vbo" tool_tip="Якщо увімкнути це - отримаєте підвищення продуктивності на сучасному обладнанні. На старих комп&apos;ютерах можливі збої в роботі."/>
+	<slider label_width="150" left="10" width="300" label="Текстурна пам&apos;ять (МБ):" name="GrapicsCardTextureMemory" tool_tip="Об&apos;єм пам&apos;яті для текстур. За замовчуванням дорівнює про&apos;єму пам&apos;яті відеокартки. Зменшення цього параметру може підвищити продуктивність, але також може зробити текстури змазаними."/>
+	<spinner label="Дистанція туману:" name="fog"/>
+	<button label="OK" label_selected="OK" name="OK"/>
+</floater>

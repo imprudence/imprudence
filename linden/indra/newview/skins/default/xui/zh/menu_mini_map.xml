@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call label="放大" name="Zoom Close"/>
+	<menu_item_call label="适中" name="Zoom Medium"/>
+	<menu_item_call label="缩小" name="Zoom Far"/>
+	<menu_item_call label="停止跟踪" name="Stop Tracking"/>
+	<menu_item_call label="档案..." name="Profile"/>
+</menu>

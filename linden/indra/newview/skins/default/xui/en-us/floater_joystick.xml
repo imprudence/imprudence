@@ -30,17 +30,17 @@
 	<check_box bottom="-127" left="262" width="60" halign="center" border_drop_shadow_visible="true" control_name="JoystickFlycamEnabled" name="JoystickFlycamEnabled">Flycam</check_box>
 
 	<text bottom="-144" left="20" width="94" halign="right" name="XScale">X Scale</text>
-	<spinner bottom="-144" left="125" width="56" label_width="0" control_name="AvatarAxisScale1" name="AvatarAxisScale1" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-144" left="125" width="56" label_width="0" control_name="AvatarAxisScale1" name="AvatarAxisScale1" decimal_digits="2" increment="0.1" min_val="-50" max_val="50"/>
 	<spinner bottom="-144" left="195" width="56" label_width="0" control_name="BuildAxisScale1" name="BuildAxisScale1" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 	<spinner bottom="-144" left="265" width="56" label_width="0" control_name="FlycamAxisScale1" name="FlycamAxisScale1" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 
 	<text bottom="-164" left="20" width="94" halign="right" name="YScale">Y Scale</text>
-	<spinner bottom="-164" left="125" width="56" label_width="0" control_name="AvatarAxisScale2" name="AvatarAxisScale2" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-164" left="125" width="56" label_width="0" control_name="AvatarAxisScale2" name="AvatarAxisScale2" decimal_digits="2" increment="0.1" min_val="-50" max_val="50"/>
 	<spinner bottom="-164" left="195" width="56" label_width="0" control_name="BuildAxisScale2" name="BuildAxisScale2" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 	<spinner bottom="-164" left="265" width="56" label_width="0" control_name="FlycamAxisScale2" name="FlycamAxisScale2" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 
 	<text bottom="-184" left="20" width="94" halign="right" name="ZScale">Z Scale</text>
-	<spinner bottom="-184" left="125" width="56" label_width="0" control_name="AvatarAxisScale0" name="AvatarAxisScale0" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-184" left="125" width="56" label_width="0" control_name="AvatarAxisScale0" name="AvatarAxisScale0" decimal_digits="2" increment="0.1" min_val="-50" max_val="50"/>
 	<spinner bottom="-184" left="195" width="56" label_width="0" control_name="BuildAxisScale0" name="BuildAxisScale0" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 	<spinner bottom="-184" left="265" width="56" label_width="0" control_name="FlycamAxisScale0" name="FlycamAxisScale0" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
 
@@ -110,10 +110,17 @@
 	<text bottom="-450" left="20" width="94" halign="right" name="ZoomDeadZone">Zoom Dead Zone</text>
 	<spinner bottom="-450" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone6" name="FlycamAxisDeadZone6" label="" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
 
-	<button bottom="-451" left="336" enabled="true" follows="left|top" font="SansSerif"
+	<button bottom="-451" left="340" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="22" hidden="false"
 	     label="SpaceNavigator Defaults" mouse_opaque="true"
-	     name="SpaceNavigatorDefaults" scale_image="true" width="200" />
+	     name="SpaceNavigatorDefaults" scale_image="true" width="184" />
+	
+	<button bottom="-480" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="OK" label_selected="OK" left="340"
+	     mouse_opaque="true" name="ok_btn" width="90" />
+	<button bottom="-480" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left_delta="94"
+	     mouse_opaque="true" name="cancel_btn" width="90" />
 
 	<string name="JoystickMonitor">Joystick Monitor</string>
 	<string name="Axis">Axis [NUM]</string>

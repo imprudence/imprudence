@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +48,7 @@
 
 LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const std::string& name) : LLPanel(name)
 {
+	mVoiceLastActive = false;
 	setIsChrome(TRUE);
 
 	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
@@ -106,6 +108,11 @@ void LLVoiceRemoteCtrl::draw()
 
 	mTalkBtn->setEnabled(voice_active);
 	mTalkLockBtn->setEnabled(voice_active);
+	mSpeakersBtn->setEnabled(voice_active);
+
+	if (!voice_active && mVoiceLastActive)
+		LLFloaterActiveSpeakers::getInstance()->onClose(false);
+	mVoiceLastActive = voice_active;
 
 	// propagate ptt state to button display,
 	if (!mTalkBtn->hasMouseCapture())

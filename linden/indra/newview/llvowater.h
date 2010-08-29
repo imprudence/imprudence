@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,7 +52,7 @@ public:
 	{
 		VERTEX_DATA_MASK =	(1 << LLVertexBuffer::TYPE_VERTEX) |
 							(1 << LLVertexBuffer::TYPE_NORMAL) |
-							(1 << LLVertexBuffer::TYPE_TEXCOORD) 
+							(1 << LLVertexBuffer::TYPE_TEXCOORD0) 
 	};
 
 	LLVOWater(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
@@ -67,7 +68,7 @@ public:
 	/*virtual*/ BOOL        updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void		updateSpatialExtents(LLVector3& newMin, LLVector3& newMax);
 
-	/*virtual*/ void updateTextures(LLAgent &agent);
+	/*virtual*/ void updateTextures();
 	/*virtual*/ void setPixelAreaAndAngle(LLAgent &agent); // generate accurate apparent angle and area
 
 	virtual U32 getPartitionType() const;

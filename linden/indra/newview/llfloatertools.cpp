@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Copyright (c) 2002-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,6 +58,7 @@
 #include "llresmgr.h"
 #include "llselectmgr.h"
 #include "llslider.h"
+#include "llspinctrl.h"
 #include "llstatusbar.h"
 #include "lltabcontainer.h"
 #include "lltextbox.h"
@@ -82,6 +84,8 @@
 #include "llvograss.h"
 #include "llvotree.h"
 #include "lluictrlfactory.h"
+
+#include "hippoLimits.h"
 
 // Globals
 LLFloaterTools *gFloaterTools = NULL;
@@ -175,6 +179,48 @@ void*	LLFloaterTools::createPanelLandInfo(void* data)
 	return floater->mPanelLandInfo;
 }
 
+void LLFloaterTools::updateToolsSizeLimits()
+{
+	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
+	{
+		getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+	}
+	else
+	{
+		getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
+		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
+		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+
+		getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
+		getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
+		getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
+	}
+}
+
+void LLFloaterTools::updateToolsPrecision()
+{
+	U32 decimals = gSavedSettings.getU32("DecimalsForTools");
+	if (decimals != mPrecision)
+	{
+		if (decimals > 5)
+		{
+			decimals = 5;
+		}
+		getChild<LLSpinCtrl>("Pos X")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Pos Y")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Pos Z")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Scale X")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Scale Y")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Scale Z")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Rot X")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Rot Y")->setPrecision(decimals);
+		getChild<LLSpinCtrl>("Rot Z")->setPrecision(decimals);
+		mPrecision = decimals;
+	}
+}
+
 BOOL	LLFloaterTools::postBuild()
 {
 	
@@ -242,6 +288,12 @@ BOOL	LLFloaterTools::postBuild()
 	mBtnUnlink = getChild<LLButton>("unlink_btn");
 	childSetAction("unlink_btn",onClickUnlink, this);
 
+	// Set the default size limits for spinners -- MC
+	updateToolsSizeLimits();
+
+	// Set the default decimal precision for spinners -- MC
+	updateToolsPrecision();
+
 	//
 	// Create Buttons
 	//
@@ -278,7 +330,7 @@ BOOL	LLFloaterTools::postBuild()
 			&LLToolPlacerPanel::sTriangleTorus,
 			&LLToolPlacerPanel::sTree,
 			&LLToolPlacerPanel::sGrass};
-	for(size_t t=0; t<sizeof(toolNames)/sizeof(toolNames[0]); ++t)
+	for(size_t t=0; t<LL_ARRAY_SIZE(toolNames); ++t)
 	{
 		LLButton *found = getChild<LLButton>(toolNames[t]);
 		if(found)
@@ -317,14 +369,11 @@ BOOL	LLFloaterTools::postBuild()
 	childSetCommitCallback("radio revert",click_popup_dozer_mode,  (void*)5);
 	mBtnApplyToSelection = getChild<LLButton>("button apply to selection");
 	childSetAction("button apply to selection",click_apply_to_selection,  (void*)0);
-	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
-	childSetValue("checkbox show owners",gSavedSettings.getBOOL("ShowParcelOwners"));
 
 	mSliderDozerSize = getChild<LLSlider>("slider brush size");
 	childSetCommitCallback("slider brush size", commit_slider_dozer_size,  (void*)0);
 	childSetValue( "slider brush size", gSavedSettings.getF32("LandBrushSize"));
 	
-
 	mSliderDozerForce = getChild<LLSlider>("slider force");
 	childSetCommitCallback("slider force",commit_slider_dozer_force,  (void*)0);
 	// the setting stores the actual force multiplier, but the slider is logarithmic, so we convert here
@@ -408,8 +457,6 @@ LLFloaterTools::LLFloaterTools()
 	mSliderDozerSize(NULL),
 	mSliderDozerForce(NULL),
 	mBtnApplyToSelection(NULL),
-	mCheckShowOwners(NULL),
-
 
 	mTab(NULL),
 	mPanelPermissions(NULL),
@@ -420,7 +467,8 @@ LLFloaterTools::LLFloaterTools()
 	mPanelLandInfo(NULL),
 
 	mTabLand(NULL),
-	mDirty(TRUE)
+	mDirty(TRUE),
+	mPrecision(3)
 {
 	setAutoFocus(FALSE);
 	LLCallbackMap::map_t factory_map;
@@ -484,6 +532,8 @@ void LLFloaterTools::refresh()
 	std::string prim_count_string;
 	LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
 	childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+
+	updateToolsPrecision();
 
 	// Refresh child tabs
 	mPanelPermissions->refresh();
@@ -827,10 +877,6 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Bulldozer:", land_visible);
 		childSetVisible("Dozer Size:", land_visible);
 	}
-	if (mCheckShowOwners)
-	{
-		mCheckShowOwners	->setVisible( land_visible );
-	}
 	if (mSliderDozerForce)
 	{
 		mSliderDozerForce	->setVisible( land_visible );
@@ -870,7 +916,7 @@ void LLFloaterTools::onClose(bool app_quitting)
 
 	LLViewerJoystick::getInstance()->moveAvatar(false);
 
-    // Different from handle_reset_view in that it doesn't actually 
+	// Different from handle_reset_view in that it doesn't actually 
 	//   move the camera if EditCameraMovement is not set.
 	gAgent.resetView(gSavedSettings.getBOOL("EditCameraMovement"));
 	
@@ -1151,29 +1197,32 @@ void LLFloaterTools::onClickLink(void* data)
 {
 	if(!LLSelectMgr::getInstance()->selectGetAllRootsValid())
 	{
-		LLNotifyBox::showXml("UnableToLinkWhileDownloading");
+		LLNotifications::instance().add("UnableToLinkWhileDownloading");
 		return;
 	}
- 
-	S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-	if (object_count > MAX_CHILDREN_PER_TASK + 1)
+
+	S32 max_linked_prims = gHippoLimits->getMaxLinkedPrims();
+	if (max_linked_prims > -1)
 	{
-		LLStringUtil::format_map_t args;
-		args["[COUNT]"] = llformat("%d", object_count);
-		int max = MAX_CHILDREN_PER_TASK+1;
-		args["[MAX]"] = llformat("%d", max);
-		gViewerWindow->alertXml("UnableToLinkObjects", args);
-		return;
+		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+		if (object_count > max_linked_prims + 1)
+		{
+			LLSD args;
+			args["COUNT"] = llformat("%d", object_count);
+			args["MAX"] = llformat("%d", max_linked_prims +1);
+			LLNotifications::instance().add("UnableToLinkObjects", args);
+			return;
+		}
 	}
- 
+
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
-		gViewerWindow->alertXml("CannotLinkIncompleteSet");
+		LLNotifications::instance().add("CannotLinkIncompleteSet");
 		return;
 	}
 	if(!LLSelectMgr::getInstance()->selectGetRootsModify())
 	{
-		gViewerWindow->alertXml("CannotLinkModify");
+		LLNotifications::instance().add("CannotLinkModify");
 		return;
 	}
 	LLUUID owner_id;
@@ -1183,7 +1232,7 @@ void LLFloaterTools::onClickLink(void* data)
 	  // we don't actually care if you're the owner, but novices are
 	  // the most likely to be stumped by this one, so offer the
 	  // easiest and most likely solution.
-	  gViewerWindow->alertXml("CannotLinkDifferentOwners");
+	  LLNotifications::instance().add("CannotLinkDifferentOwners");
 	  return;
 	}
 	LLSelectMgr::getInstance()->sendLink();

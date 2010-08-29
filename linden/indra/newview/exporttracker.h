@@ -33,14 +33,25 @@
 #include "llagent.h"
 #include "llfloater.h"
 
-#define PROP_REQUEST_KICK 10000
+#define FOLLOW_PERMS 1
+#define PROP_REQUEST_KICK 10
+#define INV_REQUEST_KICK 10
 
 struct PropertiesRequest_t
 {
 	time_t	request_time;
 	LLUUID	target_prim;
 	U32		localID;
+	U32		num_retries;
 };
+
+struct InventoryRequest_t
+{
+	time_t	request_time;
+	LLViewerObject * object; // I can't be bothered to itterate the objects list on every kick, so hold the pointer here
+	U32		num_retries;
+};
+
 
 class ExportTrackerFloater : public LLFloater
 {
@@ -60,9 +71,6 @@ public:
 
 	//static void 	onCommitPosition(LLUICtrl* ctrl, void* userdata);
 
-	//Reset button
-	//static void onClickReset(void* data);
-
 	//Import button
 	static void onClickExport(void* data);
 	
@@ -71,15 +79,13 @@ public:
 	//Close button
 	static void onClickClose(void* data);
 
-	//Reset button
-	static void onClickReset(void* data);
-
 
 	static LLDynamicArray<LLViewerObject*> objectselection;
+	static LLDynamicArray<LLViewerObject*> mObjectSelectionWaitList;
 
 	static int		linksets_exported;
-	static int		properties_exported;
-	static int		total_properties;
+	static int		properties_received;
+	static int		inventories_received;
 	static int		property_queries;
 	static int		assets_exported;
 	static int		textures_exported;
@@ -100,7 +106,6 @@ public:
 	static void init();
 private:
 	static LLSD* getprim(LLUUID id);
-	static void completechk();
 public:
 	static void processObjectProperties(LLMessageSystem* msg, void** user_data);
 	void inventoryChanged(LLViewerObject* obj,
@@ -121,16 +126,20 @@ public:
 
 	static bool serialize(LLDynamicArray<LLViewerObject*> objects);
 
+	static bool getAsyncData(LLViewerObject * obj);
+
+	static void error(std::string name, U32 localid, LLVector3 object_pos, std::string error_msg);
+
 	//Export idle callback
 	static void exportworker(void *userdata);
 
 	static bool serializeSelection();
-	static void finalize(LLSD data);
+	static void finalize();
 
 	static BOOL mirror(LLInventoryObject* item, LLViewerObject* container = NULL, std::string root = "", std::string iname = "");
 
 private:
-	static LLSD subserialize(LLViewerObject* linkset);
+	static LLSD* subserialize(LLViewerObject* linkset);
 	static void requestPrimProperties(U32 localID);
 
 public:
@@ -142,7 +151,8 @@ public:
 
 	static BOOL export_properties;
 	static BOOL export_inventory;
-	static BOOL export_textures;
+	static BOOL export_tga;
+	static BOOL export_j2c;
 
 	//static U32 level;
 
@@ -151,14 +161,24 @@ public:
 	static U32 totalprims;
 	static LLVector3 selection_center;
 	static LLVector3 selection_size;
-	static LLSD data;
+	
+	static void cleanup();
+
+	static std::list<PropertiesRequest_t*> requested_properties;
+	static std::list<InventoryRequest_t*> requested_inventory;
+
+	static std::list<LLSD *> processed_prims;
+	static std::map<LLUUID,LLSD *>received_inventory;
+	static std::map<LLUUID,LLSD *>received_properties;
+
 private:
 	static LLSD total;
 
 	static std::string destination;
 	static std::string asset_dir;
 	static std::set<LLUUID> requested_textures;
-	static std::list<PropertiesRequest_t*> requested_properties;
+	//static std::list<S32> copied_objects;
+	//static LLDynamicArray<U32> copied_objects;
 };
 
 // zip a folder. this doesn't work yet.

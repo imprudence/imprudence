@@ -81,10 +81,11 @@ def get_default_version(srctree):
     for p in paths:
         if os.path.exists(p):
             contents = open(p, 'r').read()
-            major = re.search("LL_VERSION_MAJOR\s=\s([0-9]+)", contents).group(1)
-            minor = re.search("LL_VERSION_MINOR\s=\s([0-9]+)", contents).group(1)
-            patch = re.search("LL_VERSION_PATCH\s=\s([0-9]+)", contents).group(1)
-            build = re.search("LL_VERSION_BUILD\s=\s([0-9]+)", contents).group(1)
+            major = re.search("IMP_VERSION_MAJOR\s=\s([0-9]+)", contents).group(1)
+            minor = re.search("IMP_VERSION_MINOR\s=\s([0-9]+)", contents).group(1)
+            patch = re.search("IMP_VERSION_PATCH\s=\s([0-9]+)", contents).group(1)
+            #build = re.search("LL_VERSION_BUILD\s=\s([0-9]+)", contents).group(1)
+	    build = re.search('const char \* const IMP_VERSION_TEST = "(.*)";', contents).group(1)
             return major, minor, patch, build
 
 def get_channel(srctree):
@@ -98,7 +99,7 @@ def get_channel(srctree):
     
 
 DEFAULT_SRCTREE = os.path.dirname(sys.argv[0])
-DEFAULT_CHANNEL = 'Second Life Release'
+DEFAULT_CHANNEL = 'Imprudence'
 
 ARGUMENTS=[
     dict(name='actions',
@@ -156,7 +157,7 @@ ARGUMENTS=[
         for use by a .bat file.""",
          default=None),
     dict(name='version',
-         description="""This specifies the version of Second Life that is
+         description="""This specifies the version of Imprudence that is
         being packaged up.""",
          default=get_default_version)
     ]
@@ -452,7 +453,7 @@ class LLManifest(object):
             # *TODO is this gonna be useful?
             print "Cleaning up " + c
 
-    def process_file(self, src, dst, strip=False):
+    def process_file(self, src, dst):
         if self.includes(src, dst):
 #            print src, "=>", dst
             for action in self.actions:
@@ -460,7 +461,7 @@ class LLManifest(object):
                 method = getattr(self, methodname, None)
                 if method is not None:
                     method(src, dst)
-            self.file_list.append([src, dst, strip])
+            self.file_list.append([src, dst])
             return 1
         else:
             sys.stdout.write(" (excluding %r, %r)" % (src, dst))
@@ -607,7 +608,7 @@ class LLManifest(object):
             d = src_re.sub(d_template, s.replace('\\', '/'))
             yield os.path.normpath(s), os.path.normpath(d)
 
-    def path(self, src, dst=None, strip=False):
+    def path(self, src, dst=None, required=True):
         sys.stdout.write("Processing %s => %s ... " % (src, dst))
         sys.stdout.flush()
         if src == None:
@@ -621,17 +622,17 @@ class LLManifest(object):
             count = 0
             if self.wildcard_pattern.search(src):
                 for s,d in self.expand_globs(src, dst):
-                    assert(s != d)
-                    count += self.process_file(s, d, strip)
+                    count += self.process_file(s, d)
             else:
-                # if we're specifying a single path (not a glob),
-                # we should error out if it doesn't exist
-                self.check_file_exists(src)
+                # if we're specifying a single path (not a glob), and
+                # it's required, error out if it doesn't exist
+                if required:
+                    self.check_file_exists(src)
                 # if it's a directory, recurse through it
                 if os.path.isdir(src):
                     count += self.process_directory(src, dst)
                 else:
-                    count += self.process_file(src, dst, strip)
+                    count += self.process_file(src, dst)
             return count
         try:
             count = try_path(os.path.join(self.get_src_prefix(), src))

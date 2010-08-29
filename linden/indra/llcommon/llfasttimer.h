@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -70,6 +71,14 @@ public:
 		FTM_UPDATE_AVATAR,
 		
 		// common render components
+		FTM_SHADOW_GEOMETRY,
+		FTM_SHADOW_RENDER,
+		FTM_SHADOW_TERRAIN,
+		FTM_SHADOW_AVATAR,
+		FTM_SHADOW_SIMPLE,
+		FTM_SHADOW_ALPHA,
+		FTM_SHADOW_TREE,
+		
 		FTM_RENDER_GEOMETRY,
 		 FTM_RENDER_TERRAIN,
 		 FTM_RENDER_SIMPLE,
@@ -152,6 +161,7 @@ public:
 		FTM_IMAGE_UPDATE,
 		FTM_IMAGE_CREATE,
 		FTM_IMAGE_DECODE,
+		FTM_IMAGE_READBACK,
 		FTM_IMAGE_MARK_DIRTY,
 		FTM_PIPELINE,
 		FTM_VFILE_WAIT,
@@ -185,11 +195,13 @@ public:
 	enum { FTM_MAX_DEPTH = 64 };
 	
 public:
+	static EFastTimerType sCurType;
+
 	LLFastTimer(EFastTimerType type)
 	{
 #if FAST_TIMER_ON
 		mType = type;
-
+		sCurType = type;
 		// These don't get counted, because they use CPU clockticks
 		//gTimerBins[gCurTimerBin]++;
 		//LLTimer::sNumTimerCalls++;
