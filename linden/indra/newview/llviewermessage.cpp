@@ -910,7 +910,14 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 			switch(asset_type)
 			{
 			case LLAssetType::AT_NOTECARD:
-				open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, show_keep_discard, LLUUID::null, FALSE);
+				// Don't show WindLight settings as notecards.
+				// *TODO: centralise all these damned .wl/.ww checks somewhere.
+				if((item->getName().length() > 2 && item->getName().compare(item->getName().length() - 3, 3, ".wl") != 0) &&
+					(item->getName().compare(item->getName().length() - 3, 3, ".ww") != 0))
+				{
+					open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), 
+						LLUUID::null, show_keep_discard, LLUUID::null, FALSE);
+				}
 				break;
 			case LLAssetType::AT_LANDMARK:
 				open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), show_keep_discard, LLUUID::null, FALSE);
