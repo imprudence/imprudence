@@ -823,16 +823,6 @@ void LLItemBridge::selectItem()
 	{
 		item->fetchFromServer();
 	}
-
- 	if (item && item->isComplete())
- 	{
-		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-		if(is_windlight)
-		{
-			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
-		}
-	}
-
 }
 
 void LLItemBridge::restoreItem()
@@ -3065,7 +3055,6 @@ void LLNotecardBridge::openItem()
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
-		bool is_windlight = (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
 		if(isSkySetting())
  		{
 			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
