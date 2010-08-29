@@ -4,7 +4,7 @@
 *
 * $LicenseInfo:firstyear=2009&license=viewergpl$
 *
-* Copyright (c) 2010, author unknown
+* 2010, original author Vaalith Jinn
 *
 * Imprudence Viewer Source Code
 * The source code in this file ("Source Code") is provided to you
