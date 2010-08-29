@@ -3137,6 +3137,10 @@ LLUIImagePtr LLNotecardBridge::getIcon() const
 	{
 		return LLUI::getUIImage("Inv_WindLight");
 	}
+	else if(isWaterSetting())
+ 	{
+		return LLUI::getUIImage("Inv_WaterLight");
+	}
 	else
 	{
 		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
