@@ -557,6 +557,7 @@ class DarwinManifest(ViewerManifest):
 
                 self.path("libxml2.2.dylib")
                 self.path("libfaad.2.dylib")
+                self.path("libFLAC.8.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
                 self.path("libpng12.0.dylib")
