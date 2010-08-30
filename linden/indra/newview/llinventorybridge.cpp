@@ -3945,7 +3945,7 @@ protected:
 		}
 		else
 		{
-			llwarns << "Dropping unhandled LLWearAttachments" << llendl;
+			llwarns << "Dropping unhandled LLWearAttachmentsCallback" << llendl;
 		}
 	}
 private:

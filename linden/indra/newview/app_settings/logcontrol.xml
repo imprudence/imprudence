@@ -54,6 +54,7 @@
 							<!--<string>BodyPhysics</string>-->
               <!--<string>InitInfo</string>-->
               <!--<string>isOwnedSelf</string>-->
+              <!--<string>Inventory</string>-->
 							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
 							<!--<string>MediaImpl</string>-->
