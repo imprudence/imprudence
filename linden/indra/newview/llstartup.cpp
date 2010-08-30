@@ -936,7 +936,14 @@ bool idle_startup()
 			gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));		
 		}
 		
-		gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+		if (gSavedSettings.getBOOL("UseLegacyChatLogsFolder"))
+		{
+			gDirUtilp->setPerAccountChatLogsDir(LLStringUtil::null, firstname, lastname);
+		}
+		else
+		{
+			gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+		}
 
 		LLFile::mkdir(gDirUtilp->getChatLogsDir());
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
