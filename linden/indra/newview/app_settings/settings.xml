@@ -6131,7 +6131,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>LiberationSans-Regular.ttf</string>
+    <string>DejaVuSansCondensed.ttf</string>
   </map>
   <key>FontSansSerifBundledFallback</key>
   <map>
@@ -6153,7 +6153,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>LiberationSans-Bold.ttf</string>
+    <string>DejaVuSansCondensed-Bold.ttf</string>
   </map>
   <key>FontSansSerifFallback</key>
   <map>
