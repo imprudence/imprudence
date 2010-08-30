@@ -2081,9 +2081,9 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 		if (objectp->getType() <= LLAssetType::AT_NONE ||
 			objectp->getType() >= LLAssetType::AT_COUNT)
 		{
-			llwarns << "LLInventoryPanel::buildNewViews called with objectp->mType == " 
+			LL_DEBUGS("Inventory") << "LLInventoryPanel::buildNewViews called with objectp->mType == " 
 				<< ((S32) objectp->getType())
-				<< " (shouldn't happen)" << llendl;
+				<< " (shouldn't happen)" << LL_ENDL;
 		}
 		else if (objectp->getType() == LLAssetType::AT_CATEGORY) // build new view for category
 		{
