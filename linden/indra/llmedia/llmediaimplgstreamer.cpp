@@ -188,6 +188,9 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
+#if LL_DARWIN
+		setenv("GST_PLUGIN_SYSTEM_PATH", "lib/gstreamer-plugins", TRUE);
+#endif
 		if (0 == gst_init_check(NULL, NULL, NULL))
 		{
 		    LL_WARNS("MediaImpl") << "GStreamer library failed to initialize and load standard plugins." << LL_ENDL;
