@@ -70,6 +70,7 @@ class LLInventoryPanel : public LLPanel
 public:
 	static const std::string DEFAULT_SORT_ORDER;
 	static const std::string RECENTITEMS_SORT_ORDER;
+	static const std::string WORNITEMS_SORT_ORDER;
 	static const std::string INHERIT_SORT_ORDER;
 
 	LLInventoryPanel(const std::string& name,
@@ -95,6 +96,10 @@ public:
 								   void* cargo_data,
 								   EAcceptance* accept,
 								   std::string& tooltip_msg);
+
+	//fix to get rid of gSavedSettings use - rkeast
+	void setSearchType(U32 type);
+	U32 getSearchType();
 
 	// Call this method to set the selection.
 	void openAllFolders();

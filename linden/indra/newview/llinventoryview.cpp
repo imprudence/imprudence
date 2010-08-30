@@ -486,7 +486,8 @@ LLInventoryView::LLInventoryView(const std::string& name,
 								 LLInventoryModel* inventory) :
 	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
-			  MINIMIZE_NO, CLOSE_YES)
+			  MINIMIZE_NO, CLOSE_YES),
+	mActivePanel(NULL)
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
@@ -497,7 +498,8 @@ LLInventoryView::LLInventoryView(const std::string& name,
 								 LLInventoryModel* inventory) :
 	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
-			  MINIMIZE_NO, CLOSE_YES)
+			  MINIMIZE_NO, CLOSE_YES),
+	mActivePanel(NULL)
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
@@ -522,8 +524,8 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	addBoolControl("Inventory.FoldersAlwaysByName", sort_folders_by_name );
 	addBoolControl("Inventory.SystemFoldersToTop", sort_system_folders_to_top );
 
-	//Search Controls
-	U32 search_type = gSavedSettings.getU32("InventorySearchType");
+	//Search Controls - RKeast
+	U32 search_type = gSavedPerAccountSettings.getU32("InventorySearchType");
 	BOOL search_by_name = (search_type == 0);
 
 	addBoolControl("Inventory.SearchByName", search_by_name);
@@ -544,6 +546,10 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	if (mActivePanel)
 	{
 		// "All Items" is the previous only view, so it gets the InventorySortOrder
+
+		//Fix for gSavedSettings use - rkeast
+		mActivePanel->getFilter()->setSearchType(search_type);
+
 		mActivePanel->setSortOrder(gSavedSettings.getU32("InventorySortOrder"));
 		mActivePanel->getFilter()->markDefault();
 		mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
@@ -580,7 +586,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		file.close();
 
 		// Load the persistent "Recent Items" settings.
-		// Note that the "All Items" settings do not persist.
+		// Note that the "All Items" and "Worn Items" settings do not persist per-account.
 		if(recent_items_panel)
 		{
 			if(savedFilterState.has(recent_items_panel->getFilter()->getName()))
@@ -590,8 +596,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 				recent_items_panel->getFilter()->fromLLSD(recent_items);
 			}
 		}
-
-    }
+	}
 
 	//Initialize item count - rkeast
 	mItemCount = gSavedPerAccountSettings.getS32("InventoryPreviousCount");
@@ -1044,9 +1049,16 @@ void LLInventoryView::onClearSearch(void* user_data)
 	LLInventoryView* self = (LLInventoryView*)user_data;
 	if(!self) return;
 
+	LLFloater *finder = self->getFinder();
 	if (self->mActivePanel)
 	{
 		self->mActivePanel->setFilterSubString(LLStringUtil::null);
+		self->mActivePanel->setFilterTypes(LLInventoryType::NIT_ALL);
+	}
+
+	if (finder)
+	{
+		LLInventoryViewFinder::selectAllTypes(finder);
 	}
 
 	// re-open folders that were initially open
@@ -1737,6 +1749,7 @@ LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 
 const std::string LLInventoryPanel::DEFAULT_SORT_ORDER = std::string("InventorySortOrder");
 const std::string LLInventoryPanel::RECENTITEMS_SORT_ORDER = std::string("RecentItemsSortOrder");
+const std::string LLInventoryPanel::WORNITEMS_SORT_ORDER = std::string("WornItemsSortOrder");
 const std::string LLInventoryPanel::INHERIT_SORT_ORDER = std::string("");
 
 LLInventoryPanel::LLInventoryPanel(const std::string& name,
@@ -1865,6 +1878,19 @@ void LLInventoryPanel::draw()
 		setSelection(mSelectThisID, false);
 	}
 	LLPanel::draw();
+}
+
+
+//fix to get rid of gSavedSettings use - rkeast
+void LLInventoryPanel::setSearchType(U32 type)
+{
+	mFolders->getFilter()->setSearchType(type);
+}
+
+//fix to get rid of gSavedSettings use - rkeast
+U32 LLInventoryPanel::getSearchType()
+{
+	return mFolders->getFilter()->getSearchType();
 }
 
 void LLInventoryPanel::setFilterTypes(U32 filter_types)

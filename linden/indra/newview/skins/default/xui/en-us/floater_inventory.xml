@@ -64,7 +64,7 @@
 		<inventory_panel allow_multi_select="true" border="true" bottom_delta="0"
 		     follows="left|top|right|bottom" height="431" label="Worn Items"
 		     left_delta="0" mouse_opaque="true" name="Worn Items"
-		     sort_order="RecentItemsSortOrder" width="461" />
+         sort_order="WornItemsSortOrder"  width="461" />
 	</tab_container>
 
 	<menu_bar bottom="-34" drop_shadow="false" follows="left|top|right" height="18" left="2"
