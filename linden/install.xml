@@ -1851,6 +1851,13 @@ Cass Everitt - cass@r3.nu
         <key>text</key>
         <string>http://nyctergatis.com/jpeglib/</string>
       </map>
+	  <key>jsoncpp</key>
+	  <map>
+		<key>text</key>
+		<string>The json-cpp library and this documentation are in Public Domain. Retrieved from http://jsoncpp.sourceforge.net/ on 2009-09-04.</string>
+		<key>url</key>
+		<string>http://jsoncpp.sourceforge.net</string>
+	  </map>
       <key>kdu</key>
       <map>
         <key>text</key>
