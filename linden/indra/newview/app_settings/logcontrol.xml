@@ -74,7 +74,8 @@
 							<!--<string>VOAvatar</string>-->
 							<!--<string>View</string>-->
 							<!--<string>ViewerImages</string>-->
-							<!--<string>Throttle</string>-->
+              <!--<string>TextureCache</string>-->
+              <!--<string>Throttle</string>-->
 							<!--<string>Voice</string>-->
 							<!--<string>VivoxProtocolParser</string>-->
 							<!--<string>Wearable</string>-->
