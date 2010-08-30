@@ -80,6 +80,9 @@ public:
 		S32 mParam;
 	};
 
+protected:
+	void clearDeleteList() ;
+
 private:
 	typedef std::list<LLWorkerClass*> delete_list_t;
 	delete_list_t mDeleteList;
@@ -93,8 +96,11 @@ public:
 	
 	handle_t addWorkRequest(LLWorkerClass* workerclass, S32 param, U32 priority = PRIORITY_NORMAL);
 	
-	void deleteWorker(LLWorkerClass* workerclass); // schedule for deletion
 	S32 getNumDeletes() { return (S32)mDeleteList.size(); } // debug
+
+private:
+	void deleteWorker(LLWorkerClass* workerclass); // schedule for deletion
+	
 };
 
 //============================================================================
