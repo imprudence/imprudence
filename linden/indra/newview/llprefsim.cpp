@@ -190,8 +190,16 @@ void LLPrefsIMImpl::apply()
 
 		gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 
-		gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), gSavedSettings.getString("FirstName"), 
-											gSavedSettings.getString("LastName") );
+		if (gSavedSettings.getBOOL("UseLegacyChatLogsFolder"))
+		{
+			gDirUtilp->setPerAccountChatLogsDir(LLStringUtil::null, 
+				gSavedSettings.getString("FirstName"), gSavedSettings.getString("LastName") );
+		}
+		else
+		{
+			gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), 
+				gSavedSettings.getString("FirstName"), gSavedSettings.getString("LastName") );
+		}
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
 		
 		bool new_im_via_email = childGetValue("send_im_to_email").asBoolean();
