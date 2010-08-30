@@ -78,11 +78,10 @@
 			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="20" initial_value="false" label="Show muted text" left_delta="125"
 			     name="show mutes" radio_style="false" width="116" />
-			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
-			     label_selected="&gt; &gt;" left="272" name="toggle_active_speakers_btn"
-			     right="305"
-			     tool_tip="Click here to show list of active participants in this IM session."
-			     width="70" />
+			<button name="toggle_active_speakers_btn"
+			     label="&lt;&lt;" label_selected="&gt;&gt;" follows="right|top"
+			     bottom_delta="0" left="262" right="305" height="20"
+			     tool_tip="Toggle list of active participants in this IM session." />
 			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 			     bottom="28" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerif" height="74" left="5"

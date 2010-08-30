@@ -57,13 +57,13 @@ Chat
 Wait
 	</scroll_list>
 	<button bottom_delta="90" follows="top|left" height="20" label="Add &gt;&gt;"
-	     left="130" name="add_btn" width="80" />
+	     left="125" name="add_btn" width="90" />
 	<button bottom_delta="-30" follows="top|left" height="20" label="Move Up"
-	     left_delta="0" name="up_btn" width="80" />
+	     left_delta="0" name="up_btn" width="90" />
 	<button bottom_delta="-30" follows="top|left" height="20" label="Move Down"
-	     left_delta="0" name="down_btn" width="80" />
+	     left_delta="0" name="down_btn" width="90" />
 	<button bottom_delta="-30" follows="top|left" height="20" label="Remove" left_delta="0"
-	     name="delete_btn" width="80" />
+	     name="delete_btn" width="90" />
 	<scroll_list bottom_delta="0" draw_border="true" follows="top|left" height="110" left="220"
 	     multi_select="false" name="step_list" width="210" />
 	<text bottom_delta="-70" follows="top|left" font="SansSerif" height="60" left="16"

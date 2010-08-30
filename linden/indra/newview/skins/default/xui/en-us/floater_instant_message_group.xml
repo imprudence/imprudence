@@ -56,11 +56,10 @@
 			     visible="false" width="92" />
       <button bottom="-20" follows="left|top" halign="center" height="20" label="History" left_delta="97"
               name="history_btn" visible="true" width="85" />
-			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
-			     label_selected="&gt; &gt;" left="143" name="toggle_active_speakers_btn"
-			     right="176"
-			     tool_tip="Click here to toggle a list of active participants in this IM session."
-			     visible="true" width="30" />
+			<button name="toggle_active_speakers_btn"
+			     label="&lt;&lt;" label_selected="&gt;&gt;" follows="right|top"
+			     bottom_delta="0" left="133" right="176" height="20"
+			     tool_tip="Toggle list of active participants in this IM session." />	
 			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 			     bottom="30" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerif" left="4"

@@ -68,8 +68,8 @@
 	     v_pad="0" width="128">
 		World search:
 	</text>
-	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
-	     height="18" left="100" name="world_search_editor"
+	<line_editor bottom_delta="-8" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="18" left="100" name="world_search_editor"
 	     tool_tip="Address of the world search engine you would like to use"
 	     width="355" />
 	<button bottom_delta="-22" enabled="true" follows="left|bottom" font="SansSerif"
