@@ -19,8 +19,7 @@
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
 #include "llspinctrl.h"
-// Uncomment and use instead if we ever add the chatbar as a command line - MC
-//#include "chatbar_as_cmdline.h"
+#include "chatbar_as_cmdline.h"
 #include "llfloaterchat.h"
 #include "llfirstuse.h"
 
@@ -35,15 +34,7 @@
 #include "llboost.h"
 #include <boost/regex.hpp>
 
-// Uncomment and use instead if we ever add the chatbar as a command line - MC
-//void cmdline_printchat(std::string message);
-void cmdline_printchat(std::string message)
-{
-    LLChat chat;
-    chat.mText = message;
-	chat.mSourceType = CHAT_SOURCE_SYSTEM;
-    LLFloaterChat::addChat(chat, FALSE, FALSE);
-}
+void cmdline_printchat(std::string message);
 
 AOInvTimer* gAOInvTimer = NULL;
 
