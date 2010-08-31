@@ -649,7 +649,7 @@ static bool isFSRefViewerBundle(FSRef *targetRef)
 	}
 	else
 	{
-		if(CFStringCompare(targetBundleID, CFSTR("com.secondlife.indra.viewer"), 0) == kCFCompareEqualTo)
+		if(CFStringCompare(targetBundleID, CFSTR("org.imprudenceviewer.viewer"), 0) == kCFCompareEqualTo)
 		{
 			// This is the bundle we're looking for.
 			result = true;

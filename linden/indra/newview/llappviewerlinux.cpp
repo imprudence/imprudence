@@ -270,7 +270,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 				    uintptr_t(stackarray[btpos]) < value+ssize)
 				{
 					// symbol is inside viewer
-					fprintf(StraceFile, "%-32s\t", "com.secondlife.indra.viewer");
+					fprintf(StraceFile, "%-32s\t", "org.imprudenceviewer.viewer");
 					fprintf(StraceFile, "%p ", stackarray[btpos]);
 
 					char *demangled_str = NULL;
