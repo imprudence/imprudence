@@ -5007,69 +5007,35 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end, std::
 	{
 		S32 strpos, strpos2;
 
-		url = line.substr(*begin,*end - *begin);
-		std::string slurlID = "slurl.com/secondlife/";
-		strpos = url.find(slurlID);
-		
-		if (strpos < 0)
+		// Is this try here still needed considering the changes to LLTextEditor::findHTMLToken? - MC
+		try
 		{
-			slurlID="maps.secondlife.com/secondlife/";
+			url = line.substr(*begin,*end - *begin);
+			std::string slurlID = "slurl.com/secondlife/";
 			strpos = url.find(slurlID);
-		}
-	
-		if (strpos < 0)
-		{
-			slurlID="secondlife://";
-			strpos = url.find(slurlID);
-		}
-	
-		if (strpos < 0)
-		{
-			slurlID="sl://";
-			strpos = url.find(slurlID);
-		}
-	
-		if (strpos >= 0) 
-		{
-			strpos+=slurlID.length();
 			
-			while ( ( strpos2=url.find("/",strpos) ) == -1 ) 
-			{
-				if ((*end+2) >= (S32)line.length() || line.substr(*end,1) != " " )
-				{
-					matched=FALSE;
-					break;
-				}
-				
-				strpos = (*end + 1) - *begin;
-								
-				*end = findHTMLToken(line,(*begin + strpos),FALSE);
-				url = line.substr(*begin,*end - *begin);
-			}
-		}
-
 			if (strpos < 0)
- 			{
+			{
 				slurlID="maps.secondlife.com/secondlife/";
 				strpos = url.find(slurlID);
 			}
-
-		    if (strpos < 0)
-		    {
+		
+			if (strpos < 0)
+			{
 				slurlID="secondlife://";
 				strpos = url.find(slurlID);
-		    }
-
-		    if (strpos < 0)
-		    {
+			}
+		
+			if (strpos < 0)
+			{
 				slurlID="sl://";
 				strpos = url.find(slurlID);
-		    }
-
-		    if (strpos >= 0) 
-		    {
+			}
+		
+			if (strpos >= 0) 
+			{
 				strpos+=slurlID.length();
-
+				
 				while ( ( strpos2=url.find("/",strpos) ) == -1 ) 
 				{
 					if ((*end+2) >= (S32)line.length() || line.substr(*end,1) != " " )
@@ -5077,19 +5043,18 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end, std::
 						matched=FALSE;
 						break;
 					}
-
+					
 					strpos = (*end + 1) - *begin;
-
+									
 					*end = findHTMLToken(line,(*begin + strpos),FALSE);
 					url = line.substr(*begin,*end - *begin);
 				}
-		    }
-
+			}
 		}
 
 		catch ( std::out_of_range outOfRange )
 		{
-		    LL_WARNS("TextEditor") << "got std::out_of_range exception \"" << line << "\"" << LL_ENDL;
+		    llwarns << "got std::out_of_range exception \"" << line << "\"" << llendl;
 		}
 	}
 	
