@@ -548,30 +548,27 @@ LLSD * JCExportTracker::subserialize(LLViewerObject* linkset)
 	
 	if (!object)
 	{
+		cmdline_printchat("subserialize: invalid obj");
 		error("", object->getLocalID(), object->getPosition(), "Invalid Object");
 		delete pllsd;	
 		return NULL;
 	}
-
 	if (!(!object->isAvatar()))
 	{
 		error("", object->getLocalID(), object->getPosition(), "Invalid Object (Avatar)");
 		delete pllsd;	
 		return NULL;
 	}
-
-	// Build a list of everything that we'll actually be exporting
-	LLDynamicArray<LLViewerObject*> export_objects;
-
-	if (!object)
-	{
-		cmdline_printchat("subserialize: invalid obj");
-	}
 	if (object->isDead())
 	{
 		cmdline_printchat("subserialize: object is dead");
 		return NULL;
 	}
+
+	// Build a list of everything that we'll actually be exporting
+	LLDynamicArray<LLViewerObject*> export_objects;
+
+	
 	/*
 	LLPCode pcode = object->getPCode();
 	if (pcode != LL_PCODE_VOLUME &&
@@ -793,12 +790,19 @@ LLSD * JCExportTracker::subserialize(LLViewerObject* linkset)
 						ExportTrackerFloater::total_textures++;
 						requested_textures.insert(asset_id);
 						LLViewerImage* img = gImageList.getImage(asset_id, MIPMAP_TRUE, FALSE);
-						img->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAX_LEVEL);
-						img->forceToSaveRawImage(0); //this is required for us to receive the full res image.
-						//img->setAdditionalDecodePriority(1.0f) ;
-						img->setLoadedCallback( JCExportTracker::onFileLoadedForSave, 
-										0, TRUE, FALSE, info );
-						//llinfos << "Requesting texture " << asset_id.asString() << llendl;
+						if(img->getDiscardLevel()==0)
+						{
+							//llinfos << "Already have texture " << asset_id.asString() << " in memory, attemping GL readback" << llendl;
+							onFileLoadedForSave(true,img,NULL,NULL,0,true,info);
+						}else
+						{
+							img->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAX_LEVEL);
+							img->forceToSaveRawImage(0); //this is required for us to receive the full res image.
+							//img->setAdditionalDecodePriority(1.0f) ;
+							img->setLoadedCallback( JCExportTracker::onFileLoadedForSave, 
+											0, TRUE, FALSE, info );
+							//llinfos << "Requesting texture " << asset_id.asString() << llendl;
+						}
 					}
 				}
 			}
@@ -1092,6 +1096,8 @@ bool JCExportTracker::serializeSelection()
 
 bool JCExportTracker::serialize(LLDynamicArray<LLViewerObject*> objects)
 {
+	LLSelectMgr::getInstance()->deselectAll();
+
 	LLFilePicker& file_picker = LLFilePicker::instance();
 		
 	if (!file_picker.getSaveFile(LLFilePicker::FFSAVE_HPA))
@@ -1163,7 +1169,7 @@ void JCExportTracker::exportworker(void *userdata)
 			kick_count++;
 			//cmdline_printchat("requested property for: " + llformat("%d",req->localID));
 		}
-		if (req->num_retries < 40)
+		if (req->num_retries < gSavedSettings.getU32("ExporterNumberRetrys"))
 			requested_properties.push_back(req);
 		else
 		{
@@ -1187,6 +1193,8 @@ void JCExportTracker::exportworker(void *userdata)
 	kick_count=0;
 	total=requested_inventory.size();
 	// Check for inventory properties that are taking too long
+	std::list<InventoryRequest_t*> still_going;
+	still_going.clear();
 	while(total!=0)
 	{
 		std::list<InventoryRequest_t*>::iterator iter;
@@ -1200,7 +1208,12 @@ void JCExportTracker::exportworker(void *userdata)
 		if( (req->request_time+INV_REQUEST_KICK)< tnow)
 		{
 			req->request_time=time(NULL);
-			req->num_retries++;
+			if(ExportTrackerFloater::objectselection.empty())//dont count inv retrys till things calm down a bit
+			{
+				req->num_retries++;
+				//cmdline_printchat("Re-trying inventory request for " + req->object->mID.asString()+
+				//	", try number "+llformat("%u",req->num_retries));
+			}
 
 			//LLViewerObject* obj = gObjectList.findObject(req->object->mID);
 			LLViewerObject* obj = req->object;
@@ -1222,25 +1235,14 @@ void JCExportTracker::exportworker(void *userdata)
 				cmdline_printchat("exportworker: object has invalid pcode");
 				//return NULL;
 			}
-			obj->dirtyInventory();
+			//lgg test obj->dirtyInventory();
 			obj->requestInventory();
-			
-			//if (req->object->isInventoryDirty()) //yet another crashy inventory call
-			//{
-			//	req->object->fetchInventoryFromServer();
-			//}
-
-			//sInstance->removeVOInventoryListener();
-			//sInstance->clearContents();
-			//sInstance->registerVOInventoryListener(obj,NULL);
-			//sInstance->requestVOInventory();
-
-
-			kick_count++;
+			//kick_count++;
 		}
+		kick_count++;
 
-		if (req->num_retries < 40)
-			requested_inventory.push_back(req);
+		if (req->num_retries < gSavedSettings.getU32("ExporterNumberRetrys"))
+			still_going.push_front(req);
 		else
 		{
 			req->object->mInventoryRecieved = true;
@@ -1252,10 +1254,19 @@ void JCExportTracker::exportworker(void *userdata)
 		}
 
 		
-		if(kick_count>=20)
+		if(kick_count>=gSavedSettings.getS32("ExporterNumberConcurentDownloads"))
 			break; // that will do for now				
 
 		total--;
+	}
+	while(!still_going.empty())
+	{
+		std::list<InventoryRequest_t*>::iterator iter;
+		InventoryRequest_t * req;
+		iter=still_going.begin();
+		req=(*iter);
+		still_going.pop_front();
+		requested_inventory.push_front(req);
 	}
 
 	int count=0;
@@ -2118,7 +2129,6 @@ void JCExportTracker::inventoryChanged(LLViewerObject* obj,
 		{
 			//cmdline_printchat("downloaded inventory for "+obj->getID().asString());
 			LLSD * inventory = new LLSD();
-			//lol lol lol lol lol
 			InventoryObjectList::const_iterator it = inv->begin();
 			InventoryObjectList::const_iterator end = inv->end();
 			U32 num = 0;

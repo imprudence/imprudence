@@ -147,6 +147,28 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>ExporterNumberRetrys</key>
+  <map>
+    <key>Comment</key>
+    <string>How many times to resent info requests.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>40</real>
+  </map>
+  <key>ExporterNumberConcurentDownloads</key>
+  <map>
+    <key>Comment</key>
+    <string>How many inventroy contents to ask for at the same time</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <real>4</real>
+  </map>
   <key>FloaterAnimationListRect</key>
   <map>
     <key>Comment</key>
