@@ -33,6 +33,7 @@
     <file>VeraMono.ttf</file>
   </font>
 
+
   <font name="DejaVu"
 	comment="Name of DejaVu font">
     <file>DejaVuSansCondensed.ttf</file>
@@ -55,6 +56,19 @@
 	font_style="BOLD|ITALIC">
     <file>DejaVuSansCondensed-BoldOblique.ttf</file>
   </font>
+
+
+  <font name="Liberation"
+        comment="Name of Liberation font">
+    <file>LiberationSans-Regular.ttf</file>
+  </font>
+
+  <font name="Liberation"
+        comment="Name of Liberation font (bold)"
+        font_style="BOLD">
+    <file>LiberationSans-Bold.ttf</file>
+  </font>
+
 
   <font name="Helvetica"
 	comment="Name of Helvetica font">
