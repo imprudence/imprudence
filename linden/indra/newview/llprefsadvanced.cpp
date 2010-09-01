@@ -179,6 +179,7 @@ BOOL LLPrefsAdvanced::postBuild()
 
 	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
 
+	initHelpBtn("EmeraldHelp_CmdLine",			"EmeraldHelp_CmdLine");
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
 	refresh();
