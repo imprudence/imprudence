@@ -108,6 +108,8 @@ LLFloaterChat::LLFloaterChat(const LLSD& seed)
 	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_chat_history.xml",&getFactoryMap(),no_open);
 
 	childSetCommitCallback("show mutes",onClickToggleShowMute,this); //show mutes
+	childSetCommitCallback("translate chat",onClickToggleTranslateChat,this);
+	childSetValue("translate chat", gSavedSettings.getBOOL("TranslateChat"));
 	childSetVisible("Chat History Editor with mute",FALSE);
 	childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
 	setDefaultBtn("Chat");
@@ -426,6 +428,26 @@ void LLFloaterChat::onClickToggleShowMute(LLUICtrl* caller, void *data)
 		history_editor_with_mute->setVisible(FALSE);
 		history_editor->setCursorAndScrollToEnd();
 	}
+}
+
+// Update the "TranslateChat" pref after "translate chat" checkbox is toggled in
+// the "Local Chat" floater.
+//static
+void LLFloaterChat::onClickToggleTranslateChat(LLUICtrl* caller, void *data)
+{
+	LLFloaterChat* floater = (LLFloaterChat*)data;
+
+	BOOL translate_chat = floater->getChild<LLCheckBoxCtrl>("translate chat")->get();
+	gSavedSettings.setBOOL("TranslateChat", translate_chat);
+}
+
+// Update the "translate chat" checkbox after the "TranslateChat" pref is set in
+// some other place (e.g. prefs dialog).
+//static
+void LLFloaterChat::updateSettings()
+{
+	BOOL translate_chat = gSavedSettings.getBOOL("TranslateChat");
+	LLFloaterChat::getInstance(LLSD())->getChild<LLCheckBoxCtrl>("translate chat")->set(translate_chat);
 }
 
 // Put a line of chat in all the right places
