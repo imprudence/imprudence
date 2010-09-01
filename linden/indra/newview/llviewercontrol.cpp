@@ -498,20 +498,6 @@ bool handleTranslateChatPrefsChanged(const LLSD& newvalue)
 	return true;
 }
 
-// [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
-bool rlvHandleEnableLegacyNamingChanged(const LLSD& newvalue)
-{
-	rlv_handler_t::fLegacyNaming = newvalue.asBoolean();
-	return true;
-}
-
-bool rlvHandleShowNameTagsChanged(const LLSD& newvalue)
-{
-	RlvSettings::fShowNameTags = newvalue.asBoolean();
-	return true;
-}
-// [/RLVa:KB]
-
 bool handleMediaDebugLevelChanged(const LLSD& newvalue)
 {
 	LLMediaManager *mgr = LLMediaManager::getInstance();
