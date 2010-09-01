@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-666" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" can_tear_off="true" default_tab_group="1" enabled="true"
-     height="460" left="330" min_height="213" min_width="324"
+     height="510" left="330" min_height="213" min_width="324"
      mouse_opaque="true" name="Preferences" title="Preferences" width="620">
-	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
+	<button bottom="-505" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="OK" label_selected="OK" left="335"
 	     mouse_opaque="true" name="OK" scale_image="true" width="90" />
-	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
+	<button bottom="-505" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Cancel" label_selected="Cancel"
 	     left_delta="93" mouse_opaque="true" name="Cancel" scale_image="true"
 	     width="90" />
-	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
+	<button bottom="-505" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Apply" label_selected="Apply"
 	     left_delta="93" mouse_opaque="true" name="Apply" scale_image="true"
 	     width="90" />
-	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
+	<button bottom="-505" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" label="About" label_selected="About" left="9"
 	     mouse_opaque="true" name="About..." scale_image="true" width="90" />
-	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
+	<button bottom="-505" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20"
 	     help_url="http://secondlife.com/app/help/technical/preferences.php"
 	     label="Help" label_selected="Help" left_delta="93" mouse_opaque="true"
 	     name="Help" scale_image="true" width="90" />
-	<tab_container bottom="-431" enabled="true" follows="left|top|right|bottom" height="410"
+	<tab_container bottom="-476" enabled="true" follows="left|top|right|bottom" height="455"
 	     left="0" mouse_opaque="false" name="pref core" tab_group="1"
 	     tab_position="left" tab_width="120" width="620" />
 </floater>

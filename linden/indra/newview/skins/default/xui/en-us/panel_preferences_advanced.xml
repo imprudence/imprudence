@@ -3,7 +3,7 @@
      height="408" label="Advanced" left="102" mouse_opaque="true"
      name="advanced_panel" width="517">
   <!-- Start organizing these when we get enough of 'em - MC -->
-  <tab_container label="Page 2" bottom="0" height="405" left="0" mouse_opaque="false"
+  <tab_container label="Page 2" bottom="0" height="455" left="0" mouse_opaque="false"
    name="tab2" tab_min_width="50" tab_position="top" width="495" bg_opaque_color="0,0,0,0.0">
     
     <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
