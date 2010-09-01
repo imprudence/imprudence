@@ -71,6 +71,7 @@
 #include "llrender.h"
 #include "llmediamanager.h"
 #include "llslider.h"
+#include "llfloaterchat.h"
 
 
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
@@ -485,6 +486,32 @@ bool handleVoiceClientPrefsChanged(const LLSD& newvalue)
 	return true;
 }
 
+bool handleTranslateChatPrefsChanged(const LLSD& newvalue)
+{
+	LLFloaterChat* floaterp = LLFloaterChat::getInstance();
+
+	if(floaterp)
+	{
+		// update "translate chat" pref in "Local Chat" floater
+		floaterp->updateSettings();
+	}
+	return true;
+}
+
+// [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
+bool rlvHandleEnableLegacyNamingChanged(const LLSD& newvalue)
+{
+	rlv_handler_t::fLegacyNaming = newvalue.asBoolean();
+	return true;
+}
+
+bool rlvHandleShowNameTagsChanged(const LLSD& newvalue)
+{
+	RlvSettings::fShowNameTags = newvalue.asBoolean();
+	return true;
+}
+// [/RLVa:KB]
+
 bool handleMediaDebugLevelChanged(const LLSD& newvalue)
 {
 	LLMediaManager *mgr = LLMediaManager::getInstance();
@@ -663,7 +690,8 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("LipSyncEnabled")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));	
 	gSavedSettings.getControl("MediaDebugLevel")->getSignal()->connect(boost::bind(&handleMediaDebugLevelChanged, _1));	
 	gSavedSettings.getControl("SliderScrollWheelMultiplier")->getSignal()->connect(boost::bind(&handleSliderScrollWheelMultiplierChanged, _1));	
-
+	gSavedSettings.getControl("TranslateChat")->getSignal()->connect(boost::bind(&handleTranslateChatPrefsChanged, _1));	
+	
 // [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
 	if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
 		gSavedSettings.getControl(RLV_SETTING_ENABLELEGACYNAMING)->getSignal()->connect(boost::bind(&rlvHandleEnableLegacyNamingChanged, _1));
@@ -750,7 +778,6 @@ template <> eControlType get_control_type<LLSD>(const LLSD& in, LLSD& out)
 	out = in;
 	return TYPE_LLSD; 
 }
-
 
 #if TEST_CACHED_CONTROL
 

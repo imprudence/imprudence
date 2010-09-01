@@ -76,6 +76,8 @@ private:
 	BOOL mChatChannel;
 	F32	mConsoleOpacity;
 	F32	mBubbleOpacity;
+	std::string mTranslateLanguage;
+	BOOL mTranslateChat;
 };
 
 LLPrefsChatImpl::LLPrefsChatImpl()
@@ -110,6 +112,8 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("toggle_channel_control", gSavedSettings.getBOOL("ChatChannelSelect"));
 	childSetValue("console_opacity", gSavedSettings.getF32("ConsoleBackgroundOpacity"));
 	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
+	childSetValue("translate_language_combobox", 	gSavedSettings.getString("TranslateLanguage"));
+	childSetValue("translate_chat", 	gSavedSettings.getBOOL("TranslateChat"));
 }
 
 void LLPrefsChatImpl::refreshValues()
@@ -137,6 +141,8 @@ void LLPrefsChatImpl::refreshValues()
 	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
 	mConsoleOpacity = gSavedSettings.getF32("ConsoleBackgroundOpacity");
 	mBubbleOpacity = gSavedSettings.getF32("ChatBubbleOpacity");
+	mTranslateLanguage = gSavedSettings.getString("TranslateLanguage");
+	mTranslateChat = gSavedSettings.getBOOL("TranslateChat");
 }
 
 void LLPrefsChatImpl::cancel()
@@ -163,6 +169,8 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setBOOL("ChatChannelSelect", mChatChannel); 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", mConsoleOpacity);
 	gSavedSettings.setF32("ChatBubbleOpacity", mBubbleOpacity);	
+	gSavedSettings.setString("TranslateLanguage", mTranslateLanguage);	
+	gSavedSettings.setBOOL("TranslateChat", mTranslateChat);
 }
 
 void LLPrefsChatImpl::apply()
@@ -193,6 +201,9 @@ void LLPrefsChatImpl::apply()
 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
 	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
+
+	gSavedSettings.setString("TranslateLanguage", childGetValue("translate_language_combobox"));
+	gSavedSettings.setBOOL("TranslateChat", childGetValue("translate_chat"));
 
 	BOOL chan_check = childGetValue("toggle_channel_control");
 	gSavedSettings.setBOOL("ChatChannelSelect", chan_check);
