@@ -44,6 +44,7 @@
 #include "llcombobox.h"
 #include "llview.h"
 #include "llprefsadvanced.h"
+#include "llviewercontrol.h"
 #include "llhttpclient.h"
 #include "llbufferstream.h"
 
@@ -128,8 +129,8 @@ void lggDicDownloadFloater::onClickDownload(void* data)
 			{
 				index--;
 				std::string newDict(self->sNames[index]);
-				LLHTTPClient::get("http://www.imprudenceviewer.org/app/dics/"+newDict+".aff", new EmeraldDicDownloader(self,newDict+".aff"));
-				LLHTTPClient::get("http://www.imprudenceviewer.org/app/dics/"+newDict+".dic", new EmeraldDicDownloader(NULL,newDict+".dic"));
+				LLHTTPClient::get(gSavedSettings.getString("DicDownloadBaseURL")+newDict+".aff", new EmeraldDicDownloader(self,newDict+".aff"));
+				LLHTTPClient::get(gSavedSettings.getString("DicDownloadBaseURL")+newDict+".dic", new EmeraldDicDownloader(NULL,newDict+".dic"));
 				
 				LLButton* butt = self->getChild<LLButton>("Emerald_dic_download");
 				if(butt)

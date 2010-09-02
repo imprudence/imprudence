@@ -162,9 +162,9 @@
       <check_box bottom_delta="-50" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
        label="Show misspelled words in red" left="5" mouse_opaque="true" name="EmeraldSpellDisplay"
        control_name="EmeraldSpellDisplay" width="126"/>
-      <button bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="18" label="Edit Custom dictionary"
-         name="EmSpell_EditCustom" tool_tip="" left_delta="20" width="130"/>
-      <text bottom_delta="20" follows="left|top" font="SansSerifSmall" height="16" left="250"
+      <!--<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="18" label="Edit Custom dictionary"
+         name="EmSpell_EditCustom" tool_tip="" left_delta="20" width="130"/>-->
+      <text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="250"
          name="EmSpell_txt4" width="512">
         To spellcheck, right click a misspelled word
         (red or not) and click on its replacement

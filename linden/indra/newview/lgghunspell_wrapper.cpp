@@ -503,7 +503,7 @@ void lggHunSpell_Wrapper::setNewDictionary(std::string newDict)
 	myHunspell = new Hunspell(dicaffpath.c_str(),dicdicpath.c_str());
 	llinfos << "Adding custom dictionary " << llendl;
 	createCustomDic();
-	addDictionary("emerald_custom");
+	addDictionary("custom");
 	std::vector<std::string> toInstall = getInstalledDicts();
 	for(int i =0;i<(int)toInstall.size();i++)
 		addDictionary(toInstall[i]);
@@ -513,7 +513,7 @@ void lggHunSpell_Wrapper::setNewDictionary(std::string newDict)
 void lggHunSpell_Wrapper::createCustomDic()
 {
 	std::string filename(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-		"dictionaries", "emerald_custom.dic"));
+		"dictionaries", "custom.dic"));
 	if(!gDirUtilp->fileExists(filename))
 	{
 		llofstream export_file;	
@@ -527,7 +527,7 @@ void lggHunSpell_Wrapper::addWordToCustomDictionary(std::string wordToAdd)
 {
 	if(!myHunspell)return;
 	myHunspell->add(wordToAdd.c_str());
-	std::string filename(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", "emerald_custom.dic"));
+	std::string filename(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", "custom.dic"));
 	std::vector<std::string> lines;
 	if(gDirUtilp->fileExists(filename))
 	{
@@ -847,7 +847,7 @@ void lggHunSpell_Wrapper::getMoreButton(void * data)
 {
 	std::vector<std::string> shortNames;
 	std::vector<std::string> longNames;
-	LLSD response = LLHTTPClient::blockingGet("http://www.imprudenceviewer.org/app/dics/dic_list.xml");
+	LLSD response = LLHTTPClient::blockingGet(gSavedSettings.getString("DicDownloadBaseURL")+"dic_list.xml");
 	if(response.has("body"))
 	{
 		const LLSD &dict_list = response["body"];
@@ -866,16 +866,14 @@ void lggHunSpell_Wrapper::getMoreButton(void * data)
 }
 void lggHunSpell_Wrapper::editCustomButton()
 {
-	std::string dicdicpath(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", std::string("emerald_custom.dic")).c_str());
-	
-	std::vector<std::string> lines;
-	
+	std::string dicdicpath(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", std::string("custom.dic")).c_str());
+
 	if(!gDirUtilp->fileExists(dicdicpath))
 	{
-		createCustomDic();
-		//glggHunSpell->addWordToCustomDictionary("temp");
+			createCustomDic();
+			//glggHunSpell->addWordToCustomDictionary("temp");
 	}
-
+	
 	gViewerWindow->getWindow()->ShellEx(dicdicpath);
 }
 
