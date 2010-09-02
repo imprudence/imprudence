@@ -1,4 +1,4 @@
-1816
+1835
 Core
 Alex
 Abbot
@@ -1593,6 +1593,7 @@ return
 3rdrock
 3rdrockgrid
 3rg
+addac
 aditi
 afk
 agni
@@ -1611,9 +1612,12 @@ bling
 blog
 blogger
 blogs
+calc
+cao
 cgi
 chim
 chims
+clrchat
 cmake
 cmakelists
 cmakelists.txt
@@ -1623,12 +1627,14 @@ copy_win_scripts
 crashlog
 cyberlandia
 dangergrid
+dd
 derender
 develop.py
 facelight
 facelights
 firefox
 flexi
+flr
 freebie
 freebies
 furdom
@@ -1641,6 +1647,8 @@ griefer
 griefers
 griefing
 gteam
+gth
+gtp
 havok
 havok4
 havok7
@@ -1665,6 +1673,7 @@ jira
 jpeg2000
 kakadu
 kdu
+key2name
 l$
 lag
 lagging
@@ -1704,6 +1713,7 @@ logout
 lscript
 mac_crash_logger
 mac_updater
+mapto
 media_plugins
 megaprim
 megaprims
@@ -1722,6 +1732,7 @@ newworldgrid
 noob
 noobie
 noobs
+offertp
 offline
 ogg
 omv
@@ -1752,6 +1763,7 @@ redmine
 render
 resi
 rez
+rezplat
 rezzed
 rezzes
 rezzing
@@ -1794,6 +1806,9 @@ tier
 tiers
 tos
 tp
+tp2
+tp2cam
+tph
 tping
 tps
 trans
