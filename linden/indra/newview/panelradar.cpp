@@ -29,7 +29,6 @@
 
 #include "panelradar.h"
 
-#include "hippoLimits.h"
 #include "llagent.h"
 #include "llchat.h"
 #include "llfloateravatarinfo.h"
@@ -46,7 +45,6 @@
 #include "llregionposition.h"
 #include "roles_constants.h"
 #include "llscrolllistctrl.h"
-#include "llspinctrl.h"
 #include "lltracker.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
@@ -78,11 +76,6 @@ BOOL PanelRadar::postBuild()
 	mRadarList = getChild<LLScrollListCtrl>("RadarList");
 	childSetCommitCallback("RadarList", onUseRadarList, this);
 	mRadarList->setDoubleClickCallback(onClickIM);
-
-	childSetCommitCallback("simwide_checkbox", onCheckSimWide, this);
-
-	// Set max range to max height
-	getChild<LLSpinCtrl>("near_me_range")->setMaxValue(gHippoLimits->getMaxHeight());
 
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
@@ -223,6 +216,8 @@ void PanelRadar::updateRadarDisplay()
 	F32 range = gSavedSettings.getF32("NearMeRange");
 	bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
 	bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
+	// We show avatars outside the estate even if you can't manage it in case griefers are lying on the border
+	bool is_manager = gAgent.getRegion()->canManageEstate();
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 	{
@@ -291,7 +286,7 @@ void PanelRadar::updateRadarDisplay()
 		}
 
 		// Only display avatars in range
-		if (mSimWide || entry->getDistance() <= range)
+		if (is_manager || entry->getDistance() <= range)
 		{
 			// Append typing string
 			std::string typing = "";
@@ -551,28 +546,6 @@ void PanelRadar::onUseRadarList(LLUICtrl* ctrl, void* user_data)
 	{
 		self->updateButtonStates();
 	}
-}
-
-
-// static
-void PanelRadar::onCheckSimWide(LLUICtrl* ctrl, void* user_data)
-{
-	PanelRadar* self = (PanelRadar*)user_data;
-	if (self)
-	{
-		self->updateRangeControls();
-	}
-}
-
-
-void PanelRadar::updateRangeControls()
-{
-	LLSpinCtrl* near_me = getChild<LLSpinCtrl>("near_me_range");
-	if (near_me)
-	{
-		near_me->setEnabled(!gSavedSettings.getBOOL("RadarSimWide"));
-	}
-	mSimWide = gSavedSettings.getBOOL("RadarSimWide");
 }
 
 

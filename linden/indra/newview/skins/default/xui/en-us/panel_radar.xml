@@ -40,25 +40,19 @@
     0 avatars in
   </text>
 
-  <spinner name="near_me_range" label="" control_name="NearMeRange"
-          bottom_delta="0" left_delta="66" width="60" height="15"
-          follows="left|top" min_val="5" increment="15"
+  <slider name="near_me_range" label="" control_name="NearMeRange"
+          bottom_delta="0" left_delta="62" width="110" height="15"
+          follows="left|top" min_val="5" max_val="512" increment="1"
           initial_val="96" decimal_digits="0" />
 
   <text name="meters"
-        bottom_delta="0" left="140" height="15" width="40"
+        bottom_delta="0" left="180" height="15" width="40"
         h_pad="0" halign="left" v_pad="0" follows="left|top"
         bg_visible="false" border_drop_shadow_visible="false"
         border_visible="false" drop_shadow_visible="true" 
         font="SansSerifSmall" mouse_opaque="true">
     m
   </text>
-
-  <check_box bottom_delta="-1" enabled="true" follows="left|top"
-             font="SansSerifSmall" height="16" initial_value="false"
-             label="Sim-wide" left_delta="20" mouse_opaque="true"
-             name="simwide_checkbox" control_name="RadarSimWide" 
-             radio_style="false" width="100" />
 
   <tab_container name="radar_tab_container"
                  bottom="1" left="0" right="0" height="172"
