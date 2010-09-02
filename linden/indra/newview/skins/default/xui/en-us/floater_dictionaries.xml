@@ -2,7 +2,7 @@
 <floater border="false" can_close="true" can_minimize="true" bottom="500" left="500" can_resize="false" height="180" name="EmeraldIRC_dictionaries" title="Download new Dictionaries" width="300">
      <text bottom="-50" follows="left|top" font="SansSerifSmall" height="20" left="15" name="EmDics_txt" width="300">
 Below is a list of additional dictionaries that can
-be downloaded from the Modular Systems website.
+be downloaded from the Imprudence website.
 
 Please select the dictionary you wish to have available
 for install, and then press the download button.</text>
