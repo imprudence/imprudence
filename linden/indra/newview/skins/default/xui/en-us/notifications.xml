@@ -7063,7 +7063,7 @@ To use a command, type it in your chat bar (Local Chat) and press enter.
   
 <notification
  icon="alertmodal.tga"
- label="Emerald Help"
+ label="Spell Check Help"
  name="EmeraldHelp_SpellCheck"
  type="alertmodal">
 To Spell Check a word, right click on it and choose its replacement.
