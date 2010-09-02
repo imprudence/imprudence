@@ -223,7 +223,8 @@ void LLFloaterScriptDebugOutput::addLine(const std::string &utf8mesg, const std:
 		setTitle(user_name);
 	}
 
-	mHistoryEditor->appendColoredText(utf8mesg, false, true, color);
+	mHistoryEditor->appendTime(true);
+	mHistoryEditor->appendColoredText(utf8mesg, false, false, color);
 }
 
 //static

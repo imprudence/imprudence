@@ -214,6 +214,18 @@
         <on_enable function="Edit.EnableTakeOff"
                    userdata="skirt" />
       </menu_item_call>
+      <menu_item_call enabled="false" label="Tattoo" name="Tattoo">
+        <on_click function="Edit.TakeOff" 
+                  userdata="tattoo" />
+        <on_enable function="Edit.EnableTakeOff" 
+                   userdata="tattoo" />
+      </menu_item_call>
+      <menu_item_call enabled="false" label="Alpha" name="Alpha">
+        <on_click function="Edit.TakeOff" 
+                  userdata="alpha" />
+        <on_enable function="Edit.EnableTakeOff" 
+                   userdata="alpha" />
+      </menu_item_call>
       <menu_item_call name="All Clothes" label="All Clothes">
         <on_click function="Edit.TakeOff"
                   userdata="all" />
@@ -484,6 +496,11 @@
     <menu_item_call name="Set Busy" label="Set Busy">
       <on_click function="World.SetBusy" userdata="" />
     </menu_item_call>
+    <menu_item_check name="Auto-Respond to IMs" label="Auto-Respond to IMs">
+      <on_click function="World.ToggleAutoResponse" userdata="" />
+      <on_check function="World.CheckAutoResponse" userdata="" />
+    </menu_item_check>
+    <menu_item_separator />
     <menu_item_call name="Stop Animating My Avatar" enabled="false"
                     label="Stop Animating My Avatar">
       <on_click function="Tools.StopAllAnimations" userdata="" />
@@ -780,7 +797,7 @@
 
   <menu name="Help" create_jump_keys="true" label="Help"
         opaque="true" tear_off="true">
-    <menu_item_call name="Viewer Help" label="Viewer Help"
+    <menu_item_call name="Grid Help" label="Grid Help"
                     shortcut="F1">
       <on_click function="ShowFloater" userdata="help f1" />
     </menu_item_call>
@@ -895,7 +912,7 @@
                   userdata="capabilities" />
       </menu_item_call>
     
-  </menu>
+    </menu>
 
 
     <menu_item_call name="Reload personal setting overrides"
@@ -940,16 +957,13 @@
     <menu_item_separator />
 
 
-    <menu_item_check name="Quiet Snapshots to Disk"
-                     label="Quiet Snapshots to Disk">
-      <on_click function="ToggleControl"
-                userdata="QuietSnapshotsToDisk" />
-      <on_check control="QuietSnapshotsToDisk" />
-    </menu_item_check>
     <menu_item_call label="Ground Sit" name="Ground Sit" 
                     shortcut="control|alt|s">
       <on_click function="Advanced.ToggleSit" userdata="" />
       <on_Check function="Advanced.CheckSit" userdata="" />
+    </menu_item_call>
+    <menu_item_call name="Teleport to Ground" label="Teleport to Ground">
+      <on_click function="Advanced.TPToGround" userdata="" />
     </menu_item_call>
     <menu_item_check label="Phantom Avatar" name="Phantom" 
                      shortcut="control|alt|p">
@@ -960,28 +974,15 @@
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
     </menu_item_check>
+		<menu_item_check label="Area Object Search" name="Area Object Search" shortcut="control|shift|A">
+			<on_click function="ShowFloater" userdata="areasearch" />
+			<on_check function="FloaterVisible" userdata="areasearch" />
+    </menu_item_check>
     <menu_item_check label="Asset Browser" name="asset browser" 
                      shortcut="alt|shift|a">
       <on_click function="Advanced.ToggleAssetBrowser" userdata="" />
       <on_check function="Advanced.CheckAssetBrowser" userdata="" />
     </menu_item_check>
-    <menu_item_check name="Show Mouselook Crosshairs"
-                     label="Show Mouselook Crosshairs">
-      <on_click function="ToggleControl"
-                userdata="ShowCrosshairs" />
-      <on_check control="ShowCrosshairs" />
-    </menu_item_check>
-    <menu_item_check name="Debug Permissions"
-                     label="Debug Permissions">
-      <on_click function="ToggleControl"
-                userdata="DebugPermissions" />
-      <on_check control="DebugPermissions" />
-    </menu_item_check>
-    <menu_item_call name="Clear Group Cache"
-                    label="Clear Group Cache">
-      <on_click function="Advanced.ClearGroupCache"
-                userdata="" />
-    </menu_item_call>
     <menu_item_separator />
 
 
@@ -1587,6 +1588,11 @@
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>
+      <menu_item_call name="Clear Cached Group Info"
+                  label="Clear Cached Group Info">
+        <on_click function="Advanced.ClearGroupCache"
+                  userdata="" />
+      </menu_item_call>
       <menu_item_separator />
       <menu_item_check name="Debug SelectMgr"
                        label="Debug SelectMgr">
@@ -1860,12 +1866,19 @@
         <on_check function="Advanced.CheckShowPointAt"
                   userdata="" />
       </menu_item_check>
-      <menu_item_check name="Private Look/Point At"
-                       label="Private Look/Point At">
+      <menu_item_check name="Private Look At"
+                       label="Private Look At">
         <on_click function="Advanced.TogglePrivateLookPointAt"
-                  userdata="" />
+                  userdata="Look" />
         <on_check function="Advanced.CheckPrivateLookPointAt"
-                  userdata="" />
+                  userdata="Look" />
+      </menu_item_check>
+      <menu_item_check name="Private Point At"
+                       label="Private Point At">
+        <on_click function="Advanced.TogglePrivateLookPointAt"
+                  userdata="Point" />
+        <on_check function="Advanced.CheckPrivateLookPointAt"
+                  userdata="Point" />
       </menu_item_check>
       <menu_item_check name="Debug Joint Updates"
                        label="Debug Joint Updates">
@@ -2109,17 +2122,17 @@
 
     <menu_item_separator />
 
+    <menu_item_check name="Quiet Snapshots to Disk"
+                 label="Quiet Snapshots to Disk">
+      <on_click function="ToggleControl"
+                userdata="QuietSnapshotsToDisk" />
+      <on_check control="QuietSnapshotsToDisk" />
+    </menu_item_check>
     <menu_item_call name="Compress Image..."
                     label="Compress Image...">
       <on_click function="Advanced.CompressImage"
                 userdata="" />
     </menu_item_call>
-    <menu_item_check name="Limit Select Distance"
-                     label="Limit Select Distance">
-      <on_click function="ToggleControl"
-                userdata="LimitSelectDistance" />
-      <on_check control="LimitSelectDistance" />
-    </menu_item_check>
     <menu_item_check name="Disable Max Build Constraints"
            label="Disable Max Build Constraints">
       <on_click function="Advanced.ToggleMaxBuildConstraints"
@@ -2127,11 +2140,23 @@
       <on_check function="Advanced.CheckMaxBuildConstraints"
                 userdata="" />
     </menu_item_check>
+    <menu_item_check name="Debug Permissions"
+                 label="Debug Permissions">
+      <on_click function="ToggleControl"
+                userdata="DebugPermissions" />
+      <on_check control="DebugPermissions" />
+    </menu_item_check>
     <menu_item_check name="Mouse Smoothing"
                      label="Mouse Smoothing">
       <on_click function="ToggleControl"
                 userdata="MouseSmooth" />
       <on_check control="MouseSmooth" />
+    </menu_item_check>
+    <menu_item_check name="Show Mouselook Crosshairs"
+                 label="Show Mouselook Crosshairs">
+      <on_click function="ToggleControl"
+                userdata="ShowCrosshairs" />
+      <on_check control="ShowCrosshairs" />
     </menu_item_check>
 
     <menu_item_separator />
@@ -2143,8 +2168,8 @@
       <on_check control="ShowConsoleWindow" />
     </menu_item_check>
 
-    <menu_item_check name="Restrained Life Support"
-                     label="Restrained Life Support">
+    <menu_item_check name="Restrained Love Support"
+                     label="Restrained Love Support">
       <on_click function="RLVa.Main.Toggle" />
       <on_check function="RLVa.Main.Enabled" />
     </menu_item_check>

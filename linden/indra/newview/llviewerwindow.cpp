@@ -633,7 +633,7 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 	}
 
 	if (gDebugClicks)
-	{	
+	{
 		llinfos << "ViewerWindow " << buttonname << " mouse " << buttonstatestr << " at " << x << "," << y << llendl;
 	}
 
@@ -651,7 +651,11 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 	gMouseIdleTimer.reset();
 
 	// Hide tooltips on mousedown
-	mToolTipBlocked = down;
+	if (down)
+	{
+		mToolTipBlocked = TRUE;
+		mToolTip->setVisible(FALSE);
+	}
 
 	// Also hide hover info on mousedown/mouseup
 	if (gHoverView)
@@ -782,6 +786,8 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	S32 y = pos.mY;
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
+
+	LLView::sMouseHandlerMessage.clear();
 
 	BOOL down = TRUE;
 	BOOL handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
@@ -1160,7 +1166,7 @@ BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 	// give a chance to use a joystick after startup (hot-plugging)
 	if (!LLViewerJoystick::getInstance()->isJoystickInitialized() )
 	{
-		LLViewerJoystick::getInstance()->init(true);
+		LLViewerJoystick::getInstance()->init();
 		return TRUE;
 	}
 	return FALSE;

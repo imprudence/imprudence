@@ -186,6 +186,10 @@ void LLFloaterTools::updateToolsSizeLimits()
 		getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
 		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
 		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+
+		getChild<LLSpinCtrl>("Pos X")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Pos Y")->setMaxValue(F32_MAX);
+		getChild<LLSpinCtrl>("Pos Z")->setMaxValue(F32_MAX);
 	}
 	else
 	{

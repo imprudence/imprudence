@@ -48,7 +48,6 @@
 #include "llscrollcontainer.h"
 #include "llscrollingpanellist.h"
 #include "llsliderctrl.h"
-#include "lltabcontainervertical.h"
 #include "llviewerwindow.h"
 #include "llinventorymodel.h"
 #include "llinventoryview.h"

@@ -47,6 +47,7 @@
 #include "llscrolllistctrl.h"
 #include "lltracker.h"
 #include "lluictrlfactory.h"
+#include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewermenu.h"
 #include "llviewermessage.h"
@@ -90,7 +91,8 @@ BOOL PanelRadar::postBuild()
 	childSetAction("unmute_btn", onClickUnmute, this);
 	childSetAction("ar_btn", onClickAR, this);
 	//childSetAction("estate_eject_btn", onClickEjectFromEstate, this);
-	childSetAction("estate_ban_btn", onClickBanFromEstate, this);
+	//childSetAction("estate_ban_btn", onClickBanFromEstate, this);
+	childSetAction("ban_btn", onClickBan, this);
 
 	setDefaultBtn("im_btn");
 
@@ -290,12 +292,12 @@ void PanelRadar::updateRadarDisplay()
 			element["id"] = entry->getID();
 			element["columns"][0]["column"] = "avatar_name";
 			element["columns"][0]["type"] = "text";
+//			element["columns"][0]["value"] = typing + entry->getName() + " " + mute_text;
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
-			//element["columns"][0]["value"] = typing + entry->getName() + " " + mute_text;
-			std::string fullname = (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? 
-										gRlvHandler.getAnonym(fullname) : 
-										typing + entry->getName() + " " + mute_text;
-			element["columns"][0]["value"] = fullname;
+			element["columns"][0]["value"] =
+				(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+					? gRlvHandler.getAnonym(entry->getName())
+					: typing + entry->getName() + " " + mute_text;
 // [/RLVa:KB]
 			element["columns"][1]["column"] = "avatar_distance";
 			element["columns"][1]["type"] = "text";
@@ -435,10 +437,11 @@ void PanelRadar::updateButtonStates()
 	childSetEnabled("cam_btn", enable_cam);
 	childSetEnabled("freeze_btn", enable_estate);
 	childSetEnabled("eject_btn", enable_estate);
+	childSetEnabled("ban_btn", enable_estate);
 	childSetEnabled("mute_btn", enable);
 	childSetEnabled("ar_btn", enable);
 	//childSetEnabled("estate_eject_btn", enable_estate);
-	childSetEnabled("estate_ban_btn", enable_estate);
+	//childSetEnabled("estate_ban_btn", enable_estate);
 
 	if (enable_unmute)
 	{
@@ -486,7 +489,7 @@ void PanelRadar::updateButtonStates()
 }
 
 
-bool PanelRadar::isKickable(const LLUUID &agent_id)
+bool PanelRadar::isKickable(const LLUUID& agent_id)
 {
 	if (agent_id.notNull())
 	{
@@ -498,23 +501,28 @@ bool PanelRadar::isKickable(const LLUUID &agent_id)
 			if (region)
 			{
 				const LLVector3& pos = avatar->getPositionRegion();
+
+				if (region->isOwnedSelf(pos) || 
+					region->canManageEstate())
+				{
+					return true;
+				}
+
 				const LLVector3d& pos_global = avatar->getPositionGlobal();
 				if (LLWorld::getInstance()->positionRegionValidGlobal(pos_global))
 				{
 					LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
 					LLViewerParcelMgr::getInstance()->deselectLand();
-					
-					bool new_value = (region != NULL);
-								
-					if (new_value)
+
+					if (parcel)
 					{
-						new_value = region->isOwnedSelf(pos);
-						if (!new_value || region->isOwnedGroup(pos))
+						if (region->isOwnedGroup(pos) &&
+								(LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_ADMIN) ||
+								 LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_MANAGE_BANNED)))
 						{
-							new_value = LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_ADMIN);
+							return true;
 						}
 					}
-					return new_value;
 				}
 			}
 		}
@@ -546,7 +554,7 @@ LLUUID PanelRadar::getSelected()
 }
 
 
-std::string PanelRadar::getSelectedName(const LLUUID &agent_id)
+std::string PanelRadar::getSelectedName(const LLUUID& agent_id)
 {
 	std::string agent_name;
 	if(!(gCacheName->getFullName(agent_id, agent_name) && agent_name != " "))
@@ -556,7 +564,7 @@ std::string PanelRadar::getSelectedName(const LLUUID &agent_id)
 	return agent_name;
 }
 
-void PanelRadar::sendAvatarPropertiesRequest(const LLUUID &agent_id)
+void PanelRadar::sendAvatarPropertiesRequest(const LLUUID& agent_id)
 {
 	LL_DEBUGS("Radar") << "PanelRadar::sendAvatarPropertiesRequest()" << LL_ENDL; 
 	LLMessageSystem *msg = gMessageSystem;
@@ -614,10 +622,10 @@ void PanelRadar::onClickOfferTeleport(void* user_data)
 }
 
 //static
-void PanelRadar::onClickTeleport(void* userdata)
+void PanelRadar::onClickTeleport(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)userdata;
- 	LLScrollListItem *item =   self->mRadarList->getFirstSelected();
+	PanelRadar* self = (PanelRadar*)user_data;
+ 	LLScrollListItem *item = self->mRadarList->getFirstSelected();
 
 	if (item)
 	{
@@ -680,7 +688,7 @@ void PanelRadar::onClickInvite(void* user_data)
 }
 
 // static
-void PanelRadar::callback_invite_to_group(LLUUID group_id, void *user_data)
+void PanelRadar::callback_invite_to_group(LLUUID group_id, void* user_data)
 {
 	std::vector<LLUUID> agent_ids;
 	agent_ids.push_back(*(LLUUID *)user_data);
@@ -710,7 +718,7 @@ void PanelRadar::onClickAddFriend(void* user_data)
 // static 
 void PanelRadar::onClickCam(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
 	self->lookAtAvatar(self->getSelected());
 }
 
@@ -730,55 +738,96 @@ void PanelRadar::lookAtAvatar(const LLUUID& agent_id)
 }
 
 //static
-bool PanelRadar::callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self)
+bool PanelRadar::callbackFreeze(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		sendFreeze(self->mSelectedAvatar, true);
+		sendFreeze(notification["payload"]["avatar_id"].asUUID(), true);
 	}
 	else if (option == 1)
 	{
-		sendFreeze(self->mSelectedAvatar, false);
+		sendFreeze(notification["payload"]["avatar_id"].asUUID(), false);
 	}
 	return false;
 }
 
 //static
-bool PanelRadar::callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self)
+bool PanelRadar::callbackEjectBan(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
-	if (option == 0)
+	if (2 == option)
 	{
-		sendEject(self->mSelectedAvatar, false);
+		// Cancel button.
+		return false;
 	}
-	else if (option == 1)
+	LLUUID avatar_id = notification["payload"]["avatar_id"].asUUID();
+	bool ban_enabled = notification["payload"]["ban_enabled"].asBoolean();
+
+	if (0 == option)
 	{
-		sendEject(self->mSelectedAvatar, true);
+		// Eject button
+		LLMessageSystem* msg = gMessageSystem;
+		LLViewerObject* avatar = gObjectList.findObject(avatar_id);
+
+		if (avatar)
+		{
+			U32 flags = 0x0;
+			msg->newMessage("EjectUser");
+			msg->nextBlock("AgentData");
+			msg->addUUID("AgentID", gAgent.getID() );
+			msg->addUUID("SessionID", gAgent.getSessionID() );
+			msg->nextBlock("Data");
+			msg->addUUID("TargetID", avatar_id );
+			msg->addU32("Flags", flags );
+			msg->sendReliable( avatar->getRegion()->getHost() );
+		}
+	}
+	else if (ban_enabled)
+	{
+		// This is tricky. It is similar to say if it is not an 'Eject' button,
+		// and it is also not an 'Cancle' button, and ban_enabled==ture, 
+		// it should be the 'Eject and Ban' button.
+		LLMessageSystem* msg = gMessageSystem;
+		LLViewerObject* avatar = gObjectList.findObject(avatar_id);
+
+		if (avatar)
+		{
+			U32 flags = 0x1;
+			msg->newMessage("EjectUser");
+			msg->nextBlock("AgentData");
+			msg->addUUID("AgentID", gAgent.getID() );
+			msg->addUUID("SessionID", gAgent.getSessionID() );
+			msg->nextBlock("Data");
+			msg->addUUID("TargetID", avatar_id );
+			msg->addU32("Flags", flags );
+			msg->sendReliable( avatar->getRegion()->getHost() );
+		}
 	}
 	return false;
 }
 
 //static
-//bool PanelRadar::callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self)
+// Don't use until the UI can be worked out
+//bool PanelRadar::callbackEjectFromEstate(const LLSD& notification, const LLSD& response)
 //{
 //	S32 option = LLNotification::getSelectedOption(notification, response);
 //	if (option == 0)
 //	{
 //		strings_t strings;
-//		strings.push_back(self->getSelected().asString());
+//		strings.push_back(notification["payload"]["avatar_id"].asString());
 //		sendEstateOwnerMessage(gMessageSystem, "kickestate", LLFloaterRegionInfo::getLastInvoice(), strings);
 //	} 
 //	return false;
 //}
 
 // static
-bool PanelRadar::callbackBanFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self)
+bool PanelRadar::callbackBanFromEstate(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		LLPanelEstateInfo::sendEstateAccessDelta(ESTATE_ACCESS_BANNED_AGENT_ADD | ESTATE_ACCESS_ALLOWED_AGENT_REMOVE | ESTATE_ACCESS_NO_REPLY, self->getSelected());
+		LLPanelEstateInfo::sendEstateAccessDelta(ESTATE_ACCESS_BANNED_AGENT_ADD | ESTATE_ACCESS_ALLOWED_AGENT_REMOVE | ESTATE_ACCESS_NO_REPLY, notification["payload"]["avatar_id"].asUUID());
 	}
 	else if (option == 1)
 	{
@@ -794,39 +843,42 @@ bool PanelRadar::callbackBanFromEstate(const LLSD& notification, const LLSD& res
 			{
 				flags |= ESTATE_ACCESS_APPLY_TO_MANAGED_ESTATES;
 			}
-			LLPanelEstateInfo::sendEstateAccessDelta(flags, self->getSelected());
+			LLPanelEstateInfo::sendEstateAccessDelta(flags, notification["payload"]["avatar_id"].asUUID());
 		}
 	}
 	return false;
 }
 
 // static
-void PanelRadar::onClickFreeze(void *user_data)
+void PanelRadar::onClickFreeze(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
+	LLSD payload;
+	payload["avatar_id"] = self->getSelected();
 	LLSD args;
-	args["AVATAR_NAME"] = self->getSelectedName(self->mSelectedAvatar);
+	args["AVATAR_NAME"] = self->getSelectedName(self->getSelected());
 	LLNotifications::instance().add("FreezeAvatarFullname", 
 		args, 
-		LLSD(), 
-		boost::bind(&callbackFreeze, _1, _2, self));
+		payload, 
+		callbackFreeze);
 }
 
 
 // static
-void PanelRadar::onClickUnfreeze(void *user_data)
+void PanelRadar::onClickUnfreeze(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
 	sendFreeze(self->getSelected(), false);
 }
 
 
 //static
-//void PanelRadar::onClickEjectFromEstate(void *user_data)
+// Don't use until we can work out the UI
+//void PanelRadar::onClickEjectFromEstate(void* user_data)
 //{
-//	PanelRadar *self = (PanelRadar*)user_data;
+//	PanelRadar* self = (PanelRadar*)user_data;
 //	LLSD args;
-//	args["AVATAR_NAME"] = self->getSelectedName(self->mSelectedAvatar);
+//	args["AVATAR_NAME"] = self->getSelectedName(self->getSelected());
 //	LLNotifications::instance().add("EjectAvatarFullnameNoBan", 
 //		args, 
 //		LLSD(), 
@@ -835,9 +887,9 @@ void PanelRadar::onClickUnfreeze(void *user_data)
 
 
 //static
-void PanelRadar::onClickMute(void *user_data)
+void PanelRadar::onClickMute(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
 	LLScrollListItem *item = self->mRadarList->getFirstSelected();
 	if (item != NULL)
 	{
@@ -859,9 +911,9 @@ void PanelRadar::onClickMute(void *user_data)
 
 
 //static
-void PanelRadar::onClickUnmute(void *user_data)
+void PanelRadar::onClickUnmute(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
 	LLScrollListItem *item = self->mRadarList->getFirstSelected();
 	if (item != NULL)
 	{
@@ -883,23 +935,77 @@ void PanelRadar::onClickUnmute(void *user_data)
 
 
 //static
-void PanelRadar::onClickEject(void *user_data)
+void PanelRadar::onClickEject(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
-	LLSD args;
-	args["EVIL_USER"] = self->getSelectedName(self->mSelectedAvatar);
-	LLNotifications::instance().add("EstateKickUser", 
-		args, 
-		LLSD(),
-		boost::bind(&callbackEject, _1, _2, self));
+	PanelRadar* self = (PanelRadar*)user_data;
+	LLSD payload;
+	payload["avatar_id"] = self->getSelected();
+	payload["ban_enabled"] = false;
+	std::string fullname = self->getSelectedName(self->getSelected());
+
+	if (!fullname.empty())
+	{
+		LLSD args;
+		args["AVATAR_NAME"] = fullname;
+		LLNotifications::instance().add("EjectAvatarFullnameNoBan",
+					args,
+					payload,
+					callbackEjectBan);
+	}
+	else
+	{
+		LLNotifications::instance().add("EjectAvatarNoBan",
+					LLSD(),
+					payload,
+					callbackEjectBan);
+	}
 }
 
 
 //static
-void PanelRadar::onClickAR(void *user_data)
+void PanelRadar::onClickBan(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
-	LLUUID agent_id = self->mSelectedAvatar;
+	// Ban for EMs
+	PanelRadar* self = (PanelRadar*)user_data;
+	LLSD payload;
+	payload["avatar_id"] = self->getSelected();
+
+	if (gAgent.canManageEstate())
+	{
+		LLSD args;
+		args["ALL_ESTATES"] = "all estates";
+		LLNotifications::instance().add("EstateBannedAgentAdd", args, payload, callbackBanFromEstate);
+	}
+	else // Ban for parcel owners
+	{
+		payload["ban_enabled"] = true;
+		std::string fullname = self->getSelectedName(self->getSelected());
+
+		if (!fullname.empty())
+		{
+			LLSD args;
+			args["AVATAR_NAME"] = fullname;
+			LLNotifications::instance().add("EjectAvatarFullname",
+						args,
+						payload,
+						callbackEjectBan);
+		}
+		else
+		{
+			LLNotifications::instance().add("EjectAvatarFullname",
+						LLSD(),
+						payload,
+						callbackEjectBan);
+		}
+	}
+}
+
+
+//static
+void PanelRadar::onClickAR(void* user_data)
+{
+	PanelRadar* self = (PanelRadar*)user_data;
+	LLUUID agent_id = self->getSelected();
 		
 	if (agent_id.notNull())
 	{
@@ -909,28 +1015,17 @@ void PanelRadar::onClickAR(void *user_data)
 
 
 //static
-void PanelRadar::onClickBanFromEstate(void *user_data)
+/* Don't use until the UI can be worked out
+void PanelRadar::onClickBanFromEstate(void* user_data)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
+	PanelRadar* self = (PanelRadar*)user_data;
+	LLSD payload;
+	payload["avatar_id"] = self->getSelected();
 	LLSD args;
 	args["ALL_ESTATES"] = "all estates";
-	LLNotifications::instance().add("EstateBannedAgentAdd", args, LLSD(), boost::bind(&callbackBanFromEstate, _1, _2, self));
+	LLNotifications::instance().add("EstateBannedAgentAdd", args, payload, callbackBanFromEstate);
 }
-
-
-// static 
-void PanelRadar::cmdEstateEject(const LLUUID &avatar)
-{ 
-	sendEstateMessage("teleporthomeuser", avatar); 
-}
-
-
-// static 
-void PanelRadar::cmdEstateBan(const LLUUID &avatar)
-{
-	sendEstateMessage("teleporthomeuser", avatar); // Kick first, just to be sure
-	sendEstateBan(avatar);
-}
+*/
 
 
 // static 
@@ -958,133 +1053,3 @@ void PanelRadar::sendFreeze(const LLUUID& avatar_id, bool freeze)
 		msg->sendReliable( avatar->getRegion()->getHost() );
 	}
 }
-
-
-// static 
-void PanelRadar::sendEject(const LLUUID& avatar_id, bool ban)
-{	
-	LLMessageSystem* msg = gMessageSystem;
-	LLViewerObject* avatar = gObjectList.findObject(avatar_id);
-
-	if (avatar)
-	{
-		U32 flags = 0x0;
-		if ( ban )
-		{
-			// eject and add to ban list
-			flags |= 0x1;
-		}
-
-		msg->newMessage("EjectUser");
-		msg->nextBlock("AgentData");
-		msg->addUUID("AgentID", gAgent.getID() );
-		msg->addUUID("SessionID", gAgent.getSessionID() );
-		msg->nextBlock("Data");
-		msg->addUUID("TargetID", avatar_id );
-		msg->addU32("Flags", flags );
-		msg->sendReliable( avatar->getRegion()->getHost() );
-	}
-}
-
-
-// static 
-void PanelRadar::sendEstateMessage(const char* request, const LLUUID &target)
-{
-
-	LLMessageSystem* msg = gMessageSystem;
-	LLUUID invoice;
-
-	// This seems to provide an ID so that the sim can say which request it's
-	// replying to. I think this can be ignored for now.
-	invoice.generate();
-
-	llinfos << "Sending estate request '" << request << "'" << llendl;
-	msg->newMessage("EstateOwnerMessage");
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null); //not used
-	msg->nextBlock("MethodData");
-	msg->addString("Method", request);
-	msg->addUUID("Invoice", invoice);
-
-	// Agent id
-	msg->nextBlock("ParamList");
-	msg->addString("Parameter", gAgent.getID().asString().c_str());
-
-	// Target
-	msg->nextBlock("ParamList");
-	msg->addString("Parameter", target.asString().c_str());
-
-	msg->sendReliable(gAgent.getRegion()->getHost());
-}
-
-
-// static 
-void PanelRadar::sendEstateBan(const LLUUID& agent)
-{
-	LLUUID invoice;
-	U32 flags = ESTATE_ACCESS_BANNED_AGENT_ADD;
-
-	invoice.generate();
-
-	LLMessageSystem* msg = gMessageSystem;
-	msg->newMessage("EstateOwnerMessage");
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null); //not used
-
-	msg->nextBlock("MethodData");
-	msg->addString("Method", "estateaccessdelta");
-	msg->addUUID("Invoice", invoice);
-
-	char buf[MAX_STRING];		/* Flawfinder: ignore*/
-	gAgent.getID().toString(buf);
-	msg->nextBlock("ParamList");
-	msg->addString("Parameter", buf);
-
-	snprintf(buf, MAX_STRING, "%u", flags);			/* Flawfinder: ignore */
-	msg->nextBlock("ParamList");
-	msg->addString("Parameter", buf);
-
-	agent.toString(buf);
-	msg->nextBlock("ParamList");
-	msg->addString("Parameter", buf);
-
-	gAgent.sendReliableMessage();
-}
-
-//typedef std::vector<std::string> strings_t;
-//static void sendEstateOwnerMessage(
-//	LLMessageSystem* msg,
-//	const std::string& request,
-//	const LLUUID& invoice,
-//	const strings_t& strings)
-//{
-//	llinfos << "Sending estate request '" << request << "'" << llendl;
-//	msg->newMessage("EstateOwnerMessage");
-//	msg->nextBlockFast(_PREHASH_AgentData);
-//	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-//	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-//	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null); //not used
-//	msg->nextBlock("MethodData");
-//	msg->addString("Method", request);
-//	msg->addUUID("Invoice", invoice);
-//	if(strings.empty())
-//	{
-//		msg->nextBlock("ParamList");
-//		msg->addString("Parameter", NULL);
-//	}
-//	else
-//	{
-//		strings_t::const_iterator it = strings.begin();
-//		strings_t::const_iterator end = strings.end();
-//		for(; it != end; ++it)
-//		{
-//			msg->nextBlock("ParamList");
-//			msg->addString("Parameter", *it);
-//		}
-//	}
-//	msg->sendReliable(gAgent.getRegion()->getHost());
-//}

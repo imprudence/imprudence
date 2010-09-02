@@ -86,7 +86,7 @@ class LLAvatarTracker
 {
 public:
 	static LLAvatarTracker& instance() { return sInstance; }
-	void reset();
+	
 	void track(const LLUUID& avatar_id, const std::string& name);
 	void untrack(const LLUUID& avatar_id);
 	bool isTrackedAgentValid() { return mTrackedAgentValid; }

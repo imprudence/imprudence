@@ -6,6 +6,15 @@
 
 include(CMakeCopyIfDifferent)
 
+set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")
+set(vivox_files
+    SLVoice.exe
+    #alut.dll
+    vivoxsdk.dll
+    ortp.dll
+    wrap_oal.dll
+    )
+
 set(debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
 set(debug_files
     alut.dll
@@ -28,6 +37,7 @@ set(debug_files
     iconv.dll
     libxml2.dll
 	libcairo-2.dll
+	libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -40,6 +50,7 @@ set(debug_files
 	libgpg-error-0.dll
 	libgstapp.dll
 	libgstaudio.dll
+	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
 	libgstcdda.dll
 	libgstcontroller-0.10.dll
@@ -83,6 +94,14 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
+copy_if_different(
+    ${vivox_src_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/Debug"
+    out_targets 
+    ${vivox_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
 set(release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
 set(release_files
     alut.dll
@@ -104,6 +123,7 @@ set(release_files
     iconv.dll
     libxml2.dll
 	libcairo-2.dll
+	libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -116,6 +136,7 @@ set(release_files
 	libgpg-error-0.dll
 	libgstapp.dll
 	libgstaudio.dll
+	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
 	libgstcdda.dll
 	libgstcontroller-0.10.dll
@@ -160,10 +181,26 @@ copy_if_different(
 set(all_targets ${all_targets} ${out_targets})
 
 copy_if_different(
+    ${vivox_src_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/Release"
+    out_targets 
+    ${vivox_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
     ${release_src_dir} 
     "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
     out_targets 
     ${release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${vivox_src_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
+    out_targets 
+    ${vivox_files}
     )
 set(all_targets ${all_targets} ${out_targets})
 

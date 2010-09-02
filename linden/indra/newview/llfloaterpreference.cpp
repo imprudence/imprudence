@@ -49,7 +49,6 @@
 #include "message.h"
 
 #include "llcommandhandler.h"
-#include "llfloaterabout.h"
 #include "llfloaterpreference.h"
 #include "llpanelnetwork.h"
 #include "llpanelaudioprefs.h"
@@ -353,7 +352,6 @@ LLFloaterPreference::LLFloaterPreference()
 
 BOOL LLFloaterPreference::postBuild()
 {
-	requires<LLButton>("About...");
 	requires<LLButton>("OK");
 	requires<LLButton>("Cancel");
 	requires<LLButton>("Apply");
@@ -363,9 +361,6 @@ BOOL LLFloaterPreference::postBuild()
 	{
 		return FALSE;
 	}
-
-	mAboutBtn = getChild<LLButton>("About...");
-	mAboutBtn->setClickedCallback(onClickAbout, this);
 	
 	mApplyBtn = getChild<LLButton>("Apply");
 	mApplyBtn->setClickedCallback(onBtnApply, this);
@@ -427,13 +422,6 @@ void LLFloaterPreference::show(void*)
 	}
 
 	LLPanelLogin::setAlwaysRefresh(true);
-}
-
-
-// static
-void LLFloaterPreference::onClickAbout(void*)
-{
-	LLFloaterAbout::show(NULL);
 }
 
 

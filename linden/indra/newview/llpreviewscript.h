@@ -138,6 +138,7 @@ protected:
 private:
 	std::string		mSampleText;
 	std::string		mHelpURL;
+	std::string		mScriptTitle;
 	LLTextEditor*	mEditor;
 	void			(*mLoadCallback)(void* userdata);
 	void			(*mSaveCallback)(void* userdata, BOOL close_after_save);

@@ -107,7 +107,7 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-if ([ "`uname -m`" = "x86_64" ] && [ -d ${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/ ]); then
+if([ "`uname -m`" = "x86_64" ] && [ -d "${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/" ]); then
 	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
 
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'

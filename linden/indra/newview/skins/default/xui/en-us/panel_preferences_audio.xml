@@ -20,10 +20,10 @@
 	     mouse_opaque="true" name="audio_prefs_text" v_pad="0" width="128">
 		Audio:
 	</text>
-	<panel border="true" bottom="-195" enabled="true" filename="panel_audio.xml"
+	<panel border="true" bottom="-187" enabled="true" filename="panel_audio.xml"
 	     follows="left|top|right|bottom" height="180" label="Volume" left="148"
 	     mouse_opaque="true" name="Volume Panel" width="260" />
-	<check_box bottom="-195" control_name="AudioStreamingMusic" enabled="true"
+	<check_box bottom="-205" control_name="AudioStreamingMusic" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play streaming music when available (uses more bandwidth)"
 	     left="142" mouse_opaque="true" name="streaming_music" radio_style="false"
@@ -42,7 +42,7 @@
 	     initial_value="true" label="Automatically play media" left="162"
 	     mouse_opaque="true" name="auto_streaming_video" radio_style="false"
 	     width="338" />
-	<check_box bottom_delta="-34" control_name="MuteWhenMinimized" enabled="true"
+	<check_box bottom_delta="-27" control_name="MuteWhenMinimized" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Mute audio when window minimized" left="142" mouse_opaque="true"
 	     name="mute_when_minimized" radio_style="false" width="215" />
@@ -57,7 +57,7 @@
 	     label_width="158" left="148" max_val="10000" min_val="0"
 	     mouse_opaque="true" name="Health change threshold" width="212" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-       bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
+       bottom_delta="-27" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
        mouse_opaque="true" name="ambient_prefs_text" v_pad="0" width="128">
     Ambient:

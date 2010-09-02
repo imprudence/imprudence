@@ -111,6 +111,7 @@
 #include "llhudmanager.h"
 #include "llhttpclient.h"
 #include "llimagebmp.h"
+#include "llimview.h" // for gIMMgr
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
@@ -190,6 +191,7 @@
 #include "lgghunspell_wrapper.h"
 #include "exporttracker.h"
 #include "jcfloater_animation_list.h"
+#include "jcfloaterareasearch.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -332,6 +334,7 @@ bool idle_startup()
 	LLMemType mt1(LLMemType::MTYPE_STARTUP);
 	
 	const F32 PRECACHING_DELAY = gSavedSettings.getF32("PrecachingDelay");
+	const F32 CONNECTING_REGION_TIMEOUT_SECONDS = gSavedSettings.getF32("ConnectingToRegionTimeout");
 	const F32 TIMEOUT_SECONDS = 10.f; // changed from 5 to 10 seconds for OpenSim lag -- MC
 	const S32 MAX_TIMEOUT_COUNT = 3;
 	static LLTimer timeout;
@@ -406,7 +409,7 @@ bool idle_startup()
 
 		LGGAutoCorrect::getInstance()->loadFromDisk();
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
 			rlv_handler_t::setEnabled(TRUE);
 // [/RLVa:KB]
@@ -1059,9 +1062,27 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		// skipping over STATE_UPDATE_CHECK because that just waits for input
-		LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+		if (gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+		{
+			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
+			// skipping over STATE_UPDATE_CHECK because that just waits for input
+			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+		}
+		else
+		{
+			LLStartUp::setStartupState(STATE_LOGIN_VOICE_LICENSE);
+			LLFirstUse::voiceLicenseAgreement();
+		}
 
+		return FALSE;
+	}
+
+	if (STATE_LOGIN_VOICE_LICENSE == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_VOICE_LICENSE" << LL_ENDL;
+		// prompt the user to agree to the voice license before enabling voice.
+		// only send users here on first login, otherwise continue
+		// on to STATE_LOGIN_AUTH_INIT
 		return FALSE;
 	}
 
@@ -1410,7 +1431,7 @@ bool idle_startup()
 		default:
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
-				emsg << "Unable to connect to " << LLAppViewer::instance()->getSecondLifeTitle() << ".\n";
+				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridNick() << ".\n";
 				emsg << LLUserAuth::getInstance()->errorMessage();
 			} else {
 				sAuthUriNum++;
@@ -1706,8 +1727,15 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+			tmp = LLUserAuth::getInstance()->getResponse("max_groups");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
+			tmp = LLUserAuth::getInstance()->getResponse("VoiceConnector");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setVoiceConnector(tmp);
 			gHippoGridManager->saveFile();
 			gHippoLimits->setLimits();
+
+			// Load list of groups to ignore incoming chat from.
+			gIMMgr->loadIgnoreGroup();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.
@@ -2117,7 +2145,7 @@ bool idle_startup()
 
 		// Drop out if we can't connect -- MC
 		connecting_region_timer.start();
-		connecting_region_timer.setTimerExpirySec(10.0f);
+		connecting_region_timer.setTimerExpirySec(CONNECTING_REGION_TIMEOUT_SECONDS);
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
 
 		timeout.reset();
@@ -2184,7 +2212,14 @@ bool idle_startup()
 		// Change the window title to include the avatar name if we're using multiple viewers -- MC
 		if (gSavedSettings.getBOOL("AllowMultipleViewers"))
 		{
-			gWindowTitle = gSecondLife + " - " + firstname + " " + lastname;
+			LLStringUtil::format_map_t args;
+			args["[FIRST_NAME]"] = firstname;
+			args["[LAST_NAME]"] = lastname;
+			args["[GRID_NAME]"] = (gHippoGridManager->getConnectedGrid()->getGridName().empty()) ? 
+				gHippoGridManager->getConnectedGrid()->getGridNick() :
+				gHippoGridManager->getConnectedGrid()->getGridName();
+			std::string title_text = LLTrans::getString("TitleBarMultiple", args);
+			gWindowTitle = gSecondLife + " - " + title_text;
 			LLStringUtil::truncate(gWindowTitle, 255);
 			gViewerWindow->getWindow()->setWindowTitle(gWindowTitle);
 		}
@@ -2768,11 +2803,6 @@ bool idle_startup()
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL);
 
-#if 0 // sjb: enable for auto-enabling timer display 
-		gDebugView->mFastTimerView->setVisible(TRUE);
-#endif
-
-
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
 		gRlvHandler.initLookupTables();
@@ -2789,6 +2819,10 @@ bool idle_startup()
 			gRlvHandler.processRetainedCommands();
 		}
 // [/RLVa:KB]
+
+#if 0 // sjb: enable for auto-enabling timer display
+		gDebugView->mFastTimerView->setVisible(TRUE);
+#endif
 
 		return TRUE;
 	}
@@ -3066,7 +3100,7 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
             break;
         case 1: {   // Help
             const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
-            if (!url.empty()) LLWeb::loadURL(url);
+            if (!url.empty()) LLWeb::loadURLInternal(url);
             break;
         }
         case 2:     // Teleport
@@ -3301,6 +3335,7 @@ void pass_processObjectPropertiesFamily(LLMessageSystem *msg, void**)
 	// send it to 'observers'
 	LLSelectMgr::processObjectPropertiesFamily(msg,0);
 	JCFloaterAnimList::processObjectPropertiesFamily(msg,0);
+	JCFloaterAreaSearch::processObjectPropertiesFamily(msg, NULL);
 }
 
 void pass_processObjectProperties(LLMessageSystem *msg, void**)
@@ -3654,6 +3689,7 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 		RTNENUM( STATE_LOGIN_SHOW );
 		RTNENUM( STATE_LOGIN_WAIT );
 		RTNENUM( STATE_LOGIN_CLEANUP );
+		RTNENUM( STATE_LOGIN_VOICE_LICENSE );
 		RTNENUM( STATE_UPDATE_CHECK );
 		RTNENUM( STATE_LOGIN_AUTH_INIT );
 		RTNENUM( STATE_LOGIN_AUTHENTICATE );

@@ -34,7 +34,7 @@
   </text>
   <check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Chat console" left="248" mouse_opaque="true"
+	     label="Main chat" left="248" mouse_opaque="true"
 	     name="include_im_in_chat_console" radio_style="false" width="100" />
   <check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
@@ -63,7 +63,7 @@
 	     font="SansSerifSmall" height="70" left="148" max_length="255"
 	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" />
   <button bottom_delta="-25" follows="top|right" height="22" label="IM Response Options"
-     left="164" name="busy_adv_btn" tool_tip="Auto response options"
+     left="164" name="busy_adv_btn" tool_tip="Instant message Auto-Response options"
      width="180" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-23" drop_shadow_visible="true" enabled="true" follows="left|top"

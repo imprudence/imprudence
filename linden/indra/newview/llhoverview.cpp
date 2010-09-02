@@ -64,6 +64,7 @@
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
+#include "llvoavatar.h"
 #include "llglheaders.h"
 #include "llviewerimagelist.h"
 //#include "lltoolobjpicker.h"
@@ -272,6 +273,31 @@ void LLHoverView::updateText()
 				line.append(LLTrans::getString("TooltipPerson"));
 			}
 			mText.push_back(line);
+
+			if (gSavedSettings.getBOOL("ShowClientNameHoverTip"))
+			{
+				LLColor4 color;
+				std::string client;
+				LLVOAvatar* avatar = (LLVOAvatar*)hit_object;
+				if (avatar->isSelf())
+				{
+					client="Client: Imprudence";
+				}
+				else
+				{
+					LLVOAvatar::resolveClient(color, client, avatar);
+					if(client.empty() ||client == "Invalid" || client == "Failure")
+					{
+						client = "Client: <not available>";
+					}
+					else
+					{
+						client = "Client: " + client;
+					} 
+				}
+				mText.push_back(client);
+				
+			}
 		}
 		else
 		{

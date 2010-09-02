@@ -373,22 +373,22 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 				//gMutePieMenu->setLabel("Mute");
 			}
 
+//			gPieAvatar->show(x, y, mPieMouseButtonDown);
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-			// If we have an empty selection under @fartouch=n don't show the pie menu but play the "operation block" sound
-			if ( (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) )
-			{
-#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-				gPieAvatar->show(x, y, mPieMouseButtonDown);
-#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-			}
-			else
-			{
-				make_ui_sound("UISndInvalidOp");
-			}
-#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+				// If we have an empty selection under @fartouch=n don't show the pie menu but play the "operation block" sound
+				if ( (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) )
+				{
+			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+					gPieAvatar->show(x, y, mPieMouseButtonDown);
+			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+				}
+				else
+				{
+					make_ui_sound("UISndInvalidOp");
+				}
+			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
 // [/RLVa:KB]
-
 		}
 		else if (object->isAttachment() && !object->isHUDAttachment())
 		{

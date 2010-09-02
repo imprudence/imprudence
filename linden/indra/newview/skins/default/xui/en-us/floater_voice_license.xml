@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="false" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="500" min_height="100" min_width="100"
+     name="modal container" title="" width="600">
+  <button bottom="-484" enabled="false" font="SansSerif" halign="center" height="20"
+	     label="Continue" label_selected="Continue" left="484" mouse_opaque="true"
+	     name="Continue" width="100" />
+  <button bottom="-484" font="SansSerif" halign="center" height="20" label="Cancel"
+	     label_selected="Cancel" left="16" mouse_opaque="true" name="Cancel"
+	     width="100" />
+  <check_box bottom="-435" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label="I Agree to the Terms of the Vivox Acceptable Use Policy"
+	     left="16" mouse_opaque="true" name="agree_chk" width="55" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-50" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="30" left="16" mouse_opaque="true"
+	     name="license_heading" v_pad="0" width="552">
+Please read the following policy document carefully.
+To use Vivox voice chat, you must agree to the terms of the policy.
+  </text>
+  <text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
+	     height="283" left="16" max_length="65536" mouse_opaque="true"
+	     name="license_text" width="568"
+	     word_wrap="true">
+    LICENSE_TEXT
+  </text_editor>
+  <!-- Loading text says: "Loading Vivox Acceptable Use Policy..." URL encoded -->
+  <web_browser bottom="-406" embedded_items="false" follows="left|top" font="SansSerif"
+	     height="340" left="16" max_length="65536" mouse_opaque="true"
+	     name="license_html"
+	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody text=%22000000%22%3E%3Ch2%3E Loading %3Ca%20target%3D%22_external%22%20href%3D%22http%3A//vivox.com/vivox_aup.html%22%3EVivox%20Acceptable%20Use%20Policy%3C/a%3E...%3C/h2%3E %3C/body%3E %3C/html%3E"
+	     width="568" word_wrap="true" />
+  <string name="real_url">
+    http://www.vivox.com/vivox_aup.html
+  </string>
+</floater>

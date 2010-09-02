@@ -4,6 +4,15 @@
      For example, the strings used in avatar chat bubbles, and strings 
      that are returned from one component and may appear in many places-->
 <strings>
+
+	<!-- Imprudence-specific strings -->
+	<string name="StatBarDaysOfWeek">
+		Søndag:Mandag:Tirsdag:Onsdag:Torsdag:Fredag:Lørdag
+	</string>
+	<string name="StatBarMonthsOfYear">
+		Januar:Februar:Marts:April:Maj:Juni:Juli:August:September:Oktober:November:December
+	</string>
+	
 	<string name="LoginInProgress">
 		Logger p. [APP_NAME] kan virke laast.  Vent venligst.
 	</string>

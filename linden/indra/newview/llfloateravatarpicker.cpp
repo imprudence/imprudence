@@ -351,6 +351,30 @@ void LLFloaterAvatarPicker::populateNearMe()
 void LLFloaterAvatarPicker::draw()
 {
 	LLFloater::draw();
+
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-1.0.0e
+	// TODO-RLVa: this code needs revisiting
+	if (rlv_handler_t::isEnabled())
+	{
+		LLPanel* pNearMePanel = getChild<LLPanel>("NearMePanel");
+		if ( (pNearMePanel) && (childGetVisibleTab("ResidentChooserTabs") == pNearMePanel) )
+		{
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				if (mNearMeListComplete)
+				{
+					getChild<LLScrollListCtrl>("NearMe")->deleteAllItems();
+					childSetEnabled("Select", false);
+				}
+				mNearMeListComplete = FALSE;
+				pNearMePanel->setCtrlsEnabled(FALSE);
+				return;
+			}
+			pNearMePanel->setCtrlsEnabled(TRUE);
+		}
+	}
+// [/RLVa:KB]
+
 	if (!mNearMeListComplete && childGetVisibleTab("ResidentChooserTabs") == getChild<LLPanel>("NearMePanel"))
 	{
 		populateNearMe();

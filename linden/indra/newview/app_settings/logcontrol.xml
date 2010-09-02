@@ -20,6 +20,7 @@
 					<key>tags</key>
 						<array>
 							<string>AppInit</string>
+              <string>LLKDU</string>
 							<string>SystemInfo</string>
 							<string>TextureCache</string>
 							<string>AppCache</string>
@@ -50,8 +51,10 @@
               <!--<string>AppCache</string>-->
 							<!--<string>APR</string>-->
 							<!--<string>AudioEngine</string>-->
+							<!--<string>BodyPhysics</string>-->
               <!--<string>InitInfo</string>-->
               <!--<string>isOwnedSelf</string>-->
+							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
 							<!--<string>MediaImpl</string>-->
 							<!--<string>MediaInfo</string>-->
@@ -62,12 +65,13 @@
 
 							<!--<string>Messaging</string>-->
 							<!--<string>Notifications</string>-->
+              <!--<string>Radar</string>-->
 							<!--<string>ShaderLoading</string>-->
 
 							<!--<string>Openjpeg</string>-->
 							<!--<string>RLV</string>-->
 							<!--<string>VOAvatar</string>-->
-
+							<!--<string>View</string>-->
 							<!--<string>ViewerImages</string>-->
 							<!--<string>Throttle</string>-->
 							<!--<string>Voice</string>-->

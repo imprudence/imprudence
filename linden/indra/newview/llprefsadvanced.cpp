@@ -30,6 +30,8 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llcombobox.h"
+
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
@@ -146,7 +148,8 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
 	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
-	childSetValue("windlight_check", gSavedSettings.getBOOL("UseServersideWindlightSettings"));
+	childSetValue("client_name_color_check", gSavedSettings.getBOOL("ShowClientColor"));
+	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
@@ -154,6 +157,15 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
+	childSetValue("allow_mupose", gSavedSettings.getBOOL("AllowMUpose"));
+	childSetValue("auto_close_ooc", gSavedSettings.getBOOL("AutoCloseOOC"));
+	childSetValue("shadows_check", gSavedSettings.getBOOL("ShadowsEnabled"));
+
+	childSetValue("lightshare_combo",
+	              LLSD((S32)gSavedSettings.getU32("LightShareAllowed")));
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
 
 	childSetCommitCallback("EmeraldCmdLinePos", onCommitApplyControl);
 	childSetCommitCallback("EmeraldCmdLineGround", onCommitApplyControl);
@@ -192,12 +204,18 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
+	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
+	gSavedSettings.setBOOL("ShowClientNameHoverTip", childGetValue("client_name_hover_check"));
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
 	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
-	gSavedSettings.setBOOL("UseServersideWindlightSettings", childGetValue("windlight_check"));
 	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
+	gSavedSettings.setBOOL("AllowMUpose", childGetValue("allow_mupose"));
+	gSavedSettings.setBOOL("AutoCloseOOC", childGetValue("auto_close_ooc"));
+	gSavedSettings.setU32("LightShareAllowed",
+	                      (U32)childGetValue("lightshare_combo").asInteger());
+
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
@@ -231,6 +249,7 @@ void LLPrefsAdvanced::apply()
 			childSetValue("shadows_check", FALSE);
 			LLNotifications::instance().add("NoShadows");
 			llwarns << "Attempting to enable shadow rendering while graphics settings less than Ultra or shaders are missing!" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", FALSE);
 		}
 		else if ( (gSavedSettings.getBOOL("WindLightUseAtmosShaders") // If we do, toggle shadows in the correct order
 				&& gSavedSettings.getBOOL("VertexShaderEnable")) )
@@ -238,6 +257,7 @@ void LLPrefsAdvanced::apply()
 			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
 			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
 			llinfos << "Shadow rendering enabled" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", TRUE);
 		}
 	}
 	else if (!childGetValue("shadows_check").asBoolean()) 
@@ -247,15 +267,18 @@ void LLPrefsAdvanced::apply()
 			gSavedSettings.setBOOL("RenderDeferred", childGetValue("shadows_check").asBoolean());
 			gSavedSettings.setBOOL("RenderUseFBO", childGetValue("shadows_check").asBoolean());
 			llinfos << "Shadow rendering disabled" << llendl;
+			gSavedSettings.setBOOL("ShadowsEnabled", FALSE);
 		}
 	}
-	gSavedSettings.setBOOL("ShadowsEnabled", childGetValue("shadows_check").asBoolean());
 
 	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
 	{
 		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
 		build_pie_menus();
 	}
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
 }
 
 void LLPrefsAdvanced::cancel()

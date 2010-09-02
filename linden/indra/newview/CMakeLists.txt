@@ -80,12 +80,16 @@ set(viewer_SOURCE_FILES
 	chatbar_as_cmdline.cpp
     floaterao.cpp
     floaterbusy.cpp
-    floaterlogin.cpp
+    floatergriddefault.cpp
+    floatergridmanager.cpp
+    floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
     hippoRestRequest.cpp
     jcfloater_animation_list.cpp
+    jcfloaterareasearch.cpp
+    lightshare.cpp
     llagent.cpp
     llagentaccess.cpp
     llagentdata.cpp
@@ -310,7 +314,6 @@ set(viewer_SOURCE_FILES
     llpanellandobjects.cpp
     llpanellandoptions.cpp
     llpanellogin.cpp
-    llpanelmorph.cpp
     llpanelmsgs.cpp
     llpanelnetwork.cpp
     llpanelobject.cpp
@@ -482,6 +485,7 @@ set(viewer_SOURCE_FILES
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
+    viewertime.cpp
     viewerversion.cpp
     )
 
@@ -509,12 +513,16 @@ set(viewer_HEADER_FILES
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
-    floaterlogin.h
+    floatergriddefault.h
+    floatergridmanager.h
+    floatervoicelicense.h
     hbfloatergrouptitles.h
     hippoGridManager.h
     hippoLimits.h
     hippoRestRequest.h
     jcfloater_animation_list.h
+    jcfloaterareasearch.h
+    lightshare.h
 	chatbar_as_cmdline.h
     importtracker.h
 	exporttracker.h
@@ -748,7 +756,6 @@ set(viewer_HEADER_FILES
     llpanellandoptions.h
     llpanelLCD.h
     llpanellogin.h
-    llpanelmorph.h
     llpanelmsgs.h
     llpanelnetwork.h
     llpanelobject.h
@@ -916,13 +923,12 @@ set(viewer_HEADER_FILES
     llworldmapview.h
     llxmlrpctransaction.h
     macmain.h
+    meta7windlight.h
     noise.h
     panelradar.h
     panelradarentry.h
     pipeline.h
     randgauss.h
-    VertexCache.h
-    VorbisFramework.h
     rlvdefines.h
     rlvevent.h
     rlvhandler.h
@@ -930,6 +936,9 @@ set(viewer_HEADER_FILES
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
+    VertexCache.h
+    VorbisFramework.h
+    viewertime.h
     viewerversion.h
     )
 
@@ -1130,6 +1139,7 @@ list(APPEND viewer_SOURCE_FILES ${viewer_XUI_FILES})
 
 set(viewer_APPSETTINGS_FILES
     app_settings/anim.ini
+    app_settings/ao_template.ini
     app_settings/cmd_line.xml
     app_settings/grass.xml
     app_settings/high_graphics.xml

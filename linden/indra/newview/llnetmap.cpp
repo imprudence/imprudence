@@ -71,9 +71,11 @@
 
 #include "llglheaders.h"
 
+#include "hippoLimits.h"
+
 const F32 MAP_SCALE_MIN = 32;
 const F32 MAP_SCALE_MID = 1024;
-const F32 MAP_SCALE_MAX = 4096;
+//const F32 MAP_SCALE_MAX = 4096; Now uses the max height value from hippo limits
 const F32 MAP_SCALE_INCREMENT = 16;
 const F32 MAP_SCALE_ZOOM_FACTOR = 1.25f;			// Zoom in factor per click of the scroll wheel (25%)
 const F32 MAP_MINOR_DIR_THRESHOLD = 0.08f;
@@ -368,7 +370,14 @@ void LLNetMap::draw()
 			else
 			{
 				// Show them muted even if they're friends
-				if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+// [RLVa:KB] - Version: 1.23.4 | Alternate: Imprudence-1.3 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
+				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+				{
+					glyph_color = avatar_color;
+				}
+				else if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+// [/RLVa:KB]
+//				if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
 				{
 					glyph_color = muted_color;
 				}
@@ -385,15 +394,6 @@ void LLNetMap::draw()
 					glyph_color = avatar_color;
 				}
 			}
-
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-			if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
-			{
-				// User is not allowed to see who it is, or even if it's a friend,
-				// due to RLV settings.
-				glyph_color = avatar_color;
-			}
-// [/RLVa:KB]
 
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
@@ -603,7 +603,7 @@ BOOL LLNetMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	F32 scale = mScale;
 	
 	scale *= pow(MAP_SCALE_ZOOM_FACTOR, -clicks);
-	setScale(llclamp(scale, MAP_SCALE_MIN, MAP_SCALE_MAX));
+	setScale(llclamp(scale, MAP_SCALE_MIN, gHippoLimits->getMaxHeight()));
 
 	return TRUE;
 }
@@ -622,26 +622,17 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		std::string fullname;
 		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
 		{
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-			// User is not allowed to see who it is, due to RLV settings.
+//			msg.append(fullname);
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
 			msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : gRlvHandler.getAnonym(fullname) );
+// [/RLVa:KB]
 			msg.append("\n");
- // [/RLVa:KB]
 		}
 		
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-		if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC) )
-		{
-			// User is not allowed to see where they are, due to RLV settings.
-			msg.append( rlv_handler_t::cstrHidden ); 
-		}
-		else
-		{
-			msg.append( region->getName() );
-		}
+// 		msg.append( region->getName() );
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-04 (RLVa-1.0.0a) | Modified: RLVa-0.2.0b
+		msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? region->getName() : rlv_handler_t::cstrHidden );
 // [/RLVa:KB]
-
-
 		msg.append("\n");
 		gSavedSettings.getBOOL( "MiniMapTeleport" ) ?
 						msg.append(getString("tooltip_tp")) : msg.append(getString("tooltip_map"));
@@ -969,7 +960,7 @@ bool LLNetMap::LLScaleMap::handleEvent(LLPointer<LLEvent> event, const LLSD& use
 		self->setScale(MAP_SCALE_MID);
 		break;
 	case 2:
-		self->setScale(MAP_SCALE_MAX);
+		self->setScale(gHippoLimits->getMaxHeight());
 		break;
 	default:
 		break;
@@ -1041,24 +1032,24 @@ bool LLNetMap::LLEnableTracking::handleEvent(LLPointer<LLEvent> event, const LLS
 
 bool LLNetMap::LLShowAgentProfile::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 {
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	LLNetMap *self = mPtr;
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
+	if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 	{
-		return true;
+		LLFloaterAvatarInfo::show(self->mClosestAgentAtLastRightClick);
 	}
 // [/RLVa:KB]
-
-	LLNetMap *self = mPtr;
-	LLFloaterAvatarInfo::show(self->mClosestAgentAtLastRightClick);
+	//LLFloaterAvatarInfo::show(self->mClosestAgentAtLastRightClick);
 	return true;
 }
 
 bool LLNetMap::LLEnableProfile::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 {
 	LLNetMap *self = mPtr;
-	//self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor());
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-	self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
+	self->findControl(userdata["control"].asString())->setValue(
+		(self->isAgentUnderCursor()) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) );
 // [/RLVa:KB]
+	//self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor());
 	return true;
 }

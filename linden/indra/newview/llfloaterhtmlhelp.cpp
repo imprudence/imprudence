@@ -95,6 +95,15 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("set_home", onClickSetHome, this);
 
 	buildURLHistory();
+
+	//Show home url if new session, last visited if not
+	std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+	if (last_url.empty())
+	{
+		last_url = gSavedSettings.getString("BrowserHome");
+	}
+	openMedia(last_url);
+
 	return TRUE;
 }
 
@@ -156,33 +165,6 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	childSetEnabled("forward", mBrowser->canNavigateForward());
 	childSetEnabled("reload", TRUE);
 	gSavedSettings.setString("BrowserLastVisited", truncated_url);
-}
-
-LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
-{
-	LLFloaterMediaBrowser* floaterp = LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >::showInstance(media_url);
-
-	floaterp->openMedia(media_url.asString());
-	return floaterp;
-}
-
-//static
-void LLFloaterMediaBrowser::toggle()
-{
-	LLFloaterMediaBrowser* self = LLFloaterMediaBrowser::getInstance();
-
-	if(self->getVisible())
-	{
-		self->close();
-	}
-	else
-	{
-		//Show home url if new session, last visited if not
-		std::string last_url = gSavedSettings.getString("BrowserLastVisited");
-		if(last_url.empty()) 
-			last_url = gSavedSettings.getString("BrowserHome");
-		showInstance(last_url);
-	}
 }
 
 //static
@@ -456,16 +438,22 @@ void LLFloaterHtmlHelp::show(std::string url, std::string title)
 	floater_html->setVisible(FALSE);
 	
 	url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
-	if (!url.empty()) {
-		if (gSavedSettings.getBOOL("UseExternalBrowser")) {
+	if (!url.empty()) 
+	{
+		if (gSavedSettings.getBOOL("UseExternalBrowser")) 
+		{
 			LLSD payload;
 			payload["url"] = url;
 			LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);
-		} else {
+		} 
+		else 
+		{
 			// don't wait, just do it
-			LLWeb::loadURL(url);
+			LLWeb::loadURLInternal(url);
 		}
-	} else {
+	} 
+	else 
+	{
 		LLNotifications::instance().add("NoSupportUrl");
 	}
 }
@@ -476,10 +464,13 @@ bool LLFloaterHtmlHelp::onClickF1HelpLoadURL(const LLSD& notification, const LLS
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		const std::string &url = notification["payload"]["url"].asString();
-		if (!url.empty()) {
-			LLWeb::loadURL(url);
-		} else {
+		const std::string& url = notification["payload"]["url"].asString();
+		if (!url.empty()) 
+		{
+			LLWeb::loadURLExternal(url);
+		} 
+		else 
+		{
 			llwarns << "Support URL not available." << llendl;
 		}
 	}

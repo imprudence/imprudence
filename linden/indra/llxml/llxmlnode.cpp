@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
- * Copyright (c) 2005-2009, Linden Research, Inc.
+ * Copyright (c) 2005-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -677,7 +677,7 @@ bool LLXMLNode::parseFile(const std::string& filename, LLXMLNodePtr& node, LLXML
 	U32 length = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
 
-	U8* buffer = new U8[length+1];
+	char *buffer = new char[length+1];
 	size_t nread = fread(buffer, 1, length, fp);
 	buffer[nread] = 0;
 	fclose(fp);
@@ -689,7 +689,7 @@ bool LLXMLNode::parseFile(const std::string& filename, LLXMLNodePtr& node, LLXML
 
 // static
 bool LLXMLNode::parseBuffer(
-	U8* buffer,
+	const char *buffer,
 	U32 length,
 	LLXMLNodePtr& node, 
 	LLXMLNode* defaults)
@@ -708,7 +708,7 @@ bool LLXMLNode::parseBuffer(
 	XML_SetUserData(my_parser, (void *)file_node_ptr);
 
 	// Do the parsing
-	if (XML_Parse(my_parser, (const char *)buffer, length, TRUE) != XML_STATUS_OK)
+	if (XML_Parse(my_parser, buffer, length, TRUE) != XML_STATUS_OK)
 	{
 		llwarns << "Error parsing xml error code: "
 				<< XML_ErrorString(XML_GetErrorCode(my_parser))

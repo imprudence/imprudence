@@ -61,6 +61,7 @@
 #include "llmenugl.h"
 
 #include "llappviewer.h" // for gPacificDaylightTime
+#include "viewertime.h"
 
 static LLRegisterWidget<LLViewerTextEditor> r("text_editor");
 
@@ -1252,7 +1253,8 @@ std::string LLViewerTextEditor::getEmbeddedText()
 
 std::string LLViewerTextEditor::appendTime(bool prepend_newline)
 {
-	time_t utc_time;
+	// Format time according to the person's settings -- MC
+	/*time_t utc_time;
 	utc_time = time_corrected();
 
 	// There's only one internal tm buffer.
@@ -1262,7 +1264,15 @@ std::string LLViewerTextEditor::appendTime(bool prepend_newline)
 	// it's daylight savings time there.
 	timep = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 
-	std::string text = llformat("[%d:%02d]  ", timep->tm_hour, timep->tm_min);
+	text = llformat("[%02d:%02d]  ", timep->tm_hour, timep->tm_min);
+	appendColoredText(text, false, prepend_newline, LLColor4::grey);*/
+	std::string text = llformat("[%02d:%02d", gViewerTime->getCurHour(), gViewerTime->getCurMin());
+	if (!gViewerTime->getCurAMPM().empty())
+	{
+		//text += " ";
+		text += gViewerTime->getCurAMPM();
+	}
+	text += "]  ";
 	appendColoredText(text, false, prepend_newline, LLColor4::grey);
 
 	return text;
@@ -1378,7 +1388,7 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, llwchar wc)
 
 void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item, llwchar wc )
 {
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
 	{
 		return;

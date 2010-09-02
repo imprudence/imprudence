@@ -10,12 +10,6 @@
 	<text length="12" name="TimeText" tool_tip="Hora atual (do Pacífico)" type="string">
 		12:00 AM
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Domingo:Segunda-feira:Terça-feira:Quarta-feira:Quinta-feira:Sexta-feira:Sábado
-	</string>
-	<string name="StatBarMonthsOfYear">
-		Janeiro:Fevereiro:Março:Abril:Maio:Junho:Julho:Agosto:Setembro:Outubro:Novembro:Dezembro
-	</string>
 	<button label="" label_selected="" name="scriptout" tool_tip="Erros e avisos do Script"/>
 	<button label="" label_selected="" name="health" tool_tip="Saúde"/>
 	<text length="1" name="HealthText" tool_tip="Saúde" type="string">

@@ -123,6 +123,7 @@ LLColor4 LLSelectMgr::sHighlightInspectColor;
 LLColor4 LLSelectMgr::sHighlightParentColor;
 LLColor4 LLSelectMgr::sHighlightChildColor;
 LLColor4 LLSelectMgr::sContextSilhouetteColor;
+std::set<LLUUID> LLSelectMgr::sObjectPropertiesFamilyRequests;
 
 static LLObjectSelection *get_null_object_selection();
 template<> 
@@ -3438,12 +3439,20 @@ void LLSelectMgr::deselectAllIfTooFar()
 	}
 
 	LLVector3d selectionCenter = getSelectionCenterGlobal();
-	if (gSavedSettings.getBOOL("LimitSelectDistance")
+
+//	if (gSavedSettings.getBOOL("LimitSelectDistance")
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
+	BOOL fRlvFartouch = gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH) && gFloaterTools->getVisible();
+	if ( (gSavedSettings.getBOOL("LimitSelectDistance") || (fRlvFartouch) )
+// [/RLVa:KB]
 		&& (!mSelectedObjects->getPrimaryObject() || !mSelectedObjects->getPrimaryObject()->isAvatar())
 		&& !mSelectedObjects->isAttachment()
 		&& !selectionCenter.isExactlyZero())
 	{
-		F32 deselect_dist = gSavedSettings.getF32("MaxSelectDistance");
+//		F32 deselect_dist = gSavedSettings.getF32("MaxSelectDistance");
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
+		F32 deselect_dist = (!fRlvFartouch) ? gSavedSettings.getF32("MaxSelectDistance") : 1.5f;
+// [/RLVa:KB]
 		F32 deselect_dist_sq = deselect_dist * deselect_dist;
 
 		LLVector3d select_delta = gAgent.getPositionGlobal() - selectionCenter;
@@ -4228,6 +4237,10 @@ void LLSelectMgr::sendListToRegions(const std::string& message_name,
 
 void LLSelectMgr::requestObjectPropertiesFamily(LLViewerObject* object)
 {
+	// Remember that we asked the properties of this object.
+	sObjectPropertiesFamilyRequests.insert(object->mID);
+	//llinfos << "Registered an ObjectPropertiesFamily request for object " << object->mID << llendl;
+
 	LLMessageSystem* msg = gMessageSystem;
 
 	msg->newMessageFast(_PREHASH_RequestObjectPropertiesFamily);
@@ -4419,6 +4432,15 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** user_data)
 {
 	LLUUID id;
+	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_ObjectID, id);
+	if (sObjectPropertiesFamilyRequests.count(id) == 0)
+	{
+		// This reply is not for us.
+		return;
+	}
+	// We got the reply, so remove the object from the list of pending requests
+	sObjectPropertiesFamilyRequests.erase(id);
+	//llinfos << "Got ObjectPropertiesFamily reply for object " << id << llendl;
 
 	U32 request_flags;
 	LLUUID creator_id;
@@ -4430,7 +4452,6 @@ void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** use
 	LLCategory category;
 	
 	msg->getU32Fast(_PREHASH_ObjectData, _PREHASH_RequestFlags,	request_flags );
-	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_ObjectID,		id );
 	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_OwnerID,		owner_id );
 	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_GroupID,		group_id );
 	msg->getU32Fast(_PREHASH_ObjectData, _PREHASH_BaseMask,		base_mask );

@@ -1421,7 +1421,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					coloru.mV[3] = 255 - coloru.mV[3];
 					mText->setColor(LLColor4(coloru));
 					mText->setStringUTF8(temp_string);
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
 					if (rlv_handler_t::isEnabled())
 					{
 						mText->setObjectText(temp_string);
@@ -4391,12 +4391,14 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 			mAudioSourcep->play(LLUUID::null);
 		}
 		
-		// Play this sound if region maturity permits
+		/*// Play this sound if region maturity permits
 		if( gAgent.canAccessMaturityAtGlobal(this->getPositionGlobal()) )
 		{
 			//llinfos << "Playing attached sound " << audio_uuid << llendl;
 			mAudioSourcep->play(audio_uuid);
-		}
+		}*/
+		// Actually, always play sounds regardless of maturity -- MC
+		mAudioSourcep->play(audio_uuid);
 	}
 }
 

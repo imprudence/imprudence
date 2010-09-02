@@ -39,6 +39,9 @@
       <string name="copy_key_info">
         Copied key for [AVATAR] to clipboard: [KEY]
       </string>
+      <string name="days_old_text">
+        ([DAYS] days old)
+      </string>
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-23" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left="262"

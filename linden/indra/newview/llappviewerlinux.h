@@ -84,6 +84,7 @@ typedef struct
 
 extern "C" {
 	gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **success_rtn, GError **error);
+	gboolean viewer_app_api_HotplugJoystick(ViewerAppAPI *obj, gchar *dummy, gboolean **success_rtn, GError **error);
 }
 
 #define VIEWERAPI_SERVICE "com.secondlife.ViewerAppAPIService"

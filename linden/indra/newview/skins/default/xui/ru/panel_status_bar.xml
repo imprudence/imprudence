@@ -13,12 +13,6 @@
 	     tool_tip="Текущее время (тихоокеанское)">
 		12:00 AM
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Воскр.:Понед.:Вторник:Среда:Четверг:Пятница:Суббота
-	</string>
-	<string name="StatBarMonthsOfYear">
-		Январь:Февраль:Март:Апрель:Май:Июнь:Июль:Август:Сентябрь:Октябрь:Ноябрь:Декабрь
-	</string>
 	<button label="" label_selected="" name="scriptout"
 	     tool_tip="Предупреждения и ошибки скриптов" />
 	<button label="" label_selected="" name="health" tool_tip="Здоровье" />

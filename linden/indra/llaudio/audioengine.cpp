@@ -31,6 +31,8 @@
  * $/LicenseInfo$
  */
 
+#include <time.h>
+
 #include "linden_common.h"
 
 #include "audioengine.h"
@@ -430,7 +432,10 @@ void LLAudioEngine::idle(F32 max_decode_time)
 			else
 			{
 				channelp->setWaiting(false);
-				channelp->play();
+				if (channelp->mCurrentBufferp)
+				{
+					channelp->play();
+				}
 			}
 		}
 	}
@@ -632,7 +637,7 @@ bool LLAudioEngine::updateBufferForData(LLAudioData *adp, const LLUUID &audio_uu
 	{
 		if (adp->hasDecodedData())
 		{
-			adp->load();
+			return adp->load();
 		}
 		else if (adp->hasLocalData())
 		{
@@ -667,6 +672,9 @@ void LLAudioEngine::enableWind(bool enable)
 
 LLAudioBuffer *LLAudioEngine::getFreeBuffer()
 {
+	static clock_t last_info = 0;
+	static bool spamming = FALSE;
+
 	S32 i;
 	for (i = 0; i < MAX_BUFFERS; i++)
 	{
@@ -698,8 +706,18 @@ LLAudioBuffer *LLAudioEngine::getFreeBuffer()
 
 	if (buffer_id >= 0)
 	{
-		LL_INFOS("AudioEngine") << "Taking over unused buffer " << buffer_id << llendl;
-		//LL_INFOS("AudioEngine") << "Flushing unused buffer!" << llendl;
+		if (clock() - last_info > CLOCKS_PER_SEC)
+		{
+			// Do not spam us with such messages...
+			llinfos << "Taking over unused buffer " << buffer_id << llendl;
+			last_info = clock();
+		}
+		else if (!spamming)
+		{
+			// ... but warn us *once* when the buffer freeing frequency is abnormal.
+			llwarns << "Excessive buffer freeing frequency, info messages throttled." << llendl;
+			spamming = true;
+		}
 		mBuffers[buffer_id]->mAudioDatap->mBufferp = NULL;
 		delete mBuffers[buffer_id];
 		mBuffers[buffer_id] = createBuffer();
@@ -1841,6 +1859,8 @@ LLAudioData::LLAudioData(const LLUUID &uuid) :
 
 bool LLAudioData::load()
 {
+	static clock_t last_info = 0;
+
 	// For now, just assume we're going to use one buffer per audiodata.
 	if (mBufferp)
 	{
@@ -1853,7 +1873,11 @@ bool LLAudioData::load()
 	if (!mBufferp)
 	{
 		// No free buffers, abort.
-		llinfos << "Not able to allocate a new audio buffer, aborting." << llendl;
+		if (clock() - last_info > CLOCKS_PER_SEC)	// Do not spam us with such messages
+		{
+			llinfos << "Not able to allocate a new audio buffer, aborting." << llendl;
+			last_info = clock();
+		}
 		return false;
 	}
 

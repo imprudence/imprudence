@@ -334,6 +334,17 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 			L"Targa, Bitmap Images (*.tga; *.bmp)\0*.tga;*.bmp\0" \
 			L"\0";
 		break;
+	case FFSAVE_LSL:
+		if (filename.empty())
+		{
+			wcsncpy( mFilesW,L"untitled.lsl", FILENAME_BUFFER_SIZE);	/*Flawfinder: ignore*/
+		}
+		mOFN.lpstrDefExt = L"lsl";
+		mOFN.lpstrFilter = 
+			L"LSL Files (*.lsl)\0*.lsl\0"
+			L"Text files (*.txt)\0*.txt\0"
+			L"\0";
+		break;
 	case FFSAVE_TEXT:
 		if (filename.empty())
 		{
@@ -343,7 +354,6 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 		mOFN.lpstrFilter = 
 			L"Text files (*.txt)\0*.txt\0"
 			L"RTF Files (*.rtf)\0*.rtf\0"
-			L"LSL Files (*.lsl)\0*.lsl\0"
 			L"\0";
 		break;
 	case FFSAVE_WAV:
@@ -1183,7 +1193,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 			break;
 		case FFSAVE_RAW:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.raw", LLTrans::getString("raw_file") + " (*.raw)");
+				(picker, "*.raw", LLTrans::getString("dot_raw_file") + " (*.raw)");
 			suggest_ext = ".raw";
 			break;
 		case FFSAVE_J2C:

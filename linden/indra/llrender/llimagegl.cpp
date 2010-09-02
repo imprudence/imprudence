@@ -1231,7 +1231,9 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 
 	if (width <= 0 || width > 2048 || height <= 0 || height > 2048 || ncomponents < 1 || ncomponents > 4)
 	{
-		llerrs << llformat("LLImageGL::readBackRaw: bogus params: %d x %d x %d",width,height,ncomponents) << llendl;
+		//llerrs << llformat("LLImageGL::readBackRaw: bogus params: %d x %d x %d",width,height,ncomponents) << llendl;
+		llwarns << llformat("LLImageGL::readBackRaw: bogus params: %d x %d x %d",width,height,ncomponents) << llendl;
+		return FALSE;
 	}
 	
 	LLGLint is_compressed = 0;
@@ -1453,7 +1455,7 @@ void LLImageGL::analyzeAlpha(const void* data_in, S32 w, S32 h)
 {
 	if (mFormatType != GL_UNSIGNED_BYTE)
 	{
-		llwarns << "Cannot analyze alpha for image with format type " << std::hex << mFormatType << std::dec << llendl;
+		//spammer, no meaning: llwarns << "Cannot analyze alpha for image with format type " << std::hex << mFormatType << std::dec << llendl;
 	}
 
 	U32 stride = 0;
@@ -1477,7 +1479,7 @@ void LLImageGL::analyzeAlpha(const void* data_in, S32 w, S32 h)
 		stride = 4;
 		break;
 	default:
-		llwarns << "Cannot analyze alpha of image with primary format " << std::hex << mFormatPrimary << std::dec << llendl;
+		//never happend: llwarns << "Cannot analyze alpha of image with primary format " << std::hex << mFormatPrimary << std::dec << llendl;
 		return;
 	}
 

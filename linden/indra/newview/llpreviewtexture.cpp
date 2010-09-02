@@ -64,6 +64,7 @@ LLPreviewTexture::LLPreviewTexture(const std::string& name,
 								   const LLUUID& object_id,
 								   BOOL show_keep_discard)
 :	LLPreview(name, rect, title, item_uuid, object_id, TRUE, PREVIEW_TEXTURE_MIN_WIDTH, PREVIEW_TEXTURE_MIN_HEIGHT ),
+	mImage(NULL),
 	mLoadingFullImage( FALSE ),
 	mShowKeepDiscard(show_keep_discard),
 	mCopyToInv(FALSE),
@@ -125,6 +126,7 @@ LLPreviewTexture::LLPreviewTexture(
 		PREVIEW_TEXTURE_MIN_WIDTH,
 		PREVIEW_TEXTURE_MIN_HEIGHT ),
 	mImageID(asset_id),
+	mImage(NULL),
 	mLoadingFullImage( FALSE ),
 	mShowKeepDiscard(FALSE),
 	mCopyToInv(copy_to_inv),
@@ -142,6 +144,38 @@ LLPreviewTexture::LLPreviewTexture(
 	
 }
 
+// ctor for just previewing images
+LLPreviewTexture::LLPreviewTexture(const LLRect& rect, const std::string& title, LLViewerImage* imagep)
+	:
+	LLPreview(
+		"preview texture",
+		rect,
+		title,
+		LLUUID::null,
+		LLUUID::null,
+		FALSE,
+		PREVIEW_TEXTURE_MIN_WIDTH,
+		PREVIEW_TEXTURE_MIN_HEIGHT ),
+	mImageID(LLUUID::null),
+	mImage(imagep),
+	mLoadingFullImage( FALSE ),
+	mShowKeepDiscard(FALSE),
+	mCopyToInv(false),
+	mIsCopyable(TRUE),
+	mLastHeight(0),
+	mLastWidth(0)
+{
+
+	init();
+
+	setTitle(title);
+
+	LLRect curRect = getRect();
+	translate(curRect.mLeft - rect.mLeft, curRect.mTop - rect.mTop);
+	
+}
+
+
 
 LLPreviewTexture::~LLPreviewTexture()
 {
@@ -150,14 +184,16 @@ LLPreviewTexture::~LLPreviewTexture()
 		getWindow()->decBusyCount();
 	}
 
+	if(mImage.notNull())
+	{
+		mImage->destroySavedRawImage() ;
+	}
 	mImage = NULL;
 }
 
 
 void LLPreviewTexture::init()
-{
-	
-	
+{	
 	if (mCopyToInv) 
 	{
 		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_preview_embedded_texture.xml");
@@ -492,7 +528,12 @@ void LLPreviewTexture::updateDimensions()
 
 void LLPreviewTexture::loadAsset()
 {
-	mImage = gImageList.getImage(mImageID, MIPMAP_TRUE, FALSE);
+	// Rather kludgy, I admit -- MC
+	if (mImageID.notNull() && !mImage)
+	{
+		mImage = gImageList.getImage(mImageID, MIPMAP_TRUE, FALSE);
+	}
+
 	mImage->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 	mImage->forceToSaveRawImage(0) ;
 	mAssetStatus = PREVIEW_ASSET_LOADING;

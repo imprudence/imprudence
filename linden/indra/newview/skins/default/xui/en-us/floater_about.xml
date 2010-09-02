@@ -17,7 +17,7 @@
   
   For their WindLight presets, we thank Ana Lutetia, CodeBastard Redgrave, and Torley Linden.
   
-  Thanks also to the developers of the Green Life Emerald Viewer, Hippo Viewer, and Meerkat Viewer for viewer enhancements we have incorporated. Special thanks to the folks at Linden Lab for releasing the viewer source, without which this endeavor would have been impossible.
+  Thanks also to the developer(s) of the Emerald Viewer, Hippo Viewer, Cool VL Viewer, and Meerkat Viewer for viewer enhancements we have incorporated, as well as Kitty Barnett for RLVa. Special thanks to the folks at Linden Lab for releasing the viewer source, without which this endeavor would have been impossible.
   
   For a complete list of who did what, read the release notes!
   
@@ -50,8 +50,9 @@ Henri Beauchamp, Inma Rau, Irene Muni, Iskar Ariantho, Jacek Antonelli, JB Kraft
   xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
   zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
   google-perftools Copyright (c) 2005, Google Inc.
+  Code from FAAD2 is copyright (c) Nero AG, www.nero.com
 
-  All rights reserved.  See licenses.txt for details.
+  All rights reserved.  See LICENSE-libraries.txt for details.
 
   Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
 

@@ -7,7 +7,7 @@
 
 <!-- *WARNING* *WARNING* *WARNING* -->
 
-<!--  Editing this file in Visual Studio and auto-indent will cause layout errors! -->
+<!--  Editing this file in Visual Studio with auto-indent on will cause layout errors! -->
 
 <!-- *WARNING* *WARNING* *WARNING* -->
   
@@ -50,6 +50,20 @@ Always choose this option
      name="OK"
      text="$yestext"/>
     <button
+     index="1"
+     name="Cancel"
+     text="$notext"/>
+  </form>
+</template>
+
+<template name="okcancelbuttonscanceldefault">
+  <form>
+    <button
+     index="0"
+     name="OK"
+     text="$yestext"/>
+    <button
+     default="true"
      index="1"
      name="Cancel"
      text="$notext"/>
@@ -2044,8 +2058,7 @@ Unable to save [NAME] to central asset store.
 
 This is usually a temporary failure. Please customize and save the wearable again in a few minutes.
 
-If this problem persists, please click on the &apos;Tools &gt; Report Bug&apos; pull down menu
-and provide details about your network setup.
+If this problem persists, please click on the &apos;Tools &gt; Report Bug&apos; pull down menu and provide details about your network setup.
 </notification>
 
 <notification
@@ -5987,6 +6000,10 @@ An object named [OBJECTFROMNAME] owned by (an unknown user) has given you a [OBJ
      index="1"
      name="Decline"
      text="Decline"/>
+    <button
+     index="2"
+     name="Ignore"
+     text="Ignore"/>
   </form>
 </notification>
 
@@ -6006,6 +6023,10 @@ An object named [OBJECTFROMNAME] owned by (an unknown user) has given you a [OBJ
      index="1"
      name="Decline"
      text="Decline"/>
+    <button
+     index="2"
+     name="Ignore"
+     text="Ignore"/>
   </form>
 </notification>
 
@@ -6039,6 +6060,10 @@ This will add a bookmark in your inventory so you can quickly IM this resident.
      index="1"
      name="Decline"
      text="Decline"/>
+    <button
+     index="2"
+     name="Ignore"
+     text="Ignore"/>
   </form>
 </notification>
 
@@ -6165,7 +6190,6 @@ Grant this request?
  name="ScriptDialog"
  type="notify">
 [FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
-
 [MESSAGE]
   <form name="form">
     <button
@@ -6180,7 +6204,6 @@ Grant this request?
  name="ScriptDialogGroup"
  type="notify">
 [GROUPNAME]&apos;s &apos;[TITLE]&apos;
-
 [MESSAGE]
   <form name="form">
     <button
@@ -6355,6 +6378,40 @@ You can find example sculpted textures in the inventory library.
  name="FirstMedia"
  type="notify">
 You have begun playing media.  Media can set to play automatically in the preferences window under Audio / Video. Note that this can be a security risk for media sites you do not trust.
+</notification>
+
+<notification
+ icon="notify.tga"
+ name="FirstRLVDetach"
+ type="notify">
+One of your attachments was made nondetachable using Restrained Life.
+Please note that this also disables the &apos;Wear&apos; option on all prim attachments in your inventory unless they are properly named.
+
+For more information search for &apos;Restrained Life&apos; on the SL wiki.
+</notification>
+
+<notification
+ icon="notify.tga"
+ name="FirstRLVFartouch"
+ type="notify">
+You have been fartouch restricted: you will be unable to touch objects farther than 1.5m from your avatar until the restriction is lifted.
+
+Tip: if an object is out of range the mouse cursor will not change as you hover over it and you'll hear an error sound if you try to right-click it.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="FirstRLVGiveToRLV"
+ type="alertmodal">
+Folders starting with &apos;#RLV/~&apos; can automatically be placed under your #RLV shared folder after you accept the inventory offer.
+
+Please note that - if enabled - the accepted inventory items will instantly be available to scripts and will have full use of the RLV API which may cause unexpected or undesirable situations.
+
+Do you want to enable this feature?
+  <usetemplate
+   name="okcancelbuttonscanceldefault"
+   notext="No"
+   yestext="Yes"/>
 </notification>
 
 <notification
@@ -6864,6 +6921,47 @@ You have been disconnected from the region you were in. Unable to continue.
 </notification>
 
 <notification
+ icon="alertmodal.tga"
+ name="GridsNoNick"
+ type="alertmodal">
+Cannot save new grid information.
+
+You need to specify a unique grid nickname.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridsNoLoginUri"
+ type="alertmodal">
+Cannot save new grid '[NAME]'.
+
+You need to specify a login URI.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridExists"
+ type="alertmodal">
+Cannot save new grid '[NAME]'.
+
+A grid with the same nickname already exists.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridInfoNoLoginUri"
+ type="alertmodal">
+A login URI is required to retrieve the grid info.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ name="GridInfoError"
+ type="alertmodal">
+Cannot retrieve grid info from server.
+</notification>
+  
+<notification
  icon="alert.tga"
  name="IMLogNotFound"
  type="alert">
@@ -6873,6 +6971,16 @@ IM history could not be found for [NAME].
    yestext="OK"/>
 </notification>
 
+<notification
+ icon="alert.tga"
+ name="ShowLookAtInfo"
+ type="alert">
+Show Look At is a debug setting that displays where an avatar's head is looking. Be aware: this will *NOT* show where an avatar's camera is actually pointed. This setting should not be relied on for any form of privacy!
+  <usetemplate
+   name="okignore"
+   yestext="OK"/>
+</notification>
+  
 <notification
  icon="alert.tga"
  name="WebLaunchImprudenceBlog"
@@ -6928,6 +7036,20 @@ Shadows cannot be enabled due to your graphics settings being set too low. Make 
  name="NoTextureExportSL"
  type="notifytip">
 Note: To comply with the Second Life Terms of Service, Imprudence did not download any texture files for the exported object(s).
+</notification>
+
+<notification
+ name="ConfirmLightShare"
+ type="notify"
+ icon="notify.tga">
+This region is broadcasting custom sky and water settings.
+
+Apply this region's settings? (&quot;Ignore&quot; will ignore all region settings until you leave this region.)
+  <form name="form">
+    <button index="0" name="apply"  text="Apply"/>
+    <button index="1" name="temp"   text="Not Now"/>
+    <button index="2" name="region" text="Ignore"/>
+  </form>
 </notification>
 
 <notification

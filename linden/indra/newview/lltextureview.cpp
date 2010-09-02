@@ -666,6 +666,10 @@ void LLTextureView::draw()
 			 iter != gImageList.mImageList.end(); )
 		{
 			LLPointer<LLViewerImage> imagep = *iter++;
+			if(!imagep->hasFetcher())
+			{
+				continue ;
+			}
 
 			S32 cur_discard = imagep->getDiscardLevel();
 			S32 desired_discard = imagep->mDesiredDiscardLevel;
@@ -711,7 +715,7 @@ void LLTextureView::draw()
 				pri = imagep->getDecodePriority();
 			}
 			pri = llclamp(pri, 0.0f, HIGH_PRIORITY-1.f);
-			
+
 			if (sDebugImages.find(imagep) != sDebugImages.end())
 			{
 				pri += 4*HIGH_PRIORITY;
@@ -773,7 +777,7 @@ void LLTextureView::draw()
 			{
 				display_image_list.insert(std::make_pair(pri, imagep));
 			}
-		}
+		}//for
 		
 		if (mPrintList)
 		{

@@ -31,7 +31,7 @@
 	     decimal_digits="0" enabled="true" follows="left|top" height="15"
 	     increment="10" initial_val="50" left_delta="0" max_val="1000" min_val="10"
 	     mouse_opaque="true" name="cache_size" show_text="true" width="180" />
-	<button bottom="-55" bottom_delta="-4" enabled="true" follows="left|bottom"
+	<button bottom="-55" bottom_delta="-4" enabled="true" follows="left|top"
 	     font="SansSerif" halign="center" height="22" label="Clear Cache" left="340"
 	     left_delta="186" mouse_opaque="true" name="clear_cache" scale_image="true"
 	     width="100" />

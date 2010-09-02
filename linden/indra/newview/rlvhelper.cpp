@@ -1,7 +1,6 @@
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
 #include "llfloaterwindlight.h"
-#include "llinventoryview.h"
 #include "llviewerobject.h"
 #include "llviewerstats.h"
 #include "llviewerwindow.h"
@@ -11,12 +10,6 @@
 #include "rlvhelper.h"
 #include "rlvevent.h"
 #include "rlvhandler.h"
-
-// Only defined in llinventorybridge.cpp
-#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-	#include "llinventorybridge.h"
-	void confirm_replace_attachment_rez(S32 option, void* user_data);
-#endif
 
 // ============================================================================
 // Static variable initialization

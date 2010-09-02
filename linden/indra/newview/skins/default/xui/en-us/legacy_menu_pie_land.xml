@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Land Pie">
-	<menu_item_call enabled="false" label="About Land..." mouse_opaque="true" name="About Land...">
+	<menu_item_call enabled="false" label="About Land" mouse_opaque="true" name="About Land">
 		<on_click function="ShowFloater" userdata="about land" />
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Create" mouse_opaque="true" name="Create">
@@ -13,7 +13,7 @@
 	<menu_item_call enabled="false" label="Sit Here" mouse_opaque="true" name="Sit Here">
 		<on_click function="Land.Sit" />
 	</menu_item_call>
-	<menu_item_call enabled="false" label="Landmark..." mouse_opaque="true" name="Add Landmark">
+	<menu_item_call enabled="false" label="Add Landmark" mouse_opaque="true" name="Add Landmark">
 		<on_click function="Land.NewLandmark" />
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Buy Pass..." mouse_opaque="true" name="Land Buy Pass">

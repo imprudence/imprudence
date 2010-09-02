@@ -168,7 +168,7 @@
 #include "llimview.h"
 #include "llviewerthrottle.h"
 #include "llparcel.h"
-
+#include "viewertime.h"
 
 #include "llinventoryview.h"
 
@@ -433,6 +433,9 @@ static void settings_to_globals()
 	LLSlider::setScrollWheelMultiplier( gSavedSettings.getS32("SliderScrollWheelMultiplier") );
 
 	LLHUDEffectLookAt::sDebugLookAt = gSavedSettings.getBOOL("PersistShowLookAt");
+
+	ViewerTime::sUse24HourTime = gSavedSettings.getBOOL("Use24HourTime");
+	ViewerTime::sUseUTCTime = gSavedSettings.getBOOL("UseUTCTime");
 }
 
 static void settings_modify()
@@ -652,6 +655,17 @@ bool LLAppViewer::init()
 	{
 		LLError::setPrintLocation(true);
 	}
+
+	// ZWAGOTH: This resolves a bunch of skin updating problems and makes skinning
+	// SIGNIFICANLTLY easier. User colors > skin colors > default skin colors.
+	// This also will get rid of the Invalid control... spam when a skin doesn't have that color
+	// setting defined as long as we keep the default skin up to date. Maybe make invalid controls
+	// errors again?
+	std::string default_base_filename = gDirUtilp->getExpandedFilename(LL_PATH_SKINS,
+																	   "default",
+																	   "colors_base.xml");
+	LL_DEBUGS("InitInfo") << "Loading default base colors from " << default_base_filename << LL_ENDL;
+	 gColors.loadFromFileLegacy(default_base_filename, FALSE, TYPE_COL4U);
 	
 	// Load art UUID information, don't require these strings to be declared in code.
 	std::string colors_base_filename = gDirUtilp->findSkinnedFilename("colors_base.xml");
@@ -862,8 +876,14 @@ bool LLAppViewer::init()
 
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
 	gSimFrames = (F32)gFrameCount;
-
+/*
+#if LL_DARWIN //on mac the mouse gets misdetected as joystick; don't autoenable
 	LLViewerJoystick::getInstance()->init(false);
+#else
+	LLViewerJoystick::getInstance()->init(true);
+#endif
+*/
+	LLViewerJoystick::getInstance()->init();
 
 	return true;
 }
@@ -1165,9 +1185,6 @@ bool LLAppViewer::cleanup()
 
 	llinfos << "Viewer disconnected" << llendflush;
 
-	//this deletes all your buddies
-	LLAvatarTracker::instance().reset();
-
 	if (mQuitRequested)
 	{
 		display_cleanup();
@@ -1226,6 +1243,15 @@ bool LLAppViewer::cleanup()
 	LLWorldMap::getInstance()->reset(); // release any images
 
 	LLCalc::cleanUp();
+
+	delete gHippoGridManager;
+	gHippoGridManager = NULL;
+
+	delete gHippoLimits;
+	gHippoLimits = NULL;
+
+	delete gViewerTime;
+	gViewerTime = NULL;
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
@@ -1440,7 +1466,7 @@ bool LLAppViewer::cleanup()
 	}
 	
 	// Delete workers first
-	// shotdown all worker threads before deleting them in case of co-dependencies
+	// shutdown all worker threads before deleting them in case of co-dependencies
 	sTextureCache->shutdown();
 	sTextureFetch->shutdown();
 	sImageDecodeThread->shutdown();
@@ -1798,7 +1824,14 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstSculptedPrim");
 	LLFirstUse::addConfigVariable("FirstVoice");
 	LLFirstUse::addConfigVariable("FirstMedia");
+	LLFirstUse::addConfigVariable("FirstLoginScreen");
 		
+// [RLVa:KB] - Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
+	//LLFirstUse::addConfigVariable(RLV_SETTING_FIRSTUSE_DETACH);
+	//LLFirstUse::addConfigVariable(RLV_SETTING_FIRSTUSE_ENABLEWEAR);
+	//LLFirstUse::addConfigVariable(RLV_SETTING_FIRSTUSE_FARTOUCH);
+// [/RLVa:KB]
+
 	// - read command line settings.
 	LLControlGroupCLP clp;
 	std::string	cmd_line_config	= gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,
@@ -2279,6 +2312,12 @@ bool LLAppViewer::initWindow()
 
 	LLTrans::parseStrings("strings.xml");
 	LLUITrans::parseStrings("ui_strings.xml");
+
+	// Start up the viewer's clock -- MC
+	if (!gViewerTime)
+	{
+		gViewerTime = new ViewerTime();
+	}
 
 	// Show watch cursor
 	gViewerWindow->setCursor(UI_CURSOR_WAIT);
@@ -3695,6 +3734,8 @@ void LLAppViewer::idleShutdown()
 	// close IM interface
 	if(gIMMgr)
 	{
+		// Save group chat ignore list -- MC
+		gIMMgr->saveIgnoreGroup();
 		gIMMgr->disconnectAllSessions();
 	}
 	
@@ -3976,9 +4017,8 @@ void LLAppViewer::disconnectViewer()
 			gFloaterView->restoreAll();
 		}
 
-
 		std::list<LLFloater*> floaters_to_close;
-		for(LLView::child_list_const_iter_t it = gFloaterView->getChildList()->begin();
+		for (LLView::child_list_const_iter_t it = gFloaterView->getChildList()->begin();
 			it != gFloaterView->getChildList()->end();
 			++it)
 		{
@@ -3988,7 +4028,7 @@ void LLAppViewer::disconnectViewer()
 			// floater_animation_preview.xml
 			// files.
 			LLFloater* fl = static_cast<LLFloater*>(*it);
-			if(fl 
+			if (fl 
 				&& (fl->getName() == "Image Preview"
 				|| fl->getName() == "Sound Preview"
 				|| fl->getName() == "Animation Preview"
@@ -4025,7 +4065,8 @@ void LLAppViewer::disconnectViewer()
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();
-	cleanup_menus();
+	// Don't cleanup menus on disconnect in order to avoid crashes -- MC
+	//cleanup_menus();
 	// Also writes cached agent settings to gSavedSettings
 	gAgent.cleanup();
 

@@ -57,6 +57,10 @@ LLFloaterJoystick::LLFloaterJoystick(const LLSD& data)
 void LLFloaterJoystick::draw()
 {
 	bool joystick_inited = LLViewerJoystick::getInstance()->isJoystickInitialized();
+	if (!joystick_inited)
+	{
+		 joystick_inited = LLViewerJoystick::getInstance()->init();
+	}
 	childSetEnabled("enable_joystick", joystick_inited);
 	childSetEnabled("joystick_type", joystick_inited);
 	std::string desc = LLViewerJoystick::getInstance()->getDescription();
@@ -143,7 +147,20 @@ void LLFloaterJoystick::refresh()
 {
 	LLFloater::refresh();
 
+	bool joystick_inited = LLViewerJoystick::getInstance()->isJoystickInitialized();
+	if (!joystick_inited)
+	{
+		 joystick_inited = LLViewerJoystick::getInstance()->init();
+	}
+
+	mJoystickAutoEnable = gSavedSettings.getBOOL("JoystickAutoEnable");
+	if (mJoystickAutoEnable && joystick_inited)
+	{
+		gSavedSettings.setBOOL("JoystickEnabled",true);
+	}
+
 	mJoystickEnabled = gSavedSettings.getBOOL("JoystickEnabled");
+
 
 	mJoystickAxis[0] = gSavedSettings.getS32("JoystickAxis0");
 	mJoystickAxis[1] = gSavedSettings.getS32("JoystickAxis1");
@@ -213,6 +230,7 @@ void LLFloaterJoystick::refresh()
 void LLFloaterJoystick::cancel()
 {
 	gSavedSettings.setBOOL("JoystickEnabled", mJoystickEnabled);
+	gSavedSettings.setBOOL("JoystickAutoEnable", mJoystickAutoEnable);
 
 	gSavedSettings.setS32("JoystickAxis0", mJoystickAxis[0]);
 	gSavedSettings.setS32("JoystickAxis1", mJoystickAxis[1]);

@@ -4,6 +4,39 @@
   
   <!-- Imprudence-specific settings -->
 
+  <key>AllowMUpose</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow MU* pose style in chat and IM (':' works like '/me ')</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>AudioLevelGestures</key>
+  <map>
+    <key>Comment</key>
+    <string>Audio level of environment gestures</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+  <key>AutoCloseOOC</key>
+  <map>
+    <key>Comment</key>
+    <string>Auto-close OOC chat (i.e. add \"))\" if not found and \"((\" was used)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>AppearanceAnimate</key>
   <map>
     <key>Comment</key>
@@ -58,6 +91,17 @@
     <string>U32</string>
     <key>Value</key>
     <real>20</real>
+  </map>
+  <key>ConnectingToRegionTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Time (in seconds) until the viewer times out while connecting to region at login</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>45.0</real>
   </map>
   <key>CmdLineCacheLocation</key>
   <map>
@@ -185,6 +229,22 @@
       <integer>0</integer>
     </array>
   </map>
+  <key>FloaterAreaSearchRect</key>
+	<map>
+		<key>Comment</key>
+		<string>Rectangle for the area search floater</string>
+		<key>Persist</key>
+		<integer>1</integer>
+		<key>Type</key>
+		<string>Rect</string>
+		<key>Value</key>
+		<array>
+			<integer>0</integer>
+			<integer>400</integer>
+			<integer>200</integer>
+			<integer>0</integer>
+    </array>
+  </map>
   <key>FloaterGroupTitlesRect</key>
     <map>
       <key>Comment</key>
@@ -305,6 +365,28 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>LightShareAllowed</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow LightShare (Windlight settings broadcast from the region): Never (0), Ask (1), or Always (2).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>LightShareIgnoreTimer</key>
+  <map>
+    <key>Comment</key>
+    <string>After ignoring a region Windlight settings message, new messages are ignored for this many seconds. The timer starts again each time a message is ignored.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>30</integer>
+  </map>  
   <key>MapShowAgentCount</key>
   <map>
     <key>Comment</key>
@@ -382,6 +464,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>MuteGestures</key>
+  <map>
+    <key>Comment</key>
+    <string>Gesture sound effects, play at 0 volume</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>MuteWind</key>
   <map>
     <key>Comment</key>
@@ -418,7 +511,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>1</integer>
+    <integer>0</integer>
   </map>
   <key>PersistShowLookAt</key>
   <map>
@@ -435,6 +528,17 @@
   <map>
     <key>Comment</key>
     <string>If true, viewer won't tell other viewers where your avatar is looking.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>PrivatePointAtTarget</key>
+  <map>
+    <key>Comment</key>
+    <string>If true, viewer won't show the editing arm motion.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -729,6 +833,28 @@
     <key>Value</key>
     <string>f54a0c32-3cd1-d49a-5b4f-7b792bebc204</string>
   </map>
+  <key>TimeFormat</key>
+  <map>
+    <key>Comment</key>
+    <string>0 = 12 hr, 1 = 24 hr, 2 = UTC</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>0</real>
+  </map>
+  <key>Use24HourTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Display time in the 24 hour format</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>UseKDUIfAvailable</key>
   <map>
     <key>Comment</key>
@@ -740,10 +866,32 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>UseUTCTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Display time in UTC (universal time)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>VerticalIMTabs</key>
   <map>
     <key>Comment</key>
     <string>Enable vertical layout for IM tabs</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>VivoxLicenseAccepted</key>
+  <map>
+    <key>Comment</key>
+    <string>By setting to true, you indicate your agreement to the Vivox Acceptable Use Policy at http://www.vivox.com/vivox_aup.html</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -762,10 +910,32 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>WarnFirstLoginScreen</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables default grid selector on FirstLoginScreen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>WarnFirstMiniMap</key>
   <map>
     <key>Comment</key>
     <string>Enables FirstMiniMap warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>WarnFirstVoiceLicense</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables FirstVoiceLicense window on login</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -995,7 +1165,28 @@
   </map>
 
   <!-- Begin: Client Name Tag -->
-
+  <key>ShowClientColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Show *others* clients specific color in the name tag</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>ShowClientNameHoverTip</key>
+  <map>
+    <key>Comment</key>
+    <string>Show *others* client in the hovertip</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>ShowClientNameTag</key>
   <map>
     <key>Comment</key>
@@ -1007,7 +1198,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  
+
   <key>ShowMyClientTagToOthers</key>
   <map>
     <key>Comment</key>
@@ -4702,7 +4893,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>1</integer>
+    <integer>0</integer>
   </map>
   <key>EnergyFromTop</key>
   <map>
@@ -6536,6 +6727,17 @@
     <map>
       <key>Comment</key>
       <string>When in mouselook, moving mouse up looks down and vice verse (FALSE = moving up looks up)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>JoystickAutoEnable</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables the Joystick at startup if plugged in.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -10965,7 +11167,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>1.699999988079</real>
+      <real>0.699999988079</real>
     </map>
     <key>ToolboxAutoMove</key>
     <map>
@@ -12621,21 +12823,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-
-<!-- Begin: Use Serverside Windlight Settings -->
-    <key>UseServersideWindlightSettings</key>
-    <map>
-      <key>Comment</key>
-      <string>Whether or not to use Windlight settings presented by the server.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-<!-- End: Use Serverside Windlight Settings -->
-
     <key>UseStartScreen</key>
     <map>
       <key>Comment</key>

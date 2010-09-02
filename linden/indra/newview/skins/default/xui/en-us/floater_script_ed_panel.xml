@@ -37,10 +37,10 @@
 			     mouse_opaque="true" name="Revert All Changes" width="138" />
       <menu_item_separator bottom_delta="-66" height="8" left="0" mouse_opaque="true" name="separator"
      width="138" />
-      <menu_item_call bottom_delta="-76" height="20" label="Save to Disk" left="0"
-     mouse_opaque="true" name="Save to Disk" width="138" />
-      <menu_item_call bottom_delta="-96" height="20" label="Load from Disk" left="0"
-     mouse_opaque="true" name="Load from Disk" width="138" />
+      <menu_item_call bottom_delta="-76" height="20" label="Export Script..." left="0"
+     mouse_opaque="true" name="Export Script..." width="138" />
+      <menu_item_call bottom_delta="-96" height="20" label="Import Script..." left="0"
+     mouse_opaque="true" name="Import Script..." width="138" />
 		</menu>
 		<menu bottom="665" drop_shadow="true" enabled="true" height="198"
 		     left="222" mouse_opaque="false" name="Edit" opaque="true" tear_off="false"
@@ -71,11 +71,11 @@
 		<menu bottom="-18" drop_shadow="true" enabled="true" height="34"
 		     left="0" mouse_opaque="false" name="Help" opaque="true" tear_off="false"
 		     width="112">
-			<menu_item_call bottom="-30" enabled="true" height="20" label="Help..." left="0"
+			<menu_item_call bottom="-30" enabled="true" height="20" label="Help" left="0"
 			     mouse_opaque="true" name="Help..." width="112" />
-      <menu_item_call bottom="-30" enabled="true" height="20" label="Launch Autoscript..." left="0"
+      <menu_item_call bottom="-30" enabled="true" height="20" label="Launch Autoscript" left="0"
            mouse_opaque="true" name="Launch Autoscript..." width="112" />
-			<menu_item_call bottom="-30" enabled="true" height="20" label="LSL Wiki Help..." left="0"
+			<menu_item_call bottom="-30" enabled="true" height="20" label="LSL Wiki Help" left="0"
 			     mouse_opaque="true" name="LSL Wiki Help..." width="112" />
 		</menu>
 	</menu_bar>

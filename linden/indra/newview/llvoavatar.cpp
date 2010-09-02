@@ -93,10 +93,12 @@
 #else
 #include "boost/lexical_cast.hpp"
 #endif
+#include "hippoLimits.h"// getMaxPrimScale
+
 // [RLVa:KB]
 #include "llstartup.h"
 // [/RLVa:KB]
-#include "hippoLimits.h"// getMaxPrimScale
+
 using namespace LLVOAvatarDefines;
 
 //-----------------------------------------------------------------------------
@@ -3428,7 +3430,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 	}
 	if(avatar->getTE(5)->getID() != avatar->getTE(6)->getID() && !client.empty())
 	{
-		client = "Failure";
+		client = "Unknown";
 		avatar_name_color = LLColor4::grey;
 	}
 	if(client.empty() && LLVOAvatar::sClientResolutionList.has("default"))
@@ -3544,21 +3546,29 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				
 				LLColor4 avatar_name_color = gColors.getColor( "AvatarNameColor" );
-				if (gSavedSettings.getBOOL("ShowClientNameTag"))
+				LLColor4 client_color = avatar_name_color;
+
+				if(!mIsSelf) //don't know your own client ?
 				{
-					if(!mIsSelf) //don't know your own client ?
+					new_name = TRUE; //lol or see the last client used 
 					{
-						new_name = TRUE; //lol or see the last client used 
-						{
-							resolveClient(avatar_name_color,client, this);
-						}
-					}
-					else
-					{
-						// Set your own name to the Imprudence color -- MC
-						avatar_name_color = LLColor4(0.79f,0.44f,0.88f);
+						resolveClient(client_color,client, this);
 					}
 				}
+				else
+				{
+					// Set your own name to the Imprudence color -- MC
+					client_color = LLColor4(0.79f,0.44f,0.88f);
+				}
+				if (gSavedSettings.getBOOL("ShowClientColor"))
+				{
+					avatar_name_color = client_color;
+				}
+				if (!gSavedSettings.getBOOL("ShowClientNameTag"))
+				{
+					client.clear();
+				}
+
 				avatar_name_color.setAlpha(alpha);
 				mNameText->setColor(avatar_name_color);
 				
@@ -3618,29 +3628,32 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				|| is_appearance != mNameAppearance || client.length() != 0)
 			{
 				std::string line;
-
-				if (mRenderGroupTitles && title && title->getString() && title->getString()[0] != '\0')
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
+				if (!fRlvShowNames)
 				{
-					line += title->getString();
-					//LLStringFn::replace_ascii_controlchars(line,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
-					line += "\n";
-					line += firstname->getString();
+// [/RLVa:KB]
+					if (mRenderGroupTitles && title && title->getString() && title->getString()[0] != '\0')
+					{
+						line += title->getString();
+						//LLStringFn::replace_ascii_controlchars(line,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
+						line += "\n";
+						line += firstname->getString();
+					}
+					else
+					{
+						line += firstname->getString();
+					}
+
+					line += " ";
+					line += lastname->getString();
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
 				}
 				else
 				{
-					line += firstname->getString();
-				}
-
-				line += " ";
-				line += lastname->getString();
-
-// [RLVa:KB]
-				if (fRlvShowNames)
- 				{
-					// User is not allowed to see who it is, due to RLV settings.
-					line = gRlvHandler.getAnonym(line);
+					line = gRlvHandler.getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
 				}
 // [/RLVa:KB]
+
 
 				BOOL need_comma = FALSE;
 
@@ -6797,6 +6810,7 @@ void LLVOAvatar::getOffObject()
 	mRoot.getXform()->update();
 
 	startMotion(ANIM_AGENT_BODY_NOISE);
+	LLFloaterAO::ChangeStand();
 
 	if (mIsSelf)
 	{
@@ -7170,32 +7184,9 @@ void LLVOAvatar::processRebakeAvatarTextures(LLMessageSystem* msg, void**)
 	}
 }
 
-
-BOOL LLVOAvatar::getLocalTextureRaw(ETextureIndex index, LLImageRaw* image_raw)
-{
-	if (!isIndexLocalTexture(index)) return FALSE;
-
-    BOOL success = FALSE;
-
-	if (getLocalTextureID(index) == IMG_DEFAULT_AVATAR)
-	{
-		success = TRUE;
-	}
-	else
-	{
-		LocalTextureData &local_tex_data = mLocalTextureData[index];
-		if(local_tex_data.mImage->readBackRaw(-1, image_raw, false))
-		{
-			success = TRUE;
-		}
-		else
-		{
-			// No data loaded yet
-			setLocalTexture( (ETextureIndex)index, getTEImage( index ), FALSE );
-		}
-	}
-	return success;
-}
+// Tombstone for
+// BOOL LLVOAvatar::getLocalTextureRaw(ETextureIndex index, LLImageRaw* image_raw)
+// its corpse was found in slviewer-src-viewer-1.23.4-r124025
 
 BOOL LLVOAvatar::getLocalTextureGL(ETextureIndex index, LLImageGL** image_gl_pp)
 {
@@ -8574,17 +8565,17 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 
 				if(param->getID() == 507 && newWeight != getActualBoobGrav())
 				{
-					llwarns << "Boob Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Boob Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualBoobGrav(newWeight);
 				}
 				if(param->getID() == 795 && newWeight != getActualButtGrav())
 				{
-					llwarns << "Butt Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Butt Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualButtGrav(newWeight);
 				}
 				if(param->getID() == 157 && newWeight != getActualFatGrav())
 				{
-					llwarns << "Fat Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					LL_DEBUGS("BodyPhysics")<< "Fat Grav SET to " << newWeight << " for " << getFullname() << LL_ENDL;
 					setActualFatGrav(newWeight);
 				}
 

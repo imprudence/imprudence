@@ -10,12 +10,6 @@
 	<text length="12" name="TimeText" tool_tip="Mevcut zaman (Pasifik)" type="string">
 		12:00 AM
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Pazar:Pazartesi:Salı:Çarşamba:Perşembe:Cuma:Cumartesi
-	</string>
-	<string name="StatBarMonthsOfYear">
-		Ocak:Şubat:Mart:Nisan:Mayıs:Haziran:Temmuz:Ağustos:Eylül:Ekim:Kasım:Aralık
-	</string>
 	<button label="" label_selected="" name="scriptout" tool_tip="Betik uyarıları ve hataları"/>
 	<button label="" label_selected="" name="health" tool_tip="Sağlık"/>
 	<text length="1" name="HealthText" tool_tip="Health" type="string">

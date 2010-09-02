@@ -31,6 +31,10 @@
 #include "rlvextensions.h"
 #include "rlvhandler.h"
 
+// Only defined in llinventorybridge.cpp
+#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
+	void confirm_replace_attachment_rez(S32 option, void* user_data);
+#endif
 // Only defined in llinventorymodel.cpp
 extern const char* NEW_CATEGORY_NAME;
 
@@ -596,8 +600,13 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 		case RLV_BHVR_SHOWMINIMAP:			// @showminimap=n			- Checked: 2009-07-05 (RLVa-1.0.0c)
 			{
 				// Simulate clicking the Minimap button [see LLToolBar::onClickRadar()]
-				if (LLFloaterMap::instanceVisible())
+				#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
+					if (gFloaterMap->getVisible())
+						LLFloaterMap::toggle(NULL);
+				#else												// Version: 1.23.4
+					if (LLFloaterMap::instanceVisible())
 						LLFloaterMap::hideInstance();
+				#endif
 			}
 			break;
 		#ifdef RLV_EXTENSION_STARTLOCATION
@@ -1097,8 +1106,8 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 
 				const EWearableType layerTypes[] =
 					{ 
-						WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_ALPHA, WT_TATTOO, WT_SOCKS, 
-						WT_UNDERPANTS, WT_UNDERSHIRT, WT_SKIN, WT_EYES, WT_HAIR, WT_SHAPE
+						WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_SOCKS,
+						WT_UNDERPANTS, WT_UNDERSHIRT, WT_SKIN, WT_EYES, WT_HAIR, WT_SHAPE, WT_ALPHA, WT_TATTOO
 					};
 
 				#ifdef RLV_EXPERIMENTAL_COMPOSITE_FOLDING
@@ -1601,8 +1610,8 @@ void RlvHandler::filterNames(std::string& strUTF8Text) const
 	//   -> the cost of multi string matching them all at once seems to be about the same as calling rlvStringReplace 
 	//      twice so that would be a tremendous gain (and we'd get first name and word matching for free)
 	#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-		for (LLWorld::region_list_t::const_iterator itRegion = LLWorld::getInstance()->getRegionList().begin();
-			 itRegion != LLWorld::getInstance()->getRegionList().end(); ++itRegion)
+		for (LLWorld::region_list_t::const_iterator itRegion = LLWorld::getInstance()->mActiveRegionList.begin();
+			 itRegion != LLWorld::getInstance()->mActiveRegionList.end(); ++itRegion)
 		{
 			LLViewerRegion* pRegion = *itRegion;
 			
@@ -1688,8 +1697,8 @@ bool RlvHandler::redirectChatOrEmote(const std::string& strUTF8Text) const
 BOOL RlvHandler::isAgentNearby(const LLUUID& uuid) const
 {
 	#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-		for (LLWorld::region_list_t::const_iterator itRegion = LLWorld::getInstance()->getRegionList().begin();
-			 itRegion != LLWorld::getInstance()->getRegionList().end(); ++itRegion)
+		for (LLWorld::region_list_t::const_iterator itRegion = LLWorld::getInstance()->mActiveRegionList.begin();
+			 itRegion != LLWorld::getInstance()->mActiveRegionList.end(); ++itRegion)
 		{
 			LLViewerRegion* pRegion = *itRegion;
 			

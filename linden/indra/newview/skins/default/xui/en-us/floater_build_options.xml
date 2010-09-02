@@ -9,60 +9,60 @@
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="110" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
        h_pad="0" halign="left" height="10" left_delta="53" mouse_opaque="false"
-       name="text_box7" v_pad="0" width="150">        Grid Options</text>
+       name="text_box7" v_pad="0" width="150">        Grid Options:</text>
   <spinner bottom="-60" decimal_digits="3"
 	     follows="left|top" height="16" increment="0.1" initial_val="1"
-	     label="Grid Units (m)" label_width="90" left="21" max_val="5"
+	     label="Grid units (m):" label_width="90" left="21" max_val="1000"
 	     min_val="0.01" mouse_opaque="true" name="GridResolution" width="155" />
 	<spinner bottom_delta="-20" decimal_digits="1"
 	     follows="left|top" height="16" increment="0.5" initial_val="5"
-	     label="Grid Extents (m)" label_width="90" left_delta="0" max_val="50"
+	     label="Grid extents (m):" label_width="90" left_delta="0" max_val="10000"
        min_val="1" mouse_opaque="true" name="GridDrawSize" width="155" />
   <check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Sub-Unit Snapping" left_delta="0" mouse_opaque="true"
+	     label="Sub-unit snapping" left_delta="0" mouse_opaque="true"
 	     name="GridSubUnit" width="200" />
   <check_box bottom_delta="-20" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show Cross Sections" left_delta="0" mouse_opaque="true"
+	     label="Show cross sections" left_delta="0" mouse_opaque="true"
 	     name="GridCrossSection" width="200" />
 	<slider bottom_delta="-20" can_edit_text="false" 
 	     decimal_digits="3" follows="left" height="16" increment="0.05"
-	     initial_val="0.7" label="Grid Opacity" left_delta="0" max_val="1" min_val="0"
+	     initial_val="0.7" label="Grid opacity:" left_delta="0" max_val="1" min_val="0"
 	     mouse_opaque="true" name="GridOpacity" show_text="false" value="0.7"
 	     width="165" />
   
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 					 bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
 					 h_pad="0" halign="left" height="10" left="44" mouse_opaque="false"
-					 name="text_box3" v_pad="0" width="150">        Object Size</text>
+					 name="text_box3" v_pad="0" width="150">        Object Size:</text>
   <view_border bevel_style="none" border_thickness="1" bottom_delta="-98" follows="top|left" height="90"
      left="14" name="SizeBorder" width="120" />
   
   <spinner bottom="-200" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="X Size" label_width="40" left="20" max_val="10" min_val="0.01"
+     label="X size:" label_width="40" left="20" max_val="10" min_val="0.01"
      mouse_opaque="true" name="X size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Y Size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
+     label="Y size:" label_width="40" left_delta="0" max_val="10" min_val="0.01"
      mouse_opaque="true" name="Y size" width="110" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Z Size" label_width="40" left_delta="0" max_val="10" min_val="0.01"
+     label="Z size:" label_width="40" left_delta="0" max_val="10" min_val="0.01"
      mouse_opaque="true" name="Z size" width="110" />
   
   <view_border bevel_style="none" border_thickness="1" bottom="-145" follows="top|left" height="105"
      left="198" name="PivotBorder" width="135"/>
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="110" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
-     h_pad="0" halign="left" height="10" left_delta="35" mouse_opaque="false"
-     name="text_box6" v_pad="0" width="150">Axis Pivot Point</text>
+     h_pad="0" halign="left" height="10" left_delta="28" mouse_opaque="false"
+     name="text_box6" v_pad="0" width="150">Axis Pivot Point:</text>
   <spinner bottom_delta="-25" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="X Pos" label_width="40" left_delta="-28" mouse_opaque="true" max_val="256"
+     label="X pos:" label_width="40" left_delta="-21" mouse_opaque="true" max_val="256"
      min_val="-256" name="X pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Y Pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
+     label="Y pos:" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
      min_val="-256" name="Y pos" width="120" />
   <spinner bottom_delta="-20" decimal_digits="5" follows="left|top" height="16" increment="0.05"
-     label="Z Pos" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
+     label="Z pos:" label_width="40" left_delta="0" mouse_opaque="true" max_val="256"
      min_val="-256" name="Z pos" width="120" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      label="Values are percent" left_delta="-5" mouse_opaque="true"
@@ -70,22 +70,26 @@
      name="PivotPercToggle" radio_style="false" width="100" />
   
   <check_box bottom_delta="60" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-					 initial_value="true" label="Show Selection Outlines" left_delta="143"
+					 initial_value="true" label="Show selection outlines" left_delta="143"
 					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" 
 					 radio_style="false" width="270"/>
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     initial_value="false" label="Show Axis On Root Prim" left_delta="0"
+     label="Limit Select Distance" left_delta="0" mouse_opaque="true"
+     tooltip=""
+     name="limit_select_dist_check" radio_style="false" width="270" />
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Show axis on root prim" left_delta="0"
      mouse_opaque="true" tool_tip="Default behaviour is to show the axis on the center of mass of a linkset. If enabled, the axis will be shown on the root prim of the linkset instead."
      name="BuildPrefsActualRoot_toggle" radio_style="false" width="270" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     label="Rez Objects Using Land Group" left_delta="0" mouse_opaque="true"
+     label="Rez objects using land group" left_delta="0" mouse_opaque="true"
      tooltip="Rez objects on group land using the land's group (if possible)" 
      name="grouplandrez" radio_style="false" width="270" />
   <spinner bottom_delta="-25" decimal_digits="0" 
      tool_tip="Sets the default decimal precision for move, resize, and rotate" 
      follows="left|top" height="16" increment="1" initial_val="3"
-     label="Object edit decimal places" label_width="140" left_delta="0" max_val="5"
-     min_val="0" mouse_opaque="true" name="spinner_decimal" width="175" />
+     label="Object edit decimal places:" label_width="142" left_delta="0" max_val="5"
+     min_val="0" mouse_opaque="true" name="spinner_decimal" width="177" />
 
   <button bottom="2" enabled="true" follows="right|bottom" font="SansSerif"
        halign="center" height="20" label="Apply" right="-4"

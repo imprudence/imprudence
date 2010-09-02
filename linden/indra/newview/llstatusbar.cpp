@@ -83,11 +83,8 @@
 #include "llstring.h"
 #include "message.h"
 
-// system includes
-#include <iomanip>
-
-
 #include "hippoGridManager.h"
+#include "viewertime.h"
 
 //
 // Globals
@@ -121,10 +118,6 @@ static void onClickScripts(void*);
 static void onClickBuyLand(void*);
 static void onClickScriptDebug(void*);
 
-std::vector<std::string> LLStatusBar::sDays;
-std::vector<std::string> LLStatusBar::sMonths;
-const U32 LLStatusBar::MAX_DATE_STRING_LENGTH = 2000;
-
 LLStatusBar::LLStatusBar(const std::string& name, const LLRect& rect)
 :	LLPanel(name, LLRect(), FALSE),		// not mouse opaque
 mBalance(0),
@@ -136,10 +129,6 @@ mSquareMetersCommitted(0)
 	setMouseOpaque(FALSE);
 	setIsChrome(TRUE);
 
-	// size of day of the weeks and year
-	sDays.reserve(7);
-	sMonths.reserve(12);
-
 	mBalanceTimer = new LLFrameTimer();
 	mHealthTimer = new LLFrameTimer();
 
@@ -147,9 +136,6 @@ mSquareMetersCommitted(0)
 
 	// status bar can never get a tab
 	setFocusRoot(FALSE);
-
-	// build date necessary data (must do after panel built)
-	setupDate();
 
 	mTextParcelName = getChild<LLTextBox>("ParcelNameText" );
 	mTextBalance = getChild<LLTextBox>("BalanceText" );
@@ -265,50 +251,10 @@ void LLStatusBar::refresh()
 	mSGBandwidth->setThreshold(1, bwtotal);
 	mSGBandwidth->setThreshold(2, bwtotal);
 
-	// *TODO: Localize / translate time
-
-	// Get current UTC time, adjusted for the user's clock
-	// being off.
-	time_t utc_time;
-	utc_time = time_corrected();
-
-	// There's only one internal tm buffer.
-	struct tm* internal_time;
-
-	// Convert to Pacific, based on server's opinion of whether
-	// it's daylight savings time there.
-	internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
-
-	S32 hour = internal_time->tm_hour;
-	S32 min  = internal_time->tm_min;
-
-	std::string am_pm = "AM";
-	if (hour > 11)
-	{
-		hour -= 12;
-		am_pm = "PM";
-	}
-
-	std::string tz = "PST";
-	if (gPacificDaylightTime)
-	{
-		tz = "PDT";
-	}
-	// Zero hour is 12 AM
-	if (hour == 0) hour = 12;
-	std::ostringstream t;
-	t << std::setfill(' ') << std::setw(2) << hour << ":" 
-		<< std::setfill('0') << std::setw(2) << min 
-		<< " " << am_pm << " " << tz;
-	mTextTime->setText(t.str());
-
-	// Year starts at 1900, set the tooltip to have the date
-	std::ostringstream date;
-	date	<< sDays[internal_time->tm_wday] << ", "
-		<< std::setfill('0') << std::setw(2) << internal_time->tm_mday << " "
-		<< sMonths[internal_time->tm_mon] << " "
-		<< internal_time->tm_year + 1900;
-	mTextTime->setToolTip(date.str());
+	// Let's not have to reformat time everywhere, shall we? -- MC
+	gViewerTime->refresh();
+	mTextTime->setText(gViewerTime->getCurTimeStr());
+	mTextTime->setToolTip(gViewerTime->getCurDateStr());
 
 	LLRect r;
 	const S32 MENU_RIGHT = gMenuBarView->getRightmostMenuEdge();
@@ -875,69 +821,6 @@ static void onClickBuyLand(void*)
 // [/RLVa:KB]
 	LLViewerParcelMgr::getInstance()->selectParcelAt(gAgent.getPositionGlobal());
 	LLViewerParcelMgr::getInstance()->startBuyLand();
-}
-
-// sets the static variables necessary for the date
-void LLStatusBar::setupDate()
-{
-	// fill the day array with what's in the xui
-	std::string day_list = getString("StatBarDaysOfWeek");
-	size_t length = day_list.size();
-	
-	// quick input check
-	if(length < MAX_DATE_STRING_LENGTH)
-	{
-		// tokenize it and put it in the array
-		std::string cur_word;
-		for(size_t i = 0; i < length; ++i)
-		{
-			if(day_list[i] == ':')
-			{
-				sDays.push_back(cur_word);
-				cur_word.clear();
-			}
-			else
-			{
-				cur_word.append(1, day_list[i]);
-			}
-		}
-		sDays.push_back(cur_word);
-	}
-	
-	// fill the day array with what's in the xui	
-	std::string month_list = getString( "StatBarMonthsOfYear" );
-	length = month_list.size();
-	
-	// quick input check
-	if(length < MAX_DATE_STRING_LENGTH)
-	{
-		// tokenize it and put it in the array
-		std::string cur_word;
-		for(size_t i = 0; i < length; ++i)
-		{
-			if(month_list[i] == ':')
-			{
-				sMonths.push_back(cur_word);
-				cur_word.clear();
-			}
-			else
-			{
-				cur_word.append(1, month_list[i]);
-			}
-		}
-		sMonths.push_back(cur_word);
-	}
-	
-	// make sure we have at least 7 days and 12 months
-	if(sDays.size() < 7)
-	{
-		sDays.resize(7);
-	}
-	
-	if(sMonths.size() < 12)
-	{
-		sMonths.resize(12);
-	}
 }
 
 // static

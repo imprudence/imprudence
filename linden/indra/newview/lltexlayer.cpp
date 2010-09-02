@@ -2104,7 +2104,7 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				// Create the GL texture, and then hang onto it for future use.
 				if( mNeedsCreateTexture )
 				{
-					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
+					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw, 0, TRUE, LLViewerImageBoostLevel::TEXLAYER_CACHE);
 					mNeedsCreateTexture = FALSE;
 					gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
 					mCachedProcessedImageGL->setAddressMode(LLTexUnit::TAM_CLAMP);
@@ -2559,7 +2559,8 @@ LLImageGL* LLTexStaticImageList::getImageGL(const std::string& file_name, BOOL i
 				// that once an image is a mask it's always a mask.
 				image_gl->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
 			}
-			image_gl->createGLTexture(0, image_raw);
+
+			image_gl->createGLTexture(0, image_raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
 
 			gGL.getTexUnit(0)->bind(image_gl);
 			image_gl->setAddressMode(LLTexUnit::TAM_CLAMP);

@@ -134,16 +134,18 @@ G_END_DECLS
 #endif /* __dbus_glib_marshal_viewerapp_MARSHAL_H__ */
 
 #include <dbus/dbus-glib.h>
+//read http://wiki.maemo.org/Documentation/Maemo_5_Developer_Guide/DBus/Using_GLib_Wrappers_For_D-Bus
 static const DBusGMethodInfo dbus_glib_viewerapp_methods[] = {
   { (GCallback) viewer_app_api_GoSLURL, dbus_glib_marshal_viewerapp_BOOLEAN__STRING_POINTER_POINTER, 0 },
+  { (GCallback) viewer_app_api_HotplugJoystick, dbus_glib_marshal_viewerapp_BOOLEAN__STRING_POINTER_POINTER, 70 },// at position 70 chars offset, counting from 0
 };
 
 const DBusGObjectInfo dbus_glib_viewerapp_object_info = {
   0,
   dbus_glib_viewerapp_methods,
-  1,
-"com.secondlife.ViewerAppAPI\0GoSLURL\0S\0slurl\0I\0s\0success_ret\0O\0F\0N\0b\0\0\0",
+  2, //number of methods (counting from 1)
+"com.secondlife.ViewerAppAPI\0GoSLURL\0S\0slurl\0I\0s\0success_ret\0O\0F\0N\0b\0\0\0" //no comma; this is where the 70 chars are from ... see above ... counting from 0, yeah without quotes and escape 
+"com.secondlife.ViewerAppAPI\0HotplugJoystick\0S\0dummy\0I\0s\0success_ret\0O\0F\0N\0b\0\0\0",
 "\0",
 "\0"
 };
-

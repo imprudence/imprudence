@@ -158,6 +158,7 @@ BOOL FloaterBusy::postBuild()
 	LLWStringUtil::replaceChar(auto_response, '%', ' ');
 	childSetText("im_response", wstring_to_utf8str(auto_response));
 
+	childSetValue("InstantMessageResponseEnabled", gSavedPerAccountSettings.getBOOL("InstantMessageResponseEnabled"));
 	childSetValue("InstantMessageResponseFriends", gSavedPerAccountSettings.getBOOL("InstantMessageResponseFriends"));
 	childSetValue("InstantMessageResponseMuted", gSavedPerAccountSettings.getBOOL("InstantMessageResponseMuted"));
 	childSetValue("InstantMessageResponseAnyone", gSavedPerAccountSettings.getBOOL("InstantMessageResponseAnyone"));
@@ -212,6 +213,7 @@ void FloaterBusy::apply()
 	LLWStringUtil::replaceChar(im_response, '\n', '^');
 	LLWStringUtil::replaceChar(im_response, ' ', '%');
 	gSavedPerAccountSettings.setString("InstantMessageResponse", std::string(wstring_to_utf8str(im_response)));
+	gSavedPerAccountSettings.setBOOL("InstantMessageResponseEnabled", childGetValue("InstantMessageResponseEnabled").asBoolean());
 	gSavedPerAccountSettings.setBOOL("InstantMessageResponseMuted", childGetValue("InstantMessageResponseMuted").asBoolean());
 	gSavedPerAccountSettings.setBOOL("InstantMessageResponseFriends", childGetValue("InstantMessageResponseFriends").asBoolean());
 	gSavedPerAccountSettings.setBOOL("InstantMessageResponseMuted", childGetValue("InstantMessageResponseMuted").asBoolean());

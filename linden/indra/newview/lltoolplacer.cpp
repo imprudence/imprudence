@@ -288,7 +288,7 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	gMessageSystem->addU8Fast(_PREHASH_Material,	material);
 
 	U32 flags = 0;		// not selected
-	//if (create_selected)
+//	if (create_selected)
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0b) | Added: RLVa-1.0.0b
 	if ( (create_selected) && (!gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) )
 // [/RLVa:KB]

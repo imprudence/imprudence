@@ -65,6 +65,8 @@ public:
 
 	static void addServer(const std::string& server);
 	static void refreshLocation( bool force_visible );
+	// Updates grid combo at login screen with a specific nick. Use an empty string to refresh
+	static void updateGridCombo(std::string grid_nick);
 
 	static void getFields(std::string *firstname, std::string *lastname,
 						  std::string *password);

@@ -600,7 +600,7 @@
 			     bottom="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 			     mouse_opaque="true" name="select_single" v_pad="0" width="252">
-				Select only one primitive to edit parameters
+        Cannot edit multiple objects
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
@@ -751,7 +751,7 @@
 			     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="121"
 			     mouse_opaque="true" name="text cut" v_pad="0" width="141">
-				Path cut Begin and End:
+				Path Cut Begin and End:
 			</text>
 			<spinner bottom_delta="-22" decimal_digits="3" follows="left|top" height="16"
 			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
@@ -848,7 +848,7 @@
 			     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="121"
 			     mouse_opaque="true" name="advanced_cut" v_pad="0" width="141">
-				Profile cut Begin and End:
+				Profile Cut Begin and End:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"

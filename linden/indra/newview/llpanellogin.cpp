@@ -38,8 +38,7 @@
 
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
-
-#include "floaterlogin.h"
+#include "floatergridmanager.h"
 
 #include "indra_constants.h"		// for key and mask constants
 #include "llfontgl.h"
@@ -53,6 +52,7 @@
 #include "llcombobox.h"
 #include "llcurl.h"
 #include "llviewercontrol.h"
+#include "llfirstuse.h"
 #include "llfloaterabout.h"
 #include "llfloatertest.h"
 #include "llfloaterpreference.h"
@@ -83,7 +83,7 @@
 
 #include "llglheaders.h"
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
@@ -330,6 +330,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	refreshLocation( false );
 #endif
 
+	LLFirstUse::useLoginScreen();
 }
 
 void LLPanelLogin::setSiteIsAlive( bool alive )
@@ -722,7 +723,7 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 
 	if (LLURLSimString::parse())
 	{
-		combo->setCurrentByIndex( 3 );		// BUG?  Maybe 2?
+		combo->setCurrentByIndex( 2 );
 		combo->setTextEntry(LLURLSimString::sInstance.mSimString);
 	}
 	else
@@ -736,17 +737,15 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 	if ( ! force_visible )
 		show_start = gSavedSettings.getBOOL("ShowStartLocation");
 
-
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
-// TODO-RLVa: figure out some way to make this work with RLV_EXTENSION_STARTLOCATION
-#ifndef RLV_EXTENSION_STARTLOCATION
+	// TODO-RLVa: figure out some way to make this work with RLV_EXTENSION_STARTLOCATION
+	#ifndef RLV_EXTENSION_STARTLOCATION
 		if (rlv_handler_t::isEnabled())
 		{
 			show_start = FALSE;
 		}
-#endif // RLV_EXTENSION_STARTLOCATION
+	#endif // RLV_EXTENSION_STARTLOCATION
 // [/RLVa:KB]
-
 
 	sInstance->childSetVisible("start_location_combo", show_start);
 	sInstance->childSetVisible("start_location_text", show_start);
@@ -802,9 +801,12 @@ void LLPanelLogin::refreshLoginPage()
     // kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build(sInstance);
 	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
-	if (!login_page.empty()) {
+	if (!login_page.empty()) 
+	{
 		LLHTTPClient::head(login_page, gResponsePtr);
-	} else {
+	} 
+	else 
+	{
 		sInstance->setSiteIsAlive(false);
 	}
 }
@@ -816,7 +818,8 @@ void LLPanelLogin::loadLoginPage()
 	
 
 	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
-	if (login_page.empty()) {
+	if (login_page.empty()) 
+	{
 		sInstance->setSiteIsAlive(false);
 		return;
 	}
@@ -1006,7 +1009,8 @@ void LLPanelLogin::onClickGrid(void *)
 {
 	if (sInstance && sInstance->mCallback)
 	{
-		LoginFloater::newShow(std::string("Test"), false);
+		FloaterGridManager::getInstance()->open();
+		FloaterGridManager::getInstance()->center();
 	}
 }
 
@@ -1092,35 +1096,45 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	// *NOTE: The paramters for this method are ignored. 
 	// LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)
 	// calls this method.
+	updateGridCombo(LLStringUtil::null);
+}
 
-	// The user twiddled with the grid choice ui.
-	// apply the selection to the grid setting.
-	std::string grid_label;
-	//S32 grid_index;
-
+// static
+void LLPanelLogin::updateGridCombo(std::string grid_nick)
+{
 	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
-	LLSD combo_val = combo->getValue();
 
-	std::string mCurGrid = ctrl->getValue().asString();
-	//KOW
-	gHippoGridManager->setCurrentGrid(mCurGrid);
-	HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
-	if (gridInfo) {
-		//childSetText("gridnick", gridInfo->getGridNick());
-		//platform->setCurrentByIndex(gridInfo->getPlatform());
-		//childSetText("gridname", gridInfo->getGridName());
-		LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword());
+	if (grid_nick.empty())
+	{
+		// The user twiddled with the grid choice ui.
+		// apply the selection to the grid setting.
+		//std::string grid_label;
+		//S32 grid_index;
+		
+		grid_nick = combo->getValue().asString();
+		
+		HippoGridInfo *gridInfo = gHippoGridManager->getGrid(grid_nick);
+		if (gridInfo) {
+		 	//childSetText("gridnick", gridInfo->getGridNick());
+		 	//platform->setCurrentByIndex(gridInfo->getPlatform());
+		 	//childSetText("gridname", gridInfo->getGridName());
+			LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword());
+		}
 	}
-	if (mCurGrid == gHippoGridManager->getConnectedGrid()->getGridNick())
-		gHippoLimits->setLimits();
+	else
+	{
+		combo->setSimple(grid_nick);
+	}
 	
-	llwarns << "current grid = " << mCurGrid << llendl;
+	gHippoGridManager->setCurrentGrid(grid_nick);
+
+	llinfos << "current grid set to " << grid_nick << llendl;
 
 	// grid changed so show new splash screen (possibly)
 	loadLoginPage();
 
 	// save grid choice to settings
-	gSavedSettings.setString("LastSelectedGrid", mCurGrid);
+	gSavedSettings.setString("LastSelectedGrid", grid_nick);
 }
 /*
 void LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)

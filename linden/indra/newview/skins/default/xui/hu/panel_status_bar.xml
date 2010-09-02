@@ -11,12 +11,6 @@
 	<text type="string" length="12" name="TimeText" tool_tip="Jelenlegi idő (PST)">
 		12:00 de
 	</text>
-	<string name="StatBarDaysOfWeek">
-		Vasárnap:Hétfő:Kedd:Szerda:Csütörtök:Péntek:Szombat
-	</string>
-	<string name="StatBarMonthsOfYear">
-		Január:Február:Március:Április:Május:Június:Július:Augusztus:Szeptember:Október:November:December
-	</string>
 	<button label="" label_selected="" name="scriptout"
 	     tool_tip="Kódhibák és figyelmeztetések" />
 	<button label="" label_selected="" name="health" tool_tip="Állapot" />

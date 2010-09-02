@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="27" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" can_tear_off="true" enabled="true" height="270" left="15"
-     min_height="150" min_width="425" mouse_opaque="true" name="chat floater"
+     min_height="115" min_width="425" mouse_opaque="true" name="chat floater"
      rect_control="FloaterChatRect" title="Local Chat" width="435">
 	<string name="ringing">
 		Connecting to in-world Voice Chat...
@@ -103,10 +103,10 @@
 			<panel bottom="5" follows="left|right|bottom" left="5" name="chat_panel" right="-5"
 			     tab_group="1" top="25">
         <string name="gesture_label">Gestures</string>
-        <spinner bottom="-22" decimal_digits="0" follows="left|bottom" height="20"
+        <!--<spinner bottom="-22" decimal_digits="0" follows="left|bottom" height="20"
              increment="1.00" initial_val="0" label="Channel" label_width="50" left="0"
              max_val="1000000" min_val="0" mouse_opaque="true" name="channel_control"
-             width="100" tool_tip="Set the default channel for inworld chat"/>
+             width="100" tool_tip="Set the default channel for inworld chat"/>-->
         <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
 				     enabled="true" follows="left|right|bottom" font="SansSerif"
 				     handle_edit_keys_directly="false" height="20" label="Click here to chat."

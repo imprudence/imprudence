@@ -2,17 +2,24 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="General" left="102" mouse_opaque="true"
      name="general_panel" width="517">
-  <radio_group bottom="-45" draw_border="false" follows="left|bottom" height="40" left="151"
-	     name="default_start_location" width="220">
-    <radio_item bottom="-20" height="20" left="0" name="MyHome" width="50"
-		  tool_tip="Log into my home location by default.">
-      My home
-    </radio_item>
-    <radio_item bottom="-20" height="20" left="100" name="MyLastLocation" width="50"
-		  tool_tip="Log into my last location by default.">
-      My last location
-    </radio_item>
-  </radio_group>
+  <combo_box name="default_location_combo"
+             bottom="-22" left="155" height="16" width="150"
+             follows="left|top" font="SansSerifSmall"
+             mouse_opaque="true" allow_text_entry="true" max_chars="128">
+    <combo_item name="MyHome" value="My Home">
+      My Home
+    </combo_item>
+    <combo_item name="MyLastLocation" value="My Last Location">
+      My Last Location
+    </combo_item>
+    <combo_item name="Typeregionname" value="&lt;Type region name&gt;">
+      &lt;Type region name&gt;
+    </combo_item>
+  </combo_box>
+  <button name="grid_btn" label="Grid Manager"
+          bottom_delta="0" left="330" height="16" width="100"
+          follows="left|top" font="SansSerifSmall" halign="center"
+		      mouse_opaque="true" scale_image="TRUE" />
   <check_box bottom="-44" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="true"
        label="Show start location at login screen" left="151" mouse_opaque="true"
@@ -110,7 +117,7 @@
 		 I want to access content rated:
 	</text>
 	<combo_box bottom="-318" follows="left|top" height="18" left="315"
-	     mouse_opaque="true" name="maturity_desired_combobox" width="150" control_name="PreferredMaturity">
+	     mouse_opaque="true" name="maturity_desired_combobox" width="150">
 		<combo_item name="Desired_Adult" value="42">
 			PG, Mature and Adult
 		</combo_item>
@@ -154,8 +161,8 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-352" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
-	     mouse_opaque="true" name="crash_report_textbox" v_pad="0" width="394">
-		Crash reports:
+	     mouse_opaque="true" name="time_textbox" v_pad="0" width="394">
+		Clock:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-384" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -175,19 +182,19 @@
 	</string>
 	<combo_box allow_text_entry="false" bottom="-352" enabled="true" follows="left|top"
 	     height="18" left="153" max_chars="20" mouse_opaque="true"
-	     name="crash_behavior_combobox" width="146">
-		<combo_item type="string" length="1" enabled="true" name="Askbeforesending" value="Ask before sending">
-			Ask before sending
+	     name="time_combobox" width="146">
+		<combo_item type="string" name="12HourTime" value="PST 12">
+			12-hour PST/PDT
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Alwayssend" value="Always send">
-			Always send
+		<combo_item type="string" name="24HourTime" value="PST 24">
+			24-hour PST/PDT
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Neversend" value="Never send">
-			Never send
+		<combo_item type="string" name="UTCTime" value="UTC">
+			UTC
 		</combo_item>
 	</combo_box>
 	<combo_box allow_text_entry="true" bottom="-382" enabled="true"
-	     follows="left|bottom" height="16" left="153" max_chars="135"
+	     follows="left|top" height="16" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
 			System Default

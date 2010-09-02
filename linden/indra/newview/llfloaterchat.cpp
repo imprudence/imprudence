@@ -210,10 +210,11 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// extract out the sender name and replace it with the hotlinked name.
 	if (chat.mSourceType == CHAT_SOURCE_AGENT &&
 		chat.mFromID != LLUUID::null &&
+//		chat.mFromID != gAgent.getID())
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
 		chat.mFromID != gAgent.getID() &&
-// [RLVa] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
 		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
-// [/RLVa]
+// [/RLVa:KB]
 	{
 		chat.mURL = llformat("secondlife:///app/agent/%s/about",chat.mFromID.asString().c_str());
 	}
@@ -257,7 +258,7 @@ void log_chat_text(const LLChat& chat)
 // static
 void LLFloaterChat::toggleHistoryChannelControl()
 {
-	LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
+	/*LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
 	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
 	BOOL control = chat_floater->getChild<LLSpinCtrl>("channel_control")->getVisible();
 
@@ -278,7 +279,7 @@ void LLFloaterChat::toggleHistoryChannelControl()
 	input->setRect(input_rect);
 
 	chat_floater->childSetVisible("channel_control", visible);
-	chat_floater->childSetEnabled("channel_control", visible);
+	chat_floater->childSetEnabled("channel_control", visible);*/
 }
 
 // static

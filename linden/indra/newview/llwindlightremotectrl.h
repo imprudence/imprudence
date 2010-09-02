@@ -33,7 +33,6 @@
 
 #include "llpanel.h"
 
-class LLComboBox;
 class LLWLPresetsObserver;
 
 class LLWindlightRemoteCtrl : public LLPanel
@@ -47,7 +46,6 @@ public:
 	void refreshPresets();
 
 private:
-	LLComboBox*						mPresetsCombo;
 	LLWLPresetsObserver*		mObserver;
 
 	void build();

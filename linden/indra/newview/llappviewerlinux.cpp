@@ -65,6 +65,7 @@
 
 #if LL_DBUS_ENABLED
 #include "llappviewerlinux_api.h"
+#include "llviewerjoystick.h"
 #endif
 
 namespace
@@ -450,6 +451,28 @@ gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **succ
 	(*success_rtn)[0] = (gboolean)success;
 
 	return TRUE; // the invokation succeeded, even if the actual dispatch didn't.
+}
+
+gboolean viewer_app_api_HotplugJoystick(ViewerAppAPI *obj, gchar *dummy, gboolean **success_rtn, GError **error)
+{
+
+	llinfos << "Joystick plugged in: " << dummy << llendl;
+	bool success = false;
+	bool joystick_inited = LLViewerJoystick::getInstance()->isJoystickInitialized();
+
+	if (!joystick_inited)
+	{
+		 success = LLViewerJoystick::getInstance()->init();
+	}
+
+	*success_rtn = g_new (gboolean, 1);
+	(*success_rtn)[0] = (gboolean)success;
+
+	return TRUE; // the invokation succeeded, even if the actual dispatch didn't.
+
+        // TODO: fire this by the spacenavi udev rule.
+	// for testing plug in joystick while Imprudence is running and type in a 
+	// console: dbus-send --type=method_call --dest=com.secondlife.ViewerAppAPIService /com/secondlife/ViewerAppAPI com.secondlife.ViewerAppAPI.HotplugJoystick string:'dummy'
 }
 
 ///

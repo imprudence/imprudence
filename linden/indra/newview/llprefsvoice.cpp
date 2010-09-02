@@ -35,6 +35,7 @@
 
 #include "llprefsvoice.h"
 
+#include "floatervoicelicense.h"
 #include "llcheckboxctrl.h"
 #include "llfloatervoicedevicesettings.h"
 #include "llfocusmgr.h"
@@ -111,6 +112,7 @@ LLPrefsVoice::~LLPrefsVoice()
 BOOL LLPrefsVoice::postBuild()
 {
 	childSetCommitCallback("enable_voice_check", onCommitEnableVoiceChat, this);
+	childSetAction("reset_voice", onClickResetVoice, this);
 	childSetAction("set_voice_hotkey_button", onClickSetKey, this);
 	childSetAction("set_voice_middlemouse_button", onClickSetMiddleMouse, this);
 	childSetAction("device_settings_btn", onClickVoiceDeviceSettings, NULL);
@@ -135,8 +137,6 @@ BOOL LLPrefsVoice::postBuild()
 
 void LLPrefsVoice::apply()
 {
-	gSavedSettings.setBOOL("EnableVoiceChat", childGetValue("enable_voice_check"));
-
 	gSavedSettings.setString("PushToTalkButton", childGetValue("modifier_combo"));
 	gSavedSettings.setBOOL("VoiceCallsFriendsOnly", childGetValue("voice_call_friends_only_check"));
 	gSavedSettings.setBOOL("AutoDisengageMic", childGetValue("auto_disengage_mic_check"));
@@ -147,6 +147,18 @@ void LLPrefsVoice::apply()
 	if(voice_device_settings)
 	{
 		voice_device_settings->apply();
+	}
+
+	bool enable_voice = childGetValue("enable_voice_check");
+	if (enable_voice && !gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+	{
+		// This window enables voice chat if license is accepted
+		FloaterVoiceLicense::getInstance()->open();
+		FloaterVoiceLicense::getInstance()->center();
+	}
+	else
+	{
+		gSavedSettings.setBOOL("EnableVoiceChat", enable_voice);
 	}
 }
 
@@ -182,6 +194,7 @@ void LLPrefsVoice::onCommitEnableVoiceChat(LLUICtrl* ctrl, void* user_data)
 	self->childSetEnabled("set_voice_hotkey_button", enable);
 	self->childSetEnabled("set_voice_middlemouse_button", enable);
 	self->childSetEnabled("device_settings_btn", enable);
+	self->childSetEnabled("reset_voice", enable);
 }
 
 //static
@@ -190,6 +203,31 @@ void LLPrefsVoice::onClickSetKey(void* user_data)
 	LLPrefsVoice* self = (LLPrefsVoice*)user_data;
 	LLVoiceSetKeyDialog* dialog = new LLVoiceSetKeyDialog(self);
 	dialog->startModal();
+}
+
+
+void LLPrefsVoice::onClickResetVoice(void* user_data)
+{
+	// *TODO: Change this to make voice really reset
+	BOOL voice_disabled = gSavedSettings.getBOOL("CmdLineDisableVoice");
+	bool enable = !voice_disabled && gSavedSettings.getBOOL("EnableVoiceChat");
+	if(enable)
+	{
+		//Seems to make voice at least reconnect to the current channel.
+		//Was hopeing it would have actualy restarted voice. --Liny
+		gSavedSettings.setBOOL("EnableVoiceChat", FALSE);
+		LLFloaterVoiceDeviceSettings* voice_device_settings = LLFloaterVoiceDeviceSettings::getInstance();
+		if(voice_device_settings)
+		{
+			voice_device_settings->apply();
+		}
+		gSavedSettings.setBOOL("EnableVoiceChat", TRUE);
+		voice_device_settings = LLFloaterVoiceDeviceSettings::getInstance();
+		if(voice_device_settings)
+		{
+			voice_device_settings->apply();
+		}
+	}
 }
 
 //static

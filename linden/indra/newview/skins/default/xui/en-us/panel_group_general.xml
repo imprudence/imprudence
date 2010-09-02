@@ -129,6 +129,11 @@ Hover your mouse over the options for more help.
 		     mouse_opaque="true" name="receive_notices" radio_style="false"
 		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you."
 		     width="95" />
+    <check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+         initial_value="false" label="Join group chat" left_delta="0"
+         mouse_opaque="true" name="receive_chat" radio_style="false"
+         tool_tip="Sets whether you want to participate in group chat.   Uncheck this box if this group is spamming you."
+         width="95" />
 		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
 		     initial_value="false" label="List group in my profile" left_delta="0"
 		     mouse_opaque="true" name="list_groups_in_profile" radio_style="false"

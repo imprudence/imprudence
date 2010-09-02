@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="false" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" can_tear_off="true" height="390" min_height="240"
+     can_resize="true" can_tear_off="true" height="390" min_height="265"
      min_width="365" name="floater_my_friends"
      rect_control="FloaterContactsRect" title="Contacts" width="395">
 	<tab_container bottom="6" follows="left|right|top|bottom" height="364" left="4"

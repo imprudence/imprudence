@@ -154,18 +154,6 @@ void LLFloaterMap::draw()
 	}
 }
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-05 (RLVa-1.0.0c)
-void LLFloaterMap::open()
-{
-	if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWMINIMAP))
-	{
-		LLFloater::open();
-		LLFirstUse::useMiniMap();
-	}
-}
-// [/RLVa:KB]
-
-
 PanelRadar* LLFloaterMap::getRadar()
 {
 	return mPanelRadar;
@@ -263,3 +251,13 @@ void LLFloaterMap::adjustLayout( bool expand )
 		toggle->setRect( temp_rect );
 	}
 }
+
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-05 (RLVa-1.0.0c)
+void LLFloaterMap::open()
+{
+	if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWMINIMAP))
+	{
+		LLFloater::open();
+	}
+}
+// [/RLVa:KB]

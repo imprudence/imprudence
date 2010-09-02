@@ -304,7 +304,7 @@ public:
 	LLVOAvatarDefines::ETextureIndex	getBakedTE( LLTexLayerSet* layerset );
 	void			updateComposites();
 	void			onGlobalColorChanged( LLTexGlobalColor* global_color, BOOL set_by_user );
-	BOOL			getLocalTextureRaw( LLVOAvatarDefines::ETextureIndex index, LLImageRaw* image_raw_pp );
+// Removed:	BOOL		getLocalTextureRaw( LLVOAvatarDefines::ETextureIndex index, LLImageRaw* image_raw_pp );
 	BOOL			getLocalTextureGL( LLVOAvatarDefines::ETextureIndex index, LLImageGL** image_gl_pp );
 	const LLUUID&	getLocalTextureID( LLVOAvatarDefines::ETextureIndex index );
 	LLGLuint		getScratchTexName( LLGLenum format, U32* texture_bytes );
@@ -658,10 +658,11 @@ private:
 	static LLVector3d sBeamLastAt;
 	static LLSD sClientResolutionList;
 
+public: //anything against having this public?
 	static void resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar);
 //Imprudence FIXME
 //	friend class LLFloaterAvatarList;
-
+//	friend class LLHoverView;
 protected:
 	LLPointer<LLHUDEffectSpiral> mBeam;
 	LLFrameTimer mBeamTimer;
