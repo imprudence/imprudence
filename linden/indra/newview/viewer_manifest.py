@@ -219,6 +219,9 @@ class WindowsManifest(ViewerManifest):
 
         # For using FMOD for sound... DJS
         #self.path("fmod.dll")
+        
+        # For spellchecking
+        self.path("libhunspell.dll")
 
         # For textures
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
