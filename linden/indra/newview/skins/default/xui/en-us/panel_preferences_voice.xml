@@ -55,7 +55,7 @@
 	<button bottom_delta="-25" follows="left|top" font="SansSerif" halign="center"
 	     height="20" label="Set Key" left_delta="0" mouse_opaque="true"
 	     name="set_voice_hotkey_button" width="115" />
-	<button bottom_delta="0" follows="left" font="SansSerif" halign="center" height="20"
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center" height="20"
 	     label="Middle Mouse Button" left_delta="120" mouse_opaque="true"
 	     name="set_voice_middlemouse_button" width="160" />
 	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-25"

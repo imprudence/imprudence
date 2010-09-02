@@ -20,7 +20,7 @@
 	     v_pad="0" width="128">
 		Browser Cache:
 	</text>
-	<button bottom_delta="-10" enabled="true" follows="left|bottom" font="SansSerif"
+	<button bottom_delta="-10" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="22" label="Clear Now" left="140"
 	     mouse_opaque="true" name="clear_cache" scale_image="true" width="100" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -72,11 +72,11 @@
 	     height="18" left="100" name="world_search_editor"
 	     tool_tip="Address of the world search engine you would like to use"
 	     width="355" />
-	<button bottom_delta="-22" enabled="true" follows="left|bottom" font="SansSerif"
+	<button bottom_delta="-22" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="18" label="Reset" left="100" 
 	     tool_tip="Reset to default"
 	     mouse_opaque="true" name="world_search_reset_default" scale_image="true" width="65" />
-	<button  bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerif"
+	<button  bottom_delta="0" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="18" label="Clear" left="170" 
 	     tool_tip="clear field"
 	     mouse_opaque="true" name="world_search_clear" scale_image="true" width="65" />
