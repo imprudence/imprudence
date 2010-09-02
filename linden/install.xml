@@ -1854,6 +1854,11 @@ Cass Everitt - cass@r3.nu
         <key>text</key>
         <string>on file</string>
       </map>
+	  <key>hunspell-dictionaries</key>
+      <map>
+        <key>url</key>
+        <string>http://www.gnu.org/licenses/gpl.html</string>
+      </map>
       <key>intel</key>
       <map>
         <key>text</key>
