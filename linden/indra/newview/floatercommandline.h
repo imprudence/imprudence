@@ -1,6 +1,6 @@
 /**
-* @file llprefsadvanced.h
-* @brief Advanced preferences options for Imprudence
+* @file floatercommandline.h
+* @brief change chatbar as a commandline preferences in Imprudence
 *
 * $LicenseInfo:firstyear=2009&license=viewergpl$
 *
@@ -28,43 +28,28 @@
 * $/LicenseInfo$
 */
 
-#ifndef LLPREFSADVANCED_H
-#define LLPREFSADVANCED_H
+#ifndef FLOATERCOMMANDLINE_H
+#define FLOATERCOMMANDLINE_H
 
-#include "llpanel.h"
-#include "llviewerinventory.h"
+#include "llfloater.h"
 
-class LLPrefsAdvanced : public LLPanel
+class FloaterCommandLine : public LLFloater, public LLFloaterSingleton<FloaterCommandLine>
 {
 public:
-	LLPrefsAdvanced();
-	~LLPrefsAdvanced();
+	FloaterCommandLine(const LLSD& seed);
+	virtual ~FloaterCommandLine();
 
 	BOOL postBuild();
 
-	void apply();
-	void cancel();
-	void refresh();
+	//void apply();
+	//void cancel();
 
 private:
-	static LLPrefsAdvanced* sInstance;
+	//static void onClickOK(void* userdata);
+	//static void onClickCancel(void* userdata);
+	static void onCommitApplyControl(LLUICtrl* caller, void* user_data);
 
-	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
-	static void onClickResetPrefs(void* user_data);
-	static void onClickCommandLine(void* data);
-
-	static bool	callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self);
-
-	static void onSpellAdd(void* data);
-	static void onSpellRemove(void* data);
-	static void onSpellGetMore(void* data);
-	static void onSpellEditCustom(void* data);
-	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
-	static void onAutoCorrectButton(void * data);
-
-protected:
-	void initHelpBtn(const std::string& name, const std::string& xml_alert);
 	static void onClickHelp(void* data);
 };
 
-#endif // LLPREFSADVANCED_H
+#endif // FLOATERCOMMANDLINE_H

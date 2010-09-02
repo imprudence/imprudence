@@ -78,6 +78,7 @@ set(viewer_SOURCE_FILES
     emeraldboobutils.cpp
     floaterao.cpp
     floaterbusy.cpp
+    floatercommandline.cpp
     floatergriddefault.cpp
     floatergridmanager.cpp
     floaterlocalassetbrowse.cpp
@@ -514,6 +515,7 @@ set(viewer_HEADER_FILES
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
+    floatercommandline.h
     floatergriddefault.h
     floatergridmanager.h
     floaterlocalassetbrowse.h

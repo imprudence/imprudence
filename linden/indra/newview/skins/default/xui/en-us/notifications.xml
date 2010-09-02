@@ -7053,12 +7053,12 @@ Note: To comply with the Second Life Terms of Service, Imprudence did not downlo
 </notification>
 
 <notification
- icon="alertmodal.tga"
- label="Emerald Help"
- name="EmeraldHelp_CmdLine"
- type="alertmodal">
-Various Options For Command Line features.
-To use a command, type it in your chat bar (Local chat) and press enter.
+ icon="alert.tga"
+ name="Help_CmdLine"
+ type="alert">
+Various options for command line features.
+
+To use a command, type it in your chat bar (Local Chat) and press enter.
 </notification>
   
 <notification

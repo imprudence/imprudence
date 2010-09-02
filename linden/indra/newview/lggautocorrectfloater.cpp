@@ -49,6 +49,7 @@
 #include "llcheckboxctrl.h"
 #include "llviewercontrol.h"
 
+#include "floaterbusy.h" // InvDropTarget
 #include "llui.h"
 #include "llcontrol.h"
 #include "llscrolllistctrl.h"
@@ -89,7 +90,7 @@ public:
 	LLPrefsAdvanced * empanel;
 private:
 	static lggAutoCorrectFloater* sInstance;
-	static JCInvDropTarget* mNotecardDropTarget;
+	static InvDropTarget* mNotecardDropTarget;
 	static void onBoxCommitEnabled(LLUICtrl* caller, void* user_data);
 	static void onEntrySettingChange(LLUICtrl* caller, void* user_data);
 	static void onSelectName(LLUICtrl* caller, void* user_data);
@@ -107,7 +108,7 @@ private:
 
 
 
-JCInvDropTarget * lggAutoCorrectFloater::mNotecardDropTarget;
+InvDropTarget * lggAutoCorrectFloater::mNotecardDropTarget;
 lggAutoCorrectFloater* lggAutoCorrectFloater::sInstance;
 
 lggAutoCorrectFloater::~lggAutoCorrectFloater()
@@ -165,7 +166,7 @@ BOOL lggAutoCorrectFloater::postBuild(void)
 		{
 			delete mNotecardDropTarget;
 		}
-		mNotecardDropTarget = new JCInvDropTarget("drop target", target_view->getRect(), ResponseItemDrop);//, mAvatarID);
+		mNotecardDropTarget = new InvDropTarget("drop target", target_view->getRect(), ResponseItemDrop);//, mAvatarID);
 		addChild(mNotecardDropTarget);
 	}
 	return true;
@@ -429,7 +430,7 @@ void lggAutoCorrectFloater::addEntry(void* data)
 {
 	std::string listName= sInstance->namesList->getFirstSelected()->getColumn(0)->getValue().asString();
 	LLChat chat;
-	chat.mText = "To add an entry, please type in chat \""+gSavedSettings.getString("EmeraldCmdLineAutocorrect")+" "+listName+"|wrongWord|rightWord\"";
+	chat.mText = "To add an entry, please type in chat \""+gSavedSettings.getString("CmdLineChatbarAutocorrect")+" "+listName+"|wrongWord|rightWord\"";
 	chat.mSourceType = CHAT_SOURCE_SYSTEM;
 	LLFloaterChat::addChat(chat, FALSE, FALSE);
 }

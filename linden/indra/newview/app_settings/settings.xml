@@ -1312,7 +1312,7 @@
 
   <!-- Begin: chatbar_as_cmdline -->
 
-  <key>EmeraldCmdLine</key>
+  <key>CmdLineChatbarEnabled</key>
   <map>
     <key>Comment</key>
     <string>Enable usage of chat bar as a command line</string>
@@ -1323,7 +1323,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  <key>EmeraldCmdLineMapToKeepPos</key>
+  <key>CmdLineChatbarMapToKeepPos</key>
   <map>
     <key>Comment</key>
     <string>Whether to use current local pos on tp to the new sim</string>
@@ -1334,7 +1334,7 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-  <key>EmeraldCmdLineAO</key>
+  <key>CmdLineChatbarAO</key>
   <map>
     <key>Comment</key>
     <string>Turn AO on/off</string>
@@ -1345,7 +1345,7 @@
     <key>Value</key>
     <string>cao</string>
   </map>
-  <key>EmeraldCmdLineAutocorrect</key>
+  <key>CmdLineChatbarAutocorrect</key>
   <map>
     <key>Comment</key>
     <string>Command for adding new entries to autocorrect</string>
@@ -1356,7 +1356,7 @@
     <key>Value</key>
     <string>/addac</string>
   </map>
-  <key>EmeraldCmdLineMedia</key>
+  <key>CmdLineChatbarMedia</key>
   <map>
     <key>Comment</key>
     <string>Chat command for setting a media url</string>
@@ -1367,7 +1367,7 @@
     <key>Value</key>
     <string>/media</string>
   </map>
-  <key>EmeraldCmdLineMusic</key>
+  <key>CmdLineChatbarMusic</key>
   <map>
     <key>Comment</key>
     <string>Chat command for setting a music url</string>
@@ -1378,7 +1378,7 @@
     <key>Value</key>
     <string>/music</string>
   </map>
-  <key>EmeraldCmdLineClearChat</key>
+  <key>CmdLineChatbarClearChat</key>
   <map>
     <key>Comment</key>
     <string>Clear chat hsitory to stop lag from chat spam</string>
@@ -1389,7 +1389,7 @@
     <key>Value</key>
     <string>clrchat</string>
   </map>
-  <key>EmeraldCmdLineHeight</key>
+  <key>CmdLineChatbarHeight</key>
   <map>
     <key>Comment</key>
     <string>Teleport to height function command</string>
@@ -1400,7 +1400,7 @@
     <key>Value</key>
     <string>gth</string>
   </map>
-  <key>EmeraldCmdLinePos</key>
+  <key>CmdLineChatbarPos</key>
   <map>
     <key>Comment</key>
     <string>Teleport to position function command</string>
@@ -1411,7 +1411,7 @@
     <key>Value</key>
     <string>gtp</string>
   </map>
-  <key>EmeraldCmdLineGround</key>
+  <key>CmdLineChatbarGround</key>
   <map>
     <key>Comment</key>
     <string>Teleport to ground function command</string>
@@ -1422,7 +1422,7 @@
     <key>Value</key>
     <string>flr</string>
   </map>
-  <key>EmeraldCmdLineTeleportHome</key>
+  <key>CmdLineChatbarTeleportHome</key>
   <map>
     <key>Comment</key>
     <string>Teleport to home function command</string>
@@ -1433,7 +1433,7 @@
     <key>Value</key>
     <string>tph</string>
   </map>
-  <key>EmeraldCmdLineRezPlatform</key>
+  <key>CmdLineChatbarRezPlatform</key>
   <map>
     <key>Comment</key>
     <string>Rez a platform underneath you</string>
@@ -1444,7 +1444,7 @@
     <key>Value</key>
     <string>rezplat</string>
   </map>
-  <key>EmeraldCmdLinePlatformSize</key>
+  <key>CmdLineChatbarPlatformSize</key>
   <map>
     <key>Comment</key>
     <string>How wide the rezzed platform will appear to be.</string>
@@ -1455,7 +1455,7 @@
     <key>Value</key>
     <real>30</real>
   </map>
-  <key>EmeraldCmdLineMapTo</key>
+  <key>CmdLineChatbarMapTo</key>
   <map>
     <key>Comment</key>
     <string>Teleport to a region by name rapidly</string>
@@ -1466,7 +1466,7 @@
     <key>Value</key>
     <string>mapto</string>
   </map>
-  <key>EmeraldCmdLineDrawDistance</key>
+  <key>CmdLineChatbarDrawDistance</key>
   <map>
     <key>Comment</key>
     <string>Change draw distance quickly</string>
@@ -1477,7 +1477,7 @@
     <key>Value</key>
     <string>dd</string>
   </map>
-  <key>EmeraldCmdTeleportToCam</key>
+  <key>CmdLineChatbarTeleportToCam</key>
   <map>
     <key>Comment</key>
     <string>Teleport to your camera</string>
@@ -1488,7 +1488,7 @@
     <key>Value</key>
     <string>tp2cam</string>
   </map>
-  <key>EmeraldCmdLineKeyToName</key>
+  <key>CmdLineChatbarKeyToName</key>
   <map>
     <key>Comment</key>
     <string>Use a fast key to name querry</string>
@@ -1499,7 +1499,7 @@
     <key>Value</key>
     <string>key2name</string>
   </map>
-  <key>EmeraldCmdLineOfferTp</key>
+  <key>CmdLineChatbarOfferTp</key>
   <map>
     <key>Comment</key>
     <string>Offer a teleport to target avatar</string>
@@ -1510,7 +1510,7 @@
     <key>Value</key>
     <string>offertp</string>
   </map>
-  <key>EmeraldCmdLineCalc</key>
+  <key>CmdLineChatbarCalc</key>
   <map>
     <key>Comment</key>
     <string>Calculates an expression</string>
@@ -1521,7 +1521,7 @@
     <key>Value</key>
     <string>calc</string>
   </map>
-  <key>EmeraldCmdLineTP2</key>
+  <key>CmdLineChatbarTP2</key>
   <map>
     <key>Comment</key>
     <string>Teleport to a person by name, partials work.</string>

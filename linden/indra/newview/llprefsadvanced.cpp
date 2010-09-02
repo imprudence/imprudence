@@ -32,6 +32,7 @@
 
 #include "llcombobox.h"
 
+#include "floatercommandline.h"
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
@@ -42,76 +43,6 @@
 #include "llcombobox.h"
 
 #include "lluictrlfactory.h"
-
-////////begin drop utility/////////////
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Class JCInvDropTarget
-//
-// This handy class is a simple way to drop something on another
-// view. It handles drop events, always setting itself to the size of
-// its parent.
-//
-// altered to support a callback so i can slap it in things and it just return the item to a func of my choice
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-JCInvDropTarget::JCInvDropTarget(const std::string& name, const LLRect& rect,
-								 void (*callback)(LLViewerInventoryItem*)) :
-LLView(name, rect, NOT_MOUSE_OPAQUE, FOLLOWS_ALL),
-mDownCallback(callback)
-{
-}
-
-JCInvDropTarget::~JCInvDropTarget()
-{
-}
-
-void JCInvDropTarget::doDrop(EDragAndDropType cargo_type, void* cargo_data)
-{
-	llinfos << "JCInvDropTarget::doDrop()" << llendl;
-}
-
-BOOL JCInvDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
-										EDragAndDropType cargo_type,
-										void* cargo_data,
-										EAcceptance* accept,
-										std::string& tooltip_msg)
-{
-	BOOL handled = FALSE;
-	if(getParent())
-	{
-		handled = TRUE;
-		// check the type
-		//switch(cargo_type)
-		//{
-		//case DAD_ANIMATION:
-		//{
-		LLViewerInventoryItem* inv_item = (LLViewerInventoryItem*)cargo_data;
-		if(gInventory.getItem(inv_item->getUUID()))
-		{
-			*accept = ACCEPT_YES_COPY_SINGLE;
-			if(drop)
-			{
-				//printchat("accepted");
-				mDownCallback(inv_item);
-			}
-		}
-		else
-		{
-			*accept = ACCEPT_NO;
-		}
-		//	break;
-		//}
-		//default:
-		//	*accept = ACCEPT_NO;
-		//	break;
-		//}
-	}
-	return handled;
-}
-////////end drop utility///////////////
 
 LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
@@ -124,6 +55,7 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
 
 	childSetAction("reset_btn", onClickResetPrefs, this);
+	childSetAction("command_line_btn", onClickCommandLine, this);
 }
 
 LLPrefsAdvanced::~LLPrefsAdvanced()
@@ -160,28 +92,13 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("allow_mupose", gSavedSettings.getBOOL("AllowMUpose"));
 	childSetValue("auto_close_ooc", gSavedSettings.getBOOL("AutoCloseOOC"));
 	childSetValue("shadows_check", gSavedSettings.getBOOL("ShadowsEnabled"));
+	childSetValue("command_line_check", gSavedSettings.getBOOL("CmdLineChatbarEnabled"));
 
 	childSetValue("lightshare_combo",
 	              LLSD((S32)gSavedSettings.getU32("LightShareAllowed")));
 
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
-
-	childSetCommitCallback("EmeraldCmdLinePos", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineGround", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineHeight", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineTeleportHome", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineRezPlatform", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineMapTo", onCommitApplyControl);	
-	childSetCommitCallback("EmeraldCmdLineCalc", onCommitApplyControl);
-
-	childSetCommitCallback("EmeraldCmdLineDrawDistance", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdTeleportToCam", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineKeyToName", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineOfferTp", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineTP2", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineAO", onCommitApplyControl);
-	childSetCommitCallback("EmeraldCmdLineClearChat", onCommitApplyControl);
 
 	getChild<LLComboBox>("EmeraldSpellBase")->setCommitCallback(onSpellBaseComboBoxCommit);
 	getChild<LLButton>("EmSpell_EditCustom")->setClickedCallback(onSpellEditCustom, this);
@@ -191,7 +108,6 @@ BOOL LLPrefsAdvanced::postBuild()
 
 	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
 
-	initHelpBtn("EmeraldHelp_CmdLine",			"EmeraldHelp_CmdLine");
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
 	refresh();
@@ -276,6 +192,8 @@ void LLPrefsAdvanced::apply()
 		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
 		build_pie_menus();
 	}
+
+	gSavedSettings.setBOOL("CmdLineChatbarEnabled", childGetValue("command_line_check").asBoolean());
 
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
@@ -362,17 +280,6 @@ bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& respon
 	return false;
 }
 
-//workaround for lineeditor dumbness in regards to control_name
-void LLPrefsAdvanced::onCommitApplyControl(LLUICtrl* caller, void* user_data)
-{
-	LLLineEditor* line = (LLLineEditor*)caller;
-	if(line)
-	{
-		LLControlVariable *var = line->findControl(line->getControlName());
-		if(var)var->setValue(line->getValue());
-	}
-}
-
 void LLPrefsAdvanced::onSpellAdd(void* data)
 {
 	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
@@ -416,4 +323,10 @@ void LLPrefsAdvanced::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 void LLPrefsAdvanced::onAutoCorrectButton(void * data)
 {
 	lggAutoCorrectFloaterStart::show(TRUE,data);
+}
+
+void LLPrefsAdvanced::onClickCommandLine(void* data)
+{
+	FloaterCommandLine::getInstance()->open();
+	FloaterCommandLine::getInstance()->center();
 }
