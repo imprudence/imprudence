@@ -53,6 +53,7 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 	sInstance = this;
 
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
+	childSetCommitCallback("command_line_check", onCommitCheckBox, this);
 
 	childSetAction("reset_btn", onClickResetPrefs, this);
 	childSetAction("command_line_btn", onClickCommandLine, this);
@@ -214,6 +215,15 @@ void LLPrefsAdvanced::refresh()
 	{
 		childDisable("speed_rez_interval_spinner");
 		childDisable("speed_rez_seconds_text");
+	}
+
+	if (childGetValue("command_line_check").asBoolean())
+	{
+		childEnable("command_line_btn");
+	}
+	else
+	{
+		childDisable("command_line_btn");
 	}
 
 	LLComboBox* comboBox = getChild<LLComboBox>("EmeraldSpellBase");
