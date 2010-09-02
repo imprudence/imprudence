@@ -631,8 +631,11 @@ BOOL LLAudioDecodeMgr::addDecodeRequest(const LLUUID &uuid)
 
 	if (gAssetStorage->hasLocalAsset(uuid, LLAssetType::AT_SOUND))
 	{
-		// Just put it on the decode queue.
-		mImpl->mDecodeQueue.push(uuid);
+		// Just put it on the decode queue if it's not already.
+		if (!mImpl->mDecodeQueue.checkData(uuid))
+		{
+			mImpl->mDecodeQueue.push(uuid);
+		}
 		return TRUE;
 	}
 

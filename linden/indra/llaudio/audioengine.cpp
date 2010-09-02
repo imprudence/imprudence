@@ -1892,6 +1892,9 @@ bool LLAudioData::load()
 		gAudiop->cleanupBuffer(mBufferp);
 		mBufferp = NULL;
 
+		// Maybe it was removed by another instance.  Send it to the preload queue.
+		gAudiop->preloadSound(mID);
+
 		return false;
 	}
 	mBufferp->mAudioDatap = this;

@@ -109,7 +109,7 @@ bool LLAudioEngine_OpenAL::init(const S32 num_channels, void* userdata)
 	ALCdevice *device = alcGetContextsDevice(alcGetCurrentContext());
 
 	alcGetIntegerv(device, ALC_MAJOR_VERSION, 1, &major);
-	alcGetIntegerv(device, ALC_MAJOR_VERSION, 1, &minor);
+	alcGetIntegerv(device, ALC_MINOR_VERSION, 1, &minor);
 	llinfos << "ALC version: " << major << "." << minor << llendl;
 
 	llinfos << "ALC default device: "
