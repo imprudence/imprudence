@@ -65,7 +65,7 @@
       Control your camera
   </string>
 
-  <layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="255" left="2"
+  <layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
 	     orientation="horizontal" width="430" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" height="135" left="0"
 		     min_width="275" name="im_contents_panel" width="305">
@@ -76,10 +76,10 @@
 				</combo_item>
 			</combo_box>
 			<check_box bottom_delta="7" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="20" initial_value="false" label="Show Muted Text" left_delta="125"
+			     height="20" initial_value="false" label="Show muted text" left_delta="125"
 			     name="show mutes" radio_style="false" width="116" />
 			<check_box bottom_delta="-15" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="20" initial_value="false" label="Translate Chat (powered by Google)" left_delta="0"
+			     height="20" initial_value="false" label="Translate chat (powered by Google)" left_delta="0"
 			     name="translate chat" radio_style="false" width="100" />
 			<button bottom_delta="7" follows="right|top" height="20" label="&lt; &lt;"
 			     label_selected="&gt; &gt;" left="272" name="toggle_active_speakers_btn"
@@ -110,7 +110,7 @@
         <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
 				     enabled="true" follows="left|right|bottom" font="SansSerif"
 				     handle_edit_keys_directly="false" height="20" label="Click here to chat."
-				     left="105" max_length="2147483647" mouse_opaque="true" name="Chat Editor"
+				     left="0" max_length="2147483647" mouse_opaque="true" name="Chat Editor"
 				     right="-70" select_all_on_focus_received="false" select_on_focus="false"
 				     tab_group="1" />
 				<flyout_button bottom="0" follows="right|bottom" height="20" label="Say" left="-65"
