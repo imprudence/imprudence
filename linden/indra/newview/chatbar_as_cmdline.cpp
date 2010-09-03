@@ -378,18 +378,18 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
                 {
 					if (status == "on" )
 					{
-						gSavedPerAccountSettings.setBOOL("AOEnabled",TRUE);
+						gSavedSettings.setBOOL("AOEnabled",TRUE);
 //						LLFloaterAO::init();
 						LLFloaterAO::run();
 					}
 					else if (status == "off" )
 					{
-						gSavedPerAccountSettings.setBOOL("AOEnabled",FALSE);
+						gSavedSettings.setBOOL("AOEnabled",FALSE);
 						LLFloaterAO::run();
 					}
 					else if (status == "sit" )
 					{
-						gSavedPerAccountSettings.setBOOL("AOSitsEnabled",!gSavedPerAccountSettings.getBOOL("AOSitsEnabled"));
+						gSavedSettings.setBOOL("AOSitsEnabled",!gSavedPerAccountSettings.getBOOL("AOSitsEnabled"));
 					}
 				}
 				return false;
