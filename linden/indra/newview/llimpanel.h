@@ -232,7 +232,6 @@ public:
 	static void		onCommitCombo(LLUICtrl* caller, void* userdata);
 	static void		onTabClick( void* userdata );
 
-	static void		onClickHistory( void* userdata );
 	static void		onClickGroupInfo( void* userdata );
 	static void		onClickClose( void* userdata );
 	static void		onClickStartCall( void* userdata );
@@ -300,7 +299,6 @@ private:
 private:
 	LLLineEditor* mInputEditor;
 	LLViewerTextEditor* mHistoryEditor;
-	LLComboBox* mComboIM;
 
 	// The value of the mSessionUUID depends on how the IM session was started:
 	//   one-on-one  ==> random id

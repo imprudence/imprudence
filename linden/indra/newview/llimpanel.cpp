@@ -1082,7 +1082,6 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	LLFloater(session_label, LLRect(), session_label),
 	mInputEditor(NULL),
 	mHistoryEditor(NULL),
-	mComboIM(NULL),
 	mSessionUUID(session_id),
 	mVoiceChannel(NULL),
 	mSessionInitialized(FALSE),
@@ -1283,10 +1282,6 @@ BOOL LLFloaterIMPanel::postBuild()
 	requires<LLLineEditor>("chat_editor");
 	requires<LLTextEditor>("im_history");
 
-#if LL_LINUX || LL_DARWIN
-	childSetVisible("history_btn", false);
-#endif
-
 	if (checkRequirements())
 	{
 		mInputEditor = getChild<LLLineEditor>("chat_editor");
@@ -1300,18 +1295,8 @@ BOOL LLFloaterIMPanel::postBuild()
 		mInputEditor->setReplaceNewlinesWithSpaces( FALSE );
 
 		// Profile combobox in floater_instant_message.xml
-		mComboIM = getChild<LLComboBox>("profile_callee_btn");
-		mComboIM->setCommitCallback(onCommitCombo);
-		mComboIM->setCallbackUserData(this);
-
-#ifdef LL_WINDOWS
-		mComboIM->add(getString("history_entry"));
-#endif
-		mComboIM->add(getString("pay_entry"));
-		mComboIM->add(getString("teleport_entry"));
-
-		childSetAction("group_info_btn", onClickGroupInfo, this);
-		childSetAction("history_btn", onClickHistory, this);
+		childSetCommitCallback("profile_callee_btn", onCommitCombo, this);
+		childSetCommitCallback("group_info_btn", onCommitCombo, this);
 
 		childSetAction("start_call_btn", onClickStartCall, this);
 		childSetAction("end_call_btn", onClickEndCall, this);
@@ -1804,41 +1789,6 @@ void LLFloaterIMPanel::onTabClick(void* userdata)
 }
 
 // static
-void LLFloaterIMPanel::onClickHistory( void* userdata )
-{
-	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	
-	if (self->mOtherParticipantUUID.notNull())
-	{
-		struct stat fileInfo;
-		int result;
-		
-		std::string fullname = self->getTitle();;
-		//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
-		//if(fullname == "(Loading...)")
-		std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
-
-		// check if file exists by trying to get its attributes
-		result = stat(file_path.c_str(), &fileInfo);
-		if(result == 0)
-		{
-			char command[256];
-			sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
-			gViewerWindow->getWindow()->ShellEx(command);
-
-			llinfos << command << llendl;
-		}
-		else
-		{
-			LLSD args;
-			args["[NAME]"] = fullname;
-			LLNotifications::instance().add("IMLogNotFound", args);
-			llinfos << file_path << llendl;
-		}
-	}
-}
-
-// static
 void LLFloaterIMPanel::onClickGroupInfo( void* userdata )
 {
 	//  Bring up the Profile window
@@ -1899,59 +1849,52 @@ void LLFloaterIMPanel::onCommitChat(LLUICtrl* caller, void* userdata)
 void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	LLCtrlListInterface* options = self->mComboIM ? self->mComboIM->getListInterface() : NULL;
-	if (options)
+	if (self->getOtherParticipantID().notNull())
 	{
-		S32 index = options->getFirstSelectedIndex();
-		if (index < 0)
+		if (caller->getValue().asString() == "history_entry")
 		{
-			// Open profile or group window
-			if (self->mOtherParticipantUUID.notNull())
+			if (self->getOtherParticipantID().notNull())
 			{
-				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
-			}
-			return;
-		}
-
-		std::string selected = self->mComboIM->getSelectedValue().asString();
-		if (selected == self->getString("history_entry"))
-		{
-			if (self->mOtherParticipantUUID.notNull())
-			{
-				struct stat fileInfo;
-				int result;
-				
-				std::string fullname = self->getTitle();;
+				std::string fullname = self->getTitle();
 				//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
 				//if(fullname == "(Loading...)")
-				std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+				std::string file = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
 
-				// check if file exists by trying to get its attributes
-				result = stat(file_path.c_str(), &fileInfo);
-				if(result == 0)
-				{
-					char command[256];
-					sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
-					gViewerWindow->getWindow()->ShellEx(command);
-
-					llinfos << command << llendl;
-				}
-				else
+				llstat stat_info;
+				if (LLFile::stat(file.c_str(), &stat_info)) 
 				{
 					LLSD args;
 					args["[NAME]"] = fullname;
-					LLNotifications::instance().add("IMLogNotFound", args);
-					llinfos << file_path << llendl;
+					LLNotifications::instance().add("IMLogNotFound", args, LLSD());
+					//llinfos << file << " not found" << llendl;
+				}
+				else
+				{
+					gViewerWindow->getWindow()->ShellEx(file);
+					//llinfos << file << " found" << llendl;
 				}
 			}
 		}
-		else if (selected == self->getString("pay_entry"))
+		else if (caller->getValue().asString() == "pay_entry")
 		{
-			handle_pay_by_id(self->mOtherParticipantUUID);
+			handle_pay_by_id(self->getOtherParticipantID());
 		}
-		else if (selected == self->getString("teleport_entry"))
+		else if (caller->getValue().asString() == "teleport_entry")
 		{
-			handle_lure(self->mOtherParticipantUUID);
+			handle_lure(self->getOtherParticipantID());
+		}
+		else
+		{
+			// group
+			if (self->getOtherParticipantID() == self->getSessionID())
+			{
+				LLFloaterGroupInfo::showFromUUID(self->getSessionID());
+			}
+			// profile
+			else 
+			{
+				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
+			}
 		}
 	}
 }

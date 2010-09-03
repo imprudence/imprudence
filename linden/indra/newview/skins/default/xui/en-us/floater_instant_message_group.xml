@@ -44,18 +44,20 @@
 	     orientation="horizontal" tab_group="1" width="495" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" follows="left|top|bottom|right"
 		     height="130" left="0" min_width="210" name="im_contents_panel" width="175">
-			<button bottom="-20" follows="left|top" height="20" label="Group Info" left="5"
-			     name="group_info_btn" tab_group="0" width="90" />
+			<flyout_button bottom="-20" follows="left|top" height="20" label="Group Info" left="5"
+			     list_position="below" name="group_info_btn" tab_group="0" width="110">
+        <flyout_button_item value="history_entry" name="history_entry">
+          View History
+        </flyout_button_item>
+      </flyout_button>
 			<button bottom_delta="0" enabled="false" follows="left|top" halign="right" height="20"
 			     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
-			     label="Join Call" left_delta="95" name="start_call_btn" pad_right="12"
+			     label="Join Call" left_delta="115" name="start_call_btn" pad_right="12"
 			     width="92" />
 			<button bottom_delta="0" follows="left|top" halign="right" height="20"
 			     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 			     label="End Call" left_delta="0" name="end_call_btn" pad_right="12"
 			     visible="false" width="92" />
-      <button bottom="-20" follows="left|top" halign="center" height="20" label="History" left_delta="97"
-              name="history_btn" visible="true" width="85" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
 			     label_selected="&gt; &gt;" left="143" name="toggle_active_speakers_btn"
 			     right="176"

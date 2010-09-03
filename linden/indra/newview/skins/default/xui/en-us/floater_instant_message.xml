@@ -37,17 +37,17 @@
 	<string name="unavailable_text_label">
 		Text chat is not available for this call.
 	</string>
-  <string name="history_entry">
-    History
-  </string>
-  <string name="pay_entry">
-    Pay
-  </string>
-  <string name="teleport_entry">
-    Offer Teleport
-  </string>
   <flyout_button bottom="-40" follows="left|top" height="20" label="Profile" left="5" width="90"
        list_position="below" mouse_opaque="true" name="profile_callee_btn">
+    <flyout_button_item value="history_entry" name="history_entry">
+      View History
+    </flyout_button_item>
+    <flyout_button_item value="pay_entry" name="pay_entry">
+      Pay
+    </flyout_button_item>
+    <flyout_button_item value="teleport_entry" name="teleport_entry">
+     Offer Teleport
+    </flyout_button_item>
   </flyout_button>
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
