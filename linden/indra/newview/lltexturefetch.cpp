@@ -1500,8 +1500,6 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 
 LLTextureFetch::~LLTextureFetch()
 {
-	clearDeleteList() ;
-
 	// ~LLQueuedThread() called here
 }
 
