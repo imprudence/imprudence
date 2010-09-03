@@ -43,6 +43,7 @@
 #include "lluuid.h"
 #include "llviewercontrol.h"
 
+#include "hippoGridManager.h"
 #include "material_codes.h"
 #include "llvolume.h"
 #include "object_flags.h"
@@ -557,7 +558,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
 			{
 				gAgent.teleportHome();
 				return false;
-            }else if(command == *sCmdLineChatbarRezPlatform)
+			}else if(command == *sCmdLineChatbarRezPlatform && gHippoGridManager->getConnectedGrid()->isSecondLife())
             {
 				F32 width;
 				if (i >> width) cmdline_rezplat(false, width);

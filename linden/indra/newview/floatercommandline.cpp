@@ -32,6 +32,7 @@
 
 #include "floatercommandline.h"
 
+#include "hippoGridManager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 
@@ -63,6 +64,14 @@ BOOL FloaterCommandLine::postBuild()
 	childSetCommitCallback("CmdLineChatbarTP2", onCommitApplyControl);
 	childSetCommitCallback("CmdLineChatbarAO", onCommitApplyControl);
 	childSetCommitCallback("CmdLineChatbarClearChat", onCommitApplyControl);
+
+	// hide options that don't work on non-SL-based grids
+	if (!gHippoGridManager->getConnectedGrid()->isSecondLife())
+	{
+		childSetEnabled("CmdLineChatbarRezPlatform", FALSE);
+		childSetEnabled("loltxt6", FALSE);
+		childSetEnabled("CmdLineChatbarPlatformSize", FALSE);
+	}
 
 	return TRUE;
 }
