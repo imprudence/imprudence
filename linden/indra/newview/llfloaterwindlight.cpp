@@ -843,23 +843,7 @@ void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 		return;
 	}
 
-	if (ctrl->getValue().asString() == "save_disk_item")
-	{
-		// check to see if it's a default and shouldn't be overwritten
-		std::set<std::string>::iterator sIt = sDefaultPresets.find(
-			comboBox->getSelectedItemLabel());
-		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
-		{
-			LLNotifications::instance().add("WLNoEditDefault");
-			return;
-		}
-
-		LLWLParamManager::instance()->mCurParams.mName = 
-			comboBox->getSelectedItemLabel();
-
-		LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
-	}
-	else if (ctrl->getValue().asString() == "save_inventory_item")
+	if (ctrl->getValue().asString() == "save_inventory_item")
 	{
 		// Check if this is already a notecard.
 		if(LLWLParamManager::instance()->mCurParams.mInventoryID.notNull())
@@ -889,6 +873,22 @@ void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 								  cb);
 			
 		}
+	}
+	else
+	{
+		// check to see if it's a default and shouldn't be overwritten
+		std::set<std::string>::iterator sIt = sDefaultPresets.find(
+			comboBox->getSelectedItemLabel());
+		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
+		{
+			LLNotifications::instance().add("WLNoEditDefault");
+			return;
+		}
+
+		LLWLParamManager::instance()->mCurParams.mName = 
+			comboBox->getSelectedItemLabel();
+
+		LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
 	}
 }
 
