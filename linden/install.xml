@@ -1514,6 +1514,29 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           </map>
         </map>
       </map>
+      <key>32bitcompatibilitylibs</key>
+      <map>
+        <key>copyright</key>
+        <string>Copyrights: 	Libidn: Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 
+				Simon Josefsson. License GPL v3.0.
+				Freealut, libuuid, openal-soft: see copyright and license of the 
+				according main packages.
+	</string>
+        <key>description</key>
+        <string>32bit libraries needed for using voice</string>
+        <key>license</key>
+        <string>gpl</string>
+        <key>packages</key>
+        <map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>cbaafc55fb8b14283541791e82f13462</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/linux64-32bitcompatibilitylibs-20100903.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
       <key>xmlrpc-epi</key>
       <map>
         <key>copyright</key>

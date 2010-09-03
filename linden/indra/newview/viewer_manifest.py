@@ -1020,7 +1020,6 @@ class Linux_i686Manifest(LinuxManifest):
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib")
 
-
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
         super(Linux_x86_64Manifest, self).construct()
@@ -1137,14 +1136,6 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.end_prefix("gstreamer-plugins")
             self.end_prefix("lib64")
         
-#	if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
-#            self.path("libalut.so")
-#	    self.path("libidn.so.11")
-#	    self.path("libopenal.so.1")
-#	    self.path("libortp.so")
-#	    self.path("libuuid.so.1")
-#        self.end_prefix("lib32")
-
 
             # Vivox runtimes and libs
             if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
@@ -1152,10 +1143,19 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.end_prefix("bin")
 
             if self.prefix(src="vivox-runtime/i686-linux", dst="lib32"):
-                self.path("libalut.so")
+                #self.path("libalut.so")
                 self.path("libortp.so")
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib32")
+		
+	    # 32bit libs needed for voice
+	    if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
+                self.path("libalut.so")
+	        self.path("libidn.so.11")
+	        self.path("libopenal.so.1")
+	        # self.path("libortp.so")
+	        self.path("libuuid.so.1")
+            self.end_prefix("lib32")
 
 if __name__ == "__main__":
     main()
