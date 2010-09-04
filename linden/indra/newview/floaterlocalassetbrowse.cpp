@@ -106,8 +106,8 @@ LocalBitmap::LocalBitmap(std::string fullpath)
 		/* taking care of basic properties */
 		this->id.generate();
 		this->filename	    = fullpath;
-		this->linkstatus    = LINK_OFF;
-		this->keep_updating = false;
+		this->linkstatus    = LINK_ON;
+		this->keep_updating = true;
 		this->shortname     = gDirUtilp->getBaseFileName(this->filename, true);
 		this->bitmap_type   = TYPE_TEXTURE;
 		this->sculpt_dirty  = false;
@@ -791,8 +791,8 @@ FloaterLocalAssetBrowser::FloaterLocalAssetBrowser()
 	// checkbox callbacks
 	mUpdateChkBox->setCommitCallback(onClickUpdateChkbox);
 
-	mUpdateChkBox->set(true);
-	mUploadBtn->setLabelArg("[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	mUpdateChkBox->set(false);
+	mUploadBtn->setLabelArg("[UPLOADFEE]", gHippoGridManager->getConnectedGrid()->getUploadFee());
 }
 
 void FloaterLocalAssetBrowser::show(void*)
@@ -915,7 +915,6 @@ void FloaterLocalAssetBrowser::UpdateRightSide()
 			sLFInstance->mTypeComboBox->selectNthItem( unit->getType() );
 
 			sLFInstance->mTextureView->setEnabled(true);
-			sLFInstance->mUpdateChkBox->set(true);
 			sLFInstance->mUpdateChkBox->setEnabled(true);
 			sLFInstance->mTypeComboBox->setEnabled(true);
 		}
@@ -924,7 +923,6 @@ void FloaterLocalAssetBrowser::UpdateRightSide()
 	{
 		sLFInstance->mTextureView->setImageAssetID( NO_IMAGE );
 		sLFInstance->mTextureView->setEnabled( false );
-		sLFInstance->mUpdateChkBox->set( false );
 		sLFInstance->mUpdateChkBox->setEnabled( false );
 
 		sLFInstance->mTypeComboBox->selectFirstItem();
