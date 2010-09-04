@@ -1535,7 +1535,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://www.imprudenceviewer.org/app/dics/</string>
+    <string>http://imprudenceviewer.org/app/dics/</string>
   </map>
   <key>EmeraldEnableAutoCorrect</key>
   <map>
