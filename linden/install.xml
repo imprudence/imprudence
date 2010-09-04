@@ -476,6 +476,46 @@
            </map>
         </map>
       </map>
+      <key>fonts</key>
+      <map>
+        <key>description</key>
+        <string>Fonts used by the viewer.</string>
+        <key>copyright</key>
+        <string>Various (see contents)</string>
+        <key>license</key>
+        <string>multiple</string>
+        <key>packages</key>
+        <map>
+          <key>darwin</key>
+          <map>
+            <key>md5sum</key>
+            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+          </map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+          </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
       <key>freetype</key>
       <map>
         <key>copyright</key>
@@ -1554,6 +1594,29 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           </map>
         </map>
       </map>
+      <key>32bitcompatibilitylibs</key>
+      <map>
+        <key>copyright</key>
+        <string>Copyrights: 	Libidn: Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 
+				Simon Josefsson. License GPL v3.0.
+				Freealut, libuuid, openal-soft: see copyright and license of the 
+				according main packages.
+	</string>
+        <key>description</key>
+        <string>32bit libraries needed for using voice</string>
+        <key>license</key>
+        <string>gpl</string>
+        <key>packages</key>
+        <map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>cbaafc55fb8b14283541791e82f13462</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/linux64-32bitcompatibilitylibs-20100903.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
       <key>xmlrpc-epi</key>
       <map>
         <key>copyright</key>
@@ -1916,6 +1979,11 @@ Cass Everitt - cass@r3.nu
       <map>
         <key>text</key>
         <string>http://www.jclark.com/xml/copying.txt</string>
+      </map>
+      <key>multiple</key>
+      <map>
+        <key>text</key>
+        <string>Multiple licenses. See package contents for details.</string>
       </map>
       <key>mozillaPL</key>
       <map>

@@ -16,7 +16,7 @@
      <flyout_button bottom="0" font="SansSerif" height="24" label="Communicate" left="0"
 	       name="communicate_btn" tool_tip="Communicate with your Friends and Groups."
 	       list_position="above"
-	       width="50" follows="left|right" user_resize="false"/>
+	       width="60" follows="left|right" user_resize="false"/>
     <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0"/>
     <button bottom="0" font="SansSerif" height="24" label="Fly"
         image_overlay="icn_toolbar_fly.tga" image_overlay_alignment="left"
@@ -25,7 +25,7 @@
              image_disabled="toolbar_btn_disabled.tga" scale_image="true"
 	       label_selected="Stop Flying" left="0" name="fly_btn"
 	       tool_tip="Start flying. Use E/C or PgUp/PgDn to fly up and down."
-	       width="50" follows="left|right" user_resize="false"/>
+	       width="40" follows="left|right" user_resize="false"/>
     <button bottom="0" font="SansSerif" height="24" label="Snapshot" left="0"
              image_overlay="icn_toolbar_snapshot.tga" image_overlay_alignment="left"
                         image_selected="toolbar_btn_selected.tga"

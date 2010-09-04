@@ -155,12 +155,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", "Imprudence Viewer Project"
-            VALUE "FileDescription", "Imprudence Weekly"
-            VALUE "FileVersion", "2010-06-26"
-            VALUE "InternalName", "Imprudence Weekly"
+            VALUE "FileDescription", "Imprudence Experimental"
+            VALUE "FileVersion", "2010.09.04"
+            VALUE "InternalName", "Imprudence Experimental"
             VALUE "OriginalFilename", "Imprudence.exe"
             VALUE "ProductName", "Imprudence Weekly"
-            VALUE "ProductVersion", "2010-06-26"
+            VALUE "ProductVersion", "2010.09.04"
         END
     END
     BLOCK "VarFileInfo"
