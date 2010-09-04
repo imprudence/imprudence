@@ -168,7 +168,27 @@ void LLViewerImageList::doPreloadImages()
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
 		mImagePreloads.insert(image);
 	}
-	
+
+	std::string id;
+
+	// Preload default avatar eyes
+	id = gSavedSettings.getString("UIImgDefaultEyesUUID");
+	image = getImageFromFile(id+".j2c",MIPMAP_YES,IMMEDIATE_YES,0,0,LLUUID(id));
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_WRAP);
+		mImagePreloads.insert(image);
+	}
+
+	// Preload default avatar hair
+	id = gSavedSettings.getString("UIImgDefaultHairUUID");
+	image = getImageFromFile(id+".j2c",MIPMAP_YES,IMMEDIATE_YES,0,0,LLUUID(id));
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_WRAP);
+		mImagePreloads.insert(image);
+	}
+
 }
 
 static std::string get_texture_list_name()
