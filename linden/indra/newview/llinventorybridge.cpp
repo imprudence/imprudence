@@ -53,6 +53,7 @@
 #include "llfloaterchat.h"
 #include "llfloatercustomize.h"
 #include "llfloaterproperties.h"
+#include "llfloatertools.h"
 #include "llfloaterworldmap.h"
 #include "llfocusmgr.h"
 #include "llfolderview.h"
@@ -72,10 +73,14 @@
 #include "llresmgr.h"
 #include "llscrollcontainer.h"
 #include "llimview.h"
+#include "lltoolcomp.h"
 #include "lltooldraganddrop.h"
+#include "lltoolmgr.h"
 #include "llviewerimagelist.h"
 #include "llviewerinventory.h"
+#include "llviewerjoystick.h"
 #include "llviewerobjectlist.h"
+#include "llviewerparcelmgr.h"
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
 #include "llwaterparammanager.h"
@@ -3493,6 +3498,55 @@ void LLObjectBridge::performAction(LLFolderView* folder, LLInventoryModel* model
 			llwarns << "object not found - ignoring" << llendl;
 		}
 	}
+	else if ("edit" == action)
+	{
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT))
+			return;
+		LLVOAvatar* avatarp = gAgent.getAvatarObject();
+		if (!avatarp)
+			return;
+		LLViewerObject* objectp = avatarp->getWornAttachment(mUUID);
+		if (!objectp)
+			return;
+
+		// [Selective copy/paste from LLObjectEdit::handleEvent()]
+		LLViewerParcelMgr::getInstance()->deselectLand();
+		LLSelectMgr::getInstance()->deselectAll();
+
+		if (gAgent.getFocusOnAvatar() && !LLToolMgr::getInstance()->inEdit())
+		{
+			if (objectp->isHUDAttachment() || !gSavedSettings.getBOOL("EditCameraMovement"))
+			{
+				// always freeze camera in space, even if camera doesn't move
+				// so, for example, follow cam scripts can't affect you when in build mode
+				gAgent.setFocusGlobal(gAgent.calcFocusPositionTargetGlobal(), LLUUID::null);
+				gAgent.setFocusOnAvatar(FALSE, ANIMATE);
+			}
+			else
+			{
+				gAgent.setFocusOnAvatar(FALSE, ANIMATE);
+
+				// zoom in on object center instead of where we clicked, as we need to see the manipulator handles
+				gAgent.setFocusGlobal(objectp->getPositionGlobal(), objectp->getID());
+				gAgent.cameraZoomIn(0.666f);
+				gAgent.cameraOrbitOver( 30.f * DEG_TO_RAD );
+				gViewerWindow->moveCursorToCenter();
+			}
+		}
+
+		gFloaterTools->open();
+	
+		LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
+		gFloaterTools->setEditTool( LLToolCompTranslate::getInstance() );
+
+		LLViewerJoystick::getInstance()->moveObjects(true);
+		LLViewerJoystick::getInstance()->setNeedsReset(true);
+
+		LLSelectMgr::getInstance()->selectObjectAndFamily(objectp);
+
+		// Could be first use
+		LLFirstUse::useBuild();
+	}
 	else LLItemBridge::performAction(folder, model, action);
 }
 
@@ -3654,9 +3708,15 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				return;
 			}
 			
+			items.push_back(std::string("Attach Separator"));
 			if( avatarp->isWearingAttachment( mUUID ) )
 			{
 				items.push_back(std::string("Detach From Yourself"));
+				items.push_back(std::string("Attachment Edit"));
+				if ( ( (flags & FIRST_SELECTED_ITEM) == 0) || (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) )
+				{
+					disabled_items.push_back(std::string("Attachment Edit"));
+				}
 
 // [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 				if ( (rlv_handler_t::isEnabled()) && 
@@ -3669,7 +3729,6 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			else
 			if( !isInTrash() )
 			{
-				items.push_back(std::string("Attach Separator"));
 				items.push_back(std::string("Object Wear"));
 				items.push_back(std::string("Attach To"));
 				items.push_back(std::string("Attach To HUD"));
