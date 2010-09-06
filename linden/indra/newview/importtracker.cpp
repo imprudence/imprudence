@@ -1044,41 +1044,37 @@ LLSD ImportTracker::parse_hpa_object(LLXmlTreeNode* prim)
 						}
 					}
 
-					LLUUID temp;
 					if (imageuuid.notNull())
 					{
 						//an image UUID was specified, lets use it
-						cmdline_printchat("imageuuid = " + imageuuid.asString());
-						temp = imageuuid;
+						thisface.setID(imageuuid);
+						bool alreadyseen=false;
+						std::list<LLUUID>::iterator iter;
+						for(iter = uploadtextures.begin(); iter != uploadtextures.end() ; iter++) 
+						{
+							if( (*iter)==imageuuid)
+								alreadyseen=true;
+						}
+						if(alreadyseen==false)
+						{
+							//llinfos << "Found a surface texture, adding to list "<<temp<<llendl;
+							uploadtextures.push_back(imageuuid);
+						}
 					}
 					else if (imagefile != "")
 					{
 						//an image file was specified
 						cmdline_printchat("imagefile = " + imagefile);
 						//generate a temporary UUID that will be replaced once this texture is uploaded
+						LLUUID temp;
 						temp.generate();
-
+						thisface.setID(temp);
 					}
 					else
 					{
 						cmdline_printchat("ERROR: no valid texture found for current face");
 						//make this an ERROR texture or something
 						//temp = error!
-					}
-
-
-					thisface.setID(temp);
-					bool alreadyseen=false;
-					std::list<LLUUID>::iterator iter;
-					for(iter = uploadtextures.begin(); iter != uploadtextures.end() ; iter++) 
-					{
-						if( (*iter)==temp)
-							alreadyseen=true;
-					}
-					if(alreadyseen==false)
-					{
-						//llinfos << "Found a surface texture, adding to list "<<temp<<llendl;
-						uploadtextures.push_back(temp);
 					}
 
 					textures[texture_count] = thisface.asLLSD();
