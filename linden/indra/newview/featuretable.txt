@@ -217,7 +217,7 @@ RenderLightingDetail		1	0
 RenderObjectBump			0	0
 RenderMaxPartCount			1	1024
 RenderTerrainDetail 		1	0
-RenderUseImpostors			0	0
+RenderUseImpostors			1	0
 RenderVBOEnable				1	0
 RenderWaterReflections		0	0
 WindLightUseAtmosShaders	0	0
@@ -245,7 +245,7 @@ RenderVBOEnable				1	0
 list Intel
 RenderAnisotropic			1	0
 RenderLightingDetail		1	0
-RenderUseImpostors			0	0
+RenderUseImpostors			1	0
 
 list GeForce2
 RenderAnisotropic			1	0
