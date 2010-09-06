@@ -725,7 +725,8 @@ void LLWorldMapView::draw()
 				switch(access)
 				{
 				case SIM_ACCESS_MIN:
-					mesg += " (" + LLTrans::getString("SIM_ACCESS_MIN") +")";
+					// Don't show this due to different use based on different grids -- MC
+					//mesg += " (" + LLTrans::getString("SIM_ACCESS_MIN") +")";
 					break;
 				case SIM_ACCESS_PG:
 					mesg += " (" + LLTrans::getString("SIM_ACCESS_PG") +")";
