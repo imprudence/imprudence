@@ -83,4 +83,3 @@ set_source_files_properties(${llmath_HEADER_FILES}
 list(APPEND llmath_SOURCE_FILES ${llmath_HEADER_FILES})
 
 add_library (llmath ${llmath_SOURCE_FILES})
-add_dependencies(llmath prepare)
