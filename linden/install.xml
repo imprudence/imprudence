@@ -516,6 +516,21 @@
           </map>
         </map>
       </map>
+	  <key>freeglut</key>
+			<map>
+				<key>license</key>
+				<string>mit</string>
+				<key>packages</key>
+				<map>
+					<key>windows</key>
+					<map>
+						<key>md5sum</key>
+						<string>fcbb695ff203775fad96d184bf5f34fc</string>
+						<key>url</key>
+						<uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freeglut-2.4.0-windows-20090608.tar.bz2</uri>
+					</map>
+				</map>
+			</map>
       <key>freetype</key>
       <map>
         <key>copyright</key>
@@ -634,6 +649,28 @@
           </map>
         </map>
       </map>
+	  <key>glui</key>
+		<map>
+			<key>license</key>
+			<string>lgpl</string>
+			<key>packages</key>
+			<map>
+				<key>darwin</key>
+				<map>
+					<key>md5sum</key>
+					<string>84f792a860691d0fad6d1de6eeb31baa</string>
+					<key>url</key>
+					<uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/glui-2.36-darwin-20090623a.tar.bz2</uri>
+				</map>
+				<key>windows</key>
+				<map>
+					<key>md5sum</key>
+					<string>5b8631fe510d4ebaeb965c673937e1e7</string>
+					<key>url</key>
+					<uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/glui-2.3.6-windows-freeglut-20090608.tar.bz2</uri>
+				</map>
+			</map>
+		</map>
       <key>google</key>
       <map>
         <key>license</key>
