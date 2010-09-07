@@ -38,6 +38,8 @@
 #include "lllistener_openal.h"
 
 
+static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+
 LLAudioEngine_OpenAL::LLAudioEngine_OpenAL()
 	:
 	mWindGen(NULL),
