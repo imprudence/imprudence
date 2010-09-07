@@ -177,6 +177,11 @@ public:
 	void			clearRenderState(U8 clearstate);
 	U8				getRenderState();
 
+	// get/set last region data
+	std::string		getLastRegion();
+	LLVector3		getLastCoords();
+	void			setLastRegionData(std::string regionName,LLVector3 agentCoords);
+
 	// Set the home data
 	void			setRegion(LLViewerRegion *regionp);
 	LLViewerRegion	*getRegion() const;
@@ -915,7 +920,9 @@ private:
 	BOOL			mFirstLogin;
 	BOOL			mGenderChosen;
 
-	
+	std::string		mLastRegion;
+	LLVector3		mLastCoordinates;
+
 	//--------------------------------------------------------------------
 	// Wearables
 	//--------------------------------------------------------------------
