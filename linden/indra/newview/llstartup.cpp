@@ -191,6 +191,8 @@
 #include "jcfloater_animation_list.h"
 #include "jcfloaterareasearch.h"
 
+#include "llfloaterteleporthistory.h"
+
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
 #endif // LL_LIBXUL_ENABLED
@@ -2729,6 +2731,14 @@ bool idle_startup()
 		}
 
 		LLFirstUse::ClientTags();
+
+		// Add login location to teleport history 'teleported-into'
+		LLVector3 agent_pos=gAgent.getPositionAgent();
+		LLViewerRegion* regionp = gAgent.getRegion();
+		if (gFloaterTeleportHistory)
+		{
+			gFloaterTeleportHistory->addEntry(regionp->getName(),(S16)agent_pos.mV[0],(S16)agent_pos.mV[1],(S16)agent_pos.mV[2],false);
+		}
 
 		// Let the map know about the inventory.
 		if(gFloaterWorldMap)

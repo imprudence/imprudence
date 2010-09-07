@@ -229,6 +229,8 @@
 #include "hippoGridManager.h"
 #include "hippoLimits.h"
 
+#include "llfloaterteleporthistory.h"
+
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
@@ -5911,6 +5913,11 @@ class LLShowFloater : public view_listener_t
 		else if (floater_name == "chat history")
 		{
 			LLFloaterChat::toggleInstance(LLSD());
+		}
+		else if (floater_name == "teleport history")
+		{
+			gFloaterTeleportHistory->setVisible(!gFloaterTeleportHistory->getVisible());
+			gFloaterTeleportHistory->setFocus(TRUE);
 		}
 		else if (floater_name == "im")
 		{

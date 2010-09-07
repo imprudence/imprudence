@@ -5823,7 +5823,23 @@
       <integer>0</integer>
     </array>
   </map>
-  <key>FloaterViewBottom</key>
+    <key>FloaterTeleportHistoryRect</key>
+    <map>
+        <key>Comment</key>
+        <string>Rectangle for teleport history window</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Rect</string>
+        <key>Value</key>
+        <array>
+            <integer>20</integer>
+            <integer>20</integer>
+            <integer>470</integer>
+            <integer>200</integer>
+        </array>
+    </map>
+    <key>FloaterViewBottom</key>
   <map>
     <key>Comment</key>
     <string>[DO NOT MODIFY] Controls layout of floating windows within SL window</string>
