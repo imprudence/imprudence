@@ -720,13 +720,6 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux64-20091230.tar.bz2</uri>
           </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>da6c3fd73a7e5c9bef768edab8a38c2f</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20100825.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>gstreamer-plugins</key>
@@ -755,13 +748,6 @@
             <string>663c29f3885ab8429ad6841d80181c31</string>
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux64-20100827.tar.bz2</uri>
-          </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>a5c7e5f2dbd5ed247f6e9c54f03a8b42</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-20100825.tar.bz2</uri>
           </map>
         </map>
       </map>
