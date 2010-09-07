@@ -75,6 +75,8 @@ public:
 
 private:
 
+	std::string mProfileDir;
+
 	enum
 	{
 		INIT_STATE_UNINITIALIZED,		// Browser instance hasn't been set up yet
@@ -94,6 +96,12 @@ private:
 	int mLastMouseX;
 	int mLastMouseY;
 	bool mFirstFocus;
+	
+	void setInitState(int state)
+	{
+//		std::cerr << "changing init state to " << state << std::endl;
+		mInitState = state;
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -186,7 +194,6 @@ private:
 #else
 		std::string component_dir = application_dir;
 #endif
-		std::string profileDir = application_dir + "/" + "browser_profile";		// cross platform?
 
 		// window handle - needed on Windows and must be app window.
 #if LL_WINDOWS
@@ -198,7 +205,7 @@ private:
 #endif
 
 		// main browser initialization
-		bool result = LLQtWebKit::getInstance()->init( application_dir, component_dir, profileDir, native_window_handle );
+		bool result = LLQtWebKit::getInstance()->init( application_dir, component_dir, mProfileDir, native_window_handle );
 		if ( result )
 		{
 			// create single browser window
@@ -208,13 +215,15 @@ private:
 			// Enable plugins
 			LLQtWebKit::getInstance()->enablePlugins(true);
 #elif LL_DARWIN
-			// Disable plugins
-			LLQtWebKit::getInstance()->enablePlugins(false);
+			// Enable plugins
+			LLQtWebKit::getInstance()->enablePlugins(true);
 #elif LL_LINUX
-			// Disable plugins
-			LLQtWebKit::getInstance()->enablePlugins(false);
+			// Enable plugins
+			LLQtWebKit::getInstance()->enablePlugins(true);
 #endif
-            
+			// Enable cookies
+			LLQtWebKit::getInstance()->enableCookies( true );
+
 			// tell LLQtWebKit about the size of the browser window
 			LLQtWebKit::getInstance()->setSize( mBrowserWindowId, mWidth, mHeight );
 
@@ -227,11 +236,11 @@ private:
 			// don't flip bitmap
 			LLQtWebKit::getInstance()->flipWindow( mBrowserWindowId, true );
 			
-			// Set the background color to black - mostly for initial login page
+			// set background color to be black - mostly for initial login page
 			LLQtWebKit::getInstance()->setBackgroundColor( mBrowserWindowId, 0x00, 0x00, 0x00 );
 
 			// Set state _before_ starting the navigate, since onNavigateBegin might get called before this call returns.
-			mInitState = INIT_STATE_NAVIGATING;
+			setInitState(INIT_STATE_NAVIGATING);
 
 			// Don't do this here -- it causes the dreaded "white flash" when loading a browser instance.
 			// FIXME: Re-added this because navigating to a "page" initializes things correctly - especially
@@ -285,7 +294,7 @@ private:
 	{
 		if(mInitState == INIT_STATE_WAIT_REDRAW)
 		{
-			mInitState = INIT_STATE_RUNNING;
+			setInitState(INIT_STATE_RUNNING);
 		}
 		
 		// flag that an update is required
@@ -307,7 +316,7 @@ private:
 
 		if(mInitState == INIT_STATE_NAVIGATE_COMPLETE)
 		{
-			mInitState = INIT_STATE_WAIT_REDRAW;
+			setInitState(INIT_STATE_WAIT_REDRAW);
 		}
 		
 	}
@@ -330,7 +339,7 @@ private:
 		}
 		else if(mInitState == INIT_STATE_NAVIGATING)
 		{
-			mInitState = INIT_STATE_NAVIGATE_COMPLETE;
+			setInitState(INIT_STATE_NAVIGATE_COMPLETE);
 		}
 
 	}
@@ -495,7 +504,16 @@ private:
 		{
 //			std::cerr << "unicode input, code = 0x" << std::hex << (unsigned long)(wstr[i]) << std::dec << std::endl;
 			
-			LLQtWebKit::getInstance()->unicodeInput(mBrowserWindowId, wstr[i], modifiers);
+			if(wstr[i] == 32)
+			{
+				// For some reason, the webkit plugin really wants the space bar to come in through the key-event path, not the unicode path.
+				LLQtWebKit::getInstance()->keyEvent( mBrowserWindowId, LLQtWebKit::KE_KEY_DOWN, 32, modifiers);
+				LLQtWebKit::getInstance()->keyEvent( mBrowserWindowId, LLQtWebKit::KE_KEY_UP, 32, modifiers);
+			}
+			else
+			{
+				LLQtWebKit::getInstance()->unicodeInput(mBrowserWindowId, wstr[i], modifiers);
+			}
 		}
 
 		checkEditState();
@@ -576,6 +594,9 @@ void MediaPluginWebKit::receiveMessage(const char *message_string)
 		{
 			if(message_name == "init")
 			{
+				std::string user_data_path = message_in.getValue("user_data_path"); // n.b. always has trailing platform-specific dir-delimiter
+				mProfileDir = user_data_path + "browser_profile";
+
 				LLPluginMessage message("base", "init_response");
 				LLSD versions = LLSD::emptyMap();
 				versions[LLPLUGIN_MESSAGE_CLASS_BASE] = LLPLUGIN_MESSAGE_CLASS_BASE_VERSION;
@@ -611,7 +632,11 @@ void MediaPluginWebKit::receiveMessage(const char *message_string)
 			}
 			else if(message_name == "cleanup")
 			{
-				// TODO: clean up here
+				// DTOR most likely won't be called but the recent change to the way this process
+				// is (not) killed means we see this message and can do what we need to here.
+				// Note: this cleanup is ultimately what writes cookies to the disk
+				LLQtWebKit::getInstance()->remObserver( mBrowserWindowId, this );
+				LLQtWebKit::getInstance()->reset();
 			}
 			else if(message_name == "shm_added")
 			{

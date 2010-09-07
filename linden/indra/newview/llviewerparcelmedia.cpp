@@ -193,6 +193,9 @@ void LLViewerParcelMedia::play(LLParcel* parcel)
 	S32 media_width = parcel->getMediaWidth();
 	S32 media_height = parcel->getMediaHeight();
 
+	// Debug print
+	// LL_DEBUGS("Media") << "Play media type : " << mime_type << ", url : " << media_url << LL_ENDL;
+
 	if(sMediaImpl)
 	{
 		// If the url and mime type are the same, call play again
@@ -221,7 +224,7 @@ void LLViewerParcelMedia::play(LLParcel* parcel)
 
 			sMediaImpl = LLViewerMedia::newMediaImpl(media_url, placeholder_texture_id,
 				media_width, media_height, media_auto_scale,
-				media_loop);
+				media_loop, mime_type);
 		}
 	}
 	else
@@ -229,7 +232,7 @@ void LLViewerParcelMedia::play(LLParcel* parcel)
 		// There is no media impl, make a new one
 		sMediaImpl = LLViewerMedia::newMediaImpl(media_url, placeholder_texture_id,
 			media_width, media_height, media_auto_scale,
-			media_loop);
+			media_loop, mime_type);
 	}
 
 	

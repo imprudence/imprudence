@@ -49,6 +49,7 @@
 	#include "Movies.h"
 	#include "QDoffscreen.h"
 	#include "FixMath.h"
+	#include "QTLoadLibraryUtils.h"
 #endif
 
 // TODO: Make sure that the only symbol exported from this library is LLPluginInitEntryPoint
@@ -72,11 +73,14 @@ private:
 	int mCurVolume;
 	bool mMediaSizeChanging;
 	bool mIsLooping;
+	std::string mMovieTitle;
+	bool mReceivedTitle;
 	const int mMinWidth;
 	const int mMaxWidth;
 	const int mMinHeight;
 	const int mMaxHeight;
 	F64 mPlayRate;
+	std::string mNavigateURL;
 
 	enum ECommand {
 		COMMAND_NONE,
@@ -175,6 +179,11 @@ private:
 			setStatus(STATUS_ERROR);
 			return;
 		};
+		
+		mNavigateURL = url;
+		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "navigate_begin");
+		message.setValue("uri", mNavigateURL);
+		sendMessage(message);
 
 		// do pre-roll actions (typically fired for streaming movies but not always)
 		PrePrerollMovie( mMovieHandle, 0, getPlayRate(), moviePrePrerollCompleteCallback, ( void * )this );
@@ -199,6 +208,9 @@ private:
 
 	bool unload()
 	{
+		// new movie and have to get title again
+		mReceivedTitle = false;
+
 		if ( mMovieHandle )
 		{
 			StopMovie( mMovieHandle );
@@ -382,11 +394,18 @@ private:
 
 	static void moviePrePrerollCompleteCallback( Movie movie, OSErr preroll_err, void *ref )
 	{
-		//MediaPluginQuickTime* self = ( MediaPluginQuickTime* )ref;
+		MediaPluginQuickTime* self = ( MediaPluginQuickTime* )ref;
 
 		// TODO:
 		//LLMediaEvent event( self );
 		//self->mEventEmitter.update( &LLMediaObserver::onMediaPreroll, event );
+		
+		// Send a "navigate complete" event.
+		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "navigate_complete");
+		message.setValue("uri", self->mNavigateURL);
+		message.setValueS32("result_code", 200);
+		message.setValue("result_string", "OK");
+		self->sendMessage(message);
 	};
 
 
@@ -400,7 +419,7 @@ private:
 	{
 		if ( mCommand == COMMAND_PLAY )
 		{
-			if ( mStatus == STATUS_LOADED || mStatus == STATUS_PAUSED || mStatus == STATUS_PLAYING )
+			if ( mStatus == STATUS_LOADED || mStatus == STATUS_PAUSED || mStatus == STATUS_PLAYING || mStatus == STATUS_DONE )
 			{
 				long state = GetMovieLoadState( mMovieHandle );
 
@@ -426,7 +445,7 @@ private:
 		else
 		if ( mCommand == COMMAND_STOP )
 		{
-			if ( mStatus == STATUS_PLAYING || mStatus == STATUS_PAUSED )
+			if ( mStatus == STATUS_PLAYING || mStatus == STATUS_PAUSED || mStatus == STATUS_DONE )
 			{
 				if ( GetMovieLoadState( mMovieHandle ) >= kMovieLoadStatePlaythroughOK )
 				{
@@ -508,11 +527,17 @@ private:
 		if ( ! mMovieController )
 			return;
 
-		// service QuickTime
-		// Calling it this way doesn't have good behavior on Windows...
-//		MoviesTask( mMovieHandle, milliseconds );
-		// This was the original, but I think using both MoviesTask and MCIdle is redundant.  Trying with only MCIdle.
-//		MoviesTask( mMovieHandle, 0 );
+		// this wasn't required in 1.xx viewer but we have to manually 
+		// work the Windows message pump now
+		#if defined( LL_WINDOWS )
+		MSG msg;
+		while ( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) ) 
+		{
+			GetMessage( &msg, NULL, 0, 0 );
+			TranslateMessage( &msg );
+			DispatchMessage( &msg );
+		};
+		#endif
 
 		MCIdle( mMovieController );
 
@@ -525,11 +550,14 @@ private:
 		// update state machine
 		processState();
 
-		// special code for looping - need to rewind at the end of the movie
-		if ( mIsLooping )
+		// see if title arrived and if so, update member variable with contents
+		checkTitle();
+		
+		// QT call to see if we are at the end - can't do with controller
+		if ( IsMovieDone( mMovieHandle ) )
 		{
-			// QT call to see if we are at the end - can't do with controller
-			if ( IsMovieDone( mMovieHandle ) )
+			// special code for looping - need to rewind at the end of the movie
+			if ( mIsLooping )
 			{
 				// go back to start
 				rewind();
@@ -542,8 +570,16 @@ private:
 					// set the volume
 					MCDoAction( mMovieController, mcActionSetVolume, (void*)mCurVolume );
 				};
-			};
-		};
+			}
+			else
+			{
+				if(mStatus == STATUS_PLAYING)
+				{
+					setStatus(STATUS_DONE);
+				}
+			}
+		}
+
 	};
 
 	int getDataWidth() const
@@ -585,6 +621,19 @@ private:
 			MCDoAction( mMovieController, mcActionGoToTime, &when );
 		};
 	};
+
+	F64 getLoadedDuration() 	  	 
+	{ 	  	 
+		TimeValue duration; 	  	 
+		if(GetMaxLoadedTimeInMovie( mMovieHandle, &duration ) != noErr) 	  	 
+		{ 	  	 
+			// If GetMaxLoadedTimeInMovie returns an error, return the full duration of the movie. 	  	 
+			duration = GetMovieDuration( mMovieHandle ); 	  	 
+		} 	  	 
+		TimeValue scale = GetMovieTimeScale( mMovieHandle ); 	  	 
+
+		return (F64)duration / (F64)scale; 	  	 
+	}; 	  	 
 
 	F64 getDuration()
 	{
@@ -643,6 +692,77 @@ private:
 	{
 	};
 
+	////////////////////////////////////////////////////////////////////////////////
+	// Grab movie title into mMovieTitle - should be called repeatedly
+	// until it returns true since movie title takes a while to become 
+	// available.
+	const bool getMovieTitle()
+	{
+		// grab meta data from movie
+		QTMetaDataRef media_data_ref;
+		OSErr result = QTCopyMovieMetaData( mMovieHandle, &media_data_ref );
+		if ( noErr != result ) 
+			return false;
+
+		// look up "Display Name" in meta data
+		OSType meta_data_key = kQTMetaDataCommonKeyDisplayName;
+		QTMetaDataItem item = kQTMetaDataItemUninitialized;
+		result = QTMetaDataGetNextItem( media_data_ref, kQTMetaDataStorageFormatWildcard, 
+										0, kQTMetaDataKeyFormatCommon, 
+										(const UInt8 *)&meta_data_key, 
+										sizeof( meta_data_key ), &item );
+		if ( noErr != result ) 
+			return false;
+
+		// find the size of the title
+		ByteCount size;
+		result = QTMetaDataGetItemValue( media_data_ref, item, NULL, 0, &size );
+		if ( noErr != result || size <= 0 /*|| size > 1024  FIXME: arbitrary limit */ ) 
+			return false;
+
+		// allocate some space and grab it
+		UInt8* item_data = new UInt8( size + 1 );
+		memset( item_data, 0, ( size + 1 ) * sizeof( UInt8* ) );
+		result = QTMetaDataGetItemValue( media_data_ref, item, item_data, size, NULL );
+		if ( noErr != result ) 
+		{
+			delete [] item_data;
+			return false;
+		};
+
+		// save it
+		if ( strlen( (char*)item_data ) )
+			mMovieTitle = std::string( (char* )item_data );
+		else
+			mMovieTitle = "";
+
+		// clean up
+		delete [] item_data;
+
+		return true;
+	};
+
+	// called regularly to see if title changed
+	void checkTitle()
+	{
+		// we did already receive title so keep checking
+		if ( ! mReceivedTitle )
+		{
+			// grab title from movie meta data
+			if ( getMovieTitle() )
+			{
+				// pass back to host application
+				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "name_text");
+				message.setValue("name", mMovieTitle );
+				sendMessage( message );
+
+				// stop looking once we find a title for this movie.
+				// TODO: this may to be reset if movie title changes
+				// during playback but this is okay for now
+				mReceivedTitle = true;
+			};
+		};
+	};
 };
 
 MediaPluginQuickTime::MediaPluginQuickTime(
@@ -664,6 +784,8 @@ MediaPluginQuickTime::MediaPluginQuickTime(
 	mCurVolume = 0x99;
 	mMediaSizeChanging = false;
 	mIsLooping = false;
+	mMovieTitle = std::string();
+	mReceivedTitle = false;
 	mCommand = COMMAND_NONE;
 	mPlayRate = 0.0f;
 	mStatus = STATUS_NONE;
@@ -700,22 +822,29 @@ void MediaPluginQuickTime::receiveMessage(const char *message_string)
 				versions[LLPLUGIN_MESSAGE_CLASS_BASE] = LLPLUGIN_MESSAGE_CLASS_BASE_VERSION;
 				versions[LLPLUGIN_MESSAGE_CLASS_MEDIA] = LLPLUGIN_MESSAGE_CLASS_MEDIA_VERSION;
 				// Normally a plugin would only specify one of these two subclasses, but this is a demo...
-//				versions[LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER] = LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER_VERSION;
 				versions[LLPLUGIN_MESSAGE_CLASS_MEDIA_TIME] = LLPLUGIN_MESSAGE_CLASS_MEDIA_TIME_VERSION;
 				message.setValueLLSD("versions", versions);
 
 				#ifdef LL_WINDOWS
-				if ( InitializeQTML( 0L ) != noErr )
+
+				// QuickTime 7.6.4 has an issue (that was not present in 7.6.2) with initializing QuickTime
+				// according to this article: http://lists.apple.com/archives/QuickTime-API/2009/Sep/msg00097.html
+				// The solution presented there appears to work.
+				QTLoadLibrary("qtcf.dll");
+
+				// main initialization for QuickTime - only required on Windows
+				OSErr result = InitializeQTML( 0L );
+				if ( result != noErr )
 				{
 					//TODO: If no QT on Windows, this fails - respond accordingly.
-					//return false;
 				}
 				else
 				{
-//					std::cerr << "QuickTime initialized" << std::endl;
+					//std::cerr << "QuickTime initialized" << std::endl;
 				};
 				#endif
 
+				// required for both Windows and Mac
 				EnterMovies();
 
 				std::string plugin_version = "QuickTime media plugin, QuickTime version ";
@@ -773,10 +902,7 @@ void MediaPluginQuickTime::receiveMessage(const char *message_string)
 			else if(message_name == "shm_added")
 			{
 				SharedSegmentInfo info;
-				U64 address_lo = message_in.getValueU32("address");
-				U64 address_hi = message_in.hasValue("address_1") ? message_in.getValueU32("address_1") : 0;
-				info.mAddress = (void*)((address_lo) |
-							(address_hi * (U64(1)<<31)));
+				info.mAddress = message_in.getValuePointer("address");
 				info.mSize = (size_t)message_in.getValueS32("size");
 				std::string name = message_in.getValue("name");
 
