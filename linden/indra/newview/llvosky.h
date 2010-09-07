@@ -147,7 +147,7 @@ protected:
 
 	static S32 getResolution()						{ return sResolution; }
 	static S32 getCurrent()						{ return sCurrent; }
-	static S32 stepCurrent()					{ sCurrent++; sCurrent&=1; return sCurrent; }
+	static S32 stepCurrent()					{ return (sCurrent = ++sCurrent % 2); }
 	static S32 getNext()						{ return ((sCurrent+1) % 2); }
 	static S32 getWhich(const BOOL curr)		{ return curr ? sCurrent : getNext(); }
 
@@ -492,7 +492,7 @@ public:
 	
 	// Graphical stuff for objects - maybe broken out into render class
 	// later?
-	/*virtual*/ void updateTextures();
+	/*virtual*/ void updateTextures(LLAgent &agent);
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
 

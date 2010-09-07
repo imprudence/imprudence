@@ -358,6 +358,35 @@ protected:
 	virtual void releaseName(GLuint name) = 0;
 };
 
+/*
+	Interface for objects that need periodic GL updates applied to them.
+	Used to synchronize GL updates with GL thread.
+*/
+class LLGLUpdate
+{
+public:
+
+	static std::list<LLGLUpdate*> sGLQ;
+
+	BOOL mInQ;
+	LLGLUpdate()
+		: mInQ(FALSE)
+	{
+	}
+	virtual ~LLGLUpdate()
+	{
+		if (mInQ)
+		{
+			std::list<LLGLUpdate*>::iterator iter = std::find(sGLQ.begin(), sGLQ.end(), this);
+			if (iter != sGLQ.end())
+			{
+				sGLQ.erase(iter);
+			}
+		}
+	}
+	virtual void updateGL() = 0;
+};
+
 extern LLMatrix4 gGLObliqueProjectionInverse;
 
 #include "llglstates.h"
@@ -376,4 +405,6 @@ void parse_gl_version( S32* major, S32* minor, S32* release, std::string* vendor
 
 extern BOOL gClothRipple;
 extern BOOL gNoRender;
+extern BOOL gGLActive;
+
 #endif // LL_LLGL_H

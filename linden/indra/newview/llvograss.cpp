@@ -331,7 +331,7 @@ void LLVOGrass::setPixelAreaAndAngle(LLAgent &agent)
 
 
 // BUG could speed this up by caching the relative_position and range calculations
-void LLVOGrass::updateTextures()
+void LLVOGrass::updateTextures(LLAgent &agent)
 {
 	if (getTEImage(0))
 	{

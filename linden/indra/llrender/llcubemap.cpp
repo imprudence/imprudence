@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Copyright (c) 2002-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -63,6 +63,12 @@ LLCubeMap::LLCubeMap()
 	  mTextureCoordStage(0),
 	  mMatrixStage(0)
 {
+	mTargets[0] = GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
+	mTargets[1] = GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
+	mTargets[2] = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
+	mTargets[3] = GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB;
+	mTargets[4] = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB;
+	mTargets[5] = GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB;
 }
 
 LLCubeMap::~LLCubeMap()
@@ -75,13 +81,6 @@ void LLCubeMap::initGL()
 
 	if (gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps)
 	{
-		mTargets[0] = GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
-		mTargets[1] = GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
-		mTargets[2] = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
-		mTargets[3] = GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB;
-		mTargets[4] = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB;
-		mTargets[5] = GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB;
-		
 		// Not initialized, do stuff.
 		if (mImages[0].isNull())
 		{
@@ -94,7 +93,7 @@ void LLCubeMap::initGL()
 				mImages[i] = new LLImageGL(64, 64, 4, (use_cube_mipmaps? TRUE : FALSE));
 				mImages[i]->setTarget(mTargets[i], LLTexUnit::TT_CUBE_MAP);
 				mRawImages[i] = new LLImageRaw(64, 64, 4);
-				mImages[i]->createGLTexture(0, mRawImages[i], texname, TRUE);
+				mImages[i]->createGLTexture(0, mRawImages[i], texname);
 				
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_CUBE_MAP, texname); 
 				mImages[i]->setAddressMode(LLTexUnit::TAM_CLAMP);

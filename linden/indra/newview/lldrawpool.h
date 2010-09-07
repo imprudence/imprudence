@@ -67,6 +67,11 @@ public:
 		POOL_GLOW,
 		POOL_ALPHA,
 		NUM_POOL_TYPES,
+		// * invisiprims work by rendering to the depth buffer but not the color buffer, occluding anything rendered after them
+		// - and the LLDrawPool types enum controls what order things are rendered in
+		// - so, it has absolute control over what invisprims block
+		// ...invisiprims being rendered in pool_invisible
+		// ...shiny/bump mapped objects in rendered in POOL_BUMP
 	};
 	
 	LLDrawPool(const U32 type);

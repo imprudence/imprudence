@@ -765,6 +765,7 @@ public:
 
 	BOOL			mInitialized;
 
+	static BOOL		sDebugDisplayTarget;
 	S32				mNumPendingQueries;
 	S32*			mActiveCacheQueries;
 

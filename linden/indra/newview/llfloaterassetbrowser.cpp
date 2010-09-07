@@ -63,7 +63,7 @@ LLFloaterAssetBrowser::~LLFloaterAssetBrowser()
 	mTextureAssets.clear();
 	mMaxIndex = 0;
 	mFirstIndex = 0;
-	mMouseOverIndex = 0;
+	mMouseOverIndex = NULL;
 	mMouseOverUUID = LLUUID::null;
 	mMouseOverAssetUUID = LLUUID::null;
 	mFloaterTitle = "";
@@ -79,7 +79,7 @@ void LLFloaterAssetBrowser::initialize()
 	mAssetInfoIndex = 0;
 	mFloaterHeight = getRect().getHeight();
 	mFloaterWidth = getRect().getWidth();
-	mMouseOverIndex = 0;
+	mMouseOverIndex = NULL;
 	mMouseOverUUID = LLUUID::null;
 	mMouseOverAssetUUID = LLUUID::null;
 	mFloaterTitle = "";
@@ -122,7 +122,7 @@ void LLFloaterAssetBrowser::createThumbnails()
 		temp.mUUID = itemp->getUUID();
 		temp.mName = itemp->getName();
 		temp.mTexturep = NULL;
-		temp.mAssetRect = LLRect::null;
+		temp.mAssetRect = NULL;
 		mTextureAssets.push_back(temp);
 	}
 	
@@ -131,14 +131,14 @@ void LLFloaterAssetBrowser::createThumbnails()
 	{
 			mTextureAssets[i].mTexturep = gImageList.getImage(mTextureAssets[i].mAssetUUID, MIPMAP_YES, IMMEDIATE_NO);
 			mTextureAssets[i].mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
-			//mTextureAssets[i].mTexturep->processTextureStats();
+			mTextureAssets[i].mTexturep->processTextureStats();
 	}
 
 	//Generate the asset info text
-	/*for(S32 i = 0; i < items.count(); i++)
+	for(S32 i = 0; i < items.count(); i++)
 	{
-		LLString asset_info;
-		LLString dimensions;
+		std::string asset_info;
+		std::string dimensions;
 		
 		asset_info.append(mTextureAssets[i].mName);
 		
@@ -151,7 +151,7 @@ void LLFloaterAssetBrowser::createThumbnails()
 		asset_info.append(dimensions);
 		
 		mTextureAssets[i].mAssetInfo = asset_info;
-	}*/
+	}
 	
 	mFloaterTitle = llformat("Asset Browser (%d assets fetched)", mTextureAssets.size());
 	setTitle(mFloaterTitle);
@@ -288,7 +288,7 @@ void LLFloaterAssetBrowser::draw()
 				if(mImageAssetID.notNull())
 				{
 					mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-					//mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+					mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 					mTexturep->processTextureStats();
 					mTextureAssets[i].mWidth = mTexturep->mFullWidth;
 					mTextureAssets[i].mHeight = mTexturep->mFullHeight;

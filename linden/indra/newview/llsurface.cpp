@@ -149,7 +149,7 @@ LLSurface::~LLSurface()
 	}
 	else
 	{
-		llerrs << "Terrain pool not empty!" << llendl;
+		llwarns << "Terrain pool not empty!" << llendl;
 	}
 }
 
@@ -238,6 +238,7 @@ void LLSurface::createSTexture()
 	if (!mSTexturep)
 	{
 		// Fill with dummy gray data.
+		// GL NOT ACTIVE HERE
 		LLPointer<LLImageRaw> raw = new LLImageRaw(sTextureSize, sTextureSize, 3);
 		U8 *default_texture = raw->getData();
 		for (S32 i = 0; i < sTextureSize; i++)
@@ -255,6 +256,7 @@ void LLSurface::createSTexture()
 		gGL.getTexUnit(0)->bind(mSTexturep.get());
 		mSTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 		gImageList.addImage(mSTexturep);
+		
 	}
 }
 
@@ -275,9 +277,10 @@ void LLSurface::createWaterTexture()
 				*(default_texture + (i*sTextureSize/2 + j)*4 + 3) = MAX_WATER_COLOR.mV[3];
 			}
 		}
-		mWaterTexturep = new LLViewerImage(raw, FALSE);
+
+		mWaterTexturep = new LLViewerImage(sTextureSize/2, sTextureSize/2, 4, FALSE);
 		mWaterTexturep->dontDiscard();
-		gGL.getTexUnit(0)->bind(mWaterTexturep.get());
+		gGL.getTexUnit(0)->bind(mWaterTexturep);
 		mWaterTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 		gImageList.addImage(mWaterTexturep);
 	}
@@ -629,6 +632,8 @@ void LLSurface::updatePatchVisibilities(LLAgent &agent)
 
 BOOL LLSurface::idleUpdate(F32 max_update_time)
 {
+//SG2:	LLMemType mt_ius(LLMemType::MTYPE_IDLE_UPDATE_SURFACE);
+ 
 	if (!gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_TERRAIN))
 	{
 		return FALSE;
@@ -1133,12 +1138,12 @@ LLSurfacePatch *LLSurface::getPatch(const S32 x, const S32 y) const
 {
 	if ((x < 0) || (x >= mPatchesPerEdge))
 	{
-		llerrs << "Asking for patch out of bounds" << llendl;
+		llwarns << "Asking for patch out of bounds" << llendl;
 		return NULL;
 	}
 	if ((y < 0) || (y >= mPatchesPerEdge))
 	{
-		llerrs << "Asking for patch out of bounds" << llendl;
+		llwarns << "Asking for patch out of bounds" << llendl;
 		return NULL;
 	}
 
@@ -1275,6 +1280,11 @@ BOOL LLSurface::generateWaterTexture(const F32 x, const F32 y,
 				*(rawp + offset++) = coloru.mV[3];
 			}
 		}
+	}
+
+	if (!mWaterTexturep->getHasGLTexture())
+	{
+		mWaterTexturep->createGLTexture(0, raw);
 	}
 
 	mWaterTexturep->setSubImage(raw, x_begin, y_begin, x_end - x_begin, y_end - y_begin);

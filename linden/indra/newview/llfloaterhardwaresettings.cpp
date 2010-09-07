@@ -68,6 +68,7 @@ void LLFloaterHardwareSettings::onClickHelp(void* data)
 
 void LLFloaterHardwareSettings::initCallbacks(void) 
 {
+	childSetCommitCallback("fbo", refreshState);
 }
 
 // menu maintenance functions
@@ -83,7 +84,8 @@ void LLFloaterHardwareSettings::refresh()
 	mVideoCardMem = gSavedSettings.getS32("TextureMemory");
 	mFogRatio = gSavedSettings.getF32("RenderFogRatio");
 	mProbeHardwareOnStartup = gSavedSettings.getBOOL("ProbeHardwareOnStartup");
-
+	mRenderDeferred = gSavedSettings.getBOOL("RenderDeferred");
+	mRenderUseFBO = gSavedSettings.getBOOL("RenderUseFBO");
 	childSetValue("fsaa", (LLSD::Integer) mFSAASamples);
 	refreshEnabledState();
 }
@@ -101,11 +103,31 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 		childSetEnabled("vbo", FALSE);
 	}
 
+	if (!gGLManager.mHasFramebufferObject)
+	{
+		childSetEnabled("fbo", FALSE);
+	}
+
+	if (!gGLManager.mHasDrawBuffers || !gSavedSettings.getBOOL("RenderUseFBO"))
+	{
+		childSetEnabled("deferred", FALSE);
+	}
+	else
+	{
+		childSetEnabled("deferred", TRUE);
+	}
+
 	// if no windlight shaders, turn off nighttime brightness, gamma, and fog distance
 	childSetEnabled("gamma", !gPipeline.canUseWindLightShaders());
 	childSetEnabled("(brightness, lower is brighter)", !gPipeline.canUseWindLightShaders());
 	childSetEnabled("fog", !gPipeline.canUseWindLightShaders());
 
+}
+
+//static
+void LLFloaterHardwareSettings::refreshState(LLUICtrl*, void*)
+{
+	LLFloaterHardwareSettings::instance()->refreshEnabledState();
 }
 
 // static instance of it
@@ -202,7 +224,8 @@ void LLFloaterHardwareSettings::cancel()
 	gSavedSettings.setS32("TextureMemory", mVideoCardMem);
 	gSavedSettings.setF32("RenderFogRatio", mFogRatio);
 	gSavedSettings.setBOOL("ProbeHardwareOnStartup", mProbeHardwareOnStartup );
-
+	gSavedSettings.setBOOL("RenderUseFBO", mRenderUseFBO);
+	gSavedSettings.setBOOL("RenderDeferred", mRenderDeferred);
 	close();
 }
 

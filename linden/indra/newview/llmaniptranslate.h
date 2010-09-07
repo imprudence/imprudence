@@ -116,7 +116,7 @@ private:
 	LLVector3d	mDragCursorStartGlobal;
 	LLVector3d	mDragSelectionStartGlobal;
 	LLTimer		mUpdateTimer;
-	typedef std::multiset<ManipulatorHandle*, compare_manipulators> minpulator_list_t;
+	typedef std::set<ManipulatorHandle*, compare_manipulators> minpulator_list_t;
 	minpulator_list_t mProjectedManipulators;
 	LLVector4	mManipulatorVertices[18];
 	F32			mSnapOffsetMeters;

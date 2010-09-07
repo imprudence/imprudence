@@ -59,11 +59,13 @@
 BOOL gDebugGL = FALSE;
 BOOL gClothRipple = FALSE;
 BOOL gNoRender = FALSE;
+BOOL gGLActive = FALSE;
 LLMatrix4 gGLObliqueProjectionInverse;
 
 #define LL_GL_NAME_POOLING 0
 
 LLGLNamePool::pool_list_t LLGLNamePool::sInstances;
+std::list<LLGLUpdate*> LLGLUpdate::sGLQ;
 
 #if (LL_WINDOWS || LL_LINUX || LL_SOLARIS)  && !LL_MESA_HEADLESS
 // ATI prototypes
@@ -1001,7 +1003,7 @@ void assert_glerror()
 
 	if (quit)
 	{
-		llerrs << "One or more unhandled GL errors." << llendl;
+		llwarns << "One or more unhandled GL errors." << llendl;
 	}
 }
 
@@ -1695,11 +1697,11 @@ void LLGLNamePool::release(GLuint name)
 			}
 			else
 			{
-				llerrs << "Attempted to release a pooled name that is not in use!" << llendl;
+				llwarns << "Attempted to release a pooled name that is not in use!" << llendl;
 			}
 		}
 	}
-	llerrs << "Attempted to release a non pooled name!" << llendl;
+	llwarns << "Attempted to release a non pooled name!" << llendl;
 #else
 	releaseName(name);
 #endif

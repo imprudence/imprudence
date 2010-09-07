@@ -407,8 +407,7 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 		LLFloaterWater::instance()->syncMenu();
 	}
 
-	stop_glerror();
-
+	//stop_glerror();
 	// only do this if we're dealing with shaders
 	if(gPipeline.canUseVertexShaders()) 
 	{

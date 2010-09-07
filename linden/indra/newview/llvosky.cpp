@@ -289,7 +289,7 @@ void LLSkyTex::create(const F32 brightness)
 
 void LLSkyTex::createGLImage(S32 which)
 {	
-	mImageGL[which]->createGLTexture(0, mImageRaw[which], 0, TRUE, LLViewerImageBoostLevel::OTHER);
+	mImageGL[which]->createGLTexture(0, mImageRaw[which]);
 	mImageGL[which]->setAddressMode(LLTexUnit::TAM_CLAMP);
 }
 
@@ -1095,10 +1095,10 @@ BOOL LLVOSky::updateSky()
 							   mLastTotalAmbient.mV[2] - mTotalAmbient.mV[2]);
 
 			if ( mForceUpdate 
-				 || ((dot_lighting < LIGHT_DIRECTION_THRESHOLD)
+				 || (((dot_lighting < LIGHT_DIRECTION_THRESHOLD)
 				 || (delta_color.length() > COLOR_CHANGE_THRESHOLD)
 				 || !mInitialized)
-				&& !direction.isExactlyZero())
+				&& !direction.isExactlyZero()))
 			{
 				mLastLightingDirection = direction;
 				mLastTotalAmbient = mTotalAmbient;
@@ -1180,7 +1180,7 @@ BOOL LLVOSky::updateSky()
 	return TRUE;
 }
 
-void LLVOSky::updateTextures()
+void LLVOSky::updateTextures(LLAgent &agent)
 {
 	if (mSunTexturep)
 	{

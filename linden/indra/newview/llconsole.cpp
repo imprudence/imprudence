@@ -63,17 +63,25 @@ const S32 CONSOLE_GUTTER_LEFT = 14;
 const S32 CONSOLE_GUTTER_RIGHT = 15;
 
 
-LLConsole::LLConsole(const std::string& name, const U32 max_lines, const LLRect &rect, 
+LLConsole::LLConsole(const std::string& name, const LLRect &rect, 
 					 S32 font_size_index, F32 persist_time ) 
-	: 
-	LLFixedBuffer(max_lines),
-	LLView(name, rect, FALSE)
+  : LLFixedBuffer(),
+	LLView(name, rect, FALSE),
+	mLinePersistTime(persist_time),
+	mFadeTime(persist_time - FADE_DURATION),
+	mFont(LLFontGL::getFontSansSerif()),
+	mConsoleWidth(0),
+	mConsoleHeight(0),
+	mQueueMutex(NULL)
 {
-	mLinePersistTime = persist_time;		// seconds
-	mFadeTime = persist_time - FADE_DURATION;
+	mTimer.reset();
 
-	setFontSize( font_size_index );
-	setMaxLines(gSavedSettings.getS32("ConsoleMaxLines"));
+	setFontSize( font_size_index ); 	
+}
+
+LLConsole::~LLConsole()
+{
+	clear();
 }
 
 void LLConsole::setLinePersistTime(F32 seconds)
@@ -98,10 +106,10 @@ void LLConsole::reshape(S32 width, S32 height, BOOL called_from_parent)
 	mConsoleHeight= new_height;
 	
 	LLView::reshape(new_width, new_height, called_from_parent);
-	
+
 	for(paragraph_t::iterator paragraph_it = mParagraphs.begin(); paragraph_it != mParagraphs.end(); paragraph_it++)
 	{
-		(*paragraph_it).updateLines((F32)getRect().getWidth(), mFont, true);
+		(*paragraph_it)->updateLines((F32)getRect().getWidth(), mFont, true);
 	}
 }
 
@@ -126,7 +134,7 @@ void LLConsole::setFontSize(S32 size_index)
 	
 	for(paragraph_t::iterator paragraph_it = mParagraphs.begin(); paragraph_it != mParagraphs.end(); paragraph_it++)
 	{
-		(*paragraph_it).updateLines((F32)getRect().getWidth(), mFont, true);
+		(*paragraph_it)->updateLines((F32)getRect().getWidth(), mFont, true);
 	}
 }
 
@@ -134,35 +142,49 @@ void LLConsole::draw()
 {
 	LLGLSUIDefault gls_ui;
 
-	// skip lines added more than mLinePersistTime ago
-	F32 cur_time = mTimer.getElapsedTimeF32();
-	
-	F32 skip_time = cur_time - mLinePersistTime;
-	F32 fade_time = cur_time - mFadeTime;
-
-	updateBuffer() ;
+	{
+		LLMutexLock lock(&mQueueMutex);
+		for(paragraph_t::iterator paragraph_it = mNewParagraphs.begin(); paragraph_it != mNewParagraphs.end(); paragraph_it++)
+		{
+			Paragraph* paragraph = *paragraph_it;
+			mParagraphs.push_back(paragraph);
+			paragraph->updateLines((F32)getRect().getWidth(), mFont);
+		}
+		mNewParagraphs.clear();
+	}
 
 	if (mParagraphs.empty()) 	//No text to draw.
 	{
 		return;
 	}
 
+	// skip lines added more than mLinePersistTime ago
+	F32 cur_time = mTimer.getElapsedTimeF32();
+	
+	F32 skip_time = cur_time - mLinePersistTime;
+	F32 fade_time = cur_time - mFadeTime;
+
+	U32 max_lines = gSavedSettings.getS32("ConsoleMaxLines");
 	U32 num_lines=0;
 
 	paragraph_t::reverse_iterator paragraph_it;
 	paragraph_it = mParagraphs.rbegin();
 	U32 paragraph_num=mParagraphs.size();
-	
+
 	while (!mParagraphs.empty() && paragraph_it != mParagraphs.rend())
 	{
-		num_lines += (*paragraph_it).mLines.size();
-		if(num_lines > mMaxLines 
-			|| ( (mLinePersistTime > (F32)0.f) && ((*paragraph_it).mAddTime - skip_time)/(mLinePersistTime - mFadeTime) <= (F32)0.f)) 
+		num_lines += (*paragraph_it)->mLines.size();
+		if(num_lines > max_lines 
+			|| ( (mLinePersistTime > (F32)0.f) && ((*paragraph_it)->mAddTime - skip_time)/(mLinePersistTime - mFadeTime) <= (F32)0.f)) 
 		{							//All lines above here are done.  Lose them.
 			for (U32 i=0;i<paragraph_num;i++)
 			{
 				if (!mParagraphs.empty())
+				{
+					Paragraph* paragraph = mParagraphs.front();
 					mParagraphs.pop_front();
+					delete paragraph;
+				}
 			}
 			break;
 		}
@@ -193,8 +215,8 @@ void LLConsole::draw()
 	S32 bkg_width=0;
 	for(paragraph_it = mParagraphs.rbegin(); paragraph_it != mParagraphs.rend(); paragraph_it++)
 	{
-		S32 target_height = llfloor( (*paragraph_it).mLines.size() * line_height + message_spacing);
-		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth + CONSOLE_GUTTER_RIGHT);
+		S32 target_height = llfloor( (*paragraph_it)->mLines.size() * line_height + message_spacing);
+		S32 target_width =  llfloor( (*paragraph_it)->mMaxWidth + CONSOLE_GUTTER_RIGHT);
 		
 		bkg_height+= target_height;
 		if (target_width > bkg_width)
@@ -203,7 +225,7 @@ void LLConsole::draw()
 		}
 
 		// Why is this not using llfloor as above?
-		y_pos += ((*paragraph_it).mLines.size()) * line_height;
+		y_pos += ((*paragraph_it)->mLines.size()) * line_height;
 		y_pos += message_spacing;  //Extra spacing between messages.
 	}
 	imagep->drawSolid(-CONSOLE_GUTTER_LEFT, (S32)(y_pos + line_height - bkg_height - message_spacing), bkg_width, bkg_height, color);
@@ -213,10 +235,10 @@ void LLConsole::draw()
 	for(paragraph_it = mParagraphs.rbegin(); paragraph_it != mParagraphs.rend(); paragraph_it++)
 	{
 //080813 Spatters:  Dainty per-message block boxes
-//		S32 target_height = llfloor( (*paragraph_it).mLines.size() * line_height + 8);
-		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth + CONSOLE_GUTTER_RIGHT);
+//		S32 target_height = llfloor( (*paragraph_it)->mLines.size() * line_height + 8);
+		S32 target_width =  llfloor( (*paragraph_it)->mMaxWidth + CONSOLE_GUTTER_RIGHT);
 
-		y_pos += ((*paragraph_it).mLines.size()) * line_height;
+		y_pos += ((*paragraph_it)->mLines.size()) * line_height;
 //080813 Spatters:  Dainty per-message block boxes
 //		imagep->drawSolid(-14, (S32)(y_pos + line_height - target_height), target_width, target_height, color);
 
@@ -224,9 +246,9 @@ void LLConsole::draw()
 
 		F32 alpha;
 
-		if ((mLinePersistTime > 0.f) && ((*paragraph_it).mAddTime < fade_time))
+		if ((mLinePersistTime > 0.f) && ((*paragraph_it)->mAddTime < fade_time))
 		{
-			alpha = ((*paragraph_it).mAddTime - skip_time)/(mLinePersistTime - mFadeTime);
+			alpha = ((*paragraph_it)->mAddTime - skip_time)/(mLinePersistTime - mFadeTime);
 		}
 		else
 		{
@@ -235,12 +257,12 @@ void LLConsole::draw()
 
 		if( alpha > 0.f )
 		{
-			for (lines_t::iterator line_it=(*paragraph_it).mLines.begin(); 
-					line_it != (*paragraph_it).mLines.end();
+			for (lines_t::iterator line_it=(*paragraph_it)->mLines.begin(); 
+					line_it != (*paragraph_it)->mLines.end();
 					line_it ++)
 			{
-				for (line_color_segments_t::iterator seg_it = (*line_it).mLineColorSegments.begin();
-						seg_it != (*line_it).mLineColorSegments.end();
+				for (line_color_segments_t::iterator seg_it = (*line_it).begin();
+						seg_it != (*line_it).end();
 						seg_it++)
 				{
 					mFont->render((*seg_it).mText, 0, (*seg_it).mXPosition - 8, y_pos -  y_off,
@@ -263,21 +285,34 @@ void LLConsole::draw()
 	}
 }
 
+//virtual
+void LLConsole::clear()
+{
+	mTimer.reset();
+	LLMutexLock lock(&mQueueMutex);
+	std::for_each(mParagraphs.begin(), mParagraphs.end(), DeletePointer());
+	mParagraphs.clear();
+	std::for_each(mNewParagraphs.begin(), mNewParagraphs.end(), DeletePointer());
+	mNewParagraphs.clear();
+}
+
+//virtual
 void LLConsole::addLine(const std::string& utf8line)
 {
-	LLWString wline = utf8str_to_wstring(utf8line);
-	addLine(wline, 0.f, LLColor4(1.f, 1.f, 1.f, 1.f));
+	addConsoleLine(utf8line, LLColor4(1.f, 1.f, 1.f, 1.f));
 }
 
-void LLConsole::addLine(const LLWString& wline)
-{
-	addLine(wline, 0.f, LLColor4(1.f, 1.f, 1.f, 1.f));
-}
-
-void LLConsole::addLine(const std::string& utf8line, F32 size, const LLColor4 &color)
+void LLConsole::addConsoleLine(const std::string& utf8line, const LLColor4 &color)
 {
 	LLWString wline = utf8str_to_wstring(utf8line);
-	addLine(wline, size, color);
+	addConsoleLine(wline, color);
+}
+
+void LLConsole::addConsoleLine(const LLWString& wline, const LLColor4 &color)
+{	
+	Paragraph* paragraph = new Paragraph(wline, color, mTimer.getElapsedTimeF32());
+	LLMutexLock lock(&mQueueMutex);
+	mNewParagraphs.push_back ( paragraph );
 }
 
 //Generate highlight color segments for this paragraph.  Pass in default color of paragraph.
@@ -359,7 +394,7 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 			F32 x_position = 0;						//Screen X position of text.
 			
 			mMaxWidth = llmax( mMaxWidth, (F32)font->getWidth( mParagraphText.substr( paragraph_offset, drawable ).c_str() ) );
-			Line line;
+			line_color_segments_t line;
 			
 			U32 left_to_draw = drawable;
 			U32 drawn = 0;
@@ -368,7 +403,7 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 				&& current_color != mParagraphColorSegments.end() )
 			{
 				LLWString color_text = mParagraphText.substr( paragraph_offset + drawn, current_color_length );
-				line.mLineColorSegments.push_back( LineColorSegment( color_text,			//Append segment to line.
+				line.push_back( LineColorSegment( color_text,			//Append segment to line.
 												(*current_color).mColor, 
 												x_position ) );
 												
@@ -389,7 +424,7 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 			{
 				LLWString color_text = mParagraphText.substr( paragraph_offset + drawn, left_to_draw );
 				
-				line.mLineColorSegments.push_back( LineColorSegment( color_text,		//Append segment to line.
+				line.push_back( LineColorSegment( color_text,		//Append segment to line.
 												(*current_color).mColor, 
 												x_position ) );
 																	
@@ -407,50 +442,9 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 }
 
 //Pass in the string and the default color for this block of text.
-LLConsole::Paragraph::Paragraph (LLWString str, const LLColor4 &color, F32 add_time, LLFontGL* font, F32 screen_width) 
+LLConsole::Paragraph::Paragraph (LLWString str, const LLColor4 &color, F32 add_time) 
 						: mParagraphText(str), mAddTime(add_time), mMaxWidth(-1)
 {
 	makeParagraphColorSegments(color);
-	updateLines( screen_width, font );
 }
 	
-void LLConsole::addLine(const LLWString& wline, F32 size, const LLColor4 &color)
-{	
-	Paragraph paragraph(wline, color, mTimer.getElapsedTimeF32(), mFont,  (F32)getRect().getWidth() );
-	
-	mParagraphs.push_back ( paragraph );
-	
-#if LL_WINDOWS && LL_LCD_COMPILE
-	// add to LCD screen
-	AddNewDebugConsoleToLCD(wline);
-#endif	
-}
-
-//
-//check if there are some messages stored in the buffer
-//if yes, output them.
-//
-void LLConsole::updateBuffer()
-{
-	BOOL need_clear = FALSE ;
-
-	mMutex.lock() ;
-	if(!mLines.empty())
-	{				
-		S32 end = mLines.size() ;
-		LLColor4 color(1.f, 1.f, 1.f, 1.f) ;
-		for(S32 i = 0 ; i < end ; i++)
-		{
-			Paragraph paragraph(mLines[i], color, mAddTimes[i], mFont,  (F32)getRect().getWidth() );
-			mParagraphs.push_back ( paragraph );
-		}		
-
-		need_clear = TRUE ;		
-	}
-	mMutex.unlock() ;
-
-	if(need_clear)
-	{
-		clear() ;
-	}
-}

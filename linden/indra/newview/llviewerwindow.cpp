@@ -471,6 +471,27 @@ public:
 			
 			ypos += y_inc;
 
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow error: " << gPipeline.mShadowError;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
+
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow FOV: " << gPipeline.mShadowFOV;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
+
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow Splits: " << gPipeline.mSunClipPlanes;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
+
 			LLVertexBuffer::sBindCount = LLImageGL::sBindCount = 
 				LLVertexBuffer::sSetCount = LLImageGL::sUniqueCount = 
 				gPipeline.mNumVisibleNodes = LLPipeline::sVisibleLightCount = 0;
@@ -1321,7 +1342,6 @@ LLViewerWindow::LLViewerWindow(
 
 	// Init the image list.  Must happen after GL is initialized and before the images that
 	// LLViewerWindow needs are requested.
-	LLImageGL::initClass(LLViewerImageBoostLevel::MAX_GL_IMAGE_CATEGORY) ;
 	gImageList.init();
 	LLViewerImage::initClass();
 	gBumpImageList.init();
@@ -1434,7 +1454,7 @@ void LLViewerWindow::initBase()
 	llassert( !gConsole );
 	gConsole = new LLConsole(
 		"console",
-		gSavedSettings.getS32("ConsoleBufferSize"),
+		//gSavedSettings.getS32("ConsoleBufferSize"),
 		getChatConsoleRect(),
 		gSavedSettings.getS32("ChatFontSize"),
 		gSavedSettings.getF32("ChatPersistTime") );
@@ -2515,7 +2535,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		mMouseInWindow = TRUE;
 	}
 
-
 	S32 dx = lltrunc((F32) (mCurrentMousePoint.mX - mLastMousePoint.mX) * LLUI::sGLScaleFactor.mV[VX]);
 	S32 dy = lltrunc((F32) (mCurrentMousePoint.mY - mLastMousePoint.mY) * LLUI::sGLScaleFactor.mV[VY]);
 
@@ -2538,7 +2557,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		mCurrentMouseDelta.set(dx, dy);
 		mouse_vel.setVec((F32) dx, (F32) dy);
 	}
-    
+
 	mMouseVelocityStat.addValue(mouse_vel.magVec());
 
 	if (gNoRender)
@@ -2727,8 +2746,8 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		{
 			mToolTip->setVisible( tooltip_vis );
 		}
-	}		
-	
+	}
+
 	if (tool && tool != gToolNull  && tool != LLToolCompInspect::getInstance() && tool != LLToolDragAndDrop::getInstance() && !gSavedSettings.getBOOL("FreezeTime"))
 	{ 
 		LLMouseHandler *captor = gFocusMgr.getMouseCapture();
@@ -2798,37 +2817,41 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			gFloaterView->setRect(floater_rect);
 		}
 
-		// snap floaters to top of chat bar/button strip
-		LLView* chatbar_and_buttons = gOverlayBar->getChild<LLView>("chatbar_and_buttons", TRUE);
-		// find top of chatbar and state buttons, if either are visible
-		if (chatbar_and_buttons && !chatbar_and_buttons->getLocalBoundingRect().isNull())
 		{
-			// convert top/left corner of chatbar/buttons container to gFloaterView-relative coordinates
+			// snap floaters to top of chat bar/button strip
+			LLView* chatbar_and_buttons = gOverlayBar->getChild<LLView>("chatbar_and_buttons", TRUE);
 			S32 top, left;
-			chatbar_and_buttons->localPointToOtherView(
-												chatbar_and_buttons->getLocalBoundingRect().mLeft, 
-												chatbar_and_buttons->getLocalBoundingRect().mTop,
-												&left,
-												&top,
-												gFloaterView);
-			gFloaterView->setSnapOffsetBottom(top);
+			S32 chatbar_and_buttons_x = chatbar_and_buttons->getLocalBoundingRect().mLeft;
+			S32 chatbar_and_buttons_y = chatbar_and_buttons->getLocalBoundingRect().mTop;
+	
+			// find top of chatbar and state buttons, if either are visible
+			if (chatbar_and_buttons && !chatbar_and_buttons->getLocalBoundingRect().isNull())
+			{
+				// convert top/left corner of chatbar/buttons container to 
+				// gFloaterView-relative coordinates
+				chatbar_and_buttons->localPointToOtherView(
+										chatbar_and_buttons_x,
+										chatbar_and_buttons_y,
+										&left,
+										&top,
+										gFloaterView);
+				gFloaterView->setSnapOffsetBottom(top);
+			}
+			else if (gToolBar->getVisible())
+			{
+				gToolBar->localPointToOtherView(
+										chatbar_and_buttons_x,
+										chatbar_and_buttons_y,
+										&left,
+										&top,
+										gFloaterView);
+				gFloaterView->setSnapOffsetBottom(top);
+			}
+			else
+			{
+				gFloaterView->setSnapOffsetBottom(0);
+			}
 		}
-		else if (gToolBar->getVisible())
-		{
-			S32 top, left;
-			gToolBar->localPointToOtherView(
-											gToolBar->getLocalBoundingRect().mLeft,
-											gToolBar->getLocalBoundingRect().mTop,
-											&left,
-											&top,
-											gFloaterView);
-			gFloaterView->setSnapOffsetBottom(top);
-		}
-		else
-		{
-			gFloaterView->setSnapOffsetBottom(0);
-		}
-
 		// Always update console
 		LLRect console_rect = getChatConsoleRect();
 		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad();
@@ -2836,8 +2859,8 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		gConsole->setRect(console_rect);
 	}
 
-	mLastMousePoint = mCurrentMousePoint;
 
+	mLastMousePoint = mCurrentMousePoint;
 	// last ditch force of edit menu to selection manager
 	if (LLEditMenuHandler::gEditMenuHandler == NULL && LLSelectMgr::getInstance()->getSelection()->getObjectCount())
 	{
@@ -2900,7 +2923,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 											  &gDebugRaycastBinormal);
 	}
 
-
 	// per frame picking - for tooltips and changing cursor over interactive objects
 	static S32 previous_x = -1;
 	static S32 previous_y = -1;
@@ -2943,7 +2965,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 	previous_x = x;
 	previous_y = y;
-	
 	return handled;
 }
 
@@ -4041,7 +4062,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	{
 		if(image_width > window_width || image_height > window_height) //need to enlarge the scene
 		{
-			if (gGLManager.mHasFramebufferObject && !show_ui)
+			if (!LLPipeline::sRenderDeferred && gGLManager.mHasFramebufferObject && !show_ui)
 			{
 				GLint max_size = 0;
 				glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &max_size);
@@ -4130,9 +4151,16 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 			else
 			{
 				const U32 subfield = subimage_x+(subimage_y*llceil(scale_factor));
-				display(do_rebuild, scale_factor, subfield, TRUE);
-				// Required for showing the GUI in snapshots?  See DEV-16350 for details. JC
-				render_ui(scale_factor, subfield);
+				if (LLPipeline::sRenderDeferred)
+				{
+					display(do_rebuild, scale_factor, subfield, FALSE);
+				}
+				else
+				{
+					display(do_rebuild, scale_factor, subfield, TRUE);
+					// Required for showing the GUI in snapshots?  See DEV-16350 for details. JC
+					render_ui(scale_factor, subfield);
+				}
 			}
 
 			S32 subimage_x_offset = llclamp(buffer_x_offset - (subimage_x * window_width), 0, window_width);

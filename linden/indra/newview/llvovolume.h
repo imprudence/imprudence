@@ -130,7 +130,7 @@ public:
 
 				
 				BOOL	getVolumeChanged() const				{ return mVolumeChanged; }
-				
+				F32		getTextureVirtualSize(LLFace* face);
 	/*virtual*/ F32  	getRadius() const						{ return mVObjRadius; };
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
@@ -158,14 +158,14 @@ public:
 	/*virtual*/ S32		setTEBumpmap(const U8 te, const U8 bump);
 	/*virtual*/ S32		setTEShiny(const U8 te, const U8 shiny);
 	/*virtual*/ S32		setTEFullbright(const U8 te, const U8 fullbright);
-	/*virtual*/ S32		setTEBumpShinyFullbright(const U8 te, const U8 bump);
+	/*virtual*/ S32		setTEBumpShinyFullbright(const U8 te, const U8 bump); // KL S19?
 	/*virtual*/ S32		setTEMediaFlags(const U8 te, const U8 media_flags);
 	/*virtual*/ S32		setTEGlow(const U8 te, const F32 glow);
 	/*virtual*/ S32		setTEScale(const U8 te, const F32 s, const F32 t);
 	/*virtual*/ S32		setTEScaleS(const U8 te, const F32 s);
 	/*virtual*/ S32		setTEScaleT(const U8 te, const F32 t);
 	/*virtual*/ S32		setTETexGen(const U8 te, const U8 texgen);
-	/*virtual*/ S32		setTEMediaTexGen(const U8 te, const U8 media);
+	/*virtual*/ S32		setTEMediaTexGen(const U8 te, const U8 media); // KL S19
 	/*virtual*/ BOOL 	setMaterial(const U8 material);
 
 				void	setTexture(const S32 face);
@@ -177,8 +177,8 @@ public:
 	/*virtual*/ void	updateFaceSize(S32 idx);
 	/*virtual*/ BOOL	updateLOD();
 				void	updateRadius();
-	/*virtual*/ void	updateTextures();
-				void	updateTextureVirtualSize();
+	/*virtual*/ void	updateTextures(LLAgent &agent);
+				void	updateTextures();
 
 				void	updateFaceFlags();
 				void	regenFaces();
@@ -196,9 +196,18 @@ public:
 	void setLightRadius(F32 radius);
 	void setLightFalloff(F32 falloff);
 	void setLightCutoff(F32 cutoff);
+	void setLightTextureID(LLUUID id);
+	void setSpotLightParams(LLVector3 params);
+
 	BOOL getIsLight() const;
 	LLColor3 getLightBaseColor() const; // not scaled by intensity
 	LLColor3 getLightColor() const; // scaled by intensity
+	LLUUID	getLightTextureID() const;
+	LLVector3 getSpotLightParams() const;
+	void	updateSpotLightPriority();
+	F32		getSpotLightPriority() const;
+
+	LLViewerImage* getLightTexture();
 	F32 getLightIntensity() const;
 	F32 getLightRadius() const;
 	F32 getLightFalloff() const;
@@ -208,6 +217,8 @@ public:
 	U32 getVolumeInterfaceID() const;
 	virtual BOOL isFlexible() const;
 	virtual BOOL isSculpted() const;
+	virtual BOOL hasLightTexture() const;
+
 	BOOL isVolumeGlobal() const;
 	BOOL canBeFlexible() const;
 	BOOL setIsFlexible(BOOL is_flexible);
@@ -233,12 +244,14 @@ private:
 	BOOL		mLODChanged;
 	S32         mSculptLevel;
 	BOOL		mSculptChanged;
+	F32			mSpotLightPriority;
 	LLMatrix4	mRelativeXform;
 	LLMatrix3	mRelativeXformInvTrans;
 	BOOL		mVolumeChanged;
 	F32			mVObjRadius;
 	LLVolumeInterface *mVolumeImpl;
 	LLPointer<LLViewerImage> mSculptTexture;
+	LLPointer<LLViewerImage> mLightTexture;
 	
 	// statics
 public:

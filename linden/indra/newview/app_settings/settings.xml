@@ -5097,6 +5097,21 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
+<!--KL port -->
+    <key>EnableTextureAtlas</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether to use texture atlas or not</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+<!--/KL port -->
+
   <key>EnableVoiceChat</key>
   <map>
     <key>Comment</key>
@@ -8928,10 +8943,73 @@
     <string>Vector3</string>
     <key>Value</key>
     <array>
+      <real>1.0</real>
+      <real>12.0</real>
+      <real>32.0</real>
+    </array>
+  </map>
+  <key>RenderShadowSplitExponent</key>
+  <map>
+    <key>Comment</key>
+    <string>Near clip plane split distances for shadow map frusta (x=perspective, y=ortho, z=transition rate).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>3.0</real>
+      <real>3.0</real>
+      <real>2.0</real>
+    </array>
+  </map>
+  <key>RenderShadowOrthoClipPlanes</key>
+  <map>
+    <key>Comment</key>
+    <string>Near clip plane split distances for orthographic shadow map frusta.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
       <real>4.0</real>
       <real>8.0</real>
       <real>24.0</real>
     </array>
+  </map>
+  <key>RenderShadowProjOffset</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount to scale distance to virtual origin of shadow perspective projection.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>2.0</real>
+  </map>
+  <key>RenderShadowSlopeThreshold</key>
+  <map>
+    <key>Comment</key>
+    <string>Cutoff slope value for points to affect perspective shadow generation</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>
+  <key>RenderShadowProjExponent</key>
+  <map>
+    <key>Comment</key>
+    <string>Exponent applied to transition between ortho and perspective shadow projections based on viewing angle and light vector.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
   </map>
   <key>RenderSSAOScale</key>
   <map>
@@ -9092,6 +9170,184 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+
+  <key>RenderGILightRadius</key>
+  <map>
+    <key>Comment</key>
+    <string>Distance of ambiant bounce lighting from sun.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>8</real>
+  </map>
+
+  <key>RenderGISamples</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of samples to take for GI.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>64</real>
+  </map>
+
+  <key>RenderGIRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Distance to cut off GI effect.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>128</real>
+  </map>
+
+
+  <key>RenderGIDirectionWeight</key>
+  <map>
+    <key>Comment</key>
+    <string>Weight of reflected light vector in GI angular attenuation.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+
+  <key>RenderGILightOffset</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount to offset light from point of impact in gi map (scaled by light radius).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>
+
+  <key>RenderGIColorCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Global illumination color correction curve parameters.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.0</real>
+      <real>0.2</real>
+      <real>0.02</real>
+    </array>
+  </map>
+
+  <key>RenderLuminanceColorCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Luminance color correction curve parameters.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.30</real>
+      <real>0.0</real>
+      <real>0.04</real>
+    </array>
+  </map>
+
+  <key>RenderGILuminanceColorCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Luminance color correction curve parameters.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.4</real>
+      <real>0.0</real>
+      <real>0.05</real>
+    </array>
+  </map>
+
+  <key>RenderSunLuminanceColorCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Luminance color correction curve parameters.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.6</real>
+      <real>0.0</real>
+      <real>-0.3</real>
+    </array>
+  </map>
+
+  <key>RenderLuminanceDetail</key>
+  <map>
+    <key>Comment</key>
+    <string>Mipmap level to use for luminance</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>8.0</real>
+   </map>
+
+  <key>RenderLuminanceFade</key>
+  <map>
+    <key>Comment</key>
+    <string>Scaler for speed of luminance adjustment</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.05</real>
+  </map>
+
+  <key>RenderGISpecularCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Global illumination specular color correction curve parameters.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.1</real>
+      <real>0.0</real>
+      <real>0.9</real>
+    </array>
+  </map>
+
+  <key>RenderGIIntensity</key>
+  <map>
+    <key>Comment</key>
+    <string>Distance of ambiant bounce lighting from sun.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.2f</real>
+  </map>
+
   <key>RenderDeferredAlphaSoften</key>
   <map>
     <key>Comment</key>
@@ -9114,6 +9370,178 @@
     <key>Value</key>
     <real>4</real>
   </map>
+  <key>RenderDeferredSpotShadowBias</key>
+  <map>
+    <key>Comment</key>
+    <string>Bias value for spot shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>-64.0</real>
+  </map>
+  <key>RenderDeferredSpotShadowOffset</key>
+  <map>
+    <key>Comment</key>
+    <string>Offset value for spot shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.8</real>
+  </map>
+
+  <key>RenderShadowBias</key>
+  <map>
+    <key>Comment</key>
+    <string>Bias value for shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.001</real>
+  </map>
+  <key>RenderShadowOffset</key>
+  <map>
+    <key>Comment</key>
+    <string>Offset value for shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.6</real>
+  </map>
+
+  <key>RenderShadowResolutionScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Scale of shadow map resolution vs. screen resolution</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>
+
+
+
+  <key>RenderDeferredTreeShadowBias</key>
+  <map>
+    <key>Comment</key>
+    <string>Bias value for tree shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>
+  <key>RenderDeferredTreeShadowOffset</key>
+  <map>
+    <key>Comment</key>
+    <string>Offset value for tree shadows (prevent shadow acne).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>
+
+  <key>RenderHighlightFadeTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Transition time for mouseover highlights.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.2</real>
+  </map>
+  
+  <key>RenderHighlightBrightness</key>
+  <map>
+    <key>Comment</key>
+    <string>Brightness of mouseover highlights.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>4.0</real>
+  </map>
+
+  <key>RenderHighlightThickness</key>
+  <map>
+    <key>Comment</key>
+    <string>Thickness of mouseover highlights.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.6</real>
+  </map>
+  
+  <key>RenderHighlightColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Brightness of mouseover highlights.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.4</real>
+      <real>0.98</real>
+      <real>0.93</real>
+      <real>1.0</real>
+    </array>
+  </map>
+
+  <key>RenderSpecularResX</key>
+  <map>
+    <key>Comment</key>
+    <string>Spec map resolution.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>128</real>
+  </map>
+
+  <key>RenderSpecularResY</key>
+  <map>
+    <key>Comment</key>
+    <string>Spec map resolution.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>128</real>
+  </map>
+
+  <key>RenderSpecularExponent</key>
+  <map>
+    <key>Comment</key>
+    <string>Specular exponent for generating spec map</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1</real>
+  </map>
+
   <key>RenderDeferred</key>
   <map>
     <key>Comment</key>
@@ -9125,6 +9553,31 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+
+  <key>RenderDeferredShadow</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable shadows in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
+  <key>RenderDeferredGI</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable GI in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+
   <key>RenderDeferredSunShadow</key>
   <map>
     <key>Comment</key>
@@ -9136,6 +9589,67 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
+  <key>RenderDeferredSun</key>
+  <map>
+    <key>Comment</key>
+    <string>Execute sunlight shader in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
+  <key>RenderDeferredAtmospheric</key>
+  <map>
+    <key>Comment</key>
+    <string>Execute atmospheric shader in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
+  <key>RenderDeferredBlurLight</key>
+  <map>
+    <key>Comment</key>
+    <string>Execute shadow softening shader in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
+  <key>RenderDeferredLocalLights</key>
+  <map>
+    <key>Comment</key>
+    <string>Execute local lighting shader in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
+  <key>RenderDeferredFullscreenLights</key>
+  <map>
+    <key>Comment</key>
+    <string>Execute local lighting shader in deferred renderer.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
   <key>RenderDeferredSunWash</key>
   <map>
     <key>Comment</key>
@@ -9158,6 +9672,45 @@
     <key>Value</key>
     <real>-0.0001</real>
   </map>
+  <key>RenderShadowErrorCutoff</key>
+  <map>
+    <key>Comment</key>
+    <string>Cutoff error value to use ortho instead of perspective projection.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>5.0</real>
+  </map>
+  <key>RenderShadowFOVCutoff</key>
+  <map>
+    <key>Comment</key>
+    <string>Cutoff FOV to use ortho instead of perspective projection.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.1</real>
+  </map>
+
+  <key>RenderShadowGaussian</key>
+  <map>
+    <key>Comment</key>
+    <string>Gaussian coefficients for the two shadow/SSAO blurring passes (z component unused).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>3.0</real>
+      <real>2.0</real>
+      <real>0.0</real>
+    </array>
+  </map>
+
   <key>RenderShadowBlurSize</key>
   <map>
     <key>Comment</key>
@@ -9167,7 +9720,7 @@
     <key>Type</key>
     <string>F32</string>
     <key>Value</key>
-    <real>0.7</real>
+    <real>0.8</real>
   </map>
   <key>RenderShadowBlurSamples</key>
   <map>
@@ -9178,8 +9731,94 @@
     <key>Type</key>
     <string>U32</string>
     <key>Value</key>
-    <real>5</real>
+    <real>4</real>
   </map>
+  <key>RenderShadowBlurDistFactor</key>
+  <map>
+    <key>Comment</key>
+    <string>Distance scaler for shadow blur.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.1</real>
+  </map>
+
+  <key>RenderGIBlurColorCurve</key>
+  <map>
+    <key>Comment</key>
+    <string>Color curve for GI softening kernel</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>0.6</real>
+      <real>0.1</real>
+    </array>
+  </map>
+
+  <key>RenderGIGaussian</key>
+  <map>
+    <key>Comment</key>
+    <string>Gaussian coefficient for the two GI blurring passes.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>64</real>
+  </map>
+
+  <key>RenderGIBlurPasses</key>
+  <map>
+    <key>Comment</key>
+    <string>Scale of GI softening kernel.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>2</real>
+  </map>
+
+  <key>RenderGIBlurSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Scale of GI softening kernel.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>3.0</real>
+  </map>
+  <key>RenderGIBlurSamples</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of samples to take for each pass of GI blur (value range 1-16).  Actual number of samples is value * 2 - 1.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>6</real>
+  </map>
+  <key>RenderGIBlurDistFactor</key>
+  <map>
+    <key>Comment</key>
+    <string>Distance scaler for GI blur.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>
+
   <key>RenderDynamicLOD</key>
     <map>
       <key>Comment</key>
@@ -9429,6 +10068,17 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>RenderHighlightSelections</key>
+    <map>
+      <key>Comment</key>
+      <string>Show selection outlines on objects</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>RenderHiddenSelections</key>
     <map>
@@ -9731,6 +10381,17 @@
     <map>
       <key>Comment</key>
       <string>Display user interface in snapshot</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>RenderUIBuffer</key>
+    <map>
+      <key>Comment</key>
+      <string>Cache ui render in a screen aligned buffer.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

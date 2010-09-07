@@ -3723,7 +3723,7 @@ void init_start_screen(S32 location_id)
 	}
 
 	raw->expandToPowerOfTwo();
-	gStartImageGL->createGLTexture(0, raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
+	gStartImageGL->createGLTexture(0, raw);
 }
 
 

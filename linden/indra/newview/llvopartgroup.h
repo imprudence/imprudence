@@ -61,7 +61,7 @@ public:
 	virtual U32 getPartitionType() const;
 	
 	/*virtual*/ void setPixelAreaAndAngle(LLAgent &agent);
-	/*virtual*/ void updateTextures();
+	/*virtual*/ void updateTextures(LLAgent &agent);
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ BOOL        updateGeometry(LLDrawable *drawable);

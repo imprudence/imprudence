@@ -47,7 +47,7 @@ F64	gGLLastModelView[16];
 F64 gGLProjection[16];
 S32	gGLViewport[4];
 
-static const U32 LL_NUM_TEXTURE_LAYERS = 8; 
+static const U32 LL_NUM_TEXTURE_LAYERS = 16;  // KL was 8 ( keep a track on this ) 16 in render-pipeline
 
 static GLenum sGLTextureType[] =
 {
@@ -192,24 +192,25 @@ bool LLTexUnit::bind(LLImageGL* texture, bool for_rendering, bool forceBind)
 	
 	if (!texture->getTexName()) //if texture does not exist
 	{
-		if (texture->isDeleted())
-		{
-			// This will re-generate the texture immediately.
-			texture->forceImmediateUpdate() ;
-		}
+		//if deleted, will re-generate it immediately
+		texture->forceImmediateUpdate() ;
 
-		texture->forceUpdateBindStats() ;
 		return texture->bindDefaultImage(mIndex);
 	}
 
-	if(gAuditTexture && for_rendering && LLImageGL::sCurTexPickSize > 0)
+#if !LL_RELEASE_FOR_DOWNLOAD
+	if(for_rendering)
 	{
-		if(texture->getWidth() * texture->getHeight() == LLImageGL::sCurTexPickSize)
+		int w = texture->getWidth(texture->getDiscardLevel()) ;
+		int h = texture->getHeight(texture->getDiscardLevel()) ;
+
+		if(w * h == LLImageGL::sCurTexPickSize)
 		{
 			texture->updateBindStats();
 			return bind(LLImageGL::sDefaultTexturep.get());
 		}
 	}
+#endif
 
 	if ((mCurrTexture != texture->getTexName()) || forceBind)
 	{
@@ -227,7 +228,6 @@ bool LLTexUnit::bind(LLImageGL* texture, bool for_rendering, bool forceBind)
 			setTextureFilteringOption(texture->mFilterOption);
 		}
 	}
-
 	return true;
 }
 
@@ -280,6 +280,11 @@ bool LLTexUnit::bind(LLRenderTarget* renderTarget, bool bindDepth)
 
 	if (bindDepth)
 	{
+		if (renderTarget->hasStencil())
+		{
+			llwarns << "Cannot bind a render buffer for sampling.  Allocate render target without a stencil buffer if sampling of depth buffer is required." << llendl;
+		}
+
 		bindManual(renderTarget->getUsage(), renderTarget->getDepth());
 	}
 	else
@@ -293,15 +298,18 @@ bool LLTexUnit::bind(LLRenderTarget* renderTarget, bool bindDepth)
 
 bool LLTexUnit::bindManual(eTextureType type, U32 texture, bool hasMips)
 {
-	if (mIndex < 0 || mCurrTexture == texture) return false;
-
-	gGL.flush();
+	if (mIndex < 0) return false;
 	
-	activate();
-	enable(type);
-	mCurrTexture = texture;
-	glBindTexture(sGLTextureType[type], texture);
-	mHasMipMaps = hasMips;
+	if(mCurrTexture != texture)
+	{
+		gGL.flush();
+	
+		activate();
+		enable(type);
+		mCurrTexture = texture;
+		glBindTexture(sGLTextureType[type], texture);
+		mHasMipMaps = hasMips;
+	}
 	return true;
 }
 
@@ -414,7 +422,7 @@ void LLTexUnit::setTextureBlendType(eTextureBlendType type)
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 			break;
 		default:
-			llerrs << "Unknown Texture Blend Type: " << type << llendl;
+			llwarns << "Unknown Texture Blend Type: " << type << llendl;
 			break;
 	}
 	setColorScale(scale_amount);
@@ -809,7 +817,7 @@ void LLRender::setSceneBlendType(eBlendType type)
 			glBlendFunc(GL_ONE, GL_ZERO);
 			break;
 		default:
-			llerrs << "Unknown Scene Blend Type: " << type << llendl;
+			llwarns << "Unknown Scene Blend Type: " << type << llendl;
 			break;
 	}
 }
@@ -883,7 +891,7 @@ void LLRender::begin(const GLuint& mode)
 		}
 		else if (mCount != 0)
 		{
-			llerrs << "gGL.begin() called redundantly." << llendl;
+			llwarns << "gGL.begin() called redundantly." << llendl;
 		}
 		
 		mMode = mode;
@@ -914,22 +922,22 @@ void LLRender::flush()
 #if 0
 		if (!glIsEnabled(GL_VERTEX_ARRAY))
 		{
-			llerrs << "foo 1" << llendl;
+			llwarns << "foo 1" << llendl;
 		}
 
 		if (!glIsEnabled(GL_COLOR_ARRAY))
 		{
-			llerrs << "foo 2" << llendl;
+			llwarns << "foo 2" << llendl;
 		}
 
 		if (!glIsEnabled(GL_TEXTURE_COORD_ARRAY))
 		{
-			llerrs << "foo 3" << llendl;
+			llwarns << "foo 3" << llendl;
 		}
 
 		if (glIsEnabled(GL_NORMAL_ARRAY))
 		{
-			llerrs << "foo 7" << llendl;
+			llwarns << "foo 7" << llendl;
 		}
 
 		GLvoid* pointer;
@@ -937,19 +945,19 @@ void LLRender::flush()
 		glGetPointerv(GL_VERTEX_ARRAY_POINTER, &pointer);
 		if (pointer != &(mBuffer[0].v))
 		{
-			llerrs << "foo 4" << llendl;
+			llwarns << "foo 4" << llendl;
 		}
 
 		glGetPointerv(GL_COLOR_ARRAY_POINTER, &pointer);
 		if (pointer != &(mBuffer[0].c))
 		{
-			llerrs << "foo 5" << llendl;
+			llwarns << "foo 5" << llendl;
 		}
 
 		glGetPointerv(GL_TEXTURE_COORD_ARRAY_POINTER, &pointer);
 		if (pointer != &(mBuffer[0].uv))
 		{
-			llerrs << "foo 6" << llendl;
+			llwarns << "foo 6" << llendl;
 		}
 #endif
 				

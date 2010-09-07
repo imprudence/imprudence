@@ -121,7 +121,7 @@ LLFontGL::LLFontGL()
 
 LLFontGL::LLFontGL(const LLFontGL &source)
 {
-	llerrs << "Not implemented!" << llendl;
+	llwarns << "Not implemented!" << llendl;
 }
 
 LLFontGL::~LLFontGL()
@@ -278,7 +278,7 @@ void LLFontGL::destroyGL()
 
 LLFontGL &LLFontGL::operator=(const LLFontGL &source)
 {
-	llerrs << "Not implemented" << llendl;
+	llwarns << "Not implemented" << llendl;
 	return *this;
 }
 
@@ -584,7 +584,7 @@ S32 LLFontGL::render(const LLWString &wstr,
 			const LLFontGlyphInfo* fgi= getGlyphInfo(wch);
 			if (!fgi)
 			{
-				llerrs << "Missing Glyph Info" << llendl;
+				llwarns << "Missing Glyph Info" << llendl;
 				break;
 			}
 			// Per-glyph bitmap texture.

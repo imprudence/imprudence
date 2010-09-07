@@ -272,8 +272,4 @@ void main()
 	
 	gl_FragColor.rgb = col;
 	gl_FragColor.a = 0.0;
-	//gl_FragColor.rg = scol_ambocc.rg;
-	//gl_FragColor.rgb = norm.rgb*0.5+0.5;
-	//gl_FragColor.rgb = vec3(ambocc);
-	//gl_FragColor.rgb = vec3(scol);
 }

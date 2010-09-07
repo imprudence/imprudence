@@ -629,7 +629,7 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 
 			//  Update distance & gpw 
 			objectp->setPixelAreaAndAngle(agent); // Also sets the approx. pixel area
-			objectp->updateTextures();	// Update the image levels of textures for this object.
+			objectp->updateTextures(agent);	// Update the image levels of textures for this object.
 		}
 	}
 

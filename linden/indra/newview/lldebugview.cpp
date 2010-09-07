@@ -62,7 +62,7 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	LLRect r;
 
 	r.set(10, rect.getHeight() - 100, rect.getWidth()/2, 100);
-	mDebugConsolep = new LLConsole("debug console", 20, r, -1, 0.f );
+	mDebugConsolep = new LLConsole("debug console", r, -1, 0.f );
 	mDebugConsolep->setFollowsBottom();
 	mDebugConsolep->setFollowsLeft();
 	mDebugConsolep->setVisible( FALSE );
@@ -98,6 +98,27 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	addChild(gTextureView);
 	//gTextureView->reshape(r.getWidth(), r.getHeight(), TRUE);
 
+/*
+//there  seems to be some debug code, we don't have
+#if !LL_RELEASE_FOR_DOWNLOAD
+	r.set(150, rect.getHeight() - 50, 900 + LLImageGL::sTextureLoadedCounter.size() * 30, 100);
+	gTextureSizeView = new LLTextureSizeView("gTextureSizeView");
+	gTextureSizeView->setRect(r);
+	gTextureSizeView->setFollowsBottom();
+	gTextureSizeView->setFollowsLeft();
+	addChild(gTextureSizeView);
+
+
+		r.set(150, rect.getHeight() - 50, 900 + LLImageGL::sTextureMemByCategory.size() * 30, 100);
+		gTextureCategoryView = new LLTextureSizeView("gTextureCategoryView");
+		gTextureCategoryView->setRect(r);
+		gTextureCategoryView->setFollowsBottom();
+		gTextureCategoryView->setFollowsLeft();
+		gTextureCategoryView->setType(LLTextureSizeView::TEXTURE_MEM_OVER_CATEGORY);
+		addChild(gTextureCategoryView);
+#endif
+*/
+
 	const S32 VELOCITY_LEFT = 10; // 370;
 	const S32 VELOCITY_WIDTH = 500;
 	const S32 VELOCITY_TOP = 140;
@@ -115,5 +136,6 @@ LLDebugView::~LLDebugView()
 	// These have already been deleted.  Fix the globals appropriately.
 	gDebugView = NULL;
 	gTextureView = NULL;
+	gTextureSizeView = NULL;
 }
 

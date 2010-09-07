@@ -64,6 +64,7 @@ public:
 	virtual U32 getPartitionType() const;
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
+	/*virtual*/ void		updateGL();
 	/*virtual*/ BOOL        updateGeometry(LLDrawable *drawable);
 	/*virtual*/ BOOL		updateLOD();
 	/*virtual*/ void		updateFaceSize(S32 idx);
@@ -74,7 +75,7 @@ public:
 								LLStrider<LLVector2> &texCoords1p,
 								LLStrider<U16> &indicesp);
 
-	/*virtual*/ void updateTextures();
+	/*virtual*/ void updateTextures(LLAgent &agent);
 	/*virtual*/ void setPixelAreaAndAngle(LLAgent &agent); // generate accurate apparent angle and area
 
 	/*virtual*/ void updateSpatialExtents(LLVector3& newMin, LLVector3& newMax);
