@@ -56,10 +56,8 @@ private:
 	static void onCommitAny(LLUICtrl* ctrl, void *userdata);
 	static void onCommitType(LLUICtrl* ctrl, void *userdata);
 	static void onSetBtn(void* userdata);
-	static void onResetBtn(void* userdata);
-	static void onClickAddURLFilter(void *userdata);
-	static void onClickRemoveURLFilter(void *userdata);
-	
+	static void onClickSoundHelp(void*);
+
 private:
 	LLCheckBoxCtrl* mCheckSoundLocal;
 	LLButton*       mSoundHelpButton;
@@ -71,11 +69,8 @@ private:
 	LLLineEditor*	mMediaDescEdit;
 	LLComboBox*		mMediaTypeCombo;
 	LLButton*		mSetURLButton;
-	LLButton*		mResetURLButton;
-	LLSpinCtrl*		mMediaResetCtrl;
 	LLSpinCtrl*		mMediaHeightCtrl;
 	LLSpinCtrl*		mMediaWidthCtrl;
-	LLTextBox*		mMediaResetCtrlLabel;
 	LLTextBox*		mMediaSizeCtrlLabel;
 	LLTextureCtrl*	mMediaTextureCtrl;
 	LLCheckBoxCtrl*	mMediaAutoScaleCheck;
@@ -83,16 +78,7 @@ private:
 	LLCheckBoxCtrl* mMediaUrlCheck;
 	LLCheckBoxCtrl* mMusicUrlCheck;
 	LLHandle<LLFloater>	mURLEntryFloater;
-	LLCheckBoxCtrl* mMediaNavigateAllowCheck;
-	LLCheckBoxCtrl* mMediaURLFilterCheck;
-	LLLineEditor*	mMediaURLFilterDomainEdit;
-	LLButton*		mMediaURLFilterAddButton;
-	LLButton*		mMediaURLFilterRemoveButton;
-	LLScrollListCtrl*   mURLFilterList;
-	LLRadioGroup*	mRadioNavigateControl;
 
-
-	
 	LLSafeHandle<LLParcelSelection>&	mParcel;
 };
 
