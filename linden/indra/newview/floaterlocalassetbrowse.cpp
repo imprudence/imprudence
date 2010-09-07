@@ -40,12 +40,6 @@ this feature is still a work in progress.
 #include "llviewerprecompiledheaders.h"
 #include "lluictrlfactory.h"
 
-/* boost madness from hell */
-#ifdef equivalent
-	#undef equivalent
-#endif
-#include <boost/filesystem.hpp>
-
 /* own class header && upload floater header */
 #include "floaterlocalassetbrowse.h"
 //#include "floaterlocaluploader.h" <- in development.
@@ -65,6 +59,7 @@ this feature is still a work in progress.
 #include "llfilepicker.h"
 #include "llviewermenufile.h"
 #include "llfloaterimagepreview.h"
+#include "llfile.h"
 
 /* repeated in header */
 #include "lltexturectrl.h"   
@@ -125,15 +120,9 @@ LocalBitmap::LocalBitmap(std::string fullpath)
 
 		/* getting file's last modified */
 
-		std::time_t time;
-
-#ifdef LL_DARWIN
-		struct stat temp_stat;
-		stat(fullpath.c_str(), &temp_stat);
-		time = temp_stat.st_mtime;
-#else
-		time = boost::filesystem::last_write_time( boost::filesystem::path( this->filename ) );
-#endif
+		llstat temp_stat;
+		LLFile::stat(this->filename, &temp_stat);
+		std::time_t time = temp_stat.st_mtime;
 
 		this->last_modified = asctime( localtime(&time) );
 
@@ -171,14 +160,10 @@ void LocalBitmap::updateSelf()
 		if ( !gDirUtilp->fileExists(this->filename) ) { this->linkstatus = LINK_BROKEN; return; }
 
 		/* exists, let's check if it's lastmod has changed */
-		std::time_t temp_time;
-#ifdef LL_DARWIN
-		struct stat temp_stat;
-		stat(this->filename.c_str(), &temp_stat);
-		temp_time = temp_stat.st_mtime;
-#else
-		temp_time = boost::filesystem::last_write_time( boost::filesystem::path( this->filename ) );
-#endif
+		llstat temp_stat;
+		LLFile::stat(this->filename, &temp_stat);
+		std::time_t temp_time = temp_stat.st_mtime;
+
 		LLSD new_last_modified = asctime( localtime(&temp_time) );
 		if ( this->last_modified.asString() == new_last_modified.asString() ) { return; }
 
