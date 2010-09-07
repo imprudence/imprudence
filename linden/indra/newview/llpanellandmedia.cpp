@@ -171,8 +171,8 @@ void LLPanelLandMedia::refresh()
 		// Display options
 		BOOL can_change_media = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA);
 
-//imprudence fixme 		mCheckSoundLocal->set( parcel->getSoundLocal() );
-//imprudence fixme		mCheckSoundLocal->setEnabled( can_change_media );
+ 		mCheckSoundLocal->set( parcel->getSoundLocal() );
+		mCheckSoundLocal->setEnabled( can_change_media );
 
 		LLViewerRegion* region = LLViewerParcelMgr::getInstance()->getSelectionRegion();
 		if (!region)
@@ -188,39 +188,39 @@ void LLPanelLandMedia::refresh()
 		{
 			if (region && region->isVoiceEnabled()) // estate-wide voice-disable overrides all
 			{
-//imprudence fixme				mCheckEnableVoiceChatIsEstateDisabled->setVisible(false);
+				mCheckEnableVoiceChatIsEstateDisabled->setVisible(false);
 
-//imprudence fixme				mCheckEnableVoiceChat->setVisible(true);
-//imprudence fixme				mCheckEnableVoiceChat->setEnabled( can_change_media );
-//imprudence fixme				mCheckEnableVoiceChat->set(allow_voice);
+				mCheckEnableVoiceChat->setVisible(true);
+				mCheckEnableVoiceChat->setEnabled( can_change_media );
+				mCheckEnableVoiceChat->set(allow_voice);
 
-//imprudence fixme				mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
+				mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
 			}
 			else // disabled at region level
 			{
-//imprudence fixme				mCheckEnableVoiceChatIsEstateDisabled->setVisible(true); // always disabled
-//imprudence fixme				mCheckEnableVoiceChat->setVisible(false);
-//imprudence fixme				mCheckEnableVoiceChat->setEnabled(false);
-//imprudence fixme				mCheckEnableVoiceChat->set(false);
+				mCheckEnableVoiceChatIsEstateDisabled->setVisible(true); // always disabled
+				mCheckEnableVoiceChat->setVisible(false);
+				mCheckEnableVoiceChat->setEnabled(false);
+				mCheckEnableVoiceChat->set(false);
 
-//imprudence fixme				mCheckEnableVoiceChatParcel->setEnabled(false);
+				mCheckEnableVoiceChatParcel->setEnabled(false);
 			}
 		}
 		else
 		{
-//imprudence fixme			mCheckEnableVoiceChatIsEstateDisabled->setVisible(true);
+			mCheckEnableVoiceChatIsEstateDisabled->setVisible(true);
 
-//imprudence fixme			mCheckEnableVoiceChat->setVisible(true);
-//imprudence fixme			mCheckEnableVoiceChat->setEnabled( can_change_media );
-//imprudence fixme			mCheckEnableVoiceChat->set(allow_voice);
+			mCheckEnableVoiceChat->setVisible(true);
+			mCheckEnableVoiceChat->setEnabled( can_change_media );
+			mCheckEnableVoiceChat->set(allow_voice);
 
-//imprudence fixme			mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
+			mCheckEnableVoiceChatParcel->setEnabled( can_change_media && allow_voice );
 		}
 
-//imprudence fixme		mCheckEnableVoiceChatParcel->set(!parcel->getParcelFlagUseEstateVoiceChannel());
+		mCheckEnableVoiceChatParcel->set(!parcel->getParcelFlagUseEstateVoiceChannel());
 
-//imprudence fixme		mMusicURLEdit->setText(parcel->getMusicURL());
-//imprudence fixme		mMusicURLEdit->setEnabled( can_change_media );
+		mMusicURLEdit->setText(parcel->getMusicURL());
+		mMusicURLEdit->setEnabled( can_change_media );
 
 
 

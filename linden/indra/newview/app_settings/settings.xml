@@ -4135,6 +4135,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>DebugPluginDisableTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Disable the code which watches for plugins that are crashed or hung</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>DebugShowColor</key>
   <map>
     <key>Comment</key>

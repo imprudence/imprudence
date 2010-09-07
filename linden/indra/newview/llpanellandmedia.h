@@ -61,6 +61,12 @@ private:
 	static void onClickRemoveURLFilter(void *userdata);
 	
 private:
+	LLCheckBoxCtrl* mCheckSoundLocal;
+	LLButton*       mSoundHelpButton;
+	LLCheckBoxCtrl*	mCheckEnableVoiceChat;
+	LLCheckBoxCtrl*	mCheckEnableVoiceChatIsEstateDisabled;
+	LLCheckBoxCtrl*	mCheckEnableVoiceChatParcel;
+	LLLineEditor*	mMusicURLEdit;
 	LLLineEditor*	mMediaURLEdit;
 	LLLineEditor*	mMediaDescEdit;
 	LLComboBox*		mMediaTypeCombo;
@@ -75,6 +81,7 @@ private:
 	LLCheckBoxCtrl*	mMediaAutoScaleCheck;
 	LLCheckBoxCtrl*	mMediaLoopCheck;
 	LLCheckBoxCtrl* mMediaUrlCheck;
+	LLCheckBoxCtrl* mMusicUrlCheck;
 	LLHandle<LLFloater>	mURLEntryFloater;
 	LLCheckBoxCtrl* mMediaNavigateAllowCheck;
 	LLCheckBoxCtrl* mMediaURLFilterCheck;
