@@ -439,7 +439,7 @@ S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x )
 	{
 		for (S32 i = 0; i < mText.length(); i++)
 		{
-			asterix_text += '*';
+			asterix_text += (llwchar) 0x2022L;
 		}
 		wtext = asterix_text.c_str();
 	}
@@ -1938,7 +1938,7 @@ void LLLineEditor::draw()
 		std::string text;
 		for (S32 i = 0; i < mText.length(); i++)
 		{
-			text += '*';
+			text += "\xe2\x80\xa2";
 		}
 		mText = text;
 	}
@@ -2621,28 +2621,37 @@ BOOL LLLineEditor::prevalidateASCII(const LLWString &str)
 
 BOOL LLLineEditor::evaluateFloat()
 {
-	bool success;
-	F32 result = 0.f;
+	bool success = false;
 	std::string expr = getText();
 	LLStringUtil::toUpper(expr);
 
-	success = LLCalc::getInstance()->evalString(expr, result);
-
-	if (!success)
+	// user deleted the contents, nothing to evaluate -- MC
+	if (expr.empty())
 	{
-		// Move the cursor to near the error on failure
-		setCursor(LLCalc::getInstance()->getLastErrorPos());
-		// *TODO: Translated error message indicating the type of error? Select error text?
+		return success;
 	}
 	else
 	{
-		// Replace the expression with the result
-		std::string result_str = llformat("%f",result);
-		setText(result_str);
-		selectAll();
-	}
+		F32 result = 0.f;
+		success = LLCalc::getInstance()->evalString(expr, result);
 
-	return success;
+		if (!success)
+		{
+			// Move the cursor to near the error on failure
+			setCursor(LLCalc::getInstance()->getLastErrorPos());
+			// *TODO: Translated error message indicating the type of error? Select error text?
+		}
+		else
+		{
+			// Replace the expression with the result
+			std::ostringstream result_str;
+			result_str << result;
+			setText(result_str.str());
+			selectAll();
+		}
+
+		return success;
+	}
 }
 
 void LLLineEditor::onMouseCaptureLost()

@@ -242,6 +242,8 @@ BOOL LLPanelDisplay::postBuild()
 	// Avatar Render Mode
 	mCtrlAvatarCloth = getChild<LLCheckBoxCtrl>("AvatarCloth");
 	mCtrlAvatarImpostors = getChild<LLCheckBoxCtrl>("AvatarImpostors");
+	mCtrlAvatarImpostors->setCommitCallback(&LLPanelDisplay::onImpostorsEnable);
+	mCtrlAvatarImpostors->setCallbackUserData(this);
 
 	//----------------------------------------------------------------------------
 	// radio set for lighting detail
@@ -310,6 +312,10 @@ BOOL LLPanelDisplay::postBuild()
 	mPostProcessText = getChild<LLTextBox>("PostProcessText");
 	mCtrlPostProcess->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlPostProcess->setCallbackUserData(mPostProcessText);
+
+	// Avatar imposter count
+	mCtrlAvatarMaxVisible = getChild<LLSliderCtrl>("AvatarMaxVisible");
+	mAvatarCountText = getChild<LLTextBox>("AvatarCountText");
 
 	// Text boxes (for enabling/disabling)
 	mShaderText = getChild<LLTextBox>("ShadersText");
@@ -411,7 +417,11 @@ void LLPanelDisplay::refresh()
 	mLightingDetail = gSavedSettings.getS32("RenderLightingDetail");
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
 
+	// windlight remote
 	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+
+	// max avatar count
+	mAvatarMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");
 
 	// slider text boxes
 	updateSliderText(mCtrlLODFactor, mLODFactorText);
@@ -572,6 +582,9 @@ void LLPanelDisplay::disableUnavailableSettings()
 		mCtrlAvatarImpostors->setEnabled(FALSE);
 		mCtrlAvatarImpostors->setValue(FALSE);
 	}
+	
+	mCtrlAvatarMaxVisible->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
+	mAvatarCountText->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
 }
 
 void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
@@ -587,6 +600,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mCtrlTerrainFactor != NULL);
 	llassert(mCtrlSkyFactor != NULL);
 	llassert(mCtrlMaxParticle != NULL);
+	llassert(mCtrlAvatarMaxVisible != NULL);
 	llassert(mCtrlPostProcess != NULL);
 
 	llassert(mLODFactorText != NULL);
@@ -617,6 +631,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mTerrainText != NULL);
 	llassert(mDrawDistanceMeterText1 != NULL);
 	llassert(mDrawDistanceMeterText2 != NULL);
+	llassert(mAvatarCountText != NULL);
 
 	// enable/disable the states
 	mGraphicsBorder->setVisible(!isHidden);
@@ -664,6 +679,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	mTerrainText->setVisible(!isHidden);
 	mDrawDistanceMeterText1->setVisible(!isHidden);
 	mDrawDistanceMeterText2->setVisible(!isHidden);
+	mAvatarCountText->setVisible(!isHidden);
 
 	// hide one meter text if we're making things visible
 	if(!isHidden)
@@ -672,6 +688,8 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	}
 
 	mMeshDetailText->setVisible(!isHidden);
+
+	mCtrlAvatarMaxVisible->setVisible(!isHidden);
 }
 
 void LLPanelDisplay::cancel()
@@ -708,6 +726,8 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setS32("RenderGlowResolutionPow", mPostProcess);
 
 	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
+
+	gSavedSettings.setS32("RenderAvatarMaxVisible", mAvatarMaxVisible);
 }
 
 void LLPanelDisplay::apply()
@@ -987,5 +1007,12 @@ void LLPanelDisplay::updateMeterText(LLUICtrl* ctrl, void* user_data)
 	m2->setVisible(!two_digits);
 }
 
+// static
+void LLPanelDisplay::onImpostorsEnable(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelDisplay* self = (LLPanelDisplay*)user_data;
+	LLCheckBoxCtrl* checkbox = (LLCheckBoxCtrl*)ctrl;
 
-
+	self->mCtrlAvatarMaxVisible->setEnabled(checkbox->getValue().asBoolean());
+	self->mAvatarCountText->setEnabled(checkbox->getValue().asBoolean());
+}

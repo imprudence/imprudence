@@ -104,6 +104,7 @@ protected:
 	LLSliderCtrl	*mCtrlSkyFactor;				// LOD for terrain
 	LLSliderCtrl	*mCtrlMaxParticle;				// Max Particle
 	LLSliderCtrl	*mCtrlPostProcess;				// Max Particle
+	LLSliderCtrl	*mCtrlAvatarMaxVisible;			// Max avatars visible
 
 	LLCheckBoxCtrl	*mCtrlBumpShiny;
 	LLCheckBoxCtrl	*mCtrlReflections;
@@ -138,6 +139,7 @@ protected:
 	LLTextBox		*mTerrainFactorText;
 	LLTextBox		*mSkyFactorText;
 	LLTextBox		*mPostProcessText;
+	LLTextBox		*mAvatarCountText;
 
 	BOOL mFSAutoDetectAspect;
 	F32 mAspectRatio;
@@ -171,6 +173,8 @@ protected:
 	S32 mParticleCount;
 	S32 mPostProcess;
 
+	S32 mAvatarMaxVisible;
+
 	BOOL mWLControl;
 
 	static void setGraphicsSettings(LLControlGroup& group);
@@ -191,6 +195,7 @@ protected:
 	static void onApplyResolution(LLUICtrl* ctrl, void* data);
 	static void updateSliderText(LLUICtrl* ctrl, void* user_data);
 	static void updateMeterText(LLUICtrl* ctrl, void* user_data);
+	static void onImpostorsEnable(LLUICtrl* ctrl, void* user_data);
 
 	/// callback for defaults
 	static void setHardwareDefaults(void *data);

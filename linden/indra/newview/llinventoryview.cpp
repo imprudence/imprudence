@@ -578,11 +578,11 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	std::ostringstream filterSaveName;
 	filterSaveName << gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "filters.xml");
 	llinfos << "LLInventoryView::init: reading from " << filterSaveName << llendl;
-    llifstream file(filterSaveName.str());
+	llifstream file(filterSaveName.str());
 	LLSD savedFilterState;
-    if (file.is_open())
-    {
-        LLSDSerialize::fromXML(savedFilterState, file);
+	if (file.is_open())
+	{
+		LLSDSerialize::fromXML(savedFilterState, file);
 		file.close();
 
 		// Load the persistent "Recent Items" settings.

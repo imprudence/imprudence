@@ -162,8 +162,8 @@
 	     follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="true" label="Custom" left="385" mouse_opaque="true"
 	     name="CustomSettings" radio_style="false" width="256" />
-	<view_border bevel_style="none" border_thickness="1" bottom="-375" follows="top|left"
-	     height="260" left="5" name="GraphicsBorder" width="485" />
+	<view_border bevel_style="none" border_thickness="1" bottom="-415" follows="left|top"
+	     height="300" left="5" name="GraphicsBorder" width="485" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-130" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
@@ -235,6 +235,17 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Avatar cloth" left_delta="0" mouse_opaque="true" name="AvatarCloth"
 	     radio_style="false" width="256" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="0"
+       mouse_opaque="true" name="AvatarCountText" v_pad="0" width="128">
+    Max. non-imposters:
+  </text>
+  <slider bottom_delta="-20" can_edit_text="false" control_name="RenderAvatarMaxVisible"
+       decimal_digits="0" enabled="true" follows="left|top" height="16"
+       increment="1" initial_val="35" label=""
+       label_width="0" left_delta="0" max_val="50" min_val="0" mouse_opaque="true"
+       name="AvatarMaxVisible" show_text="true" width="100" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
@@ -387,13 +398,13 @@
 			High
 		</radio_item>
 	</radio_group>
-	<button bottom="-400" enabled="true" font="SansSerif" halign="center" height="20"
+	<button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Recommended Settings" left="130" mouse_opaque="true"
-	     name="Defaults" scale_image="true" width="170" />
-	<button bottom="-400" enabled="true" font="SansSerif" halign="center" height="20"
+	     name="Defaults" scale_image="true" width="170" follows="left|bottom" />
+  <button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Hardware Options" label_selected="Hardware Options"
 	     left="310" mouse_opaque="true" name="GraphicsHardwareButton"
-	     scale_image="true" width="170" />
+	     scale_image="true" width="170" follows="left|bottom" />
 	<string name="resolution_format">
 		[RES_X] x [RES_Y]
 	</string>

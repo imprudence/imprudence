@@ -1097,6 +1097,9 @@ void LLPreviewLSL::callbackLSLCompileFailed(const LLSD& compile_errors)
 		line < compile_errors.endArray();
 		line++)
 	{
+		// Note: OpenSim screws up and sends the wrong values for (row, column).
+		// (As of 2010-09-06: rows start at -1 instead of 0, and columns start at
+		//  1 instead of 0) -- MC
 		LLSD row;
 		std::string error_message = line->asString();
 		LLStringUtil::stripNonprintable(error_message);

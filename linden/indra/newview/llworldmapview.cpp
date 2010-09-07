@@ -719,6 +719,28 @@ void LLWorldMapView::draw()
 						LLFontGL::DROP_SHADOW);
 				}
 				mesg = info->mName;
+
+				// Add access level to region name
+				U8 access = info->mAccess;
+				switch(access)
+				{
+				case SIM_ACCESS_MIN:
+					// Don't show this due to different use based on different grids -- MC
+					//mesg += " (" + LLTrans::getString("SIM_ACCESS_MIN") +")";
+					break;
+				case SIM_ACCESS_PG:
+					mesg += " (" + LLTrans::getString("SIM_ACCESS_PG") +")";
+					break;
+				case SIM_ACCESS_MATURE:
+					mesg += " (" + LLTrans::getString("SIM_ACCESS_MATURE") +")";
+					break;
+				case SIM_ACCESS_ADULT:
+					mesg += " (" + LLTrans::getString("SIM_ACCESS_ADULT") +")";
+					break;
+				default:
+					mesg += llformat(" (Access: %d)", access);
+					break;
+				}
 			}
 			else
 			{
