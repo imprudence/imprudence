@@ -76,6 +76,7 @@
 #include "llfloaterhtml.h"
 #include "llweb.h"
 #include "llstylemap.h"
+#include "llviewermenu.h"
 
 // Used for LCD display
 extern void AddNewIMToLCD(const std::string &newLine);
@@ -551,19 +552,44 @@ LLColor4 get_text_color(const LLChat& chat)
 			text_color = gSavedSettings.getColor4("SystemChatColor");
 			break;
 		case CHAT_SOURCE_AGENT:
-		    if (chat.mFromID.isNull())
 			{
-				text_color = gSavedSettings.getColor4("SystemChatColor");
-			}
-			else
-			{
-				if(gAgent.getID() == chat.mFromID)
+				if (chat.mFromID.isNull())
 				{
-					text_color = gSavedSettings.getColor4("UserChatColor");
+					text_color = gSavedSettings.getColor4("SystemChatColor");
 				}
 				else
 				{
-					text_color = gSavedSettings.getColor4("AgentChatColor");
+					if(gAgent.getID() == chat.mFromID)
+					{
+						text_color = gSavedSettings.getColor4("UserChatColor");
+					}
+					else
+					{
+						std::string my_name = gSavedSettings.getString("FirstName");
+						std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
+
+						std::string lower_chat = std::string(chat.mText);
+						std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
+
+						std::string blank = " ";
+
+						// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
+						if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
+							(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
+							lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
+							lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
+						{
+							text_color = LLColor4::purple;
+						}
+						else if (is_agent_friend(chat.mFromID))
+						{
+							text_color = LLColor4::yellow;
+						}
+						else
+						{
+							text_color = gSavedSettings.getColor4("AgentChatColor");
+						}
+					}
 				}
 			}
 			break;
