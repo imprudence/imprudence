@@ -2313,7 +2313,17 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			position,
 			true);
 
-		chat.mText = std::string("IM: ") + name + separator_string +  saved + message.substr(message_offset);
+		std::string group_name;
+		if (gAgent.isInGroup(session_id) && gSavedSettings.getBOOL("ShowGroupNameInChatIM"))
+		{
+			group_name = std::string((char*)binary_bucket);
+			chat.mText = std::string("[") + group_name + std::string("] ") + name 
+						+ separator_string + saved + message.substr(message_offset);
+		}
+		else
+		{
+			chat.mText = std::string("IM: ") + name + separator_string +  saved + message.substr(message_offset);
+		}
 		LLFloaterChat::addChat(chat, TRUE, is_this_agent);
 	}
 	break;
