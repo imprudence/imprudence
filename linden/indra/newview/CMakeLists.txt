@@ -1139,8 +1139,6 @@ set(viewer_XUI_FILES
 
 
     )
-list(APPEND viewer_XUI_FILES ${viewer_XUI_FILE_GLOB_LIST})
-list(SORT viewer_XUI_FILES)
 
 list(APPEND viewer_XUI_FILES ${viewer_XUI_FILE_GLOB_LIST})
 list(SORT viewer_XUI_FILES)
