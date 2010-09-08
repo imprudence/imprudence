@@ -172,5 +172,29 @@
       <button name="ac_button" label="AutoCorrect Options…" halign="center" tool_tip="Modify the AutoCorrect word list and settings" left="5"
         bottom_delta="-64" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
     </panel>
+    
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Extra" 
+    left="1" mouse_opaque="true" name="Extra" width="418">
+
+        <check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+            initial_value="true" label="Show chat messages from friends in a different color" left="12"
+            mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
+
+        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-90"
+            can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
+            enabled="true" follows="left|top" height="56" label="Friends" left_delta="68"
+            mouse_opaque="true" name="FriendsChatColor" width="54" />
+
+        <check_box bottom_delta="-30" enabled="true" follows="left|top"
+	         font="SansSerifSmall" height="16" initial_value="true"
+	         label="Show chat messages containing your name in a different color" left="12" mouse_opaque="true"
+	         name="HighlightOwnNameInChat" radio_style="false" width="217" />
+
+        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-180"
+            can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
+            enabled="true" follows="left|top" height="56" label="Own Name" left_delta="68"
+            mouse_opaque="true" name="OwnNameChatColor" width="54" />
+
+    </panel>
   </tab_container>
 </panel>

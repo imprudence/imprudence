@@ -41,6 +41,7 @@
 #include "lgghunspell_wrapper.h"
 #include "lggautocorrectfloater.h"
 #include "llcombobox.h"
+#include "llcolorswatch.h"
 
 #include "lluictrlfactory.h"
 
@@ -111,6 +112,11 @@ BOOL LLPrefsAdvanced::postBuild()
 
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
+	childSetValue("HighlightFriendsChat", gSavedSettings.getBOOL("HighlightFriendsChat"));
+	getChild<LLColorSwatchCtrl>("FriendsChatColor")->set(gSavedSettings.getColor4("FriendsChatColor"));
+	childSetValue("HighlightOwnNameInChat", gSavedSettings.getBOOL("HighlightOwnNameInChat"));
+	getChild<LLColorSwatchCtrl>("OwnNameChatColor")->set(gSavedSettings.getColor4("OwnNameChatColor"));
+
 	refresh();
 
 	return TRUE;
@@ -133,6 +139,10 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setU32("LightShareAllowed",
 	                      (U32)childGetValue("lightshare_combo").asInteger());
 
+	gSavedSettings.setBOOL("HighlightFriendsChat", childGetValue("HighlightFriendsChat"));
+	gSavedSettings.setColor4("FriendsChatColor", getChild<LLColorSwatchCtrl>("FriendsChatColor")->get());
+	gSavedSettings.setBOOL("HighlightOwnNameInChat", childGetValue("HighlightOwnNameInChat"));
+	gSavedSettings.setColor4("OwnNameChatColor", getChild<LLColorSwatchCtrl>("OwnNameChatColor")->get());
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
