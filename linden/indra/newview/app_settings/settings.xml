@@ -617,6 +617,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>ResetFocusOnSelfClick</key>
+		<map>
+		<key>Comment</key>
+		<string>Setting this to TRUE resets your camera when you left-click your avatar</string>
+		<key>Persist</key>
+		<integer>1</integer>
+		<key>Type</key>
+		<string>Boolean</string>
+		<key>Value</key>
+		<integer>0</integer>
+		</map>
   <key>RezWithLandGroup</key>
   <map>
     <key>Comment</key>

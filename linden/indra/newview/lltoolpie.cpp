@@ -292,7 +292,10 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 			gViewerWindow->hideCursor();
 			LLToolCamera::getInstance()->setMouseCapture(TRUE);
 			LLToolCamera::getInstance()->pickCallback(mPick);
-			gAgent.setFocusOnAvatar(TRUE, TRUE);
+			if (gSavedSettings.getBOOL("ResetFocusOnSelfClick"))
+			{
+				gAgent.setFocusOnAvatar(TRUE, TRUE);
+			}
 
 			return TRUE;
 		}
