@@ -565,30 +565,34 @@ LLColor4 get_text_color(const LLChat& chat)
 					}
 					else
 					{
-						std::string my_name = gSavedSettings.getString("FirstName");
-						std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
-
-						std::string lower_chat = std::string(chat.mText);
-						std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
-
-						std::string blank = " ";
-
-						// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
-						if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
-							(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
-							lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
-							lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
+						if (gSavedSettings.getBOOL("HighlightOwnNameInChat"))
 						{
-							text_color = LLColor4::purple;
+							std::string my_name = gSavedSettings.getString("FirstName");
+							std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
+
+							std::string lower_chat = std::string(chat.mText);
+							std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
+
+							std::string blank = " ";
+
+							// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
+							if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
+								(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
+								lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
+								lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
+							{
+								text_color = gSavedSettings.getColor4("OwnNameChatColor");
+								break;
+							}
 						}
-						else if (is_agent_friend(chat.mFromID))
+
+						if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(chat.mFromID))
 						{
-							text_color = LLColor4::yellow;
+							text_color = gSavedSettings.getColor4("FriendsChatColor");
+							break;
 						}
-						else
-						{
-							text_color = gSavedSettings.getColor4("AgentChatColor");
-						}
+
+						text_color = gSavedSettings.getColor4("AgentChatColor");
 					}
 				}
 			}
