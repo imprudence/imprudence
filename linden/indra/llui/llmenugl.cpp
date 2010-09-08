@@ -101,7 +101,7 @@ const U32 SEPARATOR_HEIGHT_PIXELS = 8;
 const S32 TEAROFF_SEPARATOR_HEIGHT_PIXELS = 10;
 const S32 MENU_ITEM_PADDING = 4;
 
-const std::string BOOLEAN_TRUE_PREFIX( "X" );
+const std::string BOOLEAN_TRUE_PREFIX( "\xe2\x9c\x93" ); // U+2714 -- MC
 const std::string BRANCH_SUFFIX( "\xE2\x96\xB6" ); // U+25B6 BLACK RIGHT-POINTING TRIANGLE
 const std::string ARROW_UP  ("^^^^^^^");
 const std::string ARROW_DOWN("vvvvvvv");
