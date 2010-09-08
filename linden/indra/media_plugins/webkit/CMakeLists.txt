@@ -24,6 +24,7 @@ include_directories(
     ${LLIMAGE_INCLUDE_DIRS}
     ${LLRENDER_INCLUDE_DIRS}
     ${LLWINDOW_INCLUDE_DIRS}
+    ${LLQTWEBKIT_INCLUDE_DIR}
 )
 
 
@@ -33,18 +34,30 @@ set(media_plugin_webkit_SOURCE_FILES
     media_plugin_webkit.cpp
     )
 
-add_library(media_plugin_webkit
-    SHARED
-    ${media_plugin_webkit_SOURCE_FILES}
-)
+if(WORD_SIZE EQUAL 64)
+	if(WINDOWS)
+		add_definitions(/FIXED:NO)
+	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+		add_definitions(-fPIC)
+	endif(WINDOWS)
+endif (WORD_SIZE EQUAL 64)
 
-target_link_libraries(media_plugin_webkit
+set(media_plugin_webkit_LINK_LIBRARIES
   ${LLPLUGIN_LIBRARIES}
   ${MEDIA_PLUGIN_BASE_LIBRARIES}
   ${LLCOMMON_LIBRARIES}
   ${WEBKIT_PLUGIN_LIBRARIES}
   ${PLUGIN_API_WINDOWS_LIBRARIES}
 )
+
+
+
+add_library(media_plugin_webkit
+    SHARED
+    ${media_plugin_webkit_SOURCE_FILES}
+)
+
+target_link_libraries(media_plugin_webkit ${media_plugin_webkit_LINK_LIBRARIES})
 
 add_dependencies(media_plugin_webkit
   ${LLPLUGIN_LIBRARIES}

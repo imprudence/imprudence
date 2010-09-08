@@ -45,6 +45,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   set(ARCH i686)
   set(LL_ARCH ${ARCH}_win32)
   set(LL_ARCH_DIR ${ARCH}-win32)
+  set(WORD_SIZE 32)
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")

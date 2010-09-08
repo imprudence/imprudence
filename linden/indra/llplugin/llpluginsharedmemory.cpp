@@ -34,6 +34,13 @@
 
 #include "llpluginsharedmemory.h"
 
+#if LL_WINDOWS
+#include <process.h>
+#else // LL_WINDOWS
+#include <sys/types.h>
+#include <unistd.h>
+#endif // LL_WINDOWS
+
 // on Mac and Linux, we use the native shm_open/mmap interface by using
 //	#define USE_SHM_OPEN_SHARED_MEMORY 1
 // in the appropriate sections below.

@@ -25,6 +25,14 @@ include_directories(
 
 ### media_plugin_base
 
+if(WORD_SIZE EQUAL 64)
+	if(WINDOWS)
+		add_definitions(/FIXED:NO)
+	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+		add_definitions(-fPIC)
+	endif(WINDOWS)
+endif (WORD_SIZE EQUAL 64)
+
 set(media_plugin_base_SOURCE_FILES
     media_plugin_base.cpp
 )
