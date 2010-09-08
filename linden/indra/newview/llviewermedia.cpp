@@ -40,6 +40,7 @@
 #include "llviewerimage.h"
 #include "llviewerwindow.h"
 #include "llviewerimagelist.h"
+//#include "viewerversion.h"
 
 #include "llpluginclassmedia.h"
 
@@ -241,13 +242,15 @@ LLViewerMediaImpl* LLViewerMedia::getMediaImplFromTextureID(const LLUUID& textur
 // static
 std::string LLViewerMedia::getCurrentUserAgent()
 {
+	// Don't include version, channel, or skin -- MC
+
 	// Don't use user-visible string to avoid 
 	// punctuation and strange characters.
-	std::string skin_name = gSavedSettings.getString("SkinCurrent");
+	//std::string skin_name = gSavedSettings.getString("SkinCurrent");
 
 	// Just in case we need to check browser differences in A/B test
 	// builds.
-	std::string channel = gSavedSettings.getString("VersionChannelName");
+	//std::string channel = gSavedSettings.getString("VersionChannelName");
 
 	// append our magic version number string to the browser user agent id
 	// See the HTTP 1.0 and 1.1 specifications for allowed formats:
@@ -257,9 +260,9 @@ std::string LLViewerMedia::getCurrentUserAgent()
 	// http://www.mozilla.org/build/revised-user-agent-strings.html
 	std::ostringstream codec;
 	codec << "SecondLife/";
-	codec << "C64 Basic V2"; //imprudence fixme : this isn't anybodys business anyway
-// 	codec << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD;
-// 	codec << " (" << channel << "; " << skin_name << " skin)";
+	codec << "C64 Basic V2";
+	//codec << ViewerVersion::getImpMajorVersion() << "." << ViewerVersion::getImpMinorVersion() << "." << ViewerVersion::getImpPatchVersion() << " " << ViewerVersion::getImpTestVersion();
+ 	//codec << " (" << channel << "; " << skin_name << " skin)";
 // 	llinfos << codec.str() << llendl;
 	
 	return codec.str();
