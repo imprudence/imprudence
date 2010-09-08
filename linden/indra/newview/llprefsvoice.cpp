@@ -153,8 +153,8 @@ void LLPrefsVoice::apply()
 	if (enable_voice && !gSavedSettings.getBOOL("VivoxLicenseAccepted"))
 	{
 		// This window enables voice chat if license is accepted
-//imprudence fixme 		FloaterVoiceLicense::getInstance()->open();
-//imprudence fixme 		FloaterVoiceLicense::getInstance()->center();
+ 		FloaterVoiceLicense::getInstance()->open();
+ 		FloaterVoiceLicense::getInstance()->center();
 	}
 	else
 	{

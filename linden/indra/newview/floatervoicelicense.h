@@ -35,8 +35,8 @@
 
 #include "llmodaldialog.h"
 #include "llassetstorage.h"
-//imprudence fixme: removed for media plugins #include "llwebbrowserctrl.h"
-/*
+#include "llmediactrl.h"
+
 class LLButton;
 class LLRadioGroup;
 class LLVFS;
@@ -45,7 +45,7 @@ class LLUUID;
 
 class FloaterVoiceLicense : 
 	public LLModalDialog,
-	public LLViewerMediaObserver
+	public LLViewerMediaObserver,
 	public LLFloaterSingleton<FloaterVoiceLicense>
 {
 public:
@@ -62,11 +62,12 @@ public:
 
 	void			setSiteIsAlive( bool alive );
 
-	virtual void	onNavigateComplete( const EventType& eventIn );
+	// inherited from LLViewerMediaObserver
+	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
 
 private:
 	int				mWebBrowserWindowId;
 	int				mLoadCompleteCount;
-};*/
+};
 
 #endif // FLOATERVOICELICENSE_H

@@ -397,8 +397,8 @@ void LLFirstUse::voiceLicenseAgreement()
 	{
 		gSavedSettings.setWarning("FirstVoiceLicense", FALSE);
 
-// imprudence fixme		FloaterVoiceLicense::getInstance()->open();
-// 				FloaterVoiceLicense::getInstance()->center();
+		FloaterVoiceLicense::getInstance()->open();
+		FloaterVoiceLicense::getInstance()->center();
 	}
 	else // currently in STATE_LOGIN_VOICE_LICENSE when arriving here
 	{
