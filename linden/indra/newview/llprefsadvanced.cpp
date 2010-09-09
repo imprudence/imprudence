@@ -112,6 +112,7 @@ BOOL LLPrefsAdvanced::postBuild()
 
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
+	childSetValue("HighlightOwnNameInIM", gSavedSettings.getBOOL("HighlightOwnNameInIM"));
 	childSetValue("HighlightFriendsChat", gSavedSettings.getBOOL("HighlightFriendsChat"));
 	getChild<LLColorSwatchCtrl>("FriendsChatColor")->set(gSavedSettings.getColor4("FriendsChatColor"));
 	childSetValue("HighlightOwnNameInChat", gSavedSettings.getBOOL("HighlightOwnNameInChat"));
@@ -139,6 +140,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setU32("LightShareAllowed",
 	                      (U32)childGetValue("lightshare_combo").asInteger());
 
+	gSavedSettings.setBOOL("HighlightOwnNameInIM", childGetValue("HighlightOwnNameInIM"));
 	gSavedSettings.setBOOL("HighlightFriendsChat", childGetValue("HighlightFriendsChat"));
 	gSavedSettings.setColor4("FriendsChatColor", getChild<LLColorSwatchCtrl>("FriendsChatColor")->get());
 	gSavedSettings.setBOOL("HighlightOwnNameInChat", childGetValue("HighlightOwnNameInChat"));

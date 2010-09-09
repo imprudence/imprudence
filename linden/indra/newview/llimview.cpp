@@ -544,6 +544,26 @@ LLIMMgr::~LLIMMgr()
 	// Children all cleaned up by default view destructor.
 }
 
+LLColor4 get_extended_text_color(const LLUUID session_id, const LLUUID other_partecipant_id, const std::string& msg, LLColor4 defaultColor)
+{
+	if (gSavedSettings.getBOOL("HighlightOwnNameInIM") && (other_partecipant_id != LLUUID::null))
+	{
+		LLDynamicArray<LLGroupData>::iterator i;
+		for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
+		{
+			if (i->mID == session_id)
+			{
+				if (LLFloaterChat::isOwnNameInText(msg))
+					return gSavedSettings.getColor4("OwnNameChatColor");
+				else
+					break;
+			}
+		}
+	}
+
+	return defaultColor;
+}
+
 // Add a message to a session. 
 void LLIMMgr::addMessage(
 	const LLUUID& session_id,
@@ -660,9 +680,21 @@ void LLIMMgr::addMessage(
 
 	// now add message to floater
 	bool is_from_system = target_id.isNull() || (from == SYSTEM_FROM);
-	const LLColor4& color = ( is_from_system ? 
-							  gSavedSettings.getColor4("SystemChatColor") : 
-							  gSavedSettings.getColor("IMChatColor"));
+
+	LLColor4 color;
+	if (is_from_system) 
+		color = gSavedSettings.getColor4("SystemChatColor");
+	else
+	{
+		std::string new_line = std::string(msg);
+		if (new_line.find(": ") == 0)
+			new_line = new_line.substr(2);
+		else
+			new_line = new_line.substr(1);
+
+		color = get_extended_text_color(session_id, other_participant_id, msg, gSavedSettings.getColor("IMChatColor"));
+	}
+
 	if ( !link_name )
 	{
 		floater->addHistoryLine(msg,color); // No name to prepend, so just add the message normally

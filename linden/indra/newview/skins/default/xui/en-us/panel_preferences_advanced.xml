@@ -190,7 +190,11 @@
 	         label="Show chat messages containing your name in a different color" left="12" mouse_opaque="true"
 	         name="HighlightOwnNameInChat" radio_style="false" width="217" />
 
-        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-180"
+		<check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+            initial_value="true" label="Show GroupIM messages containing your name in a different color" left="12"
+            mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
+
+        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
             can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
             enabled="true" follows="left|top" height="56" label="Own Name" left_delta="68"
             mouse_opaque="true" name="OwnNameChatColor" width="54" />

@@ -116,4 +116,3 @@ OSErr setImageCursor(CursorRef ref)
 	
 	return noErr;
 }
-

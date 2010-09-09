@@ -3194,7 +3194,6 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 	}
 }
 
-
 BOOL LLWindowMacOSX::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
 {
 	BOOL	retval = FALSE;

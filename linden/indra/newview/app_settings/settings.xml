@@ -4,6 +4,17 @@
   
   <!-- Imprudence-specific settings -->
 
+  <key>HighlightOwnNameInIM</key>
+  <map>
+    <key>Comment</key>
+    <string>Show GroupIM messages containing your name in a different color</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>HighlightFriendsChat</key>
   <map>
     <key>Comment</key>
