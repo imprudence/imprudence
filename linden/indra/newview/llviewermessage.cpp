@@ -2316,8 +2316,11 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 		std::string group_name;
 		if (gAgent.isInGroup(session_id) && gSavedSettings.getBOOL("ShowGroupNameInChatIM"))
 		{
-			group_name = std::string((char*)binary_bucket);
-			chat.mText = std::string("[") + group_name + std::string("] ") + name 
+			if (!(gCacheName->getGroupName(from_id, group_name)))
+			{
+				group_name = std::string((char*)binary_bucket);
+			}
+			chat.mText = std::string("IM [") + group_name + std::string("] ") + name 
 						+ separator_string + saved + message.substr(message_offset);
 		}
 		else
