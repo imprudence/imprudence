@@ -160,18 +160,19 @@ void LocalBitmap::updateSelf()
 		if ( !gDirUtilp->fileExists(this->filename) ) { this->linkstatus = LINK_BROKEN; return; }
 
 		/* exists, let's check if it's lastmod has changed */
-		std::time_t temp_time;
-#ifdef LL_DARWIN
+#ifdef LL_WINDOWS
+		struct _stat temp_stat;
+		_stat(this->filename.c_str(), &temp_stat);
+#else
 		struct stat temp_stat;
 		stat(this->filename.c_str(), &temp_stat);
-		temp_time = temp_stat.st_mtime;
-#else
-		temp_time = boost::filesystem::last_write_time( boost::filesystem::path( this->filename ) );
 #endif
-		const std::time_t temp_time = boost::filesystem::last_write_time( boost::filesystem::path( this->filename ) );
+		std::time_t temp_time = temp_stat.st_mtime;
+
+		/*const std::time_t temp_time = boost::filesystem::last_write_time( boost::filesystem::path( this->filename ) );
 		llstat temp_stat;
 		LLFile::stat(this->filename, &temp_stat);
-		std::time_t temp_time = temp_stat.st_mtime;
+		std::time_t temp_time = temp_stat.st_mtime;*/
 
 		LLSD new_last_modified = asctime( localtime(&temp_time) );
 		if ( this->last_modified.asString() == new_last_modified.asString() ) { return; }
