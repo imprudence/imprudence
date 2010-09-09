@@ -692,7 +692,7 @@ void LLIMMgr::addMessage(
 		else
 			new_line = new_line.substr(1);
 
-		color = get_extended_text_color(session_id, other_participant_id, msg, gSavedSettings.getColor("IMChatColor"));
+		color = get_extended_text_color(session_id, other_participant_id, new_line, gSavedSettings.getColor("IMChatColor"));
 	}
 
 	if ( !link_name )
