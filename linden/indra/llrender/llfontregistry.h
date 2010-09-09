@@ -97,15 +97,29 @@ public:
 	
 	const string_vec_t& getUltimateFallbackList() const { return mUltimateFallbackList; }
 
+	// If alias_name is a defined alias, returns the original name.
+	// Otherwise returns alias_name itself.
+	std::string expandAlias(std::string alias_name);
+	// Define alias_name as an alias of orig_name.
+	void setAlias(std::string alias_name, std::string orig_name);
+	// Undefines the alias alias_name. Does nothing if it's not an alias.
+	void clearAlias(std::string alias_name);
+	// True if the alias is defined.
+	bool hasAlias(std::string alias_name);
+
+
 private:
 	LLFontGL *createFont(const LLFontDescriptor& desc);
 	typedef std::map<LLFontDescriptor,LLFontGL*> font_reg_map_t;
 	typedef std::map<std::string,F32> font_size_map_t;
+	typedef std::map<std::string,std::string> font_alias_map_t;
 
 	// Given a descriptor, look up specific font instantiation.
 	font_reg_map_t mFontMap;
 	// Given a size name, look up the point size.
 	font_size_map_t mFontSizes;
+	// Given an alias name, look up the original name.
+	font_alias_map_t mFontAliases;
 
 	string_vec_t mUltimateFallbackList;
 	string_vec_t mXUIPaths;

@@ -177,6 +177,9 @@ LLFontRegistry::LLFontRegistry(const string_vec_t& xui_paths)
 	// This is potentially a slow directory traversal, so we want to
 	// cache the result.
 	mUltimateFallbackList = LLWindow::getDynamicFallbackFontList();
+
+	std::string font_choice = gSavedSettings.getString("FontChoice");
+	setAlias("SansSerif", font_choice);
 }
 
 LLFontRegistry::~LLFontRegistry()
@@ -511,6 +514,13 @@ LLFontGL *LLFontRegistry::getFont(const LLFontDescriptor& orig_desc)
 {
 	LLFontDescriptor norm_desc = orig_desc.normalize();
 
+	if (hasAlias(norm_desc.getName()))
+	{
+		// llinfos << "Font " << norm_desc.getName() << " is alias for "
+		//         << expandAlias(norm_desc.getName()) << llendl;
+		norm_desc.setName(expandAlias(norm_desc.getName()));
+	}
+
 	font_reg_map_t::iterator it = mFontMap.find(norm_desc);
 	if (it != mFontMap.end())
 		return it->second;
@@ -648,4 +658,32 @@ void LLFontRegistry::dump()
 			llinfos << "  file: " << *file_it <<llendl;
 		}
 	}
+}
+
+
+
+std::string LLFontRegistry::expandAlias(std::string alias_name)
+{
+	font_alias_map_t::iterator it = mFontAliases.find(alias_name);
+	if (it != mFontAliases.end())
+	{
+		return it->second;
+	}
+	return alias_name;
+}
+
+void LLFontRegistry::setAlias(std::string alias_name, std::string orig_name)
+{
+	mFontAliases[alias_name] = orig_name;
+}
+
+void LLFontRegistry::clearAlias(std::string alias_name)
+{
+	mFontAliases.erase(alias_name);
+}
+
+bool LLFontRegistry::hasAlias(std::string alias_name)
+{
+	font_alias_map_t::iterator it = mFontAliases.find(alias_name);
+	return (it != mFontAliases.end());
 }
