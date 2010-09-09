@@ -37,6 +37,7 @@
 
 #include "linden_common.h"
 #include "indra_constants.h" // for indra keyboard codes
+#include <iomanip>
 
 #include "llgl.h"
 
