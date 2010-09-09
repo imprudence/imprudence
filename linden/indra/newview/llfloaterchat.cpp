@@ -78,7 +78,7 @@
 #include "llstylemap.h"
 #include "llviewermenu.h"
 
-#include "regex.h"
+#include "boost/regex.hpp"
 
 // Used for LCD display
 extern void AddNewIMToLCD(const std::string &newLine);
@@ -456,7 +456,12 @@ void LLFloaterChat::updateSettings()
 BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 {
 	std::string my_name = gSavedSettings.getString("FirstName");
+	std::string pattern_s = "(^|.*[\\.\\?!:;\\*\\(\\s]+)(" + my_name + ")([,\\.\\?!:;\\*\\)\\s]+.*|$)";
+	boost::smatch what;
+	boost::regex e1(pattern_s, boost::regex::icase);
+	return boost::regex_search(text_line, what, e1);
 
+/*
 	std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
 
 	std::string lower_chat = std::string(text_line);
@@ -473,6 +478,9 @@ BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 		return TRUE;
 	}
 
+	return FALSE;
+*/
+
 /*
 	regex_t compiled;
 	// ^.*([\.\?!:;\*\(\s]+)(elektra)([,\.\?!:;\*\)\s$]+).* <--- this works :)
@@ -483,8 +491,9 @@ BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 
 	if (regexec(&compiled, text_line.c_str(), 0, NULL, 0) == 0)
 		return TRUE;
-*/
+
 	return FALSE;
+*/
 }
 
 LLColor4 get_extended_text_color(const LLChat& chat, LLColor4 defaultColor)
