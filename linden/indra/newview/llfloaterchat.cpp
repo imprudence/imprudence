@@ -78,6 +78,8 @@
 #include "llstylemap.h"
 #include "llviewermenu.h"
 
+#include "regex.h"
+
 // Used for LCD display
 extern void AddNewIMToLCD(const std::string &newLine);
 extern void AddNewChatToLCD(const std::string &newLine);
@@ -383,7 +385,6 @@ void LLFloaterChat::setHistoryCursorAndScrollToEnd()
 	}
 }
 
-
 //static 
 void LLFloaterChat::onClickMute(void *data)
 {
@@ -450,6 +451,65 @@ void LLFloaterChat::updateSettings()
 {
 	BOOL translate_chat = gSavedSettings.getBOOL("TranslateChat");
 	LLFloaterChat::getInstance(LLSD())->getChild<LLCheckBoxCtrl>("translate chat")->set(translate_chat);
+}
+
+BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
+{
+	std::string my_name = gSavedSettings.getString("FirstName");
+
+	std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
+
+	std::string lower_chat = std::string(text_line);
+	std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
+
+	std::string blank = " ";
+
+	// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
+	if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
+		(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
+		lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
+		lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
+	{
+		return TRUE;
+	}
+
+/*
+	regex_t compiled;
+	// ^.*([\.\?!:;\*\(\s]+)(elektra)([,\.\?!:;\*\)\s$]+).* <--- this works :)
+	std::string pre_pattern = "^.*([\\.\\?!:;\\*\\(\\s]+)(";
+	std::string post_pattern = ")([,\\.\\?!:;\\*\\)\\s$]+).*";
+	std::string pattern_s = pre_pattern + my_name + post_pattern;
+	regcomp(&compiled, pattern_s.c_str(), REG_ICASE);
+
+	if (regexec(&compiled, text_line.c_str(), 0, NULL, 0) == 0)
+		return TRUE;
+*/
+	return FALSE;
+}
+
+LLColor4 get_extended_text_color(const LLChat& chat, LLColor4 defaultColor)
+{
+	if (gSavedSettings.getBOOL("HighlightOwnNameInChat"))
+	{
+		std::string new_line = std::string(chat.mText);
+		int name_pos = new_line.find(chat.mFromName);
+		if (name_pos == 0)
+		{
+			new_line = new_line.substr(chat.mFromName.length());
+			if (new_line.find(": ") == 0)
+				new_line = new_line.substr(2);
+			else
+				new_line = new_line.substr(1);
+		}
+
+		if (LLFloaterChat::isOwnNameInText(new_line))
+			return gSavedSettings.getColor4("OwnNameChatColor");
+	}
+
+	if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(chat.mFromID))
+		return gSavedSettings.getColor4("FriendsChatColor");
+
+	return defaultColor;
 }
 
 // Put a line of chat in all the right places
@@ -565,34 +625,7 @@ LLColor4 get_text_color(const LLChat& chat)
 					}
 					else
 					{
-						if (gSavedSettings.getBOOL("HighlightOwnNameInChat"))
-						{
-							std::string my_name = gSavedSettings.getString("FirstName");
-							std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
-
-							std::string lower_chat = std::string(chat.mText);
-							std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
-
-							std::string blank = " ";
-
-							// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
-							if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
-								(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
-								lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
-								lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
-							{
-								text_color = gSavedSettings.getColor4("OwnNameChatColor");
-								break;
-							}
-						}
-
-						if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(chat.mFromID))
-						{
-							text_color = gSavedSettings.getColor4("FriendsChatColor");
-							break;
-						}
-
-						text_color = gSavedSettings.getColor4("AgentChatColor");
+						text_color = get_extended_text_color(chat, gSavedSettings.getColor4("AgentChatColor"));
 					}
 				}
 			}

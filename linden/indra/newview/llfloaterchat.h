@@ -40,6 +40,7 @@
 
 #include "llfloater.h"
 #include "lllogchat.h"
+
 class LLButton;
 class LLChat;
 class LLComboBox;
@@ -72,6 +73,7 @@ public:
 	// Add chat to console and history list.
 	// Color based on source, type, distance.
 	static void addChat(const LLChat& chat, BOOL from_im = FALSE, BOOL local_agent = FALSE);
+	static BOOL isOwnNameInText(const std::string &text_line);
 	
 	// Add chat to history alone.
 	static void addChatHistory(const LLChat& chat, bool log_to_file = true);
