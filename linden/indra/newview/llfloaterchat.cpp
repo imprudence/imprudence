@@ -459,41 +459,8 @@ BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 	std::string pattern_s = "(^|.*[\\.\\?!:;\\*\\(\\s]+)(" + my_name + ")([,\\.\\?!:;\\*\\)\\s]+.*|$)";
 	boost::smatch what;
 	boost::regex e1(pattern_s, boost::regex::icase);
+
 	return boost::regex_search(text_line, what, e1);
-
-/*
-	std::transform(my_name.begin(), my_name.end(), my_name.begin(), tolower);
-
-	std::string lower_chat = std::string(text_line);
-	std::transform(lower_chat.begin(), lower_chat.end(), lower_chat.begin(), tolower);
-
-	std::string blank = " ";
-
-	// yes yes, this sucks, will move to a nicer regexp as soon as i have time to make it lol
-	if (lower_chat.find(my_name + blank) == 0 || // at the beginning of the text
-		(lower_chat.find(my_name) == 0 && lower_chat.length() == my_name.length()) || // only my name in the text
-		lower_chat.find(blank + my_name + blank) != std::string::npos || // my name in the middle of the text
-		lower_chat.rfind(blank + my_name) == lower_chat.length() - (blank + my_name).length()) // my name at the end of the text
-	{
-		return TRUE;
-	}
-
-	return FALSE;
-*/
-
-/*
-	regex_t compiled;
-	// ^.*([\.\?!:;\*\(\s]+)(elektra)([,\.\?!:;\*\)\s$]+).* <--- this works :)
-	std::string pre_pattern = "^.*([\\.\\?!:;\\*\\(\\s]+)(";
-	std::string post_pattern = ")([,\\.\\?!:;\\*\\)\\s$]+).*";
-	std::string pattern_s = pre_pattern + my_name + post_pattern;
-	regcomp(&compiled, pattern_s.c_str(), REG_ICASE);
-
-	if (regexec(&compiled, text_line.c_str(), 0, NULL, 0) == 0)
-		return TRUE;
-
-	return FALSE;
-*/
 }
 
 LLColor4 get_extended_text_color(const LLChat& chat, LLColor4 defaultColor)
