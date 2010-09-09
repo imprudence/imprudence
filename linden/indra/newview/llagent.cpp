@@ -7197,6 +7197,8 @@ void LLAgent::makeNewOutfit(
 				}
 
 				LLViewerInventoryItem* item = gInventory.getItem(mWearableEntry[index].mItemID);
+				if (!item) continue; //e.g. Ruth hair on OpenSim TODO: disable checkbox
+
 				S32 todo = addWearableToAgentInventoryCallback::CALL_NONE;
 				if (!found_first_item)
 				{
