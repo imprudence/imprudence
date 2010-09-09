@@ -18,15 +18,6 @@
     </os>
   </font>
 
-  <font name="SansSerif" comment="Name of san-serif font (Truetype file name)">
-    <file>DejaVuSansCondensed.ttf</file>
-  </font>
-
-  <font name="SansSerifBold" 
-	comment="Name of bold sans-serif font" 
-	font_style="Bold">
-    <file>DejaVuSansCondensed-Bold.ttf</file>
-  </font>
 
   <font name="Monospace"
 	comment="Name of monospace font">
