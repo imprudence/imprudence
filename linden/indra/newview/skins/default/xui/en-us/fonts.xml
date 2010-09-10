@@ -26,25 +26,29 @@
 
 
   <font name="DejaVu"
-	comment="Name of DejaVu font">
+        comment="Name of DejaVu font"
+        size_mult="1.00">
     <file>DejaVuSansCondensed.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (bold)"
-	font_style="BOLD">
+        comment="Name of DejaVu font (bold)"
+        size_mult="1.00"
+        font_style="BOLD">
     <file>DejaVuSansCondensed-Bold.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (italic)"
-	font_style="ITALIC">
+        comment="Name of DejaVu font (italic)"
+        size_mult="1.00"
+        font_style="ITALIC">
     <file>DejaVuSansCondensed-Oblique.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (bold italic)"
-	font_style="BOLD|ITALIC">
+        comment="Name of DejaVu font (bold italic)"
+        size_mult="1.00"
+        font_style="BOLD|ITALIC">
     <file>DejaVuSansCondensed-BoldOblique.ttf</file>
   </font>
 

@@ -56,6 +56,9 @@ public:
 	void setName(const std::string& name) { mName = name; }
 	const std::string& getSize() const { return mSize; }
 	void setSize(const std::string& size) { mSize = size; }
+	F32 getSizeMult() const { return mSizeMult; }
+	void setSizeMult(F32 size_mult) { mSizeMult = size_mult; }
+
 	const std::vector<std::string>& getFileNames() const { return mFileNames; }
 	std::vector<std::string>& getFileNames() { return mFileNames; }
 	const U8 getStyle() const { return mStyle; }
@@ -64,6 +67,7 @@ public:
 private:
 	std::string mName;
 	std::string mSize;
+	F32 mSizeMult;
 	string_vec_t mFileNames;
 	U8 mStyle;
 };
