@@ -278,7 +278,7 @@ void LLSurface::createWaterTexture()
 			}
 		}
 
-		mWaterTexturep = new LLViewerImage(sTextureSize/2, sTextureSize/2, 4, FALSE);
+		mWaterTexturep = new LLViewerImage(raw, FALSE);
 		mWaterTexturep->dontDiscard();
 		gGL.getTexUnit(0)->bind(mWaterTexturep);
 		mWaterTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
