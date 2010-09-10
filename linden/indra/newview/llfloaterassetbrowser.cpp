@@ -122,7 +122,7 @@ void LLFloaterAssetBrowser::createThumbnails()
 		temp.mUUID = itemp->getUUID();
 		temp.mName = itemp->getName();
 		temp.mTexturep = NULL;
-		temp.mAssetRect = NULL;
+		temp.mAssetRect = LLRect::null;
 		mTextureAssets.push_back(temp);
 	}
 	
