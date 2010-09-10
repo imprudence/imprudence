@@ -1344,8 +1344,7 @@
         <on_check function="Advanced.CheckWireframe" userdata="" />
       </menu_item_check>
       <menu_item_check name="Object-Object Occlusion"
-                       label="Object-Object Occlusion"
-                       shortcut="control|shift|O">
+                       label="Object-Object Occlusion">
         <on_click function="ToggleControl"
                   userdata="UseOcclusion" />
         <on_check control="UseOcclusion" />
