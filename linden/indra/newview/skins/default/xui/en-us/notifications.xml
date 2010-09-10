@@ -1729,6 +1729,15 @@ Cannot find the region this land is in.
 
 <notification
  icon="alertmodal.tga"
+ name="CannotBuyLandMaturity"
+ type="alertmodal">
+Unable to buy land:
+
+Your allowed or prefered maturity level does not allow to buy this land.
+</notification>
+
+<notification
+ icon="alertmodal.tga"
  name="CannotCloseFloaterBuyLand"
  type="alertmodal">
 You cannot close the Buy Land window until [GRID_NAME] estimates the price of this transaction.

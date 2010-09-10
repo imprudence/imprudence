@@ -1071,7 +1071,19 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 		LLNotifications::instance().add("CannotBuyLandNoRegion");
 		return NULL;
 	}
-	
+
+	/* Check for maturity  being not higher than the current users ability and preference. */
+	U8 sim_access = region->getSimAccess();
+	const LLAgentAccess& agent_access = gAgent.getAgentAccess();
+	// if the region is PG, we're happy already, so do nothing
+	// but if we're set to avoid either mature or adult, get us outta here
+	if (((sim_access == SIM_ACCESS_MATURE) && !agent_access.canAccessMature()) ||
+		((sim_access == SIM_ACCESS_ADULT) && !agent_access.canAccessAdult()))
+	{
+		LLNotifications::instance().add("CannotBuyLandMaturity");
+		return NULL;
+	}
+
 	if (is_claim)
 	{
 		llinfos << "Claiming " << mWestSouth << " to " << mEastNorth << llendl;
