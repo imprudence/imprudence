@@ -383,14 +383,14 @@ void LLPanelPlace::displayParcelInfo(const LLVector3& pos_region,
 	std::string url = gAgent.getRegion()->getCapability("RemoteParcelRequest");
 	if (!url.empty())
 	{
-		body["location"] = ll_sd_from_vector3(pos_region);
+		body["location"] = ll_sd_from_vector3(mPosRegion);
 		if (!region_id.isNull())
 		{
 			body["region_id"] = region_id;
 		}
-		if (!pos_global.isExactlyZero())
+		if (!mPosGlobal.isExactlyZero())
 		{
-			U64 region_handle = to_region_handle(pos_global);
+			U64 region_handle = to_region_handle(mPosGlobal);
 			body["region_handle"] = ll_sd_from_U64(region_handle);
 		}
 		LLHTTPClient::post(url, body, new LLRemoteParcelRequestResponder(this->getHandle()));
