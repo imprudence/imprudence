@@ -87,6 +87,7 @@ set(viewer_SOURCE_FILES
     hippoGridManager.cpp
     hippoLimits.cpp
     hippoRestRequest.cpp
+    impprefsfonts.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
     lightshare.cpp
@@ -525,6 +526,7 @@ set(viewer_HEADER_FILES
     hippoGridManager.h
     hippoLimits.h
     hippoRestRequest.h
+    impprefsfonts.h
     jcfloater_animation_list.h
     jcfloaterareasearch.h
     lightshare.h
@@ -955,11 +957,13 @@ if (DARWIN)
   find_library(APPKIT_LIBRARY AppKit)
   find_library(COCOA_LIBRARY Cocoa)
   find_library(IOKIT_LIBRARY IOKit)
+  find_library(SECURITY_LIBRARY SECURITY)
 
   set(viewer_LIBRARIES
     ${COCOA_LIBRARY}
     ${AGL_LIBRARY}
     ${IOKIT_LIBRARY}
+    ${SECURITY_LIBRARY}
     )
 
   # Add resource files to the project.

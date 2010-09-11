@@ -48,7 +48,8 @@ using std::map;
 bool fontDescInitFromXML(LLXMLNodePtr node, LLFontDescriptor& desc);
 
 LLFontDescriptor::LLFontDescriptor():
-	mStyle(0)
+	mStyle(0),
+	mSizeMult(1.0)
 {
 }
 
@@ -59,7 +60,8 @@ LLFontDescriptor::LLFontDescriptor(const std::string& name,
 	mName(name),
 	mSize(size),
 	mStyle(style),
-	mFileNames(file_names)
+	mFileNames(file_names),
+	mSizeMult(1.0)
 {
 }
 
@@ -68,7 +70,8 @@ LLFontDescriptor::LLFontDescriptor(const std::string& name,
 								   const U8 style):
 	mName(name),
 	mSize(size),
-	mStyle(style)
+	mStyle(style),
+	mSizeMult(1.0)
 {
 }
 
@@ -165,7 +168,9 @@ LLFontDescriptor LLFontDescriptor::normalize() const
 	if (removeSubString(new_name,"Italic"))
 		new_style |= LLFontGL::ITALIC;
 
-	return LLFontDescriptor(new_name,new_size,new_style,getFileNames());
+	LLFontDescriptor norm(new_name,new_size,new_style,getFileNames());
+	norm.setSizeMult(mSizeMult);
+	return norm;
 }
 
 LLFontRegistry::LLFontRegistry(const string_vec_t& xui_paths)
@@ -177,6 +182,9 @@ LLFontRegistry::LLFontRegistry(const string_vec_t& xui_paths)
 	// This is potentially a slow directory traversal, so we want to
 	// cache the result.
 	mUltimateFallbackList = LLWindow::getDynamicFallbackFontList();
+
+	std::string font_choice = gSavedSettings.getString("FontChoice");
+	setAlias("SansSerif", font_choice);
 }
 
 LLFontRegistry::~LLFontRegistry()
@@ -252,6 +260,12 @@ bool fontDescInitFromXML(LLXMLNodePtr node, LLFontDescriptor& desc)
 		}
 
 		desc.setSize(s_template_string);
+
+		F32 attr_size_mult;
+		if (node->getAttributeF32("size_mult",attr_size_mult))
+		{
+			desc.setSizeMult(attr_size_mult);
+		}
 	}
 
 	LLXMLNodePtr child;	
@@ -360,7 +374,6 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		return NULL;
 	}
 	llinfos << "createFont " << norm_desc.getName() << " size " << norm_desc.getSize() << " style " << ((S32) norm_desc.getStyle()) << llendl;
-	F32 fallback_scale = 1.0;
 
 	// Find corresponding font template (based on same descriptor with no size specified)
 	LLFontDescriptor template_desc(norm_desc);
@@ -428,13 +441,13 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		LLFontGL *fontp = new LLFontGL;
 		std::string font_path = local_path + *file_name_it;
 		BOOL is_fallback = !is_first_found;
-		F32 extra_scale = (is_fallback)?fallback_scale:1.0;
-		if (!fontp->loadFace(font_path, extra_scale * point_size,
+		F32 size_mult = (is_fallback ? 1 : match_desc->getSizeMult());
+		if (!fontp->loadFace(font_path, point_size * size_mult,
 							 LLFontGL::sVertDPI, LLFontGL::sHorizDPI, 2, is_fallback))
 		{
 			font_path = sys_path + *file_name_it;
 
-			if (!fontp->loadFace(font_path, extra_scale * point_size,
+			if (!fontp->loadFace(font_path, point_size * size_mult,
 								 LLFontGL::sVertDPI, LLFontGL::sHorizDPI, 2, is_fallback))
 			{
 				LL_INFOS_ONCE("LLFontRegistry") << "Couldn't load font " << *file_name_it << LL_ENDL;
@@ -511,17 +524,24 @@ LLFontGL *LLFontRegistry::getFont(const LLFontDescriptor& orig_desc)
 {
 	LLFontDescriptor norm_desc = orig_desc.normalize();
 
+	if (hasAlias(norm_desc.getName()))
+	{
+		// llinfos << "Font " << norm_desc.getName() << " is alias for "
+		//         << expandAlias(norm_desc.getName()) << llendl;
+		norm_desc.setName(expandAlias(norm_desc.getName()));
+	}
+
 	font_reg_map_t::iterator it = mFontMap.find(norm_desc);
 	if (it != mFontMap.end())
 		return it->second;
 	else
 	{
-		LLFontGL *fontp = createFont(orig_desc);
+		LLFontGL *fontp = createFont(norm_desc);
 		if (!fontp)
 		{
-			llwarns << "getFont failed, name " << orig_desc.getName()
-					<<" style=[" << ((S32) orig_desc.getStyle()) << "]"
-					<< " size=[" << orig_desc.getSize() << "]" << llendl;
+			llwarns << "getFont failed, name " << norm_desc.getName()
+					<<" style=[" << ((S32) norm_desc.getStyle()) << "]"
+					<< " size=[" << norm_desc.getSize() << "]" << llendl;
 		}
 		return fontp;
 	}
@@ -639,6 +659,7 @@ void LLFontRegistry::dump()
 		llinfos << "Font: name=" << desc.getName()
 				<< " style=[" << ((S32)desc.getStyle()) << "]"
 				<< " size=[" << desc.getSize() << "]"
+				<< " size_mult=[" << desc.getSizeMult() << "]"
 				<< " fileNames="
 				<< llendl;
 		for (string_vec_t::const_iterator file_it=desc.getFileNames().begin();
@@ -648,4 +669,32 @@ void LLFontRegistry::dump()
 			llinfos << "  file: " << *file_it <<llendl;
 		}
 	}
+}
+
+
+
+std::string LLFontRegistry::expandAlias(std::string alias_name)
+{
+	font_alias_map_t::iterator it = mFontAliases.find(alias_name);
+	if (it != mFontAliases.end())
+	{
+		return it->second;
+	}
+	return alias_name;
+}
+
+void LLFontRegistry::setAlias(std::string alias_name, std::string orig_name)
+{
+	mFontAliases[alias_name] = orig_name;
+}
+
+void LLFontRegistry::clearAlias(std::string alias_name)
+{
+	mFontAliases.erase(alias_name);
+}
+
+bool LLFontRegistry::hasAlias(std::string alias_name)
+{
+	font_alias_map_t::iterator it = mFontAliases.find(alias_name);
+	return (it != mFontAliases.end());
 }

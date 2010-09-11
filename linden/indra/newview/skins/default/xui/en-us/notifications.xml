@@ -7084,6 +7084,13 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
   </form>
 </notification>
 
+<notification
+ name="ChangeFont"
+ icon="alertmodal.tga"
+ type="alertmodal">
+The new font will appear after you restart [VIEWER_NAME].
+</notification>
+
 
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->

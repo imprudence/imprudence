@@ -286,7 +286,7 @@
 	<slider bottom_delta="-22" can_edit_text="false" control_name="RenderVolumeLODFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"
 	     increment="0.125" initial_val="160" label="  Objects:"
-	     label_width="140" left_delta="0" max_val="2" min_val="0"
+	     label_width="140" left_delta="0" max_val="4" min_val="0"
 	     mouse_opaque="true" name="ObjectMeshDetail" show_text="false" width="223" />
 	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderFlexTimeFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"

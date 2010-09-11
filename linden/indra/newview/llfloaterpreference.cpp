@@ -48,6 +48,7 @@
 #include "llspinctrl.h"
 #include "message.h"
 
+#include "impprefsfonts.h"
 #include "llcommandhandler.h"
 #include "llfloaterpreference.h"
 #include "llpanelnetwork.h"
@@ -133,7 +134,8 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
 	mLCDPanel(NULL),
-	mPrefsAdvanced(NULL)
+	mPrefsAdvanced(NULL),
+	mPrefsFonts(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -196,6 +198,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mPrefsAdvanced = new LLPrefsAdvanced();
 	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsAdvanced->setDefaultBtn(default_btn);
+
+	mPrefsFonts = new ImpPrefsFonts();
+	mTabContainer->addTabPanel(mPrefsFonts, mPrefsFonts->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsFonts->setDefaultBtn(default_btn);
 
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
@@ -261,6 +267,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mPrefsAdvanced;
 		mPrefsAdvanced = NULL;
 	}
+	if (mPrefsFonts)
+	{
+		delete mPrefsFonts;
+		mPrefsFonts = NULL;
+	}
 
 }
 
@@ -278,6 +289,7 @@ void LLPreferenceCore::apply()
 	mMsgPanel->apply();
 	mSkinsPanel->apply();
 	mPrefsAdvanced->apply();
+	mPrefsFonts->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -307,6 +319,7 @@ void LLPreferenceCore::cancel()
 	mMsgPanel->cancel();
 	mSkinsPanel->cancel();
 	mPrefsAdvanced->cancel();
+	mPrefsFonts->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();

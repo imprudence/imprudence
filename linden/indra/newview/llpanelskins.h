@@ -51,6 +51,8 @@ private:
 	static void onSelectSkin(LLUICtrl* ctrl, void* data);
 	static void onClickClassic(void* data);
 	static void onClickSilver(void* data);
+	static void onClickDark(void* data);
+	static void onClickGemini(void* data);
 
 private:
 	std::string mSkin;

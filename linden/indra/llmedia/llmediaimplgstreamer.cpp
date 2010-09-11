@@ -188,9 +188,6 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
-#if LL_DARWIN
-		setenv("GST_PLUGIN_SYSTEM_PATH", "lib/gstreamer-plugins", TRUE);
-#endif
 		if (0 == gst_init_check(NULL, NULL, NULL))
 		{
 		    LL_WARNS("MediaImpl") << "GStreamer library failed to initialize and load standard plugins." << LL_ENDL;
@@ -294,7 +291,6 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 	// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
 	// But we also want to search the path the user has set, if any.
 	std::string plugin_path =	
-		"GST_PLUGIN_PATH=" +
 #if LL_WINDOWS
 		imp_dir + "\\lib\\gstreamer-plugins" +
 #elif LL_DARWIN
@@ -307,9 +303,9 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 
 	// Place GST_PLUGIN_PATH in the environment settings
 #if LL_WINDOWS
-	put_result = _putenv( (char*)plugin_path.c_str() );
+	put_result = _putenv_s( "GST_PLUGIN_PATH", (char*)plugin_path.c_str() );
 #elif LL_DARWIN
-	put_result = putenv( (char*)plugin_path.c_str() );
+	put_result = setenv( "GST_PLUGIN_PATH", (char*)plugin_path.c_str(), 1 );
 #endif
 
 	if( put_result == -1 )
@@ -324,9 +320,9 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 		
 	// Don't load system plugins. We only want to use ours, to avoid conflicts.
 #if LL_WINDOWS
-	put_result = _putenv( "GST_PLUGIN_SYSTEM_PATH=\"\"" );
+	put_result = _putenv_s( "GST_PLUGIN_SYSTEM_PATH", "" );
 #elif LL_DARWIN
-	put_result = putenv( "GST_PLUGIN_SYSTEM_PATH=\"\"" );
+	put_result = setenv( "GST_PLUGIN_SYSTEM_PATH", "", 1 );
 #endif
 
 	if( put_result == -1 )

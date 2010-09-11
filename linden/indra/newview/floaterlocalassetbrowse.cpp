@@ -120,8 +120,14 @@ LocalBitmap::LocalBitmap(std::string fullpath)
 
 		/* getting file's last modified */
 
-		llstat temp_stat;
-		LLFile::stat(this->filename, &temp_stat);
+#ifdef LL_WINDOWS
+		struct _stat temp_stat;
+		_stat(this->filename.c_str(), &temp_stat);
+#else
+		struct stat temp_stat;
+		stat(this->filename.c_str(), &temp_stat);
+#endif
+
 		std::time_t time = temp_stat.st_mtime;
 
 		this->last_modified = asctime( localtime(&time) );
@@ -160,8 +166,14 @@ void LocalBitmap::updateSelf()
 		if ( !gDirUtilp->fileExists(this->filename) ) { this->linkstatus = LINK_BROKEN; return; }
 
 		/* exists, let's check if it's lastmod has changed */
-		llstat temp_stat;
-		LLFile::stat(this->filename, &temp_stat);
+
+#ifdef LL_WINDOWS
+		struct _stat temp_stat;
+		_stat(this->filename.c_str(), &temp_stat);
+#else
+		struct stat temp_stat;
+		stat(this->filename.c_str(), &temp_stat);
+#endif
 		std::time_t temp_time = temp_stat.st_mtime;
 
 		LLSD new_last_modified = asctime( localtime(&temp_time) );

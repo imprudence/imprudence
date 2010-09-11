@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<panel name="font_panel" label="Fonts"
+       bottom="-409" left="102" height="408" width="517"
+       border="true" follows="left|top|right|bottom">
+
+  <text bottom="-25" left="10" height="15" width="300">
+    User interface font (requires restart):
+  </text>
+
+  <radio_group name="fonts" draw_border="false"
+               top="-30" left="20" bottom="0" right="-20"
+               follows="top|left|bottom|right">
+
+    <radio_item name="DroidSans" bottom="-20" left="0" height="20">
+      Droid Sans
+    </radio_item>
+    
+    <radio_item name="DejaVu" bottom="-70" left="0" height="20">
+      DejaVu Sans Condensed
+    </radio_item>
+
+    <radio_item name="Delicious" bottom="-120" left="0" height="20">
+      Delicious
+    </radio_item>
+    
+    <radio_item name="Liberation" bottom="-170" left="0" height="20">
+      Liberation Sans (classic Imprudence font)
+    </radio_item>
+    
+  </radio_group>
+
+  <text name="droid_preview" font="DroidSansMedium" top="-55" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+  <text name="dejavu_preview" font="DejaVuMedium" top="-105" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+  <text name="del_preview" font="DeliciousMedium" top="-155" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+  <text name="lib_preview" font="LiberationMedium" top="-205" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+</panel>

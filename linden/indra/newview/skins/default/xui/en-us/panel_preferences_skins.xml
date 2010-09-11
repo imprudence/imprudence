@@ -2,21 +2,50 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Skins" left="102" mouse_opaque="true"
      name="Skins panel" width="517">
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="muting_text" v_pad="0" width="400">
-		Select a Skin (Requires Restart):
-	</text>
+    Select a skin (requires restart).
+  </text>
   <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="12"
 	     name="skin_selection" width="480">
     <radio_item bottom="-20" height="20" left="0" name="default" width="480">
       Default
     </radio_item>
-    <radio_item bottom="-180" height="20" left="0" name="silver" width="480">
+    <radio_item bottom_delta="-50" height="20" left="0" name="silver" width="480">
       Silver
     </radio_item>
+    <radio_item bottom_delta="-50" height="20" left="0" name="dark" width="480">
+      Dark
+    </radio_item>
+    <radio_item bottom_delta="-50" height="20" left="0" name="gemini" width="480">
+      Gemini
+    </radio_item>
   </radio_group>
-  <button left="130" bottom="-160" width="298" height="130" name="classic_preview" label="" scale_image="true" image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png"/>
-  <button left="130" bottom="-320" width="298" height="130" name="silver_preview" label="" scale_image="true" image_selected="skin_thumbnail_silver.png" image_hover_selected="skin_thumbnail_silver.png" image_unselected="skin_thumbnail_silver.png" image_hover_unselected="skin_thumbnail_silver.png"/>
+  
+  <button left="130" bottom="-125" width="216" height="95" name="classic_preview" 
+          scale_image="true" label="" image_selected="skin_thumbnail_default.png" 
+          image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png"
+          image_hover_unselected="skin_thumbnail_default.png" follows="left|top" />
+  <button left="130" bottom_delta="-100" width="216" height="95" name="silver_preview" 
+          scale_image="true" label="" image_selected="skin_thumbnail_silver.png" 
+          image_hover_selected="skin_thumbnail_silver.png" image_unselected="skin_thumbnail_silver.png" 
+          image_hover_unselected="skin_thumbnail_silver.png" follows="left|top" />
+  <button left="130" bottom_delta="-100" width="216" height="95" name="dark_preview"
+          scale_image="true" label="" image_selected="skin_thumbnail_dark.png"
+          image_hover_selected="skin_thumbnail_dark.png" image_unselected="skin_thumbnail_dark.png"
+          image_hover_unselected="skin_thumbnail_dark.png" follows="left|top" />
+  <button left="130" bottom_delta="-100" width="216" height="95" name="gemini_preview" 
+          scale_image="true" label="" image_selected="skin_thumbnail_gemini.png" 
+          image_hover_selected="skin_thumbnail_gemini.png" image_unselected="skin_thumbnail_gemini.png" 
+          image_hover_unselected="skin_thumbnail_gemini.png" follows="left|top" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="10" drop_shadow_visible="true" enabled="true" follows="left|bottom"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="90"
+	     mouse_opaque="true" name="muting_text" v_pad="0" width="400">
+    (Please see the skin folders for information and credits)
+  </text>
 </panel>
+

@@ -169,7 +169,23 @@ if (LINUX)
       add_definitions(-fno-stack-protector)
     endif (NOT STANDALONE)
     if (${ARCH} STREQUAL "x86_64")
-       add_definitions( -DLINUX64=1 )
+       add_definitions( -DLINUX64=1
+			#this rather needs to be done elsewhere
+			#anyway these are the flags for the 64bit releases:
+			-DLL_VECTORIZE=1
+			-O2
+			-fomit-frame-pointer
+			-pipe 
+			-mmmx
+			-msse
+			-mfpmath=sse
+			-msse2
+			-ffast-math
+			-ftree-vectorize
+			-fweb -fexpensive-optimizations
+			-frename-registers
+			)
+
     endif (${ARCH} STREQUAL "x86_64")
   endif (VIEWER)
 

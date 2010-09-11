@@ -18,43 +18,94 @@
     </os>
   </font>
 
-  <font name="SansSerif" comment="Name of san-serif font (Truetype file name)">
-    <file>DejaVuSansCondensed.ttf</file>
-  </font>
-
-  <font name="SansSerifBold" 
-	comment="Name of bold sans-serif font" 
-	font_style="Bold">
-    <file>DejaVuSansCondensed-Bold.ttf</file>
-  </font>
 
   <font name="Monospace"
 	comment="Name of monospace font">
     <file>VeraMono.ttf</file>
   </font>
 
+
   <font name="DejaVu"
-	comment="Name of DejaVu font">
+        comment="Name of DejaVu font"
+        size_mult="1.00">
     <file>DejaVuSansCondensed.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (bold)"
-	font_style="BOLD">
+        comment="Name of DejaVu font (bold)"
+        size_mult="1.00"
+        font_style="BOLD">
     <file>DejaVuSansCondensed-Bold.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (italic)"
-	font_style="ITALIC">
+        comment="Name of DejaVu font (italic)"
+        size_mult="1.00"
+        font_style="ITALIC">
     <file>DejaVuSansCondensed-Oblique.ttf</file>
   </font>
 
   <font name="DejaVu"
-	comment="Name of DejaVu font (bold italic)"
-	font_style="BOLD|ITALIC">
+        comment="Name of DejaVu font (bold italic)"
+        size_mult="1.00"
+        font_style="BOLD|ITALIC">
     <file>DejaVuSansCondensed-BoldOblique.ttf</file>
   </font>
+
+
+  <font name="Delicious"
+        comment="Name of Delicious font"
+        size_mult="1.1">
+    <file>Delicious-Roman.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (bold)"
+        size_mult="1.1"
+        font_style="BOLD">
+    <file>Delicious-Bold.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (italic)"
+        size_mult="1.1"
+        font_style="ITALIC">
+    <file>Delicious-Italic.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (bold italic)"
+        size_mult="1.1"
+        font_style="BOLD|ITALIC">
+    <file>Delicious-BoldItalic.otf</file>
+  </font>
+
+
+  <font name="Liberation"
+        comment="Name of Liberation font">
+    <file>LiberationSans-Regular.ttf</file>
+  </font>
+
+  <font name="Liberation"
+        comment="Name of Liberation font (bold)"
+        font_style="BOLD">
+    <file>LiberationSans-Bold.ttf</file>
+  </font>
+
+
+  <font name="DroidSans"
+        comment="Name of DroidSans font"
+        size_mult="1.0">
+    <file>DroidSans.ttf</file>
+  </font>
+
+  <font name="DroidSans"
+        comment="Name of DroidSans font (bold)"
+        size_mult="1.0"
+        font_style="BOLD">
+    <file>DroidSans-Bold.ttf</file>
+  </font>
+
 
   <font name="Helvetica"
 	comment="Name of Helvetica font">
