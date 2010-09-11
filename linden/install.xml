@@ -489,30 +489,30 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <string>d6368fb96e6dd653d6ccc7d18502184e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100910.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <string>d6368fb96e6dd653d6ccc7d18502184e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100910.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <string>d6368fb96e6dd653d6ccc7d18502184e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100910.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>e613a485c3f15009b24accb84ad790a4</string>
+            <string>d6368fb96e6dd653d6ccc7d18502184e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100830.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-fonts-20100910.tar.bz2</uri>
           </map>
         </map>
       </map>

@@ -258,7 +258,7 @@
   <key>FontChoice</key>
   <map>
     <key>Comment</key>
-    <string>User's font choice (Liberation or DejaVu)</string>
+    <string>User's font choice (DejaVu, Delicious, DroidSans, or Liberation)</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>

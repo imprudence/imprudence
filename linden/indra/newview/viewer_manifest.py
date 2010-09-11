@@ -75,16 +75,29 @@ class ViewerManifest(LLManifest):
 
         # Include our fonts
         if self.prefix(src="fonts"):
+            self.path("GPL.txt")
+            self.path("Liberation-License.txt")
             self.path("LiberationSans-Bold.ttf")
             self.path("LiberationSans-Regular.ttf")
-            self.path("VeraMono.ttf")
+
+            self.path("Delicious-License.txt")
+            self.path("Delicious-BoldItalic.otf")
+            self.path("Delicious-Bold.otf")
+            self.path("Delicious-Italic.otf")
+            self.path("Delicious-Roman.otf")
+
+            self.path("Droid-License.txt")
+            self.path("DroidSans-Bold.ttf")
+            self.path("DroidSans.ttf")
+
+            self.path("DejaVu-License.txt")
             self.path("DejaVuSansCondensed-BoldOblique.ttf")
             self.path("DejaVuSansCondensed-Bold.ttf")
             self.path("DejaVuSansCondensed-Oblique.ttf")
             self.path("DejaVuSansCondensed.ttf")
-            self.path("GPL.txt")
-            self.path("Liberation-License.txt")
+
             self.path("Vera-License.txt")
+            self.path("VeraMono.ttf")
             self.end_prefix("fonts")
 
         # skins
