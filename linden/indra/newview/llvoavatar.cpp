@@ -8401,7 +8401,7 @@ LLBBox LLVOAvatar::getHUDBBox() const
 	{
 		attachment_map_t::const_iterator curiter = iter++;
 		LLViewerJointAttachment* attachment = curiter->second;
-		if (attachment->getIsHUDAttachment() && attachment->getObject())
+		if (attachment && attachment->getIsHUDAttachment() && attachment->getObject())
 		{
 			LLViewerObject* hud_object = attachment->getObject();
 
