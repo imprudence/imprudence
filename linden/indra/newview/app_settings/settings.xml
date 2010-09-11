@@ -345,7 +345,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>DejaVu</string>
+    <string>DroidSans</string>
   </map>
   <key>GoAction</key>
   <map>
@@ -6245,7 +6245,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>DejaVuSansCondensed.ttf</string>
+    <string>DroidSans.ttf</string>
   </map>
   <key>FontSansSerifBundledFallback</key>
   <map>
@@ -6256,7 +6256,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>DejaVuSansCondensed.ttf</string>
+    <string>DroidSans.ttf</string>
   </map>
   <key>FontSansSerifBold</key>
   <map>
@@ -6267,7 +6267,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>DejaVuSansCondensed-Bold.ttf</string>
+    <string>DroidSans-Bold.ttf</string>
   </map>
   <key>FontSansSerifFallback</key>
   <map>
