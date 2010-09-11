@@ -36,9 +36,9 @@
     <string>Color4</string>
     <key>Value</key>
     <array>
-      <real>0.699999988079</real>
-      <real>0.899999976158</real>
-      <real>0.699999988079</real>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>0.0</real>
       <real>1</real>
     </array>
   </map>
