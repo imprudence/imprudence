@@ -179,30 +179,30 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>1b49f2873e70195f79a064bc5e9275cd</string>
+            <string>56ddb01842a11b8f7e401d411fdc730e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100829.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100910.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>1b49f2873e70195f79a064bc5e9275cd</string>
+            <string>56ddb01842a11b8f7e401d411fdc730e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100829.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100910.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>1b49f2873e70195f79a064bc5e9275cd</string>
+            <string>56ddb01842a11b8f7e401d411fdc730e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100829.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100910.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>1b49f2873e70195f79a064bc5e9275cd</string>
+            <string>56ddb01842a11b8f7e401d411fdc730e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100829.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20100910.tar.bz2</uri>
           </map>
         </map>
       </map>
