@@ -180,10 +180,10 @@
             initial_value="true" label="Show chat messages from friends in a different color" left="12"
             mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
 
-        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-90"
+        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
             can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
-            enabled="true" follows="left|top" height="56" label="Friends" left_delta="68"
-            mouse_opaque="true" name="FriendsChatColor" width="54" />
+            enabled="true" follows="left|top" height="67" label="Friends" left_delta="68"
+            mouse_opaque="true" name="FriendsChatColor" width="65" />
 
         <check_box bottom_delta="-30" enabled="true" follows="left|top"
 	         font="SansSerifSmall" height="16" initial_value="true"
@@ -194,10 +194,10 @@
             initial_value="true" label="Show GroupIM messages containing your name in a different color" left="12"
             mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
 
-        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
+        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-230"
             can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
-            enabled="true" follows="left|top" height="56" label="Own Name" left_delta="68"
-            mouse_opaque="true" name="OwnNameChatColor" width="54" />
+            enabled="true" follows="left|top" height="67" label="Own Name" left_delta="68"
+            mouse_opaque="true" name="OwnNameChatColor" width="65" />
 
     </panel>
   </tab_container>
