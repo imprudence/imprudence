@@ -20,6 +20,14 @@
       Liberation Sans (classic Imprudence font)
     </radio_item>
     
+    <radio_item name="Delicious" bottom="-120" left="0" height="20">
+      Delicious
+    </radio_item>
+    
+    <radio_item name="DroidSans" bottom="-170" left="0" height="20">
+      Droid Sans
+    </radio_item>
+    
   </radio_group>
 
   <text name="dejavu_preview" font="DejaVuMedium" top="-55" left="60">
@@ -27,6 +35,14 @@
   </text>
 
   <text name="lib_preview" font="LiberationMedium" top="-105" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+  <text name="del_preview" font="DeliciousMedium" top="-155" left="60">
+    Preview: The quick brown fox jumped over the lazy dog. :)
+  </text>
+
+  <text name="droid_preview" font="DroidSansMedium" top="-205" left="60">
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 

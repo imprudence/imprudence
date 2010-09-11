@@ -53,6 +53,34 @@
   </font>
 
 
+  <font name="Delicious"
+        comment="Name of Delicious font"
+        size_mult="1.1">
+    <file>Delicious-Roman.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (bold)"
+        size_mult="1.1"
+        font_style="BOLD">
+    <file>Delicious-Bold.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (italic)"
+        size_mult="1.1"
+        font_style="ITALIC">
+    <file>Delicious-Italic.otf</file>
+  </font>
+
+  <font name="Delicious"
+        comment="Name of Delicious font (bold italic)"
+        size_mult="1.1"
+        font_style="BOLD|ITALIC">
+    <file>Delicious-BoldItalic.otf</file>
+  </font>
+
+
   <font name="Liberation"
         comment="Name of Liberation font">
     <file>LiberationSans-Regular.ttf</file>
@@ -62,6 +90,20 @@
         comment="Name of Liberation font (bold)"
         font_style="BOLD">
     <file>LiberationSans-Bold.ttf</file>
+  </font>
+
+
+  <font name="DroidSans"
+        comment="Name of DroidSans font"
+        size_mult="1.0">
+    <file>DroidSans.ttf</file>
+  </font>
+
+  <font name="DroidSans"
+        comment="Name of DroidSans font (bold)"
+        size_mult="1.0"
+        font_style="BOLD">
+    <file>DroidSans-Bold.ttf</file>
   </font>
 
 
