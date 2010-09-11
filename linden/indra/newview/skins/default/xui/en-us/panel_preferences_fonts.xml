@@ -30,19 +30,19 @@
     
   </radio_group>
 
-  <text name="droid_preview" font="DroidSansMedium" top="-55" left="60">
+  <text name="droid_preview" font="DroidSansMedium" top="-55" left="60" follows="left|top">
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 
-  <text name="dejavu_preview" font="DejaVuMedium" top="-105" left="60">
+  <text name="dejavu_preview" font="DejaVuMedium" top="-105" left="60" follows="left|top">
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 
-  <text name="del_preview" font="DeliciousMedium" top="-155" left="60">
+  <text name="del_preview" font="DeliciousMedium" top="-155" left="60" follows="left|top">
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 
-  <text name="lib_preview" font="LiberationMedium" top="-205" left="60">
+  <text name="lib_preview" font="LiberationMedium" top="-205" left="60" follows="left|top">
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 
