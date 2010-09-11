@@ -544,6 +544,7 @@ class DarwinManifest(ViewerManifest):
             if self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
 
                 self.path("libndofdev.dylib")
+                self.path("libhunspell-1.2.dylib")
                 
                 self.path("libopenal.1.dylib")
                 self.path("libalut.0.dylib")
