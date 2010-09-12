@@ -1121,6 +1121,7 @@ LLVoiceClient::LLVoiceClient()
 	mMicVolume = 0;
 
 	mAudioSession = NULL;
+	mNextAudioSession = NULL;
 	mAudioSessionChanged = false;
 
 	// Initial dirty state
