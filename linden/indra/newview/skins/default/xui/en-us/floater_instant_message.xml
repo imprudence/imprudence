@@ -37,6 +37,9 @@
 	<string name="unavailable_text_label">
 		Text chat is not available for this call.
 	</string>
+  <string name="add_friend_string">
+    Add Friend
+  </string>
   <flyout_button bottom="-40" follows="left|top" height="20" label="Profile" left="5" width="90"
        list_position="below" mouse_opaque="true" name="profile_callee_btn">
     <flyout_button_item value="history_entry" name="history_entry">

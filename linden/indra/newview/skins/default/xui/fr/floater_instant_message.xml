@@ -33,6 +33,9 @@
 	<string name="unavailable_text_label">
 		Le chat écrit n&apos;est pas disponible pour cet appel.
 	</string>
+	<string name="add_friend_string">
+		Devenir amis
+	</string>
 	<flyout_button label="Profil..." name="profile_callee_btn"/>
 	<button label="Appeler" name="start_call_btn"/>
 	<button label="Raccrocher" name="end_call_btn"/>

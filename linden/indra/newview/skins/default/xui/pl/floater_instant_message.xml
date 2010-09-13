@@ -24,6 +24,9 @@
 	<string name="typing_start_string">
 		[NAME] pisze...
 	</string>
+	<string name="add_friend_string">
+		Dodaj Znajomość
+	</string>
 	<string name="session_start_string">
 		Rozpoczęcie rozmowy z [NAME]. Proszę czekać...
 	</string>

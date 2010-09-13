@@ -33,6 +33,9 @@
 	<string name="unavailable_text_label">
 		Текстовый чат недоступен для этого вызова.
 	</string>
+	<string name="add_friend_string">
+		Добавить Друга
+	</string>
 	<flyout_button label="Профиль..." name="profile_callee_btn"/>
 	<button label="Звонок" name="start_call_btn"/>
 	<button label="Конец звонка" name="end_call_btn"/>

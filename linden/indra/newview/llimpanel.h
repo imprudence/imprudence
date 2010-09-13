@@ -364,6 +364,18 @@ private:
 
 	typedef std::map<LLUUID, LLStyleSP> styleMap;
 	static styleMap mStyleMap;
+
+	typedef enum e_im_format
+	{
+		IM_PANEL_PLAIN,
+		IM_PANEL_GROUP,
+		IM_PANEL_CONFERENCE
+	} EIMPanelType;
+
+	EIMPanelType mIMPanelType;
+
+public:
+	EIMPanelType getIMType() { return mIMPanelType; }
 };
 
 

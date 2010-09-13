@@ -59,6 +59,7 @@
 #include "llfloateractivespeakers.h"
 #include "llfloateravatarinfo.h"
 #include "llfloaterchat.h"
+#include "llfloaterfriends.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
 #include "llmenucommands.h"
@@ -1133,7 +1134,8 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	mSpeakers(NULL),
 	mSpeakerPanel(NULL),
 	mFirstKeystrokeTimer(),
-	mLastKeystrokeTimer()
+	mLastKeystrokeTimer(),
+	mIMPanelType(IM_PANEL_PLAIN)
 {
 	mSessionInitialTargetIDs = ids;
 	init(session_label);
@@ -1151,27 +1153,32 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		xml_filename = "floater_instant_message_group.xml";
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
+		mIMPanelType = IM_PANEL_GROUP;
 		break;
 	case IM_SESSION_INVITE:
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		if (gAgent.isInGroup(mSessionUUID))
 		{
 			xml_filename = "floater_instant_message_group.xml";
+			mIMPanelType = IM_PANEL_GROUP;
 		}
 		else // must be invite to ad hoc IM
 		{
 			xml_filename = "floater_instant_message_ad_hoc.xml";
+			mIMPanelType = IM_PANEL_CONFERENCE;
 		}
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
 		break;
 	case IM_SESSION_P2P_INVITE:
 		xml_filename = "floater_instant_message.xml";
 		mVoiceChannel = new LLVoiceChannelP2P(mSessionUUID, mSessionLabel, mOtherParticipantUUID);
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	case IM_SESSION_CONFERENCE_START:
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		xml_filename = "floater_instant_message_ad_hoc.xml";
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
+		mIMPanelType = IM_PANEL_CONFERENCE;
 		break;
 	// just received text from another user
 	case IM_NOTHING_SPECIAL:
@@ -1183,10 +1190,12 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 		mCallBackEnabled = LLVoiceClient::getInstance()->isSessionCallBackPossible(mSessionUUID);
 		
 		mVoiceChannel = new LLVoiceChannelP2P(mSessionUUID, mSessionLabel, mOtherParticipantUUID);
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	default:
 		llwarns << "Unknown session type" << llendl;
 		xml_filename = "floater_instant_message.xml";
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	}
 
@@ -1296,6 +1305,14 @@ BOOL LLFloaterIMPanel::postBuild()
 
 		// Profile combobox in floater_instant_message.xml
 		childSetCommitCallback("profile_callee_btn", onCommitCombo, this);
+		LLComboBox* comboBox = getChild<LLComboBox>("profile_callee_btn");
+		if (LLAvatarTracker::instance().getBuddyInfo(mOtherParticipantUUID) == NULL)
+		{
+			comboBox->add(getString("add_friend_string"), ADD_TOP);
+		}
+		comboBox->setCommitCallback(onCommitCombo);
+		comboBox->setCallbackUserData(this);
+
 		childSetCommitCallback("group_info_btn", onCommitCombo, this);
 
 		childSetAction("start_call_btn", onClickStartCall, this);
@@ -1875,26 +1892,31 @@ void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 				}
 			}
 		}
-		else if (caller->getValue().asString() == "pay_entry")
+		// profile
+		else if (self->getIMType() == IM_PANEL_PLAIN)
 		{
-			handle_pay_by_id(self->getOtherParticipantID());
-		}
-		else if (caller->getValue().asString() == "teleport_entry")
-		{
-			handle_lure(self->getOtherParticipantID());
-		}
-		else
-		{
-			// group
-			if (self->getOtherParticipantID() == self->getSessionID())
+			if (caller->getValue().asString() == "pay_entry")
 			{
-				LLFloaterGroupInfo::showFromUUID(self->getSessionID());
+				handle_pay_by_id(self->getOtherParticipantID());
 			}
-			// profile
-			else 
+			else if (caller->getValue().asString() == "teleport_entry")
+			{
+				handle_lure(self->getOtherParticipantID());
+			}
+			else if (caller->getValue().asString() == self->getString("add_friend_string"))
+			{
+				std::string fullname = self->getTitle();
+				LLPanelFriends::requestFriendshipDialog(self->getOtherParticipantID(), fullname);
+			}
+			else
 			{
 				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
 			}
+		}
+		// group
+		else if (self->getIMType() == IM_PANEL_GROUP)
+		{
+			LLFloaterGroupInfo::showFromUUID(self->getSessionID());
 		}
 	}
 }
