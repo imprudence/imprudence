@@ -223,7 +223,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				std::string right_part = "";
 				S32 cursorPos = mInputEditor->getCursor();
 
-				if (cursorPos < txt.length())
+				if (cursorPos < (S32)txt.length())
 				{
 					right_part = txt.substr(cursorPos);
 					left_part = txt.substr(0, cursorPos);
