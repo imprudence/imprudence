@@ -37,6 +37,7 @@
 #include "llregionhandle.h"
 #include "message.h"
 
+
 #include "llappviewer.h"	// for gPacificDaylightTime
 #include "llagent.h"
 #include "llmapresponders.h"
@@ -46,9 +47,8 @@
 #include "llviewerimagelist.h"
 #include "llviewerregion.h"
 #include "llregionflags.h"
-
-#include "hippoGridManager.h"
-
+ #include "hippoGridManager.h"
+bool LLWorldMap::sGotMapURL =  false;
 const F32 REQUEST_ITEMS_TIMER =  10.f * 60.f; // 10 minutes
 
 // For DEV-17507, do lazy image loading in llworldmapview.cpp instead,
@@ -85,6 +85,11 @@ LLSimInfo::LLSimInfo()
 {
 }
 
+
+LLVector3d LLSimInfo::getGlobalOrigin() const
+{
+	return from_region_handle(mHandle);
+}
 
 LLVector3d LLSimInfo::getGlobalPos(LLVector3 local_pos) const
 {
@@ -514,22 +519,31 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 
 	LLWorldMap::getInstance()->mMapLayers[agent_flags].clear();
 
+//	bool use_web_map_tiles = useWebMapTiles();
 	BOOL adjust = FALSE;
 	for (S32 block=0; block<num_blocks; ++block)
 	{
 		LLWorldMapLayer new_layer;
 		new_layer.LayerDefined = TRUE;
 		msg->getUUIDFast(_PREHASH_LayerData, _PREHASH_ImageID, new_layer.LayerImageID, block);
-		new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
-
-		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
-		new_layer.LayerImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 		
 		U32 left, right, top, bottom;
 		msg->getU32Fast(_PREHASH_LayerData, _PREHASH_Left, left, block);
 		msg->getU32Fast(_PREHASH_LayerData, _PREHASH_Right, right, block);
 		msg->getU32Fast(_PREHASH_LayerData, _PREHASH_Top, top, block);
 		msg->getU32Fast(_PREHASH_LayerData, _PREHASH_Bottom, bottom, block);
+
+//		if (use_web_map_tiles)
+//		{
+//			new_layer.LayerImage = loadObjectsTile(left, bottom); // no good... Maybe using of level 2 and higher web maps ?
+//		}
+//		else
+//		{
+			new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
+//		}
+
+		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
+		new_layer.LayerImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 		new_layer.LayerExtents.mLeft = left;
 		new_layer.LayerExtents.mRight = right;
@@ -550,6 +564,26 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 }
 
 // public static
+bool LLWorldMap::useWebMapTiles()
+{
+	return gSavedSettings.getBOOL("UseWebMapTiles") &&
+		   (( gHippoGridManager->getConnectedGrid()->isSecondLife() || sGotMapURL) && LLWorldMap::getInstance()->mCurrentMap == 0);
+}
+
+// public static
+LLPointer<LLViewerImage> LLWorldMap::loadObjectsTile(U32 grid_x, U32 grid_y)
+{
+	// Get the grid coordinates
+	std::string imageurl = gSavedSettings.getString("MapServerURL") + llformat("map-%d-%d-%d-objects.jpg", 1, grid_x, grid_y);
+
+	LLPointer<LLViewerImage> img = gImageList.getImageFromUrl(imageurl);
+	img->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAP);
+
+	// Return the smart pointer
+	return img;
+}
+
+// public static
 void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 {
 	U32 agent_flags;
@@ -565,6 +599,9 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 
 	bool found_null_sim = false;
 
+#ifdef IMMEDIATE_IMAGE_LOAD
+	bool use_web_map_tiles = useWebMapTiles();
+#endif
 	BOOL adjust = FALSE;
 	for (S32 block=0; block<num_blocks; ++block)
 	{
@@ -635,7 +672,14 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 			siminfo->mMapImageID[agent_flags] = image_id;
 
 #ifdef IMMEDIATE_IMAGE_LOAD
-			siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
+			if (use_web_map_tiles)
+			{
+				siminfo->mCurrentImage = loadObjectsTile((U32)x_regions, (U32)y_regions);
+			}
+			else
+			{
+				siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
+			}
 			gGL.getTexUnit(0)->bind(siminfo->mCurrentImage.get());
 			siminfo->mCurrentImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 #endif

@@ -30,7 +30,10 @@
  * $/LicenseInfo$
  */
 
-// Global map of the world.
+// View of the global map of the world
+
+// The data (model) for the global map (a singleton, unique to the application instance) is 
+// in LLWorldMap and is typically accessed using LLWorldMap::getInstance()
 
 #ifndef LL_LLWORLDMAPVIEW_H
 #define LL_LLWORLDMAPVIEW_H
@@ -160,6 +163,8 @@ public:
 	static F32		sThresholdA;
 	static F32		sThresholdB;
 	static F32		sPixelsPerMeter;		// world meters to map pixels
+
+	static F32		sMapScale;				// scale = size of a region in pixels
 
 	BOOL			mItemPicked;
 

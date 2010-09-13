@@ -841,6 +841,9 @@ void init_client_menu(LLMenuGL* menu)
 
 	menu->append(new LLMenuItemCallGL("Clear Group Cache", 
 									  LLGroupMgr::debugClearAllGroups));
+
+	menu->append(new LLMenuItemCheckGL("Use Web Map Tiles", menu_toggle_control, NULL, menu_check_control, (void*)"UseWebMapTiles"));
+
 	menu->appendSeparator();
 
 	sub_menu = new LLMenuGL("Rendering");

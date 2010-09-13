@@ -247,8 +247,8 @@ BOOL LLFloaterWorldMap::postBuild()
 	childSetAction("Clear", onClearBtn, this);
 	childSetAction("copy_slurl", onCopySLURL, this);
 
-	mCurZoomVal = log(gMapScale)/log(2.f);
-	childSetValue("zoom slider", gMapScale);
+	mCurZoomVal = log(LLWorldMapView::sMapScale)/log(2.f);
+	childSetValue("zoom slider", LLWorldMapView::sMapScale);
 
 	setDefaultBtn(NULL);
 
