@@ -21,11 +21,9 @@ if (OPENAL)
   
   elseif (DARWIN)
     # Look for for system's OpenAL.framework
-    find_library(OPENAL_LIB
-      NAMES openal.1
-      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-      NO_DEFAULT_PATH
-      )
+    # Nemu: This code has never looked for the system's OpenAL.framework
+    # Nemu: should it?
+    set(OPENAL_LIB ${ARCH_PREBUILT_DIRS_RELEASE}/libopenal.1.dylib)
   else (WINDOWS)
     set(OPENAL_LIB openal)
   endif (WINDOWS)
