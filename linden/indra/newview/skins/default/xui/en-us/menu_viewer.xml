@@ -343,7 +343,8 @@
       <on_click function="ShowFloater" userdata="mute list" />
       <on_check function="FloaterVisible" userdata="mute list" />
     </menu_item_check>
-	  <menu_item_check name="Teleport History" label="Teleport History">
+	  <menu_item_check name="Teleport History" label="Teleport History"
+                     shortcut="alt|H">
 		  <on_click function="ShowFloater" userdata="teleport history" />
 		  <on_check function="FloaterVisible" userdata="teleport history" />
 	  </menu_item_check>
