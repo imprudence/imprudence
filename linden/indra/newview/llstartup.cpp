@@ -1127,6 +1127,7 @@ bool idle_startup()
 		requested_options.push_back("buddy-list");
 		requested_options.push_back("ui-config");
 #endif
+		requested_options.push_back("map-server-url");
 		requested_options.push_back("tutorial_setting");
 		requested_options.push_back("login-flags");
 		requested_options.push_back("global-textures");
@@ -1769,7 +1770,15 @@ bool idle_startup()
 				LLStartUp::setShouldAutoLogin(false);
 				show_connect_box = true;
 			}
-			
+
+			std::string map_server_url = LLUserAuth::getInstance()->getResponse("map-server-url");
+			if(!map_server_url.empty())
+			{
+				gSavedSettings.setString("MapServerURL", map_server_url);
+				//llwarns << "MapServerURL" << map_server_url << llendl;
+			}
+			// else llwarns << "MapServerURL empty"<< llendl;
+
 			// Pass the user information to the voice chat server interface.
 			gVoiceClient->userAuthorized(firstname, lastname, gAgentID);
 		}

@@ -76,6 +76,8 @@ public:
 	LLSimInfo();
 
 	LLVector3d getGlobalPos(LLVector3 local_pos) const;
+	// Get the world coordinates of the SW corner of that region
+	LLVector3d getGlobalOrigin() const;
 
 public:
 	U64 mHandle;
@@ -164,6 +166,10 @@ public:
 	static void processMapBlockReply(LLMessageSystem*, void**);
 	static void processMapItemReply(LLMessageSystem*, void**);
 
+	static void gotMapServerURL(bool flag) { sGotMapURL = flag; }
+	static bool useWebMapTiles();
+	static LLPointer<LLViewerImage> loadObjectsTile(U32 grid_x, U32 grid_y);
+
 	void dump();
 
 	// Extend the bounding box of the list of simulators. Returns true
@@ -226,6 +232,8 @@ private:
 	std::string mSLURL;
 	url_callback_t mSLURLCallback;
 	bool mSLURLTeleport;
+
+	static bool sGotMapURL;
 };
 
 #endif

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2009, Linden Research, Inc.
+ * Copyright (c) 2006-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -57,6 +57,8 @@ void LLMapLayerResponder::result(const LLSD& result)
 
 	LLWorldMap::getInstance()->mMapLayers[agent_flags].clear();
 
+	bool use_web_map_tiles = LLWorldMap::useWebMapTiles();
+
 	LLSD::array_const_iterator iter;
 	BOOL adjust = FALSE;
 	for(iter = result["LayerData"].beginArray(); iter != result["LayerData"].endArray(); ++iter)
@@ -65,15 +67,23 @@ void LLMapLayerResponder::result(const LLSD& result)
 		
 		LLWorldMapLayer new_layer;
 		new_layer.LayerDefined = TRUE;
-		new_layer.LayerImageID = layer_data["ImageID"];
-		new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
-		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
-		new_layer.LayerImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 		
 		new_layer.LayerExtents.mLeft = layer_data["Left"];
 		new_layer.LayerExtents.mRight = layer_data["Right"];
 		new_layer.LayerExtents.mBottom = layer_data["Bottom"];
 		new_layer.LayerExtents.mTop = layer_data["Top"];
+
+		new_layer.LayerImageID = layer_data["ImageID"];
+//		if (use_web_map_tiles)
+//		{
+//			new_layer.LayerImage = LLWorldMap::loadObjectsTile((U32)new_layer.LayerExtents.mLeft, (U32)new_layer.LayerExtents.mBottom); // no good... Maybe using of level 2 and higher web maps ?
+//		}
+//		else
+//		{
+			new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
+//		}
+		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
+		new_layer.LayerImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 		F32 x_meters = F32(new_layer.LayerExtents.mLeft*REGION_WIDTH_UNITS);
 		F32 y_meters = F32(new_layer.LayerExtents.mBottom*REGION_WIDTH_UNITS);
@@ -163,7 +173,14 @@ void LLMapLayerResponder::result(const LLSD& result)
 				siminfo->mRegionFlags = region_flags;
 				siminfo->mWaterHeight = (F32) water_height;
 				siminfo->mMapImageID[agent_flags] = image_id;
-				siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
+				if (use_web_map_tiles)
+				{
+					siminfo->mCurrentImage = LLWorldMap::loadObjectsTile((U32)x_regions, (U32)y_regions);
+				}
+				else
+				{
+					siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
+				}
 				siminfo->mCurrentImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 				gGL.getTexUnit(0)->bind(siminfo->mCurrentImage.get());
 			
