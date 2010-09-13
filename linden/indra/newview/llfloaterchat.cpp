@@ -456,7 +456,7 @@ void LLFloaterChat::updateSettings()
 BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 {
 	std::string my_name = gSavedSettings.getString("FirstName");
-	std::string pattern_s = "(^|.*[,\\.\\?!:;\\*\\(\\s]+)(" + my_name + ")([,\\.\\?!:;\\*\\)\\s]+.*|$)";
+	std::string pattern_s = "(^|.*[',\\.\\?!:;\\*\\(\\s]+)(" + my_name + ")([',\\.\\?!:;\\*\\)\\s]+.*|$)";
 	boost::smatch what;
 	boost::regex e1(pattern_s, boost::regex::icase);
 
