@@ -105,6 +105,8 @@ void LLToolMgr::initTools()
 	gBasicToolset->addTool( LLToolCompInspect::getInstance() );
 	gFaceEditToolset->addTool( LLToolCamera::getInstance() );
 
+	// In case window focus was lost before we got here
+	clearSavedTool();
 	// On startup, use "select" tool
 	setCurrentToolset(gBasicToolset);
 
@@ -188,9 +190,11 @@ LLTool* LLToolMgr::getCurrentTool()
 	}
 	else
 	{
-		mOverrideTool = mBaseTool ? mBaseTool->getOverrideTool(override_mask) : NULL;
+		// due to window management weirdness we can get here with gToolNull
+		bool can_override = mBaseTool && (mBaseTool != gToolNull);
+		mOverrideTool = can_override ? mBaseTool->getOverrideTool(override_mask) : NULL;
 
-		// use override tool if available otherwise drop back to base tool
+		// use keyboard-override tool if available otherwise drop back to base tool
 		cur_tool = mOverrideTool ? mOverrideTool : mBaseTool;
 	}
 
