@@ -71,6 +71,8 @@
 
 #include "chatbar_as_cmdline.h"
 
+#include "boost/regex.hpp"
+
 //
 // Globals
 //
@@ -199,11 +201,82 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		}
 	}
 	// only do this in main chatbar
-	else if ( KEY_ESCAPE == key && gChatBar == this)
+	else if (KEY_ESCAPE == key && mask == MASK_NONE && gChatBar == this)
 	{
 		stopChat();
-
 		handled = TRUE;
+	}
+	else if (key == KEY_ESCAPE && mask == MASK_CONTROL && gChatBar == this)
+	{
+		if (mInputEditor)
+		{
+			std::vector<LLUUID> avatar_ids;
+			std::vector<LLVector3d> positions;
+			LLWorld::getInstance()->getAvatars(&avatar_ids, &positions);
+
+			if (!avatar_ids.empty())
+			{
+				std::string txt(mInputEditor->getText());
+
+				std::string to_match(txt);
+				std::string left_part = "";
+				std::string right_part = "";
+				S32 cursorPos = mInputEditor->getCursor();
+
+				if (cursorPos < txt.length())
+				{
+					right_part = txt.substr(cursorPos);
+					left_part = txt.substr(0, cursorPos);
+					to_match = std::string(left_part);
+				}
+				else
+				{
+					to_match = std::string(txt);
+					left_part = txt;
+				}
+
+				std::string pattern_s = "(^|.*[\\.\\?!:;,\\*\\(\\s]+)([a-z0-9]+)$";
+				boost::match_results<std::string::const_iterator> what;
+				boost::regex expression(pattern_s, boost::regex::icase);
+				if (boost::regex_search(to_match, what, expression, boost::match_extra))
+				{
+					to_match = what[2];
+					if (to_match.length() < 3)
+						return handled;
+				}
+				else
+					return handled;
+
+				for (U32 i=0; i<avatar_ids.size(); i++)
+				{
+					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
+						continue;
+/*
+					// Commented out for now... doesn't work above 1024 meters as usual
+					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
+					if (dist > CHAT_NORMAL_RADIUS)
+						continue;
+*/
+
+					std::string agent_name = " ";
+					std::string agent_surname = " ";
+
+					if(!gCacheName->getName(avatar_ids[i], agent_name, agent_surname) && (agent_name == " " || agent_surname == " "))
+						continue;
+
+					std::string test_name(agent_name);
+					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
+
+					if (test_name.find(to_match) == 0)
+					{
+						std::string rest_of_match = agent_name.substr(to_match.length(), agent_name.length());
+						mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + agent_name + right_part);
+						mInputEditor->setSelection(cursorPos, cursorPos + rest_of_match.length());
+						return TRUE;
+					}
+				}
+			}
+		}
 	}
 
 	return handled;
@@ -598,9 +671,7 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 	KEY key = gKeyboard->currentKey();
 
 	// Ignore "special" keys, like backspace, arrows, etc.
-	if (length > 1 
-		&& raw_text[0] == '/'
-		&& key < KEY_SPECIAL)
+	if (length > 1 && raw_text[0] == '/' && key < KEY_SPECIAL)
 	{
 		// we're starting a gesture, attempt to autocomplete
 
