@@ -14,22 +14,22 @@
 	</text>
 	<button label="Gehe zu Website" name="error_web" />
 	<text name="contacting">
-		LindeX wird kontaktiert...
+		Geldwechsler wird kontaktiert...
 	</text>
 	<text name="buy_action_unknown">
-		L$ an der LindeX kaufen
+		[CURRENCY] am Geldwechsler kaufen
 	</text>
 	<text name="buy_action">
-		[NAME] L$ [PRICE]
+		[NAME] [CURRENCY] [PRICE]
 	</text>
 	<text name="currency_action" width="90">
-		L$ kaufen
+		[CURRENCY] kaufen
 	</text>
 	<line_editor left_delta="55" name="currency_amt">
 		1234
 	</line_editor>
 	<text name="currency_est">
-		für ca. [USD] US$
+		für ca. [REALCURRENCY] [USD]
 	</text>
 	<text name="getting_data">
 		Daten werden geladen...
@@ -38,31 +38,32 @@
 		Sie haben zurzeit
 	</text>
 	<text name="balance_amount">
-		[AMT] L$
+		[AMT] [CURRENCY] 
 	</text>
 	<text name="buying_label">
 		Sie kaufen
 	</text>
 	<text name="buying_amount">
-		[AMT] L$
+		[AMT] [CURRENCY] 
 	</text>
 	<text name="total_label">
 		Ihr neuer Kontostand:
 	</text>
 	<text name="total_amount">
-		[AMT] L$
+		[AMT] [CURRENCY] 
 	</text>
 	<text name="purchase_warning_repurchase">
-		Dieser Einkauf betrifft ausschließlich Geld.
+		Best�tigen dieses Kaufs erwirbt ausschließlich Geld.
 Wiederholen Sie den Vorgang.
 	</text>
 	<text name="purchase_warning_notenough">
 		Sie kaufen nicht genügend Geld.
-Kaufen Sie mehr.
+Erhöhen Sie den Betrag.
 	</text>
 	<button label="Kaufen" name="buy_btn" />
 	<button label="Abbrechen" name="cancel_btn" />
 	<text name="buy_currency">
-		[LINDENS] L$ für ca. [USD] US$ kaufen
+		[CURRENCY] [LINDENS] für ca. [REALCURRENCY] [USD]
+kaufen
 	</text>
 </floater>

@@ -6,26 +6,26 @@
 	<text name="composite_label" width="150">
 		Zusammengesetzte Texturen
 	</text>
-	<button label="Läd IDs in Konsole ab" label_selected="Abladen" name="Dump"/>
+	<button label="Lädt IDs in Konsole ab" label_selected="Abladen" name="Dump"/>
 	<texture_picker label="Haare" name="hair-baked"/>
 	<texture_picker label="Haar" name="hair"/>
 	<texture_picker label="Kopf" name="head-baked"/>
-	<texture_picker label="Make-Uup" name="head bodypaint"/>
+	<texture_picker label="Make-Up" name="head bodypaint"/>
 	<texture_picker label="Augen" name="eyes-baked"/>
 	<texture_picker label="Auge" name="iris"/>
 	<texture_picker label="Oberkörper" name="upper-baked"/>
-	<texture_picker label="Oberkörpertattoo" name="upper bodypaint"/>
+	<texture_picker label="Oberkörper-Tätowierung" name="upper bodypaint"/>
 	<texture_picker label="Unterhemd" name="undershirt"/>
 	<texture_picker label="Handschuhe" name="gloves"/>
 	<texture_picker label="Hemd" name="shirt"/>
-	<texture_picker label="Oberjacke" name="upper jacket"/>
+	<texture_picker label="Jackenoberteil" name="upper jacket"/>
 	<texture_picker label="Unterkörper" name="lower-baked"/>
 	<texture_picker label="Unterkörper-Tätowierung" name="lower bodypaint"/>
 	<texture_picker label="Unterhose" name="underpants"/>
 	<texture_picker label="Socken" name="socks"/>
 	<texture_picker label="Schuhe" name="shoes"/>
 	<texture_picker label="Hose" name="pants"/>
-	<texture_picker label="Jacke" name="lower jacket"/>
+	<texture_picker label="Jackenunterteil" name="lower jacket"/>
 	<texture_picker label="Rock" name="skirt-baked"/>
 	<texture_picker label="Rock" name="skirt"/>
 </floater>
