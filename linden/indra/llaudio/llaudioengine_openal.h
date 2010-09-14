@@ -97,7 +97,8 @@ class LLAudioChannelOpenAL : public LLAudioChannel
 	    ALint mLastSamplePos;
 };
 
-class LLAudioBufferOpenAL : public LLAudioBuffer{
+class LLAudioBufferOpenAL : public LLAudioBuffer
+{
 	public:
 		LLAudioBufferOpenAL();
 		virtual ~LLAudioBufferOpenAL();
