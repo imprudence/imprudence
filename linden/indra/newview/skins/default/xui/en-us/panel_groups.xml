@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-371" height="300" left="280" mouse_opaque="true"
-     name="groups" width="350">
+     name="groups" width="350" min_width="350">
 	<scroll_list background_visible="true" bottom="45" column_padding="5" draw_border="true"
-	     draw_heading="false" draw_stripes="true" enabled="true"
+	     draw_heading="true" draw_stripes="true" enabled="true"
 	     follows="left|top|right|bottom" left="10" mouse_opaque="true"
 	     multi_select="false" name="group list" tab_stop="true" top="-10"
 	     width="240">
-		<column label="" name="name" width="248" />
+		<column label="Group Name" name="name" dynamicwidth="true" />
+    <column label="Notices" name="receive_notices" width="60" 
+            tool_tip="Receve notices from this group" />
+    <column label="Chat" name="join_group_chat" width="60"
+            tool_tip="Join group IMs (group chat) from this group" />
+    <column label="Public" name="list_in_profile" width="20"
+            image="ff_visible_online_button.tga" 
+            tool_tip="Group is listed in your profile" />
 	</scroll_list>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="22" drop_shadow_visible="true" enabled="true" follows="left|bottom"
