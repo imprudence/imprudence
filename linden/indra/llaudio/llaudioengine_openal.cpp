@@ -48,7 +48,9 @@ LLAudioEngine_OpenAL::LLAudioEngine_OpenAL()
 	mWindBufSamples(0),
 	mWindBufBytes(0),
 	mWindSource(AL_NONE),
-	mNumEmptyWindALBuffers(MAX_NUM_WIND_BUFFERS)
+	mNumEmptyWindALBuffers(MAX_NUM_WIND_BUFFERS),
+	mContext(NULL),
+	mDevice(NULL)
 {
 }
 
@@ -69,29 +71,62 @@ bool LLAudioEngine_OpenAL::init(const S32 num_channels, void* userdata)
 		return false;
 	}
 
+	// check for extensions
+	if (alcIsExtensionPresent(NULL, "ALC_ENUMERATION_EXT"))
+	{
+		llinfos << "Results for ALC_ENUMERATION_EXT:\n" 
+				<< ll_safe_string(alcGetString(NULL, ALC_DEVICE_SPECIFIER))
+				<< llendl;
+	}
+
+	// initialize device
+    ALCdevice* mDevice = alcOpenDevice(NULL); 
+    if (!mDevice)
+	{
+		llinfos << "OpenAL could not find an installed audio device. Aborting" << llendl;
+		ALCenum error = alcGetError(mDevice);
+		if (error != ALC_NO_ERROR)
+		{
+			llinfos << "ALC error:" << ll_safe_string(alcGetString(mDevice, error)) << llendl;
+		}
+		return false;
+	}
+
+	// create context
+	ALCcontext* mContext = alcCreateContext(mDevice, NULL);
+	if (mContext != NULL)
+	{
+		alcMakeContextCurrent(mContext);
+		if (alGetError() != AL_NO_ERROR)
+		{
+			llinfos << "ALC error:" << alGetError() << ". Could not set current context!" << llendl;
+		}
+	}
+	else
+	{
+		llinfos << "ALC error: could not create context from device!" << llendl;
+	}
+
 	llinfos << "LLAudioEngine_OpenAL::init() OpenAL successfully initialized" << llendl;
 
-	llinfos << "OpenAL version: "
-		<< ll_safe_string(alGetString(AL_VERSION)) << llendl;
-	llinfos << "OpenAL vendor: "
-		<< ll_safe_string(alGetString(AL_VENDOR)) << llendl;
-	llinfos << "OpenAL renderer: "
-		<< ll_safe_string(alGetString(AL_RENDERER)) << llendl;
+	llinfos << "ALC default device: " 
+			<< ll_safe_string(alcGetString(mDevice, ALC_DEFAULT_DEVICE_SPECIFIER)) 
+			<< llendl;
 
-	ALint major = alutGetMajorVersion ();
-	ALint minor = alutGetMinorVersion ();
+	llinfos << "OpenAL version: "
+			<< ll_safe_string(alGetString(AL_VERSION)) << llendl;
+	llinfos << "OpenAL vendor: "
+			<< ll_safe_string(alGetString(AL_VENDOR)) << llendl;
+	llinfos << "OpenAL renderer: "
+			<< ll_safe_string(alGetString(AL_RENDERER)) << llendl;
+
+	ALint major = alutGetMajorVersion();
+	ALint minor = alutGetMinorVersion();
 	llinfos << "ALUT version: " << major << "." << minor << llendl;
 
-	ALCdevice *device = alcGetContextsDevice(alcGetCurrentContext());
-
-	alcGetIntegerv(device, ALC_MAJOR_VERSION, 1, &major);
-	alcGetIntegerv(device, ALC_MINOR_VERSION, 1, &minor);
+	alcGetIntegerv(mDevice, ALC_MAJOR_VERSION, 1, &major);
+	alcGetIntegerv(mDevice, ALC_MINOR_VERSION, 1, &minor);
 	llinfos << "ALC version: " << major << "." << minor << llendl;
-
-	llinfos << "ALC default device: "
-		<< ll_safe_string(alcGetString(device,
-					       ALC_DEFAULT_DEVICE_SPECIFIER))
-		<< llendl;
 
 	return true;
 }
@@ -147,6 +182,10 @@ void LLAudioEngine_OpenAL::shutdown()
 		llwarns << "Nuts." << llendl;
 		llwarns << "LLAudioEngine_OpenAL::shutdown() ALUT shutdown failed: " << alutGetErrorString (alutGetError ()) << llendl;
 	}
+
+	alcMakeContextCurrent(NULL);
+    alcDestroyContext(mContext);
+    alcCloseDevice(mDevice);
 
 	llinfos << "LLAudioEngine_OpenAL::shutdown() OpenAL successfully shut down" << llendl;
 
