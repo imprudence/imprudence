@@ -964,7 +964,7 @@ void lggHunSpell_Wrapper::editCustomButton()
 	gViewerWindow->getWindow()->ShellEx(dicdicpath);
 }
 
-void lggHunSpell_Wrapper::setNewHighlightSetting(BOOL highlight)
+void lggHunSpell_Wrapper::setSpellCheckHighlight(BOOL highlight)
 {
 	mSpellCheckHighlight = highlight;
 }

@@ -486,12 +486,13 @@ void LLTextEditor::spell_show(void * data)
 	SpellMenuBind* tempBind = (SpellMenuBind*)data;
 	LLTextEditor* line = tempBind->origin;
 
-	if(tempBind && line)
+	if (tempBind && line)
 	{
-		if(tempBind->word=="Show Misspellings")
+		if (tempBind->word == "Show Misspellings")
 		{
 			line->setShowMisspellings(TRUE);
-		}else
+		}
+		else
 		{
 			line->setShowMisspellings(FALSE);
 		}
@@ -1508,7 +1509,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 			SpellMenuBind *	tempStruct = new SpellMenuBind;
 			tempStruct->origin = this;
-			if (glggHunSpell->mSpellCheckHighlight)
+			if (glggHunSpell->getSpellCheckHighlight())
 			{
 				tempStruct->word = "Hide Misspellings";
 			}
@@ -3153,7 +3154,7 @@ void LLTextEditor::drawMisspelled()
 			}
 		}
 		//draw
-		if (glggHunSpell->mSpellCheckHighlight)
+		if (glggHunSpell->getSpellCheckHighlight())
 		{
 			for (int i = 0; i<(int)misspellLocations.size() ;i++)
 			{
