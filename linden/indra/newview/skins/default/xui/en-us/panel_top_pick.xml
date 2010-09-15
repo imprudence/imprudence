@@ -23,7 +23,7 @@
 		Sort:
 	</text>
 	<line_editor bottom_delta="5" follows="left|top" height="16" left="320"
-	     name="sort_order_editor" width="25" />
+	     name="sort_order_editor" width="25" spell_check="true" />
 	<check_box bottom_delta="0" follows="left|top" height="20" label="Enabled" left="360"
 	     name="enabled_check" width="80" />
 </panel>

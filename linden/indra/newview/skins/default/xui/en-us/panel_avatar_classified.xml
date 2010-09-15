@@ -3,7 +3,7 @@
      name="Classified" title="Classified" width="350">
 	<texture_picker bottom="-165" follows="left|top" height="155" left="10" name="snapshot_ctrl"
 	     width="207" />
-	<line_editor bottom_delta="-8" enabled="false" follows="left|top"
+	<line_editor bottom_delta="-8" enabled="false" follows="left|top" spell_check="true"
 	     font="SansSerif" height="20" left="10" name="given_name_editor"
 	     tool_tip="Name must begin with a letter or number, not punctuation."
 	     width="280" />
