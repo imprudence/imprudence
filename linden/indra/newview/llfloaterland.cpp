@@ -570,7 +570,7 @@ void LLPanelLandGeneral::refresh()
 			mTextClaimDate->setEnabled(is_leased);
 
 			BOOL enable_auction = (gAgent.getGodLevel() >= GOD_LIAISON)
-								  && (owner_id == GOVERNOR_LINDEN_ID)
+								  /*&& (owner_id == GOVERNOR_LINDEN_ID) -- MC*/ 
 								  && (parcel->getAuctionID() == 0);
 			mBtnStartAuction->setEnabled(enable_auction);
 		}
