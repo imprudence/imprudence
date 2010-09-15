@@ -541,21 +541,41 @@ void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, const s
 	}
 
 	// add "none" to list at top
+	std::string style = "NORMAL";
+	if (highlight_id.isNull())
 	{
-		std::string style = "NORMAL";
-		if (highlight_id.isNull())
-		{
-			style = "BOLD";
-		}
-		LLSD element;
-		element["id"] = LLUUID::null;
-		element["columns"][0]["column"] = "name";
-		element["columns"][0]["value"] = none_text;
-		element["columns"][0]["font"] = "SANSSERIF";
-		element["columns"][0]["font-style"] = style;
-
-		group_list->addElement(element, ADD_TOP);
+		style = "BOLD";
 	}
+	LLSD element;
+	element["id"] = LLUUID::null;
+	element["columns"][0]["column"] = "name";
+	//UGLY hack to make sure "none" is always on top -- MC
+	element["columns"][0]["value"] = "                      (" + none_text + ")";
+	element["columns"][0]["font"] = "SANSSERIF";
+	element["columns"][0]["font-style"] = style;
+
+	if (!group_picker)
+	{
+		LLSD& receive_notices_column = element["columns"][1];
+		receive_notices_column["column"] = "receive_notices";
+		receive_notices_column["type"] = "checkbox";
+		receive_notices_column["value"] = FALSE;
+		receive_notices_column["enabled"] = FALSE;
+
+		LLSD& join_group_chat_column = element["columns"][2];
+		join_group_chat_column["column"] = "join_group_chat";
+		join_group_chat_column["type"] = "checkbox";
+		join_group_chat_column["value"] = FALSE;
+		join_group_chat_column["enabled"] = FALSE;
+
+		LLSD& list_in_profile_column = element["columns"][3];
+		list_in_profile_column["column"] = "list_in_profile";
+		list_in_profile_column["type"] = "checkbox";
+		list_in_profile_column["value"] = FALSE;
+		list_in_profile_column["enabled"] = FALSE;
+	}
+
+	group_list->addElement(element, ADD_TOP);
 
 	group_list->selectByValue(highlight_id);
 }
@@ -565,7 +585,7 @@ void LLPanelGroups::applyChangesToGroups()
 	LLScrollListCtrl* group_list = getChild<LLScrollListCtrl>("group list");
 	if (group_list)
 	{
-		// just in case we want to allow selecting multiple groups ever
+		// just in case we want to allow selecting multiple groups ever -- MC
 		std::vector<LLScrollListItem*> selected = group_list->getAllSelected();
 		for (std::vector<LLScrollListItem*>::iterator itr = selected.begin(); itr != selected.end(); ++itr)
 		{
