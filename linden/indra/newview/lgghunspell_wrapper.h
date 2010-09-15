@@ -28,9 +28,9 @@ class lggHunSpell_Wrapper
 {
 
 public:
-	static Hunspell * myHunspell;
+	static Hunspell* myHunspell;
 
-	BOOL highlightInRed;
+	BOOL mSpellCheckHighlight;
 
 	static void initSettings();
 	void processSettings();
@@ -69,6 +69,6 @@ private:
 	//std::vector<std::string> countryCodes;
 };
 
-extern lggHunSpell_Wrapper *glggHunSpell; // the singleton hunspell wrapper
+extern lggHunSpell_Wrapper* glggHunSpell; // the singleton hunspell wrapper
 
 #endif 

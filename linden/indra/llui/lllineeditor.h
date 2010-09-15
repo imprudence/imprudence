@@ -198,7 +198,7 @@ public:
 	void setWriteableBgColor( const LLColor4& c )	{ mWriteableBgColor = c; }
 	void setReadOnlyBgColor( const LLColor4& c )	{ mReadOnlyBgColor = c; }
 	void setFocusBgColor(const LLColor4& c)			{ mFocusBgColor = c; }
-	void setOverRideAndShowMisspellings(BOOL b)		{ mOverRideAndShowMisspellings =b;}
+	void setShowMisspellings(BOOL b)		{ mShowMisspellings = b;}
 
 	const LLColor4& getFgColor() const			{ return mFgColor; }
 	const LLColor4& getReadOnlyFgColor() const	{ return mReadOnlyFgColor; }
@@ -293,7 +293,7 @@ protected:
 	std::vector<S32> misspellLocations;     // where all the mispelled words are
 	S32				mStartSpellHere;		// the position of the first char on the screen, stored so we know when to update
 	S32				mEndSpellHere;			// the location of the last char on the screen
-	BOOL		mOverRideAndShowMisspellings;
+	BOOL			mShowMisspellings;
 	LLFrameTimer mSpellTimer;
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;
