@@ -236,7 +236,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 					left_part = txt;
 				}
 
-				std::string pattern_s = "(^|.*[\\.\\?!:;,\\*\\(\\s]+)([a-z0-9]+)$";
+				std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)([a-z0-9]+)$";
 				boost::match_results<std::string::const_iterator> what;
 				boost::regex expression(pattern_s, boost::regex::icase);
 				if (boost::regex_search(to_match, what, expression, boost::match_extra))
