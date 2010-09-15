@@ -1733,7 +1733,7 @@ Cannot find the region this land is in.
  type="alertmodal">
 Unable to buy land:
 
-Your allowed or prefered maturity level does not allow to buy this land.
+Your allowed/preferred maturity level does not permit you to buy this land. You may need to your maturity level in Preferences first.
 </notification>
 
 <notification
