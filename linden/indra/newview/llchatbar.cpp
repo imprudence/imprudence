@@ -206,7 +206,8 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		stopChat();
 		handled = TRUE;
 	}
-	else if (key == KEY_ESCAPE && mask == MASK_CONTROL && gChatBar == this)
+	// else if (key == KEY_ESCAPE && mask == MASK_CONTROL && gChatBar == this)
+	else if (key == KEY_TAB && gChatBar == this)
 	{
 		if (mInputEditor)
 		{
