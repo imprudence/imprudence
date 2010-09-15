@@ -61,7 +61,7 @@
   </text>
   <text_editor type="string" length="1" bottom_delta="-60" embedded_items="false" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="70" left="148" max_length="255"
-	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" />
+	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" spell_check="true" />
   <button bottom_delta="-25" follows="top|right" height="22" label="IM Response Options"
      left="164" name="busy_adv_btn" tool_tip="Instant message Auto-Response options"
      width="180" />
