@@ -832,7 +832,7 @@ Only large parcels can be listed in search.
 			     follows="left|top" font="SansSerifSmall" height="16" left="80"
 			     max_length="255" name="url_description" right="-80"
 			     select_all_on_focus_received="true" select_on_focus="true"
-			     tool_tip="Text displayed next to play/load button" />
+			     tool_tip="Text displayed next to play/load button" spell_check="true" />
 			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
 			     height="16" left="10" name="Media texture:" width="364">
 				Replace

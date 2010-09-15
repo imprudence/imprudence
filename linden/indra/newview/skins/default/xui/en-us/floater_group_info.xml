@@ -119,7 +119,7 @@
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom="-90" follows="left|top" font="SansSerifSmall"
 			     height="16" left_delta="75" max_length="20" mouse_opaque="true" name="ohon"
-			     text_readonly_color="1, 1, 1, 1" width="105" />
+			     text_readonly_color="1, 1, 1, 1" width="105" spell_check="true" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-90" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left_delta="110"
@@ -129,7 +129,7 @@
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom="-90" follows="left|top" font="SansSerifSmall"
 			     height="16" left_delta="75" max_length="20" mouse_opaque="true" name="mhon"
-			     text_readonly_color="1, 1, 1, 1" width="105" />
+			     text_readonly_color="1, 1, 1, 1" width="105" spell_check="true" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-124" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"

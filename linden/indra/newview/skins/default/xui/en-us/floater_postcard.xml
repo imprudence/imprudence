@@ -25,7 +25,7 @@
 	</text>
 	<line_editor bottom_delta="-6" follows="left|top" height="20"
 	     label="Type your subject here." left="120" max_length="100"
-	     name="subject_form" width="150" />
+	     name="subject_form" width="150" spell_check="true" />
 	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="12"
 	     name="msg_label">
 		Message:
