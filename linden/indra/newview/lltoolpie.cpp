@@ -727,6 +727,19 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 			LL_DEBUGS("DoubleClicks") << "Double clicked other Avatar" << LL_ENDL;
 			return FALSE;// or what about open profile or IM session or ...
 		}
+
+		if (final_click_action(object))
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked an object with a click action" << LL_ENDL;
+			return FALSE;
+		}
+
+		LLViewerObject* parent = object->getRootEdit();
+		if (object->flagHandleTouch() || (parent && parent->flagHandleTouch()))
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked a touch-scripted object" << LL_ENDL;
+			return FALSE;
+		}
 	}
 
 	std::string action = gSavedSettings.getString("DoubleClickAction");
