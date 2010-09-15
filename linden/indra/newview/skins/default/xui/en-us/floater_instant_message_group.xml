@@ -67,9 +67,9 @@
 			     follows="left|top|right|bottom" font="SansSerif" left="4"
 			     max_length="2147483647" mouse_opaque="true" name="im_history"
 			     text_color="ChatHistoryTextColor"
-           track_bottom="true" 
+				 track_bottom="true" 
 			     text_readonly_color="ChatHistoryTextColor" top="104" width="170"
-			     word_wrap="true" />
+			     word_wrap="true" spell_check="true" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
 			     enabled="true" follows="left|right|bottom" font="SansSerif" height="20"
 			     left="5" max_length="1022" mouse_opaque="true" name="chat_editor"

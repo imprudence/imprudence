@@ -77,8 +77,8 @@
 	     follows="left|top|right|bottom" font="SansSerif" height="221" left="5"
 	     max_length="2147483647" mouse_opaque="true" name="im_history"
 	     text_color="ChatHistoryTextColor"
-       track_bottom="true" 
-	     text_readonly_color="ChatHistoryTextColor" width="487" word_wrap="true" />
+		 track_bottom="true" 
+	     text_readonly_color="ChatHistoryTextColor" width="487" word_wrap="true" spell_check="true" />
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
 	     follows="left|right|bottom" font="SansSerif" height="20"
 	     label="Click here to instant message" left="5" max_length="1022"

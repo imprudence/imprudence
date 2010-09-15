@@ -71,7 +71,7 @@
 			<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-206" embedded_items="false"
 			     follows="left|top" font="SansSerifSmall" height="48" left="87"
 			     max_length="511" mouse_opaque="true" name="charter"
-			     text_readonly_color="1, 1, 1, 1" width="361" word_wrap="true" />
+			     text_readonly_color="1, 1, 1, 1" width="361" word_wrap="true" spell_check="true" />
 			<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="true" label="Show In Group List" left="87"
 			     mouse_opaque="true" name="sho" radio_style="false" width="361" />
@@ -332,7 +332,7 @@ create a new proposal.
 					     bottom_delta="40" embedded_items="false" follows="left|top"
 					     font="SansSerif" height="94" left="87" max_length="255" mouse_opaque="true"
 					     name="proposal_text" text_readonly_color="1, 1, 1, 1" width="290"
-					     word_wrap="false" />
+					     word_wrap="false" spell_check="true" />
 					<button bottom_delta="-22" follows="top" font="SansSerif" halign="center" height="20"
 					     label="Yes" label_selected="Yes" left="87" mouse_opaque="true"
 					     name="btn_yes" width="60" />
