@@ -266,12 +266,12 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 					std::string test_name(agent_name);
 					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
+					std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
 
 					if (test_name.find(to_match) == 0)
 					{
-						std::string rest_of_match = agent_name.substr(to_match.length(), agent_name.length());
 						mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + agent_name + right_part);
-						mInputEditor->setSelection(cursorPos, cursorPos + rest_of_match.length());
+						mInputEditor->setSelection(cursorPos, cursorPos + (agent_name.length() - to_match.length()));
 						return TRUE;
 					}
 				}
