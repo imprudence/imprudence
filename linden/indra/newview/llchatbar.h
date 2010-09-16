@@ -117,6 +117,10 @@ protected:
 private:
 	BOOL				mChanCtrlEnabled;
 	LLSpinCtrl*			mChannelControl;
+
+	std::vector<std::string> names;
+	std::string last_initials;
+	int current_index;
 };
 
 extern LLChatBar *gChatBar;

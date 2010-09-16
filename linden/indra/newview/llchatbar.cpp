@@ -115,7 +115,10 @@ LLChatBar::LLChatBar()
 	mObserver(NULL)
 {
 	setIsChrome(TRUE);
-	
+
+	current_index = 0;
+	last_initials = "";
+
 	#if !LL_RELEASE_FOR_DOWNLOAD
 	childDisplayNotFound();
 #endif
@@ -220,7 +223,6 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
 
 				std::string txt(mInputEditor->getText());
-
 				std::string to_match(txt);
 				std::string left_part = "";
 				std::string right_part = "";
@@ -244,51 +246,68 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				if (boost::regex_search(to_match, what, expression, boost::match_extra))
 				{
 					to_match = what[2];
-					if (to_match.length() < 3)
+					if (to_match.length() < 1)
 						return handled;
 				}
 				else
 					return handled;
 
-				for (U32 i=0; i<avatar_ids.size(); i++)
+				std::string to_match_test(to_match);
+				std::transform(to_match_test.begin(), to_match_test.end(), to_match_test.begin(), tolower);
+
+				if (last_initials != to_match_test)
 				{
-					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
-						continue;
+					last_initials = to_match_test;
+					names.clear();
+					current_index = 0;
 
-					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
-					LLVector3d real_pos = positions[i];
-					if (real_pos[2] == 0.0f)
+					for (U32 i=0; i<avatar_ids.size(); i++)
 					{
-						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-						if (av_obj != NULL && av_obj->isAvatar())
+						if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
+							continue;
+
+						// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
+						LLVector3d real_pos = positions[i];
+						if (real_pos[2] == 0.0f)
 						{
-							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-							if (avatarp != NULL)
-								real_pos = avatarp->getPositionGlobal();
+							LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+							if (av_obj != NULL && av_obj->isAvatar())
+							{
+								LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+								if (avatarp != NULL)
+									real_pos = avatarp->getPositionGlobal();
+							}
 						}
-					}
 
-					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
-					if (dist > CHAT_NORMAL_RADIUS)
-						continue;
+						F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
+						if (dist > CHAT_SHOUT_RADIUS)
+							continue;
 
-					std::string agent_name = " ";
-					std::string agent_surname = " ";
+						std::string agent_name = " ";
+						std::string agent_surname = " ";
 
-					if(!gCacheName->getName(avatar_ids[i], agent_name, agent_surname) && (agent_name == " " || agent_surname == " "))
-						continue;
+						if(!gCacheName->getName(avatar_ids[i], agent_name, agent_surname) && (agent_name == " " || agent_surname == " "))
+							continue;
 
-					std::string test_name(agent_name);
-					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
-					std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
+						std::string test_name(agent_name);
+						std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
+						std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
 
-					if (test_name.find(to_match) == 0)
-					{
-						mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + agent_name + right_part);
-						mInputEditor->setSelection(cursorPos, cursorPos + (agent_name.length() - to_match.length()));
-						return TRUE;
+						if (test_name.find(to_match) == 0)
+							names.push_back(agent_name);
 					}
 				}
+
+				std::string current_name = names[current_index];
+				mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + current_name + right_part);
+				mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - to_match.length()));
+
+				current_index++;
+
+				if (current_index == names.size())
+					current_index = 0;
+
+				return TRUE;
 			}
 		}
 	}
