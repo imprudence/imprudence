@@ -129,6 +129,9 @@ public:
 	void setBuddyOnline(const LLUUID& id, bool is_online);
 	bool isBuddyOnline(const LLUUID& id) const;
 
+	// get count of buddies
+	S32 getBuddyCount();
+
 	// simple empowered status
 	void setBuddyEmpowered(const LLUUID& id, bool is_empowered);
 	bool isBuddyEmpowered(const LLUUID& id) const;

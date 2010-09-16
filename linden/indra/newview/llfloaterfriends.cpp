@@ -183,6 +183,52 @@ void LLPanelFriends::updateFriends(U32 changed_mask)
 	mShowMaxSelectWarning = true;
 }
 
+void LLPanelFriends::filterContacts(const std::string& search_string)
+{
+	std::string search = search_string;
+	LLStringUtil::toLower(search);
+		
+	if (search.empty())
+	{
+		// repopulate
+		refreshNames(LLFriendObserver::ADD);
+	}
+	else
+	{
+		// just in case someone else emptied us, tsk
+		if (mFriendsList->isEmpty() && LLAvatarTracker::instance().getBuddyCount() > 0)
+		{
+			refreshNames(LLFriendObserver::ADD);
+		}
+
+		// don't worry about maintaining selection since we're searching
+		std::vector<LLScrollListItem*> vFriends(mFriendsList->getAllData());
+		
+		// this should really REALLY use deleteAllItems() to rebuild the list instead
+		std::string friend_name;
+		for (std::vector<LLScrollListItem*>::iterator itr = vFriends.begin(); itr != vFriends.end(); ++itr)
+		{
+			friend_name = (*itr)->getColumn(LIST_FRIEND_NAME)->getValue().asString();
+			LLStringUtil::toLower(friend_name);
+			BOOL show_entry = (friend_name.find(search) != std::string::npos);
+			if (!show_entry)
+			{
+				mFriendsList->deleteItems((*itr)->getValue());
+			}
+		}
+	}
+	refreshUI();
+}
+
+void LLPanelFriends::onContactSearchKeystroke(const std::string& search_string, void* user_data)
+{
+	LLPanelFriends* panelp = (LLPanelFriends*)user_data;
+	if (panelp)
+	{
+		panelp->filterContacts(search_string);
+	}
+}
+
 // virtual
 BOOL LLPanelFriends::postBuild()
 {
@@ -192,6 +238,12 @@ BOOL LLPanelFriends::postBuild()
 	mFriendsList->setCommitOnSelectionChange(TRUE);
 	childSetCommitCallback("friend_list", onSelectName, this);
 	childSetDoubleClickCallback("friend_list", onClickIM);
+
+	LLSearchEditor* buddy_search = getChild<LLSearchEditor>("buddy_search");
+	if (buddy_search)
+	{
+		buddy_search->setSearchCallback(&onContactSearchKeystroke, this);
+	}
 
 	U32 changed_mask = LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE;
 	refreshNames(changed_mask);

@@ -101,6 +101,8 @@ private:
 	// protected members
 	typedef std::map<LLUUID, S32> rights_map_t;
 	void refreshNames(U32 changed_mask);
+	void filterContacts(const std::string& search_string);
+
 	BOOL refreshNamesSync(const LLAvatarTracker::buddy_map_t & all_buddies);
 	BOOL refreshNamesPresence(const LLAvatarTracker::buddy_map_t & all_buddies);
 	void refreshUI();
@@ -126,7 +128,7 @@ private:
 	static bool callbackAddFriendWithMessage(const LLSD& notification, const LLSD& response);
 	static void onPickAvatar(const std::vector<std::string>& names, const std::vector<LLUUID>& ids, void* user_data);
 	static void onMaximumSelect(void* user_data);
-
+	static void onContactSearchKeystroke(const std::string& search_string, void* user_data);
 	static void onClickIM(void* user_data);
 	static void onClickProfile(void* user_data);
 	static void onClickAddFriend(void* user_data);
