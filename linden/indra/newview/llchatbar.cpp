@@ -252,62 +252,61 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				else
 					return handled;
 
-				std::string to_match_test(to_match);
-				std::transform(to_match_test.begin(), to_match_test.end(), to_match_test.begin(), tolower);
+				names.clear();
 
-				if (last_initials != to_match_test)
+				for (U32 i=0; i<avatar_ids.size(); i++)
 				{
-					last_initials = to_match_test;
-					names.clear();
-					current_index = 0;
+					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
+						continue;
 
-					for (U32 i=0; i<avatar_ids.size(); i++)
+					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
+					LLVector3d real_pos = positions[i];
+					if (real_pos[2] == 0.0f)
 					{
-						if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
-							continue;
-
-						// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
-						LLVector3d real_pos = positions[i];
-						if (real_pos[2] == 0.0f)
+						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+						if (av_obj != NULL && av_obj->isAvatar())
 						{
-							LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-							if (av_obj != NULL && av_obj->isAvatar())
-							{
-								LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-								if (avatarp != NULL)
-									real_pos = avatarp->getPositionGlobal();
-							}
+							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+							if (avatarp != NULL)
+								real_pos = avatarp->getPositionGlobal();
 						}
-
-						F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
-						if (dist > CHAT_SHOUT_RADIUS)
-							continue;
-
-						std::string agent_name = " ";
-						std::string agent_surname = " ";
-
-						if(!gCacheName->getName(avatar_ids[i], agent_name, agent_surname) && (agent_name == " " || agent_surname == " "))
-							continue;
-
-						std::string test_name(agent_name);
-						std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
-						std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
-
-						if (test_name.find(to_match) == 0)
-							names.push_back(agent_name);
 					}
+
+					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
+					if (dist > CHAT_SHOUT_RADIUS)
+						continue;
+
+					std::string agent_name = " ";
+					std::string agent_surname = " ";
+
+					if(!gCacheName->getName(avatar_ids[i], agent_name, agent_surname) && (agent_name == " " || agent_surname == " "))
+						continue;
+
+					std::string test_name(agent_name);
+					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
+					std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
+					
+					if (test_name.find(to_match) == 0)
+						names.push_back(agent_name);
 				}
 
-				std::string current_name = names[current_index];
-				mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + current_name + right_part);
-				mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - to_match.length()));
-
-				current_index++;
-
-				if (current_index == names.size())
+				if (current_index >= names.size() || to_match != last_initials)
+				{
 					current_index = 0;
+					last_initials = to_match;
+				}
 
-				return TRUE;
+				if (names.size() > 0)
+				{
+					std::string current_name = names[current_index];
+
+					mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + current_name + right_part);
+					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - to_match.length()));
+
+					current_index++;
+
+					return TRUE;
+				}
 			}
 		}
 	}
