@@ -323,6 +323,7 @@ LLTextEditor::LLTextEditor(
 	mLastSelectionY(-1),
 	mReflowNeeded(FALSE),
 	mScrollNeeded(FALSE),
+	mSpellCheckable(FALSE),
 	mShowMisspellings(FALSE)
 {
 	mSourceID.generate();
@@ -375,6 +376,13 @@ LLTextEditor::LLTextEditor(
 
 	mParseHTML=FALSE;
 	mHTML.clear();
+
+	// in other words, highlighting requires a restart
+	if (glggHunSpell->getSpellCheckHighlight())
+	{
+		mShowMisspellings = TRUE;
+	}
+
 	// make the popup menu available
 	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
 	LLMenuGL* menu = new LLMenuGL("wot");
@@ -490,11 +498,11 @@ void LLTextEditor::spell_show(void * data)
 	{
 		if (tempBind->word == "Show Misspellings")
 		{
-			line->setShowMisspellings(TRUE);
+			glggHunSpell->setSpellCheckHighlight(TRUE);
 		}
 		else
 		{
-			line->setShowMisspellings(FALSE);
+			glggHunSpell->setSpellCheckHighlight(FALSE);
 		}
 	}
 }
@@ -1454,7 +1462,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		menu->setItemVisible("Transep", !mReadOnly);
 
 		// spell_check="true" in xui
-		if (!mReadOnly && mShowMisspellings)
+		if (!mReadOnly && mSpellCheckable)
 		{
 			const LLWString &text = mWText;
 			
@@ -1509,7 +1517,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 			SpellMenuBind *	tempStruct = new SpellMenuBind;
 			tempStruct->origin = this;
-			if (glggHunSpell->getSpellCheckHighlight())
+			if (mShowMisspellings)
 			{
 				tempStruct->word = "Hide Misspellings";
 			}
@@ -3131,7 +3139,7 @@ void LLTextEditor::autoCorrectText()
 
 void LLTextEditor::drawMisspelled()
 {
-	if (!mReadOnly && mShowMisspellings)
+	if (!mReadOnly && mSpellCheckable)
 	{
 		if(
 			( ((getLength()<400)||(false))	&&(  (S32(mSpellTimer.getElapsedTimeF32() / 1) & 1) ))
@@ -3154,7 +3162,7 @@ void LLTextEditor::drawMisspelled()
 			}
 		}
 		//draw
-		if (glggHunSpell->getSpellCheckHighlight())
+		if (mShowMisspellings)
 		{
 			for (int i = 0; i<(int)misspellLocations.size() ;i++)
 			{
@@ -4891,7 +4899,7 @@ void LLTextEditor::setTextEditorParameters(LLXMLNodePtr node)
 
 	node->getAttributeBOOL("track_bottom", mTrackBottom);
 
-	node->getAttributeBOOL("spell_check", mShowMisspellings);
+	node->getAttributeBOOL("spell_check", mSpellCheckable);
 
 	LLColor4 color;
 	if (LLUICtrlFactory::getAttributeColor(node,"cursor_color", color)) 

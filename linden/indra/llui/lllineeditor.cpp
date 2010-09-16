@@ -171,7 +171,8 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mHaveHistory(FALSE),
 		mImage( sImage ),
 		mReplaceNewlinesWithSpaces( TRUE ),
-		mShowMisspellings( FALSE )
+		mSpellCheckable( FALSE ),
+		mShowMisspellings(FALSE)
 {
 	llassert( max_length_bytes > 0 );
 
@@ -209,6 +210,13 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		sImage = LLUI::getUIImage("sm_rounded_corners_simple.tga");
 	}
 	mImage = sImage;
+
+	// in other words, highlighting requires a restart
+	if (glggHunSpell->getSpellCheckHighlight())
+	{
+		mShowMisspellings = TRUE;
+	}
+
 	// make the popup menu available
 	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
 	LLMenuGL* menu = new LLMenuGL("wot");
@@ -550,11 +558,11 @@ void LLLineEditor::spell_show(void * data)
 	{
 		if (tempBind->word == "Show Misspellings")
 		{
-			line->setShowMisspellings(TRUE);
+			line->mShowMisspellings = TRUE;
 		}
 		else
 		{
-			line->setShowMisspellings(FALSE);
+			line->mShowMisspellings = FALSE;
 		}
 	}
 }
@@ -757,7 +765,7 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		menu->setItemVisible("Transep", !mReadOnly);
 
 		// spell_check="true" in xui
-		if (!mReadOnly && mShowMisspellings)
+		if (!mReadOnly && mSpellCheckable)
 		{
 			const LLWString& text = mText.getWString();
 
@@ -813,7 +821,7 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 			SpellMenuBind * tempStruct = new SpellMenuBind;
 			tempStruct->origin = this;
-			if (glggHunSpell->getSpellCheckHighlight())
+			if (mShowMisspellings)
 			{
 				tempStruct->word = "Hide Misspellings";
 			}
@@ -1899,7 +1907,7 @@ void LLLineEditor::autoCorrectText()
 
 void LLLineEditor::drawMisspelled(LLRect background)
 {
-	if (!mReadOnly && mShowMisspellings)
+	if (!mReadOnly && mSpellCheckable)
 	{
 		S32 newStartSpellHere = mScrollHPos;
 		S32 cursorloc = calculateCursorFromMouse(mMaxHPixels);
@@ -1917,7 +1925,7 @@ void LLLineEditor::drawMisspelled(LLRect background)
 			}
 		}
 
-		if (glggHunSpell->getSpellCheckHighlight())
+		if (mShowMisspellings)
 		{
 			for (int i =0; i<(int)misspellLocations.size(); i++)
 			{
@@ -2817,10 +2825,10 @@ LLView* LLLineEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 	{
 		line_editor->setCommitOnFocusLost(commit_on_focus_lost);
 	}
-	BOOL show_misspellings = FALSE;
-	if (node->getAttributeBOOL("spell_check", show_misspellings))
+	BOOL spell_checking = FALSE;
+	if (node->getAttributeBOOL("spell_check", spell_checking))
 	{
-		line_editor->setShowMisspellings(show_misspellings);
+		line_editor->setSpellCheckable(spell_checking);
 	}
 	
 	line_editor->setColorParameters(node);
