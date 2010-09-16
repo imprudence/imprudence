@@ -68,6 +68,7 @@
 #include "llmultigesture.h"
 #include "llui.h"
 #include "lluictrlfactory.h"
+#include "llvoavatar.h"
 
 #include "chatbar_as_cmdline.h"
 
@@ -216,6 +217,8 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 			if (!avatar_ids.empty())
 			{
+				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
+
 				std::string txt(mInputEditor->getText());
 
 				std::string to_match(txt);
@@ -251,12 +254,23 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				{
 					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 						continue;
-/*
-					// Commented out for now... doesn't work above 1024 meters as usual
+
+					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
+					LLVector3d real_pos = positions[i];
+					if (real_pos[2] == 0.0f)
+					{
+						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+						if (av_obj != NULL && av_obj->isAvatar())
+						{
+							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+							if (avatarp != NULL)
+								real_pos = avatarp->getPositionGlobal();
+						}
+					}
+
 					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
 					if (dist > CHAT_NORMAL_RADIUS)
 						continue;
-*/
 
 					std::string agent_name = " ";
 					std::string agent_surname = " ";
