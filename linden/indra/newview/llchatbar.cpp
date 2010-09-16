@@ -116,8 +116,9 @@ LLChatBar::LLChatBar()
 {
 	setIsChrome(TRUE);
 
-	current_index = 0;
-	last_initials = "";
+	mCompletionHolder.current_index = 0;
+	mCompletionHolder.last_match = "";
+	mCompletionHolder.last_txt = "";
 
 	#if !LL_RELEASE_FOR_DOWNLOAD
 	childDisplayNotFound();
@@ -222,37 +223,40 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 			{
 				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
 
-				std::string txt(mInputEditor->getText());
-				std::string to_match(txt);
-				std::string left_part = "";
-				std::string right_part = "";
 				S32 cursorPos = mInputEditor->getCursor();
+				std::string txt(mInputEditor->getText());
 
-				if (cursorPos < (S32)txt.length())
+				if (mCompletionHolder.last_txt != mInputEditor->getText())
 				{
-					right_part = txt.substr(cursorPos);
-					left_part = txt.substr(0, cursorPos);
-					to_match = std::string(left_part);
-				}
-				else
-				{
-					to_match = std::string(txt);
-					left_part = txt;
-				}
+					mCompletionHolder.last_txt = std::string(mInputEditor->getText());
 
-				std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)([a-z0-9]+)$";
-				boost::match_results<std::string::const_iterator> what;
-				boost::regex expression(pattern_s, boost::regex::icase);
-				if (boost::regex_search(to_match, what, expression, boost::match_extra))
-				{
-					to_match = what[2];
-					if (to_match.length() < 1)
+					if (cursorPos < (S32)txt.length())
+					{
+						mCompletionHolder.right = txt.substr(cursorPos);
+						mCompletionHolder.left = txt.substr(0, cursorPos);
+						mCompletionHolder.match = std::string(mCompletionHolder.left);
+					}
+					else
+					{
+						mCompletionHolder.right = "";
+						mCompletionHolder.match = std::string(txt);
+						mCompletionHolder.left = txt;
+					}
+
+					std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)([a-z0-9]+)$";
+					boost::match_results<std::string::const_iterator> what;
+					boost::regex expression(pattern_s, boost::regex::icase);
+					if (boost::regex_search(mCompletionHolder.match, what, expression, boost::match_extra))
+					{
+						mCompletionHolder.match = what[2];
+						if (mCompletionHolder.match.length() < 1)
+							return handled;
+					}
+					else
 						return handled;
 				}
-				else
-					return handled;
 
-				names.clear();
+				mCompletionHolder.names.clear();
 
 				for (U32 i=0; i<avatar_ids.size(); i++)
 				{
@@ -284,26 +288,26 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 					std::string test_name(agent_name);
 					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
-					std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
-					
-					if (test_name.find(to_match) == 0)
-						names.push_back(agent_name);
+					std::transform(mCompletionHolder.match.begin(), mCompletionHolder.match.end(), mCompletionHolder.match.begin(), tolower);
+
+					if (test_name.find(mCompletionHolder.match) == 0)
+						mCompletionHolder.names.push_back(agent_name);
 				}
 
-				if (current_index >= names.size() || to_match != last_initials)
+				if (mCompletionHolder.current_index >= mCompletionHolder.names.size() || mCompletionHolder.match != mCompletionHolder.last_match)
 				{
-					current_index = 0;
-					last_initials = to_match;
+					mCompletionHolder.current_index = 0;
+					mCompletionHolder.last_match = mCompletionHolder.match;
 				}
 
-				if (names.size() > 0)
+				if (mCompletionHolder.names.size() > 0)
 				{
-					std::string current_name = names[current_index];
+					std::string current_name = mCompletionHolder.names[mCompletionHolder.current_index];
 
-					mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + current_name + right_part);
-					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - to_match.length()));
+					mInputEditor->setText(mCompletionHolder.left.substr(0, mCompletionHolder.left.length() - mCompletionHolder.match.length()) + current_name + mCompletionHolder.right);
+					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - mCompletionHolder.match.length()));
 
-					current_index++;
+					mCompletionHolder.current_index++;
 
 					return TRUE;
 				}

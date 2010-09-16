@@ -46,6 +46,16 @@ class LLChatBarGestureObserver;
 class LLComboBox;
 class LLSpinCtrl;
 
+typedef struct {
+	std::string left;
+	std::string right;
+	std::string match;
+	std::vector<std::string> names;
+	std::string last_txt;
+	std::string last_match;
+	int current_index;
+} CompletionHolder;
+
 class LLChatBar
 :	public LLPanel
 {
@@ -118,9 +128,7 @@ private:
 	BOOL				mChanCtrlEnabled;
 	LLSpinCtrl*			mChannelControl;
 
-	std::vector<std::string> names;
-	std::string last_initials;
-	int current_index;
+	CompletionHolder mCompletionHolder;
 };
 
 extern LLChatBar *gChatBar;
