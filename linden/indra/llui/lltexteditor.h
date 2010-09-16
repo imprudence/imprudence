@@ -229,7 +229,7 @@ public:
 	void			setThumbColor( const LLColor4& color );
 	void			setHighlightColor( const LLColor4& color );
 	void			setShadowColor( const LLColor4& color );
-	void			setOverRideAndShowMisspellings(BOOL b){ mOverRideAndShowMisspellings =b;}
+	void			setSpellCheckable(BOOL b)					{ mSpellCheckable = b; }
 
 	// Hacky methods to make it into a word-wrapping, potentially scrolling,
 	// read-only text box.
@@ -526,7 +526,8 @@ private:
 	S32 spellStart;
 	S32 spellEnd;
 	std::vector<S32> misspellLocations;     // where all the mispelled words are
-	BOOL		mOverRideAndShowMisspellings;
+	BOOL			mSpellCheckable;			// set in xui as "spell_check". Default value for a field
+	BOOL			mShowMisspellings;		// show misspellings as highlighted (initialized in the ctor)
 	
 	S32				mMaxTextByteLength;		// Maximum length mText is allowed to be in bytes
 

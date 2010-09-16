@@ -256,41 +256,39 @@ void LLPrefsAdvanced::refresh()
 	}
 
 	LLComboBox* comboBox = getChild<LLComboBox>("EmeraldSpellBase");
-	if(comboBox != NULL) 
+	if (comboBox != NULL) 
 	{
 		comboBox->removeall();
 		std::vector<std::string> names = glggHunSpell->getDicts();
-		for(int i=0; i<(int)names.size(); i++) 
+		for (int i = 0; i < (int)names.size(); i++) 
 		{
 			comboBox->add(names[i]);
 		}
 		comboBox->setSimple(gSavedSettings.getString("EmeraldSpellBase"));
 	}
 	comboBox = getChild<LLComboBox>("EmSpell_Avail");
-	if(comboBox != NULL) 
+	if (comboBox != NULL) 
 	{
+		LLSD selected = comboBox->getSelectedValue();
 		comboBox->removeall();
-
-		comboBox->add("");
 		std::vector<std::string> names = glggHunSpell->getAvailDicts();
-		for(int i=0; i<(int)names.size(); i++) 
+		for (int i = 0; i < (int)names.size(); i++) 
 		{
 			comboBox->add(names[i]);
 		}
-		comboBox->setSimple(std::string(""));
+		comboBox->selectByValue(selected);
 	}
 	comboBox = getChild<LLComboBox>("EmSpell_Installed");
-	if(comboBox != NULL) 
+	if (comboBox != NULL) 
 	{
+		LLSD selected = comboBox->getSelectedValue();
 		comboBox->removeall();
-
-		comboBox->add("");
 		std::vector<std::string> names = glggHunSpell->getInstalledDicts();
-		for(int i=0; i<(int)names.size(); i++) 
+		for (int i = 0; i < (int)names.size(); i++) 
 		{
 			comboBox->add(names[i]);
 		}
-		comboBox->setSimple(std::string(""));
+		comboBox->selectByValue(selected);
 	}
 }
 
@@ -328,6 +326,7 @@ void LLPrefsAdvanced::onSpellAdd(void* data)
 	}
 	panel->refresh();
 }
+
 void LLPrefsAdvanced::onSpellRemove(void* data)
 {
 	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
@@ -337,23 +336,29 @@ void LLPrefsAdvanced::onSpellRemove(void* data)
 	}
 	panel->refresh();
 }
+
 void LLPrefsAdvanced::onSpellGetMore(void* data)
 {
 	glggHunSpell->getMoreButton(data);
 }
+
 void LLPrefsAdvanced::onSpellEditCustom(void* data)
 {
 	glggHunSpell->editCustomButton();
 }
+
 void LLPrefsAdvanced::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 {
 
 	LLComboBox* box = (LLComboBox*)ctrl;
-	if(box)
+	if (box)
 	{
 		glggHunSpell->newDictSelection(box->getValue().asString());
 		//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;//box->getParent();
-		if(sInstance)sInstance->refresh();
+		if (sInstance)
+		{
+			sInstance->refresh();
+		}
 	}
 	//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;
 	//if(panel)panel->refresh();

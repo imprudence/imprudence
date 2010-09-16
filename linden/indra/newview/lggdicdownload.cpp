@@ -49,10 +49,11 @@
 #include "llbufferstream.h"
 
 class lggDicDownloadFloater;
+
 class EmeraldDicDownloader : public LLHTTPClient::Responder
 {
 public:
-	EmeraldDicDownloader(lggDicDownloadFloater * spanel,std::string sname);
+	EmeraldDicDownloader(lggDicDownloadFloater* spanel, std::string sname);
 	~EmeraldDicDownloader() { }
 	void completedRaw(
 		U32 status,
@@ -77,9 +78,11 @@ public:
 	std::vector<std::string> lNames;
 	LLPrefsAdvanced * empanel;
 };
+
 lggDicDownloadFloater::~lggDicDownloadFloater()
 {
 }
+
 lggDicDownloadFloater::lggDicDownloadFloater(const LLSD& seed)
 {
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_dictionaries.xml");
@@ -89,96 +92,96 @@ lggDicDownloadFloater::lggDicDownloadFloater(const LLSD& seed)
 	{
 		center();
 	}
-
 }
 
 BOOL lggDicDownloadFloater::postBuild(void)
 {
-	childSetAction("Emerald_dic_download",onClickDownload,this);
+	childSetAction("Emerald_dic_download", onClickDownload, this);
 	return true;
 }
-void lggDicDownloadFloater::setData(std::vector<std::string> shortNames, std::vector<std::string> longNames, void * data)
+
+void lggDicDownloadFloater::setData(std::vector<std::string> shortNames, std::vector<std::string> longNames, void* data)
 {
-	sNames=shortNames;
-	lNames=longNames;
+	sNames = shortNames;
+	lNames = longNames;
 	empanel = (LLPrefsAdvanced*)data;
 
 	LLComboBox* comboBox = getChild<LLComboBox>("Emerald_combo_dics");
-	if(comboBox != NULL) 
+	if (comboBox != NULL) 
 	{
 		comboBox->removeall();
-		comboBox->add("");
-		for(int i = 0; i < (int)lNames.size(); i++)
+		for (int i = 0; i < (int)lNames.size(); i++)
 		{
-			comboBox->add(lNames[i]);
+			comboBox->add(lNames[i], ADD_BOTTOM);
 		}
 		comboBox->setCurrentByIndex(0);
+		comboBox->add("", ADD_BOTTOM);
 	}
 }
+
 void lggDicDownloadFloater::onClickDownload(void* data)
 {
 	lggDicDownloadFloater* self = (lggDicDownloadFloater*)data;
-	if(self)
+	if (self)
 	{
 		//std::string selection = self->childGetValue("Emerald_combo_dics").asString();
 		LLComboBox* comboBox = self->getChild<LLComboBox>("Emerald_combo_dics");
-		if(comboBox != NULL) 
+		if (comboBox != NULL) 
 		{
-			int index = comboBox->getCurrentIndex();
-			if(index!=0)
+			if (!comboBox->getSelectedItemLabel().empty())
 			{
-				index--;
-				std::string newDict(self->sNames[index]);
+				std::string newDict(self->sNames[comboBox->getCurrentIndex()]);
 				LLHTTPClient::get(gSavedSettings.getString("DicDownloadBaseURL")+newDict+".aff", new EmeraldDicDownloader(self,newDict+".aff"));
 				LLHTTPClient::get(gSavedSettings.getString("DicDownloadBaseURL")+newDict+".dic", new EmeraldDicDownloader(NULL,newDict+".dic"));
 				
-				LLButton* butt = self->getChild<LLButton>("Emerald_dic_download");
-				if(butt)
+				LLButton* button = self->getChild<LLButton>("Emerald_dic_download");
+				if (button)
 				{
-					butt->setLabel(LLStringExplicit("Downloading... Please Wait"));
-					butt->setEnabled(FALSE);
+					// TODO: move this to xml
+					button->setLabel(LLStringExplicit("Downloading... Please Wait"));
+					button->setEnabled(FALSE);
 				}
-
 			}
 		}
-	}
-	
- 
+	} 
 }
 
 void LggDicDownload::show(BOOL showin, std::vector<std::string> shortNames, std::vector<std::string> longNames, void * data)
 {
-	if(showin)
+	if (showin)
 	{
 		lggDicDownloadFloater* dic_floater = lggDicDownloadFloater::showInstance();
 		dic_floater->setData(shortNames,longNames,data);
 	}
 }
-EmeraldDicDownloader::EmeraldDicDownloader(lggDicDownloadFloater* spanel, std::string sname):
-panel(spanel),name(sname){}
+
+EmeraldDicDownloader::EmeraldDicDownloader(lggDicDownloadFloater* spanel, std::string sname)
+	:
+	panel(spanel),
+	name(sname)
+{
+}
 
 
 void EmeraldDicDownloader::completedRaw(U32 status, const std::string& reason, const LLChannelDescriptors& channels, const LLIOPipe::buffer_ptr_t& buffer)
 {
-	if(status < 200 || status >= 300)
+	if (status < 200 || status >= 300)
 	{
 		return;
 	}
 	LLBufferStream istr(channels, buffer.get());
-	std::string dicpath(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", 
-		name.c_str()));
-	
-	
+	std::string dicpath(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries", name.c_str()));
+
 	llofstream ostr(dicpath, std::ios::binary);
 
-	while(istr.good() && ostr.good())
+	while (istr.good() && ostr.good())
+	{
 		ostr << istr.rdbuf();
+	}
 	ostr.close();
-	if(panel)
+	if (panel)
 	{
 		panel->empanel->refresh();
 		panel->close();
 	}
-	
-	
 }

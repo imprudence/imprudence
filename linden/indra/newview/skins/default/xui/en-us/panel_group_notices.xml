@@ -74,7 +74,8 @@ and you can&apos;t send a folder.
 		<line_editor bevel_style="in" border_style="line"
 		     border_thickness="1" bottom_delta="0" font="SansSerifSmall" height="16"
 		     is_unicode="false" left_delta="58" max_length="63" mouse_opaque="true"
-		     name="create_subject" prevalidate="printable_not_pipe" width="264" />
+		     name="create_subject" prevalidate="printable_not_pipe" width="264" 
+			 spell_check="true" />
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="-18" drop_shadow_visible="true" font="SansSerifSmall"
 		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"
@@ -84,7 +85,7 @@ and you can&apos;t send a folder.
 		<text_editor bottom_delta="-106" embedded_items="false"
 		     font="SansSerifSmall" height="120" hide_scrollbar="true" is_unicode="false"
 		     left_delta="58" max_length="511" mouse_opaque="true" name="create_message"
-		     width="346" word_wrap="true" />
+		     width="346" word_wrap="true" spell_check="true" />
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="-19" drop_shadow_visible="true" font="SansSerifSmall"
 		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"
@@ -94,7 +95,7 @@ and you can&apos;t send a folder.
 		<line_editor bg_visible="false" border_visible="false" bottom_delta="-2" enabled="false"
 		     font="SansSerifSmall" height="16" is_unicode="false" left_delta="59"
 		     max_length="63" mouse_opaque="false" name="create_inventory_name"
-		     width="211" />
+		     width="211" spell_check="true" />
 		<icon bottom_delta="0" height="16" left_delta="0" mouse_opaque="false"
 		     name="create_inv_icon" width="16" />
 		<button bottom_delta="0" font="SansSerif" halign="center" height="20"
@@ -146,7 +147,7 @@ and you can&apos;t send a folder.
 		     enabled="false" font="SansSerifSmall" height="206" hide_scrollbar="true"
 		     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"
 		     name="view_message" width="404"
-		     word_wrap="true" />
+		     word_wrap="true" spell_check="true" />
 		<button bottom_delta="-24" font="SansSerif" halign="center" height="20"
 		     label="Open Attachment" label_selected="Open Attachment" left="7"
 		     mouse_opaque="true" name="open_attachment" width="110" />

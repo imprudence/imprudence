@@ -28,9 +28,7 @@ class lggHunSpell_Wrapper
 {
 
 public:
-	static Hunspell * myHunspell;
-
-	BOOL highlightInRed;
+	static Hunspell* myHunspell;
 
 	static void initSettings();
 	void processSettings();
@@ -49,13 +47,15 @@ public:
 	static std::string dictName2FullName(std::string dictName);
 	static std::string fullName2DictName(std::string fullName);
 	void setNewDictionary(std::string newDict);
-	void setNewHighlightSetting(BOOL highlight);
 	BOOL isSpelledRight(std::string wordToCheck);
 	std::vector<std::string> getSuggestionList(std::string badWord);
 	S32 findNextError(std::string haystack, int startAt);
 
 	std::vector<std::string> CSV2VEC(std::string csv);
 	std::string VEC2CSV(std::vector<std::string> vec);
+
+	void setSpellCheckHighlight(BOOL highlight);
+	BOOL getSpellCheckHighlight() { return mSpellCheckHighlight; }
 
 private:
 	void createCustomDic();
@@ -67,8 +67,9 @@ private:
 	std::string currentBaseDic;
 	//std::vector<std::string> languageCodes;
 	//std::vector<std::string> countryCodes;
+	BOOL mSpellCheckHighlight;
 };
 
-extern lggHunSpell_Wrapper *glggHunSpell; // the singleton hunspell wrapper
+extern lggHunSpell_Wrapper* glggHunSpell; // the singleton hunspell wrapper
 
 #endif 
