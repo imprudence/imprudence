@@ -262,7 +262,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				{
 					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 						continue;
-
+/*
 					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
 					LLVector3d real_pos = positions[i];
 					if (real_pos[2] == 0.0f)
@@ -279,7 +279,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
 					if (dist > CHAT_SHOUT_RADIUS)
 						continue;
-
+*/
 					std::string agent_name = " ";
 					std::string agent_surname = " ";
 
