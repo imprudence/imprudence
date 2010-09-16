@@ -46,7 +46,7 @@ class LLChatBarGestureObserver;
 class LLComboBox;
 class LLSpinCtrl;
 
-typedef struct {
+struct CompletionHolder {
 	std::string left;
 	std::string right;
 	std::string match;
@@ -54,7 +54,7 @@ typedef struct {
 	std::string last_txt;
 	std::string last_match;
 	int current_index;
-} CompletionHolder;
+};
 
 class LLChatBar
 :	public LLPanel
