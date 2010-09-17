@@ -54,30 +54,30 @@
 			     mouse_opaque="true" name="online_no" v_pad="0" width="200">
         Currently: Offline
       </text>
-      <button bottom_delta="-19" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-23" font="SansSerif" halign="center" height="22"
 			     label="Instant Message..." label_selected="Instant Message..."
 			     right="-12" mouse_opaque="true" name="Instant Message..."
 			     tool_tip="Instant Message (IM)" width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="0" mouse_opaque="true" name="Offer Teleport..." width="145" />
-      <button bottom_delta="-34" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Add to Friends..." label_selected="Add to Friends..." left_delta="0"
 			     mouse_opaque="true" name="Add Friend..." width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Invite to Group..." label_selected="Invite to Group..." left_delta="0"
 			     mouse_opaque="true" name="Invite to Group..." width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20" label="Find on Map"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Find on Map"
 			     label_selected="Find on Map" left_delta="0" mouse_opaque="true"
 			     name="Find on Map" width="145" />
-      <button bottom_delta="-34" font="SansSerif" halign="center" height="20" label="Pay..."
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Pay..."
 			     label_selected="Pay..." left_delta="0" mouse_opaque="true" name="Pay..."
 			     width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20" label="Mute"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Mute"
 			     label_selected="Mute" left_delta="0" mouse_opaque="true" name="Mute"
 			     width="145" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+			     bottom="-227" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
 			     mouse_opaque="true" name="label" v_pad="0" width="145">
         Born:
