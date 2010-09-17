@@ -15,8 +15,11 @@ else (STANDALONE)
     find_library(JPEG_LIBRARIES
       NAMES jpeg.62
       PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-      NO_DEFAULT_PATH
       )
+    if (NOT JPEG_LIBRARIES)
+      message(STATUS "WARNING: libjpeg.62.dylib not found! Falling back to -ljpeg. This might potentially link to the wrong libjpeg.")
+      set(JPEG_LIBRARIES jpeg)
+    endif (NOT JPEG_LIBRARIES)
   elseif (WINDOWS)
     set(JPEG_LIBRARIES jpeglib)
   endif (LINUX)
