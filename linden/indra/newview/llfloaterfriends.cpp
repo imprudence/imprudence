@@ -217,6 +217,7 @@ void LLPanelFriends::filterContacts(const std::string& search_string)
 			}
 		}
 	}
+	mFriendsList->setScrollPos(0);
 	refreshUI();
 }
 

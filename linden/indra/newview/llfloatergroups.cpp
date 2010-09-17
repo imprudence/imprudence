@@ -649,6 +649,7 @@ void LLPanelGroups::filterContacts(const std::string& search_string)
 					group_list->deleteItems((*itr)->getValue());
 				}
 			}
+			group_list->setScrollPos(0);
 			enableButtons();
 		}
 	}
