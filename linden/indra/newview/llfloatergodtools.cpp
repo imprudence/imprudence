@@ -77,6 +77,8 @@
 #include "lltransfertargetfile.h"
 #include "lltransfersourcefile.h"
 
+#include "hippoGridManager.h"
+
 const F32 SECONDS_BETWEEN_UPDATE_REQUESTS = 5.0f;
 
 static LLFloaterGodTools* sGodTools = NULL;
@@ -135,6 +137,8 @@ LLFloaterGodTools::LLFloaterGodTools()
 	sendRegionInfoRequest();
 
 	childShowTab("GodTools Tabs", "region");
+
+	childSetTextArg("land cost text", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 }
 
 // static
