@@ -100,7 +100,7 @@ private:
 
 	// protected members
 	typedef std::map<LLUUID, S32> rights_map_t;
-	void refreshNames(U32 changed_mask);
+	void refreshNames(U32 changed_mask, const std::string& filter_string);
 	void filterContacts(const std::string& search_string);
 
 	BOOL refreshNamesSync(const LLAvatarTracker::buddy_map_t & all_buddies);
