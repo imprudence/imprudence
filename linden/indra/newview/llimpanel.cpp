@@ -1882,7 +1882,6 @@ void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 				separator = "/";
 #endif
 				std::string file = gDirUtilp->getPerAccountChatLogsDir() + separator + fullname + ".txt";
-				llinfos << "File is: '" << file << "'" << llendl;
 
 				llstat stat_info;
 				if (LLFile::stat(file.c_str(), &stat_info)) 
