@@ -214,6 +214,12 @@ BOOL LLPanelGroups::postBuild()
 {
 	childSetCommitCallback("group list", onGroupList, this);
 
+	LLSearchEditor* group_search = getChild<LLSearchEditor>("group_search");
+	if (group_search)
+	{
+		group_search->setSearchCallback(&onGroupSearchKeystroke, this);
+	}
+
 	childSetTextArg("groupcount", "[COUNT]", llformat("%d",gAgent.mGroups.count()));
 	childSetTextArg("groupcount", "[MAX]", llformat("%d", gHippoLimits->getMaxAgentGroups()));
 
@@ -379,7 +385,7 @@ void LLPanelGroups::info()
 
 void LLPanelGroups::startIM()
 {
-	//llinfos << "LLPanelFriends::onClickIM()" << llendl;
+	//llinfos << "LLPanelGroups::onClickIM()" << llendl;
 	LLCtrlListInterface *group_list = childGetListInterface("group list");
 	LLUUID group_id;
 
@@ -550,7 +556,7 @@ void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, const s
 	element["id"] = LLUUID::null;
 	element["columns"][0]["column"] = "name";
 	//UGLY hack to make sure "none" is always on top -- MC
-	element["columns"][0]["value"] = "                      (" + none_text + ")";
+	element["columns"][0]["value"] = "  (" + none_text + ")";
 	element["columns"][0]["font"] = "SANSSERIF";
 	element["columns"][0]["font-style"] = style;
 
@@ -610,5 +616,50 @@ void LLPanelGroups::applyChangesToGroups()
 				}
 			}
 		}
+	}
+}
+
+void LLPanelGroups::filterContacts(const std::string& search_string)
+{
+	std::string search = search_string;
+	LLStringUtil::toLower(search);
+
+	if (search.empty())
+	{
+		// repopulate
+		reset();
+	}
+	else
+	{
+		LLScrollListCtrl* group_list = getChild<LLScrollListCtrl>("group list");
+		if (group_list)
+		{
+			// don't worry about maintaining selection since we're searching
+			std::vector<LLScrollListItem*> vGroups(group_list->getAllData());
+
+			// this should really REALLY use deleteAllItems() to rebuild the list instead
+			std::string group_name;
+			for (std::vector<LLScrollListItem*>::iterator itr = vGroups.begin(); itr != vGroups.end(); ++itr)
+			{
+				group_name = (*itr)->getColumn(0)->getValue().asString();
+				LLStringUtil::toLower(group_name);
+				BOOL show_entry = (group_name.find(search) != std::string::npos);
+				if (!show_entry)
+				{
+					group_list->deleteItems((*itr)->getValue());
+				}
+			}
+			group_list->setScrollPos(0);
+			enableButtons();
+		}
+	}
+}
+
+void LLPanelGroups::onGroupSearchKeystroke(const std::string& search_string, void* user_data)
+{
+	LLPanelGroups* panelp = (LLPanelGroups*)user_data;
+	if (panelp)
+	{
+		panelp->filterContacts(search_string);
 	}
 }

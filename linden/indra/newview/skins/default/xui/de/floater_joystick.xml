@@ -4,6 +4,8 @@
 		Joystick aktivieren:
 	</check_box>
 	<text left="140" name="joystick_type" width="360"/>
+
+	<check_box name="auto_enable_joystick">Joystick Autom. aktivieren</check_box>
 	<spinner label="X-Achse" name="JoystickAxis1"/>
 	<spinner label="Y-Achse" name="JoystickAxis2"/>
 	<spinner label="Z-Achse" name="JoystickAxis0"/>
@@ -14,9 +16,11 @@
 	<check_box label="Direkt-Zoom" name="ZoomDirect"/>
 	<check_box label="3D-Cursor" left="300" name="Cursor3D"/>
 	<check_box label="Automatisch ausrichten" left="390" name="AutoLeveling"/>
+
 	<text name="Control Modes:">
 		Steuermodi:
 	</text>
+
 	<check_box name="JoystickAvatarEnabled">
 		Avatar
 	</check_box>
@@ -26,6 +30,7 @@
 	<check_box name="JoystickFlycamEnabled">
 		Flycam
 	</check_box>
+
 	<text name="XScale">
 		X-Skala
 	</text>
@@ -71,6 +76,7 @@
 	<text name="ZoomDeadZone">
 		Zoom-Totzone
 	</text>
+
 	<button label="SpaceNavigator-Standards" name="SpaceNavigatorDefaults"/>
 	<button label="OK" label_selected="OK" name="ok_btn"/>
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn"/>

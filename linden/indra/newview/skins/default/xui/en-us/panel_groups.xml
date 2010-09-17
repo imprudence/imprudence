@@ -4,7 +4,7 @@
 	<scroll_list background_visible="true" bottom="45" column_padding="5" draw_border="true"
 	     draw_heading="true" draw_stripes="true" enabled="true"
 	     follows="left|top|right|bottom" left="10" mouse_opaque="true"
-	     multi_select="false" name="group list" tab_stop="true" top="-10"
+	     multi_select="false" name="group list" tab_stop="true" top="-30"
 	     width="240">
 		<column label="Group Name" name="name" dynamicwidth="true" />
     <column label="Notices" name="receive_notices" width="60" 
@@ -28,7 +28,7 @@
 		You belong to [COUNT] groups (of [MAX] maximum).
 	</text>
 	<pad bottom="-7" height="0" left="-90" width="1" />
-	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
+	<button bottom_delta="-45" follows="top|right" font="SansSerif" height="22"
 	     label="IM/Call" left_delta="0" name="IM"
 	     tool_tip="Open Instant Message session" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
@@ -45,6 +45,9 @@
 	     label="Search..." name="Search..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Leave" name="Leave" width="80" />
+  <search_editor bottom="-24" enabled="true" follows="left|right|top" font="SansSerif"
+       height="18" left="10" right="-100" name="group_search"
+       label="Type here to search your groups" width="130" />
   <string name="none">
 		none
   </string>

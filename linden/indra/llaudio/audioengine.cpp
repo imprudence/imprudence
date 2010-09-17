@@ -762,7 +762,7 @@ LLAudioChannel * LLAudioEngine::getFreeChannel(const F32 priority)
 	{
 		LLAudioChannel *channelp = mChannels[i];
 		LLAudioSource *sourcep = channelp->getSource();
-		if (sourcep->getPriority() < min_priority)
+		if (sourcep && sourcep->getPriority() < min_priority)
 		{
 			min_channelp = channelp;
 			min_priority = sourcep->getPriority();

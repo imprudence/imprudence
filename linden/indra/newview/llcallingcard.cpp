@@ -357,6 +357,11 @@ void LLAvatarTracker::setBuddyOnline(const LLUUID& id, bool is_online)
 	}
 }
 
+S32 LLAvatarTracker::getBuddyCount()
+{
+	return mBuddyInfo.size();
+}
+
 bool LLAvatarTracker::isBuddyOnline(const LLUUID& id) const
 {
 	LLRelationship* info = get_ptr_in_map(mBuddyInfo, id);

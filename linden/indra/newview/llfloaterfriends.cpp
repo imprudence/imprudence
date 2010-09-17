@@ -151,7 +151,7 @@ void LLPanelFriends::updateFriends(U32 changed_mask)
 	LLDynamicArray<LLUUID> selected_friends = getSelectedIDs();
 	if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE))
 	{
-		refreshNames(changed_mask);
+		refreshNames(changed_mask, "");
 	}
 	else if(changed_mask & LLFriendObserver::POWERS)
 	{
@@ -183,6 +183,28 @@ void LLPanelFriends::updateFriends(U32 changed_mask)
 	mShowMaxSelectWarning = true;
 }
 
+void LLPanelFriends::filterContacts(const std::string& search_string)
+{
+	if (search_string.empty())
+	{
+		refreshNames(LLFriendObserver::ADD, "");
+	}
+	else
+	{
+		refreshNames(LLFriendObserver::ADD, search_string);
+	}
+	refreshUI();
+}
+
+void LLPanelFriends::onContactSearchKeystroke(const std::string& search_string, void* user_data)
+{
+	LLPanelFriends* panelp = (LLPanelFriends*)user_data;
+	if (panelp)
+	{
+		panelp->filterContacts(search_string);
+	}
+}
+
 // virtual
 BOOL LLPanelFriends::postBuild()
 {
@@ -193,8 +215,14 @@ BOOL LLPanelFriends::postBuild()
 	childSetCommitCallback("friend_list", onSelectName, this);
 	childSetDoubleClickCallback("friend_list", onClickIM);
 
+	LLSearchEditor* buddy_search = getChild<LLSearchEditor>("buddy_search");
+	if (buddy_search)
+	{
+		buddy_search->setSearchCallback(&onContactSearchKeystroke, this);
+	}
+
 	U32 changed_mask = LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE;
-	refreshNames(changed_mask);
+	refreshNames(changed_mask, "");
 
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
@@ -401,7 +429,7 @@ struct SortFriendsByID
 	}
 };
 
-void LLPanelFriends::refreshNames(U32 changed_mask)
+void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& filter_string)
 {
 	LLDynamicArray<LLUUID> selected_ids = getSelectedIDs();	
 	S32 pos = mFriendsList->getScrollPos();	
@@ -412,14 +440,49 @@ void LLPanelFriends::refreshNames(U32 changed_mask)
 
 	BOOL have_names = TRUE;
 
-	if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+	// I hate doing it this way. There's no need for it. I blame LL -- MC
+	if (filter_string.empty())
 	{
-		have_names &= refreshNamesSync(all_buddies);
-	}
+		if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+		{
+			have_names &= refreshNamesSync(all_buddies);
+		}
 
-	if(changed_mask & LLFriendObserver::ONLINE)
+		if(changed_mask & LLFriendObserver::ONLINE)
+		{
+			have_names &= refreshNamesPresence(all_buddies);
+		}
+	}
+	else
 	{
-		have_names &= refreshNamesPresence(all_buddies);
+		std::string firstname;
+		std::string lastname;
+		utf8str_tolower(filter_string);
+		LLAvatarTracker::buddy_map_t temp_buddies;
+
+		for (LLAvatarTracker::buddy_map_t::reverse_iterator bIt = all_buddies.rbegin();
+			 bIt != all_buddies.rend(); ++bIt)
+		{
+			llinfos << (*bIt).first << llendl;
+			if (gCacheName->getName((*bIt).first, firstname, lastname))
+			{
+				std::string test_name(firstname + " " + lastname);
+				if ((utf8str_tolower(test_name)).find(filter_string) != std::string::npos)
+				{
+					llinfos << "inserting: " << test_name << " from filter: " << filter_string << llendl;
+					temp_buddies.insert(temp_buddies.begin(), *bIt);
+				}
+			}
+		}
+		if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+		{
+			have_names &= refreshNamesSync(temp_buddies);
+		}
+
+		if(changed_mask & LLFriendObserver::ONLINE)
+		{
+			have_names &= refreshNamesPresence(temp_buddies);
+		}
 	}
 
 	if (!have_names)

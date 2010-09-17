@@ -47,6 +47,7 @@
 Speichern Sie das Bild als 24 Bit Targa (.tga).
 	</text>
 	<check_box label="Verlustfreie Komprimierung verwenden" name="lossless_check" />
+	<check_box label="Temporäres Bild (Kostenlos)" name="temp_check" tooltip="Setzt die Speicherung auf temporär. Damit ist das Bild kostenlos, aber verschwindet nach einer kurzen Zeit." />
 	<button label="Abbrechen" name="cancel_btn" />
-	<button label="Hochladen ([AMOUNT] L$)" name="ok_btn" />
+	<button label="Hochladen ([UPLOADFEE])" name="ok_btn" />
 </floater>
