@@ -214,7 +214,8 @@ void LLPanelGeneral::cancel()
 void LLPanelGeneral::onClickResetUISize(void* user_data)
 {
 	LLPanelGeneral* self = (LLPanelGeneral*)user_data;
-	self->childSetValue("ui_scale_slider", 1.002f);
+	F32 def = gSavedSettings.getControl("UIScaleFactor")->getDefault().asReal();
+	self->childSetValue("ui_scale_slider", def);
 }
 
 // static
