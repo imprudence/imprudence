@@ -56,7 +56,7 @@
 	<check_box label="Kopieren" name="CheckNextOwnerCopy" left_delta="85" />
 	<check_box label="Verkaufen/Weggeben" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
-		Objekt markieren:
+		Artikel markieren:
 	</text>
 	<check_box label="Zum Verkauf" name="CheckPurchase" />
 	<radio_group name="RadioSaleType" left_delta="85"  width="245" >
@@ -64,11 +64,11 @@
 			Original
 		</radio_item>
 		<radio_item name="radio2">
-			Kopieren
+			Kopie
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
-		Preis:  L$
+		Preis: [CURRENCY]
 	</text>
 	<text name="unknown">
 		(unbekannt)

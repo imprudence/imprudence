@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)" min_width="426" >
-	<layout_stack name="panels">
-		<layout_panel name="im_contents_panel">
-			<button label="Gruppeninfo" name="group_info_btn" width="85"/>
-			<button label="Gespräch beitreten" left_delta="90" name="start_call_btn" width="145"/>
-			<button halign="center" label="Anruf beenden" name="end_call_btn" width="145"/>
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier um eine Liste der aktiven Teilnehmer dieser IM-Sitzung anzuzeigen."/>
-			<line_editor label="Für Instant Message hier klicken" name="chat_editor"/>
-			<button label="Senden" name="send_btn"/>
-			<text name="live_help_dialog">
-				*** Willkommen bei Help Request ***  
-    			Bitte werfen Sie zuerst einen Blick auf unsere SL-Hilfeseiten. Drücken Sie dazu F1. Oder rufen Sie unter http://secondlife.com/knowledgebase/ die Knowledge Base auf. 
-    			Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann einen Moment, bis ein verfügbarer Helfer antwortet.
-    			-=-=- Die Antwortzeiten variieren. Insbesondere zur Hauptbetriebszeit kann die Antwort etwas länger dauern. -=-=-
-			</text>
-			<text name="title_string">
-				Instant Message an [NAME]
-			</text>
-			<text name="typing_start_string">
-				[NAME] tippt...
-			</text>
-			<text name="session_start_string">
-				Beginne Sitzung mit [NAME], bitte warten.
-			</text>
-		</layout_panel>
-		<layout_panel name="active_speakers_panel">
-			<scroll_list name="speakers_list">
-				<column label="Name" name="speaker_name"/>
-			</scroll_list>
-			<panel name="volume_container">
-				<text name="resident_name">
-					Rumpelstilzchen Megakrass
-				</text>
-				<text name="Mute:">
-					Stummschalten:
-				</text>
-				<check_box label="Text" name="mute_text_btn"/>
-				<check_box label="Sprache" name="mute_btn"/>
-			</panel>
-		</layout_panel>
-	</layout_stack>
 	<string name="ringing">
 		Voice-Chat wird beigetreten...
 	</string>
@@ -76,4 +36,33 @@
 	<string name="muted_text_label">
 		Ihr Text-Chat wurde von einem Gruppenmoderator deaktiviert.
 	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<flyout_button label="Gruppeninfo" name="group_info_btn" width="85"/>
+        <flyout_button_item name="history_entry">
+          Verlauf anzeigen
+        </flyout_button_item>
+      </flyout_button>
+			<button label="Gespräch beitreten" left_delta="90" name="start_call_btn" width="145"/>
+			<button halign="center" label="Anruf beenden" name="end_call_btn" width="145"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer dieser IM-Sitzung anzuzeigen."/>
+			<line_editor label="Für Instant Message hier klicken" name="chat_editor"/>
+			<button label="Senden" name="send_btn"/>
+		</layout_panel>
+		<layout_panel name="active_speakers_panel">
+			<scroll_list name="speakers_list">
+				<column label="Name" name="speaker_name"/>
+			</scroll_list>
+			<panel name="volume_container">
+				<text name="resident_name">
+					Rumpelstilzchen Megakrass
+				</text>
+				<text name="Mute:">
+					Stummschalten:
+				</text>
+				<check_box label="Text" name="mute_text_btn"/>
+				<check_box label="Sprache" name="mute_btn"/>
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

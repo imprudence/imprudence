@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="default_grid"
+     title="Ein Standard-Netz aussuchen">
+  <text name="select_label">
+    Oder den Netz-Manager benutzen, um ein neues hinzuzufügen
+  </text>
+  <button label="Abbrechen" name="btn_cancel" />
+  <button label="OK" name="btn_ok" />
+</floater>

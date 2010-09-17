@@ -4,8 +4,8 @@
 		Doppelklicken Sie auf eine Geste, um Animationen und Sound &#10;abzuspielen.
 	</text>
 	<scroll_list bottom_delta="-385" height="360" name="gesture_list">
-		<column label="Trigger" name="trigger" />
-		<column label="Key" name="shortcut" />
+		<column label="Auslöser" name="trigger" />
+		<column label="Schlüssel" name="shortcut" />
 		<column label="" name="key" />
 		<column label="Name" name="name" />
 	</scroll_list>
