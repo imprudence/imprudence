@@ -556,7 +556,7 @@ void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, const s
 	element["id"] = LLUUID::null;
 	element["columns"][0]["column"] = "name";
 	//UGLY hack to make sure "none" is always on top -- MC
-	element["columns"][0]["value"] = "                      (" + none_text + ")";
+	element["columns"][0]["value"] = "  (" + none_text + ")";
 	element["columns"][0]["font"] = "SANSSERIF";
 	element["columns"][0]["font-style"] = style;
 
