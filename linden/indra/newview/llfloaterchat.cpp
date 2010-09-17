@@ -453,14 +453,32 @@ void LLFloaterChat::updateSettings()
 	LLFloaterChat::getInstance(LLSD())->getChild<LLCheckBoxCtrl>("translate chat")->set(translate_chat);
 }
 
+BOOL checkStringInText(const std::string &text_line, std::string textToMatch)
+{
+	boost::smatch what;
+	std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)(" + textToMatch + ")([_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+.*|$)";
+	boost::regex expression(pattern_s, boost::regex::icase);
+	return boost::regex_search(text_line, what, expression);
+}
+
 BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 {
-	std::string my_name = gSavedSettings.getString("FirstName");
-	std::string pattern_s = "(^|.*[',\\.\\?!:;\\*\\(\\s]+)(" + my_name + ")([',\\.\\?!:;\\*\\)\\s]+.*|$)";
-	boost::smatch what;
-	boost::regex e1(pattern_s, boost::regex::icase);
+	if (checkStringInText(text_line, gSavedSettings.getString("FirstName")))
+		return TRUE;
 
-	return boost::regex_search(text_line, what, e1);
+	for (int i=1; i<=3; i++)
+	{
+		std::stringstream key;
+		key << "nick0" << i;
+		std::string nick = gSavedSettings.getString(key.str());
+		if (! nick.empty())
+		{
+			if (checkStringInText(text_line, nick))
+				return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 LLColor4 get_extended_text_color(const LLChat& chat, LLColor4 defaultColor)

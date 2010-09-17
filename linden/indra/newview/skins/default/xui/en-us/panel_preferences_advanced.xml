@@ -206,6 +206,30 @@ To use spellcheck, right-click a misspelled word
             enabled="true" follows="left|top" height="67" label="Own Name" left_delta="68"
             mouse_opaque="true" name="OwnNameChatColor" width="65" />
 
+		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-50"
+			enabled="true" follows="left|top" font="SansSerif"
+			handle_edit_keys_directly="true" height="20" left_delta="0"
+			max_length="50" mouse_opaque="true" name="nick01"
+			select_all_on_focus_received="true" width="400" word_wrap="false" />
+
+		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick01_text" width="70">Nick 1</text>
+
+		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-30"
+			enabled="true" follows="left|top" font="SansSerif"
+			handle_edit_keys_directly="true" height="20" left_delta="60"
+			max_length="50" mouse_opaque="true" name="nick02"
+			select_all_on_focus_received="true" width="400" word_wrap="false" />
+
+		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick02_text" width="70">Nick 2</text>
+
+		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-30"
+			enabled="true" follows="left|top" font="SansSerif"
+			handle_edit_keys_directly="true" height="20" left_delta="60"
+			max_length="50" mouse_opaque="true" name="nick03"
+			select_all_on_focus_received="true" width="400" word_wrap="false" />
+
+		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick03_text" width="70">Nick 3</text>
+
     </panel>
   </tab_container>
 </panel>

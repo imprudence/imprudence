@@ -45,6 +45,8 @@
 
 #include "lluictrlfactory.h"
 
+#include "boost/algorithm/string.hpp"
+
 LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
 LLPrefsAdvanced::LLPrefsAdvanced()
@@ -117,11 +119,14 @@ BOOL LLPrefsAdvanced::postBuild()
 	getChild<LLColorSwatchCtrl>("FriendsChatColor")->set(gSavedSettings.getColor4("FriendsChatColor"));
 	childSetValue("HighlightOwnNameInChat", gSavedSettings.getBOOL("HighlightOwnNameInChat"));
 	getChild<LLColorSwatchCtrl>("OwnNameChatColor")->set(gSavedSettings.getColor4("OwnNameChatColor"));
+	childSetValue("nick01", gSavedSettings.getString("nick01"));
+	childSetValue("nick02", gSavedSettings.getString("nick02"));
+	childSetValue("nick03", gSavedSettings.getString("nick03"));
 
 	refresh();
 
 	return TRUE;
-}
+}		
 
 void LLPrefsAdvanced::apply()
 {
@@ -145,6 +150,18 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setColor4("FriendsChatColor", getChild<LLColorSwatchCtrl>("FriendsChatColor")->get());
 	gSavedSettings.setBOOL("HighlightOwnNameInChat", childGetValue("HighlightOwnNameInChat"));
 	gSavedSettings.setColor4("OwnNameChatColor", getChild<LLColorSwatchCtrl>("OwnNameChatColor")->get());
+
+	std::string nick01 = childGetValue("nick01");
+	boost::trim(nick01);
+	gSavedSettings.setString("nick01", nick01);
+
+	std::string nick02 = childGetValue("nick02");
+	boost::trim(nick02);
+	gSavedSettings.setString("nick02", nick02);
+
+	std::string nick03 = childGetValue("nick03");
+	boost::trim(nick03);
+	gSavedSettings.setString("nick03", nick03);
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))

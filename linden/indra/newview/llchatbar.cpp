@@ -68,6 +68,7 @@
 #include "llmultigesture.h"
 #include "llui.h"
 #include "lluictrlfactory.h"
+#include "llvoavatar.h"
 
 #include "chatbar_as_cmdline.h"
 
@@ -114,7 +115,11 @@ LLChatBar::LLChatBar()
 	mObserver(NULL)
 {
 	setIsChrome(TRUE);
-	
+
+	mCompletionHolder.current_index = 0;
+	mCompletionHolder.last_match = "";
+	mCompletionHolder.last_txt = "";
+
 	#if !LL_RELEASE_FOR_DOWNLOAD
 	childDisplayNotFound();
 #endif
@@ -206,7 +211,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		stopChat();
 		handled = TRUE;
 	}
-	else if (key == KEY_ESCAPE && mask == MASK_CONTROL && gChatBar == this)
+	else if (key == KEY_TAB)
 	{
 		if (mInputEditor)
 		{
@@ -216,48 +221,65 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 			if (!avatar_ids.empty())
 			{
+				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
+
+				S32 cursorPos = mInputEditor->getCursor();
 				std::string txt(mInputEditor->getText());
 
-				std::string to_match(txt);
-				std::string left_part = "";
-				std::string right_part = "";
-				S32 cursorPos = mInputEditor->getCursor();
+				if (mCompletionHolder.last_txt != mInputEditor->getText())
+				{
+					mCompletionHolder.last_txt = std::string(mInputEditor->getText());
 
-				if (cursorPos < (S32)txt.length())
-				{
-					right_part = txt.substr(cursorPos);
-					left_part = txt.substr(0, cursorPos);
-					to_match = std::string(left_part);
-				}
-				else
-				{
-					to_match = std::string(txt);
-					left_part = txt;
-				}
+					if (cursorPos < (S32)txt.length())
+					{
+						mCompletionHolder.right = txt.substr(cursorPos);
+						mCompletionHolder.left = txt.substr(0, cursorPos);
+						mCompletionHolder.match = std::string(mCompletionHolder.left);
+					}
+					else
+					{
+						mCompletionHolder.right = "";
+						mCompletionHolder.match = std::string(txt);
+						mCompletionHolder.left = txt;
+					}
 
-				std::string pattern_s = "(^|.*[\\.\\?!:;,\\*\\(\\s]+)([a-z0-9]+)$";
-				boost::match_results<std::string::const_iterator> what;
-				boost::regex expression(pattern_s, boost::regex::icase);
-				if (boost::regex_search(to_match, what, expression, boost::match_extra))
-				{
-					to_match = what[2];
-					if (to_match.length() < 3)
+					std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)([a-z0-9]+)$";
+					boost::match_results<std::string::const_iterator> what;
+					boost::regex expression(pattern_s, boost::regex::icase);
+					if (boost::regex_search(mCompletionHolder.match, what, expression, boost::match_extra))
+					{
+						mCompletionHolder.match = what[2];
+						if (mCompletionHolder.match.length() < 1)
+							return handled;
+					}
+					else
 						return handled;
 				}
-				else
-					return handled;
+
+				mCompletionHolder.names.clear();
 
 				for (U32 i=0; i<avatar_ids.size(); i++)
 				{
 					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 						continue;
 /*
-					// Commented out for now... doesn't work above 1024 meters as usual
+					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
+					LLVector3d real_pos = positions[i];
+					if (real_pos[2] == 0.0f)
+					{
+						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+						if (av_obj != NULL && av_obj->isAvatar())
+						{
+							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+							if (avatarp != NULL)
+								real_pos = avatarp->getPositionGlobal();
+						}
+					}
+
 					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
-					if (dist > CHAT_NORMAL_RADIUS)
+					if (dist > CHAT_SHOUT_RADIUS)
 						continue;
 */
-
 					std::string agent_name = " ";
 					std::string agent_surname = " ";
 
@@ -266,14 +288,28 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 					std::string test_name(agent_name);
 					std::transform(test_name.begin(), test_name.end(), test_name.begin(), tolower);
-					std::transform(to_match.begin(), to_match.end(), to_match.begin(), tolower);
+					std::transform(mCompletionHolder.match.begin(), mCompletionHolder.match.end(), mCompletionHolder.match.begin(), tolower);
 
-					if (test_name.find(to_match) == 0)
-					{
-						mInputEditor->setText(left_part.substr(0, left_part.length() - to_match.length()) + agent_name + right_part);
-						mInputEditor->setSelection(cursorPos, cursorPos + (agent_name.length() - to_match.length()));
-						return TRUE;
-					}
+					if (test_name.find(mCompletionHolder.match) == 0)
+						mCompletionHolder.names.push_back(agent_name);
+				}
+
+				if (mCompletionHolder.current_index >= mCompletionHolder.names.size() || mCompletionHolder.match != mCompletionHolder.last_match)
+				{
+					mCompletionHolder.current_index = 0;
+					mCompletionHolder.last_match = mCompletionHolder.match;
+				}
+
+				if (mCompletionHolder.names.size() > 0)
+				{
+					std::string current_name = mCompletionHolder.names[mCompletionHolder.current_index];
+
+					mInputEditor->setText(mCompletionHolder.left.substr(0, mCompletionHolder.left.length() - mCompletionHolder.match.length()) + current_name + mCompletionHolder.right);
+					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - mCompletionHolder.match.length()));
+
+					mCompletionHolder.current_index++;
+
+					return TRUE;
 				}
 			}
 		}

@@ -4,6 +4,39 @@
   
   <!-- Imprudence-specific settings -->
 
+  <key>nick01</key>
+  <map>
+    <key>Comment</key>
+    <string>First Nickname for Chat Highlight</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>nick02</key>
+  <map>
+    <key>Comment</key>
+    <string>Second Nickname for Chat Highlight</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>nick03</key>
+  <map>
+    <key>Comment</key>
+    <string>Third Nickname for Chat Highlight</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
   <key>HighlightOwnNameInIM</key>
   <map>
     <key>Comment</key>
