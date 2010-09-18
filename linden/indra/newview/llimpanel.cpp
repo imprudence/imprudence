@@ -1875,7 +1875,13 @@ void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 				std::string fullname = self->getTitle();
 				//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
 				//if(fullname == "(Loading...)")
-				std::string file = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+				std::string separator;
+#ifdef LL_WINDOWS
+				separator = "\\";
+#else
+				separator = "/";
+#endif
+				std::string file = gDirUtilp->getPerAccountChatLogsDir() + separator + fullname + ".txt";
 
 				llstat stat_info;
 				if (LLFile::stat(file.c_str(), &stat_info)) 

@@ -215,16 +215,17 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 	{
 		if (mInputEditor)
 		{
+			std::string txt(mInputEditor->getText());
+
 			std::vector<LLUUID> avatar_ids;
 			std::vector<LLVector3d> positions;
 			LLWorld::getInstance()->getAvatars(&avatar_ids, &positions);
 
-			if (!avatar_ids.empty())
+			if (!avatar_ids.empty() && !txt.empty())
 			{
 				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
 
 				S32 cursorPos = mInputEditor->getCursor();
-				std::string txt(mInputEditor->getText());
 
 				if (mCompletionHolder.last_txt != mInputEditor->getText())
 				{

@@ -1153,16 +1153,15 @@ void LLWindowMacOSX::gatherInput()
 			}
 			break;
 
-		case kHighLevelEvent:
-			AEProcessAppleEvent (&evt);
-			break;
-
 		case updateEvt:
 			// We shouldn't be getting these regularly (since our window will be buffered), but we need to handle them correctly...
 			BeginUpdate((WindowRef)evt.message);
 			EndUpdate((WindowRef)evt.message);
 			break;
 
+		default:
+			AEProcessAppleEvent (&evt);
+			break;
 		}
 	}
 }
@@ -3163,8 +3162,6 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 	OSStatus result = noErr;
 	CFURLRef urlRef = NULL;
 
-	llinfos << "Opening URL " << escaped_url << llendl;
-
 	CFStringRef	stringRef = CFStringCreateWithCString(NULL, escaped_url.c_str(), kCFStringEncodingUTF8);
 	if (stringRef)
 	{
@@ -3185,6 +3182,32 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 		{
 			llinfos << "Error " << result << " on open." << llendl;
 		}
+
+		CFRelease(urlRef);
+	}
+	else
+	{
+		llinfos << "Error: couldn't create URL." << llendl;
+	}
+}
+
+void LLWindowMacOSX::ShellEx(const std::string& command)
+{
+	OSStatus result = noErr;
+	CFURLRef urlRef = NULL;
+
+	CFStringRef	stringRef = CFStringCreateWithCString(NULL, command.c_str(), kCFStringEncodingUTF8);
+	if (stringRef)
+	{
+		urlRef = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, stringRef, kCFURLPOSIXPathStyle, false);
+		CFRelease(stringRef);
+	}
+
+	if (urlRef)
+	{
+		result = LSOpenCFURLRef(urlRef, NULL);		
+		if (result != noErr)
+			llinfos << "Error " << result << " on open." << llendl;
 
 		CFRelease(urlRef);
 	}
