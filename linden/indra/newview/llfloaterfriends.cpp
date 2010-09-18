@@ -429,7 +429,7 @@ struct SortFriendsByID
 	}
 };
 
-void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& filter_string)
+void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& search_string)
 {
 	LLDynamicArray<LLUUID> selected_ids = getSelectedIDs();	
 	S32 pos = mFriendsList->getScrollPos();	
@@ -441,7 +441,7 @@ void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& filter_st
 	BOOL have_names = TRUE;
 
 	// I hate doing it this way. There's no need for it. I blame LL -- MC
-	if (filter_string.empty())
+	if (search_string.empty())
 	{
 		if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
 		{
@@ -457,7 +457,8 @@ void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& filter_st
 	{
 		std::string firstname;
 		std::string lastname;
-		utf8str_tolower(filter_string);
+		std::string filter = search_string;
+		LLStringUtil::toLower(filter);
 		LLAvatarTracker::buddy_map_t temp_buddies;
 
 		for (LLAvatarTracker::buddy_map_t::reverse_iterator bIt = all_buddies.rbegin();
@@ -467,10 +468,10 @@ void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& filter_st
 			if (gCacheName->getName((*bIt).first, firstname, lastname))
 			{
 				std::string test_name(firstname + " " + lastname);
-				if ((utf8str_tolower(test_name)).find(filter_string) != std::string::npos)
+				LLStringUtil::toLower(test_name);
+				if (test_name.find(filter) != std::string::npos)
 				{
-					llinfos << "inserting: " << test_name << " from filter: " << filter_string << llendl;
-					temp_buddies.insert(temp_buddies.begin(), *bIt);
+					temp_buddies.insert(temp_buddies.begin(), std::pair<LLUUID, LLRelationship*>((*bIt).first, (*bIt).second));
 				}
 			}
 		}
