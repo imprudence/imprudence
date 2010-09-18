@@ -295,7 +295,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 						mCompletionHolder.names.push_back(agent_name);
 				}
 
-				if (mCompletionHolder.current_index >= mCompletionHolder.names.size() || mCompletionHolder.match != mCompletionHolder.last_match)
+				if (mCompletionHolder.current_index >= (S32)mCompletionHolder.names.size() || mCompletionHolder.match != mCompletionHolder.last_match)
 				{
 					mCompletionHolder.current_index = 0;
 					mCompletionHolder.last_match = mCompletionHolder.match;
