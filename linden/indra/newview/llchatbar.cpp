@@ -215,6 +215,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 	{
 		if (mInputEditor)
 		{
+			mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
 			std::string txt(mInputEditor->getText());
 
 			std::vector<LLUUID> avatar_ids;
@@ -223,8 +224,6 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 			if (!avatar_ids.empty() && !txt.empty())
 			{
-				mInputEditor->deleteSelection(); // Clean up prev completion before attempting a new one
-
 				S32 cursorPos = mInputEditor->getCursor();
 
 				if (mCompletionHolder.last_txt != mInputEditor->getText())
