@@ -4,6 +4,114 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                       1.3.0 RC3                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    RELEASE HIGHLIGHTS
+
+      * Imprudence now uses the Droid Sans font by default, instead of
+        Liberation Sans. Thanks, Jacek!
+
+      * A new "Fonts" tab has been added to Preferences, where you can
+        select from four included fonts: Droid Sans, DejaVu Sans,
+        Delicious, and Liberation Sans. More flexible font controls
+        are planned for a future version. Thanks, Jacek!
+
+      * Imprudence now loads world map image tiles using HTTP when
+        available. This improves the map loading speed on platforms
+        that support it (e.g. Second Life). Thanks for the patch,
+        Henri Beauchamp!
+
+      * Added the UseLegacyChatLogsFolder debug setting. If set to
+        TRUE in Advanced > Debug Settings, Imprudence will save chat
+        and IM logs in the old (non-grid-specific) location, as it
+        did prior to 1.3.0 RC2. Thanks, McCabe!
+
+      * Many bug fixes.
+
+
+    CHANGES
+
+      In addition to the Release Highlights above, this version of
+      Imprudence also includes the following changes, as compared to
+      Imprudence 1.3.0 RC2.
+
+
+      BUG FIXES
+
+        * Windows: Reverted to a previous version of the cURL library.
+          This should fix many reported problems of not being able to
+          log in or connect to servers (DNS errors, etc.). However,
+          it may make HTTP texture fetching less stable.
+
+        * Fixed inventory search results resetting "randomly"
+          (actually whenever someone whose calling card is in your
+          inventory logged on or off) (#455). Thanks to Codie and our
+          users for identifying the cause, and McCabe for fixing it!
+
+        * Fixed the "Make Outfit" feature crashing the viewer when
+          used on OpenSim (#240). Thanks, Armin!
+
+        * Fixed a crash when opening "About Landmark" from the
+          right-click menu in inventory. Thanks, McCabe!
+
+        * Fixed a crash related to a HUD attachment pointer becoming
+          NULL after a bad teleport. Thanks, McCabe!
+
+        * Mac: Imprudence now uses its own "bundle identifier". This
+          should fix issues with OS X thinking that Imprudence is the
+          official Second Life viewer. Thanks to Solo Mornington for
+          the tip!
+
+        * Mac: Fixed the compile process not using the correct version
+          of libjpeg. Thanks, Nemurimasu Neiro!
+
+        * Fixed a typo that broke localization of the
+          "NoFileExtension" alert. Thanks, Nemurimasu Neiro!
+
+        * Fixed/improved how GStreamer-related environment variables
+          are set on Mac and Windows. Thanks, Nemurimasu Neiro!
+
+        * Mac: Fixed libFLAC missing from the manifest when compiling.
+          Thanks, Nemurimasu Neiro!
+
+        * Linux (64-bit): Fixed the compile process not downloading
+          the 32-bit libraries required for voice chat. Thanks, Armin!
+
+        * Fixed (hopefully) a font rendering crash. Thanks, McCabe!
+
+        * Fixed a potential crash when receiving invalid "LookAt"
+          messages from the sim. Thanks, Armin and Nemurimasu Neiro!
+
+        * Fixed a potential crash related to an uninitialized pointer
+          in LLVoiceClient (#515). Thanks, Makomk Makosen!
+
+
+      OTHER CHANGES
+
+        * Draw Distance Stepping (aka SpeedRez) is now disabled by
+          default, to avoid confusion. You can turn it on with
+          "Preferences > Advanced tab > Increase rez speed via draw
+          distance stepping".
+
+        * Silenced debug log spam "LLInventoryPanel::buildNewViews
+          called with objectp->mType == ... (shouldn't happen)" when
+          you have inventory links in your inventory.
+
+        * HTTP texture fetching is now considered "experimental" due
+          to a number of unresolved texture loading issues.
+
+        * Removed the keyboard shortcut for "Advanced > Rendering >
+          Object-Object Occlusion" (Ctrl-Shift-O). That shortcut is
+          being used for the Animation Overrider instead.
+
+        * The default UI scale is now 1.0 instead of 1.002, which was
+          a workaround for an old font rendering bug. Thanks, McCabe
+          and Jacek!
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                       1.3.0 RC2                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
