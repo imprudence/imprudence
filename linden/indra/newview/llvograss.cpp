@@ -108,7 +108,9 @@ void LLVOGrass::updateSpecies()
 		SpeciesMap::const_iterator it = sSpeciesTable.begin();
 		mSpecies = (*it).first;
 	}
-	setTEImage(0, gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName));
+
+	mGrassImage = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE);
+	setTEImage(0, mGrassImage);
 }
 
 
@@ -161,7 +163,6 @@ void LLVOGrass::initClass()
 		}
 
 		GrassSpeciesData* newGrass = new GrassSpeciesData();
-
 
 		std::string textureName;
 
