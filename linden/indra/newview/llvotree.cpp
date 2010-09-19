@@ -324,7 +324,7 @@ U32 LLVOTree::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	//  Load Species-Specific data 
 	//
-	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName);
+	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE);
 	if (mTreeImagep)
 	{
 		gGL.getTexUnit(0)->bind(mTreeImagep.get());
