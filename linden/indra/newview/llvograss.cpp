@@ -109,8 +109,8 @@ void LLVOGrass::updateSpecies()
 		mSpecies = (*it).first;
 	}
 
-	mGrassImage = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE);
-	setTEImage(0, mGrassImage);
+	LLViewerImage* grass_image = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE, 0, 0, sSpeciesTable[mSpecies]->mTextureID);
+	setTEImage(0, grass_image);
 }
 
 
@@ -169,6 +169,11 @@ void LLVOGrass::initClass()
 		static LLStdStringHandle texture_name_string = LLXmlTree::addAttributeString("texture_name");
 		success &= grass_def->getFastAttributeString(texture_name_string, textureName);
 		newGrass->mTextureName = textureName;
+
+		std::string textureID;
+		static LLStdStringHandle texture_id = LLXmlTree::addAttributeString("texture_id");
+		success &= grass_def->getFastAttributeString(texture_id, textureID);
+		newGrass->mTextureID = LLUUID(textureID);
 
 		static LLStdStringHandle blade_sizex_string = LLXmlTree::addAttributeString("blade_size_x");
 		success &= grass_def->getFastAttributeF32(blade_sizex_string, F32_val);
