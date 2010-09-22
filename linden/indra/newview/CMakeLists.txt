@@ -89,6 +89,7 @@ set(viewer_SOURCE_FILES
     hippoRestRequest.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
+    kowopenregionsettings.cpp
     lightshare.cpp
     llagent.cpp
     llagentaccess.cpp

@@ -19,7 +19,6 @@ public:
 
 	void	setLimits();
 
-private:
 	S32		mMaxAgentGroups;
 
 	F32		mMaxHeight;
@@ -29,6 +28,7 @@ private:
 	F32		mMinPrimScale;
 	S32		mMaxLinkedPrims;
 
+private:
 	void	setOpenSimLimits();
 	void	setSecondLifeLimits();
 };
