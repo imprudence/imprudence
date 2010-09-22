@@ -90,6 +90,7 @@ set(viewer_SOURCE_FILES
     impprefsfonts.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
+    kowopenregionsettings.cpp
     lightshare.cpp
     llagent.cpp
     llagentaccess.cpp

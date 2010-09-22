@@ -1803,7 +1803,7 @@
         <menu_item_call name="Test Female" label="Test Female">
           <on_click function="Advanced.TestFemale" userdata="" />
         </menu_item_call>
-        <menu_item_call name="Toggle PG" label="Toggle PG">
+        <menu_item_call name="Toggle PG" label="Toggle Teen Mode">
           <on_click function="Advanced.TogglePG" userdata="" />
         </menu_item_call>
         <menu_item_check name="Allow Select Avatar"
