@@ -105,21 +105,23 @@ bool (* LLTextEditor::mSecondlifeURLcallbackRightClick)(const std::string&)   = 
 class TextChatTranslationReceiver : public LLTranslate::TranslationReceiver
 {
 public :
-	TextChatTranslationReceiver(const std::string &toLang, LLTextEditor* line): LLTranslate::TranslationReceiver("", toLang),
-		m_line(line)	
+	TextChatTranslationReceiver(const std::string &toLang, LLTextEditor* line, const S32 start, const S32 len):
+		LLTranslate::TranslationReceiver("", toLang),
+		m_line(line),
+		m_position(start),
+		m_origLength(len)
 	{
 	}
 
-	static boost::intrusive_ptr<TextChatTranslationReceiver> build(const std::string &toLang,LLTextEditor* line)
+	static boost::intrusive_ptr<TextChatTranslationReceiver> build(const std::string &toLang,LLTextEditor* line, const S32 start, const S32 len)
 	{
-		return boost::intrusive_ptr<TextChatTranslationReceiver>(new TextChatTranslationReceiver(toLang,line));
+		return boost::intrusive_ptr<TextChatTranslationReceiver>(new TextChatTranslationReceiver(toLang, line, start, len));
 	}
 
 protected:
 	void handleResponse(const std::string &translation, const std::string &detectedLanguage)
 	{
-		BOOL rep = gSavedSettings.getBOOL("EmeraldTranslateReplace");
-		m_line->insertText((rep?"":" (") + translation +(rep?"":")"),rep);
+		m_line->translationReplace(translation, m_position, m_origLength);
 	}
 	void handleFailure()
 	{
@@ -127,6 +129,8 @@ protected:
 	}
 private:
 	LLTextEditor* m_line;
+	S32 m_position;
+	S32 m_origLength;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -321,6 +325,8 @@ LLTextEditor::LLTextEditor(
 	mMouseDownY(0),
 	mLastSelectionX(-1),
 	mLastSelectionY(-1),
+	mLastContextMenuX(-1),
+	mLastContextMenuY(-1),
 	mReflowNeeded(FALSE),
 	mScrollNeeded(FALSE),
 	mSpellCheckable(FALSE),
@@ -467,17 +473,36 @@ void LLTextEditor::context_copy(void* data)
 	LLTextEditor* line = (LLTextEditor*)data;
 	if(line)line->copy();
 }
+
 void LLTextEditor::translateText(void * data)
 {
 	SpellMenuBind* t = (SpellMenuBind*)data;
 	LLTextEditor* line = t->origin;
 	const std::string &toLang = t->word;//LLTranslate::getTranslateLanguage();
-	LLHTTPClient::ResponderPtr result = TextChatTranslationReceiver::build(toLang,line);
 
-	S32 left_pos = llmin( line->mSelectionStart, line->mSelectionEnd );
-	S32 length = abs( line->mSelectionStart - line->mSelectionEnd );
-	LLTranslate::translateMessage(result,"", toLang, line->getText().substr(left_pos, length));
+	bool has_text = false;
+	S32 start, length;
+	if (line->hasSelection())
+	{
+		// translate selection
+		start = llmin(line->mSelectionStart, line->mSelectionEnd);
+		length = abs(line->mSelectionEnd - line->mSelectionStart);
+		has_text = length > 0;
+	}
+	else
+	{
+		// translate one word as click position
+		S32 at = line->getCursorPosFromLocalCoord(line->mLastContextMenuX, line->mLastContextMenuY, TRUE);
+		has_text = line->getWordBoundriesAt(at, &start, &length);
+	}
+
+	if (has_text)
+	{
+		LLHTTPClient::ResponderPtr result = TextChatTranslationReceiver::build(toLang, line, start, length);
+		LLTranslate::translateMessage(result,"", toLang, line->getText().substr(start, length));
+	}
 }
+
 void LLTextEditor::spell_correct(void* data)
 {
 	SpellMenuBind* tempBind = (SpellMenuBind*)data;
@@ -945,6 +970,26 @@ S32 LLTextEditor::nextWordPos(S32 cursorPos) const
 		cursorPos++;
 	}
 	return cursorPos;
+}
+
+BOOL LLTextEditor::getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_length) const
+{
+	S32 pos = at;
+	if (isPartOfWord(mWText[pos]))
+	{
+		while ( (pos > 0) && isPartOfWord(mWText[pos - 1]) )
+		{
+			pos--;
+		}
+		*word_begin = pos;
+		while ( (pos < getLength()) && isPartOfWord(mWText[pos]) )
+		{
+			pos++;
+		}
+		*word_length = pos - *word_begin;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 S32 LLTextEditor::getLineStart( S32 line ) const
@@ -1531,6 +1576,8 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 			suggestionMenuItems.push_back(tempStruct);
 			menu->append(suggMenuItem);
 		}
+		mLastContextMenuX = x;
+		mLastContextMenuY = y;
 		menu->buildDrawLabels();
 		menu->updateParent(LLMenuGL::sMenuContainer);
 		LLMenuGL::showPopup(this, menu, x, y);
@@ -2235,6 +2282,22 @@ void LLTextEditor::spellReplace(SpellMenuBind* spellData)
 	LLWString clean_string = utf8str_to_wstring(spellData->word);
 	insert(spellData->wordPositionStart, clean_string, FALSE);
 	mCursorPos+=clean_string.length() - (spellData->wordPositionEnd-spellData->wordPositionStart);
+	needsReflow();
+}
+
+void LLTextEditor::translationReplace(const std::string &translation, const S32 orig_start, const S32 orig_length)
+{
+	//*TODO: should probably check if the content was modified since the http query
+	//       was made, so we don't insert text in the wrong place.
+	BOOL replace = gSavedSettings.getBOOL("EmeraldTranslateReplace");
+	LLWString wtext = utf8str_to_wstring(replace ? translation : " (" + translation + ")");
+	S32 pos = replace ? orig_start : orig_start + orig_length;
+	if (replace)
+	{
+		remove(orig_start, orig_length, FALSE);
+	}
+	insert(pos, wtext, FALSE);
+	setCursorPos(pos + wtext.length());
 	needsReflow();
 }
 

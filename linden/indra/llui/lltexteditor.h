@@ -136,6 +136,7 @@ public:
 	virtual BOOL	canPaste() const;
  
 	virtual void	spellReplace(SpellMenuBind* spellData);
+	virtual void	translationReplace(const std::string &translation, const S32 orig_start, const S32 orig_length);
  
 	virtual void	updatePrimary();
 	virtual void	copyPrimary();
@@ -352,6 +353,7 @@ public:
 
 	S32				prevWordPos(S32 cursorPos) const;
 	S32				nextWordPos(S32 cursorPos) const;
+	BOOL			getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_length) const;
 
 	S32 			getLineCount() const { return mLineStartList.size(); }
 	S32 			getLineStart( S32 line ) const;
@@ -568,6 +570,8 @@ private:
 
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;
+	S32 mLastContextMenuX;
+	S32 mLastContextMenuY;
 
 	line_list_t mLineStartList;
 	BOOL			mReflowNeeded;
