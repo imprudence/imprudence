@@ -422,7 +422,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <integer>Random</integer>
+    <string>Random</string>
   </map>
   <key>LastTree</key>
   <map>
@@ -433,7 +433,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <integer>Random</integer>
+    <string>Random</string>
   </map>
   <key>LastSelectedGrid</key>
   <map>
