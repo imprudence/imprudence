@@ -400,7 +400,8 @@ LLAgent::LLAgent() :
 	mAgentWearablesUpdateSerialNum(0),
 	mWearablesLoaded(FALSE),
 	mTextureCacheQueryID(0),
-	mAppearanceSerialNum(0)
+	mAppearanceSerialNum(0),
+	mbTeleportKeepsLookAt(false)
 {
 	U32 i;
 	for (i = 0; i < TOTAL_CONTROLS; i++)
@@ -6099,16 +6100,21 @@ bool LLAgent::teleportCore(bool is_local)
 
 void LLAgent::teleportRequest(
 	const U64& region_handle,
-	const LLVector3& pos_local)
+	const LLVector3& pos_local,
+	bool keep_look_at)
 {
 	LLViewerRegion* regionp = getRegion();
-
+	if (!regionp)
+	{
+		return;
+	}
 	// Set last region data for teleport history
 	gAgent.setLastRegionData(regionp->getName(),gAgent.getPositionAgent());
 
-	if(regionp && teleportCore())
+	bool is_local = (region_handle == to_region_handle(getPositionGlobal()));
+	if(teleportCore(is_local))
 	{
-		llinfos << "TeleportRequest: '" << region_handle << "':" << pos_local
+		llinfos << "TeleportLocationRequest: '" << region_handle << "':" << pos_local
 				<< llendl;
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessage("TeleportLocationRequest");
@@ -6119,6 +6125,10 @@ void LLAgent::teleportRequest(
 		msg->addU64("RegionHandle", region_handle);
 		msg->addVector3("Position", pos_local);
 		LLVector3 look_at(0,1,0);
+		if (keep_look_at)
+		{
+			look_at = LLViewerCamera::getInstance()->getAtAxis();
+		}
 		msg->addVector3("LookAt", look_at);
 		sendReliableMessage();
 	}
@@ -6219,46 +6229,29 @@ void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 	}
 // [/RLVa:KB]
 
-	LLViewerRegion* regionp = getRegion();
-	LLSimInfo* info = LLWorldMap::getInstance()->simInfoFromPosGlobal(pos_global);
-	if(regionp && info)
-	{
-		U32 x_pos;
-		U32 y_pos;
-		from_region_handle(info->mHandle, &x_pos, &y_pos);
-		LLVector3 pos_local(
-			(F32)(pos_global.mdV[VX] - x_pos),
-			(F32)(pos_global.mdV[VY] - y_pos),
-			(F32)(pos_global.mdV[VZ]));
-		teleportRequest(info->mHandle, pos_local);
-	}
-	else if(regionp && 
-		teleportCore(regionp->getHandle() == to_region_handle_global((F32)pos_global.mdV[VX], (F32)pos_global.mdV[VY])))
-	{
-		llwarns << "Using deprecated teleportlocationrequest." << llendl; 
-		// send the message
-		LLMessageSystem* msg = gMessageSystem;
-		msg->newMessageFast(_PREHASH_TeleportLocationRequest);
-		msg->nextBlockFast(_PREHASH_AgentData);
-		msg->addUUIDFast(_PREHASH_AgentID, getID());
-		msg->addUUIDFast(_PREHASH_SessionID, getSessionID());
-
-		msg->nextBlockFast(_PREHASH_Info);
-		F32 width = regionp->getWidth();
-		LLVector3 pos(fmod((F32)pos_global.mdV[VX], width),
-					  fmod((F32)pos_global.mdV[VY], width),
-					  (F32)pos_global.mdV[VZ]);
-		F32 region_x = (F32)(pos_global.mdV[VX]);
-		F32 region_y = (F32)(pos_global.mdV[VY]);
-		U64 region_handle = to_region_handle_global(region_x, region_y);
-		msg->addU64Fast(_PREHASH_RegionHandle, region_handle);
-		msg->addVector3Fast(_PREHASH_Position, pos);
-		pos.mV[VX] += 1;
-		msg->addVector3Fast(_PREHASH_LookAt, pos);
-		sendReliableMessage();
-	}
+	U64 region_handle = to_region_handle(pos_global);
+	LLVector3 pos_local = (LLVector3)(pos_global - from_region_handle(region_handle));
+	teleportRequest(region_handle, pos_local, false);
 }
 
+// Teleport to global position, but keep facing in the same direction
+void LLAgent::teleportViaLocationLookAt(const LLVector3d& pos_global)
+{
+	// RLVa stuff copied from LLAgent::teleportViaLocation
+	if ( (rlv_handler_t::isEnabled()) &&
+		 ( (gRlvHandler.hasBehaviourExcept(RLV_BHVR_TPLOC, gRlvHandler.getCurrentObject())) ||
+		   ( (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) &&
+			 (gRlvHandler.hasBehaviourExcept(RLV_BHVR_UNSIT, gRlvHandler.getCurrentObject()))) ) )
+	{
+		return;
+	}
+
+	mbTeleportKeepsLookAt = true;
+	setFocusOnAvatar(FALSE, ANIMATE);	// detach camera form avatar, so it keeps direction
+	U64 region_handle = to_region_handle(pos_global);
+	LLVector3 pos_local = (LLVector3)(pos_global - from_region_handle(region_handle));
+	teleportRequest(region_handle, pos_local, mbTeleportKeepsLookAt);
+}
 
 void LLAgent::teleportHome()
 {
@@ -6286,6 +6279,10 @@ bool LLAgent::teleportHomeCallback( const LLSD& notification, const LLSD& respon
 void LLAgent::setTeleportState(ETeleportState state)
 {
 	mTeleportState = state;
+	if (mTeleportState == TELEPORT_NONE)
+	{
+		mbTeleportKeepsLookAt = false;
+	}
 	if (mTeleportState > TELEPORT_NONE && gSavedSettings.getBOOL("FreezeTime"))
 	{
 		LLFloaterSnapshot::hide(0);

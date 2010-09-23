@@ -3540,6 +3540,12 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	if( is_teleport )
 	{
+		if (gAgent.getTeleportKeepsLookAt())
+		{
+			// *NOTE: the LookAt data we get from the sim here doesn't
+			// seem to be useful, so get it from the camera instead.
+			look_at = LLViewerCamera::getInstance()->getAtAxis();
+		}
 		// Force the camera back onto the agent, don't animate.
 		gAgent.setFocusOnAvatar(TRUE, FALSE);
 		gAgent.slamLookAt(look_at);
@@ -3601,7 +3607,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		{
 			LLTracker::stopTracking(NULL);
 		}
-		else if ( is_teleport )
+		else if ( is_teleport && !gAgent.getTeleportKeepsLookAt() )
 		{
 			//look at the beacon
 			LLVector3 global_agent_pos = agent_pos;

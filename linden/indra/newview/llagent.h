@@ -496,7 +496,8 @@ public:
 	// go to a named location home
 	void teleportRequest(
 		const U64& region_handle,
-		const LLVector3& pos_local);
+		const LLVector3& pos_local,
+		bool keep_look_at);
 
 	// teleport to a landmark
 	void teleportViaLandmark(const LLUUID& landmark_id);
@@ -513,6 +514,9 @@ public:
 	// deprecated.
 	void teleportViaLocation(const LLVector3d& pos_global); 
 
+	// to a global location, preserving camera rotation
+	void teleportViaLocationLookAt(const LLVector3d& pos_global);
+
 	// cancel the teleport, may or may not be allowed by server
 	void teleportCancel();
 
@@ -521,6 +525,8 @@ public:
 
 	const std::string getTeleportSourceSLURL() const { return mTeleportSourceSLURL; }
 
+	// whether look-at resets after this teleport
+	bool getTeleportKeepsLookAt() const { return mbTeleportKeepsLookAt; }
 
 	// Setting the ability for this avatar to proxy for another avatar.
 	//static void processAddModifyAbility(LLMessageSystem* msg, void**);
@@ -781,6 +787,7 @@ public:
 	EDoubleTapRunMode mDoubleTapRunMode;
 
 private:
+	bool mbTeleportKeepsLookAt;
 	bool mbAlwaysRun; // should the avatar run by default rather than walk
 	bool mbRunning;	// is the avatar trying to run right now
 

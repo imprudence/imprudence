@@ -2576,9 +2576,9 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 
 		if (action == "teleport")
 		{
-			LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
+			pos.mdV[VZ] += gAgent.getAvatarObject()->getPelvisToFoot() + 0.2f;
 			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-			gAgent.teleportViaLocation(pos + hips_offset);
+			gAgent.teleportViaLocationLookAt(pos);
 		}
 		else if (action == "move")
 		{
