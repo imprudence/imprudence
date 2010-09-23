@@ -19,14 +19,18 @@ elseif (LINUX)
       )
   # We don't need to explicitly link against gstreamer itself, because
   # LLMediaImplGStreamer probes for the system's copy at runtime.
-  set(GSTREAMER010_LIBRARIES
-      gobject-2.0
-      gmodule-2.0
-      dl
-      gthread-2.0
-      rt
-      glib-2.0
-      )
+    set(GSTREAMER010_LIBRARIES
+         gstvideo-0.10
+         gstaudio-0.10
+         gstbase-0.10
+         gstreamer-0.10
+         gobject-2.0
+         gmodule-2.0
+         dl
+         gthread-2.0
+         rt
+         glib-2.0
+         )
 endif (STANDALONE)
 
 if (GSTREAMER010_FOUND AND GSTREAMER010_PLUGINS_BASE_FOUND)

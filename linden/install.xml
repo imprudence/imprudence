@@ -735,20 +735,6 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-darwin-20100826.tar.bz2</uri>
           </map>
-          <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>973aabcba37f6ee0ceab2e3d063eea84</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20100827.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>663c29f3885ab8429ad6841d80181c31</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux64-20100827.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>gtk-etc</key>
