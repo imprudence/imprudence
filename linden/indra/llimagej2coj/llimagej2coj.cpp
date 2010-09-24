@@ -200,7 +200,7 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 		{	/* get maximum decomposition level difference, first field is from the COD header and the second
 			   is what is actually met in the codestream, NB: if everything was ok, this calculation will
 			   return what was set in the cp_reduce value! */
-			decompdifference = std::max(decompdifference, cinfo.numdecompos[comp] - image->comps[comp].resno_decoded);
+			decompdifference = llmax(decompdifference, cinfo.numdecompos[comp] - image->comps[comp].resno_decoded);
 		}
 		if (decompdifference < 0) // sanity
 		{
