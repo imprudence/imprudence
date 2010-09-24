@@ -107,6 +107,7 @@ public:
 	};
 
 	virtual void spellReplace(SpellMenuBind* spellData);
+	virtual void translationReplace(const std::string &translation, const S32 orig_start, const S32 orig_length);
 	virtual void insert(std::string what,S32 wher);
 
 	// LLEditMenuHandler overrides
@@ -215,6 +216,7 @@ public:
 	// get the cursor position of the beginning/end of the prev/next word in the text
 	S32				prevWordPos(S32 cursorPos) const;
 	S32				nextWordPos(S32 cursorPos) const;
+	BOOL			getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_length) const;
 
 	BOOL			hasSelection() const { return (mSelectionStart != mSelectionEnd); }
 	void			startSelection();
@@ -298,6 +300,7 @@ protected:
 	LLFrameTimer mSpellTimer;
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;
+	S32 mLastContextMenuX;
 
 	// line history support:
 	BOOL		mHaveHistory;				// flag for enabled line history
