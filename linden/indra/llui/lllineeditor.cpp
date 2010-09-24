@@ -567,8 +567,9 @@ void LLLineEditor::translateText(void * data)
 
 	if (has_text)
 	{
+		std::string to_translate = wstring_to_utf8str(line->getWText().substr(start, length));
 		LLHTTPClient::ResponderPtr result = LineChatTranslationReceiver::build(toLang, line, start, length);
-		LLTranslate::translateMessage(result,"", toLang, line->getText().substr(start, length));
+		LLTranslate::translateMessage(result,"", toLang, to_translate);
 	}
 }
 
@@ -1133,13 +1134,11 @@ void LLLineEditor::setSelection(S32 start, S32 end)
 {
 	S32 len = mText.length();
 
-	mIsSelecting = TRUE;
-
 	// JC, yes, this seems odd, but I think you have to presume a 
 	// selection dragged from the end towards the start.
 	mSelectionStart = llclamp(end, 0, len);
 	mSelectionEnd = llclamp(start, 0, len);
-	setCursor(start);
+	setCursor(end);
 }
 
 void LLLineEditor::setDrawAsterixes(BOOL b)
@@ -1187,7 +1186,7 @@ BOOL LLLineEditor::getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_l
 			pos--;
 		}
 		*word_begin = pos;
-		while ( (pos < getLength()) && LLTextEditor::isPartOfWord(wtext[pos]) )
+		while ( (pos < wtext.length()) && LLTextEditor::isPartOfWord(wtext[pos]) )
 		{
 			pos++;
 		}
@@ -1373,12 +1372,12 @@ void LLLineEditor::translationReplace(const std::string &translation, const S32 
 	}
 	insert(text, pos);
 
+	S32 text_wlen = utf8str_to_wstring(text).length();
 	if (hasSelection())
 	{
-		mSelectionStart = pos;
-		mSelectionEnd = pos + text.length();
+		setSelection(pos, pos + text_wlen);
 	}
-	setCursor(pos + text.length());
+	setCursor(pos + text_wlen);
 }
 
 void LLLineEditor::insert(std::string what, S32 wher)
