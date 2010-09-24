@@ -116,7 +116,7 @@
 	     mouse_opaque="true" name="maturity_desired_prompt" v_pad="0" width="394">
 		 I want to access content rated:
 	</text>
-	<combo_box bottom="-318" follows="left|top" height="18" left="315"
+	<combo_box bottom="-318" follows="left|top" height="18" left="320"
 	     mouse_opaque="true" name="maturity_desired_combobox" width="150">
 		<combo_item name="Desired_Adult" value="42">
 			PG, Mature and Adult
@@ -130,7 +130,7 @@
 	</combo_box>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-312" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="315"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="320"
 	     mouse_opaque="true" name="maturity_desired_textbox" v_pad="0" width="150">
 		 PG only
 	</text>

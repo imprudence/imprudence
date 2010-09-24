@@ -40,7 +40,7 @@
     Allow region WindLight settings (LightShare):
   </text>
   <combo_box name="lightshare_combo"
-             bottom_delta="-2" left_delta="250" height="18" width="120"
+             bottom_delta="-2" left_delta="250" height="18" width="135"
              allow_text_entry="false" follows="left|top">
     <combo_item type="string" name="never" value="0">
       Never
