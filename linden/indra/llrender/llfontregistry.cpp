@@ -442,12 +442,13 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		std::string font_path = local_path + *file_name_it;
 		BOOL is_fallback = !is_first_found;
 		F32 size_mult = (is_fallback ? 1 : match_desc->getSizeMult());
-		if (!fontp->loadFace(font_path, point_size * size_mult,
+		F32 size = (F32)llround(point_size * size_mult);
+		if (!fontp->loadFace(font_path, size,
 							 LLFontGL::sVertDPI, LLFontGL::sHorizDPI, 2, is_fallback))
 		{
 			font_path = sys_path + *file_name_it;
 
-			if (!fontp->loadFace(font_path, point_size * size_mult,
+			if (!fontp->loadFace(font_path, size,
 								 LLFontGL::sVertDPI, LLFontGL::sHorizDPI, 2, is_fallback))
 			{
 				LL_INFOS_ONCE("LLFontRegistry") << "Couldn't load font " << *file_name_it << LL_ENDL;
