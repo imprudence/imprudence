@@ -530,6 +530,7 @@ private:
 	std::vector<S32> misspellLocations;     // where all the mispelled words are
 	BOOL			mSpellCheckable;			// set in xui as "spell_check". Default value for a field
 	BOOL			mShowMisspellings;		// show misspellings as highlighted (initialized in the ctor)
+	BOOL			mAllowTranslate;		// set in xui as "allow_translate".
 	
 	S32				mMaxTextByteLength;		// Maximum length mText is allowed to be in bytes
 

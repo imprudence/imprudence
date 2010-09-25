@@ -330,7 +330,8 @@ LLTextEditor::LLTextEditor(
 	mReflowNeeded(FALSE),
 	mScrollNeeded(FALSE),
 	mSpellCheckable(FALSE),
-	mShowMisspellings(FALSE)
+	mShowMisspellings(FALSE),
+	mAllowTranslate(FALSE)
 {
 	mSourceID.generate();
 
@@ -1484,7 +1485,8 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 	//setCursorAtLocalPos( x, y, TRUE );
 	S32 wordStart = 0;
-	S32 wordEnd = getCursorPosFromLocalCoord(x,y,TRUE);
+	S32 wordEnd = 0;
+	S32 pos = getCursorPosFromLocalCoord(x,y,TRUE);
 
 	LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandle.get();
 	if (menu)
@@ -1503,29 +1505,21 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		}
 		suggestionMenuItems.clear();
 
-		menu->setItemVisible("Translate To", !mReadOnly);
-		menu->setItemVisible("Transep", !mReadOnly);
+		bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
+
+		// allow_translate="true" in xui
+		bool can_translate = mAllowTranslate && !mReadOnly && (is_word_part || hasSelection());
+		menu->setItemVisible("Translate To", can_translate);
+		menu->setItemVisible("Transep", can_translate);
 
 		// spell_check="true" in xui
 		if (!mReadOnly && mSpellCheckable)
 		{
-			const LLWString &text = mWText;
-			
-			if (isPartOfWord(text[wordEnd]) && !mReadOnly)
+			if (is_word_part)
 			{
-				// Select word the cursor is over
-				while ((wordEnd > 0) && isPartOfWord(text[wordEnd-1]))
-				{
-					wordEnd--;
-				}
-				wordStart = wordEnd;
-				//startSelection();
-
-				while ((wordEnd < (S32)text.length()) && isPartOfWord( text[wordEnd] ) )
-				{
-					wordEnd++;
-				}		
+				const LLWString &text = mWText;
 				std::string selectedWord(std::string(text.begin(), text.end()).substr(wordStart,wordEnd-wordStart));
+
 				if (!glggHunSpell->isSpelledRight(selectedWord))
 				{
 					//misspelled word here, and you have just right clicked on it!
@@ -4963,6 +4957,8 @@ void LLTextEditor::setTextEditorParameters(LLXMLNodePtr node)
 	node->getAttributeBOOL("track_bottom", mTrackBottom);
 
 	node->getAttributeBOOL("spell_check", mSpellCheckable);
+
+	node->getAttributeBOOL("allow_translate", mAllowTranslate);
 
 	LLColor4 color;
 	if (LLUICtrlFactory::getAttributeColor(node,"cursor_color", color)) 
