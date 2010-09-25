@@ -176,7 +176,7 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mReplaceNewlinesWithSpaces( TRUE ),
 		mSpellCheckable( FALSE ),
 		mShowMisspellings(FALSE),
-		mAllowTranslate(FALSE)
+		mAllowTranslate(TRUE)
 {
 	llassert( max_length_bytes > 0 );
 
@@ -2885,7 +2885,7 @@ LLView* LLLineEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 	{
 		line_editor->setSpellCheckable(spell_checking);
 	}
-	BOOL allow_translate = FALSE;
+	BOOL allow_translate = TRUE;
 	if (node->getAttributeBOOL("allow_translate", allow_translate))
 	{
 		line_editor->setAllowTranslate(allow_translate);

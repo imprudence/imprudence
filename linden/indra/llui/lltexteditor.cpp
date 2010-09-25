@@ -331,7 +331,7 @@ LLTextEditor::LLTextEditor(
 	mScrollNeeded(FALSE),
 	mSpellCheckable(FALSE),
 	mShowMisspellings(FALSE),
-	mAllowTranslate(FALSE)
+	mAllowTranslate(TRUE)
 {
 	mSourceID.generate();
 

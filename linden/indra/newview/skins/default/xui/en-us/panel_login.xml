@@ -58,7 +58,8 @@
                bevel_style="in" border_style="line" border_thickness="1" 
                max_length="31" mouse_opaque="true"
                handle_edit_keys_directly="true"
-               select_all_on_focus_received="true" />
+               select_all_on_focus_received="true"
+               allow_translate="false" />
 
 
   <!-- LAST NAME -->
@@ -77,7 +78,8 @@
                bevel_style="in" border_style="line" border_thickness="1" 
                max_length="31" mouse_opaque="true"
                handle_edit_keys_directly="true"
-               select_all_on_focus_received="true" />
+               select_all_on_focus_received="true"
+               allow_translate="false" />
 
 
   <!-- PASSWORD -->
@@ -96,7 +98,8 @@
                bevel_style="in" border_style="line" border_thickness="1" 
                max_length="16" mouse_opaque="true"
 	             handle_edit_keys_directly="true"
-               select_all_on_focus_received="true" />
+               select_all_on_focus_received="true"
+               allow_translate="false" />
 	<check_box name="remember_check" label="Remember password"
              bottom_delta="-24" left_delta="0" height="16" width="140"
              follows="left|bottom" font="SansSerifSmall" control_name="RememberPassword" 
