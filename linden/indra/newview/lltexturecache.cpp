@@ -1177,7 +1177,7 @@ void LLTextureCache::readHeaderCache()
 			{
 				Entry& entry = entries[i];
 				const LLUUID& id = entry.mID;
-				if (entry.mImageSize < 0)
+				if (entry.mImageSize <= 0)
 				{
 					// This will be in the Free List, don't put it in the LRU
 					++empty_entries;
@@ -1190,7 +1190,7 @@ void LLTextureCache::readHeaderCache()
 						if (entry.mBodySize > entry.mImageSize)
 						{
 							// Shouldn't happen, failsafe only
-							llwarns << "Bad entry: " << i << ": " << id << ": BodySize: " << entry.mBodySize << llendl;
+							llwarns << "Bad entry: " << i << ": " << entry.mID << ": BodySize: " << entry.mBodySize << llendl;
 							purge_list.push_back(id);
 						}
 					}
@@ -1201,15 +1201,17 @@ void LLTextureCache::readHeaderCache()
 				// Special case: cache size was reduced, need to remove entries
 				// Note: After we prune entries, we will call this again and create the LRU
 				U32 entries_to_purge = (num_entries-empty_entries) - sCacheMaxEntries;
+				llinfos << "Texture Cache Entries: " << num_entries << " Max: " << sCacheMaxEntries << " Empty: " << empty_entries << " Purging: " << entries_to_purge << llendl;
 				if (entries_to_purge > 0)
 				{
 					for (std::set<lru_data_t>::iterator iter = lru.begin(); iter != lru.end(); ++iter)
 					{
 						purge_list.push_back(iter->second);
-						if (--entries_to_purge <= 0)
+						if (purge_list.size() >= entries_to_purge)
 							break;
 					}
 				}
+				llassert_always(purge_list.size() >= entries_to_purge);
 			}
 			else
 			{
@@ -1237,13 +1239,14 @@ void LLTextureCache::readHeaderCache()
 				for (U32 i=0; i<num_entries; i++)
 				{
 					const Entry& entry = entries[i];
-					if (entry.mImageSize >=0)
+					if (entry.mImageSize > 0)
 					{
 						new_entries.push_back(entry);
 					}
 				}
 				llassert_always(new_entries.size() <= sCacheMaxEntries);
 				mHeaderEntriesInfo.mEntries = new_entries.size();
+				writeEntriesHeader();
 				writeEntriesAndClose(new_entries);
 				mHeaderMutex.unlock(); // unlock the mutex before calling again
 				readHeaderCache(); // repeat with new entries file
@@ -1251,7 +1254,7 @@ void LLTextureCache::readHeaderCache()
 			}
 			else
 			{
-				writeEntriesAndClose(entries);
+				//entries are not changed, nothing here.
 			}
 		}
 	}
