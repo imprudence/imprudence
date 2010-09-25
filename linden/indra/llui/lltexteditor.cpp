@@ -499,8 +499,9 @@ void LLTextEditor::translateText(void * data)
 
 	if (has_text)
 	{
+		const std::string to_translate =  wstring_to_utf8str(line->getWText().substr(start, length));
 		LLHTTPClient::ResponderPtr result = TextChatTranslationReceiver::build(toLang, line, start, length);
-		LLTranslate::translateMessage(result,"", toLang, line->getText().substr(start, length));
+		LLTranslate::translateMessage(result,"", toLang, to_translate);
 	}
 }
 
@@ -2290,8 +2291,13 @@ void LLTextEditor::translationReplace(const std::string &translation, const S32 
 	{
 		remove(orig_start, orig_length, FALSE);
 	}
-	insert(pos, wtext, FALSE);
-	setCursorPos(pos + wtext.length());
+	S32 inserted = insert(pos, wtext, FALSE);
+	if (hasSelection())
+	{
+		mSelectionStart = llclamp(pos, 0, getLength());
+		mSelectionEnd = llclamp(pos + inserted, mSelectionStart, getLength());
+	}
+	setCursorPos(pos + inserted);
 	needsReflow();
 }
 
