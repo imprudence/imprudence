@@ -1134,10 +1134,8 @@ void LLLineEditor::setSelection(S32 start, S32 end)
 {
 	S32 len = mText.length();
 
-	// JC, yes, this seems odd, but I think you have to presume a 
-	// selection dragged from the end towards the start.
-	mSelectionStart = llclamp(end, 0, len);
-	mSelectionEnd = llclamp(start, 0, len);
+	mSelectionStart = llclamp(start, 0, len);
+	mSelectionEnd = llclamp(end, 0, len);
 	setCursor(end);
 }
 
