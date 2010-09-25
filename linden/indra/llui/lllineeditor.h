@@ -200,6 +200,7 @@ public:
 	void setReadOnlyBgColor( const LLColor4& c )	{ mReadOnlyBgColor = c; }
 	void setFocusBgColor(const LLColor4& c)			{ mFocusBgColor = c; }
 	void setSpellCheckable(BOOL b)					{ mSpellCheckable = b; }
+	void setAllowTranslate(BOOL b)					{ mAllowTranslate = b; }
 
 	const LLColor4& getFgColor() const			{ return mFgColor; }
 	const LLColor4& getReadOnlyFgColor() const	{ return mReadOnlyFgColor; }
@@ -301,6 +302,7 @@ protected:
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;
 	S32 mLastContextMenuX;
+	BOOL			mAllowTranslate;		// set in xui as "allow_translate".
 
 	// line history support:
 	BOOL		mHaveHistory;				// flag for enabled line history

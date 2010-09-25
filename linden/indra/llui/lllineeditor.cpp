@@ -175,7 +175,8 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mImage( sImage ),
 		mReplaceNewlinesWithSpaces( TRUE ),
 		mSpellCheckable( FALSE ),
-		mShowMisspellings(FALSE)
+		mShowMisspellings(FALSE),
+		mAllowTranslate(FALSE)
 {
 	llassert( max_length_bytes > 0 );
 
@@ -762,7 +763,8 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 	//setCursorAtLocalPos( x);
 	S32 wordStart = 0;
-	S32 wordEnd = calculateCursorFromMouse(x);
+	S32 wordEnd = 0;
+	S32 pos = calculateCursorFromMouse(x);
 
 	LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandle.get();
 	if (menu)
@@ -785,29 +787,19 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		}
 		suggestionMenuItems.clear();
 
-		menu->setItemVisible("Translate To", !mReadOnly);
-		menu->setItemVisible("Transep", !mReadOnly);
+		bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
+		// allow_translate="true" in xui
+		bool can_translate = mAllowTranslate && !mReadOnly && (is_word_part || hasSelection());
+		menu->setItemVisible("Translate To", can_translate);
+		menu->setItemVisible("Transep", can_translate);
 
 		// spell_check="true" in xui
 		if (!mReadOnly && mSpellCheckable)
 		{
-			const LLWString& text = mText.getWString();
-
 			// search for word matches
-			if (LLTextEditor::isPartOfWord(text[wordEnd]))
+			if (is_word_part)
 			{
-				// Select word the cursor is over
-				while ((wordEnd > 0) && LLTextEditor::isPartOfWord(text[wordEnd-1]))
-				{
-					wordEnd--;
-				}
-				wordStart = wordEnd;
-				//startSelection();
-
-				while ((wordEnd < (S32)text.length()) && LLTextEditor::isPartOfWord( text[wordEnd] ) )
-				{
-					wordEnd++;
-				}		
+				const LLWString& text = mText.getWString();
 				std::string selectedWord(std::string(text.begin(), text.end()).substr(wordStart,wordEnd-wordStart));
 				
 				if (!glggHunSpell->isSpelledRight(selectedWord))
@@ -2892,6 +2884,11 @@ LLView* LLLineEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 	if (node->getAttributeBOOL("spell_check", spell_checking))
 	{
 		line_editor->setSpellCheckable(spell_checking);
+	}
+	BOOL allow_translate = FALSE;
+	if (node->getAttributeBOOL("allow_translate", allow_translate))
+	{
+		line_editor->setAllowTranslate(allow_translate);
 	}
 	
 	line_editor->setColorParameters(node);
