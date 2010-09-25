@@ -402,7 +402,7 @@ LLTextEditor::LLTextEditor(
 	menu->append(new LLMenuItemCallGL("Paste", context_paste, NULL, this));
 	menu->append(new LLMenuItemCallGL("Delete", context_delete, NULL, this));
 	menu->append(new LLMenuItemCallGL("Select All", context_selectall, NULL, this));
-	menu->appendSeparator("transep");
+	menu->appendSeparator("Transep");
 	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
 	translatemenu->setCanTearOff(FALSE);
 	SpellMenuBind* t=new SpellMenuBind;t->origin=this;t->word="en";
