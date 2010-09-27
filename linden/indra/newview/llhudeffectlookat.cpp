@@ -574,7 +574,7 @@ void LLHUDEffectLookAt::render()
 		} gGL.end();
 		gGL.popMatrix();
 
-		static BOOL *sEmeraldShowLookAtNames = rebind_llcontrol<BOOL>("EmeraldShowLookAtNames", &gSavedSettings, true);
+		static BOOL *sEmeraldShowLookAtNames = rebind_llcontrol<BOOL>("ShowLookAtNames", &gSavedSettings, true);
 		if (*sEmeraldShowLookAtNames)
 		{
 			const LLFontGL* fontp = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
