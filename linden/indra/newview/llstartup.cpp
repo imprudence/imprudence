@@ -1938,7 +1938,9 @@ bool idle_startup()
 			LLFloaterActiveSpeakers::showInstance();
 		}
 
-		if (gSavedSettings.getBOOL("BeaconsEnabled"))
+		static BOOL* sBeaconsEnabled = rebind_llcontrol<BOOL>("BeaconsEnabled", &gSavedSettings, true);
+
+		if (*sBeaconsEnabled)
 		{
 			LLFloaterBeacons::showInstance();
 		}

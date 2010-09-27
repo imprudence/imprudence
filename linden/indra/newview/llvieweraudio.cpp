@@ -114,10 +114,14 @@ void init_audio()
 
 void audio_update_volume(bool force_update)
 {
-	F32 master_volume = gSavedSettings.getF32("AudioLevelMaster");
-	bool wind_muted = gSavedSettings.getBOOL("MuteWind");
-	bool mute_audio = gSavedSettings.getBOOL("MuteAudio");
 
+	static BOOL* sMuteAudio = rebind_llcontrol<BOOL>("MuteAudio", &gSavedSettings, true);
+	static BOOL* sMuteWind = rebind_llcontrol<BOOL>("MuteWind", &gSavedSettings, true);
+	static F32 *sAudioLevelMaster = rebind_llcontrol<F32>("AudioLevelMaster", &gSavedSettings, true);
+
+	F32 master_volume = (*sAudioLevelMaster);
+	bool wind_muted = (*sMuteWind);
+	BOOL mute_audio = (*sMuteAudio);
 	if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
 	{
 		mute_audio = TRUE;

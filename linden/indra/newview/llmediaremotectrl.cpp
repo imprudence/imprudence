@@ -151,8 +151,11 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	bool play_music_enabled = false;
 	bool stop_music_enabled = false;
 	bool media_show_pause = false;
-	LLColor4 music_icon_color = LLUI::sColorsGroup->getColor( "IconDisabledColor" );
-	LLColor4 media_icon_color = LLUI::sColorsGroup->getColor( "IconDisabledColor" );
+
+	static LLColor4* sIconDisabledColor = rebind_llcontrol<LLColor4>("IconDisabledColor", &gColors, true);
+
+	LLColor4 music_icon_color = (*sIconDisabledColor).getValue();
+	LLColor4 media_icon_color = (*sIconDisabledColor).getValue();
 	std::string media_type = "none/none";
 
 	// Put this in xui file
@@ -161,7 +164,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 
 	if (gSavedSettings.getBOOL("AudioStreamingVideo"))
 	{
-		if ( parcel && parcel->getMediaURL()[0])
+		if ( parcel && !parcel->getMediaURL().empty())
 		{
 			// Set the tooltip
 			// Put this text into xui file
@@ -197,10 +200,10 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 			}
 		}
 	}
+	
 	if (gSavedSettings.getBOOL("AudioStreamingMusic") && gAudiop)
 	{
-	
-		if ( parcel && parcel->getMusicURL()[0])
+		if ( parcel && !parcel->getMusicURL().empty())
 		{
 			music_icon_color = LLUI::sColorsGroup->getColor( "IconEnabledColor" );
 

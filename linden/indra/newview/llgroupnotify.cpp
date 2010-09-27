@@ -115,7 +115,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
 	setBackgroundVisible(TRUE);
 	setBackgroundOpaque(TRUE);
-	setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+
+	static LLColor4* sGroupNotifyBoxColor = rebind_llcontrol<LLColor4>("GroupNotifyBoxColor", &gColors, true);
+
+	setBackgroundColor( (*sGroupNotifyBoxColor) );
 
 	LLIconCtrl* icon;
 	LLTextEditor* text;
@@ -133,7 +136,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 			setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
 			setBorderVisible(FALSE);
 			setColor( gColors.getColor("GroupNotifyTextColor") );
-			setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+
+			static LLColor4* sGroupNotifyBoxColor = rebind_llcontrol<LLColor4>("GroupNotifyBoxColor", &gColors, true);
+
+			setBackgroundColor( (*sGroupNotifyBoxColor) );
 		}
 	};
 

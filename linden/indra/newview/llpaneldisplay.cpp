@@ -325,8 +325,9 @@ BOOL LLPanelDisplay::postBuild()
 	mLightingText = getChild<LLTextBox>("LightingDetailText");
 	mMeshDetailText = getChild<LLTextBox>("MeshDetailText");
 
-	childSetValue("toggle_windlight_control", gSavedSettings.getBOOL("EnableWindlightRemote"));
-	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	childSetValue("toggle_windlight_control", (*sEnableWindlightRemote));
+	mWLControl = (*sEnableWindlightRemote);
 
 	refresh();
 
@@ -387,7 +388,8 @@ void LLPanelDisplay::refresh()
 	mCustomSettings = gSavedSettings.getBOOL("RenderCustomSettings");
 
 	// shader settings
-	mBumpShiny = gSavedSettings.getBOOL("RenderObjectBump");
+	static BOOL* sRenderObjectBump = rebind_llcontrol<BOOL>("RenderObjectBump", &gSavedSettings, true);
+	mBumpShiny = *sRenderObjectBump;
 	mShaderEnable = gSavedSettings.getBOOL("VertexShaderEnable");
 	mWindLight = gSavedSettings.getBOOL("WindLightUseAtmosShaders");
 	mReflections = gSavedSettings.getBOOL("RenderWaterReflections");
@@ -418,7 +420,8 @@ void LLPanelDisplay::refresh()
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
 
 	// windlight remote
-	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	mWLControl = (*sEnableWindlightRemote);
 
 	// max avatar count
 	mAvatarMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");

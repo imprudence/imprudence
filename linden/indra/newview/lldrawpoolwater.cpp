@@ -523,6 +523,7 @@ void LLDrawPoolWater::shade()
 	glColor4fv(water_color.mV);
 
 	{
+		LLGLEnable depth_clamp(gGLManager.mHasDepthClamp ? GL_DEPTH_CLAMP : 0);
 		LLGLDisable cullface(GL_CULL_FACE);
 		for (std::vector<LLFace*>::iterator iter = mDrawFace.begin();
 			iter != mDrawFace.end(); iter++)
@@ -538,24 +539,20 @@ void LLDrawPoolWater::shade()
 			gGL.getTexUnit(diffTex)->bind(face->getTexture());
 
 			sNeedsReflectionUpdate = TRUE;
-			
-			if (water->getUseTexture())
+
+			if (water->getUseTexture() || !water->getIsEdgePatch())
 			{
 				sNeedsDistortionUpdate = TRUE;
 				face->renderIndexed();
 			}
+			else if (gGLManager.mHasDepthClamp)
+			{
+				face->renderIndexed();
+			}
 			else
-			{ //smash background faces to far clip plane
-				if (water->getIsEdgePatch())
-				{
-					LLGLClampToFarClip far_clip(glh_get_current_projection());
-					face->renderIndexed();
-				}
-				else
-				{
-					sNeedsDistortionUpdate = TRUE;
-					face->renderIndexed();
-				}
+			{
+				LLGLSquashToFarClip far_clip(glh_get_current_projection());
+				face->renderIndexed();
 			}
 		}
 	}

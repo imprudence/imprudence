@@ -1499,13 +1499,15 @@ void LLPanelAvatar::resetGroupList()
 				row["columns"][0]["width"] = 0;
 				if (group_data.mListInProfile)
 				{
+					static LLColor4 *sScrollUnselectedColor = rebind_llcontrol<LLColor4>("ScrollUnselectedColor", LLUI::sColorsGroup, true);
 					row["columns"][0]["value"] = group_string;
-					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+					row["columns"][0]["color"] = (*sScrollUnselectedColor).getValue();
 				}
 				else
 				{
+					static LLColor4 *sScrollReadOnlyColor = rebind_llcontrol<LLColor4>("ScrollReadOnlyColor", LLUI::sColorsGroup, true);
 					row["columns"][0]["value"] = group_string + " " + getString("HiddenLabel");
-					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
+					row["columns"][0]["color"] = (*sScrollReadOnlyColor).getValue();
 				}
 				group_list->addElement(row);
 			}
@@ -2063,13 +2065,15 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 				// Set normal color if not found or if group is visible in profile
 				if (!group_data || group_data->mListInProfile)
 				{
+					static LLColor4 *sScrollUnselectedColor = rebind_llcontrol<LLColor4>("ScrollUnselectedColor", LLUI::sColorsGroup, true);
 					row["columns"][0]["value"] = group_string;
-					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+					row["columns"][0]["color"] = (*sScrollUnselectedColor).getValue();
 				}
 				else
 				{
+					static LLColor4 *sScrollReadOnlyColor = rebind_llcontrol<LLColor4>("ScrollReadOnlyColor", LLUI::sColorsGroup, true);
 					row["columns"][0]["value"] = group_string + " " + self->getString("HiddenLabel");
-					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
+					row["columns"][0]["color"] = (*sScrollReadOnlyColor).getValue();
 				}
 				if (group_list)
 				{

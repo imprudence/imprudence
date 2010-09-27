@@ -299,14 +299,14 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 
 
 	bool is_self = source_avatar->isSelf();
-	bool is_private = gSavedSettings.getBOOL("PrivateLookAtTarget");
+	static BOOL *sPrivateLookAtTarget = rebind_llcontrol<BOOL>("PrivateLookAtTarget", &gSavedSettings, true);
 	if (!is_self) //imprudence TODO: find out why this happens at all and fix there
 	{
 		LL_DEBUGS("HUDEffect")<< "Non-self Avatar HUDEffectLookAt message for ID: " << source_avatar->getID().asString() << LL_ENDL;
 		markDead();
 		return;
 	}
-	else if (is_private && target_type != LOOKAT_TARGET_AUTO_LISTEN)
+	else if (*sPrivateLookAtTarget && target_type != LOOKAT_TARGET_AUTO_LISTEN)
 	{
 		//this mimicks "do nothing"
 		target_type = LOOKAT_TARGET_AUTO_LISTEN;
@@ -574,7 +574,8 @@ void LLHUDEffectLookAt::render()
 		} gGL.end();
 		gGL.popMatrix();
 
-		if( gSavedSettings.getBOOL("ShowLookAtNames") )
+		static BOOL *sEmeraldShowLookAtNames = rebind_llcontrol<BOOL>("EmeraldShowLookAtNames", &gSavedSettings, true);
+		if (*sEmeraldShowLookAtNames)
 		{
 			const LLFontGL* fontp = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
 			LLGLEnable color_mat(GL_COLOR_MATERIAL);
