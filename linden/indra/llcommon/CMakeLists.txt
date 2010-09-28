@@ -12,6 +12,8 @@ include_directories(
     )
 
 set(llcommon_SOURCE_FILES
+    imageids.cpp
+    indra_constants.cpp
     llapp.cpp
     llapr.cpp
     llassettype.cpp

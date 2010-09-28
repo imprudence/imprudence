@@ -311,9 +311,10 @@ LL_FORCE_INLINE LLColor3 calc_air_sca_sea_level()
 	return dens_div_N * color_div ( mult_const, wl4 );
 }
 
-const LLColor3 gAirScaSeaLevel = calc_air_sca_sea_level();
-const F32 AIR_SCA_INTENS = color_intens(gAirScaSeaLevel);	
-const F32 AIR_SCA_AVG = AIR_SCA_INTENS / 3.f;
+// Non-POD constants.
+extern LLColor3 const gAirScaSeaLevel;
+extern F32 const AIR_SCA_INTENS;
+extern F32 const AIR_SCA_AVG;
 
 class LLHaze
 {

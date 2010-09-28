@@ -78,9 +78,13 @@ static const LLVector2 TEX01 = LLVector2(0.f, 1.f);
 static const LLVector2 TEX10 = LLVector2(1.f, 0.f);
 static const LLVector2 TEX11 = LLVector2(1.f, 1.f);
 
-// Exported globals
+// Exported global semi-constants.
 LLUUID gSunTextureID = IMG_SUN;
 LLUUID gMoonTextureID = IMG_MOON;
+// Exported global constants.
+LLColor3 const gAirScaSeaLevel = calc_air_sca_sea_level();
+F32 const AIR_SCA_INTENS = color_intens(gAirScaSeaLevel);
+F32 const AIR_SCA_AVG = AIR_SCA_INTENS / 3.f;
 
 //static 
 LLColor3 LLHaze::sAirScaSeaLevel;

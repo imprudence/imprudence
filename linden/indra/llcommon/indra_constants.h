@@ -34,7 +34,9 @@
 #define LL_INDRA_CONSTANTS_H
 
 #include "stdtypes.h"
-#include "lluuid.h"
+#include "llpreprocessor.h"
+
+class LLUUID;
 
 // At 45 Hz collisions seem stable and objects seem
 // to settle down at a reasonable rate.
@@ -261,14 +263,15 @@ const U8 GOD_LIKE = 1;
 const U8 GOD_NOT = 0;
 
 // "agent id" for things that should be done to ALL agents
-const LLUUID LL_UUID_ALL_AGENTS("44e87126-e794-4ded-05b3-7c42da3d5cdb");
+extern const LLUUID LL_UUID_ALL_AGENTS;
 
-// Governor Linden's agent id.
-const LLUUID ALEXANDRIA_LINDEN_ID("ba2a564a-f0f1-4b82-9c61-b7520bfcd09f");
-const LLUUID GOVERNOR_LINDEN_ID("3d6181b0-6a4b-97ef-18d8-722652995cf1");
-const LLUUID REALESTATE_LINDEN_ID("3d6181b0-6a4b-97ef-18d8-722652995cf1");
+// inventory library owner
+extern const LLUUID ALEXANDRIA_LINDEN_ID;
+
+extern const LLUUID GOVERNOR_LINDEN_ID;
+extern const LLUUID REALESTATE_LINDEN_ID;
 // Maintenance's group id.
-const LLUUID MAINTENANCE_GROUP_ID("dc7b21cd-3c89-fcaa-31c8-25f9ffd224cd");
+extern const LLUUID MAINTENANCE_GROUP_ID;
 
 // Flags for kick message
 const U32 KICK_FLAGS_DEFAULT	= 0x0;
