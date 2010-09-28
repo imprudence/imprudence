@@ -32,100 +32,100 @@
 #ifndef LL_UI_XML_TAGS_H
 #define LL_UI_XML_TAGS_H
 
-const std::string
-	LL_BUTTON_TAG("button"),
-	LL_UI_CTRL_LOCATE_TAG("locate"),
-	LL_PAD_TAG("pad"),
-	LL_CHECK_BOX_CTRL_TAG("check_box"),
-	LL_COMBO_BOX_TAG("combo_box"),
-	LL_DRAG_HANDLE_TOP_TAG("drag_handle_top"),
-	LL_DRAG_HANDLE_LEFT_TAG("drag_handle_left"),
-	LL_FLOATER_TAG("floater"),
-	LL_FLOATER_VIEW_TAG("floater_view"),
-	LL_MULTI_FLOATER_TAG("multi_floater"),
-	LL_ICON_CTRL_TAG("icon"),
-	LL_LINE_EDITOR_TAG("line_editor"),
-	LL_SEARCH_EDITOR_TAG("search_editor"),
-	LL_MENU_ITEM_TAG("menu_item"),
-	LL_MENU_GL_TAG("menu"),
-	LL_MENU_BAR_GL_TAG("menu_bar"),
-	LL_MENU_HOLDER_GL_TAG("menu_holder"),
-	LL_PANEL_TAG("panel"),
-	LL_RADIO_GROUP_TAG("radio_group"),
-	LL_RESIZE_BAR_TAG("resize_bar"),
-	LL_RESIZE_HANDLE_TAG("resize_handle"),
-	LL_SCROLLBAR_TAG("scrollbar"),
-	LL_SCROLLABLE_CONTAINER_VIEW_TAG("scroll_container"),
-	LL_SCROLL_LIST_CTRL_TAG("scroll_list"),
-	LL_SLIDER_CTRL_TAG("slider"),
-	LL_SLIDER_TAG("slider_bar"),
-	LL_MULTI_SLIDER_CTRL_TAG("multi_slider"),
-	LL_MULTI_SLIDER_TAG("multi_slider_bar"),
-	LL_SPIN_CTRL_TAG("spinner"),
-	LL_TAB_CONTAINER_COMMON_TAG("tab_container"),
-	LL_TEXT_BOX_TAG("text"),
-	LL_TEXT_EDITOR_TAG("text_editor"),
-	LL_VIEW_BORDER_TAG("view_border"),
-	LL_COLOR_SWATCH_TAG("color_swatch"),
-	LL_INVENTORY_PANEL_TAG("inventory_panel"),
-	LL_NAME_EDITOR_TAG("name_editor"),
-	LL_NAME_LIST_TAG("name_list"),
-	LL_TEXTURE_PICKER_TAG("texture_picker"),
-	LL_VOLUME_SLIDER_CTRL_TAG("volume_slider"),
-	LL_WEB_BROWSER_CTRL_TAG("web_browser"),
-	LL_STAT_VIEW_TAG("stat_view"),
-	LL_PROGRESS_VIEW_TAG("progress_view"),
-	LL_STAT_BAR_TAG("stat_bar"),
-	LL_STATUS_BAR_TAG("status_bar"),
-	LL_VIEWER_TEXT_EDITOR_TAG("viewer_text_editor"),
-	LL_TALK_VIEW_TAG("talk_view"),
-	LL_COLOR_SWATCH_CTRL_TAG("color_swatch"),
-	LL_GL_TEX_MEM_BAR_TAG("tex_mem_bar"),
-	LL_TEXTURE_CTRL_TAG("texture_picker"),
-	LL_TEXTURE_VIEW_TAG("texture_view"),
-	LL_NAME_LIST_CTRL_TAG("name_list"),
-	LL_STAT_GRAPH_TAG("stat_graph"),
-	LL_DROP_TARGET_TAG("drop_target"),
-	LL_OVERLAY_BAR_TAG("overlay_bar"),
-	LL_NET_MAP_TAG("net_map"),
-	LL_HUD_VIEW_TAG("hud_view"),
-	LL_MEMORY_VIEW_TAG("memory_view"),
-	LL_MEDIA_REMOTE_CTRL_TAG("media_remote"),
-	LL_MORPH_VIEW_TAG("morph_view"),
-	LL_FRAME_STAT_VIEW_TAG("frame_stat_view"),
-	LL_FOLDER_VIEW_TAG("folder_view"),
-	LL_SNAPSHOT_LIVE_PREVIEW_TAG("snapshot_preview"),
-	LL_HOVER_VIEW_TAG("hover_view"),
-	LL_VELOCITY_BAR_TAG("velocity_bar"),
-	LL_PERMISSIONS_VIEW_TAG("permissions_view"),
-	LL_SCROLLING_PANEL_LIST_TAG("scrolling_panel_list"),
-	LL_CONTAINER_VIEW_TAG("container_view"),
-	LL_CONSOLE_TAG("console"),
-	LL_DEBUG_VIEW_TAG("debug_view"),
-	LL_AUDIOSTATUS_TAG("audio_status"),
-	LL_FAST_TIMER_VIEW_TAG("fast_timer_view"),
-	LL_MENU_ITEM_TEAR_OFF_GL_TAG("tearoff_menu"),
-	LL_MENU_ITEM_BLANK_GL_TAG("menu_item_blank"),
-	LL_MENU_ITEM_CALL_GL_TAG("menu_item_call"),
-	LL_MENU_ITEM_CHECK_GL_TAG("menu_item_check"),
-	LL_MENU_ITEM_BRANCH_GL_TAG("menu_item_branch"),
-	LL_MENU_ITEM_BRANCH_DOWN_GL_TAG("menu_item_branch_down"),
-	LL_PIE_MENU_BRANCH_TAG("pie_menu_branch"),
-	LL_PIE_MENU_TAG("pie_menu"),
-	LL_MENU_ITEM_SEPARATOR_GL_TAG("menu_item_separator"),
-	LL_MENU_ITEM_VERTICAL_SEPARATOR_GL_TAG("menu_item_vertical_separator"),
-	LL_ROOT_VIEW_TAG("root_view"),
-	LL_FOLDER_VIEW_ITEM_TAG("folder_item"),
-	LL_FOLDER_VIEW_FOLDER_TAG("folder"),
-	LL_TEXTURE_BAR_TAG("texture_bar"),
-	LL_JOYSTICK_SLIDE("joystick_slide"),
-	LL_JOYSTICK_TURN("joystick_turn"),
-	LL_GROUP_DROP_TARGET_TAG("group_drop_target"),
-	LL_LAYOUT_STACK_TAG("layout_stack"),
-	LL_LAYOUT_PANEL_TAG("layout_panel"),
-	LL_FLYOUT_BUTTON_TAG("flyout_button"),
-	LL_FLYOUT_BUTTON_ITEM_TAG("flyout_button_item"),
-	LL_SIMPLE_TEXT_EDITOR_TAG("simple_text_editor"),
-	LL_RADIO_ITEM_TAG("radio_item"),
-	LL_PROGRESS_BAR_TAG("progress_bar");
+char const* const LL_BUTTON_TAG = "button";
+char const* const LL_UI_CTRL_LOCATE_TAG = "locate";
+char const* const LL_PAD_TAG = "pad";
+char const* const LL_CHECK_BOX_CTRL_TAG = "check_box";
+char const* const LL_COMBO_BOX_TAG = "combo_box";
+char const* const LL_DRAG_HANDLE_TOP_TAG = "drag_handle_top";
+char const* const LL_DRAG_HANDLE_LEFT_TAG = "drag_handle_left";
+char const* const LL_FLOATER_TAG = "floater";
+char const* const LL_FLOATER_VIEW_TAG = "floater_view";
+char const* const LL_MULTI_FLOATER_TAG = "multi_floater";
+char const* const LL_ICON_CTRL_TAG = "icon";
+char const* const LL_LINE_EDITOR_TAG = "line_editor";
+char const* const LL_SEARCH_EDITOR_TAG = "search_editor";
+char const* const LL_MENU_ITEM_TAG = "menu_item";
+char const* const LL_MENU_GL_TAG = "menu";
+char const* const LL_MENU_BAR_GL_TAG = "menu_bar";
+char const* const LL_MENU_HOLDER_GL_TAG = "menu_holder";
+char const* const LL_PANEL_TAG = "panel";
+char const* const LL_RADIO_GROUP_TAG = "radio_group";
+char const* const LL_RESIZE_BAR_TAG = "resize_bar";
+char const* const LL_RESIZE_HANDLE_TAG = "resize_handle";
+char const* const LL_SCROLLBAR_TAG = "scrollbar";
+char const* const LL_SCROLLABLE_CONTAINER_VIEW_TAG = "scroll_container";
+char const* const LL_SCROLL_LIST_CTRL_TAG = "scroll_list";
+char const* const LL_SLIDER_CTRL_TAG = "slider";
+char const* const LL_SLIDER_TAG = "slider_bar";
+char const* const LL_MULTI_SLIDER_CTRL_TAG = "multi_slider";
+char const* const LL_MULTI_SLIDER_TAG = "multi_slider_bar";
+char const* const LL_SPIN_CTRL_TAG = "spinner";
+char const* const LL_TAB_CONTAINER_COMMON_TAG = "tab_container";
+char const* const LL_TEXT_BOX_TAG = "text";
+char const* const LL_TEXT_EDITOR_TAG = "text_editor";
+char const* const LL_VIEW_BORDER_TAG = "view_border";
+char const* const LL_COLOR_SWATCH_TAG = "color_swatch";
+char const* const LL_INVENTORY_PANEL_TAG = "inventory_panel";
+char const* const LL_NAME_EDITOR_TAG = "name_editor";
+char const* const LL_NAME_LIST_TAG = "name_list";
+char const* const LL_TEXTURE_PICKER_TAG = "texture_picker";
+char const* const LL_VOLUME_SLIDER_CTRL_TAG = "volume_slider";
+char const* const LL_WEB_BROWSER_CTRL_TAG = "web_browser";
+char const* const LL_STAT_VIEW_TAG = "stat_view";
+char const* const LL_PROGRESS_VIEW_TAG = "progress_view";
+char const* const LL_STAT_BAR_TAG = "stat_bar";
+char const* const LL_STATUS_BAR_TAG = "status_bar";
+char const* const LL_VIEWER_TEXT_EDITOR_TAG = "viewer_text_editor";
+char const* const LL_TALK_VIEW_TAG = "talk_view";
+char const* const LL_COLOR_SWATCH_CTRL_TAG = "color_swatch";
+char const* const LL_GL_TEX_MEM_BAR_TAG = "tex_mem_bar";
+char const* const LL_TEXTURE_CTRL_TAG = "texture_picker";
+char const* const LL_TEXTURE_VIEW_TAG = "texture_view";
+char const* const LL_NAME_LIST_CTRL_TAG = "name_list";
+char const* const LL_STAT_GRAPH_TAG = "stat_graph";
+char const* const LL_DROP_TARGET_TAG = "drop_target";
+char const* const LL_OVERLAY_BAR_TAG = "overlay_bar";
+char const* const LL_NET_MAP_TAG = "net_map";
+char const* const LL_HUD_VIEW_TAG = "hud_view";
+char const* const LL_MEMORY_VIEW_TAG = "memory_view";
+char const* const LL_MEDIA_REMOTE_CTRL_TAG = "media_remote";
+char const* const LL_MORPH_VIEW_TAG = "morph_view";
+char const* const LL_FRAME_STAT_VIEW_TAG = "frame_stat_view";
+char const* const LL_FOLDER_VIEW_TAG = "folder_view";
+char const* const LL_SNAPSHOT_LIVE_PREVIEW_TAG = "snapshot_preview";
+char const* const LL_HOVER_VIEW_TAG = "hover_view";
+char const* const LL_VELOCITY_BAR_TAG = "velocity_bar";
+char const* const LL_PERMISSIONS_VIEW_TAG = "permissions_view";
+char const* const LL_SCROLLING_PANEL_LIST_TAG = "scrolling_panel_list";
+char const* const LL_CONTAINER_VIEW_TAG = "container_view";
+char const* const LL_CONSOLE_TAG = "console";
+char const* const LL_DEBUG_VIEW_TAG = "debug_view";
+char const* const LL_AUDIOSTATUS_TAG = "audio_status";
+char const* const LL_FAST_TIMER_VIEW_TAG = "fast_timer_view";
+char const* const LL_MENU_ITEM_TEAR_OFF_GL_TAG = "tearoff_menu";
+char const* const LL_MENU_ITEM_BLANK_GL_TAG = "menu_item_blank";
+char const* const LL_MENU_ITEM_CALL_GL_TAG = "menu_item_call";
+char const* const LL_MENU_ITEM_CHECK_GL_TAG = "menu_item_check";
+char const* const LL_MENU_ITEM_BRANCH_GL_TAG = "menu_item_branch";
+char const* const LL_MENU_ITEM_BRANCH_DOWN_GL_TAG = "menu_item_branch_down";
+char const* const LL_PIE_MENU_BRANCH_TAG = "pie_menu_branch";
+char const* const LL_PIE_MENU_TAG = "pie_menu";
+char const* const LL_MENU_ITEM_SEPARATOR_GL_TAG = "menu_item_separator";
+char const* const LL_MENU_ITEM_VERTICAL_SEPARATOR_GL_TAG = "menu_item_vertical_separator";
+char const* const LL_ROOT_VIEW_TAG = "root_view";
+char const* const LL_FOLDER_VIEW_ITEM_TAG = "folder_item";
+char const* const LL_FOLDER_VIEW_FOLDER_TAG = "folder";
+char const* const LL_TEXTURE_BAR_TAG = "texture_bar";
+char const* const LL_JOYSTICK_SLIDE = "joystick_slide";
+char const* const LL_JOYSTICK_TURN = "joystick_turn";
+char const* const LL_GROUP_DROP_TARGET_TAG = "group_drop_target";
+char const* const LL_LAYOUT_STACK_TAG = "layout_stack";
+char const* const LL_LAYOUT_PANEL_TAG = "layout_panel";
+char const* const LL_FLYOUT_BUTTON_TAG = "flyout_button";
+char const* const LL_FLYOUT_BUTTON_ITEM_TAG = "flyout_button_item";
+char const* const LL_SIMPLE_TEXT_EDITOR_TAG = "simple_text_editor";
+char const* const LL_RADIO_ITEM_TAG = "radio_item";
+char const* const LL_PROGRESS_BAR_TAG = "progress_bar";
+
 #endif

@@ -113,6 +113,8 @@ void LLDate::toHTTPDateStream(std::ostream& s) const
 #else
     s.setf(ios::right);
 #endif    
+	static char const* const weekdays[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	static char const* const months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     std::string day = weekdays[exp_time.tm_wday];
     std::string month = months[exp_time.tm_mon];
 
