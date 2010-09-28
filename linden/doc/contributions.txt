@@ -40,10 +40,12 @@ Aimee Trescothick
 Alejandro Rosenthal
 	VWR-1184
 Aleric Inglewood
-	SNOW-196
-	SNOW-408
 	VWR-10759
 	VWR-10837
+	SNOW-196
+	SNOW-240
+	SNOW-408
+	SNOW-479
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -65,34 +67,29 @@ Alissa Sabre
 	VWR-1351
 	VWR-1353
 	VWR-1410
-        VWR-1843
+	VWR-1843
 	VWR-2116
 	VWR-2826
 	VWR-3290
 	VWR-3410
-	SNOW-408
 	VWR-3857
 	VWR-4010
 	VWR-5575
-        VWR-5929
-        VWR-6384
-        VWR-6385
+	VWR-5929
+	VWR-6384
+	VWR-6385
 	VWR-6386
-        VWR-6430
+	VWR-6430
 	VWR-6858
-        VWR-6668
-        VWR-7086
-        VWR-7087
-        VWR-7153
-        VWR-7168
-<<<<<<< HEAD
-=======
-        VWR-7087
-        VWR-7086
->>>>>>> origin/next
+	VWR-6668
+	VWR-7086
+	VWR-7087
+	VWR-7153
+	VWR-7168
 	VWR-9190
 	VWR-10728
 	VWR-12620
+	SNOW-408
 Angus Boyd
 	VWR-592
 Ann Congrejo
