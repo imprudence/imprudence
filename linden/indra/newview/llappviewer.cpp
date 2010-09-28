@@ -61,7 +61,7 @@
 #include "llviewerwindow.h"
 #include "llviewerdisplay.h"
 #include "llviewermedia.h"
-
+#include "llv4math.h"		// for LL_VECTORIZE
 
 #include "llviewermessage.h"
 #include "llviewerobjectlist.h"
