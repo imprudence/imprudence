@@ -160,6 +160,8 @@ class ViewerManifest(LLManifest):
         # whether or not this is present
         return self.args.get('login_channel')
 
+    def standalone(self):
+        return self.args['standalone'] == "ON"
     def grid(self):
         return self.args['grid']
     def channel(self):
@@ -327,7 +329,7 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # Gstreamer libs
-        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+        if (not self.standalone()) and self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("iconv.dll")
             self.path("libxml2.dll")
             self.path("libcairo-2.dll")
@@ -541,7 +543,7 @@ class DarwinManifest(ViewerManifest):
             self.path("Info-Imprudence.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
-            if self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
+            if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
 
                 self.path("libndofdev.dylib")
                 self.path("libhunspell-1.2.dylib")
@@ -635,7 +637,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("zh-Hans.lproj")
 
 
-                if self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
+                if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
                     self.path("libgstaacparse.so")
                     self.path("libgstadder.so")
                     self.path("libgstaiffparse.so")
@@ -916,7 +918,7 @@ class Linux_i686Manifest(LinuxManifest):
 
         self.path("app_settings/mozilla-runtime-linux-i686")
 
-        if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
+        if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
@@ -1040,9 +1042,10 @@ class Linux_x86_64Manifest(LinuxManifest):
         self.path("featuretable_linux.txt")
         #self.path("secondlife-x86_64.supp")
 
-        self.path("app_settings/mozilla-runtime-linux-x86_64")
+        if not self.standalone():
+            self.path("app_settings/mozilla-runtime-linux-x86_64")
 
-        if self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
+        if (not self.standalone()) and self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
