@@ -46,6 +46,19 @@ Aleric Inglewood
 	SNOW-240
 	SNOW-408
 	SNOW-479
+	SNOW-626
+	SNOW-766
+	SNOW-800
+	RED-552
+	RED-553
+	RED-554
+	RED-556
+	RED-560
+	RED-561
+	RED-562
+	RED-565
+	RED-566
+	RED-567
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -125,6 +138,7 @@ Blakar Ogre
 blino Nakamura
 	VWR-17
 Boroondas Gupte
+	SNOW-623
 	VWR-233
 	WEB-262
 Bulli Schumann
@@ -472,9 +486,11 @@ Ringo Tuxing
 Robin Cornelius
 	SNOW-108
 	SNOW-196
-        SNOW-485
+	SNOW-422
+	SNOW-485
 	VWR-2488
 	VWR-9557
+	VWR-12838
 Ryozu Kojima
 	VWR-53
 	VWR-287
