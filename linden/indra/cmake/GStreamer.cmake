@@ -1,12 +1,22 @@
 # -*- cmake -*-
 include(Prebuilt)
 
-  # Maybe libxml and glib should have their own .cmake files
+if (STANDALONE)
+  include(FindPkgConfig)
+
+  pkg_check_modules(GSTREAMER REQUIRED gstreamer-0.10)
+  pkg_check_modules(GSTREAMER_PLUGINS_BASE REQUIRED gstreamer-plugins-base-0.10)
+  pkg_check_modules(GSTREAMER_VIDEO REQUIRED gstreamer-video-0.10)
+
+else (STANDALONE)
+
+  # libxml and glib should have their own .cmake files
   use_prebuilt_binary(libxml)
   use_prebuilt_binary(glib)
 
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_PLUGINS_BASE_FOUND ON FORCE BOOL)
+  set(GSTREAMER_VIDEO_FOUND ON FORCE BOOL)
 
   use_prebuilt_binary(gstreamer)
   use_prebuilt_binary(gstreamer-plugins)
@@ -105,9 +115,11 @@ else (WINDOWS)
 
 endif (WINDOWS)
 
-if (GSTREAMER_FOUND AND GSTREAMER_PLUGINS_BASE_FOUND)
+endif (STANDALONE)
+
+if (GSTREAMER_FOUND AND GSTREAMER_PLUGINS_BASE_FOUND AND GSTREAMER_VIDEO_FOUND)
   set(GSTREAMER ON CACHE BOOL "Build with GStreamer streaming media support.")
-endif (GSTREAMER_FOUND AND GSTREAMER_PLUGINS_BASE_FOUND)
+endif (GSTREAMER_FOUND AND GSTREAMER_PLUGINS_BASE_FOUND AND GSTREAMER_VIDEO_FOUND)
 
 if (GSTREAMER)
   add_definitions(-DLL_GSTREAMER_ENABLED=1)
