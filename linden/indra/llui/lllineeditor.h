@@ -108,6 +108,7 @@ public:
 
 	virtual void spellReplace(SpellMenuBind* spellData);
 	virtual void translationReplace(const std::string &translation, const S32 orig_start, const S32 orig_length);
+	virtual BOOL canTranslate() const;
 	virtual void insert(std::string what,S32 wher);
 
 	// LLEditMenuHandler overrides
@@ -134,15 +135,22 @@ public:
 	virtual void	deselect();
 	virtual BOOL	canDeselect() const;
 
+	static BOOL context_enable_cut(void* data);
 	static void context_cut(void* data);
+	static BOOL context_enable_copy(void* data);
 	static void context_copy(void* data);
+	static BOOL context_enable_paste(void* data);
+	static void context_paste(void* data);
+	static BOOL context_enable_delete(void* data);
+	static void context_delete(void* data);
+	static BOOL context_enable_selectall(void* data);
+	static void context_selectall(void* data);
+	static BOOL context_enable_translate(void * data);
+	static void context_translate(void * data);
 	static void spell_correct(void* data);
 	static void spell_show(void* data);
-	static void translateText(void * data);
 	static void spell_add(void* data);
-	static void context_paste(void* data);
-	static void context_delete(void* data);
-	static void context_selectall(void* data);
+
 	std::vector<S32> getMisspelledWordsPositions();
 	// view overrides
 	virtual void	draw();
@@ -264,7 +272,7 @@ private:
 	void			removeChar();
 	void			addChar(const llwchar c);
 	void			setCursorAtLocalPos(S32 local_mouse_x);
-	S32				calculateCursorFromMouse(S32 local_mouse_x);
+	S32				calculateCursorFromMouse(S32 local_mouse_x) const;
 	S32				findPixelNearestPos(S32 cursor_offset = 0) const;
 	void			reportBadKeystroke();
 	BOOL			handleSpecialKey(KEY key, MASK mask);
@@ -297,7 +305,6 @@ protected:
 	S32				mStartSpellHere;		// the position of the first char on the screen, stored so we know when to update
 	S32				mEndSpellHere;			// the location of the last char on the screen
 	BOOL			mSpellCheckable;		// set in xui as "spell_check". Default value for a field
-	BOOL			mShowMisspellings;		// show misspellings as highlighted (initialized in the ctor)		
 	LLFrameTimer mSpellTimer;
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;

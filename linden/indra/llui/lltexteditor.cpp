@@ -330,7 +330,6 @@ LLTextEditor::LLTextEditor(
 	mReflowNeeded(FALSE),
 	mScrollNeeded(FALSE),
 	mSpellCheckable(FALSE),
-	mShowMisspellings(FALSE),
 	mAllowTranslate(TRUE)
 {
 	mSourceID.generate();
@@ -384,12 +383,6 @@ LLTextEditor::LLTextEditor(
 	mParseHTML=FALSE;
 	mHTML.clear();
 
-	// in other words, highlighting requires a restart
-	if (glggHunSpell->getSpellCheckHighlight())
-	{
-		mShowMisspellings = TRUE;
-	}
-
 	// make the popup menu available
 	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
 	LLMenuGL* menu = new LLMenuGL("wot");
@@ -397,46 +390,46 @@ LLTextEditor::LLTextEditor(
 	{
 			menu = new LLMenuGL(LLStringUtil::null);
 	}*/
-	menu->append(new LLMenuItemCallGL("Cut", context_cut, NULL, this));
-	menu->append(new LLMenuItemCallGL("Copy", context_copy, NULL, this));
-	menu->append(new LLMenuItemCallGL("Paste", context_paste, NULL, this));
-	menu->append(new LLMenuItemCallGL("Delete", context_delete, NULL, this));
-	menu->append(new LLMenuItemCallGL("Select All", context_selectall, NULL, this));
+	menu->append(new LLMenuItemCallGL("Cut", context_cut, context_enable_cut, this));
+	menu->append(new LLMenuItemCallGL("Copy", context_copy, context_enable_copy, this));
+	menu->append(new LLMenuItemCallGL("Paste", context_paste, context_enable_paste, this));
+	menu->append(new LLMenuItemCallGL("Delete", context_delete, context_enable_delete, this));
+	menu->append(new LLMenuItemCallGL("Select All", context_selectall, context_enable_selectall, this));
 	menu->appendSeparator("Transep");
 	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
 	translatemenu->setCanTearOff(FALSE);
 	SpellMenuBind* t=new SpellMenuBind;t->origin=this;t->word="en";
-	translatemenu->append(new LLMenuItemCallGL("English",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("English", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="da";
-	translatemenu->append(new LLMenuItemCallGL("Danish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Danish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="de";
-	translatemenu->append(new LLMenuItemCallGL("Deutsch(German)",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Deutsch(German)", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="es";
-	translatemenu->append(new LLMenuItemCallGL("Spanish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Spanish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="fr";
-	translatemenu->append(new LLMenuItemCallGL("French",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("French", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="it";
-	translatemenu->append(new LLMenuItemCallGL("Italian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Italian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="hu";
-	translatemenu->append(new LLMenuItemCallGL("Hungarian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Hungarian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="nl";
-	translatemenu->append(new LLMenuItemCallGL("Dutch",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Dutch", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="pl";
-	translatemenu->append(new LLMenuItemCallGL("Polish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Polish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="pt";
-	translatemenu->append(new LLMenuItemCallGL("Portugese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Portugese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ru";
-	translatemenu->append(new LLMenuItemCallGL("Russian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Russian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="tr";
-	translatemenu->append(new LLMenuItemCallGL("Turkish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Turkish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="uk";
-	translatemenu->append(new LLMenuItemCallGL("Ukrainian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Ukrainian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="zh";
-	translatemenu->append(new LLMenuItemCallGL("Chinese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Chinese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ja";
-	translatemenu->append(new LLMenuItemCallGL("Japanese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Japanese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ko";
-	translatemenu->append(new LLMenuItemCallGL("Korean",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Korean", context_translate, context_enable_translate, t));
 	
 	menu->appendMenu(translatemenu);
 	menu->appendSeparator("Spelsep");
@@ -445,7 +438,6 @@ LLTextEditor::LLTextEditor(
 	menu->setVisible(FALSE);
 	mPopupMenuHandle = menu->getHandle();
 }
-
 
 LLTextEditor::~LLTextEditor()
 {
@@ -464,18 +456,38 @@ LLTextEditor::~LLTextEditor()
 	std::for_each(mUndoStack.begin(), mUndoStack.end(), DeletePointer());
 	LLView::deleteViewByHandle(mPopupMenuHandle);
 }
+
+BOOL LLTextEditor::context_enable_cut(void* data)
+{
+	LLTextEditor* line = (LLTextEditor*)data;
+	return (line && line->canCut());
+}
+
 void LLTextEditor::context_cut(void* data)
 {
 	LLTextEditor* line = (LLTextEditor*)data;
 	if(line)line->cut();
 }
+
+BOOL LLTextEditor::context_enable_copy(void* data)
+{
+	LLTextEditor* line = (LLTextEditor*)data;
+	return (line && line->canCopy());
+}
+
 void LLTextEditor::context_copy(void* data)
 {
 	LLTextEditor* line = (LLTextEditor*)data;
 	if(line)line->copy();
 }
 
-void LLTextEditor::translateText(void * data)
+BOOL LLTextEditor::context_enable_translate(void * data)
+{
+	SpellMenuBind* t = (SpellMenuBind*)data;
+	return (t && t->origin && t->origin->canTranslate());
+}
+
+void LLTextEditor::context_translate(void * data)
 {
 	SpellMenuBind* t = (SpellMenuBind*)data;
 	LLTextEditor* line = t->origin;
@@ -523,14 +535,8 @@ void LLTextEditor::spell_show(void * data)
 
 	if (tempBind && line)
 	{
-		if (tempBind->word == "Show Misspellings")
-		{
-			glggHunSpell->setSpellCheckHighlight(TRUE);
-		}
-		else
-		{
-			glggHunSpell->setSpellCheckHighlight(FALSE);
-		}
+		BOOL show = (tempBind->word == "Show Misspellings");
+		glggHunSpell->setSpellCheckHighlight(show);
 	}
 }
 
@@ -582,16 +588,37 @@ void LLTextEditor::spell_add(void* data)
 			tempBind->origin->mPrevSpelledText.erase();//make it update
 	}
 }
+
+BOOL LLTextEditor::context_enable_paste(void* data)
+{
+	LLTextEditor* line = (LLTextEditor*)data;
+	return(line && line->canPaste());
+}
+
 void LLTextEditor::context_paste(void* data)
 {
 	LLTextEditor* line = (LLTextEditor*)data;
 	if(line)line->paste();
 }
+
+BOOL LLTextEditor::context_enable_delete(void* data)
+{
+	LLTextEditor* line = (LLTextEditor*)data;
+	return (line && line->canDoDelete());
+}
+
 void LLTextEditor::context_delete(void* data)
 {
 	LLTextEditor* line = (LLTextEditor*)data;
 	if(line)line->doDelete();
 }
+
+BOOL LLTextEditor::context_enable_selectall(void* data)
+{
+	LLTextEditor* line = (LLTextEditor*)data;
+	return (line && line->canSelectAll());
+}
+
 void LLTextEditor::context_selectall(void* data)
 {
 	LLTextEditor* line = (LLTextEditor*)data;
@@ -1506,16 +1533,11 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		}
 		suggestionMenuItems.clear();
 
-		bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
-
-		// allow_translate="true" in xui
-		bool can_translate = mAllowTranslate && !mReadOnly && (is_word_part || hasSelection());
-		menu->setItemVisible("Translate To", can_translate);
-		menu->setItemVisible("Transep", can_translate);
-
 		// spell_check="true" in xui
+		menu->setItemVisible("Spelsep", !mReadOnly && mSpellCheckable);
 		if (!mReadOnly && mSpellCheckable)
 		{
+			bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
 			if (is_word_part)
 			{
 				const LLWString &text = mWText;
@@ -1526,7 +1548,6 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 					//misspelled word here, and you have just right clicked on it!
 					std::vector<std::string> suggs = glggHunSpell->getSuggestionList(selectedWord);
 
-					//menu->setItemVisible("Transep",(suggs.size()>0));
 					for (int i = 0; i<(int)suggs.size(); i++)
 					{
 						SpellMenuBind * tempStruct = new SpellMenuBind;
@@ -1557,7 +1578,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 			SpellMenuBind *	tempStruct = new SpellMenuBind;
 			tempStruct->origin = this;
-			if (mShowMisspellings)
+			if (glggHunSpell->getSpellCheckHighlight())
 			{
 				tempStruct->word = "Hide Misspellings";
 			}
@@ -2299,6 +2320,14 @@ void LLTextEditor::translationReplace(const std::string &translation, const S32 
 	}
 	setCursorPos(pos + inserted);
 	needsReflow();
+}
+
+BOOL LLTextEditor::canTranslate() const
+{
+	// if allow_translate="true" in xui, and if other factors permit, we allow it
+	S32 pos = getCursorPosFromLocalCoord(mLastContextMenuX, mLastContextMenuY, TRUE);
+	bool is_word_part = (pos > -1) && isPartOfWord(mWText[pos]);
+	return (mAllowTranslate && !mReadOnly && (is_word_part || hasSelection()));
 }
 
 // paste from clipboard
@@ -3225,7 +3254,7 @@ void LLTextEditor::drawMisspelled()
 			}
 		}
 		//draw
-		if (mShowMisspellings)
+		if (glggHunSpell->getSpellCheckHighlight())
 		{
 			for (int i = 0; i<(int)misspellLocations.size() ;i++)
 			{

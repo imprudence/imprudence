@@ -72,7 +72,7 @@ static char * countryCodesraw[] = {
   (char*)"CF",(char*)"Central African Republic",
   (char*)"CG",(char*)"Congo",
   (char*)"CH",(char*)"Switzerland",
-  (char*)"CI",(char*)"Côte D'ivoire (Ivory Coast)",
+  (char*)"CI",(char*)"CÃ´te D'ivoire (Ivory Coast)",
   (char*)"CK",(char*)"Cook Iislands",
   (char*)"CL",(char*)"Chile",
   (char*)"CM",(char*)"Cameroon",
@@ -212,7 +212,7 @@ static char * countryCodesraw[] = {
   (char*)"PW",(char*)"Palau",
   (char*)"PY",(char*)"Paraguay",
   (char*)"QA",(char*)"Qatar",
-  (char*)"RE",(char*)"Réunion",
+  (char*)"RE",(char*)"RÃ©union",
   (char*)"RO",(char*)"Romania",
   (char*)"RU",(char*)"Russian Federation",
   (char*)"RW",(char*)"Rwanda",
@@ -333,7 +333,7 @@ static char * languageCodesraw[]={
   (char*)"ga",(char*)"Irish",
   (char*)"gd",(char*)"Gaelic",
   (char*)"gl",(char*)"Galician",
-  (char*)"gn",(char*)"Guaraní",
+  (char*)"gn",(char*)"GuaranÃ­",
   (char*)"gu",(char*)"Gujarati",
   (char*)"gv",(char*)"Manx",
   (char*)"ha",(char*)"Hausa",
@@ -456,7 +456,7 @@ static char * languageCodesraw[]={
   (char*)"uz",(char*)"Uzbek",
   (char*)"ve",(char*)"Venda",
   (char*)"vi",(char*)"Vietnamese",
-  (char*)"vo",(char*)"Volapük",
+  (char*)"vo",(char*)"VolapÃ¼k",
   (char*)"wa",(char*)"Walloon",
   (char*)"wo",(char*)"Wolof",
   (char*)"xh",(char*)"Xhosa",
@@ -470,10 +470,9 @@ static char * languageCodesraw[]={
 #define LANGUAGE_CODES_RAW_SIZE 368
 
 lggHunSpell_Wrapper::lggHunSpell_Wrapper()
-	:
-	mSpellCheckHighlight(false)
 {
 	//languageCodes(begin(languageCodesraw), end(languageCodesraw));    
+	mSpellCheckHighlight = rebind_llcontrol<BOOL>("EmeraldSpellDisplay", &gSavedSettings, false);
 }
 
 lggHunSpell_Wrapper::~lggHunSpell_Wrapper()
@@ -638,8 +637,6 @@ void lggHunSpell_Wrapper::processSettings()
 	//expects everything to already be in saved settings
 	//this will also reload and read the installed dicts
 	setNewDictionary(gSavedSettings.getString("EmeraldSpellBase"));
-	mSpellCheckHighlight = gSavedSettings.getBOOL("EmeraldSpellDisplay");
-	
 }
 
 void lggHunSpell_Wrapper::addDictionary(std::string additionalDictionary)
@@ -966,5 +963,8 @@ void lggHunSpell_Wrapper::editCustomButton()
 
 void lggHunSpell_Wrapper::setSpellCheckHighlight(BOOL highlight)
 {
-	mSpellCheckHighlight = highlight;
+	if (mSpellCheckHighlight)
+	{
+		*mSpellCheckHighlight = highlight;
+	}
 }

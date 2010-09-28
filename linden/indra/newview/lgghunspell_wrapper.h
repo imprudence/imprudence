@@ -55,7 +55,7 @@ public:
 	std::string VEC2CSV(std::vector<std::string> vec);
 
 	void setSpellCheckHighlight(BOOL highlight);
-	BOOL getSpellCheckHighlight() { return mSpellCheckHighlight; }
+	BOOL getSpellCheckHighlight() { return mSpellCheckHighlight && *mSpellCheckHighlight; }
 
 private:
 	void createCustomDic();
@@ -67,7 +67,7 @@ private:
 	std::string currentBaseDic;
 	//std::vector<std::string> languageCodes;
 	//std::vector<std::string> countryCodes;
-	BOOL mSpellCheckHighlight;
+	BOOL* mSpellCheckHighlight;
 };
 
 extern lggHunSpell_Wrapper* glggHunSpell; // the singleton hunspell wrapper

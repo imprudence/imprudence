@@ -175,7 +175,6 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mImage( sImage ),
 		mReplaceNewlinesWithSpaces( TRUE ),
 		mSpellCheckable( FALSE ),
-		mShowMisspellings(FALSE),
 		mAllowTranslate(TRUE)
 {
 	llassert( max_length_bytes > 0 );
@@ -215,12 +214,6 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 	}
 	mImage = sImage;
 
-	// in other words, highlighting requires a restart
-	if (glggHunSpell->getSpellCheckHighlight())
-	{
-		mShowMisspellings = TRUE;
-	}
-
 	// make the popup menu available
 	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
 	LLMenuGL* menu = new LLMenuGL("wot");
@@ -228,46 +221,49 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 	{
 	menu = new LLMenuGL(LLStringUtil::null);
 	}*/
-	menu->append(new LLMenuItemCallGL("Cut", context_cut, NULL, this));
-	menu->append(new LLMenuItemCallGL("Copy", context_copy, NULL, this));
-	menu->append(new LLMenuItemCallGL("Paste", context_paste, NULL, this));
-	menu->append(new LLMenuItemCallGL("Delete", context_delete, NULL, this));
-	menu->append(new LLMenuItemCallGL("Select All", context_selectall, NULL, this));
+
+	menu->append(new LLMenuItemCallGL("Cut", context_cut, context_enable_cut, this));
+	menu->append(new LLMenuItemCallGL("Copy", context_copy, context_enable_copy, this));
+	menu->append(new LLMenuItemCallGL("Paste", context_paste, context_enable_paste, this));
+	menu->append(new LLMenuItemCallGL("Delete", context_delete, context_enable_delete, this));
+	menu->append(new LLMenuItemCallGL("Select All", context_selectall, context_enable_selectall, this));
+
 	menu->appendSeparator("Transep");
 	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
 	translatemenu->setCanTearOff(FALSE);
 	SpellMenuBind* t=new SpellMenuBind;t->origin=this;t->word="en";
-	translatemenu->append(new LLMenuItemCallGL("English",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("English", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="da";
-	translatemenu->append(new LLMenuItemCallGL("Danish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Danish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="de";
-	translatemenu->append(new LLMenuItemCallGL("Deutsch(German)",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Deutsch(German)", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="es";
-	translatemenu->append(new LLMenuItemCallGL("Spanish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Spanish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="fr";
-	translatemenu->append(new LLMenuItemCallGL("French",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("French", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="it";
-	translatemenu->append(new LLMenuItemCallGL("Italian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Italian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="hu";
-	translatemenu->append(new LLMenuItemCallGL("Hungarian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Hungarian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="nl";
-	translatemenu->append(new LLMenuItemCallGL("Dutch",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Dutch", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="pl";
-	translatemenu->append(new LLMenuItemCallGL("Polish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Polish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="pt";
-	translatemenu->append(new LLMenuItemCallGL("Portugese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Portugese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ru";
-	translatemenu->append(new LLMenuItemCallGL("Russian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Russian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="tr";
-	translatemenu->append(new LLMenuItemCallGL("Turkish",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Turkish", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="uk";
-	translatemenu->append(new LLMenuItemCallGL("Ukrainian",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Ukrainian", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="zh";
-	translatemenu->append(new LLMenuItemCallGL("Chinese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Chinese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ja";
-	translatemenu->append(new LLMenuItemCallGL("Japanese",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Japanese", context_translate, context_enable_translate, t));
 	t=new SpellMenuBind;t->origin=this;t->word="ko";
-	translatemenu->append(new LLMenuItemCallGL("Korean",translateText, NULL, t));
+	translatemenu->append(new LLMenuItemCallGL("Korean", context_translate, context_enable_translate, t));
+
 	menu->appendMenu(translatemenu);
 	menu->appendSeparator("Spelsep");
 	//menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
@@ -443,7 +439,7 @@ void LLLineEditor::setText(const LLStringExplicit &new_text)
 
 
 // Picks a new cursor position based on the actual screen size of text being drawn.
-S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x )
+S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x ) const
 {
 	const llwchar* wtext = mText.getWString().c_str();
 	LLWString asterix_text;
@@ -521,17 +517,30 @@ void LLLineEditor::deselect()
 	mIsSelecting = FALSE;
 }
 
+BOOL LLLineEditor::context_enable_cut(void* data)
+{
+	LLLineEditor* line = (LLLineEditor*)data;
+	return (line && line->canCut());
+}
 
 void LLLineEditor::context_cut(void* data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	if(line)line->cut();
 }
+
+BOOL LLLineEditor::context_enable_copy(void* data)
+{
+	LLLineEditor* line = (LLLineEditor*)data;
+	return (line &&line->canCopy());
+}
+
 void LLLineEditor::context_copy(void* data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	if(line)line->copy();
 }
+
 void LLLineEditor::spell_correct(void* data)
 {
 	SpellMenuBind* tempBind = (SpellMenuBind*)data;
@@ -544,7 +553,13 @@ void LLLineEditor::spell_correct(void* data)
 	}
 }
 
-void LLLineEditor::translateText(void * data)
+BOOL LLLineEditor::context_enable_translate(void* data)
+{
+	SpellMenuBind* t = (SpellMenuBind*)data;
+	return (t && t->origin && t->origin->canTranslate());
+}
+
+void LLLineEditor::context_translate(void * data)
 {
 	SpellMenuBind* t = (SpellMenuBind*)data;
 	LLLineEditor* line = t->origin;
@@ -579,16 +594,10 @@ void LLLineEditor::spell_show(void * data)
 	SpellMenuBind* tempBind = (SpellMenuBind*)data;
 	LLLineEditor* line = tempBind->origin;
 
-	if( tempBind && line)
+	if (tempBind && line)
 	{
-		if (tempBind->word == "Show Misspellings")
-		{
-			line->mShowMisspellings = TRUE;
-		}
-		else
-		{
-			line->mShowMisspellings = FALSE;
-		}
+		BOOL show = (tempBind->word == "Show Misspellings");
+		glggHunSpell->setSpellCheckHighlight(show);
 	}
 }
 
@@ -648,16 +657,34 @@ void LLLineEditor::spell_add(void* data)
 	}
 }
 
+BOOL LLLineEditor::context_enable_paste(void* data)
+{
+	LLLineEditor* line = (LLLineEditor*)data;
+	return (line && line->canPaste());
+}
+
 void LLLineEditor::context_paste(void* data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	if(line)line->paste();
 }
 
+BOOL LLLineEditor::context_enable_delete(void* data)
+{
+	LLLineEditor* line = (LLLineEditor*)data;
+	return (line && line->canDoDelete());
+}
+
 void LLLineEditor::context_delete(void* data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	if(line)line->doDelete();
+}
+
+BOOL LLLineEditor::context_enable_selectall(void* data)
+{
+	LLLineEditor* line = (LLLineEditor*)data;
+	return (line && line->canSelectAll());
 }
 
 void LLLineEditor::context_selectall(void* data)
@@ -787,16 +814,12 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		}
 		suggestionMenuItems.clear();
 
-		bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
-		// allow_translate="true" in xui
-		bool can_translate = mAllowTranslate && !mReadOnly && (is_word_part || hasSelection());
-		menu->setItemVisible("Translate To", can_translate);
-		menu->setItemVisible("Transep", can_translate);
-
 		// spell_check="true" in xui
+		menu->setItemVisible("Spelsep", !mReadOnly && mSpellCheckable);
 		if (!mReadOnly && mSpellCheckable)
 		{
 			// search for word matches
+			bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
 			if (is_word_part)
 			{
 				const LLWString& text = mText.getWString();
@@ -806,7 +829,6 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 				{	
 					//misspelled word here, and you have just right clicked on it!
 					std::vector<std::string> suggs = glggHunSpell->getSuggestionList(selectedWord);
-					//menu->setItemVisible("Transep",(suggs.size()>0));
 
 					for (int i = 0; i<(int)suggs.size() ;i++)
 					{
@@ -837,7 +859,7 @@ BOOL LLLineEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 			SpellMenuBind * tempStruct = new SpellMenuBind;
 			tempStruct->origin = this;
-			if (mShowMisspellings)
+			if (glggHunSpell->getSpellCheckHighlight())
 			{
 				tempStruct->word = "Hide Misspellings";
 			}
@@ -1368,6 +1390,15 @@ void LLLineEditor::translationReplace(const std::string &translation, const S32 
 		setSelection(pos, pos + text_wlen);
 	}
 	setCursor(pos + text_wlen);
+}
+
+BOOL LLLineEditor::canTranslate() const
+{
+	// if allow_translate="true" in xui, and if other factors permit, we allow it
+	S32 pos = calculateCursorFromMouse(mLastContextMenuX);
+	const LLWString& wtext = getWText();
+	bool is_word_part = (pos > -1) && LLTextEditor::isPartOfWord(wtext[pos]);
+	return (mAllowTranslate && !mReadOnly && (is_word_part || hasSelection()));
 }
 
 void LLLineEditor::insert(std::string what, S32 wher)
@@ -1980,7 +2011,7 @@ void LLLineEditor::drawMisspelled(LLRect background)
 			}
 		}
 
-		if (mShowMisspellings)
+		if (glggHunSpell->getSpellCheckHighlight())
 		{
 			for (int i =0; i<(int)misspellLocations.size(); i++)
 			{
