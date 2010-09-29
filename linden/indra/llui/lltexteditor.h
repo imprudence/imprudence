@@ -136,6 +136,8 @@ public:
 	virtual BOOL	canPaste() const;
  
 	virtual void	spellReplace(SpellMenuBind* spellData);
+	virtual void	translationReplace(const std::string &translation, const S32 orig_start, const S32 orig_length);
+	virtual BOOL	canTranslate() const;
  
 	virtual void	updatePrimary();
 	virtual void	copyPrimary();
@@ -148,13 +150,19 @@ public:
 	virtual BOOL	canSelectAll()	const;
 	virtual void	deselect();
 	virtual BOOL	canDeselect() const;
-	static void context_cut(void* data);
 
+	static BOOL context_enable_cut(void* data);
+	static void context_cut(void* data);
+	static BOOL context_enable_copy(void* data);
 	static void context_copy(void* data);
+	static BOOL context_enable_paste(void* data);
 	static void context_paste(void* data);
+	static BOOL context_enable_delete(void* data);
 	static void context_delete(void* data);
+	static BOOL context_enable_selectall(void* data);
 	static void context_selectall(void* data);
-	static void translateText(void * data);
+	static BOOL context_enable_translate(void * data);
+	static void context_translate(void * data);
 	static void spell_correct(void* data);
 	static void spell_add(void* data);
 	static void spell_show(void* data);
@@ -352,6 +360,7 @@ public:
 
 	S32				prevWordPos(S32 cursorPos) const;
 	S32				nextWordPos(S32 cursorPos) const;
+	BOOL			getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_length) const;
 
 	S32 			getLineCount() const { return mLineStartList.size(); }
 	S32 			getLineStart( S32 line ) const;
@@ -527,7 +536,7 @@ private:
 	S32 spellEnd;
 	std::vector<S32> misspellLocations;     // where all the mispelled words are
 	BOOL			mSpellCheckable;			// set in xui as "spell_check". Default value for a field
-	BOOL			mShowMisspellings;		// show misspellings as highlighted (initialized in the ctor)
+	BOOL			mAllowTranslate;		// set in xui as "allow_translate".
 	
 	S32				mMaxTextByteLength;		// Maximum length mText is allowed to be in bytes
 
@@ -568,6 +577,8 @@ private:
 
 	//to keep track of what we have to remove before showing menu
 	std::vector<SpellMenuBind* > suggestionMenuItems;
+	S32 mLastContextMenuX;
+	S32 mLastContextMenuY;
 
 	line_list_t mLineStartList;
 	BOOL			mReflowNeeded;
