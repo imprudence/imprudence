@@ -193,6 +193,10 @@
 
 #include "llfloaterteleporthistory.h"
 
+#if LL_DARWIN
+#include <Security/Security.h>
+#endif
+
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
 #endif // LL_LIBXUL_ENABLED
