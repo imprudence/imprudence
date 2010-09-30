@@ -66,6 +66,7 @@ Aleric Inglewood
 	RED-565
 	RED-566
 	RED-567
+	RED-573
 Alissa Sabre
 	VWR-81
 	VWR-83
