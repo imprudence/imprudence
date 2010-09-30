@@ -217,7 +217,7 @@ void LLFloaterSettingsDebug::onClickDefault(void* user_data)
 
 	if (controlp)
 	{
-		controlp->resetToDefault();
+		controlp->resetToDefault(true);
 		floaterp->updateControl(controlp);
 	}
 }
