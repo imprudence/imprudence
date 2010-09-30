@@ -484,7 +484,7 @@
 	<string name="xml_file">
 		XMLファイル
 	</string>
-	<string name="dot_raw_file">
+	<string name="raw_file">
 		RAWファイル
 	</string>
 	<string name="compressed_image_files">

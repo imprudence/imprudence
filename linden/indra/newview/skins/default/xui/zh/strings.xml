@@ -480,7 +480,7 @@
 	<string name="xml_file">
 		XML文件
 	</string>
-	<string name="dot_raw_file">
+	<string name="raw_file">
 		RAW文件
 	</string>
 	<string name="compressed_image_files">

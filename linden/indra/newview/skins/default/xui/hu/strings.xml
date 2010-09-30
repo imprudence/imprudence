@@ -480,7 +480,7 @@
 	<string name="xml_file">
 		XML fájl
 	</string>
-	<string name="dot_raw_file">
+	<string name="raw_file">
 		RAW fájl
 	</string>
 	<string name="compressed_image_files">

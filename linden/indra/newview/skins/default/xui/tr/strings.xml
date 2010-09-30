@@ -454,7 +454,7 @@
 	<string name="xml_file">
 		XML dosyası
 	</string>
-	<string name="dot_raw_file">
+	<string name="raw_file">
 		RAW dosyası
 	</string>
 	<string name="compressed_image_files">

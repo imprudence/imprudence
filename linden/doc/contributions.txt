@@ -54,6 +54,7 @@ Aleric Inglewood
 	SNOW-240
 	SNOW-408
 	SNOW-415
+	SNOW-477
 	SNOW-479
 	SNOW-626
 	SNOW-766
@@ -71,6 +72,7 @@ Aleric Inglewood
 	RED-573
 	RED-575
 	RED-576
+	RED-577
 Alissa Sabre
 	VWR-81
 	VWR-83
