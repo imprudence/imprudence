@@ -1198,7 +1198,7 @@ BOOL LLLineEditor::getWordBoundriesAt(const S32 at, S32* word_begin, S32* word_l
 			pos--;
 		}
 		*word_begin = pos;
-		while ( (pos < wtext.length()) && LLTextEditor::isPartOfWord(wtext[pos]) )
+		while ( (pos < (S32)wtext.length()) && LLTextEditor::isPartOfWord(wtext[pos]) )
 		{
 			pos++;
 		}
