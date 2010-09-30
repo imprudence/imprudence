@@ -913,7 +913,8 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 				open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, show_keep_discard, LLUUID::null, FALSE);
 				break;
 			case LLAssetType::AT_LANDMARK:
-				open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), show_keep_discard, LLUUID::null, FALSE);
+				if (!show_keep_discard)
+					open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), FALSE, LLUUID::null, FALSE);
 				break;
 			case LLAssetType::AT_TEXTURE:
 				open_texture(*it, std::string("Texture: ") + item->getName(), show_keep_discard, LLUUID::null, FALSE);
