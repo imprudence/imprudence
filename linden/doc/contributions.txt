@@ -42,6 +42,7 @@ Alejandro Rosenthal
 Aleric Inglewood
 	VWR-10759
 	VWR-10837
+	VWR-13040
 	VWR-13996
 	VWR-14426
 	SNOW-84
@@ -67,6 +68,7 @@ Aleric Inglewood
 	RED-566
 	RED-567
 	RED-573
+	RED-575
 Alissa Sabre
 	VWR-81
 	VWR-83
