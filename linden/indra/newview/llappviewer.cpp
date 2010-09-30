@@ -1457,8 +1457,11 @@ bool LLAppViewer::cleanup()
 		pending += LLAppViewer::getTextureFetch()->update(1); // unpauses the texture fetch thread
 		pending += LLVFSThread::updateClass(0);
 		pending += LLLFSThread::updateClass(0);
-		F64 idle_time = idleTimer.getElapsedTimeF64();
-		if (!pending || idle_time >= max_idle_time)
+		if (pending == 0)
+		{
+			break;
+		}
+		if (idleTimer.getElapsedTimeF64() >= max_idle_time)
 		{
 			llwarns << "Quitting with pending background tasks." << llendl;
 			break;
