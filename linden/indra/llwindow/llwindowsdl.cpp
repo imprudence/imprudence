@@ -671,12 +671,12 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	glGetIntegerv(GL_DEPTH_BITS, &depthBits);
 	glGetIntegerv(GL_STENCIL_BITS, &stencilBits);
 	
-	llinfos << "GL buffer:" << llendl
-        llinfos << "  Red Bits " << S32(redBits) << llendl
-        llinfos << "  Green Bits " << S32(greenBits) << llendl
-        llinfos << "  Blue Bits " << S32(blueBits) << llendl
-	llinfos	<< "  Alpha Bits " << S32(alphaBits) << llendl
-	llinfos	<< "  Depth Bits " << S32(depthBits) << llendl
+	llinfos << "GL buffer:" << llendl;
+        llinfos << "  Red Bits " << S32(redBits) << llendl;
+        llinfos << "  Green Bits " << S32(greenBits) << llendl;
+        llinfos << "  Blue Bits " << S32(blueBits) << llendl;
+	llinfos	<< "  Alpha Bits " << S32(alphaBits) << llendl;
+	llinfos	<< "  Depth Bits " << S32(depthBits) << llendl;
 	llinfos	<< "  Stencil Bits " << S32(stencilBits) << llendl;
 
 	GLint colorBits = redBits + greenBits + blueBits + alphaBits;

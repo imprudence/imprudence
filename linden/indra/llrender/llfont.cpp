@@ -311,7 +311,7 @@ BOOL LLFont::addChar(const llwchar wch) const
 		// Try looking it up in the backup Unicode font
 		if (mFallbackFontp)
 		{
-			//llinfos << "Trying to add glyph from fallback font!" << llendl
+			//llinfos << "Trying to add glyph from fallback font!" << llendl;
 			LLFontList::iterator iter;
 			for(iter = mFallbackFontp->begin(); iter != mFallbackFontp->end(); iter++)
 			{

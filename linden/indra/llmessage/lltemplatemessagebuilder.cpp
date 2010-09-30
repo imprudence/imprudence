@@ -730,7 +730,7 @@ static S32 buildBlock(U8* buffer, S32 buffer_size, const LLMessageBlock* templat
 							<< "Attempted to pack "
 							<< result + mvci.getSize()
 							<< " bytes into a buffer with size "
-							<< buffer_size << "." << llendl
+							<< buffer_size << "." << llendl;
 					}						
 				}
 			}
