@@ -548,18 +548,12 @@ LLColor4 get_extended_text_color(const LLUUID session_id, const LLUUID other_par
 {
 	if (gSavedSettings.getBOOL("HighlightOwnNameInIM") && (other_partecipant_id != LLUUID::null))
 	{
-		LLDynamicArray<LLGroupData>::iterator i;
-		for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
-		{
-			if (i->mID == session_id)
-			{
-				if (LLFloaterChat::isOwnNameInText(msg))
-					return gSavedSettings.getColor4("OwnNameChatColor");
-				else
-					break;
-			}
-		}
+		if (LLFloaterChat::isOwnNameInText(msg))
+			return gSavedSettings.getColor4("OwnNameChatColor");
 	}
+
+	if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(other_partecipant_id))
+		return gSavedSettings.getColor4("FriendsChatColor");
 
 	return defaultColor;
 }
