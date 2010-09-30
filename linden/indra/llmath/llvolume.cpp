@@ -4268,7 +4268,7 @@ LLFaceID LLVolume::generateFaceMask()
 		}
 		break;
 	default:
-		llerrs << "Unknown profile!" << llendl
+		llerrs << "Unknown profile!" << llendl;
 		break;
 	}
 

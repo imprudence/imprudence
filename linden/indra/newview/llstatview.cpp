@@ -76,7 +76,7 @@ LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp,
 
 //	if (getStatBar(name))
 //	{
-//		llinfos << "LLStatView::addStat - Stat already exists!" << llendl
+//		llinfos << "LLStatView::addStat - Stat already exists!" << llendl;
 //		return NULL;
 //	}
 

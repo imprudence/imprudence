@@ -1396,7 +1396,7 @@ void LLPreviewLSL::onSaveComplete(const LLUUID& asset_uuid, void* user_data, S32
 			else
 			{
 				llwarns << "Inventory item for script " << info->mItemUUID
-					<< " is no longer in agent inventory." << llendl
+					<< " is no longer in agent inventory." << llendl;
 			}
 
 			// Find our window and close it if requested.
