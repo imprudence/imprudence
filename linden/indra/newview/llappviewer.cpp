@@ -1191,6 +1191,10 @@ bool LLAppViewer::cleanup()
 		LLAvatarTracker::instance().reset();
 	}
 
+	//reset balance for not playing the UI-Sound 
+	//when relogging into another account 
+	gStatusBar->clearBalance();
+
 	if (mQuitRequested)
 	{
 		display_cleanup();
