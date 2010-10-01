@@ -3107,7 +3107,27 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			}
 			items.push_back(std::string("Edit WindLight Settings"));
 		}
+		else
+		{
+			items.push_back(std::string("Open"));
+		}
 		items.push_back(std::string("Properties"));
+
+		// RLVa stuff copied from LLInvFVBridge::buildContextMenu
+		// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+		if (rlv_handler_t::isEnabled())
+		{
+			LLInventoryObject* pItem = (mInventoryPanel->getModel()) ? mInventoryPanel->getModel()->getObject(mUUID) : NULL;
+			if ( (pItem) &&
+				 ( ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))) ||
+				   ((LLAssetType::AT_LSL_TEXT == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))) ||
+				   ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
+			{
+				disabled_items.push_back(std::string("Open"));
+			}
+		}
+		// [/RLVa:KB]
+
 		getClipboardEntries(true, items, disabled_items, flags);
 	}
 	hideContextEntries(menu, items, disabled_items);
