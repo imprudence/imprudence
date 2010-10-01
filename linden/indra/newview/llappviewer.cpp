@@ -1185,6 +1185,9 @@ bool LLAppViewer::cleanup()
 
 	llinfos << "Viewer disconnected" << llendflush;
 
+	//this deletes all your buddies
+	LLAvatarTracker::instance().reset();
+
 	if (mQuitRequested)
 	{
 		display_cleanup();
