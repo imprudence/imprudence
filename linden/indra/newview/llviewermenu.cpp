@@ -1560,6 +1560,7 @@ void cleanup_menus()
 {
 	LL_DEBUGS("AFK") << "cleanup_menus start" << LL_ENDL;
 	sMenus.clear();
+	LLMenuGL::sMenuContainer = NULL;
 
 	delete gMenuParcelObserver;
 	gMenuParcelObserver = NULL;
