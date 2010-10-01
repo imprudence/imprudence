@@ -1185,8 +1185,11 @@ bool LLAppViewer::cleanup()
 
 	llinfos << "Viewer disconnected" << llendflush;
 
-	//this deletes all your buddies
-	LLAvatarTracker::instance().reset();
+	if (!mQuitRequested)			//not doing it on quit, because the quitting voiceclient
+	{					//*might* crash imprudence TODO: fix the voiceclient instead
+		//this deletes all your buddies
+		LLAvatarTracker::instance().reset();
+	}
 
 	if (mQuitRequested)
 	{
