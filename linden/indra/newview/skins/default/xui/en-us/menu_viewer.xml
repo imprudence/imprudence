@@ -1554,6 +1554,11 @@
         <on_check control="ShowSearchBar" />
       </menu_item_check>
 
+	<menu_item_call name="Reload Balance" label="Reload [CURRENCY] balance" shortcut="control|alt|B">
+        <on_click function="Advanced.ReloadBalance" userdata="" />
+      </menu_item_call>
+
+
       <menu_item_separator />
 
       <menu_item_call name="Web Browser Test" label="Web Browser Test">

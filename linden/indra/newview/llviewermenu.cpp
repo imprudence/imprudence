@@ -457,6 +457,7 @@ void dump_inventory(void*);
 void edit_ui(void*);
 void toggle_visibility(void*);
 BOOL get_visibility(void*);
+void reload_linden_balance(void*);
 
 // Avatar Pie menu
 void request_friendship(const LLUUID& agent_id);
@@ -677,6 +678,8 @@ void init_menus()
 	gMenuHolder->childSetLabelArg("Bulk Upload", "[UPLOADFEE]", fee);
 	gMenuHolder->childSetLabelArg("ImportUpload", "[UPLOADFEE]", fee);
 	gMenuHolder->childSetLabelArg("Buy and Sell L$...", "[CURRENCY]",
+		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	gMenuHolder->childSetLabelArg("Reload Balance", "[CURRENCY]",
 		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	gAFKMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Away", TRUE);
@@ -1060,6 +1063,7 @@ void init_debug_ui_menu(LLMenuGL* menu)
 {
 	menu->append(new LLMenuItemCheckGL("Use default system color picker", menu_toggle_control, NULL, menu_check_control, (void*)"UseDefaultColorPicker"));
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
+	menu->append(new LLMenuItemCallGL("Reload L$ balance", &reload_linden_balance, NULL, NULL, 'B', MASK_CONTROL | MASK_ALT));
 	menu->appendSeparator();
 
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
@@ -5831,6 +5835,11 @@ class LLObjectEnableSitOrStand : public view_listener_t
 	}
 };
 
+void reload_linden_balance(void*)
+{
+	LLStatusBar::sendMoneyBalanceRequest();
+}
+
 void edit_ui(void*)
 {
 	LLFloater::setEditModeEnabled(!LLFloater::getEditModeEnabled());
@@ -9467,7 +9476,17 @@ class LLAdvancedToggleEditableUI : public view_listener_t
 // become a menu_item_check. Need to add check_edit_ui(void*)
 // or functional equivalent to do that.
 
-
+/////////////////////
+// Reload L$ balance //
+/////////////////////
+class LLAdvancedReloadBalance : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		reload_linden_balance(NULL);
+		return true;
+	}
+};
 
 /////////////////////
 // DUMP SELECT MGR //
@@ -11284,6 +11303,7 @@ void initialize_menus()
 	// Advanced > UI
 	addMenu(new LLAdvancedWebBrowserTest(), "Advanced.WebBrowserTest");
 	addMenu(new LLAdvancedToggleEditableUI(), "Advanced.ToggleEditableUI");
+	addMenu(new LLAdvancedReloadBalance(), "Advanced.ReloadBalance");
 	//addMenu(new LLAdvancedCheckEditableUI(), "Advanced.CheckEditableUI");
 	addMenu(new LLAdvancedDumpSelectMgr(), "Advanced.DumpSelectMgr");
 	addMenu(new LLAdvancedDumpInventory(), "Advanced.DumpInventory");
