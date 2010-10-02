@@ -922,7 +922,8 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 				}
 				break;
 			case LLAssetType::AT_LANDMARK:
-				open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), show_keep_discard, LLUUID::null, FALSE);
+				if (!show_keep_discard)
+					open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), FALSE, LLUUID::null, FALSE);
 				break;
 			case LLAssetType::AT_TEXTURE:
 				open_texture(*it, std::string("Texture: ") + item->getName(), show_keep_discard, LLUUID::null, FALSE);
@@ -2716,43 +2717,46 @@ void process_decline_callingcard(LLMessageSystem* msg, void**)
 class ChatTranslationReceiver : public LLTranslate::TranslationReceiver
 {
 public :
-	ChatTranslationReceiver(const std::string &fromLang, const std::string &toLang, LLChat *chat,
-		const BOOL history)
+	ChatTranslationReceiver(const std::string &fromLang, const std::string &toLang, const LLChat &chat,
+		const std::string &orig_mesg, const BOOL history)
 		: LLTranslate::TranslationReceiver(fromLang, toLang),
 		m_chat(chat),
+		m_origMesg(orig_mesg),
 		m_history(history)
 	{
 	}
 
-	static boost::intrusive_ptr<ChatTranslationReceiver> build(const std::string &fromLang, const std::string &toLang, LLChat *chat, const BOOL history)
+	static boost::intrusive_ptr<ChatTranslationReceiver> build(const std::string &fromLang, const std::string &toLang, const LLChat &chat, const std::string &orig_mesg, const BOOL history)
 	{
-		return boost::intrusive_ptr<ChatTranslationReceiver>(new ChatTranslationReceiver(fromLang, toLang, chat, history));
+		return boost::intrusive_ptr<ChatTranslationReceiver>(new ChatTranslationReceiver(fromLang, toLang, chat, orig_mesg, history));
 	}
 
 protected:
-	void handleResponse(const std::string &translation, const std::string &detectedLanguage)
+	void handleResponse(const std::string &translation, const std::string &detected_language)
 	{
-		if (m_toLang != detectedLanguage)
-			m_chat->mText += " (" + translation + ")";
+		// filter out non-interesting responeses
+		if ( !translation.empty()
+			&& (m_toLang != detected_language)
+			&& (LLStringUtil::compareInsensitive(translation, m_origMesg) != 0) )
+		{
+			m_chat.mText += " (" + translation + ")";
+		}
 
-		add_floater_chat(*m_chat, m_history);
-
-		delete m_chat;
+		add_floater_chat(m_chat, m_history);
 	}
 
 	void handleFailure()
 	{
 		LLTranslate::TranslationReceiver::handleFailure();
 
-		m_chat->mText += " (?)";
+		m_chat.mText += " (?)";
 
-		add_floater_chat(*m_chat, m_history);
-
-		delete m_chat;
+		add_floater_chat(m_chat, m_history);
 	}
 
 private:
-	LLChat *m_chat;
+	LLChat m_chat;
+	std::string m_origMesg;
 	const BOOL m_history;
 };
 
@@ -2770,9 +2774,9 @@ void add_floater_chat(const LLChat &chat, const BOOL history)
 	}
 }
 
-void check_translate_chat(const std::string &mesg, LLChat &chat, const BOOL history)
+void check_translate_chat(const std::string &mesg, const LLChat &chat, const BOOL history)
 {
-	const bool translate = LLUI::sConfigGroup->getBOOL("TranslateChat");
+	const bool translate = gSavedSettings.getBOOL("TranslateChat");
 
 	if (translate && chat.mSourceType != CHAT_SOURCE_SYSTEM)
 	{
@@ -2780,9 +2784,8 @@ void check_translate_chat(const std::string &mesg, LLChat &chat, const BOOL hist
 		// SVC-4879
 		const std::string &fromLang = "";
 		const std::string &toLang = LLTranslate::getTranslateLanguage();
-		LLChat *newChat = new LLChat(chat);
 
-		LLHTTPClient::ResponderPtr result = ChatTranslationReceiver::build(fromLang, toLang, newChat, history);
+		LLHTTPClient::ResponderPtr result = ChatTranslationReceiver::build(fromLang, toLang, chat, mesg, history);
 		LLTranslate::translateMessage(result, fromLang, toLang, mesg);
 	}
 	else
@@ -2961,8 +2964,9 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		std::string prefix = mesg.substr(0, 4);
 		if (prefix == "/me " || prefix == "/me'")
 		{
-			chat.mText = from_name;
-			chat.mText += mesg.substr(3);
+			const std::string spacer = mesg.substr(3,1);
+			mesg = mesg.substr(4);
+			chat.mText = from_name + spacer + mesg;
 			ircstyle = TRUE;
 		}
 		else
@@ -3022,7 +3026,8 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (!is_muted && !is_busy)
 			{
-				visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
+				static BOOL* sUseChatBubbles = rebind_llcontrol<BOOL>("UseChatBubbles", &gSavedSettings, true);
+				visible_in_chat_bubble = *sUseChatBubbles;
 				((LLVOAvatar*)chatter)->addChat(chat);
 			}
 		}
@@ -3540,6 +3545,12 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	if( is_teleport )
 	{
+		if (gAgent.getTeleportKeepsLookAt())
+		{
+			// *NOTE: the LookAt data we get from the sim here doesn't
+			// seem to be useful, so get it from the camera instead.
+			look_at = LLViewerCamera::getInstance()->getAtAxis();
+		}
 		// Force the camera back onto the agent, don't animate.
 		gAgent.setFocusOnAvatar(TRUE, FALSE);
 		gAgent.slamLookAt(look_at);
@@ -3601,7 +3612,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		{
 			LLTracker::stopTracking(NULL);
 		}
-		else if ( is_teleport )
+		else if ( is_teleport && !gAgent.getTeleportKeepsLookAt() )
 		{
 			//look at the beacon
 			LLVector3 global_agent_pos = agent_pos;

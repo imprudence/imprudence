@@ -464,12 +464,13 @@ void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& search_st
 		for (LLAvatarTracker::buddy_map_t::reverse_iterator bIt = all_buddies.rbegin();
 			 bIt != all_buddies.rend(); ++bIt)
 		{
-			llinfos << (*bIt).first << llendl;
 			if (gCacheName->getName((*bIt).first, firstname, lastname))
 			{
-				std::string test_name(firstname + " " + lastname);
-				LLStringUtil::toLower(test_name);
-				if (test_name.find(filter) != std::string::npos)
+				std::string l_name(firstname);
+				LLStringUtil::toLower(l_name);
+				std::string l_sname(lastname);
+				LLStringUtil::toLower(l_sname);
+				if (l_name.find(filter) == 0 || l_sname.find(filter) == 0)
 				{
 					temp_buddies.insert(temp_buddies.begin(), std::pair<LLUUID, LLRelationship*>((*bIt).first, (*bIt).second));
 				}

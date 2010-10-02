@@ -292,9 +292,14 @@ void LLHUDText::renderText(BOOL for_select)
 	// *TODO: cache this image
 	LLUIImagePtr imagep = LLUI::getUIImage("rounded_square.tga");
 
+	static LLColor4* sBackgroundChatColor = rebind_llcontrol<LLColor4>("BackgroundChatColor", &gSavedSettings, true);
+	
 	// *TODO: make this a per-text setting
-	LLColor4 bg_color = gSavedSettings.getColor4("BackgroundChatColor");
-	bg_color.setAlpha(gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor);
+	LLColor4 bg_color = *sBackgroundChatColor;
+
+	static F32* sChatBubbleOpacity = rebind_llcontrol<F32>("ChatBubbleOpacity", &gSavedSettings, true);
+	
+	bg_color.setAlpha(*sChatBubbleOpacity * alpha_factor);
 
 	const S32 border_height = 16;
 	const S32 border_width = 16;
@@ -394,7 +399,7 @@ void LLHUDText::renderText(BOOL for_select)
 				{
 					LLUI::pushMatrix();
 					{
-						gGL.color4f(text_color.mV[VX], text_color.mV[VY], text_color.mV[VZ], gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor);
+						gGL.color4f(text_color.mV[VX], text_color.mV[VY], text_color.mV[VZ], *sChatBubbleOpacity * alpha_factor);
 						LLVector3 label_height = (mFontp->getLineHeight() * mLabelSegments.size() + (VERTICAL_PADDING / 3.f)) * y_pixel_vec;
 						LLVector3 label_offset = height_vec - label_height;
 						LLUI::translate(label_offset.mV[VX], label_offset.mV[VY], label_offset.mV[VZ]);

@@ -140,9 +140,10 @@ void LLPrefsChatImpl::refreshValues()
 	mPlayTypingAnim = gSavedSettings.getBOOL("PlayTypingAnim"); 
 	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
 	mConsoleOpacity = gSavedSettings.getF32("ConsoleBackgroundOpacity");
-	mBubbleOpacity = gSavedSettings.getF32("ChatBubbleOpacity");
 	mTranslateLanguage = gSavedSettings.getString("TranslateLanguage");
 	mTranslateChat = gSavedSettings.getBOOL("TranslateChat");
+	static F32* sChatBubbleOpacity = rebind_llcontrol<F32>("ChatBubbleOpacity", &gSavedSettings, true);
+	mBubbleOpacity = *sChatBubbleOpacity;
 }
 
 void LLPrefsChatImpl::cancel()

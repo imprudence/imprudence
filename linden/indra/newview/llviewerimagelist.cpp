@@ -156,7 +156,7 @@ void LLViewerImageList::doPreloadImages()
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
 		mImagePreloads.insert(image);
 	}
-	image = getImage(DEFAULT_WATER_NORMAL, MIPMAP_YES, IMMEDIATE_YES);
+	image = getImageFromFile(DEFAULT_WATER_NORMAL.asString()+".j2c", MIPMAP_YES, IMMEDIATE_YES,0,0,DEFAULT_WATER_NORMAL);
 	if (image) 
 	{
 		image->setAddressMode(LLTexUnit::TAM_WRAP);	

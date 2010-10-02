@@ -457,6 +457,7 @@ void dump_inventory(void*);
 void edit_ui(void*);
 void toggle_visibility(void*);
 BOOL get_visibility(void*);
+void reload_linden_balance(void*);
 
 // Avatar Pie menu
 void request_friendship(const LLUUID& agent_id);
@@ -677,6 +678,8 @@ void init_menus()
 	gMenuHolder->childSetLabelArg("Bulk Upload", "[UPLOADFEE]", fee);
 	gMenuHolder->childSetLabelArg("ImportUpload", "[UPLOADFEE]", fee);
 	gMenuHolder->childSetLabelArg("Buy and Sell L$...", "[CURRENCY]",
+		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
+	gMenuHolder->childSetLabelArg("Reload Balance", "[CURRENCY]",
 		gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
 	gAFKMenu = gMenuBarView->getChild<LLMenuItemCallGL>("Set Away", TRUE);
@@ -1060,6 +1063,7 @@ void init_debug_ui_menu(LLMenuGL* menu)
 {
 	menu->append(new LLMenuItemCheckGL("Use default system color picker", menu_toggle_control, NULL, menu_check_control, (void*)"UseDefaultColorPicker"));
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
+	menu->append(new LLMenuItemCallGL("Reload L$ balance", &reload_linden_balance, NULL, NULL, 'B', MASK_CONTROL | MASK_ALT));
 	menu->appendSeparator();
 
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
@@ -1560,6 +1564,7 @@ void cleanup_menus()
 {
 	LL_DEBUGS("AFK") << "cleanup_menus start" << LL_ENDL;
 	sMenus.clear();
+	LLMenuGL::sMenuContainer = NULL;
 
 	delete gMenuParcelObserver;
 	gMenuParcelObserver = NULL;
@@ -2576,9 +2581,9 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 
 		if (action == "teleport")
 		{
-			LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
+			pos.mdV[VZ] += gAgent.getAvatarObject()->getPelvisToFoot() + 0.2f;
 			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-			gAgent.teleportViaLocation(pos + hips_offset);
+			gAgent.teleportViaLocationLookAt(pos);
 		}
 		else if (action == "move")
 		{
@@ -5830,6 +5835,11 @@ class LLObjectEnableSitOrStand : public view_listener_t
 	}
 };
 
+void reload_linden_balance(void*)
+{
+	LLStatusBar::sendMoneyBalanceRequest();
+}
+
 void edit_ui(void*)
 {
 	LLFloater::setEditModeEnabled(!LLFloater::getEditModeEnabled());
@@ -7137,11 +7147,16 @@ void handle_test_female(void*)
 
 void handle_toggle_pg(void*)
 {
-	gAgent.setTeen( !gAgent.isTeen() );
-
-	LLFloaterWorldMap::reloadIcons(NULL);
-
-	llinfos << "PG status set to " << (S32)gAgent.isTeen() << llendl;
+	if(gSavedSettings.getBOOL("ToggleTeenMode"))
+	{
+		gAgent.setTeen( !gAgent.isTeen() );
+		LLFloaterWorldMap::reloadIcons(NULL);
+		llinfos << "PG status set to " << (S32)gAgent.isTeen() << llendl;
+	}
+	else
+	{
+		llinfos << "Teen mode cannot be toggled on this region" << llendl;
+	}
 }
 
 void handle_dump_attachments(void*)
@@ -7504,7 +7519,9 @@ class LLViewEnableMouselook : public view_listener_t
 	{
 		// You can't go directly from customize avatar to mouselook.
 		// TODO: write code with appropriate dialogs to handle this transition.
-		bool new_value = (CAMERA_MODE_CUSTOMIZE_AVATAR != gAgent.getCameraMode() && !gSavedSettings.getBOOL("FreezeTime"));
+		static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
+
+		bool new_value = (CAMERA_MODE_CUSTOMIZE_AVATAR != gAgent.getCameraMode() && !(*sFreezeTime));
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}
@@ -9459,7 +9476,17 @@ class LLAdvancedToggleEditableUI : public view_listener_t
 // become a menu_item_check. Need to add check_edit_ui(void*)
 // or functional equivalent to do that.
 
-
+/////////////////////
+// Reload L$ balance //
+/////////////////////
+class LLAdvancedReloadBalance : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		reload_linden_balance(NULL);
+		return true;
+	}
+};
 
 /////////////////////
 // DUMP SELECT MGR //
@@ -11276,6 +11303,7 @@ void initialize_menus()
 	// Advanced > UI
 	addMenu(new LLAdvancedWebBrowserTest(), "Advanced.WebBrowserTest");
 	addMenu(new LLAdvancedToggleEditableUI(), "Advanced.ToggleEditableUI");
+	addMenu(new LLAdvancedReloadBalance(), "Advanced.ReloadBalance");
 	//addMenu(new LLAdvancedCheckEditableUI(), "Advanced.CheckEditableUI");
 	addMenu(new LLAdvancedDumpSelectMgr(), "Advanced.DumpSelectMgr");
 	addMenu(new LLAdvancedDumpInventory(), "Advanced.DumpInventory");

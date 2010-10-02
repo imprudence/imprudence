@@ -193,6 +193,10 @@
 
 #include "llfloaterteleporthistory.h"
 
+#if LL_DARWIN
+#include <Security/Security.h>
+#endif
+
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
 #endif // LL_LIBXUL_ENABLED
@@ -1938,7 +1942,9 @@ bool idle_startup()
 			LLFloaterActiveSpeakers::showInstance();
 		}
 
-		if (gSavedSettings.getBOOL("BeaconsEnabled"))
+		static BOOL* sBeaconsEnabled = rebind_llcontrol<BOOL>("BeaconsEnabled", &gSavedSettings, true);
+
+		if (*sBeaconsEnabled)
 		{
 			LLFloaterBeacons::showInstance();
 		}

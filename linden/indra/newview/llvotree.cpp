@@ -324,7 +324,7 @@ U32 LLVOTree::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	//  Load Species-Specific data 
 	//
-	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName);
+	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE, 0, 0, sSpeciesTable[mSpecies]->mTextureID);
 	if (mTreeImagep)
 	{
 		gGL.getTexUnit(0)->bind(mTreeImagep.get());
@@ -359,8 +359,10 @@ BOOL LLVOTree::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	{
 		return TRUE;
 	}
+
+	static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
 	
-	if (gSavedSettings.getBOOL("RenderAnimateTrees"))
+	if (*sRenderAnimateTrees)
 	{
 		F32 mass_inv; 
 
@@ -403,7 +405,7 @@ BOOL LLVOTree::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 		}
 	} 
 
-	if (!gSavedSettings.getBOOL("RenderAnimateTrees"))
+	if (!*sRenderAnimateTrees)
 	{
 		if (mReferenceBuffer.isNull())
 		{
@@ -548,8 +550,8 @@ BOOL LLVOTree::updateGeometry(LLDrawable *drawable)
 			max_indices += sLODIndexCount[lod];
 			max_vertices += sLODVertexCount[lod];
 		}
-
-		mReferenceBuffer = new LLVertexBuffer(LLDrawPoolTree::VERTEX_DATA_MASK, gSavedSettings.getBOOL("RenderAnimateTrees") ? GL_STATIC_DRAW_ARB : 0);
+		static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
+		mReferenceBuffer = new LLVertexBuffer(LLDrawPoolTree::VERTEX_DATA_MASK, *sRenderAnimateTrees ? GL_STATIC_DRAW_ARB : 0);
 		mReferenceBuffer->allocateBuffer(max_vertices, max_indices, TRUE);
 
 		LLStrider<LLVector3> vertices;
@@ -852,8 +854,8 @@ BOOL LLVOTree::updateGeometry(LLDrawable *drawable)
 		llassert(vertex_count == max_vertices);
 		llassert(index_count == max_indices);
 	}
-
-	if (gSavedSettings.getBOOL("RenderAnimateTrees"))
+	static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
+	if (*sRenderAnimateTrees)
 	{
 		mDrawable->getFace(0)->mVertexBuffer = mReferenceBuffer;
 	}

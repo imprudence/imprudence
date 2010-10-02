@@ -83,8 +83,10 @@ BOOL LLPrefsAdvanced::postBuild()
 {
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
-	childSetValue("client_name_tag_check", gSavedSettings.getBOOL("ShowClientNameTag"));
-	childSetValue("client_name_color_check", gSavedSettings.getBOOL("ShowClientColor"));
+	static BOOL* sShowClientNameTag = rebind_llcontrol<BOOL>("ShowClientNameTag", &gSavedSettings, true);
+	childSetValue("client_name_tag_check", (*sShowClientNameTag));
+	static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
+	childSetValue("client_name_color_check", (*sShowClientColor));
 	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));

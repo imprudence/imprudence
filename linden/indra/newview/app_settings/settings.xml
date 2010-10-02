@@ -422,7 +422,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <integer>Random</integer>
+    <string>Random</string>
   </map>
   <key>LastTree</key>
   <map>
@@ -433,7 +433,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <integer>Random</integer>
+    <string>Random</string>
   </map>
   <key>LastSelectedGrid</key>
   <map>
@@ -726,6 +726,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>RenderWaterVoidCulling</key>
+    <map>
+    <key>Comment</key>
+    <string>Cull void water objects when off-screen.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>ResetAllPreferences</key>
   <map>
     <key>Comment</key>
@@ -746,7 +757,7 @@
 		<key>Type</key>
 		<string>Boolean</string>
 		<key>Value</key>
-		<integer>0</integer>
+		<integer>1</integer>
 		</map>
   <key>RezWithLandGroup</key>
   <map>
@@ -1168,6 +1179,20 @@
     <integer>1</integer>
   </map>
 
+  <!-- Begin: OpenRegionInfo -->
+  
+  <key>ToggleTeenMode</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow the toggle of Teen Mode via debug options</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  
   <!-- Begin: AO-->
 
   <key>AOEnabled</key>
@@ -10672,7 +10697,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>ShowTangentBasis</key>
     <map>
