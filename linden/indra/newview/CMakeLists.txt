@@ -1231,9 +1231,9 @@ add_custom_target(
 
 if (WINDOWS)
     if(MSVC71)
-        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /MAPINFO:LINES")
+        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /MAPINFO:LINES /LARGEADDRESSAWARE")
     else(MSVC71)
-        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map")
+        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /LARGEADDRESSAWARE")
     endif(MSVC71)
     
     set_target_properties(${VIEWER_BINARY_NAME}
