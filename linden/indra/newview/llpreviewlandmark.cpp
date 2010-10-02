@@ -89,10 +89,12 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 			  inv_item),
 	mLandmark( NULL )
 {
-	
 	mFactoryMap["place_details_panel"] = LLCallbackMap(LLPreviewLandmark::createPlaceDetail, this);
 	if (show_keep_discard)
 	{
+		// Move the notification in llviewermessage in the if/else there please.
+		// This class is no more called if show_keep_discard != TRUE -- Ele
+
 		// Decided against this, a text notification is a better fix for this -- McCabe
 		//LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_new_landmark.xml", &getFactoryMap());
 		//childSetAction("Discard btn",onDiscardBtn,this);
