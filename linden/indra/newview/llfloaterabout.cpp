@@ -116,11 +116,9 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// Version string
 	std::string version = llformat(
-	  "%s %d.%d.%d %s / %s %d.%d.%d (%d), %s %s\n",
+	  "%s %d.%d.%d %s (%s %s)\n",
 	  ViewerVersion::getImpViewerName().c_str(),
 	  ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(), ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str(),
-	  ViewerVersion::getLLViewerName().c_str(),
-	  ViewerVersion::getLLMajorVersion(), ViewerVersion::getLLMinorVersion(), ViewerVersion::getLLPatchVersion(), ViewerVersion::getLLBuildVersion(),
 	  __DATE__, __TIME__);
 
 	support_widget->appendColoredText(version, FALSE, FALSE, gColors.getColor("TextFgReadOnlyColor"));
