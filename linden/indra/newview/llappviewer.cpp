@@ -1189,6 +1189,9 @@ bool LLAppViewer::cleanup()
 	{					//*might* crash imprudence TODO: fix the voiceclient instead
 		//this deletes all your buddies
 		LLAvatarTracker::instance().reset();
+		// reset group data. Blame LL for the need to clear a member variable through a global
+		LLGroupMgr::getInstance()->clearGroups();
+		gAgent.mGroups.clear();
 	}
 
 	//reset balance for not playing the UI-Sound 
