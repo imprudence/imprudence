@@ -651,15 +651,21 @@ BOOL LLViewerParcelMgr::agentCanBuild() const
 {
 	if (mAgentParcel)
 	{
-		return (gAgent.isGodlike()
-				|| (mAgentParcel->allowModifyBy(
-						gAgent.getID(),
-						gAgent.getGroupID())));
+		const LLUUID parcel_group = mAgentParcel->getGroupID();
+		const LLUUID active_group = gAgent.getGroupID();
+
+		if (gAgent.isGodlike())
+			return true;
+
+		if (mAgentParcel->allowModifyBy(gAgent.getID(), active_group))
+			return true;
+
+		// Ele: enable build option if we are in the land group and we have create powers, even if the group tag is not active
+		if (gAgent.isInGroup(parcel_group) && gAgent.hasPowerInGroup(parcel_group, GP_LAND_ALLOW_CREATE))
+			return true;
 	}
-	else
-	{
-		return gAgent.isGodlike();
-	}
+
+	return gAgent.isGodlike();
 }
 
 BOOL LLViewerParcelMgr::agentCanTakeDamage() const
