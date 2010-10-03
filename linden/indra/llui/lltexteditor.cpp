@@ -398,38 +398,22 @@ LLTextEditor::LLTextEditor(
 	menu->appendSeparator("Transep");
 	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
 	translatemenu->setCanTearOff(FALSE);
-	SpellMenuBind* t=new SpellMenuBind;t->origin=this;t->word="en";
-	translatemenu->append(new LLMenuItemCallGL("English", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="da";
-	translatemenu->append(new LLMenuItemCallGL("Danish", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="de";
-	translatemenu->append(new LLMenuItemCallGL("Deutsch(German)", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="es";
-	translatemenu->append(new LLMenuItemCallGL("Spanish", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="fr";
-	translatemenu->append(new LLMenuItemCallGL("French", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="it";
-	translatemenu->append(new LLMenuItemCallGL("Italian", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="hu";
-	translatemenu->append(new LLMenuItemCallGL("Hungarian", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="nl";
-	translatemenu->append(new LLMenuItemCallGL("Dutch", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="pl";
-	translatemenu->append(new LLMenuItemCallGL("Polish", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="pt";
-	translatemenu->append(new LLMenuItemCallGL("Portugese", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="ru";
-	translatemenu->append(new LLMenuItemCallGL("Russian", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="tr";
-	translatemenu->append(new LLMenuItemCallGL("Turkish", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="uk";
-	translatemenu->append(new LLMenuItemCallGL("Ukrainian", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="zh";
-	translatemenu->append(new LLMenuItemCallGL("Chinese", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="ja";
-	translatemenu->append(new LLMenuItemCallGL("Japanese", context_translate, context_enable_translate, t));
-	t=new SpellMenuBind;t->origin=this;t->word="ko";
-	translatemenu->append(new LLMenuItemCallGL("Korean", context_translate, context_enable_translate, t));
+	translatemenu->append(new LLMenuItemCallGL("en", "English", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("da", "Danish", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("de", "Deutsch(German)", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("es", "Spanish", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("fr", "French", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("it", "Italian", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("hu", "Hungarian", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("nl", "Dutch", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("pl", "Polish", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("pt", "Portugese", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("ru", "Russian", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("tr", "Turkish", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("uk", "Ukrainian", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("zh", "Chinese", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("ja", "Japanese", context_translate, context_enable_translate, this));
+	translatemenu->append(new LLMenuItemCallGL("ko", "Korean", context_translate, context_enable_translate, this));
 	
 	menu->appendMenu(translatemenu);
 	menu->appendSeparator("Spelsep");
@@ -483,15 +467,20 @@ void LLTextEditor::context_copy(void* data)
 
 BOOL LLTextEditor::context_enable_translate(void * data)
 {
-	SpellMenuBind* t = (SpellMenuBind*)data;
-	return (t && t->origin && t->origin->canTranslate());
+	LLTextEditor* editor = (LLTextEditor*)data;
+	return editor && editor->canTranslate();
 }
 
 void LLTextEditor::context_translate(void * data)
 {
-	SpellMenuBind* t = (SpellMenuBind*)data;
-	LLTextEditor* line = t->origin;
-	const std::string &toLang = t->word;//LLTranslate::getTranslateLanguage();
+	LLTextEditor* line = (LLTextEditor*)data;
+	LLMenuGL* menu = line ? (LLMenuGL*)(line->mPopupMenuHandle.get()) : NULL;
+	LLMenuGL* translate_menu = menu ? menu->getChildMenuByName("Translate To", TRUE) : NULL;
+	if (!translate_menu)
+	{
+		return;
+	}
+	const std::string to_lang = translate_menu->getHighlightedItem()->getName();
 
 	bool has_text = false;
 	S32 start, length;
@@ -512,8 +501,8 @@ void LLTextEditor::context_translate(void * data)
 	if (has_text)
 	{
 		const std::string to_translate =  wstring_to_utf8str(line->getWText().substr(start, length));
-		LLHTTPClient::ResponderPtr result = TextChatTranslationReceiver::build(toLang, line, start, length);
-		LLTranslate::translateMessage(result,"", toLang, to_translate);
+		LLHTTPClient::ResponderPtr result = TextChatTranslationReceiver::build(to_lang, line, start, length);
+		LLTranslate::translateMessage(result,"", to_lang, to_translate);
 	}
 }
 
