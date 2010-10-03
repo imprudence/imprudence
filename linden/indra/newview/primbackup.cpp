@@ -350,6 +350,34 @@ void primbackup::pre_export_object()
 bool primbackup::check_perms( LLSelectNode* node )
 {
 	LLPermissions *perms = node->mPermissions;
+	// We check to see if there are megaprims in SL we can export. 
+	// Cludgy, but the only option considering LL's TPV policy.
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+	{
+		bool is_sl_megaprim = false;
+		for (int i = 0; i < 3; ++i)
+		{
+			if (node->getObject()->getScale().mV[i] > 10)
+			{
+				is_sl_megaprim = true;
+				break;
+			}
+		}
+
+		if (is_sl_megaprim)
+		{
+			// The following avatars in Second Life have given Imprudence permission for their full-perm
+			// megaprims to be exported even if that means changing the creator from themselves:
+			// McCabe_Maxsted ("3fc0478f-1c40-48a1-b8a7-3b7062efeda1");
+			// Gene_Replacement ("adfacb56-390b-4fdc-9216-3494f1c59862");
+			return ((perms->getCreator() == LLUUID("3fc0478f-1c40-48a1-b8a7-3b7062efeda1") ||
+					perms->getCreator() == LLUUID("adfacb56-390b-4fdc-9216-3494f1c59862") ||
+					perms->getCreator() == gAgent.getID()) &&
+					perms->getOwner() == gAgent.getID() &&
+					(PERM_ITEM_UNRESTRICTED & perms->getMaskOwner()) == PERM_ITEM_UNRESTRICTED);
+		}
+	}
+
 	return (gAgent.getID() == perms->getOwner() &&
 	        gAgent.getID() == perms->getCreator() &&
 	        (PERM_ITEM_UNRESTRICTED &
@@ -1111,7 +1139,4 @@ void primbackup::upload_next_asset()
 		 "Uploaded texture",
 		 NULL,
 		 NULL);
-
-
 }
-
