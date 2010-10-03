@@ -20,10 +20,9 @@
    Imprudence is online at ImprudenceViewer.org
 
 
-   The latest source code for the Imprudence Viewer is always
-   available at:
+   The latest source code for the Imprudence Viewer is available at:
 
-     http://github.com/jacek/imprudence/tree/master
+     http://github.com/imprudence/imprudence/
 
 
  LICENSE
