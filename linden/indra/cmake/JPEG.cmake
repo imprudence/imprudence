@@ -12,14 +12,7 @@ else (STANDALONE)
   if (LINUX)
     set(JPEG_LIBRARIES jpeg)
   elseif (DARWIN)
-    find_library(JPEG_LIBRARIES
-      NAMES jpeg.62
-      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-      )
-    if (NOT JPEG_LIBRARIES)
-      message(STATUS "WARNING: libjpeg.62.dylib not found! Falling back to -ljpeg. This might potentially link to the wrong libjpeg.")
-      set(JPEG_LIBRARIES jpeg)
-    endif (NOT JPEG_LIBRARIES)
+    set(JPEG_LIBRARIES jpeg.62)
   elseif (WINDOWS)
     set(JPEG_LIBRARIES jpeglib)
   endif (LINUX)
