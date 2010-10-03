@@ -43,6 +43,7 @@
 #include "llfloaternamedesc.h"
 #include "llfloatersnapshot.h"
 #include "llinventorymodel.h"	// gInventory
+#include "llinventoryview.h"	// open_texture()
 #include "llresourcedata.h"
 #include "llfloaterperms.h"
 #include "llstatusbar.h"
@@ -875,7 +876,9 @@ void temp_upload_done_callback(const LLUUID& uuid, void* user_data, S32 result, 
 		item->updateServer(TRUE);
 		gInventory.updateItem(item);
 		gInventory.notifyObservers();
-	}else // 	if(result >= 0)
+		open_texture(item_id, std::string("Texture: ") + item->getName(), TRUE, LLUUID::null, FALSE);
+	}
+	else // if(result >= 0)
 	{
 		LLSD args;
 		args["FILE"] = LLInventoryType::lookupHumanReadable(data->mInventoryType);
