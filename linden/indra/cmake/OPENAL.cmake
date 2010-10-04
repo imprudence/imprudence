@@ -2,11 +2,21 @@
 
 include(Variables)
 include(Linking)
+include(FindPkgConfig)
 
 set(OPENAL ON CACHE BOOL "Enable OpenAL")
 
+# If STANDALONE but NOT PKG_CONFIG_FOUND we should fail,
+# but why try to find it as prebuilt?
+if (OPENAL AND STANDALONE AND PKG_CONFIG_FOUND)
 
-if (OPENAL)
+  # This module defines
+  # OPENAL_INCLUDE_DIRS
+  # OPENAL_LIBRARIES
+  # OPENAL_FOUND
+  pkg_check_modules(OPENAL REQUIRED freealut)	# freealut links with openal.
+
+elseif (OPENAL)
 
   # message(STATUS "Building with OpenAL audio support")
 
@@ -110,4 +120,4 @@ if (OPENAL)
     "Found OpenAL and ALUT libraries successfully"
     )
 
-endif (OPENAL)
+endif (OPENAL AND STANDALONE AND PKG_CONFIG_FOUND)
