@@ -372,9 +372,10 @@ bool LLTextureCacheRemoteWorker::doRead()
 	if (!done && (mState == LOCAL))
 	{
 		llassert(local_size != 0);	// we're assuming there is a non empty local file here...
-		if (!mDataSize || mDataSize > local_size)
+		llassert(mReadData == NULL);
+		if (!mDataSize || mDataSize > (local_size - mOffset))
 		{
-			mDataSize = local_size;
+			mDataSize = local_size - mOffset;
 		}
 		// Allocate read buffer
 		mReadData = new U8[mDataSize];
