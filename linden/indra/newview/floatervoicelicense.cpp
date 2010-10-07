@@ -63,10 +63,10 @@ FloaterVoiceLicense::FloaterVoiceLicense(const LLSD& key)
 
 // helper class that trys to download a URL from a web site and calls a method 
 // on parent class indicating if the web server is working or not
-class LLIamHere : public LLHTTPClient::Responder
+class LLIamHereVoice : public LLHTTPClient::Responder
 {
 	private:
-		LLIamHere( FloaterVoiceLicense* parent ) :
+		LLIamHereVoice( FloaterVoiceLicense* parent ) :
 		   mParent( parent )
 		{}
 
@@ -74,9 +74,9 @@ class LLIamHere : public LLHTTPClient::Responder
 
 	public:
 
-		static boost::intrusive_ptr< LLIamHere > build( FloaterVoiceLicense* parent )
+		static boost::intrusive_ptr< LLIamHereVoice > build( FloaterVoiceLicense* parent )
 		{
-			return boost::intrusive_ptr< LLIamHere >( new LLIamHere( parent ) );
+			return boost::intrusive_ptr< LLIamHereVoice >( new LLIamHereVoice( parent ) );
 		};
 		
 		virtual void  setParent( FloaterVoiceLicense* parentIn )
@@ -105,7 +105,7 @@ class LLIamHere : public LLHTTPClient::Responder
 
 // this is global and not a class member to keep crud out of the header file
 namespace {
-	boost::intrusive_ptr< LLIamHere > gResponsePtr = 0;
+	boost::intrusive_ptr< LLIamHereVoice > gResponsePtr = 0;
 };
 
 BOOL FloaterVoiceLicense::postBuild()
@@ -128,7 +128,7 @@ BOOL FloaterVoiceLicense::postBuild()
 		// start to observe it so we see navigate complete events
 		web_browser->addObserver( this );
 
-		gResponsePtr = LLIamHere::build( this );
+		gResponsePtr = LLIamHereVoice::build( this );
 		LLHTTPClient::get( getString( "real_url" ), gResponsePtr );
 	}
 
