@@ -1502,7 +1502,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 	//setCursorAtLocalPos( x, y, TRUE );
 	S32 wordStart = 0;
-	S32 wordEnd = 0;
+	S32 wordLen = 0;
 	S32 pos = getCursorPosFromLocalCoord(x,y,TRUE);
 
 	LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandle.get();
@@ -1526,11 +1526,11 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		menu->setItemVisible("Spelsep", !mReadOnly && mSpellCheckable);
 		if (!mReadOnly && mSpellCheckable)
 		{
-			bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordEnd);
+			bool is_word_part = getWordBoundriesAt(pos, &wordStart, &wordLen);
 			if (is_word_part)
 			{
 				const LLWString &text = mWText;
-				std::string selectedWord(std::string(text.begin(), text.end()).substr(wordStart,wordEnd-wordStart));
+				std::string selectedWord(std::string(text.begin(), text.end()).substr(wordStart,wordLen));
 
 				if (!glggHunSpell->isSpelledRight(selectedWord))
 				{
@@ -1542,7 +1542,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 						SpellMenuBind * tempStruct = new SpellMenuBind;
 						tempStruct->origin = this;
 						tempStruct->word = suggs[i];
-						tempStruct->wordPositionEnd = wordEnd;
+						tempStruct->wordPositionEnd = wordStart + wordLen;
 						tempStruct->wordPositionStart=wordStart;
 						tempStruct->wordY=y;
 						LLMenuItemCallGL * suggMenuItem = new LLMenuItemCallGL(
@@ -1554,7 +1554,7 @@ BOOL LLTextEditor::handleRightMouseDown( S32 x, S32 y, MASK mask )
 					SpellMenuBind * tempStruct = new SpellMenuBind;
 					tempStruct->origin = this;
 					tempStruct->word = selectedWord;
-					tempStruct->wordPositionEnd = wordEnd;
+					tempStruct->wordPositionEnd = wordStart + wordLen;
 					tempStruct->wordPositionStart=wordStart;
 					tempStruct->wordY=y;
 					LLMenuItemCallGL * suggMenuItem = new LLMenuItemCallGL(
