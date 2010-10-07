@@ -4,6 +4,91 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.3.0                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    RELEASE HIGHLIGHTS
+
+      * Numerous bug fixes and stability improvements.
+
+
+    CHANGES
+
+      In addition to the Release Highlights above, this version of
+      Imprudence also includes the following changes, as compared to
+      Imprudence 1.3.0 RC3.
+
+
+      IMPROVEMENTS
+
+        * The Windows version can now use "large memory addresses" on
+          systems that support it (such as 64-bit Win7). This allows
+          the viewer to take full advantage of systems with lots of
+          memory. Thanks to Ansariel Hiller for the tip, and McCabe
+          for implementing it!
+
+        * The "Start Location" box is now shown on the login screen by
+          default. You can turn it off with "Preferences > General >
+          Show start location at login screen". Thanks, McCabe!
+
+        * Fonts now use only integer (whole number) sizes, which should
+          alleviate blurry font rendering for many users. Thanks, Jacek!
+
+
+      BUG FIXES
+
+        * Fixed the Second Life Terms of Service page not loading, and
+          therefore not allowing the user to agree or log in. Thanks,
+          Thickbrick Sleaford and Elektra!
+
+        * Fixed the viewer crashing when opening a landmark you just
+          received. Thanks, Elektra!
+
+        * Fixed "Rez objects using land group" not applying the land
+          group when duplicating an already-rezzed object.
+          Thanks, Henri Beauchamp!
+
+        * Possibly fixed the viewer getting stuck in an infinite loop
+          while verifying the texture cache at startup. Thanks, Jacek!
+
+        * Fixed the "Showcase" tab in Search showing the wrong page.
+          Thanks, McCabe!
+
+        * Fixed the "Reset to default" button in Debug Settings not
+          updating cached settings (SNOW-796). Thanks, Aleric Inglewood!
+
+        * Mac: Fixed (again) the compile process not using the correct
+          version of libjpeg. Thanks again, Nemurimasu Neiro!
+
+        * Fixed some compile errors when using the Mac OS X 10.6 SDK
+          (SNOW-231, SNOW-220). Thanks, Mimika Oh and Aimee Trescothick!
+
+        * Fixed a compile error when using g++ 4.4.x (SNOW-422).
+          Thanks, Aleric Inglewood!
+
+
+      OTHER CHANGES
+
+        * The "High resolution snapshot" setting is no longer saved
+          between sessions. This was causing users to get stuck in a
+          cycle where a high resolution snapshot would crash the
+          viewer, but the setting couldn't be disabled without opening
+          the snapshot window, which would take a snapshot and crash
+          the viewer again. Thanks, McCabe!
+
+        * Added some snapshot-related safety checks and a few changes
+          backported from Viewer 2. These should help alleviate some
+          common snapshot-related crashes. Thanks, McCabe!
+
+        * "Help > About Imprudence" no longer lists the Second Life
+          viewer version that it was based on. Imprudence is assembled
+          from many different sources and versions, so that
+          information is not really accurate or relevant.
+
+      
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                       1.3.0 RC3                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
