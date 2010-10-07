@@ -472,7 +472,7 @@ static char * languageCodesraw[]={
 lggHunSpell_Wrapper::lggHunSpell_Wrapper()
 {
 	//languageCodes(begin(languageCodesraw), end(languageCodesraw));    
-	mSpellCheckHighlight = rebind_llcontrol<BOOL>("EmeraldSpellDisplay", &gSavedSettings, false);
+	mSpellCheckHighlight = rebind_llcontrol<BOOL>("EmeraldSpellDisplay", &gSavedSettings, true);
 }
 
 lggHunSpell_Wrapper::~lggHunSpell_Wrapper()
@@ -963,8 +963,5 @@ void lggHunSpell_Wrapper::editCustomButton()
 
 void lggHunSpell_Wrapper::setSpellCheckHighlight(BOOL highlight)
 {
-	if (mSpellCheckHighlight)
-	{
-		*mSpellCheckHighlight = highlight;
-	}
+	gSavedSettings.setBOOL("EmeraldSpellDisplay", highlight);
 }

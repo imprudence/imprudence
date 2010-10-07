@@ -139,7 +139,7 @@
          name="EmeraldHelp_SpellCheck" tool_tip="Click here for help regarding the settings in this page."
          right="490" width="18"/>
       <check_box bottom="-25" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-         label="Show misspelled words in red (requires restart)" left="12" mouse_opaque="true" name="EmeraldSpellDisplay"
+         label="Show misspelled words in red" left="12" mouse_opaque="true" name="EmeraldSpellDisplay"
          control_name="EmeraldSpellDisplay" width="126"/>
       <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left="12"
          name="EmSpell_txt1" width="512">
