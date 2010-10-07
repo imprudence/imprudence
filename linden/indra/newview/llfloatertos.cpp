@@ -89,10 +89,10 @@ LLFloaterTOS::LLFloaterTOS(ETOSType type, const std::string & message)
 
 // helper class that trys to download a URL from a web site and calls a method 
 // on parent class indicating if the web server is working or not
-class LLIamHere : public LLHTTPClient::Responder
+class LLIamHereTOS : public LLHTTPClient::Responder
 {
 	private:
-		LLIamHere( LLFloaterTOS* parent ) :
+		LLIamHereTOS( LLFloaterTOS* parent ) :
 		   mParent( parent )
 		{}
 
@@ -100,9 +100,9 @@ class LLIamHere : public LLHTTPClient::Responder
 
 	public:
 
-		static boost::intrusive_ptr< LLIamHere > build( LLFloaterTOS* parent )
+		static boost::intrusive_ptr< LLIamHereTOS > build( LLFloaterTOS* parent )
 		{
-			return boost::intrusive_ptr< LLIamHere >( new LLIamHere( parent ) );
+			return boost::intrusive_ptr< LLIamHereTOS >( new LLIamHereTOS( parent ) );
 		};
 		
 		virtual void  setParent( LLFloaterTOS* parentIn )
@@ -131,7 +131,7 @@ class LLIamHere : public LLHTTPClient::Responder
 
 // this is global and not a class member to keep crud out of the header file
 namespace {
-	boost::intrusive_ptr< LLIamHere > gResponsePtr = 0;
+	boost::intrusive_ptr< LLIamHereTOS > gResponsePtr = 0;
 };
 
 BOOL LLFloaterTOS::postBuild()
@@ -142,13 +142,15 @@ BOOL LLFloaterTOS::postBuild()
 
 	if ( mType != TOS_TOS )
 	{
+		llinfos << "tos_type != TOS_TOS" << llendl;
 		// this displays the critical message
 		LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
 		editor->setHandleEditKeysDirectly( TRUE );
 		editor->setEnabled( FALSE );
 		editor->setWordWrap(TRUE);
 		editor->setFocus(TRUE);
-		editor->setValue(LLSD(mMessage));
+		// editor->setValue(LLSD(mMessage));
+		editor->setValue(mMessage);
 
 		return TRUE;
 	}
@@ -159,7 +161,7 @@ BOOL LLFloaterTOS::postBuild()
 
 	// hide the SL text widget if we're displaying TOS with using a browser widget.
 	LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
-	editor->setVisible( FALSE );
+	editor->setVisible(FALSE);
 
 	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("tos_html");
 	if ( web_browser )
@@ -167,8 +169,8 @@ BOOL LLFloaterTOS::postBuild()
 		// start to observe it so we see navigate complete events
 		web_browser->addObserver( this );
 
-		gResponsePtr = LLIamHere::build( this );
-		LLHTTPClient::get( getString( "real_url" ), gResponsePtr );
+		gResponsePtr = LLIamHereTOS::build( this );
+		LLHTTPClient::head( getString( "real_url" ), gResponsePtr );
 	}
 
 	return TRUE;
