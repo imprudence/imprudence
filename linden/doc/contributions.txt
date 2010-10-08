@@ -46,6 +46,25 @@ Aleric Inglewood
 	VWR-10759
 	VWR-10837
 	IMP-581
+	SNOW-800
+	RED-429
+	RED-552
+	RED-553
+	RED-554
+	RED-556
+	RED-560
+	RED-561
+	RED-562
+	RED-565
+	RED-566
+	RED-567
+	RED-573
+	RED-575
+	RED-576
+	RED-577
+	RED-578
+	RED-579
+	RED-581
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -87,11 +106,8 @@ Alissa Sabre
         VWR-7087
         VWR-7153
         VWR-7168
-<<<<<<< HEAD
-=======
         VWR-7087
         VWR-7086
->>>>>>> origin/next
 	VWR-9190
 	VWR-10728
 	VWR-12620

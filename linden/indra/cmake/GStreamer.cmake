@@ -80,6 +80,7 @@ else (WINDOWS)
         gmodule-2.0
         gthread-2.0
         glib-2.0
+        gio-2.0
         xml2.2
         )
 
@@ -99,6 +100,7 @@ else (WINDOWS)
         gthread-2.0
         rt
         glib-2.0
+        gio-2.0
         )
 
   endif (DARWIN)

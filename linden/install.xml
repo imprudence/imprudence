@@ -334,9 +334,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>9738472b94191fae2b0fe3fce8df17b0</string>
+            <string>09be41e3145e1a960e50f2f9ce0a5e7d</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/dbusglib-linux64-20091129.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/dbusglib-linux64-20101007.tar.bz2</uri>
           </map>
         </map>
       </map>

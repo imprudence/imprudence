@@ -39,6 +39,7 @@ else (STANDALONE)
         gdk-x11-2.0
         gdk_pixbuf-2.0
         glib-2.0
+        gio-2.0
         gmodule-2.0
         gobject-2.0
         gthread-2.0
@@ -48,6 +49,7 @@ else (STANDALONE)
         pangox-1.0
         pangoxft-1.0
         pixman-1
+        pangocairo-1.0
         )
   endif (LINUX)
 
