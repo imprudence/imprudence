@@ -416,7 +416,16 @@ void LLLineEditor::setText(const LLStringExplicit &new_text)
 	setCursor(llmin((S32)mText.length(), getCursor()));
 
 	// Set current history line to end of history.
-	mCurrentHistoryLine = mLineHistory.end() - 1;
+	// RC Fix, its really not safe to just take 1 of the end itterator, if end==begin
+	// that leaves an invalid state upseting the secure STL checks
+	if(mLineHistory.empty())
+	{
+		mCurrentHistoryLine = mLineHistory.begin();
+	}
+	else
+	{
+		mCurrentHistoryLine = mLineHistory.end() - 1;
+	}
 
 	mPrevText = mText;
 }
