@@ -1,12 +1,26 @@
+/**
+ *
+ * Copyright (c) 2009-2010, Kitty Barnett
+ *
+ * The source code in this file is provided to you under the terms of the
+ * GNU General Public License, version 2.0, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. Terms of the GPL can be found in doc/GPL-license.txt
+ * in this distribution, or online at http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * By copying, modifying or distributing this software, you acknowledge that
+ * you have read and understood your obligations described above, and agree to
+ * abide by those obligations.
+ *
+ */
+
 #include "llviewerprecompiledheaders.h"
-#include "llagent.h"
+#include "llcallbacklist.h"
 #include "lldrawpoolalpha.h"
-#include "llfirstuse.h"
 #include "llfloaterbeacons.h"
 #include "llfloaterchat.h"
 #include "llfloaterdaycycle.h"
 #include "llfloaterenvsettings.h"
-#include "llfloatergodtools.h"
 #include "llfloaterland.h"
 #include "llfloatermap.h"
 #include "llfloaterregioninfo.h"
@@ -14,22 +28,19 @@
 #include "llfloaterwater.h"
 #include "llfloaterwindlight.h"
 #include "llfloaterworldmap.h"
-#include "llgesturemgr.h"
 #include "llinventoryview.h"
 #include "llstartup.h"
 #include "llviewermenu.h"
 #include "llviewermessage.h"
+#include "llviewerobjectlist.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
-#include "llvoavatar.h"
 #include "llworld.h"
 #include "pipeline.h"
 
-#include "rlvhelper.h"
-#include "rlvevent.h"
-#include "rlvextensions.h"
 #include "rlvhandler.h"
+#include "rlvextensions.h"
 
 // Only defined in llinventorybridge.cpp
 #if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
@@ -43,46 +54,51 @@ extern const char* NEW_CATEGORY_NAME;
 //
 
 BOOL RlvHandler::m_fEnabled = FALSE;
-BOOL RlvHandler::fNoSetEnv = FALSE;
-BOOL RlvHandler::fLegacyNaming = FALSE;
-BOOL RlvHandler::m_fFetchStarted = FALSE;
-BOOL RlvHandler::m_fFetchComplete = FALSE;
+bool RlvHandler::m_fFetchStarted = false;
+bool RlvHandler::m_fFetchComplete = false;
 RlvMultiStringSearch RlvHandler::m_AttachLookup;
-
 const std::string RlvHandler::cstrSharedRoot = RLV_ROOT_FOLDER;
-
-// Keep these consistent with regular RLV
-const std::string RlvHandler::cstrBlockedRecvIM = "*** IM blocked by your viewer";
-const std::string RlvHandler::cstrBlockedSendIM = "*** IM blocked by sender's viewer";
-const std::string RlvHandler::cstrHidden = "(Hidden)";
-const std::string RlvHandler::cstrHiddenParcel = "(Hidden parcel)";
-const std::string RlvHandler::cstrHiddenRegion = "(Hidden region)";
-const std::string RlvHandler::cstrMsgRecvIM = 
-	"The Resident you messaged is prevented from reading your instant messages at the moment, please try again later.";
-const std::string RlvHandler::cstrMsgTpLure = 
-	"The Resident you invited is prevented from accepting teleport offers. Please try again later.";
-
-const std::string RlvHandler::cstrAnonyms[] =
-{
-	"A resident", "This resident", "That resident", "An individual", "This individual", "That individual", "A person",
-	"This person", "That person", "A stranger", "This stranger", "That stranger", "A being", "This being", 
-	"That being", "An agent", "This agent", "That agent", "A soul", "This soul", "That soul", "Somebody", 
-	"Some people", "Someone", "Mysterious one", "An unknown being", "Unidentified one", "An unknown person"
-};
 
 rlv_handler_t gRlvHandler;
 
 // ============================================================================
-// Helper functions
+// Attachment group helper functions
 //
 
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Added: RLVa-0.2.0e
-inline bool rlvIsWearingItem(const LLInventoryItem* pItem)
+// Has to match the order of ERlvAttachGroupType
+const std::string cstrAttachGroups[RLV_ATTACHGROUP_COUNT] = { "head", "torso", "arms", "legs", "hud" };
+
+// Checked: 2009-10-19 (RLVa-1.1.0e) | Added: RLVa-1.1.0e
+inline ERlvAttachGroupType rlvGetAttachGroupTypeFromIndex(S32 idxGroup)
 {
-	return 
-		((LLAssetType::AT_OBJECT == pItem->getType()) && (gAgent.getAvatarObject()->isWearingAttachment(pItem->getUUID()))) ||
-		((LLAssetType::AT_GESTURE == pItem->getType()) && (gGestureManager.isGestureActive(pItem->getUUID()))) ||
-		(gAgent.isWearingItem(pItem->getUUID()));
+	switch (idxGroup)
+	{
+		case 0: // Right Hand
+		case 1: // Right Arm
+		case 3: // Left Arm
+		case 4: // Left Hand
+			return RLV_ATTACHGROUP_ARMS;
+		case 2: // Head
+			return RLV_ATTACHGROUP_HEAD;
+		case 5: // Left Leg
+		case 7: // Right Leg
+			return RLV_ATTACHGROUP_LEGS;
+		case 6: // Torso
+			return RLV_ATTACHGROUP_TORSO;
+		case 8: // HUD
+			return RLV_ATTACHGROUP_HUD;
+		default:
+			return RLV_ATTACHGROUP_INVALID;
+	}
+}
+
+// Checked: 2009-10-19 (RLVa-1.1.0e) | Added: RLVa-1.1.0e
+inline ERlvAttachGroupType rlvGetAttachGroupTypeFromString(const std::string& strGroup)
+{
+	for (int idx = 0; idx < RLV_ATTACHGROUP_COUNT; idx++)
+		if (cstrAttachGroups[idx] == strGroup)
+			return (ERlvAttachGroupType)idx;
+	return RLV_ATTACHGROUP_INVALID;
 }
 
 // ============================================================================
@@ -116,7 +132,7 @@ static bool rlvParseNotifyOption(const std::string& strOption, S32& nChannel, st
 
 // Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
 RlvHandler::RlvHandler() 
-	: m_fCanCancelTp(true), m_idCurObject(LLUUID::null), m_pCurCommand(NULL), m_pGCTimer(NULL), m_pWLSnapshot(NULL), m_pBhvrNotify(NULL)
+	: m_fCanCancelTp(true), m_pGCTimer(NULL), m_pWLSnapshot(NULL), m_pBhvrNotify(NULL)
 {
 	// Array auto-initialization to 0 is non-standard? (Compiler warning in VC-8.0)
 	memset(m_LayersAdd, 0, sizeof(S16) * WT_COUNT);
@@ -137,38 +153,30 @@ RlvHandler::~RlvHandler()
 // Attachment related functions 
 //
 
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
-inline LLViewerJointAttachment* RlvHandler::getAttachPoint(const std::string& strText, bool fExact) const
-{
-	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
-	return (pAvatar) ? get_if_there(pAvatar->mAttachmentPoints, getAttachPointIndex(strText, fExact), (LLViewerJointAttachment*)NULL)
-	                 : NULL;
-}
-
 // Checked: 2009-07-29 (RLVa-1.0.1b) | Modified: RLVa-1.0.1b
-LLViewerJointAttachment* RlvHandler::getAttachPoint(const LLInventoryCategory* pFolder, bool /*fStrict*/) const
+S32 RlvHandler::getAttachPointIndex(const LLInventoryCategory* pFolder, bool /*fStrict*/) const
 {
 	if (!pFolder)
-		return NULL;
+		return 0;
 
 	// RLVa-1.0.1 added support for legacy matching (See http://rlva.catznip.com/blog/2009/07/attachment-point-naming-convention/)
-	if (fLegacyNaming)
-		return getAttachPointLegacy(pFolder);
+	if (RlvSettings::getEnableLegacyNaming())
+		return getAttachPointIndexLegacy(pFolder);
 
 	// Otherwise the only valid way to specify an attachment point in a folder name is: ^\.\(\s+attachpt\s+\)
 	std::string::size_type idxMatch;
 	std::string strAttachPt = rlvGetFirstParenthesisedText(pFolder->getName(), &idxMatch);
 	LLStringUtil::trim(strAttachPt);
 
-	return ( (1 == idxMatch) && (RLV_FOLDER_PREFIX_HIDDEN == pFolder->getName().at(0)) ) ? getAttachPoint(strAttachPt, true) : NULL;
+	return ( (1 == idxMatch) && (RLV_FOLDER_PREFIX_HIDDEN == pFolder->getName().at(0)) ) ? getAttachPointIndex(strAttachPt, true) : 0;
 }
 
 // Checked: 2009-07-29 (RLVa-1.0.1b) | Modified: RLVa-1.0.1b
-LLViewerJointAttachment* RlvHandler::getAttachPoint(const LLInventoryItem* pItem, bool fStrict) const
+S32 RlvHandler::getAttachPointIndex(const LLInventoryItem* pItem, bool fStrict) const
 {
 	// Sanity check - if it's not an object then it can't have an attachment point
 	if ( (!pItem) || (LLAssetType::AT_OBJECT != pItem->getType()) )
-		return NULL;
+		return 0;
 
 	// The attachment point should be placed at the end of the item's name, surrounded by parenthesis
 	// (if there is no such text then strAttachPt will be an empty string which is fine since it means we'll look at the item's parent)
@@ -177,20 +185,20 @@ LLViewerJointAttachment* RlvHandler::getAttachPoint(const LLInventoryItem* pItem
 
 	// If the item is modify   : we look at the item's name first and only then at the containing folder
 	// If the item is no modify: we look at the containing folder's name first and only then at the item itself
-	LLViewerJointAttachment* pAttachPt;
+	S32 idxAttachPt = 0;
 	if (pItem->getPermissions().allowModifyBy(gAgent.getID()))
 	{
-		pAttachPt = (!strAttachPt.empty()) ? getAttachPoint(strAttachPt, true) : NULL;
-		if (!pAttachPt)
-			pAttachPt = getAttachPoint(gInventory.getCategory(pItem->getParentUUID()), fStrict);
+		idxAttachPt = (!strAttachPt.empty()) ? getAttachPointIndex(strAttachPt, true) : 0;
+		if (!idxAttachPt)
+			idxAttachPt = getAttachPointIndex(gInventory.getCategory(pItem->getParentUUID()), fStrict);
 	}
 	else
 	{
-		pAttachPt = getAttachPoint(gInventory.getCategory(pItem->getParentUUID()), fStrict);
-		if ( (!pAttachPt) && (!strAttachPt.empty()) )
-			pAttachPt = getAttachPoint(strAttachPt, true);
+		idxAttachPt = getAttachPointIndex(gInventory.getCategory(pItem->getParentUUID()), fStrict);
+		if ( (!idxAttachPt) && (!strAttachPt.empty()) )
+			idxAttachPt = getAttachPointIndex(strAttachPt, true);
 	}
-	return pAttachPt;
+	return idxAttachPt;
 }
 
 // Checked: 2009-07-12 (RLVa-1.0.0h) | Added: RLVa-0.2.2a
@@ -210,11 +218,11 @@ S32 RlvHandler::getAttachPointIndex(const LLViewerJointAttachment* pAttachPt) co
 }
 
 // Checked: 2009-07-29 (RLVa-1.0.1b) | Added: RLVa-1.0.1b
-LLViewerJointAttachment* RlvHandler::getAttachPointLegacy(const LLInventoryCategory* pFolder) const
+S32 RlvHandler::getAttachPointIndexLegacy(const LLInventoryCategory* pFolder) const
 {
 	// Hopefully some day this can just be deprecated (see http://rlva.catznip.com/blog/2009/07/attachment-point-naming-convention/)
 	if ( (!pFolder) || (pFolder->getName().empty()) )
-		return NULL;
+		return 0;
 
 	// Check for a (...) block *somewhere* in the name
 	std::string::size_type idxMatch;
@@ -236,7 +244,7 @@ LLViewerJointAttachment* RlvHandler::getAttachPointLegacy(const LLInventoryCateg
 		if (RLV_FOLDER_PREFIX_HIDDEN == strAttachPt[0])
 			strAttachPt.erase(0, 1);
 	}
-	return getAttachPoint(strAttachPt, true);
+	return getAttachPointIndex(strAttachPt, true);
 }
 
 bool RlvHandler::hasLockedHUD() const
@@ -255,16 +263,12 @@ bool RlvHandler::hasLockedHUD() const
 	return false;			// None of our locked attachments is a HUD
 }
 
-// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
-bool RlvHandler::isLockedAttachment(const LLInventoryItem* pItem, ERlvLockMask eLock) const
-{
-	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
-	return (pItem) && (pAvatar) && (isLockedAttachment(pAvatar->getWornAttachment(pItem->getUUID()), eLock));
-}
-
 // Checked: 2009-10-13 (RLVa-1.0.5b) | Added: RLVa-1.0.5b
-bool RlvHandler::isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, LLViewerObject *pObj) const
+bool RlvHandler::isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, LLViewerObject *pExceptObj) const
 {
+	if (!pExceptObj)
+		return isLockedAttachment(idxAttachPt, eLock);
+
 	// Loop over every object that marked the specific attachment point eLock type locked (but ignore pObj and any of its children)
 	LLViewerObject* pTempObj;
 	if (eLock & RLV_LOCK_REMOVE)
@@ -272,7 +276,7 @@ bool RlvHandler::isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, L
 		for (rlv_attachlock_map_t::const_iterator itAttach = m_AttachRem.lower_bound(idxAttachPt), 
 			endAttach = m_AttachRem.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
 		{
-			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pObj->getID()) )
+			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pExceptObj->getID()) )
 				return true;
 		}
 	}
@@ -281,7 +285,7 @@ bool RlvHandler::isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, L
 		for (rlv_attachlock_map_t::const_iterator itAttach = m_AttachAdd.lower_bound(idxAttachPt), 
 			endAttach = m_AttachAdd.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
 		{
-			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pObj->getID()) )
+			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pExceptObj->getID()) )
 				return true;
 		}
 	}
@@ -307,6 +311,40 @@ void RlvHandler::addAttachmentLock(S32 idxAttachPt, const LLUUID &idRlvObj, ERlv
 	if (eLock & RLV_LOCK_ADD)
 	{
 		m_AttachAdd.insert(std::pair<S32, LLUUID>(idxAttachPt, idRlvObj));
+	}
+}
+
+// Checked: 2010-07-18 (RLVa-1.1.2b) | Added: RLVa-1.1.2a
+void RlvHandler::dumpAttachmentLocks(void*)
+{
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+	{
+		RLV_INFOS << "No avatar object to dump attachments for" << RLV_ENDL;
+		return;
+	}
+
+	RLV_INFOS << "Dumping 'remove' locks:" << RLV_ENDL;
+	for (rlv_attachlock_map_t::iterator itAttachPt = gRlvHandler.m_AttachRem.begin();
+			itAttachPt != gRlvHandler.m_AttachRem.end(); ++itAttachPt)
+	{
+		// Grab the attachment on the attachment point that's locked (if there is one)
+		/*const*/ LLViewerJointAttachment* pAttachPt =
+			get_if_there(pAvatar->mAttachmentPoints, (S32)itAttachPt->first, (LLViewerJointAttachment*)NULL);
+		/*const*/ LLViewerObject* pAttachObj = (pAttachPt) ? pAttachPt->getObject() : NULL;
+		const LLViewerInventoryItem* pAttachItem = (pAttachPt) ? gInventory.getItem(pAttachPt->getItemID()) : NULL;
+
+		// Grab the locking attachment (if we can)
+		/*const*/ LLViewerObject* pRlvObj = gObjectList.findObject(itAttachPt->second);
+		/*const*/ LLViewerJointAttachment* pRlvAttachPt = (pRlvObj) ? pAvatar->getTargetAttachmentPoint(pRlvObj) : NULL;
+		const LLViewerInventoryItem* pRlvItem = (pRlvAttachPt) ? gInventory.getItem(pRlvAttachPt->getItemID()) : NULL;
+
+		std::string strMsg = llformat("'%s' on %s held by '%s' on %s",
+			((pAttachItem) ? pAttachItem->getName().c_str() : ((pAttachObj) ? pAttachObj->getID().asString().c_str() : "(empty)")),
+			(pAttachPt) ? pAttachPt->getName().c_str() : "(unknown)",
+			((pRlvItem) ? pRlvItem->getName().c_str() : ((pRlvObj) ? pRlvObj->getID().asString().c_str() : "(empty)")),
+			(pRlvAttachPt) ? pRlvAttachPt->getName().c_str() : "(unknown)");
+		RLV_INFOS << strMsg << RLV_ENDL;
 	}
 }
 
@@ -344,7 +382,7 @@ void RlvHandler::removeAttachmentLock(S32 idxAttachPt, const LLUUID &idRlvObj, E
 }
 
 #ifdef RLV_EXTENSION_FLAG_NOSTRIP
-	// Checked: 2009-05-26 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
+	// Checked: 2009-12-25 (RLVa-1.1.0k) | Modified: RLVa-1.1.0k
 	bool RlvHandler::isStrippable(const LLUUID& idItem) const
 	{
 		// An item is exempt from @detach or @remoutfit if:
@@ -359,8 +397,13 @@ void RlvHandler::removeAttachmentLock(S32 idxAttachPt, const LLUUID &idRlvObj, E
 					return false;
 
 				LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
-				if ( (pFolder) && (std::string::npos != pFolder->getName().find(RLV_FOLDER_FLAG_NOSTRIP)) )
-					return false;
+				while ( (pFolder) && gAgent.getInventoryRootID() != (pFolder->getUUID()) )
+				{
+					if (std::string::npos != pFolder->getName().find(RLV_FOLDER_FLAG_NOSTRIP))
+						return false;
+					// If the item's parent is a folded folder then we need to check its parent as well
+					pFolder = (isFoldedFolder(pFolder, false, true)) ? gInventory.getCategory(pFolder->getParentUUID()) : NULL;
+				}
 			}
 		}
 		return true;
@@ -419,539 +462,210 @@ bool RlvHandler::isException(ERlvBehaviour eBhvr, const RlvExceptionOption& varO
 // Command processing functions
 //
 
-// Checked: 2009-06-03 (RLVa-0.2.0h)
+// Checked: 2009-11-27 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 void RlvHandler::addBehaviourObserver(RlvBehaviourObserver* pBhvrObserver)
 {
-	std::list<RlvBehaviourObserver*>::iterator itBhvrObserver = std::find(m_BhvrObservers.begin(), m_BhvrObservers.end(), pBhvrObserver);
-	if (itBhvrObserver == m_BhvrObservers.end())
+	if ( (pBhvrObserver) && (std::find(m_BhvrObservers.begin(), m_BhvrObservers.end(), pBhvrObserver) == m_BhvrObservers.end()) )
 		m_BhvrObservers.push_back(pBhvrObserver);
 }
 
-// Checked: 2009-06-03 (RLVa-0.2.0h)
+// Checked: 2009-11-27 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+void RlvHandler::addCommandHandler(RlvCommandHandler* pCmdHandler)
+{
+	if ( (pCmdHandler) && (std::find(m_CommandHandlers.begin(), m_CommandHandlers.end(), pCmdHandler) == m_CommandHandlers.end()) )
+		m_CommandHandlers.push_back(pCmdHandler);
+}
+
+// Checked: 2009-11-27 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 void RlvHandler::removeBehaviourObserver(RlvBehaviourObserver* pBhvrObserver)
 {
-	std::list<RlvBehaviourObserver*>::iterator itBhvrObserver = std::find(m_BhvrObservers.begin(), m_BhvrObservers.end(), pBhvrObserver);
-	if (itBhvrObserver != m_BhvrObservers.end())
-		m_BhvrObservers.erase(itBhvrObserver);
+	if (pBhvrObserver)
+		m_BhvrObservers.remove(pBhvrObserver);
+}
+
+// Checked: 2009-11-27 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+void RlvHandler::removeCommandHandler(RlvCommandHandler* pCmdHandler)
+{
+	if (pCmdHandler)
+		m_CommandHandlers.remove(pCmdHandler);
+}
+
+// Checked: 2009-10-26 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
+void RlvHandler::clearCommandHandlers()
+{
+	std::list<RlvCommandHandler*>::const_iterator itHandler = m_CommandHandlers.begin();
+	while (itHandler != m_CommandHandlers.end())
+	{
+		delete *itHandler;
+		++itHandler;
+	}
+	m_CommandHandlers.clear();
 }
 
 // Checked: 2009-06-03 (RLVa-0.2.0h)
 void RlvHandler::notifyBehaviourObservers(const RlvCommand& rlvCmd, bool fInternal)
 {
 	for (std::list<RlvBehaviourObserver*>::const_iterator itBhvrObserver = m_BhvrObservers.begin();
-		itBhvrObserver != m_BhvrObservers.end(); ++itBhvrObserver)
+			itBhvrObserver != m_BhvrObservers.end(); ++itBhvrObserver)
 	{
 		(*itBhvrObserver)->changed(rlvCmd, fInternal);
 	}
 }
 
-// Checked:
-BOOL RlvHandler::processCommand(const LLUUID& idObj, const std::string& strCmd, bool fFromObj)
+// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+bool RlvHandler::notifyCommandHandlers(rlvCommandHandler f, const LLUUID& idObj, const RlvCommand& rlvCmd, ERlvCmdRet& eRet, bool fNotifyAll) const
+{
+	std::list<RlvCommandHandler*>::const_iterator itHandler = m_CommandHandlers.begin(); bool fContinue = true; eRet = RLV_RET_UNKNOWN;
+	while ( (itHandler != m_CommandHandlers.end()) && ((fContinue) || (fNotifyAll)) )
+	{
+		ERlvCmdRet eCmdRet = RLV_RET_UNKNOWN;
+		if ((fContinue = !((*itHandler)->*f)(idObj, rlvCmd, eCmdRet)) == false)
+			eRet = eCmdRet;
+		++itHandler;
+	}
+	RLV_ASSERT( (fContinue) || (eRet != RLV_RET_UNKNOWN) );
+	return !fContinue;
+}
+
+// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd, bool fFromObj)
 {
 	#ifdef RLV_DEBUG
-		RLV_INFOS << "[" << idObj << "]: " << strCmd << LL_ENDL;
+		RLV_INFOS << "[" << idObj << "]: " << rlvCmd.asString() << RLV_ENDL;
 	#endif // RLV_DEBUG
 
-	RlvCommand rlvCmd(strCmd);
 	if (!rlvCmd.isValid())
 	{
 		#ifdef RLV_DEBUG
-			RLV_INFOS << "\t-> invalid command: " << strCmd << LL_ENDL;
+			RLV_INFOS << "\t-> invalid syntax" << RLV_ENDL;
 		#endif // RLV_DEBUG
-		return FALSE;
+		return RLV_RET_FAILED_SYNTAX;
 	}
 
-	// NOTE: if we pass RlvObject::m_UUID for idObj somewhere and process a @clear then it will point to invalid/cleared memory at the end
-	//       so make sure to *always* pass our private copy to other functions
-	m_pCurCommand = &rlvCmd; m_idCurObject = idObj;
+	// Using a stack for executing commands solves a few problems:
+	//   - if we passed RlvObject::m_UUID for idObj somewhere and process a @clear then idObj points to invalid/cleared memory at the end
+	//   - if command X triggers command Y along the way then getCurrentCommand()/getCurrentObject() still return Y even when finished
+	m_CurCommandStack.push(&rlvCmd); m_CurObjectStack.push(idObj);
+	const LLUUID& idCurObj = m_CurObjectStack.top();
 
-	BOOL fRet = FALSE;
+	ERlvCmdRet eRet = RLV_RET_UNKNOWN;
 	switch (rlvCmd.getParamType())
 	{
-		case RLV_TYPE_ADD:		// Checked: 2009-06-03 (RLVa-0.2.0h) | Modified: RLVa-0.2.0h
+		case RLV_TYPE_ADD:		// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 			{
 				if ( (m_Behaviours[rlvCmd.getBehaviourType()]) && 
 					 ( (RLV_BHVR_SETDEBUG == rlvCmd.getBehaviourType()) || (RLV_BHVR_SETENV == rlvCmd.getBehaviourType()) ) )
 				{
 					// Some restrictions can only be held by one single object to avoid deadlocks
 					#ifdef RLV_DEBUG
-						RLV_INFOS << "\t- " << rlvCmd.getBehaviour() << " is already set by another object => discarding" << LL_ENDL;
+						RLV_INFOS << "\t- " << rlvCmd.getBehaviour() << " is already set by another object => discarding" << RLV_ENDL;
 					#endif // RLV_DEBUG
+					eRet = RLV_RET_FAILED_LOCK;
 					break;
 				}
 
-				rlv_object_map_t::iterator itObj = m_Objects.find(m_idCurObject);
+				rlv_object_map_t::iterator itObj = m_Objects.find(idCurObj); bool fAdded = false;
 				if (itObj != m_Objects.end())
 				{
 					RlvObject& rlvObj = itObj->second;
-					fRet = rlvObj.addCommand(rlvCmd);
+					fAdded = rlvObj.addCommand(rlvCmd);
 				}
 				else
 				{
-					RlvObject rlvObj(m_idCurObject);
-					fRet = rlvObj.addCommand(rlvCmd);
-					m_Objects.insert(std::pair<LLUUID, RlvObject>(m_idCurObject, rlvObj));
+					RlvObject rlvObj(idCurObj);
+					fAdded = rlvObj.addCommand(rlvCmd);
+					m_Objects.insert(std::pair<LLUUID, RlvObject>(idCurObj, rlvObj));
 				}
 
 				#ifdef RLV_DEBUG
-					RLV_INFOS << "\t- " << ( (fRet) ? "adding behaviour" : "skipping duplicate") << LL_ENDL;
+					RLV_INFOS << "\t- " << ( (fAdded) ? "adding behaviour" : "skipping duplicate" ) << RLV_ENDL;
 				#endif // RLV_DEBUG
 
-				if (fRet) {	// If FALSE then this was a duplicate, there's no need to handle those
+				if (fAdded) {	// If FALSE then this was a duplicate, there's no need to handle those
 					if (!m_pGCTimer)
 						m_pGCTimer = new RlvGCTimer();
-					processAddCommand(m_idCurObject, rlvCmd);
+					eRet = processAddRemCommand(idCurObj, rlvCmd);
 					notifyBehaviourObservers(rlvCmd, !fFromObj);
+				}
+				else
+				{
+					eRet = RLV_RET_SUCCESS_DUPLICATE;
 				}
 			}
 			break;
-		case RLV_TYPE_REMOVE:		// Checked:
+		case RLV_TYPE_REMOVE:		// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 			{
-				rlv_object_map_t::iterator itObj = m_Objects.find(m_idCurObject);
+				rlv_object_map_t::iterator itObj = m_Objects.find(idCurObj); bool fRemoved = false;
 				if (itObj != m_Objects.end())
-					fRet = itObj->second.removeCommand(rlvCmd);
+					fRemoved = itObj->second.removeCommand(rlvCmd);
 
 				#ifdef RLV_DEBUG
-					RLV_INFOS << "\t- " << ( (fRet) ? "removing behaviour"
-						                            : "skipping remove (unset behaviour or unknown object)") << LL_ENDL;
+					RLV_INFOS << "\t- " << ( (fRemoved)	? "removing behaviour"
+														: "skipping remove (unset behaviour or unknown object)") << RLV_ENDL;
 				#endif // RLV_DEBUG
 
-				if (fRet) {	// Don't handle non-sensical removes
-					processRemoveCommand(m_idCurObject, rlvCmd);
+				if (fRemoved) {	// Don't handle non-sensical removes
+					eRet = processAddRemCommand(idCurObj, rlvCmd);
 					notifyBehaviourObservers(rlvCmd, !fFromObj);
 
 					if (0 == itObj->second.m_Commands.size())
 					{
 						#ifdef RLV_DEBUG
-							RLV_INFOS << "\t- command list empty => removing " << m_idCurObject << LL_ENDL;
+							RLV_INFOS << "\t- command list empty => removing " << idCurObj << RLV_ENDL;
 						#endif // RLV_DEBUG
 						m_Objects.erase(itObj);
 					}
 				}
+				else
+				{
+					eRet = RLV_RET_SUCCESS_UNSET;
+				}
 			}
 			break;
-		case RLV_TYPE_CLEAR:
-			fRet = processClearCommand(m_idCurObject, rlvCmd);
+		case RLV_TYPE_CLEAR:		// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+			eRet = processClearCommand(idCurObj, rlvCmd);
 			notifyBehaviourObservers(rlvCmd, !fFromObj);
 			break;
-		case RLV_TYPE_FORCE:		// Checked:
-			fRet = processForceCommand(m_idCurObject, rlvCmd);
+		case RLV_TYPE_FORCE:		// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+			eRet = processForceCommand(idCurObj, rlvCmd);
 			break;
-		case RLV_TYPE_REPLY:		// Checked:
-			fRet = processReplyCommand(m_idCurObject, rlvCmd);
+		case RLV_TYPE_REPLY:		// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+			eRet = processReplyCommand(idCurObj, rlvCmd);
 			break;
-		case RLV_TYPE_UNKNOWN:		// Checked:
-			break;
-		#ifdef LL_GNUC
+		case RLV_TYPE_UNKNOWN:		// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 		default:
+			eRet = RLV_RET_FAILED_PARAM;
 			break;
-		#endif // LL_GNUC
 	}
+	RLV_ASSERT(RLV_RET_UNKNOWN != eRet);
 
 	#ifdef RLV_DEBUG
-		RLV_INFOS << "\t--> command " << ((fRet) ? "succeeded" : "failed") << LL_ENDL;
+		RLV_INFOS << "\t--> command " << ((eRet & RLV_RET_SUCCESS) ? "succeeded" : "failed") << RLV_ENDL;
 	#endif // RLV_DEBUG
 
-	m_pCurCommand = NULL; m_idCurObject.setNull();
-	return fRet;
+	m_CurCommandStack.pop(); m_CurObjectStack.pop();
+	return eRet;
 }
 
-BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
+// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+void RlvHandler::processRetainedCommands(ERlvBehaviour eBhvrFilter /*=RLV_BHVR_UNKNOWN*/, ERlvParamType eTypeFilter /*=RLV_TYPE_UNKNOWN*/)
 {
-	// NOTE: - at this point the command has already been added to the corresponding RlvObject instance
-	//       - the object's UUID may or may not exist in gObjectList (see handling of @detach=n)
-
-	ERlvBehaviour eBehaviour = rlvCmd.getBehaviourType();
-	const std::string& strOption = rlvCmd.getOption();
-
-	if ( (RLV_BHVR_UNKNOWN != eBehaviour) && (strOption.empty()) )
+	rlv_retained_list_t::iterator itCmd = m_Retained.begin(), itCurCmd;
+	while (itCmd != m_Retained.end())
 	{
-		if (rlvCmd.isStrict())
-			addException(uuid, RLV_BHVR_PERMISSIVE, eBehaviour);
-		m_Behaviours[eBehaviour]++;
+		itCurCmd = itCmd++;  // Point the loop iterator ahead
+
+		const RlvRetainedCommand& cmd = *itCurCmd;
+		if ( ((RLV_BHVR_UNKNOWN == eBhvrFilter) || (cmd.rlvCmd.getBehaviourType() == eBhvrFilter)) &&
+		     ((RLV_TYPE_UNKNOWN == eTypeFilter) || (cmd.rlvCmd.getParamType() == eTypeFilter)) )
+		{
+			processCommand(cmd.idObject, cmd.rlvCmd, true);
+			m_Retained.erase(itCurCmd);
+		}
 	}
-
-	bool fRefCount = false; // Unused for the moment
-	switch (eBehaviour)
-	{
-		case RLV_BHVR_DETACH:				// @detach[:<option>]=n		- Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-			onAddRemDetach(uuid, rlvCmd, fRefCount);
-			break;
-		case RLV_BHVR_ADDATTACH:			// @addattach[:<option>]=n	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
-		case RLV_BHVR_REMATTACH:			// @addattach[:<option>]=n	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
-			onAddRemAttach(uuid, rlvCmd, fRefCount);
-			break;
-		case RLV_BHVR_REDIRCHAT:			// @redirchat:<option>=n	- Checked: 2009-07-07 (RLVa-1.0.0d)
-		case RLV_BHVR_REDIREMOTE:			// @rediremote:<option>=n	- Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.2a
-			{
-				if (!strOption.empty())
-					m_Behaviours[eBehaviour]++;	// @redirchat and @rediremote don't have an optionless version so keep track of it here
-				else
-					m_Behaviours[eBehaviour]--;	// @redirchat=n and @rediremote=n are undefined, don't keep track of them
-			}
-			break;
-		case RLV_BHVR_SHOWWORLDMAP:			// @showworldmap=n			- Checked: 2009-07-05 (RLVa-1.0.0c)
-			{
-				// Simulate clicking the Map button [see LLToolBar::onClickMap()]
-				if (gFloaterWorldMap->getVisible())
-					LLFloaterWorldMap::toggle(NULL);
-			}
-			break;
-		case RLV_BHVR_SHOWMINIMAP:			// @showminimap=n			- Checked: 2009-07-05 (RLVa-1.0.0c)
-			{
-				// Simulate clicking the Minimap button [see LLToolBar::onClickRadar()]
-				#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-					if (gFloaterMap->getVisible())
-						LLFloaterMap::toggle(NULL);
-				#else												// Version: 1.23.4
-					if (LLFloaterMap::instanceVisible())
-						LLFloaterMap::hideInstance();
-				#endif
-			}
-			break;
-		#ifdef RLV_EXTENSION_STARTLOCATION
-		case RLV_BHVR_TPLOC:				// @tploc=n					- Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-		case RLV_BHVR_UNSIT:				// @unsit=n					- Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-			{
-				if (strOption.empty())
-					RlvSettings::updateLoginLastLocation();
-			}
-			break;
-		#endif // RLV_EXTENSION_STARTLOCATION
-		case RLV_BHVR_EDIT:					// @edit=n					- Checked: 2009-07-04 (RLVa-1.0.0b)
-			{
-				// Turn off "View / Highlight Transparent"
-				LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
-
-				// Close the Beacons floater if it's open
-				if (LLFloaterBeacons::instanceVisible())
-					LLFloaterBeacons::toggleInstance();
-
-				// Get rid of the build floater if it's open [copy/paste from toggle_build_mode()]
-				if (gFloaterTools->getVisible())
-				{
-					gAgent.resetView(FALSE);
-					gFloaterTools->close();
-					gViewerWindow->showCursor();
-				}
-			}
-			break;
-		case RLV_BHVR_ADDOUTFIT:			// @addoutfit[:<layer>]=n	- Checked: 2009-07-07 (RLVa-1.0.0d)
-		case RLV_BHVR_REMOUTFIT:			// @remoutfit[:<layer>]=n	- Checked: 2009-07-07 (RLVa-1.0.0d)
-			{
-				S16* pLayers = (eBehaviour == RLV_BHVR_ADDOUTFIT) ? m_LayersAdd : m_LayersRem;
-
-				if (strOption.empty())
-				{
-					for (int idx = 0; idx < WT_COUNT; idx++)
-						pLayers[idx]++;
-				}
-				else
-				{
-					EWearableType type = LLWearable::typeNameToType(strOption);
-					if (WT_INVALID != type)
-					{
-						pLayers[type]++;
-						m_Behaviours[eBehaviour]++;
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_SHOWINV:				// @showinv=n				- Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
-			{
-				// Close all open inventory windows
-				LLInventoryView::closeAll();
-			}
-			break;
-		case RLV_BHVR_SHOWLOC:				// @showloc=n				- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				// If we're the first @showloc=n restriction refresh all object text so we can filter it if necessary
-				if (1 == m_Behaviours[RLV_BHVR_SHOWLOC])
-					LLHUDText::refreshAllObjectText();
-
-				// Close the "About Land" floater if it's currently visible
-				if (LLFloaterLand::instanceVisible())
-					LLFloaterLand::hideInstance();
-
-				// Close the "Estate Tools" floater is it's currently visible
-				if (LLFloaterRegionInfo::instanceVisible())
-					LLFloaterRegionInfo::hideInstance();
-
-				// NOTE: we should close the "God Tools" floater as well, but since calling LLFloaterGodTools::instance() always
-				//       creates a new instance of the floater and since it's very unlikely to be open it's just better not to
-			}
-			break;
-		case RLV_BHVR_SHOWNAMES:			// @shownames=n				- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				// If we're the first @shownames=n restriction refresh all object text so we can filter it if necessary
-				if (1 == m_Behaviours[RLV_BHVR_SHOWNAMES])
-					LLHUDText::refreshAllObjectText();
-
-				// Close the "Active Speakers" panel if it's currently visible
-				LLFloaterChat::getInstance()->childSetVisible("active_speakers_panel", false);
-			}
-			break;
-		case RLV_BHVR_FARTOUCH:
-			{
-				#ifdef RLV_EXPERIMENTAL_FIRSTUSE
-					//LLFirstUse::useRlvFartouch();
-				#endif // RLV_EXPERIMENTAL_FIRSTUSE
-			}
-			break;
-		case RLV_BHVR_FLY:					// @fly=n					- Checked: 2009-07-05 (RLVa-1.0.0c)
-			{
-				// If currently flying, simulate clicking the Fly button [see LLToolBar::onClickFly()]
-				if (gAgent.getFlying())
-					gAgent.toggleFlying();
-			}
-			break;
-		case RLV_BHVR_SETENV:				// @setenv=n				- Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0a
-			{
-				if (!fNoSetEnv)
-				{
-					// Only close the floaters if their instance exists and they're actually visible
-					if ( (LLFloaterEnvSettings::isOpen()) && (LLFloaterEnvSettings::instance()->getVisible()) )
-						LLFloaterEnvSettings::instance()->close();
-					if ( (LLFloaterWindLight::isOpen()) && (LLFloaterWindLight::instance()->getVisible()) )
-						LLFloaterWindLight::instance()->close();
-					if ( (LLFloaterWater::isOpen()) && (LLFloaterWater::instance()->getVisible()) )
-						LLFloaterWater::instance()->close();
-					if ( (LLFloaterDayCycle::isOpen()) && (LLFloaterDayCycle::instance()->getVisible()) )
-						LLFloaterDayCycle::instance()->close();
-
-					// Save the current WindLight params so we can restore them on @setenv=y
-					if (m_pWLSnapshot)
-					{
-						RLV_ERRS << "m_pWLSnapshot != NULL" << LL_ENDL; // Safety net in case we set @setenv=n for more than 1 object
-						delete m_pWLSnapshot;
-					}
-					m_pWLSnapshot = RlvWLSnapshot::takeSnapshot();
-				}
-			}
-			break;
-		case RLV_BHVR_SHOWHOVERTEXTALL:		// @showhovertextal=n		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_SHOWHOVERTEXTWORLD:	// @showhovertextworld=n	- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_SHOWHOVERTEXTHUD:		// @showhovertexthud=n		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				// Refresh all hover text (LLHUDText::setStringUTF8() will decide what needs clearing and what doesn't)
-				LLHUDText::refreshAllObjectText();
-			}
-			break;
-		case RLV_BHVR_SHOWHOVERTEXT:		// @showhovertext:<uuid>=n	- Checked: 2009-07-09 (RLVa-0.2.2a) | Modified: RLVa-1.0.0f
-			{
-				LLUUID idException(strOption);
-				if (idException.notNull())	// If there's an option it should be a valid UUID
-				{
-					addException(uuid, eBehaviour, idException);
-
-					// Clear the object's hover text
-					LLViewerObject* pObj = gObjectList.findObject(idException);
-					if ( (pObj) && (pObj->mText.notNull()) && (!pObj->mText->getObjectText().empty()) )
-						pObj->mText->setStringUTF8("");
-				}
-			}
-			break;
-		case RLV_BHVR_NOTIFY:				// @notify:<option>=add		- Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
-			{
-				S32 nChannel; std::string strFilter;
-				if ( (!strOption.empty()) && (rlvParseNotifyOption(strOption, nChannel, strFilter)) )
-				{
-					if (!m_pBhvrNotify)
-						addBehaviourObserver(m_pBhvrNotify = new RlvBehaviourNotifyObserver());
-					m_pBhvrNotify->addNotify(uuid, nChannel, strFilter);
-				}
-			}
-			break;
-		case RLV_BHVR_SENDCHANNEL:			// @sendchannel:<uuid>=add	- Checked: 2009-10-05 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
-			{
-				S32 nChannel;	// If there's an option it should be a valid (=positive and non-zero) chat channel
-				if ( (!strOption.empty()) && (LLStringUtil::convertToS32(strOption, nChannel)) && (nChannel > 0) )
-					addException(uuid, eBehaviour, nChannel);
-			}
-			break;
-		case RLV_BHVR_RECVCHAT:				// @recvchat:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_RECVEMOTE:			// @recvemote:<uuid>=add	- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_RECVIM:				// @recvim:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_SENDIM:				// @sendim:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_TPLURE:				// @tplure:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_ACCEPTTP:				// @accepttp:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				LLUUID idException(strOption);
-				if (idException.notNull())	// If there's an option it should be a valid UUID
-					addException(uuid, eBehaviour, LLUUID(strOption));
-			}
-			break;
-		case RLV_BHVR_UNKNOWN:
-			{
-				// Give our observers a chance to handle any command we don't
-				RlvEvent rlvEvent(uuid, rlvCmd);
-				m_Emitter.update(&RlvObserver::onAddCommand, rlvEvent);
-			}
-			break;
-		default:
-			break;
-	}
-	return TRUE; // Add command success/failure is decided by RlvObject::addCommand()
 }
 
-// Checked: 2009-08-05 (RLVa-1.0.1e) | Added: RLVa-1.0.1e
-void RlvHandler::processRetainedCommands()
-{
-	for (rlv_retained_list_t::const_iterator itCmd = m_Retained.begin(); itCmd != m_Retained.end(); ++itCmd)
-	{
-		const RlvRetainedCommand& cmd = *itCmd;
-		processCommand(cmd.idObject, cmd.strCmd, true);
-	}
-	m_Retained.clear();
-}
-
-BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
-{
-	// NOTE: - the RlvObject instance still exists at this point, but the viewer might already have removed it from its object list
-	ERlvBehaviour eBehaviour = rlvCmd.getBehaviourType();
-	const std::string& strOption = rlvCmd.getOption();
-
-	if ( (RLV_BHVR_UNKNOWN != eBehaviour) && (strOption.empty()) )
-	{
-		if (rlvCmd.isStrict())
-			removeException(uuid, RLV_BHVR_PERMISSIVE, eBehaviour);
-		m_Behaviours[eBehaviour]--;
-	}
-
-	bool fRefCount = false; // Unused for the moment
-	switch (eBehaviour)
-	{
-		case RLV_BHVR_DETACH:				// @detach[:<option>]=y		- Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-			onAddRemDetach(uuid, rlvCmd, fRefCount);
-			break;
-		case RLV_BHVR_ADDATTACH:			// @addattach[:<option>]=y	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
-		case RLV_BHVR_REMATTACH:			// @addattach[:<option>]=y	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
-			onAddRemAttach(uuid, rlvCmd, fRefCount);
-			break;
-		case RLV_BHVR_REDIRCHAT:			// @redirchat:<option>=y	- Checked: 2009-07-07 (RLVa-1.0.0d)
-		case RLV_BHVR_REDIREMOTE:			// @rediremote:<option>=y	- Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.2a
-			{
-				if (!strOption.empty())
-					m_Behaviours[eBehaviour]--;	// @redirchat and @rediremote don't have an optionless version so keep track of it here
-				else
-					m_Behaviours[eBehaviour]++;	// @redirchat=n and @rediremote=n are undefined, don't keep track of them
-			}
-			break;
-		#ifdef RLV_EXTENSION_STARTLOCATION
-		case RLV_BHVR_TPLOC:				// @tploc=y					- Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-		case RLV_BHVR_UNSIT:				// @unsit=y					- Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-			{
-				if (strOption.empty())
-					RlvSettings::updateLoginLastLocation();
-			}
-			break;
-		#endif // RLV_EXTENSION_STARTLOCATION
-		case RLV_BHVR_ADDOUTFIT:			// @addoutfit[:<layer>]=y	- Checked: 2009-07-07 (RLVa-1.0.0d)
-		case RLV_BHVR_REMOUTFIT:			// @remoutfit[:<layer>]=y	- Checked: 2009-07-07 (RLVa-1.0.0d)
-			{
-				S16* pLayers = (eBehaviour == RLV_BHVR_ADDOUTFIT) ? m_LayersAdd : m_LayersRem;
-
-				if (strOption.empty())
-				{
-					for (int idx = 0; idx < WT_COUNT; idx++)
-						pLayers[idx]--;
-				}
-				else
-				{
-					EWearableType type = LLWearable::typeNameToType(strOption);
-					if (WT_INVALID != type)
-					{
-						pLayers[type]--;
-						m_Behaviours[eBehaviour]--;
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_SETENV:				// @setenv=y				- Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0h
-			{
-				if (!fNoSetEnv)
-				{
-					// Restore WindLight parameters to what they were before @setenv=n was issued
-					RlvWLSnapshot::restoreSnapshot(m_pWLSnapshot);
-					delete m_pWLSnapshot;
-					m_pWLSnapshot = NULL;
-				}
-			}
-			break;
-		case RLV_BHVR_SHOWLOC:				// @showloc=y				- Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
-		case RLV_BHVR_SHOWNAMES:			// @shownames=y				- Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
-		case RLV_BHVR_SHOWHOVERTEXTALL:		// @showhovertextal=y		- Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
-		case RLV_BHVR_SHOWHOVERTEXTWORLD:	// @showhovertextworld=y	- Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
-		case RLV_BHVR_SHOWHOVERTEXTHUD:		// @showhovertexthud=y		- Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
-			{
-				// If this was the last of any of the five restrictions we should refresh all hover text in case anything needs restoring
-				if (!m_Behaviours[eBehaviour])
-					LLHUDText::refreshAllObjectText();
-			}
-			break;
-		case RLV_BHVR_SHOWHOVERTEXT:		// @showhovertext:<uuid>=y	- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				LLUUID idException(strOption);
-				if (idException.notNull())	// If there's an option it should be a valid UUID
-				{
-					removeException(uuid, eBehaviour, idException);
-
-					// Restore the object's hover text
-					LLViewerObject* pObj = gObjectList.findObject(idException);
-					if ( (pObj) && (pObj->mText.notNull()) && (!pObj->mText->getObjectText().empty()) )
-						pObj->mText->setStringUTF8(pObj->mText->getObjectText());
-				}
-			}
-			break;
-		case RLV_BHVR_NOTIFY:				// @notify:<option>=rem		- Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
-			{
-				S32 nChannel; std::string strFilter;
-				if ( (m_pBhvrNotify) && (!strOption.empty()) && (rlvParseNotifyOption(strOption, nChannel, strFilter)) )
-				{
-					m_pBhvrNotify->removeNotify(uuid, nChannel, strFilter);
-
-					if (!m_pBhvrNotify->hasNotify())
-					{
-						removeBehaviourObserver(m_pBhvrNotify);
-						delete m_pBhvrNotify;
-						m_pBhvrNotify = NULL;
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_SENDCHANNEL:			// @sendchannel:<uuid>=rem	- Checked: 2009-10-05 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
-			{
-				S32 nChannel;	// If there's an option it should be a valid (=positive and non-zero) chat channel
-				if ( (!strOption.empty()) && (LLStringUtil::convertToS32(strOption, nChannel)) && (nChannel > 0) )
-					removeException(uuid, eBehaviour, nChannel);
-			}
-			break;
-		case RLV_BHVR_RECVCHAT:				// @recvchat:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_RECVEMOTE:			// @recvemote:<uui>=red		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_RECVIM:				// @recvim:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_SENDIM:				// @sendim:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_TPLURE:				// @recvim:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-		case RLV_BHVR_ACCEPTTP:				// @accepttp:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
-			{
-				LLUUID idException(strOption);
-				if (idException.notNull())	// If there's an option it should be a valid UUID
-					removeException(uuid, eBehaviour, LLUUID(strOption));
-			}
-			break;
-		case RLV_BHVR_UNKNOWN:
-			{
-				// Give our observers a chance to handle any command we don't
-				RlvEvent rlvEvent(uuid, rlvCmd);
-				m_Emitter.update(&RlvObserver::onRemoveCommand, rlvEvent);
-			}
-			break;
-		default:
-			break;
-	}
-	return TRUE; // Remove commands don't fail, doesn't matter what we return here
-}
-
-BOOL RlvHandler::processClearCommand(const LLUUID idObj, const RlvCommand& rlvCmd)
+ERlvCmdRet RlvHandler::processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 {
 	const std::string& strFilter = rlvCmd.getParam(); std::string strCmdRem;
 
@@ -974,340 +688,10 @@ BOOL RlvHandler::processClearCommand(const LLUUID idObj, const RlvCommand& rlvCm
 	}
 
 	// Let our observers know about clear commands
-	RlvEvent rlvEvent(idObj, rlvCmd);
-	m_Emitter.update(&RlvObserver::onClearCommand, rlvEvent);
+	ERlvCmdRet eRet = RLV_RET_SUCCESS;
+	notifyCommandHandlers(&RlvCommandHandler::onClearCommand, idObj, rlvCmd, eRet, true);
 
-	return TRUE; // Don't fail clear commands even if the object didn't exist since it confuses people
-}
-
-BOOL RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvCmd) const
-{
-	const std::string& strOption = rlvCmd.getOption();
-	BOOL fHandled = TRUE;
-
-	switch (rlvCmd.getBehaviourType())
-	{
-		case RLV_BHVR_DETACH:		// @detach[:<option>]=force		- Checked: 2009-10-12 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-			onForceDetach(idObj, rlvCmd);
-			break;
-		case RLV_BHVR_REMATTACH:	// @remattach[:<option>]=force  - Checked: 2009-10-12 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-			onForceRemAttach(idObj, rlvCmd);
-			break;
-		case RLV_BHVR_REMOUTFIT:	// @remoutfit:<option>=force	- Checked:
-			onForceRemOutfit(idObj, strOption);
-			break;
-		case RLV_BHVR_UNSIT:		// @unsit=force					- Checked: 2009-06-02 (RLVa-0.2.0g)
-			{
-				LLVOAvatar* pAvatar = gAgent.getAvatarObject();
-				if ( (pAvatar) && (pAvatar->mIsSitting) && (!hasBehaviourExcept(RLV_BHVR_UNSIT, idObj)) )
-				{
-					// See behaviour notes on why we have to force an agent update here
-					gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-					send_agent_update(TRUE, TRUE);
-				}
-			}
-			break;
-		case RLV_BHVR_TPTO:			// @tpto:<option>=force			- Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-1.0.0h
-			{
-				fHandled = FALSE;
-				if ( (!strOption.empty()) && (-1 == strOption.find_first_not_of("0123456789/.")) )
-				{
-					LLVector3d posGlobal;
-
-					boost_tokenizer tokens(strOption, boost::char_separator<char>("/", "", boost::keep_empty_tokens)); int idx = 0;
-					for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
-					{
-						if (idx < 3)
-							LLStringUtil::convertToF64(*itToken, posGlobal[idx++]);
-					}
-
-					if (idx == 3)
-					{
-						gAgent.teleportViaLocation(posGlobal);
-						fHandled = TRUE;
-					}
-				} 
-			}
-			break;
-		case RLV_BHVR_SIT:			// @sit:<option>=force			- Checked: 2009-06-02 (RLVa-0.2.0g)
-			fHandled = onForceSit(idObj, rlvCmd.getOption());
-			break;
-		case RLV_BHVR_ADDOUTFIT:	// @addoutfit:<option>=force <- synonym of @attach:<option>=force
-		case RLV_BHVR_ATTACH:		// @attach:<option>=force		- Checked:
-			onForceWear(rlvCmd.getOption(), true, false);	// Force attach single folder
-			break;
-		case RLV_BHVR_ATTACHALL:	// @attachall:<option>=force	- Checked:
-			onForceWear(rlvCmd.getOption(), true, true);	// Force attach nested folders
-			break;
-		case RLV_BHVR_DETACHALL:	// @detachall:<option>=force	- Checked:
-			onForceWear(rlvCmd.getOption(), false, true);	// Force detach nested folders
-			break;
-		case RLV_BHVR_ATTACHTHIS:
-		case RLV_BHVR_ATTACHALLTHIS:
-		case RLV_BHVR_DETACHTHIS:
-		case RLV_BHVR_DETACHALLTHIS:
-			{
-				ERlvBehaviour eBehaviour = rlvCmd.getBehaviourType();
-				std::string strReply;
-				if (onGetPath(idObj, strOption, strReply))
-				{
-					LLStringUtil::toLower(strReply);
-					onForceWear(strReply, 
-						(RLV_BHVR_ATTACHTHIS == eBehaviour) || (RLV_BHVR_ATTACHALLTHIS == eBehaviour), 
-						(RLV_BHVR_ATTACHALLTHIS == eBehaviour) || (RLV_BHVR_DETACHALLTHIS == eBehaviour));
-				}
-			}
-			break;
-		case RLV_BHVR_DETACHME:		// @detachme=force				- Checked: 2009-06-07 (RLVa-0.2.1c)
-			{
-				// NOTE: @detachme=force could be seen as a @detach:<attachpt>=force but RLV implements it as a "detach by UUID"
-				LLViewerObject* pObj; LLVOAvatar* pAvatar; LLViewerJointAttachment* pAttachPt;
-				if ( ((pObj = gObjectList.findObject(idObj)) != NULL) && (pObj->isAttachment()) && 
-					 ((pAvatar = gAgent.getAvatarObject()) != NULL) && 
-					 ((pAttachPt = pAvatar->getTargetAttachmentPoint(pObj->getRootEdit())) != NULL) )
-				{
-					handle_detach_from_avatar(pAttachPt);
-				}
-			}
-			break;
-		case RLV_BHVR_UNKNOWN:
-			{
-				// Give our observers a chance to handle any command we don't
-				RlvEvent rlvEvent(idObj, rlvCmd);
-				fHandled = m_Emitter.update(&RlvObserver::onForceCommand, rlvEvent);
-			}
-			break;
-		default:
-			break;
-	}
-	return fHandled; // If we handled it then it'll still be TRUE; if an observer doesn't handle it'll be FALSE
-}
-
-// Checked: 2009-07-12 (RLVa-1.0.0h)
-BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const
-{
-	const std::string& strOption = rlvCmd.getOption();
-	const std::string& strChannel = rlvCmd.getParam();
-	std::string strReply;
-
-	BOOL fHandled = TRUE;
-	switch (rlvCmd.getBehaviourType())
-	{
-		case RLV_BHVR_VERSION:			// @version=<channel>				  - Checked: 2009-07-12 (RLVa-1.0.0h)
-			strReply = getVersionString();
-			break;
-		case RLV_BHVR_VERSIONNUM:		// @versionnum=<channel>			  - Checked: 2009-10-04 (RLVa-1.0.4b) | Added: RLVa-1.0.4b
-			strReply = getVersionNumString();
-			break;
-		case RLV_BHVR_GETOUTFIT:		// @getoufit[:<layer>]=<channel>	  - Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
-			{
-				// (Quirk: RLV 1.16.1 will execute @getoutfit=<channel> if <layer> is invalid, so we need to as well)
-				EWearableType layerType = LLWearable::typeNameToType(strOption);
-
-				const EWearableType layerTypes[] =
-					{ 
-						WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_SOCKS,
-						WT_UNDERPANTS, WT_UNDERSHIRT, WT_SKIN, WT_EYES, WT_HAIR, WT_SHAPE, WT_ALPHA, WT_TATTOO
-					};
-
-				#ifdef RLV_EXPERIMENTAL_COMPOSITE_FOLDING
-					for (int idx = 0, cnt = sizeof(layerTypes) / sizeof(EWearableType); idx < cnt; idx++)
-					{
-						if ( (WT_INVALID == layerType) || (layerTypes[idx] == layerType) )
-						{
-							// TODO-RLVa: add support for 'fHideLockedLayers'
-							bool fWorn = (gAgent.getWearable(layerTypes[idx])) && 
-										 (!isHiddenCompositeItem(gAgent.getWearableItem(layerTypes[idx]), 
-																 LLWearable::typeToTypeName(layerTypes[idx])));
-							strReply.push_back( (fWorn) ? '1' : '0' );
-						}
-					}
-				#else
-					for (int idx = 0, cnt = sizeof(layerTypes) / sizeof(EWearableType); idx < cnt; idx++)
-						if ( (WT_INVALID == layerType) || (layerTypes[idx] == layerType) )
-						{
-							// We never hide body parts, even if they're "locked" and we're hiding locked layers
-							// (nor do we hide a layer if the issuing object is the only one that has this layer locked)
-							bool fWorn = (gAgent.getWearable(layerTypes[idx])) && 
-								( (!RlvSettings::getHideLockedLayers()) || 
-								  (LLAssetType::AT_BODYPART == LLWearable::typeToAssetType(layerTypes[idx])) ||
-								  ( (isRemovableExcept(layerTypes[idx], uuid)) && 
-								    (isStrippable(gAgent.getWearableItem(layerTypes[idx]))) ) );
-							strReply.push_back( (fWorn) ? '1' : '0' );
-							//strReply.push_back( (gAgent.getWearable(layerTypes[idx])) ? '1' : '0' );
-						}
-				#endif // RLV_EXPERIMENTAL_COMPOSITE_FOLDING
-			}
-			break;
-		case RLV_BHVR_GETATTACH:		// @getattach[:<layer>]=<channel>	  - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-			{
-				// If we're fetching all worn attachments then the reply should start with 0
-				if (strOption.empty())
-					strReply.push_back('0');
-
-				LLVOAvatar* pAvatar = gAgent.getAvatarObject(); std::string strAttachName;
-				for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin(); 
-					 itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
-				{
-					LLViewerJointAttachment* pAttachment = itAttach->second;
-					if (!pAttachment)
-						continue;
-
-					strAttachName = pAttachment->getName(); // Capitalized (see avatar_lad.xml)
-					LLStringUtil::toLower(strAttachName);
-
-					#ifdef RLV_EXPERIMENTAL_COMPOSITE_FOLDING
-						if ( (strOption.empty()) || (strOption == strAttachName) )
-						{
-							// TODO-RLVa: add support for 'fHideLockedAttach'
-							bool fWorn = (pAttachment->getItemID().notNull()) && 
-										 (!isHiddenCompositeItem(pAttachment->getItemID(), strAttachName));
-							strReply.push_back( (fWorn) ? '1' : '0' );
-						}
-					#else
-						if ( (strOption.empty()) || (strOption == strAttachName) )
-						{
-							bool fWorn = (pAttachment->getItemID().notNull()) && 
-								( (!RlvSettings::getHideLockedAttach()) || 
-								  ( (!isLockedAttachmentExcept(itAttach->first, RLV_LOCK_REMOVE, gObjectList.findObject(uuid))) && 
-								    (isStrippable(pAttachment->getItemID())) ) );
-							strReply.push_back( (fWorn) ? '1' : '0' );
-						}
-					#endif // RLV_EXPERIMENTAL_COMPOSITE_FOLDING
-				}
-			}
-			break;
-		case RLV_BHVR_GETSTATUS:		// @getstatus[:<option>]=<channel>	  - Checked: 2009-07-12 (RLVa-1.0.0h)
-			{
-				// NOTE: specification says response should start with '/' but RLV-1.16.1 returns an empty string when no rules are set
-				rlv_object_map_t::const_iterator itObj = m_Objects.find(uuid);
-				if (itObj != m_Objects.end())
-				{
-					std::string strObjStatus = itObj->second.getStatusString(strOption);
-					if (!strObjStatus.empty())
-					{
-						strReply.push_back('/');
-						strReply += strObjStatus;
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_GETSTATUSALL:		// @getstatusall[:<option>]=<channel> - Checked: 2009-07-12 (RLVa-1.0.0h)
-			{
-				// NOTE: specification says response should start with '/' but RLV-1.16.1 returns an empty string when no rules are set
-				std::string strObjStatus;
-				for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
-				{
-					strObjStatus = itObj->second.getStatusString(strOption);
-					if (!strObjStatus.empty())
-					{
-						strReply.push_back('/');
-						strReply += strObjStatus;
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_GETINV:			// @getinv[:<path>]=<channel>		  - Checked: 2009-07-28 (RLVa-1.0.1b) | Modified: RLVa-1.0.1b
-			{
-				LLViewerInventoryCategory* pFolder = getSharedFolder(strOption);
-				if (pFolder)
-				{
-					LLInventoryModel::cat_array_t*  pFolders;
-					LLInventoryModel::item_array_t* pItems;
-					gInventory.getDirectDescendentsOf(pFolder->getUUID(), pFolders, pItems);
-
-					if (pFolders)
-					{
-						for (S32 idxFolder = 0, cntFolder = pFolders->count(); idxFolder < cntFolder; idxFolder++)
-						{
-							const std::string& strFolder = pFolders->get(idxFolder)->getName();
-							if ( (!strFolder.empty()) && (RLV_FOLDER_PREFIX_HIDDEN != strFolder[0]) &&
-								 (!isFoldedFolder(pFolders->get(idxFolder).get(), true)) )
-							{
-								if (!strReply.empty())
-									strReply.push_back(',');
-								strReply += strFolder;
-							}
-						}
-					}
-				}
-			}
-			break;
-		case RLV_BHVR_GETINVWORN:		// @getinvworn[:path]=<channel>		  - Checked:
-			onGetInvWorn(rlvCmd.getOption(), strReply);
-			break;
-		case RLV_BHVR_FINDFOLDER:		// @findfolder:<criteria>=<channel>   - Checked: 2009-08-26 (RLVa-1.0.2a) | Modified: RLVa-1.0.2a
-			{
-				// COMPAT-RLV: RLV 1.16.1 returns the first random folder it finds (probably tries to match "" to a folder name?)
-				//             (just going to stick with what's there for now... no option => no folder)
-				LLInventoryModel::cat_array_t folders;
-				if ( (!strOption.empty()) && (findSharedFolders(strOption, folders)) )
-				{
-					// We need to return an "in depth" result so whoever has the most '/' is our lucky winner
-					// (maxSlashes needs to be initialized to -1 since children of the #RLV folder won't have '/' in their shared path)
-					int maxSlashes = -1, curSlashes; std::string strFolderName;
-					for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
-					{
-						strFolderName = getSharedPath(folders.get(idxFolder));
-
-						curSlashes = std::count(strFolderName.begin(), strFolderName.end(), '/');
-						if (curSlashes > maxSlashes)
-						{
-							maxSlashes = curSlashes;
-							strReply = strFolderName;
-						}
-					}
-				}
-			}
-			break;
-		#ifdef RLV_EXTENSION_CMD_FINDFOLDERS
-			case RLV_BHVR_FINDFOLDERS:	// @findfolders:<criteria>=<channel>  - Checked: 2009-07-12 (RLVa-1.0.0h) | Added: RLVa-0.2.0b
-				{
-					LLInventoryModel::cat_array_t folders;
-					if ( (!strOption.empty()) && (findSharedFolders(strOption, folders)) )
-					{
-						for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
-						{
-							if (!strReply.empty())
-								strReply.push_back(',');
-							strReply += getSharedPath(folders.get(idxFolder));
-						}
-					}
-				}
-				break;
-		#endif // RLV_EXTENSION_CMD_FINDFOLDERS
-		case RLV_BHVR_GETPATH:			// @getpath[:<option>]=<channel>	  - Checked: 2009-07-12 (RLVa-1.0.0h)
-			onGetPath(uuid, rlvCmd.getOption(), strReply);
-			break;
-		case RLV_BHVR_GETSITID:			// @getsitid=<channel>				  - Checked: 2009-07-12 (RLVa-1.0.0h)
-			{
-				// (Quirk: RLV 1.16.1 returns a NULL uuid if we're not sitting)
-				LLVOAvatar* pAvatarObj = gAgent.getAvatarObject(); LLUUID uuid;
-				if ( (pAvatarObj) && (pAvatarObj->mIsSitting) )
-				{
-					// LLVOAvatar inherits from 2 classes so make sure we get the right vfptr
-					LLViewerObject* pAvatar = dynamic_cast<LLViewerObject*>(pAvatarObj), *pParent;
-					// (If there is a parent, we need to upcast it from LLXform to LLViewerObject to get its UUID)
-					if ( (pAvatar) && ((pParent = static_cast<LLViewerObject*>(pAvatar->getRoot())) != pAvatar) )
-						uuid = pParent->getID();
-				}
-				strReply = uuid.asString();
-			}
-			break;
-		case RLV_BHVR_UNKNOWN:
-			{
-				// Give our observers a chance to handle any command we don't
-				RlvEvent rlvEvent(uuid, rlvCmd);
-				return m_Emitter.update(&RlvObserver::onReplyCommand, rlvEvent);
-			}
-			break;
-		default:
-			break;
-	}
-
-	if (fHandled)
-		rlvSendChatReply(strChannel, strReply);
-	return fHandled;
+	return RLV_RET_SUCCESS; // Don't fail clear commands even if the object didn't exist since it confuses people
 }
 
 // ============================================================================
@@ -1340,7 +724,7 @@ void RlvHandler::initLookupTables()
 	}
 }
 
-// Checked: 2009-08-11 (RLVa-1.0.1h) | Modified: RLVa-1.0.1h
+// Checked: 2010-07-18 (RLVa-1.1.2b) | Modified: RLVa-1.1.2a
 void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt)
 {
 	// Sanity check - LLVOAvatar::attachObject() should call us *after* calling LLViewerJointAttachment::addObject()
@@ -1359,25 +743,25 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt)
 	rlv_object_map_t::iterator itObj = m_Objects.find(pObj->getID());
 	if (itObj != m_Objects.end())
 	{
-		// Save the attachment point index
-		itObj->second.m_idxAttachPt = idxAttachPt;
-
-		// If it's an attachment we processed commands for but that only just rezzed in we need to mark it as existing in gObjectList
-		if (!itObj->second.m_fLookup)
+		// Only if we haven't been able to find this object (= attachment that rezzed in) or if it's a rezzed prim attached from in-world
+		if ( (!itObj->second.m_fLookup) || (!itObj->second.m_idxAttachPt) )
+		{
+			// Reset any lookup information we might have for this object
+			itObj->second.m_idxAttachPt = idxAttachPt;
 			itObj->second.m_fLookup = true;
 
-		// In both cases we should check for "@detach=n" and actually lock down the attachment point it got attached to
-		if (itObj->second.hasBehaviour(RLV_BHVR_DETACH, false))
-		{
-			// (Copy/paste from processAddCommand)
-			addAttachmentLock(idxAttachPt, itObj->second.m_UUID, RLV_LOCK_REMOVE);
-
-			if (pObj->isHUDAttachment())
-				LLPipeline::sShowHUDAttachments = TRUE;	// Prevents hiding of locked HUD attachments
+			// In both cases we should check for "@detach=n" and actually lock down the attachment point it got attached to
+			if (itObj->second.hasBehaviour(RLV_BHVR_DETACH, false))
+			{
+				// (Copy/paste from processAddCommand)
+				addAttachmentLock(idxAttachPt, itObj->second.m_UUID, RLV_LOCK_REMOVE);
+				if (pObj->isHUDAttachment())
+					LLPipeline::sShowHUDAttachments = TRUE;	// Prevents hiding of locked HUD attachments
+			}
 		}
 	}
 
-	// Fetch the inventory item if we don't currently have it since we might need it for reattach-on-detach
+	// Fetch the inventory item if it isn't already (we need it for a potential reattach-on-detach)
 	const LLUUID& idItem = pAttachPt->getItemID();
 	LLViewerInventoryItem* pItem = ( (idItem.notNull()) && (gInventory.isInventoryUsable()) ) ? gInventory.getItem(idItem) : NULL;
 	if ( (STATE_STARTED == LLStartUp::getStartupState()) && (pItem != NULL) )
@@ -1386,20 +770,22 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt)
 		f.fetchItem(idItem);
 	}
 
-	// If what we're wearing is located under the shared root then append the attachment point name (if needed)
+	// If what we're wearing is located under the shared root then append the attachment point name as needed
 	LLViewerInventoryCategory* pRlvRoot = getSharedRoot();
-	if ( (STATE_STARTED == LLStartUp::getStartupState()) && (pRlvRoot) && (pItem) && (pItem->isComplete()) &&
+	if ( (!RlvSettings::getEnableSharedWear()) && (RlvSettings::getSharedInvAutoRename()) &&
+	     (STATE_STARTED == LLStartUp::getStartupState()) && (pRlvRoot) && (pItem) && (pItem->isComplete()) &&
 		 (gInventory.isObjectDescendentOf(idItem, pRlvRoot->getUUID())) )
 	{
-		std::string strAttachPt = pAttachPt->getName();
-		LLStringUtil::toLower(strAttachPt);
-
-		// If we can modify the item then it should contain the attach point name itself, otherwise its parent should
-		if (pItem->getPermissions().allowModifyBy(gAgent.getID()))
+		// TODO: find a not too convoluted way to rename the attachment in case it specifies a name different than the current attach point
+		S32 idxAttachPtItem = getAttachPointIndex(pItem, true);
+		if ( (idxAttachPt != idxAttachPtItem) && (!idxAttachPtItem) )
 		{
-			if (!getAttachPoint(pItem, true))
+			std::string strAttachPt = pAttachPt->getName();
+			LLStringUtil::toLower(strAttachPt);
+
+			// If we can modify the item then we rename it directly, otherwise we create a new folder and move it
+			if (pItem->getPermissions().allowModifyBy(gAgent.getID()))
 			{
-				// It doesn't specify an attach point and we can rename it [see LLItemBridge::renameItem()]
 				std::string strName = pItem->getName();
 				LLStringUtil::truncate(strName, DB_INV_ITEM_NAME_STR_LEN - strAttachPt.length() - 3);
 
@@ -1410,25 +796,30 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt)
 				gInventory.updateItem(pItem);
 				//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
 			}
-		}
-		else
-		{
-			// Folder can't be the shared root, or be its direct descendant (= nested at least 2 levels deep)
-			LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
-			if ( (pFolder) && 
-				 (pFolder->getUUID() != pRlvRoot->getUUID()) && (pFolder->getParentUUID() != pRlvRoot->getUUID()) && 
-				 (!getAttachPoint(pFolder, true)) )
+			else
 			{
-				// It's no mod and its parent folder doesn't contain an attach point
-				if ( (1 == rlvGetDirectDescendentsCount(pFolder, LLAssetType::AT_OBJECT)) && (NEW_CATEGORY_NAME == pFolder->getName()) )
+				// Don't do anything if the item is a direct descendant of the shared root, or a folded folder
+				LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
+				if ( (pFolder) && (pFolder->getUUID() != pRlvRoot->getUUID()) && (!isFoldedFolder(pFolder, true, false)) )
 				{
-					// Only rename if there's exactly 1 object/attachment inside of it [see LLFolderBridge::renameItem()]
-					std::string strName = ".(" + strAttachPt + ")";
+					std::string strFolderName = ".(" + strAttachPt + ")";
 
-					pFolder->rename(strName);
-					pFolder->updateServer(FALSE);
-					gInventory.updateCategory(pFolder);
-					//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
+					// Rename the item's parent folder if it's called "New Folder", isn't directly under #RLV and contains exactly 1 object
+					if ( (NEW_CATEGORY_NAME == pFolder->getName()) && (pFolder->getParentUUID() != pRlvRoot->getUUID()) &&
+						 (1 == rlvGetDirectDescendentsCount(pFolder, LLAssetType::AT_OBJECT)) )
+					{
+						pFolder->rename(strFolderName);
+						pFolder->updateServer(FALSE);
+						gInventory.updateCategory(pFolder);
+						//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
+					}
+					else
+					{
+						// "No modify" item with a non-renameable parent: create a new folder named and move the item into it
+						LLUUID idAttachFolder = gInventory.createNewCategory(pFolder->getUUID(), LLAssetType::AT_NONE, strFolderName);
+						move_inventory_item(gAgent.getID(), gAgent.getSessionID(), pItem->getUUID(), idAttachFolder, std::string(), NULL);
+						//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
+					}
 				}
 			}
 		}
@@ -1515,6 +906,28 @@ bool RlvHandler::onGC()
 	return (0 != m_Objects.size());	// GC will kill itself if it has nothing to do
 }
 
+// Checked: 2009-11-26 (RLVa-1.1.0f) | Added: RLVa-1.1.0f
+void RlvHandler::onIdleStartup(void* pParam)
+{
+	LLTimer* pTimer = (LLTimer*)pParam;
+	if (LLStartUp::getStartupState() < STATE_STARTED)
+	{
+		// We don't want to run this *too* often
+		if ( (LLStartUp::getStartupState() >= STATE_MISC) && (pTimer->getElapsedTimeF32() >= 2.0) )
+		{
+			gRlvHandler.processRetainedCommands(RLV_BHVR_VERSION, RLV_TYPE_REPLY);
+			gRlvHandler.processRetainedCommands(RLV_BHVR_VERSIONNUM, RLV_TYPE_REPLY);
+			pTimer->reset();
+		}
+	}
+	else
+	{
+		// Clean-up
+		gIdleCallbacks.deleteFunction(onIdleStartup, pParam);
+		delete pTimer;
+	}
+}
+
 // ============================================================================
 // String/chat censoring functions
 //
@@ -1593,13 +1006,14 @@ void RlvHandler::filterLocation(std::string& strUTF8Text) const
 
 	// Filter any mention of the surrounding region names
 	LLWorld::region_list_t regions = LLWorld::getInstance()->getRegionList();
+	const std::string& strHiddenRegion = RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
 	for (LLWorld::region_list_t::const_iterator itRegion = regions.begin(); itRegion != regions.end(); ++itRegion)
-		rlvStringReplace(strUTF8Text, (*itRegion)->getName(), rlv_handler_t::cstrHiddenRegion);
+		rlvStringReplace(strUTF8Text, (*itRegion)->getName(), strHiddenRegion);
 
 	// Filter any mention of the parcel name
 	LLViewerParcelMgr* pParcelMgr = LLViewerParcelMgr::getInstance();
 	if (pParcelMgr)
-		rlvStringReplace(strUTF8Text, pParcelMgr->getAgentParcelName(), rlv_handler_t::cstrHiddenParcel);
+		rlvStringReplace(strUTF8Text, pParcelMgr->getAgentParcelName(), RlvStrings::getString(RLV_STRING_HIDDEN_PARCEL));
 }
 
 void RlvHandler::filterNames(std::string& strUTF8Text) const
@@ -1638,55 +1052,36 @@ void RlvHandler::filterNames(std::string& strUTF8Text) const
 			{
 				strName = strFirstName + " " + strLastName;
 
-				rlvStringReplace(strUTF8Text, strName, getAnonym(strName));
+				rlvStringReplace(strUTF8Text, strName, RlvStrings::getAnonym(strName));
 			}
 		}
 	#endif
 }
 
-const std::string& RlvHandler::getAnonym(const std::string& strName) const
-{
-	const char* pszName = strName.c_str();
-	U32 nHash = 0;
-	
-	// Test with 11,264 SL names showed a 3.33% - 3.82% occurance for each so we *should* get a very even spread
-	for (int idx = 0, cnt = strName.length(); idx < cnt; idx++)
-		nHash += pszName[idx];
-
-	return cstrAnonyms[nHash % 28];
-}
-
-// Checked: 2009-07-07 (RLVa-1.0.0d) | Modified: RLVa-0.2.2a
+// Checked: 2010-02-27 (RLVa-1.1.1a) | Modified: RLVa-1.2.0a
 bool RlvHandler::redirectChatOrEmote(const std::string& strUTF8Text) const
 {
 	// Sanity check - @redirchat only for chat and @rediremote only for emotes
-	bool fIsEmote = rlvIsEmote(strUTF8Text);
-	if ( ((!fIsEmote) && (!hasBehaviour(RLV_BHVR_REDIRCHAT))) || ((fIsEmote) && (!hasBehaviour(RLV_BHVR_REDIREMOTE))) )
+	ERlvBehaviour eBhvr = (!rlvIsEmote(strUTF8Text)) ? RLV_BHVR_REDIRCHAT : RLV_BHVR_REDIREMOTE;
+	if (!hasBehaviour(eBhvr))
 		return false;
 
-	if (!fIsEmote)
+	if (RLV_BHVR_REDIRCHAT == eBhvr)
 	{
 		std::string strText = strUTF8Text;
-		filterChat(strText, true);
+		filterChat(strText, false);
 		if (strText != "...")
 			return false;	// @sendchat wouldn't filter it so @redirchat won't redirect it either
 	}
 
-	bool fSendChannel = hasBehaviour(RLV_BHVR_SENDCHANNEL); S32 nChannel = 0;
-	for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
+	for (rlv_exception_map_t::const_iterator itRedir = m_Exceptions.lower_bound(eBhvr),
+			endRedir = m_Exceptions.upper_bound(eBhvr); itRedir != endRedir; ++itRedir)
 	{
-		for (rlv_command_list_t::const_iterator itCmd = itObj->second.m_Commands.begin(), 
-				endCmd = itObj->second.m_Commands.end(); itCmd != endCmd; ++itCmd)
-		{
-			if ( ( ((!fIsEmote) && (RLV_BHVR_REDIRCHAT == itCmd->getBehaviourType())) ||	// Redirect if: (not an emote and @redirchat
-				   ((fIsEmote) && (RLV_BHVR_REDIREMOTE == itCmd->getBehaviourType())) ) &&	// OR an emote and @rediremote)
-				 (LLStringUtil::convertToS32(itCmd->getOption(), nChannel)) &&				// AND the channel is a number
-				 ( (!fSendChannel) || (isException(RLV_BHVR_SENDCHANNEL, nChannel)) ) )		// AND we're allowed to send to that channel
-			{
-				rlvSendChatReply(nChannel, strUTF8Text);
-			}
-		}
+		S32 nChannel = boost::get<S32>(itRedir->second.varOption);
+		if ( (!hasBehaviour(RLV_BHVR_SENDCHANNEL)) || (isException(RLV_BHVR_SENDCHANNEL, nChannel)) )
+			rlvSendChatReply(nChannel, strUTF8Text);
 	}
+
 	return true;
 }
 
@@ -1694,7 +1089,8 @@ bool RlvHandler::redirectChatOrEmote(const std::string& strUTF8Text) const
 // Public service functions (called by the outside world or by extension handlers)
 //
 
-BOOL RlvHandler::isAgentNearby(const LLUUID& uuid) const
+// Checked: 2009-11-24 (RLVa-1.1.0e)
+bool RlvHandler::isAgentNearby(const LLUUID& idAgent) const
 {
 	#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
 		for (LLWorld::region_list_t::const_iterator itRegion = LLWorld::getInstance()->mActiveRegionList.begin();
@@ -1704,20 +1100,19 @@ BOOL RlvHandler::isAgentNearby(const LLUUID& uuid) const
 			
 			for (S32 idxAgent = 0, cntAgent = pRegion->mMapAvatars.count(); idxAgent < cntAgent; idxAgent++)
 				if (pRegion->mMapAvatarIDs.get(idxAgent) == uuid)
-					return TRUE;
+					return true;
 		}
-	#else												// Version: trunk
-		// TODO-RLV: rewrite this to fit trunk, but still need the radius limited to a sane range
+	#else												// Version: 1.23.4
 		std::vector<LLUUID> idAgents;
 		LLWorld::getInstance()->getAvatars(&idAgents, NULL);
 
 		for (int idxAgent = 0, cntAgent = idAgents.size(); idxAgent < cntAgent; idxAgent++)
 		{
-			if (idAgents[idxAgent] == uuid)
-				return TRUE;
+			if (idAgents[idxAgent] == idAgent)
+				return true;
 		}
 	#endif
-	return FALSE;
+	return false;
 }
 
 // ============================================================================
@@ -1733,7 +1128,7 @@ public:
 	virtual void done()
 	{
 		RLV_INFOS << "Shared folders fetch completed" << LL_ENDL;
-		RlvHandler::m_fFetchComplete = TRUE;
+		RlvHandler::m_fFetchComplete = true;
 
 		gInventory.removeObserver(this);
 		delete this;
@@ -1749,26 +1144,22 @@ void RlvHandler::fetchSharedInventory()
 		return;
 
 	// Grab all the folders under the shared root
-	LLInventoryModel::cat_array_t  folders;
+	LLInventoryModel::cat_array_t folders;
 	LLInventoryModel::item_array_t items;
 	gInventory.collectDescendents(pRlvRoot->getUUID(), folders, items, FALSE);
 
-	/*
-	 * Add them to the "to fetch" list
-	 */ 
+	// Add them to the "to fetch" list
 	LLInventoryFetchDescendentsObserver::folder_ref_t fetchFolders;
-
 	fetchFolders.push_back(pRlvRoot->getUUID());
 	for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
 		fetchFolders.push_back(folders.get(idxFolder)->getUUID());
 
-	/*
-	 * Now fetch them all in one go
-	 */
+	// Now fetch them all in one go
 	RlvSharedRootFetcher* fetcher = new RlvSharedRootFetcher;
 
-	RLV_INFOS << "Starting fetch of " << fetchFolders.size() << " shared folders" << LL_ENDL;
+	RLV_INFOS << "Starting fetch of " << fetchFolders.size() << " shared folders" << RLV_ENDL;
 	fetcher->fetchDescendents(fetchFolders);
+	m_fFetchStarted = true;
 
 	if (fetcher->isEverythingComplete())
 		fetcher->done();
@@ -1796,7 +1187,7 @@ LLViewerInventoryCategory* RlvHandler::getSharedRoot()
 {
 	if (gInventory.isInventoryUsable())
 	{
-		LLInventoryModel::cat_array_t*  pFolders;
+		LLInventoryModel::cat_array_t* pFolders;
 		LLInventoryModel::item_array_t* pItems;
 		gInventory.getDirectDescendentsOf(gAgent.getInventoryRootID(), pFolders, pItems);
 		if (pFolders)
@@ -1902,15 +1293,15 @@ std::string RlvHandler::getSharedPath(const LLViewerInventoryCategory* pFolder) 
 // Composite folders
 //
 
-#ifdef RLV_EXPERIMENTAL_COMPOSITES
-	// Checked:
+#ifdef RLV_EXPERIMENTAL_COMPOSITEFOLDERS
+	// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
 	bool RlvHandler::getCompositeInfo(const LLInventoryCategory* pFolder, std::string* pstrName) const
 	{
 		if (pFolder)
 		{
 			// Composite folder naming: ^\.?[Folder]
 			const std::string& cstrFolder = pFolder->getName();
-			int idxStart = cstrFolder.find('['), idxEnd = cstrFolder.find(']', idxStart);
+			std::string::size_type idxStart = cstrFolder.find('['), idxEnd = cstrFolder.find(']', idxStart);
 			if ( ((0 == idxStart) || (1 == idxStart)) && (idxEnd - idxStart > 1) )
 			{
 				if (pstrName)
@@ -1921,21 +1312,17 @@ std::string RlvHandler::getSharedPath(const LLViewerInventoryCategory* pFolder) 
 		return false;
 	}
 
-	// Checked:
+	// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
 	bool RlvHandler::getCompositeInfo(const LLUUID& idItem, std::string* pstrName, LLViewerInventoryCategory** ppFolder) const
 	{
 		LLViewerInventoryCategory* pRlvRoot; LLViewerInventoryItem* pItem;
-
 		if ( (idItem.notNull()) && ((pRlvRoot = getSharedRoot()) != NULL) && 
 			 (gInventory.isObjectDescendentOf(idItem, pRlvRoot->getUUID())) && ((pItem = gInventory.getItem(idItem)) != NULL) )
 		{
-			// We know it's an item in a folder under the shared root...
+			// We know it's an item in a folder under the shared root (we need its parent if it's a folded folder)
 			LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
-			if (getAttachPoint(pFolder, true))
-			{
-				// ... but it could be named ".(attachpt)" in which case we need its parent
+			if (isFoldedFolder(pFolder, true, false))	// Don't check if the folder is a composite folder
 				pFolder = gInventory.getCategory(pFolder->getParentUUID());
-			}
 
 			if ( (pFolder) && (getCompositeInfo(pFolder, pstrName)) )
 			{
@@ -1946,7 +1333,7 @@ std::string RlvHandler::getSharedPath(const LLViewerInventoryCategory* pFolder) 
 		}
 		return false;
 	}
-#endif // RLV_EXPERIMENTAL_COMPOSITES
+#endif // RLV_EXPERIMENTAL_COMPOSITEFOLDERS
 
 #ifdef RLV_EXPERIMENTAL_COMPOSITE_FOLDING
 	// Checked:
@@ -1985,367 +1372,124 @@ std::string RlvHandler::getSharedPath(const LLViewerInventoryCategory* pFolder) 
 	}
 #endif // RLV_EXPERIMENTAL_COMPOSITEFOLDING
 
-#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-	// Checked:
+#ifdef RLV_EXPERIMENTAL_COMPOSITEFOLDERS
+	// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
 	bool RlvHandler::canTakeOffComposite(const LLInventoryCategory* pFolder) const
 	{
-		if (!pFolder)		// If there's no folder then there is nothing to take off
+		// Sanity check - if there's no folder or no avatar then there is nothing to take off
+		LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+		if ( (!pFolder) || (!pAvatar) )
 			return false;
+		// Sanity check - if nothing is locked then we can definitely take it off
+		if ( (!hasBehaviour(RLV_BHVR_REMOUTFIT)) && (!hasLockedAttachment(RLV_LOCK_REMOVE)) )
+			return true;
 
-		LLInventoryModel::cat_array_t  folders;
+		LLInventoryModel::cat_array_t folders;
 		LLInventoryModel::item_array_t items;
 		RlvWearableItemCollector functor(pFolder->getUUID(), true, false);
-
-		// Grab a list of all the items @detachthis would be detaching/unwearing
 		gInventory.collectDescendentsIf(pFolder->getUUID(), folders, items, FALSE, functor);
-		if (!items.count())
-			return false;	// There are no wearable items in the folder so there is nothing to take off
 
-		LLViewerInventoryItem* pItem;
 		for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
 		{
-			pItem = items.get(idxItem);
-
+			const LLViewerInventoryItem* pItem = items.get(idxItem);
 			switch (pItem->getType())
 			{
+				case LLAssetType::AT_BODYPART:
 				case LLAssetType::AT_CLOTHING:
 					{
 						LLWearable* pWearable = gAgent.getWearableFromWearableItem(pItem->getUUID());
 						if ( (pWearable) && (!isRemovable(pWearable->getType())) )
-							return false;	// If one clothing layer in the composite folder is unremoveable then the entire folder is
+							return false;	// If one wearable in the folder is non-removeable then the entire folder should be
 					}
 					break;
 				case LLAssetType::AT_OBJECT:
 					{
-						LLVOAvatar* pAvatar; LLViewerObject* pObj;
-						if ( ((pAvatar = gAgent.getAvatarObject()) != NULL) && 
-							 ((pObj = pAvatar->getWornAttachment(pItem->getUUID())) != NULL) && (!isDetachable(pObj)) )
-						{
-							return false;	// If one attachment in the composite folder is undetachable then the entire folder is
-						}
+						LLViewerObject* pObj = pAvatar->getWornAttachment(pItem->getUUID());
+						if ( (pObj != NULL) && (isLockedAttachment(pObj, RLV_LOCK_REMOVE)) )
+							return false;	// If one attachment in the folder is non-detachable then the entire folder should be
 					}
 					break;
-				#ifdef LL_GNUC
 				default:
 					break;
-				#endif // LL_GNUC
 			}
 		}
 		return true;
 	}
-#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
+
+	// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
+	bool RlvHandler::canWearComposite(const LLInventoryCategory* pFolder) const
+	{
+		// Sanity check - if there's no folder or no avatar then there is nothing to wear
+		LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+		if ( (!pFolder) || (!pAvatar) )
+			return false;
+		// Sanity check - if nothing is locked then we can definitely wear it
+		if ( (!hasBehaviour(RLV_BHVR_ADDOUTFIT)) && (!hasBehaviour(RLV_BHVR_REMOUTFIT)) && (!hasLockedAttachment(RLV_LOCK_ANY)) )
+			return true;
+
+		LLInventoryModel::cat_array_t folders;
+		LLInventoryModel::item_array_t items;
+		RlvWearableItemCollector functor(pFolder->getUUID(), true, false);
+		gInventory.collectDescendentsIf(pFolder->getUUID(), folders, items, FALSE, functor);
+
+		for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
+		{
+			LLViewerInventoryItem* pItem = items.get(idxItem);
+
+			if (RlvForceWear::isWearingItem(pItem))
+				continue; // Don't examine any items we're already wearing
+
+			// A wearable layer or attachment point:
+			//   - can't be "add locked"
+			//   - can't be worn and "remove locked"
+			//   - can't be worn and have its item belong to a *different* composite folder that we can't take off
+			switch (pItem->getType())
+			{
+				case LLAssetType::AT_BODYPART:
+				case LLAssetType::AT_CLOTHING:
+					{
+						// NOTE: without its asset we don't know what type the wearable is so we need to look at the item's flags instead
+						EWearableType wtType = (EWearableType)(pItem->getFlags() & LLInventoryItem::II_FLAGS_WEARABLES_MASK);
+						LLViewerInventoryCategory* pFolder;
+						if ( (!isWearable(wtType)) ||
+							 ( (gAgent.getWearable(wtType)) && (!isRemovable(wtType)) ) ||
+							 ( (gRlvHandler.getCompositeInfo(gAgent.getWearableItem(wtType), NULL, &pFolder)) &&
+							   (pFolder->getUUID() != pItem->getParentUUID()) && (!gRlvHandler.canTakeOffComposite(pFolder)) ) )
+						{
+							return false;
+						}
+					}
+					break;
+				case LLAssetType::AT_OBJECT:
+					{
+						// If we made it here then *something* is add/remove locked so we absolutely need to know its attachment point
+						LLViewerJointAttachment* pAttachPt = getAttachPoint(pItem, true);
+						LLViewerInventoryCategory* pFolder;
+						if ( (!pAttachPt) || (isLockedAttachment(pAttachPt, RLV_LOCK_ADD)) ||
+							 ( (pAttachPt->getObject()) && (isLockedAttachment(pAttachPt, RLV_LOCK_REMOVE)) ) ||
+							 ( (gRlvHandler.getCompositeInfo(pAttachPt->getItemID(), NULL, &pFolder)) &&
+							   (pFolder->getUUID() != pItem->getParentUUID()) && (!gRlvHandler.canTakeOffComposite(pFolder)) ) )
+						{
+							return false;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		return true;
+	}
+#endif // RLV_EXPERIMENTAL_COMPOSITEFOLDERS
 
 // ============================================================================
 // Event handlers
 //
 
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
-void RlvHandler::onForceRemOutfit(const LLUUID& idObj, const std::string& strOption) const
-{
-	EWearableType typeOption = LLWearable::typeNameToType(strOption), type;
-	if ( (WT_INVALID == typeOption) && (!strOption.empty()) )
-		return;
-
-	// Before we had an option and optionless branch, but with the addition of composites and nostrip there's less duplication this way
-	for (int idxType = 0; idxType < WT_COUNT; idxType++)
-	{
-		type = (EWearableType)idxType;
-		if (LLAssetType::AT_CLOTHING != LLWearable::typeToAssetType(type))
-			continue; // Only strip clothing, not bodyparts
-
-		if ( ((typeOption == type) || (strOption.empty())) && (gAgent.getWearable(type)) && (isStrippable(gAgent.getWearableItem(type))) )
-		{
-			#ifdef RLV_EXPERIMENTAL_COMPOSITES
-				// If we're stripping something that's part of a composite folder then we should @detachthis instead
-				if (isCompositeDescendent(gAgent.getWearableItem(type)))
-				{
-					std::string strCmd = "detachthis:" + LLWearable::typeToTypeName(type) + "=force";
-					#ifdef RLV_DEBUG
-						RLV_INFOS << "\t- '" << LLWearable::typeToTypeName(type) << "' is composite descendent: @" << strCmd << LL_ENDL;
-					#endif // RLV_DEBUG
-					processForceCommand(idObj, RlvCommand(strCmd));
-				}
-				else
-			#endif // RLV_EXPERIMENTAL_COMPOSITES
-				{
-					gAgent.removeWearable(type);
-				}
-		}
-	}
-}
-
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0g
-bool RlvHandler::onForceSit(const LLUUID& idObj, const std::string& strOption) const
-{
-	LLViewerObject* pObject = NULL; LLUUID idTarget(strOption);
-	// Sanity checking - we need to know about the object and it should identify a prim/linkset
-	if ( (idTarget.isNull()) || ((pObject = gObjectList.findObject(idTarget)) == NULL) || (LL_PCODE_VOLUME != pObject->getPCode()) )
-		return false;
-
-	// Don't force sit if:
-	//   1) currently sitting and prevented from standing up
-	//   2) prevented from sitting
-	//   3) @sittp=n restricted (except if @sittp=n was issued by the same prim that's currently force sitting the avie)
-	if ( ( (hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) && (gAgent.getAvatarObject()->mIsSitting) ) || 
-		 ( (hasBehaviour(RLV_BHVR_SIT)) ) ||
-		 ( (hasBehaviourExcept(RLV_BHVR_SITTP, idObj)) && 
-		   (dist_vec_squared(gAgent.getPositionGlobal(), pObject->getPositionGlobal()) > 1.5f * 1.5f) ))
-	{
-		return false;
-	}
-
-	// Copy/paste from handle_sit_or_stand() [see http://wiki.secondlife.com/wiki/AgentRequestSit]
-	gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
-	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	gMessageSystem->nextBlockFast(_PREHASH_TargetObject);
-	gMessageSystem->addUUIDFast(_PREHASH_TargetID, pObject->mID);
-	// Offset: "a rough position in local coordinates for the edge to sit on"
-	// (we might not even be looking at the object so I don't think we can supply the offset to an edge)
-	gMessageSystem->addVector3Fast(_PREHASH_Offset, LLVector3::zero);
-	pObject->getRegion()->sendReliableMessage();
-
-	return true;
-}
-
-// Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-void RlvHandler::onForceWear(const std::string& strPath, bool fAttach, bool fMatchAll) const
-{
-	// See LLWearableBridge::wearOnAvatar(): don't wear anything until initial wearables are loaded, can destroy clothing items
-	if (!gAgent.areWearablesLoaded()) 
-		return;
-
-	LLViewerInventoryCategory* pFolder = getSharedFolder(strPath);
-	if (!pFolder)	// Folder not found = nothing to attach
-		return;
-
-	LLInventoryModel::cat_array_t  folders;
-	LLInventoryModel::item_array_t items;
-	RlvWearableItemCollector functor(pFolder->getUUID(), fAttach, fMatchAll);
-
-	// Grab a list of all the items we'll be wearing/attaching
-	gInventory.collectDescendentsIf(pFolder->getUUID(), folders, items, FALSE, functor);
-
-	LLViewerInventoryItem* pItem;
-	for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
-	{
-		pItem = items.get(idxItem);
-
-		switch (pItem->getType())
-		{
-			case LLAssetType::AT_CLOTHING:
-			case LLAssetType::AT_BODYPART:
-				{
-					LLWearable* pWearable = gAgent.getWearableFromWearableItem(pItem->getUUID());
-
-					#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-						// If we're already wearing something on this layer then we have to check if it isn't part of a composite
-						// folder that has at least one unremovable item (in which case we can't wear or remove this item)
-						LLViewerInventoryCategory* pCompositeFolder;
-						if ( (!pWearable) || (!getCompositeInfo(pItem->getUUID(), NULL, &pCompositeFolder)) || 
-							 (canTakeOffComposite(pFolder)))
-						{
-					#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-							if (fAttach)
-							{
-								// Simulate wearing a clothing item from inventory (right click / "Wear")
-								// LLWearableBridge::performAction() => LLWearableBridge::wearOnAvatar() => wear_inventory_item_on_avatar()
-								wear_inventory_item_on_avatar(pItem);
-							}
-							else
-							{
-								if ( (pWearable) && (LLAssetType::AT_CLOTHING == pItem->getType()) )
-									gAgent.removeWearable(pWearable->getType());
-							}
-					#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-						}
-					#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-				}
-				break;
-			case LLAssetType::AT_OBJECT:
-				{
-					LLVOAvatar* pAvatar = gAgent.getAvatarObject();
-					LLViewerObject* pObj;
-
-					#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-						// If we're already wearing something on this attach point then we have to check if it isn't part of a composite
-						// folder that has at least one unremovable item (in which case we can't attach or detach this item)
-						LLViewerInventoryCategory* pCompositeFolder;
-						if ( (pAvatar) && 
-							 ( ((pObj = pAvatar->getWornAttachment(pItem->getUUID())) == NULL) || 
-							   (!getCompositeInfo(pItem->getUUID(), NULL, &pCompositeFolder)) || (canTakeOffComposite(pFolder)) ) )
-						{
-					#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-							if (fAttach)
-							{
-								// Simulate wearing an object to a specific attachment point (copy/paste to suppress replacement dialog)
-								// LLAttachObject::handleEvent() => rez_attachment()
-								LLViewerJointAttachment* pAttachPt = getAttachPoint(pItem, true);
-								if ( (pAttachPt) &&														 // Need a specific attach pt that
-									 ( (!isLockedAttachment(pAttachPt->getObject(), RLV_LOCK_REMOVE)) && // doesn't have locked object
-									   (!isLockedAttachment(pAttachPt, RLV_LOCK_ADD)) ) )				 // and that can be attached to
-								{
-									RlvAttachmentManager::forceAttach(pItem->getUUID(), getAttachPointIndex(pAttachPt->getName(), true));
-								}
-							}
-							else
-							{
-								if ( (pAvatar) && ((pObj = pAvatar->getWornAttachment(pItem->getUUID())) != NULL) )
-								{
-									LLViewerJointAttachment* pAttachment = pAvatar->getTargetAttachmentPoint(pObj);
-									if (pAttachment)
-										handle_detach_from_avatar(pAttachment);
-								}
-							}
-					#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-						}
-					#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-				}
-				break;
-			#ifdef LL_GNUC
-			default:
-				break;
-			#endif // LL_GNUC
-		}
-	}
-}
-
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0g
-bool RlvHandler::onGetPath(const LLUUID &uuid, const std::string& strOption, std::string& strReply) const
-{
-	// Sanity check - no need to go through all this trouble if we don't have a shared root
-	LLViewerInventoryCategory* pRlvRoot = getSharedRoot();
-	if (!pRlvRoot)
-		return false;
-
-	LLUUID idItem;
-
-	// <option> can be a clothing layer
-	EWearableType layerType = LLWearable::typeNameToType(strOption);
-	if (WT_INVALID != layerType)
-	{
-		idItem = gAgent.getWearableItem(layerType);
-	}
-	else
-	{
-		LLViewerJointAttachment* pAttachPt = NULL;
-
-		// ... or it can be empty
-		if (strOption.empty())
-		{
-			// (in which case we act on the object that issued the command)
-			LLViewerObject* pObj = gObjectList.findObject(uuid);
-			if ( (pObj) && (pObj->isAttachment()) && (gAgent.getAvatarObject()) )
-				pAttachPt = gAgent.getAvatarObject()->getTargetAttachmentPoint(pObj);
-		}
-		else
-		{
-			// ... or it can specify an attach point
-			pAttachPt = getAttachPoint(strOption, true);
-		}
-
-		// If we found something, get its inventory item UUID
-		if (pAttachPt)
-			idItem = pAttachPt->getItemID();
-	}
-
-	// If we found something and it's under the shared root, then get its path
-	if ( (!idItem.isNull()) && (gInventory.isObjectDescendentOf(idItem, pRlvRoot->getUUID())) )
-	{
-		LLInventoryItem* pItem = gInventory.getItem(idItem);
-		if (pItem)
-		{
-			// ... unless the containing folder's name specifies an attach point (or nostrip) in which case we need its parent
-			LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
-			#ifdef RLV_EXTENSION_FLAG_NOSTRIP
-				if ( (getAttachPoint(pFolder, true)) || (pFolder->getName() == ".("RLV_FOLDER_FLAG_NOSTRIP")") )
-			#else
-				if (getAttachPoint(pFolder, true))
-			#endif // RLV_EXTENSION_FLAG_NOSTRIP
-					strReply = getSharedPath(pFolder->getParentUUID());
-				else
-					strReply = getSharedPath(pFolder);
-		}
-	}
-	return !strReply.empty();
-}
-
-struct rlv_wear_info { U32 cntWorn, cntTotal, cntChildWorn, cntChildTotal; };
-
-// Checked: 2009-05-30 (RLVa-0.2.0e) | Modified: RLVa-0.2.0e
-void RlvHandler::onGetInvWorn(const std::string& strPath, std::string& strReply) const
-{
-	// Sanity check - getAvatarObject() can't be NULL [see rlvIsWearingItem()] and the folder should exist and not be hidden
-	LLViewerInventoryCategory* pFolder = getSharedFolder(strPath);
-	if ((!gAgent.getAvatarObject()) || (!pFolder) || (pFolder->getName().empty()) || (RLV_FOLDER_PREFIX_HIDDEN == pFolder->getName()[0]))
-		return;
-
-	// Collect everything @attachall would be attaching
-	LLInventoryModel::cat_array_t  folders;
-	LLInventoryModel::item_array_t items;
-	RlvWearableItemCollector functor(pFolder->getUUID(), true, true);
-	gInventory.collectDescendentsIf(pFolder->getUUID(), folders, items, FALSE, functor);
-
-	rlv_wear_info wi = {0};
-
-	// Add all the folders to a lookup map 
-	std::map<LLUUID, rlv_wear_info> mapFolders;
-	mapFolders.insert(std::pair<LLUUID, rlv_wear_info>(pFolder->getUUID(), wi));
-	for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
-		mapFolders.insert(std::pair<LLUUID, rlv_wear_info>(folders.get(idxFolder)->getUUID(), wi));
-
-	// Iterate over all the found items
-	LLViewerInventoryItem* pItem; std::map<LLUUID, rlv_wear_info>::iterator itFolder;
-	for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
-	{
-		pItem = items.get(idxItem);
-
-		// The "folded parent" is the folder this item should be considered a direct descendent of (may or may not match actual parent)
-		const LLUUID& idParent = functor.getFoldedParent(pItem->getParentUUID());
-
-		// Walk up the tree: sooner or later one of the parents will be a folder in the map
-		LLViewerInventoryCategory* pParent = gInventory.getCategory(idParent);
-		while ( (itFolder = mapFolders.find(pParent->getUUID())) == mapFolders.end() )
-			pParent = gInventory.getCategory(pParent->getParentUUID());
-
-		U32 &cntWorn  = (idParent == pParent->getUUID()) ? itFolder->second.cntWorn : itFolder->second.cntChildWorn, 
-			&cntTotal = (idParent == pParent->getUUID()) ? itFolder->second.cntTotal : itFolder->second.cntChildTotal;
-
-		if (rlvIsWearingItem(pItem))
-			cntWorn++;
-		cntTotal++;
-	}
-
-	// Extract the result for the main folder
-	itFolder = mapFolders.find(pFolder->getUUID());
-	wi.cntWorn = itFolder->second.cntWorn;
-	wi.cntTotal = itFolder->second.cntTotal;
-	mapFolders.erase(itFolder);
-
-	// Build the result for each child folder
-	for (itFolder = mapFolders.begin(); itFolder != mapFolders.end(); ++itFolder)
-	{
-		rlv_wear_info& wiFolder = itFolder->second;
-
-		wi.cntChildWorn += wiFolder.cntWorn + wiFolder.cntChildWorn;
-		wi.cntChildTotal += wiFolder.cntTotal + wiFolder.cntChildTotal;
-
-		strReply += llformat(",%s|%d%d", gInventory.getCategory(itFolder->first)->getName().c_str(),
-		 (0 == wiFolder.cntTotal) ? 0 : (0 == wiFolder.cntWorn) ? 1 : (wiFolder.cntWorn != wiFolder.cntTotal) ? 2 : 3,
-		 (0 == wiFolder.cntChildTotal) ? 0 : (0 == wiFolder.cntChildWorn) ? 1 : (wiFolder.cntChildWorn != wiFolder.cntChildTotal) ? 2 : 3
-		);
-	}
-
-	// Now just prepend the root and done
-	strReply = llformat("|%d%d", (0 == wi.cntTotal) ? 0 : (0 == wi.cntWorn) ? 1 : (wi.cntWorn != wi.cntTotal) ? 2 : 3,
-		(0 == wi.cntChildTotal) ? 0 : (0 == wi.cntChildWorn) ? 1 : (wi.cntChildWorn != wi.cntChildTotal) ? 2: 3) + strReply;
-}
-
 // (In case anyone cares: this isn't used in public builds)
 bool RlvHandler::getWornInfo(const LLInventoryCategory* pFolder, U8& wiFolder, U8& wiChildren) const
 {
-	// Sanity check - getAvatarObject() can't be NULL [see rlvIsWearingItem()] and the folder should exist and not be hidden
+	// Sanity check - getAvatarObject() can't be NULL [see RlvForceWear::isWearingItem()] and the folder should exist and not be hidden
 	if ((!gAgent.getAvatarObject()) || (!pFolder) || (pFolder->getName().empty()) || (RLV_FOLDER_PREFIX_HIDDEN == pFolder->getName()[0]))
 		return false;
 
@@ -2363,7 +1507,7 @@ bool RlvHandler::getWornInfo(const LLInventoryCategory* pFolder, U8& wiFolder, U
 		bool fDirectDescendent = (pFolder->getUUID() == functor.getFoldedParent(pItem->getParentUUID()));
 		U32 &refWorn = (fDirectDescendent) ? cntWorn : cntChildWorn, &refTotal = (fDirectDescendent) ? cntTotal : cntChildTotal;
 
-		if (rlvIsWearingItem(pItem))
+		if (RlvForceWear::isWearingItem(pItem))
 			refWorn++;
 		refTotal++;
 	}
@@ -2379,6 +1523,7 @@ bool RlvHandler::getWornInfo(const LLInventoryCategory* pFolder, U8& wiFolder, U
 // Initialization helper functions
 //
 
+// Checked: 2009-11-25 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
 BOOL RlvHandler::setEnabled(BOOL fEnable)
 {
 	if (m_fEnabled == fEnable)
@@ -2386,17 +1531,17 @@ BOOL RlvHandler::setEnabled(BOOL fEnable)
 
 	if (fEnable)
 	{
-		if (gSavedSettings.controlExists(RLV_SETTING_NOSETENV))
-			fNoSetEnv = gSavedSettings.getBOOL(RLV_SETTING_NOSETENV);
-		if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
-			fLegacyNaming = gSavedSettings.getBOOL(RLV_SETTING_ENABLELEGACYNAMING);
-		if (gSavedSettings.controlExists(RLV_SETTING_SHOWNAMETAGS))
-			RlvSettings::fShowNameTags = gSavedSettings.getBOOL(RLV_SETTING_SHOWNAMETAGS);
-
+		// Initialize the command lookup table
 		RlvCommand::initLookupTable();
-		gRlvHandler.m_pAttachMgr = new RlvAttachmentManager();
-		gRlvHandler.addObserver(new RlvExtGetSet());
 
+		// Initialize static classes
+		RlvSettings::initClass();
+		RlvStrings::initClass();
+
+		gRlvHandler.m_pAttachMgr = new RlvAttachmentManager();
+		gRlvHandler.addCommandHandler(new RlvExtGetSet());
+
+		// Fetch shared inventory if we're enabled after logon
 		if (LLStartUp::getStartupState() >= STATE_CLEANUP)
 			fetchSharedInventory();
 
@@ -2404,17 +1549,7 @@ BOOL RlvHandler::setEnabled(BOOL fEnable)
 	}
 	else if (canDisable())
 	{
-		#ifdef RLV_DEBUG
-			RLV_INFOS << "Disabling RLV:" << LL_ENDL;
-		#endif // RLV_DEBUG
-
 		gRlvHandler.clearState();
-
-		#ifdef RLV_DEBUG
-			RLV_INFOS << "\t--> RLV disabled" << LL_ENDL;
-		#endif // RLV_DEBUG
-
-		m_fEnabled = FALSE;
 	}
 
 	#ifdef RLV_ADVANCED_MENU
@@ -2466,7 +1601,7 @@ void RlvHandler::clearState()
 	memset(m_LayersRem, 0, sizeof(S16) * WT_COUNT);
 	memset(m_Behaviours, 0, sizeof(S16) * RLV_BHVR_COUNT);
 	m_Retained.clear();
-	m_Emitter.clearObservers(); // <- calls delete on all active observers
+	clearCommandHandlers(); // <- calls delete on all registered command handlers
 
 	// Clear dynamically allocated memory
 	delete m_pGCTimer;
@@ -2480,6 +1615,359 @@ void RlvHandler::clearState()
 // ============================================================================
 // Command handlers (RLV_TYPE_ADD and RLV_TYPE_REMOVE)
 //
+
+#define VERIFY_OPTION(x)		{ if (!(x)) { eRet = RLV_RET_FAILED_OPTION; break; } }
+#define VERIFY_OPTION_REF(x)	{ if (!(x)) { eRet = RLV_RET_FAILED_OPTION; break; } fRefCount = true; }
+
+// Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+ERlvCmdRet RlvHandler::processAddRemCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
+{
+	// NOTE: - at this point the command has already been:
+	//            * added to the RlvObject
+	//            * removed from the RlvObject (which still exists at this point even if this is the last restriction)
+	//       - the object's UUID may or may not exist in gObjectList (see handling of @detach=n|y)
+	ERlvBehaviour eBhvr = rlvCmd.getBehaviourType(); ERlvParamType eType = rlvCmd.getParamType();
+
+	ERlvCmdRet eRet = RLV_RET_SUCCESS; bool fRefCount = false, fRefreshHover = false; const std::string& strOption = rlvCmd.getOption();
+	switch (eBhvr)
+	{
+		case RLV_BHVR_DETACH:				// @detach[:<option>]=n|y
+			eRet = onAddRemDetach(idObj, rlvCmd, fRefCount);
+			break;
+		case RLV_BHVR_ADDATTACH:			// @addattach[:<option>]=n|y
+		case RLV_BHVR_REMATTACH:			// @addattach[:<option>]=n|y
+			eRet = onAddRemAttach(idObj, rlvCmd, fRefCount);
+			break;
+		case RLV_BHVR_ADDOUTFIT:			// @addoutfit[:<layer>]=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_REMOUTFIT:			// @remoutfit[:<layer>]=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				 // If there's an option it should specify a wearable type name (reference count on no option *and* a valid option)
+				EWearableType wtType = LLWearable::typeNameToType(strOption);
+				VERIFY_OPTION_REF( (strOption.empty()) || (WT_INVALID != wtType) );
+
+				S16* pLayers = (RLV_BHVR_ADDOUTFIT == eBhvr) ? m_LayersAdd : m_LayersRem;
+				for (int idxType = 0; idxType < WT_COUNT; idxType++)
+				{
+					if ( ((EWearableType)idxType == wtType) || (WT_INVALID == wtType) )
+					{
+						if (RLV_TYPE_ADD == eType)
+							pLayers[idxType]++;
+						else
+							pLayers[idxType]--;
+					}
+				}
+			}
+			break;
+		case RLV_BHVR_REDIRCHAT:			// @redirchat:<channel>=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_REDIREMOTE:			// @rediremote:<channel>=n|y		- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				// There should be an option and it should specify a valid reply channel (if there's an empty option the command is invalid)
+				S32 nChannel = 0;
+				VERIFY_OPTION_REF( (LLStringUtil::convertToS32(strOption, nChannel)) && (rlvIsValidReplyChannel(nChannel)) );
+
+				if (RLV_TYPE_ADD == eType)
+					addException(idObj, eBhvr, nChannel);
+				else
+					removeException(idObj, eBhvr, nChannel);
+			}
+			break;
+		case RLV_BHVR_SENDCHANNEL:			// @sendchannel[:<channel>]=n|y		- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				// If there's an option then it should be a valid (= positive and non-zero) chat channel (only reference count empty option)
+				S32 nChannel = 0;
+				if ( (LLStringUtil::convertToS32(strOption, nChannel)) && (nChannel > 0) )
+				{
+					if (RLV_TYPE_ADD == eType)
+						addException(idObj, eBhvr, nChannel);
+					else
+						removeException(idObj, eBhvr, nChannel);
+					break;
+				}
+				VERIFY_OPTION_REF(strOption.empty());
+			}
+			break;
+		case RLV_BHVR_NOTIFY:				// @notify:<params>=add|rem			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				// There should be an option that we can successfully parse (if there's an empty option the command is invalid)
+				S32 nChannel; std::string strFilter;
+				VERIFY_OPTION_REF( (!strOption.empty()) && (rlvParseNotifyOption(strOption, nChannel, strFilter)) );
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					if (!m_pBhvrNotify)
+						addBehaviourObserver(m_pBhvrNotify = new RlvBehaviourNotifyObserver());
+					m_pBhvrNotify->addNotify(idObj, nChannel, strFilter);
+				}
+				else if (m_pBhvrNotify)
+				{
+					m_pBhvrNotify->removeNotify(idObj, nChannel, strFilter);
+					if (!m_pBhvrNotify->hasNotify())
+					{
+						removeBehaviourObserver(m_pBhvrNotify);
+						delete m_pBhvrNotify;
+						m_pBhvrNotify = NULL;
+					}
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWINV:				// @showinv=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// Close all open inventory windows
+					LLInventoryView::closeAll();
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWMINIMAP:			// @showminimap=n|y					- Checked: 2009-12-05 (RLVa-1.1.0g) | Modified: RLVa-1.1.0g
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// Simulate clicking the Minimap button [see LLToolBar::onClickRadar()]
+					#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
+						if (gFloaterMap->getVisible())
+							LLFloaterMap::toggle(NULL);
+					#else												// Version: 1.23.4
+						if (LLFloaterMap::instanceVisible())
+							LLFloaterMap::hideInstance();
+					#endif
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWWORLDMAP:			// @showworldmap=n|y				- Checked: 2009-12-05 (RLVa-1.1.0g) | Modified: RLVa-1.1.0g
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// Simulate clicking the Map button [see LLToolBar::onClickMap()]
+					if (gFloaterWorldMap->getVisible())
+						LLFloaterWorldMap::toggle(NULL);
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWLOC:				// @showloc=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// If this is the first @showloc=n restriction refresh all object text so we can filter it if necessary
+					fRefreshHover = (0 == m_Behaviours[RLV_BHVR_SHOWLOC]);
+
+					// Close the "About Land" floater if it's currently visible
+					if (LLFloaterLand::instanceVisible())
+						LLFloaterLand::hideInstance();
+
+					// Close the "Estate Tools" floater is it's currently visible
+					if (LLFloaterRegionInfo::instanceVisible())
+						LLFloaterRegionInfo::hideInstance();
+
+					// NOTE: we should close the "God Tools" floater as well, but since calling LLFloaterGodTools::instance() always
+					//       creates a new instance of the floater and since it's very unlikely to be open it's just better not to
+				}
+				else
+				{
+					// If this is the last @showloc=n restriction refresh all object text in case anything needs restoring
+					fRefreshHover = (1 == m_Behaviours[RLV_BHVR_SHOWLOC]);
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWNAMES:			// @shownames=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// If this is the first @shownames=n restriction refresh all object text so we can filter it if necessary
+					fRefreshHover = (0 == m_Behaviours[RLV_BHVR_SHOWNAMES]);
+
+					// Close the "Active Speakers" panel if it's currently visible
+					LLFloaterChat::getInstance()->childSetVisible("active_speakers_panel", false);
+				}
+				else
+				{
+					// If this is the last @shownames=n restriction refresh all object text in case anything needs restoring
+					fRefreshHover = (1 == m_Behaviours[RLV_BHVR_SHOWNAMES]);
+				}
+			}
+			break;
+		case RLV_BHVR_SHOWHOVERTEXTALL:		// @showhovertextall=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SHOWHOVERTEXTWORLD:	// @showhovertextworld=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SHOWHOVERTEXTHUD:		// @showhovertexthud=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				// Refresh all object text on the first/last add/rem(LLHUDText::setStringUTF8() decides what needs clearing and what doesn't)
+				fRefreshHover = ((RLV_TYPE_ADD == eType) && (0 == m_Behaviours[eBhvr])) ||
+					            ((RLV_TYPE_REMOVE == eType) && (1 == m_Behaviours[eBhvr]));
+			}
+			break;
+		case RLV_BHVR_SHOWHOVERTEXT:		// @showhovertext:<uuid>=n|y		- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				// There should be an option and it should specify a valid UUID
+				LLUUID idException(strOption);
+				VERIFY_OPTION_REF(idException.notNull());
+
+				if (RLV_TYPE_ADD == eType)
+					addException(idObj, eBhvr, idException);
+				else
+					removeException(idObj, eBhvr, idException);
+
+				// Clear/restore the object's hover text as needed
+				LLViewerObject* pObj = gObjectList.findObject(idException);
+				if ( (pObj) && (pObj->mText.notNull()) && (!pObj->mText->getObjectText().empty()) )
+					pObj->mText->setStringUTF8( (RLV_TYPE_ADD == eType) ? "" : pObj->mText->getObjectText());
+			}
+			break;
+		case RLV_BHVR_EDIT:					// @edit=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+				{
+					// Turn off "View / Highlight Transparent"
+					LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
+
+					// Close the Beacons floater if it's open
+					if (LLFloaterBeacons::instanceVisible())
+						LLFloaterBeacons::toggleInstance();
+
+					// Get rid of the build floater if it's open [copy/paste from toggle_build_mode()]
+					if (gFloaterTools->getVisible())
+					{
+						gAgent.resetView(FALSE);
+						gFloaterTools->close();
+						gViewerWindow->showCursor();
+					}
+				}
+			}
+			break;
+#ifdef RLV_EXTENSION_CMD_TOUCHXXX
+		case RLV_BHVR_TOUCH:				// @touch:<uuid>=n					- Checked: 2010-01-01 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+			{
+				// There should be an option and it should specify a valid UUID
+				LLUUID idException(strOption);
+				VERIFY_OPTION_REF(idException.notNull());
+
+				if (RLV_TYPE_ADD == eType)
+					addException(idObj, eBhvr, idException);
+				else
+					removeException(idObj, eBhvr, idException);
+			}
+			break;
+#endif // RLV_EXTENSION_CMD_TOUCHXXX
+		case RLV_BHVR_FLY:					// @fly=n|y							- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			{
+				VERIFY_OPTION_REF(strOption.empty());
+
+				if (RLV_TYPE_ADD == eType)
+					gAgent.setFlying(FALSE);
+			}
+			break;
+		case RLV_BHVR_SETENV:				// @setenv=n|y
+			eRet = onAddRemSetEnv(idObj, rlvCmd, fRefCount);
+			break;
+		// The following block is only valid if there's no option
+		case RLV_BHVR_EMOTE:				// @emote=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SENDCHAT:				// @sendchat=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_CHATWHISPER:			// @chatwhisper=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_CHATNORMAL:			// @chatnormal=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_CHATSHOUT:			// @chatshout=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_PERMISSIVE:			// @permissive=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_TPLM:					// @tplm=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_TPLOC:				// @tploc=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_VIEWNOTE:				// @viewnote=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_VIEWSCRIPT:			// @viewscript=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_VIEWTEXTURE:			// @viewtexture=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_ACCEPTPERMISSION:		// @acceptpermission=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_DEFAULTWEAR:			// @defaultwear=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+#ifdef RLV_EXTENSION_CMD_ALLOWIDLE
+		case RLV_BHVR_ALLOWIDLE:			// @allowidle=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+#endif // RLV_EXTENSION_CMD_ALLOWIDLE
+		case RLV_BHVR_REZ:					// @rez=n|y							- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_FARTOUCH:				// @fartouch=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+#ifdef RLV_EXTENSION_CMD_INTERACT
+		case RLV_BHVR_INTERACT:				// @interact=n|y					- Checked: 2010-01-01 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+#endif // RLV_EXTENSION_CMD_INTERACT
+		case RLV_BHVR_UNSIT:				// @unsit=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SIT:					// @sit=n|y							- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SITTP:				// @sittp=n|y						- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SETDEBUG:				// @setdebug=n|y					- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+			VERIFY_OPTION_REF(strOption.empty());
+			break;
+		// The following block is only valid if there's no option (= restriction) or if it specifies a valid UUID (= behaviour exception)
+		case RLV_BHVR_RECVCHAT:				// @recvchat[:<uuid>]=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_RECVEMOTE:			// @recvemote[:<uuid>]=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_SENDIM:				// @sendim[:<uuid>]=n|y				- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_RECVIM:				// @recvim[:<uuid>]=n|y				- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_TPLURE:				// @tplure[:<uuid>]=n|y				- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+		case RLV_BHVR_ACCEPTTP:				// @accepttp[:<uuid>]=n|y			- Checked: 2009-12-05 (RLVa-1.1.0h) | Modified: RLVa-1.1.0h
+#ifdef RLV_EXTENSION_CMD_TOUCHXXX
+		case RLV_BHVR_TOUCHWORLD:			// @touchworld[:<uuid>=n|y			- Checked: 2010-01-01 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+		case RLV_BHVR_TOUCHATTACH:			// @touchattach[:<uuid>=n|y			- Checked: 2010-01-01 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+		case RLV_BHVR_TOUCHHUD:				// @touchhud[:<uuid>=n|y			- Checked: 2010-01-01 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+#endif // RLV_EXTENSION_CMD_TOUCHXXX
+			{
+				LLUUID idException(strOption);
+				if (idException.notNull())		// If there's an option then it should specify a valid UUID
+				{
+					if (RLV_TYPE_ADD == eType)
+						addException(idObj, eBhvr, idException);
+					else
+						removeException(idObj, eBhvr, idException);
+					break;
+				}
+				VERIFY_OPTION_REF(strOption.empty());
+			}
+			break;
+		case RLV_BHVR_UNKNOWN:
+			// Pass unknown commands on to registered command handlers
+			return (notifyCommandHandlers(&RlvCommandHandler::onAddRemCommand, idObj, rlvCmd, eRet, false)) ? eRet : RLV_RET_FAILED_UNKNOWN;
+		default:
+			// Fail with "Invalid param" if none of the above handled it
+			eRet = RLV_RET_FAILED_PARAM;
+			break;
+	}
+
+	// If this command represents a behaviour restriction that's been added/removed then we need to do some additional processing
+	if ( (RLV_RET_SUCCESS == eRet) && (fRefCount) )
+	{
+		if (RLV_TYPE_ADD == eType)
+		{
+			if (rlvCmd.isStrict())
+				addException(idObj, RLV_BHVR_PERMISSIVE, eBhvr);
+			m_Behaviours[eBhvr]++;
+		}
+		else
+		{
+			if (rlvCmd.isStrict())
+				removeException(idObj, RLV_BHVR_PERMISSIVE, eBhvr);
+			m_Behaviours[eBhvr]--;
+		}
+
+		// Since canShowHoverText() uses hasBehaviour() refreshing object text needs to wait until after we've reference counted
+		if (fRefreshHover)
+			LLHUDText::refreshAllObjectText();
+
+		// Since RlvSettings::updateLoginLastLocation() uses hasBehaviour() it needs to be called after we've reference counted
+		#ifdef RLV_EXTENSION_STARTLOCATION
+			RlvSettings::updateLoginLastLocation();
+		#endif // RLV_EXTENSION_STARTLOCATION
+
+		// Show an - optional - notification on every global behaviour change
+		#ifdef RLV_EXTENSION_NOTIFY_BEHAVIOUR
+		if ( ((RLV_TYPE_ADD == eType) && (1 == m_Behaviours[eBhvr])) || (0 == m_Behaviours[eBhvr]) )
+			RlvNotifications::notifyBehaviour(eBhvr, eType);
+		#endif // RLV_EXTENSION_NOTIFY_BEHAVIOUR
+	}
+
+	return eRet;
+}
 
 // Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
 ERlvCmdRet RlvHandler::onAddRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount)
@@ -2511,10 +1999,10 @@ ERlvCmdRet RlvHandler::onAddRemAttach(const LLUUID& idObj, const RlvCommand& rlv
 		LLPipeline::sShowHUDAttachments = TRUE;
 
 	fRefCount = rlvCmd.getOption().empty();	// Only reference count global locks
-	return RLV_RET_NOERROR;
+	return RLV_RET_SUCCESS;
 }
 
-// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+// Checked: 2010-07-18 (RLVa-1.1.2b) | Modified: RLVa-1.1.2a
 ERlvCmdRet RlvHandler::onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount)
 {
 	S32 idxAttachPt = 0;
@@ -2526,7 +2014,7 @@ ERlvCmdRet RlvHandler::onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlv
 		//   * @detach=y: - if it ever rezzed as an attachment we'll have cached its attach point 
 		//                - if it never rezzed as an attachment there won't be a lock to remove
 		rlv_object_map_t::const_iterator itObj = m_Objects.find(idObj);
-		if (itObj != m_Objects.end())
+		if ( (itObj != m_Objects.end()) && (itObj->second.m_fLookup) && (itObj->second.m_idxAttachPt) )
 			idxAttachPt = itObj->second.m_idxAttachPt;
 	}
 	else							// @detach:<attachpt>=n|y
@@ -2536,7 +2024,7 @@ ERlvCmdRet RlvHandler::onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlv
 
 	// The attach point can be zero for @detach=n|y (i.e. non-attachment) but should always be non-zero for @detach:<attachpt>=n|y
 	if (0 == idxAttachPt)
-		return (rlvCmd.getOption().empty()) ? RLV_RET_NOERROR : RLV_RET_FAILED_OPTION;
+		return (rlvCmd.getOption().empty()) ? RLV_RET_SUCCESS : RLV_RET_FAILED_OPTION;
 
 	// Actually lock the attachment point (@detach=n locks remove only; @detach:<attachpt>=n locks both remove and add)
 	ERlvLockMask eLock = (rlvCmd.getOption().empty()) ? RLV_LOCK_REMOVE : (ERlvLockMask)(RLV_LOCK_ADD | RLV_LOCK_REMOVE);
@@ -2550,67 +2038,726 @@ ERlvCmdRet RlvHandler::onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlv
 		LLPipeline::sShowHUDAttachments = TRUE;
 
 	fRefCount = false;	// Don't reference count @detach[:<option>]=n
-	return RLV_RET_NOERROR;
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-12-05 (RLVa-1.1.0h) | Added: RLVa-1.1.0h
+ERlvCmdRet RlvHandler::onAddRemSetEnv(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount)
+{
+	// Sanity check - there shouldn't be an option
+	if (!rlvCmd.getOption().empty())
+		return RLV_RET_FAILED_OPTION;
+	if (RlvSettings::getNoSetEnv())
+		return RLV_RET_FAILED_DISABLED;
+
+	if (RLV_TYPE_ADD == rlvCmd.getParamType())
+	{
+		// Only close the floaters if their instance exists and they're actually visible
+		if ( (LLFloaterEnvSettings::isOpen()) && (LLFloaterEnvSettings::instance()->getVisible()) )
+			LLFloaterEnvSettings::instance()->close();
+		if ( (LLFloaterWindLight::isOpen()) && (LLFloaterWindLight::instance()->getVisible()) )
+			LLFloaterWindLight::instance()->close();
+		if ( (LLFloaterWater::isOpen()) && (LLFloaterWater::instance()->getVisible()) )
+			LLFloaterWater::instance()->close();
+		if ( (LLFloaterDayCycle::isOpen()) && (LLFloaterDayCycle::instance()->getVisible()) )
+			LLFloaterDayCycle::instance()->close();
+
+		// Save the current WindLight params so we can restore them on @setenv=y
+		if (m_pWLSnapshot)
+		{
+			RLV_ERRS << "m_pWLSnapshot != NULL" << RLV_ENDL; // Safety net in case we set @setenv=n for more than 1 object
+			delete m_pWLSnapshot;
+		}
+		m_pWLSnapshot = RlvWLSnapshot::takeSnapshot();
+	}
+	else
+	{
+		// Restore WindLight parameters to what they were before @setenv=n was issued
+		RlvWLSnapshot::restoreSnapshot(m_pWLSnapshot);
+		delete m_pWLSnapshot;
+		m_pWLSnapshot = NULL;
+	}
+	fRefCount = true;
+	return RLV_RET_SUCCESS;
 }
 
 // ============================================================================
 // Command handlers (RLV_TYPE_FORCE)
 //
 
-// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
-ERlvCmdRet RlvHandler::onForceDetach(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+// Checked: 2009-12-21 (RLVa-1.1.0j) | Modified: RLVa-1.1.0j
+ERlvCmdRet RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvCmd) const
 {
-	// TODO-RLVA: this still needs a rewrite to conform to the new event handler system
-	if ( (rlvCmd.getOption().empty()) || (getAttachPointIndex(rlvCmd.getOption(), true)) )
+	RLV_ASSERT(RLV_TYPE_FORCE == rlvCmd.getParamType());
+
+	ERlvCmdRet eRet = RLV_RET_SUCCESS;
+	switch (rlvCmd.getBehaviourType())
 	{
-		onForceRemAttach(idObj, rlvCmd);
+		case RLV_BHVR_DETACH:		// @detach[:<option>]=force		- Checked: 2009-12-21 (RLVa-1.1.0k) | Modified: RLVa-1.1.0j
+			eRet = onForceRemAttach(idObj, rlvCmd);
+			if (RLV_RET_SUCCESS != eRet)
+				eRet = onForceWear(rlvCmd.getOption(), false, false);
+			break;
+		case RLV_BHVR_REMATTACH:	// @remattach[:<option>]=force
+			eRet = onForceRemAttach(idObj, rlvCmd);
+			break;
+		case RLV_BHVR_REMOUTFIT:	// @remoutfit[:<option>]=force
+			eRet = onForceRemOutfit(idObj, rlvCmd);
+			break;
+		case RLV_BHVR_UNSIT:		// @unsit=force					- Checked: 2009-12-21 (RLVa-1.1.0k) | Modified: RLVa-0.2.0g
+			{
+				VERIFY_OPTION(rlvCmd.getOption().empty());
+				LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+				if ( (pAvatar) && (pAvatar->mIsSitting) && (!hasBehaviourExcept(RLV_BHVR_UNSIT, idObj)) )
+				{
+					gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+					send_agent_update(TRUE, TRUE);	// See behaviour notes on why we have to force an agent update here
+				}
+			}
+			break;
+		case RLV_BHVR_SIT:			// @sit:<option>=force
+			eRet = onForceSit(idObj, rlvCmd);
+			break;
+		case RLV_BHVR_TPTO:			// @tpto:<option>=force			- Checked: 2009-07-12 (RLVa-1.0.0k) | Modified: RLVa-1.0.0h
+			{
+				eRet = RLV_RET_FAILED_OPTION;
+				if ( (!rlvCmd.getOption().empty()) && (std::string::npos == rlvCmd.getOption().find_first_not_of("0123456789/.")) )
+				{
+					LLVector3d posGlobal;
+
+					boost_tokenizer tokens(rlvCmd.getOption(), boost::char_separator<char>("/", "", boost::keep_empty_tokens)); int idx = 0;
+					for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
+					{
+						if (idx < 3)
+							LLStringUtil::convertToF64(*itToken, posGlobal[idx++]);
+					}
+
+					if (idx == 3)
+					{
+						gAgent.teleportViaLocation(posGlobal);
+						eRet = RLV_RET_SUCCESS;
+					}
+				}
+			}
+			break;
+		case RLV_BHVR_ADDOUTFIT:	// @addoutfit:<option>=force <- synonym of @attach:<option>=force
+		case RLV_BHVR_ATTACH:		// @attach:<option>=force
+			eRet = onForceWear(rlvCmd.getOption(), true, false);	// Force attach single folder
+			break;
+		case RLV_BHVR_ATTACHALL:	// @attachall:<option>=force
+			eRet = onForceWear(rlvCmd.getOption(), true, true);		// Force attach nested folders
+			break;
+		case RLV_BHVR_DETACHALL:	// @detachall:<option>=force
+			eRet = onForceWear(rlvCmd.getOption(), false, true);	// Force detach nested folders
+			break;
+		case RLV_BHVR_ATTACHTHIS:	// @attachthis[:<option>]=force
+		case RLV_BHVR_ATTACHALLTHIS:// @attachallthis[:<option>]=force
+		case RLV_BHVR_DETACHTHIS:	// @detachthis[:<option>]=force
+		case RLV_BHVR_DETACHALLTHIS:// @detachallthis[:<option>]=force
+			{
+				ERlvBehaviour eBehaviour = rlvCmd.getBehaviourType(); std::string strReply;
+				if ( ((eRet = onGetPath(idObj, rlvCmd, strReply)) == RLV_RET_SUCCESS) && (!strReply.empty()) )
+				{
+					LLStringUtil::toLower(strReply);
+					eRet = onForceWear(strReply,
+						(RLV_BHVR_ATTACHTHIS == eBehaviour) || (RLV_BHVR_ATTACHALLTHIS == eBehaviour),
+						(RLV_BHVR_ATTACHALLTHIS == eBehaviour) || (RLV_BHVR_DETACHALLTHIS == eBehaviour));
+				}
+			}
+			break;
+		case RLV_BHVR_DETACHME:		// @detachme=force				- Checked:
+			{
+				// NOTE: @detachme=force could be seen as a @detach:<attachpt>=force but RLV implements it as a "detach by UUID"
+				VERIFY_OPTION(rlvCmd.getOption().empty());
+				LLViewerObject* pObj = NULL; LLVOAvatar* pAvatar = NULL; LLViewerJointAttachment* pAttachPt = NULL;
+				if ( ((pObj = gObjectList.findObject(idObj)) != NULL) && (pObj->isAttachment()) &&
+					 ((pAvatar = gAgent.getAvatarObject()) != NULL) &&
+					 ((pAttachPt = pAvatar->getTargetAttachmentPoint(pObj->getRootEdit())) != NULL) )
+				{
+					// @detachme should respect locks but shouldn't respect things like nostrip so handle it like a manual user detach
+					handle_detach_from_avatar(pAttachPt);
+				}
+			}
+			break;
+		case RLV_BHVR_UNKNOWN:
+			// Pass unknown commands on to registered command handlers
+			return (notifyCommandHandlers(&RlvCommandHandler::onForceCommand, idObj, rlvCmd, eRet, false)) ? eRet : RLV_RET_FAILED_UNKNOWN;
+		default:
+			// Fail with "Invalid param" if none of the above handled it
+			eRet = RLV_RET_FAILED_PARAM;
+			break;
+	}
+	return eRet;
+}
+
+// Checked: 2009-11-24 (RLVa-1.1.0k) | Modified: RLVa-1.1.0e
+ERlvCmdRet RlvHandler::onForceRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	RLV_ASSERT(RLV_TYPE_FORCE == rlvCmd.getParamType());
+	RLV_ASSERT( (RLV_BHVR_REMATTACH == rlvCmd.getBehaviourType()) || (RLV_BHVR_DETACH == rlvCmd.getBehaviourType()) );
+
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+		return RLV_RET_FAILED;
+
+	S32 idxAttachPt = 0; ERlvAttachGroupType eAttachGroup = RLV_ATTACHGROUP_INVALID;
+	// @remattach:<attachpt>=force - force detach single worn attachment
+	if ((idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true)) != 0)
+	{
+		LLViewerJointAttachment* pAttachPt = get_if_there(pAvatar->mAttachmentPoints, (S32)idxAttachPt, (LLViewerJointAttachment*)NULL);
+		if (pAttachPt)
+		{
+			RlvForceWear rlvWear;
+			rlvWear.forceDetach(pAttachPt);
+			rlvWear.done();
+		}
+		return RLV_RET_SUCCESS;
+	}
+	// @remattach:<group>=force - force detach worn attachments belonging to <group>
+	// @remattach=force         - force detach all worn attachments
+	else if ( ((eAttachGroup = rlvGetAttachGroupTypeFromString(rlvCmd.getOption())) != RLV_ATTACHGROUP_INVALID) ||
+		      (rlvCmd.getOption().empty()) )
+	{
+		RlvForceWear rlvWear;
+		for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin();
+				itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
+		{
+			LLViewerJointAttachment* pAttachPt = itAttach->second;
+			if ( (pAttachPt) && (pAttachPt->getObject()) &&
+				 ((RLV_ATTACHGROUP_INVALID == eAttachGroup) || (rlvGetAttachGroupTypeFromIndex(pAttachPt->getGroup()) == eAttachGroup)) )
+			{
+				rlvWear.forceDetach(pAttachPt);
+			}
+		}
+		rlvWear.done();
+		return RLV_RET_SUCCESS;
+	}
+	return RLV_RET_FAILED_OPTION;
+}
+
+// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
+ERlvCmdRet RlvHandler::onForceRemOutfit(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	EWearableType wtOption = LLWearable::typeNameToType(rlvCmd.getOption()), wtType;
+	if ( (WT_INVALID == wtOption) && (!rlvCmd.getOption().empty()) )
+		return RLV_RET_FAILED_OPTION;
+
+	RlvForceWear rlvWear;
+	for (int idxType = 0; idxType < WT_COUNT; idxType++)
+	{
+		wtType = (EWearableType)idxType;
+		if ( (wtType == wtOption) || (WT_INVALID == wtOption) )
+			rlvWear.forceRemove(wtType);
+	}
+	rlvWear.done();
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-12-21 (RLVa-1.1.0j) | Modified: RLVa-1.1.0j
+ERlvCmdRet RlvHandler::onForceSit(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	LLViewerObject* pObj = NULL; LLUUID idTarget(rlvCmd.getOption());
+	// Sanity checking - we need to know about the object and it should identify a prim/linkset
+	if ( (idTarget.isNull()) || ((pObj = gObjectList.findObject(idTarget)) == NULL) || (LL_PCODE_VOLUME != pObj->getPCode()) )
+		return RLV_RET_FAILED_OPTION;
+
+	if (!canSit(pObj))
+		return RLV_RET_FAILED_LOCK;
+
+	// Copy/paste from handle_sit_or_stand() [see http://wiki.secondlife.com/wiki/AgentRequestSit]
+	gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
+	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+	gMessageSystem->nextBlockFast(_PREHASH_TargetObject);
+	gMessageSystem->addUUIDFast(_PREHASH_TargetID, pObj->mID);
+	// Offset: "a rough position in local coordinates for the edge to sit on"
+	// (we might not even be looking at the object so I don't think we can supply the offset to an edge)
+	gMessageSystem->addVector3Fast(_PREHASH_Offset, LLVector3::zero);
+	pObj->getRegion()->sendReliableMessage();
+
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
+ERlvCmdRet RlvHandler::onForceWear(const std::string& strPath, bool fAttach, bool fMatchAll) const
+{
+	LLViewerInventoryCategory* pFolder = getSharedFolder(strPath), *pRlvRoot = getSharedRoot();
+	if ( (!pFolder)	|| (pFolder->getUUID() == pRlvRoot->getUUID()) )
+		return (pRlvRoot != NULL) ? RLV_RET_FAILED_OPTION : RLV_RET_FAILED_NOSHAREDROOT;
+
+	RlvForceWear rlvWear;
+	rlvWear.forceFolder(pFolder,
+		(fAttach) ? RlvForceWear::ACTION_ATTACH : RlvForceWear::ACTION_DETACH,
+		(fMatchAll) ? (RlvForceWear::eWearFlags)(RlvForceWear::FLAG_DEFAULT | RlvForceWear::FLAG_MATCHALL) : (RlvForceWear::FLAG_DEFAULT));
+	rlvWear.done();
+
+	return RLV_RET_SUCCESS;
+}
+
+// ============================================================================
+// Command handlers (RLV_TYPE_REPLY)
+//
+
+// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::processReplyCommand(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+
+	// Sanity check - <param> should specify a - valid - reply channel
+	S32 nChannel;
+	if ( (!LLStringUtil::convertToS32(rlvCmd.getParam(), nChannel)) || (!rlvIsValidReplyChannel(nChannel)) )
+		return RLV_RET_FAILED_PARAM;
+
+	ERlvCmdRet eRet = RLV_RET_SUCCESS; std::string strReply;
+	switch (rlvCmd.getBehaviourType())
+	{
+		case RLV_BHVR_VERSION:			// @version=<channel>					- Checked: 2010-03-27 (RLVa-1.2.0b)
+		case RLV_BHVR_VERSIONNEW:		// @versionnew=<channel>				- Checked: 2010-03-27 (RLVa-1.2.0b) | Added: RLVa-1.2.0b
+			// NOTE: RLV will respond even if there's an option
+			strReply = RlvStrings::getVersion(RLV_BHVR_VERSION == rlvCmd.getBehaviourType());
+			break;
+		case RLV_BHVR_VERSIONNUM:		// @versionnum=<channel>				- Checked: 2009-11-26 (RLVa-1.1.0f) | Added: RLVa-1.0.4b
+			// NOTE: RLV will respond even if there's an option
+			strReply = RlvStrings::getVersionNum();
+			break;
+		case RLV_BHVR_GETATTACH:		// @getattach[:<layer>]=<channel>
+			eRet = onGetAttach(idObj, rlvCmd, strReply);
+			break;
+#ifdef RLV_EXTENSION_CMD_GETXXXNAMES
+		case RLV_BHVR_GETATTACHNAMES:	// @getattachnames[:<grp>]=<channel>
+		case RLV_BHVR_GETADDATTACHNAMES:// @getaddattachnames[:<grp>]=<channel>
+		case RLV_BHVR_GETREMATTACHNAMES:// @getremattachnames[:<grp>]=<channel>
+			eRet = onGetAttachNames(idObj, rlvCmd, strReply);
+			break;
+#endif // RLV_EXTENSION_CMD_GETXXXNAMES
+		case RLV_BHVR_GETOUTFIT:		// @getoutfit[:<layer>]=<channel>
+			eRet = onGetOutfit(idObj, rlvCmd, strReply);
+			break;
+#ifdef RLV_EXTENSION_CMD_GETXXXNAMES
+		case RLV_BHVR_GETOUTFITNAMES:	// @getoutfitnames=<channel>
+		case RLV_BHVR_GETADDOUTFITNAMES:// @getaddoutfitnames=<channel>
+		case RLV_BHVR_GETREMOUTFITNAMES:// @getremoutfitnames=<channel>
+			eRet = onGetOutfitNames(idObj, rlvCmd, strReply);
+			break;
+#endif // RLV_EXTENSION_CMD_GETXXXNAMES
+		case RLV_BHVR_FINDFOLDER:		// @findfolder:<criteria>=<channel>
+#ifdef RLV_EXTENSION_CMD_FINDFOLDERS
+		case RLV_BHVR_FINDFOLDERS:		// @findfolders:<criteria>=<channel>
+#endif // RLV_EXTENSION_CMD_FINDFOLDERS
+			eRet = onFindFolder(idObj, rlvCmd, strReply);
+			break;
+		case RLV_BHVR_GETPATH:			// @getpath[:<option>]=<channel>
+			eRet = onGetPath(idObj, rlvCmd, strReply);
+			break;
+		case RLV_BHVR_GETINV:			// @getinv[:<path>]=<channel>
+			eRet = onGetInv(idObj, rlvCmd, strReply);
+			break;
+		case RLV_BHVR_GETINVWORN:		// @getinvworn[:path]=<channel>
+			eRet = onGetInvWorn(idObj, rlvCmd, strReply);
+			break;
+		case RLV_BHVR_GETSITID:			// @getsitid=<channel>					- Checked: 2009-11-26 (RLVa-1.1.0f)
+			{
+				// NOTE: RLV 1.16.1 returns a NULL UUID if we're not sitting
+				LLVOAvatar* pAvatar = gAgent.getAvatarObject(); LLUUID idSitObj;
+				if ( (pAvatar) && (pAvatar->mIsSitting) )
+				{
+					// LLVOAvatar inherits from 2 classes so make sure we get the right vfptr
+					LLViewerObject* pAvatarObj = dynamic_cast<LLViewerObject*>(pAvatar), *pParent;
+					// (If there is a parent, we need to upcast it from LLXform to LLViewerObject to get its UUID)
+					if ( (pAvatarObj) && ((pParent = static_cast<LLViewerObject*>(pAvatarObj->getRoot())) != pAvatarObj) )
+						idSitObj = pParent->getID();
+				}
+				strReply = idSitObj.asString();
+			}
+			break;
+		case RLV_BHVR_GETSTATUS:		// @getstatus[:<option>]=<channel>		- Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+			{
+				// NOTE: specification says response should start with '/' but RLV-1.16.1 returns an empty string when no rules are set
+				rlv_object_map_t::const_iterator itObj = m_Objects.find(idObj);
+				if (itObj != m_Objects.end())
+					strReply = itObj->second.getStatusString(rlvCmd.getOption());
+			}
+			break;
+		case RLV_BHVR_GETSTATUSALL:		// @getstatusall[:<option>]=<channel>	- Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+			{
+				// NOTE: specification says response should start with '/' but RLV-1.16.1 returns an empty string when no rules are set
+				for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
+					strReply += itObj->second.getStatusString(rlvCmd.getOption());
+			}
+			break;
+		case RLV_BHVR_UNKNOWN:
+			// Pass unknown commands on to registered command handlers
+			return (notifyCommandHandlers(&RlvCommandHandler::onReplyCommand, idObj, rlvCmd, eRet, false)) ? eRet : RLV_RET_FAILED_UNKNOWN;
+		default:
+			// Fail with "Invalid param" if none of the above handled it
+			return RLV_RET_FAILED_PARAM;
+	}
+
+	// If we made it this far then:
+	//   - the command was handled successfully so we send off the response
+	//   - the command failed but we still send off an (empty) response to keep the issuing script from blocking
+	rlvSendChatReply(nChannel, strReply);
+
+	return eRet;
+}
+
+// Checked: 2009-11-24 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::onFindFolder(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT( (RLV_BHVR_FINDFOLDER == rlvCmd.getBehaviourType()) || (RLV_BHVR_FINDFOLDERS == rlvCmd.getBehaviourType()) );
+
+	// (Compatibility: RLV 1.16.1 returns the first random folder it finds while we return a blank on no option)
+	if (rlvCmd.getOption().empty())
+		return RLV_RET_FAILED_OPTION;
+
+	LLInventoryModel::cat_array_t folders;
+	if (findSharedFolders(rlvCmd.getOption(), folders))
+	{
+		if (RLV_BHVR_FINDFOLDER == rlvCmd.getBehaviourType())
+		{
+			// We need to return an "in depth" result so whoever has the most '/' is our lucky winner
+			// (maxSlashes needs to be initialized to -1 since children of the #RLV folder won't have '/' in their shared path)
+			int maxSlashes = -1, curSlashes; std::string strFolderName;
+			for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
+			{
+				strFolderName = getSharedPath(folders.get(idxFolder));
+
+				curSlashes = std::count(strFolderName.begin(), strFolderName.end(), '/');
+				if (curSlashes > maxSlashes)
+				{
+					maxSlashes = curSlashes;
+					strReply = strFolderName;
+				}
+			}
+		}
+		else if (RLV_BHVR_FINDFOLDERS == rlvCmd.getBehaviourType())
+		{
+			for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
+			{
+				if (!strReply.empty())
+					strReply.push_back(',');
+				strReply += getSharedPath(folders.get(idxFolder));
+			}
+		}
+	}
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-11-24 (RLVa-1.1.0f) | Modified: RLVa-1.1.0e
+ERlvCmdRet RlvHandler::onGetAttach(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT(RLV_BHVR_GETATTACH == rlvCmd.getBehaviourType());
+
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+		return RLV_RET_FAILED;
+
+	// Sanity check - <option> should specify an attachment point or be empty
+	S32 idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true);
+	if ( (idxAttachPt == 0) && (!rlvCmd.getOption().empty()) )
+		return RLV_RET_FAILED_OPTION;
+
+	// If we're fetching all worn attachments then the reply should start with 0
+	if (0 == idxAttachPt)
+		strReply.push_back('0');
+
+	for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin();
+			itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
+	{
+		LLViewerJointAttachment* pAttachPt = itAttach->second;
+		if ( (0 == idxAttachPt) || (itAttach->first == idxAttachPt) )
+		{
+			bool fWorn = (pAttachPt->getObject() != NULL) &&
+				( (!RlvSettings::getHideLockedAttach()) ||
+				  (RlvForceWear::isForceDetachable(pAttachPt, true, gObjectList.findObject(idObj))) );
+			strReply.push_back( (fWorn) ? '1' : '0' );
+		}
+	}
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-10-19 (RLVa-1.1.0f) | Added: RLVa-1.1.0e
+ERlvCmdRet RlvHandler::onGetAttachNames(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT( (RLV_BHVR_GETATTACHNAMES == rlvCmd.getBehaviourType()) || (RLV_BHVR_GETADDATTACHNAMES == rlvCmd.getBehaviourType()) ||
+		        (RLV_BHVR_GETREMATTACHNAMES == rlvCmd.getBehaviourType()) );
+
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+		return RLV_RET_FAILED;
+
+	ERlvAttachGroupType eAttachGroup = rlvGetAttachGroupTypeFromString(rlvCmd.getOption());
+	for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin();
+			itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
+	{
+		LLViewerJointAttachment* pAttachPt = itAttach->second;
+		if ( (RLV_ATTACHGROUP_INVALID == eAttachGroup) || (rlvGetAttachGroupTypeFromIndex(pAttachPt->getGroup()) == eAttachGroup) )
+		{
+			bool fAdd = false;
+			switch (rlvCmd.getBehaviourType())
+			{
+				case RLV_BHVR_GETATTACHNAMES:		// Every attachment point that has an attached object (locked or unlocked)
+					fAdd = (pAttachPt->getObject() != NULL);
+					break;
+				case RLV_BHVR_GETADDATTACHNAMES:	// Every attachment point that can be worn on (but ignore any locks set by the issuer)
+					fAdd = (!isLockedAttachmentExcept(itAttach->first, RLV_LOCK_ADD, gObjectList.findObject(idObj))) &&
+						   ( (pAttachPt->getObject() == NULL) ||
+						     (!isLockedAttachmentExcept(itAttach->first, RLV_LOCK_REMOVE, gObjectList.findObject(idObj))) );
+					break;
+				case RLV_BHVR_GETREMATTACHNAMES:	// Every attachment point that can be detached (but ignore any locks set by the issuer)
+					fAdd = RlvForceWear::isForceDetachable(pAttachPt, true, gObjectList.findObject(idObj));
+					break;
+				default:
+					break;
+			}
+
+			if (fAdd)
+			{
+				if (!strReply.empty())
+					strReply.push_back(',');
+				strReply.append(pAttachPt->getName());
+			}
+		}
+	}
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-11-21 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::onGetInv(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT(RLV_BHVR_GETINV == rlvCmd.getBehaviourType());
+
+	LLViewerInventoryCategory* pFolder = getSharedFolder(rlvCmd.getOption());
+	if (!pFolder)
+		return (getSharedRoot() != NULL) ? RLV_RET_FAILED_OPTION : RLV_RET_FAILED_NOSHAREDROOT;
+
+	LLInventoryModel::cat_array_t* pFolders;
+	LLInventoryModel::item_array_t* pItems;
+	gInventory.getDirectDescendentsOf(pFolder->getUUID(), pFolders, pItems);
+	if (!pFolders)
+		return RLV_RET_FAILED;
+
+	for (S32 idxFolder = 0, cntFolder = pFolders->count(); idxFolder < cntFolder; idxFolder++)
+	{
+		// Return all folders that:
+		//   - aren't hidden
+		//   - aren't a folded folder (only really matters when "Enable Legacy Naming" is enabled - see related blog post)
+		//     (we can skip checking for .<composite> folders since the ones we'll want to hide start with '.' anyway)
+		const std::string& strFolder = pFolders->get(idxFolder)->getName();
+		if ( (!strFolder.empty()) && (RLV_FOLDER_PREFIX_HIDDEN != strFolder[0]) &&
+			 (!isFoldedFolder(pFolders->get(idxFolder).get(), true, false)) )
+		{
+			if (!strReply.empty())
+				strReply.push_back(',');
+			strReply += strFolder;
+		}
+	}
+	return RLV_RET_SUCCESS;
+}
+
+struct rlv_wear_info { U32 cntWorn, cntTotal, cntChildWorn, cntChildTotal; };
+
+// Checked: 2009-11-27 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::onGetInvWorn(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	// Sanity check - getAvatarObject() can't be NULL [see RlvForceWear::isWearingItem()]
+	if (!gAgent.getAvatarObject())
+		return RLV_RET_FAILED;
+	// Sanity check - folder should exist and not be hidden
+	LLViewerInventoryCategory* pFolder = getSharedFolder(rlvCmd.getOption());
+	if ( (!pFolder) || (pFolder->getName().empty()) || (RLV_FOLDER_PREFIX_HIDDEN == pFolder->getName()[0]) )
+		return (getSharedRoot() != NULL) ? RLV_RET_FAILED_OPTION : RLV_RET_FAILED_NOSHAREDROOT;
+
+	// Collect everything @attachall would be attaching
+	LLInventoryModel::cat_array_t  folders;
+	LLInventoryModel::item_array_t items;
+	RlvWearableItemCollector functor(pFolder->getUUID(), true, true);
+	gInventory.collectDescendentsIf(pFolder->getUUID(), folders, items, FALSE, functor);
+
+	rlv_wear_info wi = {0};
+
+	// Add all the folders to a lookup map
+	std::map<LLUUID, rlv_wear_info> mapFolders;
+	mapFolders.insert(std::pair<LLUUID, rlv_wear_info>(pFolder->getUUID(), wi));
+	for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
+		mapFolders.insert(std::pair<LLUUID, rlv_wear_info>(folders.get(idxFolder)->getUUID(), wi));
+
+	// Iterate over all the found items
+	LLViewerInventoryItem* pItem; std::map<LLUUID, rlv_wear_info>::iterator itFolder;
+	for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
+	{
+		pItem = items.get(idxItem);
+
+		// The "folded parent" is the folder this item should be considered a direct descendent of (may or may not match actual parent)
+		const LLUUID& idParent = functor.getFoldedParent(pItem->getParentUUID());
+
+		// Walk up the tree: sooner or later one of the parents will be a folder in the map
+		LLViewerInventoryCategory* pParent = gInventory.getCategory(idParent);
+		while ( (itFolder = mapFolders.find(pParent->getUUID())) == mapFolders.end() )
+			pParent = gInventory.getCategory(pParent->getParentUUID());
+
+		U32 &cntWorn  = (idParent == pParent->getUUID()) ? itFolder->second.cntWorn : itFolder->second.cntChildWorn,
+			&cntTotal = (idParent == pParent->getUUID()) ? itFolder->second.cntTotal : itFolder->second.cntChildTotal;
+
+		if (RlvForceWear::isWearingItem(pItem))
+			cntWorn++;
+		cntTotal++;
+	}
+
+	// Extract the result for the main folder
+	itFolder = mapFolders.find(pFolder->getUUID());
+	wi.cntWorn = itFolder->second.cntWorn;
+	wi.cntTotal = itFolder->second.cntTotal;
+	mapFolders.erase(itFolder);
+
+	// Build the result for each child folder
+	for (itFolder = mapFolders.begin(); itFolder != mapFolders.end(); ++itFolder)
+	{
+		rlv_wear_info& wiFolder = itFolder->second;
+
+		wi.cntChildWorn += wiFolder.cntWorn + wiFolder.cntChildWorn;
+		wi.cntChildTotal += wiFolder.cntTotal + wiFolder.cntChildTotal;
+
+		strReply += llformat(",%s|%d%d", gInventory.getCategory(itFolder->first)->getName().c_str(),
+		 (0 == wiFolder.cntTotal) ? 0 : (0 == wiFolder.cntWorn) ? 1 : (wiFolder.cntWorn != wiFolder.cntTotal) ? 2 : 3,
+		 (0 == wiFolder.cntChildTotal) ? 0 : (0 == wiFolder.cntChildWorn) ? 1 : (wiFolder.cntChildWorn != wiFolder.cntChildTotal) ? 2 : 3
+		);
+	}
+
+	// Now just prepend the root and done
+	strReply = llformat("|%d%d", (0 == wi.cntTotal) ? 0 : (0 == wi.cntWorn) ? 1 : (wi.cntWorn != wi.cntTotal) ? 2 : 3,
+		(0 == wi.cntChildTotal) ? 0 : (0 == wi.cntChildWorn) ? 1 : (wi.cntChildWorn != wi.cntChildTotal) ? 2: 3) + strReply;
+
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-11-24 (RLVa-1.1.0f) | Modified: RLVa-1.1.0e
+ERlvCmdRet RlvHandler::onGetOutfit(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT(RLV_BHVR_GETOUTFIT == rlvCmd.getBehaviourType());
+
+	// (Compatibility: RLV 1.16.1 will execute @getoutfit=<channel> if <layer> is invalid while we just return failure)
+	EWearableType layerType = LLWearable::typeNameToType(rlvCmd.getOption());
+	if ( (WT_INVALID == layerType) && (!rlvCmd.getOption().empty()) )
+		return RLV_RET_FAILED_OPTION;
+
+	const EWearableType layerTypes[] =
+		{
+			WT_GLOVES, WT_JACKET, WT_PANTS, WT_SHIRT, WT_SHOES, WT_SKIRT, WT_SOCKS,
+			WT_UNDERPANTS, WT_UNDERSHIRT, WT_SKIN, WT_EYES, WT_HAIR, WT_SHAPE, WT_ALPHA, WT_TATTOO
+		};
+
+	for (int idx = 0, cnt = sizeof(layerTypes) / sizeof(EWearableType); idx < cnt; idx++)
+		if ( (WT_INVALID == layerType) || (layerTypes[idx] == layerType) )
+		{
+			// We never hide body parts, even if they're "locked" and we're hiding locked layers
+			// (nor do we hide a layer if the issuing object is the only one that has this layer locked)
+			bool fWorn = (gAgent.getWearable(layerTypes[idx])) &&
+				( (!RlvSettings::getHideLockedLayers()) ||
+				  (LLAssetType::AT_BODYPART == LLWearable::typeToAssetType(layerTypes[idx])) ||
+				  ( (isRemovableExcept(layerTypes[idx], idObj)) &&
+				    (isStrippable(gAgent.getWearableItem(layerTypes[idx]))) ) );
+			strReply.push_back( (fWorn) ? '1' : '0' );
+		}
+
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-11-21 (RLVa-1.1.0f) | Added: RLVa-1.1.0e
+ERlvCmdRet RlvHandler::onGetOutfitNames(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	RLV_ASSERT(RLV_TYPE_REPLY == rlvCmd.getParamType());
+	RLV_ASSERT( (RLV_BHVR_GETOUTFITNAMES == rlvCmd.getBehaviourType()) || (RLV_BHVR_GETADDOUTFITNAMES == rlvCmd.getBehaviourType()) ||
+		        (RLV_BHVR_GETREMOUTFITNAMES == rlvCmd.getBehaviourType()) );
+
+	// Sanity check - all these commands are optionless
+	if (!rlvCmd.getOption().empty())
+		return RLV_RET_FAILED_OPTION;
+
+	for (int idxType = 0; idxType < WT_COUNT; idxType++)
+	{
+		bool fAdd = false; EWearableType wtType = (EWearableType)idxType;
+		switch (rlvCmd.getBehaviourType())
+		{
+			case RLV_BHVR_GETOUTFITNAMES:		// Every layer that's worn
+				fAdd = (gAgent.getWearable(wtType) != NULL);
+				break;
+			case RLV_BHVR_GETADDOUTFITNAMES:	// Every layer that can be worn on (but ignore any locks set by the issuer)
+				fAdd = (isWearable(wtType)) && ( (gAgent.getWearable(wtType) == NULL) || (isRemovableExcept(wtType, idObj)) );
+				break;
+			case RLV_BHVR_GETREMOUTFITNAMES:	// Every layer that can be removed (but ignore any locks set by the issuer)
+				fAdd = (gAgent.getWearable(wtType) != NULL) &&
+					   (LLAssetType::AT_BODYPART != LLWearable::typeToAssetType(wtType)) &&
+					   (isRemovableExcept(wtType, idObj)) && (isStrippable(gAgent.getWearableItem(wtType)));
+				break;
+			default:
+				break;
+		}
+
+		if (fAdd)
+		{
+			if (!strReply.empty())
+				strReply.push_back(',');
+			strReply.append(LLWearable::typeToTypeName((EWearableType)idxType));
+		}
+	}
+	return RLV_RET_SUCCESS;
+}
+
+// Checked: 2009-11-26 (RLVa-1.1.0f) | Modified: RLVa-1.1.0f
+ERlvCmdRet RlvHandler::onGetPath(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply) const
+{
+	// NOTE: @attachthis/attachallthis/detachthis/detachallthis call us directly to simulate @attach:getpath[:<option>]=force
+
+	// Sanity check - no need to go through all this trouble if we don't have a shared root
+	LLViewerInventoryCategory* pRlvRoot = getSharedRoot();
+	if (!pRlvRoot)
+		return RLV_RET_FAILED_NOSHAREDROOT;
+
+	EWearableType wtType = LLWearable::typeNameToType(rlvCmd.getOption()); LLUUID idItem;
+	if (WT_INVALID != wtType)				// <option> can be a clothing layer
+	{
+		idItem = gAgent.getWearableItem(wtType);
 	}
 	else
 	{
-		// Force detach single folder
-		onForceWear(rlvCmd.getOption(), false, false);
-	}
+		LLViewerJointAttachment* pAttachPt = NULL;
 
-	return RLV_RET_NOERROR;
-}
-
-// Checked: 2009-10-12 (RLVa-1.0.5b) | Added: RLVa-1.0.5b
-ERlvCmdRet RlvHandler::onForceRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd) const
-{
-	S32 idxAttachPt = 0;
-	if (rlvCmd.getOption().empty())
-	{
-		// Simulate right-click / Take Off > Detach All
-		LLAgent::userRemoveAllAttachments(NULL);
-		return RLV_RET_NOERROR;
-	}
-	else if ((idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true)) != 0)
-	{
-		// Simulate right-click / Take Off > Detach > ...
-		LLVOAvatar* pAvatar; LLViewerJointAttachment* pAttachmentPt;
-		if ( ((pAvatar = gAgent.getAvatarObject()) != NULL) &&	// Make sure we're actually wearing something on the attachment point
-			 ((pAttachmentPt = get_if_there(pAvatar->mAttachmentPoints, (S32)idxAttachPt, (LLViewerJointAttachment*)NULL)) != NULL) &&
-			 (isStrippable(pAttachmentPt->getItemID())) )		// ... and that it's not marked as "nostrip"
+		if (rlvCmd.getOption().empty())		// ... or it can be empty (in which case we act on the object that issued the command)
 		{
-			#ifdef RLV_EXPERIMENTAL_COMPOSITES
-				// If we're stripping something that's part of a composite folder then we should @detachthis instead
-				if (isCompositeDescendent(pAttachmentPt->getItemID()))
-				{
-					std::string strCmd = "detachthis:" + strOption + "=force";
-					#ifdef RLV_DEBUG
-						RLV_INFOS << "\t- '" << strOption << "' belongs to composite folder: @" << strCmd << LL_ENDL;
-					#endif // RLV_DEBUG
-					processForceCommand(idObj, RlvCommand(strCmd));
-				}
-				else
-			#endif // RLV_EXPERIMENTAL_COMPOSITES
-				{
-					handle_detach_from_avatar(pAttachmentPt);
-				}
+			LLViewerObject* pObj = gObjectList.findObject(idObj);
+			if ( (pObj) && (pObj->isAttachment()) && (gAgent.getAvatarObject()) )
+				pAttachPt = gAgent.getAvatarObject()->getTargetAttachmentPoint(pObj);
 		}
-		return RLV_RET_NOERROR;
+		else								// ... or it can specify an attachment point
+		{
+			pAttachPt = getAttachPoint(rlvCmd.getOption(), true);
+		}
+
+		// If we found something get its inventory item UUID, otherwise return failure
+		if (!pAttachPt)
+			return RLV_RET_FAILED_OPTION;
+		idItem = pAttachPt->getItemID();
 	}
-	return RLV_RET_FAILED_OPTION;
+
+	// If what we found is under the shared root then get its path
+	if ( (!idItem.isNull()) && (gInventory.isObjectDescendentOf(idItem, pRlvRoot->getUUID())) )
+	{
+		LLInventoryItem* pItem = gInventory.getItem(idItem);
+		if (pItem)
+		{
+			// (unless the containing folder is a folded folder in which case we need its parent)
+			LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
+			strReply = getSharedPath( (!isFoldedFolder(pFolder, true, true)) ? pFolder : gInventory.getCategory(pFolder->getParentUUID()) );
+		}
+	}
+	return RLV_RET_SUCCESS;
 }
 
 // ============================================================================

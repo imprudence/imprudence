@@ -57,7 +57,9 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 #include "panelradarentry.h"
-
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 PanelRadar::PanelRadar()
 	:
@@ -303,7 +305,7 @@ void PanelRadar::updateRadarDisplay()
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 			element["columns"][0]["value"] =
 				(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
-					? gRlvHandler.getAnonym(entry->getName())
+					? RlvStrings::getAnonym(entry->getName())
 					: typing + entry->getName() + " " + mute_text;
 // [/RLVa:KB]
 			element["columns"][1]["column"] = "avatar_distance";

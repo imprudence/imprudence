@@ -58,6 +58,7 @@
 #include "llpreviewtexture.h"
 #include "llviewermessage.h"
 #include "llvoavatar.h"
+#include "llviewercontrol.h"
 #include "llviewerimagelist.h"
 #include "llviewerstats.h"
 #include "llweb.h"

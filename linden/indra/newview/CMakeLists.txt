@@ -486,6 +486,7 @@ set(viewer_SOURCE_FILES
     primbackup.cpp
     rlvhandler.cpp
     rlvhelper.cpp
+    rlvcommon.cpp
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
@@ -937,9 +938,9 @@ set(viewer_HEADER_FILES
     primbackup.h
     randgauss.h
     rlvdefines.h
-    rlvevent.h
     rlvhandler.h
     rlvhelper.h
+    rlvcommon.h
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h

@@ -71,6 +71,10 @@
 
 #include "llfirstuse.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //
 // Globals
 //
@@ -1682,7 +1686,7 @@ public:
 						return;
 				}
 				else if (!gRlvHandler.isException(RLV_BHVR_RECVIM, from_id))
-					message = message.substr(0, message_offset) + rlv_handler_t::cstrBlockedRecvIM;
+					message = message.substr(0, message_offset) + RlvStrings::getString(RLV_STRING_BLOCKED_RECVIM);
 			}
 // [/RLVa:KB]
 

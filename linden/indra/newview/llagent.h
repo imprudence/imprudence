@@ -69,10 +69,6 @@
 #include "llfollowcam.h"
 // end Ventrella
 
-// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
-#include "rlvhandler.h"
-// [/RLVa:KB]
-
 const U8 AGENT_STATE_TYPING =	0x04;			//  Typing indication
 const U8 AGENT_STATE_EDITING =  0x10;			//  Set when agent has objects selected
 

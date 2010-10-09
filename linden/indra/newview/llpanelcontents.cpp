@@ -68,8 +68,8 @@
 #include "lltoolcomp.h"
 #include "llpanelinventory.h"
 
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-#include "llvoavatar.h"
+// [RLVa:KB]
+#include "rlvhandler.h"
 // [/RLVa:KB]
 
 //

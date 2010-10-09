@@ -75,6 +75,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //
 // Constants
 //
@@ -251,7 +255,7 @@ void LLHoverView::updateText()
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 				{
-					line = gRlvHandler.getAnonym(line.append(firstname->getString()).append(1, ' ').append(lastname->getString()));
+					line = RlvStrings::getAnonym(line.append(firstname->getString()).append(1, ' ').append(lastname->getString()));
 				}
 				else
 				{
@@ -350,7 +354,7 @@ void LLHoverView::updateText()
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 							if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 							{
-								name = gRlvHandler.getAnonym(name);
+								name = RlvStrings::getAnonym(name);
 							}
 // [/RLVa:KB]
 
@@ -538,7 +542,8 @@ void LLHoverView::updateText()
 		if (hover_parcel)
 		{
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-0.2.0b
-			line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? hover_parcel->getName() : rlv_handler_t::cstrHiddenParcel );
+			line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+				? hover_parcel->getName() : RlvStrings::getString(RLV_STRING_HIDDEN_PARCEL) );
 // [/RLVa:KB]
 			//line.append(hover_parcel->getName());
 		}
@@ -570,7 +575,7 @@ void LLHoverView::updateText()
 			else if(gCacheName->getFullName(owner, name))
 			{
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
-				line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? name : gRlvHandler.getAnonym(name));
+				line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? name : RlvStrings::getAnonym(name));
 // [/RLVa:KB]
 				//line.append(name);
 			}
@@ -683,7 +688,14 @@ void LLHoverView::draw()
 	// To toggle off hover tips, you have to just suppress the draw.
 	// The picking is still needed to do cursor changes over physical
 	// and scripted objects.  JC
+//	if (!sShowHoverTips)
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+#ifdef RLV_EXTENSION_CMD_INTERACT
+	if ( (!sShowHoverTips) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT)) )
+#else
 	if (!sShowHoverTips) 
+#endif // RLV_EXTENSION_CMD_INTERACT
+// [/RLVa:KB]
 	{
 		return;
 	}

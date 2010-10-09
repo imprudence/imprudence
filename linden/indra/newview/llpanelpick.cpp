@@ -59,6 +59,10 @@
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //static
 std::list<LLPanelPick*> LLPanelPick::sAllPanels;
 

@@ -51,6 +51,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 LLPanelLandSelectObserver* LLPanelLandInfo::sObserver = NULL;
 LLPanelLandInfo* LLPanelLandInfo::sInstance = NULL;
 

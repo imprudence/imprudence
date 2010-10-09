@@ -65,6 +65,10 @@
 #include "llworldmapview.h"
 #include "llviewercontrol.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const F32 DESTINATION_REACHED_RADIUS    = 3.0f;
 const F32 DESTINATION_VISITED_RADIUS    = 6.0f;
 
@@ -185,7 +189,7 @@ void LLTracker::render3D()
 			//		  	instance()->mBeaconText, instance()->mTrackedLocationName );
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-1.0.0a
 			renderBeacon(instance()->mTrackedPositionGlobal, gTrackColor, instance()->mBeaconText, 
-				(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? instance()->mTrackedLocationName : rlv_handler_t::cstrHidden);
+				(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? instance()->mTrackedLocationName : RlvStrings::getString(RLV_STRING_HIDDEN));
 // [/RLVa:KB]
 		}
 	}
@@ -231,7 +235,8 @@ void LLTracker::render3D()
 				//			  instance()->mBeaconText, instance()->mTrackedLandmarkName );
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-1.0.0a
 				renderBeacon( instance()->mTrackedPositionGlobal, gTrackColor, instance()->mBeaconText, 
-					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? instance()->mTrackedLandmarkName : rlv_handler_t::cstrHidden);
+					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? instance()->mTrackedLandmarkName
+					                                              : RlvStrings::getString(RLV_STRING_HIDDEN));
 // [/RLVa:KB]
 			}
 		}
@@ -264,7 +269,7 @@ void LLTracker::render3D()
 				//		  	instance()->mBeaconText, av_tracker.getName() );
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-1.0.0a
 				renderBeacon( av_tracker.getGlobalPos(), gTrackColor, instance()->mBeaconText, 
-					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? av_tracker.getName() : rlv_handler_t::cstrHidden);
+					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? av_tracker.getName() : RlvStrings::getString(RLV_STRING_HIDDEN));
 // [/RLVa:KB]
 			}
 		}
