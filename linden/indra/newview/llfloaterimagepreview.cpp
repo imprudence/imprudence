@@ -62,6 +62,10 @@
 
 #include "hippoGridManager.h"
 
+#ifdef LL_DARWIN
+#include "llwindowmacosx-objc.h"
+#endif
+
 //static
 S32 LLFloaterImagePreview::sUploadAmount = 10;
 
@@ -353,7 +357,10 @@ bool LLFloaterImagePreview::loadImage(const std::string& src_filename)
 	}
 
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-
+#ifdef LL_DARWIN
+	if (! decodeImageQuartz(src_filename, raw_image))
+		return false;
+#else
 	switch (codec)
 	{
 	case IMG_CODEC_BMP:
@@ -428,8 +435,9 @@ bool LLFloaterImagePreview::loadImage(const std::string& src_filename)
 	}
 
 	raw_image->biasedScaleToPowerOfTwo(1024);
+#endif
+
 	mRawImagep = raw_image;
-	
 	return true;
 }
 
