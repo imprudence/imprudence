@@ -517,8 +517,12 @@ class WindowsManifest(ViewerManifest):
 
         # We use the Unicode version of NSIS, available from
         # http://www.scratchpaper.com/
-        NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
-        self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
+        try:
+            NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
+            self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
+        except:
+            NSIS_path = 'C:\\Program Files (x86)\\NSIS\\Unicode\\makensis.exe'
+            self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
         # If we're on a build machine, sign the code using our Authenticode certificate. JC
         sign_py = 'C:\\buildscripts\\code-signing\\sign.py'
