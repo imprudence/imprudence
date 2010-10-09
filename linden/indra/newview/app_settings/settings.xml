@@ -10926,6 +10926,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+	<key>HighlightFriends</key>
+    <map>
+      <key>Comment</key>
+      <string>Display avatar name text in bold if is a friend</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>SnapEnabled</key>
     <map>
       <key>Comment</key>

@@ -3801,15 +3801,20 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			}
 			else
 			{
+				S32 style = LLFontGL::NORMAL;
+
+				if (!mIsSelf && gSavedSettings.getBOOL("HighlightFriends"))
+				{
+					if (is_agent_friend(this->getID())) // Ele: bold for friends
+						style |= LLFontGL::BOLD;
+				}
+
 				static BOOL* sSmallAvatarNames = rebind_llcontrol<BOOL>("SmallAvatarNames", &gSavedSettings, true);
 				if (*sSmallAvatarNames)
-				{
-					mNameText->setFont(LLFontGL::getFontSansSerif());
-				}
+					mNameText->setFont(LLFontGL::getFont(LLFontDescriptor("SansSerif","Medium",style)));
 				else
-				{
-					mNameText->setFont(LLFontGL::getFontSansSerifBig());
-				}
+					mNameText->setFont(LLFontGL::getFont(LLFontDescriptor("SansSerif","Large",style)));
+
 				mNameText->setTextAlignment(LLHUDText::ALIGN_TEXT_CENTER);
 				mNameText->setFadeDistance(CHAT_NORMAL_RADIUS, 5.f);
 				mNameText->setVisibleOffScreen(FALSE);
