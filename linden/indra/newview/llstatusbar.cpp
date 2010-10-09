@@ -581,7 +581,7 @@ void LLStatusBar::refresh()
 	childGetRect("BalanceText", r);
 	r.translate( new_right - r.mRight, 0);
 	childSetRect("BalanceText", r);
-	new_right -= r.getWidth() - 18;
+	new_right -= r.getWidth() - 2;
 
 	childGetRect("buycurrency", r);
 	r.translate( new_right - r.mRight, 0);
