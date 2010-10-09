@@ -55,6 +55,7 @@ if (WINDOWS)
       /Zc:forScope
       /nologo
       /Oy-
+      /MP
       )
      
   if(MSVC80 OR MSVC90)
