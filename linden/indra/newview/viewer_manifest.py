@@ -845,7 +845,7 @@ class LinuxManifest(ViewerManifest):
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
-	    self.path("getvoice.sh")
+            self.path("getvoice.sh")
             self.end_prefix("linux_tools")
 
         self.gather_documents()
@@ -974,7 +974,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libgstvideo-0.10.so.0")
 
             # Gstreamer plugin dependencies
-	    self.path("libfaad.so.0")
+            self.path("libfaad.so.0")
             self.path("libogg.so.0")
             self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
@@ -1124,7 +1124,7 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.path("libgstdecodebin2.so")
                 self.path("libgstdecodebin.so")
                 self.path("libgstesd.so")
-		self.path("libgstfaad.so")
+                self.path("libgstfaad.so")
                 self.path("libgstffmpeg.so")
                 self.path("libgstffmpegcolorspace.so")
                 self.path("libgstgnomevfs.so")
@@ -1162,14 +1162,14 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.path("libortp.so")
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib32")
-		
-	    # 32bit libs needed for voice
-	    if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
-                self.path("libalut.so")
-	        self.path("libidn.so.11")
-	        self.path("libopenal.so.1")
-	        # self.path("libortp.so")
-	        self.path("libuuid.so.1")
+
+        # 32bit libs needed for voice
+        if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
+            self.path("libalut.so")
+            self.path("libidn.so.11")
+            self.path("libopenal.so.1")
+            # self.path("libortp.so")
+            self.path("libuuid.so.1")
             self.end_prefix("lib32")
 
 if __name__ == "__main__":
