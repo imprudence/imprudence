@@ -603,6 +603,207 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 				LLWeb::loadURLInternal("http://failbook.failblog.org/");
 				return TRUE;
 			}
+			else if (LLStringUtil::compareInsensitive("/icanhaszombie", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhaszombies", cur_token) == 0)
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("zombiecat.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "Zombiecat!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhassupport", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhashelp", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhashalp", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://support.imprudenceviewer.org/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasblog", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://www.imprudenceviewer.org/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhascodie", cur_token) == 0)
+			{
+				LLChat chat;
+				chat.mText = "All work and no play makes Codie a dull girl. All work and no play...";
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+				if (revised_string)
+				{
+					revised_string->assign(LLStringUtil::null);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasfail", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://www.failblog.org/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasdownload", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhasdownloads", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhasupdate", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhasupdates", cur_token) == 0 )
+			{
+				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/Downloads");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasfeatures", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/Features");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhaswiki", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasbugs", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhasbug", cur_token) == 0 )
+			{
+				LLWeb::loadURLInternal("http://redmine.imprudenceviewer.org/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasgit", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://github.com/imprudence/imprudence/");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasplurk", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://plurk.com/imprudence");
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhastwitter", cur_token) == 0)
+			{
+				LLWeb::loadURLInternal("http://twitter.com/ImpViewer");
+				return TRUE;
+			}
+			
+
+			else if (LLStringUtil::compareInsensitive("/icanhasimprudence", cur_token) == 0)
+			{
+				LLChat chat;
+				chat.mText = "You are using it right now, silly!...";
+				chat.mSourceType = CHAT_SOURCE_SYSTEM;
+				LLFloaterChat::addChat(chat);
+				if (revised_string)
+				{
+					revised_string->assign(LLStringUtil::null);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasnoms", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhasnom", cur_token) == 0)
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("nomnom.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "Om nom nom!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhasceilingcat", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhascielingcat", cur_token) == 0)
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("ceilingcat.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "Ceiling Cat is watching you!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhascake", cur_token) == 0 )
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("cakeisalie.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "THE CAKE IS A LIE!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhastentacles", cur_token) == 0 )
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("octopus.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "All hail the mighty octopus!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+			else if (LLStringUtil::compareInsensitive("/icanhashugs", cur_token) == 0 ||
+					 LLStringUtil::compareInsensitive("/icanhashug", cur_token) == 0)
+			{
+				LLViewerImage* kitteh = gImageList.getImageFromFile("hugs.png", TRUE, TRUE);
+				if (kitteh)
+				{
+					S32 left, top;
+					gFloaterView->getNewFloaterPosition(&left, &top);
+					LLRect rect = gSavedSettings.getRect("PreviewTextureRect");
+					rect.translate(left - rect.mLeft, top - rect.mTop);
+
+					LLPreviewTexture* preview;
+					preview = new LLPreviewTexture(rect, "Yes, you can has hugs!", kitteh);
+					preview->setSourceID(LLUUID::generateNewID());
+					preview->setFocus(TRUE);
+					preview->center();
+					gFloaterView->adjustToFitScreen(preview, FALSE);
+				}
+				return TRUE;
+			}
+
 		}
 		
 		if(!gesture)
