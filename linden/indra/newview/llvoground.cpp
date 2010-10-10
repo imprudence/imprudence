@@ -71,7 +71,7 @@ BOOL LLVOGround::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 }
 
 
-void LLVOGround::updateTextures()
+void LLVOGround::updateTextures(LLAgent &agent)
 {
 }
 

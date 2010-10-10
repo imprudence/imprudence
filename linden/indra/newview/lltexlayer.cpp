@@ -813,14 +813,19 @@ void LLTexLayerSet::requestUpdate()
 	if( mUpdatesEnabled )
 	{
 		createComposite();
-		mComposite->requestUpdate(); 
+		if (mComposite)
+		{
+			mComposite->requestUpdate(); 
+		}
 	}
 }
 
 void LLTexLayerSet::requestUpload()
 {
-	createComposite();
-	mComposite->requestUpload();
+	if (mComposite)
+	{
+		mComposite->requestUpload();
+	}
 }
 
 void LLTexLayerSet::cancelUpload()
@@ -834,6 +839,15 @@ void LLTexLayerSet::cancelUpload()
 void LLTexLayerSet::createComposite()
 {
 	if( !mComposite )
+	{
+		gPipeline.markGLRebuild(this);
+	}
+   //updateGL();  // KL 
+}
+
+void LLTexLayerSet::updateGL()
+{
+	if (!mComposite)
 	{
 		S32 width = mInfo->mWidth;
 		S32 height = mInfo->mHeight;
@@ -865,7 +879,7 @@ void LLTexLayerSet::setUpdatesEnabled( BOOL b )
 void LLTexLayerSet::updateComposite()
 {
 	createComposite();
-	mComposite->updateImmediate();
+	//mComposite->updateImmediate();    //KL exception here this needs fixing for S19
 }
 
 LLTexLayerSetBuffer* LLTexLayerSet::getComposite()
@@ -2104,7 +2118,7 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				// Create the GL texture, and then hang onto it for future use.
 				if( mNeedsCreateTexture )
 				{
-					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw, 0, TRUE, LLViewerImageBoostLevel::TEXLAYER_CACHE);
+					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw, 0);
 					mNeedsCreateTexture = FALSE;
 					gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
 					mCachedProcessedImageGL->setAddressMode(LLTexUnit::TAM_CLAMP);
@@ -2560,7 +2574,7 @@ LLImageGL* LLTexStaticImageList::getImageGL(const std::string& file_name, BOOL i
 				image_gl->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
 			}
 
-			image_gl->createGLTexture(0, image_raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
+			image_gl->createGLTexture(0, image_raw, 0);
 
 			gGL.getTexUnit(0)->bind(image_gl);
 			image_gl->setAddressMode(LLTexUnit::TAM_CLAMP);

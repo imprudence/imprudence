@@ -33,7 +33,8 @@
 #ifndef LL_LLCONSOLE_H
 #define LL_LLCONSOLE_H
 
-#include "llfixedbuffer.h"
+#include "llerrorcontrol.h" // For LLLineBuffer
+#include "llthread.h"
 #include "llview.h"
 #include "v4color.h"
 #include <deque>
@@ -47,10 +48,10 @@ private:
 	F32			mLinePersistTime; // Age at which to stop drawing.
 	F32			mFadeTime; // Age at which to start fading
 	LLFontGL*	mFont;
-	S32			mLastBoxHeight;
-	S32			mLastBoxWidth;
 	S32			mConsoleWidth;
 	S32			mConsoleHeight;
+	LLMutex 	mQueueMutex;
+	LLTimer		mTimer;
 
 public:
 	//A paragraph color segment defines the color of text in a line 
@@ -80,14 +81,7 @@ public:
 	 	
 	typedef std::list<LineColorSegment> line_color_segments_t;
 	
-	//A line is composed of one or more color segments.
-	class Line
-	{
-		public:
-			line_color_segments_t mLineColorSegments;
-	};
-	
-	typedef std::list<Line> lines_t;
+	typedef std::list<line_color_segments_t> lines_t;
 	typedef std::list<ParagraphColorSegment> paragraph_color_segments_t;
 	
 	//A paragraph is a processed element containing the entire text of the
@@ -98,7 +92,7 @@ public:
 	class Paragraph
 	{
 		public:
-			Paragraph (LLWString str, const LLColor4 &color, F32 add_time, LLFontGL* font, F32 screen_width);
+			Paragraph (LLWString str, const LLColor4 &color, F32 add_time);
 			void makeParagraphColorSegments ( const LLColor4 &color);
 			void updateLines ( F32 screen_width,  LLFontGL* font, bool force_resize=false );
 		public:
@@ -111,35 +105,32 @@ public:
 	};
 		
 	//The console contains a deque of paragraphs which represent the individual messages.
-	typedef std::deque<Paragraph> paragraph_t;
+	typedef std::deque<Paragraph*> paragraph_t;
 	paragraph_t mParagraphs;
+	paragraph_t mNewParagraphs;
 
 	// Font size:
 	// -1 = monospace, 0 means small, font size = 1 means big
-	LLConsole(const std::string& name, const U32 max_lines, const LLRect &rect, 
-		S32 font_size_index, F32 persist_time );
-	~LLConsole(){};
+	LLConsole(const std::string& name, const LLRect &rect, 
+			  S32 font_size_index, F32 persist_time );
+	~LLConsole();
 
 	// each line lasts this long after being added
-	void			setLinePersistTime(F32 seconds);
+	void setLinePersistTime(F32 seconds);
 
-	void			reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
 	// -1 = monospace, 0 means small, font size = 1 means big
-	void			setFontSize(S32 size_index);
+	void setFontSize(S32 size_index);
 
-	void			addLine(const std::string& utf8line, F32 size, const LLColor4 &color);
-	void			addLine(const LLWString& wline, F32 size, const LLColor4 &color);
+	// From LLLineBuffer
+	/*virtual*/ void clear();
+	/*virtual*/ void addLine(const std::string& utf8line);
+	void addConsoleLine(const std::string& utf8line, const LLColor4 &color);
+	void addConsoleLine(const LLWString& wline, const LLColor4 &color);
 	
 	// Overrides
 	/*virtual*/ void	draw();
-
-	//do not make these two "virtual"
-	void	addLine(const std::string& utf8line);
-	void	addLine(const LLWString& line);
-
-private:
-	void updateBuffer() ;
 };
 
 extern LLConsole* gConsole;

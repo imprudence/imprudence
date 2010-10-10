@@ -38,48 +38,21 @@
 // project includes
 #include "llcheckboxctrl.h"
 #include "hippoGridManager.h"
-#include "llmediamanager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
+#include "llviewermedia.h"
 #include "llviewerwindow.h"
+#include "llpluginclassmedia.h"
 
 // helper functions for getting/freeing the web browser media
 // if creating/destroying these is too slow, we'll need to create
 // a static member and update all our static callbacks
-LLMediaBase *get_web_media()
+viewer_media_t get_web_media()
 {
-	LLMediaBase *media_source;
-	LLMediaManager *mgr = LLMediaManager::getInstance();
-	
-	if (!mgr)
-	{
-		llwarns << "cannot get media manager" << llendl;
-		return NULL;
-	}
 
-	media_source = mgr->createSourceFromMimeType("http", "text/html" );
-	if ( !media_source )
-	{
-		llwarns << "media source create failed " << llendl;
-		return NULL;
-	}
+	viewer_media_t media_source = LLViewerMedia::newMediaImpl("", LLUUID::null, 0, 0, 0, 0, "text/html");
 
 	return media_source;
-}
-
-void free_web_media(LLMediaBase *media_source)
-{
-	if (!media_source)
-		return;
-	
-	LLMediaManager *mgr = LLMediaManager::getInstance();
-	if (!mgr)
-	{
-		llwarns << "cannot get media manager" << llendl;
-		return;
-	}
-
-	mgr->destroySource(media_source);
 }
 
 LLPanelWeb::LLPanelWeb()
@@ -144,17 +117,16 @@ void LLPanelWeb::apply()
 	bool value = childGetValue("use_external_browser").asString() == "external" ? true : false;
 	gSavedSettings.setBOOL("UseExternalBrowser", value);
 	
-	LLMediaBase *media_source = get_web_media();
-	if (media_source)
+	viewer_media_t media_source = get_web_media();
+	if (media_source && media_source->hasMedia())
 	{
-		media_source->enableCookies(childGetValue("cookies_enabled"));
+		media_source->getMediaPlugin()->enable_cookies(childGetValue("cookies_enabled"));
 
 		bool proxy_enable = childGetValue("web_proxy_enabled");
 		std::string proxy_address = childGetValue("web_proxy_editor");
 		int proxy_port = childGetValue("web_proxy_port");
-		media_source->enableProxy(proxy_enable, proxy_address, proxy_port);
+		media_source->getMediaPlugin()->proxy_setup(proxy_enable, proxy_address, proxy_port);
 	}
-	free_web_media(media_source);
 }
 
 void LLPanelWeb::cancel()
@@ -173,10 +145,9 @@ bool LLPanelWeb::callback_clear_browser_cache(const LLSD& notification, const LL
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 ) // YES
 	{
-		LLMediaBase *media_source = get_web_media();
-		if (media_source)
-			media_source->clearCache();
-		free_web_media(media_source);
+		viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+			media_source->getMediaPlugin()->clear_cache();
 	}
 	return false;
 }
@@ -193,10 +164,9 @@ bool LLPanelWeb::callback_clear_cookies(const LLSD& notification, const LLSD& re
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 ) // YES
 	{
-		LLMediaBase *media_source = get_web_media();
-		if (media_source)
-			media_source->clearCookies();
-		free_web_media(media_source);
+		viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+			media_source->getMediaPlugin()->clear_cookies();
 	}
 	return false;
 }
@@ -209,10 +179,9 @@ void LLPanelWeb::onCommitCookies(LLUICtrl* ctrl, void* data)
 
   if (!self || !check) return;
 
-  LLMediaBase *media_source = get_web_media();
-  if (media_source)
-	  media_source->enableCookies(check->get());
-  free_web_media(media_source);
+  viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+	  media_source->getMediaPlugin()->enable_cookies(check->get());
 }
 // static
 void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)

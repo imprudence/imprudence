@@ -840,6 +840,11 @@ void LLButton::setColor(const LLColor4& color)
 	setImageColor(color);
 }
 
+void LLButton::setAlpha(F32 alpha)
+{
+	mImageColor.setAlpha(alpha);
+	mDisabledImageColor.setAlpha(alpha * 0.5f);
+}
 
 void LLButton::setImageDisabled(LLPointer<LLUIImage> image)
 {

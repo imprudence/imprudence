@@ -117,6 +117,10 @@ public:
 
 	static std::vector<std::string> getDynamicFallbackFontList();
 
+	// Provide native key event data
+	/*virtual*/ LLSD getNativeKeyData();
+
+
 protected:
 	LLWindowMacOSX(
 		const std::string& title, const std::string& name, int x, int y, int width, int height, U32 flags,

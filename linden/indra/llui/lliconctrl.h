@@ -65,6 +65,8 @@ public:
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const;
 
+	/*virtual*/ void	setAlpha(F32 alpha);
+
 	void			setColor(const LLColor4& color) { mColor = color; }
 
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;

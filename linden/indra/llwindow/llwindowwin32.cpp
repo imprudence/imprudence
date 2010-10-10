@@ -3052,6 +3052,19 @@ void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url )
 	*/
 }
 
+/*
+	Make the raw keyboard data available - used to poke through to LLQtWebKit so
+	that Qt/Webkit has access to the virtual keycodes etc. that it needs
+*/
+LLSD LLWindowWin32::getNativeKeyData()
+{
+	LLSD result = LLSD::emptyMap();
+
+	result["scan_code"] = (S32)mKeyScanCode;
+	result["virtual_key"] = (S32)mKeyVirtualKey;
+
+	return result;
+}
 
 BOOL LLWindowWin32::dialog_color_picker ( F32 *r, F32 *g, F32 *b )
 {

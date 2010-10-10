@@ -140,7 +140,7 @@ void LLStandardBumpmap::restoreGL()
 			return;
 		}
 
- 		llinfos << "Loading bumpmap: " << bump_file << " from viewerart" << llendl;
+// 		llinfos << "Loading bumpmap: " << bump_file << " from viewerart" << llendl;
 		gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount].mLabel = label;
 		gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount].mImage = 
 			gImageList.getImageFromFile(bump_file,
@@ -310,8 +310,8 @@ void LLDrawPoolBump::endRenderPass(S32 pass)
 void LLDrawPoolBump::beginShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
-		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
+	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)||
+		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
 	{
 		return;
 	}
@@ -385,8 +385,8 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 void LLDrawPoolBump::renderShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
-		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
+	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)||
+		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
 	{
 		return;
 	}
@@ -412,8 +412,8 @@ void LLDrawPoolBump::renderShiny(bool invisible)
 void LLDrawPoolBump::endShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
-		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
+	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)|| 
+		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
 	{
 		return;
 	}
@@ -573,7 +573,11 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params, S32 channel)
 	LLImageGL* bump = NULL;
 
 	U8 bump_code = params.mBump;
-	LLViewerImage* tex = params.mTexture;
+	LLViewerImage* tex = params.mViewerTexture;
+	if(!tex)
+	{
+		return FALSE ;
+	}
 
 	switch( bump_code )
 	{
@@ -1227,7 +1231,10 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 		if (params.mTexture.notNull())
 		{
 			gGL.getTexUnit(diffuse_channel)->bind(params.mTexture.get());
-			//params.mTexture->addTextureStats(params.mVSize);
+			if(params.mViewerTexture.notNull())
+			{
+				params.mViewerTexture->addTextureStats(params.mVSize);
+			}
 		}
 		else
 		{

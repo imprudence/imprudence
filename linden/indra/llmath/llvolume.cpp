@@ -2208,16 +2208,10 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 	S32 requested_sizeS = 0;
 	S32 requested_sizeT = 0;
 
-	// create oblong sculpties with high LOD always
-	F32 sculpt_detail = mDetail;
-	if (sculpt_width != sculpt_height && sculpt_detail < 4.0)
-	{
-		sculpt_detail = 4.0;
-	}
-	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, sculpt_detail, requested_sizeS, requested_sizeT);
+	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, mDetail, requested_sizeS, requested_sizeT);
 
-	mPathp->generate(mParams.getPathParams(), sculpt_detail, 0, TRUE, requested_sizeS);
-	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), sculpt_detail, 0, TRUE, requested_sizeT);
+	mPathp->generate(mParams.getPathParams(), mDetail, 0, TRUE, requested_sizeS);
+	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), mDetail, 0, TRUE, requested_sizeT);
 
 	S32 sizeS = mPathp->mPath.size();         // we requested a specific size, now see what we really got
 	S32 sizeT = mProfilep->mProfile.size();   // we requested a specific size, now see what we really got
@@ -3376,7 +3370,8 @@ void LLVolume::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
 										  std::vector<S32> &segments,
 										  const LLVector3& obj_cam_vec,
 										  const LLMatrix4& mat,
-										  const LLMatrix3& norm_mat)
+										  const LLMatrix3& norm_mat,
+										  S32 face_mask)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -3384,12 +3379,17 @@ void LLVolume::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
 	normals.clear();
 	segments.clear();
 
+	S32 cur_index = 0;
 	//for each face
 	for (face_list_t::iterator iter = mVolumeFaces.begin();
 		 iter != mVolumeFaces.end(); ++iter)
 	{
 		const LLVolumeFace& face = *iter;
 	
+		if (!(face_mask & (0x1 << cur_index++)))
+		{
+			continue;
+		}
 		if (face.mTypeMask & (LLVolumeFace::CAP_MASK)) {
 	
 		}

@@ -16,7 +16,9 @@
   <texture name="toolbar_btn_selected.tga" scale_left="7" scale_top="32" scale_right="121" scale_bottom="0" /> 
   
   <texture name="button_enabled_selected_32x128.tga" preload="true" scale_left="16" scale_top="16" scale_right="112" scale_bottom="16" />
-  
+
+  <texture name="media_panel_bg.png" preload="true" scale_left="9" scale_top="9" scale_right="9" scale_bottom="9" />
+  <texture name="media_panel_hoverrectangle.png" preload="true" scale_left="9" scale_top="9" scale_right="9" scale_bottom="9" />
   <texture name="checkbox_disabled_false.tga"	preload="true"/>
   <texture name="checkbox_disabled_true.tga"	preload="true"/>
   <texture name="checkbox_enabled_false.tga"	preload="true"/>
@@ -376,7 +378,23 @@
   <texture name="default_profile_picture.j2c"/>
   <texture name="locked_image.j2c"/>
 
+
    <!-- Kitty Viewer Art -->
    <texture name="Inv_WindLight" file_name="Inv_WindLight.png" preload="false" />
    <texture name="Inv_WaterLight" file_name="Inv_WaterLight.png" preload="false" />
+
+  <texture name="media_btn_back.png"/>
+  <texture name="media_btn_done.png"/>
+  <texture name="media_btn_forward.png"/>
+  <texture name="media_btn_home.png"/>
+  <texture name="media_btn_newwindow.png"/>
+  <texture name="media_btn_optimalzoom.png"/>
+  <texture name="media_btn_reload.png"/>
+  <texture name="media_btn_scrolldown.png"/>
+  <texture name="media_btn_scrollleft.png"/>
+  <texture name="media_btn_scrollright.png"/>
+  <texture name="media_btn_scrollup.png"/>
+  <texture name="media_btn_stoploading.png"/>
+  <texture name="media_panel_divider.png"/>
+
 </textures>

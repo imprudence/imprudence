@@ -60,7 +60,7 @@
 #include "llglheaders.h"
 
 // Local constants...
-const S32 VERTICAL_OFFSET = 50;
+const S32 VERTICAL_OFFSET = 100; // KL adjusted to compensate for toolbars move to the top of the screen!
 
 F32		LLManip::sHelpTextVisibleTime = 2.f;
 F32		LLManip::sHelpTextFadeTime = 2.f;

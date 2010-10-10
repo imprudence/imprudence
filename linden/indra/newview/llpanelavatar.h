@@ -36,7 +36,7 @@
 #include "llpanel.h"
 #include "v3dmath.h"
 #include "lluuid.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 
 class LLButton;
 class LLCheckBoxCtrl;
@@ -55,7 +55,7 @@ class LLViewerImage;
 class LLViewerObject;
 class LLMessageSystem;
 class LLIconCtrl;
-class LLWebBrowserCtrl;
+class LLMediaCtrl;
 
 enum EOnlineStatus
 {
@@ -137,12 +137,14 @@ private:
 // WARNING!  The order of the inheritance here matters!!  Do not change.  - KLW
 class LLPanelAvatarWeb : 
 	public LLPanelAvatarTab
-	, public LLWebBrowserCtrlObserver
+	, public LLViewerMediaObserver
 {
 public:
 	LLPanelAvatarWeb(const std::string& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
 	/*virtual*/ ~LLPanelAvatarWeb();
 	/*virtual*/ BOOL	postBuild(void);
+
+	/*virtual*/ void refresh();
 
 	void enableControls(BOOL own_avatar);
 
@@ -154,13 +156,13 @@ public:
 	static void onCommitURL(LLUICtrl* ctrl, void* data);
 	static void onClickWebProfileHelp(void *);
 
-	// browser observer impls
-	virtual void onStatusTextChange( const EventType& eventIn );
-	virtual void onLocationChange( const EventType& eventIn );
+	// inherited from LLViewerMediaObserver
+	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
 
 private:
 	std::string			mHome;
-	LLWebBrowserCtrl*	mWebBrowser;
+	std::string         mNavigateTo;
+	LLMediaCtrl*		mWebBrowser;
 };
 
 

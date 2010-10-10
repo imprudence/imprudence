@@ -18,7 +18,20 @@
 			<button bottom_delta="0" enabled="true" follows="right|top" height="20" label="Home"
 			     left_delta="58" name="home" width="55" />
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" height="20" left="0"
+    <layout_panel auto_resize="false" bottom="0" height="20" left="0" name="time_controls" user_resize="false"
+		     width="800">
+      <button bottom="0" follows="left|top" height="20" label="rewind" left="0" name="rewind"
+			     width="55" />
+      <button bottom_delta="0" follows="left|top" height="20" label="" left_delta="55"
+			     name="play" width="55" image_unselected="button_anim_play.tga"	image_selected="button_anim_play_selected.tga" scale_image="true" />
+      <button bottom_delta="0" follows="left|top" height="20" label="" left_delta="0"
+			     name="pause" width="55" image_unselected="button_anim_pause.tga"	image_selected="button_anim_pause_selected.tga" scale_image="true" />
+      <button bottom_delta="0" follows="left|top" height="20" label="stop"
+			     left_delta="65" name="stop" width="55" />
+      <button bottom_delta="0" follows="left|top" height="20" label="forward"
+			     left_delta="75" name="seek" width="55" />
+    </layout_panel>
+    <layout_panel auto_resize="false" bottom="0" height="20" left="0"
 		     name="parcel_owner_controls" user_resize="false" width="540">
 			<button bottom="0" enabled="false" follows="left|top" height="20"
 			     label="Send Current URL to Parcel" left="0" name="assign" width="200" />
@@ -38,4 +51,10 @@
 			     name="close" width="70" />
 		</layout_panel>
 	</layout_stack>
+  <string name="home_page_url">
+    http://www.secondlife.com
+  </string>
+  <string name="support_page_url">
+    http://support.secondlife.com
+  </string>
 </floater>

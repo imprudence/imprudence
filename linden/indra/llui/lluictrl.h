@@ -39,31 +39,8 @@
 #include "llsd.h"
 
 
-class LLFocusableElement
-{
-	friend class LLFocusMgr; // allow access to focus change handlers
-public:
-	LLFocusableElement();
-	virtual ~LLFocusableElement();
-
-	virtual void	setFocus( BOOL b );
-	virtual BOOL	hasFocus() const;
-
-	void			setFocusLostCallback(void (*cb)(LLFocusableElement* caller, void*), void* user_data = NULL) { mFocusLostCallback = cb; mFocusCallbackUserData = user_data; }
-	void			setFocusReceivedCallback( void (*cb)(LLFocusableElement*, void*), void* user_data = NULL)	{ mFocusReceivedCallback = cb; mFocusCallbackUserData = user_data; }
-	void			setFocusChangedCallback( void (*cb)(LLFocusableElement*, void*), void* user_data = NULL )		{ mFocusChangedCallback = cb; mFocusCallbackUserData = user_data; }
-
-protected:
-	virtual void	onFocusReceived();
-	virtual void	onFocusLost();
-	void			(*mFocusLostCallback)( LLFocusableElement* caller, void* userdata );
-	void			(*mFocusReceivedCallback)( LLFocusableElement* ctrl, void* userdata );
-	void			(*mFocusChangedCallback)( LLFocusableElement* ctrl, void* userdata );
-	void*			mFocusCallbackUserData;
-};
-
 class LLUICtrl
-: public LLView, public LLFocusableElement
+: public LLView
 {
 public:
 	typedef void (*LLUICtrlCallback)(LLUICtrl* ctrl, void* userdata);
@@ -117,6 +94,7 @@ public:
 	virtual void	clear();
 	virtual	void	setDoubleClickCallback( void (*cb)(void*) );
 	virtual void	setColor(const LLColor4& color);
+	virtual void	setAlpha(F32 alpha);
 	virtual void	setMinValue(LLSD min_value);
 	virtual void	setMaxValue(LLSD max_value);
 

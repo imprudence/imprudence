@@ -134,7 +134,7 @@ void LLVOSurfacePatch::setPixelAreaAndAngle(LLAgent &agent)
 }
 
 
-void LLVOSurfacePatch::updateTextures()
+void LLVOSurfacePatch::updateTextures(LLAgent &agent)
 {
 }
 
@@ -177,11 +177,19 @@ LLDrawable *LLVOSurfacePatch::createDrawable(LLPipeline *pipeline)
 }
 
 
+void LLVOSurfacePatch::updateGL()
+{
+	if (mPatchp)
+	{
+		mPatchp->updateGL();
+	}
+}
+
 BOOL LLVOSurfacePatch::updateGeometry(LLDrawable *drawable)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_UPDATE_TERRAIN);
 
-	dirtySpatialGroup();
+	dirtySpatialGroup(TRUE);
 	
 	S32 min_comp, max_comp, range;
 	min_comp = lltrunc(mPatchp->getMinComposition());
@@ -1013,12 +1021,12 @@ U32 LLVOSurfacePatch::getPartitionType() const
 }
 
 LLTerrainPartition::LLTerrainPartition()
-: LLSpatialPartition(LLDrawPoolTerrain::VERTEX_DATA_MASK)
+: LLSpatialPartition(LLDrawPoolTerrain::VERTEX_DATA_MASK, FALSE, GL_DYNAMIC_DRAW_ARB)
 {
 	mOcclusionEnabled = FALSE;
-	mRenderByGroup = FALSE;
+	//mRenderByGroup = FALSE;  // KL not for SD hybrid code
 	mInfiniteFarClip = TRUE;
-	mBufferUsage = GL_DYNAMIC_DRAW_ARB;
+	//mBufferUsage = GL_DYNAMIC_DRAW_ARB; // and here too!
 	mDrawableType = LLPipeline::RENDER_TYPE_TERRAIN;
 	mPartitionType = LLViewerRegion::PARTITION_TERRAIN;
 }

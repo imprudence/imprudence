@@ -41,6 +41,7 @@
 #include "llvertexbuffer.h"
 #include "llviewerdisplay.h"
 #include "llrender.h"
+#include "pipeline.h"
 
 // static
 LLDynamicTexture::instance_list_t LLDynamicTexture::sInstances[ LLDynamicTexture::ORDER_COUNT ];
@@ -58,9 +59,14 @@ LLDynamicTexture::LLDynamicTexture(S32 width, S32 height, S32 components, EOrder
 	mClamp(clamp)
 {
 	llassert((1 <= components) && (components <= 4));
-
-	generateGLTexture();
-
+    if(!LLPipeline::sRenderDeferred)
+	{
+		generateGLTexture();
+	}
+	else
+	{
+    gPipeline.markGLRebuild(this); // KL SD well for this to work its either gotta be one or the other so lets slap in the if/else can't do any harm.
+	}
 	llassert( 0 <= order && order < ORDER_COUNT );
 	LLDynamicTexture::sInstances[ order ].insert(this);
 }
@@ -75,6 +81,11 @@ LLDynamicTexture::~LLDynamicTexture()
 	{
 		LLDynamicTexture::sInstances[order].erase(this);  // will fail in all but one case.
 	}
+}
+
+void LLDynamicTexture::updateGL()
+{
+	generateGLTexture();
 }
 
 //-----------------------------------------------------------------------------
@@ -101,7 +112,7 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 {
 	if (mComponents < 1 || mComponents > 4)
 	{
-		llerrs << "Bad number of components in dynamic texture: " << mComponents << llendl;
+		llwarns << "Bad number of components in dynamic texture: " << mComponents << llendl;
 	}
 	releaseGLTexture();
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw(mWidth, mHeight, mComponents);
@@ -111,7 +122,7 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 		mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
 	}
 // 	llinfos << "ALLOCATING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
-	mTexture->createGLTexture(0, raw_image, 0, TRUE, LLViewerImageBoostLevel::DYNAMIC_TEX);
+	mTexture->createGLTexture(0, raw_image);
 	mTexture->setAddressMode((mClamp) ? LLTexUnit::TAM_CLAMP : LLTexUnit::TAM_WRAP);
 	mTexture->setGLTextureCreated(false);
 }

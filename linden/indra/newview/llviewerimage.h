@@ -41,11 +41,13 @@
 #include <map>
 #include <list>
 
-class LLFace;
+
 #define MIN_VIDEO_RAM_IN_MEGA_BYTES    32
 #define MAX_VIDEO_RAM_IN_MEGA_BYTES    512 // 512MB max for performance reasons.
 
 class LLViewerImage;
+class LLTextureAtlas ;
+class LLFace ;
 
 typedef	void	(*loaded_callback_func)( BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
 
@@ -261,8 +263,29 @@ public:
 	void setMinDiscardLevel(S32 discard) 	{ mMinDesiredDiscardLevel = llmin(mMinDesiredDiscardLevel,(S8)discard); }
 	
 	// Host we think might have this image, used for baked av textures.
+	void setTargetHost(LLHost host)			{ mTargetHost = host; }
 	LLHost getTargetHost() const			{ return mTargetHost; }
 
+	enum
+	{
+		BOOST_NONE 			= 0,
+		BOOST_AVATAR_BAKED	= 1,
+		BOOST_AVATAR		= 2,
+		BOOST_CLOUDS		= 3,
+		BOOST_SCULPTED      = 4,
+		
+		BOOST_HIGH 			= 10,
+		BOOST_TERRAIN		= 11, // has to be high priority for minimap / low detail
+		BOOST_SELECTED		= 12,
+		BOOST_HUD			= 13,
+		BOOST_AVATAR_BAKED_SELF	= 14,
+		BOOST_UI			= 15,
+		BOOST_PREVIEW		= 16,
+		BOOST_MAP			= 17,
+		BOOST_MAP_LAYER		= 18,
+		BOOST_AVATAR_SELF	= 19, // needed for baking avatar
+		BOOST_MAX_LEVEL
+	};
 	void setBoostLevel(S32 level);
 	S32  getBoostLevel() { return mBoostLevel; }
 	
@@ -295,6 +318,10 @@ public:
 	S32 getOriginalWidth() { return mOrigWidth; }
 	S32 getOriginalHeight() { return mOrigHeight; }
 
+	BOOL        insertToAtlas() ;
+	void        resetFaceAtlas() ;
+	void		invalidateAtlas(BOOL rebuild_geom = FALSE);
+
 	BOOL isForSculptOnly() const ;
 	void setForSculpt();
 	
@@ -313,6 +340,7 @@ public:
 
 	void        addFace(LLFace* facep) ;
 	void        removeFace(LLFace* facep) ;
+	BOOL        isReferenced()const {return mFaceList.size() > 0 ; }
 
 	friend class LocalBitmap; // tag: vaa emerald local_asset_browser
 
@@ -418,6 +446,7 @@ private:
 	typedef std::list<LLFace*> ll_face_list_t ;
 	ll_face_list_t mFaceList ; //reverse pointer pointing to the faces using this image as texture
 
+	BOOL mInCreationList ;
 public:
 	static const U32 sCurrentFileVersion;
 	// Default textures

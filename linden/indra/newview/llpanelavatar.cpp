@@ -64,6 +64,7 @@
 #include "llmutelist.h"
 #include "llpanelclassified.h"
 #include "llpanelpick.h"
+#include "llpluginclassmedia.h"
 #include "llscrolllistctrl.h"
 #include "llstatusbar.h"
 #include "lltabcontainer.h"
@@ -410,13 +411,11 @@ BOOL LLPanelAvatarWeb::postBuild(void)
 
 	childSetControlName("auto_load","AutoLoadWebProfiles");
 
-	mWebBrowser = getChild<LLWebBrowserCtrl>("profile_html");
+	mWebBrowser = getChild<LLMediaCtrl>("profile_html");
+	mWebBrowser->addObserver(this);
 
 	// links open in internally 
 	mWebBrowser->setOpenInExternalBrowser( false );
-
-	// observe browser events
-	mWebBrowser->addObserver( this );
 
 	return TRUE;
 }
@@ -476,18 +475,22 @@ LLPanelAvatarWeb::LLPanelAvatarWeb(const std::string& name, const LLRect& rect,
 
 LLPanelAvatarWeb::~LLPanelAvatarWeb()
 {
-	// stop observing browser events
-	if  ( mWebBrowser )
-	{
-		mWebBrowser->remObserver( this );
-	};
 }
+
+void LLPanelAvatarWeb::refresh()
+{
+	if (mNavigateTo != "")
+	{
+		llinfos << "Loading " << mNavigateTo << llendl;
+		mWebBrowser->navigateTo( mNavigateTo );
+		mNavigateTo = "";
+	}
+}
+
 
 void LLPanelAvatarWeb::enableControls(BOOL self)
 {	
 	childSetEnabled("url_edit",self);
-	childSetVisible("status_text",!self && !mHome.empty());
-	childSetText("status_text", LLStringUtil::null);
 }
 
 void LLPanelAvatarWeb::setWebURL(std::string url)
@@ -511,11 +514,8 @@ void LLPanelAvatarWeb::setWebURL(std::string url)
 	else
 	{
 		childSetVisible("profile_html",false);
+		childSetVisible("status_text", false);
 	}
-
-	BOOL own_avatar = (getPanelAvatar()->getAvatarID() == gAgent.getID() );
-	childSetVisible("status_text",!own_avatar && !mHome.empty());
-	
 }
 
 // static
@@ -538,13 +538,15 @@ void LLPanelAvatarWeb::load(std::string url)
 {
 	bool have_url = (!url.empty());
 
+	
+	childSetVisible("profile_html", have_url);
+	childSetVisible("status_text", have_url);
+	childSetText("status_text", LLStringUtil::null);
+
 	if (have_url)
 	{
-		llinfos << "Loading " << url << llendl;
-		mWebBrowser->navigateTo( url );
+		mNavigateTo = url;
 	}
-
-	childSetVisible("profile_html", have_url);
 }
 
 //static
@@ -586,14 +588,22 @@ void LLPanelAvatarWeb::onCommitLoad(LLUICtrl* ctrl, void* data)
 	}
 }
 
-void LLPanelAvatarWeb::onStatusTextChange( const EventType& eventIn )
+void LLPanelAvatarWeb::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
 {
-	childSetText("status_text", eventIn.getStringValue() );
-}
-
-void LLPanelAvatarWeb::onLocationChange( const EventType& eventIn )
-{
-	childSetText("url_edit", eventIn.getStringValue() );
+	switch(event)
+	{
+		case MEDIA_EVENT_STATUS_TEXT_CHANGED:
+			childSetText("status_text", self->getStatusText() );
+		break;
+		
+		case MEDIA_EVENT_LOCATION_CHANGED:
+			childSetText("url_edit", self->getLocation() );
+		break;
+		
+		default:
+			// Having a default case makes the compiler happy.
+		break;
+	}
 }
 
 

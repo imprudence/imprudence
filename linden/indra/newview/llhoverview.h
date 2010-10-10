@@ -42,6 +42,7 @@
 #include "v3dmath.h"
 
 #include "lldarray.h"
+#include "llviewerwindow.h"
 #include "llviewerobject.h"
 
 class LLTool;
@@ -79,6 +80,7 @@ public:
 	BOOL isHoveringLand() const;
 
 	LLViewerObject* getLastHoverObject() const;
+	LLPickInfo getPickInfo() { return mLastPickInfo; }
 
 	static void pickCallback(const LLPickInfo& info);
 
@@ -103,6 +105,7 @@ protected:
 
 	// If not null and not dead, we're over an object.
 	LLPointer<LLViewerObject>	mLastHoverObject;
+	LLPickInfo					mLastPickInfo;
 
 	// If not LLVector3d::ZERO, we're over land.
 	LLVector3d					mHoverLandGlobal;

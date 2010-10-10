@@ -641,6 +641,7 @@ void LLPreview::setAssetId(const LLUUID& asset_id)
 		LLViewerObject* object = gObjectList.findObject(mObjectUUID);
 		if(NULL == object)
 		{
+			llwarns << "LLPreview::setAssetId() called on unrecognized object, UUID : " << mObjectUUID << llendl;
 			return;
 		}
 		object->updateViewerInventoryAsset(item, asset_id);

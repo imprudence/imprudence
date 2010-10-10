@@ -136,11 +136,6 @@ LLView::~LLView()
 {
 	//llinfos << "Deleting view " << mName << ":" << (void*) this << llendl;
 // 	llassert(LLView::sIsDrawing == FALSE);
-	if( gFocusMgr.getKeyboardFocus() == this )
-	{
-		llwarns << "View holding keyboard focus deleted: " << getName() << ".  Keyboard focus removed." << llendl;
-		gFocusMgr.removeKeyboardFocusWithoutCallback( this );
-	}
 
 	if( hasMouseCapture() )
 	{
@@ -1327,7 +1322,7 @@ void LLView::draw()
 	LLRect screenRect;
 
 	// draw focused control on top of everything else
-	LLView* focus_view = gFocusMgr.getKeyboardFocus();
+	LLUICtrl* focus_view = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 	if (focus_view && focus_view->getParent() != this)
 	{
 		focus_view = NULL;

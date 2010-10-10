@@ -88,6 +88,8 @@ public:
 	/*virtual*/ void markDead();
 	void startDefaultMotions();
 
+	/*virtual*/ LLVOAvatar* asAvatar(); // KL SD
+
 	static void updateImpostors();
 
 	//--------------------------------------------------------------------
@@ -137,7 +139,7 @@ public:
 										  LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
 		);
 
-	/*virtual*/ void updateTextures();
+	/*virtual*/ void updateTextures(LLAgent &agent); // KL SD
 	// If setting a baked texture, need to request it from a non-local sim.
 	/*virtual*/ S32 setTETexture(const U8 te, const LLUUID& uuid);
 	/*virtual*/ void onShift(const LLVector3& shift_vector);
@@ -155,6 +157,8 @@ public:
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ BOOL updateGeometry(LLDrawable *drawable);
+	/*virtual*/ void		updateGL();
+
 
 	/*virtual*/ void setPixelAreaAndAngle(LLAgent &agent);
 	BOOL updateJointLODs();
@@ -474,6 +478,7 @@ private:
 	LLFrameTimer				mTypingTimer;
 
 	//--------------------------------------------------------------------
+	BOOL			mMeshTexturesDirty;
 	// wind rippling in clothes
 	//--------------------------------------------------------------------
 public:
@@ -570,6 +575,7 @@ public:
 	static BOOL		sShowAnimationDebug; // show animation debug info
 	static BOOL		sUseImpostors; //use impostors for far away avatars
 	static BOOL		sShowFootPlane;	// show foot collision plane reported by server
+	static BOOL		sShowCollisionVolumes;	// show skeletal collision volumes // KL SD
 	static BOOL		sVisibleInFirstPerson;
 	static S32		sNumLODChangesThisFrame;
 	static S32		sNumVisibleChatBubbles;
@@ -771,7 +777,7 @@ private:
 		LLUUID			mLastTextureIndex;
 		LLTexLayerSet*	mTexLayerSet;
 		bool			mIsLoaded;
-		bool			mIsUsed;
+		//bool			mIsUsed; // KL SG
 		LLVOAvatarDefines::ETextureIndex	mTextureIndex;
 		U32				mMaskTexName;
 		// Stores pointers to the joint meshes that this baked texture deals with

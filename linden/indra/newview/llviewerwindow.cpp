@@ -54,7 +54,7 @@
 //
 
 // linden library includes
-#include "audioengine.h"		// mute on minimize
+#include "llaudioengine.h"		// mute on minimize
 #include "indra_constants.h"
 #include "llassetstorage.h"
 #include "llfontgl.h"
@@ -156,7 +156,6 @@
 #include "lltoolselectland.h"
 #include "lltoolview.h"
 #include "lluictrlfactory.h"
-#include "lluploaddialog.h"
 #include "llurldispatcher.h"		// SLURL from other app instance
 #include "llvieweraudio.h"
 #include "llviewercamera.h"
@@ -164,6 +163,8 @@
 #include "llviewerimagelist.h"
 #include "llviewerinventory.h"
 #include "llviewerkeyboard.h"
+#include "llviewermedia.h"
+#include "llviewermediafocus.h"
 #include "llviewermenu.h"
 #include "llviewermessage.h"
 #include "llviewerobjectlist.h"
@@ -312,7 +313,9 @@ public:
 				S32 hours = (S32)(time / (60*60));
 				S32 mins = (S32)((time - hours*(60*60)) / 60);
 				S32 secs = (S32)((time - hours*(60*60) - mins*60));
-				addText(xpos, ypos, llformat(" Debug %d: %d:%02d:%02d", idx, hours,mins,secs)); ypos += y_inc2;
+				std::string label = gDebugTimerLabel[idx];
+				if (label.empty()) label = llformat("Debug: %d", idx);
+				addText(xpos, ypos, llformat(" %s: %d:%02d:%02d", label.c_str(), hours,mins,secs)); ypos += y_inc2;
 			}
 			
 			F32 time = gFrameTimeSeconds;
@@ -469,6 +472,27 @@ public:
 			addText(xpos,ypos, llformat("%d Lights visible", LLPipeline::sVisibleLightCount));
 			
 			ypos += y_inc;
+
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow error: " << gPipeline.mShadowError;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
+
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow FOV: " << gPipeline.mShadowFOV;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
+
+			{
+				std::ostringstream ostr;
+				ostr << "Shadow Splits: " << gPipeline.mSunClipPlanes;
+				addText(xpos, ypos, ostr.str());
+				ypos += y_inc;
+			}
 
 			LLVertexBuffer::sBindCount = LLImageGL::sBindCount = 
 				LLVertexBuffer::sSetCount = LLImageGL::sUniqueCount = 
@@ -798,6 +822,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	BOOL handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
 	if (handle)
 		return handle;
+
 
 	// *HACK: this should be rolled into the composite tool logic, not
 	// hardcoded at the top level.
@@ -1145,7 +1170,7 @@ void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 	case SLURL_MESSAGE_TYPE:
 		// received URL
 		std::string url = (const char*)data;
-		LLWebBrowserCtrl* web = NULL;
+		LLMediaCtrl* web = NULL;
 		const bool trusted_browser = false;
 		if (LLURLDispatcher::dispatch(url, web, trusted_browser))
 		{
@@ -1326,7 +1351,6 @@ LLViewerWindow::LLViewerWindow(
 
 	// Init the image list.  Must happen after GL is initialized and before the images that
 	// LLViewerWindow needs are requested.
-	LLImageGL::initClass(LLViewerImageBoostLevel::MAX_GL_IMAGE_CATEGORY) ;
 	gImageList.init();
 	LLViewerImage::initClass();
 	gBumpImageList.init();
@@ -1439,7 +1463,7 @@ void LLViewerWindow::initBase()
 	llassert( !gConsole );
 	gConsole = new LLConsole(
 		"console",
-		gSavedSettings.getS32("ConsoleBufferSize"),
+		//gSavedSettings.getS32("ConsoleBufferSize"),
 		getChatConsoleRect(),
 		gSavedSettings.getS32("ChatFontSize"),
 		gSavedSettings.getF32("ChatPersistTime") );
@@ -1745,6 +1769,19 @@ void LLViewerWindow::initWorldUI()
 	// menu holder appears on top to get first pass at all mouse events
 
 	mRootView->sendChildToFront(gMenuHolder);
+
+	if ( gHUDView == NULL )
+	{
+		LLRect hud_rect = full_window;
+		hud_rect.mBottom += 50;
+		if (gMenuBarView)
+		{
+			hud_rect.mTop -= gMenuBarView->getRect().getHeight();
+		}
+		gHUDView = new LLHUDView(hud_rect);
+		// put behind everything else in the UI
+		mRootView->addChildAtEnd(gHUDView);
+	}
 }
 
 // Destroy the UI
@@ -2191,7 +2228,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		if (key < 0x80)
 		{
 			// Not a special key, so likely (we hope) to generate a character.  Let it fall through to character handler first.
-			return gFocusMgr.childHasKeyboardFocus(mRootView);
+			return (gFocusMgr.getKeyboardFocus() != NULL);
 		}
 	}
 
@@ -2254,7 +2291,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	}
 
 	// Traverses up the hierarchy
-	LLUICtrl* keyboard_focus = gFocusMgr.getKeyboardFocus();
+	LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 	if( keyboard_focus )
 	{
 		// arrow keys move avatar while chatting hack
@@ -2388,7 +2425,7 @@ BOOL LLViewerWindow::handleUnicodeChar(llwchar uni_char, MASK mask)
 	}
 
 	// Traverses up the hierarchy
-	LLView* keyboard_focus = gFocusMgr.getKeyboardFocus();
+	LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 	if( keyboard_focus )
 	{
 		if (keyboard_focus->handleUnicodeChar(uni_char, FALSE))
@@ -2509,7 +2546,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		mMouseInWindow = TRUE;
 	}
 
-
 	S32 dx = lltrunc((F32) (mCurrentMousePoint.mX - mLastMousePoint.mX) * LLUI::sGLScaleFactor.mV[VX]);
 	S32 dy = lltrunc((F32) (mCurrentMousePoint.mY - mLastMousePoint.mY) * LLUI::sGLScaleFactor.mV[VY]);
 
@@ -2534,7 +2570,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		mCurrentMouseDelta.set(dx, dy);
 		mouse_vel.setVec((F32) dx, (F32) dy);
 	}
-    
+
 	mMouseVelocityStat.addValue(mouse_vel.magVec());
 
 	if (gNoRender)
@@ -2543,7 +2579,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	}
 
 	// clean up current focus
-	LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
+	LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 	if (cur_focus)
 	{
 		if (!cur_focus->isInVisibleChain() || !cur_focus->isInEnabledChain())
@@ -2797,16 +2833,21 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			gFloaterView->setRect(floater_rect);
 		}
 
+		{
 		// snap floaters to top of chat bar/button strip
 		LLView* chatbar_and_buttons = gOverlayBar->getChild<LLView>("chatbar_and_buttons", TRUE);
+			S32 top, left;
+			S32 chatbar_and_buttons_x = chatbar_and_buttons->getLocalBoundingRect().mLeft;
+			S32 chatbar_and_buttons_y = chatbar_and_buttons->getLocalBoundingRect().mTop;
+	
 		// find top of chatbar and state buttons, if either are visible
 		if (chatbar_and_buttons && !chatbar_and_buttons->getLocalBoundingRect().isNull())
 		{
-			// convert top/left corner of chatbar/buttons container to gFloaterView-relative coordinates
-			S32 top, left;
+				// convert top/left corner of chatbar/buttons container to 
+				// gFloaterView-relative coordinates
 			chatbar_and_buttons->localPointToOtherView(
-												chatbar_and_buttons->getLocalBoundingRect().mLeft, 
-												chatbar_and_buttons->getLocalBoundingRect().mTop,
+										chatbar_and_buttons_x,
+										chatbar_and_buttons_y,
 												&left,
 												&top,
 												gFloaterView);
@@ -2814,10 +2855,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		}
 		else if (gToolBar->getVisible())
 		{
-			S32 top, left;
 			gToolBar->localPointToOtherView(
-											gToolBar->getLocalBoundingRect().mLeft,
-											gToolBar->getLocalBoundingRect().mTop,
+										chatbar_and_buttons_x,
+										chatbar_and_buttons_y,
 											&left,
 											&top,
 											gFloaterView);
@@ -2827,7 +2867,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		{
 			gFloaterView->setSnapOffsetBottom(0);
 		}
-
+		}
 		// Always update console
 		LLRect console_rect = getChatConsoleRect();
 		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad();
@@ -2835,8 +2875,8 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		gConsole->setRect(console_rect);
 	}
 
-	mLastMousePoint = mCurrentMousePoint;
 
+	mLastMousePoint = mCurrentMousePoint;
 	// last ditch force of edit menu to selection manager
 	if (LLEditMenuHandler::gEditMenuHandler == NULL && LLSelectMgr::getInstance()->getSelection()->getObjectCount())
 	{
@@ -2899,7 +2939,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 											  &gDebugRaycastBinormal);
 	}
 
-
 	// per frame picking - for tooltips and changing cursor over interactive objects
 	static S32 previous_x = -1;
 	static S32 previous_y = -1;
@@ -2926,17 +2965,22 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	{
 		do_pick = FALSE;
 	}
+	
+	if(LLViewerMediaFocus::getInstance()->getFocus())
+	{
+		// When in-world media is in focus, pick every frame so that browser mouse-overs, dragging scrollbars, etc. work properly.
+		do_pick = TRUE;
+	}
 
 	if (do_pick)
 	{
 		mouse_moved_since_pick = FALSE;
 		mPickTimer.reset();
-		pickAsync(getCurrentMouseX(), getCurrentMouseY(), mask, hoverPickCallback, TRUE);
+		pickAsync(getCurrentMouseX(), getCurrentMouseY(), mask, hoverPickCallback, TRUE, TRUE);
 	}
 
 	previous_x = x;
 	previous_y = y;
-	
 	return handled;
 }
 
@@ -4034,7 +4078,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	{
 		if(image_width > window_width || image_height > window_height) //need to enlarge the scene
 		{
-			if (gGLManager.mHasFramebufferObject && !show_ui)
+			if (!LLPipeline::sRenderDeferred && gGLManager.mHasFramebufferObject && !show_ui)
 			{
 				GLint max_size = 0;
 				glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &max_size);
@@ -4123,9 +4167,16 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 			else
 			{
 				const U32 subfield = subimage_x+(subimage_y*llceil(scale_factor));
+				if (LLPipeline::sRenderDeferred)
+				{
+					display(do_rebuild, scale_factor, subfield, FALSE);
+				}
+				else
+				{
 				display(do_rebuild, scale_factor, subfield, TRUE);
 				// Required for showing the GUI in snapshots?  See DEV-16350 for details. JC
 				render_ui(scale_factor, subfield);
+			}
 			}
 
 			S32 subimage_x_offset = llclamp(buffer_x_offset - (subimage_x * window_width), 0, window_width);
@@ -4710,7 +4761,7 @@ BOOL LLViewerWindow::changeDisplaySettings(BOOL fullscreen, LLCoordScreen size, 
 	BOOL result_first_try = FALSE;
 	BOOL result_second_try = FALSE;
 
-	LLUICtrl* keyboard_focus = gFocusMgr.getKeyboardFocus();
+	LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 	send_agent_pause();
 	llinfos << "Stopping GL during changeDisplaySettings" << llendl;
 	stopGL();
@@ -4939,7 +4990,6 @@ LLBottomPanel::LLBottomPanel(const LLRect &rect) :
 
 	mFactoryMap["toolbar"] = LLCallbackMap(createToolBar, NULL);
 	mFactoryMap["overlay"] = LLCallbackMap(createOverlayBar, NULL);
-	mFactoryMap["hud"] = LLCallbackMap(createHUD, NULL);
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_bars.xml", &getFactoryMap());
 	
 	setOrigin(rect.mLeft, rect.mBottom);
@@ -4960,12 +5010,6 @@ void LLBottomPanel::draw()
 		mIndicator->setEnabled(hasFocus);
 	}
 	LLPanel::draw();
-}
-
-void* LLBottomPanel::createHUD(void* data)
-{
-	gHUDView = new LLHUDView();
-	return gHUDView;
 }
 
 
@@ -5180,12 +5224,8 @@ void LLPickInfo::updateXYCoords()
 		LLPointer<LLViewerImage> imagep = gImageList.getImage(tep->getID());
 		if(mUVCoords.mV[VX] >= 0.f && mUVCoords.mV[VY] >= 0.f && imagep.notNull())
 		{
-			LLCoordGL coords;
-			
-			coords.mX = llround(mUVCoords.mV[VX] * (F32)imagep->getWidth());
-			coords.mY = llround(mUVCoords.mV[VY] * (F32)imagep->getHeight());
-
-			gViewerWindow->getWindow()->convertCoords(coords, &mXYCoords);
+			mXYCoords.mX = llround(mUVCoords.mV[VX] * (F32)imagep->getWidth());
+			mXYCoords.mY = llround((1.f - mUVCoords.mV[VY]) * (F32)imagep->getHeight());
 		}
 	}
 }

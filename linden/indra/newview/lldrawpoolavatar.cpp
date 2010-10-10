@@ -94,6 +94,7 @@ BOOL gAvatarEmbossBumpMap = FALSE;
 static BOOL sRenderingSkinned = FALSE;
 S32 normal_channel = -1;
 S32 specular_channel = -1;
+S32 diffuse_channel = -1;
 
 LLDrawPoolAvatar::LLDrawPoolAvatar() :
 LLFacePool(POOL_AVATAR)
@@ -447,7 +448,8 @@ void LLDrawPoolAvatar::beginDeferredImpostor()
 
 	normal_channel = sVertexProgram->enableTexture(LLViewerShaderMgr::DEFERRED_NORMAL);
 	specular_channel = sVertexProgram->enableTexture(LLViewerShaderMgr::SPECULAR_MAP);
-				
+	diffuse_channel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP); // KL SD
+
 	sVertexProgram->bind();
 }
 
@@ -456,6 +458,7 @@ void LLDrawPoolAvatar::endDeferredImpostor()
 	sShaderLevel = mVertexShaderLevel;
 	sVertexProgram->disableTexture(LLViewerShaderMgr::DEFERRED_NORMAL);
 	sVertexProgram->disableTexture(LLViewerShaderMgr::SPECULAR_MAP);
+	sVertexProgram->disableTexture(LLViewerShaderMgr::DIFFUSE_MAP); // KL SD
 	sVertexProgram->unbind();
 	gGL.getTexUnit(0)->activate();
 }
@@ -699,7 +702,8 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 					avatarp->mImpostor.bindTexture(1, specular_channel);
 				}
 			}
-			avatarp->renderImpostor();
+		//	avatarp->renderImpostor(LLColor4U(255,255,255,255), diffuse_channel); // KL SD
+		avatarp->renderImpostor();
 		}
 		else if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_FOOT_SHADOWS) && !LLPipeline::sRenderDeferred)
 		{
@@ -752,6 +756,67 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 
 	if( !single_avatar || (avatarp == single_avatar) )
 	{
+		if (LLVOAvatar::sShowCollisionVolumes)
+		{
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+			avatarp->renderCollisionVolumes();
+		}
+
+		if (avatarp->isSelf() && LLAgent::sDebugDisplayTarget)
+		{
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+			LLVector3 pos = avatarp->getPositionAgent();
+
+			gGL.color4f(1.0f, 0.0f, 0.0f, 0.8f);
+			gGL.begin(LLRender::LINES);
+			{
+				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.f, 0.2f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.f, 0.2f)).mV);
+			}gGL.end();
+
+			pos = avatarp->mDrawable->getPositionAgent();
+			gGL.color4f(1.0f, 0.0f, 0.0f, 0.8f);
+			gGL.begin(LLRender::LINES);
+			{
+				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.f, 0.2f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.f, 0.2f)).mV);
+			}gGL.end();
+
+			pos = avatarp->mRoot.getWorldPosition();
+			gGL.color4f(1.0f, 1.0f, 1.0f, 0.8f);
+			gGL.begin(LLRender::LINES);
+			{
+				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.f, 0.2f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.f, 0.2f)).mV);
+			}gGL.end();
+
+			pos = avatarp->mPelvisp->getWorldPosition();
+			gGL.color4f(0.0f, 0.0f, 1.0f, 0.8f);
+			gGL.begin(LLRender::LINES);
+			{
+				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.2f, 0.f)).mV);
+				gGL.vertex3fv((pos - LLVector3(0.f, 0.f, 0.2f)).mV);
+				gGL.vertex3fv((pos + LLVector3(0.f, 0.f, 0.2f)).mV);
+			}gGL.end();	
+
+			color.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		}
+
 		avatarp->renderSkinned(AVATAR_RENDER_PASS_SINGLE);
 	}
 }

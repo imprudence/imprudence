@@ -190,6 +190,15 @@ void LLFloaterChat::setMinimized(BOOL minimized)
 	updateConsoleVisibility();
 }
 
+// linden library includes
+#include "llaudioengine.h"
+#include "llchat.h"
+#include "llfontgl.h"
+#include "llrect.h"
+#include "llerror.h"
+#include "llstring.h"
+#include "llwindow.h"
+#include "message.h"
 
 void LLFloaterChat::updateConsoleVisibility()
 {
@@ -573,7 +582,8 @@ void LLFloaterChat::addChat(const LLChat& chat,
 		// We display anything if it's not an IM. If it's an IM, check pref... 
 		if ( !from_instant_message || gSavedSettings.getBOOL("IMInChatConsole") )
 		{
-			gConsole->addLine(chat.mText, size, text_color);
+			gConsole->addConsoleLine(chat.mText, text_color);
+
 		}
 	}
 
@@ -583,11 +593,52 @@ void LLFloaterChat::addChat(const LLChat& chat,
 	if(from_instant_message && gSavedSettings.getBOOL("IMInChatHistory")) 	 
 		addChatHistory(chat,false);
 
-	LLTextParser* highlight = LLTextParser::getInstance();
-	highlight->triggerAlerts(gAgent.getID(), gAgent.getPositionGlobal(), chat.mText, gViewerWindow->getWindow());
+	triggerAlerts(chat.mText);
 
 	if(!from_instant_message)
 		addChatHistory(chat);
+}
+
+// Moved from lltextparser.cpp to break llui/llaudio library dependency.
+//static
+void LLFloaterChat::triggerAlerts(const std::string& text)
+{
+	LLTextParser* parser = LLTextParser::getInstance();
+//    bool spoken=FALSE;
+	for (S32 i=0;i<parser->mHighlights.size();i++)
+	{
+		LLSD& highlight = parser->mHighlights[i];
+		if (parser->findPattern(text,highlight) >= 0 )
+		{
+			if(gAudiop)
+			{
+				if ((std::string)highlight["sound_lluuid"] != LLUUID::null.asString())
+				{
+					gAudiop->triggerSound(highlight["sound_lluuid"].asUUID(), 
+						gAgent.getID(),
+						1.f,
+						LLAudioEngine::AUDIO_TYPE_UI,
+						gAgent.getPositionGlobal() );
+				}
+/*				
+				if (!spoken) 
+				{
+					LLTextToSpeech* text_to_speech = NULL;
+					text_to_speech = LLTextToSpeech::getInstance();
+					spoken = text_to_speech->speak((LLString)highlight["voice"],text); 
+				}
+ */
+			}
+			if (highlight["flash"])
+			{
+				LLWindow* viewer_window = gViewerWindow->getWindow();
+				if (viewer_window && viewer_window->getMinimized())
+				{
+					viewer_window->flashIcon(5.f);
+				}
+			}
+		}
+	}
 }
 
 LLColor4 get_text_color(const LLChat& chat)

@@ -1,6 +1,5 @@
 /** 
- * @file lltexteditor.cpp
- * @brief LLTextEditor base class
+ * @file lltextparser.cpp
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -32,6 +31,8 @@
 
 #include "linden_common.h"
 
+#include "lltextparser.h"
+
 #include "llsd.h"
 #include "llsdserialize.h"
 #include "llerror.h"
@@ -40,21 +41,11 @@
 #include "message.h"
 #include "llmath.h"
 #include "v4color.h"
-#include "audioengine.h"
-#include "llwindow.h"
 #include "lldir.h"
-
-#include "lltextparser.h"
-//#include "lltexttospeech.h"
 
 // Routines used for parsing text for TextParsers and html
 
 LLTextParser* LLTextParser::sInstance = NULL;
-
-//
-// Constants
-//
-const F32 SOUND_GAIN = 1.0f;
 
 //
 // Member Functions
@@ -76,38 +67,7 @@ LLTextParser* LLTextParser::getInstance()
 	return sInstance;
 }
 
-void LLTextParser::triggerAlerts(LLUUID agent_id, LLVector3d position, std::string text, LLWindow* viewer_window)
-{
-//    bool spoken=FALSE;
-	for (S32 i=0;i<mHighlights.size();i++)
-	{
-		if (findPattern(text,mHighlights[i]) >= 0 )
-		{
-			if(gAudiop)
-			{
-				if ((std::string)mHighlights[i]["sound_lluuid"] != LLUUID::null.asString())
-				{
-					gAudiop->triggerSound(mHighlights[i]["sound_lluuid"].asUUID(), agent_id, SOUND_GAIN, LLAudioEngine::AUDIO_TYPE_UI, position);
-				}
-/*				
-				if (!spoken) 
-				{
-					LLTextToSpeech* text_to_speech = NULL;
-					text_to_speech = LLTextToSpeech::getInstance();
-					spoken = text_to_speech->speak((LLString)mHighlights[i]["voice"],text); 
-				}
- */
-			}
-			if (mHighlights[i]["flash"])
-			{
-				if (viewer_window && viewer_window->getMinimized())
-				{
-					viewer_window->flashIcon(5.f);
-				}
-			}
-		}
-	}
-}
+// Moved triggerAlerts() to llfloaterchat.cpp to break llui/llaudio library dependency.
 
 S32 LLTextParser::findPattern(const std::string &text, LLSD highlight)
 {

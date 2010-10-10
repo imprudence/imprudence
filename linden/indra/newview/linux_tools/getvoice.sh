@@ -3,8 +3,9 @@
 SCRIPTSRC=`readlink -f "$0" || echo "$0"`
 RUN_PATH=`dirname "${SCRIPTSRC}" || echo .`
 
-#if mozilla-runtime-linux-x86_64 is present we are using 64bit Imprudence on 64bit Linux
-if [ -d "${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/" ]; then
+BINARY_SYSTEM=$(expr match "$(file -b /bin/uname)" '\(.*executable\)')
+BINARY_VIEWER=$(expr match "$(file -b ${RUN_PATH}/bin/do-not-directly-run-imprudence-bin)" '\(.*executable\)')
+if ( [ "$BINARY_SYSTEM" == "ELF 64-bit LSB executable" ] && [ "$BINARY_VIEWER"  == "ELF 64-bit LSB executable" ] ); then
 	LIB_INSTALLDIR="lib32/" # It's 32bit voice on 64bit Linux and 64bit viewer. Not using lib/ for avoiding ambiguity.
 else
 	LIB_INSTALLDIR="lib/" # It's 32bit voice on 32 or 64bit Linux and 32bit viewer.

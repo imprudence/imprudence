@@ -64,7 +64,35 @@
 		tool_tip="Enabling this on modern hardware gives a performance gain.  However, older hardware often has poor implementations of VBOs and you may get crashes when this is enabled."
 		width="315" />
 
-	<slider bottom_delta="-21" can_edit_text="false" control_name="TextureMemory" 
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="12"
+		left="10" mouse_opaque="true" name="Enable FBO:" v_pad="0"
+		width="128">
+    Enable FBO:
+  </text>
+  <check_box bottom_delta="-5" control_name="RenderUseFBO" enabled="true" follows="left|top"
+		font="SansSerifSmall" height="16" initial_value="true"
+		label="Enable OpenGL Framebuffer Objects" left="148"
+		mouse_opaque="true" name="fbo" radio_style="false"
+		tool_tip="Enabling this will use OpenGL Framebuffer objects for some dynamic textures.  Prerequisite for deferred rendering."
+		width="315" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="12"
+		left="10" mouse_opaque="true" name="Deferred Rendering:" v_pad="0"
+		width="128">
+     Deferred Rendering:
+  </text>
+  <check_box bottom_delta="-5" control_name="RenderDeferred" enabled="true" follows="left|top"
+		font="SansSerifSmall" height="16" initial_value="true"
+		label="Enable per-pixel lighting and shadows" left="148"
+		mouse_opaque="true" name="deferred" radio_style="false"
+		tool_tip="Enabling this will perform lighting calculations in screen space, enabling per pixel lighting for all lights and shadows from the sun/moon.  Requires a fast graphics card.  Might not be compatible with FSAA."
+		width="315" />
+
+  <slider bottom_delta="-21" can_edit_text="false" control_name="TextureMemory" 
 		decimal_digits="0" enabled="true"
 		follows="left|top" height="16" increment="16"
 		initial_val="32" label="Texture Memory (MB):" label_width="135" left="10"

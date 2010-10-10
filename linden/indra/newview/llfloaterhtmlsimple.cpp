@@ -35,7 +35,7 @@
 #include "llfloaterhtmlsimple.h"
 
 #include "lluictrlfactory.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 
 
 LLFloaterHtmlSimple::LLFloaterHtmlSimple(const LLSD &initial_url)
@@ -56,12 +56,12 @@ LLFloaterHtmlSimple::~LLFloaterHtmlSimple()
 
 void LLFloaterHtmlSimple::navigateTo(const std::string &url)
 {
-	LLWebBrowserCtrl* web = getChild<LLWebBrowserCtrl>("browser");
+	LLMediaCtrl* web = getChild<LLMediaCtrl>("browser");
 	web->navigateTo(url);
 }
 
 void LLFloaterHtmlSimple::setTrusted(bool trusted)
 {
-	LLWebBrowserCtrl* web = getChild<LLWebBrowserCtrl>("browser");
+	LLMediaCtrl* web = getChild<LLMediaCtrl>("browser");
 	web->setTrusted(trusted);
 }

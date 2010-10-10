@@ -121,6 +121,7 @@ public:
 	U32 getTexture(U32 attachment = 0) const;
 
 	U32 getDepth(void) const { return mDepth; }
+	BOOL hasStencil() const { return mStencil; }
 
 	void bindTexture(U32 index, S32 channel);
 

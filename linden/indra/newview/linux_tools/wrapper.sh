@@ -106,13 +106,13 @@ if [ -n "$LL_TCMALLOC" ]; then
 	fi
     fi
 fi
-
-if([ "`uname -m`" = "x86_64" ] && [ -d "${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/" ]); then
-	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
+BINARY_SYSTEM=$(expr match "$(file -b /bin/uname)" '\(.*executable\)')
+BINARY_VIEWER=$(expr match "$(file -b ${RUN_PATH}/bin/do-not-directly-run-imprudence-bin)" '\(.*executable\)')
+echo "viewer: $BINARY_VIEWER system: $BINARY_SYSTEM"
+if ( [ "$BINARY_SYSTEM" == "ELF 64-bit LSB executable" ] && [ "$BINARY_VIEWER"  == "ELF 64-bit LSB executable" ] ); then
 
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
 else
-	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
 fi
 

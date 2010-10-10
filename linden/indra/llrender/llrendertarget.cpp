@@ -47,10 +47,10 @@ void check_framebuffer_status()
 		case GL_FRAMEBUFFER_COMPLETE_EXT:
 			break;
 		case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
-			llerrs << "WTF?" << llendl;
+			llwarns << "WTF?" << llendl;
 			break;
 		default:
-			llerrs << "WTF?" << llendl;
+			llwarns << "WTF?" << llendl;
 		}
 	}
 }
@@ -139,9 +139,9 @@ void LLRenderTarget::addColorAttachment(U32 color_fmt)
 
 	U32 offset = mTex.size();
 	if (offset >= 4 ||
-		(offset > 0 && (mFBO == 0 || !gGLManager.mHasDrawBuffers)))
+		offset > 0 && (mFBO == 0 || !gGLManager.mHasDrawBuffers))
 	{
-		llerrs << "Too many color attachments!" << llendl;
+		llwarns << "Too many color attachments!" << llendl; // KL
 	}
 
 	U32 tex;
@@ -203,7 +203,7 @@ void LLRenderTarget::allocateDepth()
 		gGL.getTexUnit(0)->bindManual(mUsage, mDepth);
 		U32 internal_type = LLTexUnit::getInternalType(mUsage);
 		gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
-		LLImageGL::setManualImage(internal_type, 0, GL_DEPTH24_STENCIL8_EXT, mResX, mResY, GL_DEPTH_STENCIL_EXT, GL_UNSIGNED_INT_24_8_EXT, NULL);
+		LLImageGL::setManualImage(internal_type, 0, GL_DEPTH_COMPONENT, mResX, mResY, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
 	}
 }
 
@@ -211,7 +211,7 @@ void LLRenderTarget::shareDepthBuffer(LLRenderTarget& target)
 {
 	if (!mFBO || !target.mFBO)
 	{
-		llerrs << "Cannot share depth buffer between non FBO render targets." << llendl;
+		llwarns << "Cannot share depth buffer between non FBO render targets." << llendl;
 	}
 
 	if (mDepth)
@@ -349,16 +349,16 @@ U32 LLRenderTarget::getTexture(U32 attachment) const
 {
 	if (attachment > mTex.size()-1)
 	{
-		llerrs << "Invalid attachment index." << llendl;
+		llwarns << "Invalid attachment index [getTexture]." << llendl; // lets not crash KL its a pain in the ass!
 	}
 	return mTex[attachment];
 }
 
 void LLRenderTarget::bindTexture(U32 index, S32 channel)
 {
-	if (index > mTex.size()-1)
+	if (index > 6)//mTex.size()-1) // KL yeah i know its a bit arbitary but make the number big enough as some unused render defer elements cause this to go wild
 	{
-		llerrs << "Invalid attachment index." << llendl;
+		llwarns << "Invalid attachment index [bindtexture]." << llendl;
 	}
 	gGL.getTexUnit(channel)->bindManual(mUsage, mTex[index]);
 }
@@ -440,7 +440,7 @@ void LLRenderTarget::copyContents(LLRenderTarget& source, S32 srcX0, S32 srcY0, 
 #if !LL_DARWIN
 	if (!source.mFBO || !mFBO)
 	{
-		llerrs << "Cannot copy framebuffer contents for non FBO render targets." << llendl;
+		llwarns << "Cannot copy framebuffer contents for non FBO render targets." << llendl;
 	}
 
 	if (mSampleBuffer)
@@ -449,12 +449,27 @@ void LLRenderTarget::copyContents(LLRenderTarget& source, S32 srcX0, S32 srcY0, 
 	}
 	else
 	{
-		glBindFramebufferEXT(GL_READ_FRAMEBUFFER_EXT, source.mFBO);
-		glBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, mFBO);
+		if (mask == GL_DEPTH_BUFFER_BIT && source.mStencil != mStencil)
+		{
+			source.bindTarget();
+			gGL.getTexUnit(0)->bind(this, true);
 
-		glBlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
-
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+			glCopyTexSubImage2D(LLTexUnit::getInternalType(mUsage), 0, srcX0, srcY0, dstX0, dstY0, dstX1, dstY1);
+			source.flush();
+		}
+		else
+		{
+			glBindFramebufferEXT(GL_READ_FRAMEBUFFER_EXT, source.mFBO);
+			stop_glerror();
+			glBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, mFBO);
+			stop_glerror();
+			check_framebuffer_status();
+			stop_glerror();
+			glBlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
+			stop_glerror();
+			glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+			stop_glerror();
+		}
 	}
 #endif
 }
@@ -553,14 +568,14 @@ void LLMultisampleBuffer::allocate(U32 resx, U32 resy, U32 color_fmt, BOOL depth
 
 	if (!gGLManager.mHasFramebufferMultisample)
 	{
-		llerrs << "Attempting to allocate unsupported render target type!" << llendl;
+		llwarns << "Attempting to allocate unsupported render target type!" << llendl;
 	}
 
 	mSamples = samples;
 	
 	if (mSamples <= 1)
 	{
-		llerrs << "Cannot create a multisample buffer with less than 2 samples." << llendl;
+		llwarns << "Cannot create a multisample buffer with less than 2 samples." << llendl;
 	}
 
 	stop_glerror();
@@ -608,9 +623,9 @@ void LLMultisampleBuffer::addColorAttachment(U32 color_fmt)
 
 	U32 offset = mTex.size();
 	if (offset >= 4 ||
-		(offset > 0 && (mFBO == 0 || !gGLManager.mHasDrawBuffers)))
+		offset > 0 && (mFBO == 0 || !gGLManager.mHasDrawBuffers))
 	{
-		llerrs << "Too many color attachments!" << llendl;
+		llwarns << "Too many color attachments!" << llendl;
 	}
 
 	U32 tex;
@@ -631,10 +646,10 @@ void LLMultisampleBuffer::addColorAttachment(U32 color_fmt)
 		case GL_FRAMEBUFFER_COMPLETE_EXT:
 			break;
 		case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
-			llerrs << "WTF?" << llendl;
+			llwarns << "WTF?" << llendl;
 			break;
 		default:
-			llerrs << "WTF?" << llendl;
+			llwarns << "WTF?" << llendl;
 		}
 
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);

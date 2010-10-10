@@ -249,7 +249,7 @@ private:
 // LLTexLayerSet
 // An ordered set of texture layers that get composited into a single texture.
 //-----------------------------------------------------------------------------
-class LLTexLayerSet
+class LLTexLayerSet : public LLGLUpdate
 {
 	friend class LLTexLayerSetBuffer;
 public:
@@ -284,7 +284,7 @@ public:
 	LLVOAvatarDefines::EBakedTextureIndex getBakedTexIndex() { return mBakedTexIndex; }
 	void					setBakedTexIndex(LLVOAvatarDefines::EBakedTextureIndex index) { mBakedTexIndex = index; }
 	BOOL					isVisible() const 				{ return mIsVisible; }
-
+	/*virtual*/ void		updateGL();
 public:
 	static BOOL		sHasCaches;
 

@@ -32,7 +32,7 @@
 #ifndef LLURLDISPATCHER_H
 #define LLURLDISPATCHER_H
 
-class LLWebBrowserCtrl;
+class LLMediaCtrl;
 
 
 class LLURLDispatcher
@@ -45,7 +45,7 @@ public:
 		// Is this a special secondlife://app/ URL?
 
 	static bool dispatch(const std::string& url,
-						 LLWebBrowserCtrl* web,
+						 LLMediaCtrl* web,
 						 bool trusted_browser);
 		// At startup time and on clicks in internal web browsers,
 		// teleport, open map, or run requested command.
@@ -54,7 +54,7 @@ public:
 		//   secondlife:///app/agent/3d6181b0-6a4b-97ef-18d8-722652995cf1/show
 		//   sl://app/foo/bar
 		// @param web
-		//	 Pointer to LLWebBrowserCtrl sending URL, can be NULL
+		//	 Pointer to LLMediaCtrl sending URL, can be NULL
 		// @param trusted_browser
 		//   True if coming inside the app AND from a brower instance
 		//   that navigates to trusted (Linden Lab) pages.

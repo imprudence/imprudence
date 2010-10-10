@@ -59,6 +59,7 @@
 #include "llfloaterreporter.h"
 #include "llfloatertools.h"
 #include "llframetimer.h"
+#include "llfocusmgr.h"
 #include "llhudeffecttrail.h"
 #include "llhudmanager.h"
 #include "llinventorymodel.h"
@@ -75,6 +76,8 @@
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
+#include "llviewermediafocus.h"
 #include "llviewermenu.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
@@ -763,7 +766,7 @@ void LLSelectMgr::addAsIndividual(LLViewerObject *objectp, S32 face, BOOL undoab
 	}
 	else
 	{
-		llerrs << "LLSelectMgr::add face " << face << " out-of-range" << llendl;
+		llwarns << "LLSelectMgr::add face " << face << " out-of-range" << llendl;
 		return;
 	}
 
@@ -1186,7 +1189,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 		}
 		else
 		{
-			llerrs << "LLSelectMgr::remove - tried to remove TE " << te << " that wasn't selected" << llendl;
+			llwarns << "LLSelectMgr::remove - tried to remove TE " << te << " that wasn't selected" << llendl;
 			return;
 		}
 
@@ -1209,7 +1212,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 	else
 	{
 		// ...out of range face
-		llerrs << "LLSelectMgr::remove - TE " << te << " out of range" << llendl;
+		llwarns << "LLSelectMgr::remove - TE " << te << " out of range" << llendl;
 	}
 
 	updateSelectionCenter();
@@ -1708,13 +1711,13 @@ void LLSelectMgr::selectionSetFullbright(U8 fullbright)
 	} sendfunc(fullbright);
 	getSelection()->applyToObjects(&sendfunc);
 }
-
+/*
 void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& media_url)
 {
 	U8 media_flags = LLTextureEntry::MF_NONE;
 	if (media_type == LLViewerObject::MEDIA_TYPE_WEB_PAGE)
 	{
-		media_flags = LLTextureEntry::MF_WEB_PAGE;
+		media_flags = LLTextureEntry::MF_HAS_MEDIA;
 	}
 	
 	struct f : public LLSelectedTEFunctor
@@ -1751,7 +1754,7 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	} sendfunc(media_type, media_url);
 	getSelection()->applyToObjects(&sendfunc);
 }
-
+*/
 void LLSelectMgr::selectionSetGlow(F32 glow)
 {
 	struct f1 : public LLSelectedTEFunctor
@@ -3356,7 +3359,7 @@ void LLSelectMgr::packPermissionsHead(void* user_data)
 /*
 void LLSelectMgr::sendSelect()
 {
-	llerrs << "Not implemented" << llendl;
+	llwarns << "Not implemented" << llendl;
 }
 */
 
@@ -4180,7 +4183,7 @@ void LLSelectMgr::sendListToRegions(const std::string& message_name,
 		break;
 
 	default:
-		llerrs << "Bad send type " << send_type << " passed to SendListToRegions()" << llendl;
+		llwarns << "Bad send type " << send_type << " passed to SendListToRegions()" << llendl;
 	}
 
 	// bail if nothing selected
@@ -4587,11 +4590,6 @@ extern LLGLdouble	gGLModelView[16];
 
 void LLSelectMgr::updateSilhouettes()
 {
-	if (!mRenderSilhouettes || !LLSelectMgr::sRenderSelectionHighlights)
-	{
-		return;
-	}
-
 	S32 num_sils_genned = 0;
 
 	LLVector3d	cameraPos = gAgent.getCameraPositionGlobal();
@@ -4902,7 +4900,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 	if (mSelectedObjects->getNumNodes())
 	{
 		LLUUID inspect_item_id = LLFloaterInspect::getSelectedUUID();
-		
+		LLUUID focus_item_id = LLViewerMediaFocus::getInstance()->getSelectedUUID();
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
@@ -4916,7 +4914,11 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 				{
 					continue;
 				}
-				if(objectp->getID() == inspect_item_id)
+				if (objectp->getID() == focus_item_id)
+				{
+					node->renderOneSilhouette(gFocusMgr.getFocusColor());
+				}
+				else if(objectp->getID() == inspect_item_id)
 				{
 					node->renderOneSilhouette(sHighlightInspectColor);
 				}
@@ -5801,8 +5803,7 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 	}
 
 	if ((gSavedSettings.getBOOL("SelectOwnedOnly") && !object->permYouOwner()) ||
-		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()) ||
-		(gSavedSettings.getBOOL("SelectCopyableOnly") && !object->permCopy()))
+		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()))
 	{
 		// only select my own objects
 		return FALSE;

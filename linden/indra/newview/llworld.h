@@ -2,7 +2,7 @@
  * @file llworld.h
  * @brief Collection of viewer regions in the vacinity of the user.
  *
- * Represents the whole world, so far as 3D functionality is conserned.
+ * Represents the whole world, so far as 3D functionality is concerned.
  * Always contains the region that the user's avatar is in along with
  * neighboring regions. As the user crosses region boundaries, new
  * regions are added to the world and distant ones are rolled up.
@@ -152,7 +152,8 @@ public:
 
 public:
 	typedef std::list<LLViewerRegion*> region_list_t;
-	const region_list_t& getRegionList() const { return mActiveRegionList; }
+	region_list_t	mActiveRegionList; // KL SD branch public not private
+	region_list_t& getRegionList() { return mActiveRegionList; }
 
 	// Returns lists of avatar IDs and their world-space positions within a given distance of a point.
 	// All arguments are optional. Given containers will be emptied and then filled.
@@ -163,7 +164,6 @@ public:
 		const LLVector3d& relative_to = LLVector3d(), F32 radius = FLT_MAX) const;
 
 private:
-	region_list_t	mActiveRegionList;
 	region_list_t	mRegionList;
 	region_list_t	mVisibleRegionList;
 	region_list_t	mCulledRegionList;
