@@ -63,7 +63,7 @@ LLFloaterAssetBrowser::~LLFloaterAssetBrowser()
 	mTextureAssets.clear();
 	mMaxIndex = 0;
 	mFirstIndex = 0;
-	mMouseOverIndex = NULL;
+	mMouseOverIndex = 0;
 	mMouseOverUUID = LLUUID::null;
 	mMouseOverAssetUUID = LLUUID::null;
 	mFloaterTitle = "";
@@ -79,7 +79,7 @@ void LLFloaterAssetBrowser::initialize()
 	mAssetInfoIndex = 0;
 	mFloaterHeight = getRect().getHeight();
 	mFloaterWidth = getRect().getWidth();
-	mMouseOverIndex = NULL;
+	mMouseOverIndex = 0;
 	mMouseOverUUID = LLUUID::null;
 	mMouseOverAssetUUID = LLUUID::null;
 	mFloaterTitle = "";
@@ -131,14 +131,14 @@ void LLFloaterAssetBrowser::createThumbnails()
 	{
 			mTextureAssets[i].mTexturep = gImageList.getImage(mTextureAssets[i].mAssetUUID, MIPMAP_YES, IMMEDIATE_NO);
 			mTextureAssets[i].mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
-			mTextureAssets[i].mTexturep->processTextureStats();
+			//mTextureAssets[i].mTexturep->processTextureStats();
 	}
 
 	//Generate the asset info text
-	for(S32 i = 0; i < items.count(); i++)
+	/*for(S32 i = 0; i < items.count(); i++)
 	{
-		std::string asset_info;
-		std::string dimensions;
+		LLString asset_info;
+		LLString dimensions;
 		
 		asset_info.append(mTextureAssets[i].mName);
 		
@@ -151,7 +151,7 @@ void LLFloaterAssetBrowser::createThumbnails()
 		asset_info.append(dimensions);
 		
 		mTextureAssets[i].mAssetInfo = asset_info;
-	}
+	}*/
 	
 	mFloaterTitle = llformat("Asset Browser (%d assets fetched)", mTextureAssets.size());
 	setTitle(mFloaterTitle);
@@ -288,7 +288,7 @@ void LLFloaterAssetBrowser::draw()
 				if(mImageAssetID.notNull())
 				{
 					mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-					mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
+					//mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
 					mTexturep->processTextureStats();
 					mTextureAssets[i].mWidth = mTexturep->mFullWidth;
 					mTextureAssets[i].mHeight = mTexturep->mFullHeight;

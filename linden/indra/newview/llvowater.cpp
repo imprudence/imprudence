@@ -101,7 +101,7 @@ void LLVOWater::setPixelAreaAndAngle(LLAgent &agent)
 
 
 // virtual
-void LLVOWater::updateTextures(LLAgent &agent)
+void LLVOWater::updateTextures()
 {
 }
 
@@ -281,9 +281,9 @@ U32 LLVOVoidWater::getPartitionType() const
 }
 
 LLWaterPartition::LLWaterPartition()
-: LLSpatialPartition(0, FALSE, 0)
+: LLSpatialPartition(0)
 {
-	// mRenderByGroup = FALSE; // KL specified const SG branch not req here
+	mRenderByGroup = FALSE;
 	mInfiniteFarClip = TRUE;
 	mDrawableType = LLPipeline::RENDER_TYPE_WATER;
 	mPartitionType = LLViewerRegion::PARTITION_WATER;

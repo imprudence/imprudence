@@ -582,8 +582,7 @@ void LLFloaterChat::addChat(const LLChat& chat,
 		// We display anything if it's not an IM. If it's an IM, check pref... 
 		if ( !from_instant_message || gSavedSettings.getBOOL("IMInChatConsole") )
 		{
-			gConsole->addConsoleLine(chat.mText, text_color);
-
+			gConsole->addLine(chat.mText, size, text_color);
 		}
 	}
 

@@ -223,7 +223,6 @@ LLAgent gAgent;
 // Statics
 //
 BOOL LLAgent::sPhantom = FALSE;
-BOOL LLAgent::sDebugDisplayTarget = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
@@ -6624,7 +6623,7 @@ void LLAgent::saveWearable( EWearableType type, BOOL send_update )
 			return;
 		}
 		
-		// getAvatarObject()->wearableUpdated( type );
+		getAvatarObject()->wearableUpdated( type );
 
 		if( send_update )
 		{

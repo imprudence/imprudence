@@ -81,7 +81,7 @@ LLFontManager::LLFontManager()
 	if (error)
 	{
 		// Clean up freetype libs.
-		llwarns << "Freetype initialization failure!" << llendl;
+		llerrs << "Freetype initialization failure!" << llendl;
 		FT_Done_FreeType(gFTLibrary);
 	}
 }

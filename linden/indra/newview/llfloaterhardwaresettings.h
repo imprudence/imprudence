@@ -61,8 +61,6 @@ public:
 	/// OK button
 	static void onBtnOK( void* userdata );
 	
-	static void refreshState(LLUICtrl*, void*);
-
 	//// menu management
 
 	/// show off our menu
@@ -90,8 +88,6 @@ protected:
 	LLSliderCtrl*	mCtrlVideoCardMem;
 
 	BOOL mUseVBO;
-	BOOL mRenderUseFBO;
-	BOOL mRenderDeferred;
 	BOOL mUseAniso;
 	U32 mFSAASamples;
 	F32 mGamma;

@@ -10,6 +10,7 @@ mat4 getSkinnedTransform();
 attribute vec4 weight;
 
 varying vec3 vary_normal;
+varying vec4 vary_position;
 
 void main()
 {
@@ -29,6 +30,7 @@ void main()
 	norm.z = dot(trans[2].xyz, gl_Normal);
 	norm = normalize(norm);
 	
+	vary_position = pos;
 	vary_normal = norm;
 	
 	gl_Position = gl_ProjectionMatrix * pos;

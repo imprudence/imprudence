@@ -86,6 +86,7 @@ private:
 	LLPickInfo			mPick;
 	U8					mClickAction;
 	LLSafeHandle<LLObjectSelection> mLeftClickSelection;
+protected:
 	LLPointer<LLViewerObject> mClickActionObject;
 };
 

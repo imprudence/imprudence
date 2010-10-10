@@ -1012,7 +1012,8 @@ BOOL LLWebBrowserTexture::render()
 						x_pos, 
 						y_pos, 
 						width, 
-						height);
+						height,
+						TRUE);	// force a fast update (i.e. don't call analyzeAlpha, etc.)
 			}
 		
 			media_plugin->resetDirty();

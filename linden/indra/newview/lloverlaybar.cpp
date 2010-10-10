@@ -444,6 +444,7 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 				{
 					gAudiop->startInternetStream(parcel->getMusicURL());
+//awfixme					sTitleObserver.init(parcel->getMusicURL());
 				}
 			}
 		}

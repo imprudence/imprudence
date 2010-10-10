@@ -32,9 +32,9 @@ set(llrender_SOURCE_FILES
     llgldbg.cpp
     llglslshader.cpp
     llimagegl.cpp
+    llpostprocess.cpp
     llrendersphere.cpp
     llshadermgr.cpp
-    lltextureatlas.cpp
     llvertexbuffer.cpp
     )
     
@@ -53,10 +53,10 @@ set(llrender_HEADER_FILES
     llglstates.h
     llgltypes.h
     llimagegl.h
+    llpostprocess.h
     llrender.h
     llrendersphere.h
     llshadermgr.h
-    lltextureatlas.h
     llvertexbuffer.h
     )
 
@@ -81,7 +81,6 @@ if (SERVER AND NOT WINDOWS AND NOT DARWIN)
     ${llrender_SOURCE_FILES}
     ${server_SOURCE_FILES}
     )
-  add_dependencies(llrenderheadless prepare)
 else (SERVER AND NOT WINDOWS AND NOT DARWIN)
   list(APPEND llrender_SOURCE_FILES
       llgl.cpp

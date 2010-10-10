@@ -102,7 +102,7 @@ void LLDrawable::init()
 	mVObjp   = NULL;
 	// mFaces
 	mSpatialGroupp = NULL;
-	mVisible = 0;
+	mVisible = sCurVisible - 2;//invisible for the current frame and the last frame.
 	mRadius = 0.f;
 	
 	mGeneration = -1;
@@ -125,7 +125,7 @@ void LLDrawable::destroy()
 
 	if (LLSpatialGroup::sNoDelete)
 	{
-		llwarns << "Illegal deletion of LLDrawable!" << llendl;
+		llerrs << "Illegal deletion of LLDrawable!" << llendl;
 	}
 
 	std::for_each(mFaces.begin(), mFaces.end(), DeletePointer());
@@ -234,7 +234,7 @@ LLFace*	LLDrawable::addFace(LLFacePool *poolp, LLViewerImage *texturep)
 	LLMemType mt(LLMemType::MTYPE_DRAWABLE);
 	
 	LLFace *face = new LLFace(this, mVObjp);
-	if (!face) llwarns << "Allocating new Face: " << mFaces.size() << llendl;
+	if (!face) llerrs << "Allocating new Face: " << mFaces.size() << llendl;
 	
 	if (face)
 	{
@@ -346,7 +346,7 @@ void LLDrawable::deleteFaces(S32 offset, S32 count)
 
 void LLDrawable::update()
 {
-	llwarns << "Shouldn't be called!" << llendl;
+	llerrs << "Shouldn't be called!" << llendl;
 }
 
 
@@ -369,7 +369,7 @@ void LLDrawable::makeActive()
 			pcode == LLViewerObject::LL_VO_GROUND ||
 			pcode == LLViewerObject::LL_VO_SKY)
 		{
-			llwarns << "Static viewer object has active drawable!" << llendl;
+			llerrs << "Static viewer object has active drawable!" << llendl;
 		}
 	}
 #endif
@@ -693,22 +693,19 @@ void LLDrawable::updateDistance(LLCamera& camera, bool force_update)
 				pos += volume->getRegion()->getOriginAgent();
 			}
 
-			if (isState(LLDrawable::HAS_ALPHA))
+			for (S32 i = 0; i < getNumFaces(); i++)
 			{
-				for (S32 i = 0; i < getNumFaces(); i++)
+				LLFace* facep = getFace(i);
+				if (force_update || facep->getPoolType() == LLDrawPool::POOL_ALPHA)
 				{
-					LLFace* facep = getFace(i);
-					if (facep->getPoolType() == LLDrawPool::POOL_ALPHA)
+					LLVector3 box = (facep->mExtents[1] - facep->mExtents[0]) * 0.25f;
+					LLVector3 v = (facep->mCenterLocal-camera.getOrigin());
+					LLVector3 at = camera.getAtAxis();
+					for (U32 j = 0; j < 3; j++)
 					{
-						LLVector3 box = (facep->mExtents[1] - facep->mExtents[0]) * 0.25f;
-						LLVector3 v = (facep->mCenterLocal-camera.getOrigin());
-						const LLVector3& at = camera.getAtAxis();
-						for (U32 j = 0; j < 3; j++)
-						{
-							v.mV[j] -= box.mV[j] * at.mV[j];
-						}
-						facep->mDistance = v * camera.getAtAxis();
+						v.mV[j] -= box.mV[j] * at.mV[j];
 					}
+					facep->mDistance = v * camera.getAtAxis();
 				}
 			}
 		}
@@ -740,11 +737,7 @@ void LLDrawable::updateTexture()
 
 	if (getVOVolume())
 	{
-		if (!isActive())
-		{
-			//gPipeline.markMoved(this);
-		}
-		else
+		if (isActive())
 		{
 			if (isRoot())
 			{
@@ -1011,8 +1004,8 @@ BOOL LLDrawable::isVisible() const
 // Spatial Partition Bridging Drawable
 //=======================================
 
-LLSpatialBridge::LLSpatialBridge(LLDrawable* root, BOOL render_by_group, U32 data_mask) // KL Sd version
-: LLSpatialPartition(data_mask, render_by_group, FALSE)
+LLSpatialBridge::LLSpatialBridge(LLDrawable* root, U32 data_mask)
+: LLSpatialPartition(data_mask, FALSE)
 {
 	mDrawable = root;
 	root->setSpatialBridge(this);
@@ -1142,26 +1135,26 @@ void LLDrawable::setVisible(LLCamera& camera, std::vector<LLDrawable*>* results,
 		{
 			if (isActive() && !mParent->isActive())
 			{
-				llwarns << "Active drawable has static parent!" << llendl;
+				llerrs << "Active drawable has static parent!" << llendl;
 			}
 			
 			if (isStatic() && !mParent->isStatic())
 			{
-				llwarns << "Static drawable has active parent!" << llendl;
+				llerrs << "Static drawable has active parent!" << llendl;
 			}
 			
 			if (mSpatialBridge)
 			{
-				llwarns << "Child drawable has spatial bridge!" << llendl;
+				llerrs << "Child drawable has spatial bridge!" << llendl;
 			}
 		}
 		else if (isActive() && !mSpatialBridge)
 		{
-			llwarns << "Active root drawable has no spatial bridge!" << llendl;
+			llerrs << "Active root drawable has no spatial bridge!" << llendl;
 		}
 		else if (isStatic() && mSpatialBridge.notNull())
 		{
-			llwarns << "Static drawable has spatial bridge!" << llendl;
+			llerrs << "Static drawable has spatial bridge!" << llendl;
 		}
 	}
 #endif
@@ -1285,25 +1278,12 @@ void LLSpatialBridge::updateDistance(LLCamera& camera_in, bool force_update)
 		return;
 	}
 
-	if (mDrawable->getVObj())
-	{
-		if (mDrawable->getVObj()->isAttachment())
-		{
-			LLDrawable* parent = mDrawable->getParent();
-			if (parent && parent->getVObj())
-			{
-				LLVOAvatar* av = parent->getVObj()->asAvatar();
-				if (av && av->isImpostor())
-				{
-					return;
-				}
-			}
-		}
-
-		LLCamera camera = transformCamera(camera_in);
+	LLCamera camera = transformCamera(camera_in);
 	
 	mDrawable->updateDistance(camera, force_update);
 	
+	if (mDrawable->getVObj())
+	{
 		LLViewerObject::const_child_list_t& child_list = mDrawable->getVObj()->getChildren();
 		for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
 			 iter != child_list.end(); iter++)
@@ -1325,7 +1305,7 @@ void LLSpatialBridge::updateDistance(LLCamera& camera_in, bool force_update)
 
 void LLSpatialBridge::makeActive()
 { //it is an error to make a spatial bridge active (it's already active)
-	llwarns << "makeActive called on spatial bridge" << llendl;
+	llerrs << "makeActive called on spatial bridge" << llendl;
 }
 
 void LLSpatialBridge::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate)
@@ -1441,9 +1421,9 @@ void LLDrawable::updateFaceSize(S32 idx)
 }
 
 LLBridgePartition::LLBridgePartition()
-: LLSpatialPartition(0, FALSE, 0) 
+: LLSpatialPartition(0, TRUE) 
 { 
-	//mRenderByGroup = FALSE;  // KL
+	mRenderByGroup = FALSE; 
 	mDrawableType = LLPipeline::RENDER_TYPE_AVATAR; 
 	mPartitionType = LLViewerRegion::PARTITION_BRIDGE;
 	mLODPeriod = 16;

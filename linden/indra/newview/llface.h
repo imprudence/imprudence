@@ -48,7 +48,6 @@
 #include "llviewerimage.h"
 #include "llstat.h"
 #include "lldrawable.h"
-#include "lltextureatlasmanager.h"
 
 class LLFacePool;
 class LLVolume;
@@ -57,7 +56,6 @@ class LLTextureEntry;
 class LLVertexProgram;
 class LLViewerImage;
 class LLGeometryManager;
-class LLTextureAtlasSlot;
 
 const F32 MIN_ALPHA_SIZE = 1024.f;
 const F32 MIN_TEX_ANIM_SIZE = 512.f;
@@ -191,18 +189,14 @@ public:
 	void		setIndicesIndex(S32 idx) { mIndicesIndex = idx; }
 	void		setDrawInfo(LLDrawInfo* draw_info);
 
-     // KL was atlas S19
-	LLImageGL*            getGLTexture() const;
-	LLTextureAtlasSlot* getAtlasInfo() ;
-	void                  setAtlasInUse(BOOL flag);
-	void                  setAtlasInfo(LLTextureAtlasSlot* atlasp);
-	BOOL                  isAtlasInUse()const;
-	BOOL                  canUseAtlas() const;
-	const LLVector2*      getTexCoordScale() const ;
-	const LLVector2*      getTexCoordOffset()const;
-	const LLTextureAtlas* getAtlas()const ;
-	void                  removeAtlas() ;
-	BOOL                  switchTexture() ;
+	F32         getTextureVirtualSize() ;
+	F32         getImportanceToCamera()const {return mImportanceToCamera ;}
+
+private:	
+	F32         adjustPartialOverlapPixelArea(F32 cos_angle_to_view_dir, F32 radius );
+	F32         calcPixelArea(F32& cos_angle_to_view_dir, F32& radius) ;
+public:
+	static F32  calcImportanceToCamera(F32 to_view_dir, F32 dist);
 
 public:
 	
@@ -218,7 +212,7 @@ public:
 	LLMatrix4*	mTextureMatrix;
 	LLDrawInfo* mDrawInfo;
 
-protected:
+private:
 	friend class LLGeometryManager;
 	friend class LLVolumeGeometryManager;
 
@@ -248,10 +242,12 @@ protected:
 	F32			mVSize;
 	F32			mPixelArea;
 
-	//atlas
-	LLPointer<LLTextureAtlasSlot> mAtlasInfop ;
-	BOOL                              mUsingAtlas ;
-	
+	//importance factor, in the range [0, 1.0].
+	//1.0: the most important.
+	//based on the distance from the face to the view point and the angle from the face center to the view direction.
+	F32         mImportanceToCamera ; 
+	F32         mBoundingSphereRadius ;
+
 protected:
 	static BOOL	sSafeRenderSelect;
 	
@@ -279,9 +275,9 @@ public:
 			const LLTextureEntry* lte = lhs->getTextureEntry();
 			const LLTextureEntry* rte = rhs->getTextureEntry();
 
-			if(lhs->getGLTexture() != rhs->getGLTexture()) // KL SD get GL
+			if (lhs->getTexture() != rhs->getTexture())
 			{
-				return lhs->getGLTexture() < rhs->getGLTexture(); // not getTexture?
+				return lhs->getTexture() < rhs->getTexture();
 			}
 			else if (lte->getBumpShinyFullbright() != rte->getBumpShinyFullbright())
 			{

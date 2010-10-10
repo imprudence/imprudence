@@ -78,7 +78,7 @@ void LLHUDEffect::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 
 void LLHUDEffect::render()
 {
-	llwarns << "Never call this!" << llendl; // Then why the &*^&*^ is it here?
+	llerrs << "Never call this!" << llendl;
 }
 
 void LLHUDEffect::setID(const LLUUID &id)

@@ -128,11 +128,6 @@ void display_startup()
 		return; 
 	}
 
-	gPipeline.updateGL();
-
-	// Update images?
-	gImageList.updateImages(0.01f);
-	
 	LLGLSDefault gls_default;
 
 	// Required for HTML update in login screen
@@ -604,9 +599,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		gPipeline.updateGeom(max_geom_update_time);
 		stop_glerror();
 		
-		gPipeline.updateGL();
-		stop_glerror();
-
 		gFrameStats.start(LLFrameStats::UPDATE_CULL);
 		S32 water_clip = 0;
 		if ((LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_ENVIRONMENT) > 1) &&
@@ -697,8 +689,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 					gPipeline.generateSunShadow(*LLViewerCamera::getInstance());
 				}
 
-				LLVertexBuffer::unbind(); // KL
-
 				LLGLState::checkStates();
 				LLGLState::checkTextureChannels();
 				LLGLState::checkClientArrays();
@@ -729,7 +719,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{
 			LLAppViewer::instance()->pingMainloopTimeout("Display:Imagery");
 			gPipeline.generateWaterReflection(*LLViewerCamera::getInstance());
-			gPipeline.generateHighlight(*LLViewerCamera::getInstance());
 		}
 
 		//////////////////////////////////////
@@ -754,9 +743,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 			const F32 max_image_decode_time = llmin(0.005f, 0.005f*10.f*gFrameIntervalSeconds); // 50 ms/second decode time (no more than 5ms/frame)
 			gImageList.updateImages(max_image_decode_time);
-
-			//remove dead textures from GL KL is it req?
-			LLImageGL::deleteDeadTextures();
 			stop_glerror();
 		}
 		llpushcallstacks ;
@@ -911,7 +897,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		/// and then display it again with compositor effects.
 		/// Using render to texture would be faster/better, but I don't have a 
 		/// grasp of their full display stack just yet.
-		gPostProcess->apply(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight()); // KL
+		// gPostProcess->apply(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 		
 		if (LLPipeline::sRenderDeferred && !LLPipeline::sUnderWaterRender)
 		{
@@ -926,8 +912,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gFrameStats.start(LLFrameStats::RENDER_UI);
 			render_ui();
 		}
-
-		gPipeline.rebuildGroups();
 
 		LLSpatialGroup::sNoDelete = FALSE;
 	}
@@ -1015,15 +999,6 @@ void render_hud_attachments()
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_VOLUME);
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_ALPHA);
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_FULLBRIGHT);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_ALPHA);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_ALPHA_MASK);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_BUMP);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_FULLBRIGHT);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_FULLBRIGHT_ALPHA_MASK);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_FULLBRIGHT_SHINY);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_SHINY);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_INVISIBLE);
-		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_PASS_INVISI_SHINY);
 		
 		gPipeline.stateSort(hud_cam, result);
 

@@ -129,8 +129,6 @@ public:
 	void        markMoved(LLDrawable *drawablep, BOOL damped_motion = FALSE);
 	void        markShift(LLDrawable *drawablep);
 	void        markTextured(LLDrawable *drawablep);
-	void		markGLRebuild(LLGLUpdate* glu);
-	void		markRebuild(LLSpatialGroup* group, BOOL priority = FALSE);
 	void        markRebuild(LLDrawable *drawablep, LLDrawable::EDrawableFlags flag = LLDrawable::REBUILD_ALL, BOOL priority = FALSE);
 		
 	//get the object between start and end that's closest to start.
@@ -181,14 +179,10 @@ public:
 	void updateMove();
 	BOOL visibleObjectsInFrustum(LLCamera& camera);
 	BOOL getVisibleExtents(LLCamera& camera, LLVector3 &min, LLVector3& max);
-	BOOL getVisiblePointCloud(LLCamera& camera, LLVector3 &min, LLVector3& max, std::vector<LLVector3>& fp, LLVector3 light_dir = LLVector3(0,0,0));
 	void updateCull(LLCamera& camera, LLCullResult& result, S32 water_clip = 0);  //if water_clip is 0, ignore water plane, 1, cull to above plane, -1, cull to below plane
 	void createObjects(F32 max_dtime);
 	void createObject(LLViewerObject* vobj);
 	void updateGeom(F32 max_dtime);
-	void updateGL();
-	void rebuildPriorityGroups();
-	void rebuildGroups();
 
 	//calculate pixel area of given box from vantage point of given camera
 	static F32 calcPixelArea(LLVector3 center, LLVector3 size, LLCamera& camera);
@@ -209,21 +203,12 @@ public:
 	void renderGeomDeferred(LLCamera& camera);
 	void renderGeomPostDeferred(LLCamera& camera);
 	void renderGeomShadow(LLCamera& camera);
-	void bindDeferredShader(LLGLSLShader& shader, U32 light_index = 0, LLRenderTarget* gi_source = NULL, LLRenderTarget* last_gi_post = NULL);
-	void setupSpotLight(LLGLSLShader& shader, LLDrawable* drawablep);
-
+	void bindDeferredShader(LLGLSLShader& shader, U32 light_index = 0);
 	void unbindDeferredShader(LLGLSLShader& shader);
 	void renderDeferredLighting();
 	
 	void generateWaterReflection(LLCamera& camera);
 	void generateSunShadow(LLCamera& camera);
-	void generateHighlight(LLCamera& camera);
-	void renderHighlight(const LLViewerObject* obj, F32 fade);
-	void setHighlightObject(LLDrawable* obj) { mHighlightObject = obj; }
-
-
-	void renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera& camera, BOOL use_shader = TRUE);
-	void generateGI(LLCamera& camera, LLVector3& lightDir, std::vector<LLVector3>& vpc); // KL sd 
 	void renderHighlights();
 	void renderDebug();
 
@@ -331,27 +316,15 @@ public:
 		RENDER_TYPE_INVISIBLE	= LLDrawPool::POOL_INVISIBLE,
 		RENDER_TYPE_VOIDWATER	= LLDrawPool::POOL_VOIDWATER,
 		RENDER_TYPE_WATER		= LLDrawPool::POOL_WATER,
-		RENDER_TYPE_ALPHA		= LLDrawPool::POOL_ALPHA,
+ 		RENDER_TYPE_ALPHA		= LLDrawPool::POOL_ALPHA,
 		RENDER_TYPE_GLOW		= LLDrawPool::POOL_GLOW,
-		RENDER_TYPE_PASS_SIMPLE 				= LLRenderPass::PASS_SIMPLE,
-		RENDER_TYPE_PASS_GRASS					= LLRenderPass::PASS_GRASS,
-		RENDER_TYPE_PASS_FULLBRIGHT				= LLRenderPass::PASS_FULLBRIGHT,
-		RENDER_TYPE_PASS_INVISIBLE				= LLRenderPass::PASS_INVISIBLE,
-		RENDER_TYPE_PASS_INVISI_SHINY			= LLRenderPass::PASS_INVISI_SHINY,
-		RENDER_TYPE_PASS_FULLBRIGHT_SHINY		= LLRenderPass::PASS_FULLBRIGHT_SHINY,
-		RENDER_TYPE_PASS_SHINY					= LLRenderPass::PASS_SHINY,
-		RENDER_TYPE_PASS_BUMP					= LLRenderPass::PASS_BUMP,
-		RENDER_TYPE_PASS_GLOW					= LLRenderPass::PASS_GLOW,
-		RENDER_TYPE_PASS_ALPHA					= LLRenderPass::PASS_ALPHA,
-		RENDER_TYPE_PASS_ALPHA_MASK				= LLRenderPass::PASS_ALPHA_MASK,
-		RENDER_TYPE_PASS_FULLBRIGHT_ALPHA_MASK	= LLRenderPass::PASS_FULLBRIGHT_ALPHA_MASK,
-		RENDER_TYPE_PASS_ALPHA_SHADOW           = LLRenderPass::PASS_ALPHA_SHADOW,
+		
 		// Following are object types (only used in drawable mRenderType)
 		RENDER_TYPE_HUD = LLDrawPool::NUM_POOL_TYPES,
 		RENDER_TYPE_VOLUME,
 		RENDER_TYPE_PARTICLES,
 		RENDER_TYPE_CLOUDS,
-		RENDER_TYPE_HUD_PARTICLES // KL S19?
+		RENDER_TYPE_HUD_PARTICLES
 	};
 
 	enum LLRenderDebugFeatureMask
@@ -389,7 +362,8 @@ public:
 		RENDER_DEBUG_SHAME				= 0x0020000,
 		RENDER_DEBUG_SHADOW_FRUSTA		= 0x0040000,
 		RENDER_DEBUG_SCULPTED           = 0x0080000,
-		RENDER_DEBUG_BUILD_QUEUE		= 0x0100000,
+		RENDER_DEBUG_AVATAR_VOLUME      = 0x0100000,
+		RENDER_DEBUG_AGENT_TARGET       = 0x0200000,
 	};
 
 public:
@@ -448,36 +422,15 @@ public:
 	//screen texture
 	LLRenderTarget			mScreen;
 	LLRenderTarget			mDeferredScreen;
-	LLRenderTarget			mDeferredDepth;
-	LLRenderTarget			mDeferredLight[3];
+	LLRenderTarget			mDeferredLight[2];
 	LLMultisampleBuffer		mSampleBuffer;
-	LLRenderTarget			mGIMap;
-	LLRenderTarget			mGIMapPost[2];
-	LLRenderTarget			mLuminanceMap;
-	LLRenderTarget			mHighlight;
 
 	//sun shadow map
-	LLRenderTarget			mShadow[6];
-	std::vector<LLVector3>	mShadowFrustPoints[4];
-	LLVector4				mShadowError;
-	LLVector4				mShadowFOV;
-	LLVector3				mShadowFrustOrigin[4];
+	LLRenderTarget			mSunShadow[4];
 	LLCamera				mShadowCamera[8];
 	LLVector3				mShadowExtents[4][2];
-	glh::matrix4f			mSunShadowMatrix[6];
-	glh::matrix4f			mGIMatrix;
-	glh::matrix4f			mGIMatrixProj;
-	glh::matrix4f			mGINormalMatrix;
-	glh::matrix4f			mGIInvProj;
-	LLVector2				mGIRange;
-	F32						mGILightRadius;
-	
-	LLPointer<LLDrawable>				mShadowSpotLight[2];
-	F32									mSpotLightFade[2];
-	LLPointer<LLDrawable>				mTargetShadowSpotLight[2];
-
+	glh::matrix4f			mSunShadowMatrix[4];
 	LLVector4				mSunClipPlanes;
-	LLVector4				mSunOrthoClipPlanes;
 
 	LLVector2				mScreenScale;
 
@@ -492,8 +445,6 @@ public:
 
 	//noise map
 	U32					mNoiseMap;
-	U32					mTrueNoiseMap;
-	U32					mLightFunc;
 
 	LLColor4				mSunDiffuse;
 	LLVector3				mSunDir;
@@ -554,44 +505,11 @@ protected:
 	//
 	LLDrawable::drawable_list_t 	mBuildQ1; // priority
 	LLDrawable::drawable_list_t 	mBuildQ2; // non-priority
-	LLSpatialGroup::sg_list_t		mGroupQ1; //priority
-	LLSpatialGroup::sg_vector_t		mGroupQ2; // non-priority
-
 	LLViewerObject::vobj_list_t		mCreateQ;
 		
 	LLDrawable::drawable_set_t		mActiveQ;
 	
 	LLDrawable::drawable_set_t		mRetexturedList;
-
-	class HighlightItem
-	{
-	public:
-		const LLPointer<LLDrawable> mItem;
-		mutable F32 mFade;
-
-		HighlightItem(LLDrawable* item)
-		: mItem(item), mFade(0)
-		{
-		}
-
-		bool operator<(const HighlightItem& rhs) const
-		{
-			return mItem < rhs.mItem;
-		}
-
-		bool operator==(const HighlightItem& rhs) const
-		{
-			return mItem == rhs.mItem;
-		}
-
-		void incrFade(F32 val) const
-		{
-			mFade = llclamp(mFade+val, 0.f, 1.f);
-		}
-	};
-
-	std::set<HighlightItem> mHighlightSet;
-	LLPointer<LLDrawable> mHighlightObject;
 
 	//////////////////////////////////////////////////
 	//

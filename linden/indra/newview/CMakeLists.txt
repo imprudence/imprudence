@@ -330,7 +330,6 @@ set(viewer_SOURCE_FILES
     llpolymesh.cpp
     llpolymorph.cpp
     llprefsadvanced.cpp
-    llpostprocess.cpp
     llprefschat.cpp
     llprefsim.cpp
     llprefsvoice.cpp
@@ -361,7 +360,6 @@ set(viewer_SOURCE_FILES
     llsurface.cpp
     llsurfacepatch.cpp
     lltexlayer.cpp
-    lltextureatlasmanager.cpp
     lltexturecache.cpp
     lltexturectrl.cpp
     lltexturefetch.cpp
@@ -780,7 +778,6 @@ set(viewer_HEADER_FILES
     llpolymesh.h
     llpolymorph.h
     llprefsadvanced.h
-    llpostprocess.h
     llprefschat.h
     llprefsim.h
     llprefsvoice.h
@@ -813,7 +810,6 @@ set(viewer_HEADER_FILES
     llsurfacepatch.h
     lltable.h
     lltexlayer.h
-    lltextureatlasmanager.h
     lltexturecache.h
     lltexturectrl.h
     lltexturefetch.h

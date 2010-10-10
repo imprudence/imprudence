@@ -2787,11 +2787,6 @@ BOOL LLViewerObject::updateGeometry(LLDrawable *drawable)
 	return TRUE;
 }
 
-void LLViewerObject::updateGL()
-{
-
-}
-
 void LLViewerObject::updateFaceSize(S32 idx)
 {
 	
@@ -2896,7 +2891,7 @@ F32 LLViewerObject::getMidScale() const
 }
 
 
-void LLViewerObject::updateTextures(LLAgent &agent)
+void LLViewerObject::updateTextures()
 {
 }
 
@@ -3741,7 +3736,6 @@ S32 LLViewerObject::setTEColor(const U8 te, const LLColor4& color)
 	else if (color != tep->getColor())
 	{
 		retval = LLPrimitive::setTEColor(te, color);
-		//setChanged(TEXTURE);
 		if (mDrawable.notNull() && retval)
 		{
 			// These should only happen on updates which are not the initial update.
@@ -3980,7 +3974,7 @@ LLViewerImage *LLViewerObject::getTEImage(const U8 face) const
 		}
 	}
 
-	llwarns << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << llendl;
+	llerrs << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << llendl;
 
 	return NULL;
 }
@@ -4164,11 +4158,6 @@ void LLViewerObject::updateText()
 			}
 		}
 	}
-}
-
-LLVOAvatar* LLViewerObject::asAvatar()
-{
-	return NULL;
 }
 
 BOOL LLViewerObject::isParticleSource() const
@@ -4385,14 +4374,7 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 		gAudiop->cleanupAudioSource(mAudioSourcep);
 		mAudioSourcep = NULL;
 	}
-/*
-	if (mAudioSourcep && mAudioSourcep->isMuted() &&
-	    mAudioSourcep->getCurrentData() && mAudioSourcep->getCurrentData()->getID() == audio_uuid)
-	{
-		//llinfos << "Already having this sound as muted sound, ignoring" << llendl;
-		return;
-	}
-*/
+
 	getAudioSource(owner_id);
 
 	if (mAudioSourcep)
@@ -4486,11 +4468,7 @@ LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 para
 		  new_block = new LLSculptParams();
 		  break;
 	  }
-	  case LLNetworkData::PARAMS_LIGHT_IMAGE:
-	  {
-		  new_block = new LLLightImageParams();
-		  break;
-	  }
+
 	  default:
 	  {
 		  llinfos << "Unknown param type." << llendl;
@@ -4581,7 +4559,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 bool LLViewerObject::setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin)
 {
 	ExtraParameter* param = getExtraParameterEntryCreate(param_type);
-	if (param && param->in_use != in_use)
+	if (param->in_use != in_use)
 	{
 		param->in_use = in_use;
 		parameterChanged(param_type, param->data, in_use, local_origin);
@@ -4997,7 +4975,7 @@ U32 LLViewerObject::getPartitionType() const
 	return LLViewerRegion::PARTITION_NONE; 
 }
 
-void LLViewerObject::dirtySpatialGroup(BOOL priority) const
+void LLViewerObject::dirtySpatialGroup() const
 {
 	if (mDrawable)
 	{
@@ -5005,7 +4983,6 @@ void LLViewerObject::dirtySpatialGroup(BOOL priority) const
 		if (group)
 		{
 			group->dirtyGeom();
-			gPipeline.markRebuild(group, priority);
 		}
 	}
 }

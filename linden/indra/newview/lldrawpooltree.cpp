@@ -52,7 +52,7 @@ LLDrawPoolTree::LLDrawPoolTree(LLViewerImage *texturep) :
 	LLFacePool(POOL_TREE),
 	mTexturep(texturep)
 {
-//	gGL.getTexUnit(0)->bind(mTexturep.get());
+	gGL.getTexUnit(0)->bind(mTexturep.get());
 	mTexturep->setAddressMode(LLTexUnit::TAM_WRAP);
 }
 
@@ -110,7 +110,7 @@ void LLDrawPoolTree::render(S32 pass)
 	}
 	else
 	{
-		gGL.getTexUnit(sDiffTex)->bind(mTexturep, TRUE);
+		gGL.getTexUnit(sDiffTex)->bind(mTexturep);
 					
 		for (std::vector<LLFace*>::iterator iter = mDrawFace.begin();
 			 iter != mDrawFace.end(); iter++)
@@ -140,7 +140,7 @@ void LLDrawPoolTree::endRenderPass(S32 pass)
 void LLDrawPoolTree::beginDeferredPass(S32 pass)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_TREES);
-	gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f); // KL Render-pipeline has this set at 0.f ... NOOOOOO! make shitty trees :)
+	gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
 		
 	shader = &gDeferredTreeProgram;
 	shader->bind();
@@ -166,9 +166,6 @@ void LLDrawPoolTree::beginShadowPass(S32 pass)
 {
 	LLFastTimer t(LLFastTimer::FTM_SHADOW_TREE);
 	gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
-	glPolygonOffset(gSavedSettings.getF32("RenderDeferredTreeShadowOffset"),
-					gSavedSettings.getF32("RenderDeferredTreeShadowBias"));
-
 	gDeferredShadowProgram.bind();
 }
 
@@ -181,11 +178,7 @@ void LLDrawPoolTree::endShadowPass(S32 pass)
 {
 	LLFastTimer t(LLFastTimer::FTM_SHADOW_TREE);
 	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
-
-	glPolygonOffset(gSavedSettings.getF32("RenderDeferredSpotShadowOffset"),
-						gSavedSettings.getF32("RenderDeferredSpotShadowBias"));
-
-	//gDeferredShadowProgram.unbind();
+	gDeferredShadowProgram.unbind();
 }
 
 

@@ -203,7 +203,7 @@ inline S32 llfloor( F32 f )
 		}
 		return result;
 #else
-		return (S32)floorf(f);
+		return (S32)floor(f);
 #endif
 }
 

@@ -408,7 +408,7 @@ S32 LLGLSLShader::disableTexture(S32 uniform, LLTexUnit::eTextureType mode)
 	{
 		if (gDebugGL && gGL.getTexUnit(index)->getCurrType() != mode)
 		{
-			llwarns << "Texture channel " << index << " texture type corrupted." << llendl;
+			llerrs << "Texture channel " << index << " texture type corrupted." << llendl;
 		}
 		gGL.getTexUnit(index)->disable();
 	}

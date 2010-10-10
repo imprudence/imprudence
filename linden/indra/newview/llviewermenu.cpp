@@ -1412,14 +1412,14 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	//menu->append(new LLMenuItemToggleGL("Show Attachment Points", &LLVOAvatar::sShowAttachmentPoints));
 	//diabling collision plane due to DEV-14477 -brad
 	//menu->append(new LLMenuItemToggleGL("Show Collision Plane", &LLVOAvatar::sShowFootPlane));
-	/*menu->append(new LLMenuItemCheckGL("Show Collision Skeleton",
+	menu->append(new LLMenuItemCheckGL("Show Collision Skeleton",
 									   &LLPipeline::toggleRenderDebug, NULL,
 									   &LLPipeline::toggleRenderDebugControl,
 									   (void*)LLPipeline::RENDER_DEBUG_AVATAR_VOLUME));
 	menu->append(new LLMenuItemCheckGL("Display Agent Target",
 									   &LLPipeline::toggleRenderDebug, NULL,
 									   &LLPipeline::toggleRenderDebugControl,
-									   (void*)LLPipeline::RENDER_DEBUG_AGENT_TARGET));*/
+									   (void*)LLPipeline::RENDER_DEBUG_AGENT_TARGET));
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &LLVOAvatar::sDebugAvatarRotation));
 	menu->append(new LLMenuItemCallGL("Dump Attachments", handle_dump_attachments));
 	menu->append(new LLMenuItemCallGL("Refresh Appearance", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
@@ -10463,7 +10463,7 @@ class LLAdvancedCheckShowCollisionPlane : public view_listener_t
 // SHOW COLLISION SKELETON //
 /////////////////////////////
 
-/*
+
 class LLAdvancedToggleShowCollisionSkeleton : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -10484,13 +10484,13 @@ class LLAdvancedCheckShowCollisionSkeleton : public view_listener_t
 	}
 };
 
-*/
+
 
 //////////////////////////
 // DISPLAY AGENT TARGET //
 //////////////////////////
 
-/*
+
 class LLAdvancedToggleDisplayAgentTarget : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -10511,7 +10511,7 @@ class LLAdvancedCheckDisplayAgentTarget : public view_listener_t
 	}
 };
 
-*/
+
 
 ///////////////////////////
 // DEBUG AVATAR ROTATION //
@@ -11378,10 +11378,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckDebugCharacterVis(), "Advanced.CheckDebugCharacterVis");
 // 	addMenu(new LLAdvancedToggleShowCollisionPlane(), "Advanced.ToggleShowCollisionPlane");
 // 	addMenu(new LLAdvancedCheckShowCollisionPlane(), "Advanced.CheckShowCollisionPlane");
-//	addMenu(new LLAdvancedToggleShowCollisionSkeleton(), "Advanced.ToggleShowCollisionSkeleton");
-//	addMenu(new LLAdvancedCheckShowCollisionSkeleton(), "Advanced.CheckShowCollisionSkeleton");
-//	addMenu(new LLAdvancedToggleDisplayAgentTarget(), "Advanced.ToggleDisplayAgentTarget");
-//	addMenu(new LLAdvancedCheckDisplayAgentTarget(), "Advanced.CheckDisplayAgentTarget");
+	addMenu(new LLAdvancedToggleShowCollisionSkeleton(), "Advanced.ToggleShowCollisionSkeleton");
+	addMenu(new LLAdvancedCheckShowCollisionSkeleton(), "Advanced.CheckShowCollisionSkeleton");
+	addMenu(new LLAdvancedToggleDisplayAgentTarget(), "Advanced.ToggleDisplayAgentTarget");
+	addMenu(new LLAdvancedCheckDisplayAgentTarget(), "Advanced.CheckDisplayAgentTarget");
 	addMenu(new LLAdvancedToggleDebugAvatarRotation(), "Advanced.ToggleDebugAvatarRotation");
 	addMenu(new LLAdvancedCheckDebugAvatarRotation(), "Advanced.CheckDebugAvatarRotation");
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");

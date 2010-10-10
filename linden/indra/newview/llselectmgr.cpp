@@ -766,7 +766,7 @@ void LLSelectMgr::addAsIndividual(LLViewerObject *objectp, S32 face, BOOL undoab
 	}
 	else
 	{
-		llwarns << "LLSelectMgr::add face " << face << " out-of-range" << llendl;
+		llerrs << "LLSelectMgr::add face " << face << " out-of-range" << llendl;
 		return;
 	}
 
@@ -1189,7 +1189,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 		}
 		else
 		{
-			llwarns << "LLSelectMgr::remove - tried to remove TE " << te << " that wasn't selected" << llendl;
+			llerrs << "LLSelectMgr::remove - tried to remove TE " << te << " that wasn't selected" << llendl;
 			return;
 		}
 
@@ -1212,7 +1212,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 	else
 	{
 		// ...out of range face
-		llwarns << "LLSelectMgr::remove - TE " << te << " out of range" << llendl;
+		llerrs << "LLSelectMgr::remove - TE " << te << " out of range" << llendl;
 	}
 
 	updateSelectionCenter();
@@ -1711,7 +1711,7 @@ void LLSelectMgr::selectionSetFullbright(U8 fullbright)
 	} sendfunc(fullbright);
 	getSelection()->applyToObjects(&sendfunc);
 }
-/*
+
 void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& media_url)
 {
 	U8 media_flags = LLTextureEntry::MF_NONE;
@@ -1754,7 +1754,7 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	} sendfunc(media_type, media_url);
 	getSelection()->applyToObjects(&sendfunc);
 }
-*/
+
 void LLSelectMgr::selectionSetGlow(F32 glow)
 {
 	struct f1 : public LLSelectedTEFunctor
@@ -3359,7 +3359,7 @@ void LLSelectMgr::packPermissionsHead(void* user_data)
 /*
 void LLSelectMgr::sendSelect()
 {
-	llwarns << "Not implemented" << llendl;
+	llerrs << "Not implemented" << llendl;
 }
 */
 
@@ -4183,7 +4183,7 @@ void LLSelectMgr::sendListToRegions(const std::string& message_name,
 		break;
 
 	default:
-		llwarns << "Bad send type " << send_type << " passed to SendListToRegions()" << llendl;
+		llerrs << "Bad send type " << send_type << " passed to SendListToRegions()" << llendl;
 	}
 
 	// bail if nothing selected
@@ -4590,6 +4590,11 @@ extern LLGLdouble	gGLModelView[16];
 
 void LLSelectMgr::updateSilhouettes()
 {
+	if (!mRenderSilhouettes || !LLSelectMgr::sRenderSelectionHighlights)
+	{
+		return;
+	}
+
 	S32 num_sils_genned = 0;
 
 	LLVector3d	cameraPos = gAgent.getCameraPositionGlobal();
@@ -5803,7 +5808,8 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 	}
 
 	if ((gSavedSettings.getBOOL("SelectOwnedOnly") && !object->permYouOwner()) ||
-		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()))
+		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()) ||
+		(gSavedSettings.getBOOL("SelectCopyableOnly") && !object->permCopy()))
 	{
 		// only select my own objects
 		return FALSE;

@@ -938,7 +938,9 @@ void LLViewerMediaImpl::update()
 						x_pos, 
 						y_pos, 
 						width, 
-						height);
+						height,
+						TRUE);		// force a fast update (i.e. don't call analyzeAlpha, etc.)
+
 			}
 			
 			mMediaSource->resetDirty();

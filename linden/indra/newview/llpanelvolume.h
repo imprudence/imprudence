@@ -74,10 +74,6 @@ public:
 	static void		onLightCancelColor(LLUICtrl* ctrl, void* userdata);
 	static void		onLightSelectColor(LLUICtrl* ctrl, void* userdata);
 
-	static void		onLightCancelTexture(LLUICtrl* ctrl, void* userdata);
-	static void		onLightSelectTexture(LLUICtrl* ctrl, void* userdata);
-
-
 protected:
 	void			getState();
 
@@ -103,7 +99,6 @@ protected:
 */
 
 	LLColor4		mLightSavedColor;
-	LLUUID			mLightSavedTexture;
 	LLPointer<LLViewerObject> mObject;
 	LLPointer<LLViewerObject> mRootObject;
 };

@@ -37,7 +37,7 @@
 #include "llcoord.h"
 #include "llimagegl.h"
 
-class LLDynamicTexture : public LLGLUpdate
+class LLDynamicTexture
 {
 public:
 	enum EOrder { ORDER_FIRST = 0, ORDER_MIDDLE = 1, ORDER_LAST = 2, ORDER_RESET = 3, ORDER_COUNT = 4 };
@@ -48,8 +48,6 @@ public:
 					 EOrder order,			// = ORDER_MIDDLE,
 					 BOOL clamp);
 	virtual ~LLDynamicTexture();
-
-	void		updateGL();
 
 	S32			getOriginX()	{ return mOrigin.mX; }
 	S32			getOriginY()	{ return mOrigin.mY; }

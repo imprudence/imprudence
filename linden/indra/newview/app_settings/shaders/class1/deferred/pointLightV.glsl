@@ -6,7 +6,7 @@
  */
 
 varying vec4 vary_light;
-varying vec4 vary_fragcoord;
+varying vec3 vary_fragcoord;
 
 uniform vec2 screen_res;
 uniform float near_clip;
@@ -14,10 +14,10 @@ uniform float near_clip;
 void main()
 {
 	//transform vertex
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex; 
+	gl_Position = ftransform(); 
 
 	vec4 pos = gl_ModelViewProjectionMatrix * gl_Vertex;
-	vary_fragcoord = pos;
+	vary_fragcoord.xyz = pos.xyz + vec3(0,0,near_clip);
 		
 	vec4 tex = gl_MultiTexCoord0;
 	tex.w = 1.0;

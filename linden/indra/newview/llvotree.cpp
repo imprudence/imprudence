@@ -482,7 +482,7 @@ void LLVOTree::setPixelAreaAndAngle(LLAgent &agent)
 #endif
 }
 
-void LLVOTree::updateTextures(LLAgent &agent)
+void LLVOTree::updateTextures()
 {
 	if (mTreeImagep)
 	{
@@ -1318,9 +1318,9 @@ U32 LLVOTree::getPartitionType() const
 }
 
 LLTreePartition::LLTreePartition()
-: LLSpatialPartition(0, FALSE, 0)
+: LLSpatialPartition(0)
 {
-	// mRenderByGroup = FALSE; // SD hybrid
+	mRenderByGroup = FALSE;
 	mDrawableType = LLPipeline::RENDER_TYPE_TREE;
 	mPartitionType = LLViewerRegion::PARTITION_TREE;
 	mSlopRatio = 0.f;

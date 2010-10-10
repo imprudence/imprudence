@@ -108,7 +108,7 @@ void LLVOPartGroup::setPixelAreaAndAngle(LLAgent &agent)
 	}
 }
 
-void LLVOPartGroup::updateTextures(LLAgent &agent)
+void LLVOPartGroup::updateTextures()
 {
 	// Texture stats for particles need to be updated in a different way...
 }
@@ -154,11 +154,6 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 		group = drawable->getSpatialGroup();
 	}
 
-	if (group && group->isVisible())
-	{
-		dirtySpatialGroup(TRUE);
-	}
-
 	if (!num_parts)
 	{
 		if (group && drawable->getNumFaces())
@@ -191,12 +186,13 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 	S32 count=0;
 	mDepth = 0.f;
 	S32 i = 0 ;
+	LLVector3 camera_agent = getCameraPosition();
 	for (i = 0 ; i < (S32)mViewerPartGroupp->mParticles.size(); i++)
 	{
 		const LLViewerPart *part = mViewerPartGroupp->mParticles[i];
 
 		LLVector3 part_pos_agent(part->mPosAgent);
-		LLVector3 at(part_pos_agent - LLViewerCamera::getInstance()->getOrigin());
+		LLVector3 at(part_pos_agent - camera_agent);
 
 		F32 camera_dist_squared = at.lengthSquared();
 		F32 inv_camera_dist_squared;
@@ -319,7 +315,7 @@ void LLVOPartGroup::getGeometry(S32 idx,
 	up *= 0.5f*part.mScale.mV[1];
 
 
-	const LLVector3& normal = -LLViewerCamera::getInstance()->getXAxis();
+	LLVector3 normal = -LLViewerCamera::getInstance()->getXAxis();
 		
 	*verticesp++ = part_pos_agent + up - right;
 	*verticesp++ = part_pos_agent - up - right;
@@ -356,12 +352,12 @@ U32 LLVOPartGroup::getPartitionType() const
 }
 
 LLParticlePartition::LLParticlePartition()
-: LLSpatialPartition(LLDrawPoolAlpha::VERTEX_DATA_MASK, TRUE, GL_DYNAMIC_DRAW_ARB)
+: LLSpatialPartition(LLDrawPoolAlpha::VERTEX_DATA_MASK)
 {
 	mRenderPass = LLRenderPass::PASS_ALPHA;
 	mDrawableType = LLPipeline::RENDER_TYPE_PARTICLES;
 	mPartitionType = LLViewerRegion::PARTITION_PARTICLE;
-	// mBufferUsage = GL_DYNAMIC_DRAW_ARB; // KL SD hybrid code
+	mBufferUsage = GL_DYNAMIC_DRAW_ARB;
 	mSlopRatio = 0.f;
 	mLODPeriod = 1;
 }
@@ -485,9 +481,7 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 			U32 end = start + facep->getGeomCount()-1;
 			U32 offset = facep->getIndicesStart();
 			U32 count = facep->getIndicesCount();
-			LLDrawInfo* info = new LLDrawInfo(start,end,count,offset,facep->getTexture(), 
-				facep->getTexture(),
-				buffer, fullbright); 
+			LLDrawInfo* info = new LLDrawInfo(start,end,count,offset,facep->getTexture(), buffer, fullbright); 
 			info->mExtents[0] = group->mObjectExtents[0];
 			info->mExtents[1] = group->mObjectExtents[1];
 			info->mVSize = vsize;

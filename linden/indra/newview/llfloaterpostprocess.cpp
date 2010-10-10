@@ -52,29 +52,28 @@ LLFloaterPostProcess::LLFloaterPostProcess() : LLFloater(std::string("Post-Proce
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_post_process.xml");
 
 	/// Color Filter Callbacks
-	//childSetCommitCallback("ColorFilterToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_color_filter");
-	childSetCommitCallback("wmiColorFilterToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_color_filter");
+	childSetCommitCallback("ColorFilterToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_color_filter");
 	//childSetCommitCallback("ColorFilterGamma", &LLFloaterPostProcess::onFloatControlMoved, &(gPostProcess->tweaks.gamma()));
-	childSetCommitCallback("wmiColorFilterBrightness", &LLFloaterPostProcess::onFloatControlMoved, (char*)"brightness");
-	childSetCommitCallback("wmiColorFilterSaturation", &LLFloaterPostProcess::onFloatControlMoved, (char*)"saturation");
-	childSetCommitCallback("wmiColorFilterContrast", &LLFloaterPostProcess::onFloatControlMoved, (char*)"contrast");
+	childSetCommitCallback("ColorFilterBrightness", &LLFloaterPostProcess::onFloatControlMoved, (char*)"brightness");
+	childSetCommitCallback("ColorFilterSaturation", &LLFloaterPostProcess::onFloatControlMoved, (char*)"saturation");
+	childSetCommitCallback("ColorFilterContrast", &LLFloaterPostProcess::onFloatControlMoved, (char*)"contrast");
 
-	childSetCommitCallback("wmiColorFilterBaseR", &LLFloaterPostProcess::onColorControlRMoved, (char*)"contrast_base");
-	childSetCommitCallback("wmiColorFilterBaseG", &LLFloaterPostProcess::onColorControlGMoved, (char*)"contrast_base");
-	childSetCommitCallback("wmiColorFilterBaseB", &LLFloaterPostProcess::onColorControlBMoved, (char*)"contrast_base");
-	childSetCommitCallback("wmiColorFilterBaseI", &LLFloaterPostProcess::onColorControlIMoved, (char*)"contrast_base");
+	childSetCommitCallback("ColorFilterBaseR", &LLFloaterPostProcess::onColorControlRMoved, (char*)"contrast_base");
+	childSetCommitCallback("ColorFilterBaseG", &LLFloaterPostProcess::onColorControlGMoved, (char*)"contrast_base");
+	childSetCommitCallback("ColorFilterBaseB", &LLFloaterPostProcess::onColorControlBMoved, (char*)"contrast_base");
+	childSetCommitCallback("ColorFilterBaseI", &LLFloaterPostProcess::onColorControlIMoved, (char*)"contrast_base");
 
 	/// Night Vision Callbacks
-	childSetCommitCallback("wmiNightVisionToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_night_vision");
-	childSetCommitCallback("wmiNightVisionBrightMult", &LLFloaterPostProcess::onFloatControlMoved, (char*)"brightness_multiplier");
-	childSetCommitCallback("wmiNightVisionNoiseSize", &LLFloaterPostProcess::onFloatControlMoved, (char*)"noise_size");
-	childSetCommitCallback("wmiNightVisionNoiseStrength", &LLFloaterPostProcess::onFloatControlMoved, (char*)"noise_strength");
+	childSetCommitCallback("NightVisionToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_night_vision");
+	childSetCommitCallback("NightVisionBrightMult", &LLFloaterPostProcess::onFloatControlMoved, (char*)"brightness_multiplier");
+	childSetCommitCallback("NightVisionNoiseSize", &LLFloaterPostProcess::onFloatControlMoved, (char*)"noise_size");
+	childSetCommitCallback("NightVisionNoiseStrength", &LLFloaterPostProcess::onFloatControlMoved, (char*)"noise_strength");
 
 	/// Bloom Callbacks
-	childSetCommitCallback("wmiBloomToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_bloom");
-	childSetCommitCallback("wmiBloomExtract", &LLFloaterPostProcess::onFloatControlMoved, (char*)"extract_low");
-	childSetCommitCallback("wmiBloomSize", &LLFloaterPostProcess::onFloatControlMoved, (char*)"bloom_width");
-	childSetCommitCallback("wmiBloomStrength", &LLFloaterPostProcess::onFloatControlMoved, (char*)"bloom_strength");
+	childSetCommitCallback("BloomToggle", &LLFloaterPostProcess::onBoolToggle, (char*)"enable_bloom");
+	childSetCommitCallback("BloomExtract", &LLFloaterPostProcess::onFloatControlMoved, (char*)"extract_low");
+	childSetCommitCallback("BloomSize", &LLFloaterPostProcess::onFloatControlMoved, (char*)"bloom_width");
+	childSetCommitCallback("BloomStrength", &LLFloaterPostProcess::onFloatControlMoved, (char*)"bloom_strength");
 
 	// Effect loading and saving.
 	LLComboBox* comboBox = getChild<LLComboBox>("PPEffectsCombo");
@@ -114,7 +113,6 @@ void LLFloaterPostProcess::onBoolToggle(LLUICtrl* ctrl, void* userData)
 	// check the bool
 	LLCheckBoxCtrl* cbCtrl = static_cast<LLCheckBoxCtrl*>(ctrl);
 	gPostProcess->tweaks[boolVariableName] = cbCtrl->getValue();
-
 }
 
 // Float Moved
@@ -249,25 +247,25 @@ void LLFloaterPostProcess::syncMenu()
 	comboBox->selectByValue(gPostProcess->getSelectedEffect());
 
 	/// Sync Color Filter Menu
-	childSetValue("wmiColorFilterToggle", gPostProcess->tweaks.useColorFilter());
+	childSetValue("ColorFilterToggle", gPostProcess->tweaks.useColorFilter());
 	//childSetValue("ColorFilterGamma", gPostProcess->tweaks.gamma());
-	childSetValue("wmiColorFilterBrightness", gPostProcess->tweaks.brightness());
-	childSetValue("wmiColorFilterSaturation", gPostProcess->tweaks.saturation());
-	childSetValue("wmiColorFilterContrast", gPostProcess->tweaks.contrast());
-	childSetValue("wmiColorFilterBaseR", gPostProcess->tweaks.contrastBaseR());
-	childSetValue("wmiColorFilterBaseG", gPostProcess->tweaks.contrastBaseG());
-	childSetValue("wmiColorFilterBaseB", gPostProcess->tweaks.contrastBaseB());
-	childSetValue("wmiColorFilterBaseI", gPostProcess->tweaks.contrastBaseIntensity());
+	childSetValue("ColorFilterBrightness", gPostProcess->tweaks.brightness());
+	childSetValue("ColorFilterSaturation", gPostProcess->tweaks.saturation());
+	childSetValue("ColorFilterContrast", gPostProcess->tweaks.contrast());
+	childSetValue("ColorFilterBaseR", gPostProcess->tweaks.contrastBaseR());
+	childSetValue("ColorFilterBaseG", gPostProcess->tweaks.contrastBaseG());
+	childSetValue("ColorFilterBaseB", gPostProcess->tweaks.contrastBaseB());
+	childSetValue("ColorFilterBaseI", gPostProcess->tweaks.contrastBaseIntensity());
 	
 	/// Sync Night Vision Menu
-	childSetValue("wmiNightVisionToggle", gPostProcess->tweaks.useNightVisionShader());
-	childSetValue("wmiNightVisionBrightMult", gPostProcess->tweaks.brightMult());
-	childSetValue("wmiNightVisionNoiseSize", gPostProcess->tweaks.noiseSize());
-	childSetValue("wmiNightVisionNoiseStrength", gPostProcess->tweaks.noiseStrength());
+	childSetValue("NightVisionToggle", gPostProcess->tweaks.useNightVisionShader());
+	childSetValue("NightVisionBrightMult", gPostProcess->tweaks.brightMult());
+	childSetValue("NightVisionNoiseSize", gPostProcess->tweaks.noiseSize());
+	childSetValue("NightVisionNoiseStrength", gPostProcess->tweaks.noiseStrength());
 
 	/// Sync Bloom Menu
-	childSetValue("wmiBloomToggle", LLSD(gPostProcess->tweaks.useBloomShader()));
-	childSetValue("wmiBloomExtract", gPostProcess->tweaks.extractLow());
-	childSetValue("wmiBloomSize", gPostProcess->tweaks.bloomWidth());
-	childSetValue("wmiBloomStrength", gPostProcess->tweaks.bloomStrength());
+	childSetValue("BloomToggle", LLSD(gPostProcess->tweaks.useBloomShader()));
+	childSetValue("BloomExtract", gPostProcess->tweaks.extractLow());
+	childSetValue("BloomSize", gPostProcess->tweaks.bloomWidth());
+	childSetValue("BloomStrength", gPostProcess->tweaks.bloomStrength());
 }

@@ -101,7 +101,7 @@ void LLVOClouds::setPixelAreaAndAngle(LLAgent &agent)
 	mPixelArea = 1500*100;
 }
 
-void LLVOClouds::updateTextures(LLAgent &agent)
+void LLVOClouds::updateTextures()
 {
 	getTEImage(0)->addTextureStats(mPixelArea);
 }
@@ -123,10 +123,7 @@ BOOL LLVOClouds::updateGeometry(LLDrawable *drawable)
 		return TRUE;
 	}
 	
-	if (drawable->isVisible())
-	{
-		dirtySpatialGroup(TRUE);
-	}
+	dirtySpatialGroup();
 
 	LLFace *facep;
 	
