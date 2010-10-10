@@ -109,7 +109,7 @@
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</scheme>
 	<mimetype name="blank">
@@ -120,7 +120,7 @@
 			none
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype name="none/none">
@@ -157,13 +157,13 @@
 	</mimetype>
 	<mimetype menu="1" name="video/vnd.secondlife.qt.legacy">
 		<label name="vnd.secondlife.qt.legacy_label">
-			Movie (QuickTime)
+			Movie (gstreamer)
 		</label>
 		<widgettype>
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype name="application/javascript">
@@ -214,7 +214,7 @@
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype name="application/xhtml+xml">
@@ -241,7 +241,7 @@
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype name="audio/mpeg">
@@ -252,7 +252,7 @@
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype name="audio/x-aiff">
@@ -263,7 +263,7 @@
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype name="audio/x-wav">
@@ -274,7 +274,7 @@
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_quicktime
+			media_plugin_gstreamer010
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/bmp">
@@ -384,7 +384,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
 	<mimetype name="video/mp4">
@@ -395,18 +395,18 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
-	<mimetype menu="1" name="video/quicktime">
-		<label name="video/quicktime_label">
-			Movie (QuickTime)
+	<mimetype menu="1" name="video/gstreamer">
+		<label name="video/gstreamer_label">
+			Movie (gstreamer)
 		</label>
 		<widgettype>
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
 	<mimetype name="video/x-ms-asf">
@@ -417,7 +417,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
 	<mimetype name="video/x-ms-wmv">
@@ -428,7 +428,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
 	<mimetype menu="1" name="video/x-msvideo">
@@ -439,7 +439,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+      media_plugin_gstreamer010010
     </impl>
 	</mimetype>
 </mimetypes>
