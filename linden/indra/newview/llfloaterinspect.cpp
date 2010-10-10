@@ -43,7 +43,7 @@
 #include "llviewerobject.h"
 #include "lluictrlfactory.h"
 
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+// [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
@@ -241,7 +241,7 @@ void LLFloaterInspect::refresh()
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 		{
 			// TODO-RLVa: shouldn't filter if this is a group-owned prim (will show "(nobody)")
-			owner_name = gRlvHandler.getAnonym(owner_name);
+			owner_name = RlvStrings::getAnonym(owner_name);
 		}
 // [/RLVa:KB]
 		gCacheName->getFullName(obj->mPermissions->getCreator(), creator_name);

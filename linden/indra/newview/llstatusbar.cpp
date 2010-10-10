@@ -93,6 +93,9 @@ LLStatusBar *gStatusBar = NULL;
 S32 STATUS_BAR_HEIGHT = 0;
 extern S32 MENU_BAR_HEIGHT;
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 // TODO: these values ought to be in the XML too
 const S32 MENU_PARCEL_SPACING = 1;	// Distance from right of menu item to parcel information
@@ -539,7 +542,8 @@ void LLStatusBar::refresh()
 	{
 		// TODO-RLVa: find out whether the LCD code is still used because if so then we need to filter that as well
 		location_name = llformat("%s (%s) - %s", 
-			rlv_handler_t::cstrHiddenRegion.c_str(), region->getSimAccessString().c_str(), rlv_handler_t::cstrHidden.c_str());
+			RlvStrings::getString(RLV_STRING_HIDDEN_REGION).c_str(), region->getSimAccessString().c_str(),
+			RlvStrings::getString(RLV_STRING_HIDDEN).c_str());
 	}
 // [/RLVa:KB]
 
@@ -577,7 +581,7 @@ void LLStatusBar::refresh()
 	childGetRect("BalanceText", r);
 	r.translate( new_right - r.mRight, 0);
 	childSetRect("BalanceText", r);
-	new_right -= r.getWidth() - 18;
+	new_right -= r.getWidth() - 2;
 
 	childGetRect("buycurrency", r);
 	r.translate( new_right - r.mRight, 0);

@@ -60,6 +60,7 @@
 #include "lltoolmgr.h"
 #include "llui.h"
 #include "llviewercamera.h"
+#include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
 #include "llviewermenufile.h"	// upload_new_resource()

@@ -57,6 +57,9 @@
 #include "pipeline.h"
 #include <boost/tokenizer.hpp>
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 const F32 SPRING_STRENGTH = 0.7f;
 const F32 RESTORATION_SPRING_TIME_CONSTANT = 0.1f;

@@ -83,7 +83,7 @@
 
 #include "llglheaders.h"
 
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
+// [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
@@ -737,7 +737,7 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 	if ( ! force_visible )
 		show_start = gSavedSettings.getBOOL("ShowStartLocation");
 
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
 	// TODO-RLVa: figure out some way to make this work with RLV_EXTENSION_STARTLOCATION
 	#ifndef RLV_EXTENSION_STARTLOCATION
 		if (rlv_handler_t::isEnabled())

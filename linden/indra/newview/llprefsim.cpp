@@ -50,6 +50,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 class LLPrefsIMImpl : public LLPanel
 {
 public:

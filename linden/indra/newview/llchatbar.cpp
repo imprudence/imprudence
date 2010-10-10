@@ -88,6 +88,9 @@ void toggleChatHistory(void* user_data);
 void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channel);
 // [/RLVa:KB]
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 class LLChatBarGestureObserver : public LLGestureManagerObserver
 {
@@ -788,7 +791,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 		utf8_text = utf8str_truncate(utf8_text, MAX_STRING - 1);
 	}
 
-// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d) | Modified: RLVa-0.2.0b
+// [RLVa:KB] - Checked: 2010-03-27 (RLVa-1.1.1a) | Modified: RLVa-1.2.0b
 	if ( (0 == channel) && (rlv_handler_t::isEnabled()) )
 	{
 		// Adjust the (public) chat "volume" on chat and gestures (also takes care of playing the proper animation)
@@ -799,7 +802,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 		else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATWHISPER)) )
 			type = CHAT_TYPE_NORMAL;
 
-		animate &= !gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT);
+		animate &= !gRlvHandler.hasBehaviour( (!rlvIsEmote(utf8_text)) ? RLV_BHVR_REDIRCHAT : RLV_BHVR_REDIREMOTE );
 	}
 // [/RLVa:KB]
 
@@ -843,7 +846,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channel)
 // [/RLVa:KB]
 {
-// [RLVa:KB] - Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+// [RLVa:KB] - Checked: 2010-02-27 (RLVa-1.1.1a) | Modified: RLVa-1.2.0a
 	// Only process chat messages (ie not CHAT_TYPE_START, CHAT_TYPE_STOP, etc)
 	if ( (rlv_handler_t::isEnabled()) && ( (CHAT_TYPE_WHISPER == type) || (CHAT_TYPE_NORMAL == type) || (CHAT_TYPE_SHOUT == type) ) )
 	{
@@ -864,8 +867,8 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 				return;
 			}
 
-			// Filter public chat if sendchat restricted (and filter anything that redirchat didn't redirect)
-			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
+			// Filter public chat if sendchat restricted
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT))
 				gRlvHandler.filterChat(utf8_out_text, true);
 		}
 		else
@@ -875,7 +878,7 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 				return;
 
 			// Don't allow chat on debug channel if @sendchat, @redirchat or @rediremote restricted (shows as public chat on viewers)
-			if (channel >= CHAT_CHANNEL_DEBUG)
+			if (CHAT_CHANNEL_DEBUG == channel)
 			{
 				bool fIsEmote = rlvIsEmote(utf8_out_text);
 				if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || 

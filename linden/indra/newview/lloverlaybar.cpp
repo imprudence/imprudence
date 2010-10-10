@@ -67,6 +67,10 @@
 #include "llwindlightremotectrl.h"
 #include "llselectmgr.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //
 // Globals
 //
