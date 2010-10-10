@@ -305,11 +305,6 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 			}
 		}
 	}
-	else
-	{
-		mCompletionHolder.cursorPos = -1;
-		mInputEditor->deselect();
-	}
 
 	return handled;
 }
