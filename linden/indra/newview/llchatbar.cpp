@@ -122,6 +122,8 @@ LLChatBar::LLChatBar()
 	mCompletionHolder.current_index = 0;
 	mCompletionHolder.last_match = "";
 	mCompletionHolder.last_txt = "";
+	mCompletionHolder.cursorPos = -1;
+	mCompletionHolder.selected = false;
 
 	#if !LL_RELEASE_FOR_DOWNLOAD
 	childDisplayNotFound();
@@ -227,16 +229,17 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 			if (!avatar_ids.empty() && !txt.empty())
 			{
-				S32 cursorPos = mInputEditor->getCursor();
+				if (mCompletionHolder.cursorPos == -1) // Ele: cache cursor position
+					mCompletionHolder.cursorPos = mInputEditor->getCursor();
 
 				if (mCompletionHolder.last_txt != mInputEditor->getText())
 				{
 					mCompletionHolder.last_txt = std::string(mInputEditor->getText());
 
-					if (cursorPos < (S32)txt.length())
+					if (mCompletionHolder.cursorPos < (S32)txt.length())
 					{
-						mCompletionHolder.right = txt.substr(cursorPos);
-						mCompletionHolder.left = txt.substr(0, cursorPos);
+						mCompletionHolder.right = txt.substr(mCompletionHolder.cursorPos);
+						mCompletionHolder.left = txt.substr(0, mCompletionHolder.cursorPos);
 						mCompletionHolder.match = std::string(mCompletionHolder.left);
 					}
 					else
@@ -265,24 +268,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				{
 					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 						continue;
-/*
-					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
-					LLVector3d real_pos = positions[i];
-					if (real_pos[2] == 0.0f)
-					{
-						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-						if (av_obj != NULL && av_obj->isAvatar())
-						{
-							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-							if (avatarp != NULL)
-								real_pos = avatarp->getPositionGlobal();
-						}
-					}
 
-					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
-					if (dist > CHAT_SHOUT_RADIUS)
-						continue;
-*/
 					std::string agent_name = " ";
 					std::string agent_surname = " ";
 
@@ -308,14 +294,21 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 					std::string current_name = mCompletionHolder.names[mCompletionHolder.current_index];
 
 					mInputEditor->setText(mCompletionHolder.left.substr(0, mCompletionHolder.left.length() - mCompletionHolder.match.length()) + current_name + mCompletionHolder.right);
-					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - mCompletionHolder.match.length()));
+					mInputEditor->setCursor(mCompletionHolder.cursorPos + (current_name.length() - mCompletionHolder.match.length()));
+					mInputEditor->setSelection(mCompletionHolder.cursorPos, mCompletionHolder.cursorPos + (current_name.length() - mCompletionHolder.match.length()));
 
 					mCompletionHolder.current_index++;
+					mCompletionHolder.selected = TRUE;
 
 					return TRUE;
 				}
 			}
 		}
+	}
+	else
+	{
+		mCompletionHolder.cursorPos = -1;
+		mInputEditor->deselect();
 	}
 
 	return handled;
@@ -663,6 +656,9 @@ void LLChatBar::stopChat()
 void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 {
 	LLChatBar* self = (LLChatBar *)userdata;
+	KEY key = gKeyboard->currentKey();
+
+	self->mCompletionHolder.cursorPos = -1; // Ele: reset cached cursor pos for autocompletion
 
 	LLWString raw_text;
 	if (self->mInputEditor) raw_text = self->mInputEditor->getWText();
@@ -706,8 +702,6 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 		length = length - 1;
 	}
 	*/
-
-	KEY key = gKeyboard->currentKey();
 
 	// Ignore "special" keys, like backspace, arrows, etc.
 	if (length > 1 && raw_text[0] == '/' && key < KEY_SPECIAL)

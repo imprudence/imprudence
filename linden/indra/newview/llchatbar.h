@@ -54,6 +54,8 @@ struct CompletionHolder {
 	std::string last_txt;
 	std::string last_match;
 	int current_index;
+	S32 cursorPos;
+	BOOL selected;
 };
 
 class LLChatBar
