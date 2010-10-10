@@ -35,6 +35,13 @@
 
 #include "linden_common.h"
 
+// Needed for _getcwd() RC 
+#ifdef LL_WINDOWS
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
+#endif
+
 #include "llgl.h"
 
 #include "llplugininstance.h"
@@ -84,7 +91,7 @@ private:
 	bool play(double rate);
 	bool getTimePos(double &sec_out);
 
-	static const double MIN_LOOP_SEC = 1.0F;
+	#define MIN_LOOP_SEC 1.0F
 
 	bool mIsLooping;
 
@@ -689,7 +696,7 @@ MediaPluginGStreamer010::load()
 	DEBUGMSG("setting up media...");
 
 	mIsLooping = false;
-	mVolume = 0.1234567; // minor hack to force an initial volume update
+	mVolume = (float) 0.1234567; // minor hack to force an initial volume update
 
 	// Create a pumpable main-loop for this media
 	mPump = g_main_loop_new (NULL, FALSE);

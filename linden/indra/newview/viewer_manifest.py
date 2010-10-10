@@ -257,7 +257,6 @@ class WindowsManifest(ViewerManifest):
             self.path("alut.dll")
             self.end_prefix()           
 
-
         # Media plugins - QuickTime
         if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
             self.path("media_plugin_quicktime.dll")
@@ -266,6 +265,11 @@ class WindowsManifest(ViewerManifest):
         # Media plugins - WebKit/Qt
         if self.prefix(src='../media_plugins/webkit/%s' % self.args['configuration'], dst="llplugin"):
             self.path("media_plugin_webkit.dll")
+            self.end_prefix()
+            
+        # Media plugins - Gstreamer
+        if self.prefix(src='../media_plugins/gstreamer/%s' % self.args['configuration'], dst="llplugin"):
+            self.path("media_plugin_gstreamer010.dll")
             self.end_prefix()
             
         # For WebKit/Qt plugin runtimes
