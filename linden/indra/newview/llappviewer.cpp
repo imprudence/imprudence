@@ -1809,7 +1809,7 @@ bool LLAppViewer::initConfiguration()
 	// - set procedural settings 
 	gSavedSettings.setString("ClientSettingsFile", 
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
-        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence.xml"));
+        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence_experimental.xml"));
 
 	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 
