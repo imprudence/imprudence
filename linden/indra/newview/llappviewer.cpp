@@ -2791,7 +2791,6 @@ void LLAppViewer::forceQuit()
 	LL_INFOS("forceQuit") << "Destroying the entire world" << LL_ENDL;
 	if (mQuitRequested)
 	{
-		llwarns << "Force Quitting" << llendl;
 		LLApp::setQuitting();
 	}
 	else
