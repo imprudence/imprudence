@@ -361,6 +361,7 @@ public:
 	~LLSelectMgr();
 
 	static void cleanupGlobals();
+	static void waitForObjectResponse(LLUUID id);
 
 	// LLEditMenuHandler interface
 	virtual BOOL canUndo() const;

@@ -361,6 +361,7 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 			}
 			else
 			{
+				LLSelectMgr::waitForObjectResponse(mObjectID);
 				// we have to query the simulator for information 
 				// about this object
 				LLMessageSystem* msg = gMessageSystem;

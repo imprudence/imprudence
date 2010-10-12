@@ -4297,6 +4297,12 @@ void LLSelectMgr::requestObjectPropertiesFamily(LLViewerObject* object)
 	msg->sendReliable( regionp->getHost() );
 }
 
+// static
+void LLSelectMgr::waitForObjectResponse(LLUUID id)
+{
+	if (sObjectPropertiesFamilyRequests.count(id) == 0)
+		sObjectPropertiesFamilyRequests.insert(id);
+}
 
 // static
 void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data)
