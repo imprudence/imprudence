@@ -2790,7 +2790,10 @@ void LLAppViewer::forceQuit()
 
 	LL_INFOS("forceQuit") << "Destroying the entire world" << LL_ENDL;
 	if (mQuitRequested)
-	LLApp::setQuitting(); 
+	{
+		llwarns << "Force Quitting" << llendl;
+		LLApp::setQuitting();
+	}
 	else
 	{
 		if (mLogoutRequested) //we just finished a logout request
@@ -3748,15 +3751,6 @@ void LLAppViewer::idleShutdown()
 	{
 		mQuitRequested=true;
 		forceQuit();
-	}
-
-
-	static bool saved_snapshot = false;
-	if (!saved_snapshot)
-	{
-		saved_snapshot = true;
-		saveFinalSnapshot();
-		return;
 	}
 
 	// Attempt to close all floaters that might be
