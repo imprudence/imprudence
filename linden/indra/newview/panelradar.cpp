@@ -114,7 +114,9 @@ bool PanelRadar::isImpDev(const LLUUID& agent_id)
 	std::string agent_name = getSelectedName(agent_id);
 	return (agent_name == "McCabe Maxsted" || 
 	        agent_name == "Jacek Antonelli" ||
-	        agent_name == "Armin Weatherwax");
+	        agent_name == "Armin Weatherwax" ||
+			agent_name == "Elektra Hesse" || 
+			agent_name == "CodeBastard Redgrave");
 }
 
 void PanelRadar::updateRadarInfo()
