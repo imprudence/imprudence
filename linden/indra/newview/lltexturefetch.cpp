@@ -317,7 +317,7 @@ public:
 			mFetcher->mTextureInfo.setRequestCompleteTimeAndLog(mID, timeNow);
 		}
 
-		lldebugs << "HTTP COMPLETE: " << mID << llendl;
+		LL_DEBUGS("TextureFetch") << "HTTP COMPLETE: " << mID << " with status: " << status << LL_ENDL;
 		mFetcher->lockQueue();
 		LLTextureFetchWorker* worker = mFetcher->getWorker(mID);
 		if (worker)
@@ -882,10 +882,11 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				mLoaded = FALSE;
 				mGetStatus = 0;
 				mGetReason.clear();
-				lldebugs << "HTTP GET: " << mID << " Offset: " << offset
+				LL_DEBUGS("TextureFetch") << "HTTP GET: " << mID << " Offset: " << offset
 						<< " Bytes: " << mRequestedSize
+						<< " Range: " << offset << "-" << offset+mRequestedSize-1
 						<< " Bandwidth(kbps): " << mFetcher->getTextureBandwidth() << "/" << max_bandwidth
-						<< llendl;
+						<< LL_ENDL;
 				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
 				mState = WAIT_HTTP_REQ;	
 
@@ -1322,18 +1323,18 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 
 		gImageList.sTextureBits += data_size * 8; // Approximate - does not include header bits
 	
-		//llinfos << "HTTP RECEIVED: " << mID.asString() << " Bytes: " << data_size << llendl;
+		LL_DEBUGS("TextureFetch") << "HTTP RECEIVED: " << mID.asString() << " Bytes: " << data_size << " mRequestedSize: " << mRequestedSize << LL_ENDL;
 		if (data_size > 0)
 		{
 			// *TODO: set the formatted image data here directly to avoid the copy
 			mBuffer = new U8[data_size];
 			buffer->readAfter(channels.in(), NULL, mBuffer, data_size);
 			mBufferSize += data_size;
-			if (data_size < mRequestedSize &&
-				(mRequestedDiscard == 0 || mRequestedSize >= MAX_IMAGE_DATA_SIZE) )
+			if (data_size < mRequestedSize)
 			{
 				// We requested whole image (by discard or by size,) so assume we got it
 				mHaveAllData = TRUE;
+				mRequestedDiscard = 0;
 			}
 			else if (data_size > mRequestedSize)
 			{
