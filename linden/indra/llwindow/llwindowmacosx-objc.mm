@@ -49,7 +49,7 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 	CFDataRef theData = CFDataCreate(kCFAllocatorDefault, data, len);
 	CGImageSourceRef srcRef = CGImageSourceCreateWithData(theData, NULL);
 	CGImageRef image_ref = CGImageSourceCreateImageAtIndex(srcRef, 0, NULL);
-
+	CFShow(CGImageGetColorSpace(image_ref));
 	size_t width = CGImageGetWidth(image_ref);
 	size_t height = CGImageGetHeight(image_ref);
 	size_t comps = CGImageGetBitsPerPixel(image_ref) / 8;
@@ -58,29 +58,44 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 	UInt8* bitmap = (UInt8*)CFDataGetBytePtr(result);
 
 	CGImageAlphaInfo format = CGImageGetAlphaInfo(image_ref);
-	if (format & kCGImageAlphaPremultipliedFirst)
+	if (format != kCGImageAlphaNone)
 	{
 		vImage_Buffer vb;
 		vb.data = bitmap;
 		vb.height = height;
 		vb.width = width;
 		vb.rowBytes = bytes_per_row;
-		llinfos << "Unpremultiplying ARGB888" << llendl;
-		vImageUnpremultiplyData_ARGB8888(&vb, &vb, 0);
-	}
-	else if (format & kCGImageAlphaPremultipliedLast)
-	{
-		vImage_Buffer vb;
-		vb.data = bitmap;
-		vb.height = height;
-		vb.width = width;
-		vb.rowBytes = bytes_per_row;
-		llinfos << "Unpremultiplying RGBA888" << llendl;
-		vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
+
+		if (format & kCGImageAlphaPremultipliedFirst)
+		{
+			// Ele: ARGB -> BGRA on Intel, need to first reorder the bytes, then unpremultiply as RGBA :)
+			llinfos << "Unpremultiplying BGRA8888" << llendl;
+
+			for (int i=0; i<height; i++)
+			{
+				for (int j=0; j<bytes_per_row; j+=4)
+				{
+					unsigned char tmp[4];
+
+					tmp[0] = bitmap[j*height+3];
+					tmp[1] = bitmap[j*height+2];
+					tmp[2] = bitmap[j*height+1];
+					tmp[3] = bitmap[j*height];
+
+					memcpy(&bitmap[j*height], &tmp, 4);
+				}
+			}
+
+			vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
+		}
+		else if (format & kCGImageAlphaPremultipliedLast)
+		{
+			llinfos << "Unpremultiplying RGBA8888" << llendl;
+			vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
+		}
 	}
 
 	raw_image->resize(width, height, comps);
-	llinfos << "Decoding an image of width: " << width << " and height: " << height << " and components: " << comps << llendl;
 	memcpy(raw_image->getData(), bitmap, height * bytes_per_row);
 	raw_image->verticalFlip();
 

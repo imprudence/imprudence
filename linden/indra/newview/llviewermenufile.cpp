@@ -640,6 +640,38 @@ void upload_new_resource(const std::string& src_filename, std::string name,
  			return;
  		}
  	}
+#ifdef LL_DARWIN
+	else if(exten == "psd")
+	{
+		asset_type = LLAssetType::AT_TEXTURE;
+ 		if (!LLViewerImageList::createUploadFile(src_filename,
+ 												 filename,
+ 												 IMG_CODEC_PSD ))
+ 		{
+ 			error_message = llformat("Problem with file %s:\n\n%s\n",
+									 src_filename.c_str(), LLImage::getLastError().c_str());
+ 			args["FILE"] = src_filename;
+ 			args["ERROR"] = LLImage::getLastError();
+ 			upload_error(error_message, "ProblemWithFile", filename, args);
+ 			return;
+ 		}
+	}
+	else if(exten == "tif" || exten == "tiff")
+	{
+		asset_type = LLAssetType::AT_TEXTURE;
+ 		if (!LLViewerImageList::createUploadFile(src_filename,
+ 												 filename,
+ 												 IMG_CODEC_TIFF ))
+ 		{
+ 			error_message = llformat("Problem with file %s:\n\n%s\n",
+									 src_filename.c_str(), LLImage::getLastError().c_str());
+ 			args["FILE"] = src_filename;
+ 			args["ERROR"] = LLImage::getLastError();
+ 			upload_error(error_message, "ProblemWithFile", filename, args);
+ 			return;
+ 		}
+	}
+#endif
 	else if(exten == "wav")
 	{
 		asset_type = LLAssetType::AT_SOUND;  // tag it as audio

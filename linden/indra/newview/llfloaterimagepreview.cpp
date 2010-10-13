@@ -355,6 +355,16 @@ bool LLFloaterImagePreview::loadImage(const std::string& src_filename)
 	{
 		codec = IMG_CODEC_PNG;
 	}
+#ifdef LL_DARWIN
+	else if( exten == "psd" )
+	{
+		codec = IMG_CODEC_PSD;
+	}
+	else if( exten == "tif" || exten == "tiff" )
+	{
+		codec = IMG_CODEC_TIFF;
+	}
+#endif
 
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
 #ifdef LL_DARWIN

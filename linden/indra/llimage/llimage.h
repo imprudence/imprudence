@@ -73,7 +73,13 @@ typedef enum e_image_codec
 	IMG_CODEC_JPEG = 5,
 	IMG_CODEC_DXT  = 6,
 	IMG_CODEC_PNG  = 7,
+#ifdef LL_DARWIN
+	IMG_CODEC_PSD = 8,
+	IMG_CODEC_TIFF = 9,
+	IMG_CODEC_EOF  = 10
+#else
 	IMG_CODEC_EOF  = 8
+#endif
 } EImageCodec;
 
 //============================================================================
