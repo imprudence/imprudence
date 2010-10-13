@@ -49,7 +49,7 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 	CFDataRef theData = CFDataCreate(kCFAllocatorDefault, data, len);
 	CGImageSourceRef srcRef = CGImageSourceCreateWithData(theData, NULL);
 	CGImageRef image_ref = CGImageSourceCreateImageAtIndex(srcRef, 0, NULL);
-	CFShow(CGImageGetColorSpace(image_ref));
+
 	size_t width = CGImageGetWidth(image_ref);
 	size_t height = CGImageGetHeight(image_ref);
 	size_t comps = CGImageGetBitsPerPixel(image_ref) / 8;
