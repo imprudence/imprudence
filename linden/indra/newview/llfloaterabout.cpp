@@ -138,7 +138,7 @@ LLFloaterAbout::LLFloaterAbout()
 #endif
 
 #if LL_GNUC
-    support.append(llformat("Built with GCC version %d\n\n", GCC_VERSION));
+	support.append(llformat("Built with GCC version %s\n\n", __VERSION__));
 #endif
 
 	// Position
