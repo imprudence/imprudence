@@ -896,7 +896,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				mGetReason.clear();
 				LL_DEBUGS("TextureFetch") << "HTTP GET: " << mID << " Offset: " << offset
 						<< " Bytes: " << mRequestedSize
-						<< " Range: " << offset << "-" << offset+mRequestedSize-1
+						<< " Range: " << offset << "-" << offset+mRequestedSize-1+buggy_range_fudge
 						<< " Bandwidth(kbps): " << mFetcher->getTextureBandwidth() << "/" << max_bandwidth
 						<< LL_ENDL;
 				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
@@ -2283,7 +2283,7 @@ bool LLTextureFetch::hasBuggyHTTPRange()
 	if ((s_version != gLastVersionChannel) && !gLastVersionChannel.empty())
 	{
 		s_version = gLastVersionChannel;
-		buggy = true;
+		buggy = false;
 		if (gHippoGridManager->getConnectedGrid()->getPlatform() == HippoGridInfo::PLATFORM_OPENSIM)
 		{
 			std::string ver_string;
