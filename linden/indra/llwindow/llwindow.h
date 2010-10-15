@@ -196,7 +196,7 @@ public:
 // return a platform-specific window reference (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getPlatformWindow() = 0;
 
-// return the platform-specific window reference we use to initialize llmozlib (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
+// return the platform-specific window reference we use to initialize llqtwebkitlib (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getMediaWindow();
 	
 	// control platform's Language Text Input mechanisms.

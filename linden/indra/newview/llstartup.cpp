@@ -199,10 +199,6 @@
 #include <Security/Security.h>
 #endif
 
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
-
 #if LL_WINDOWS
 #include "llwindebug.h"
 #include "lldxhardware.h"

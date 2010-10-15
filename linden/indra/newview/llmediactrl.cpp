@@ -199,8 +199,9 @@ BOOL LLMediaCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 	{
 		mMediaSource->mouseUp(x, y);
 
-		// *HACK: LLMediaImplLLMozLib automatically takes focus on mouseup,
+		// *HACK: media_plugin_webkit automatically takes focus on mouseup,
 		// in addition to the onFocusReceived() call below.  Undo this. JC
+		// RED-595: Is this really still the case for webkit?
 		if (!mTakeFocusOnClick)
 		{
 			mMediaSource->focus(false);

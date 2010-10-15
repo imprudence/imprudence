@@ -534,7 +534,7 @@ void LLFloaterHtmlHelp::onStatusTextChange( const EventType& eventIn )
 //
 void LLFloaterHtmlHelp::onLocationChange( const EventType& eventIn )
 {
-	llinfos << "MOZ> Location changed to " << eventIn.getStringValue() << llendl;
+	llinfos << "WEB> Location changed to " << eventIn.getStringValue() << llendl;
 	mCurrentUrl = std::string( eventIn.getStringValue() );
 }
 

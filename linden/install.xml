@@ -74,13 +74,13 @@
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/SDL-1.2.5-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
           </map>
-	  <key>linux64</key>
-           <map>
-              <key>md5sum</key>
-              <string>214fe53a11b3cdef115d36cb95aae185</string>
-              <key>url</key>
-              <uri>http://imprudenceviewer.org/download/libs/SDL-1.2.12-linux64-20091230.tar.bz2</uri>
-           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>214fe53a11b3cdef115d36cb95aae185</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/SDL-1.2.12-linux64-20091230.tar.bz2</uri>
+          </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -295,7 +295,7 @@
           </map>
         </map>
       </map>
-	  <key>dbghelp</key>
+      <key>dbghelp</key>
       <map>
         <key>copyright</key>
         <string>Copyright Microsoft Corporation</string>
@@ -327,9 +327,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>eb25444142d4102b0ce1b7ffaadb071e</string>
+            <string>bfcff12c0d5cef53aa2e04fa53299b23</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/dbusglib-linux-20080707.tar.bz2</uri>
+            <uri>http://github.com/downloads/AlericInglewood/imprudence/dbusglib-linux-20101012.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -816,9 +816,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>64e7fa98568ef52b3b9d4a18b3515090</string>
+            <string>8b5f413bdefec7cfe3d9ad2d69986bdc</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/jpeglib-7-linux64-20091230.tar.bz2</uri>
+            <uri>http://github.com/downloads/AlericInglewood/imprudence/jpeglib-6b-linux64-20101012.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1057,23 +1057,30 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>becffca6bd8dcb239de284ea2a8b485b</string>
+            <string>34d9e4c93678a422cf80521bf0cd7628</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6+cookies-darwin-20100617.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6-darwin-20100914.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>414d72dd59e3d83c96f0e1531360792e</string>
+            <string>5d743c93b970abe685b185de83001a6e</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20100618.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-qt4.6-20100923.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>863f7b31556b1d368651f85457f4e46d</string>
+            <key>url</key>
+            <uri>http://github.com/downloads/AlericInglewood/imprudence/llqtwebkit-linux64-20101012.1.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>df1bdd683128e060d60e435f65d8f7e8</string>
+            <string>4b8412833c00f8cdaba26808f0ddb404</string>
             <key>url</key>
-            <uri>http://viewer-source-downloads.s3.amazonaws.com/install_pkgs/llqtwebkit-windows-qt4.6-20100617.tar.bz2</uri>
+            <uri>http://viewer-source-downloads.s3.amazonaws.com/install_pkgs/llqtwebkit-windows-qt4.6-20100916.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1636,7 +1643,7 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
         <key>url</key>
         <string>http://www.xfree86.org/4.4.0/LICENSE9.html#sgi</string>
       </map>
-	  <key>MSDTW</key>
+      <key>MSDTW</key>
       <map>
         <key>text</key>
         <string>MICROSOFT SOFTWARE LICENSE TERMS 
@@ -1843,12 +1850,12 @@ Cass Everitt - cass@r3.nu
         <key>text</key>
         <string>on file</string>
       </map>
-	  <key>hunspell</key>
+      <key>hunspell</key>
       <map>
         <key>url</key>
         <string>http://www.gnu.org/licenses/gpl.html</string>
       </map>
-	  <key>hunspell-dictionaries</key>
+      <key>hunspell-dictionaries</key>
       <map>
         <key>url</key>
         <string>http://www.gnu.org/licenses/gpl.html</string>
@@ -1864,13 +1871,13 @@ Cass Everitt - cass@r3.nu
         <key>text</key>
         <string>http://nyctergatis.com/jpeglib/</string>
       </map>
-	  <key>jsoncpp</key>
-	  <map>
-		<key>text</key>
-		<string>The json-cpp library and this documentation are in Public Domain. Retrieved from http://jsoncpp.sourceforge.net/ on 2009-09-04.</string>
-		<key>url</key>
-		<string>http://jsoncpp.sourceforge.net</string>
-	  </map>
+      <key>jsoncpp</key>
+      <map>
+        <key>text</key>
+        <string>The json-cpp library and this documentation are in Public Domain. Retrieved from http://jsoncpp.sourceforge.net/ on 2009-09-04.</string>
+        <key>url</key>
+        <string>http://jsoncpp.sourceforge.net</string>
+      </map>
       <key>kdu</key>
       <map>
         <key>text</key>
@@ -1910,11 +1917,6 @@ Cass Everitt - cass@r3.nu
       <map>
         <key>text</key>
         <string>Multiple licenses. See package contents for details.</string>
-      </map>
-      <key>mozillaPL</key>
-      <map>
-        <key>url</key>
-        <string>http://www.mozilla.org/MPL/MPL-1.1.html</string>
       </map>
       <key>xiph-bsd</key>
       <map>

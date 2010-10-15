@@ -3,6 +3,7 @@ include(Linking)
 include(Prebuilt)
 
 if (STANDALONE)
+    find_package(LLQtWebkit REQUIRED QUIET)
     set(WEBKITLIBPLUGIN OFF CACHE BOOL
         "WEBKITLIBPLUGIN support for the llplugin/llmedia test apps.")
 else (STANDALONE)
@@ -31,25 +32,26 @@ if (WINDOWS)
 elseif (DARWIN)
     set(WEBKIT_PLUGIN_LIBRARIES
         optimized ${ARCH_PREBUILT_DIRS_RELEASE}/libllqtwebkit.dylib
-        debug ${ARCH_PREBUILT_DIRS_RELEASE}/libllqtwebkit.dylib
+        debug ${ARCH_PREBUILT_DIRS_DEBUG}/libllqtwebkit.dylib
         )
 elseif (LINUX)
-    if (STANDALONE)
-       set(WEBKIT_PLUGIN_LIBRARIES llqtwebkit)
-    else (STANDALONE)
+     if (STANDALONE)
+       set(WEBKIT_PLUGIN_LIBRARIES ${LLQTWEBKIT_LIBRARY})
+     else (STANDALONE)
        set(WEBKIT_PLUGIN_LIBRARIES
-           llqtwebkit
-           qgif
-           qjpeg
-           QtWebKit
-           QtOpenGL
-           QtNetwork
-           QtGui
-           QtCore
-           fontconfig
-           X11
-           Xrender
-           GL
-           )
-    endif (STANDALONE)
+        llqtwebkit
+        qgif
+        qjpeg
+        QtWebKit
+        QtOpenGL
+        QtNetwork
+        QtGui
+        QtCore
+        jpeg
+        fontconfig
+        X11
+        Xrender
+        GL
+        )
+     endif (STANDALONE)
 endif (WINDOWS)

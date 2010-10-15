@@ -949,7 +949,6 @@ class Linux_i686Manifest(LinuxManifest):
         super(Linux_i686Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 
-
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -1076,9 +1075,6 @@ class Linux_x86_64Manifest(LinuxManifest):
         self.path("featuretable_linux.txt")
         #self.path("secondlife-x86_64.supp")
 
-        if not self.standalone():
-            self.path("app_settings/mozilla-runtime-linux-x86_64")
-
         if (not self.standalone()) and self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -1090,7 +1086,7 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libjpeg.so.7")
+            self.path("libjpeg.so.62")
             self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")

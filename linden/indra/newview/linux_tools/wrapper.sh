@@ -106,17 +106,16 @@ if [ -n "$LL_TCMALLOC" ]; then
 	fi
     fi
 fi
-BINARY_SYSTEM=$(expr match "$(file -b /bin/uname)" '\(.*executable\)')
-BINARY_VIEWER=$(expr match "$(file -b ${RUN_PATH}/bin/do-not-directly-run-imprudence-bin)" '\(.*executable\)')
-echo "viewer: $BINARY_VIEWER system: $BINARY_SYSTEM"
-if ( [ "$BINARY_SYSTEM" == "ELF 64-bit LSB executable" ] && [ "$BINARY_VIEWER"  == "ELF 64-bit LSB executable" ] ); then
 
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
+export VIEWER_BINARY='do-not-directly-run-imprudence-bin'
+BINARY_TYPE=$(expr match "$(file -b bin/$VIEWER_BINARY)" '\(.*executable\)')
+if [ "${BINARY_TYPE}" == "ELF 64-bit LSB executable" ]; then
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"${LD_LIBRARY_PATH}"'
 else
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"${LD_LIBRARY_PATH}"'
 fi
 
-export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-imprudence-bin'
+export SL_CMD='$LL_WRAPPER bin/$VIEWER_BINARY'
 export SL_OPT="`cat gridargs.dat` $@"
 
 # Run the program

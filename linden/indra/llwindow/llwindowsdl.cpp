@@ -1606,6 +1606,7 @@ void LLWindowSDL::processMiscNativeEvents()
 	    // the locale to protect it, as exotic/non-C locales
 	    // causes our code lots of general critical weirdness
 	    // and crashness. (SL-35450)
+	    // Note: It is unknown if this is still needed now that we use webkit.
 	    static std::string saved_locale;
 	    saved_locale = ll_safe_string(setlocale(LC_ALL, NULL));
 
@@ -2433,7 +2434,7 @@ void *LLWindowSDL::getPlatformWindow()
 		return rtnw;
 	}
 #endif // LL_GTK && LL_LLMOZLIB_ENABLED
-	// Unixoid mozilla really needs GTK.
+	llassert(false);	// Do we even GET here at all? Note that LL_LLMOZLIB_ENABLED is never defined!
 	return NULL;
 }
 

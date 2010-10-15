@@ -80,6 +80,7 @@ Aleric Inglewood
 	RED-578
 	RED-579
 	RED-581
+	RED-595
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -512,6 +513,7 @@ Robin Cornelius
 	VWR-2488
 	VWR-9557
 	VWR-12838
+	RED-595
 Ryozu Kojima
 	VWR-53
 	VWR-287
