@@ -724,6 +724,9 @@ void LLPluginClassMedia::setJavascriptEnabled(const bool enabled)
 
 LLPluginClassMedia::ETargetType getTargetTypeFromLLQtWebkit(int target_type)
 {
+  llassert(false);
+  return LLPluginClassMedia::TARGET_OTHER;
+#if 0
 	// convert a LinkTargetType value from llqtwebkit to an ETargetType
 	// so that we don't expose the llqtwebkit header in viewer code
 	switch (target_type)
@@ -740,6 +743,7 @@ LLPluginClassMedia::ETargetType getTargetTypeFromLLQtWebkit(int target_type)
 	default:
 		return LLPluginClassMedia::TARGET_OTHER;
 	}
+#endif
 }
 
 /* virtual */ 
