@@ -393,7 +393,7 @@ bool LLPluginClassMedia::textureValid(void)
 
 bool LLPluginClassMedia::getDirty(LLRect *dirty_rect)
 {
-	bool result = !mDirtyRect.isNull();
+	bool result = !mDirtyRect.isEmpty();
 
 	if(dirty_rect != NULL)
 	{
@@ -793,7 +793,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 					newDirtyRect.mBottom = temp;
 				}
 				
-				if(mDirtyRect.isNull())
+				if(mDirtyRect.isEmpty())
 				{
 					mDirtyRect = newDirtyRect;
 				}

@@ -1542,7 +1542,7 @@ void LLView::updateBoundingRect()
 
 			LLRect child_bounding_rect = childp->getBoundingRect();
 
-			if (local_bounding_rect.isNull())
+			if (local_bounding_rect.isEmpty())
 			{
 				// start out with bounding rect equal to first visible child's bounding rect
 				local_bounding_rect = child_bounding_rect;
@@ -1550,7 +1550,7 @@ void LLView::updateBoundingRect()
 			else
 			{
 				// accumulate non-null children rectangles
-				if (!child_bounding_rect.isNull())
+				if (!child_bounding_rect.isEmpty())
 				{
 					local_bounding_rect.unionWith(child_bounding_rect);
 				}

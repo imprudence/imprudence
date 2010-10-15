@@ -229,14 +229,14 @@ public:
 		return mLeft <= mRight && mBottom <= mTop;
 	}
 
-	bool isNull() const
+	bool isEmpty() const
 	{
 		return mLeft == mRight || mBottom == mTop;
 	}
 
 	bool notNull() const
 	{
-		return !isNull();
+		return !isEmpty();
 	}
 
 	LLRectBase& unionWith(const LLRectBase &other)
