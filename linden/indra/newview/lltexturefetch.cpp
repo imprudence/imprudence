@@ -1395,6 +1395,10 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 			mRequestedSize = data_size;
 		}
 	}
+	else
+	{
+		mRequestedSize = -1; // error
+	}
 
 	if ((success && (data_size == 0)) || unsatisfiable)
 	{
@@ -1410,11 +1414,7 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 			mRequestedSize = -1;	// treat this fetch as if it failed.
 		}
 	}
-	else
-	{
-		mRequestedSize = -1; // error
-	}
-	
+
 	mLoaded = TRUE;
 	setPriority(LLWorkerThread::PRIORITY_HIGH | mWorkPriority);
 }
