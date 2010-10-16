@@ -256,6 +256,10 @@ LLViewerImage::LLViewerImage(const LLUUID& id, const LLHost& host, BOOL usemipma
 {
 	init(true);
 	sImageCount++;
+	if (host != LLHost::invalid)
+	{
+		mCanUseHTTP = false; // this is a baked texture
+	}
 }
 
 LLViewerImage::LLViewerImage(const std::string& url, const LLUUID& id, BOOL usemipmaps)
