@@ -196,6 +196,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
 	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);
+	text->setParseHTML(TRUE);
 	text->appendColoredText(std::string("\n\n") + message,false,false,LLColor4::grey4);
 
 	LLColor4 semi_transparent(1.0f,1.0f,1.0f,0.8f);
