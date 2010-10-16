@@ -1174,16 +1174,6 @@ bool LLAppViewer::mainLoop()
 
 bool LLAppViewer::cleanup()
 {
-	//----------------------------------------------
-	//this test code will be removed after the test
-	//test manual call stack tracer
-	if(gSavedSettings.getBOOL("QAMode"))
-	{
-		LLError::LLCallStacks::print() ;
-	}
-	//end of the test code
-	//----------------------------------------------
-
 	//flag all elements as needing to be destroyed immediately
 	// to ensure shutdown order
 	LLMortician::setZealous(TRUE);
