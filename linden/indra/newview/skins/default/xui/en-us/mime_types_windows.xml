@@ -274,7 +274,7 @@
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_gstreamer010
+			media_plugin_gstreamer
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/bmp">
@@ -384,7 +384,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype name="video/mp4">
@@ -395,7 +395,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype menu="1" name="video/gstreamer">
@@ -406,7 +406,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype name="video/x-ms-asf">
@@ -417,7 +417,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype name="video/x-ms-wmv">
@@ -428,7 +428,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 	<mimetype menu="1" name="video/x-msvideo">
@@ -439,7 +439,7 @@
 			movie
 		</widgettype>
 		<impl>
-      media_plugin_gstreamer010010
+      media_plugin_gstreamer
     </impl>
 	</mimetype>
 </mimetypes>

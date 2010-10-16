@@ -271,7 +271,7 @@ class WindowsManifest(ViewerManifest):
             
         # Media plugins - Gstreamer
         if self.prefix(src='../media_plugins/gstreamer/%s' % self.args['configuration'], dst="llplugin"):
-            self.path("media_plugin_gstreamer010.dll")
+            self.path("media_plugin_gstreamer010.dll", "media_plugin_gstreamer.dll")
             self.end_prefix()
             
         # For WebKit/Qt plugin runtimes
