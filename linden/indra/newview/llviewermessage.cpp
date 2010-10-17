@@ -262,6 +262,13 @@ bool friendship_offer_callback(const LLSD& notification, const LLSD& response)
 		msg->addUUIDFast(_PREHASH_TransactionID, payload["session_id"]);
 		msg->sendReliable(LLHost(payload["sender"].asString()));
 		break;
+	case 2:
+		// Push another notification
+		// Do we need to check for OfferFriendshipNoMessage here ever? -- MC
+		LLNotifications::instance().add("OfferFriendship", notification["substitutions"], notification["payload"]);
+  		LLURLDispatcher::dispatch(llformat("secondlife:///app/agent/%s/about",payload["from_id"].asString().c_str()), NULL, true);
+  		break;
+	case 3:
 	default:
 		// close button probably, possibly timed out
 		break;
