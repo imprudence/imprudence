@@ -108,6 +108,7 @@ BOOL LLFloaterTeleportHistory::postBuild()
 	childSetAction("teleport", onTeleport, this);
 	childSetAction("show_on_map", onShowOnMap, this);
 	childSetAction("copy_slurl", onCopySLURL, this);
+	childSetAction("clear_history", onClearHistory,this);
 	loadEntrys();
 
 	return TRUE;
@@ -121,7 +122,13 @@ void LLFloaterTeleportHistory::saveEntry(LLSD toSave)
 	LLSDSerialize::toPrettyXML(tpList, file);
 	file.close();
 }
-
+void LLFloaterTeleportHistory::clearHistory()
+{
+	tpList.clear();
+	saveEntry(tpList);
+	mPlacesOutList->clearRows();
+	mPlacesInList->clearRows();
+}
 std::string LLFloaterTeleportHistory::getFileName()
 {
 	std::string path=gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "");
@@ -300,6 +307,13 @@ void LLFloaterTeleportHistory::onTeleport(void* data)
 	// build secondlife::/app link from simstring for instant teleport to destination
 	std::string slapp="secondlife:///app/teleport/" + self->pItem->getColumn(4)->getValue().asString();
 	LLURLDispatcher::dispatch(slapp, NULL, true);
+}
+
+// static
+void LLFloaterTeleportHistory::onClearHistory(void* data)
+{
+	LLFloaterTeleportHistory* self = (LLFloaterTeleportHistory*) data;
+	self->clearHistory();
 }
 
 // static
