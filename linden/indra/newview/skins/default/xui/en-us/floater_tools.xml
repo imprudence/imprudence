@@ -321,6 +321,12 @@
        mouse_opaque="true" name="prim_count" v_pad="0" width="143">
     Primitives: [COUNT]
   </text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-168" left="118" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="right" height="16"
+     mouse_opaque="true" name="link_num" v_pad="0" width="143">
+    Link number: [NUMBER]
+  </text>
 
 <!-- Sub-tabs -->
 
