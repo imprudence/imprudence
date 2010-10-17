@@ -561,6 +561,10 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 		gIMMgr->saveIgnoreGroup();
 	}
 
+	mCtrlReceiveNotices->resetDirty();	//resetDirty() here instead of in update because this is where the settings 
+    mCtrlListGroup->resetDirty();		//are actually being applied. onCommitUserOnly doesn't call updateChanged directly.
+	mCtrlReceiveChat->resetDirty();
+
 	mChanged = FALSE;
 
 	return true;
@@ -774,14 +778,21 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 		{
 			mCtrlReceiveNotices->setEnabled(mAllowEdit);
 		}
-		mCtrlReceiveNotices->resetDirty();
 	}
 
 	if (mCtrlReceiveChat)
 	{
 		mCtrlReceiveChat->setVisible(is_member);
 		mCtrlReceiveChat->setEnabled(TRUE);
-		mCtrlReceiveChat->resetDirty();
+	}
+
+	if (mCtrlListGroup)
+	{
+		mCtrlListGroup->setVisible(is_member);
+		if (is_member)
+		{
+			mCtrlListGroup->setEnabled(mAllowEdit);
+		}
 	}
 
 
