@@ -3,6 +3,16 @@ include(Linking)
 include(Prebuilt)
 
 if (STANDALONE)
+    # The minimal version, 4.4.3, is rather arbitrary: it's the version in Debian/Lenny.
+    find_package(Qt4 4.4.3 COMPONENTS QtCore QtGui QtNetwork QtOpenGL REQUIRED)
+    include(${QT_USE_FILE})
+    set(QTDIR $ENV{QTDIR})
+    if (QTDIR AND NOT "${QT_BINARY_DIR}" STREQUAL "${QTDIR}/bin")
+      message(FATAL_ERROR "\"${QT_BINARY_DIR}\" is unequal \"${QTDIR}/bin\"; "
+        "Qt is found by looking for qmake in your PATH. "
+        "Please set your PATH such that 'qmake' is found in \$QTDIR/bin, "
+        "or unset QTDIR if the found Qt is correct.")
+    endif (QTDIR AND NOT "${QT_BINARY_DIR}" STREQUAL "${QTDIR}/bin")
     find_package(LLQtWebkit REQUIRED QUIET)
     set(WEBKITLIBPLUGIN OFF CACHE BOOL
         "WEBKITLIBPLUGIN support for the llplugin/llmedia test apps.")
@@ -36,7 +46,7 @@ elseif (DARWIN)
         )
 elseif (LINUX)
      if (STANDALONE)
-       set(WEBKIT_PLUGIN_LIBRARIES ${LLQTWEBKIT_LIBRARY})
+       set(WEBKIT_PLUGIN_LIBRARIES ${LLQTWEBKIT_LIBRARY} ${QT_LIBRARIES})
      else (STANDALONE)
        set(WEBKIT_PLUGIN_LIBRARIES
         llqtwebkit
