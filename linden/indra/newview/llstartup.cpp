@@ -1073,10 +1073,11 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		if (gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+		if (gSavedSettings.getBOOL("VivoxLicenseAccepted") || gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
 			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
 			// skipping over STATE_UPDATE_CHECK because that just waits for input
+			// We don't do this on non-SL grids either
 			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
 		}
 		else
