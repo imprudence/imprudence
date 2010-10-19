@@ -68,7 +68,7 @@ BOOL LLPanelWeb::postBuild()
 	std::string value = gSavedSettings.getBOOL("UseExternalBrowser") ? "external" : "internal";
 	childSetValue("use_external_browser", value);
 
-	childSetValue("cookies_enabled", gSavedSettings.getBOOL("CookiesEnabled"));
+	childSetValue("cookies_enabled", gSavedSettings.getBOOL("BrowserCookiesEnabled"));
 
 	childSetValue("web_proxy_enabled", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
@@ -101,7 +101,7 @@ LLPanelWeb::~LLPanelWeb()
 
 void LLPanelWeb::apply()
 {
-	gSavedSettings.setBOOL("CookiesEnabled", childGetValue("cookies_enabled"));
+	gSavedSettings.setBOOL("BrowserCookiesEnabled", childGetValue("cookies_enabled"));
 	gSavedSettings.setBOOL("BrowserProxyEnabled", childGetValue("web_proxy_enabled"));
 	gSavedSettings.setString("BrowserProxyAddress", childGetValue("web_proxy_editor"));
 	gSavedSettings.setS32("BrowserProxyPort", childGetValue("web_proxy_port"));
