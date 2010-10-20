@@ -229,4 +229,96 @@ F32 LLWaterParamSet::getFloat(const std::string& paramName, bool& error)
 	error = true;
 	return 0;
 }
+void LLWaterParamSet::mix(LLWaterParamSet& src, LLWaterParamSet& dest, F32 weight)
+{
+	// set up the iterators
+	LLSD::map_iterator cIt = mParamValues.beginMap();
+
+	LLSD srcVal;
+	LLSD destVal;
+
+	// do the interpolation for all the ones saved as vectors
+	// skip the weird ones
+	for(; cIt != mParamValues.endMap(); cIt++) {
+
+		// check params to make sure they're actually there
+		if(src.mParamValues.has(cIt->first))
+		{
+			srcVal = src.mParamValues[cIt->first];
+		}
+		else
+		{
+			continue;
+		}
+		
+		if(dest.mParamValues.has(cIt->first))
+		{
+			destVal = dest.mParamValues[cIt->first];
+		}
+		else
+		{
+			continue;
+		}		
+				
+		// skip if not a vector
+		if(!cIt->second.isArray()) 
+		{
+			continue;
+		}
+
+		// only Real vectors allowed
+		if(!cIt->second[0].isReal()) 
+		{
+			continue;
+		}
+		
+		// make sure all the same size
+		if(	cIt->second.size() != srcVal.size() ||
+			cIt->second.size() != destVal.size())
+		{
+			continue;
+		}
+		
+		// more error checking might be necessary;
+		
+		for(int i=0; i < cIt->second.size(); ++i) 
+		{
+			cIt->second[i] = (1.0f - weight) * (F32) srcVal[i].asReal() + 
+				weight * (F32) destVal[i].asReal();
+		}
+	}
+	mParamValues["waterFogColor"][0] = (1 - weight) * (F32) src.mParamValues["waterFogColor"][0].asReal()
+		+ weight * (F32) dest.mParamValues["waterFogColor"][0].asReal();
+	mParamValues["waterFogColor"][1] = (1 - weight) * (F32) src.mParamValues["waterFogColor"][1].asReal()
+		+ weight * (F32) dest.mParamValues["waterFogColor"][1].asReal();
+	mParamValues["waterFogColor"][2] = (1 - weight) * (F32) src.mParamValues["waterFogColor"][2].asReal()
+		+ weight * (F32) dest.mParamValues["waterFogColor"][2].asReal();
+	mParamValues["waterFogColor"][3] = (1 - weight) * (F32) src.mParamValues["waterFogColor"][3].asReal()
+		+ weight * (F32) dest.mParamValues["waterFogColor"][3].asReal();
+	
+	mParamValues["waterFogDensity"] = (1 - weight) * (F32) src.mParamValues["waterFogDensity"].asReal()
+		+ weight * (F32) dest.mParamValues["waterFogDensity"].asReal();
+	mParamValues["underWaterFogMod"] = (1 - weight) * (F32) src.mParamValues["underWaterFogMod"].asReal()
+		+ weight * (F32) dest.mParamValues["underWaterFogMod"].asReal();
+	mParamValues["fresnelScale"] = (1 - weight) * (F32) src.mParamValues["fresnelScale"].asReal()
+		+ weight * (F32) dest.mParamValues["fresnelScale"].asReal();
+	mParamValues["fresnelOffset"] = (1 - weight) * (F32) src.mParamValues["fresnelOffset"].asReal()
+		+ weight * (F32) dest.mParamValues["fresnelOffset"].asReal();
+	mParamValues["scaleAbove"] = (1 - weight) * (F32) src.mParamValues["scaleAbove"].asReal()
+		+ weight * (F32) dest.mParamValues["scaleAbove"].asReal();
+	mParamValues["scaleBelow"] = (1 - weight) * (F32) src.mParamValues["scaleBelow"].asReal()
+		+ weight * (F32) dest.mParamValues["scaleBelow"].asReal();
+	mParamValues["blurMultiplier"] = (1 - weight) * (F32) src.mParamValues["blurMultiplier"].asReal()
+		+ weight * (F32) dest.mParamValues["blurMultiplier"].asReal();
+	
+	mParamValues["wave2Dir"][0] = (1 - weight) * (F32) src.mParamValues["wave2Dir"][0].asReal()
+		+ weight * (F32) dest.mParamValues["wave2Dir"][0].asReal();
+	mParamValues["wave2Dir"][1] = (1 - weight) * (F32) src.mParamValues["wave2Dir"][1].asReal()
+		+ weight * (F32) dest.mParamValues["wave2Dir"][1].asReal();
+	
+	mParamValues["wave1Dir"][0] = (1 - weight) * (F32) src.mParamValues["wave1Dir"][0].asReal()
+		+ weight * (F32) dest.mParamValues["wave1Dir"][0].asReal();
+	mParamValues["wave1Dir"][1] = (1 - weight) * (F32) src.mParamValues["wave1Dir"][1].asReal()
+		+ weight * (F32) dest.mParamValues["wave1Dir"][1].asReal();
+}
 

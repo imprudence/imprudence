@@ -181,26 +181,23 @@ void*	LLFloaterTools::createPanelLandInfo(void* data)
 
 void LLFloaterTools::updateToolsSizeLimits()
 {
-	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
-	{
-		getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+	getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
 
-		getChild<LLSpinCtrl>("Pos X")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Pos Y")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Pos Z")->setMaxValue(F32_MAX);
-	}
-	else
-	{
-		getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
-		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
-		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
 
-		getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
-		getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
-		getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
-	}
+	getChild<LLSpinCtrl>("Pos X")->setMinValue(gHippoLimits->getMinPrimXPos());
+	getChild<LLSpinCtrl>("Pos Y")->setMinValue(gHippoLimits->getMinPrimYPos());
+	getChild<LLSpinCtrl>("Pos Z")->setMinValue(gHippoLimits->getMinPrimZPos());
+
+	getChild<LLSpinCtrl>("Pos X")->setMaxValue(gHippoLimits->getMaxPrimXPos());
+	getChild<LLSpinCtrl>("Pos Y")->setMaxValue(gHippoLimits->getMaxPrimYPos());
+	getChild<LLSpinCtrl>("Pos Z")->setMaxValue(gHippoLimits->getMinPrimZPos());
+
+	getChild<LLCheckBoxCtrl>("Physical Checkbox Ctrl")->setEnabled(gHippoLimits->mAllowPhysicalPrims);
 }
 
 void LLFloaterTools::updateToolsPrecision()
@@ -1258,8 +1255,18 @@ void LLFloaterTools::onClickLink(void* data)
 		return;
 	}
 
-	S32 max_linked_prims = gHippoLimits->getMaxLinkedPrims();
-	if (max_linked_prims > -1)
+	S32 max_linked_prims = 0;
+	if(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject()->usePhysics())
+	{
+		//Physical - use phys prim limit
+		max_linked_prims = gHippoLimits->getMaxPhysLinkedPrims();
+	}
+	else
+	{
+		//Non phys limit
+		max_linked_prims = gHippoLimits->getMaxLinkedPrims();
+	}
+	if (max_linked_prims > -1) //-1 : no limits
 	{
 		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 		if (object_count > max_linked_prims + 1)
@@ -1271,7 +1278,7 @@ void LLFloaterTools::onClickLink(void* data)
 			return;
 		}
 	}
-
+	
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
 		LLNotifications::instance().add("CannotLinkIncompleteSet");

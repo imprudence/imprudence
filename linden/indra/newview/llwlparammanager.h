@@ -221,6 +221,8 @@ public:
 	static void removeObserver(LLWLPresetsObserver* observer);
 	static void notifyObservers();
 
+	void SetMixTime(LLWLParamSet* mixSet, F32 mixTime);
+
 public:
 
 	// helper variables
@@ -280,6 +282,11 @@ public:
 private:
 	// our parameter manager singleton instance
 	static LLWLParamManager * sInstance;
+
+	BOOL sNeedsMix;
+	LLWLParamSet* sMixSet;
+	F32 sMixTime;
+	F32 sMixCount;
 	
 	static std::vector<LLWLPresetsObserver*> sObservers;
 

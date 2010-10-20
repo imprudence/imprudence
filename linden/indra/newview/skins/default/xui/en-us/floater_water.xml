@@ -32,6 +32,9 @@
     <flyout_button_item value="save_disk_item" name="save_disk_item">
       Save to Disk
     </flyout_button_item>
+    <flyout_button_item value="send_to_server_item" name="send_to_server_item">
+      Send to Server
+    </flyout_button_item>
   </flyout_button>
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Delete File" label_selected="Delete File" right="-10"

@@ -118,6 +118,10 @@ public:
 	static void onCloudScrollXToggled(LLUICtrl* ctrl, void* userData);
 	static void onCloudScrollYToggled(LLUICtrl* ctrl, void* userData);
 
+	static void onCloudDrawToggled(LLUICtrl* ctrl, void* userData);
+	static void onCloudHeightMoved(LLUICtrl* ctrl, void* userData);
+	static void onCloudRangeMoved(LLUICtrl* ctrl, void* userData);
+
 	//// menu management
 
 	/// show off our menu

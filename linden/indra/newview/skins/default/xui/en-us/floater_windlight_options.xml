@@ -32,6 +32,9 @@
     <flyout_button_item value="save_disk_item" name="save_disk_item">
       Save to Disk
     </flyout_button_item>
+    <flyout_button_item value="send_to_server_item" name="send_to_server_item">
+      Send to Server
+    </flyout_button_item>
   </flyout_button>
   <button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Delete File" label_selected="Delete File" right="-10"
@@ -211,6 +214,10 @@
 			     initial_val="500" label="" left="494" max_val="4000" min_val="0"
 			     mouse_opaque="true" name="WLMaxAltitude" show_text="true" value="4000"
 			     width="205" />
+      <button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
+         label="Day Cycle Editor" label_selected="Day Cycle Editor"
+         right="-10" mouse_opaque="true" name="WLDayCycleMenuButton"
+         scale_image="true" width="150" />
     </panel>
     <panel border="true" bottom="-180" follows="left|top|right|bottom" height="160"
 		     label="Lighting" left="1" mouse_opaque="true"
@@ -572,34 +579,54 @@
 			     mouse_opaque="true" name="WLCloudScrollX" show_text="true" value="0.0"
 			     width="200" />
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-60" drop_shadow_visible="true" follows="left|top|right"
+			     bottom="-52" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="480" mouse_opaque="true" name="WLCloudScrollYText" v_pad="0"
 			     width="355">
         Cloud Scroll Y
       </text>
-      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+      <button bottom_delta="-2" follows="left|top" font="SansSerifSmall" height="18" label="?"
 			     left="605" name="WLCloudScrollYHelp" width="18" />
       <check_box control_name="WLCloudLockY" follows="left" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Lock" left="625" mouse_opaque="true"
 			     name="WLCloudLockY" width="200" />
-      <slider bottom_delta="-15" can_edit_text="false" control_name="WLCloudScrollY"
+      <slider bottom_delta="-10" can_edit_text="false" control_name="WLCloudScrollY"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.5" label="" left="494" max_val="10" min_val="-10"
 			     mouse_opaque="true" name="WLCloudScrollY" show_text="true" value="0.0"
 			     width="200" />
-      <check_box bottom="-120" control_name="DrawClassicClouds" follows="left"
+      <check_box bottom="-102" control_name="DrawClassicClouds" follows="left"
 			     font="SansSerifSmall" height="16" initial_value="false"
 			     label="Draw Classic Clouds" left="480" mouse_opaque="true"
 			     name="DrawClassicClouds" width="200" />
-      <button bottom="-102" follows="left|top" font="SansSerifSmall" height="18" label="?"
+      <button bottom="-85" follows="left|top" font="SansSerifSmall" height="18" label="?"
 			     left="608" name="WLClassicCloudsHelp" width="18" />
+      <text bottom_delta="-19" type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="20"
+			     left="480" mouse_opaque="true" name="WLCloudHeightText" v_pad="0"
+			     width="355">
+        Classic Cloud Height
+      </text>
+      <slider bottom_delta="-27" can_edit_text="true" control_name="WLCloudHeight"
+			     decimal_digits="0" follows="left" height="16" increment="1"
+			     initial_val="192" label="" left="494" max_val="1000" min_val="0"
+			     mouse_opaque="true" name="WLCloudHeight" show_text="true" value="192"
+			     width="200" />
+      <text bottom_delta="0" type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="20"
+			     left="480" mouse_opaque="true" name="WLCloudClassicRangeText" v_pad="0"
+			     width="355">
+        Classic Cloud Range
+      </text>
+      <slider bottom_delta="-27" can_edit_text="true" control_name="WLCloudClassicRange"
+			     decimal_digits="0" follows="left" height="16" increment="1 "
+			     initial_val="48" label="" left="494" max_val="100" min_val="0"
+			     mouse_opaque="true" name="WLCloudRange" show_text="true" value="48"
+			     width="200" />
     </panel>
   </tab_container>
-  <button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
-     label="Day Cycle Editor" label_selected="Day Cycle Editor"
-     right="-10" mouse_opaque="true" name="WLDayCycleMenuButton"
-     scale_image="true" width="150" />
 	<string name="WLDefaultSkyNames">
 		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
 	</string>

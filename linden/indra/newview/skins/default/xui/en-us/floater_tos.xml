@@ -15,15 +15,14 @@
 	     bottom="-50" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 	     h_pad="0" halign="left" height="30" left="16" mouse_opaque="true"
 	     name="tos_heading" v_pad="0" width="552">
-		Please read the following Terms of Service carefully. To continue logging in to Second Life,
-you must accept the agreement.
+		Please read the following Terms of Service carefully. To continue logging in you must accept the agreement.
 	</text>
-	<text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
+  <text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
 	     height="283" left="16" max_length="65536" mouse_opaque="true"
 	     name="tos_text" width="568"
 	     word_wrap="true">
-		TOS_TEXT
-	</text_editor>
+    TOS_TEXT
+  </text_editor>
   <!-- Loading text says: "Loading Terms of Service..." URL encoded -->
 	<web_browser bottom="-406" embedded_items="false" follows="left|top" font="SansSerif"
 	     height="340" left="16" max_length="65536" mouse_opaque="true"

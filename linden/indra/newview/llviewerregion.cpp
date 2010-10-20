@@ -452,6 +452,12 @@ void LLViewerRegion::setWaterHeight(F32 water_level)
 	mLandp->setWaterHeight(water_level);
 }
 
+
+void LLViewerRegion::rebuildWater()
+{
+	mLandp->rebuildWater();
+}
+
 F32 LLViewerRegion::getWaterHeight() const
 {
 	return mLandp->getWaterHeight();
@@ -1416,7 +1422,9 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	LLSD capabilityNames = LLSD::emptyArray();
 	capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
+	capabilityNames.append("DispatchOpenRegionSettings");
 	capabilityNames.append("DispatchRegionInfo");
+	capabilityNames.append("DispatchWindLightSettings");
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
 	capabilityNames.append("FetchInventory");
@@ -1434,6 +1442,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("ProvisionVoiceAccountRequest");
 	capabilityNames.append("RemoteParcelRequest");
 	capabilityNames.append("RequestTextureDownload");
+	capabilityNames.append("RetrieveWindLightSettings");
 	capabilityNames.append("SearchStatRequest");
 	capabilityNames.append("SearchStatTracking");
 	capabilityNames.append("SendPostcard");

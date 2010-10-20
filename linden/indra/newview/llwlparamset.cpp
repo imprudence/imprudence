@@ -145,6 +145,11 @@ void LLWLParamSet::set(const std::string& paramName, float x)
 	{
 		mParamValues[paramName][0] = x;
 	}
+	else
+	{
+		//Default this
+		mParamValues[paramName] = x;
+	} 
 }
 
 void LLWLParamSet::set(const std::string& paramName, float x, float y) {

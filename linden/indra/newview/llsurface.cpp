@@ -59,6 +59,7 @@
 #include "llglheaders.h"
 #include "lldrawpoolterrain.h"
 #include "lldrawable.h"
+#include "hippolimits.h"
 
 extern LLPipeline gPipeline;
 
@@ -295,7 +296,7 @@ void LLSurface::initTextures()
 	//
 	// Water texture
 	//
-	if (gSavedSettings.getBOOL("RenderWater") )
+	if (gSavedSettings.getBOOL("RenderWater") && gHippoLimits->mRenderWater)
 	{
 		createWaterTexture();
 		mWaterObjp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, mRegionp);
@@ -306,6 +307,29 @@ void LLSurface::initTextures()
 	}
 }
 
+//static
+void LLSurface::rebuildWater()
+{
+	//lldebugs << "Rebuilding Water...";
+	if(!mWaterObjp.isNull())
+	{
+		//lldebugs << "Removing Water";
+		//Remove the old
+		gObjectList.killObject(mWaterObjp);
+	}
+
+	if (gSavedSettings.getBOOL("RenderWater") && gHippoLimits->mRenderWater)
+	{
+		//lldebugs << "Building Water";
+		createWaterTexture();
+		mWaterObjp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, mRegionp);
+		gPipeline.createObject(mWaterObjp);
+		LLVector3d water_pos_global = from_region_handle(mRegionp->getHandle());
+		water_pos_global += LLVector3d(128.0, 128.0, DEFAULT_WATER_HEIGHT);
+		mWaterObjp->setPositionGlobal(water_pos_global);
+	}
+	//lldebugs << "Rebuilding Water Complete";
+}
 
 void LLSurface::setOriginGlobal(const LLVector3d &origin_global) 
 {

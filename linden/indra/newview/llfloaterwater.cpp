@@ -64,6 +64,8 @@
 #include "llwaterparammanager.h"
 #include "llpostprocess.h"
 
+#include "wlfloaterwindlightsend.h"
+
 #undef max
 
 LLFloaterWater* LLFloaterWater::sWaterMenu = NULL;
@@ -679,6 +681,12 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 								  cb);
 			
 		}
+	}
+	else if (ctrl->getValue().asString() == "send_to_server_item")
+	{
+		//Open the other box
+		WLFloaterWindLightSend::instance();
+		WLFloaterWindLightSend::instance()->open();
 	}
 	else
 	{

@@ -75,6 +75,7 @@
 #include "curl/curl.h"
 
 LLWaterParamManager * LLWaterParamManager::sInstance = NULL;
+LLFrameTimer waterSmoothTransitionTimer;
 
 LLWaterParamManager::LLWaterParamManager() :
 	mFogColor(22.f/255.f, 43.f/255.f, 54.f/255.f, 0.0f, 0.0f, "waterFogColor", "WaterFogColor"),
@@ -454,9 +455,44 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 				shaders_iter->mUniformsDirty = TRUE;
 			}
 		}
+		//Mix windlight settings if needed
+		if(sNeedsMix == TRUE)
+		{
+			if(sMixSet == NULL)
+			{
+				sNeedsMix = FALSE;
+				return;
+			}
+			if (waterSmoothTransitionTimer.getElapsedTimeF32() >=
+				(sMixTime / 100)) //100 steps inbetween
+			{
+				waterSmoothTransitionTimer.reset();
+				mCurParams.mix(mCurParams, *sMixSet, sMixCount / 100);//.01 to 1.0
+			}
+			sMixCount++;
+			if((sMixCount / 100) == 1)
+			{
+				//All done
+				sNeedsMix = FALSE;
+				std::string wlWaterPresetName   = "(Region settings)";
+				mCurParams.mName = wlWaterPresetName;
+				removeParamSet( wlWaterPresetName, true );
+				addParamSet( wlWaterPresetName, mCurParams );
+				savePreset( wlWaterPresetName );
+				loadPreset( wlWaterPresetName, true );
+				sMixSet = NULL;
+			}
+		}
 	}
 }
-
+void LLWaterParamManager::SetMixTime(LLWaterParamSet *mixSet, F32 mixTime)
+{
+	waterSmoothTransitionTimer.reset();
+	sNeedsMix = TRUE;
+	sMixSet = mixSet;
+	sMixTime = mixTime;
+	sMixCount = 1;
+}
 // static
 void LLWaterParamManager::initClass(void)
 {

@@ -101,6 +101,7 @@
 #include "llwaterparammanager.h"
 #include "llspatialpartition.h"
 #include "llmutelist.h"
+#include "hippolimits.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -5980,6 +5981,9 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 			stop_glerror();
 
 			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? FALSE : TRUE;
+			
+			if (!gSavedSettings.getBOOL("RenderWater") || !gHippoLimits->mRenderWater)
+				LLPipeline::sUnderWaterRender = FALSE;
 
 			if (LLPipeline::sUnderWaterRender)
 			{

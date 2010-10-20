@@ -304,6 +304,8 @@ public:
 	// singleton pattern implementation
 	static LLWaterParamManager * instance();
 
+	void SetMixTime(LLWaterParamSet* mixSet, F32 mixTime);
+
 public:
 
 	LLWaterParamSet mCurParams;
@@ -333,6 +335,11 @@ public:
 private:
 	LLVector4 mWaterPlane;
 	F32 mWaterFogKS;
+
+	BOOL sNeedsMix;
+	LLWaterParamSet* sMixSet;
+	F32 sMixTime;
+	F32 sMixCount;
 
 	// our parameter manager singleton instance
 	static LLWaterParamManager * sInstance;

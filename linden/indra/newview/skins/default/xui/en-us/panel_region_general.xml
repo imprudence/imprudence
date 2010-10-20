@@ -58,16 +58,21 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="parcel_search_help" width="18" />
 	<spinner bottom_delta="-40" follows="left|top" height="20" increment="1"
-	     label="Agent Limit" label_width="97" left="10" max_val="100" min_val="1"
+	     label="Agent Limit" label_width="100" left="10" max_val="100" min_val="1"
 	     name="agent_limit_spin" width="170" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="agent_limit_help" width="18" />
 	<spinner bottom_delta="-20" follows="left|top" height="20" increment="0.5"
-	     label="Object Bonus" label_width="97" left="10" max_val="10" min_val="1"
+	     label="Object Bonus" label_width="100" left="10" max_val="10" min_val="1"
 	     name="object_bonus_spin" width="170" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="object_bonus_help" width="18" />
-	<text bottom_delta="-30" follows="left|top" height="20" label="Maturity" left="10"
+  <spinner bottom_delta="-20" follows="left|top" height="20" increment="0.5"
+	     label="Minimum Agent Age" label_width="100" left="10" max_val="1000" min_val="0"
+	     name="minimum_agent_age" width="170" />
+  <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     left="205" name="minimum_agent_age_help" width="18" />
+  <text bottom_delta="-30" follows="left|top" height="20" label="Maturity" left="10"
 	     name="access_text" width="100">
 		Rating:
 	</text>
@@ -87,7 +92,7 @@
 	     left="205" name="access_help" width="18" />
 	<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
 	     left="108" name="apply_btn" width="100" />
-	<button bottom_delta="-60" follows="left|top" height="20"
+	<button bottom_delta="-40" follows="left|top" height="20"
 	     label="Teleport Home One User..." left="10" name="kick_btn" width="250" />
 	<button bottom_delta="-23" follows="left|top" height="20"
 	     label="Teleport Home All Users..." left="10" name="kick_all_btn" width="250" />

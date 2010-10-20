@@ -533,7 +533,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	{
 		F32 max_drag_distance = gSavedSettings.getF32("MaxDragDistance");
 
-		if (relative_move.magVecSquared() > max_drag_distance * max_drag_distance)
+		if(max_drag_distance < gHippoLimits->getMaxDragDistance())			max_drag_distance = gHippoLimits->getMaxDragDistance(); //Take the more restrictive		if (relative_move.magVecSquared() > max_drag_distance * max_drag_distance)
 		{
 			lldebugst(LLERR_USER_INPUT) << "hover handled by LLManipTranslate (too far)" << llendl;
 			gViewerWindow->setCursor(UI_CURSOR_NOLOCKED);

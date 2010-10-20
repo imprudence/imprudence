@@ -47,6 +47,9 @@ ViewerTime* gViewerTime = 0;
 // We use statics here for speed reasons
 bool ViewerTime::sUse24HourTime = false;
 bool ViewerTime::sUseUTCTime = false;
+bool ViewerTime::sUseTimeOffset = false;
+S32 ViewerTime::sTimeOffset = 0;
+bool ViewerTime::sTimeOffsetDST = false;
 
 std::vector<std::string> ViewerTime::sDays;
 std::vector<std::string> ViewerTime::sMonths;
@@ -87,16 +90,21 @@ void ViewerTime::refresh()
 	// There's only one internal tm buffer.
 	struct tm* internal_time;
 
-	if (!sUseUTCTime)
+	if (sUseUTCTime)
+	{
+		time(&utc_time);
+		internal_time = gmtime(&utc_time);
+	}
+	else if (sUseTimeOffset)
+	{
+		//Its a UTC offset, deal with it
+		internal_time = utc_to_offset_time(utc_time, sTimeOffset, sTimeOffsetDST);
+	}
+	else
 	{
 		// Convert to Pacific, based on server's opinion of whether
 		// it's daylight savings time there.
 		internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
-	}
-	else
-	{
-		time(&utc_time);
-		internal_time = gmtime(&utc_time);
 	}
 	
 	mMinute = internal_time->tm_min;

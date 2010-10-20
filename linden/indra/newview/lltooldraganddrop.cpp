@@ -75,6 +75,7 @@
 // [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
+#include "hippoLimits.h"
 
 // MAX ITEMS is based on (sizeof(uuid)+2) * count must be < MTUBYTES
 // or 18 * count < 1200 => count < 1200/18 => 66. I've cut it down a
@@ -1679,8 +1680,10 @@ void LLToolDragAndDrop::giveInventoryCategory(const LLUUID& to_agent,
 		LLNotifications::instance().add("IncompleteInventory");
 		return;
 	}
+
  	count = items.count() + cats.count();
- 	if(count > MAX_ITEMS)
+ 	if(count > gHippoLimits->getMaxInventoryItemsTransfer() &&
+		gHippoLimits->getMaxInventoryItemsTransfer() != -1) //MAX_ITEMS)
   	{
 		LLNotifications::instance().add("TooManyItems");
   		return;
@@ -1776,8 +1779,9 @@ void LLToolDragAndDrop::commitGiveInventoryCategory(const LLUUID& to_agent,
 	// MTUBYTES or 18 * count < 1200 => count < 1200/18 =>
 	// 66. I've cut it down a bit from there to give some pad.
  	S32 count = items.count() + cats.count();
- 	if(count > MAX_ITEMS)
-  	{
+ 	if(count > gHippoLimits->getMaxInventoryItemsTransfer() &&
+		gHippoLimits->getMaxInventoryItemsTransfer() != -1) //MAX_ITEMS)
+	{
 		LLNotifications::instance().add("TooManyItems");
   		return;
   	}

@@ -493,6 +493,11 @@ set(viewer_SOURCE_FILES
     rlvfloaterbehaviour.cpp
     viewertime.cpp
     viewerversion.cpp
+    windlightsettingsupdate.cpp
+    wlfloatermanager.cpp
+    wlfloaterwindlightsend.cpp
+    wlretrievesettings.cpp
+    wlsettingsmanager.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -950,6 +955,10 @@ set(viewer_HEADER_FILES
     VorbisFramework.h
     viewertime.h
     viewerversion.h
+    wlfloatermanager.h
+    wlfloaterwindlightsend.h
+    wlretrievesettings.h
+    wlsettingsmanager.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)

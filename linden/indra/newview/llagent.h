@@ -584,6 +584,7 @@ public:
 	EPointAtType	getPointAtType();
 
 	void			setHomePosRegion( const U64& region_handle, const LLVector3& pos_region );
+	void			takeHomeScreenshot();
 	BOOL			getHomePosGlobal( LLVector3d* pos_global );
 	void			setCameraAnimating( BOOL b )	{ mCameraAnimating = b; }
 	BOOL			getCameraAnimating( )			{ return mCameraAnimating; }
@@ -742,6 +743,7 @@ public:
 	LLUUID			mSecureSessionID;			// secure token for this login session
 
 	F32				mDrawDistance;
+	BOOL            mLockedDrawDistance;
 
 	U64				mGroupPowers;
 	BOOL			mHideGroupTitle;

@@ -61,34 +61,34 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Hide my group title" left="151" name="show_my_title_checkbox"
 	     radio_style="false" width="256" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-230"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
 	     can_apply_immediately="false" color="1 1 1 1"
 	     enabled="true" follows="left|top" height="65" label="" left="153"
 	     mouse_opaque="true" name="effect_color_swatch"
 	     tool_tip="Click to open Color Picker" width="55" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-235" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-215" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
     UI Size:
   </text>
-  <slider bottom="-237" can_edit_text="true"
+  <slider bottom="-217" can_edit_text="true"
 	     decimal_digits="3" enabled="true" height="16" increment="0.001"
 	     initial_val="1" left="148" max_val="1.4" min_val="0.75" mouse_opaque="true"
 	     name="ui_scale_slider" show_text="true" value="1" width="220" />
-  <button bottom="-241" enabled="true" follows="left|top"
+  <button bottom="-221" enabled="true" follows="left|top"
 	     font="SansSerif" halign="center" height="22" label="Reset"
 	     label_selected="Reset" left_delta="226" mouse_opaque="true"
 	     name="reset_ui_size" scale_image="true" width="80" />
-  <check_box bottom="-256" enabled="true" follows="left|top"
+  <check_box bottom="-236" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use resolution independent scale" left="151" mouse_opaque="true"
 	     name="ui_auto_scale" radio_style="false" width="256" />
-  <check_box bottom="-280" enabled="true" follows="left|top"
+  <check_box bottom="-260" enabled="true" follows="left|top"
 		   font="SansSerifSmall" height="16" initial_value="false"
 		   label="Go Away/AFK when idle" left="330" mouse_opaque="true"
 		   name="afk_timeout_checkbox" radio_style="false" width="256" />
-  <spinner bottom="-280" decimal_digits="0" enabled="true"
+  <spinner bottom="-260" decimal_digits="0" enabled="true"
 	     follows="left|top" height="16" increment="1" initial_val="300"
 	     label="Away Timeout:" label_width="141" left="10" max_val="600"
 	     min_val="30" mouse_opaque="true" name="afk_timeout_spinner" width="202" />
@@ -109,18 +109,18 @@
        mouse_opaque="true" name="mini_map_notify_sim" radio_style="false"
        width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-332" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-312" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name="maturity_desired_label" v_pad="0" width="394">
 		 Rating:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-332" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-312" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="151"
 	     mouse_opaque="true" name="maturity_desired_prompt" v_pad="0" width="394">
 		 I want to access content rated:
 	</text>
-	<combo_box bottom="-338" follows="left|top" height="18" left="320"
+	<combo_box bottom="-318" follows="left|top" height="18" left="315"
 	     mouse_opaque="true" name="maturity_desired_combobox" width="150">
 		<combo_item name="Desired_Adult" value="42">
 			PG, Mature and Adult
@@ -133,8 +133,8 @@
 		</combo_item>
 	</combo_box>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-332" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="320"
+	     bottom="-312" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="315"
 	     mouse_opaque="true" name="maturity_desired_textbox" v_pad="0" width="150">
 		 PG only
 	</text>
@@ -151,25 +151,25 @@
 		Nametags:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-175" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-155" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name="effects_color_textbox" v_pad="0" width="394">
 		Selection Beam Color:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-274" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-254" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="220"
 	     mouse_opaque="true" name="seconds_textbox" v_pad="0" width="128">
 		seconds
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-372" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-352" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
 	     mouse_opaque="true" name="time_textbox" v_pad="0" width="394">
 		Clock:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-404" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-384" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
 	     mouse_opaque="true" name="language_textbox" v_pad="0" width="394">
 		Language:
@@ -181,10 +181,20 @@
 	     v_pad="0" width="400">
 		(requires restart for full effect)
 	</text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
+	     mouse_opaque="true" name="remember_password_text" v_pad="0" width="394">
+    Remember Password:
+  </text>
+  <check_box bottom_delta="0" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Remember Password" left="151" mouse_opaque="true"
+	     name="remember_password" radio_style="false" width="256" />
 	<string name="region_name_prompt">
 		&lt;Type region name&gt;
 	</string>
-	<combo_box allow_text_entry="false" bottom="-372" enabled="true" follows="left|top"
+	<combo_box allow_text_entry="false" bottom="-352" enabled="true" follows="left|top"
 	     height="18" left="153" max_chars="20" mouse_opaque="true"
 	     name="time_combobox" width="146">
 		<combo_item type="string" name="12HourTime" value="PST 12">
@@ -197,7 +207,7 @@
 			UTC
 		</combo_item>
 	</combo_box>
-	<combo_box allow_text_entry="true" bottom="-402" enabled="true"
+	<combo_box allow_text_entry="true" bottom="-382" enabled="true"
 	     follows="left|top" height="16" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">

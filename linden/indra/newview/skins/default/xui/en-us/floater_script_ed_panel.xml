@@ -5,7 +5,7 @@
 	     embedded_items="false" enabled="true" follows="left|top|right|bottom"
 	     font="Monospace" height="376" ignore_tab="false" left="4"
 	     max_length="65536" mouse_opaque="true" name="Script Editor" width="492" border_drop_shadow_visible="false" border_visible="false" bevel_style="none" border_style="line" border_thickness="0"
-	     word_wrap="true" show_line_numbers="true">
+	     word_wrap="true" show_line_numbers="true" spell_check="false">
 		Loading...
 	</text_editor>
 	<button bottom="-499" enabled="true" follows="right|bottom" font="SansSerif"

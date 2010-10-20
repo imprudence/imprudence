@@ -153,11 +153,15 @@
 	     mouse_opaque="false" name="text_box7" v_pad="0" width="128">
 		Chat Bubbles:
 	</text>
-	<check_box bottom="-386" control_name="UseChatBubbles" enabled="true" follows="left|top"
+  <check_box bottom="-386" control_name="UseChatBubbles" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show chat bubbles" left="148" mouse_opaque="true"
 	     name="bubble_text_chat" radio_style="false" width="237" />
-	<slider bottom="-402" can_edit_text="false" control_name="ChatBubbleOpacity"
+  <check_box bottom="-386" control_name="UseLocalChatBubbles" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Show local chat and bubbles" left="288" mouse_opaque="true"
+	     name="local_bubble_text_chat" radio_style="false" width="237" />
+  <slider bottom="-402" can_edit_text="false" control_name="ChatBubbleOpacity"
 	     decimal_digits="3" enabled="true" follows="left|top" height="12"
 	     increment="0.05" initial_val="1" label="Bubble opacity:" left="148" max_val="1"
 	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"

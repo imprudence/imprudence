@@ -150,6 +150,8 @@ public:
 
 	void getInfo(LLSD& info);
 
+	void rebuildClouds(LLViewerRegion *regionp);
+
 public:
 	typedef std::list<LLViewerRegion*> region_list_t;
 	const region_list_t& getRegionList() const { return mActiveRegionList; }

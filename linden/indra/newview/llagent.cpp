@@ -36,7 +36,6 @@
 #include "stdenums.h"
 
 #include "llagent.h" 
-
 #include "llcamera.h"
 #include "llcoordframe.h"
 #include "indra_constants.h"
@@ -441,6 +440,7 @@ LLAgent::LLAgent() :
 void LLAgent::init()
 {
 	mDrawDistance = gSavedSettings.getF32("RenderFarClip");
+	mLockedDrawDistance = FALSE;
 
 	// *Note: this is where LLViewerCamera::getInstance() used to be constructed.
 
@@ -6024,6 +6024,14 @@ void LLAgent::setHomePosRegion( const U64& region_handle, const LLVector3& pos_r
 	mHaveHomePosition = TRUE;
 	mHomeRegionHandle = region_handle;
 	mHomePosRegion = pos_region;
+}
+
+void LLAgent::takeHomeScreenshot()
+{
+	std::string snap_filename = gDirUtilp->getLindenUserDir();
+	snap_filename += gDirUtilp->getDirDelimiter();
+	snap_filename += SCREEN_HOME_FILENAME;
+	gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight(), FALSE, FALSE);
 }
 
 BOOL LLAgent::getHomePosGlobal( LLVector3d* pos_global )

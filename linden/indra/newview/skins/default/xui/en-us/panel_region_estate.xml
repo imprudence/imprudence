@@ -25,7 +25,7 @@ regions in the estate.
 		(unknown)
 	</text>
 	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-295"
-	     follows="top|left" height="290" left="6" width="250" />
+	     follows="top|left" height="350" left="6" width="250" />
 	<check_box bottom_delta="265" follows="left|top" height="20" label="Use Global Time"
 	     left="12" name="use_global_time_check" width="200" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
@@ -69,13 +69,12 @@ regions in the estate.
 	     left="12" name="allow_direct_teleport" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     name="allow_direct_teleport_help" right="250" width="18" />
-	<text bottom_delta="-26" follows="left|top" font="SansSerifSmall" height="20"
-	     left="10" name="abuse_email_text" width="180">
-		Abuse email address:
-	</text>
-	<line_editor bottom_delta="-16" follows="top|left" height="19" left="15" max_length="254"
+  <text bottom_delta="-26" follows="left|top" font="SansSerifSmall" height="20"
+      left="10" name="abuse_email_text" width="180">
+    Abuse email address:
+  </text>
+  <line_editor bottom_delta="-16" follows="top|left" height="19" left="15" max_length="254"
 	     name="abuse_email_address" width="205" />
-	<string name="email_unsupported">Feature unsupported</string>
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     name="abuse_email_address_help" right="250" width="18" />
 	<button bottom_delta="-26" enabled="false" follows="left|top" height="20" label="Apply"

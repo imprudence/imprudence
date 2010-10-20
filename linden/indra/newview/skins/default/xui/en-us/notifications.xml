@@ -3663,6 +3663,90 @@ Default: off
 
 <notification
  icon="alertmodal.tga"
+ label="Force Draw Distance"
+ name="HelpForceDrawDistance"
+ type="alertmodal">
+If this box is checked, draw distance will be locked for all people in the sim. Note: This will lag people on older machines. PLEASE think before setting this setting.
+
+Default: off
+</notification>
+
+<notification
+ icon="alertmodal.tga"
+ label="Max Inventory Items To Transfer"
+ name="HelpMaxInventoryItemsTransfer"
+ type="alertmodal">
+This box controls how many objects can be transfered between clients at a time. -1 sets no limit on the amount of objects. Default Second Life setting is 42.
+
+Default: -1
+</notification>
+<notification
+ icon="alertmodal.tga"
+ label="Max Groups"
+ name="HelpMaxGroups"
+ type="alertmodal">
+This box controls how many groups an agent can join. -1 sets no limit on the amount of groups.
+
+Default: -1
+</notification>
+  <notification
+   icon="alertmodal.tga"
+   label="Render Water"
+   name="HelpRenderWater"
+   type="alertmodal">
+    If this box is checked, water will not be shown for users in this sim.
+
+    Default: -1
+  </notification>
+<notification
+ icon="alertmodal.tga"
+ label="Allow Minimap"
+ name="HelpAllowMinimap"
+ type="alertmodal">
+If this box is checked, the minimap will be disabled for users in this sim.
+
+Default: on
+</notification>
+<notification
+ icon="alertmodal.tga"
+ label="Allow Minimap"
+ name="HelpAllowPhysicalPrims"
+ type="alertmodal">
+If this box is checked, physical prims will be allowed to be created in this sim.
+
+Default: on
+</notification>
+<notification
+ icon="alertmodal.tga"
+ label="Enable Teen Mode"
+ name="HelpEnableTeenMode"
+ type="alertmodal">
+If this box is checked, all avatars will be forced to wear underwear and will not be able to take it off.
+
+Default: off
+</notification>
+<notification
+ icon="alertmodal.tga"
+ label="Show Tags"
+ name="HelpShowTags"
+ type="alertmodal">
+This box controls how avatar name tags are shown in this sim. 2 sets tags to always be shown. 1 sets tags to disappear after some time. 0 blocks the viewing of name tags.
+
+Default: 2
+</notification>
+<notification
+ icon="alertmodal.tga"
+ label="Allow Parcel WindLight"
+ name="HelpAllowParcelWindLight"
+ type="alertmodal">
+If this box is checked, setting WindLight settings in parcels will be enabled.
+
+Default: on
+</notification>
+
+
+<notification
+ icon="alertmodal.tga"
  label="Bulk Change Content Permissions"
  name="HelpBulkPermission"
  type="alertmodal">

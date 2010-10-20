@@ -1,6 +1,6 @@
 /** 
- * @file llfloaterskysettings.h
- * @brief LLFloaterEnvSettings class definition
+ * @file wlfloaterwindlightsend.h
+ * @brief WLFloaterWindLightSend class definition
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
@@ -31,62 +31,43 @@
  */
 
 /*
- * Simple menu for adjusting the atmospheric settings of the world
+ * Menu for adjusting the atmospheric settings of the world
  */
-
-#ifndef LL_LLFLOATERENVSETTINGS_H
-#define LL_LLFLOATERENVSETTINGS_H
 
 #include "llfloater.h"
 
+#include <vector>
+#include "llwlparamset.h"
+
+struct WLColorControl;
+struct WLFloatControl;
+
 
 /// Menuing system for all of windlight's functionality
-class LLFloaterEnvSettings : public LLFloater
+class WLFloaterManager : public LLFloater
 {
 public:
 
-	LLFloaterEnvSettings();
-	virtual ~LLFloaterEnvSettings();
+	WLFloaterManager();
+	virtual ~WLFloaterManager();
 	
-	/// initialize all the callbacks for the menu
+	/// initialize all
 	void initCallbacks(void);
 
 	/// one and one instance only
-	static LLFloaterEnvSettings* instance();
-	
-	/// callback for the menus help button
+	static WLFloaterManager* instance();
+
+	// help button stuff
 	static void onClickHelp(void* data);
+	void initHelpBtn(const std::string& name, const std::string& xml_alert);
+
+	static void onGetThisRegion(void* userData);
+	static void onGetThisParcel(void* userData);
+	static void onGetAllParcels(void* userData);
+	static void onShow(void* userData);
+	static void onSetToCurrent(void* userData);
+	static void onRemove(void* userData);
 	
-	/// handle if time of day is changed
-	static void onChangeDayTime(LLUICtrl* ctrl, void* userData);
-
-	/// handle if cloud coverage is changed
-	static void onChangeCloudCoverage(LLUICtrl* ctrl, void* userData);
-
-	/// handle change in water fog density
-	static void onChangeWaterFogDensity(LLUICtrl* ctrl, void* userData);
-
-	/// handle change in under water fog density
-	static void onChangeUnderWaterFogMod(LLUICtrl* ctrl, void* userData);
-
-	/// handle change in water fog color
-	static void onChangeWaterColor(LLUICtrl* ctrl, void* userData);
-
-	/// open the advanced sky settings menu
-	static void onOpenAdvancedSky(void* userData);
-
-	/// open the advanced water settings menu
-	static void onOpenAdvancedWater(void* userData);
-
-	/// open the windlight manager floater
-	static void onOpenWLManager(void* userData);
-
-	/// submit windlight settings to the estate
-	static void onSubmitWindlight(void* userData);
-
-	/// sync time with the server
-	static void onUseEstateTime(void* userData);
-
 	//// menu management
 
 	/// show off our menu
@@ -98,16 +79,15 @@ public:
 	/// stuff to do on exit
 	virtual void onClose(bool app_quitting);
 
-	/// sync up sliders with parameters
-	void syncMenu();
-
-	/// convert the present time to a digital clock time
-	std::string timeToString(F32 curTime);
+	static void UpdateFloater();
+	static std::map<std::string, LLWLParamSet*> mWLParamList;	
+	static std::map<std::string, LLWaterParamSet*> mWaterParamList;	
+	static std::map<std::string, LLUUID*> mWaterNormalParamList;	
+	static std::map<std::string, LLSD> mMinAltParamList;	
+	static std::map<std::string, LLSD> mMaxAltParamList;	
+	static std::map<std::string, LLSD> mFadeParamList;	
 
 private:
 	// one instance on the inside
-	static LLFloaterEnvSettings* sEnvSettings;
+	static WLFloaterManager* sWindLight;
 };
-
-
-#endif

@@ -360,7 +360,7 @@ void request_initial_instant_messages()
 	static BOOL requested = FALSE;
 	if (!requested
 		&& gMessageSystem
-		&& LLMuteList::getInstance()->isLoaded()
+		//&& LLMuteList::getInstance()->isLoaded() //We don't always want to have a mute list module
 		&& gAgent.getAvatarObject())
 	{
 		// Auto-accepted inventory items may require the avatar object

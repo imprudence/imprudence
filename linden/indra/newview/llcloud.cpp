@@ -38,6 +38,7 @@
 #include "v4math.h"
 #include "llquaternion.h"
 #include "v4color.h"
+#include "llviewercontrol.h"
 
 #include "llwind.h"
 #include "llcloud.h"
@@ -56,15 +57,6 @@
 
 extern LLPipeline gPipeline;
 
-const F32 CLOUD_UPDATE_RATE = 1.0f;  // Global time dilation for clouds
-const F32 CLOUD_GROW_RATE = 0.05f;
-const F32 CLOUD_DECAY_RATE = -0.05f;
-const F32 CLOUD_VELOCITY_SCALE = 0.01f;
-const F32 CLOUD_DENSITY = 25.f;
-const S32 CLOUD_COUNT_MAX = 20;
-const F32 CLOUD_HEIGHT_RANGE = 48.f;
-const F32 CLOUD_HEIGHT_MEAN = 192.f;
-
 enum
 {
 	LL_PUFF_GROWING = 0,
@@ -80,7 +72,7 @@ S32 LLCloudPuff::sPuffCount = 0;
 
 LLCloudPuff::LLCloudPuff() :
 	mAlpha(0.01f),
-	mRate(CLOUD_GROW_RATE*CLOUD_UPDATE_RATE),
+	mRate((gSavedSettings.getF32("CloudGrowRate")/100)*gSavedSettings.getF32("CloudUpdateRate")),
 	mLifeState(LL_PUFF_GROWING)
 {
 }
@@ -121,7 +113,7 @@ void LLCloudGroup::updatePuffs(const F32 dt)
 		mVOCloudsp->setPositionRegion(mCenterRegion);
 		mVOCloudsp->setScale(LLVector3(256.f/CLOUD_GROUPS_PER_EDGE + CLOUD_PUFF_WIDTH,
 										 256.f/CLOUD_GROUPS_PER_EDGE + CLOUD_PUFF_WIDTH,
-										 CLOUD_HEIGHT_RANGE + CLOUD_PUFF_HEIGHT)*0.5f);
+										 gSavedSettings.getF32("ClassicCloudRange") + CLOUD_PUFF_HEIGHT)*0.5f);
 		gPipeline.createObject(mVOCloudsp);
 	}
 
@@ -132,7 +124,7 @@ void LLCloudGroup::updatePuffs(const F32 dt)
 	{
 		LLCloudPuff &puff = mCloudPuffs[i];
 		velocity = mCloudLayerp->getRegion()->mWind.getCloudVelocity(mCloudLayerp->getRegion()->getPosRegionFromGlobal(puff.mPositionGlobal));
-		velocity *= CLOUD_VELOCITY_SCALE*CLOUD_UPDATE_RATE;
+		velocity *= (gSavedSettings.getF32("CloudVelocityScale")/100)*gSavedSettings.getF32("CloudUpdateRate");
 		vel_d.setVec(velocity);
 		mCloudPuffs[i].mPositionGlobal += vel_d;
 		mCloudPuffs[i].mAlpha += mCloudPuffs[i].mRate * dt;
@@ -163,7 +155,7 @@ void LLCloudGroup::updatePuffOwnership()
 		{
 			//llinfos << "Killing puff not in group" << llendl;
 			mCloudPuffs[i].setLifeState(LL_PUFF_DYING);
-			mCloudPuffs[i].mRate = CLOUD_DECAY_RATE*CLOUD_UPDATE_RATE;
+			mCloudPuffs[i].mRate = (gSavedSettings.getF32("CloudDecayRate")/100)*gSavedSettings.getF32("CloudUpdateRate");
 			i++;
 			continue;
 		}
@@ -185,9 +177,9 @@ void LLCloudGroup::updatePuffCount()
 		return;
 	}
 	S32 i;
-	S32 target_puff_count = llround(CLOUD_DENSITY * mDensity);
+	S32 target_puff_count = llround((S32)gSavedSettings.getF32("CloudDensity") * mDensity);
 	target_puff_count = llmax(0, target_puff_count);
-	target_puff_count = llmin(CLOUD_COUNT_MAX, target_puff_count);
+	target_puff_count = llmin((S32)gSavedSettings.getF32("CloudCountMax"), target_puff_count);
 	S32 current_puff_count = (S32) mCloudPuffs.size();
 	// Create a new cloud if we need one
 	if (current_puff_count < target_puff_count)
@@ -199,7 +191,7 @@ void LLCloudGroup::updatePuffCount()
 			puff_pos_global = mVOCloudsp->getPositionGlobal();
 			F32 x = ll_frand(256.f/CLOUD_GROUPS_PER_EDGE) - 128.f/CLOUD_GROUPS_PER_EDGE;
 			F32 y = ll_frand(256.f/CLOUD_GROUPS_PER_EDGE) - 128.f/CLOUD_GROUPS_PER_EDGE;
-			F32 z = ll_frand(CLOUD_HEIGHT_RANGE) - 0.5f*CLOUD_HEIGHT_RANGE;
+			F32 z = ll_frand(gSavedSettings.getF32("ClassicCloudRange")) - 0.5f*gSavedSettings.getF32("ClassicCloudRange");
 			puff_pos_global += LLVector3d(x, y, z);
 			mCloudPuffs[i].mPositionGlobal = puff_pos_global;
 			mCloudPuffs[i].mAlpha = 0.01f;
@@ -227,7 +219,7 @@ void LLCloudGroup::updatePuffCount()
 		{
 			//llinfos << "Killing extra live cloud" << llendl;
 			mCloudPuffs[i].setLifeState(LL_PUFF_DYING);
-			mCloudPuffs[i].mRate = CLOUD_DECAY_RATE*CLOUD_UPDATE_RATE;
+			mCloudPuffs[i].mRate = (gSavedSettings.getF32("CloudDecayRate")/100)*gSavedSettings.getF32("CloudUpdateRate");
 			new_dying_count--;
 		}
 		i++;
@@ -294,7 +286,7 @@ LLCloudLayer::LLCloudLayer()
 			x = (0.5f + j)*(256.f/CLOUD_GROUPS_PER_EDGE);
 
 			mCloudGroups[i][j].setCloudLayerp(this);
-			mCloudGroups[i][j].setCenterRegion(LLVector3(x, y, CLOUD_HEIGHT_MEAN));
+			mCloudGroups[i][j].setCenterRegion(LLVector3(x, y, gSavedSettings.getF32("ClassicCloudHeight")));
 		}
 	}
 }
@@ -348,8 +340,6 @@ void LLCloudLayer::destroy()
 void LLCloudLayer::reset()
 {
 }
-
-
 void LLCloudLayer::setWindPointer(LLWind *windp)
 {
 	if (mWindp)

@@ -71,11 +71,13 @@
 #include "llviewerinventory.h"
 #include "llviewerregion.h"
 #include "llassetuploadresponders.h"
+#include "llframetimer.h"
 
 #include "curl/curl.h"
 
 LLWLParamManager * LLWLParamManager::sInstance = NULL;
 std::vector<LLWLPresetsObserver*> LLWLParamManager::sObservers;
+LLFrameTimer wlSmoothTransitionTimer;
 
 LLWLParamManager::LLWLParamManager() :
 
@@ -562,6 +564,46 @@ void LLWLParamManager::update(LLViewerCamera * cam)
 			}
 		}
 	}
+
+	//Mix windlight settings if needed
+	if(sNeedsMix == TRUE)
+	{
+		if(sMixSet == NULL)
+		{
+			sNeedsMix = FALSE;
+			return;
+		}
+		if (wlSmoothTransitionTimer.getElapsedTimeF32() >=
+			(sMixTime / 100)) //100 steps inbetween
+		{
+			wlSmoothTransitionTimer.reset();
+			mCurParams.mix(mCurParams, *sMixSet, sMixCount / 100);//.01 to 1.0
+		}
+		sMixCount++;
+		if((sMixCount / 100) == 1)
+		{
+			//All done
+			sNeedsMix = FALSE;
+			std::string wlSkyPresetName   = "(Region settings)";
+			mCurParams.mName = wlSkyPresetName;
+			removeParamSet( wlSkyPresetName, true );
+			addParamSet( wlSkyPresetName, mCurParams );
+			savePreset( wlSkyPresetName );
+			mAnimator.mIsRunning = false;
+			mAnimator.mUseLindenTime = false;
+			loadPreset( wlSkyPresetName, true );
+			sMixSet = NULL;
+		}
+	}
+}
+
+void LLWLParamManager::SetMixTime(LLWLParamSet *mixSet, F32 mixTime)
+{
+	wlSmoothTransitionTimer.reset();
+	sNeedsMix = TRUE;
+	sMixSet = mixSet;
+	sMixTime = mixTime;
+	sMixCount = 1;
 }
 
 // static

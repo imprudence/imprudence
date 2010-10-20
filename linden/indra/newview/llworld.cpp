@@ -669,7 +669,8 @@ void LLWorld::updateClouds(const F32 dt)
 {
 	static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
 	if ((*sFreezeTime) ||
-		!gSavedSettings.getBOOL("SkyUseClassicClouds"))
+		!gSavedSettings.getBOOL("SkyUseClassicClouds") ||
+		!gHippoLimits->skyUseClassicClouds)
 	{
 		// don't move clouds in snapshot mode
 		return;
@@ -828,6 +829,14 @@ void LLWorld::setLandFarClip(const F32 far_clip)
 	{
 		updateWaterObjects();
 	}
+}
+
+void LLWorld::rebuildClouds(LLViewerRegion *regionp)
+{
+	regionp->mCloudLayer.destroy();
+	regionp->mCloudLayer.create(regionp);
+	regionp->mCloudLayer.setWidth((F32)mWidth);
+	regionp->mCloudLayer.setWindPointer(&regionp->mWind);
 }
 
 // Some region that we're connected to, but not the one we're in, gave us

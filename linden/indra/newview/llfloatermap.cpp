@@ -44,6 +44,7 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 #include "panelradar.h"
+#include "hippoLimits.h"
 
 
 // [RLVa:KB]
@@ -149,7 +150,7 @@ void LLFloaterMap::draw()
 			drawChild(mPanelRadar);
 		}
 	}
-	else
+	else if (gHippoLimits->mAllowMinimap) //Check for if minimap is blocked
 	{
 		setMouseOpaque(TRUE);
 		getDragHandle()->setMouseOpaque(TRUE);
@@ -214,7 +215,6 @@ void LLFloaterMap::setRadarButtonState( bool showing_radar )
 		}
 	}
 }
-
 
 void LLFloaterMap::adjustLayout( bool expand )
 {

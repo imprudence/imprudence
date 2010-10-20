@@ -100,6 +100,8 @@ void LLHomeLocationResponder::result( const LLSD& content )
 		
     LLViewerRegion *viewer_region = gAgent.getRegion();
     gAgent.setHomePosRegion( viewer_region->getHandle(), agent_pos );
+    gAgent.takeHomeScreenshot();
+	
   }
 }
 

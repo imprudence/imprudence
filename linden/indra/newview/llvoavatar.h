@@ -148,6 +148,7 @@ public:
 	void clampAttachmentPositions();
 	S32 getAttachmentCount(); // Warning: order(N) not order(1)
 
+
 	// HUD functions
 	BOOL hasHUDAttachment() const;
 	LLBBox getHUDBBox() const;

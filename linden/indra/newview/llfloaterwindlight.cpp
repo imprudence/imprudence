@@ -63,6 +63,9 @@
 #include "llwlparamset.h"
 #include "llwlparammanager.h"
 #include "llpostprocess.h"
+#include "wlfloaterwindlightsend.h"
+#include "llworld.h"
+#include "hippolimits.h"
 
 #undef max
 
@@ -216,7 +219,9 @@ void LLFloaterWindLight::initCallbacks(void) {
 	childSetCommitCallback("WLCloudScrollX", onCloudScrollXMoved, NULL);
 	childSetCommitCallback("WLCloudScrollY", onCloudScrollYMoved, NULL);
 	childSetCommitCallback("WLDistanceMult", onFloatControlMoved, &param_mgr->mDistanceMult);
-	childSetCommitCallback("DrawClassicClouds", LLSavedSettingsGlue::setBOOL, (void*)"SkyUseClassicClouds");
+	childSetCommitCallback("DrawClassicClouds", onCloudDrawToggled, NULL);
+	childSetCommitCallback("WLCloudHeight", onCloudHeightMoved, NULL);
+	childSetCommitCallback("WLCloudRange", onCloudRangeMoved, NULL);
 
 	// WL Top
 	childSetAction("WLDayCycleMenuButton", onOpenDayCycle, NULL);
@@ -425,7 +430,21 @@ void LLFloaterWindLight::syncMenu()
 	bool lockY = !param_mgr->mCurParams.getEnableCloudScrollY();
 	childSetValue("WLCloudLockX", lockX);
 	childSetValue("WLCloudLockY", lockY);
-	childSetValue("DrawClassicClouds", gSavedSettings.getBOOL("SkyUseClassicClouds"));
+	childSetValue("DrawClassicClouds", gHippoLimits->skyUseClassicClouds);
+
+	childSetValue("WLCloudHeight", gSavedSettings.getF32("ClassicCloudHeight"));
+	childSetValue("WLCloudRange", gSavedSettings.getF32("ClassicCloudRange"));
+
+	if(!gHippoLimits->skyUseClassicClouds)
+	{
+		childDisable("WLCloudHeight");
+		childDisable("WLCloudRange");
+	}
+	else
+	{
+		childEnable("WLCloudHeight");
+		childEnable("WLCloudRange");
+	}
 	
 	// disable if locked, enable if not
 	if(lockX) 
@@ -874,6 +893,12 @@ void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 			
 		}
 	}
+	else if (ctrl->getValue().asString() == "send_to_server_item")
+	{
+		//Open the other box
+		WLFloaterWindLightSend::instance();
+		WLFloaterWindLightSend::instance()->open();
+	}
 	else
 	{
 		// check to see if it's a default and shouldn't be overwritten
@@ -1045,6 +1070,35 @@ void LLFloaterWindLight::onCloudScrollYMoved(LLUICtrl* ctrl, void* userData)
 
 	// *HACK  all cloud scrolling is off by an additive of 10. 
 	LLWLParamManager::instance()->mCurParams.setCloudScrollY(sldrCtrl->getValueF32() + 10.0f);
+}
+void LLFloaterWindLight::onCloudDrawToggled(LLUICtrl* ctrl, void* userData)
+{
+	LLCheckBoxCtrl* cbCtrl = static_cast<LLCheckBoxCtrl*>(ctrl);
+
+	bool lock = cbCtrl->get();
+	gHippoLimits->skyUseClassicClouds = lock;
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+}
+
+void LLFloaterWindLight::onCloudHeightMoved(LLUICtrl* ctrl, void* userData)
+{
+	deactivateAnimator();
+
+	LLSliderCtrl* sldrCtrl = static_cast<LLSliderCtrl*>(ctrl);
+
+	gSavedSettings.setF32("ClassicCloudHeight", sldrCtrl->getValueF32());
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+}
+
+void LLFloaterWindLight::onCloudRangeMoved(LLUICtrl* ctrl, void* userData)
+{
+	deactivateAnimator();
+
+	LLSliderCtrl* sldrCtrl = static_cast<LLSliderCtrl*>(ctrl);
+
+	gSavedSettings.setF32("ClassicCloudRange", sldrCtrl->getValueF32());
 }
 
 void LLFloaterWindLight::onCloudScrollXToggled(LLUICtrl* ctrl, void* userData)

@@ -268,7 +268,7 @@ void LLViewerInventoryItem::packMessage(LLMessageSystem* msg) const
 	msg->addU32Fast(_PREHASH_Flags, mFlags);
 	mSaleInfo.packMessage(msg);
 	msg->addStringFast(_PREHASH_Name, mName);
-	msg->addStringFast(_PREHASH_Description, mDescription);
+		msg->addStringFast(_PREHASH_Description, mDescription);
 	msg->addS32Fast(_PREHASH_CreationDate, mCreationDate);
 	U32 crc = getCRC32();
 	msg->addU32Fast(_PREHASH_CRC, crc);

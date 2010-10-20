@@ -52,6 +52,7 @@
 #include "lluictrlfactory.h"
 #include "llvfile.h"
 #include "message.h"
+#include "hippoGridManager.h"
 
 
 // static 
@@ -140,32 +141,57 @@ BOOL LLFloaterTOS::postBuild()
 	childSetAction("Cancel", onCancel, this);
 	childSetCommitCallback("agree_chk", updateAgree, this);
 
-	if ( mType != TOS_TOS )
+	LLCheckBoxCtrl* tos_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
+	tos_agreement->setEnabled( true );
+	
+	//Always set this so that the TOS is displayed whether the web browser pops up or not.
+	LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
+	editor->setHandleEditKeysDirectly( TRUE );
+	editor->setEnabled( FALSE );
+	editor->setWordWrap(TRUE);
+	editor->setFocus(TRUE);
+	editor->setValue(LLSD(mMessage));
+	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("tos_html");
+	if (web_browser)
 	{
-		llinfos << "tos_type != TOS_TOS" << llendl;
-		// this displays the critical message
-		LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
-		editor->setHandleEditKeysDirectly( TRUE );
-		editor->setEnabled( FALSE );
-		editor->setWordWrap(TRUE);
-		editor->setFocus(TRUE);
-		// editor->setValue(LLSD(mMessage));
-		editor->setValue(mMessage);
-
-		return TRUE;
+		//Disable for critical messages and text messages, it is reenabled later
+		web_browser->setVisible( FALSE );
 	}
 
-	// disable Agree to TOS radio button until the page has fully loaded
-	LLCheckBoxCtrl* tos_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
-	tos_agreement->setEnabled( false );
-
-	// hide the SL text widget if we're displaying TOS with using a browser widget.
-	LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
-	editor->setVisible(FALSE);
-
-	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("tos_html");
-	if ( web_browser )
+	if ( mType != TOS_TOS )
 	{
+		// this displays the critical message only
+		return TRUE;
+	}
+	bool use_web_browser = false;
+
+	//Check to see if the message is a link to display
+	std::string token = "http://";
+	std::string::size_type iIndex = mMessage.rfind(token);
+	//IF it has http:// in it, we use the web browser
+	if(iIndex != std::string::npos && mMessage.length() >= 2)
+	{
+		// it exists
+		use_web_browser = true;
+	}
+	else if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+	{
+		//Its SL, use the browser for it as thats what it should do
+		use_web_browser = true;
+	}
+
+	if ( web_browser && use_web_browser)
+	{
+		// hide the SL text widget if we're displaying TOS with using a browser widget.
+		LLTextEditor *editor = getChild<LLTextEditor>("tos_text");
+		editor->setVisible( FALSE );
+
+		// disable Agree to TOS radio button until the page has fully loaded
+		tos_agreement->setEnabled( false );
+
+		// Reenable the web browser
+		web_browser->setVisible( TRUE );
+
 		// start to observe it so we see navigate complete events
 		web_browser->addObserver( this );
 

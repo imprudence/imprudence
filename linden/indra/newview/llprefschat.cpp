@@ -72,6 +72,7 @@ private:
 	BOOL mShowTimestamps;
 	BOOL mPlayTypingAnim;
 	BOOL mChatBubbles;
+	BOOL mLocalChatBubbles;
 	BOOL mScriptErrorAsChat;
 	BOOL mChatChannel;
 	F32	mConsoleOpacity;
@@ -106,6 +107,7 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
  
 	childSetValue("bubble_text_chat", gSavedSettings.getBOOL("UseChatBubbles"));
+	childSetValue("local_bubble_text_chat", gSavedSettings.getBOOL("UseLocalChatWithBubbles"));
 	childSetValue("chat_full_width_check", gSavedSettings.getBOOL("ChatFullWidth"));
 	childSetValue("close_chat_on_return_check", gSavedSettings.getBOOL("CloseChatOnReturn"));
 	childSetValue("play_typing_animation", gSavedSettings.getBOOL("PlayTypingAnim"));
@@ -135,6 +137,7 @@ void LLPrefsChatImpl::refreshValues()
 	mShowTimestamps = gSavedSettings.getBOOL("ChatShowTimestamps");
 	mScriptErrorAsChat = gSavedSettings.getBOOL("ScriptErrorsAsChat");
 	mChatBubbles = gSavedSettings.getBOOL("UseChatBubbles");
+	mLocalChatBubbles = gSavedSettings.getBOOL("UseLocalChatWithBubbles");
 	mChatFullWidth = gSavedSettings.getBOOL("ChatFullWidth");
 	mCloseChatOnReturn = gSavedSettings.getBOOL("CloseChatOnReturn");
 	mPlayTypingAnim = gSavedSettings.getBOOL("PlayTypingAnim"); 
@@ -164,6 +167,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setBOOL("ChatShowTimestamps", mShowTimestamps);
 	gSavedSettings.setBOOL("ScriptErrorsAsChat", mScriptErrorAsChat);
 	gSavedSettings.setBOOL("UseChatBubbles", mChatBubbles);
+	gSavedSettings.setBOOL("UseLocalChatWithBubbles", mLocalChatBubbles);
 	gSavedSettings.setBOOL("ChatFullWidth", mChatFullWidth);
 	gSavedSettings.setBOOL("CloseChatOnReturn", mCloseChatOnReturn);
 	gSavedSettings.setBOOL("PlayTypingAnim", mPlayTypingAnim); 
@@ -196,6 +200,7 @@ void LLPrefsChatImpl::apply()
 	gSavedSettings.setBOOL("ChatShowTimestamps", childGetValue("show_timestamps_check"));
 	gSavedSettings.setBOOL("ScriptErrorsAsChat", childGetValue("script_errors_as_chat"));
 	gSavedSettings.setBOOL("UseChatBubbles", childGetValue("bubble_text_chat"));
+	gSavedSettings.setBOOL("UseLocalChatWithBubbles", childGetValue("local_bubble_text_chat"));
 	gSavedSettings.setBOOL("ChatFullWidth", childGetValue("chat_full_width_check"));
 	gSavedSettings.setBOOL("CloseChatOnReturn", childGetValue("close_chat_on_return_check"));
 	gSavedSettings.setBOOL("PlayTypingAnim", childGetValue("play_typing_animation"));

@@ -30,6 +30,12 @@
 #include "hippoLimits.h"
 #include "llfloatertools.h"
 #include "llviewercontrol.h"
+#include "llagent.h"
+#include "llsurface.h"
+#include "llviewerregion.h"
+#include "llviewerobject.h"
+#include "llfloaterregioninfo.h"
+#include "llfloaterworldmap.h"
 
 //DEBUG includes
 //#include "llsdserialize.h" //LLSDNotationStreamer - for dumping LLSD to string
@@ -62,19 +68,20 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 
 		if ( body.has("AllowMinimap") )
 		{
-			//IMPLEMENT ME
+			gHippoLimits->mAllowMinimap = body["AllowMinimap"].asInteger() == 1;
 		}
 		if ( body.has("AllowPhysicalPrims") )
 		{
-			//IMPLEMENT ME
+			gHippoLimits->mAllowPhysicalPrims = body["AllowPhysicalPrims"].asInteger() == 1;
+			limitschanged = TRUE;
 		}
 		if ( body.has("DrawDistance") )
 		{
-			//IMPLEMENT ME
+			gAgent.mDrawDistance = body["DrawDistance"].asReal();
 		}
 		if ( body.has("ForceDrawDistance") )
 		{
-			//IMPLEMENT ME
+			gAgent.mLockedDrawDistance = body["ForceDrawDistance"].asInteger() == 1;
 		}
 		if ( body.has("LSLFunctions") )
 		{
@@ -82,19 +89,23 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 		if ( body.has("MaxDragDistance") )
 		{
-			//IMPLEMENT ME
+			gHippoLimits->mMaxDragDistance = body["MaxDragDistance"].asReal();
 		}
 		if ( body.has("MinHoleSize") )
 		{
+			//Note: does NOT update correctly
 			gHippoLimits->mMinHoleSize = body["MinHoleSize"].asReal();
+			limitschanged = TRUE;
 		}
 		if ( body.has("MaxHollowSize") )
 		{
+			//Note: does NOT update correctly
 			gHippoLimits->mMaxHollow = body["MaxHollowSize"].asReal();
+			limitschanged = TRUE;
 		}
 		if ( body.has("MaxInventoryItemsTransfer") )
 		{
-			//IMPLEMENT ME
+			gHippoLimits->mMaxInventoryItemsTransfer = body["MaxInventoryItemsTransfer"].asReal();
 		}
 		if ( body.has("MaxLinkCount") )
 		{
@@ -102,22 +113,28 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 		if ( body.has("MaxLinkCountPhys") )
 		{
-			//IMPLEMENT ME
-		}
-		if ( body.has("MaxPhysPrimScale") )
-		{
-			//IMPLEMENT ME
+			gHippoLimits->mMaxPhysLinkedPrims = body["MaxLinkCountPhys"].asInteger();
 		}
 		if ( body.has("MaxPos") )
 		{
-			//IMPLEMENT ME
+			gHippoLimits->mMaxPrimXPos = body["MaxPosX"].asReal();
+			gHippoLimits->mMaxPrimYPos = body["MaxPosY"].asReal();
+			gHippoLimits->mMaxPrimZPos = body["MaxPosZ"].asReal();
+			limitschanged = TRUE;
+		}
+		if ( body.has("MinPos") )
+		{
+			gHippoLimits->mMinPrimXPos = body["MinPosX"].asReal();
+			gHippoLimits->mMinPrimYPos = body["MinPosY"].asReal();
+			gHippoLimits->mMinPrimZPos = body["MinPosZ"].asReal();
+			limitschanged = TRUE;
 		}
 		if ( body.has("MaxPrimScale") )
 		{
 			gHippoLimits->mMaxPrimScale = body["MaxPrimScale"].asReal();
 			limitschanged = TRUE;
 		}
-		if ( body.has("MinPos") )
+		if ( body.has("MaxPhysPrimScale") )
 		{
 			//IMPLEMENT ME
 		}
@@ -128,32 +145,69 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 		if ( body.has("OffsetOfUTC") )
 		{
-			//IMPLEMENT ME
+			gSavedSettings.setS32("TimeOffset", body["OffsetOfUTC"].asReal());
+			gSavedSettings.setBOOL("UseTimeOffset", true);
+		}
+		if ( body.has("OffsetOfUTCDST") )
+		{
+			gSavedSettings.setBOOL("TimeOffsetDST", body["OffsetOfUTCDST"].asInteger() == 1 ? TRUE : FALSE);
 		}
 		if ( body.has("RenderWater") )
 		{
-			gSavedSettings.setBOOL("RenderWater", body["RenderWater"].asBoolean());
+			gHippoLimits->mRenderWater = body["RenderWater"].asInteger() == 1 ? TRUE : FALSE;
+			gAgent.getRegion()->rebuildWater();
 		}
 		if ( body.has("SayDistance") )
 		{
-			//IMPLEMENT ME
+			gSavedSettings.setU32("ChatDistance", body["SayDistance"].asReal());
 		}
 		if ( body.has("ShoutDistance") )
 		{
 			//IMPLEMENT ME
 		}
-		if ( body.has("ToggleTeenMode") )
-		{
-			gSavedSettings.setBOOL("ToggleTeenMode", body["ToggleTeenMode"].asBoolean());
-
-		}
 		if ( body.has("WhisperDistance") )
 		{
 			//IMPLEMENT ME
 		}
+		if ( body.has("ToggleTeenMode") )
+		{
+			gHippoLimits->mEnableTeenMode = body["ToggleTeenMode"].asInteger() == 1 ? TRUE : FALSE;
+		}
+		if ( body.has("SetTeenMode") )
+		{
+			gAgent.setTeen( body["SetTeenMode"].asInteger() == 1 ? TRUE : FALSE );
+			LLFloaterWorldMap::reloadIcons(NULL);
+			llinfos << "PG status set to " << (S32)gAgent.isTeen() << llendl;
+		}
+		if ( body.has("ShowTags") )
+		{
+			gHippoLimits->mRenderName = body["ShowTags"].asReal();
+		}
+		if ( body.has("EnforceMaxBuild") )
+		{
+			gHippoLimits->mEnforceMaxBuild = body["EnforceMaxBuild"].asInteger() == 1 ? TRUE : FALSE;
+			limitschanged = TRUE;
+		}
+		if ( body.has("MaxGroups") )
+		{
+			gHippoLimits->mMaxAgentGroups = body["MaxGroups"].asReal();
+		}
+		if ( body.has("AllowParcelWindLight") )
+		{
+			gHippoLimits->mAllowParcelWindLight = body["AllowParcelWindLight"].asInteger() == 1;
+		}
 
 		if (limitschanged)
 			gFloaterTools->updateToolsSizeLimits();
+
+		//Update the floater if its around
+		LLPanelRegionOpenSettingsInfo* floater;
+		floater = LLFloaterRegionInfo::getPanelOpenSettings();
+
+		if(floater != NULL)
+		{
+			floater->refreshFromRegion(gAgent.getRegion());
+		}
 	}
 };
 

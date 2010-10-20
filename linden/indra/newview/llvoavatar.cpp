@@ -94,7 +94,7 @@
 #include "boost/lexical_cast.hpp"
 #endif
 #include "hippoLimits.h"// getMaxPrimScale
-
+#include "llstartup.h"
 // [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
@@ -3665,7 +3665,6 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 					line = RlvStrings::getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
 				}
 // [/RLVa:KB]
-
 
 				BOOL need_comma = FALSE;
 
