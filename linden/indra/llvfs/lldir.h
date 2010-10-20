@@ -92,7 +92,7 @@ class LLDir
 	const std::string &getAppRODataDir() const;	// Location of read-only data files
 	const std::string &getOSUserDir() const;		// Location of the os-specific user dir
 	const std::string &getOSUserAppDir() const;	// Location of the os-specific user app dir
-	const std::string &getLindenUserDir() const;	// Location of the Linden user dir.
+	const std::string &getLindenUserDir(bool empty_ok = false) const;	// Location of the Linden user dir.
 	const std::string &getChatLogsDir() const;	// Location of the chat logs dir.
 	const std::string &getPerAccountChatLogsDir() const;	// Location of the per account chat logs dir.
 	const std::string &getTempDir() const;			// Common temporary directory

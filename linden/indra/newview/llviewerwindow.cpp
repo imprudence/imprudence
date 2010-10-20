@@ -1652,7 +1652,7 @@ void LLViewerWindow::adjustControlRectanglesForFirstUse(const LLRect& window)
 	adjust_rect_top_center("FloaterCameraRect3", window);
 }
 
-void LLViewerWindow::initWorldUI()
+void LLViewerWindow::pre_initWorldUI()
 {
 	pre_init_menus();
 
@@ -1672,8 +1672,44 @@ void LLViewerWindow::initWorldUI()
 	gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
 	gHoverView->setVisible(TRUE);
 	mRootView->addChild(gHoverView);
-		
+
 	gIMMgr = LLIMMgr::getInstance();
+
+	// Make sure we only create menus once per session -- MC
+	if (!gMenuHolder)
+	{
+		init_menus();
+	}
+
+	if (!gFloaterTools)
+	{
+		gFloaterTools = new LLFloaterTools();
+		gFloaterTools->setVisible(FALSE);
+	}
+
+	// menu holder appears on top to get first pass at all mouse events
+
+	mRootView->sendChildToFront(gMenuHolder);
+
+	if ( gHUDView == NULL )
+	{
+		LLRect hud_rect = full_window;
+		hud_rect.mBottom += 50;
+		if (gMenuBarView)
+		{
+			hud_rect.mTop -= gMenuBarView->getRect().getHeight();
+		}
+		gHUDView = new LLHUDView(hud_rect);
+		// put behind everything else in the UI
+		mRootView->addChildAtEnd(gHUDView);
+	}
+}
+
+void LLViewerWindow::initWorldUI()
+{
+	S32 height = mRootView->getRect().getHeight();
+	S32 width = mRootView->getRect().getWidth();
+	LLRect full_window(0, height, width, 0);
 
 	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
 	{
@@ -1715,18 +1751,6 @@ void LLViewerWindow::initWorldUI()
 
 	// Toolbox floater
 
-	// Make sure we only create menus once per session -- MC
-	if (!gMenuHolder)
-	{
-		init_menus();
-	}
-
-	if (!gFloaterTools)
-	{
-		gFloaterTools = new LLFloaterTools();
-		gFloaterTools->setVisible(FALSE);
-	}
-
 	if (!gStatusBar)
 	{
 		// Status bar
@@ -1744,24 +1768,6 @@ void LLViewerWindow::initWorldUI()
 	}
 
 	LLFloaterChatterBox::createInstance(LLSD());
-
-
-	// menu holder appears on top to get first pass at all mouse events
-
-	mRootView->sendChildToFront(gMenuHolder);
-
-	if ( gHUDView == NULL )
-	{
-		LLRect hud_rect = full_window;
-		hud_rect.mBottom += 50;
-		if (gMenuBarView)
-		{
-			hud_rect.mTop -= gMenuBarView->getRect().getHeight();
-		}
-		gHUDView = new LLHUDView(hud_rect);
-		// put behind everything else in the UI
-		mRootView->addChildAtEnd(gHUDView);
-	}
 }
 
 // Destroy the UI

@@ -143,6 +143,7 @@ public:
 	void			initBase();
 	void			adjustRectanglesForFirstUse(const LLRect& window);
 	void            adjustControlRectanglesForFirstUse(const LLRect& window);
+	void			pre_initWorldUI();
 	void			initWorldUI();
 
 	//

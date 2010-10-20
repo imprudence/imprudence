@@ -192,8 +192,9 @@ const std::string &LLDir::getOSUserAppDir() const
 	return mOSUserAppDir;
 }
 
-const std::string &LLDir::getLindenUserDir() const
+const std::string &LLDir::getLindenUserDir(bool empty_ok) const
 {
+	llassert(empty_ok || !mLindenUserDir.empty());
 	return mLindenUserDir;
 }
 

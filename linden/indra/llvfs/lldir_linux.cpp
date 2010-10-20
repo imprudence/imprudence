@@ -97,7 +97,7 @@ LLDir_Linux::LLDir_Linux()
 	mAppRODataDir = tmp_str;
 	mOSUserDir = getCurrentUserHome(tmp_str);
 	mOSUserAppDir = "";
-	mLindenUserDir = tmp_str;
+	mLindenUserDir = "";
 
 	char path [32];	/* Flawfinder: ignore */ 
 

@@ -839,7 +839,7 @@ bool idle_startup()
 			LLToolMgr::getInstance()->initTools();
 
 			// Quickly get something onscreen to look at.
-			gViewerWindow->initWorldUI();
+			gViewerWindow->pre_initWorldUI();
 		}
 		
 		gViewerWindow->setNormalControlsVisible( FALSE );	
@@ -1823,6 +1823,10 @@ bool idle_startup()
 	{
 		LL_DEBUGS("AppInitStartupState") << "STATE_WORLD_INIT" << LL_ENDL;
 		set_startup_status(0.40f, LLTrans::getString("LoginInitializingWorld"), gAgent.mMOTD);
+
+		// Initialize the rest of the world.
+		gViewerWindow->initWorldUI();
+
 		gDisconnected=FALSE;
 		display_startup();
 		// We should have an agent id by this point.

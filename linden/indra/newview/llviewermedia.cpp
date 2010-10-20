@@ -471,7 +471,7 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 		// at the login page displaying login Web page or Web browser test via Develop menu.
 		// In this case we just use whatever gDirUtilp->getOSUserAppDir() gives us (this
 		// is what we always used before this change)
-		std::string linden_user_dir = gDirUtilp->getLindenUserDir();
+		std::string linden_user_dir = gDirUtilp->getLindenUserDir(true);
 		if ( ! linden_user_dir.empty() )
 		{
 			// gDirUtilp->getLindenUserDir() is whole path, not just Linden name
