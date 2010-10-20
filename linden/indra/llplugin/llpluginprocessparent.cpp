@@ -408,6 +408,17 @@ void LLPluginProcessParent::idle(void)
 						mDebugger.addArgument("end tell");
 						mDebugger.launch();
 
+						#elif LL_LINUX
+
+						std::stringstream cmd;
+
+						mDebugger.setExecutable("/usr/bin/gnome-terminal");
+						mDebugger.addArgument("--geometry=165x24-0+0");
+						mDebugger.addArgument("-e");
+						cmd << "/usr/bin/gdb -n /proc/" << mProcess.getProcessID() << "/exe " << mProcess.getProcessID();
+						mDebugger.addArgument(cmd.str());
+						mDebugger.launch();
+
 						#endif
 					}
 					

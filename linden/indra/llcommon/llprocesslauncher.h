@@ -80,6 +80,9 @@ private:
 	HANDLE mProcessHandle;
 #else
 	pid_t mProcessID;
+
+public:
+	pid_t getProcessID() const { return mProcessID; }
 #endif
 };
 
