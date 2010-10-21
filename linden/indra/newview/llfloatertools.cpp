@@ -528,14 +528,54 @@ void LLFloaterTools::refresh()
 	mTab->enableTabButton(idx_face, all_volume);
 	mTab->enableTabButton(idx_contents, all_volume);
 
-	// Refresh object and prim count labels
-	LLLocale locale(LLLocale::USER_LOCALE);
-	std::string obj_count_string;
-	LLResMgr::getInstance()->getIntegerString(obj_count_string, LLSelectMgr::getInstance()->getSelection()->getRootObjectCount());
-	childSetTextArg("obj_count",  "[COUNT]", obj_count_string);	
-	std::string prim_count_string;
-	LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
-	childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+	// Added in Link Num value -HgB
+    if (gSavedSettings.getBOOL("EditLinkedParts") && LLSelectMgr::getInstance()->getEditSelection()->getObjectCount() == 1) //Selecting a single prim in "Edit Linked" mode, show link number
+    {
+		childSetVisible("obj_count", FALSE);
+		childSetVisible("prim_count", FALSE);
+		childSetVisible("link_num", TRUE);
+
+		std::string value_string = "";
+		LLViewerObject* selected = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+		if (selected && selected->getRootEdit())
+		{
+			LLViewerObject::child_list_t children = selected->getRootEdit()->getChildren();
+			if (children.empty())
+			{
+				// An unlinked prim is "link 0".
+				value_string = "0";
+			}
+			else 
+			{
+				children.push_front(selected->getRootEdit()); // need root in the list too
+				S32 index = 0;
+				for (LLViewerObject::child_list_t::iterator iter = children.begin(); iter != children.end(); ++iter)
+				{
+					index++;
+					if ((*iter)->isSelected())
+					{
+						LLResMgr::getInstance()->getIntegerString(value_string, index);
+						break;
+					}
+				}
+			}
+		}
+		childSetTextArg("link_num", "[NUMBER]", value_string);
+	}
+	else
+	{
+		// Refresh object and prim count labels
+		childSetVisible("obj_count", TRUE);
+		childSetVisible("prim_count", TRUE);
+		childSetVisible("link_num", FALSE);
+		LLLocale locale(LLLocale::USER_LOCALE);
+		std::string obj_count_string;
+		LLResMgr::getInstance()->getIntegerString(obj_count_string, LLSelectMgr::getInstance()->getSelection()->getRootObjectCount());
+		childSetTextArg("obj_count",  "[COUNT]", obj_count_string);	
+		std::string prim_count_string;
+		LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
+		childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+	}
 
 	updateToolsPrecision();
 
@@ -887,8 +927,15 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Strength:", land_visible);
 	}
 
-	childSetVisible("obj_count", !land_visible);
-	childSetVisible("prim_count", !land_visible);
+	if (gSavedSettings.getBOOL("EditLinkedParts"))
+	{
+		childSetVisible("link_num", !land_visible);
+	}
+	else
+	{
+		childSetVisible("obj_count", !land_visible);
+		childSetVisible("prim_count", !land_visible);
+	}
 	mTab->setVisible(!land_visible);
 	mPanelLandInfo->setVisible(land_visible);
 }

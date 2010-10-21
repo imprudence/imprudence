@@ -38,8 +38,8 @@
 #include "llcheckboxctrl.h"
 #include "pipeline.h"
 
-// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
-#include "llagent.h"
+// [RLVa:KB]
+#include "rlvhandler.h"
 // [/RLVa:KB]
 
 LLFloaterBeacons::LLFloaterBeacons(const LLSD& seed)

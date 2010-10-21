@@ -81,6 +81,10 @@
 #include "llviewerwindow.h"
 #include "llvlcomposition.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #define ELAR_ENABLED 0 // Enable when server support is implemented
 
 const S32 TERRAIN_TEXTURE_COUNT = 4;

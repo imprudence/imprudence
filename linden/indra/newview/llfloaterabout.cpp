@@ -61,6 +61,10 @@
 #include "llwindow.h"
 #include "viewerversion.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #if LL_WINDOWS
 #include "lldxhardware.h"
 #endif
@@ -134,7 +138,7 @@ LLFloaterAbout::LLFloaterAbout()
 #endif
 
 #if LL_GNUC
-    support.append(llformat("Built with GCC version %d\n\n", GCC_VERSION));
+	support.append(llformat("Built with GCC version %s\n\n", __VERSION__));
 #endif
 
 	// Position
@@ -142,7 +146,7 @@ LLFloaterAbout::LLFloaterAbout()
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-04 (RLVa-1.0.0a)
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 	{
-		support.append(rlv_handler_t::cstrHidden);
+		support.append(RlvStrings::getString(RLV_STRING_HIDDEN));
 		support.append("\n\n");
 	}
 	else if (region)

@@ -241,10 +241,8 @@ void init_debug_ui_menu(LLMenuGL* menu);
 void init_debug_xui_menu(LLMenuGL* menu);
 void init_debug_avatar_menu(LLMenuGL* menu);
 void init_debug_baked_texture_menu(LLMenuGL* menu);
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
-#ifdef RLV_DEBUG_TESTS
-	#include "rlvtest.h"
-#endif // RLV_DEBUG_TESTS
+// [RLVa:KB]
+#include "rlvhandler.h"
 #include "rlvfloaterbehaviour.h"
 void init_debug_rlva_menu(LLMenuGL* menu);
 // [/RLVa:KB]
@@ -860,7 +858,7 @@ void init_client_menu(LLMenuGL* menu)
 	init_debug_world_menu(sub_menu);
 	menu->appendMenu(sub_menu);
 
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1b
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1b
 	#ifdef RLV_ADVANCED_MENU
 		if (rlv_handler_t::isEnabled())
 		{
@@ -970,7 +968,7 @@ void init_client_menu(LLMenuGL* menu)
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-1.0.0e
 	#ifdef RLV_ADVANCED_TOGGLE_RLVA
 		if (gSavedSettings.controlExists(RLV_SETTING_MAIN))
-			menu->append(new LLMenuItemCheckGL("Restrained Life API", &rlvToggleEnabled, NULL, &rlvGetEnabled, NULL));
+			menu->append(new LLMenuItemCheckGL("RestrainedLove API", &rlvToggleEnabled, NULL, &rlvGetEnabled, NULL));
 	#endif // RLV_ADVANCED_TOGGLE_RLVA
 // [/RLVa:KB]
 
@@ -1433,7 +1431,7 @@ void init_debug_baked_texture_menu(LLMenuGL* menu)
 	menu->createJumpKeys();
 }
 
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-11-17 (RLVa-1.1.0d) | Modified: RLVa-1.1.0d
 void init_debug_rlva_menu(LLMenuGL* menu)
 {
 	// Debug options
@@ -1442,26 +1440,31 @@ void init_debug_rlva_menu(LLMenuGL* menu)
 
 		if (gSavedSettings.controlExists(RLV_SETTING_DEBUG))
 			pDbgMenu->append(new LLMenuItemCheckGL("Show Debug Messages", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_DEBUG));
+		pDbgMenu->append(new LLMenuItemCallGL("Dump Attachment Locks", RlvHandler::dumpAttachmentLocks, NULL, NULL));
 		pDbgMenu->appendSeparator();
 		if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
 			pDbgMenu->append(new LLMenuItemCheckGL("Enable Legacy Naming", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLELEGACYNAMING));
+		if (gSavedSettings.controlExists(RLV_SETTING_SHAREDINVAUTORENAME))
+			pDbgMenu->append(new LLMenuItemCheckGL("Rename Shared Items on Wear", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_SHAREDINVAUTORENAME));
 
 		menu->appendMenu(pDbgMenu);
 		menu->appendSeparator();
 	}
 
-	#ifdef RLV_EXTENSION_ENABLE_WEAR
-		if (gSavedSettings.controlExists(RLV_SETTING_ENABLEWEAR))
-			menu->append(new LLMenuItemCheckGL("Enable Wear", menu_toggle_control, rlvEnableWearEnabler, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
-		menu->appendSeparator();
-	#endif // RLV_EXTENSION_ENABLE_WEAR
+	if (gSavedSettings.controlExists(RLV_SETTING_ENABLEWEAR))
+		menu->append(new LLMenuItemCheckGL("Enable Default Wear", menu_toggle_control, rlvEnableWearEnabler, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
+#ifndef RLV_WORKAROUND_REZMULTIPLEATTACH
+	if (gSavedSettings.controlExists(RLV_SETTING_ENABLESHAREDWEAR))
+		menu->append(new LLMenuItemCheckGL("Enable Shared Wear", menu_toggle_control, rlvEnableSharedWearEnabler, menu_check_control, (void*)RLV_SETTING_ENABLESHAREDWEAR));
+#endif // RLV_WORKAROUND_REZMULTIPLEATTACH
+	menu->appendSeparator();
 
 	#ifdef RLV_EXTENSION_HIDELOCKED
 		if ( (gSavedSettings.controlExists(RLV_SETTING_HIDELOCKEDLAYER)) && 
 			 (gSavedSettings.controlExists(RLV_SETTING_HIDELOCKEDATTACH)) )
 		{
-			menu->append(new LLMenuItemCheckGL("Hide locked layers", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_HIDELOCKEDLAYER));
-			menu->append(new LLMenuItemCheckGL("Hide locked attachments", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_HIDELOCKEDATTACH));
+			menu->append(new LLMenuItemCheckGL("Hide Locked Layers", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_HIDELOCKEDLAYER));
+			menu->append(new LLMenuItemCheckGL("Hide Locked Attachments", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_HIDELOCKEDATTACH));
 			//sub_menu->append(new LLMenuItemToggleGL("Hide locked inventory", &rlv_handler_t::fHideLockedInventory));
 			menu->appendSeparator();
 		}
@@ -1662,13 +1665,10 @@ class LLObjectTouch : public view_listener_t
 
 		LLPickInfo pick = LLToolPie::getInstance()->getPick();
 
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-		// TODO-RLVa: this code is rather redundant since we'll never get an active selection to show a pie menu for
-		// [msg->addVector3("Position", pick.mIntersection) <- see llDetectedTouchPos()]
-		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!object->isAttachment()) || (!object->permYouOwner())) &&
-			 (dist_vec_squared(gAgent.getPositionAgent(), pick.mIntersection) > 1.5f * 1.5f)	)
+// [RLVa:KB] - Checked: 2010-01-01 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+		if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.canTouch(object, pick.mObjectOffset)) )
 		{
-			return true;	// Can't touch in-world objects (or other avie's attachments) farther than 1.5m away under @fartouch=n
+			return true;
 		}
 // [/RLVa:KB]
 
@@ -1720,12 +1720,10 @@ class LLObjectEnableTouch : public view_listener_t
 	{
 		LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
 		bool new_value = obj && obj->flagHandleTouch();
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-		// TODO-RLVa: this code is rather redundant since we'll never get an active selection to show a pie menu for
-		if ( (new_value) && (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!obj->isAttachment()) || (!obj->permYouOwner())) &&
-			 (dist_vec_squared(gAgent.getPositionAgent(), LLToolPie::getInstance()->getPick().mIntersection) > 1.5f * 1.5f)	)
+// [RLVa:KB] - Version: 1.23.4 | Checked: 2010-01-01 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+		if ( (new_value) && (rlv_handler_t::isEnabled()) && (!gRlvHandler.canTouch(obj, LLToolPie::getInstance()->getPick().mObjectOffset)) )
 		{
-			new_value = false;	// Can't touch in-world objects (or other avie's attachments) farther than 1.5m away under @fartouch=n
+			new_value = false;
 		}
 // [/RLVa:KB]
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
@@ -2681,7 +2679,7 @@ class LLAvatarFreeze : public view_listener_t
 				LLSD args;
 //				args["AVATAR_NAME"] = fullname;
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
-				args["AVATAR_NAME"] = (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : gRlvHandler.getAnonym(fullname);
+				args["AVATAR_NAME"] = (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : RlvStrings::getAnonym(fullname);
 // [/RLVa:KB]
 				LLNotifications::instance().add("FreezeAvatarFullname",
 							args,
@@ -2810,7 +2808,7 @@ class LLAvatarEject : public view_listener_t
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
 			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!fullname.empty()) )
 			{
-				fullname = gRlvHandler.getAnonym(fullname);
+				fullname = RlvStrings::getAnonym(fullname);
 			}
 // [/RLVa:KB]
 
@@ -3418,10 +3416,9 @@ bool handle_sit_or_stand()
 		return true;
 	}
 
-// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && 
-		 ( ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) && (gAgent.getAvatarObject()->mIsSitting)) ||
-		   (gRlvHandler.hasBehaviour(RLV_BHVR_SIT)) ) )
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Modified: RLVa-1.1.0j
+	// Block if we can't sit on the selected object (also handles sitting and prevented from standing up)
+	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.canSit(object, pick.mObjectOffset)) )
 	{
 		return true;
 	}
@@ -3437,15 +3434,6 @@ bool handle_sit_or_stand()
 
 	if (object && object->getPCode() == LL_PCODE_VOLUME)
 	{
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0g
-		if ( (rlv_handler_t::isEnabled()) && 
-			 ((gRlvHandler.hasBehaviour(RLV_BHVR_SITTP)) || (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH))) &&
-			 (dist_vec_squared(gAgent.getPositionGlobal(), object->getPositionGlobal() + LLVector3d(pick.mObjectOffset)) > 1.5f * 1.5f) )
-		{
-			return true;	// Don't allow sitting farther away than 1.5m under @sittp=n or @fartouch=n
-		}
-// [/RLVa:KB]
-
 		gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
 		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
@@ -3483,8 +3471,8 @@ class LLLandSit : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-		if (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT))
+// [RLVa:KB] - Checked: 2010-03-31 (RLVa-1.1.1a) | Modified: RLVa-1.2.0c
+		if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SIT))) )
 		{
 			return true;
 		}
@@ -5800,7 +5788,9 @@ class LLObjectEnableSitOrStand : public view_listener_t
 				new_value = true;
 			}
 		}
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+//		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+// [/RLVa:KB]
 
 		// Update label
 		std::string label;
@@ -5816,6 +5806,9 @@ class LLObjectEnableSitOrStand : public view_listener_t
 		if (sitting_on_selection())
 		{
 			label = stand_text;
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+			new_value &= !gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT);
+// [/RLVa:KB]
 		}
 		else
 		{
@@ -5828,8 +5821,22 @@ class LLObjectEnableSitOrStand : public view_listener_t
 			{
 				label = sit_text;
 			}
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+			if ( (rlv_handler_t::isEnabled()) && (new_value) )
+			{
+				// RELEASE-RLVa: [2009-12-22] make sure we examine the same object that handle_sit_or_stand() will request a sit for
+				const LLPickInfo& pick = LLToolPie::getInstance()->getPick();
+				if (pick.mObjectID.notNull())
+				{
+					new_value = gRlvHandler.canSit(pick.getObject(), pick.mObjectOffset);
+				}
+			}
+// [/RLVa:KB]
 		}
 		gMenuHolder->childSetText("Object Sit", label);
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+// [/RLVa:KB]
 
 		return true;
 	}
@@ -7569,6 +7576,9 @@ class LLWorldEnableTeleportHome : public view_listener_t
 		LLViewerRegion* regionp = gAgent.getRegion();
 		bool agent_on_prelude = (regionp && regionp->isPrelude());
 		bool enable_teleport_home = gAgent.isGodlike() || !agent_on_prelude;
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+		enable_teleport_home &= !gRlvHandler.hasBehaviour(RLV_BHVR_TPLM);
+// [/RLVa:KB]
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(enable_teleport_home);
 		return true;
 	}
@@ -11420,4 +11430,10 @@ void initialize_menus()
 	addMenu(new RLVaBehaviorsShow(), "RLVa.Behaviors.Show");
 // [/RLVa:KB]
 
+// [RLVa:KB] - Checked: 2010-01-18 (RLVa-1.1.0m) | Added: RLVa-1.1.0m
+	if (rlv_handler_t::isEnabled())
+	{
+		addMenu(new RlvEnableIfNot(), "RLV.EnableIfNot");
+	}
+// [/RLVa:KB]
 }

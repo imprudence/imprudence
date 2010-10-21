@@ -48,6 +48,10 @@
 #include "llviewercontrol.h"
 #include "llworld.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const S32 MIN_WIDTH = 200;
 const S32 MIN_HEIGHT = 340;
 const LLRect FLOATER_RECT(0, 380, 240, 0);

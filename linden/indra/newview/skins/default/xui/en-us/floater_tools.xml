@@ -321,6 +321,12 @@
        mouse_opaque="true" name="prim_count" v_pad="0" width="143">
     Primitives: [COUNT]
   </text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-168" left="118" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="right" height="16"
+     mouse_opaque="true" name="link_num" v_pad="0" width="143">
+    Link number: [NUMBER]
+  </text>
 
 <!-- Sub-tabs -->
 
@@ -1085,7 +1091,7 @@
         Glow:
       </text>
 			<spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16"
-			     increment="0.1" initial_val="0" left="180" max_val="1"
+			     increment="0.05" initial_val="0" left="180" max_val="1"
 			     min_val="0" mouse_opaque="true" name="glow" width="58" />
 			<check_box bottom_delta="-23" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Full bright" left="180" mouse_opaque="true"
@@ -1202,13 +1208,13 @@
 			     mouse_opaque="true" name="tex scale" v_pad="0" width="160">
         Repeats Per Face:
       </text>
-      <spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+      <spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Horizontal (U):" label_width="90" left="20"
 			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleU" width="160" />
 			<check_box bottom="-179" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Flip" left_delta="170" mouse_opaque="true"
 			     name="checkbox flip s" width="70" />
-			<spinner bottom="-196" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+			<spinner bottom="-196" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Vertical (V):" label_width="90" left="20"
 			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleV" width="160" />
 			<check_box bottom="-197" follows="left|top" font="SansSerifSmall" height="16"
@@ -1247,11 +1253,11 @@
 			     mouse_opaque="true" name="tex offset" v_pad="0" width="160">
         Offset:
       </text>
-			<spinner bottom="-308" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+			<spinner bottom="-308" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Horizontal (U):" label_width="90" left="20"
 			     max_val="1" min_val="-1" mouse_opaque="true" name="TexOffsetU" width="160" />
 			<spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.1" initial_val="0" label="Vertical (V):" label_width="90"
+			     increment="0.05" initial_val="0" label="Vertical (V):" label_width="90"
 			     left="20" max_val="1" min_val="-1" mouse_opaque="true" name="TexOffsetV"
 			     width="160" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"

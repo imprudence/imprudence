@@ -94,6 +94,41 @@ struct LLAttachmentRezAction
 	S32		mAttachPt;
 };
 
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+// Moved from llinventorybridge.cpp because we need it in RlvForceWear
+struct LLFoundData
+{
+	LLFoundData(const LLUUID& item_id,
+				const LLUUID& asset_id,
+				const std::string& name,
+				LLAssetType::EType asset_type) :
+		mItemID(item_id),
+		mAssetID(asset_id),
+		mName(name),
+		mAssetType(asset_type),
+		mWearable( NULL ) {}
+
+	LLUUID mItemID;
+	LLUUID mAssetID;
+	std::string mName;
+	LLAssetType::EType mAssetType;
+	LLWearable* mWearable;
+};
+
+struct LLWearableHoldingPattern
+{
+	LLWearableHoldingPattern(BOOL fAddToOutfit) : mResolved(0), mAddToOutfit(fAddToOutfit) {}
+	~LLWearableHoldingPattern()
+	{
+		for_each(mFoundList.begin(), mFoundList.end(), DeletePointer());
+		mFoundList.clear();
+	}
+	typedef std::list<LLFoundData*> found_list_t;
+	found_list_t mFoundList;
+	S32 mResolved;
+	BOOL mAddToOutfit;
+};
+// [/RLVa:KB]
 
 //helper functions
 class LLShowProps 

@@ -256,6 +256,10 @@ LLViewerImage::LLViewerImage(const LLUUID& id, const LLHost& host, BOOL usemipma
 {
 	init(true);
 	sImageCount++;
+	if (host != LLHost::invalid)
+	{
+		mCanUseHTTP = false; // this is a baked texture
+	}
 }
 
 LLViewerImage::LLViewerImage(const std::string& url, const LLUUID& id, BOOL usemipmaps)
@@ -346,6 +350,8 @@ void LLViewerImage::init(bool firstinit)
 	mForceToSaveRawImage  = FALSE ;
 	mSavedRawDiscardLevel = -1 ;
 	mDesiredSavedRawDiscardLevel = -1 ;
+
+	mCanUseHTTP = true; //default on if cap/settings allows us
 }
 
 // virtual
@@ -1213,7 +1219,7 @@ bool LLViewerImage::updateFetch()
 		// bypass texturefetch directly by pulling from LLTextureCache
 		bool fetch_request_created = false;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mUrl, getID(),getTargetHost(), decode_priority,
-																			  w, h, c, desired_discard, needsAux());
+																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
 
 		if (fetch_request_created)
 		{				
@@ -1292,7 +1298,7 @@ BOOL LLViewerImage::forceFetch()
 		c = getComponents();
 	}
 	fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mUrl, getID(),getTargetHost(), maxDecodePriority(),
-																		  w, h, c, desired_discard, needsAux());
+																		  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
 
 	if (fetch_request_created)
 	{

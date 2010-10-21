@@ -78,8 +78,8 @@
 
 #include "hippoLimits.h"
 
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-#include "llvoavatar.h"
+// [RLVa:KB]
+#include "rlvhandler.h"
 // [/RLVa:KB]
 
 //

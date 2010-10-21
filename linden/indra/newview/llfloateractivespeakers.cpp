@@ -51,6 +51,10 @@
 #include "llworld.h"
 #include "llappviewer.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel before removed from list of active speakers
 const F32 RESORT_TIMEOUT = 5.f; // seconds of mouse inactivity before it's ok to sort regardless of mouse-in-view.
 const LLColor4 INACTIVE_COLOR(0.3f, 0.3f, 0.3f, 0.5f);
@@ -103,7 +107,7 @@ void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const std::string& first, c
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-1.0.0g
 		// TODO-RLVa: this seems to get called per frame which is very likely an LL bug that will eventuall get fixed
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
-			speaker_ptr->mDisplayName = gRlvHandler.getAnonym(speaker_ptr->mDisplayName);
+			speaker_ptr->mDisplayName = RlvStrings::getAnonym(speaker_ptr->mDisplayName);
 // [/RLVa:KB]
 	}
 }

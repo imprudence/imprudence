@@ -486,6 +486,7 @@ set(viewer_SOURCE_FILES
     primbackup.cpp
     rlvhandler.cpp
     rlvhelper.cpp
+    rlvcommon.cpp
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
@@ -937,9 +938,9 @@ set(viewer_HEADER_FILES
     primbackup.h
     randgauss.h
     rlvdefines.h
-    rlvevent.h
     rlvhandler.h
     rlvhelper.h
+    rlvcommon.h
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
@@ -1145,6 +1146,19 @@ set_source_files_properties(${viewer_XUI_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 list(APPEND viewer_SOURCE_FILES ${viewer_XUI_FILES})
+
+
+set(viewer_LIBRARY_INSTALL_FILES
+    ${CMAKE_SOURCE_DIR}/../install.xml
+    )
+
+source_group("Library Install File" FILES ${viewer_LIBRARY_INSTALL_FILES})
+
+set_source_files_properties(${viewer_LIBRARY_INSTALL_FILES}
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
+                            
+list(APPEND viewer_SOURCE_FILES ${viewer_LIBRARY_INSTALL_FILES})
+
 
 set(viewer_APPSETTINGS_FILES
     app_settings/anim.ini

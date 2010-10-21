@@ -88,6 +88,9 @@ void toggleChatHistory(void* user_data);
 void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channel);
 // [/RLVa:KB]
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 class LLChatBarGestureObserver : public LLGestureManagerObserver
 {
@@ -119,6 +122,8 @@ LLChatBar::LLChatBar()
 	mCompletionHolder.current_index = 0;
 	mCompletionHolder.last_match = "";
 	mCompletionHolder.last_txt = "";
+	mCompletionHolder.cursorPos = -1;
+	mCompletionHolder.selected = false;
 
 	#if !LL_RELEASE_FOR_DOWNLOAD
 	childDisplayNotFound();
@@ -224,16 +229,17 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 
 			if (!avatar_ids.empty() && !txt.empty())
 			{
-				S32 cursorPos = mInputEditor->getCursor();
+				if (mCompletionHolder.cursorPos == -1) // Ele: cache cursor position
+					mCompletionHolder.cursorPos = mInputEditor->getCursor();
 
 				if (mCompletionHolder.last_txt != mInputEditor->getText())
 				{
 					mCompletionHolder.last_txt = std::string(mInputEditor->getText());
 
-					if (cursorPos < (S32)txt.length())
+					if (mCompletionHolder.cursorPos < (S32)txt.length())
 					{
-						mCompletionHolder.right = txt.substr(cursorPos);
-						mCompletionHolder.left = txt.substr(0, cursorPos);
+						mCompletionHolder.right = txt.substr(mCompletionHolder.cursorPos);
+						mCompletionHolder.left = txt.substr(0, mCompletionHolder.cursorPos);
 						mCompletionHolder.match = std::string(mCompletionHolder.left);
 					}
 					else
@@ -262,24 +268,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 				{
 					if (avatar_ids[i] == gAgent.getID() || avatar_ids[i].isNull())
 						continue;
-/*
-					// Grab the pos again from the objects-in-view cache... LLWorld doesn't work above 1024 meters as usual :(
-					LLVector3d real_pos = positions[i];
-					if (real_pos[2] == 0.0f)
-					{
-						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
-						if (av_obj != NULL && av_obj->isAvatar())
-						{
-							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
-							if (avatarp != NULL)
-								real_pos = avatarp->getPositionGlobal();
-						}
-					}
 
-					F32 dist = F32(dist_vec(positions[i], gAgent.getPositionGlobal()));
-					if (dist > CHAT_SHOUT_RADIUS)
-						continue;
-*/
 					std::string agent_name = " ";
 					std::string agent_surname = " ";
 
@@ -305,9 +294,11 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 					std::string current_name = mCompletionHolder.names[mCompletionHolder.current_index];
 
 					mInputEditor->setText(mCompletionHolder.left.substr(0, mCompletionHolder.left.length() - mCompletionHolder.match.length()) + current_name + mCompletionHolder.right);
-					mInputEditor->setSelection(cursorPos, cursorPos + (current_name.length() - mCompletionHolder.match.length()));
+					mInputEditor->setCursor(mCompletionHolder.cursorPos + (current_name.length() - mCompletionHolder.match.length()));
+					mInputEditor->setSelection(mCompletionHolder.cursorPos, mCompletionHolder.cursorPos + (current_name.length() - mCompletionHolder.match.length()));
 
 					mCompletionHolder.current_index++;
+					mCompletionHolder.selected = TRUE;
 
 					return TRUE;
 				}
@@ -660,6 +651,9 @@ void LLChatBar::stopChat()
 void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 {
 	LLChatBar* self = (LLChatBar *)userdata;
+	KEY key = gKeyboard->currentKey();
+
+	self->mCompletionHolder.cursorPos = -1; // Ele: reset cached cursor pos for autocompletion
 
 	LLWString raw_text;
 	if (self->mInputEditor) raw_text = self->mInputEditor->getWText();
@@ -703,8 +697,6 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 		length = length - 1;
 	}
 	*/
-
-	KEY key = gKeyboard->currentKey();
 
 	// Ignore "special" keys, like backspace, arrows, etc.
 	if (length > 1 && raw_text[0] == '/' && key < KEY_SPECIAL)
@@ -788,7 +780,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 		utf8_text = utf8str_truncate(utf8_text, MAX_STRING - 1);
 	}
 
-// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d) | Modified: RLVa-0.2.0b
+// [RLVa:KB] - Checked: 2010-03-27 (RLVa-1.1.1a) | Modified: RLVa-1.2.0b
 	if ( (0 == channel) && (rlv_handler_t::isEnabled()) )
 	{
 		// Adjust the (public) chat "volume" on chat and gestures (also takes care of playing the proper animation)
@@ -799,7 +791,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 		else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATWHISPER)) )
 			type = CHAT_TYPE_NORMAL;
 
-		animate &= !gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT);
+		animate &= !gRlvHandler.hasBehaviour( (!rlvIsEmote(utf8_text)) ? RLV_BHVR_REDIRCHAT : RLV_BHVR_REDIREMOTE );
 	}
 // [/RLVa:KB]
 
@@ -843,7 +835,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channel)
 // [/RLVa:KB]
 {
-// [RLVa:KB] - Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+// [RLVa:KB] - Checked: 2010-02-27 (RLVa-1.1.1a) | Modified: RLVa-1.2.0a
 	// Only process chat messages (ie not CHAT_TYPE_START, CHAT_TYPE_STOP, etc)
 	if ( (rlv_handler_t::isEnabled()) && ( (CHAT_TYPE_WHISPER == type) || (CHAT_TYPE_NORMAL == type) || (CHAT_TYPE_SHOUT == type) ) )
 	{
@@ -864,8 +856,8 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 				return;
 			}
 
-			// Filter public chat if sendchat restricted (and filter anything that redirchat didn't redirect)
-			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
+			// Filter public chat if sendchat restricted
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT))
 				gRlvHandler.filterChat(utf8_out_text, true);
 		}
 		else
@@ -875,7 +867,7 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 				return;
 
 			// Don't allow chat on debug channel if @sendchat, @redirchat or @rediremote restricted (shows as public chat on viewers)
-			if (channel >= CHAT_CHANNEL_DEBUG)
+			if (CHAT_CHANNEL_DEBUG == channel)
 			{
 				bool fIsEmote = rlvIsEmote(utf8_out_text);
 				if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || 

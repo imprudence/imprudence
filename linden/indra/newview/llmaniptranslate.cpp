@@ -68,6 +68,10 @@
 
 #include "hippoLimits.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const S32 NUM_AXES = 3;
 const S32 MOUSE_DRAG_SLOP = 2;       // pixels
 const F32 HANDLE_HIDE_ANGLE = 0.15f; // radians
