@@ -124,6 +124,9 @@ public:
 	static bool shouldAutoLogin() { return mShouldAutoLogin; };
 	static void setShouldAutoLogin(bool value) { mShouldAutoLogin = value; };
 
+	// Returns true if startup has been successfully completed
+	static bool isLoggedIn() { return gStartupState == STATE_STARTED; }
+
 private:
  	static bool mStartedOnce;
 	static bool mShouldAutoLogin;
