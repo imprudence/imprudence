@@ -1652,7 +1652,7 @@ void LLViewerWindow::adjustControlRectanglesForFirstUse(const LLRect& window)
 	adjust_rect_top_center("FloaterCameraRect3", window);
 }
 
-void LLViewerWindow::pre_initWorldUI()
+void LLViewerWindow::initWorldUI()
 {
 	pre_init_menus();
 
@@ -1681,15 +1681,12 @@ void LLViewerWindow::pre_initWorldUI()
 		init_menus();
 	}
 
+	// Toolbox floater
 	if (!gFloaterTools)
 	{
 		gFloaterTools = new LLFloaterTools();
 		gFloaterTools->setVisible(FALSE);
 	}
-
-	// menu holder appears on top to get first pass at all mouse events
-
-	mRootView->sendChildToFront(gMenuHolder);
 
 	if ( gHUDView == NULL )
 	{
@@ -1705,11 +1702,33 @@ void LLViewerWindow::pre_initWorldUI()
 	}
 }
 
-void LLViewerWindow::initWorldUI()
+// initWorldUI that wasn't before logging in. Some of this may require the access the 'LindenUserDir'.
+void LLViewerWindow::initWorldUI_postLogin()
 {
 	S32 height = mRootView->getRect().getHeight();
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
+
+	// The status base must be created before calling sendChildToFront below,
+	// or the text of the menu (after logging in) won't be visible.
+	if (!gStatusBar)
+	{
+		// Status bar
+		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
+		LLRect root_rect = mRootView->getRect();
+		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
+		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
+		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
+	
+		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
+		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
+		// sync bg color with menu bar
+		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
+		mRootView->addChild(gStatusBar);
+	}
+
+	// Menu holder appears on top to get first pass at all mouse events
+	mRootView->sendChildToFront(gMenuHolder);
 
 	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
 	{
@@ -1726,8 +1745,6 @@ void LLViewerWindow::initWorldUI()
 	mRootView->addChild(gMorphView);
 	gMorphView->setVisible(FALSE);
 
-	// *Note: this is where gFloaterMute used to be initialized.
-
 	LLWorldMapView::initClass();
 
 	adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
@@ -1743,28 +1760,6 @@ void LLViewerWindow::initWorldUI()
 		// open teleport history floater and hide it initially
 		gFloaterTeleportHistory = new LLFloaterTeleportHistory();
 		gFloaterTeleportHistory->setVisible(FALSE);
-	}
-
-	//
-	// Tools for building
-	//
-
-	// Toolbox floater
-
-	if (!gStatusBar)
-	{
-		// Status bar
-		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
-		LLRect root_rect = mRootView->getRect();
-		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
-		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
-		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
-	
-		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
-		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
-		// sync bg color with menu bar
-		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
-		mRootView->addChild(gStatusBar);
 	}
 
 	LLFloaterChatterBox::createInstance(LLSD());

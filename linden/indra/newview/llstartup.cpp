@@ -839,7 +839,7 @@ bool idle_startup()
 			LLToolMgr::getInstance()->initTools();
 
 			// Quickly get something onscreen to look at.
-			gViewerWindow->pre_initWorldUI();
+			gViewerWindow->initWorldUI();
 		}
 		
 		gViewerWindow->setNormalControlsVisible( FALSE );	
@@ -1825,7 +1825,7 @@ bool idle_startup()
 		set_startup_status(0.40f, LLTrans::getString("LoginInitializingWorld"), gAgent.mMOTD);
 
 		// Initialize the rest of the world.
-		gViewerWindow->initWorldUI();
+		gViewerWindow->initWorldUI_postLogin();
 
 		gDisconnected=FALSE;
 		display_startup();
