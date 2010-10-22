@@ -97,7 +97,7 @@
 #include "hippoLimits.h"// getMaxPrimScale
 
 // [RLVa:KB]
-#include "llstartup.h"
+#include "rlvhandler.h"
 // [/RLVa:KB]
 
 using namespace LLVOAvatarDefines;
@@ -3474,10 +3474,10 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	BOOL render_name =	visible_chat ||
 						(visible_avatar &&
 // [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.0h
-						( (!fRlvShowNames) || (RlvSettings::fShowNameTags) ) &&
+						( (!fRlvShowNames) || (RlvSettings::getShowNameTags()) ) &&
 // [/RLVa:KB]
 						((sRenderName == RENDER_NAME_ALWAYS) ||
-						(sRenderName == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
+						 (sRenderName == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
 	// If it's your own avatar, don't draw in mouselook, and don't
 	// draw if we're specifically hiding our own name.
 	if (mIsSelf)
@@ -3507,7 +3507,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		}
 		else if (sRenderGroupTitles != mRenderGroupTitles)
 // [/RLVa]
-		//if (sRenderGroupTitles != mRenderGroupTitles)
+//		if (sRenderGroupTitles != mRenderGroupTitles)
 		{
 			mRenderGroupTitles = sRenderGroupTitles;
 			new_name = TRUE;
@@ -3663,7 +3663,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				else
 				{
-					line = gRlvHandler.getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
+					line = RlvStrings::getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
 				}
 // [/RLVa:KB]
 
@@ -5209,6 +5209,7 @@ void LLVOAvatar::addLocalTextureStats( ETextureIndex idx, LLViewerImage* imagep,
 
 void LLVOAvatar::addBakedTextureStats( LLViewerImage* imagep, F32 pixel_area, F32 texel_area_ratio, S32 boost_level)
 {
+	imagep->setCanUseHTTP(false) ; //turn off http fetching for baked textures.
 	mMaxPixelArea = llmax(pixel_area, mMaxPixelArea);
 	mMinPixelArea = llmin(pixel_area, mMinPixelArea);
 	imagep->addTextureStats(pixel_area / texel_area_ratio);
@@ -6759,14 +6760,6 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 	gPipeline.markMoved(mDrawable, TRUE);
 	mIsSitting = TRUE;
 	LLFloaterAO::ChangeStand();
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-	#ifdef RLV_EXTENSION_STARTLOCATION
-	if (rlv_handler_t::isEnabled())
-	{
-		RlvSettings::updateLoginLastLocation();
-	}
-	#endif // RLV_EXTENSION_STARTLOCATION
-// [/RLVa:KB]
 	mRoot.getXform()->setParent(&sit_object->mDrawable->mXform); // LLVOAvatar::sitOnObject
 	mRoot.setPosition(getPosition());
 	mRoot.updateWorldMatrixChildren();
@@ -6775,6 +6768,15 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 
 	if (mIsSelf)
 	{
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
+		#ifdef RLV_EXTENSION_STARTLOCATION
+		if (rlv_handler_t::isEnabled())
+		{
+			RlvSettings::updateLoginLastLocation();
+		}
+		#endif // RLV_EXTENSION_STARTLOCATION
+// [/RLVa:KB]
+
 		// Might be first sit
 		LLFirstUse::useSit();
 
@@ -6828,14 +6830,6 @@ void LLVOAvatar::getOffObject()
 	gPipeline.markMoved(mDrawable, TRUE);
 
 	mIsSitting = FALSE;
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
-	#ifdef RLV_EXTENSION_STARTLOCATION
-	if (rlv_handler_t::isEnabled())
-	{
-		RlvSettings::updateLoginLastLocation();
-	}
-	#endif // RLV_EXTENSION_STARTLOCATION
-// [/RLVa:KB]
 	mRoot.getXform()->setParent(NULL); // LLVOAvatar::getOffObject
 	mRoot.setPosition(cur_position_world);
 	mRoot.setRotation(cur_rotation_world);
@@ -6846,6 +6840,15 @@ void LLVOAvatar::getOffObject()
 
 	if (mIsSelf)
 	{
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.1d
+		#ifdef RLV_EXTENSION_STARTLOCATION
+		if (rlv_handler_t::isEnabled())
+		{
+			RlvSettings::updateLoginLastLocation();
+		}
+		#endif // RLV_EXTENSION_STARTLOCATION
+// [/RLVa:KB]
+
 		LLQuaternion av_rot = gAgent.getFrameAgent().getQuaternion();
 		LLQuaternion obj_rot = sit_object ? sit_object->getRenderRotation() : LLQuaternion::DEFAULT;
 		av_rot = av_rot * obj_rot;
@@ -6920,6 +6923,20 @@ LLViewerObject* LLVOAvatar::getWornAttachment( const LLUUID& inv_item_id )
 	}
 	return NULL;
 }
+
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+LLViewerJointAttachment* LLVOAvatar::getWornAttachmentPoint(const LLUUID& inv_item_id)
+{
+	for (attachment_map_t::const_iterator itAttach = mAttachmentPoints.begin();
+			itAttach != mAttachmentPoints.end(); ++itAttach)
+	{
+		LLViewerJointAttachment* pAttachPt = itAttach->second;
+		if (pAttachPt->getItemID() == inv_item_id)
+			return pAttachPt;
+	}
+	return NULL;
+}
+// [/RLVa:KB]
 
 const std::string LLVOAvatar::getAttachedPointName(const LLUUID& inv_item_id)
 {

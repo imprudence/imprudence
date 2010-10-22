@@ -69,6 +69,10 @@
 #include "pipeline.h"
 #include "llspatialpartition.h"
  
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 BOOL LLAgent::setLookAt(ELookAtType target_type, LLViewerObject *object, LLVector3 position)
 {
 	if(object && object->isAttachment())
@@ -168,8 +172,8 @@ extern BOOL gDebugSelect;
 // Returns true if you got at least one object
 void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 {
-// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0b)
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT))
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))) )
 	{
 		return;
 	}

@@ -65,6 +65,10 @@
 
 #include <sys/stat.h>
 
+#ifdef LL_DARWIN
+#include "llwindowmacosx-objc.h"
+#endif
+
 ////////////////////////////////////////////////////////////////////////////
 
 void (*LLViewerImageList::sUUIDCallback)(void **, const LLUUID&) = NULL;
@@ -920,7 +924,10 @@ BOOL LLViewerImageList::createUploadFile(const std::string& filename,
 {
 	// First, load the image.
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-	
+#ifdef LL_DARWIN
+	if (!decodeImageQuartz(filename, raw_image))
+		return FALSE;
+#else
 	switch (codec)
 	{
 		case IMG_CODEC_BMP:
@@ -993,7 +1000,7 @@ BOOL LLViewerImageList::createUploadFile(const std::string& filename,
 		default:
 			return FALSE;
 	}
-	
+#endif
 	LLPointer<LLImageJ2C> compressedImage = convertToUploadFile(raw_image);
 	
 	if( !compressedImage->save(out_filename) )

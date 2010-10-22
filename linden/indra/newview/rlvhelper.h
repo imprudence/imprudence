@@ -1,13 +1,15 @@
 #ifndef RLV_HELPER_H
 #define RLV_HELPER_H
 
+#include "llagent.h"
 #include "llboost.h"
+#include "llgesturemgr.h"
 #include "llinventorymodel.h"
-#include "llselectmgr.h"
-#include "llviewercontrol.h"
-#include "llviewerobjectlist.h"
+#include "llviewerinventory.h"
+#include "llvoavatar.h"
 #include "llwlparamset.h"
 #include "rlvdefines.h"
+#include "rlvcommon.h"
 
 #ifdef LL_WINDOWS
 	#pragma warning (push)
@@ -40,7 +42,7 @@ public:
 	bool               isStrict() const			{ return m_fStrict; }
 	bool               isValid() const          { return m_fValid; }
 
-	static ERlvBehaviour      getBehaviourFromString(const std::string& strBhvr);
+	static ERlvBehaviour      getBehaviourFromString(const std::string& strBhvr, bool* pfStrict = NULL);
 	static const std::string& getStringFromBehaviour(ERlvBehaviour eBhvr);
 	static bool               hasStrictVariant(ERlvBehaviour eBhvr);
 
@@ -122,8 +124,9 @@ public:
 	 * Member functions
 	 */
 public:
-	static void forceAttach(const LLUUID& idItem, S32 idxAttachPt);
-	static void forceDetach(LLViewerJointAttachment* pAttachPt);
+	// NOTE: the following two do *not* respect attachment locks so use with care
+	static void attach(const LLUUID& idItem, S32 idxAttachPt);
+	static void detach(LLViewerJointAttachment* pAttachPt);
 protected:
 	void startTimer() { if (!m_pTimer) m_pTimer = new RlvAttachmentManagerTimer(this); }
 
@@ -212,8 +215,12 @@ public:
 		std::string strFolderName = pFolder->getName();
 		LLStringUtil::toLower(strFolderName);
 
-		if ( (strFolderName.empty()) ||	(RLV_FOLDER_PREFIX_HIDDEN == strFolderName[0]) )
+		// NOTE: hidden or "give to #RLV" folders can never be a match
+		if ( (strFolderName.empty()) ||
+			 (RLV_FOLDER_PREFIX_HIDDEN == strFolderName[0]) || (RLV_FOLDER_PREFIX_PUTINV == strFolderName[0]) )
+		{
 			return false;
+		}
 
 		for (std::list<std::string>::const_iterator itCrit = m_Criteria.begin(); itCrit != m_Criteria.end(); ++itCrit)
 			if (std::string::npos == strFolderName.find(*itCrit))	// Return false on the first mismatch
@@ -257,17 +264,97 @@ protected:
 };
 
 // ============================================================================
+// RlvForceWear
+//
+
+class RlvForceWear
+{
+public:
+	// Folders
+	enum eWearAction { ACTION_ATTACH, ACTION_DETACH };
+	enum eWearFlags { FLAG_NONE = 0x00, FLAG_MATCHALL = 0x01, FLAG_DEFAULT = FLAG_NONE };
+	void forceFolder(const LLViewerInventoryCategory* pFolder, eWearAction eAction, eWearFlags eFlags);
+
+	// Attachments
+	static bool isForceDetachable(LLViewerJointAttachment* pAttachPt, bool fCheckComposite = true, LLViewerObject* pExceptObj = NULL);
+	void forceDetach(LLViewerJointAttachment* ptAttachPt);
+
+	// Wearables
+	static bool isForceRemovable(EWearableType wtType, bool fCheckComposite = true, const LLUUID& idExcept = LLUUID::null);
+	void forceRemove(EWearableType wtType);
+
+	// General purpose
+	static bool isWearableItem(const LLInventoryItem* pItem);
+	static bool isWearingItem(const LLInventoryItem* pItem);
+
+public:
+	void done()	{ processRem(); processAdd(); }
+protected:
+	void processAdd();
+	void processRem();
+	static void	onWearableArrived(LLWearable* pWearable, void* pParam);
+
+protected:
+	LLInventoryModel::item_array_t m_addAttachments, m_addWearables, m_addGestures, m_remGestures;
+	std::list<LLViewerJointAttachment*> m_remAttachments;
+	std::list<EWearableType> m_remWearables;
+};
+
+// ============================================================================
+// RlvBehaviourNotifyObserver
+//
+
+class RlvBehaviourNotifyObserver : public RlvBehaviourObserver
+{
+public:
+	virtual ~RlvBehaviourNotifyObserver() { }
+	virtual void changed(const RlvCommand& rlvCmd, bool fInternal);
+
+	void addNotify(const LLUUID& idObj, S32 nChannel, const std::string& strFilter)
+	{
+		m_Notifications.insert(std::pair<LLUUID, notifyData>(idObj, notifyData(nChannel, strFilter)));
+	}
+	void clearNotify(const LLUUID& idObj)
+	{
+		m_Notifications.erase(idObj);
+	}
+	bool hasNotify()
+	{
+		return (m_Notifications.size() != 0);
+	}
+	void removeNotify(const LLUUID& idObj, S32 nChannel, const std::string& strFilter)
+	{
+		for (std::multimap<LLUUID, notifyData>::iterator itNotify = m_Notifications.lower_bound(idObj),
+				endNotify = m_Notifications.upper_bound(idObj); itNotify != endNotify; ++itNotify)
+		{
+			if ( (itNotify->second.nChannel == nChannel) && (itNotify->second.strFilter == strFilter) )
+			{
+				m_Notifications.erase(itNotify);
+				break;
+			}
+		}
+	}
+protected:
+	struct notifyData
+	{
+		S32         nChannel;
+		std::string strFilter;
+		notifyData(S32 channel, const std::string& filter) : nChannel(channel), strFilter(filter) {}
+	};
+	std::multimap<LLUUID, notifyData> m_Notifications;
+};
+
+// ============================================================================
 // RlvRetainedCommand
 //
 
 struct RlvRetainedCommand
 {
 public:
-	std::string strObject;
 	LLUUID      idObject;
-	std::string strCmd;
+	RlvCommand  rlvCmd;
 
-	RlvRetainedCommand(const std::string obj, const LLUUID& uuid, const std::string& cmd) : strObject(obj), idObject(uuid), strCmd(cmd) {}
+	RlvRetainedCommand(const LLUUID& uuid, const RlvCommand& cmd) : idObject(uuid), rlvCmd(cmd) {}
 private:
 	RlvRetainedCommand();
 };
@@ -309,43 +396,6 @@ private:
 };
 
 // ============================================================================
-// RlvSettings
-//
-
-inline BOOL rlvGetSettingBOOL(const std::string& strSetting, BOOL fDefault)
-{
-	return (gSavedSettings.controlExists(strSetting)) ? gSavedSettings.getBOOL(strSetting) : fDefault;
-}
-inline BOOL rlvGetPerUserSettingsBOOL(const std::string& strSetting, BOOL fDefault)
-{
-	return (gSavedPerAccountSettings.controlExists(strSetting)) ? gSavedPerAccountSettings.getBOOL(strSetting) : fDefault;
-}
-
-class RlvSettings
-{
-public:
-	static BOOL getDebug()					{ return rlvGetSettingBOOL(RLV_SETTING_DEBUG, FALSE); }
-	static BOOL getForbidGiveToRLV()		{ return rlvGetSettingBOOL(RLV_SETTING_FORBIDGIVETORLV, TRUE); }
-
-	static BOOL getEnableWear();
-	static BOOL getHideLockedLayers()		{ return rlvGetSettingBOOL(RLV_SETTING_HIDELOCKEDLAYER, FALSE); }		
-	static BOOL getHideLockedAttach()		{ return rlvGetSettingBOOL(RLV_SETTING_HIDELOCKEDATTACH, FALSE); }
-	static BOOL getHideLockedInventory()	{ return rlvGetSettingBOOL(RLV_SETTING_HIDELOCKEDINVENTORY, FALSE); }
-	static BOOL getShowNameTags()			{ return fShowNameTags; }
-
-	#ifdef RLV_EXTENSION_STARTLOCATION
-		static BOOL getLoginLastLocation()	{ return rlvGetPerUserSettingsBOOL(RLV_SETTING_LOGINLASTLOCATION, TRUE); }
-		static void updateLoginLastLocation();
-	#endif // RLV_EXTENSION_STARTLOCATION
-
-	static BOOL fShowNameTags;
-};
-
-// ============================================================================
-// State keeping classes/structure
-//
-
-// ============================================================================
 // Various helper classes/timers/functors
 //
 
@@ -367,39 +417,21 @@ public:
 	void fetchItem(const LLUUID& idItem);
 };
 
-struct RlvSelectHasLockedAttach : public LLSelectedNodeFunctor
+class RlvGiveToRLVAgentOffer : public LLInventoryFetchDescendentsObserver
 {
-	RlvSelectHasLockedAttach(ERlvLockMask eLock) : m_eLock(eLock) {}
-	virtual bool apply(LLSelectNode* pNode);
-protected:
-	ERlvLockMask m_eLock;
-};
-
-struct RlvSelectIsOwnedByOrGroupOwned : public LLSelectedNodeFunctor
-{
-	RlvSelectIsOwnedByOrGroupOwned(const LLUUID& uuid) : m_idAgent(uuid) {}
-	virtual bool apply(LLSelectNode* pNode);
-	LLUUID m_idAgent;
-};
-
-struct RlvSelectIsSittingOn : public LLSelectedNodeFunctor
-{
-	RlvSelectIsSittingOn(LLXform* pObject) : m_pObject(pObject) {}
-	virtual bool apply(LLSelectNode* pNode);
-	LLXform* m_pObject;
+public:
+	RlvGiveToRLVAgentOffer() {}
+	virtual void done();
 };
 
 // ============================================================================
 // Various helper functions
 //
 
-BOOL rlvAttachToEnabler(void* pParam);
 bool rlvCanDeleteOrReturn();
-BOOL rlvEnableWearEnabler(void* pParam);
 S32  rlvGetDirectDescendentsCount(const LLInventoryCategory* pFolder, LLAssetType::EType type);
 bool rlvIsEmote(const std::string& strUTF8Text);
 bool rlvIsValidReplyChannel(S32 nChannel);
-bool rlvIsWearingItem(const LLInventoryItem* pItem);
 
 void rlvSendBusyMessage(const LLUUID& idTo, const std::string& strMsg, const LLUUID& idSession = LLUUID::null);
 bool rlvSendChatReply(const std::string& strChannel, const std::string& strReply);
@@ -439,16 +471,6 @@ inline bool RlvCommand::operator ==(const RlvCommand& rhs) const
 		( (RLV_TYPE_UNKNOWN != m_eParamType) ? (m_eParamType == rhs.m_eParamType) : (m_strParam == rhs.m_strParam) );
 }
 
-inline void RlvCurrentlyWorn::fetchItem(const LLUUID& idItem)
-{ 
-	if (idItem.notNull()) 
-	{
-		LLInventoryFetchObserver::item_ref_t idItems; 
-		idItems.push_back(idItem);
-		fetchItems(idItems);
-	}
-}
-
 inline bool RlvCommand::hasStrictVariant(ERlvBehaviour eBhvr)
 {
 	switch (eBhvr)
@@ -463,6 +485,32 @@ inline bool RlvCommand::hasStrictVariant(ERlvBehaviour eBhvr)
 		default:
 			return false;
 	}
+}
+
+inline void RlvCurrentlyWorn::fetchItem(const LLUUID& idItem)
+{
+	if (idItem.notNull())
+	{
+		LLInventoryFetchObserver::item_ref_t idItems;
+		idItems.push_back(idItem);
+		fetchItems(idItems);
+	}
+}
+
+// Checked: 2009-12-18 (RLVa-1.1.0k) | Added: RLVa-1.1.0i
+inline bool RlvForceWear::isWearableItem(const LLInventoryItem* pItem)
+{
+	return (LLAssetType::AT_OBJECT == pItem->getType()) || (LLAssetType::AT_GESTURE == pItem->getType()) ||
+		(LLAssetType::AT_BODYPART == pItem->getType()) || (LLAssetType::AT_CLOTHING == pItem->getType());
+}
+
+// Checked: 2009-12-18 (RLVa-1.1.0k) | Modified: RLVa-1.1.0i
+inline bool RlvForceWear::isWearingItem(const LLInventoryItem* pItem)
+{
+	return
+		((LLAssetType::AT_OBJECT == pItem->getType()) && (gAgent.getAvatarObject()->isWearingAttachment(pItem->getUUID()))) ||
+		((LLAssetType::AT_GESTURE == pItem->getType()) && (gGestureManager.isGestureActive(pItem->getUUID()))) ||
+		(gAgent.isWearingItem(pItem->getUUID()));
 }
 
 // ============================================================================

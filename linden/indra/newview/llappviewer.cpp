@@ -180,6 +180,10 @@
 #include "hippoLimits.h"
 #include "hippoUpdate.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 // *FIX: These extern globals should be cleaned up.
 // The globals either represent state/config/resource-storage of either 
 // this app, or another 'component' of the viewer. App globals should be 
@@ -330,7 +334,15 @@ static std::string gHelperURI;
 void idle_afk_check()
 {
 	// check idle timers
+	//if (gAllowIdleAFK && (gAwayTriggerTimer.getElapsedTimeF32() > gSavedSettings.getF32("AFKTimeout")))
+// [RLVa:KB] - Checked: 2009-10-19 (RLVa-1.1.0g) | Added: RLVa-1.1.0g
+#ifdef RLV_EXTENSION_CMD_ALLOWIDLE
+	if ( (gAllowIdleAFK || gRlvHandler.hasBehaviour(RLV_BHVR_ALLOWIDLE)) &&
+		 (gAwayTriggerTimer.getElapsedTimeF32() > gSavedSettings.getF32("AFKTimeout")))
+#else
 	if (gAllowIdleAFK && (gAwayTriggerTimer.getElapsedTimeF32() > gSavedSettings.getF32("AFKTimeout")))
+#endif // RLV_EXTENSION_CMD_ALLOWIDLE
+// [/RLVa:KB]
 	{
 		gAgent.setAFK();
 	}
@@ -1171,16 +1183,6 @@ bool LLAppViewer::mainLoop()
 
 bool LLAppViewer::cleanup()
 {
-	//----------------------------------------------
-	//this test code will be removed after the test
-	//test manual call stack tracer
-	if(gSavedSettings.getBOOL("QAMode"))
-	{
-		LLError::LLCallStacks::print() ;
-	}
-	//end of the test code
-	//----------------------------------------------
-
 	//flag all elements as needing to be destroyed immediately
 	// to ensure shutdown order
 	LLMortician::setZealous(TRUE);
@@ -1819,7 +1821,7 @@ bool LLAppViewer::initConfiguration()
 	// - set procedural settings 
 	gSavedSettings.setString("ClientSettingsFile", 
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
-        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence.xml"));
+        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence_experimental.xml"));
 
 	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 
@@ -2800,7 +2802,9 @@ void LLAppViewer::forceQuit()
 
 	LL_INFOS("forceQuit") << "Destroying the entire world" << LL_ENDL;
 	if (mQuitRequested)
-	LLApp::setQuitting(); 
+	{
+		LLApp::setQuitting();
+	}
 	else
 	{
 		if (mLogoutRequested) //we just finished a logout request
@@ -3766,15 +3770,6 @@ void LLAppViewer::idleShutdown()
 		forceQuit();
 	}
 
-
-	static bool saved_snapshot = false;
-	if (!saved_snapshot)
-	{
-		saved_snapshot = true;
-		saveFinalSnapshot();
-		return;
-	}
-
 	// Attempt to close all floaters that might be
 	// editing things.
 	if (gFloaterView)
@@ -4258,7 +4253,7 @@ void LLAppViewer::handleLoginComplete()
 	}
 	writeDebugInfo();
 
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 	// NOTE: this function isn't called in Imprudence so any changes need to go in idle_startup() instead
 	gRlvHandler.initLookupTables();
 

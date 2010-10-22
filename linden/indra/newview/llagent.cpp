@@ -138,6 +138,10 @@
 #include "llviewerjoystick.h"
 #include "llfollowcam.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 using namespace LLVOAvatarDefines;
 
 extern LLMenuBarGL* gMenuBarView;
@@ -4880,7 +4884,15 @@ void LLAgent::onAnimStop(const LLUUID& id)
 	}
 	else if (id == ANIM_AGENT_AWAY)
 	{
+		//clearAFK();
+// [RLVa:KB] - Checked: 2009-10-19 (RLVa-1.1.0g) | Added: RLVa-1.1.0g
+#ifdef RLV_EXTENSION_CMD_ALLOWIDLE
+		if (!gRlvHandler.hasBehaviour(RLV_BHVR_ALLOWIDLE))
+			clearAFK();
+#else
 		clearAFK();
+#endif // RLV_EXTENSION_CMD_ALLOWIDLE
+// [/RLVa:KB]
 	}
 	else if (id == ANIM_AGENT_STANDUP)
 	{
@@ -5222,7 +5234,7 @@ void LLAgent::buildLocationString(std::string& str)
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 	{
-		str = rlv_handler_t::cstrHidden;
+		str = RlvStrings::getString(RLV_STRING_HIDDEN);
 		return;
 	}
 // [/RLVa:KB]
@@ -6229,14 +6241,21 @@ void LLAgent::teleportCancel()
 
 void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 {
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-07 (RLVa-1.0.0d)
-	// If we're getting teleported due to @tpto we should disregard any @tploc=n or @unsit=n restrictions from the same object
-	if ( (rlv_handler_t::isEnabled()) &&
-		 ( (gRlvHandler.hasBehaviourExcept(RLV_BHVR_TPLOC, gRlvHandler.getCurrentObject())) ||
-		   ( (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) && 
-			 (gRlvHandler.hasBehaviourExcept(RLV_BHVR_UNSIT, gRlvHandler.getCurrentObject()))) ) )
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2010-03-02 (RLVa-1.1.1a) | Modified: RLVa-1.2.0a
+	if (rlv_handler_t::isEnabled())
 	{
-		return;
+		// If we're getting teleported due to @tpto we should disregard any @tploc=n or @unsit=n restrictions from the same object
+		if ( (gRlvHandler.hasBehaviourExcept(RLV_BHVR_TPLOC, gRlvHandler.getCurrentObject())) ||
+		     ( (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) &&
+			   (gRlvHandler.hasBehaviourExcept(RLV_BHVR_UNSIT, gRlvHandler.getCurrentObject()))) )
+		{
+			return;
+		}
+
+		if ( (gRlvHandler.getCurrentCommand()) && (RLV_BHVR_TPTO == gRlvHandler.getCurrentCommand()->getBehaviourType()) )
+		{
+			gRlvHandler.setCanCancelTp(false);
+		}
 	}
 // [/RLVa:KB]
 
@@ -6306,7 +6325,7 @@ void LLAgent::setTeleportState(ETeleportState state)
 		// We're outa here. Save "back" slurl.
 		mTeleportSourceSLURL = getSLURL();
 	}
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.0b
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Version: 1.23.4 | Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.0b
 	if ( (rlv_handler_t::isEnabled()) && (TELEPORT_NONE == mTeleportState) )
 	{
 		gRlvHandler.setCanCancelTp(true);
@@ -6949,14 +6968,14 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 		}
 
 		// now that we have the asset ids...request the wearable assets
-// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
 		LLInventoryFetchObserver::item_ref_t rlvItems;
 // [/RLVa:KB]
 		for( i = 0; i < WT_COUNT; i++ )
 		{
 			if( !gAgent.mWearableEntry[i].mItemID.isNull() )
 			{
-// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
 				if (rlv_handler_t::isEnabled())
 					rlvItems.push_back(gAgent.mWearableEntry[i].mItemID);
 // [/RLVa:KB]
@@ -6968,7 +6987,7 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 			}
 		}
 
-// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
 		// TODO-RLVa: checking that we're in STATE_STARTED is probably not needed, but leave it until we can be absolutely sure
 		if ( (rlv_handler_t::isEnabled()) && (LLStartUp::getStartupState() == STATE_STARTED) )
 		{
@@ -7955,93 +7974,37 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		return;
 	}
 
-// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
-	// NOTE-RLVa: This function is called from inside RlvHandler as well, hence the rather heavy modifications
-	std::list<U32> rlvAttachments;
-	// TODO-RLVa: Once we have the improved "removeWearable" logic implemented we can just get rid of the whole "rlvCompFolders" hassle
-	#ifdef RLV_EXPERIMENTAL_COMPOSITES
-		std::list<LLUUID> rlvCompFolders;
-	#endif // RLV_EXPERIMENTAL_COMPOSITES
-
-	for (LLVOAvatar::attachment_map_t::iterator iter = avatarp->mAttachmentPoints.begin(); 
-		 iter != avatarp->mAttachmentPoints.end(); )
+// [RLVa:KB] - Checked: 2009-11-24 (RLVa-1.1.0f) | Modified: RLVa-1.1.0e
+	std::list<U32> LocalIDs;
+	for (LLVOAvatar::attachment_map_t::iterator iter = avatarp->mAttachmentPoints.begin(); iter != avatarp->mAttachmentPoints.end(); )
 	{
 		LLVOAvatar::attachment_map_t::iterator curiter = iter++;
 		LLViewerJointAttachment* attachment = curiter->second;
 		LLViewerObject* objectp = attachment->getObject();
 		if (objectp)
 		{
-			if (rlv_handler_t::isEnabled())
-			{
-				if (gRlvHandler.isLockedAttachment(curiter->first, RLV_LOCK_REMOVE))
-					continue;
-
-				// Check if we're being called in response to an RLV command (that would be @detach=force)
-				if ( (gRlvHandler.getCurrentCommand()) && (attachment->getItemID().notNull()) )
-				{
-					if (!gRlvHandler.isStrippable(attachment->getItemID()))	// "nostrip" can be taken off by the user but not @detach
-						continue;
-
-					#ifdef RLV_EXPERIMENTAL_COMPOSITES
-						LLViewerInventoryCategory* pFolder;
-						if (gRlvHandler.getCompositeInfo(attachment->getItemID(), NULL, &pFolder))
-						{
-							#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-								if (!gRlvHandler.canTakeOffComposite(pFolder))
-									continue;
-							#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
-
-							// The attachment belongs to a composite folder so there may be additional things we need to take off
-							if (std::find(rlvCompFolders.begin(), rlvCompFolders.end(), pFolder->getUUID()) != rlvCompFolders.end())
-								rlvCompFolders.push_back(pFolder->getUUID());
-						}
-					#endif // RLV_EXPERIMENTAL_COMPOSITES
-				}
-			}
-			rlvAttachments.push_back(objectp->getLocalID());
+			if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.isLockedAttachment(curiter->first, RLV_LOCK_REMOVE)) )
+				continue;
+			LocalIDs.push_back(objectp->getLocalID());
 		}
 	}
 
 	// Only send the message if we actually have something to detach
-	if (rlvAttachments.size() > 0)
+	if (LocalIDs.size() > 0)
 	{
 		gMessageSystem->newMessage("ObjectDetach");
 		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 
-		for (std::list<U32>::const_iterator itAttach = rlvAttachments.begin(); itAttach != rlvAttachments.end(); ++itAttach)
+		for (std::list<U32>::const_iterator itLocalID = LocalIDs.begin(); itLocalID != LocalIDs.end(); ++itLocalID)
 		{
 			gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-			gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, *itAttach);
+			gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, *itLocalID);
 		}
 
-		gMessageSystem->sendReliable( gAgent.getRegionHost() );
+		gMessageSystem->sendReliable(gAgent.getRegionHost());
 	}
-
-	#ifdef RLV_EXPERIMENTAL_COMPOSITES
-		if (rlv_handler_t::isEnabled)
-		{
-			// If we encountered any composite folders then we need to @detach all of them
-			for (std::list<LLUUID>::const_iterator itFolder = rlvCompFolders.begin(); itFolder != rlvCompFolders.end(); ++itFolder)
-			{
-				std::string strFolder = gRlvHandler.getSharedPath(*itFolder);
-
-				// It shouldn't happen but make absolutely sure that we don't issue @detach:=force and reenter this function
-				if (!strFolder.empty())
-				{
-					std::string strCmd = "detach:" + strFolder + "=force";
-					#ifdef RLV_DEBUG
-						RLV_INFOS << "\t- detaching composite folder: @" << strCmd << LL_ENDL;
-					#endif // RLV_DEBUG
-
-					// HACK-RLV: executing a command while another command is currently executing isn't the best thing to do, however
-					//           in this specific case it is safe (and still better than making processForceCommand public)
-					gRlvHandler.processCommand(gRlvHandler.getCurrentObject(), strCmd);
-				}
-			}
-		}
-	#endif // RLV_EXPERIMENTAL_COMPOSITES
 // [/RLVa:KB]
 }
 

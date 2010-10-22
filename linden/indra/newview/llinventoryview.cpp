@@ -86,6 +86,10 @@
 
 #include "llsdserialize.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 static LLRegisterWidget<LLInventoryPanel> r("inventory_panel");
 
 LLDynamicArray<LLInventoryView*> LLInventoryView::sActiveViews;

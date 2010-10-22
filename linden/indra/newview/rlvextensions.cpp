@@ -1,3 +1,19 @@
+/**
+ *
+ * Copyright (c) 2009-2010, Kitty Barnett
+ *
+ * The source code in this file is provided to you under the terms of the
+ * GNU General Public License, version 2.0, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. Terms of the GPL can be found in doc/GPL-license.txt
+ * in this distribution, or online at http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * By copying, modifying or distributing this software, you acknowledge that
+ * you have read and understood your obligations described above, and agree to
+ * abide by those obligations.
+ *
+ */
+
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
 #include "llfloaterwindlight.h"
@@ -38,19 +54,19 @@ RlvExtGetSet::RlvExtGetSet()
 }
 
 // Checked: 2009-05-17 (RLVa-0.2.0a)
-BOOL RlvExtGetSet::onForceCommand(const RlvEvent& rlvEvent)
+bool RlvExtGetSet::onForceCommand(const LLUUID& idObj, const RlvCommand& rlvCmd, ERlvCmdRet& cmdRet)
 {
-	return processCommand(rlvEvent.getSenderID(), rlvEvent.getCommand());
+	return processCommand(idObj, rlvCmd, cmdRet);
 }
 
 // Checked: 2009-05-17 (RLVa-0.2.0a)
-BOOL RlvExtGetSet::onReplyCommand(const EventType& rlvEvent)
+bool RlvExtGetSet::onReplyCommand(const LLUUID& idObj, const RlvCommand& rlvCmd, ERlvCmdRet& cmdRet)
 {
-	return processCommand(rlvEvent.getSenderID(), rlvEvent.getCommand());
+	return processCommand(idObj, rlvCmd, cmdRet);
 }
 
-// Checked: 2009-06-18 (RLVa-0.2.1d) | Modified: RLVa-0.2.1d
-BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
+// Checked: 2009-12-23 (RLVa-1.1.0k) | Modified: RLVa-1.1.0k
+bool RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd, ERlvCmdRet& eRet)
 {
 	std::string strBehaviour = rlvCmd.getBehaviour(), strGetSet, strSetting;
 	int idxSetting = strBehaviour.find('_');
@@ -67,13 +83,14 @@ BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 			if ( ("get" == strGetSet) && (RLV_TYPE_REPLY == rlvCmd.getParamType()) )
 			{
 				rlvSendChatReply(rlvCmd.getParam(), onGetDebug(strSetting));
-				return TRUE;
+				eRet = RLV_RET_SUCCESS;
+				return true;
 			}
 			else if ( ("set" == strGetSet) && (RLV_TYPE_FORCE == rlvCmd.getParamType()) )
 			{
 				if (!gRlvHandler.hasBehaviourExcept(RLV_BHVR_SETDEBUG, idObj))
-					onSetDebug(strSetting, rlvCmd.getOption());
-				return TRUE;
+					eRet = onSetDebug(strSetting, rlvCmd.getOption());
+				return true;
 			}
 		}
 		else if ("env" == strBehaviour)
@@ -81,13 +98,14 @@ BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 			if ( ("get" == strGetSet) && (RLV_TYPE_REPLY == rlvCmd.getParamType()) )
 			{
 				rlvSendChatReply(rlvCmd.getParam(), onGetEnv(strSetting));
-				return TRUE;
+				eRet = RLV_RET_SUCCESS;
+				return true;
 			}
 			else if ( ("set" == strGetSet) && (RLV_TYPE_FORCE == rlvCmd.getParamType()) )
 			{
 				if (!gRlvHandler.hasBehaviourExcept(RLV_BHVR_SETENV, idObj))
-					onSetEnv(strSetting, rlvCmd.getOption());
-				return TRUE;
+					eRet = onSetEnv(strSetting, rlvCmd.getOption());
+				return true;
 			}
 		}
 	}
@@ -97,7 +115,7 @@ BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 		F32 nAngle = 0.0f;
 		if (LLStringUtil::convertToF32(rlvCmd.getOption(), nAngle))
 		{
-			nAngle += RLV_SETROT_OFFSET;
+			nAngle = RLV_SETROT_OFFSET - nAngle;
 
 			gAgent.startCameraAnimation();
 
@@ -106,16 +124,23 @@ BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 			at.normalize();
 			gAgent.resetAxes(at);
 
-			return TRUE;
+			eRet = RLV_RET_SUCCESS;
 		}
+		else
+			eRet = RLV_RET_FAILED_OPTION;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // Checked: 2009-06-03 (RLVa-0.2.0h) | Modified: RLVa-0.2.0h
 bool RlvExtGetSet::findDebugSetting(std::string& strSetting, S16& flags)
 {
 	LLStringUtil::toLower(strSetting);	// Convenience for non-RLV calls
+
+	// HACK-RLVa: bad code but it's just a temporary measure to provide a smooth changeover from the old to the new rebranded settings
+	if ( (strSetting.length() >= 14) && (0 == strSetting.find("restrainedlife")) )
+		strSetting = "restrainedlove" + strSetting.substr(14);
 
 	std::string strTemp;
 	for (std::map<std::string, S16>::const_iterator itSetting = m_DbgAllowed.begin(); itSetting != m_DbgAllowed.end(); ++itSetting)
@@ -194,11 +219,12 @@ std::string RlvExtGetSet::onGetPseudoDebug(const std::string& strSetting)
 }
 
 // Checked: 2009-10-10 (RLVa-1.0.4e) | Modified: RLVa-1.0.4e
-void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValue)
+ERlvCmdRet RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValue)
 {
-	S16 dbgFlags;
+	S16 dbgFlags; ERlvCmdRet eRet = RLV_RET_FAILED_UNKNOWN;
 	if ( (findDebugSetting(strSetting, dbgFlags)) && ((dbgFlags & DBG_WRITE) == DBG_WRITE) )
 	{
+		eRet = RLV_RET_FAILED_OPTION;
 		if ((dbgFlags & DBG_PSEUDO) == 0)
 		{
 			LLControlVariable* pSetting = gSavedSettings.getControl(strSetting);
@@ -209,18 +235,28 @@ void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValu
 				{
 					case TYPE_U32:
 						if (LLStringUtil::convertToU32(strValue, u32Value))
+						{
 							gSavedSettings.setU32(strSetting, u32Value);
+							eRet = RLV_RET_SUCCESS;
+						}
 						break;
 					case TYPE_S32:
 						if (LLStringUtil::convertToS32(strValue, s32Value))
+						{
 							gSavedSettings.setS32(strSetting, s32Value);
+							eRet = RLV_RET_SUCCESS;
+						}
 						break;
 					case TYPE_BOOLEAN:
 						if (LLStringUtil::convertToBOOL(strValue, fValue))
+						{
 							gSavedSettings.setBOOL(strSetting, fValue);
+							eRet = RLV_RET_SUCCESS;
+						}
 						break;
 					default:
 						RLV_ERRS << "Unexpected debug setting type" << LL_ENDL;
+						eRet = RLV_RET_FAILED;
 						break;
 				}
 
@@ -230,20 +266,26 @@ void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValu
 		}
 		else
 		{
-			onSetPseudoDebug(strSetting, strValue);
+			eRet = onSetPseudoDebug(strSetting, strValue);
 		}
 	}
+	return eRet;
 }
 
 // Checked: 2009-10-10 (RLVa-1.0.4e) | Modified: RLVa-1.0.4e
-void RlvExtGetSet::onSetPseudoDebug(const std::string& strSetting, const std::string& strValue)
+ERlvCmdRet RlvExtGetSet::onSetPseudoDebug(const std::string& strSetting, const std::string& strValue)
 {
+	ERlvCmdRet eRet = RLV_RET_FAILED_OPTION;
 	if ("AvatarSex" == strSetting)
 	{
 		BOOL fValue;
 		if (LLStringUtil::convertToBOOL(strValue, fValue))
+		{
 			m_PseudoDebug[strSetting] = strValue;
+			eRet = RLV_RET_SUCCESS;
+		}
 	}
+	return eRet;
 }
 
 // Checked: 2009-09-16 (RLVa-1.0.3c) | Modified: RLVa-1.0.3c
@@ -322,7 +364,7 @@ std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 }
 
 // Checked: 2009-09-16 (RLVa-1.0.3c) | Modified: RLVa-1.0.3c
-void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
+ERlvCmdRet RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 {
 	// HACK: see RlvExtGetSet::onGetEnv
 	if (!LLFloaterWindLight::isOpen())
@@ -337,8 +379,8 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 
 	F32 nValue = 0.0f;
 	// Sanity check - make sure strValue specifies a number for all settings except "preset"
-	if ( (rlv_handler_t::fNoSetEnv) || ( (!LLStringUtil::convertToF32(strValue, nValue)) && ("preset" != strSetting) ))
-		return;
+	if ( (RlvSettings::getNoSetEnv()) || ( (!LLStringUtil::convertToF32(strValue, nValue)) && ("preset" != strSetting) ))
+		return RLV_RET_FAILED_OPTION;
 
 	// Not quite correct, but RLV-1.16.0 will halt the default daytime cycle on invalid commands so we need to as well
 	pWLParams->mAnimator.mIsRunning = false;
@@ -357,19 +399,19 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 			pWLParams->mAnimator.mIsRunning = true;
 			pWLParams->mAnimator.mUseLindenTime = true;	
 		}
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onChangePresetName()
 	else if ("preset" == strSetting)
 	{
 		pWLParams->loadPreset(strValue, true);
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onStarAlphaMoved
 	else if ("starbrightness" == strSetting)
 	{
 		pWLParams->mCurParams.setStarBrightness(nValue);
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onGlowRMoved() / LLFloaterWindLight::onGlowBMoved()
 	else if ( ("sunglowfocus" == strSetting) || ("sunglowsize" == strSetting) )
@@ -382,7 +424,7 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 
 		pColour->update(pWLParams->mCurParams);
 		pWLParams->propagateParameters();
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onSunMoved()
 	else if ( ("eastangle" == strSetting) || ("sunmoonposition" == strSetting) )	
@@ -401,18 +443,18 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 
 		pColour->update(pWLParams->mCurParams);
 		pWLParams->propagateParameters();
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onCloudScrollXMoved() / LLFloaterWindLight::onCloudScrollYMoved() 
 	else if ("cloudscrollx" == strSetting)
 	{
 		pWLParams->mCurParams.setCloudScrollX(nValue + 10.0f);
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	else if ("cloudscrolly" == strSetting)
 	{
 		pWLParams->mCurParams.setCloudScrollY(nValue + 10.0f);
-		return;
+		return RLV_RET_SUCCESS;
 	}
 	// See LLFloaterWindLight::onFloatControlMoved()
 	else if ("cloudcoverage" == strSetting)			pFloat = &pWLParams->mCloudCoverage;
@@ -430,14 +472,14 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 		pFloat->x = nValue / pFloat->mult;
 		pFloat->update(pWLParams->mCurParams);
 		pWLParams->propagateParameters();
-		return;
+		return RLV_RET_SUCCESS;
 	} 
 	else if (pColour)
 	{
 		pColour->r = nValue;
 		pColour->update(pWLParams->mCurParams);
 		pWLParams->propagateParameters();
-		return;
+		return RLV_RET_SUCCESS;
 	}
 
 	// RGBI settings
@@ -466,7 +508,7 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 			if ('i' == ch)									// (See: LLFloaterWindLight::onColorControlIMoved)
 			{
 				if (!pColour->hasSliderName)
-					return;
+					return RLV_RET_FAILED_UNKNOWN;
 
 				F32 curMax = llmax(pColour->r, pColour->g, pColour->b);
 				if ( (0.0f == nValue) || (0.0f == curMax) )
@@ -490,8 +532,11 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 
 			pColour->update(pWLParams->mCurParams);
 			pWLParams->propagateParameters();
+
+			return RLV_RET_SUCCESS;
 		}
 	}
+	return RLV_RET_FAILED_UNKNOWN;
 }
 
 // ============================================================================

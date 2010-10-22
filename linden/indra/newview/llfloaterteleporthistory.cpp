@@ -108,6 +108,7 @@ BOOL LLFloaterTeleportHistory::postBuild()
 	childSetAction("teleport", onTeleport, this);
 	childSetAction("show_on_map", onShowOnMap, this);
 	childSetAction("copy_slurl", onCopySLURL, this);
+	childSetAction("clear_history", onClearHistory,this);
 	loadEntrys();
 
 	return TRUE;
@@ -121,7 +122,13 @@ void LLFloaterTeleportHistory::saveEntry(LLSD toSave)
 	LLSDSerialize::toPrettyXML(tpList, file);
 	file.close();
 }
-
+void LLFloaterTeleportHistory::clearHistory()
+{
+	tpList.clear();
+	saveEntry(tpList);
+	mPlacesOutList->clearRows();
+	mPlacesInList->clearRows();
+}
 std::string LLFloaterTeleportHistory::getFileName()
 {
 	std::string path=gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "");
@@ -204,23 +211,13 @@ void LLFloaterTeleportHistory::addEntry(std::string regionName, S16 x, S16 y, S1
 		value["columns"][4]["value"] = simString;
 		value["out"]=outList;
 
-// [RLVa:KB] - Alternate: Emerald-370
+// [RLVa:KB] - Alternate: Imprudence-1.4
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 		{
-			// TODO: This is the original code from Emerald. It
-			// uses the class RlvStrings, defined in rlvcommon.cpp
-			// to load localized strings. For Imprudence we use the
-			// old fashioned way via RlvHandler with English
-			// strings only!
-			// value["columns"][0]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
-			// value["columns"][1]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
-			// value["columns"][3]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
-			// value["columns"][4]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
-
-			 value["columns"][0]["value"] = RlvHandler::cstrHiddenRegion;
-			 value["columns"][1]["value"] = RlvHandler::cstrHidden;
-			 value["columns"][3]["value"] = RlvHandler::cstrHidden;
-			 value["columns"][4]["value"] = RlvHandler::cstrHidden;
+			value["columns"][0]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
+			value["columns"][1]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
+			value["columns"][3]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
+			value["columns"][4]["value"] = RlvStrings::getString(RLV_STRING_HIDDEN);
 		}
 // [/RLVa:KB]
 		saveEntry(value);
@@ -238,16 +235,10 @@ void LLFloaterTeleportHistory::addEntry(std::string regionName, S16 x, S16 y, S1
 
 void LLFloaterTeleportHistory::setButtonsEnabled(BOOL on)
 {
-// [RLVa:KB] - Alternate: Emerald-370
+// [RLVa:KB] - Alternate: Imprudence-1.4
 	if (rlv_handler_t::isEnabled())
 	{
-		// TODO: This is the original code from Emerald. It
-		// uses the class RlvStrings, defined in rlvcommon.cpp
-		// to load localized strings. For Imprudence we use the
-		// old fashioned way via RlvHandler with English
-		// strings only!
-		//if ( (pItem) && (pItem->getColumn(4)) && (RlvStrings::getString(RLV_STRING_HIDDEN) == pItem->getColumn(4)->getValue().asString()) )
-		if ( (pItem) && (pItem->getColumn(4)) && (RlvHandler::cstrHidden == pItem->getColumn(4)->getValue().asString()) )
+		if ( (pItem) && (pItem->getColumn(4)) && (RlvStrings::getString(RLV_STRING_HIDDEN) == pItem->getColumn(4)->getValue().asString()) )
 		{
 			on = FALSE;
 		}
@@ -316,6 +307,13 @@ void LLFloaterTeleportHistory::onTeleport(void* data)
 	// build secondlife::/app link from simstring for instant teleport to destination
 	std::string slapp="secondlife:///app/teleport/" + self->pItem->getColumn(4)->getValue().asString();
 	LLURLDispatcher::dispatch(slapp, NULL, true);
+}
+
+// static
+void LLFloaterTeleportHistory::onClearHistory(void* data)
+{
+	LLFloaterTeleportHistory* self = (LLFloaterTeleportHistory*) data;
+	self->clearHistory();
 }
 
 // static

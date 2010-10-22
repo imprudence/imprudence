@@ -69,6 +69,10 @@
 #include "llui.h"
 #include "llweb.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 extern void handle_buy(void*);
 
 extern BOOL gDebugClicks;
@@ -177,10 +181,10 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 	// If it's a left-click, and we have a special action, do it.
 	if (useClickAction(always_show, mask, object, parent))
 	{
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
-		// Block left-click special actions (fallback code really since LLToolSelect::handleObjectSelection() wouldn't select it anyway)
-		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) &&
-			 (dist_vec_squared(gAgent.getPositionAgent(), mPick.mIntersection) > 1.5f * 1.5f) )
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+		// Block left-click special actions when fartouch restricted
+		if ( (rlv_handler_t::isEnabled()) &&
+			 (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && (!gRlvHandler.canTouch(object, mPick.mObjectOffset)) )
 		{
 			return TRUE;
 		}
@@ -273,6 +277,14 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 		((object->usePhysics() || (parent && !parent->isAvatar() && parent->usePhysics())) || touchable) && 
 		!always_show)
 	{
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+		// Triggered by left-clicking on a touchable object
+		if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.canTouch(object, mPick.mObjectOffset)) )
+		{
+			return LLTool::handleMouseDown(x, y, mask);
+		}
+// [/RLVa:KB]
+
 		gGrabTransientTool = this;
 		LLToolMgr::getInstance()->getCurrentToolset()->selectTool( LLToolGrab::getInstance() );
 		return LLToolGrab::getInstance()->handleObjectHit( mPick );
@@ -397,20 +409,17 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 			}
 
 //			gPieAvatar->show(x, y, mPieMouseButtonDown);
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-				// If we have an empty selection under @fartouch=n don't show the pie menu but play the "operation block" sound
-				if ( (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) )
-				{
-			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-					gPieAvatar->show(x, y, mPieMouseButtonDown);
-			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-				}
-				else
-				{
-					make_ui_sound("UISndInvalidOp");
-				}
-			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+			// Don't show the pie menu on empty selection when fartouch/interaction restricted [see LLToolSelect::handleObjectSelection()]
+			if ( (!rlv_handler_t::isEnabled()) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) ||
+				 (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) )
+			{
+				gPieAvatar->show(x, y, mPieMouseButtonDown);
+			}
+			else
+			{
+				make_ui_sound("UISndInvalidOp");
+			}
 // [/RLVa:KB]
 		}
 		else if (object->isAttachment() && !object->isHUDAttachment())
@@ -441,31 +450,28 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 				//gMuteObjectPieMenu->setLabel("Mute");
 			}
 			
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-				// If we have an empty selection under @fartouch=n don't show the pie menu but play the "operation block" sound
-				// (not entirely accurate in case of Tools / Select Only XXX [see LLToolSelect::handleObjectSelection()]
-				if ( (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) )
-				{
-			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+			// Don't show the pie menu on empty selection when fartouch/interaction restricted
+			// (not entirely accurate in case of Tools / Select Only XXX [see LLToolSelect::handleObjectSelection()]
+			if ( (!rlv_handler_t::isEnabled()) || (!LLSelectMgr::getInstance()->getSelection()->isEmpty()) ||
+				 (!gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) )
+			{
 // [/RLVa:KB]
-					gPieObject->show(x, y, mPieMouseButtonDown);
+				gPieObject->show(x, y, mPieMouseButtonDown);
 
-					// VEFFECT: ShowPie object
-					// Don't show when you click on someone else, it freaks them
-					// out.
-					LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral *)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_SPHERE, TRUE);
-					effectp->setPositionGlobal(mPick.mPosGlobal);
-					effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-					effectp->setDuration(0.25f);
+				// VEFFECT: ShowPie object
+				// Don't show when you click on someone else, it freaks them
+				// out.
+				LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral *)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_SPHERE, TRUE);
+				effectp->setPositionGlobal(mPick.mPosGlobal);
+				effectp->setColor(LLColor4U(gAgent.getEffectColor()));
+				effectp->setDuration(0.25f);
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-			#ifdef RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
-				}
-				else
-				{
-					make_ui_sound("UISndInvalidOp");
-				}
-			#endif // RLV_EXPERIMENTAL_FARTOUCH_FEEDBACK
+			}
+			else
+			{
+				make_ui_sound("UISndInvalidOp");
+			}
 // [/RLVa:KB]
 		}
 	}
@@ -534,7 +540,11 @@ ECursorType cursor_from_object(LLViewerObject* object)
 	switch(click_action)
 	{
 	case CLICK_ACTION_SIT:
-		if ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting)) // not already sitting?
+//		if ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting)) // not already sitting?
+// [RLVa:KB] - Checked: 2009-12-22 (RLVa-1.1.0k) | Added: RLVa-1.1.0j
+		if ( ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting)) && // not already sitting?
+			 ((!rlv_handler_t::isEnabled()) || (gRlvHandler.canSit(object, gViewerWindow->getHoverPick().mObjectOffset))) )
+// [/RLVa:KB]
 		{
 			cursor = UI_CURSOR_TOOLSIT;
 		}
@@ -640,7 +650,22 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 
 	LLViewerObject *object = NULL;
 	LLViewerObject *parent = NULL;
-	object = gViewerWindow->getHoverPick().getObject();
+
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+//	object = gViewerWindow->getHoverPick().getObject();
+	// Block all special click action cursors when:
+	//   - @fartouch=n restricted and the object is out of range
+	//   - @interact=n restricted and the object isn't a HUD attachment
+	const LLPickInfo& pick = gViewerWindow->getHoverPick();
+	object = pick.getObject();
+	if ( (object) && (rlv_handler_t::isEnabled()) &&
+		( ((gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH))) && (!gRlvHandler.canTouch(object, pick.mObjectOffset)) ||
+		  ((gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT)) && (!object->isHUDAttachment())) ) )
+	{
+		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
+		return TRUE;
+	}
+// [/RLVa:KB]
 
 	if (object)
 	{
@@ -655,6 +680,13 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 		{
 			// cursor set by media object
 		}
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+		else if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.canTouch(object)) )
+		{
+			// Block showing the "grab" or "touch" cursor if we can't touch the object (@fartouch=n is handled above)
+			gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
+		}
+// [/RLVa:KB]
 		else if ((object && !object->isAvatar() && object->usePhysics()) 
 				 || (parent && !parent->isAvatar() && parent->usePhysics()))
 		{

@@ -61,6 +61,10 @@
 #include "llsdutil.h"
 #include <deque>
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //#define DIFF_INVENTORY_FILES
 #ifdef DIFF_INVENTORY_FILES
 #include "process.h"

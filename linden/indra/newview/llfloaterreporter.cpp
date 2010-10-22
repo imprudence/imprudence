@@ -84,6 +84,10 @@
 
 #include "llassetuploadresponders.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const U32 INCLUDE_SCREENSHOT  = 0x01 << 0;
 
 //-----------------------------------------------------------------------------
@@ -319,7 +323,7 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
 				if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
 				{
-					childSetText("sim_field", rlv_handler_t::cstrHiddenRegion);
+					childSetText("sim_field", RlvStrings::getString(RLV_STRING_HIDDEN_REGION));
 				}
 // [/RLVa:KB]
 				LLVector3d global_pos;
@@ -357,6 +361,7 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 			}
 			else
 			{
+				LLSelectMgr::waitForObjectResponse(mObjectID);
 				// we have to query the simulator for information 
 				// about this object
 				LLMessageSystem* msg = gMessageSystem;

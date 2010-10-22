@@ -610,9 +610,9 @@ void LLPanelGroups::applyChangesToGroups()
 				}
 
 				// chat
-				if (join_group_chat != (!gIMMgr->getIgnoreGroup(group_id)))
+				if (!join_group_chat != gIMMgr->getIgnoreGroup(group_id))
 				{
-					gIMMgr->updateIgnoreGroup(group_id, join_group_chat);
+					gIMMgr->updateIgnoreGroup(group_id, !join_group_chat);
 				}
 			}
 		}

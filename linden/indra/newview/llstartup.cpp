@@ -199,6 +199,10 @@
 #include <Security/Security.h>
 #endif
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #if LL_WINDOWS
 #include "llwindebug.h"
 #include "lldxhardware.h"
@@ -2440,6 +2444,14 @@ bool idle_startup()
 			LLInventoryView::toggleVisibility(NULL);
 		}
 
+// [RLVa:KB] - Checked: 2009-11-27 (RLVa-1.1.0f) | Added: RLVa-1.1.0f
+		if (rlv_handler_t::isEnabled())
+		{
+			// Regularly process a select subset of retained commands during logon
+			gIdleCallbacks.addFunction(RlvHandler::onIdleStartup, new LLTimer());
+		}
+// [/RLVa:KB]
+
 		LLStartUp::setStartupState( STATE_MISC );
 		return FALSE;
 	}
@@ -2787,8 +2799,11 @@ bool idle_startup()
 		// Have the agent start watching the friends list so we can update proxies
 		gAgent.observeFriends();
 
-		// Start loading inventory
-		gInventory.startBackgroundFetch();
+		if (gSavedSettings.getBOOL("FetchInventoryOnLogin"))
+		{
+			// Start loading inventory
+			gInventory.startBackgroundFetch();
+		}
 
 		if (gSavedSettings.getBOOL("LoginAsGod"))
 		{
@@ -2839,7 +2854,7 @@ bool idle_startup()
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL);
 
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
 		gRlvHandler.initLookupTables();
 
