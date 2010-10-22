@@ -46,4 +46,14 @@
     Preview: The quick brown fox jumped over the lazy dog. :)
   </text>
 
+
+  <spinner name="font_mult" label="Font size multiplier:" label_width="130"
+           bottom="-280" left="20" height="16" width="180" follows="left|top"
+           decimal_digits="2" increment="0.01" max_val="3.0" min_val="0.1"
+           tool_tip="Multiply all font sizes by this amount." />
+
+  <check_box name="font_round" follows="left|top"
+             bottom="-300" left="20" height="16" width="300"
+             label="Force integer font sizes (may fix blurry fonts)" />
+
 </panel>
