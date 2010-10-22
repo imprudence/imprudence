@@ -266,6 +266,28 @@
     <key>Value</key>
     <string>DroidSans</string>
   </map>
+  <key>FontSizeMultiplier</key>
+  <map>
+    <key>Comment</key>
+    <string>Multiply all font sizes by this amount. Requires viewer restart.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <string>1.0</string>
+  </map>
+  <key>FontSizeRounding</key>
+  <map>
+    <key>Comment</key>
+    <string>Round all font sizes to integer values, to potentially reduce font blurriness. The rounding occurs after FontSizeMultiplier is applied. Requires viewer restart.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>GoAction</key>
   <map>
     <key>Comment</key>

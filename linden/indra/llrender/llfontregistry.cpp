@@ -442,7 +442,15 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		std::string font_path = local_path + *file_name_it;
 		BOOL is_fallback = !is_first_found;
 		F32 size_mult = (is_fallback ? 1 : match_desc->getSizeMult());
-		F32 size = (F32)llround(point_size * size_mult);
+		if (gSavedSettings.getF32("FontSizeMultiplier") > 0)
+		{
+			size_mult *= gSavedSettings.getF32("FontSizeMultiplier");
+		}
+		F32 size = (F32)(point_size * size_mult);
+		if (gSavedSettings.getBOOL("FontSizeRounding"))
+		{
+			size = (F32)llround(size);
+		}
 		if (!fontp->loadFace(font_path, size,
 							 LLFontGL::sVertDPI, LLFontGL::sHorizDPI, 2, is_fallback))
 		{
