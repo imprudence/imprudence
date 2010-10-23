@@ -583,8 +583,9 @@ LLVFS::LLVFS(const std::string& index_filename, const std::string& data_filename
 		}
 	}
 
-	LL_WARNS("VFS") << "Using index file " << mIndexFilename << LL_ENDL;
-	LL_WARNS("VFS") << "Using data file " << mDataFilename << LL_ENDL;
+	// Success!
+	LL_INFOS("VFS") << "Using index file " << mIndexFilename << LL_ENDL;
+	LL_INFOS("VFS") << "Using data file " << mDataFilename << LL_ENDL;
 
 	mValid = VFSVALID_OK;
 }
