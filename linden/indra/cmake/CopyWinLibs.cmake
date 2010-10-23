@@ -43,10 +43,6 @@ set(all_targets ${all_targets} ${out_targets})
 set(plugintest_debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
 set(plugintest_debug_files
     libeay32.dll
-    libglib-2.0-0.dll
-    libgmodule-2.0-0.dll
-    libgobject-2.0-0.dll
-    libgthread-2.0-0.dll
     qtcored4.dll
     qtguid4.dll
     qtnetworkd4.dll
@@ -92,10 +88,6 @@ set(all_targets ${all_targets} ${out_targets})
 set(plugintest_release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
 set(plugintest_release_files
     libeay32.dll
-    libglib-2.0-0.dll
-    libgmodule-2.0-0.dll
-    libgobject-2.0-0.dll
-    libgthread-2.0-0.dll
     qtcore4.dll
     qtgui4.dll
     qtnetwork4.dll
