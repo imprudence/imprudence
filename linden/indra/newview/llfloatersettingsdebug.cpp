@@ -40,7 +40,7 @@
 #include "llcolorswatch.h"
 #include "llviewercontrol.h"
 
-// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0g)
+// [RLVa:KB]
 #include "rlvhandler.h"
 #include "rlvextensions.h"
 // [/RLVa:KB]
@@ -258,7 +258,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 			fEnable &= !((gRlvHandler.hasBehaviour(RLV_BHVR_SETENV)) && 
 				(("VertexShaderEnable" == controlp->getName()) || ("WindLightUseAtmosShaders" == controlp->getName())));
 			#ifdef RLV_EXTENSION_STARTLOCATION
-				// Don't allow toggling RestrainedLifeLoginLastLocation
+				// Don't allow toggling RLVaLoginLastLocation
 				fEnable &= !(RLV_SETTING_LOGINLASTLOCATION == controlp->getName());
 			#endif // RLV_EXTENSION_STARTLOCATION
 

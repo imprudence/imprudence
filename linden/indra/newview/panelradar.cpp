@@ -57,7 +57,9 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 #include "panelradarentry.h"
-
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 PanelRadar::PanelRadar()
 	:
@@ -112,7 +114,9 @@ bool PanelRadar::isImpDev(const LLUUID& agent_id)
 	std::string agent_name = getSelectedName(agent_id);
 	return (agent_name == "McCabe Maxsted" || 
 	        agent_name == "Jacek Antonelli" ||
-	        agent_name == "Armin Weatherwax");
+	        agent_name == "Armin Weatherwax" ||
+			agent_name == "Elektra Hesse" || 
+			agent_name == "CodeBastard Redgrave");
 }
 
 void PanelRadar::updateRadarInfo()
@@ -303,7 +307,7 @@ void PanelRadar::updateRadarDisplay()
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 			element["columns"][0]["value"] =
 				(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
-					? gRlvHandler.getAnonym(entry->getName())
+					? RlvStrings::getAnonym(entry->getName())
 					: typing + entry->getName() + " " + mute_text;
 // [/RLVa:KB]
 			element["columns"][1]["column"] = "avatar_distance";

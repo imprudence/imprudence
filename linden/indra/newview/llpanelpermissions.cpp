@@ -70,6 +70,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 ///----------------------------------------------------------------------------
 /// Class llpanelpermissions
 ///----------------------------------------------------------------------------
@@ -349,7 +353,7 @@ void LLPanelPermissions::refresh()
 		// Only filter the owner name if: the selection is all owned by the same avie and not group owned
 		if ( (owners_identical) && (!LLSelectMgr::getInstance()->selectIsGroupOwned()) )
 		{
-			owner_name = gRlvHandler.getAnonym(owner_name);
+			owner_name = RlvStrings::getAnonym(owner_name);
 			fRlvEnableOwner = false;
 		}
 	}

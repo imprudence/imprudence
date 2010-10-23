@@ -72,6 +72,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
 const S32 MATURE_UNDEFINED = -1;
 const S32 MATURE_CONTENT = 1;

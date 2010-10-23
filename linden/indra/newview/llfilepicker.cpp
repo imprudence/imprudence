@@ -532,12 +532,16 @@ Boolean LLFilePicker::navOpenFilterProc(AEDesc *theItem, void *info, void *callB
 						{
 							if (fileInfo.filetype != 'JPEG' && fileInfo.filetype != 'JPG ' && 
 								fileInfo.filetype != 'BMP ' && fileInfo.filetype != 'TGA ' &&
+								fileInfo.filetype != 'TIFF' && fileInfo.filetype != 'PSD ' &&
 								fileInfo.filetype != 'BMPf' && fileInfo.filetype != 'TPIC' &&
 								fileInfo.filetype != 'PNG ' &&
 								(fileInfo.extension && (CFStringCompare(fileInfo.extension, CFSTR("jpeg"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("jpg"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("bmp"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("tga"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("psd"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("tiff"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("tif"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("png"), kCFCompareCaseInsensitive) != kCFCompareEqualTo))
 								)
 							{

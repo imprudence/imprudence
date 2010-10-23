@@ -63,9 +63,12 @@ class LLFloaterTeleportHistory : public LLFloater
 		/// @brief: adds a teleport destination to the list of visited places
 		void addEntry(std::string regionName, S16 x, S16 y, S16 z,bool outList);
 
+		void clearHistory();
+
 	protected:
 		static void onInPlacesSelected(LLUICtrl* ctrl, void* data);
 		static void onOutPlacesSelected(LLUICtrl* ctrl, void* data);
+		static void onClearHistory(void* data);
 		static void onTeleport(void* data);
 		static void onShowOnMap(void* data);
 		static void onCopySLURL(void* data);

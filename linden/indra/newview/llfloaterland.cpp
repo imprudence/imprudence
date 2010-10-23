@@ -79,6 +79,10 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 static std::string OWNER_ONLINE 	= "0";
 static std::string OWNER_OFFLINE	= "1";
 static std::string OWNER_GROUP 		= "2";

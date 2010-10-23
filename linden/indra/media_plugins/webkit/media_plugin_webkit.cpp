@@ -34,6 +34,7 @@
  */
 
 #include "llqtwebkit.h"
+#include <qglobal.h>		// for Q_INIT_RESOURCE
 
 #include "linden_common.h"
 #include "indra_constants.h" // for indra keyboard codes
@@ -720,6 +721,9 @@ MediaPluginWebKit::MediaPluginWebKit(LLPluginInstance::sendMessageFunction host_
 	mJavascriptEnabled = true;	// default to on
 	mPluginsEnabled = true;		// default to on
 	mUserAgent = "LLPluginMedia Web Browser";
+
+	// Initialize WebCore resource.
+	Q_INIT_RESOURCE(WebCore);
 }
 
 MediaPluginWebKit::~MediaPluginWebKit()

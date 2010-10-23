@@ -48,6 +48,9 @@
 #include "llselectmgr.h"
 #include "llglheaders.h"
 #include "llresmgr.h"
+// [RLVa:KB] - Imprudence-1.3.0
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #include "llxmltree.h"
 
@@ -599,7 +602,7 @@ void LLHUDEffectLookAt::render()
 			// Show anonyms in place of actual names when @shownames=n restricted
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 			{
-				text = gRlvHandler.getAnonym(text);
+				text = RlvStrings::getAnonym(text);
 			}
 // [/RLVa:KB]
 

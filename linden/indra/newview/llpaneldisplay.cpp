@@ -83,6 +83,10 @@
 // parent
 #include "llfloaterpreference.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #include <boost/regex.hpp>
 
 const F32 MAX_USER_FAR_CLIP = 512.f;

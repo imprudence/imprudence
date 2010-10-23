@@ -61,6 +61,9 @@
 
 #include "hippoGridManager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLPropertiesObserver
@@ -362,7 +365,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 			{
-				name = gRlvHandler.getAnonym(name);
+				name = RlvStrings::getAnonym(name);
 			}
 // [/RLVa:KB]
 		}

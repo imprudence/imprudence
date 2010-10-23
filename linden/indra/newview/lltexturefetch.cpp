@@ -176,7 +176,7 @@ protected:
 	LLTextureFetchWorker(LLTextureFetch* fetcher, const LLUUID& id, const LLHost& host,
 						 F32 priority, S32 discard, S32 size);
 	LLTextureFetchWorker(LLTextureFetch* fetcher, const std::string& url, const LLUUID& id, const LLHost& host,
-						 F32 priority, S32 discard, S32 size);
+						 F32 priority, S32 discard, S32 size, bool can_use_http);
 
 private:
 	/*virtual*/ void startWork(S32 param); // called from addWork() (MAIN THREAD)
@@ -388,7 +388,8 @@ LLTextureFetchWorker::LLTextureFetchWorker(LLTextureFetch* fetcher,
 										   const LLHost& host,	// Simulator host
 										   F32 priority,		// Priority
 										   S32 discard,			// Desired discard
-										   S32 size)			// Desired size
+										   S32 size,			// Desired size
+										   bool can_use_http)	// Try HTTP first
 	: LLWorkerClass(fetcher, "TextureFetch"),
 	  mState(INIT),
 	  mWriteToCacheState(NOT_WRITE),
@@ -420,7 +421,7 @@ LLTextureFetchWorker::LLTextureFetchWorker(LLTextureFetch* fetcher,
 	  mNeedsAux(FALSE),
 	  mHaveAllData(FALSE),
 	  mInLocalCache(FALSE),
-	  mCanUseHTTP(true),
+	  mCanUseHTTP(can_use_http),
 	  mHTTPFailCount(0),
 	  mRetryAttempt(0),
 	  mActiveCount(0),
@@ -1506,7 +1507,7 @@ LLTextureFetch::~LLTextureFetch()
 }
 
 bool LLTextureFetch::createRequest(const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-								   S32 w, S32 h, S32 c, S32 desired_discard, bool needs_aux)
+								   S32 w, S32 h, S32 c, S32 desired_discard, bool needs_aux, bool can_use_http)
 {
 	if (mDebugPause)
 	{
@@ -1568,6 +1569,7 @@ bool LLTextureFetch::createRequest(const std::string& url, const LLUUID& id, con
 		worker->lockWorkMutex();
 		worker->setImagePriority(priority);
 		worker->setDesiredDiscard(desired_discard, desired_size);
+		worker->setCanUseHTTP(can_use_http);
 		worker->unlockWorkMutex();
 		if (!worker->haveWork())
 		{
@@ -1583,7 +1585,7 @@ bool LLTextureFetch::createRequest(const std::string& url, const LLUUID& id, con
 	}
 	else
 	{
-		worker = new LLTextureFetchWorker(this, url, id, host, priority, desired_discard, desired_size);
+		worker = new LLTextureFetchWorker(this, url, id, host, priority, desired_discard, desired_size, can_use_http);
 		mRequestMap[id] = worker;
 	}
 	worker->mActiveCount++;

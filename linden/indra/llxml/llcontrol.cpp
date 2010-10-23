@@ -1099,6 +1099,15 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 		}
 */
 		
+// [RLVa:KB] - Checked: 2010-06-20 (RLVa-1.1.2a) | Added: RLVa-1.1.2a
+		// HACK-RLVa: bad code but it's just a temporary measure to provide a smooth changeover from the old to the new rebranded settings
+		if ( (name.length() >= 14) && (0 == name.find("RestrainedLife")) )
+		{
+			// Transparently convert the old settings name to the new one while preserving the user override
+			name = "RestrainedLove" + name.substr(14);
+		}
+// [/RLVa:KB]
+
 		// If the control exists just set the value from the input file.
 		LLControlVariable* existing_control = getControl(name);
 		if(existing_control)

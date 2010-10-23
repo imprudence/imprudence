@@ -89,6 +89,9 @@
 
 #include "llpanelinventory.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 const std::string HELLO_LSL =
 	"default\n"

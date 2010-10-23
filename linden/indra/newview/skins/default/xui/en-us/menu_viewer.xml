@@ -1467,8 +1467,8 @@
 
         <menu_item_check name="Show Debug Messages"
                          label="Show Debug Messages">
-          <on_click function="ToggleControl" userdata="RestrainedLifeDebug" />
-          <on_check control="RestrainedLifeDebug" />
+          <on_click function="ToggleControl" userdata="RestrainedLoveDebug" />
+          <on_check control="RestrainedLoveDebug" />
         </menu_item_check>
 
         <menu_item_separator />
@@ -1515,8 +1515,8 @@
 
       <menu_item_check name="Forbid Give to #RLV" label="Forbid Give to #RLV">
         <on_click function="ToggleControl"
-                  userdata="RestrainedLifeForbidGiveToRLV" />
-        <on_check control="RestrainedLifeForbidGiveToRLV" />
+                  userdata="RestrainedLoveForbidGiveToRLV" />
+        <on_check control="RestrainedLoveForbidGiveToRLV" />
       </menu_item_check>
 
       <menu_item_check name="Show Name Tags" label="Show Name Tags">

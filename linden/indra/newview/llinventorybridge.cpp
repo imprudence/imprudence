@@ -94,6 +94,10 @@
 #include "llfloateropenobject.h"
 #include "llwlparammanager.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 // Helpers
 // bug in busy count inc/dec right now, logic is complex... do we really need it?
 void inc_busy_count()
@@ -164,7 +168,9 @@ struct LLWearInfo
 	BOOL	mAppend;
 };
 
-BOOL gAddToOutfit = FALSE;
+// [RLVa:KB] - Made this part of LLWearableHoldingPattern
+//BOOL gAddToOutfit = FALSE;
+// [/RLVa:KB]
 
 // +=================================================+
 // |        LLInvFVBridge                            |
@@ -498,14 +504,14 @@ void LLInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("Open"));
 		items.push_back(std::string("Properties"));
 
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 		if (rlv_handler_t::isEnabled())
 		{
 			LLInventoryObject* pItem = (mInventoryPanel->getModel()) ? mInventoryPanel->getModel()->getObject(mUUID) : NULL;
 			if ( (pItem) &&
 				 ( ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))) ||
 				   ((LLAssetType::AT_LSL_TEXT == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))) ||
-				   ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
+				   ((LLAssetType::AT_TEXTURE == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
 			{
 				disabled_items.push_back(std::string("Open"));
 			}
@@ -2503,9 +2509,10 @@ void open_texture(const LLUUID& item_id,
 				   const LLUUID& source_id,
 				   BOOL take_focus)
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
 	{
+		RlvNotifications::notifyBlockedViewTexture();
 		return;
 	}
 // [/RLVa:KB]
@@ -3008,9 +3015,10 @@ void open_notecard(LLViewerInventoryItem* inv_item,
 				   const LLUUID& source_id,
 				   BOOL take_focus)
 {
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) )
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))
 	{
+		RlvNotifications::notifyBlockedViewNote();
 		return;
 	}
 // [/RLVa:KB]
@@ -3867,9 +3875,10 @@ LLUIImagePtr LLLSLTextBridge::getIcon() const
 
 void LLLSLTextBridge::openItem()
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))
 	{
+		RlvNotifications::notifyBlockedViewScript();
 		return;
 	}
 // [/RLVa:KB]
@@ -3917,6 +3926,9 @@ void wear_inventory_item_on_avatar( LLInventoryItem* item )
 	}
 }
 
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+// Moved to llinventorybridge.h because we need it in RlvForceWear
+/*
 struct LLFoundData
 {
 	LLFoundData(const LLUUID& item_id,
@@ -3948,7 +3960,8 @@ struct LLWearableHoldingPattern
 	found_list_t mFoundList;
 	S32 mResolved;
 };
-
+*/
+// [/RLVa:KB]
 
 class LLOutfitObserver : public LLInventoryFetchObserver
 {
@@ -4376,7 +4389,10 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 			// wearables can be resolved immediately, then the
 			// callback will be called (and this object deleted)
 			// before the final getNextData().
-			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern;
+//			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern;
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern(wear_info->mAppend);
+// [/RLVa:KB]
 			LLFoundData* found;
 			LLDynamicArray<LLFoundData*> found_container;
 			for(i = 0; i  < wearable_count; ++i)
@@ -4390,7 +4406,9 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 			}
 			for(i = 0; i < wearable_count; ++i)
 			{
-				gAddToOutfit = wear_info->mAppend;
+// [RLVa:KB] - Part of LLWearableHoldingPattern
+//				gAddToOutfit = wear_info->mAppend;
+// [/RLVa:KB]
 
 				found = found_container.get(i);
 				gWearableList.getAsset(found->mAssetID,
@@ -4422,7 +4440,9 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 void wear_inventory_category_on_avatar_loop(LLWearable* wearable, void* data)
 {
 	LLWearableHoldingPattern* holder = (LLWearableHoldingPattern*)data;
-	BOOL append= gAddToOutfit;
+// [RLVa:KB] - Part of LLWearableHoldingPattern
+//	BOOL append= gAddToOutfit;
+// [/RLVa:KB]
 	
 	if(wearable)
 	{
@@ -4440,7 +4460,10 @@ void wear_inventory_category_on_avatar_loop(LLWearable* wearable, void* data)
 	holder->mResolved += 1;
 	if(holder->mResolved >= (S32)holder->mFoundList.size())
 	{
-		wear_inventory_category_on_avatar_step3(holder, append);
+//		wear_inventory_category_on_avatar_step3(holder, append);
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+		wear_inventory_category_on_avatar_step3(holder, holder->mAddToOutfit);
+// [/RLVa:KB]
 	}
 }
 
@@ -4595,7 +4618,7 @@ void wear_attachments_on_avatar(const LLInventoryModel::item_array_t& items, BOO
 			msg->nextBlockFast(_PREHASH_HeaderData);
 			msg->addUUIDFast(_PREHASH_CompoundMsgID, compound_msg_id );
 			msg->addU8Fast(_PREHASH_TotalObjects, count );
-//			msg->addBOOLFast(_PREHASH_FirstDetachAll, remove );
+//			msg->addBOOLFast(_PREHASH_FirstDetachAll, !wear_info->mAppend );
 // [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
 			// This really should just *always* be FALSE since TRUE can result in loss of the current asset state
 			msg->addBOOLFast(_PREHASH_FirstDetachAll,
@@ -4608,11 +4631,22 @@ void wear_attachments_on_avatar(const LLInventoryModel::item_array_t& items, BOO
 		msg->addUUIDFast(_PREHASH_ItemID, item->getUUID() );
 		msg->addUUIDFast(_PREHASH_OwnerID, item->getPermissions().getOwner());
 //		msg->addU8Fast(_PREHASH_AttachmentPt, 0 );	// Wear at the previous or default attachment point
-// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+// [RLVa:KB] - Checked: 2009-11-16 (RLVa-1.1.0c) | Modified: RLVa-1.1.0c
+		// We'll attach to the default attachment point if:
+		//   - RLV isn't enabled (or nothing is currently locked on)
+		//   - "Enable Default Wear" is checked and the current attach isn't the direct result of an RLV command
+		//   - "Enable Shared Wear" is checked and the current attach is the direct result of an RLV command
+		// RELEASE-RLVa: make sure the above assertions are still valid
 		msg->addU8Fast(_PREHASH_AttachmentPt,
-			( (!rlv_handler_t::isEnabled()) || (RlvSettings::getEnableWear()) || (!gRlvHandler.hasLockedAttachment(RLV_LOCK_ANY)) )
+			( (!rlv_handler_t::isEnabled()) || (!gRlvHandler.hasLockedAttachment(RLV_LOCK_ANY)) ||
+#ifndef RLV_WORKAROUND_REZMULTIPLEATTACH
+			  ( (!gRlvHandler.getCurrentCommand()) && (RlvSettings::getEnableWear()) ) ||
+			  ( (gRlvHandler.getCurrentCommand()) && (RlvSettings::getEnableSharedWear()) ) )
+#else
+			  (RlvSettings::getEnableWear()) )
+#endif // RLV_WORKAROUND_REZMULTIPLEATTACH
 				? 0
-				: gRlvHandler.getAttachPointIndex(gRlvHandler.getAttachPoint(item, true)));
+				: gRlvHandler.getAttachPointIndex(gRlvHandler.getAttachPoint(item, true)) );
 // [/RLVa:KB]
 		pack_permissions_slam(msg, item->getFlags(), item->getPermissions());
 		msg->addStringFast(_PREHASH_Name, item->getName());

@@ -984,7 +984,7 @@ class Linux_i686Manifest(LinuxManifest):
             ##self.path("libpixman-1.so.0")
 
 #KILL IT WITH FIRE
-            # Gstreamer libs
+            ## Gstreamer libs
             #self.path("libgstbase-0.10.so.0")
             #self.path("libgstreamer-0.10.so.0")
             #self.path("libgstaudio-0.10.so.0")
@@ -1002,7 +1002,7 @@ class Linux_i686Manifest(LinuxManifest):
             #self.path("libgstvideo-0.10.so.0")
 
             ## Gstreamer plugin dependencies
-	    #self.path("libfaad.so.0")
+            #self.path("libfaad.so.0")
             #self.path("libogg.so.0")
             #self.path("libtheora.so.0")
             #self.path("libvorbis.so.0")
@@ -1151,7 +1151,7 @@ class Linux_x86_64Manifest(LinuxManifest):
                 #self.path("libgstdecodebin2.so")
                 #self.path("libgstdecodebin.so")
                 #self.path("libgstesd.so")
-		#self.path("libgstfaad.so")
+                #self.path("libgstfaad.so")
                 #self.path("libgstffmpeg.so")
                 #self.path("libgstffmpegcolorspace.so")
                 #self.path("libgstgnomevfs.so")

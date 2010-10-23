@@ -91,6 +91,10 @@ const F32 CHAT_MSG_SIZE = 8.0f;
 const LLColor4 MUTED_MSG_COLOR(0.5f, 0.5f, 0.5f, 1.f);
 const S32 MAX_CHATTER_COUNT = 16;
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //
 // Global statics
 //

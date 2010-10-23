@@ -83,6 +83,10 @@
 #include "llwaterparammanager.h"
 #include "llpostprocess.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 extern LLPointer<LLImageGL> gStartImageGL;
 
 LLPointer<LLImageGL> gDisconnectedImagep = NULL;

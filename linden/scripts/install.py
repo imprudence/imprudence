@@ -564,40 +564,43 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
                     tar.extractall(path=install_dir)
                 except AttributeError:
                     _extractall(tar, path=install_dir)
-                if _get_platform() == 'linux' or _get_platform() == 'linux64':
-                    first = 1
-                    for tfile in tar.getnames():
-                        if tfile.find('.so.') > 0:
-                            LINK = re.sub(r'\.so\.[0-9.]*$', '.so', tfile)
-                            link_name = "../" + LINK
-                            if not os.path.exists(link_name):
-                                if first == 1:
-                                    first = 0
-                                    print "Adding missing symlink(s) for package %s:" % ifile.filename
-                                target = os.path.basename(tfile)
-                                soname = os.popen("readelf -d \"../%(tfile)s\" "
-                                    " | grep SONAME "
-                                    " | sed -e 's/.*\[//;s/\].*//'" % {"tfile": tfile}).read()
-                                soname = soname.strip()
-                                if soname:  # not empty
-                                    tmpfname = os.path.dirname(LINK) + "/" + soname
-                                    if os.path.exists("../" + tmpfname):
-                                        target = soname
-                                    else:
-                                        print "WARNING: SONAME %s doesn't exist!" % tmpfname
+            symlinks = []
+            if _get_platform() == 'linux' or _get_platform() == 'linux64':
+                first = 1
+                for tfile in tar.getnames():
+                    if tfile.find('.so.') > 0:
+                        LINK = re.sub(r'\.so\.[0-9.]*$', '.so', tfile)
+                        link_name = install_dir + "/" + LINK
+                        if not os.path.exists(link_name):
+                            if first == 1:
+                                first = 0
+                                print "Adding missing symlink(s) for package %s:" % ifile.filename
+                            target = os.path.basename(tfile)
+                            soname = os.popen("readelf -d \"%(install_dir)s/%(tfile)s\" %(stderr_redirect)s"
+                                " | grep SONAME | sed -e 's/.*\[//;s/\].*//'" %
+								{"install_dir": install_dir, "tfile": tfile, "stderr_redirect": ("2>/dev/null" if self._dryrun else "")}).read()
+                            soname = soname.strip()
+                            if soname:  # not empty
+                                tmpfname = os.path.dirname(LINK) + "/" + soname
+                                if os.path.exists(install_dir + "/" + tmpfname):
+                                    target = soname
+                                else:
+                                    print "WARNING: SONAME %s doesn't exist!" % tmpfname
+                            if not self._dryrun:
                                 os.symlink(target, link_name)
-                                print "    %s --> %s" % (LINK, target)
+                            symlinks += [LINK]
+                            print "    %s --> %s" % (LINK, target)
             if ifile.pkgname in self._installed:
                 self._installed[ifile.pkgname].add_files(
                     ifile.url,
-                    tar.getnames())
+                    tar.getnames() + symlinks)
                 self._installed[ifile.pkgname].set_md5sum(
                     ifile.url,
                     ifile.md5sum)
             else:
                 # *HACK: this understands the installed package syntax.
                 definition = { ifile.url :
-                               {'files': tar.getnames(),
+                               {'files': tar.getnames() + symlinks,
                                 'md5sum' : ifile.md5sum } }
                 self._installed[ifile.pkgname] = InstalledPackage(definition)
             self._installed_changed = True

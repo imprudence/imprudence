@@ -188,6 +188,10 @@
 #include "llfloatertest.h" // HACK!
 #include "llfloaternotificationsconsole.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #if LL_WINDOWS
 #include <tchar.h> // For Unicode conversion methods
 #endif
@@ -1652,7 +1656,7 @@ void LLViewerWindow::adjustControlRectanglesForFirstUse(const LLRect& window)
 	adjust_rect_top_center("FloaterCameraRect3", window);
 }
 
-void LLViewerWindow::pre_initWorldUI()
+void LLViewerWindow::initWorldUI()
 {
 	pre_init_menus();
 
@@ -1681,15 +1685,12 @@ void LLViewerWindow::pre_initWorldUI()
 		init_menus();
 	}
 
+	// Toolbox floater
 	if (!gFloaterTools)
 	{
 		gFloaterTools = new LLFloaterTools();
 		gFloaterTools->setVisible(FALSE);
 	}
-
-	// menu holder appears on top to get first pass at all mouse events
-
-	mRootView->sendChildToFront(gMenuHolder);
 
 	if ( gHUDView == NULL )
 	{
@@ -1705,11 +1706,33 @@ void LLViewerWindow::pre_initWorldUI()
 	}
 }
 
-void LLViewerWindow::initWorldUI()
+// initWorldUI that wasn't before logging in. Some of this may require the access the 'LindenUserDir'.
+void LLViewerWindow::initWorldUI_postLogin()
 {
 	S32 height = mRootView->getRect().getHeight();
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
+
+	// The status base must be created before calling sendChildToFront below,
+	// or the text of the menu (after logging in) won't be visible.
+	if (!gStatusBar)
+	{
+		// Status bar
+		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
+		LLRect root_rect = mRootView->getRect();
+		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
+		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
+		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
+	
+		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
+		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
+		// sync bg color with menu bar
+		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
+		mRootView->addChild(gStatusBar);
+	}
+
+	// Menu holder appears on top to get first pass at all mouse events
+	mRootView->sendChildToFront(gMenuHolder);
 
 	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
 	{
@@ -1726,8 +1749,6 @@ void LLViewerWindow::initWorldUI()
 	mRootView->addChild(gMorphView);
 	gMorphView->setVisible(FALSE);
 
-	// *Note: this is where gFloaterMute used to be initialized.
-
 	LLWorldMapView::initClass();
 
 	adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
@@ -1743,28 +1764,6 @@ void LLViewerWindow::initWorldUI()
 		// open teleport history floater and hide it initially
 		gFloaterTeleportHistory = new LLFloaterTeleportHistory();
 		gFloaterTeleportHistory->setVisible(FALSE);
-	}
-
-	//
-	// Tools for building
-	//
-
-	// Toolbox floater
-
-	if (!gStatusBar)
-	{
-		// Status bar
-		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
-		LLRect root_rect = mRootView->getRect();
-		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
-		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
-		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
-	
-		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
-		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
-		// sync bg color with menu bar
-		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
-		mRootView->addChild(gStatusBar);
 	}
 
 	LLFloaterChatterBox::createInstance(LLSD());
@@ -3502,17 +3501,41 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 			}
 
 	else // check ALL objects
-			{
+	{
 		found = gPipeline.lineSegmentIntersectInHUD(mouse_hud_start, mouse_hud_end, pick_transparent,
 													face_hit, intersection, uv, normal, binormal);
 
-		if (!found) // if not found in HUD, look in world:
+// [RLVa:KB] - Checked: 2009-12-28 (RLVa-1.1.0k) | Modified: RLVa-1.1.0k
+		if ( (rlv_handler_t::isEnabled()) && (LLToolCamera::getInstance()->hasMouseCapture()) && (gKeyboard->currentMask(TRUE) & MASK_ALT) )
+		{
+			found = NULL;
+		}
+// [/RLVa:KB]
 
-			{
+		if (!found) // if not found in HUD, look in world:
+		{
 			found = gPipeline.lineSegmentIntersectInWorld(mouse_world_start, mouse_world_end, pick_transparent,
 														  face_hit, intersection, uv, normal, binormal);
-			}
 
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+#ifdef RLV_EXTENSION_CMD_INTERACT
+			if ( (rlv_handler_t::isEnabled()) && (found) && (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT)) )
+			{
+				// Allow picking if:
+				//   - the drag-and-drop tool is active (allows inventory offers)
+				//   - the camera tool is active
+				//   - the pie tool is active *and* we picked our own avie (allows "mouse steering" and the self pie menu)
+				LLTool* pCurTool = LLToolMgr::getInstance()->getCurrentTool();
+				if ( (LLToolDragAndDrop::getInstance() != pCurTool) &&
+					 (!LLToolCamera::getInstance()->hasMouseCapture()) &&
+					 ((LLToolPie::getInstance() != pCurTool) || (gAgent.getID() != found->getID())) )
+				{
+					found = NULL;
+				}
+			}
+#endif // RLV_EXTENSION_CMD_INTERACT
+// [/RLVa:KB]
+		}
 	}
 
 	return found;

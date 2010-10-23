@@ -64,6 +64,9 @@
 #include "lltexturefetch.h"
 #include "llappviewer.h"				// Only for constants!
 #include "lltrans.h"
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #include "llglheaders.h"
 
@@ -696,7 +699,7 @@ void LLWorldMapView::draw()
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-04 (RLVa-1.0.0a)
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 			{
-				mesg = rlv_handler_t::cstrHidden;
+				mesg = RlvStrings::getString(RLV_STRING_HIDDEN);
 			}
 			else if (info->mAccess == SIM_ACCESS_DOWN)
 // [/RLVa:KB]
@@ -1285,7 +1288,7 @@ BOOL LLWorldMapView::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* stic
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-04 (RLVa-1.0.0a)
 		std::string message = 
 			llformat("%s (%s)",
-					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? info->mName.c_str() : rlv_handler_t::cstrHidden.c_str(),
+					(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? info->mName.c_str() : RlvStrings::getString(RLV_STRING_HIDDEN).c_str(),
 					 LLViewerRegion::accessToString(info->mAccess).c_str());
 // [/RLVa:KB]
 
