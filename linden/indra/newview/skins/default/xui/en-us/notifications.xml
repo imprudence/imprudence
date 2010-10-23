@@ -7026,6 +7026,7 @@ IM history could not be found for [NAME].
  type="alert">
 Show Look At is a debug setting that displays where an avatar's head is looking. Be aware: this will *NOT* show where an avatar's camera is actually pointed. This setting should not be relied on for any form of privacy!
   <usetemplate
+   ignoretext="When setting Show Look At"
    name="okignore"
    yestext="OK"/>
 </notification>
