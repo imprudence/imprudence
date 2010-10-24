@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="minimap">
+<floater name="minimap" short_title="Mini-Karte">
 	<panel label="Minikarte" name="mini_mapview" tool_tip="(Karte mit Doppelklick öffnen)"/>
+  <!-- Note: panel contents are defined in panel_radar.xml -->
+  <panel name="RadarPanel" label="Radar" />
+  <button name="toggle_radar" label="" tool_tip="Radar anzeigen oder verstecken" />
+
 </floater>

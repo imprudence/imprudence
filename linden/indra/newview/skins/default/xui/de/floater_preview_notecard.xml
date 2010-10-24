@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="preview notecard" title="Hinweis:">
-	<button label="Speichern" label_selected="Speichern" name="Save" />
 	<text type="string" length="1" name="desc txt">
 		Beschreibung:
 	</text>
+
+	<menu_bar name="motecard_menu">
+    <menu name="File">
+      <menu_item_call label="Speichern" name="Save Menu" shortcut="control|S" />
+      <menu_item_separator />
+      <menu_item_call label="Text Exportieren..." name="Export Text..." />
+      <menu_item_call label="Text Importieren..." name="Import Text..." />
+    </menu>
+		<menu name="Edit">
+			<menu_item_call label="Rückgängig" name="Undo" />
+			<menu_item_call label="Wiederherstellen" name="Redo" width="139" />
+			<menu_item_separator label="-----------" name="separator1" width="139" />
+			<menu_item_call label="Ausschneiden" name="Cut" />
+			<menu_item_call label="Kopieren" name="Copy" />
+			<menu_item_call label="Einfügen" name="Paste" />
+			<menu_item_separator label="-----------" name="separator2" width="139" />
+			<menu_item_call label="Alle auswählen" name="Select All" width="139" />
+			<menu_item_call label="Deselektieren" name="Deselect" width="139" />
+			<menu_item_separator label="-----------" name="separator3" width="139" />
+			<menu_item_call label="Suchen / Ersetzen..."
+			     name="Search / Replace..." width="139" />
+		</menu>
+	</menu_bar>
+
 	<text_editor type="string" length="1" name="Notecard Editor">
 		Wird geladen...
 	</text_editor>
-	<text name="no_object">
+	<button label="Sichern" label_selected="Sichern" name="Save" />
+	<string name="no_object">
 		Es wurde kein Objekt gefunden, das diese Notiz enthält.
-	</text>
-	<text name="not_allowed">
+	</string>
+	<string name="not_allowed">
 		Sie können diese Notiz nicht anzeigen.
-	</text>
+	</string>
 </floater>

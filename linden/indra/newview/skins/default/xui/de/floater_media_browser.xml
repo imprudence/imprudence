@@ -6,13 +6,17 @@
 			<button label="Weiter" name="forward" />
 			<button label="Neu laden" name="reload" />
 			<button label="Los" name="go" />
+			<button label="Zuhause" name="home" />
 		</layout_panel>
 		<layout_panel name="parcel_owner_controls">
+			<web_browser name="browser" />
 			<button label="Aktuelle URL an Parzelle senden" name="assign" />
 		</layout_panel>
 		<layout_panel name="external_controls">
 			<button label="In meinem Browser öffnen" name="open_browser" />
 			<check_box label="Immer in meinem Browser öffnen" name="open_always" />
+			<button label="Als Zuhause setzen" name="set_home" />
+
 			<button label="Schließen" name="close" />
 		</layout_panel>
 	</layout_stack>

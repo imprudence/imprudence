@@ -5,10 +5,10 @@
 		Schnellzahlung:
 	</text>
 
-	<button name="fastpay 1"  label="1 L$"  left="115" />
-	<button name="fastpay 5"  label="5 L$"             />
-	<button name="fastpay 10" label="10 L$" left="115" />
-	<button name="fastpay 20" label="20 L$"            />
+	<button name="fastpay 1"  label="1 [CURRENCY]"  left="115" />
+	<button name="fastpay 5"  label="5 [CURRENCY]"             />
+	<button name="fastpay 10" label="10 [CURRENCY]" left="115" />
+	<button name="fastpay 20" label="20 [CURRENCY]"            />
 
 	<text name="amount text">
 		Betrag:

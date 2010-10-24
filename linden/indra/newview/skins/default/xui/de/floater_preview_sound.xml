@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview_sound">
+<floater name="preview_sound" width="310">
 	<text type="string" length="1" name="desc txt">
 		Beschreibung:
 	</text>
@@ -8,5 +8,5 @@
 	     tool_tip="Gibt diesen Sound so wieder, dass andere ihn hören können." />
 	<button label="Lokal wiedergeben" label_selected="Lokal wiedergeben"
 	     name="Sound audition btn"
-	     tool_tip="Gibt diesen Sound so wieder, dass nur Sie ihn hören." />
+	     tool_tip="Gibt diesen Sound so wieder, dass nur Sie ihn hören." width="130" />
 </floater>
