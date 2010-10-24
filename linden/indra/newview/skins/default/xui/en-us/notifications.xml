@@ -902,32 +902,32 @@ Would you like to disable all popups which can be skipped?
 </notification>
 
 <notification
- icon="alertmodal.tga"
+ icon="notify.tga"
  name="CacheWillClear"
- type="alertmodal">
+ type="notify">
 Cache will be cleared after you restart [VIEWER_NAME].
 </notification>
 
 <notification
- icon="alertmodal.tga"
+ icon="notify.tga"
  name="CacheWillBeMoved"
- type="alertmodal">
+ type="notify">
 Cache will be moved after you restart [VIEWER_NAME].
 
 Note: This will clear the cache.
 </notification>
 
 <notification
- icon="alertmodal.tga"
+ icon="notify.tga"
  name="ChangeConnectionPort"
- type="alertmodal">
+ type="notify">
 Port settings take effect after you restart [VIEWER_NAME].
 </notification>
 
 <notification
- icon="alertmodal.tga"
+ icon="notify.tga"
  name="ChangeSkin"
- type="alertmodal">
+ type="notify">
 The new skin will appear after you restart [VIEWER_NAME].
 </notification>
 
@@ -7054,8 +7054,8 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
 
 <notification
  name="ChangeFont"
- icon="alertmodal.tga"
- type="alertmodal">
+ icon="notify.tga"
+ type="notify">
 The new font will appear after you restart [VIEWER_NAME].
 </notification>
 
