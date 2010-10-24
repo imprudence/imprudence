@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rlvBehaviours"
+     title="Active RLV-Beschränkungen">
+  <scroll_list name="behaviour_list">
+    <column label="Beschränkung" name="behaviour" />
+    <column label="Objektname" name="name" />
+  </scroll_list>
+</floater>
