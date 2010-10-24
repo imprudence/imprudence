@@ -103,6 +103,10 @@ struct SortScrollListItem
 LLScrollListIcon::LLScrollListIcon(LLUIImagePtr icon, S32 width)
 	: LLScrollListCell(width),
 	  mIcon(icon),
+	  // <edit>
+	  mCallback(NULL),
+	  mUserData(NULL),
+	  // </edit>
 	  mColor(LLColor4::white)
 {
 }
@@ -145,6 +149,19 @@ void LLScrollListIcon::setValue(const LLSD& value)
 	}
 }
 
+// <edit>
+void LLScrollListIcon::setClickCallback(BOOL (*callback)(void*), void* user_data)
+{
+	mCallback = callback;
+	mUserData = user_data;
+}
+
+BOOL LLScrollListIcon::handleClick()
+{
+	if(mCallback) return mCallback(mUserData);
+	return FALSE;
+}
+// </edit>
 
 void LLScrollListIcon::setColor(const LLColor4& color)
 {

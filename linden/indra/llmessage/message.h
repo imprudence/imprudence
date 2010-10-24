@@ -230,11 +230,14 @@ class LLMessageSystem : public LLMessageSenderInterface
 	typedef std::map<const char *, LLMessageTemplate*> message_template_name_map_t;
 	typedef std::map<U32, LLMessageTemplate*> message_template_number_map_t;
 
-private:
+// <edit>
+//private:
+// </edit>
 	message_template_name_map_t		mMessageTemplates;
 	message_template_number_map_t		mMessageNumbers;
-
-public:
+// <edit>
+//public:
+// </edit>
 	S32					mSystemVersionMajor;
 	S32					mSystemVersionMinor;
 	S32					mSystemVersionPatch;
@@ -341,7 +344,7 @@ public:
 	bool addCircuitCode(U32 code, const LLUUID& session_id);
 
 	BOOL	poll(F32 seconds); // Number of seconds that we want to block waiting for data, returns if data was received
-	BOOL	checkMessages( S64 frame_count = 0 );
+	BOOL	checkMessages( S64 frame_count = 0, bool faked_message = false, U8 fake_buffer[MAX_BUFFER_SIZE] = NULL, LLHost fake_host = LLHost(), S32 fake_size = 0 );
 	void	processAcks();
 
 	BOOL	isMessageFast(const char *msg);
@@ -569,6 +572,10 @@ public:
 	void	showCircuitInfo();
 	void getCircuitInfo(LLSD& info) const;
 
+	// <edit>
+	LLCircuit* getCircuit();
+	// </edit>
+
 	U32 getOurCircuitCode();
 	
 	void	enableCircuit(const LLHost &host, BOOL trusted);
@@ -733,6 +740,8 @@ public:
 	// This will cause all trust queries to return true until the next message
 	// is read: use with caution!
 	void receivedMessageFromTrustedSender();
+
+	LLTemplateMessageBuilder* mTemplateMessageBuilder;
 	
 private:
 
@@ -807,7 +816,6 @@ private:
 	TPACKETID mCurrentRecvPacketID;       // packet ID of current receive packet (for reporting)
 
 	LLMessageBuilder* mMessageBuilder;
-	LLTemplateMessageBuilder* mTemplateMessageBuilder;
 	LLSDMessageBuilder* mLLSDMessageBuilder;
 	LLMessageReader* mMessageReader;
 	LLTemplateMessageReader* mTemplateMessageReader;

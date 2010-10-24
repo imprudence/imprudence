@@ -908,6 +908,15 @@
                   userdata="notifications" />
       </menu_item_call>
       <menu_item_separator />
+      <menu_item_call name="Message Log" label="Message Log">
+        <on_click function="Advanced.MessageLog"
+                  userdata="MessageLog" />
+      </menu_item_call>
+      <menu_item_call name="Message Builder" label="Message Builder">
+        <on_click function="Advanced.MessageBuilder"
+                  userdata="MessageBuilder" />
+      </menu_item_call>
+      <menu_item_separator />
       <menu_item_call name="Region Info to Debug Console"
                       label="Region Info to Debug Console">
         <on_click function="Advanced.DumpInfoToConsole"

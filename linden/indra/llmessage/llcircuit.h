@@ -336,6 +336,9 @@ public:
 	// HACK - this should become protected eventually, but stupid !@$@# message system/circuit classes are jumbling things up.
 	circuit_data_map mUnackedCircuitMap; // Map of circuits with unacked data
 	circuit_data_map mSendAckMap; // Map of circuits which need to send acks
+
+	std::vector<LLCircuitData*> getCircuitDataList();
+
 protected:
 	circuit_data_map mCircuitData;
 

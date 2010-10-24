@@ -86,6 +86,7 @@
 #include "v3math.h"
 #include "v4math.h"
 #include "lltransfertargetvfile.h"
+#include "llmessagelog.h"
 
 // Constants
 //const char* MESSAGE_LOG_FILENAME = "message.log";
@@ -524,10 +525,10 @@ LLCircuitData* LLMessageSystem::findCircuit(const LLHost& host,
 }
 
 // Returns TRUE if a valid, on-circuit message has been received.
-BOOL LLMessageSystem::checkMessages( S64 frame_count )
+BOOL LLMessageSystem::checkMessages( S64 frame_count, bool faked_message, U8 fake_buffer[MAX_BUFFER_SIZE], LLHost fake_host, S32 fake_size )
 {
 	// Pump 
-	BOOL	valid_packet = FALSE;
+	BOOL valid_packet = FALSE;
 	mMessageReader = mTemplateMessageReader;
 
 	LLTransferTargetVFile::updateQueue();
@@ -557,6 +558,13 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 		mTrueReceiveSize = mPacketRing.receivePacket(mSocket, (char *)mTrueReceiveBuffer);
 		// If you want to dump all received packets into SecondLife.log, uncomment this
 		//dumpPacketToLog();
+ 		// <edit>
+ 		if(mTrueReceiveSize && receive_size > (S32) LL_MINIMUM_VALID_PACKET_SIZE)
+ 		{
+ 			LLMessageLog::log(mLastSender, LLHost(16777343, mPort), buffer, mTrueReceiveSize);
+ 		}
+ 		// </edit>
+
 		
 		receive_size = mTrueReceiveSize;
 		mLastSender = mPacketRing.getLastSender();
@@ -1547,6 +1555,12 @@ void LLMessageSystem::dumpCircuitInfo()
 U32 LLMessageSystem::getOurCircuitCode()
 {
 	return mOurCircuitCode;
+}
+
+// <edit>
+LLCircuit* LLMessageSystem::getCircuit()
+{
+	return &mCircuitInfo;
 }
 
 void LLMessageSystem::getCircuitInfo(LLSD& info) const

@@ -163,10 +163,18 @@ public:
 	virtual void	setColor(const LLColor4&);
 	virtual BOOL	isText()const { return FALSE; }
 	virtual void	setValue(const LLSD& value);
+	// <edit>
+	void setClickCallback(BOOL (*callback)(void*), void* user_data);
+	virtual BOOL handleClick();
+	// </edit>
 
 private:
 	LLUIImagePtr mIcon;
 	LLColor4 mColor;
+	// <edit>
+	BOOL (*mCallback)(void*);
+	void* mUserData;
+	// </edit>
 };
 
 /*
@@ -493,6 +501,9 @@ public:
 
 	virtual S32		getScrollPos() const;
 	virtual void	setScrollPos( S32 pos );
+	// <edit>
+	S32 getPageLines() { return mPageLines; }
+	// </edit>
 	S32 getSearchColumn();
 	void			setSearchColumn(S32 column) { mSearchColumn = column; }
 	S32				getColumnIndexFromOffset(S32 x);
