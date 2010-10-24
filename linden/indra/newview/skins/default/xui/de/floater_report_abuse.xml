@@ -119,6 +119,7 @@ dann auf das Objekt:
 		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
 			Unanständigkeit &gt; Anstößige Inhalte oder Handlungen in der Öffentlichkeit
 		</combo_item>
+<!--  58 = deprecated by AO -->
 		<combo_item name="Indecency__Inappropriate_avatar_name">
 			Unanständigkeit &gt; Anstößiger Avatarname
 		</combo_item>
@@ -138,7 +139,7 @@ dann auf das Objekt:
 			Intoleranz
 		</combo_item>
 		<combo_item name="Land__Abuse_of_sandbox_resources">
-			Land &gt; Missbrauch der Sandbox-Ressourcen
+			Land &gt; Missbrauch von Sandbox-Ressourcen
 		</combo_item>
 		<combo_item name="Land__Encroachment__Objects_textures">
 			Land &gt; Unbefugte Nutzung &gt; Objekte/Texturen
@@ -160,7 +161,7 @@ dann auf das Objekt:
 		Name des Beschuldigten:
 	</text>
 	<button label="Einwohner auswählen" label_selected="" name="select_abuser" tool_tip="Den Namen des Beschuldigten aus einer Liste wählen"/>
-	<check_box label="Name des Täters ist nicht bekannt" name="omit_abuser_name" tool_tip="Wählen Sie diese Option, wenn Ihnen der Name des Täters unbekannt ist"/>
+	<check_box label="Name des Täters unbekannt" name="omit_abuser_name" tool_tip="Wählen Sie diese Option, wenn Ihnen der Name des Täters nicht bekannt ist"/>
 	<text name="abuser_name_title2">
 		Ort des Missbrauchs:
 	</text>

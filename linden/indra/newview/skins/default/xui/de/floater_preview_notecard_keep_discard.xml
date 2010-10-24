@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview_notecard">
-	<text_editor type="string" length="1" name="Notecard Editor">
-		Wird geladen...
-	</text_editor>
+<floater name="preview_notecard" title="Notiz:" >
 	<text type="string" length="1" name="desc txt">
 		Beschreibung:
 	</text>
+	<menu_bar name="motecard_menu">
+    <menu name="File">
+      <menu_item_call label="Sichern" name="Save Menu" />
+      <menu_item_separator />
+      <menu_item_call label="Text Exportieren..." name="Export Text..." />
+      <menu_item_call label="Text Importieren..." name="Import Text..." />
+    </menu>
+		<menu name="Edit">
+			<menu_item_call label="Rückgängig" name="Undo" width="139" />
+			<menu_item_call label="Wiederherstellen" name="Redo" width="139" />
+			<menu_item_separator label="-----------" name="separator1" width="139" />
+			<menu_item_call label="Ausschneiden" name="Cut" width="139" />
+			<menu_item_call label="Kopieren" name="Copy" width="139" />
+			<menu_item_call label="Einfügen" name="Paste" width="139" />
+			<menu_item_separator label="-----------" name="separator2" width="139" />
+			<menu_item_call label="Alle auswählen" name="Select All" width="139" />
+			<menu_item_call label="Deselektieren" name="Deselect" width="139" />
+			<menu_item_separator label="-----------" name="separator3" width="139" />
+			<menu_item_call label="Suchen / Ersetzen..."
+			     name="Search / Replace..." width="139" />
+		</menu>
+	</menu_bar>
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Wird geladen...
+	</text_editor>
 	<button label="Behalten" label_selected="Behalten" name="Keep" />
+	<button label="Sichern" label_selected="Sichern" name="Save" />
 	<button label="Verwerfen" label_selected="Verwerfen" name="Discard" />
-	<text name="no_object">
-		Es wurde kein Objekt gefunden, das diese Notiz enthält:
-	</text>
+	<string name="no_object">
+		Es wurde kein Objekt gefunden, das diese Notiz enthält.
+	</string>
 	<string name="not_allowed">
 		Sie können diese Notiz nicht anzeigen.
 	</string>

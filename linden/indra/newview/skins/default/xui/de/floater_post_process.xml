@@ -32,16 +32,16 @@
 				Rauschen-Stärke
 			</text>
 		</panel>
-		<panel label="Bloom" name="wmiBloomPanel">
+		<panel label="Schleier" name="wmiBloomPanel">
 			<check_box label="Ein" name="wmiBloomToggle" />
 			<text name="wmiBloomExtractText">
 				Luminanz-Extraktion
 			</text>
 			<text name="wmiBloomSizeText">
-				Bloom-Größe
+				Schleier-Größe
 			</text>
 			<text name="wmiBloomStrengthText">
-				Bloom-Stärke
+				Schleier-Stärke
 			</text>
 		</panel>
 		<panel label="Extras" name="Extras">

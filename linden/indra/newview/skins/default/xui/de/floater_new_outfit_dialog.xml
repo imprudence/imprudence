@@ -16,6 +16,9 @@
 	<check_box label="Unterhemd" name="checkbox_Undershirt" left="90"/>
 	<check_box label="Unterhose" name="checkbox_Underpants" left="90"/>
 	<check_box label="Rock" name="checkbox_Skirt" left="90"/>
+	<check_box label="Tätowierung" name="checkbox_Tattoo" left="90"/>
+	<check_box label="Transparenz" name="checkbox_Alpha" left="90"/>
+
 	<check_box label="Brust" name="checkbox_Chest" left="190"/>
 	<check_box label="Schädel" name="checkbox_Skull" left="190"/>
 	<check_box label="Linke Schulter" name="checkbox_Left Shoulder" left="190"/>
@@ -59,9 +62,8 @@
 	</text>
 	<text type="string" length="1"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		Outfits sind Ordner, die Kleider und Körperteile enthalten.
-Ziehen Sie einen Outfit-Ordner auf Ihren Avatar, um ihn anzuziehen.
- 
+		 Outfits sind Ordner, die Kleidung und Körperteile enthalten. Ziehen Sie einen Outfit-Ordner auf Ihren Avatar, um ihn anzuziehen.
+
 „Neues Outfit“ erstellt einen neuen Ordner und speichert darin Kopien der
 Objekte, die Sie gerade tragen.
 	</text>

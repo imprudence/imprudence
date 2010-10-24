@@ -79,6 +79,10 @@
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select faces to texture" left="4" mouse_opaque="true"
 	     name="radio select face" radio_style="true" width="114" />
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Align (Shift to Pack)" left="4" mouse_opaque="true"
+	     name="radio align" radio_style="true" width="114"
+       tool_tip="Align aligns all selected prims' edges along an axis, Pack moves all selected prims' edges so they're touching" />
 	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Edit linked parts" left="4" mouse_opaque="true"

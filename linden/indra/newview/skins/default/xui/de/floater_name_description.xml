@@ -7,5 +7,5 @@
 		Beschreibung:
 	</text>
 	<button label="Abbrechen" name="cancel_btn" width="80" />
-	<button label="Hochladen ([AMOUNT] L$)" name="ok_btn" width="120" />
+	<button label="Hochladen ([UPLOADFEE])" name="ok_btn" width="120" />
 </floater>

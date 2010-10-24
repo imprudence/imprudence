@@ -484,6 +484,7 @@ set(viewer_SOURCE_FILES
     panelradarentry.cpp
     pipeline.cpp
     primbackup.cpp
+    qtoolalign.cpp
     rlvhandler.cpp
     rlvhelper.cpp
     rlvcommon.cpp
@@ -936,6 +937,7 @@ set(viewer_HEADER_FILES
     panelradarentry.h
     pipeline.h
     primbackup.h
+    qtoolalign.h
     randgauss.h
     rlvdefines.h
     rlvhandler.h

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- Local Asset Browser: xui -->
+<!-- floater definition start -->
+
+<floater
+	name="local_bitmap_browser_floater"
+	title="Lokal Textur-Eigenschaften"
+	>
+
+  <button
+    name="add_btn"
+    label="Hinzufügen"
+		/>
+  <button
+		name="del_btn"
+		label="Entfernen"
+		/>
+  <button
+    name="upload_btn"
+    label="Bild hochladen ([UPLOADFEE])..."
+		/>
+  
+  <scroll_list
+    name="bitmap_list"
+		>
+    <column name="bitmap_name" label="Name" dynamicwidth="true" />
+    <column name="bitmap_uuid" label="UUID" width="240" />
+  </scroll_list>
+  
+  <text name="path_caption_text"
+ 	  >
+    Lokaler Pfad:
+  </text>
+
+  <text name="uuid_caption_text"
+ 	  >
+    Lokale UUID:
+  </text>
+
+  <texture_picker
+    label="Textur"
+    name="texture_view"
+    />
+
+  <check_box
+    label="Aktualisierungscheck"
+    name="keep_updating_checkbox"
+    tool_tip="Periodische Checks ein- oder ausschalten, ob die Quelle auf der Festplatte aktualisiert wurde"
+    />
+
+  <combo_box
+    name="type_combobox"
+    >
+
+    <combo_item name="type_texture" value="type_texture">
+      Textur
+    </combo_item>
+
+    <combo_item name="type_sculptie" value="type_sculptie">
+      Sculptmap
+    </combo_item>
+
+    <combo_item name="type_layer" value="type_layer">
+      Kleidung
+    </combo_item>
+
+  </combo_box>
+
+  <text name="time_caption_text"
+ 	  >
+    Zeit:
+  </text>
+
+  <text name="time_text"
+    >
+    (Hier Datum)
+  </text>
+
+  <text name="link_caption_text"
+	  >
+    Link:
+  </text>
+
+  <text name="link_text"
+    >
+    (Linkstatus)
+  </text>
+
+  <text name="name_caption_text"
+  	>
+    Name:
+  </text>
+
+</floater>

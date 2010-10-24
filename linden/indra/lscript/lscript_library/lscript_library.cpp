@@ -484,8 +484,9 @@ void LLScriptLibrary::init()
 	// documented and therefore the description may be incomplete and require further attention.
 	// OpenSimulator is written in C# and not CPP therefore some values for example "double = float" etc. are different.
 
-	// OSSL corrections and syntax additions added + set in same order as found in OSSL_stub.cs of OpenSim Source (February 19, 2010)
-	// based on OpenSimulator Ver. 0.6.9 DEV Git # af265e001d3bf043590e480cd6574a14193f6de0 - Rev 12239
+	// OSSL corrections and syntax additions added + set in same order as found in OSSL_stub.cs of OpenSim Source (Updated PM October-21-2010 
+	// based on OpenSimulator Ver. 0.7.x DEV/Master Git # a7acb650d400a280a7b9edabd304376dff9c81af - a7acb65-r/14142 
+	// Updates by WhiteStar Magic 
 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetRegionWaterHeight", NULL, "f", "osSetRegionWaterHeight(float height)\nAdjusts Water Height on region.\n(OpenSim only.)"));	
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetRegionSunSettings", NULL, "iif", "osSetRegionSunSettings(integer useEstateSun, integer sunFixed, float sunHour)\nChanges the Estate Sun Settings, then Triggers a Sun Update\n'sunFixed' TRUE (1) to keep the sun stationary, FALSE (0) to use global time\n'sunHour' The \"Sun Hour\" that is desired, 0...24, with 0 just after SunRise.\n(OpenSim only.)"));
@@ -494,8 +495,11 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSunGetParam","f", "s", "float osSunGetParam(string param)\nReturns current float values for param\nwhere param = day_length, year_length, day_night_offset, update_interval.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSunSetParam", "sf", NULL, "osSunSetParam(string param, float value)\nSet's Sun Param for SunSet,\nosSunSetParam(day_length, 24.0)\nwhere param = day_length, year_length, day_night_offset, update_interval.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindActiveModelPluginName", "s", NULL, "string osWindActiveModelPluginName()\nReturns the Current Working Wind Module Installed\nThese are SimpleRandomWind or ConfigurableWind, optionally others.\n(OpenSim only.)"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamSet", NULL, "ssf", "osWindParamSet(string plugin, string param, float value)Send Param to Specified Wind Plugin with new value.\n(OpenSim only.)"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamGet", "f", "ss", "float osWindParamGet(string plugin, string param)\n Returns Current param from specified Wind Plugin Module.\n(OpenSim only.)"));
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelJoin", NULL, "vv", "osParcelJoin(vector pos1, vector pos2))\nJoins Parcels @ X,Y coordinates.\n(OpenSim only.)"));	 
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSubdivide", NULL, "vv", "osParcelSubdivide(vector pos1, vector pos2))\nSubdivides Parcels @ X,Y coordinates.\n(OpenSim only.)"));	 
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSetDetails", NULL, "vv", "osParcelSetDetails(vector pos, list rules))\nSet Parcel details.\n(OpenSim only.)"));	 
+	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamSet", NULL, "ssf", "osWindParamSet(string plugin, string param, float value)Send Param to Specified Wind Plugin with new value.\n(OpenSim only.)")); 
+	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamGet", "f", "ss", "float osWindParamGet(string plugin, string param)\n Returns Current param from specified Wind Plugin Module.\n(OpenSim only.)")); 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osList2Double", "f", "si", "double osList2Double(list src, int index)\nReturns Double (float) Value from src at index.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureURL", NULL, "ssssi", "osSetDynamicTextureURL(string dynamicID, string contentType, string url, string extraParams, int timer )\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureData", NULL, "ssssi", "osSetDynamicTextureData(string dynamicID, string contentType, string data, string extraParams, int timer)\nWrites text and vector graphics onto a prim face.\n(OpenSim only.)"));	
@@ -564,7 +568,9 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetSpeed", NULL, "kf", "osSetSpeed(key AVATAR, float SpeedModifier)\nMultiplies the normal running, walking, and flying speed of the specified avatar.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osCauseDamage", NULL, "kf", "osCauseDamage(key AVATAR, float damage)\nCauses damage to specified AVATAR (UUID).\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osCauseHealing", NULL, "kf", "osCauseHealing(key AVATAR, float healing)\nCauses Healing to specified AVATAR (UUID).\n(OpenSim only.)"));
-
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osGetPrimitiveParams", "l", "kl", "List osGetPrimitiveParams(key prim, list rules)\nGets primitive Params.\n(OpenSim only.)")); 
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetPrimitiveParams", NULL, "kl", "osSetPrimitiveParams(key prim, list rules)\nSets primitive Params.\n(OpenSim only.)")); 
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetProjectionParams", NULL, "kikfff", "osSetProjectionParams(key prim. bool projection, key texture, float fov, float focus, float amb)\nSet Projection Paramaters (bool = true / false)\n(OpenSim only.)")); 
 
 	// LightShare functions
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "cmSetWindlightScene", "i", "l", "integer cmSetWindlightScene(list rules)\nSet the current WindLight scene. Restricted to estate managers and owners only."));
