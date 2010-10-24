@@ -393,7 +393,7 @@ void QToolAlign::render()
 // only works for our specialized (AABB, position centered) bboxes
 BOOL bbox_overlap(LLBBox bbox1, LLBBox bbox2)
 {
-	const F32 FUDGE = 0.001;  // because of stupid SL precision/rounding
+	const F32 FUDGE = 0.001f;  // because of stupid SL precision/rounding
 	
 	LLVector3 delta = bbox1.getCenterAgent() - bbox2.getCenterAgent();
 
@@ -484,7 +484,7 @@ void QToolAlign::align()
 	std::map<LLPointer<LLViewerObject>, LLBBox > new_bboxes = original_bboxes;
 
 	// find new positions
-	for (S32 i = 0; i < objects.size(); i++)
+	for (S32 i = 0; i < (S32)objects.size(); i++)
 	{
 		LLBBox target_bbox = mBBox;
 		LLVector3 target_corner = target_bbox.getCenterAgent() - 
@@ -552,7 +552,7 @@ void QToolAlign::align()
 			}
 
 			// update target for next time through the loop
-			if (j < objects.size())
+			if (j < (S32)objects.size())
 			{
 				LLBBox next_bbox = new_bboxes[objects[j]];
 				target_corner = next_bbox.getCenterAgent() +
@@ -563,7 +563,7 @@ void QToolAlign::align()
 
 	
 	// now move them
-	for (S32 i = 0; i < objects.size(); i++)
+	for (S32 i = 0; i < (S32)objects.size(); i++)
 	{
 		LLViewerObject* object = objects[i];
 
