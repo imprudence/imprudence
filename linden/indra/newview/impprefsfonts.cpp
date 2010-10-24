@@ -107,7 +107,7 @@ void ImpPrefsFonts::apply()
 	LLCheckBoxCtrl* font_round = getChild<LLCheckBoxCtrl>("font_round");
 	if (font_round)
 	{
-		bool round = font_round->getValue().asBoolean();
+		BOOL round = font_round->getValue().asBoolean();
 		if (round != gSavedSettings.getBOOL("FontSizeRounding"))
 		{
 			gSavedSettings.setBOOL("FontSizeRounding", round);
