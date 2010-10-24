@@ -2520,6 +2520,62 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				else
 				{
 					LLNotifications::instance().add("TeleportOffered", args, payload);
+					if(binary_bucket_size)
+					{
+						char* dest = new char[binary_bucket_size];
+						strncpy(dest, (char*)binary_bucket, binary_bucket_size-1);		/* Flawfinder: ignore */
+						dest[binary_bucket_size-1] = '\0';
+
+						llinfos << "IM_LURE_USER binary_bucket " << dest << llendl;
+
+						std::string str(dest);
+						typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+						boost::char_separator<char> sep("|","",boost::keep_empty_tokens);
+						tokenizer tokens(str, sep);
+						tokenizer::iterator iter = tokens.begin();
+						std::string global_x_str(*iter++);
+						std::string global_y_str(*iter++);
+						std::string x_str(*iter++);
+						std::string y_str(*iter++);
+						std::string z_str(*iter++);
+						// skip what I think must be LookAt
+						if(iter != tokens.end())
+							iter++; // x
+						if(iter != tokens.end())
+							iter++; // y
+						if(iter != tokens.end())
+							iter++; // z
+						std::string mat_str("");
+						if(iter != tokens.end())
+							mat_str.assign(*iter++);
+						mat_str = utf8str_trim(mat_str);
+
+						llinfos << "IM_LURE_USER tokenized " << global_x_str << "|" << global_y_str << "|" << x_str << "|" << y_str << "|" << z_str << "|" << mat_str << llendl;
+
+						std::istringstream gxstr(global_x_str);
+						int global_x;
+						gxstr >> global_x;
+
+						std::istringstream gystr(global_y_str);
+						int global_y;
+						gystr >> global_y;
+
+						std::istringstream xstr(x_str);
+						int x;
+						xstr >> x;
+
+						std::istringstream ystr(y_str);
+						int y;
+						ystr >> y;
+
+						std::istringstream zstr(z_str);
+						int z;
+						zstr >> z;
+
+						llinfos << "IM_LURE_USER parsed " << global_x << "|" << global_y << "|" << x << "|" << y << "|" << z << "|" << mat_str << llendl;
+
+						gAgent.showLureDestination(name, global_x, global_y, x, y, z, mat_str);
+					}
 				}
 // [/RLVa:KB]
 				//LLNotifications::instance().add("TeleportOffered", args, payload);
