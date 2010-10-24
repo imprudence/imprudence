@@ -157,7 +157,7 @@ public:
 
 	void callbackHttpGet(const LLChannelDescriptors& channels,
 						 const LLIOPipe::buffer_ptr_t& buffer,
-						 bool last_block, bool success);
+						 bool partial, bool unsatisfiable, bool success);
 	void callbackCacheRead(bool success, LLImageFormatted* image,
 						   S32 imagesize, BOOL islocal);
 	void callbackCacheWrite(bool success);
@@ -317,13 +317,14 @@ public:
 			mFetcher->mTextureInfo.setRequestCompleteTimeAndLog(mID, timeNow);
 		}
 
-		lldebugs << "HTTP COMPLETE: " << mID << llendl;
+		LL_DEBUGS("TextureFetch") << "HTTP COMPLETE: " << mID << " with status: " << status << LL_ENDL;
 		mFetcher->lockQueue();
 		LLTextureFetchWorker* worker = mFetcher->getWorker(mID);
 		if (worker)
 		{
 			bool success = false;
 			bool partial = false;
+			bool unsatisfiable = false;
 			if (200 <= status &&  status < 300)
 			{
 				success = true;
@@ -332,18 +333,19 @@ public:
 					partial = true;
 				}
 			}
-			else
+			else if (status == HTTP_REQUESTED_RANGE_NOT_SATISFIABLE)
 			{
-				worker->setGetStatus(status, reason);
-// 				llwarns << status << ": " << reason << llendl;
+				LL_DEBUGS("TextureFetch") << "Request was an unsatisfiable range: mRequestedSize=" << mRequestedSize << " mOffset=" << mOffset << " for: " << mID << LL_ENDL;
+				unsatisfiable = true;
 			}
+
 			if (!success)
 			{
 				worker->setGetStatus(status, reason);
 // 				llwarns << "CURL GET FAILED, status:" << status << " reason:" << reason << llendl;
 			}
 			mFetcher->removeFromHTTPQueue(mID);
-			worker->callbackHttpGet(channels, buffer, partial, success);
+			worker->callbackHttpGet(channels, buffer, partial, unsatisfiable, success);
 		}
 		else
 		{
@@ -870,6 +872,16 @@ bool LLTextureFetchWorker::doWork(S32 param)
 					return false;
 				}
 			}
+
+			// *TODO: remove this hack when not needed anymore
+			S32 buggy_range_fudge = 0;
+			if (LLTextureFetch::hasBuggyHTTPRange())
+			{
+				buggy_range_fudge = 1;
+				resetFormattedData(); // discard any previous data we had
+				cur_size = 0 ;
+			}
+
 			mRequestedSize = mDesiredSize;
 			mRequestedDiscard = mDesiredDiscard;
 			mRequestedSize -= cur_size;
@@ -883,10 +895,11 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				mLoaded = FALSE;
 				mGetStatus = 0;
 				mGetReason.clear();
-				lldebugs << "HTTP GET: " << mID << " Offset: " << offset
+				LL_DEBUGS("TextureFetch") << "HTTP GET: " << mID << " Offset: " << offset
 						<< " Bytes: " << mRequestedSize
+						<< " Range: " << offset << "-" << offset+mRequestedSize-1+buggy_range_fudge
 						<< " Bandwidth(kbps): " << mFetcher->getTextureBandwidth() << "/" << max_bandwidth
-						<< llendl;
+						<< LL_ENDL;
 				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
 				mState = WAIT_HTTP_REQ;	
 
@@ -894,7 +907,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				// Will call callbackHttpGet when curl request completes
 				std::vector<std::string> headers;
 				headers.push_back("Accept: image/x-j2c");
-				res = mFetcher->mCurlGetRequest->getByteRange(mUrl, headers, offset, mRequestedSize,
+				res = mFetcher->mCurlGetRequest->getByteRange(mUrl, headers, offset, mRequestedSize + buggy_range_fudge,
 															  new HTTPGetResponder(mFetcher, mID, LLTimer::getTotalTime(), mRequestedSize, offset));
 			}
 			if (!res)
@@ -1301,7 +1314,9 @@ bool LLTextureFetchWorker::processSimulatorPackets()
 
 void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 										   const LLIOPipe::buffer_ptr_t& buffer,
-										   bool last_block, bool success)
+										   bool partial,
+										   bool unsatisfiable,
+										   bool success)
 {
 	LLMutexLock lock(&mWorkMutex);
 
@@ -1316,56 +1331,91 @@ void LLTextureFetchWorker::callbackHttpGet(const LLChannelDescriptors& channels,
 		llwarns << "Duplicate callback for " << mID.asString() << llendl;
 		return; // ignore duplicate callback
 	}
+	
+	S32 data_size = 0;
 	if (success)
 	{
 		// get length of stream:
-		S32 data_size = buffer->countAfter(channels.in(), NULL);
+		data_size = buffer->countAfter(channels.in(), NULL);
 
 		gImageList.sTextureBits += data_size * 8; // Approximate - does not include header bits
 	
-		//llinfos << "HTTP RECEIVED: " << mID.asString() << " Bytes: " << data_size << llendl;
+		LL_DEBUGS("TextureFetch") << "HTTP RECEIVED: " << mID.asString() << " Bytes: " << data_size << " mRequestedSize: " << mRequestedSize << LL_ENDL;
+
 		if (data_size > 0)
 		{
-			// *TODO: set the formatted image data here directly to avoid the copy
-			mBuffer = new U8[data_size];
-			buffer->readAfter(channels.in(), NULL, mBuffer, data_size);
-			mBufferSize += data_size;
-			if (data_size < mRequestedSize &&
-				(mRequestedDiscard == 0 || mRequestedSize >= MAX_IMAGE_DATA_SIZE) )
+			bool clean_data = false;
+			bool done = false;
+			if (!partial)
 			{
-				// We requested whole image (by discard or by size,) so assume we got it
-				mHaveAllData = TRUE;
+				// we got the whole image in one go
+				done = true;
+				clean_data = true;
+			}
+			else if (data_size < mRequestedSize)
+			{
+				// we have the whole image
+				done = true;
+			}
+			else if (data_size == mRequestedSize)
+			{
+				if (mRequestedDiscard <= 0)
+				{
+					done = true;
+				}
+				else
+				{
+					// this is the normal case where we get the data we requested,
+					// but still need to request more data.
+				}
 			}
 			else if (data_size > mRequestedSize)
 			{
 				// *TODO: This shouldn't be happening any more
 				llwarns << "data_size = " << data_size << " > requested: " << mRequestedSize << llendl;
-				mHaveAllData = TRUE;
+				done = true;
+				clean_data = true;
 				llassert_always(mDecodeHandle == 0);
-				mFormattedImage = NULL; // discard any previous data we had
-				mBufferSize = data_size;
 			}
-			mRequestedSize = data_size;
-		}
-		else
-		{
-			// We requested data but received none (and no error),
-			if (mFormattedImage.notNull() && mFormattedImage->getDataSize() > 0)
+			
+			if (clean_data)
 			{
-				// but have earlier data, so presumably we have it all.
-				mRequestedSize = 0;
+				resetFormattedData(); // discard any previous data we had
+				llassert(mBufferSize == 0);
+			}
+			if (done)
+			{
 				mHaveAllData = TRUE;
+				mRequestedDiscard = 0;
 			}
-			else
-			{
-				mRequestedSize = -1;	// treat this fetch as if it failed.
-			}
+			
+			// *TODO: set the formatted image data here directly to avoid the copy
+			mBuffer = new U8[data_size];
+			buffer->readAfter(channels.in(), NULL, mBuffer, data_size);
+			mBufferSize += data_size;
+			mRequestedSize = data_size;
 		}
 	}
 	else
 	{
 		mRequestedSize = -1; // error
 	}
+
+	if ((success && (data_size == 0)) || unsatisfiable)
+	{
+		if (mFormattedImage.notNull() && mFormattedImage->getDataSize() > 0)
+		{
+			// we already have some data, so we'll assume we have it all
+			mRequestedSize = 0;
+			mRequestedDiscard = 0;
+			mHaveAllData = TRUE;
+		}
+		else
+		{
+			mRequestedSize = -1;	// treat this fetch as if it failed.
+		}
+	}
+
 	mLoaded = TRUE;
 	setPriority(LLWorkerThread::PRIORITY_HIGH | mWorkPriority);
 }
@@ -2220,3 +2270,44 @@ void LLTextureFetch::dump()
 	}
 }
 
+// This tries to detect if the sim has this bug:
+// http://opensimulator.org/mantis/view.php?id=5081
+//
+// *TODO: This is a *HACK and may not work if the grid is heterogenous.
+//        Remove it once OpenSim versions in the wild are > 0.7.0.2!
+#include "hippoGridManager.h"
+#include <boost/regex.hpp> 
+//static
+bool LLTextureFetch::hasBuggyHTTPRange()
+{
+	static std::string s_version;
+	static bool buggy = false;
+	if ((s_version != gLastVersionChannel) && !gLastVersionChannel.empty())
+	{
+		s_version = gLastVersionChannel;
+		buggy = false;
+		if (gHippoGridManager->getConnectedGrid()->getPlatform() == HippoGridInfo::PLATFORM_OPENSIM)
+		{
+			std::string ver_string;
+			try
+			{
+				const boost::regex re(".*OpenSim.*?([0-9.]+).+");
+				ver_string = regex_replace(s_version, re, "\\1", boost::match_default);
+			}
+			catch(std::runtime_error)
+			{
+				ver_string = "0.0";
+			}
+			LLStringUtil::replaceChar(ver_string, '.', '0');
+			ver_string = "0." + ver_string;
+			F64 version = atof(ver_string.c_str());
+			// we look for "0.6.8" < version < "0.7.0.3"
+			if ((version > 0.00608) && (version < 0.0070003))
+			{
+				buggy = true;
+				llwarns << "Setting buggy http ranges mode for current sim, because we're on " << s_version << llendl;
+			}
+		}
+	}
+	return buggy;
+}
