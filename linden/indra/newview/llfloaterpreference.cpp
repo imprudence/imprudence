@@ -134,8 +134,8 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
 	mLCDPanel(NULL),
-	mPrefsAdvanced(NULL),
-	mPrefsFonts(NULL)
+	mPrefsFonts(NULL),
+	mPrefsAdvanced(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -195,13 +195,13 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mSkinsPanel->setDefaultBtn(default_btn);
 
-	mPrefsAdvanced = new LLPrefsAdvanced();
-	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsAdvanced->setDefaultBtn(default_btn);
-
 	mPrefsFonts = new ImpPrefsFonts();
 	mTabContainer->addTabPanel(mPrefsFonts, mPrefsFonts->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsFonts->setDefaultBtn(default_btn);
+
+	mPrefsAdvanced = new LLPrefsAdvanced();
+	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsAdvanced->setDefaultBtn(default_btn);
 
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
