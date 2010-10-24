@@ -421,7 +421,7 @@ class DarwinSetup(UnixSetup):
             type=self.build_type.upper()
             )
         if self.unattended == 'ON':
-            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386;ppc\''
+            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386\''
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
         return ('cmake -G %(generator)r '

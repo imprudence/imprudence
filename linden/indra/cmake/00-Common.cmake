@@ -186,8 +186,8 @@ if (DARWIN)
   add_definitions(-DLL_DARWIN=1)
   set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlong-branch")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch -msse3 -msse4.1 -msse4.2 -mssse3 -w")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlong-branch -msse3 -msse4.1 -msse4.2 -mssse3 -w")
   # NOTE: it's critical that the optimization flag is put in front.
   # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0 ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
