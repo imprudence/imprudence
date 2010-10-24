@@ -931,7 +931,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Strength:", land_visible);
 	}
 
-	if (gSavedSettings.getBOOL("EditLinkedParts"))
+	if (gSavedSettings.getBOOL("EditLinkedParts") && LLSelectMgr::getInstance()->getEditSelection()->getObjectCount() == 1)
 	{
 		childSetVisible("link_num", !land_visible);
 	}
