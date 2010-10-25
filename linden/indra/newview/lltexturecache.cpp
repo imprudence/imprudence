@@ -1225,9 +1225,7 @@ void LLTextureCache::readHeaderCache()
 			{
 				for (std::set<LLUUID>::iterator iter = purge_list.begin(); iter != purge_list.end(); ++iter)
 				{
-					mHeaderMutex.unlock(); 
-					removeFromCache(*iter);
-					mHeaderMutex.lock();
+					removeFromCacheLocked(*iter);
 				}
 				// If we removed any entries, we need to rebuild the entries list,
 				// write the header, and call this again
@@ -1246,7 +1244,7 @@ void LLTextureCache::readHeaderCache()
 				writeEntriesAndClose(new_entries);
 				mHeaderMutex.unlock(); // unlock the mutex before calling again
 				readHeaderCache(); // repeat with new entries file
-				mHeaderMutex.lock();
+				return;
 			}
 			else
 			{
@@ -1611,7 +1609,6 @@ bool LLTextureCache::removeHeaderCacheEntry(const LLUUID& id)
 {
 	if (!mReadOnly)
 	{
-		LLMutexLock lock(&mHeaderMutex);
 		Entry entry;
 		S32 idx = openAndReadEntry(id, entry, false);
 		if (idx >= 0)
@@ -1628,14 +1625,23 @@ bool LLTextureCache::removeHeaderCacheEntry(const LLUUID& id)
 	return false;
 }
 
-void LLTextureCache::removeFromCache(const LLUUID& id)
+void LLTextureCache::removeFromCacheLocked(const LLUUID& id)
 {
 	//llwarns << "Removing texture from cache: " << id << llendl;
 	if (!mReadOnly)
 	{
 		removeHeaderCacheEntry(id);
-		LLMutexLock lock(&mHeaderMutex);
 		LLAPRFile::remove(getTextureFileName(id));
+	}
+}
+
+void LLTextureCache::removeFromCache(const LLUUID& id)
+{
+	//llwarns << "Removing texture from cache: " << id << llendl;
+	if (!mReadOnly)
+	{
+		LLMutexLock lock(&mHeaderMutex);
+		LLTextureCache::removeFromCacheLocked(id);
 	}
 }
 

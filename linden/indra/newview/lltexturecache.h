@@ -158,6 +158,7 @@ private:
 	S32 getHeaderCacheEntry(const LLUUID& id, S32& imagesize);
 	S32 setHeaderCacheEntry(const LLUUID& id, S32 imagesize);
 	bool removeHeaderCacheEntry(const LLUUID& id);
+	void removeFromCacheLocked(const LLUUID& id);
 	
 private:
 	// Internal
