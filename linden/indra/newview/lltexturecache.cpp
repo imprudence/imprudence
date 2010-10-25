@@ -1382,7 +1382,15 @@ void LLTextureCache::purgeTextures(bool validate)
 		{
 			purge_count++;
 	 		LL_DEBUGS("TextureCache") << "PURGING: " << filename << LL_ENDL;
-			LLAPRFile::remove(filename);
+			if (entries[idx].mBodySize > 0)
+			{
+				LLAPRFile::remove(filename);
+			}
+			else if (LLAPRFile::isExist(filename))	// Sanity check. Shouldn't exist.
+			{
+				LL_WARNS("TextureCache") << "Entry has zero body size but existing " << filename << ". Deleting file too..." << LL_ENDL;
+				LLAPRFile::remove(filename);
+			}
 			cache_size -= entries[idx].mBodySize;
 			mTexturesSizeTotal -= entries[idx].mBodySize;
 			entries[idx].mBodySize = 0;
