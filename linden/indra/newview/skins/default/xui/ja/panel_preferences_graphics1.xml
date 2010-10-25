@@ -5,6 +5,7 @@
 	</text>
 	<button label="?" name="GraphicsPreferencesHelpButton" />
 	<check_box label="ウィンドウ内で Second Life を起動" name="windowed mode" />
+	<check_box label="Windlightツールバーを表示" name="toggle_windlight_control"/>
 	<text_editor name="voice_chat_description">
 		チェック無しの場合は、ログイン時にフルスクリーン表示
 	</text_editor>

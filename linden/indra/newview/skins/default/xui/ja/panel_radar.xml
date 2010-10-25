@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- Note: panel rect (size) is specified in floater_mini_map.xml -->
+
+<panel name="RadarPanel" label="レーダー">
+
+  <string name="no_one_near">
+    近くに誰もいません
+  </string>
+  <string name="is_muted">
+    (ミュート)
+  </string>
+  <string name="is_typing">
+    (タイプ中)
+  </string>
+  <string name="entering_chat_range">
+    [NAME] さんがチャットレンジに入ってきました。 ([DISTANCE]m)
+  </string>
+  <string name="entering_sim_range">
+    [NAME] さんがSIMに入ってきました。 ([DISTANCE]m)
+  </string>
+  <string name="avatars_in_singular">
+    [COUNT]人のアバター
+  </string>
+  <string name="avatars_in_plural">
+    [COUNT]人のアバター
+  </string>
+  <string name="unknown_avatar">
+    (不明)
+  </string>
+
+  <tab_container name="radar_tab_container">
+    <panel name="avatar_tab" label="アバター">
+      <button name="im_btn" label="IM/コール" tool_tip="IMウィンドウを開きます" />
+      <button name="profile_btn" label="ﾌﾟﾛﾌｨｰﾙ" tool_tip="写真、所属グループ、その他の情報"/>
+      <button name="offer_teleport_btn" label="TPを送る" tool_tip="この人にテレポートを送って自分のところに呼びます"/>
+      <button name="teleport_btn" label="居場所へTP" tool_tip="この人のいるところにテレポートします"/>
+      <button name="track_btn" label="追跡する" tool_tip="地図上のフレンドにビーコンを作成、追跡します"/>
+      <button name="invite_btn" label="招待..." tool_tip="この人を自分の所属グループに招待します"/>
+      <button name="add_btn" label="追加..." tool_tip="この人にフレンド要請を送ります"/>
+    </panel>
+    <panel name="estate_tab" label="不動産管理">
+      <button name="cam_btn" label="カメラ追跡"/>
+      <button name="freeze_btn" label="動けなくする..."/>
+      <button name="eject_btn" label="追い出す..."/>
+      <button name="ban_btn" label="立入禁止..."/>
+      <button name="mute_btn" label="ミュート..."/>
+      <button name="unmute_btn" label="ﾐｭｰﾄ解除..."/>
+      <button name="ar_btn" label="報告..."/>
+    </panel>
+  </tab_container>
+
+  <scroll_list name="RadarList">
+    <column name="avatar_name" label="名前"/>
+    <column name="avatar_distance" label="距離"/>
+  </scroll_list>
+
+</panel>
+

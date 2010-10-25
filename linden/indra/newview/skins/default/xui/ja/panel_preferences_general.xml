@@ -32,8 +32,16 @@
 		UI サイズ：
 	</text>
 	<check_box label="解像度独立スケールを使用" name="ui_auto_scale"/>
+	<check_box label="操作していない時は退席／AFK" name="afk_timeout_checkbox"/>
 	<spinner label="退席までの時間：" name="afk_timeout_spinner"/>
+	<!-- リンデン・ドル支払／受取の通知は「ポップアップ」タブへ移動
 	<check_box label="リンデン・ドル（L$）の支払い/受け取りを通知" name="notify_money_change_checkbox"/>
+	-->
+	<text name="Mini-Map Notify:">
+		ミニマップ通知：
+	</text>
+	<check_box label="チャット範囲に入った時" name="mini_map_notify_chat"/>
+	<check_box label="SIMに入った時" name="mini_map_notify_sim"/>
 	<text name="maturity_desired_label">
 		レーティング区分：
 	</text>
