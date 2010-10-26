@@ -735,9 +735,9 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 				callback(handle, LLWorldMap::getInstance()->mSLURL, image_id, LLWorldMap::getInstance()->mSLURLTeleport);
 			}
 		}
-		if(LLAgent::lure_show)
+		if(gAgent.mLureShow)
 		{
-			if((x_regions == LLAgent::lure_global_x) && (y_regions == LLAgent::lure_global_y))
+			if((x_regions == gAgent.mLureGlobalX) && (y_regions == gAgent.mLureGlobalY))
 			{
 				gAgent.onFoundLureDestination();
 			}
