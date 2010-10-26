@@ -12,7 +12,6 @@ public:
 	const F32&	getMinHoleSize()    const { return mMinHoleSize;    }
 	const F32&	getMaxHollow()      const { return mMaxHollow;      }
 	const S32&	getMaxLinkedPrims() const { return mMaxLinkedPrims; }
-	const F32&  getMaxDragDistance() const { return mMaxDragDistance; }
 	const S32&	getMaxPhysLinkedPrims() const { return mMaxPhysLinkedPrims; }
 	const F32&	getMaxInventoryItemsTransfer() const { return mMaxInventoryItemsTransfer; }
 	
@@ -20,6 +19,8 @@ public:
 	// Returns the max prim size we can use on a grid
 	F32		getMinPrimScale() const;
 	F32		getMaxPrimScale() const;
+
+	F32  getMaxDragDistance() const;
 
 	F32		getMinPrimXPos() const;
 	F32		getMinPrimYPos() const;

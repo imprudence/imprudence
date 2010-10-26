@@ -119,6 +119,11 @@ bool doToSelected(LLFolderView* folder, std::string action)
 		LLInventoryClipboard::instance().reset();
 	}
 
+	if ("cut" == action)
+	{	
+		LLInventoryClipboard::instance().reset();
+	}
+
 	std::set<LLUUID> selected_items;
 	folder->getSelectionList(selected_items);
 

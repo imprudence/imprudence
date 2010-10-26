@@ -166,11 +166,15 @@
 		<on_click filter="" function="Inventory.DoToSelected" userdata="copy_uuid" />
 	</menu_item_call>
 	<menu_item_separator name="Copy Separator" />
-	<menu_item_call bottom_delta="-18" height="18" label="Copy" left="0" mouse_opaque="true"
+  <menu_item_call bottom_delta="-18" height="18" label="Cut" left="0" mouse_opaque="true"
+	     name="Cut" width="128">
+    <on_click filter="" function="Inventory.DoToSelected" userdata="cut" />
+  </menu_item_call>
+  <menu_item_call bottom_delta="-18" height="18" label="Copy" left="0" mouse_opaque="true"
 	     name="Copy" width="128">
-		<on_click filter="" function="Inventory.DoToSelected" userdata="copy" />
-	</menu_item_call>
-	<menu_item_call bottom_delta="-18" height="18" label="Paste" left="0" mouse_opaque="true"
+    <on_click filter="" function="Inventory.DoToSelected" userdata="copy" />
+  </menu_item_call>
+  <menu_item_call bottom_delta="-18" height="18" label="Paste" left="0" mouse_opaque="true"
 	     name="Paste" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="paste" />
 	</menu_item_call>

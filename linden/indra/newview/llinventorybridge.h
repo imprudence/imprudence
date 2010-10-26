@@ -297,6 +297,7 @@ public:
 	virtual BOOL removeItem();
 	virtual BOOL isItemCopyable() const;
 	virtual BOOL copyToClipboard() const;
+	virtual BOOL cutToClipboard() const;
 	virtual BOOL hasChildren() const { return FALSE; }
 	virtual BOOL isUpToDate() const { return TRUE; }
 

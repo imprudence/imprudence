@@ -178,7 +178,7 @@ void WLSettingsManager::Apply()
 	fade = mSky->getFloat("fade", error);
 
 	mWater->mName = wlWaterPresetName;
-	if(fade != 0)
+	if(fade != 0 && water_mgr->mCurParams.mName == wlWaterPresetName)//Load the settings forcefully the first time
 	{
 		LLWaterParamSet oldWset = water_mgr->mCurParams;
 		//This still needs done so that we update right, but load it to the old
@@ -201,7 +201,7 @@ void WLSettingsManager::Apply()
 	}
 
 	mSky->mName = wlSkyPresetName;
-	if(fade != 0)
+	if(fade != 0 && sky_mgr->mCurParams.mName == wlSkyPresetName)//Load the settings forcefully the first time
 	{
 		LLWLParamSet oldset = sky_mgr->mCurParams;
 		//This still needs done so that we update right, but load it to the old

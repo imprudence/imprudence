@@ -173,7 +173,7 @@ F32 HippoLimits::getMinPrimXPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints") && !mEnforceMaxBuild)
 	{
-		return FLT_MAX;
+		return FLT_MIN;
 	}
 	else
 	{
@@ -185,7 +185,7 @@ F32 HippoLimits::getMinPrimYPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints") && !mEnforceMaxBuild)
 	{
-		return FLT_MAX;
+		return FLT_MIN;
 	}
 	else
 	{
@@ -197,10 +197,28 @@ F32 HippoLimits::getMinPrimZPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints") && !mEnforceMaxBuild)
 	{
-		return FLT_MAX;
+		return FLT_MIN;
 	}
 	else
 	{
 		return mMinPrimZPos;
+	}
+}
+
+F32 HippoLimits::getMaxDragDistance() const
+{
+	if (mMaxDragDistance == 0)
+	{
+		return FLT_MAX;
+	}
+	else
+	{
+		F32 max_drag_distance = gSavedSettings.getBOOL("LimitDragDistance") ? gSavedSettings.getF32("MaxDragDistance") : FLT_MAX;
+
+		if(max_drag_distance > gHippoLimits->getMaxDragDistance()) //Chose the more restrictive
+		{
+			max_drag_distance = gHippoLimits->getMaxDragDistance();
+		}
+		return max_drag_distance;
 	}
 }

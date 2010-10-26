@@ -463,6 +463,12 @@ void LLInvFVBridge::getClipboardEntries(bool show_asset_id, std::vector<std::str
 
 	items.push_back(std::string("Copy Separator"));
 
+	items.push_back(std::string("Cut"));
+	if (!isItemCopyable())
+	{
+		disabled_items.push_back(std::string("Cut"));
+	}
+
 	items.push_back(std::string("Copy"));
 	if (!isItemCopyable())
 	{
@@ -813,6 +819,11 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 		copyToClipboard();
 		return;
 	}
+	else if ("cut" == action)
+	{
+		cutToClipboard();
+		return;
+	}
 	else if ("paste" == action)
 	{
 		// Single item only
@@ -1082,6 +1093,15 @@ BOOL LLItemBridge::copyToClipboard() const
 	if(isItemCopyable())
 	{
 		LLInventoryClipboard::instance().add(mUUID);
+		return TRUE;
+	}
+	return FALSE;
+}
+BOOL LLItemBridge::cutToClipboard() const
+{
+	if(isItemCopyable())
+	{
+		LLInventoryClipboard::instance().addCut(mUUID);
 		return TRUE;
 	}
 	return FALSE;
@@ -1888,6 +1908,35 @@ void LLFolderBridge::pasteFromClipboard()
 					parent_id,
 					std::string(),
 					LLPointer<LLInventoryCallback>(NULL));
+			}
+		}
+		//Do cuts as well
+		LLInventoryClipboard::instance().retrieveCuts(objects);
+		count = objects.count();
+		parent_id = mUUID;
+		for(S32 i = 0; i < count; i++)
+		{
+			item = model->getItem(objects.get(i));
+			if (item)
+			{
+				copy_inventory_item(
+					gAgent.getID(),
+					item->getPermissions().getOwner(),
+					item->getUUID(),
+					parent_id,
+					std::string(),
+					LLPointer<LLInventoryCallback>(NULL));
+				LLInventoryCategory* cat = model->getCategory(item->getUUID());
+				if(cat)
+				{
+					model->purgeDescendentsOf(mUUID);
+				}
+				LLInventoryObject* obj = model->getObject(item->getUUID());
+				if(!obj) return;
+				obj->removeFromServer();
+				LLPreview::hide(item->getUUID());
+				model->deleteObject(item->getUUID());
+				model->notifyObservers();
 			}
 		}
 	}

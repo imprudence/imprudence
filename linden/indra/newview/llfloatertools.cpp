@@ -195,7 +195,7 @@ void LLFloaterTools::updateToolsSizeLimits()
 
 	getChild<LLSpinCtrl>("Pos X")->setMaxValue(gHippoLimits->getMaxPrimXPos());
 	getChild<LLSpinCtrl>("Pos Y")->setMaxValue(gHippoLimits->getMaxPrimYPos());
-	getChild<LLSpinCtrl>("Pos Z")->setMaxValue(gHippoLimits->getMinPrimZPos());
+	getChild<LLSpinCtrl>("Pos Z")->setMaxValue(gHippoLimits->getMaxPrimZPos());
 
 	getChild<LLCheckBoxCtrl>("Physical Checkbox Ctrl")->setEnabled(gHippoLimits->mAllowPhysicalPrims);
 }
