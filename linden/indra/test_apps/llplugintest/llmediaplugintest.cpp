@@ -1169,8 +1169,8 @@ void LLMediaPluginTest::keyboard( int key )
 		exit( 0 );
 	};
 
-	mSelectedPanel->mMediaSource->keyEvent( LLPluginClassMedia::KEY_EVENT_DOWN, key, 0 );
-	mSelectedPanel->mMediaSource->keyEvent( LLPluginClassMedia::KEY_EVENT_UP, key, 0 );
+	mSelectedPanel->mMediaSource->keyEvent( LLPluginClassMedia::KEY_EVENT_DOWN, key, 0 , LLSD());
+	mSelectedPanel->mMediaSource->keyEvent( LLPluginClassMedia::KEY_EVENT_UP, key, 0, LLSD());
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1529,7 +1529,21 @@ void LLMediaPluginTest::addMediaPanel( std::string url )
 #elif LL_WINDOWS
 	std::string launcher_name( "SLPlugin.exe" );
 #endif
-	media_source->init( launcher_name, plugin_name );
+
+	// for this test app, use the cwd as the user data path (ugh).
+#if LL_WINDOWS
+	std::string user_data_path = ".\\";
+#else
+        char cwd[ FILENAME_MAX ];
+	if (NULL == getcwd( cwd, FILENAME_MAX - 1 ))
+	{
+		std::cerr << "Couldn't get cwd - probably too long - failing to init." << std::endl;
+		return;
+	}
+	std::string user_data_path = std::string( cwd ) + "/";
+#endif
+	media_source->setUserDataPath(user_data_path);
+	media_source->init( launcher_name, plugin_name, false );
 	media_source->setDisableTimeout(mDisableTimeout);
 
 	// make a new panel and save parameters
@@ -1752,7 +1766,22 @@ void LLMediaPluginTest::replaceMediaPanel( mediaPanel* panel, std::string url )
 #elif LL_WINDOWS
 	std::string launcher_name( "SLPlugin.exe" );
 #endif
-	media_source->init( launcher_name, plugin_name );
+
+	// for this test app, use the cwd as the user data path (ugh).
+#if LL_WINDOWS
+	std::string user_data_path = ".\\";
+#else
+        char cwd[ FILENAME_MAX ];
+	if (NULL == getcwd( cwd, FILENAME_MAX - 1 ))
+	{
+		std::cerr << "Couldn't get cwd - probably too long - failing to init." << std::endl;
+		return;
+	}
+	std::string user_data_path = std::string( cwd ) + "/";
+#endif
+
+	media_source->setUserDataPath(user_data_path);
+	media_source->init( launcher_name, plugin_name, false );
 	media_source->setDisableTimeout(mDisableTimeout);
 
 	// make a new panel and save parameters
