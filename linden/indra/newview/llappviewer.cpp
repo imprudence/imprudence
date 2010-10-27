@@ -724,7 +724,7 @@ bool LLAppViewer::init()
 #elif LL_LINUX
 	mime_types_name = "mime_types_linux.xml";
 #else
-	mime_types_name = "mime_types.xml";
+	mime_types_name = "mime_types_windows.xml";
 #endif
 	LLMIMETypes::parseMIMETypes( mime_types_name ); 
 

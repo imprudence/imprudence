@@ -1584,8 +1584,8 @@ if (WINDOWS)
 	 -E
 	 copy_if_different
 	 ${mime_types_source}/mime_types_windows.xml 
-	 ${mime_types_dest}/mime_types.xml
-      COMMENT "Copying mime_types_windows.xml to mime_types.xml."
+	 ${mime_types_dest}/mime_types_windows.xml
+      COMMENT "Copying mime_types_windows.xml to the runtime app_settings folder."
       )
   
 endif (WINDOWS)
