@@ -176,33 +176,12 @@
         <string>creative commons attribution-share alike 3.0</string>
         <key>packages</key>
         <map>
-          <key>darwin</key>
+          <key>common</key>
           <map>
             <key>md5sum</key>
-            <string>506d8203676998eab8ccbaaf7bc7415f</string>
+            <string>a2cde4f24bdcc260b661e139846b8acd</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20101017.tar.bz2</uri>
-          </map>
-          <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>506d8203676998eab8ccbaaf7bc7415f</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20101017.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>506d8203676998eab8ccbaaf7bc7415f</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20101017.tar.bz2</uri>
-          </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>506d8203676998eab8ccbaaf7bc7415f</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20101017.tar.bz2</uri>
+			<uri>http://github.com/downloads/AlericInglewood/imprudence/imprudence-artwork-20101026.tar.bz2</uri>
           </map>
         </map>
       </map>
