@@ -4,10 +4,12 @@ add_subdirectory(base)
 
 add_subdirectory(webkit)
 
-add_subdirectory(gstreamer010)
+if (LINUX OR DARWIN)
+    add_subdirectory(gstreamer010)
+endif (LINUX OR DARWIN)
 
-if (WINDOWS OR DARWIN)
+if (WINDOWS)
     add_subdirectory(quicktime)
-endif (WINDOWS OR DARWIN)
+endif (WINDOWS)
 
 add_subdirectory(example)

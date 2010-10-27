@@ -6,12 +6,13 @@ if (STANDALONE)
 
   pkg_check_modules(GSTREAMER010 REQUIRED gstreamer-0.10)
   pkg_check_modules(GSTREAMER010_PLUGINS_BASE REQUIRED gstreamer-plugins-base-0.10)
-endif (STANDALONE)
 
-if (LINUX)
-  use_prebuilt_binary(gstreamer)
-  # possible libxml should have its own .cmake file instead
+else (STANDALONE)
+
+  # Possibly libxml and glib should have their own .cmake file instead...
+  use_prebuilt_binary(glib)			# gstreamer needs glib
   use_prebuilt_binary(libxml)
+  use_prebuilt_binary(gstreamer)
   set(GSTREAMER010_FOUND ON FORCE BOOL)
   set(GSTREAMER010_PLUGINS_BASE_FOUND ON FORCE BOOL)
   set(GSTREAMER010_INCLUDE_DIRS
@@ -19,8 +20,9 @@ if (LINUX)
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
       )
-endif (LINUX)
-      
+
+endif (STANDALONE)
+
 if (WINDOWS)
   # We don't need to explicitly link against gstreamer itself, because
   # LLMediaImplGStreamer probes for the system's copy at runtime.
