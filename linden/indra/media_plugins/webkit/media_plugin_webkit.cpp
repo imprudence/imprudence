@@ -34,7 +34,9 @@
  */
 
 #include "llqtwebkit.h"
-#include <qglobal.h>		// for Q_INIT_RESOURCE
+#ifdef LL_STANDALONE
+#include <qglobal.h>
+#endif
 
 #include "linden_common.h"
 #include "indra_constants.h" // for indra keyboard codes
@@ -78,6 +80,16 @@ extern "C" {
 		gModuleHandle = (HMODULE) hinstDLL;
 		return TRUE;
 	}
+#endif
+
+// We don't provide Qt headers, so define this here for non-standalone.
+#ifndef QT_MANGLE_NAMESPACE
+#define QT_MANGLE_NAMESPACE(name) name
+#endif
+#ifndef Q_INIT_RESOURCE
+#define Q_INIT_RESOURCE(name) \
+	do { extern int QT_MANGLE_NAMESPACE(qInitResources_ ## name) ();       \
+		 QT_MANGLE_NAMESPACE(qInitResources_ ## name) (); } while (0)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
