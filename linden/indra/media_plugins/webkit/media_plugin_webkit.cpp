@@ -34,9 +34,6 @@
  */
 
 #include "llqtwebkit.h"
-#ifdef LL_STANDALONE
-#include <qglobal.h>
-#endif
 
 #include "linden_common.h"
 #include "indra_constants.h" // for indra keyboard codes
@@ -82,14 +79,18 @@ extern "C" {
 	}
 #endif
 
-// We don't provide Qt headers, so define this here for non-standalone.
-#ifndef QT_MANGLE_NAMESPACE
+#ifdef LL_STANDALONE
+#include <qglobal.h>
+#elif defined(LL_LINUX)
+// We don't provide Qt headers for non-standalone, therefore define this here.
+// Our prebuilt is built with QT_NAMESPACE undefined.
 #define QT_MANGLE_NAMESPACE(name) name
-#endif
-#ifndef Q_INIT_RESOURCE
 #define Q_INIT_RESOURCE(name) \
 	do { extern int QT_MANGLE_NAMESPACE(qInitResources_ ## name) ();       \
 		 QT_MANGLE_NAMESPACE(qInitResources_ ## name) (); } while (0)
+#else
+// Apparently this symbol doesn't exist in the windows and Mac tar balls provided by LL.
+#define Q_INIT_RESOURCE(name) /*nothing*/
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
