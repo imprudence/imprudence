@@ -1525,6 +1525,7 @@ ADD_VIEWER_BUILD_TEST(llagentaccess viewer)
 
 # Don't do these for DARWIN or LINUX here -- they're taken care of by viewer_manifest.py
 if (WINDOWS)
+
   get_target_property(BUILT_SLPLUGIN SLPlugin LOCATION)
   add_custom_command(
       TARGET ${VIEWER_BINARY_NAME} POST_BUILD
@@ -1549,17 +1550,17 @@ if (WINDOWS)
         COMMENT "Copying WebKit Plugin to the runtime folder."
         )
         
-   get_target_property(BUILT_GSTREAMER_PLUGIN media_plugin_gstreamer010 LOCATION)
-    add_custom_command(
-        TARGET ${VIEWER_BINARY_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND}
-        ARGS
-          -E
-          copy_if_different
-          ${BUILT_GSTREAMER_PLUGIN}
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin
-        COMMENT "Copying Gstreamer Plugin to the runtime folder."
-        )
+   #get_target_property(BUILT_GSTREAMER_PLUGIN media_plugin_gstreamer010 LOCATION)
+   # add_custom_command(
+   #     TARGET ${VIEWER_BINARY_NAME} POST_BUILD
+   #     COMMAND ${CMAKE_COMMAND}
+   #     ARGS
+   #       -E
+   #       copy_if_different
+   #       ${BUILT_GSTREAMER_PLUGIN}
+   #       ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin
+   #     COMMENT "Copying Gstreamer Plugin to the runtime folder."
+   #     )
         
   get_target_property(BUILT_QUICKTIME_PLUGIN media_plugin_quicktime LOCATION)
     add_custom_command(
@@ -1573,8 +1574,20 @@ if (WINDOWS)
         COMMENT "Copying Quicktime Plugin to the runtime folder."
         )
 
-
-
+  # Copying the mime_types.xml file to app_settings
+  set(mime_types_source "${CMAKE_SOURCE_DIR}/newview/skins/default/xui/en-us")
+  set(mime_types_dest "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/app_settings")
+  add_custom_command(
+      TARGET ${VIEWER_BINARY_NAME} POST_BUILD
+      COMMAND ${CMAKE_COMMAND}
+      ARGS 
+	 -E
+	 copy_if_different
+	 ${mime_types_source}/mime_types_windows.xml 
+	 ${mime_types_dest}/mime_types.xml
+      COMMENT "Copying mime_types_windows.xml to mime_types.xml."
+      )
+  
 endif (WINDOWS)
 
 if (DARWIN)
