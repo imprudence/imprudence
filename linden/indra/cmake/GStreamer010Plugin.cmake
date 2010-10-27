@@ -8,6 +8,7 @@ if (STANDALONE)
   pkg_check_modules(GSTREAMER010_PLUGINS_BASE REQUIRED gstreamer-plugins-base-0.10)
 endif (STANDALONE)
 
+if (LINUX)
   use_prebuilt_binary(gstreamer)
   # possible libxml should have its own .cmake file instead
   use_prebuilt_binary(libxml)
@@ -18,6 +19,7 @@ endif (STANDALONE)
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
       )
+endif (LINUX)
       
 if (WINDOWS)
   # We don't need to explicitly link against gstreamer itself, because
