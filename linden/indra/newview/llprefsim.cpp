@@ -45,6 +45,7 @@
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
 #include "lluictrlfactory.h"
+#include "llstartup.h"
 
 #include "lldirpicker.h"
 
@@ -106,22 +107,23 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
 
 	// Don't enable this until we get personal data
-	childDisable("include_im_in_chat_console");
-	childDisable("include_im_in_chat_history");
-	childDisable("show_timestamps_check");
-	childDisable("friends_online_notify_checkbox");
+	// Unless we're already logged in. Some non-SL grids won't send us the data we need -- MC
+	childSetEnabled("include_im_in_chat_console", LLStartUp::isLoggedIn());
+	childSetEnabled("include_im_in_chat_history", LLStartUp::isLoggedIn());
+	childSetEnabled("show_timestamps_check", LLStartUp::isLoggedIn());
+	childSetEnabled("friends_online_notify_checkbox", LLStartUp::isLoggedIn());
 	
-	childDisable("online_visibility");
-	childDisable("send_im_to_email");
-	childDisable("log_instant_messages");
-	childDisable("log_chat");
-	childDisable("log_show_history");
-	childDisable("log_path_button");
-	childDisable("busy_response");
-	childDisable("log_instant_messages_timestamp");
-	childDisable("log_chat_timestamp");
-	childDisable("log_chat_IM");
-	childDisable("log_date_timestamp");
+	childSetEnabled("online_visibility", LLStartUp::isLoggedIn());
+	childSetEnabled("send_im_to_email", LLStartUp::isLoggedIn());
+	childSetEnabled("log_instant_messages", LLStartUp::isLoggedIn());
+	childSetEnabled("log_chat", LLStartUp::isLoggedIn());
+	childSetEnabled("log_show_history", LLStartUp::isLoggedIn());
+	childSetEnabled("log_path_button", LLStartUp::isLoggedIn());
+	childSetEnabled("busy_response", LLStartUp::isLoggedIn());
+	childSetEnabled("log_instant_messages_timestamp", LLStartUp::isLoggedIn());
+	childSetEnabled("log_chat_timestamp", LLStartUp::isLoggedIn());
+	childSetEnabled("log_chat_IM", LLStartUp::isLoggedIn());
+	childSetEnabled("log_date_timestamp", LLStartUp::isLoggedIn());
 
 	childSetText("busy_response", getString("log_in_to_change"));
 
