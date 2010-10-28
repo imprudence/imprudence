@@ -2128,7 +2128,6 @@ BOOL LLFloaterSnapshot::postBuild()
 	//gSnapshotFloaterView->addChild(this);
 
 	impl.updateControls(this);
-	impl.updateLayout(this);
 	
 	return TRUE;
 }

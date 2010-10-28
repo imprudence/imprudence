@@ -5142,12 +5142,6 @@ void LLVOAvatar::updateTextures()
 				if (texture_dict->mIsLocalTexture)
 				{
 					addLocalTextureStats((ETextureIndex)index, imagep, texel_area_ratio, render_avatar, layer_baked[baked_index]);
-					// SNOW-8 : temporary snowglobe1.0 fix for baked textures
-					if (render_avatar && !gGLManager.mIsDisabled )
-					{
-						// bind the texture so that its boost level won't be slammed
-						gGL.getTexUnit(0)->bind(imagep);
-					}
 				}
 				else if (texture_dict->mIsBakedTexture)
 				{
@@ -5184,8 +5178,14 @@ void LLVOAvatar::addLocalTextureStats( ETextureIndex idx, LLViewerImage* imagep,
 			F32 desired_pixels;
 			if( mIsSelf )
 			{
-				desired_pixels = llmin(mPixelArea, (F32)TEX_IMAGE_AREA_SELF );
+				desired_pixels = llmax(mPixelArea, (F32)TEX_IMAGE_AREA_SELF );
 				imagep->setBoostLevel(LLViewerImageBoostLevel::BOOST_AVATAR_SELF);
+				// SNOW-8 : temporary snowglobe1.0 fix for baked textures
+				if (render_avatar && !gGLManager.mIsDisabled )
+				{
+					// bind the texture so that its boost level won't be slammed
+					gGL.getTexUnit(0)->bind(imagep);
+				}
 			}
 			else
 			{

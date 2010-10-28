@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Stummgeschaltete Einwohner und Objekte" short_title="Stummschalten-Liste">
-	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
+<floater name="mute floater" title="Stummgeschaltete Einwohner &amp; Objekte" short_title="Stummschalten-Liste">
+	<scroll_list name="mutes" tool_tip="Liste derzeit stummgeschalteter Einwohner" />
 	<button label="Einwohner stummschalten..." label_selected="Einwohner stummschalten..."
 	     name="Mute resident..."
 	     tool_tip="Wählen Sie einen Einwohner, um ihn stumm zu schalten" />

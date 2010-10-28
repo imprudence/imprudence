@@ -29,7 +29,9 @@
 #include "llviewerprecompiledheaders.h"
 #include "impprefsfonts.h"
 
+#include "llcheckboxctrl.h"
 #include "llradiogroup.h"
+#include "llspinctrl.h"
 #include "lluictrlfactory.h"
 
 #include "llviewercontrol.h"
@@ -61,24 +63,64 @@ void ImpPrefsFonts::refresh()
 	{
 		fonts->setValue( gSavedSettings.getString("FontChoice") );
 	}
+
+	LLSpinCtrl* font_mult = getChild<LLSpinCtrl>("font_mult");
+	if (font_mult)
+	{
+		font_mult->setValue( gSavedSettings.getF32("FontSizeMultiplier") );
+	}
+
+	LLCheckBoxCtrl* font_round = getChild<LLCheckBoxCtrl>("font_round");
+	if (font_round)
+	{
+		font_round->setValue( gSavedSettings.getBOOL("FontSizeRounding") );
+	}
 }
 
 void ImpPrefsFonts::apply()
 {
-	LLRadioGroup* fonts = getChild<LLRadioGroup>("fonts");
+	bool changed = false;
 
+	LLRadioGroup* fonts = getChild<LLRadioGroup>("fonts");
 	if (fonts)
 	{
 		std::string font_choice = fonts->getValue().asString();
-
 		if (font_choice != gSavedSettings.getString("FontChoice") &&
 		    !font_choice.empty())
 		{
 			gSavedSettings.setString("FontChoice", font_choice);
-			LLNotifications::instance().add("ChangeFont");
-			refresh();
+			changed = true;
 		}
 	}
+
+	LLSpinCtrl* font_mult = getChild<LLSpinCtrl>("font_mult");
+	if (font_mult)
+	{
+		F32 mult = font_mult->getValue().asReal();
+		if (mult != gSavedSettings.getF32("FontSizeMultiplier"))
+		{
+			gSavedSettings.setF32("FontSizeMultiplier", mult);
+			changed = true;
+		}
+	}
+
+	LLCheckBoxCtrl* font_round = getChild<LLCheckBoxCtrl>("font_round");
+	if (font_round)
+	{
+		BOOL round = font_round->getValue().asBoolean();
+		if (round != gSavedSettings.getBOOL("FontSizeRounding"))
+		{
+			gSavedSettings.setBOOL("FontSizeRounding", round);
+			changed = true;
+		}
+	}
+
+	if (changed)
+	{
+		refresh();
+		LLNotifications::instance().add("ChangeFont");
+	}
+
 }
 
 void ImpPrefsFonts::cancel()

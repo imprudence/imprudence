@@ -22,18 +22,11 @@
 	<text_editor name="msg_form">
 		Nachricht hier eingeben.
 	</text_editor>
-	<check_box label="Im Web veröffentlichen" name="allow_publish_check"
-	     tool_tip="Veröffentlicht diese Postkarte im Web." />
-	<check_box label="Ab-18-Inhalt" name="mature_check"
-	     tool_tip="Diese Postkarte enthält nicht jugendfreie Inhalte." />
-	<button label="?" name="publish_help_btn" />
-	<text name="fine_print">
-		Wenn sich der Empfänger bei SL anmeldet, erhalten Sie einen Empfehlungsbonus.
-	</text>
+
 	<button label="Abbrechen" name="cancel_btn" />
 	<button label="Senden" name="send_btn" />
 	<text name="default_subject">
-		Postkarte aus Second Life.
+		Postkarte aus [GRID_NAME].
 	</text>
 	<text name="default_message">
 		Sehen Sie hier!
