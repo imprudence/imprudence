@@ -337,14 +337,6 @@ private:
 		// append details to agent string
 		LLQtWebKit::getInstance()->setBrowserAgentId( mUserAgent );
 
-#if 0	// FIXME (webkit_plugins): this doesn't compile with latest version of llqtwebkit
-		// error: ‘class LLQtWebKit’ has no member named ‘setWindowOpenBehavior’
-		// error: ‘WOB_SIMULATE_BLANK_HREF_CLICK’ is not a member of ‘LLQtWebKit’
-
-		// Set up window open behavior
-		LLQtWebKit::getInstance()->setWindowOpenBehavior(mBrowserWindowId, LLQtWebKit::WOB_SIMULATE_BLANK_HREF_CLICK);
-#endif
-		
 #if !LL_QTWEBKIT_USES_PIXMAPS
 		// don't flip bitmap
 		LLQtWebKit::getInstance()->flipWindow( mBrowserWindowId, true );
