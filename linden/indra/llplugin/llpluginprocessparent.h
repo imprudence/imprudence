@@ -147,6 +147,7 @@ private:
 	};
 	EState mState;
 	void setState(EState state);
+	std::string stateToString(EState state);
 	
 	bool pluginLockedUp();
 	bool pluginLockedUpOrQuit();

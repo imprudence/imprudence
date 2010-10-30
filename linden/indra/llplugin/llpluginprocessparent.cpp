@@ -1084,7 +1084,7 @@ std::string LLPluginProcessParent::getPluginVersion(void)
 
 void LLPluginProcessParent::setState(EState state)
 {
-	LL_DEBUGS("Plugin") << "setting state to " << state << LL_ENDL;
+	LL_DEBUGS("Plugin") << "setting state to " << stateToString(state) << LL_ENDL;
 	mState = state; 
 };
 
@@ -1118,3 +1118,53 @@ bool LLPluginProcessParent::pluginLockedUp()
 	return (mHeartbeat.getStarted() && mHeartbeat.hasExpired());
 }
 
+std::string LLPluginProcessParent::stateToString(EState state)
+{
+	std::string eng = "unknown plugin state";
+	switch (state)
+	{
+	case STATE_UNINITIALIZED:
+		eng = "STATE_UNINITIALIZED";
+		break;
+	case STATE_INITIALIZED: 
+		eng = "STATE_INITIALIZED - init() has been called";
+		break;
+	case STATE_LISTENING:
+		eng = "STATE_LISTENING - listening for incoming connection";
+		break;
+	case STATE_LAUNCHED:
+		eng = "STATE_LAUNCHED - process has been launched";
+		break;
+	case STATE_CONNECTED:
+		eng = "STATE_CONNECTED - process has connected";
+		break;
+	case STATE_HELLO:
+		eng = "STATE_HELLO - first message from the plugin process has been received";
+		break;
+	case STATE_LOADING:
+		eng = "STATE_LOADING - process has been asked to load the plugin";
+		break;
+	case STATE_RUNNING:
+		eng = "STATE_RUNNING - plugin running";
+		break;
+	case STATE_LAUNCH_FAILURE:
+		eng = "STATE_LAUNCH_FAILURE - failure before plugin loaded";
+		break;
+	case STATE_ERROR:
+		eng = "STATE_ERROR - generic bailout state";
+		break;
+	case STATE_CLEANUP:
+		eng = "STATE_CLEANUP - clean everything up";
+		break;
+	case STATE_EXITING:
+		eng = "STATE_EXITING - tried to kill process, waiting for it to exit";
+		break;
+	case STATE_DONE:
+		eng = "STATE_DONE - plugin done";
+		break;
+	default:
+		break;
+	}
+	
+	return llformat("(%d) ", (S32)state) + eng;
+}
