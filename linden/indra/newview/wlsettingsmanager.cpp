@@ -74,6 +74,7 @@
 #include "llviewercontrol.h"
 #include "message.h"
 #include "meta7windlight.h"
+#include "llworld.h"
 
 #undef max
 
@@ -223,6 +224,8 @@ void WLSettingsManager::Apply()
 		sky_mgr->loadPreset( wlSkyPresetName, true );
 	}
 
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+
 	mSky = NULL;
 	mWater = NULL;
 	mWaterNormal = NULL;
@@ -232,6 +235,7 @@ void WLSettingsManager::Apply()
 void WLSettingsManager::wlresetRegion()
 {
 	wlIgnoreRegion = false;
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
 }
 
 // static

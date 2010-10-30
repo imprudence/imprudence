@@ -110,6 +110,8 @@ bool handle_give_money_dialog();
 bool handle_object_open();
 bool handle_go_to_confirm();
 bool handle_go_to();
+void handle_open_message_log(void*);
+void handle_open_message_builder(void*);
 
 // Export to XML or Collada
 void handle_export_selected( void * );

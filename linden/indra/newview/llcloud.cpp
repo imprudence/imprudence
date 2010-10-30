@@ -336,10 +336,10 @@ void LLCloudLayer::destroy()
 	mWindp = NULL;
 }
 
-
 void LLCloudLayer::reset()
 {
 }
+
 void LLCloudLayer::setWindPointer(LLWind *windp)
 {
 	if (mWindp)

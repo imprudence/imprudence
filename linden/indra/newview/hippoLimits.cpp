@@ -215,9 +215,9 @@ F32 HippoLimits::getMaxDragDistance() const
 	{
 		F32 max_drag_distance = gSavedSettings.getBOOL("LimitDragDistance") ? gSavedSettings.getF32("MaxDragDistance") : FLT_MAX;
 
-		if(max_drag_distance > gHippoLimits->getMaxDragDistance()) //Chose the more restrictive
+		if(max_drag_distance > mMaxDragDistance) //Chose the more restrictive
 		{
-			max_drag_distance = gHippoLimits->getMaxDragDistance();
+			max_drag_distance = mMaxDragDistance;
 		}
 		return max_drag_distance;
 	}

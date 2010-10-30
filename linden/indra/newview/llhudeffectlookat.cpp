@@ -53,6 +53,7 @@
 // [/RLVa:KB]
 
 #include "llxmltree.h"
+#include "hippolimits.h"
 
 
 BOOL LLHUDEffectLookAt::sDebugLookAt = FALSE;
@@ -553,7 +554,7 @@ void LLHUDEffectLookAt::setSourceObject(LLViewerObject* objectp)
 //-----------------------------------------------------------------------------
 void LLHUDEffectLookAt::render()
 {
-	if (sDebugLookAt && mSourceObject.notNull())
+	if (sDebugLookAt && mSourceObject.notNull() && gHippoLimits->mAllowMinimap) //Has to have allow minimap as well, otherwise it defeats the purpose of no minimap
 	{
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 

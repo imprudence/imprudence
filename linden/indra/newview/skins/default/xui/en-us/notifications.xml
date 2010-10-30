@@ -3653,6 +3653,16 @@ Default: off
 
 <notification
  icon="alertmodal.tga"
+ label="Minimum Age"
+ name="HelpRegionMinimumAge"
+ type="alertmodal">
+This sets the minimum age (in days) that users entering this sim have to be to enter.
+
+Default: 0 (disabled)
+</notification>
+
+<notification
+ icon="alertmodal.tga"
  label="Block Fly"
  name="HelpRegionBlockFly"
  type="alertmodal">

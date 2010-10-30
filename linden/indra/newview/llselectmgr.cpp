@@ -1861,7 +1861,7 @@ BOOL LLSelectMgr::selectionAllPCode(LLPCode code)
 		f(const LLPCode& t) : mCode(t) {}
 		virtual bool apply(LLViewerObject* object)
 		{
-			if (object->getPCode() != mCode)
+			if (object->getPCode() != mCode && !gSavedSettings.getBOOL("AllowEditingOfTrees"))
 			{
 				return FALSE;
 			}
