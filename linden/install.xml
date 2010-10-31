@@ -306,9 +306,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>bfcff12c0d5cef53aa2e04fa53299b23</string>
+            <string>5bbf7e33dadc7d046dcf44883a9ec3d0</string>
             <key>url</key>
-            <uri>http://github.com/downloads/AlericInglewood/imprudence/dbusglib-linux-20101012.tar.bz2</uri>
+            <uri>http://github.com/downloads/AlericInglewood/imprudence/dbusglib-linux-20101031.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
