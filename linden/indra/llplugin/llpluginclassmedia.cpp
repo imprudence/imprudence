@@ -150,7 +150,6 @@ void LLPluginClassMedia::reset()
 	mProgressPercent = 0;	
 	mClickURL.clear();
 	mClickTarget.clear();
-	mClickTargetType = TARGET_NONE;
 	
 	// media_time class
 	mCurrentTime = 0.0f;
@@ -722,30 +721,6 @@ void LLPluginClassMedia::setJavascriptEnabled(const bool enabled)
 	sendMessage(message);
 }
 
-LLPluginClassMedia::ETargetType getTargetTypeFromLLQtWebkit(int target_type)
-{
-  llassert(false);
-  return LLPluginClassMedia::TARGET_OTHER;
-#if 0
-	// convert a LinkTargetType value from llqtwebkit to an ETargetType
-	// so that we don't expose the llqtwebkit header in viewer code
-	switch (target_type)
-	{
-	case LLQtWebKit::LTT_TARGET_NONE:
-		return LLPluginClassMedia::TARGET_NONE;
-
-	case LLQtWebKit::LTT_TARGET_BLANK:
-		return LLPluginClassMedia::TARGET_BLANK;
-
-	case LLQtWebKit::LTT_TARGET_EXTERNAL:
-		return LLPluginClassMedia::TARGET_EXTERNAL;
-
-	default:
-		return LLPluginClassMedia::TARGET_OTHER;
-	}
-#endif
-}
-
 /* virtual */ 
 void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 {
@@ -998,15 +973,12 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		{
 			mClickURL = message.getValue("uri");
 			mClickTarget = message.getValue("target");
-			U32 target_type = message.getValueU32("target_type");
-			mClickTargetType = ::getTargetTypeFromLLQtWebkit(target_type);
 			mediaEvent(LLPluginClassMediaOwner::MEDIA_EVENT_CLICK_LINK_HREF);
 		}
 		else if(message_name == "click_nofollow")
 		{
 			mClickURL = message.getValue("uri");
 			mClickTarget.clear();
-			mClickTargetType = TARGET_NONE;
 			mediaEvent(LLPluginClassMediaOwner::MEDIA_EVENT_CLICK_LINK_NOFOLLOW);
 		}
 		else if(message_name == "cookie_set")

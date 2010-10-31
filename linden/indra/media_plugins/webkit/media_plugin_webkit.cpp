@@ -326,7 +326,11 @@ private:
 		LLQtWebKit::getInstance()->enableJavascript( mJavascriptEnabled );
 		
 		// create single browser window
+#if LLQTWEBKIT_API_VERSION >= 2
+		mBrowserWindowId = LLQtWebKit::getInstance()->createBrowserWindow(mWidth, mHeight /*, mTarget*/ );	// We don't have mTarget yet.
+#else
 		mBrowserWindowId = LLQtWebKit::getInstance()->createBrowserWindow( mWidth, mHeight );
+#endif
 
 		// tell LLQtWebKit about the size of the browser window
 		LLQtWebKit::getInstance()->setSize( mBrowserWindowId, mWidth, mHeight );
@@ -527,10 +531,14 @@ private:
 	void onClickLinkHref(const EventType& event)
 	{
 		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "click_href");
+#if LLQTWEBKIT_API_VERSION >= 2
+		message.setValue("uri", event.getEventUri());
+		message.setValue("target", event.getStringValue());
+		message.setValue("uuid", event.getStringValue2());
+#else
+		// This will work as long as we don't need "uuid", which will be needed for MoaP.
 		message.setValue("uri", event.getStringValue());
 		message.setValue("target", event.getStringValue2());
-#if 0 // FIXME (webkit_plugins): error: ‘const class LLEmbeddedBrowserWindowEvent’ has no member named ‘getLinkType’
-		message.setValueU32("target_type", event.getLinkType());
 #endif
 		sendMessage(message);
 	}
@@ -540,10 +548,13 @@ private:
 	void onClickLinkNoFollow(const EventType& event)
 	{
 		LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "click_nofollow");
+#if LLQTWEBKIT_API_VERSION >= 2
+		message.setValue("uri", event.getEventUri());
+#else
 		message.setValue("uri", event.getStringValue());
+#endif
 		sendMessage(message);
 	}
-	
 
 	////////////////////////////////////////////////////////////////////////////////
 	// virtual
