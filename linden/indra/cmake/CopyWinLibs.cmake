@@ -48,6 +48,7 @@ set(plugintest_debug_files
     qtnetworkd4.dll
     qtopengld4.dll
     qtwebkitd4.dll
+	qtxmlpatternsd4.dll
     ssleay32.dll
     )
 copy_if_different(
@@ -93,6 +94,7 @@ set(plugintest_release_files
     qtnetwork4.dll
     qtopengl4.dll
     qtwebkit4.dll
+	qtxmlpatterns4.dll
     ssleay32.dll
     )
 copy_if_different(
@@ -162,6 +164,7 @@ set(plugins_debug_files
     qtnetworkd4.dll
     qtopengld4.dll
     qtwebkitd4.dll
+	qtxmlpatternsd4.dll
     ssleay32.dll
     )
 copy_if_different(
@@ -181,6 +184,7 @@ set(plugins_release_files
     qtnetwork4.dll
     qtopengl4.dll
     qtwebkit4.dll
+	qtxmlpatterns4.dll
     ssleay32.dll
     )
 copy_if_different(
