@@ -24,4 +24,15 @@
 	<text name="nw_label" width="40">
 		北西
 	</text>
+  
+  <string name="tooltip_tp">
+    ダブルクリックでテレポートします
+  </string>
+  <string name="tooltip_pan">
+    Shift+ドラッグでパンします
+  </string>
+  <string name="tooltip_map">
+    ダブルクリックで地図を開きます
+  </string>
+
 </panel>

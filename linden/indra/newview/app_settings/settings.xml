@@ -2903,39 +2903,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  <key>BulkChangeIncludeAnimations</key>
-  <map>
-    <key>Comment</key>
-    <string>Bulk permission changes affect animations</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
-  </map>
-  <key>BulkChangeIncludeAnimations</key>
-  <map>
-    <key>Comment</key>
-    <string>Bulk permission changes affect animations</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
-  </map>
-  <key>BulkChangeIncludeAnimations</key>
-  <map>
-    <key>Comment</key>
-    <string>Bulk permission changes affect animations</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
-  </map>
   <key>BulkChangeIncludeBodyParts</key>
   <map>
     <key>Comment</key>

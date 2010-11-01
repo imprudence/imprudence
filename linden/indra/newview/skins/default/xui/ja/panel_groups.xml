@@ -13,6 +13,8 @@
 	<button label="抜ける" name="Leave" />
 	<button label="作成..." name="Create" />
 	<button label="検索..." name="Search..." />
+	<button label="招待..." name="Invite..." />
+	<button label="タイトル..." name="Titles..." />
   <string name="none">
 		グループなし
   </string>

@@ -60,6 +60,7 @@
 			<text name="Photo:">
 				写真：
 			</text>
+			<button label="UUIDコピー" name="btn_copy_uuid"/>
 			<texture_picker label="" name="img" tool_tip="写真をクリックして選択"/>
 			<text name="Groups:">
 				グループ：
@@ -77,8 +78,11 @@
 			</text>
 			<view_border name="drop_target_rect" />
 			<view_border name="drop_target_rect_vis" />
-			<text name="Give inventory" tool_tip="ここに物品目をドロップしてこの人に贈ります">
-				持ち物アイテムをここにドロップします
+			<text name="drop target" tool_tip="ここに持ち物アイテムをドロップしてこの人に贈ります">
+				持ち物アイテムを
+			</text>
+			<text name="Give inventory 2" tool_tip="ここに持ち物アイテムをドロップしてこの人に贈ります">
+				ここにドロップします
 			</text>
 			<check_box label="検索に表示" name="allow_publish" tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。"/>
 			<button label="?" label_selected="?" name="?"/>
@@ -87,6 +91,7 @@
 			<button label="フレンドに追加" label_selected="フレンドに追加" name="Add Friend..." />
 			<button label="支払う" label_selected="支払う" name="Pay..."/>
 			<button label="IMを送る" label_selected="IMを送る" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)" />
+			<button label="グループに招待..." label_selected="グループに招待" name="Invite to Group..." />
 			<button label="無視する" label_selected="無視する" name="Mute" />
 		</panel>
 		<panel label="ウェブ" name="WebProfile">

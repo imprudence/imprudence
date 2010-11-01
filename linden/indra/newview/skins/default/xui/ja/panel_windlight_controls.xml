@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="windlight_controls">
+  <button label="環境編集" name="Environment"/>
+  <flyout_button label="空" name="Presets">
+  </flyout_button>
+</panel>

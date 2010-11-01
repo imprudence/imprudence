@@ -3271,6 +3271,30 @@ Macの場合は、Cmd-Opt-Shift-Dを押してください。
 	<notification name="UnableToOpenCommandURL">
 		クリックしたURLはこのウェブブラウザでは開けません
 	</notification>
+
+
+<!-- ここから Imprudence 固有の通知 -->
+
+
+	<notification name="ConfirmAutoPilot">
+		本当にここまで歩きますか？
+		<usetemplate ignoretext="オートパイロットする時" name="okcancelignore" notext="キャンセル" yestext="歩く"/>
+	</notification>
+	
+	<notification name="ConfirmDoubleClickTP">
+		本当にここにテレポートしますか？
+		<usetemplate ignoretext="ダブルクリックテレポート時" name="okcancelignore" notext="キャンセル" yestext="テレポート"/>
+	</notification>
+	
+	<notification name="ConfirmTeleportHome">
+		本当にホームにテレポートしますか？
+		<usetemplate ignoretext="ホームにテレポートする時" name="okcancelignore" notext="キャンセル" yestext="テレポート"/>
+	</notification>
+
+
+<!-- ここまで Imprudence 固有の通知 -->
+
+
 	<global name="UnsupportedCPU">
 		- あなたの CPU の速度は必須動作環境の条件を満たしていません。
 	</global>

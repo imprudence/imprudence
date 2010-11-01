@@ -11,9 +11,14 @@
 		ログインして変更してください
 	</text>
 	<check_box label="IMを電子メール（[EMAIL]）へ送信" name="send_im_to_email"/>
-	<check_box label="チャットコンソールにIMを表示する" name="include_im_in_chat_console"/>
+	<text name="show_ims_label">
+		IMの表示：
+	</text>
+	<check_box label="チャットコンソールに表示" name="include_im_in_chat_console" left="208"/>
+	<check_box label="チャット履歴に表示" name="include_im_in_chat_history" left="358"/>
 	<check_box label="IMにタイムスタンプを表示" name="show_timestamps_check"/>
 	<check_box label="オンライン・フレンド通知を表示" name="friends_online_notify_checkbox"/>
+	<check_box label="IMタブを縦並びに（再起動後に有効）" name="vertical-imtabs-toggle"/>
 	<text name="text_box4">
 		記録オプション：
 	</text>
@@ -29,4 +34,5 @@
 		取り込み中
 応答メッセージ：
 	</text>
+	<button label="IM応答オプション" name="busy_adv_btn"/>
 </panel>
