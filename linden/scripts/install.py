@@ -534,24 +534,24 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
                                                          platform, 
                                                          cache_dir))
         to_install = []
+        to_uninstall = []
         #print "self._installed",self._installed
         for ifile in ifiles:
             if ifile.pkgname not in self._installed:
                 to_install.append(ifile)
             elif ifile.url not in self._installed[ifile.pkgname].urls():
+                to_uninstall.append(ifile.pkgname)
                 to_install.append(ifile)
             elif ifile.md5sum != \
                  self._installed[ifile.pkgname].get_md5sum(ifile.url):
-                # *TODO: We may want to uninstall the old version too
-                # when we detect it is installed, but the md5 sum is
-                # different.
+                to_uninstall.append(ifile.pkgname)
                 to_install.append(ifile)
             else:
                 #print "Installation up to date:",
                 #        ifile.pkgname,ifile.platform_path
                 pass
         #print "to_install",to_install
-        return to_install
+        return [to_install, to_uninstall]
 
     def _install(self, to_install, install_dir):
         for ifile in to_install:
@@ -620,12 +620,17 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
         cache_dir = os.path.realpath(cache_dir)
         _mkdir(install_dir)
         _mkdir(cache_dir)
-        to_install = self._build_ifiles(platform, cache_dir)
+        to_install_uninstall = self._build_ifiles(platform, cache_dir)
+        to_install = to_install_uninstall[0]
+        to_uninstall = to_install_uninstall[1]
 
         # Filter for files which we actually requested to install.
         to_install = [ifl for ifl in to_install if ifl.pkgname in installables]
+        to_uninstall = [ifl for ifl in to_uninstall if ifl in installables]
         for ifile in to_install:
             ifile.fetch_local()
+        if to_uninstall:
+            self.uninstall(to_uninstall, install_dir)
         self._install(to_install, install_dir)
 
     def do_install(self, installables, platform, install_dir, cache_dir=None, 
