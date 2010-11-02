@@ -77,7 +77,11 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 		if ( body.has("DrawDistance") )
 		{
-			gAgent.mDrawDistance = body["DrawDistance"].asReal();
+			F32 distance = body["DrawDistance"].asReal();
+			if (distance > 0)
+			{
+				gAgent.mDrawDistance = distance;
+			}
 		}
 		if ( body.has("ForceDrawDistance") )
 		{
