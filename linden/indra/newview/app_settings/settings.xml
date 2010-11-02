@@ -195,6 +195,94 @@
     <key>Value</key>
     <real>20</real>
   </map>
+  <key>ClassicCloudHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>Height for classic particle clouds</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>192</integer>
+  </map>
+  <key>ClassicCloudRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Height range for classic particle clouds</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>48</integer>
+  </map>
+  <key>CloudCountMax</key>
+  <map>
+    <key>Comment</key>
+    <string>Max amount of particle clouds</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>20</integer>
+  </map>
+  <key>CloudVelocityScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Particle cloud velocity</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>CloudDecayRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Particle cloud decay rate</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>-5</integer>
+  </map>
+  <key>CloudGrowRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Particle cloud grow rate</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>5</integer>
+  </map>
+  <key>CloudUpdateRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Particle cloud update rate</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>CloudDensity</key>
+  <map>
+    <key>Comment</key>
+    <string>Particle cloud density</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>25</integer>
+  </map>
   <key>ConnectingToRegionTimeout</key>
   <map>
     <key>Comment</key>
