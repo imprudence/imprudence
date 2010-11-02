@@ -799,7 +799,7 @@ void HippoGridManager::loadFromFile()
 	parseFile(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "default_grids.xml"), !mGridInfo.empty());
 	// merge grid info from web site, if newer. Force load, if list of grids is empty.
 	if (gSavedSettings.getBOOL("CheckForGridUpdates"))
-		parseUrl("http://imprudenceviewer.org/app/grids/", !mGridInfo.empty());
+		parseUrl(gSavedSettings.getString("GridUpdateList"), !mGridInfo.empty());
 
 	std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
 	if (last_grid.empty()) last_grid = gSavedSettings.getString("DefaultGrid");
@@ -808,7 +808,7 @@ void HippoGridManager::loadFromFile()
 }
 
 
-void HippoGridManager::parseUrl(const char* url, bool mergeIfNewer)
+void HippoGridManager::parseUrl(const std::string url, bool mergeIfNewer)
 {
 	llinfos << "Loading grid info from '" << url << "'." << llendl;
 
