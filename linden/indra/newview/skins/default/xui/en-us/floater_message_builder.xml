@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Message Builder" title="Message Builder" width="400" min_width="400" height="600" min_height="600" can_close="true" can_resize="true" can_minimize="true">
+	<scroll_list column_padding="0" draw_heading="false" follows="left|top|right" left="10" top="-25"
+			  name="net_list" search_column="0" right="-10" bottom="450">
+		<column dynamicwidth="true" name="text" label="text" />
+		<column name="state" label="state" width="24" />
+	</scroll_list>
+	<combo_box name="untrusted_message_combo" allow_text_entry="false" follows="left|top" left="10" top="-150" right="-370" bottom="433" tool_tip="No trust">
+	</combo_box>
+	<combo_box name="trusted_message_combo" allow_text_entry="false" follows="left|top" left="30" top="-150" right="-350" bottom="433" tool_tip="Trust">
+	</combo_box>
+	<text_editor name="message_edit" follows="left|top|right|bottom" left="10" top="-168" bottom="30" right="-10" max_length="65535">
+	</text_editor>
+	<button name="send_btn" follows="right|bottom" left="310" top="-570" right="-10" bottom="10" label="Send" tool_tip="Send (Ctrl+Enter)"/>
+</floater>
