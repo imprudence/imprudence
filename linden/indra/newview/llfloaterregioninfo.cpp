@@ -183,7 +183,7 @@ BOOL LLFloaterRegionInfo::postBuild()
 	mTab->addTabPanel(panel, panel->getLabel(), TRUE);
 
 	// We only use this panel on Aurora-based sims -- MC
-	std::string url = gAgent.getRegion()->getCapability("OpenRegionSettings");
+	std::string url = gAgent.getRegion()->getCapability("DispatchOpenRegionSettings");
 	if (!url.empty())
 	{
 		panel = new LLPanelRegionOpenSettingsInfo;
