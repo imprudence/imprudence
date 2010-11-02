@@ -426,11 +426,16 @@ LLPanelEstateCovenant* LLFloaterRegionInfo::getPanelCovenant()
 LLPanelRegionOpenSettingsInfo* LLFloaterRegionInfo::getPanelOpenSettings()
 {
 	LLFloaterRegionInfo* floater = LLFloaterRegionInfo::getInstance();
-	if (!floater) return NULL;
-	LLTabContainer* tab = floater->getChild<LLTabContainer>("region_panels");
-	LLPanelRegionOpenSettingsInfo* panel;
-	panel = (LLPanelRegionOpenSettingsInfo*)tab->getChild<LLPanel>("RegionSettings");
-	return panel;
+	if (floater) 
+	{
+		LLTabContainer* tab = floater->getChild<LLTabContainer>("region_panels");
+		LLPanelRegionOpenSettingsInfo* panel = (LLPanelRegionOpenSettingsInfo*)tab->getChild<LLPanel>("RegionSettings", FALSE, FALSE);
+		if (panel)
+		{
+			return panel;
+		}
+	}
+	return NULL;
 }
 
 void LLFloaterRegionInfo::refreshFromRegion(LLViewerRegion* region)

@@ -47,7 +47,7 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		const LLSD& context,
 		const LLSD& input) const
 	{
-		if (!input.isMap() || !input.has("body"))
+		if (!input || !context || !input.isMap() || !input.has("body"))
 		{
 			llinfos << "malformed OpenRegionInfo update!" << llendl;	 
 			return;
@@ -205,10 +205,9 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 			gFloaterTools->updateToolsSizeLimits();
 
 		//Update the floater if its around
-		LLPanelRegionOpenSettingsInfo* floater;
-		floater = LLFloaterRegionInfo::getPanelOpenSettings();
+		LLPanelRegionOpenSettingsInfo* floater = LLFloaterRegionInfo::getPanelOpenSettings();
 
-		if(floater != NULL)
+		if (floater != NULL)
 		{
 			floater->refreshFromRegion(gAgent.getRegion());
 		}
