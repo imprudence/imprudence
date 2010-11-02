@@ -49,4 +49,4 @@ CursorRef createImageCursor(const char *fullpath, int hotspotX, int hotspotY);
 OSErr releaseImageCursor(CursorRef ref);
 OSErr setImageCursor(CursorRef ref);
 BOOL decodeImageQuartz(std::string filename, LLImageRaw *raw_image);
-BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image);
+BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image, std::string ext);

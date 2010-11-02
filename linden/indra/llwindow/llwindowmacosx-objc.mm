@@ -43,12 +43,15 @@
  */
 
 #include "llwindowmacosx-objc.h"
+#include "lldir.h"
 
-BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
+BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image, std::string ext)
 {
 	CFDataRef theData = CFDataCreate(kCFAllocatorDefault, data, len);
+
 	CGImageSourceRef srcRef = CGImageSourceCreateWithData(theData, NULL);
 	CGImageRef image_ref = CGImageSourceCreateImageAtIndex(srcRef, 0, NULL);
+	CFRelease(srcRef);
 
 	size_t width = CGImageGetWidth(image_ref);
 	size_t height = CGImageGetHeight(image_ref);
@@ -58,7 +61,7 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 	UInt8* bitmap = (UInt8*)CFDataGetBytePtr(result);
 
 	CGImageAlphaInfo format = CGImageGetAlphaInfo(image_ref);
-	if (format != kCGImageAlphaNone)
+	if (comps == 4)
 	{
 		vImage_Buffer vb;
 		vb.data = bitmap;
@@ -68,29 +71,13 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 
 		if (format & kCGImageAlphaPremultipliedFirst)
 		{
-			// Ele: ARGB -> BGRA on Intel, need to first reorder the bytes, then unpremultiply as RGBA :)
-			llinfos << "Unpremultiplying BGRA8888" << llendl;
-
-			for (int i=0; i<height; i++)
-			{
-				for (int j=0; j<bytes_per_row; j+=4)
-				{
-					unsigned char tmp[4];
-
-					tmp[0] = bitmap[j*height+3];
-					tmp[1] = bitmap[j*height+2];
-					tmp[2] = bitmap[j*height+1];
-					tmp[3] = bitmap[j*height];
-
-					memcpy(&bitmap[j*height], &tmp, 4);
-				}
-			}
-
-			vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
+			// Ele: Skip unpremultiplication for PSD, PNG and TGA files
+			if (ext != std::string("psd") && ext != std::string("tga") && ext != std::string("png"))
+				vImageUnpremultiplyData_ARGB8888(&vb, &vb, 0);
 		}
 		else if (format & kCGImageAlphaPremultipliedLast)
 		{
-			llinfos << "Unpremultiplying RGBA8888" << llendl;
+			// Ele: Photoshop Native Transparency needs unmultiplication
 			vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
 		}
 	}
@@ -100,7 +87,6 @@ BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image)
 	raw_image->verticalFlip();
 
 	CFRelease(theData);
-	CFRelease(srcRef);
 	CGImageRelease(image_ref);
 	CFRelease(result);
 
@@ -112,7 +98,10 @@ BOOL decodeImageQuartz(std::string filename, LLImageRaw *raw_image)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSURL *url = [[NSURL alloc] initFileURLWithPath:[NSString stringWithCString:filename.c_str()]];
 	NSData *data = [NSData dataWithContentsOfURL:url];
-	BOOL result = decodeImageQuartz((UInt8*)[data bytes], [data length], raw_image);
+
+	std::string ext = gDirUtilp->getExtension(filename);
+
+	BOOL result = decodeImageQuartz((UInt8*)[data bytes], [data length], raw_image, ext);
 	[pool release];
 	return result;
 }
