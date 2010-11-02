@@ -50,7 +50,6 @@ const F32 MIN_WALK_SPEED = 0.1f;	// minimum speed at which we use velocity for d
 const F32 MAX_TIME_DELTA = 2.f;		//max two seconds a frame for calculating interpolation
 const F32 SPEED_ADJUST_MAX = 2.5f; // maximum adjustment of walk animation playback speed
 const F32 SPEED_ADJUST_MAX_SEC = 3.f;	// maximum adjustment to walk animation playback speed for a second
-const F32 SPEED_FINAL_SCALING = 0.5f;  // final scaling for walk animation
 const F32 DRIFT_COMP_MAX_TOTAL = 0.07f;//0.55f; // maximum drift compensation overall, in any direction 
 const F32 DRIFT_COMP_MAX_SPEED = 4.f; // speed at which drift compensation total maxes out
 const F32 MAX_ROLL = 0.6f;
@@ -315,7 +314,6 @@ BOOL LLWalkAdjustMotion::onUpdate(F32 time, U8* joint_mask)
 	}
 
 	mAnimSpeed = (mAvgSpeed + mSpeedAdjust) * mRelativeDir;
-	mAnimSpeed = mAnimSpeed * SPEED_FINAL_SCALING;
 //	char debug_text[64];
 //	sprintf(debug_text, "Foot slip vel: %.2f", footSlipVelocity);
 //	mCharacter->addDebugText(debug_text);
