@@ -181,7 +181,7 @@
             <key>md5sum</key>
             <string>a2cde4f24bdcc260b661e139846b8acd</string>
             <key>url</key>
-			<uri>http://github.com/downloads/AlericInglewood/imprudence/imprudence-artwork-20101026.tar.bz2</uri>
+			<uri>http://imprudenceviewer.org/download/libs/imprudence-artwork-20101026.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -308,7 +308,7 @@
             <key>md5sum</key>
             <string>5bbf7e33dadc7d046dcf44883a9ec3d0</string>
             <key>url</key>
-            <uri>http://github.com/downloads/AlericInglewood/imprudence/dbusglib-linux-20101031.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/dbusglib-linux-20101031.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -797,7 +797,7 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
             <key>md5sum</key>
             <string>8b5f413bdefec7cfe3d9ad2d69986bdc</string>
             <key>url</key>
-            <uri>http://github.com/downloads/AlericInglewood/imprudence/jpeglib-6b-linux64-20101012.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/jpeglib-6b-linux64-20101012.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1052,7 +1052,7 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>md5sum</key>
             <string>863f7b31556b1d368651f85457f4e46d</string>
             <key>url</key>
-            <uri>http://github.com/downloads/AlericInglewood/imprudence/llqtwebkit-linux64-20101012.1.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/llqtwebkit-linux64-20101012.1.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
