@@ -66,7 +66,7 @@
 #include "llviewernetwork.h"
 #include "roles_constants.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // NOTE: This is duplicated in lldatamoney.cpp ...
 const F32 GROUP_LAND_BONUS_FACTOR = 1.1f;

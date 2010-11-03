@@ -63,7 +63,7 @@
 #include "llscrolllistctrl.h"
 #include "llsdserialize.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // When uploading multiple files, don't display any of them when uploading more than this number.
 static const S32 FILE_COUNT_DISPLAY_THRESHOLD = 5;

@@ -46,7 +46,7 @@
 #include "llwindow.h"
 #include "llappviewer.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 static const S32 STANDARD_BUY_AMOUNT = 2000;
 static const S32 MINIMUM_BALANCE_AMOUNT = 0;

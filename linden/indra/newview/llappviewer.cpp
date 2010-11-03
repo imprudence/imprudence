@@ -176,9 +176,9 @@
 
 #include "llcommandlineparser.h"
 
-#include "hippoGridManager.h"
-#include "hippoLimits.h"
-#include "hippoUpdate.h"
+#include "hippogridmanager.h"
+#include "hippolimits.h"
+#include "hippoupdate.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"

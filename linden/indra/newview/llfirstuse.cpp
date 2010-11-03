@@ -47,7 +47,7 @@
 
 #include "floatergriddefault.h"
 #include "floatervoicelicense.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llstartup.h"
 #include "llvoavatar.h"
 

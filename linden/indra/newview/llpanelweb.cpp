@@ -37,7 +37,7 @@
 
 // project includes
 #include "llcheckboxctrl.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llviewermedia.h"

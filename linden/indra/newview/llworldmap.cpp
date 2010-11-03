@@ -47,7 +47,7 @@
 #include "llviewerimagelist.h"
 #include "llviewerregion.h"
 #include "llregionflags.h"
- #include "hippoGridManager.h"
+ #include "hippogridmanager.h"
 bool LLWorldMap::sGotMapURL =  false;
 const F32 REQUEST_ITEMS_TIMER =  10.f * 60.f; // 10 minutes
 

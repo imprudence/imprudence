@@ -70,7 +70,7 @@
 #include "roles_constants.h"
 #include "llweb.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 const F32 PARCEL_COLLISION_DRAW_SECS = 1.f;
 

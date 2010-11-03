@@ -2275,7 +2275,7 @@ void LLTextureFetch::dump()
 //
 // *TODO: This is a *HACK and may not work if the grid is heterogenous.
 //        Remove it once OpenSim versions in the wild are > 0.7.0.2!
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include <boost/regex.hpp> 
 //static
 bool LLTextureFetch::hasBuggyHTTPRange()

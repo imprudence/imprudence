@@ -68,7 +68,7 @@
 #include "lluictrlfactory.h"
 #include "roles_constants.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"

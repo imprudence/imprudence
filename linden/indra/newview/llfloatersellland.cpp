@@ -46,7 +46,7 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // defined in llfloaterland.cpp
 void send_parcel_select_objects(S32 parcel_local_id, S32 return_type,

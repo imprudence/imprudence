@@ -55,7 +55,7 @@
 #include "lltexturectrl.h"
 #include "roles_constants.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //---------------------------------------------------------------------------
 // LLPanelLandMedia

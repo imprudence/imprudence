@@ -60,7 +60,7 @@
 #include "llstring.h"
 #include "llviewercontrol.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 #ifdef LL_DARWIN
 #include "llwindowmacosx-objc.h"

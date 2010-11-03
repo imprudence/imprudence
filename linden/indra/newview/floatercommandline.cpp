@@ -32,7 +32,7 @@
 
 #include "floatercommandline.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 

@@ -73,7 +73,7 @@
 #include "llhudmanager.h" // For testing effects
 #include "llhudeffect.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
