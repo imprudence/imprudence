@@ -39,54 +39,7 @@
 
 static LLRegisterWidget<LLUICtrl> r("ui_ctrl");
 
-LLFocusableElement::LLFocusableElement()
-:	mFocusLostCallback(NULL),
-	mFocusReceivedCallback(NULL),
-	mFocusChangedCallback(NULL),
-	mFocusCallbackUserData(NULL)
-{
-}
-
-//virtual
-LLFocusableElement::~LLFocusableElement()
-{
-}
-
-void LLFocusableElement::onFocusReceived()
-{
-	if( mFocusReceivedCallback )
-	{
-		mFocusReceivedCallback( this, mFocusCallbackUserData );
-	}
-	if( mFocusChangedCallback )
-	{
-		mFocusChangedCallback( this, mFocusCallbackUserData );
-	}
-}
-
-void LLFocusableElement::onFocusLost()
-{
-	if( mFocusLostCallback )
-	{
-		mFocusLostCallback( this, mFocusCallbackUserData );
-	}
-
-	if( mFocusChangedCallback )
-	{
-		mFocusChangedCallback( this, mFocusCallbackUserData );
-	}
-}
-
-BOOL LLFocusableElement::hasFocus() const
-{
-	return FALSE;
-}
-
-void LLFocusableElement::setFocus(BOOL b)
-{
-}
-
-
+// NOTE: the LLFocusableElement implementation has been moved to llfocusmgr.cpp, to mirror the header where the class is defined.
 
 LLUICtrl::LLUICtrl() :
 	mCommitCallback(NULL),
@@ -212,7 +165,7 @@ void LLUICtrl::onFocusReceived()
 
 	// find first view in hierarchy above new focus that is a LLUICtrl
 	LLView* viewp = getParent();
-	LLUICtrl* last_focus = gFocusMgr.getLastKeyboardFocus();
+	LLUICtrl* last_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getLastKeyboardFocus());
 
 	while (viewp && !viewp->isCtrl()) 
 	{
@@ -589,6 +542,10 @@ void LLUICtrl::setDoubleClickCallback( void (*cb)(void*) )
 
 // virtual
 void LLUICtrl::setColor(const LLColor4& color)							
+{ }
+// virtual
+
+void LLUICtrl::setAlpha(F32 alpha)							
 { }
 
 // virtual

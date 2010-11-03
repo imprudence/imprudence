@@ -33,7 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfocusmgr.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llagent.h"
 #include "llinventory.h"
 #include "llinventorymodel.h"

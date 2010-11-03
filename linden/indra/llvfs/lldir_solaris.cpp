@@ -100,7 +100,7 @@ LLDir_Solaris::LLDir_Solaris()
 	mAppRODataDir = strdup(tmp_str);
 	mOSUserDir = getCurrentUserHome(tmp_str);
 	mOSUserAppDir = "";
-	mLindenUserDir = tmp_str;
+	mLindenUserDir = "";
 
 	char path [LL_MAX_PATH];	/* Flawfinder: ignore */ 
 
@@ -161,6 +161,8 @@ LLDir_Solaris::LLDir_Solaris()
 		}
 	}
 	
+	mLLPluginDir = mExecutableDir + mDirDelimiter + "llplugin";
+
 	// *TODO: don't use /tmp, use $HOME/.secondlife/tmp or something.
 	mTempDir = "/tmp";
 }

@@ -38,12 +38,12 @@
 #include "lloverlaybar.h"
 
 #include "aoremotectrl.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llrender.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llchatbar.h"
-#include "llfloaterchat.h"
+//#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llimview.h"
 #include "llmediaremotectrl.h"
@@ -63,7 +63,7 @@
 #include "llvoiceclient.h"
 #include "llvoavatar.h"
 #include "llvoiceremotectrl.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 #include "llwindlightremotectrl.h"
 #include "llselectmgr.h"
 
@@ -79,58 +79,9 @@ LLOverlayBar *gOverlayBar = NULL;
 
 extern S32 MENU_BAR_HEIGHT;
 
-
-class LLTitleObserver
-	:	public LLMediaObserver
-{
-public:
-	void init(std::string url);
-	/*virtual*/ void onMediaTitleChange(const EventType& event_in);
-private:
-	LLMediaBase* mMediaSource;
-};
-
-static LLTitleObserver sTitleObserver;
-
-static LLRegisterWidget<LLMediaRemoteCtrl> r("media_remote");
-
-void LLTitleObserver::init(std::string url)
-{
-
-	if (!gAudiop)
-	{
-		return;
-	}
-
-	mMediaSource = gAudiop->getStreamMedia(); // LLViewerMedia::getSource();
-
-	if ( mMediaSource )
-	{
-		mMediaSource->addObserver(this);
-	}
-}
-
-//virtual
-void LLTitleObserver::onMediaTitleChange(const EventType& event_in)
-{
-	if ( !gSavedSettings.getBOOL("ShowStreamTitle") )
-	{
-		return;
-	}
-
-	LLChat chat;
-	//TODO: set this in XUI
-	std::string playing_msg = "Playing: " + event_in.getStringValue();
-	chat.mText = playing_msg;
-	LLFloaterChat::addChat(chat, FALSE, FALSE);
-}
-
-
 //
 // Functions
 //
-
-
 
 void* LLOverlayBar::createMediaRemote(void* userdata)
 {
@@ -452,11 +403,11 @@ void LLOverlayBar::toggleMediaPlay(void*)
 	}
 
 	
-	if (LLViewerMedia::isMediaPaused())
+	if (LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PAUSED)
 	{
 		LLViewerParcelMedia::start();
 	}
-	else if(LLViewerMedia::isMediaPlaying())
+	else if(LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PLAYING)
 	{
 		LLViewerParcelMedia::pause();
 	}
@@ -497,7 +448,7 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 				{
 					gAudiop->startInternetStream(parcel->getMusicURL());
-					sTitleObserver.init(parcel->getMusicURL());
+//awfixme					sTitleObserver.init(parcel->getMusicURL());
 				}
 			}
 		}

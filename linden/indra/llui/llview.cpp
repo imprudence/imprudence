@@ -136,11 +136,6 @@ LLView::~LLView()
 {
 	//llinfos << "Deleting view " << mName << ":" << (void*) this << llendl;
 // 	llassert(LLView::sIsDrawing == FALSE);
-	if( gFocusMgr.getKeyboardFocus() == this )
-	{
-		llwarns << "View holding keyboard focus deleted: " << getName() << ".  Keyboard focus removed." << llendl;
-		gFocusMgr.removeKeyboardFocusWithoutCallback( this );
-	}
 
 	if( hasMouseCapture() )
 	{
@@ -1327,7 +1322,7 @@ void LLView::draw()
 	LLRect screenRect;
 
 	// draw focused control on top of everything else
-	LLView* focus_view = gFocusMgr.getKeyboardFocus();
+	LLUICtrl* focus_view = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 	if (focus_view && focus_view->getParent() != this)
 	{
 		focus_view = NULL;
@@ -1547,7 +1542,7 @@ void LLView::updateBoundingRect()
 
 			LLRect child_bounding_rect = childp->getBoundingRect();
 
-			if (local_bounding_rect.isNull())
+			if (local_bounding_rect.isEmpty())
 			{
 				// start out with bounding rect equal to first visible child's bounding rect
 				local_bounding_rect = child_bounding_rect;
@@ -1555,7 +1550,7 @@ void LLView::updateBoundingRect()
 			else
 			{
 				// accumulate non-null children rectangles
-				if (!child_bounding_rect.isNull())
+				if (!child_bounding_rect.isEmpty())
 				{
 					local_bounding_rect.unionWith(child_bounding_rect);
 				}

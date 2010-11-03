@@ -44,6 +44,7 @@ set(llcommon_SOURCE_FILES
     llmetrics.cpp
     llmortician.cpp
     llprocessor.cpp
+    llprocesslauncher.cpp
     llqueuedthread.cpp
     llrand.cpp
     llrun.cpp
@@ -138,6 +139,7 @@ set(llcommon_HEADER_FILES
     llnametable.h
     llpreprocessor.h
     llpriqueuemap.h
+    llprocesslauncher.h
     llprocessor.h
     llptrskiplist.h
     llptrskipmap.h
@@ -198,3 +200,23 @@ target_link_libraries(
     ${EXPAT_LIBRARIES}
     ${ZLIB_LIBRARIES}
     )
+
+if(HAVE_64_BIT)
+	add_library (llcommonPIC ${llcommon_SOURCE_FILES})
+	add_dependencies(llcommonPIC prepare)
+
+	if(WINDOWS)
+		add_definitions(/FIXED:NO)
+	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+		add_definitions(-fPIC)
+	endif(WINDOWS)
+	
+	target_link_libraries(
+		llcommonPIC
+		${APRUTIL_LIBRARIES}
+		${APR_LIBRARIES}
+		${EXPAT_LIBRARIES}
+		${ZLIB_LIBRARIES}
+		)
+endif(HAVE_64_BIT)
+

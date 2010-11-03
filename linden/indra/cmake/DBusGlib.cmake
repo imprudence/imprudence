@@ -7,6 +7,7 @@ if (STANDALONE)
   pkg_check_modules(DBUSGLIB REQUIRED dbus-glib-1)
 
 elseif (LINUX)
+  use_prebuilt_binary(glib)		# dbusglib needs glib
   use_prebuilt_binary(dbusglib)
   set(DBUSGLIB_FOUND ON FORCE BOOL)
   set(DBUSGLIB_INCLUDE_DIRS

@@ -49,7 +49,8 @@
 #include "lltoolgrab.h"
 
 LLToolGun::LLToolGun( LLToolComposite* composite )
-:	LLTool( std::string("gun"), composite )
+:	LLTool( std::string("gun"), composite ),
+		mIsSelected(FALSE)
 {
 }
 
@@ -58,6 +59,7 @@ void LLToolGun::handleSelect()
 	gViewerWindow->hideCursor();
 	gViewerWindow->moveCursorToCenter();
 	gViewerWindow->mWindow->setMouseClipping(TRUE);
+	mIsSelected = TRUE;
 }
 
 void LLToolGun::handleDeselect()
@@ -65,6 +67,7 @@ void LLToolGun::handleDeselect()
 	gViewerWindow->moveCursorToCenter();
 	gViewerWindow->showCursor();
 	gViewerWindow->mWindow->setMouseClipping(FALSE);
+	mIsSelected = FALSE;
 }
 
 BOOL LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
@@ -77,7 +80,7 @@ BOOL LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLToolGun::handleHover(S32 x, S32 y, MASK mask) 
 {
-	if( gAgent.cameraMouselook() )
+	if( gAgent.cameraMouselook() && mIsSelected )
 	{
 		const F32 NOMINAL_MOUSE_SENSITIVITY = 0.0025f;
 

@@ -34,19 +34,18 @@
 #define LL_LLPANELDIRFIND_H
 
 #include "llpaneldirbrowser.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 
 class LLUICtrl;
 class LLLineEditor;
 class LLPanelDirFindAll;
 class LLFloaterDirectory;
-class LLWebBrowserCtrlObserver;
 
 // This class in an abstract base class for all new style search widgets.  It contains a pointer to a web browser control
 // 
 class LLPanelDirFind
 :	public LLPanelDirBrowser,
-	public LLWebBrowserCtrlObserver
+	public LLViewerMediaObserver
 {
 public:
 	LLPanelDirFind(const std::string& name, LLFloaterDirectory* floater, const std::string& browser_name);
@@ -73,15 +72,11 @@ private:
 	static void onCommitSearch(LLUICtrl*, void* data);
 	static void onClickHelp( void* data );
 
-	/*virtual*/ void onNavigateBegin( const EventType& eventIn );
-	/*virtual*/ void onNavigateComplete( const EventType& eventIn );
-
-		// Used to update progress indicator
-	/*virtual*/ void onLocationChange( const EventType& eventIn );
-		// Debugging info to console
+	// inherited from LLViewerMediaObserver
+	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
 
 protected:
-	LLWebBrowserCtrl* mWebBrowser;
+	LLMediaCtrl* mWebBrowser;
 	std::string mBrowserName;
 };
 

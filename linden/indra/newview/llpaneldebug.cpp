@@ -42,7 +42,7 @@
 #include "llfontgl.h"
 
 // project includes
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "llcolorswatch.h"

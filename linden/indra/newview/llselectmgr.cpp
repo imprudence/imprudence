@@ -59,6 +59,7 @@
 #include "llfloaterreporter.h"
 #include "llfloatertools.h"
 #include "llframetimer.h"
+#include "llfocusmgr.h"
 #include "llhudeffecttrail.h"
 #include "llhudmanager.h"
 #include "llinventorymodel.h"
@@ -75,6 +76,8 @@
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
+#include "llviewermediafocus.h"
 #include "llviewermenu.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
@@ -1718,7 +1721,7 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	U8 media_flags = LLTextureEntry::MF_NONE;
 	if (media_type == LLViewerObject::MEDIA_TYPE_WEB_PAGE)
 	{
-		media_flags = LLTextureEntry::MF_WEB_PAGE;
+		media_flags = LLTextureEntry::MF_HAS_MEDIA;
 	}
 	
 	struct f : public LLSelectedTEFunctor
@@ -4923,7 +4926,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 	if (mSelectedObjects->getNumNodes())
 	{
 		LLUUID inspect_item_id = LLFloaterInspect::getSelectedUUID();
-		
+		LLUUID focus_item_id = LLViewerMediaFocus::getInstance()->getSelectedUUID();
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
@@ -4937,7 +4940,11 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 				{
 					continue;
 				}
-				if(objectp->getID() == inspect_item_id)
+				if (objectp->getID() == focus_item_id)
+				{
+					node->renderOneSilhouette(gFocusMgr.getFocusColor());
+				}
+				else if(objectp->getID() == inspect_item_id)
 				{
 					node->renderOneSilhouette(sHighlightInspectColor);
 				}

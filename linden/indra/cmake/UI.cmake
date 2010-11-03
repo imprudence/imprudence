@@ -31,8 +31,9 @@ if (STANDALONE)
     add_definitions(${${pkg}_CFLAGS_OTHERS})
   endforeach(pkg)
 else (STANDALONE)
-  use_prebuilt_binary(gtk-etc)
   if (LINUX)
+    use_prebuilt_binary(glib)		# gtk-etc needs glib
+    use_prebuilt_binary(gtk-etc)
     set(UI_LIBRARIES
         atk-1.0
         cairo

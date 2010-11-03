@@ -358,13 +358,21 @@ void LLPanelLandMedia::setMediaType(const std::string& mime_type)
 
 	std::string media_key = LLMIMETypes::widgetType(mime_type);
 	mMediaTypeCombo->setValue(media_key);
+
 	childSetText("mime_type", mime_type);
 }
 
 void LLPanelLandMedia::setMediaURL(const std::string& media_url)
 {
 	mMediaURLEdit->setText(media_url);
+	LLParcel *parcel = mParcel->getParcel();
+	if(parcel)
+		parcel->setMediaCurrentURL(media_url);
+	// LLViewerMedia::navigateHome();
+
 	mMediaURLEdit->onCommit();
+// 	// LLViewerParcelMedia::sendMediaNavigateMessage(media_url);
+// 	childSetText("current_url", media_url);
 }
 
 std::string LLPanelLandMedia::getMediaURL()

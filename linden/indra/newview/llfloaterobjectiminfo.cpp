@@ -137,7 +137,7 @@ void LLFloaterObjectIMInfo::onClickMap(void* data)
 
 	std::ostringstream link;
 	link << "secondlife://" << self->mSlurl;
-	class LLWebBrowserCtrl* web = NULL;
+	class LLMediaCtrl* web = NULL;
 	LLURLDispatcher::dispatch(link.str(), web, true);
 }
 
@@ -213,14 +213,14 @@ public:
 	LLObjectIMInfoHandler() : LLCommandHandler("objectim", true) { }
 
 	bool handle(const LLSD& tokens, const LLSD& query_map,
-				LLWebBrowserCtrl* web);
+				LLMediaCtrl* web);
 };
 
 // Creating the object registers with the dispatcher.
 LLObjectIMInfoHandler gObjectIMHandler;
 
 // ex. secondlife:///app/objectim/9426adfc-9c17-8765-5f09-fdf19957d003?owner=a112d245-9095-4e9c-ace4-ffa31717f934&groupowned=true&slurl=ahern/123/123/123&name=Object
-bool LLObjectIMInfoHandler::handle(const LLSD &tokens, const LLSD &query_map, LLWebBrowserCtrl* web)
+bool LLObjectIMInfoHandler::handle(const LLSD &tokens, const LLSD &query_map, LLMediaCtrl* web)
 {
 	LLUUID task_id = tokens[0].asUUID();
 	std::string name = query_map["name"].asString();

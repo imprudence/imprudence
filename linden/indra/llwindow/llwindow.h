@@ -37,6 +37,7 @@
 #include "llcoord.h"
 #include "llstring.h"
 #include "llcursortypes.h"
+#include "llsd.h"
 
 class LLSplashScreen;
 
@@ -195,7 +196,7 @@ public:
 // return a platform-specific window reference (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getPlatformWindow() = 0;
 
-// return the platform-specific window reference we use to initialize llmozlib (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
+// return the platform-specific window reference we use to initialize llqtwebkitlib (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getMediaWindow();
 	
 	// control platform's Language Text Input mechanisms.
@@ -207,6 +208,9 @@ public:
 	virtual void ShellEx(const std::string& command) {};
 
 	static std::vector<std::string> getDynamicFallbackFontList();
+
+	// Provide native key event data
+	virtual LLSD getNativeKeyData() { return LLSD::emptyMap(); }
 
 protected:
 	LLWindow(BOOL fullscreen, U32 flags);

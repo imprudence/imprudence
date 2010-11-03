@@ -209,7 +209,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Static Utility functions that operate on std::strings
 
-	static std::basic_string<T> null;
+	static std::basic_string<T> const null;
 	
 	typedef std::map<LLFormatMapString, LLFormatMapString> format_map_t;
 	static S32 format(std::basic_string<T>& s, const format_map_t& fmt_map);
@@ -299,7 +299,7 @@ public:
 
 };
 
-template<class T> std::basic_string<T> LLStringUtilBase<T>::null;
+template<class T> std::basic_string<T> const LLStringUtilBase<T>::null;
 
 typedef LLStringUtilBase<char> LLStringUtil;
 typedef LLStringUtilBase<llwchar> LLWStringUtil;

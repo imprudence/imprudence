@@ -62,7 +62,8 @@
 #include "llviewerdisplay.h"
 #include "llviewermedia.h"
 #include "llv4math.h"		// for LL_VECTORIZE
-
+#include "llviewerparcelmedia.h"
+#include "llviewermediafocus.h"
 #include "llviewermessage.h"
 #include "llviewerobjectlist.h"
 #include "llworldmap.h"
@@ -103,7 +104,8 @@
 #include "llassetstorage.h"
 #include "llpolymesh.h"
 #include "llcachename.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
+#include "llstreamingaudio.h"
 #include "llviewermenu.h"
 #include "llselectmgr.h"
 #include "lltrans.h"
@@ -716,8 +718,15 @@ bool LLAppViewer::init()
 	LLViewerJointMesh::updateVectorize();
 
 	// load MIME type -> media impl mappings
-	LLMIMETypes::parseMIMETypes( std::string("mime_types.xml") ); 
-
+	std::string mime_types_name;
+#if LL_DARWIN
+	mime_types_name = "mime_types_mac.xml";
+#elif LL_LINUX
+	mime_types_name = "mime_types_linux.xml";
+#else
+	mime_types_name = "mime_types_windows.xml";
+#endif
+	LLMIMETypes::parseMIMETypes( mime_types_name ); 
 
 	// Copy settings to globals. *TODO: Remove or move to appropriage class initializers
 	settings_to_globals();
@@ -1199,7 +1208,10 @@ bool LLAppViewer::cleanup()
 
 	//reset balance for not playing the UI-Sound 
 	//when relogging into another account 
-	gStatusBar->clearBalance();
+	if (gStatusBar)
+	{
+		gStatusBar->clearBalance();
+	}
 
 	if (mQuitRequested)
 	{
@@ -1273,6 +1285,14 @@ bool LLAppViewer::cleanup()
 
 	if (gAudiop)
 	{
+		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
+
+		LLStreamingAudioInterface *sai = gAudiop->getStreamingAudioImpl();
+		delete sai;
+		gAudiop->setStreamingAudioImpl(NULL);
+
+		// shut down the audio subsystem
+
 		bool want_longname = false;
 		if (gAudiop->getDriverName(want_longname) == "FMOD")
 		{
@@ -1502,7 +1522,9 @@ bool LLAppViewer::cleanup()
 	//Note:
 	//LLViewerMedia::cleanupClass() has to be put before gImageList.shutdown()
 	//because some new image might be generated during cleaning up media. --bao
+	LLViewerMediaFocus::cleanupClass();
 	LLViewerMedia::cleanupClass();
+	LLViewerParcelMedia::cleanupClass();
 	gImageList.shutdown(); // shutdown again in case a callback added something
 	LLUIImageList::getInstance()->cleanUp();
 	
@@ -3265,12 +3287,15 @@ void LLAppViewer::saveFinalSnapshot()
 		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
 		idle();
 
-		std::string snap_filename = gDirUtilp->getLindenUserDir();
-		snap_filename += gDirUtilp->getDirDelimiter();
-		snap_filename += SCREEN_LAST_FILENAME;
-		// use full pixel dimensions of viewer window (not post-scale dimensions)
-		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight(), FALSE, TRUE);
-		mSavedFinalSnapshot = TRUE;
+		std::string snap_filename = gDirUtilp->getLindenUserDir(true);
+		if (!snap_filename.empty())
+		{
+			snap_filename += gDirUtilp->getDirDelimiter();
+			snap_filename += SCREEN_LAST_FILENAME;
+			// use full pixel dimensions of viewer window (not post-scale dimensions)
+			gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight(), FALSE, TRUE);
+			mSavedFinalSnapshot = TRUE;
+		}
 	}
 }
 
@@ -3688,6 +3713,9 @@ void LLAppViewer::idle()
 
 		gAgent.updateCamera();
 	}
+
+	// update media focus
+	LLViewerMediaFocus::getInstance()->update();
 
 	// objects and camera should be in sync, do LOD calculations now
 	{

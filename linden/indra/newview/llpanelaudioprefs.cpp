@@ -42,7 +42,7 @@
 #include "llfontgl.h"
 
 // project includes
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
@@ -105,7 +105,6 @@ void LLPanelAudioPrefs::refreshValues()
 	mPreviousMusicVolume = gSavedSettings.getF32("AudioLevelMusic");
 	mPreviousMediaVolume = gSavedSettings.getF32("AudioLevelMedia");
 	mPreviousDoppler = gSavedSettings.getF32("AudioLevelDoppler");
-	mPreviousDistance = gSavedSettings.getF32("AudioLevelDistance");
 	mPreviousRolloff = gSavedSettings.getF32("AudioLevelRolloff");
 
 	mPreviousMoneyThreshold = gSavedSettings.getF32("UISndMoneyChangeThreshold");
@@ -134,7 +133,6 @@ void LLPanelAudioPrefs::cancel()
 	gSavedSettings.setF32("AudioLevelMusic", mPreviousMusicVolume);
 	gSavedSettings.setF32("AudioLevelMedia", mPreviousMediaVolume);
 	gSavedSettings.setF32("AudioLevelDoppler", mPreviousDoppler );
-	gSavedSettings.setF32("AudioLevelDistance", mPreviousDistance );
 	gSavedSettings.setF32("AudioLevelRolloff", mPreviousRolloff );
 
 	gSavedSettings.setF32("UISndMoneyChangeThreshold", mPreviousMoneyThreshold );

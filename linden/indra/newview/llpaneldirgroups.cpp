@@ -41,6 +41,7 @@
 #include "llqueryflags.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
+#include "llmediactrl.h"
 
 LLPanelDirGroups::LLPanelDirGroups(const std::string& name, LLFloaterDirectory* floater)
 	:	LLPanelDirBrowser(name, floater)

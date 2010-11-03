@@ -107,16 +107,15 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-if([ "`uname -m`" = "x86_64" ] && [ -d "${RUN_PATH}/app_settings/mozilla-runtime-linux-x86_64/" ]); then
-	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
-
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
+export VIEWER_BINARY='do-not-directly-run-imprudence-bin'
+BINARY_TYPE=$(expr match "$(file -b bin/$VIEWER_BINARY)" '\(.*executable\)')
+if [ "${BINARY_TYPE}" == "ELF 64-bit LSB executable" ]; then
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"${LD_LIBRARY_PATH}"'
 else
-	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"${LD_LIBRARY_PATH}"'
 fi
 
-export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-imprudence-bin'
+export SL_CMD='$LL_WRAPPER bin/$VIEWER_BINARY'
 export SL_OPT="`cat gridargs.dat` $@"
 
 # Run the program

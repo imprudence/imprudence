@@ -41,7 +41,6 @@
 #include "llviewerwindow.h"
 #include "llweb.h"
 
-#include "llwebbrowserctrl.h"
 
 LLFloaterHtml* LLFloaterHtml::sInstance = 0;
 

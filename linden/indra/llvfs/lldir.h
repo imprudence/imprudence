@@ -80,6 +80,10 @@ class LLDir
 	virtual BOOL fileExists(const std::string &filename) const = 0;
 
 	const std::string findFile(const std::string &filename, const std::string searchPath1 = "", const std::string searchPath2 = "", const std::string searchPath3 = "") const;
+
+	virtual std::string getLLPluginLauncher() = 0; // full path and name for the plugin shell
+	virtual std::string getLLPluginFilename(std::string base_name) = 0; // full path and name to the plugin DSO for this base_name (i.e. 'FOO' -> '/bar/baz/libFOO.so')
+
 	const std::string &getExecutablePathAndName() const;	// Full pathname of the executable
 	const std::string &getAppName() const;			// install directory under progams/ ie "SecondLife"
 	const std::string &getExecutableDir() const;	// Directory where the executable is located
@@ -88,7 +92,7 @@ class LLDir
 	const std::string &getAppRODataDir() const;	// Location of read-only data files
 	const std::string &getOSUserDir() const;		// Location of the os-specific user dir
 	const std::string &getOSUserAppDir() const;	// Location of the os-specific user app dir
-	const std::string &getLindenUserDir() const;	// Location of the Linden user dir.
+	const std::string &getLindenUserDir(bool empty_ok = false) const;	// Location of the Linden user dir.
 	const std::string &getChatLogsDir() const;	// Location of the chat logs dir.
 	const std::string &getPerAccountChatLogsDir() const;	// Location of the per account chat logs dir.
 	const std::string &getTempDir() const;			// Common temporary directory
@@ -100,6 +104,7 @@ class LLDir
 	const std::string &getUserSkinDir() const;		// User-specified skin folder with user modifications. e.g. c:\documents and settings\username\application data\second life\skins\curskin
 	const std::string &getDefaultSkinDir() const;	// folder for default skin. e.g. c:\program files\second life\skins\default
 	const std::string getSkinBaseDir() const;		// folder that contains all installed skins (not user modifications). e.g. c:\program files\second life\skins
+	const std::string &getLLPluginDir() const;		// Directory containing plugins and plugin shell
 
 	// Expanded filename
 	std::string getExpandedFilename(ELLPath location, const std::string &filename) const;
@@ -156,6 +161,7 @@ protected:
 	std::string mSkinDir;			// Location for current skin info.
 	std::string mDefaultSkinDir;			// Location for default skin info.
 	std::string mUserSkinDir;			// Location for user-modified skin info.
+	std::string mLLPluginDir;			// Location for plugins and plugin shell
 };
 
 void dir_exists_or_crash(const std::string &dir_name);

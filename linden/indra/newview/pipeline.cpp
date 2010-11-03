@@ -35,7 +35,7 @@
 #include "pipeline.h"
 
 // library includes
-#include "audioengine.h" // For MAX_BUFFERS for debugging.
+#include "llaudioengine.h" // For MAX_BUFFERS for debugging.
 #include "imageids.h"
 #include "llerror.h"
 #include "llviewercontrol.h"
@@ -5773,7 +5773,7 @@ void LLPipeline::renderDeferredLighting()
 		                   (1 << LLPipeline::RENDER_TYPE_FULLBRIGHT) |
 		                   (1 << LLPipeline::RENDER_TYPE_VOLUME) |
 		                   (1 << LLPipeline::RENDER_TYPE_GLOW) |
-		                   (1 << LLPipeline::RENDER_TYPE_BUMP));
+							(1 << LLPipeline::RENDER_TYPE_BUMP));
 
 		renderGeomPostDeferred(*LLViewerCamera::getInstance());
 		mRenderTypeMask = render_mask;

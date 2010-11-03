@@ -316,7 +316,7 @@ public:
 		RENDER_TYPE_INVISIBLE	= LLDrawPool::POOL_INVISIBLE,
 		RENDER_TYPE_VOIDWATER	= LLDrawPool::POOL_VOIDWATER,
 		RENDER_TYPE_WATER		= LLDrawPool::POOL_WATER,
-		RENDER_TYPE_ALPHA		= LLDrawPool::POOL_ALPHA,
+ 		RENDER_TYPE_ALPHA		= LLDrawPool::POOL_ALPHA,
 		RENDER_TYPE_GLOW		= LLDrawPool::POOL_GLOW,
 		
 		// Following are object types (only used in drawable mRenderType)

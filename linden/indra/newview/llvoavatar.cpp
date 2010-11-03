@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "noise.h"
 
 #include "llagent.h" //  Get state values from here
@@ -69,6 +69,7 @@
 #include "lltoolmorph.h"
 #include "llviewercamera.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
 #include "llviewermenu.h"
 #include "llviewerobjectlist.h"
 #include "llviewerparcelmgr.h"
@@ -3843,6 +3844,18 @@ void LLVOAvatar::idleUpdateTractorBeam()
 	{
 		return;
 	}
+	const LLPickInfo& pick = gViewerWindow->getLastPick();
+
+	// No beam for media textures
+	// TODO: this will change for Media on a Prim
+	if(pick.getObject() && pick.mObjectFace >= 0)
+	{
+		const LLTextureEntry* tep = pick.getObject()->getTE(pick.mObjectFace);
+		if (tep && LLViewerMedia::textureHasMedia(tep->getID()))
+		{
+			return;
+		}
+	}
 
 	// This is only done for yourself (maybe it should be in the agent?)
 	if (!needsRenderBeam() || !mIsBuilt)
@@ -3953,7 +3966,7 @@ void LLVOAvatar::idleUpdateTractorBeam()
 			}
 			else
 			{
-				const LLPickInfo& pick = gViewerWindow->getLastPick();
+				
 				mBeam->setPositionGlobal(pick.mPosGlobal);
 			}
 
@@ -7446,8 +7459,7 @@ LLGLuint LLVOAvatar::getScratchTexName( LLGLenum format, U32* texture_bytes )
 	{
 	case GL_LUMINANCE:			components = 1; internal_format = GL_LUMINANCE8;		break;
 	case GL_ALPHA:				components = 1; internal_format = GL_ALPHA8;			break;
-// Deprecated.  See http://svn.secondlife.com/trac/linden/changeset/2757
-//	case GL_COLOR_INDEX:		components = 1; internal_format = GL_COLOR_INDEX8_EXT;	break;
+	case GL_COLOR_INDEX:		components = 1; internal_format = GL_COLOR_INDEX8_EXT;	break;
 	case GL_LUMINANCE_ALPHA:	components = 2; internal_format = GL_LUMINANCE8_ALPHA8;	break;
 	case GL_RGB:				components = 3; internal_format = GL_RGB8;				break;
 	case GL_RGBA:				components = 4; internal_format = GL_RGBA8;				break;

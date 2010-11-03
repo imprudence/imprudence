@@ -4,7 +4,6 @@ project(llvfs)
 
 include(00-Common)
 include(LLCommon)
-include(UnixInstall)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}

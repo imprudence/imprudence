@@ -144,6 +144,7 @@ public:
 	void			adjustRectanglesForFirstUse(const LLRect& window);
 	void            adjustControlRectanglesForFirstUse(const LLRect& window);
 	void			initWorldUI();
+	void			initWorldUI_postLogin();
 
 	//
 	// LLWindowCallback interface implementation

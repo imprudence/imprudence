@@ -80,6 +80,7 @@ Aleric Inglewood
 	IMP-578
 	IMP-579
 	IMP-581
+	IMP-595
 	IMP-660
 	IMP-661
 	IMP-662
@@ -519,6 +520,7 @@ Robin Cornelius
 	VWR-2488
 	VWR-9557
 	VWR-12838
+	IMP-595
 Ryozu Kojima
 	VWR-53
 	VWR-287
@@ -599,6 +601,8 @@ TBBle Kurosawa
 	VWR-1892
 Teardrops Fall
 	VWR-5366
+Techwolf Lupindo
+	SNOW-334
 tenebrous pau
 	VWR-247
 Tharax Ferraris
