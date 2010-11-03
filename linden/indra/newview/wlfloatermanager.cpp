@@ -64,7 +64,7 @@
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
 #include "llpostprocess.h"
-#include "hippoLimits.h"
+#include "hippolimits.h"
 #include "wlfloatermanager.h"
 #include "llviewerregion.h"
 #include "llviewerparcelmgr.h"

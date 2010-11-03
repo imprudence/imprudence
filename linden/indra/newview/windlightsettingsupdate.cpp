@@ -27,7 +27,7 @@
 
 #include "llviewerprecompiledheaders.h"
 #include "llhttpnode.h"
-#include "hippoLimits.h"
+#include "hippolimits.h"
 #include "llfloatertools.h"
 #include "llviewercontrol.h"
 #include "llagent.h"

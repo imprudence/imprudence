@@ -66,7 +66,7 @@
 
 #include <boost/regex.hpp>  //boost.regex lib
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs

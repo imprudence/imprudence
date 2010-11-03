@@ -55,7 +55,7 @@
 #include "llassetstorage.h"
 #include "llinventorytype.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 const S32 PREVIEW_LINE_HEIGHT = 19;
 const S32 PREVIEW_CLOSE_BOX_SIZE = 16;

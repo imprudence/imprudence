@@ -52,7 +52,7 @@
 #include "lluictrlfactory.h"
 #include "llvfile.h"
 #include "message.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 
 // static 

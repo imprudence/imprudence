@@ -35,7 +35,7 @@
 #include "llxmlrpctransaction.h"
 
 #include "llcurl.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llviewercontrol.h"
 
 // Have to include these last to avoid queue redefinition!

@@ -82,9 +82,9 @@ set(viewer_SOURCE_FILES
     floaterlocalassetbrowse.cpp
     floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
-    hippoGridManager.cpp
-    hippoLimits.cpp
-    hippoRestRequest.cpp
+    hippogridmanager.cpp
+    hippolimits.cpp
+    hipporestrequest.cpp
     impprefsfonts.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
@@ -534,9 +534,9 @@ set(viewer_HEADER_FILES
     floaterlocalassetbrowse.h
     floatervoicelicense.h
     hbfloatergrouptitles.h
-    hippoGridManager.h
-    hippoLimits.h
-    hippoRestRequest.h
+    hippogridmanager.h
+    hippolimits.h
+    hipporestrequest.h
     impprefsfonts.h
     jcfloater_animation_list.h
     jcfloaterareasearch.h

@@ -228,8 +228,8 @@
 #include "jcfloater_animation_list.h"
 #include "llfloaterassetbrowser.h"
 
-#include "hippoGridManager.h"
-#include "hippoLimits.h"
+#include "hippogridmanager.h"
+#include "hippolimits.h"
 
 #include "llfloaterteleporthistory.h"
 

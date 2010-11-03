@@ -83,7 +83,7 @@
 #include "llstring.h"
 #include "message.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "viewertime.h"
 
 //

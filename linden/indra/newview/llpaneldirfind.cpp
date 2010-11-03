@@ -73,7 +73,7 @@
 #include "boost/lexical_cast.hpp"
 #endif
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //---------------------------------------------------------------------------
 // LLPanelDirFindAll - Google search appliance based search

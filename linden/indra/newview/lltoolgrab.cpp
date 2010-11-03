@@ -64,7 +64,7 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"

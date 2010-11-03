@@ -63,7 +63,7 @@
 #include "v2math.h"
 #include "llvoavatar.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 
 const F32 MAX_MANIP_SELECT_DISTANCE_SQUARED = 11.f * 11.f;

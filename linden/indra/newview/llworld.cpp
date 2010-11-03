@@ -60,7 +60,7 @@
 #include "pipeline.h"
 #include "llappviewer.h"		// for do_disconnect()
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 #include <deque>
 #include <queue>

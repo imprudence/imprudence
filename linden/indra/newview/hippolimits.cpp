@@ -2,9 +2,9 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llviewercontrol.h"
 
 #include <llerror.h>

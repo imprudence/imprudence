@@ -37,7 +37,7 @@
 #include "lltransactionflags.h"
 #include "lltransactiontypes.h"
 
-#include "../newview/hippoGridManager.h"
+#include "../newview/hippogridmanager.h"
 
 const U8 TRANSACTION_FLAGS_NONE = 0;
 const U8 TRANSACTION_FLAG_SOURCE_GROUP = 1;

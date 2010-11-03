@@ -77,7 +77,7 @@
 #include "llvfile.h"
 #include "llvfs.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs

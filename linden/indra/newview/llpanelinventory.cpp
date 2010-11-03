@@ -82,7 +82,7 @@
 #include "llviewerwindow.h"
 #include "llwearable.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"

@@ -40,7 +40,7 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
