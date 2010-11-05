@@ -80,6 +80,7 @@ Aleric Inglewood
 	IMP-578
 	IMP-579
 	IMP-581
+	IMP-592
 	IMP-595
 	IMP-660
 	IMP-661
