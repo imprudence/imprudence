@@ -17,7 +17,7 @@ need to be changed manually - MC
   <viewer version_minor="3" />
 
   <!--int-->
-  <viewer version_patch="0" />
+  <viewer version_patch="1" />
 
   <!--string-->
   <viewer version_test="" />
