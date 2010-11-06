@@ -29,9 +29,6 @@
 	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
 	     height="18" left="185" max_chars="20" mouse_opaque="true"
 	     name="windowsize combo" width="150">
-		<combo_item type="string" length="1" enabled="true" name="640x480" value="640 x 480">
-			640x480
-		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="800x600" value="800 x 600">
 			800x600 
 		</combo_item>
