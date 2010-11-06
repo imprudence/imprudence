@@ -237,35 +237,21 @@
 	     radio_style="false" width="256" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-       font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="0"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="0" 
        mouse_opaque="true" name="AvatarCountText" v_pad="0" width="128">
     Max. non-imposters:
   </text>
-  <slider bottom_delta="-20" can_edit_text="false" control_name="RenderAvatarMaxVisible"
+  <slider bottom_delta="-20" can_edit_text="true" control_name="RenderAvatarMaxVisible"
        decimal_digits="0" enabled="true" follows="left|top" height="16"
-       increment="1" initial_val="35" label=""
+       increment="1" initial_val="35" label="" 
        label_width="0" left_delta="0" max_val="50" min_val="0" mouse_opaque="true"
        name="AvatarMaxVisible" show_text="true" width="100" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
-	     left="457" mouse_opaque="true" name="DrawDistanceMeterText1" v_pad="0"
-	     width="128">
-		m
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
-	     left="463" mouse_opaque="true" name="DrawDistanceMeterText2" v_pad="0"
-	     width="128">
-		m
-	</text>
-	<slider bottom="-135" can_edit_text="false" control_name="RenderFarClip"
+	<slider bottom="-135" can_edit_text="true" control_name="RenderFarClip"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="8" initial_val="160" label="Draw distance:"
-	     label_width="140" left="215" max_val="512" min_val="32" mouse_opaque="true"
-	     name="DrawDistance" show_text="true" width="255" />
-	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderMaxPartCount"
+	     increment="4" initial_val="160" label="Draw distance (meters):"
+	     label_width="140" left="215" max_val="1024" min_val="32" mouse_opaque="true"
+	     name="DrawDistance" show_text="true" width="262" />
+	<slider bottom_delta="-20" can_edit_text="true" control_name="RenderMaxPartCount"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="256" initial_val="4096"
 	     label="Max. particle count:" label_width="140" left_delta="0"
