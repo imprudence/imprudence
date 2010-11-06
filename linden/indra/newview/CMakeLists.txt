@@ -333,6 +333,7 @@ set(viewer_SOURCE_FILES
     llpolymorph.cpp
     llprefsadvanced.cpp
     llprefschat.cpp
+    llprefscolors.cpp
     llprefsim.cpp
     llprefsvoice.cpp
     llpreviewanim.cpp
@@ -790,6 +791,7 @@ set(viewer_HEADER_FILES
     llpolymorph.h
     llprefsadvanced.h
     llprefschat.h
+    llprefscolors.h
     llprefsim.h
     llprefsvoice.h
     llpreview.h

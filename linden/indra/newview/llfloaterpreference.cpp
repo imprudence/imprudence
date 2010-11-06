@@ -64,6 +64,7 @@
 #include "llpanelskins.h"
 #include "llprefsadvanced.h"
 #include "llprefschat.h"
+#include "llprefscolors.h"
 #include "llprefsvoice.h"
 #include "llprefsim.h"
 #include "llresizehandle.h"
@@ -133,6 +134,7 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
+	mPrefsColors(NULL),
 	mLCDPanel(NULL),
 	mPrefsFonts(NULL),
 	mPrefsAdvanced(NULL)
@@ -190,6 +192,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel = new LLPanelMsgs();
 	mTabContainer->addTabPanel(mMsgPanel, mMsgPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mMsgPanel->setDefaultBtn(default_btn);
+
+	mPrefsColors = new LLPrefsColors();
+	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsColors->setDefaultBtn(default_btn);
 	
 	mSkinsPanel = new LLPanelSkins();
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -272,7 +278,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mPrefsFonts;
 		mPrefsFonts = NULL;
 	}
-
+	if (mPrefsColors)
+	{
+		delete mPrefsColors;
+		mPrefsColors = NULL;
+	}
 }
 
 
@@ -290,6 +300,7 @@ void LLPreferenceCore::apply()
 	mSkinsPanel->apply();
 	mPrefsAdvanced->apply();
 	mPrefsFonts->apply();
+	mPrefsColors->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -320,6 +331,7 @@ void LLPreferenceCore::cancel()
 	mSkinsPanel->cancel();
 	mPrefsAdvanced->cancel();
 	mPrefsFonts->cancel();
+	mPrefsColors->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();
