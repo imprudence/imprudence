@@ -43,7 +43,7 @@
 #include "lluuid.h"
 #include "llviewercontrol.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "material_codes.h"
 #include "llvolume.h"
 #include "object_flags.h"

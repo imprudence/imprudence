@@ -150,8 +150,8 @@
 #include <boost/tokenizer.hpp>
 #include <boost/regex.hpp> // Boost Reg Expresions
 
-#include "hippoGridManager.h"
-#include "hippoLimits.h"
+#include "hippogridmanager.h"
+#include "hippolimits.h"
 #include "wlsettingsmanager.h"
 
 #if LL_WINDOWS // For Windows specific error handler

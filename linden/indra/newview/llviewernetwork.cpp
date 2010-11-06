@@ -37,7 +37,7 @@
 #include "llviewercontrol.h"
 #include "llstartup.h"
 
- #include "hippoGridManager.h"
+ #include "hippogridmanager.h"
 
 
 unsigned char gMACAddress[MAC_ADDRESS_BYTES];		/* Flawfinder: ignore */

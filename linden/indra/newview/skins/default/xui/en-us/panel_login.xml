@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <panel name="panel_login" 
-       bottom="0" left="0" height="600" width="800"
-       follows="left|top|right|bottom" mouse_opaque="true" >
+	 bottom="0" left="0" height="600" width="800"
+	 follows="left|top|right|bottom" mouse_opaque="true" >
 
-	<web_browser name="login_html" 
-               bottom="0" top="-1" left="0" right="-1"
-               border_visible="false" follows="top|left|bottom|right"
-	             start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000000%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E" />
+  <web_browser name="login_html" 
+			 bottom="0" top="-1" left="0" right="-1"
+			 border_visible="false" follows="top|left|bottom|right"
+			 start_url="data:text/html,
+			 %3Chtml%3E
+			 %3Chead%3E %3C/head%3E
+			 %3Cbody bgcolor=%22#5a2d65%22 text=%22ffffff%22%3E
+			 %3Ctable width=%22100%%22 height=%22100%%22 border=%220%22%3E
+			   %3Ctr%3E
+				 %3Ctd align=%22center%22 valign=%22middle%22 style=%22font-size:0.8em;%22%3E
+				   %3Cimg src=%22imprudence_loading.png%22 align=%22absmiddle%22%3E
+				   %3Cbr/%3E
+				   %3CH1%3Eloading...%3C/H1%3E
+				 %3C/td%3E
+			   %3C/tr%3C
+			 %3C/table%3E
+			 %3C/body%3E
+			 %3C/html%3E" />
 	<string name="real_url">
 		http://secondlife.com/app/login/
 	</string>

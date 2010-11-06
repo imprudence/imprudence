@@ -94,7 +94,7 @@
 #else
 #include "boost/lexical_cast.hpp"
 #endif
-#include "hippoLimits.h"// getMaxPrimScale
+#include "hippolimits.h"// getMaxPrimScale
 #include "llstartup.h"
 // [RLVa:KB]
 #include "rlvhandler.h"

@@ -85,7 +85,7 @@
 #include "llvotree.h"
 #include "lluictrlfactory.h"
 #include "qtoolalign.h"
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 // Globals
 LLFloaterTools *gFloaterTools = NULL;

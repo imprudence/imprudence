@@ -59,7 +59,7 @@
 #include "llviewerwindow.h"
 #include "llimview.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 // static
 std::map<const LLUUID, LLFloaterGroupPicker*> LLFloaterGroupPicker::sInstances;

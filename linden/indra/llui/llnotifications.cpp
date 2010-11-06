@@ -40,7 +40,7 @@
 #include <algorithm>
 #include <boost/regex.hpp>
 
-#include "../newview/hippoGridManager.h"
+#include "../newview/hippogridmanager.h"
 
 
 const std::string NOTIFICATION_PERSIST_VERSION = "0.93";

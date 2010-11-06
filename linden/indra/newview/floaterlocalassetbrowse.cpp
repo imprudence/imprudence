@@ -53,7 +53,7 @@ this feature is still a work in progress.
 /* misc headers */
 #include <time.h>
 #include <ctime>
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llviewerimagelist.h"
 #include "llviewerobjectlist.h"
 #include "llfilepicker.h"

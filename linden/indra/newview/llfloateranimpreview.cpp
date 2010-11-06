@@ -68,7 +68,7 @@
 #include "pipeline.h"
 #include "lluictrlfactory.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 S32 LLFloaterAnimPreview::sUploadAmount = 10;
 

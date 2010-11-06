@@ -36,8 +36,8 @@
 
 #include "llpanelgeneral.h"
 
-#include "hippoGridManager.h"
-#include "hippoLimits.h"
+#include "hippogridmanager.h"
+#include "hippolimits.h"
 #include "floatergridmanager.h"
 
 #include "indra_constants.h"		// for key and mask constants

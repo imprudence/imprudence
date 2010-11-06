@@ -54,7 +54,7 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 LLFloaterBuyContents* LLFloaterBuyContents::sInstance = NULL;
 

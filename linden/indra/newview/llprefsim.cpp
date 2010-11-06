@@ -49,7 +49,7 @@
 
 #include "lldirpicker.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"

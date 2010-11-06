@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-    height="408" label="Text Chat" left="102" mouse_opaque="true" name="chat"
+    height="408" label="Chat" left="102" mouse_opaque="true" name="chat"
     width="517">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -24,60 +24,84 @@
 			Large
 		</radio_item>
 	</radio_group>
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
+     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="128">
+    Translate Chat:
+  </text>
+  <check_box bottom_delta="-3" control_name="TranslateChat" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Use machine translation while chatting (powered by Google)" left="148" mouse_opaque="true"
+	     name="translate_chat" radio_style="false" width="237" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="149"
+	     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="160">
+    Translate into this language:
+  </text>
+  <combo_box allow_text_entry="true" bottom_delta="-5" enabled="true"
+	     follows="left|top" height="16" left_delta="183" max_chars="135"
+	     mouse_opaque="true" name="translate_language_combobox" width="146">
+    <combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
+      System Default
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="English" value="en">
+      English
+    </combo_item>
+
+    <!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
+
+    <combo_item type="string" length="1" enabled="true" name="Danish" value="da">
+      Dansk (Danish)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
+      Deutsch (German)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
+      Español (Spanish)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="French" value="fr">
+      Français (French)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Italian" value="it">
+      Italiano (Italian)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Hungarian" value="hu">
+      Magyar (Hungarian)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Dutch" value="nl">
+      Nederlands (Dutch)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Polish" value="pl">
+      Polski (Polish)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
+      Portugués (Portuguese)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Russian" value="ru">
+      Русский (Russian)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Turkish" value="tr">
+      Türkçe (Turkish)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Ukrainian" value="uk">
+      Українська (Ukrainian)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
+      中文 (简体) (Chinese)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
+      日本語 (Japanese)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
+      한국어 (Korean)
+    </combo_item>
+  </combo_box>
+  
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-64" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
-		Color:
-	</text>
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
-	     enabled="true" follows="left|top" height="56" label="You" left="148"
-	     mouse_opaque="true" name="user" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
-	     enabled="true" follows="left|top" height="56" label="Others" left_delta="68"
-	     mouse_opaque="true" name="agent" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     enabled="true" follows="left|top" height="56" label="IMs" left_delta="68"
-	     mouse_opaque="true" name="im" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="0.8 1 1 1"
-	     enabled="true" follows="left|top"
-	     height="56" label="System" left_delta="68" mouse_opaque="true"
-	     name="system" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="0.82 0.82 0.99 1"
-	     control_name="ScriptErrorColor" enabled="true" follows="left|top"
-	     height="56" label="Errors" left_delta="68" mouse_opaque="true"
-	     name="script_error" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
-	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
-	     control_name="ObjectChatColor" enabled="true" follows="left|top"
-	     height="56" label="Objects" left="148" mouse_opaque="true"
-	     name="objects" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
-	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
-       control_name="ObjectIMColor" enabled="true" follows="left|top"
-	     height="56" label="Object IMs" left_delta="68" mouse_opaque="true"
-       name="object_ims" width="54" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
-	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
-	     enabled="true" follows="left|top"
-	     height="56" label="Owner" left_delta="68" mouse_opaque="true" name="owner"
-	     width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
-	     can_apply_immediately="true" color="0 0 0 1"
-	     enabled="true" follows="left|top"
-	     height="56" label="Bubble" left_delta="68" mouse_opaque="true"
-	     name="background" width="54" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
-	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     enabled="true" follows="left|top" height="56"
-	     label="URLs" left_delta="68" mouse_opaque="true" name="links" width="54" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box3" v_pad="0" width="135">
 		Chat Console:
@@ -115,8 +139,29 @@
 	     label="Use full screen width  (requires restart)" left="148"
 	     mouse_opaque="true" name="chat_full_width_check" radio_style="false"
 	     width="239" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
+     mouse_opaque="false" name="text_box7" v_pad="0" width="128">
+    Chat Bubbles:
+  </text>
+  <check_box bottom_delta="-8" control_name="UseChatBubbles" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Show chat bubbles" left="148" mouse_opaque="true"
+	     name="bubble_text_chat" radio_style="false" width="237" />
+  <check_box bottom_delta="-0" control_name="UseLocalChatBubbles" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Show local chat and bubbles" left="288" mouse_opaque="true"
+	     name="local_bubble_text_chat" radio_style="false" width="237" />
+  <slider bottom_delta="-20" can_edit_text="false" control_name="ChatBubbleOpacity"
+	     decimal_digits="3" enabled="true" follows="left|top" height="12"
+	     increment="0.05" initial_val="1" label="Bubble opacity:" left="148" max_val="1"
+	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"
+	     value="0.5" width="225" />
+  
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	      bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	      bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box6" v_pad="0" width="135">
     Miscellaneous:
@@ -147,98 +192,5 @@
 	     font="SansSerifSmall" height="16" initial_value="false" 
 	     label="Show custom chat channel" left="148" mouse_opaque="true"
 	     name="toggle_channel_control" radio_style="false" width="237" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-379" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box7" v_pad="0" width="128">
-		Chat Bubbles:
-	</text>
-  <check_box bottom="-386" control_name="UseChatBubbles" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show chat bubbles" left="148" mouse_opaque="true"
-	     name="bubble_text_chat" radio_style="false" width="237" />
-  <check_box bottom="-386" control_name="UseLocalChatBubbles" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show local chat and bubbles" left="288" mouse_opaque="true"
-	     name="local_bubble_text_chat" radio_style="false" width="237" />
-  <slider bottom="-402" can_edit_text="false" control_name="ChatBubbleOpacity"
-	     decimal_digits="3" enabled="true" follows="left|top" height="12"
-	     increment="0.05" initial_val="1" label="Bubble opacity:" left="148" max_val="1"
-	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"
-	     value="0.5" width="225" />
 
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-420" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="128">
-		Translate Chat:
-	</text>
-	<check_box bottom="-427" control_name="TranslateChat" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Use machine translation while chatting (powered by Google)" left="148" mouse_opaque="true"
-	     name="translate_chat" radio_style="false" width="237" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-442" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="149"
-	     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="160">
-		Translate into this language:
-	</text>	
-	<combo_box allow_text_entry="true" bottom="-448" enabled="true"
-	     follows="left|top" height="16" left_delta="183" max_chars="135"
-	     mouse_opaque="true" name="translate_language_combobox" width="146">
-		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
-			System Default
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="English" value="en">
-			English
-		</combo_item>
-		
-		<!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
-		
-		<combo_item type="string" length="1" enabled="true" name="Danish" value="da">
-			Dansk (Danish)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
-			Deutsch (German)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
-			Español (Spanish)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="French" value="fr">
-			Français (French)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Italian" value="it">
-			Italiano (Italian)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Hungarian" value="hu">
-			Magyar (Hungarian)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Dutch" value="nl">
-			Nederlands (Dutch)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Polish" value="pl">
-			Polski (Polish)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
-			Portugués (Portuguese)
-		</combo_item>
- 		<combo_item type="string" length="1" enabled="true" name="Russian" value="ru">
- 			Русский (Russian)
- 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Turkish" value="tr">
-			Türkçe (Turkish)
-		</combo_item>
- 		<combo_item type="string" length="1" enabled="true" name="Ukrainian" value="uk">
- 			Українська (Ukrainian)
- 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			中文 (简体) (Chinese)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
-			日本語 (Japanese)
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
-			한국어 (Korean)
-		</combo_item>
-	</combo_box>
 </panel>

@@ -54,7 +54,7 @@
 #include "llappviewer.h" 
 #include "lltransactiontypes.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 #include "primbackup.h" 
 

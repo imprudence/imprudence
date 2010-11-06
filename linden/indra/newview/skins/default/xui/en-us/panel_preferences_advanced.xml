@@ -179,57 +179,6 @@ To use spellcheck, right-click a misspelled word
          tool_tip="Modify the AutoCorrect word list and settings" left="12"
          bottom_delta="-50" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
     </panel>
-    
-    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Extra" 
-    left="1" mouse_opaque="true" name="Extra" width="418">
 
-        <check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-            initial_value="true" label="Show chat messages from friends in a different color" left="12"
-            mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
-
-        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
-            can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
-            enabled="true" follows="left|top" height="67" label="Friends" left_delta="68"
-            mouse_opaque="true" name="FriendsChatColor" width="65" />
-
-        <check_box bottom_delta="-30" enabled="true" follows="left|top"
-	         font="SansSerifSmall" height="16" initial_value="true"
-	         label="Show chat messages containing your name in a different color" left="12" mouse_opaque="true"
-	         name="HighlightOwnNameInChat" radio_style="false" width="217" />
-
-		<check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-            initial_value="true" label="Show GroupIM messages containing your name in a different color" left="12"
-            mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
-
-        <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-230"
-            can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
-            enabled="true" follows="left|top" height="67" label="Own Name" left_delta="68"
-            mouse_opaque="true" name="OwnNameChatColor" width="65" />
-
-		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-50"
-			enabled="true" follows="left|top" font="SansSerif"
-			handle_edit_keys_directly="true" height="20" left_delta="0"
-			max_length="50" mouse_opaque="true" name="nick01"
-			select_all_on_focus_received="true" width="400" word_wrap="false" />
-
-		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick01_text" width="70">Nick 1</text>
-
-		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-30"
-			enabled="true" follows="left|top" font="SansSerif"
-			handle_edit_keys_directly="true" height="20" left_delta="60"
-			max_length="50" mouse_opaque="true" name="nick02"
-			select_all_on_focus_received="true" width="400" word_wrap="false" />
-
-		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick02_text" width="70">Nick 2</text>
-
-		<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-30"
-			enabled="true" follows="left|top" font="SansSerif"
-			handle_edit_keys_directly="true" height="20" left_delta="60"
-			max_length="50" mouse_opaque="true" name="nick03"
-			select_all_on_focus_received="true" width="400" word_wrap="false" />
-
-		<text bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="20" left="20" name="nick03_text" width="70">Nick 3</text>
-
-    </panel>
   </tab_container>
 </panel>

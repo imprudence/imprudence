@@ -52,7 +52,7 @@
 #include "lltransactiontypes.h"
 #include "lluictrlfactory.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs

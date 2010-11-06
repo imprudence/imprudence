@@ -54,7 +54,7 @@
 #include "llviewerparcelmedia.h"
 #include "llcombobox.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 {

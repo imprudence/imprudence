@@ -44,7 +44,7 @@
 #include "llimagej2c.h"
 #include "llaudioengine.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
 #include "llagent.h"

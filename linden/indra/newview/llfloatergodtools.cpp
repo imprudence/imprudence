@@ -77,7 +77,7 @@
 #include "lltransfertargetfile.h"
 #include "lltransfersourcefile.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 const F32 SECONDS_BETWEEN_UPDATE_REQUESTS = 5.0f;
 

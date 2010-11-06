@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-     height="408" label="Voice Chat" left="102" mouse_opaque="true" name="chat"
+     height="408" label="Voice" left="102" mouse_opaque="true" name="chat"
      width="517">
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-26"
 	     embedded_items="false" enabled="false" follows="left|top"

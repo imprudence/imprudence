@@ -44,7 +44,7 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 #include "panelradar.h"
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 
 // [RLVa:KB]

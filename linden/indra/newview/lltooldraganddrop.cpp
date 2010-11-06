@@ -75,7 +75,7 @@
 // [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
-#include "hippoLimits.h"
+#include "hippolimits.h"
 
 // MAX ITEMS is based on (sizeof(uuid)+2) * count must be < MTUBYTES
 // or 18 * count < 1200 => count < 1200/18 => 66. I've cut it down a

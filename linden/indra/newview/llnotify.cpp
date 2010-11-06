@@ -55,7 +55,7 @@
 #include "lloverlaybar.h" // for gOverlayBar
 #include "lluictrlfactory.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 // [RLVa:KB] - Version: 1.23.4
 #include "rlvhandler.h"

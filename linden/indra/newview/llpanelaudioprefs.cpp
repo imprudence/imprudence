@@ -62,7 +62,7 @@
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //
 // Static functions

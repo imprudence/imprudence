@@ -34,7 +34,7 @@
 
 #include "llpanelgroupgeneral.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 #include "lluictrlfactory.h"
 #include "llagent.h"

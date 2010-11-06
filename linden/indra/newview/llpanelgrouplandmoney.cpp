@@ -55,7 +55,7 @@
 #include "llfloaterworldmap.h"
 #include "llviewermessage.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 ////////////////////////////////////////////////////////////////////////////
 

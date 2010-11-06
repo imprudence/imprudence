@@ -47,7 +47,7 @@
 #include "llxmlrpctransaction.h"
 #include "llviewernetwork.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 const F64 CURRENCY_ESTIMATE_FREQUENCY = 2.0;
 	// how long of a pause in typing a currency buy amount before an
