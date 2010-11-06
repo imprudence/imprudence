@@ -71,9 +71,9 @@ BOOL LLPrefsColors::postBuild()
 	updateSelfCheck();
 	updateFriendsCheck();
 	
-	childSetValue("nick01", gSavedSettings.getString("nick01"));
-	childSetValue("nick02", gSavedSettings.getString("nick02"));
-	childSetValue("nick03", gSavedSettings.getString("nick03"));
+	childSetValue("nick01", gSavedSettings.getString("HighlightNickname01"));
+	childSetValue("nick02", gSavedSettings.getString("HighlightNickname02"));
+	childSetValue("nick03", gSavedSettings.getString("HighlightNickname03"));
 
 	childSetCommitCallback("HighlightOwnNameInIM", onCommitCheckSelfName, this);
 	childSetCommitCallback("HighlightOwnNameInChat", onCommitCheckSelfName, this);
@@ -166,15 +166,15 @@ void LLPrefsColors::apply()
 
 	std::string nick01 = childGetValue("nick01");
 	boost::trim(nick01);
-	gSavedSettings.setString("nick01", nick01);
+	gSavedSettings.setString("HighlightNickname01", nick01);
 
 	std::string nick02 = childGetValue("nick02");
 	boost::trim(nick02);
-	gSavedSettings.setString("nick02", nick02);
+	gSavedSettings.setString("HighlightNickname02", nick02);
 
 	std::string nick03 = childGetValue("nick03");
 	boost::trim(nick03);
-	gSavedSettings.setString("nick03", nick03);
+	gSavedSettings.setString("HighlightNickname03", nick03);
 
 	refreshColors(); // member values become the official values and cancel becomes a no-op.
 }
