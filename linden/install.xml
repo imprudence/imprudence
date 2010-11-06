@@ -700,9 +700,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>0d09429e3ef1aa23d5a9d1a83af2a203</string>
+            <string>349ee367e0ac1e878b24b66e449c6ff8</string>
             <key>url</key>
-			<uri>http://github.com/downloads/AlericInglewood/imprudence/gtk-etc-linux-20101106.tar.bz2</uri>
+			<uri>http://github.com/downloads/AlericInglewood/imprudence/gtk-etc-linux-20101106.1.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
