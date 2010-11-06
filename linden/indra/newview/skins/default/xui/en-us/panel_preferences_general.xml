@@ -181,16 +181,6 @@
 	     v_pad="0" width="400">
 		(requires restart for full effect)
 	</text>
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="10"
-	     mouse_opaque="true" name="remember_password_text" v_pad="0" width="394">
-    Remember Password:
-  </text>
-  <check_box bottom_delta="0" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Remember Password" left="151" mouse_opaque="true"
-	     name="remember_password" radio_style="false" width="256" />
 	<string name="region_name_prompt">
 		&lt;Type region name&gt;
 	</string>
