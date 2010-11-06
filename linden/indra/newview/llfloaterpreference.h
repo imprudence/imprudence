@@ -57,6 +57,7 @@ class LLPanelMsgs;
 class LLPanelSkins;
 class LLPrefsAdvanced;
 class ImpPrefsFonts;
+class LLPrefsColors;
 class LLScrollListCtrl;
 
 class LLPreferenceCore
@@ -94,6 +95,7 @@ private:
 	LLPanelMsgs				*mMsgPanel;
 	LLPanelLCD				*mLCDPanel;
 	LLPrefsAdvanced			*mPrefsAdvanced;
+	LLPrefsColors			*mPrefsColors;
   ImpPrefsFonts* mPrefsFonts;
 };
 

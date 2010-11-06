@@ -64,6 +64,7 @@
 #include "llpanelskins.h"
 #include "llprefsadvanced.h"
 #include "llprefschat.h"
+#include "llprefscolors.h"
 #include "llprefsvoice.h"
 #include "llprefsim.h"
 #include "llresizehandle.h"
@@ -133,6 +134,7 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
+	mPrefsColors(NULL),
 	mLCDPanel(NULL),
 	mPrefsFonts(NULL),
 	mPrefsAdvanced(NULL)
@@ -165,13 +167,18 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mPrefsChat->getPanel(), mPrefsChat->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsChat->getPanel()->setDefaultBtn(default_btn);
 
-	mPrefsVoice = new LLPrefsVoice();
-	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsVoice->setDefaultBtn(default_btn);
+	mPrefsColors = new LLPrefsColors();
+	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsColors->setDefaultBtn(default_btn);
 
 	mPrefsIM = new LLPrefsIM();
 	mTabContainer->addTabPanel(mPrefsIM->getPanel(), mPrefsIM->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsIM->getPanel()->setDefaultBtn(default_btn);
+	
+	mPrefsVoice = new LLPrefsVoice();
+	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsVoice->setDefaultBtn(default_btn);
+
 
 #if LL_LCD_COMPILE
 
@@ -272,7 +279,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mPrefsFonts;
 		mPrefsFonts = NULL;
 	}
-
+	if (mPrefsColors)
+	{
+		delete mPrefsColors;
+		mPrefsColors = NULL;
+	}
 }
 
 
@@ -290,6 +301,7 @@ void LLPreferenceCore::apply()
 	mSkinsPanel->apply();
 	mPrefsAdvanced->apply();
 	mPrefsFonts->apply();
+	mPrefsColors->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -320,6 +332,7 @@ void LLPreferenceCore::cancel()
 	mSkinsPanel->cancel();
 	mPrefsAdvanced->cancel();
 	mPrefsFonts->cancel();
+	mPrefsColors->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();

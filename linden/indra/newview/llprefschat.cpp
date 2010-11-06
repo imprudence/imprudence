@@ -36,10 +36,8 @@
 #include "llchatbar.h"
 #include "llfloaterchat.h"
 #include "llprefschat.h"
-#include "lltexteditor.h"
 #include "llviewercontrol.h"
 #include "lluictrlfactory.h"
-#include "llcolorswatch.h"
 #include "llradiogroup.h"
 #include "llstylemap.h"
 
@@ -57,15 +55,6 @@ private:
 	S32	mChatSize;
 	F32	mChatPersist;
 	S32	mChatMaxLines;
-	LLColor4 mSystemChatColor;
-	LLColor4 mUserChatColor;
-	LLColor4 mAgentChatColor;
-	LLColor4 mIMChatColor;
-	LLColor4 mObjectChatColor;
-	LLColor4 mOwnerSayChatColor;
-	LLColor4 mBGChatColor;
-	LLColor4 mScriptErrorColor;
-	LLColor4 mHTMLLinkColor;
 	BOOL mChatFullWidth;
 	BOOL mCloseChatOnReturn;
 	BOOL mArrowKeysMoveAvatar;
@@ -92,16 +81,6 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("fade_chat_time", gSavedSettings.getF32("ChatPersistTime"));
 	childSetValue("max_chat_count", gSavedSettings.getS32("ConsoleMaxLines"));
 
-	getChild<LLColorSwatchCtrl>("system")->set(gSavedSettings.getColor4("SystemChatColor"));
-	getChild<LLColorSwatchCtrl>("user")->set(gSavedSettings.getColor4("UserChatColor"));
-	getChild<LLColorSwatchCtrl>("agent")->set(gSavedSettings.getColor4("AgentChatColor"));
-	getChild<LLColorSwatchCtrl>("im")->set(gSavedSettings.getColor4("IMChatColor"));
-	getChild<LLColorSwatchCtrl>("script_error")->set(gSavedSettings.getColor4("ScriptErrorColor"));
-	getChild<LLColorSwatchCtrl>("objects")->set(gSavedSettings.getColor4("ObjectChatColor"));
-	getChild<LLColorSwatchCtrl>("owner")->set(gSavedSettings.getColor4("llOwnerSayChatColor"));
-	getChild<LLColorSwatchCtrl>("background")->set(gSavedSettings.getColor4("BackgroundChatColor"));
-	getChild<LLColorSwatchCtrl>("links")->set(gSavedSettings.getColor4("HTMLLinkColor"));
-
 	childSetValue("arrow_keys_move_avatar_check", gSavedSettings.getBOOL("ArrowKeysMoveAvatar"));
 	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("ChatShowTimestamps"));
 	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
@@ -124,15 +103,6 @@ void LLPrefsChatImpl::refreshValues()
 	mChatSize = gSavedSettings.getS32("ChatFontSize");
 	mChatPersist = gSavedSettings.getF32("ChatPersistTime");
 	mChatMaxLines = gSavedSettings.getS32("ConsoleMaxLines");
-	mSystemChatColor = gSavedSettings.getColor4("SystemChatColor");
-	mUserChatColor = gSavedSettings.getColor4("UserChatColor");
-	mAgentChatColor = gSavedSettings.getColor4("AgentChatColor");
-	mIMChatColor = gSavedSettings.getColor4("IMChatColor");
-	mObjectChatColor = gSavedSettings.getColor4("ObjectChatColor");
-	mOwnerSayChatColor = gSavedSettings.getColor4("llOwnerSayChatColor");
-	mBGChatColor = gSavedSettings.getColor4("BackgroundChatColor");
-	mScriptErrorColor = gSavedSettings.getColor4("ScriptErrorColor");
-	mHTMLLinkColor = gSavedSettings.getColor4("HTMLLinkColor");
 	mArrowKeysMoveAvatar = gSavedSettings.getBOOL("ArrowKeysMoveAvatar");
 	mShowTimestamps = gSavedSettings.getBOOL("ChatShowTimestamps");
 	mScriptErrorAsChat = gSavedSettings.getBOOL("ScriptErrorsAsChat");
@@ -154,15 +124,6 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setS32("ChatFontSize", mChatSize);
 	gSavedSettings.setF32("ChatPersistTime", mChatPersist);
 	gSavedSettings.setS32("ConsoleMaxLines", mChatMaxLines);
-	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
-	gSavedSettings.setColor4("UserChatColor", mUserChatColor);
-	gSavedSettings.setColor4("AgentChatColor", mAgentChatColor);
-	gSavedSettings.setColor4("IMChatColor", mIMChatColor);
-	gSavedSettings.setColor4("ObjectChatColor", mObjectChatColor);
-	gSavedSettings.setColor4("llOwnerSayChatColor", mOwnerSayChatColor);
-	gSavedSettings.setColor4("BackgroundChatColor", mBGChatColor);
-	gSavedSettings.setColor4("ScriptErrorColor", mScriptErrorColor);
-	gSavedSettings.setColor4("HTMLLinkColor", mHTMLLinkColor);
 	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", mArrowKeysMoveAvatar);
 	gSavedSettings.setBOOL("ChatShowTimestamps", mShowTimestamps);
 	gSavedSettings.setBOOL("ScriptErrorsAsChat", mScriptErrorAsChat);
@@ -183,18 +144,6 @@ void LLPrefsChatImpl::apply()
 	gSavedSettings.setS32("ChatFontSize", getChild<LLRadioGroup>("chat_font_size")->getSelectedIndex());
 	gSavedSettings.setF32("ChatPersistTime", childGetValue("fade_chat_time").asReal());
 	gSavedSettings.setS32("ConsoleMaxLines", childGetValue("max_chat_count"));
-
-	gSavedSettings.setColor4("SystemChatColor", childGetValue("system"));
-	gSavedSettings.setColor4("UserChatColor", childGetValue("user"));
-	gSavedSettings.setColor4("AgentChatColor", childGetValue("agent"));
-	gSavedSettings.setColor4("IMChatColor", childGetValue("im"));
-	gSavedSettings.setColor4("ScriptErrorColor", childGetValue("script_error"));
-	gSavedSettings.setColor4("ObjectChatColor", childGetValue("objects"));
-	gSavedSettings.setColor4("llOwnerSayChatColor", childGetValue("owner"));
-	gSavedSettings.setColor4("BackgroundChatColor", childGetValue("background"));
-
-	gSavedSettings.setColor4("HTMLLinkColor", childGetValue("links"));
-	LLTextEditor::setLinkColor(childGetValue("links"));
 
 	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", childGetValue("arrow_keys_move_avatar_check"));
 	gSavedSettings.setBOOL("ChatShowTimestamps", childGetValue("show_timestamps_check"));

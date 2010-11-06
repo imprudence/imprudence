@@ -6,7 +6,7 @@
 
   <!-- begin name highlighting -->
   
-  <key>nick01</key>
+  <key>HighlightNickname01</key>
   <map>
     <key>Comment</key>
     <string>First Nickname for Chat Highlight</string>
@@ -17,7 +17,7 @@
     <key>Value</key>
     <string></string>
   </map>
-  <key>nick02</key>
+  <key>HighlightNickname02</key>
   <map>
     <key>Comment</key>
     <string>Second Nickname for Chat Highlight</string>
@@ -28,7 +28,7 @@
     <key>Value</key>
     <string></string>
   </map>
-  <key>nick03</key>
+  <key>HighlightNickname03</key>
   <map>
     <key>Comment</key>
     <string>Third Nickname for Chat Highlight</string>
@@ -1182,6 +1182,17 @@
     <string>Boolean</string>
     <key>Value</key>
     <integer>0</integer>
+  </map>
+  <key>UseLocalChatWithBubbles</key>
+  <map>
+    <key>Comment</key>
+    <string>Should local chat still appear even when using chat bubbles?</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
   </map>
   <key>UseUTCTime</key>
   <map>

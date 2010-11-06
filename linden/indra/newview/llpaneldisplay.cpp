@@ -267,9 +267,6 @@ BOOL LLPanelDisplay::postBuild()
 
 	// Object detail slider
 	mCtrlDrawDistance = getChild<LLSliderCtrl>("DrawDistance");
-	mDrawDistanceMeterText1 = getChild<LLTextBox>("DrawDistanceMeterText1");
-	mDrawDistanceMeterText2 = getChild<LLTextBox>("DrawDistanceMeterText2");
-	mCtrlDrawDistance->setCommitCallback(&LLPanelDisplay::updateMeterText);
 	mCtrlDrawDistance->setCallbackUserData(this);
 
 	// Object detail slider
@@ -636,8 +633,6 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mAvatarText != NULL);
 	llassert(mLightingText != NULL);
 	llassert(mTerrainText != NULL);
-	llassert(mDrawDistanceMeterText1 != NULL);
-	llassert(mDrawDistanceMeterText2 != NULL);
 	llassert(mAvatarCountText != NULL);
 
 	// enable/disable the states
@@ -684,15 +679,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	mAvatarText->setVisible(!isHidden);
 	mLightingText->setVisible(!isHidden);
 	mTerrainText->setVisible(!isHidden);
-	mDrawDistanceMeterText1->setVisible(!isHidden);
-	mDrawDistanceMeterText2->setVisible(!isHidden);
 	mAvatarCountText->setVisible(!isHidden);
-
-	// hide one meter text if we're making things visible
-	if(!isHidden)
-	{
-		updateMeterText(mCtrlDrawDistance, this);
-	}
 
 	mMeshDetailText->setVisible(!isHidden);
 
@@ -996,22 +983,6 @@ void LLPanelDisplay::updateSliderText(LLUICtrl* ctrl, void* user_data)
 	{
 		text_box->setText(std::string("High"));
 	}
-}
-
-void LLPanelDisplay::updateMeterText(LLUICtrl* ctrl, void* user_data)
-{
-	// get our UI widgets
-	LLPanelDisplay* panel = (LLPanelDisplay*)user_data;
-	LLSliderCtrl* slider = (LLSliderCtrl*) ctrl;
-
-	LLTextBox* m1 = panel->getChild<LLTextBox>("DrawDistanceMeterText1");
-	LLTextBox* m2 = panel->getChild<LLTextBox>("DrawDistanceMeterText2");
-
-	// toggle the two text boxes based on whether we have 1 or two digits
-	F32 val = slider->getValueF32();
-	bool two_digits = val < 100;
-	m1->setVisible(two_digits);
-	m2->setVisible(!two_digits);
 }
 
 // static

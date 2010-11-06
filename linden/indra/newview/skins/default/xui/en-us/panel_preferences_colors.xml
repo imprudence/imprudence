@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+    height="408" label="Chat Colors" left="102" mouse_opaque="true" name="colors"
+    width="517">
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
+	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
+    Chat Colors:
+  </text>
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
+	     enabled="true" follows="left|top" height="65" label="Your chat" left="120"
+	     mouse_opaque="true" name="user" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
+	     enabled="true" follows="left|top" height="65" label="Others' chat" left_delta="76"
+	     mouse_opaque="true" name="agent" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+	     can_apply_immediately="true" color="0.6 0.6 1 1"
+	     enabled="true" follows="left|top" height="65" label="IMs" left_delta="76"
+	     mouse_opaque="true" name="im" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+	     can_apply_immediately="true" color="0.8 1 1 1"
+	     enabled="true" follows="left|top"
+	     height="65" label="System" left_delta="76" mouse_opaque="true"
+	     name="system" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+	     can_apply_immediately="true" color="0.82 0.82 0.99 1"
+	     control_name="ScriptErrorColor" enabled="true" follows="left|top"
+	     height="65" label="Script errors" left_delta="76" mouse_opaque="true"
+	     name="script_error" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+	     control_name="ObjectChatColor" enabled="true" follows="left|top"
+	     height="65" label="Object chat" left="120" mouse_opaque="true"
+	     name="objects" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+       control_name="ObjectIMColor" enabled="true" follows="left|top"
+	     height="65" label="Object IMs" left_delta="76" mouse_opaque="true"
+       name="object_ims" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+	     enabled="true" follows="left|top"
+	     height="65" label="Owner chat" left_delta="76" mouse_opaque="true" name="owner"
+	     width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+	     can_apply_immediately="true" color="0 0 0 1"
+	     enabled="true" follows="left|top"
+	     height="65" label="Bubble chat" left_delta="76" mouse_opaque="true"
+	     name="background" width="65" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+	     can_apply_immediately="true" color="0.6 0.6 1 1"
+	     enabled="true" follows="left|top" height="65"
+	     label="Links" left_delta="76" mouse_opaque="true" name="links" width="65" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
+     mouse_opaque="false" name="text_box3" v_pad="0" width="128">
+    Line Highlighting:
+  </text>
+
+  <check_box bottom_delta="-7" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+      initial_value="true" label="Highlight chat from friends" left="120"
+      mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-70"
+      can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
+      enabled="true" follows="left|top" height="65" label="Friends" left_delta="20"
+      mouse_opaque="true" name="FriendsChatColor" width="65" />
+
+  <check_box bottom_delta="-25" enabled="true" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="true"
+     label="Highlight local chat containing your name" left="120" mouse_opaque="true"
+     name="HighlightOwnNameInChat" radio_style="false" width="217" />
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+      initial_value="true" label="Highlight group chat containing your name" left_delta="0"
+      mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-70"
+      can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
+      enabled="true" follows="left|top" height="65" label="Your name" left_delta="20"
+      mouse_opaque="true" name="OwnNameChatColor" width="65" />
+
+  <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="20" 
+      left="140" name="nick01_text" width="150">
+    Highlight nickname 1:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
+      enabled="true" follows="left|top" font="SansSerif"
+      handle_edit_keys_directly="true" height="20" left_delta="125"
+      max_length="50" mouse_opaque="true" name="nick01"
+      select_all_on_focus_received="true" width="160" word_wrap="false" />
+
+  <text bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="20" 
+      left="140" name="nick02_text" width="150">
+    Highlight nickname 2:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
+      enabled="true" follows="left|top" font="SansSerif"
+      handle_edit_keys_directly="true" height="20" left_delta="125"
+      max_length="50" mouse_opaque="true" name="nick02"
+      select_all_on_focus_received="true" width="160" word_wrap="false" />
+
+  <text bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="20"
+      left="140" name="nick03_text" width="150">
+    Highlight nickname 3:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
+      enabled="true" follows="left|top" font="SansSerif"
+      handle_edit_keys_directly="true" height="20" left_delta="125"
+      max_length="50" mouse_opaque="true" name="nick03"
+      select_all_on_focus_received="true" width="160" word_wrap="false" />
+
+</panel>

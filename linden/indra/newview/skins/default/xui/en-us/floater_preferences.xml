@@ -16,9 +16,9 @@
 	     width="90" />
 	<button bottom="-505" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20"
-	     help_url="http://secondlife.com/app/help/technical/preferences.php"
-	     label="Help" label_selected="Help" left="9" mouse_opaque="true"
-	     name="Help" scale_image="true" width="90" />
+	     help_url="http://support.imprudenceviewer.org/"
+	     label="Support" left="9" mouse_opaque="true"
+	     name="Support" scale_image="true" width="100" />
 	<tab_container bottom="-476" enabled="true" follows="left|top|right|bottom" height="455"
 	     left="0" mouse_opaque="false" name="pref core" tab_group="1"
 	     tab_position="left" tab_width="120" width="620" />

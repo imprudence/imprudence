@@ -209,7 +209,7 @@ LLFloaterLand::LLFloaterLand(const LLSD& seed)
 	factory_map["land_covenant_panel"] = LLCallbackMap(createPanelLandCovenant, this);
 	factory_map["land_objects_panel"] = LLCallbackMap(createPanelLandObjects, this);
 	factory_map["land_options_panel"] = LLCallbackMap(createPanelLandOptions, this);
-//	factory_map["land_audio_panel"] =	LLCallbackMap(createPanelLandAudio, this);
+	factory_map["land_audio_panel"] =	LLCallbackMap(createPanelLandAudio, this);
 	factory_map["land_media_panel"] =	LLCallbackMap(createPanelLandMedia, this);
 	factory_map["land_access_panel"] =	LLCallbackMap(createPanelLandAccess, this);
 
@@ -245,7 +245,7 @@ void LLFloaterLand::refresh()
 	mPanelGeneral->refresh();
 	mPanelObjects->refresh();
 	mPanelOptions->refresh();
-//	mPanelAudio->refresh();
+	mPanelAudio->refresh();
 	mPanelMedia->refresh();
 	mPanelAccess->refresh();
 }
@@ -284,7 +284,7 @@ void* LLFloaterLand::createPanelLandOptions(void* data)
 	return self->mPanelOptions;
 }
 
-/*
+
 // static
 void* LLFloaterLand::createPanelLandAudio(void* data)
 {
@@ -292,7 +292,7 @@ void* LLFloaterLand::createPanelLandAudio(void* data)
 	self->mPanelAudio = new LLPanelLandAudio(self->mParcel);
 	return self->mPanelAudio;
 }
-*/
+
 // static
 void* LLFloaterLand::createPanelLandMedia(void* data)
 {
