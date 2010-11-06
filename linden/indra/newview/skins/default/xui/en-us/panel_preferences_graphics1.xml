@@ -41,8 +41,16 @@
 		<combo_item type="string" length="1" enabled="true" name="1024x768" value="1024 x 768">
 			1024x768
 		</combo_item>
-
-	</combo_box>
+    <combo_item type="string" length="1" enabled="true" name="1280x720" value="1280 x 720">
+      1280x720 (HDV720)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="1440x1080" value="1440 x 1080">
+      1440x1080 (HDV1080)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="1920x1080" value="1920 x 1080">
+      1920x1080 (HD1080)
+    </combo_item>
+  </combo_box>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
