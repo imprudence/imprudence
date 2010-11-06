@@ -167,13 +167,18 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mPrefsChat->getPanel(), mPrefsChat->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsChat->getPanel()->setDefaultBtn(default_btn);
 
-	mPrefsVoice = new LLPrefsVoice();
-	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsVoice->setDefaultBtn(default_btn);
+	mPrefsColors = new LLPrefsColors();
+	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsColors->setDefaultBtn(default_btn);
 
 	mPrefsIM = new LLPrefsIM();
 	mTabContainer->addTabPanel(mPrefsIM->getPanel(), mPrefsIM->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsIM->getPanel()->setDefaultBtn(default_btn);
+	
+	mPrefsVoice = new LLPrefsVoice();
+	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsVoice->setDefaultBtn(default_btn);
+
 
 #if LL_LCD_COMPILE
 
@@ -192,10 +197,6 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel = new LLPanelMsgs();
 	mTabContainer->addTabPanel(mMsgPanel, mMsgPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mMsgPanel->setDefaultBtn(default_btn);
-
-	mPrefsColors = new LLPrefsColors();
-	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsColors->setDefaultBtn(default_btn);
 	
 	mSkinsPanel = new LLPanelSkins();
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
