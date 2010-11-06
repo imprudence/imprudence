@@ -117,7 +117,7 @@ protected:
 	LLPanelLandGeneral*		mPanelGeneral;
 	LLPanelLandObjects*		mPanelObjects;
 	LLPanelLandOptions*		mPanelOptions;
-//	LLPanelLandAudio*		mPanelAudio;
+	LLPanelLandAudio*		mPanelAudio;
 	LLPanelLandMedia*		mPanelMedia;
 	LLPanelLandAccess*		mPanelAccess;
 	LLPanelLandCovenant*	mPanelCovenant;
