@@ -48,6 +48,7 @@
 #include "llviewercamera.h"
 #include "llviewerimagelist.h"
 #include "llviewerregion.h"
+#include "llselectmgr.h"
 #include "pipeline.h"
 #include "llspatialpartition.h"
 #include "llworld.h"
@@ -721,3 +722,93 @@ BOOL LLVOGrass::lineSegmentIntersect(const LLVector3& start, const LLVector3& en
 	return ret;
 }
 
+void LLVOGrass::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
+										   std::vector<LLVector3> &normals,
+										   std::vector<S32> &segments,
+										   const LLVector3& obj_cam_vec,
+										   const LLMatrix4& mat,
+										   const LLMatrix3& norm_mat)
+{
+	vertices.clear();
+	normals.clear();
+	segments.clear();
+
+	F32 width  = sSpeciesTable[mSpecies]->mBladeSizeX;
+	F32 height = sSpeciesTable[mSpecies]->mBladeSizeY;
+
+	for (S32 i = 0;  i < mNumBlades; i++)
+	{
+		F32 x   = exp_x[i] * mScale.mV[VX];
+		F32 y   = exp_y[i] * mScale.mV[VY];
+		F32 xf  = rot_x[i] * GRASS_BLADE_BASE * width * w_mod[i];
+		F32 yf  = rot_y[i] * GRASS_BLADE_BASE * width * w_mod[i];
+		F32 dzx = dz_x [i];
+		F32 dzy = dz_y [i];
+
+		F32 blade_height= GRASS_BLADE_HEIGHT * height * w_mod[i];
+
+		LLVector3 position1;
+
+		position1.mV[0]  = mPosition.mV[VX] + x + xf;
+		position1.mV[1]  = mPosition.mV[VY] + y + yf;
+		position1.mV[2]  = mRegionp->getLand().resolveHeightRegion(position1);
+
+		LLVector3 position2 = position1;
+
+		position2.mV[0] += dzx;
+		position2.mV[1] += dzy;
+		position2.mV[2] += blade_height;
+
+		LLVector3 position3;
+
+		position3.mV[0]  = mPosition.mV[VX] + x - xf;
+		position3.mV[1]  = mPosition.mV[VY] + y - xf;
+		position3.mV[2]  = mRegionp->getLand().resolveHeightRegion(position3);
+
+		LLVector3 position4 = position3;
+
+		position4.mV[0] += dzx;
+		position4.mV[1] += dzy;
+		position4.mV[2] += blade_height;
+
+
+		LLVector3 normal = (position1-position2) % (position2 - position3);
+		normal.normalize();
+
+		vertices.push_back(position1 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		vertices.push_back(position2 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		segments.push_back(vertices.size());
+
+		vertices.push_back(position2 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		vertices.push_back(position4 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		segments.push_back(vertices.size());
+
+		vertices.push_back(position4 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		vertices.push_back(position3 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		segments.push_back(vertices.size());
+
+		vertices.push_back(position3 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		vertices.push_back(position1 + mRegionp->getOriginAgent());
+		normals.push_back(normal);
+		segments.push_back(vertices.size());
+	}
+}
+
+
+
+void LLVOGrass::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point)
+{
+	generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals,
+							   nodep->mSilhouetteSegments,
+							   LLVector3(0,0,0), LLMatrix4(), LLMatrix3());
+
+	nodep->mSilhouetteExists = TRUE;
+
+}
