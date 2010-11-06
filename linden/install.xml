@@ -794,10 +794,10 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           </map>
           <key>linux64</key>
           <map>
-            <key>md5sum</key>
-            <string>8b5f413bdefec7cfe3d9ad2d69986bdc</string>
+          <key>md5sum</key>
+            <string>64e7fa98568ef52b3b9d4a18b3515090</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/jpeglib-6b-linux64-20101012.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/jpeglib-7-linux64-20091230.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1048,12 +1048,12 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-qt4.6-20100923.tar.bz2</uri>
           </map>
           <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>863f7b31556b1d368651f85457f4e46d</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/llqtwebkit-linux64-20101012.1.tar.bz2</uri>
-          </map>
+           <map>
+             <key>md5sum</key>
+             <string>d5deaf897fe8effa3d3537c875060379</string>
+             <key>url</key>
+             <uri>http://imprudenceviewer.org/download/libs/llqtwebkit-linux64-20100907.tar.bz2</uri>
+           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
