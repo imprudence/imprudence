@@ -482,7 +482,7 @@ BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 	for (int i=1; i<=3; i++)
 	{
 		std::stringstream key;
-		key << "nick0" << i;
+		key << "HighlightNickname0" << i;
 		std::string nick = gSavedSettings.getString(key.str());
 		if (! nick.empty())
 		{

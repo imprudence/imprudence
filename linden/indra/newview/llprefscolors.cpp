@@ -71,6 +71,7 @@ BOOL LLPrefsColors::postBuild()
 	updateSelfCheck();
 	updateFriendsCheck();
 	
+	// All three of these settings must exist, they are read by LLFloaterChat::isOwnNameInText.
 	childSetValue("nick01", gSavedSettings.getString("HighlightNickname01"));
 	childSetValue("nick02", gSavedSettings.getString("HighlightNickname02"));
 	childSetValue("nick03", gSavedSettings.getString("HighlightNickname03"));
