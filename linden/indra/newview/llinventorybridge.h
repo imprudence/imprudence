@@ -221,7 +221,7 @@ public:
 	virtual void move(LLFolderViewEventListener* new_parent_bridge) {}
 	virtual BOOL isItemCopyable() const { return FALSE; }
 	virtual BOOL copyToClipboard() const { return FALSE; }
-	virtual void cutToClipboard() {}
+	virtual BOOL cutToClipboard() const { return FALSE; }
 	virtual BOOL isClipboardPasteable() const;
 	virtual void pasteFromClipboard() {}
 	void getClipboardEntries(bool show_asset_id, std::vector<std::string> &items, 

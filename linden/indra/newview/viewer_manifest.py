@@ -228,7 +228,7 @@ class WindowsManifest(ViewerManifest):
             self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
-		
+
         self.path("imprudence.url")
 
         # Plugin host application
@@ -741,7 +741,7 @@ class DarwinManifest(ViewerManifest):
                 #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 libdir = "../../libraries/universal-darwin/lib_release"
-				dylibs = {}
+                dylibs = {}
 
                 #for lib in "llkdu", "llcommon":
                 for lib in "llcommon":
@@ -940,8 +940,6 @@ class LinuxManifest(ViewerManifest):
         # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
         self.path("skins/default/xui/en-us/mime_types_linux.xml", "skins/default/xui/en-us/mime_types.xml")
 
-        self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
-
         self.path("featuretable_linux.txt")
 
 
@@ -996,6 +994,8 @@ class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
+
+        self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
 
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
@@ -1113,6 +1113,8 @@ class Linux_x86_64Manifest(LinuxManifest):
         super(Linux_x86_64Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+
+        self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")
 
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):

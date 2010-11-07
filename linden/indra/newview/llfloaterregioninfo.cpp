@@ -908,7 +908,7 @@ BOOL LLPanelRegionOpenSettingsInfo::postBuild()
 	initHelpBtn("show_tags_help",	"HelpShowTags");
 	initHelpBtn("allow_parcel_windlight_help", "HelpAllowParcelWindLight");
 
-	childSetAction("apply_ors_btn", sendUpdate, this);
+	childSetAction("apply_ors_btn", onClickOrs, this);
 
 	refreshFromRegion(gAgent.getRegion());
 
@@ -926,12 +926,12 @@ BOOL LLPanelRegionOpenSettingsInfo::postBuild()
 // strings[7] = restrict pushobject
 // strings[8] = 'Y' - allow parcel subdivide, 'N' - not
 // strings[9] = 'Y' - block parcel search, 'N' - allow
-void LLPanelRegionOpenSettingsInfo::sendUpdate(void* userdata)
+void LLPanelRegionOpenSettingsInfo::onClickOrs(void* userdata)
 {
 	LLPanelRegionOpenSettingsInfo* self;
 	self = (LLPanelRegionOpenSettingsInfo*)userdata;
 	
-	llinfos << "LLPanelRegionOpenSettingsInfo::sendUpdate()" << llendl;
+	llinfos << "LLPanelRegionOpenSettingsInfo::onClickOrs()" << llendl;
 
 	LLSD body;
 	std::string url = gAgent.getRegion()->getCapability("DispatchOpenRegionSettings");
