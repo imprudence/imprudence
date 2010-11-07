@@ -37,7 +37,6 @@
 
 #include "linden_common.h"
 #include "indra_constants.h" // for indra keyboard codes
-#include <iomanip>
 
 #include "llgl.h"
 
@@ -45,10 +44,10 @@
 #include "llpluginmessage.h"
 #include "llpluginmessageclasses.h"
 #include "media_plugin_base.h"
+#include <iomanip> 
 
 // set to 1 if you're using the version of llqtwebkit that's QPixmap-ified
 #if LL_LINUX
-# include <iomanip> 
 # define LL_QTWEBKIT_USES_PIXMAPS 0
 extern "C" {
 # include <glib.h>
@@ -341,6 +340,12 @@ private:
 		// append details to agent string
 		LLQtWebKit::getInstance()->setBrowserAgentId( mUserAgent );
 
+// Viewer 2+ -- MC
+#if LL_WINDOWS
+		// Set up window open behavior
+		LLQtWebKit::getInstance()->setWindowOpenBehavior(mBrowserWindowId, LLQtWebKit::WOB_SIMULATE_BLANK_HREF_CLICK);
+#endif
+		
 #if !LL_QTWEBKIT_USES_PIXMAPS
 		// don't flip bitmap
 		LLQtWebKit::getInstance()->flipWindow( mBrowserWindowId, true );
@@ -539,6 +544,7 @@ private:
 		// This will work as long as we don't need "uuid", which will be needed for MoaP.
 		message.setValue("uri", event.getStringValue());
 		message.setValue("target", event.getStringValue2());
+		message.setValueU32("target_type", event.getLinkType());
 #endif
 		sendMessage(message);
 	}
