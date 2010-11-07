@@ -128,8 +128,6 @@ protected:
 	LLTextBox		*mAvatarText;
 	LLTextBox		*mTerrainText;
 	LLTextBox		*mLightingText;
-	LLTextBox		*mDrawDistanceMeterText1;
-	LLTextBox		*mDrawDistanceMeterText2;
 
 	LLTextBox		*mMeshDetailText;
 	LLTextBox		*mLODFactorText;
@@ -194,7 +192,6 @@ protected:
 	static void onCommitWindowedMode(LLUICtrl* ctrl, void *data);
 	static void onApplyResolution(LLUICtrl* ctrl, void* data);
 	static void updateSliderText(LLUICtrl* ctrl, void* user_data);
-	static void updateMeterText(LLUICtrl* ctrl, void* user_data);
 	static void onImpostorsEnable(LLUICtrl* ctrl, void* user_data);
 
 	/// callback for defaults

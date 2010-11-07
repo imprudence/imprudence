@@ -47,6 +47,7 @@
 #include "llagent.h"
 #include "lldrawable.h"
 #include "llface.h"
+#include "llselectmgr.h"
 #include "llviewercamera.h"
 #include "llviewerimagelist.h"
 #include "llviewerobjectlist.h"
@@ -1327,3 +1328,127 @@ LLTreePartition::LLTreePartition()
 	mLODPeriod = 1;
 }
 
+
+
+void LLVOTree::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
+										  std::vector<LLVector3> &normals,
+										  std::vector<S32> &segments,
+										  const LLVector3& obj_cam_vec,
+										  const LLMatrix4& local_matrix,
+										  const LLMatrix3& normal_matrix)
+{
+	vertices.clear();
+	normals.clear();
+	segments.clear();
+
+	F32 height = mBillboardScale; // *mBillboardRatio * 0.5;
+	F32 width = height * mTrunkAspect;
+
+	LLVector3 position1 = LLVector3(-width * 0.5,0,0) * local_matrix;
+	LLVector3 position2 = LLVector3(-width * 0.5,0,height) * local_matrix;
+	LLVector3 position3 = LLVector3(+width * 0.5,0,height) * local_matrix;
+	LLVector3 position4 = LLVector3(+width * 0.5,0,0) * local_matrix;
+
+	LLVector3 position5 = LLVector3(0,-width * 0.5,0) * local_matrix;
+	LLVector3 position6 = LLVector3(0,-width * 0.5,height) * local_matrix;
+	LLVector3 position7 = LLVector3(0,+width * 0.5,height) * local_matrix;
+	LLVector3 position8 = LLVector3(0,+width * 0.5,0) * local_matrix;
+
+
+	LLVector3 normal = (position1-position2) % (position2-position3);
+	normal.normalize();
+
+	vertices.push_back(position1);
+	normals.push_back(normal);
+	vertices.push_back(position2);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position2);
+	normals.push_back(normal);
+	vertices.push_back(position3);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position3);
+	normals.push_back(normal);
+	vertices.push_back(position4);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position4);
+	normals.push_back(normal);
+	vertices.push_back(position1);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	normal = (position5-position6) % (position6-position7);
+	normal.normalize();
+
+	vertices.push_back(position5);
+	normals.push_back(normal);
+	vertices.push_back(position6);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position6);
+	normals.push_back(normal);
+	vertices.push_back(position7);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position7);
+	normals.push_back(normal);
+	vertices.push_back(position8);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position8);
+	normals.push_back(normal);
+	vertices.push_back(position5);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+}
+
+
+void LLVOTree::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point)
+{
+	LLVector3 position;
+	LLQuaternion rotation;
+
+	if (mDrawable->isActive())
+	{
+		if (mDrawable->isSpatialRoot())
+		{
+			position = LLVector3();
+			rotation = LLQuaternion();
+		}
+		else
+		{
+			position = mDrawable->getPosition();
+			rotation = mDrawable->getRotation();
+		}
+	}
+	else
+	{
+		position = getPosition() + getRegion()->getOriginAgent();;
+		rotation = getRotation();
+	}
+
+	// trees have bizzare scaling rules... because it's cool to make needless exceptions
+	// PS: the trees are the last remaining tidbit of Philip's code.  take a look sometime.
+	F32 radius = getScale().length() * 0.05f;
+	LLVector3 scale = LLVector3(1,1,1) * radius;
+
+	// compose final matrix
+	LLMatrix4 local_matrix;
+	local_matrix.initAll(scale, rotation, position);
+
+
+	generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals,
+							   nodep->mSilhouetteSegments,
+							   LLVector3(0,0,0), local_matrix, LLMatrix3());
+
+	nodep->mSilhouetteExists = TRUE;
+}
