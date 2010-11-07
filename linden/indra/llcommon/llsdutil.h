@@ -68,28 +68,28 @@ LLSD ll_sd_from_color4(const LLColor4& c);
 LLColor4 ll_color4_from_sd(const LLSD& sd);
 
 // U32
-LLSD ll_sd_from_U32(const U32);
-U32 ll_U32_from_sd(const LLSD& sd);
+LL_COMMON_API LLSD ll_sd_from_U32(const U32);
+LL_COMMON_API U32 ll_U32_from_sd(const LLSD& sd);
 
 // U64
-LLSD ll_sd_from_U64(const U64);
-U64 ll_U64_from_sd(const LLSD& sd);
+LL_COMMON_API LLSD ll_sd_from_U64(const U64);
+LL_COMMON_API U64 ll_U64_from_sd(const LLSD& sd);
 
 // IP Address
-LLSD ll_sd_from_ipaddr(const U32);
-U32 ll_ipaddr_from_sd(const LLSD& sd);
+LL_COMMON_API LLSD ll_sd_from_ipaddr(const U32);
+LL_COMMON_API U32 ll_ipaddr_from_sd(const LLSD& sd);
 
 // Binary to string
-LLSD ll_string_from_binary(const LLSD& sd);
+LL_COMMON_API LLSD ll_string_from_binary(const LLSD& sd);
 
 //String to binary
-LLSD ll_binary_from_string(const LLSD& sd);
+LL_COMMON_API LLSD ll_binary_from_string(const LLSD& sd);
 
 // Serializes sd to static buffer and returns pointer, useful for gdb debugging.
-char* ll_print_sd(const LLSD& sd);
+LL_COMMON_API char* ll_print_sd(const LLSD& sd);
 
 // Serializes sd to static buffer and returns pointer, using "pretty printing" mode.
-char* ll_pretty_print_sd(const LLSD& sd);
+LL_COMMON_API char* ll_pretty_print_sd(const LLSD& sd);
 
 //compares the structure of an LLSD to a template LLSD and stores the
 //"valid" values in a 3rd LLSD. Default values
@@ -98,7 +98,7 @@ char* ll_pretty_print_sd(const LLSD& sd);
 //Returns false if the test is of same type but values differ in type
 //Otherwise, returns true
 
-BOOL compare_llsd_with_template(
+LL_COMMON_API BOOL compare_llsd_with_template(
 	const LLSD& llsd_to_test,
 	const LLSD& template_llsd,
 	LLSD& resultant_llsd);

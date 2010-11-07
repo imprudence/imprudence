@@ -218,7 +218,7 @@ IF (NOT LINUX AND VIEWER)
     # These can not be found when we try to run the tests, so we had to disable them, for the viewer build.
     # TODO: Can someone with viewer knowledge figure out how to make these find the correct so.
     #ADD_BUILD_TEST(llhttpclientadapter llmessage)
-    ADD_BUILD_TEST(lltrustedmessageservice llmessage)
-    ADD_BUILD_TEST(lltemplatemessagedispatcher llmessage)
+	#ADD_BUILD_TEST(lltrustedmessageservice llmessage)
+	#ADD_BUILD_TEST(lltemplatemessagedispatcher llmessage)
 ENDIF (NOT LINUX AND VIEWER)
 

@@ -5573,7 +5573,7 @@ class LLAgentDropGroupViewerNode : public LLHTTPNode
 			!input.has("body") )
 		{
 			//what to do with badly formed message?
-			response->status(400);
+			response->statusUnknownError(400);
 			response->result(LLSD("Invalid message parameters"));
 		}
 
@@ -5646,7 +5646,7 @@ class LLAgentDropGroupViewerNode : public LLHTTPNode
 		else
 		{
 			//what to do with badly formed message?
-			response->status(400);
+			response->statusUnknownError(400);
 			response->result(LLSD("Invalid message parameters"));
 		}
 	}

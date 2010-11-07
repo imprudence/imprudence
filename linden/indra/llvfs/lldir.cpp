@@ -43,6 +43,7 @@
 #include "lldir.h"
 #include "llerror.h"
 #include "lluuid.h"
+#include "lltimer.h"
 
 #if LL_WINDOWS
 #include "lldir_win32.h"
