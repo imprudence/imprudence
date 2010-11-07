@@ -246,7 +246,9 @@ class WindowsManifest(ViewerManifest):
         #self.path("fmod.dll")
         
         # For spellchecking
-        self.path("libhunspell.dll")
+        if self.prefix(src=self.args['configuration'], dst=""):
+            self.path("libhunspell.dll")
+            self.end_prefix()
 
         # Get llcommon and deps.
         if self.prefix(src=self.args['configuration'], dst=""):
