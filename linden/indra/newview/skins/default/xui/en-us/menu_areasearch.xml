@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu bottom="100" color="MenuDefaultBgColor" drop_shadow="true" height="101" left="100"
+	 mouse_opaque="false" name="popup" opaque="true" width="128">
+	<menu_item_call bottom_delta="-18" height="18" label="Teleport to" left="0"
+		 mouse_opaque="true" name="teleport" width="128">
+		<on_click function="Popup.HandleMenu" userdata="teleport" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Cam to" left="0"
+		 mouse_opaque="true" name="cam" width="128">
+		<on_click function="Popup.HandleMenu" userdata="cam" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Edit" left="0"
+		 mouse_opaque="true" name="edit" width="128">
+		<on_click function="Popup.HandleMenu" userdata="edit" />
+	</menu_item_call>
+</menu>
