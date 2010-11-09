@@ -40,6 +40,18 @@
 
   <!-- Imprudence-specific settings -->
 
+  <key>AllowEditingOfTrees</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow editing of trees and grass</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+
   <!-- begin name highlighting -->
   
   <key>HighlightNickname01</key>
