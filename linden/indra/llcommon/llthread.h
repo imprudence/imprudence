@@ -235,6 +235,101 @@ private:
 	LLMutexBase* mMutex;
 };
 
+class AIRWLock
+{
+public:
+	AIRWLock(AIAPRPool& parent = LLThread::tldata().mRootPool) :
+		mWriterWaitingMutex(parent), mNoHoldersCondition(parent), mHoldersCount(0), mWriterIsWaiting(false) { }
+
+private:
+	LLMutex mWriterWaitingMutex;		//!< This mutex is locked while some writer is waiting for access.
+	LLCondition mNoHoldersCondition;	//!< Access control for mHoldersCount. Condition true when there are no more holders.
+	int mHoldersCount;					//!< Number of readers or -1 if a writer locked this object.
+	// This is volatile because we read it outside the critical area of mWriterWaitingMutex, at [1].
+	// That means that other threads can change it while we are already in the (inlined) function rdlock.
+	// Without volatile, the following assembly would fail:
+	// register x = mWriterIsWaiting;
+	// /* some thread changes mWriterIsWaiting */
+	// if (x ...
+	// However, because the function is fuzzy to begin with (we don't mind that this race
+	// condition exists) it would work fine without volatile. So, basically it's just here
+	// out of principle ;).	-- Aleric
+    bool volatile mWriterIsWaiting;		//!< True when there is a writer waiting for write access.
+
+public:
+	void rdlock(bool high_priority = false)
+	{
+		// Give a writer a higher priority (kinda fuzzy).
+		if (mWriterIsWaiting && !high_priority)	// [1] If there is a writer interested,
+		{
+			mWriterWaitingMutex.lock();			// [2] then give it precedence and wait here.
+			// If we get here then the writer got it's access; mHoldersCount == -1.
+			mWriterWaitingMutex.unlock();
+		}
+		mNoHoldersCondition.lock();				// [3] Get exclusive access to mHoldersCount.
+		while (mHoldersCount == -1)				// [4]
+		{
+		  	mNoHoldersCondition.wait();			// [5] Wait till mHoldersCount is (or just was) 0.
+		}
+		++mHoldersCount;						// One more reader.
+		mNoHoldersCondition.unlock();			// Release lock on mHoldersCount.
+	}
+	void rdunlock(void)
+	{
+		mNoHoldersCondition.lock();				// Get exclusive access to mHoldersCount.
+		if (--mHoldersCount == 0)				// Was this the last reader?
+		{
+			mNoHoldersCondition.signal();		// Tell waiting threads, see [5], [6] and [7].
+		}
+		mNoHoldersCondition.unlock();			// Release lock on mHoldersCount.
+	}
+	void wrlock(void)
+	{
+		mWriterWaitingMutex.lock();				// Block new readers, see [2],
+		mWriterIsWaiting = true;				// from this moment on, see [1].
+		mNoHoldersCondition.lock();				// Get exclusive access to mHoldersCount.
+		while (mHoldersCount != 0)				// Other readers or writers have this lock?
+		{
+		  	mNoHoldersCondition.wait();			// [6] Wait till mHoldersCount is (or just was) 0.
+		}
+		mWriterIsWaiting = false;				// Stop checking the lock for new readers, see [1].
+		mWriterWaitingMutex.unlock();			// Release blocked readers, they will still hang at [3].
+		mHoldersCount = -1;						// We are a writer now (will cause a hang at [5], see [4]).
+		mNoHoldersCondition.unlock();			// Release lock on mHolders (readers go from [3] to [5]).
+	}
+	void wrunlock(void)
+	{
+		mNoHoldersCondition.lock();				// Get exclusive access to mHoldersCount.
+		mHoldersCount = 0;						// We have no writer anymore.
+		mNoHoldersCondition.signal();			// Tell waiting threads, see [5], [6] and [7].
+		mNoHoldersCondition.unlock();			// Release lock on mHoldersCount.
+	}
+	void rd2wrlock(void)
+	{
+		mNoHoldersCondition.lock();				// Get exclusive access to mHoldersCount. Blocks new readers at [3].
+		if (--mHoldersCount > 0)				// Any other reads left?
+		{
+			mWriterWaitingMutex.lock();			// Block new readers, see [2],
+			mWriterIsWaiting = true;			// from this moment on, see [1].
+			while (mHoldersCount != 0)			// Other readers (still) have this lock?
+			{
+				mNoHoldersCondition.wait();		// [7] Wait till mHoldersCount is (or just was) 0.
+			}
+			mWriterIsWaiting = false;			// Stop checking the lock for new readers, see [1].
+			mWriterWaitingMutex.unlock();		// Release blocked readers, they will still hang at [3].
+		}
+		mHoldersCount = -1;						// We are a writer now (will cause a hang at [5], see [4]).
+		mNoHoldersCondition.unlock();			// Release lock on mHolders (readers go from [3] to [5]).
+	}
+	void wr2rdlock(void)
+	{
+		mNoHoldersCondition.lock();				// Get exclusive access to mHoldersCount.
+		mHoldersCount = 1;						// Turn writer into a reader.
+		mNoHoldersCondition.signal();			// Tell waiting readers, see [5].
+		mNoHoldersCondition.unlock();			// Release lock on mHoldersCount.
+	}
+};
+
 //============================================================================
 
 void LLThread::lockData()
@@ -246,7 +341,6 @@ void LLThread::unlockData()
 {
 	mRunCondition->unlock();
 }
-
 
 //============================================================================
 

@@ -157,17 +157,19 @@ public:
 /**
  * @brief Root memory pool (allocates memory from the operating system).
  *
- * This class should only be used by AIThreadLocalData (and LLMutexRootPool
- * when APR_HAS_THREADS isn't defined).
+ * This class should only be used by AIThreadLocalData and AIThreadSafeSimpleDCRootPool_pbase
+ * (and LLMutexRootPool when APR_HAS_THREADS isn't defined).
  */
 class LL_COMMON_API AIAPRRootPool : public AIAPRInitialization, public AIAPRPool
 {
 private:
 	friend class AIThreadLocalData;
+	friend class AIThreadSafeSimpleDCRootPool_pbase;
 #if !APR_HAS_THREADS
 	friend class LLMutexRootPool;
 #endif
-	//! Construct a root memory pool. Should only be used by AIThreadLocalData.
+	//! Construct a root memory pool.
+	//  Should only be used by AIThreadLocalData and AIThreadSafeSimpleDCRootPool_pbase.
 	AIAPRRootPool(void);
 	~AIAPRRootPool();
 
