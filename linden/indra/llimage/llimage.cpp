@@ -57,7 +57,7 @@ LLMutex* LLImage::sMutex = NULL;
 //static
 void LLImage::initClass(const bool& useDSO)
 {
-	sMutex = new LLMutex(NULL);
+	sMutex = new LLMutex;
 	if (useDSO)
 	{
 		LLImageJ2C::openDSO();
