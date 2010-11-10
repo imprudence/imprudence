@@ -162,6 +162,8 @@ class ViewerManifest(LLManifest):
 
     def standalone(self):
         return self.args['standalone'] == "ON"
+    def debug(self):
+        return self.args['buildtype'] == "DEBUG"
     def grid(self):
         return self.args['grid']
     def channel(self):
@@ -945,7 +947,10 @@ class LinuxManifest(ViewerManifest):
 class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
-        self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
+        if self.debug():
+            self.path("imprudence-bin","bin/do-not-directly-run-imprudence-bin")
+        else:
+            self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
@@ -1061,7 +1066,10 @@ class Linux_i686Manifest(LinuxManifest):
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
         super(Linux_x86_64Manifest, self).construct()
-        self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
+        if self.debug():
+            self.path("imprudence-bin","bin/do-not-directly-run-imprudence-bin")
+        else:
+            self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
 
         self.path("linux_tools/launch_url.sh","launch_url.sh")
