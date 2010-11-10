@@ -36,6 +36,7 @@
 #include <string>
 #include <cstdio>
 #include <algorithm>
+#include <map>
 
 #if LL_LINUX || LL_SOLARIS
 #include <wctype.h>
