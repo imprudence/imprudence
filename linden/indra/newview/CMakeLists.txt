@@ -1356,6 +1356,7 @@ if (WINDOWS)
           --channel=${VIEWER_CHANNEL}
           --login_channel=${VIEWER_LOGIN_CHANNEL}
           --standalone=${STANDALONE}
+          --buildtype=${CMAKE_BUILD_TYPE}
           --grid=${GRID}
           --source=${CMAKE_CURRENT_SOURCE_DIR}
               --artwork=${ARTWORK_DIR}
@@ -1434,6 +1435,7 @@ if (LINUX)
       ARGS
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         --standalone=${STANDALONE}
+        --buildtype=${CMAKE_BUILD_TYPE}
         --grid=${GRID}
         --channel=${VIEWER_CHANNEL}
         --login_channel=${VIEWER_LOGIN_CHANNEL}
@@ -1498,6 +1500,7 @@ if (DARWIN)
         ARGS
           ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
           --standalone=${STANDALONE}
+          --buildtype=${CMAKE_BUILD_TYPE}
           --grid=${GRID}
           --configuration=${CMAKE_CFG_INTDIR}
           --channel=${VIEWER_CHANNEL}
