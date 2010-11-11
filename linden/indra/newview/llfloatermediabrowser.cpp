@@ -35,6 +35,8 @@
 #include "llfloatermediabrowser.h"
 #include "llfloaterhtml.h"
 
+#include "llchat.h"
+#include "llfloaterchat.h"
 #include "llparcel.h"
 #include "llpluginclassmedia.h"
 #include "lluictrlfactory.h"
@@ -43,6 +45,7 @@
 #include "llviewercontrol.h"
 #include "llviewerparcelmgr.h"
 #include "llweb.h"
+#include "lltrans.h"
 #include "llui.h"
 #include "roles_constants.h"
 
@@ -64,12 +67,14 @@ LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 
 void LLFloaterMediaBrowser::draw()
 {
-	childSetEnabled("go", !mAddressCombo->getValue().asString().empty());
+	BOOL url_exists = !mAddressCombo->getValue().asString().empty();
+	childSetEnabled("go", url_exists);
+	childSetEnabled("set_home", url_exists);
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if(parcel)
 	{
 		childSetVisible("parcel_owner_controls", LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA));
-		childSetEnabled("assign", !mAddressCombo->getValue().asString().empty());
+		childSetEnabled("assign", url_exists);
 	}
 	bool show_time_controls = false;
 	bool media_playing = false;
@@ -118,8 +123,11 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("close", onClickClose, this);
 	childSetAction("open_browser", onClickOpenWebBrowser, this);
 	childSetAction("assign", onClickAssign, this);
+	childSetAction("home", onClickHome, this);
+	childSetAction("set_home", onClickSetHome, this);
 
 	buildURLHistory();
+	
 	return TRUE;
 }
 
@@ -283,6 +291,37 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 	}
 	LLViewerParcelMedia::sendMediaNavigateMessage(media_url);
 }
+
+// static
+void LLFloaterMediaBrowser::onClickHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	if (self)
+	{
+		if (self->mBrowser)
+		{
+			std::string home_url = gSavedSettings.getString("BrowserHome");
+			self->mBrowser->navigateTo(home_url);
+		}
+	}
+}
+
+// static
+void LLFloaterMediaBrowser::onClickSetHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	std::string url = self->mCurrentURL;
+	if(!url.empty())
+	{
+		LLChat chat;
+		std::string log_message = LLTrans::getString("new_home_page") + " ";
+		log_message += url;
+		chat.mText = log_message;
+		LLFloaterChat::addChat(chat, FALSE, FALSE);
+		gSavedSettings.setString("BrowserHome", url);
+	}
+}
+
 //static 
 void LLFloaterMediaBrowser::onClickRewind(void* user_data)
 {

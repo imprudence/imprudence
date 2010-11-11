@@ -21,7 +21,8 @@ HippoLimits::HippoLimits()
 	mMaxHollow(0.95f),
 	mMinPrimScale(0.001f),
 	mMaxPrimScale(256.0f),
-	mMaxLinkedPrims(-1)
+	mMaxLinkedPrims(-1),
+	mMaxDragDistance(0.f)
 {
 	setLimits();
 }
@@ -207,7 +208,7 @@ F32 HippoLimits::getMinPrimZPos() const
 
 F32 HippoLimits::getMaxDragDistance() const
 {
-	if (mMaxDragDistance == 0)
+	if (mMaxDragDistance == 0.f)
 	{
 		return FLT_MAX;
 	}

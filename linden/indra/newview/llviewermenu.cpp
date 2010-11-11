@@ -6091,10 +6091,10 @@ class LLShowFloater : public view_listener_t
 		{
 			JCFloaterAnimList::toggleInstance(LLSD());
 		}
-//imprudence fixme		else if (floater_name == "inworld browser")
-//		{
-//			LLFloaterMediaBrowser::toggle();
-//		}
+		else if (floater_name == "inworld browser")
+		{
+			LLWeb::loadURL(gSavedSettings.getString("BrowserHome"));
+		}
 		else if (floater_name == "beacons")
 		{
 			LLFloaterBeacons::toggleInstance(LLSD());
