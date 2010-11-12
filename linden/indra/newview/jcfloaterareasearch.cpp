@@ -38,7 +38,14 @@
 #include "llscrolllistctrl.h"
 
 #include "llagent.h"
+
+#include "llfloatertools.h"
+#include "llmenugl.h"
+#include "llselectmgr.h"
+#include "lltoolcomp.h"
+#include "lltoolmgr.h"
 #include "lltracker.h"
+#include "llviewerjoystick.h"
 #include "llviewerobjectlist.h"
 #include "llviewercontrol.h"
 #include "jcfloaterareasearch.h"
@@ -63,6 +70,19 @@ mResultList(0)
 	llassert_always(sInstance == NULL);
 	sInstance = this;
 	mLastUpdateTimer.reset();
+
+
+	// Register event listeners for popup menu
+	mPopupMenuHandler = new PopupMenuHandler(this);
+	mPopupMenuHandler->registerListener(this, "Popup.HandleMenu");
+
+	LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_areasearch.xml", this);
+	if (!menu)
+	{
+		menu = new LLMenuGL(LLStringUtil::null);
+	}
+	menu->setVisible(FALSE);
+	mPopupMenuHandle = menu->getHandle();
 }
 
 JCFloaterAreaSearch::~JCFloaterAreaSearch()
@@ -90,6 +110,7 @@ BOOL JCFloaterAreaSearch::postBuild()
 	mResultList = getChild<LLScrollListCtrl>("result_list");
 	mResultList->setCallbackUserData(this);
 	mResultList->setDoubleClickCallback(onDoubleClick);
+	mResultList->setRightMouseDownCallback(onRightMouseDown);
 	mResultList->sortByColumn("Name", TRUE);
 
 	mCounterText = getChild<LLTextBox>("counter");
@@ -157,6 +178,102 @@ void JCFloaterAreaSearch::onDoubleClick(void *userdata)
 	{
 		LLTracker::trackLocation(objectp->getPositionGlobal(), sObjectDetails[object_id].name, "", LLTracker::LOCATION_ITEM);
 	}
+}
+
+//static
+void JCFloaterAreaSearch::onRightMouseDown(S32 x, S32 y, void *userdata)
+{
+	JCFloaterAreaSearch* self = (JCFloaterAreaSearch*)userdata;
+
+	self->setFocus( TRUE );
+	LLMenuGL* menu = (LLMenuGL*)self->mPopupMenuHandle.get();
+	if(menu)
+	{
+		if(menu->getVisible())
+		{
+			menu->setVisible(FALSE);
+		}
+		else
+		{
+			LLScrollListItem *item = self->mResultList->getFirstSelected();
+			if (item)
+			{
+				self->mSelectedItem = item;
+				menu->setVisible(TRUE);
+				menu->setFocus(TRUE);
+				menu->arrange();
+				menu->updateParent(LLMenuGL::sMenuContainer);
+				LLMenuGL::showPopup(self, menu, x, y+50);
+			}
+			else
+			{
+				self->mSelectedItem = NULL;
+			}
+		}
+	}
+
+}
+
+JCFloaterAreaSearch::PopupMenuHandler::PopupMenuHandler(const JCFloaterAreaSearch* instance)
+	: mInstance(instance)
+{
+
+}
+
+// static
+bool JCFloaterAreaSearch::PopupMenuHandler::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	std::string command = userdata.asString();
+	JCFloaterAreaSearch* self = (JCFloaterAreaSearch*)mInstance;
+
+	if (self && self->mSelectedItem && !command.empty())
+	{
+		LLUUID object_id = self->mSelectedItem->getUUID();
+		LLViewerObject* object = gObjectList.findObject(object_id);
+
+		if (object && !object->isAvatar())
+		{
+
+
+			if ("teleport" == command)
+			{
+				LLVector3d pos = object->getPositionGlobal();
+				gAgent.teleportViaLocation(pos);	
+
+			}
+			else
+			{
+				if ("cam" || "edit" == command)
+				{
+		
+					gAgent.setFocusOnAvatar(FALSE, FALSE);
+					gAgent.changeCameraToThirdPerson();
+					gAgent.setFocusGlobal(object->getPositionGlobal(), object_id);
+					gAgent.setCameraPosAndFocusGlobal(object->getPositionGlobal()
+						+ LLVector3d(3.5,1.35,0.75) * object->getRotation(),
+										object->getPositionGlobal(),
+										object_id );
+					if ("edit" == command)
+					{
+						if(!object->isSelected())
+						{
+							LLSelectMgr::getInstance()->deselectAll();
+							LLSelectMgr::getInstance()->selectObjectAndFamily(object);
+						}
+
+						gFloaterTools->open();
+						LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
+						gFloaterTools->setEditTool( LLToolCompTranslate::getInstance() );
+				
+						LLViewerJoystick::getInstance()->moveObjects(true);
+						LLViewerJoystick::getInstance()->setNeedsReset(true);
+					}
+				}
+			}
+		}
+	}
+
+	return true;
 }
 
 // static
