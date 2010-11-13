@@ -188,7 +188,7 @@ public:
 	virtual BOOL postBuild();
 
 protected:
-	static void sendUpdate(void* userdata);
+	static void onClickOrs(void* userdata);
 };
 
 /////////////////////////////////////////////////////////////////////////////

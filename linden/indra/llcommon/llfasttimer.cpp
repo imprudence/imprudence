@@ -42,6 +42,7 @@
 #include <sched.h>
 #elif LL_DARWIN
 #include <sys/time.h>
+#include "lltimer.h"	// get_clock_count()
 #else 
 #error "architecture not supported"
 #endif

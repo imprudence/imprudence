@@ -42,6 +42,7 @@
 #include "llstring.h"
 #include "lldir.h"
 #include "llfindlocale.h"
+#include "lltimer.h"
 
 #include "indra_constants.h"
 
@@ -1938,11 +1939,6 @@ void LLWindowSDL::setCursor(ECursorType cursor)
 		}
 		mCurrentCursor = cursor;
 	}
-}
-
-ECursorType LLWindowSDL::getCursor()
-{
-	return mCurrentCursor;
 }
 
 void LLWindowSDL::initCursors()

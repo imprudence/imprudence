@@ -39,6 +39,7 @@
 #include "llsdserialize.h"
 #include "llnametable.h"
 #include "llframetimer.h"
+#include "llapp.h"
 
 #if LL_WINDOWS   //For windows platform.
 bool isProcessAlive(U32 pid)
@@ -60,7 +61,7 @@ class LLPidLockFile
 	public:
 		LLPidLockFile( ) :
 			mSaving(FALSE), mWaiting(FALSE), 
-			mClean(TRUE), mPID(getpid())
+			mClean(TRUE), mPID(LLApp::getPid())
 		{
 			mLockName = gDirUtilp->getTempDir() + "/savelock";
 		}

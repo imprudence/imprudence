@@ -230,7 +230,7 @@ class WindowsManifest(ViewerManifest):
             self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
-		
+
         self.path("imprudence.url")
 
         # Plugin host application
@@ -250,6 +250,14 @@ class WindowsManifest(ViewerManifest):
         # For spellchecking
         if self.prefix(src=self.args['configuration'], dst=""):
             self.path("libhunspell.dll")
+            self.end_prefix()
+
+        # Get llcommon and deps.
+        if self.prefix(src=self.args['configuration'], dst=""):
+            self.path('libapr-1.dll')
+            self.path('libaprutil-1.dll')
+            self.path('libapriconv-1.dll')
+            self.path('llcommon.dll')
             self.end_prefix()
 
         # For textures
@@ -731,14 +739,51 @@ class DarwinManifest(ViewerManifest):
                 self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
                 #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
+                libdir = "../../libraries/universal-darwin/lib_release"
+                dylibs = {}
+
+                #for lib in "llkdu", "llcommon":
+                for lib in "llcommon":
+                    libfile = "lib%s.dylib" % lib
+                    try:
+                        self.path(self.find_existing_file(os.path.join(os.pardir,
+                                                                       lib,
+                                                                       self.args['configuration'],
+                                                                       libfile),
+                                                          os.path.join(libdir, libfile)),
+                                  dst=libfile)
+                    except RuntimeError:
+                        print "Skipping %s" % libfile
+                        dylibs[lib] = False
+                    else:
+                        dylibs[lib] = True
+
+                for libfile in ("libapr-1.0.3.7.dylib",
+                                "libaprutil-1.0.3.8.dylib",
+                                "libexpat.0.5.0.dylib"):
+                    self.path(os.path.join(libdir, libfile), libfile)
+
                 #libfmodwrapper.dylib
                 #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
                 
                 # our apps
 #                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
                 self.path("../mac_updater/" + self.args['configuration'] + "/mac-updater.app", "mac-updater.app")
-                
-		# plugin launcher
+
+                # our apps dependencies on shared libs
+                mac_crash_logger_res_path = self.dst_path_of("mac-crash-logger.app/Contents/Resources")
+                mac_updater_res_path = self.dst_path_of("mac-updater.app/Contents/Resources")
+                for libfile in ("libllcommon.dylib",
+                                "libapr-1.0.3.7.dylib",
+                                "libaprutil-1.0.3.8.dylib",
+                                "libexpat.0.5.0.dylib"):
+                    target_lib = os.path.join('../../..', libfile)
+                    self.run_command("ln -sf %(target)r %(link)r" %
+                                     {'target': target_lib,
+                                      'link' : os.path.join(mac_crash_logger_res_path, libfile)}
+                                    )
+
+                # plugin launcher
                 self.path("../llplugin/slplugin/" + self.args['configuration'] + "/SLPlugin", "SLPlugin")
 
                 # plugins
@@ -952,6 +997,8 @@ class Linux_i686Manifest(LinuxManifest):
         else:
             self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 
+        self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
+
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -1071,6 +1118,8 @@ class Linux_x86_64Manifest(LinuxManifest):
         else:
             self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+
+        self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")
 
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):

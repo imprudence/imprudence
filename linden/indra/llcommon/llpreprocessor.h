@@ -92,34 +92,12 @@
 
 #endif
 
-
 // Deal with the differeneces on Windows
-#if LL_MSVC
-namespace snprintf_hack
-{
-	int snprintf(char *str, size_t size, const char *format, ...);
-}
-
-// #define snprintf safe_snprintf		/* Flawfinder: ignore */
-using snprintf_hack::snprintf;
-#endif	// LL_MSVC
-
-// Static linking with apr on windows needs to be declared.
-#ifdef LL_WINDOWS
-#ifndef APR_DECLARE_STATIC
-#define APR_DECLARE_STATIC // For APR on Windows
-#endif
-#ifndef APU_DECLARE_STATIC
-#define APU_DECLARE_STATIC // For APR util on Windows
-#endif
-#endif
-
 #if defined(LL_WINDOWS)
 #define BOOST_REGEX_NO_LIB 1
 #define CURL_STATICLIB 1
 #define XML_STATIC
 #endif	//	LL_WINDOWS
-
 
 // Deal with VC6 problems
 #if LL_MSVC
@@ -127,12 +105,50 @@ using snprintf_hack::snprintf;
 #pragma warning( 3	     : 4702 )	// "unreachable code"  Treat this as level 3, not level 4.
 #pragma warning( 3	     : 4189 )	// "local variable initialized but not referenced"  Treat this as level 3, not level 4.
 //#pragma warning( 3	: 4018 )	// "signed/unsigned mismatch"  Treat this as level 3, not level 4.
+#pragma warning( 3      :  4263 )	// 'function' : member function does not override any base class virtual member function
+#pragma warning( 3      :  4264 )	// "'virtual_function' : no override available for virtual member function from base 'class'; function is hidden"
 #pragma warning( 3       : 4265 )	// "class has virtual functions, but destructor is not virtual"
-#pragma warning( disable : 4786 )	// silly MS warning deep inside their <map> include file
+//#pragma warning( disable : 4265 )	// boost 1.36.0, non-virtual destructor in boost::exception_detail::*
+#pragma warning( 3      :  4266 )	// 'function' : no override available for virtual member function from base 'type'; function is hidden
+#pragma warning (disable : 4180)	// qualifier applied to function type has no meaning; ignored
 #pragma warning( disable : 4284 )	// silly MS warning deep inside their <map> include file
 #pragma warning( disable : 4503 )	// 'decorated name length exceeded, name was truncated'. Does not seem to affect compilation.
 #pragma warning( disable : 4800 )	// 'BOOL' : forcing value to bool 'true' or 'false' (performance warning)
 #pragma warning( disable : 4996 )	// warning: deprecated
+
+// Linker optimization with "extern template" generates these warnings
+#pragma warning( disable : 4231 )	// nonstandard extension used : 'extern' before template explicit instantiation
+#pragma warning( disable : 4506 )   // no definition for inline function
+
+// level 4 warnings that we need to disable:
+#pragma warning (disable : 4100) // unreferenced formal parameter
+#pragma warning (disable : 4127) // conditional expression is constant (e.g. while(1) )
+#pragma warning (disable : 4244) // possible loss of data on conversions
+#pragma warning (disable : 4396) // the inline specifier cannot be used when a friend declaration refers to a specialization of a function template
+#pragma warning (disable : 4512) // assignment operator could not be generated
+#pragma warning (disable : 4706) // assignment within conditional (even if((x = y)) )
+
+#pragma warning (disable : 4251) // member needs to have dll-interface to be used by clients of class
+#pragma warning (disable : 4275) // non dll-interface class used as base for dll-interface class
 #endif	//	LL_MSVC
+
+#if LL_WINDOWS
+#define LL_DLLEXPORT __declspec(dllexport)
+#define LL_DLLIMPORT __declspec(dllimport)
+#elif LL_LINUX
+#define LL_DLLEXPORT __attribute__ ((visibility("default")))
+#define LL_DLLIMPORT
+#else
+#define LL_DLLEXPORT
+#define LL_DLLIMPORT
+#endif // LL_WINDOWS
+
+#ifdef llcommon_EXPORTS
+// Compiling llcommon (shared)
+#define LL_COMMON_API LL_DLLEXPORT
+#else // llcommon_EXPORTS
+// Using llcommon (shared)
+#define LL_COMMON_API LL_DLLIMPORT
+#endif // llcommon_EXPORTS
 
 #endif	//	not LL_LINDEN_PREPROCESSOR_H

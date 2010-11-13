@@ -2,10 +2,6 @@
 
 project(media_plugin_webkit)
 
-if(HAVE_64_BIT)
-	set(REQUIRE_PIC)
-endif(HAVE_64_BIT)
-
 include(00-Common)
 include(LLCommon)
 include(LLImage)
@@ -34,20 +30,12 @@ include_directories(
     ${LLQTWEBKIT_INCLUDE_DIR}
 )
 
-
 ### media_plugin_webkit
 
 set(media_plugin_webkit_SOURCE_FILES
     media_plugin_webkit.cpp
     )
 
-if(NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
-	if(WINDOWS)
-		add_definitions(/FIXED:NO)
-	else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
-		add_definitions(-fPIC)
-	endif(WINDOWS)
-endif (NOT CMAKE_SIZEOF_VOID_P MATCHES 4)
 set(media_plugin_webkit_HEADER_FILES
     volume_catcher.h
     )

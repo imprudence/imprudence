@@ -45,7 +45,7 @@ const U32 LLREFCOUNT_SENTINEL_VALUE = 0xAAAAAAAA;
 
 //----------------------------------------------------------------------------
 
-class LLMemory
+class LL_COMMON_API LLMemory
 {
 public:
 	static void initClass();
@@ -68,12 +68,12 @@ private:
 
 //----------------------------------------------------------------------------
 
-class LLRefCount
+class LL_COMMON_API LLRefCount
 {
 protected:
-	LLRefCount(const LLRefCount&); // not implemented
+	LLRefCount(const LLRefCount&);
 private:
-	LLRefCount&operator=(const LLRefCount&); // not implemented
+	LLRefCount&operator=(const LLRefCount&);
 
 protected:
 	virtual ~LLRefCount(); // use unref()
@@ -467,6 +467,6 @@ private:
 
 // Return the resident set size of the current process, in bytes.
 // Return value is zero if not known.
-U64 getCurrentRSS();
+LL_COMMON_API U64 getCurrentRSS();
 
 #endif

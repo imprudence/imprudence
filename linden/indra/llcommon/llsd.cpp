@@ -75,7 +75,7 @@ protected:
 		///< This constructor is used for static objects and causes the
 		//   suppresses adjusting the debugging counters when they are
 		//	 finally initialized.
-		
+
 	virtual ~Impl();
 	
 	bool shared() const							{ return mUseCount > 1; }
@@ -162,6 +162,7 @@ namespace
 		
 		virtual LLSD::Type type() const { return T; }
 
+		using LLSD::Impl::assign;
 		virtual void assign(LLSD::Impl*& var, DataRef value) {
 			if (shared())
 			{
@@ -348,6 +349,10 @@ namespace
 
 		virtual LLSD::Boolean asBoolean() const { return !mData.empty(); }
 
+		using LLSD::Impl::get; // Unhiding get(LLSD::Integer)
+		using LLSD::Impl::erase; // Unhiding erase(LLSD::Integer)
+		using LLSD::Impl::ref; // Unhiding ref(LLSD::Integer)
+
 		virtual bool has(const LLSD::String&) const; 
 		virtual LLSD get(const LLSD::String&) const; 
 		        LLSD& insert(const LLSD::String& k, const LLSD& v);
@@ -440,6 +445,11 @@ namespace
 		virtual LLSD::Boolean asBoolean() const { return !mData.empty(); }
 
 		virtual int size() const; 
+
+		using LLSD::Impl::get; // Unhiding get(LLSD::Integer)
+		using LLSD::Impl::erase; // Unhiding erase(LLSD::Integer)
+		using LLSD::Impl::ref; // Unhiding ref(LLSD::Integer)
+
 		virtual LLSD get(LLSD::Integer) const;
 		        void set(LLSD::Integer, const LLSD&);
 		        LLSD& insert(LLSD::Integer, const LLSD&);

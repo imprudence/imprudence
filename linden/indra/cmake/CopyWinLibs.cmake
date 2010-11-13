@@ -29,6 +29,9 @@ set(debug_files
     openal32.dll
     openjpegd.dll
     libhunspell.dll
+    libapr-1.dll
+    libaprutil-1.dll
+    libapriconv-1.dll
     )
 
 copy_if_different(
@@ -209,6 +212,9 @@ set(release_files
     openal32.dll
     openjpeg.dll
     libhunspell.dll
+    libapr-1.dll
+    libaprutil-1.dll
+    libapriconv-1.dll
     )
     
 copy_if_different(

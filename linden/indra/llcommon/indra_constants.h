@@ -263,15 +263,15 @@ const U8 GOD_LIKE = 1;
 const U8 GOD_NOT = 0;
 
 // "agent id" for things that should be done to ALL agents
-extern const LLUUID LL_UUID_ALL_AGENTS;
+LL_COMMON_API extern const LLUUID LL_UUID_ALL_AGENTS;
 
 // inventory library owner
-extern const LLUUID ALEXANDRIA_LINDEN_ID;
+LL_COMMON_API extern const LLUUID ALEXANDRIA_LINDEN_ID;
 
-extern const LLUUID GOVERNOR_LINDEN_ID;
-extern const LLUUID REALESTATE_LINDEN_ID;
+LL_COMMON_API extern const LLUUID GOVERNOR_LINDEN_ID;
+LL_COMMON_API extern const LLUUID REALESTATE_LINDEN_ID;
 // Maintenance's group id.
-extern const LLUUID MAINTENANCE_GROUP_ID;
+LL_COMMON_API extern const LLUUID MAINTENANCE_GROUP_ID;
 
 // Flags for kick message
 const U32 KICK_FLAGS_DEFAULT	= 0x0;

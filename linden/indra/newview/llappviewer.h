@@ -33,6 +33,8 @@
 #ifndef LL_LLAPPVIEWER_H
 #define LL_LLAPPVIEWER_H
 
+#include "llsys.h"	// LLOSInfo
+
 class LLTextureCache;
 class LLImageDecodeThread;
 class LLTextureFetch;
