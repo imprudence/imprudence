@@ -996,7 +996,8 @@
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
     </menu_item_check>
-		<menu_item_check label="Area Object Search" name="Area Object Search" shortcut="control|shift|A">
+		<menu_item_check label="Area Object Search" name="Area Object Search" 
+                     shortcut="alt|A">
 			<on_click function="ShowFloater" userdata="areasearch" />
 			<on_check function="FloaterVisible" userdata="areasearch" />
     </menu_item_check>

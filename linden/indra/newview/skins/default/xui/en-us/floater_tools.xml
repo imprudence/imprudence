@@ -1364,7 +1364,7 @@
 		Drag to Move, Shift-Drag to Copy
 	</string>
   <string name="status_align">
-    Aligns objects along an axis, hold Shift to Pack 
+    CTRL-A to align on an axis, CTRL-Shift-A to Pack 
   </string>
 	<string name="status_modifyland">
 		Click and Hold to Modify Land
