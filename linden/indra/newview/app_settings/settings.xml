@@ -364,6 +364,17 @@
     <key>Value</key>
     <integer>3</integer>
   </map>
+  <key>DisableInternalFlyUpAnimation</key>
+  <map>
+    <key>Comment</key>
+    <string>Disables the internal hover up animation. Enable if you use an AO and wear hand attachments like rings, prim nails etc. that often loose their correct position while flying.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>DisableLoginLogoutScreens</key>
   <map>
     <key>Comment</key>
