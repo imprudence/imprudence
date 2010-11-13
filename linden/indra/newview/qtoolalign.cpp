@@ -387,8 +387,24 @@ void QToolAlign::render()
 	LLColor4 default_normal_color( 0.7f, 0.7f, 0.7f, 0.1f );
 	gGL.color4fv( default_normal_color.mV );
 
-	render_bbox(mBBox);
-	renderManipulators();
+	LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getEditSelection();
+ 	BOOL can_move = selection->getObjectCount() != 0;
+	if (can_move)
+ 	{
+		struct f : public LLSelectedObjectFunctor
+ 		{
+ 			virtual bool apply(LLViewerObject* objectp)
+ 			{
+ 				return objectp->permMove() && (objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
+			}
+		} func;
+		can_move = selection->applyToObjects(&func);
+	}
+	if (can_move)
+	{
+		render_bbox(mBBox);
+		renderManipulators();
+	}
 }
 
 // only works for our specialized (AABB, position centered) bboxes
