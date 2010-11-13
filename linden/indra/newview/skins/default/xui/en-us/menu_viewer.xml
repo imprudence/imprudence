@@ -311,10 +311,11 @@
       <on_enable function="View.EnableLastChatter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Web Browser" label="Web Browser"
+    <menu_item_check name="Web Browser" label="Web Browser"
                     shortcut="control|B">
       <on_click function="ShowFloater" userdata="inworld browser" />
-    </menu_item_call>
+      <on_check function="FloaterVisible" userdata="inworld browser" />
+    </menu_item_check>
     <menu_item_separator />
     <menu_item_check name="Toolbar" label="Toolbar">
       <on_click function="ShowFloater" userdata="toolbar" />
