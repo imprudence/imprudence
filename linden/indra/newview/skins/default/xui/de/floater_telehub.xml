@@ -23,10 +23,10 @@
 	<text name="spawn_point_help">
 		Wählen Sie ein Objekt und klicken zur
 Positionsangabe auf „Hinzufügen“. Anschließend
-können sie das Objekt verschieben oder löschen.
+können Sie das Objekt verschieben oder löschen.
 Positionsangaben sind relativ zum
 Telehub-Mittelpunkt.
-Wählen Sie ein Objekt aus, um seine Position in
-der Welt anzuzeigen.
+Wählen Sie ein Objekt der Liste aus, um seine 
+Position in der Welt anzuzeigen.
 	</text>
 </floater>

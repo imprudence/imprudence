@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="teleporthistory" title="Teleportier-Historie">
+	<tab_container label="TP-Listenregister" name="tplisttabs">
+		<panel label="Teleportiert nach" name="TP-in">
+	<scroll_list name="places_list_in">
+		<column label="Region" name="region" />
+		<column label="Position" name="position" />
+		<column label="Besucht" name="visited" />
+		<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+		<column label="SLURL" name="slurl" />
+		<column label="Sim String" name="simstring" />
+	</scroll_list>
+		</panel>
+		<panel label="Teleportiert von" name="TP-out">
+			<scroll_list name="places_list_out">
+				<column label="Region" name="region" />
+				<column label="Position" name="position" />
+				<column label="Besucht" name="visited" />
+				<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+				<column label="SLURL" name="slurl" />
+				<column label="Sim String" name="simstring" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button label="Teleportieren" label_selected="Teleportieren"
+		name="teleport" tool_tip="Teleportiert zum ausgewählten Ort" />
+	<button label="Auf Karte zeigen" label_selected="Auf Karte zeigen"
+		name="show_on_map"
+		tool_tip="Zentriert die Karte auf diesen Ort" />
+	<button label="Historie löschen"
+		name="clear_history"
+		tool_tip="Gesicherte Teleportier-Historie löschen" />
+	<button label="SLURL auf Zwischenablage kopieren" name="copy_slurl"
+		tool_tip="Kopiert den aktuellen Ort als SLURL, um ihn im Internet zu nutzen." />
+</floater>
