@@ -1186,6 +1186,7 @@ set(viewer_APPSETTINGS_FILES
     app_settings/anim.ini
     app_settings/ao_template.ini
     app_settings/cmd_line.xml
+    app_settings/default_grids.xml
     app_settings/grass.xml
     app_settings/high_graphics.xml
     app_settings/keys.ini
