@@ -1363,6 +1363,9 @@
 	<string name="status_move">
 		Drag to Move, Shift-Drag to Copy
 	</string>
+  <string name="status_align">
+    Aligns objects along an axis, hold Shift to Pack 
+  </string>
 	<string name="status_modifyland">
 		Click and Hold to Modify Land
 	</string>

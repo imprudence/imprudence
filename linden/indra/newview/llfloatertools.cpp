@@ -393,6 +393,7 @@ BOOL	LLFloaterTools::postBuild()
 	mStatusText["rotate"] = getString("status_rotate");
 	mStatusText["scale"] = getString("status_scale");
 	mStatusText["move"] = getString("status_move");
+	mStatusText["align"] = getString("status_align");
 	mStatusText["modifyland"] = getString("status_modifyland");
 	mStatusText["camera"] = getString("status_camera");
 	mStatusText["grab"] = getString("status_grab");
