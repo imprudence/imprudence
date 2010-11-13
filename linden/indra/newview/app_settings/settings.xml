@@ -367,7 +367,7 @@
   <key>DisableInternalFlyUpAnimation</key>
   <map>
     <key>Comment</key>
-    <string>Disables the internal hover up animation. Enable if you use an AO and wear hand attachments like rings, prim nails etc. that often loose their correct position while flying.</string>
+    <string>Disables the internal hover up animation (on your local computer only). Enable if you use an AO and wear hand attachments like rings, prim nails etc. that often loose their correct position while flying.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
