@@ -1085,9 +1085,7 @@ bool LLAppViewer::mainLoop()
 				}
 
 
-				const F64 min_frame_time = 0.0; //(.0333 - .0010); // max video frame rate = 30 fps
-				const F64 min_idle_time = 0.0; //(.0010); // min idle time = 1 ms
-				const F64 max_idle_time = run_multiple_threads ? min_idle_time : llmin(.005*10.0*gFrameTimeSeconds, 0.005); // 5 ms a second
+				const F64 max_idle_time = run_multiple_threads ? 0.0 : llmin(.005*10.0*gFrameIntervalSeconds, 0.005); // 50ms/second, no more than 5ms/frame
 				idleTimer.reset();
 				while(1)
 				{
@@ -1103,11 +1101,8 @@ bool LLAppViewer::mainLoop()
 						ms_sleep(llmin(io_pending/100,100)); // give the vfs some time to catch up
 					}
 
-					F64 frame_time = frameTimer.getElapsedTimeF64();
 					F64 idle_time = idleTimer.getElapsedTimeF64();
-					if (frame_time >= min_frame_time &&
-						idle_time >= min_idle_time &&
-						(!work_pending || idle_time >= max_idle_time))
+					if (!work_pending || idle_time >= max_idle_time)
 					{
 						break;
 					}
