@@ -59,6 +59,7 @@ set(viewer_HEADER_FILES
 set(llwindow_LINK_LIBRARIES
     ${UI_LIBRARIES}     # for GTK
     ${SDL_LIBRARY}
+    fontconfig			# For FCInit and other FC* functions.
     )
 
 if (DARWIN)
