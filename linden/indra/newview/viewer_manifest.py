@@ -303,7 +303,7 @@ class WindowsManifest(ViewerManifest):
             self.path("qtiff4.dll")
             self.end_prefix()
 
-	# Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+    # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
         self.path("skins/default/xui/en-us/mime_types_windows.xml", "skins/default/xui/en-us/mime_types.xml")
 
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
