@@ -1036,9 +1036,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>34d9e4c93678a422cf80521bf0cd7628</string>
+            <string>becffca6bd8dcb239de284ea2a8b485b</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6-darwin-20100914.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6+cookies-darwin-20100617.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
