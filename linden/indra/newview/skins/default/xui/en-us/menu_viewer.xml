@@ -267,7 +267,8 @@
       <on_check function="FloaterVisible"
                 userdata="friends" />
     </menu_item_check>
-    <menu_item_call name="Groups" label="Groups">
+    <menu_item_call name="Groups" label="Groups"
+                    shortcut="control|shift|G">
       <on_click function="ShowAgentGroups"
                 userdata="agent" />
     </menu_item_call>
