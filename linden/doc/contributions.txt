@@ -338,6 +338,8 @@ Khyota Wulluf
 Kunnis Basiat
 	VWR-82
 	VWR-102
+Lance Corrimal
+	SNOW-717
 Lisa Lowe
 	CT-218
 	CT-219
