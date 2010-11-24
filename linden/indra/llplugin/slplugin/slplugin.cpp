@@ -78,6 +78,8 @@ static void crash_handler(int sig)
 #endif
 
 #if LL_WINDOWS
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 #include <windows.h>
 ////////////////////////////////////////////////////////////////////////////////
 //	Our exception handler - will probably just exit and the host application

@@ -38,7 +38,9 @@
 #define AIAPRPOOL_H
 
 #ifdef LL_WINDOWS
-#include <ws2tcpip.h>		// Needed before including apr_portable.h
+//#include <ws2tcpip.h>		
+# define WIN32_LEAN_AND_MEAN
+# include <winsock2.h> // Needed before including apr_portable.h
 #endif
 
 #include "apr_portable.h"

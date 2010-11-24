@@ -34,6 +34,8 @@
  */
 
 #include "volume_catcher.h"
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 #include <windows.h>
 #include "llmemory.h"
 class VolumeCatcherImpl : public LLSingleton<VolumeCatcherImpl>
