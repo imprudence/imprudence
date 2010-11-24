@@ -561,6 +561,14 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 		gIMMgr->saveIgnoreGroup();
 	}
 
+	// Make sure we update the group list in our contacts list and our IMs -- MC
+	if (gIMMgr)
+	{
+		// update the talk view
+		gIMMgr->refresh();
+	}
+	gAgent.fireEvent(new LLEvent(&gAgent, "new group"), "");
+
 	mChanged = FALSE;
 
 	return true;
