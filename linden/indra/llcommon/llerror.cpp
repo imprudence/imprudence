@@ -871,6 +871,9 @@ You get:
 	
 */
 
+apr_thread_mutex_t* gLogMutexp;
+apr_thread_mutex_t* gCallStacksLogMutexp;
+
 namespace {
 	bool checkLevelMap(const LevelMap& map, const std::string& key,
 						LLError::ELevel& level)

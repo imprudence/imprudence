@@ -920,7 +920,7 @@ bool LLAppViewer::mainLoop()
 	//-------------------------------------------
 
 	// Create IO Pump to use for HTTP Requests.
-	gServicePump = new LLPumpIO(gAPRPoolp);
+	gServicePump = new LLPumpIO;
 	LLHTTPClient::setPump(*gServicePump);
 	LLCurl::setCAFile(gDirUtilp->getCAFile());
 	

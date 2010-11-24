@@ -1181,7 +1181,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 			break;
 		case FFSAVE_RAW:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.raw", LLTrans::getString("dot_raw_file") + " (*.raw)");
+				(picker, "*.raw", LLTrans::getString("raw_file") + " (*.raw)");
 			suggest_ext = ".raw";
 			break;
 		case FFSAVE_J2C:

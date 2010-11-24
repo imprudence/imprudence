@@ -13,6 +13,7 @@ include_directories(
     )
 
 set(llcommon_SOURCE_FILES
+    aiaprpool.cpp
     imageids.cpp
     indra_constants.cpp
     llapp.cpp
@@ -74,6 +75,8 @@ set(llcommon_SOURCE_FILES
 set(llcommon_HEADER_FILES
     CMakeLists.txt
 
+    aiaprpool.h
+    aithreadsafe.h
     bitpack.h
     ctype_workaround.h
     doublelinkedlist.h
@@ -147,6 +150,7 @@ set(llcommon_HEADER_FILES
     llqueuedthread.h
     llrand.h
     llrun.h
+    llscopedvolatileaprpool.h
     llsd.h
     llsdserialize.h
     llsdserialize_xml.h
