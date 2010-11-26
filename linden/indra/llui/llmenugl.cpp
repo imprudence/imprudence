@@ -2233,13 +2233,25 @@ void LLMenuGL::arrange( void )
 		if (mHorizontalLayout)
 		{
 			item_list_t::iterator item_iter;
+			item_list_t::iterator next_item_iter;
 			for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
 			{
 				if ((*item_iter)->getVisible())
 				{
+
+				        // Add the next item in the list to be checked. This is done 
+				        // to make sure that there is not just one extra item in the spillover
+				        // list. You do not want to just keep the last one if it is too long 
+				        // in case it is drop down list.
+				        U32 testWidth = width;
+					next_item_iter = item_iter;
+					if(++next_item_iter != mItems.end()) {
+					  testWidth += (*next_item_iter)->getNominalWidth();
+					}
+
 					if (!getTornOff() 
 						&& item_iter != mItems.begin() // Don't spillover the first item!
-						&& width + (*item_iter)->getNominalWidth() > max_width - spillover_item_width)
+						&& testWidth + (*item_iter)->getNominalWidth() > max_width - spillover_item_width)
 					{
 						// no room for any more items
 						createSpilloverBranch();
@@ -2272,13 +2284,25 @@ void LLMenuGL::arrange( void )
 		else
 		{
 			item_list_t::iterator item_iter;
+			item_list_t::iterator next_item_iter;
 			for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
 			{
 				if ((*item_iter)->getVisible())
 				{
+
+				        // Add the next item in the list to be checked. This is done 
+				        // to make sure that there is not just one extra item in the spillover
+				        // list. You do not want to just keep the last one if it is too long 
+				        // in case it is drop down list.
+				        U32 testHeight = height;
+					next_item_iter = item_iter;
+					if(++next_item_iter != mItems.end()) {
+					  testHeight += (*next_item_iter)->getNominalHeight();
+					}
+
 					if (!getTornOff() 
 						&& item_iter != mItems.begin() // Don't spillover the first item!
-						&& height + (*item_iter)->getNominalHeight() > max_height - spillover_item_height)
+						&& testHeight + (*item_iter)->getNominalHeight() > max_height - spillover_item_height)
 					{
 						// no room for any more items
 						createSpilloverBranch();
