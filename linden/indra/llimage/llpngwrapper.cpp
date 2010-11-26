@@ -216,7 +216,8 @@ void LLPngWrapper::normalizeImage()
 	}
     if (mColorType == PNG_COLOR_TYPE_GRAY && mBitDepth < 8)
 	{
-		png_set_gray_1_2_4_to_8(mReadPngPtr);
+		/*png_set_gray_1_2_4_to_8(mReadPngPtr);*/
+		png_set_expand_gray_1_2_4_to_8(mReadPngPtr);
 	}
 	if (mColorType == PNG_COLOR_TYPE_GRAY
 		|| mColorType == PNG_COLOR_TYPE_GRAY_ALPHA)
@@ -364,7 +365,8 @@ void LLPngWrapper::releaseResources()
 {
 	if (mReadPngPtr || mReadInfoPtr)
 	{
-		png_destroy_read_struct(&mReadPngPtr, &mReadInfoPtr, png_infopp_NULL);
+		png_destroy_read_struct(&mReadPngPtr, &mReadInfoPtr, NULL);
+		/*png_destroy_read_struct(&mReadPngPtr, &mReadInfoPtr, png_infopp_NULL);*/
 		mReadPngPtr = NULL;
 		mReadInfoPtr = NULL;
 	}
