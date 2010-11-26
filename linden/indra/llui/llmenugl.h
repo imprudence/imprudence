@@ -70,6 +70,55 @@ typedef BOOL (*check_callback)(void*);
 // contents. Put the contents of the label in the provided parameter.
 typedef void (*label_callback)(std::string&,void*);
 
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Class LLCallbackInformation
+//
+// The LLCallbackInformation class is used to keep track of callback 
+// information for menus that might be requested at a future time.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class LLCallbackInformation 
+{
+
+public : 
+
+  // Constants used for keeping track of what type of callback is required.
+  static const U8 LL_MENU_ITEM_CALL_GL_NONE      = 0;
+  static const U8 LL_MENU_ITEM_CALL_GL_ON_CLICK  = 1;
+  static const U8 LL_MENU_ITEM_CALL_GL_ON_ENABLE = 2;
+  static const U8 LL_MENU_ITEM_CALL_GL_TRANSLATE = 3;
+
+
+  LLCallbackInformation(U8 theType=LLCallbackInformation::LL_MENU_ITEM_CALL_GL_NONE,
+                       const std::string& theName = LLStringUtil::null,
+                       const std::string& userData = LLStringUtil::null); 
+  ~LLCallbackInformation() {};
+
+  void setTypeOfCallback(U8 theType) {typeOfCallback = theType; }
+  void setCallbackName(const std::string& name) {callbackName = name; }
+  void setCallbackUserData(const std::string& userdata) {callbackUserData = userdata; }
+
+  U8                 getTypeOfCallback() {return(typeOfCallback); }
+  const std::string& getCallbackName() {return(callbackName); }
+  const std::string& getCallbackUserData() {return(callbackUserData); }
+
+  BOOL isTypeMatch(U8 type) { return(type == typeOfCallback);}
+  BOOL isNameMatch(const std::string& name) { return(name == callbackName);}
+
+protected:
+
+private:
+
+  U8 typeOfCallback;
+  std::string callbackName;
+  std::string callbackUserData;
+
+};
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLMenuItemGL
 //
@@ -90,7 +139,7 @@ public:
 	static const LLColor4& getHighlightFGColor() { return sHighlightForeground; }
 
 	LLMenuItemGL( const std::string& name, const std::string& label, KEY key = KEY_NONE, MASK = MASK_NONE );
-	virtual ~LLMenuItemGL() {};
+        virtual ~LLMenuItemGL();
 
 	virtual void setValue(const LLSD& value) { setLabel(value.asString()); }
 
@@ -174,6 +223,15 @@ public:
 	void setDrawTextDisabled(BOOL disabled) { mDrawTextDisabled = disabled; }
 	BOOL getDrawTextDisabled() const { return mDrawTextDisabled; }
 
+        // functionality for adding callbacks after the menu is constucted
+        void addCallbackType(U8 theType,const std::string& name,const std::string& userdata);
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn) = 0;
+
+
 protected:
 	void setHover(BOOL hover) { mGotHover = hover; }
 
@@ -194,6 +252,11 @@ protected:
 	LLUIString mDrawBranchLabel;
 
 	BOOL mHighlight;
+
+        // variables used for tracking callback types that will be
+        // requested after the widget is in place.
+        std::vector<LLCallbackInformation*> mFutureCallbackRequests;
+
 private:
 	static LLColor4 sEnabledColor;
 	static LLColor4 sDisabledColor;
@@ -287,6 +350,12 @@ public:
 	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
 
 	//virtual void draw();
+
+        // Functionality for tracking callback types for setting after widget is in place.
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn);
 
 
 private:
@@ -382,6 +451,12 @@ public:
 	// LLView Functionality
 	//virtual void draw( void );
 
+        // Functionality for tracking callback types for setting after widget is in place.
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+				     void *callback_fcn) { return FALSE; };
+
 private:
 	BOOL* mToggle;
 };
@@ -434,8 +509,10 @@ public:
 
 	// background colors
 	static void setDefaultBackgroundColor( const LLColor4& color ) { sDefaultBackgroundColor = color; }
-	void setBackgroundColor( const LLColor4& color ) { mBackgroundColor = color; }
+        void setBackgroundColor( const LLColor4& color );
+        void setBorderColor( const LLColor4& color );
 	const LLColor4& getBackgroundColor() const { return mBackgroundColor; }
+        const LLColor4& getBorderColor() const { return mBorderColor; }
 	void setBackgroundVisible( BOOL b )	{ mBgVisible = b; }
 	void setCanTearOff(BOOL tear_off, LLHandle<LLFloater> parent_floater_handle = LLHandle<LLFloater>());
 
@@ -525,6 +602,8 @@ public:
 	static BOOL getKeyboardMode() { return sKeyboardMode; }
 
 	static class LLMenuHolderGL* sMenuContainer;
+
+         BOOL setCtrlResponse(U8 llMenuItemCallType,const std::string& name,void* user_data,void *callback_fcn);
 	
 protected:
 	void createSpilloverBranch();
@@ -547,6 +626,7 @@ private:
 	static BOOL		sKeyboardMode;
 
 	LLColor4		mBackgroundColor;
+        LLColor4                mBorderColor;
 	BOOL			mBgVisible;
 	LLMenuItemGL*	mParentMenuItem;
 	LLUIString		mLabel;
@@ -623,6 +703,11 @@ public:
 
 	virtual LLView* getChildView(const std::string& name, BOOL recurse = TRUE, BOOL create_if_missing = TRUE) const;
 
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn);
+
 private:
 	LLHandle<LLView> mBranch;
 }; // end class LLMenuItemBranchGL
@@ -667,6 +752,11 @@ public:
 	// Display the menu centered on this point on the screen.
 	void show(S32 x, S32 y, BOOL mouse_down);
 	void hide(BOOL item_selected);
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn) { return FALSE; } ;
 
 private:
 	LLMenuItemGL *pieItemFromXY(S32 x, S32 y);
@@ -728,6 +818,11 @@ public:
 	S32 getRightmostMenuEdge();
 
 	void resetMenuTrigger() { mAltKeyTrigger = FALSE; }
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn) { return FALSE; } ;
 
 private:
 	void checkMenuTrigger();
@@ -813,6 +908,11 @@ public:
 	virtual void doIt(void);
 	virtual void draw(void);
 	virtual U32 getNominalHeight() const;
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+                                    const std::string& name,
+                                    void* user_data,
+                                    void *callback_fcn) { return FALSE; } ;
 
 private:
 	LLHandle<LLFloater> mParentHandle;
