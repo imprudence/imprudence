@@ -2247,6 +2247,13 @@ void LLMenuGL::arrange( void )
 					next_item_iter = item_iter;
 					if(++next_item_iter != mItems.end()) {
 					  testWidth += (*next_item_iter)->getNominalWidth();
+					  if( ((*next_item_iter)->getType() == "separator") ||
+					      ((*next_item_iter)->getType() == "tearoff_menu") ) {
+					    if(++next_item_iter != mItems.end()) {
+					      testWidth += (*next_item_iter)->getNominalWidth();
+					    }
+					  }
+
 					}
 
 					if (!getTornOff() 
@@ -2298,6 +2305,13 @@ void LLMenuGL::arrange( void )
 					next_item_iter = item_iter;
 					if(++next_item_iter != mItems.end()) {
 					  testHeight += (*next_item_iter)->getNominalHeight();
+					  if( ((*next_item_iter)->getType() == "separator") ||
+					      ((*next_item_iter)->getType() == "tearoff_menu") ) {
+					    if(++next_item_iter != mItems.end()) {
+					      testHeight += (*next_item_iter)->getNominalHeight();
+					    }
+					  }
+
 					}
 
 					if (!getTornOff() 
