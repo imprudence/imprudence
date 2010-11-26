@@ -216,44 +216,16 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 
 	// make the popup menu available
 	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
-	LLMenuGL* menu = new LLMenuGL("wot");
-	/*if (!menu)
-	{
-	menu = new LLMenuGL(LLStringUtil::null);
-	}*/
+	LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_rightclick_text.xml",this);
+       if (!menu)
+       {
+                 menu = new LLMenuGL(LLStringUtil::null);
+       }
 
-	menu->append(new LLMenuItemCallGL("Cut", context_cut, context_enable_cut, this));
-	menu->append(new LLMenuItemCallGL("Copy", context_copy, context_enable_copy, this));
-	menu->append(new LLMenuItemCallGL("Paste", context_paste, context_enable_paste, this));
-	menu->append(new LLMenuItemCallGL("Delete", context_delete, context_enable_delete, this));
-	menu->append(new LLMenuItemCallGL("Select All", context_selectall, context_enable_selectall, this));
-
-	menu->appendSeparator("Transep");
-	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
-	translatemenu->setCanTearOff(FALSE);
-	translatemenu->append(new LLMenuItemCallGL("en", "English", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("da", "Danish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("de", "Deutsch(German)", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("es", "Spanish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("fr", "French", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("it", "Italian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("hu", "Hungarian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("nl", "Dutch", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("pl", "Polish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("pt", "Portugese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ru", "Russian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("tr", "Turkish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("uk", "Ukrainian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("zh", "Chinese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ja", "Japanese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ko", "Korean", context_translate, context_enable_translate, this));
-
-	menu->appendMenu(translatemenu);
-	menu->appendSeparator("Spelsep");
-	//menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
-	menu->setCanTearOff(FALSE);
-	menu->setVisible(FALSE);
-	mPopupMenuHandle = menu->getHandle();
+       defineMenuCallbacks(menu);
+       mPopupMenuHandle = menu->getHandle(); 
+       menu->setBorderColor(gColors.getColor("MenuItemDisabledColor"));
+       menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
 }
 
 
@@ -556,7 +528,7 @@ void LLLineEditor::context_translate(void * data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	LLMenuGL* menu = line ? (LLMenuGL*)(line->mPopupMenuHandle.get()) : NULL;
-	LLMenuGL* translate_menu = menu ? menu->getChildMenuByName("Translate To", TRUE) : NULL;
+	LLMenuGL* translate_menu = menu ? menu->getChildMenuByName("Translation Options", TRUE) : NULL;
 	if (!translate_menu)
 	{
 		return;
@@ -1312,6 +1284,68 @@ BOOL LLLineEditor::canCut() const
 {
 	return !mReadOnly && !mDrawAsterixes && hasSelection();
 }
+
+
+// method to define the associated callbacks
+void LLLineEditor::defineMenuCallbacks(LLMenuGL* menu) {
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Cut Text",
+                             this,
+                             (void*)context_enable_cut);
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+                             "Cut Text",
+                             this,
+                             (void*)context_cut);
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Copy Text",
+                             this,
+                             (void*)context_enable_copy);
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+                             "Copy Text",
+                             this,
+                             (void*)context_copy);
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Paste Text",
+                             this,
+                             (void*)context_enable_paste);
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+                             "Paste Text",
+                             this,
+                             (void*)context_paste);
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Delete Text",
+                             this,
+                             (void*)context_enable_delete);
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+                             "Delete Text",
+                             this,
+                             (void*)context_delete);
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Select All Text",
+                             this,
+                             (void*)context_enable_selectall);
+       menu->setCtrlResponse(1+LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+                             "Select All Text",
+                             this,
+                             (void*)context_selectall);
+
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+                             "Translate Text",
+                             this,
+                             (void*)context_enable_translate);
+       menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_TRANSLATE,
+                             "Translate Text",
+                             this,
+                             (void*)context_translate);
+
+}
+
+
 
 // cut selection to clipboard
 void LLLineEditor::cut()

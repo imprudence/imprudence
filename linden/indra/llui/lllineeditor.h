@@ -55,6 +55,7 @@
 class LLFontGL;
 class LLLineEditorRollback;
 class LLButton;
+class LLMenuGL;
 
 typedef BOOL (*LLLinePrevalidateFunc)(const LLWString &wstr);
 
@@ -111,7 +112,8 @@ public:
 	virtual BOOL canTranslate() const;
 	virtual void insert(std::string what,S32 wher);
 
-	// LLEditMenuHandler overrides
+	// LLEditMenuHandler overrides and menu set up methods
+                void    defineMenuCallbacks(LLMenuGL* menu);
 	virtual void	cut();
 	virtual BOOL	canCut() const;
 
