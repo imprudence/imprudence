@@ -416,6 +416,7 @@ BOOL LLPanelAvatarWeb::postBuild(void)
 	childSetControlName("auto_load","AutoLoadWebProfiles");
 
 	mWebBrowser = getChild<LLMediaCtrl>("profile_html");
+
 	mWebBrowser->addObserver(this);
 
 	// links open in internally 
@@ -490,7 +491,17 @@ void LLPanelAvatarWeb::refresh()
 		mNavigateTo = "";
 	}
 }
+void LLPanelAvatarWeb::onVisibilityChange(BOOL new_visibility)
+{
+	LLPluginClassMedia::EPriority new_priority;
 
+	if (new_visibility)
+		new_priority = LLPluginClassMedia::PRIORITY_NORMAL;
+	else
+		new_priority = LLPluginClassMedia::PRIORITY_HIDDEN;
+
+	mWebBrowser->getMediaPlugin()->setPriority(new_priority);
+}
 
 void LLPanelAvatarWeb::enableControls(BOOL self)
 {	

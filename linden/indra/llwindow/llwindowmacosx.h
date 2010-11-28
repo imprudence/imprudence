@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -56,6 +56,8 @@ public:
 	/*virtual*/ BOOL getMinimized();
 	/*virtual*/ BOOL getMaximized();
 	/*virtual*/ BOOL maximize();
+	/*virtual*/ void minimize();
+	/*virtual*/ void restore();
 	/*virtual*/ BOOL getFullscreen();
 	/*virtual*/ BOOL getPosition(LLCoordScreen *position);
 	/*virtual*/ BOOL getSize(LLCoordScreen *size);
@@ -144,9 +146,6 @@ protected:
 	// Restore the display resolution to its value before we ran the app.
 	BOOL	resetDisplayResolution();
 
-	void	minimize();
-	void	restore();
-
 	BOOL	shouldPostQuit() { return mPostQuit; }
 
 
@@ -165,8 +164,8 @@ protected:
 	void adjustCursorDecouple(bool warpingMouse = false);
 	void fixWindowSize(void);
 	void stopDockTileBounce();
-
-
+	static MASK modifiersToMask(SInt16 modifiers);
+	
 	//
 	// Platform specific variables
 	//
@@ -214,6 +213,7 @@ protected:
 
 	friend class LLWindowManager;
 	static WindowRef sMediaWindow;
+	EventRef 	mRawKeyEvent;
 
 };
 
