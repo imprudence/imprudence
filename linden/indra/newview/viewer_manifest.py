@@ -582,28 +582,28 @@ class DarwinManifest(ViewerManifest):
                 self.path("libgobject-2.0.dylib")
                 self.path("libgthread-2.0.dylib")
                 
-                self.path("libgstreamer-0.10.dylib")
-                self.path("libgstapp-0.10.dylib")
-                self.path("libgstaudio-0.10.dylib")
-                self.path("libgstbase-0.10.dylib")
-                self.path("libgstcdda-0.10.dylib")
-                self.path("libgstcontroller-0.10.dylib")
-                self.path("libgstdataprotocol-0.10.dylib")
-                self.path("libgstfft-0.10.dylib")
-                self.path("libgstinterfaces-0.10.dylib")
-                self.path("libgstnet-0.10.dylib")
-                self.path("libgstnetbuffer-0.10.dylib")
-                self.path("libgstpbutils-0.10.dylib")
-                self.path("libgstriff-0.10.dylib")
-                self.path("libgstrtp-0.10.dylib")
-                self.path("libgstrtsp-0.10.dylib")
-                self.path("libgstsdp-0.10.dylib")
-                self.path("libgsttag-0.10.dylib")
-                self.path("libgstvideo-0.10.dylib")
+                # self.path("libgstreamer-0.10.dylib")
+                # self.path("libgstapp-0.10.dylib")
+                # self.path("libgstaudio-0.10.dylib")
+                # self.path("libgstbase-0.10.dylib")
+                # self.path("libgstcdda-0.10.dylib")
+                # self.path("libgstcontroller-0.10.dylib")
+                # self.path("libgstdataprotocol-0.10.dylib")
+                # self.path("libgstfft-0.10.dylib")
+                # self.path("libgstinterfaces-0.10.dylib")
+                # self.path("libgstnet-0.10.dylib")
+                # self.path("libgstnetbuffer-0.10.dylib")
+                # self.path("libgstpbutils-0.10.dylib")
+                # self.path("libgstriff-0.10.dylib")
+                # self.path("libgstrtp-0.10.dylib")
+                # self.path("libgstrtsp-0.10.dylib")
+                # self.path("libgstsdp-0.10.dylib")
+                # self.path("libgsttag-0.10.dylib")
+                # self.path("libgstvideo-0.10.dylib")
 
                 self.path("libxml2.2.dylib")
-                self.path("libfaad.2.dylib")
-                self.path("libFLAC.8.dylib")
+                # self.path("libfaad.2.dylib")
+                # self.path("libFLAC.8.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
                 self.path("libpng12.0.dylib")
@@ -611,7 +611,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
                 self.path("libopenjpeg.1.4.dylib")
-                self.path("libtheora.0.dylib")
+                # self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")
                 self.path("libvorbisfile.3.dylib")
@@ -657,78 +657,78 @@ class DarwinManifest(ViewerManifest):
                 self.path("zh-Hans.lproj")
 
 
-                if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
-                    self.path("libgstaacparse.so")
-                    self.path("libgstadder.so")
-                    self.path("libgstaiffparse.so")
-                    self.path("libgstamrparse.so")
-                    self.path("libgstapp.so")
-                    self.path("libgstaudioconvert.so")
-                    self.path("libgstaudiorate.so")
-                    self.path("libgstaudioresample.so")
-                    self.path("libgstautodetect.so")
-                    self.path("libgstavi.so")
-                    self.path("libgstcoreelements.so")
-                    self.path("libgstcoreindexers.so")
-                    self.path("libgstdebug.so")
-                    self.path("libgstdecodebin.so")
-                    self.path("libgstdecodebin2.so")
-                    self.path("libgstdeinterlace2.so")
-                    self.path("libgstequalizer.so")
-                    self.path("libgstfaad.so")
-                    self.path("libgstffmpeg.so")
-                    self.path("libgstffmpegcolorspace.so")
-                    self.path("libgstffmpegscale.so")
-                    self.path("libgstfilter.so")
-                    self.path("libgstflac.so")
-                    self.path("libgstflv.so")
-                    self.path("libgstgdp.so")
-                    self.path("libgsth264parse.so")
-                    self.path("libgsticydemux.so")
-                    self.path("libgstid3demux.so")
-                    self.path("libgstinterleave.so")
-                    self.path("libgstjpeg.so")
-                    self.path("libgstlevel.so")
-                    self.path("libgstmetadata.so")
-                    self.path("libgstmpeg4videoparse.so")
-                    self.path("libgstmpegdemux.so")
-                    self.path("libgstmpegvideoparse.so")
-                    self.path("libgstmultifile.so")
-                    self.path("libgstmultipart.so")
-                    self.path("libgstneonhttpsrc.so")
-                    self.path("libgstogg.so")
-                    self.path("libgstosxaudio.so")
-                    self.path("libgstosxvideosink.so")
-                    self.path("libgstplaybin.so")
-                    self.path("libgstpng.so")
-                    self.path("libgstpostproc.so")
-                    self.path("libgstqtdemux.so")
-                    #self.path("libgstqtwrapper.so")
-                    self.path("libgstqueue2.so")
-                    self.path("libgstreal.so")
-                    self.path("libgstrtp.so")
-                    self.path("libgstrtpmanager.so")
-                    self.path("libgstrtsp.so")
-                    self.path("libgstsdpelem.so")
-                    self.path("libgstselector.so")
-                    self.path("libgststereo.so")
-                    self.path("libgsttcp.so")
-                    self.path("libgsttheora.so")
-                    self.path("libgsttypefindfunctions.so")
-                    self.path("libgstudp.so")
-                    self.path("libgstvideobalance.so")
-                    self.path("libgstvideobox.so")
-                    self.path("libgstvideocrop.so")
-                    self.path("libgstvideoflip.so")
-                    self.path("libgstvideomixer.so")
-                    self.path("libgstvideorate.so")
-                    self.path("libgstvideoscale.so")
-                    self.path("libgstvideosignal.so")
-                    self.path("libgstvolume.so")
-                    self.path("libgstvorbis.so")
-                    self.path("libgstwavparse.so")
+                # if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
+                #     self.path("libgstaacparse.so")
+                #     self.path("libgstadder.so")
+                #     self.path("libgstaiffparse.so")
+                #     self.path("libgstamrparse.so")
+                #     self.path("libgstapp.so")
+                #     self.path("libgstaudioconvert.so")
+                #     self.path("libgstaudiorate.so")
+                #     self.path("libgstaudioresample.so")
+                #     self.path("libgstautodetect.so")
+                #     self.path("libgstavi.so")
+                #     self.path("libgstcoreelements.so")
+                #     self.path("libgstcoreindexers.so")
+                #     self.path("libgstdebug.so")
+                #     self.path("libgstdecodebin.so")
+                #     self.path("libgstdecodebin2.so")
+                #     self.path("libgstdeinterlace2.so")
+                #     self.path("libgstequalizer.so")
+                #     self.path("libgstfaad.so")
+                #     self.path("libgstffmpeg.so")
+                #     self.path("libgstffmpegcolorspace.so")
+                #     self.path("libgstffmpegscale.so")
+                #     self.path("libgstfilter.so")
+                #     self.path("libgstflac.so")
+                #     self.path("libgstflv.so")
+                #     self.path("libgstgdp.so")
+                #     self.path("libgsth264parse.so")
+                #     self.path("libgsticydemux.so")
+                #     self.path("libgstid3demux.so")
+                #     self.path("libgstinterleave.so")
+                #     self.path("libgstjpeg.so")
+                #     self.path("libgstlevel.so")
+                #     self.path("libgstmetadata.so")
+                #     self.path("libgstmpeg4videoparse.so")
+                #     self.path("libgstmpegdemux.so")
+                #     self.path("libgstmpegvideoparse.so")
+                #     self.path("libgstmultifile.so")
+                #     self.path("libgstmultipart.so")
+                #     self.path("libgstneonhttpsrc.so")
+                #     self.path("libgstogg.so")
+                #     self.path("libgstosxaudio.so")
+                #     self.path("libgstosxvideosink.so")
+                #     self.path("libgstplaybin.so")
+                #     self.path("libgstpng.so")
+                #     self.path("libgstpostproc.so")
+                #     self.path("libgstqtdemux.so")
+                #     #self.path("libgstqtwrapper.so")
+                #     self.path("libgstqueue2.so")
+                #     self.path("libgstreal.so")
+                #     self.path("libgstrtp.so")
+                #     self.path("libgstrtpmanager.so")
+                #     self.path("libgstrtsp.so")
+                #     self.path("libgstsdpelem.so")
+                #     self.path("libgstselector.so")
+                #     self.path("libgststereo.so")
+                #     self.path("libgsttcp.so")
+                #     self.path("libgsttheora.so")
+                #     self.path("libgsttypefindfunctions.so")
+                #     self.path("libgstudp.so")
+                #     self.path("libgstvideobalance.so")
+                #     self.path("libgstvideobox.so")
+                #     self.path("libgstvideocrop.so")
+                #     self.path("libgstvideoflip.so")
+                #     self.path("libgstvideomixer.so")
+                #     self.path("libgstvideorate.so")
+                #     self.path("libgstvideoscale.so")
+                #     self.path("libgstvideosignal.so")
+                #     self.path("libgstvolume.so")
+                #     self.path("libgstvorbis.so")
+                #     self.path("libgstwavparse.so")
                     
-                    self.end_prefix("../../libraries/universal-darwin/lib_release/gstreamer-plugins")
+                #     self.end_prefix("../../libraries/universal-darwin/lib_release/gstreamer-plugins")
 
 
                 # SLVoice and vivox lols
@@ -740,51 +740,38 @@ class DarwinManifest(ViewerManifest):
                 #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 libdir = "../../libraries/universal-darwin/lib_release"
-                dylibs = {}
 
-                #for lib in "llkdu", "llcommon":
-                for lib in "llcommon":
-                    libfile = "lib%s.dylib" % lib
-                    try:
-                        self.path(self.find_existing_file(os.path.join(os.pardir,
-                                                                       lib,
-                                                                       self.args['configuration'],
-                                                                       libfile),
-                                                          os.path.join(libdir, libfile)),
-                                  dst=libfile)
-                    except RuntimeError:
-                        print "Skipping %s" % libfile
-                        dylibs[lib] = False
-                    else:
-                        dylibs[lib] = True
+                self.path(os.path.join(os.pardir,
+                                       "llcommon",
+                                       self.args['configuration'],
+                                       "libllcommon.dylib"),
+                          dst="libllcommon.dylib")
+
 
                 for libfile in ("libapr-1.0.3.7.dylib",
                                 "libaprutil-1.0.3.8.dylib",
                                 "libexpat.0.5.0.dylib"):
                     self.path(os.path.join(libdir, libfile), libfile)
 
-                #libfmodwrapper.dylib
-                #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
-                
                 # our apps
-#                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
-                self.path("../mac_updater/" + self.args['configuration'] + "/mac-updater.app", "mac-updater.app")
+                # self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
+                # self.path("../mac_updater/" + self.args['configuration'] + "/mac-updater.app", "mac-updater.app")
 
-                # our apps dependencies on shared libs
-                mac_crash_logger_res_path = self.dst_path_of("mac-crash-logger.app/Contents/Resources")
-                mac_updater_res_path = self.dst_path_of("mac-updater.app/Contents/Resources")
+                # plugin launcher
+                self.path("../llplugin/slplugin/" + self.args['configuration'] + "/SLPlugin.app", "SLPlugin.app")
+
+                # symlinks for SLPlugin.app dependencies
+                slplugin_res_path = self.dst_path_of("SLPlugin.app/Contents/Resources")
                 for libfile in ("libllcommon.dylib",
                                 "libapr-1.0.3.7.dylib",
                                 "libaprutil-1.0.3.8.dylib",
-                                "libexpat.0.5.0.dylib"):
+                                "libexpat.0.5.0.dylib",
+                                ):
                     target_lib = os.path.join('../../..', libfile)
-                    self.run_command("ln -sf %(target)r %(link)r" %
+                    self.run_command("ln -sf %(target)r %(link)r" % 
                                      {'target': target_lib,
-                                      'link' : os.path.join(mac_crash_logger_res_path, libfile)}
-                                    )
-
-                # plugin launcher
-                self.path("../llplugin/slplugin/" + self.args['configuration'] + "/SLPlugin", "SLPlugin")
+                                      'link' : os.path.join(slplugin_res_path, libfile)}
+                                     )
 
                 # plugins
                 if self.prefix(src="", dst="llplugin"):

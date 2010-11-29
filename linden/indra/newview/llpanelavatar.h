@@ -76,7 +76,6 @@ public:
 	/*virtual*/ void draw();
 
 	LLPanelAvatar* getPanelAvatar() const { return mPanelAvatar; }
-
 	void setDataRequested(bool requested) { mDataRequested = requested; }
 	bool isDataRequested() const		  { return mDataRequested; }
 
@@ -143,14 +142,15 @@ public:
 	LLPanelAvatarWeb(const std::string& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
 	/*virtual*/ ~LLPanelAvatarWeb();
 	/*virtual*/ BOOL	postBuild(void);
-
 	/*virtual*/ void refresh();
+	/*virtual*/ void onVisibilityChange(BOOL new_visibility);
 
 	void enableControls(BOOL own_avatar);
 
 	void setWebURL(std::string url);
 
 	void load(std::string url);
+
 	static void onURLKeystroke(LLLineEditor* editor, void* data);
 	static void onCommitLoad(LLUICtrl* ctrl, void* data);
 	static void onCommitURL(LLUICtrl* ctrl, void* data);

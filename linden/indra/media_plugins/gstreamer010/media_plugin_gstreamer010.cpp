@@ -42,6 +42,10 @@
 #include <stdio.h>
 #endif
 
+#ifdef LL_DARWIN
+#include <Carbon/Carbon.h>
+#endif
+
 #include "llgl.h"
 
 #include "llplugininstance.h"

@@ -43,8 +43,8 @@
 #include "linden_common.h"
 #include "llerrorcontrol.h"
 #include "lltut.h"
+#include "aiaprpool.h"
 
-#include "apr_pools.h"
 #include "apr_getopt.h"
 
 // the CTYPE_WORKAROUND is needed for linux dev stations that don't
@@ -248,17 +248,12 @@ int main(int argc, char **argv)
 	ctype_workaround();
 #endif
 
-	apr_initialize();
-	apr_pool_t* pool = NULL;
-	if(APR_SUCCESS != apr_pool_create(&pool, NULL))
-	{
-		std::cerr << "Unable to initialize pool" << std::endl;
-		return 1;
-	}
+	LLAPRPool pool;
+	pool.create();
 	apr_getopt_t* os = NULL;
-	if(APR_SUCCESS != apr_getopt_init(&os, pool, argc, argv))
+	if(APR_SUCCESS != apr_getopt_init(&os, pool(), argc, argv))
 	{
-		std::cerr << "Unable to  pool" << std::endl;
+		std::cerr << "Unable to initialize the arguments for parsing by apr_getopt()." << std::endl;
 		return 1;
 	}
 
@@ -360,6 +355,5 @@ int main(int argc, char **argv)
 		s.close();
 	}
 	
-	apr_terminate();
 	return 0;
 }

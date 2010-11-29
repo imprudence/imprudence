@@ -39,6 +39,8 @@ class LLFrameTimer;
 
 #if LL_WINDOWS	//For windows platform.
 
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 #include <windows.h>
 
 #else	//Everyone Else
