@@ -46,6 +46,7 @@ public:
 	void apply();
 	void cancel();
 	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email);
+	void preparePerAccountPrefs(bool enable);
 
 	LLPanel* getPanel();
 

@@ -22,6 +22,9 @@
   <string name="log_in_to_change">
     log in to change
   </string>
+  <string name="default_email_used">
+    using default address
+  </string>
   <check_box bottom="-45" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Send IM to email ([EMAIL])"
 	     left="148" mouse_opaque="true" name="send_im_to_email" radio_style="false"

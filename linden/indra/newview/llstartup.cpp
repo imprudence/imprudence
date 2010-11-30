@@ -101,6 +101,7 @@
 #include "llfloatergesture.h"
 #include "llfloaterhud.h"
 #include "llfloaterland.h"
+#include "llfloaterpreference.h"
 #include "llfloaterteleporthistory.h"
 #include "llfloatertopobjects.h"
 #include "llfloatertos.h"
@@ -2875,6 +2876,8 @@ bool idle_startup()
 #if 0 // sjb: enable for auto-enabling timer display
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
+
+		LLFloaterPreference::updateIsLoggedIn(true);
 
 		return TRUE;
 	}
