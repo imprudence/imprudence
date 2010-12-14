@@ -908,12 +908,12 @@
 				Slice Begin and End:
 			</text>
 			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
-			     max_val="0.95" min_val="0" mouse_opaque="true" name="Path Limit Begin"
+			     increment="0.02" initial_val="0" label="B" label_width="10" left="121"
+			     max_val="0.98" min_val="0" mouse_opaque="true" name="Path Limit Begin"
 			     width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
-			     max_val="1" min_val="0.05" mouse_opaque="true" name="Path Limit End"
+			     increment="0.02" initial_val="1" label="E" label_width="10" left_delta="73"
+			     max_val="1" min_val="0.02" mouse_opaque="true" name="Path Limit End"
 			     width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"
