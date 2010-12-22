@@ -1474,6 +1474,7 @@ void LLVOAvatar::initClass()
 	{
 		loadClientTags();
 	}
+	initCloud();
 }
 
 
@@ -1487,6 +1488,21 @@ void LLVOAvatar::cleanupClass()
 	sAvatarDictionary = NULL;
 	sSkeletonXMLTree.cleanup();
 	sXMLTree.cleanup();
+}
+
+LLPartSysData LLVOAvatar::sCloud;
+void LLVOAvatar::initCloud()
+{
+	// fancy particle cloud designed by Brent
+
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	LLSD cloud;
+	llifstream in_file(filename);
+	LLSDSerialize::fromXMLDocument(cloud, in_file);
+	sCloud.fromLLSD(cloud);
+	LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
+	sCloud.mPartImageID                 = cloud_image->getID();
+
 }
 
 const LLVector3 LLVOAvatar::getRenderPosition() const
@@ -3070,34 +3086,7 @@ void LLVOAvatar::idleUpdateLoadingEffect()
 		}
 		else
 		{
-			LLPartSysData particle_parameters;
-
-			// fancy particle cloud designed by Brent
-			particle_parameters.mPartData.mMaxAge            = 4.f;
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			particle_parameters.mPartData.mStartScale.mV[VY] = 1.0f;
-			particle_parameters.mPartData.mEndScale.mV[VX]   = 0.02f;
-			particle_parameters.mPartData.mEndScale.mV[VY]   = 0.02f;
-			particle_parameters.mPartData.mStartColor        = LLColor4(1, 1, 1, 0.5f);
-			particle_parameters.mPartData.mEndColor          = LLColor4(1, 1, 1, 0.0f);
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			LLViewerImage* cloud = gImageList.getImageFromFile("cloud-particle.j2c");
-			particle_parameters.mPartImageID                 = cloud->getID();
-			particle_parameters.mMaxAge                      = 0.f;
-			particle_parameters.mPattern                     = LLPartSysData::LL_PART_SRC_PATTERN_ANGLE_CONE;
-			particle_parameters.mInnerAngle                  = 3.14159f;
-			particle_parameters.mOuterAngle                  = 0.f;
-			particle_parameters.mBurstRate                   = 0.02f;
-			particle_parameters.mBurstRadius                 = 0.0f;
-			particle_parameters.mBurstPartCount              = 1;
-			particle_parameters.mBurstSpeedMin               = 0.1f;
-			particle_parameters.mBurstSpeedMax               = 1.f;
-			particle_parameters.mPartData.mFlags             = ( LLPartData::LL_PART_INTERP_COLOR_MASK | LLPartData::LL_PART_INTERP_SCALE_MASK |
-																 LLPartData::LL_PART_EMISSIVE_MASK | // LLPartData::LL_PART_FOLLOW_SRC_MASK |
-																 LLPartData::LL_PART_TARGET_POS_MASK );
-
-			setParticleSource(particle_parameters, getID());
+			setParticleSource(sCloud, getID());
 		}
 	}
 }
