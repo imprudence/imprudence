@@ -377,7 +377,7 @@ LL_COMMON_API std::string rawstr_to_utf8(const std::string& raw);
 //
 // We should never use UTF16 except when communicating with Win32!
 //
-typedef std::basic_string<U16> llutf16string;
+typedef std::basic_string<wchar_t> llutf16string;
 
 LL_COMMON_API LLWString utf16str_to_wstring(const llutf16string &utf16str, S32 len);
 LL_COMMON_API LLWString utf16str_to_wstring(const llutf16string &utf16str);
