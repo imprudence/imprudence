@@ -88,6 +88,7 @@ set(viewer_SOURCE_FILES
     impprefsfonts.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
+    kokuastreamingaudio.cpp
     kowopenregionsettings.cpp
     lightshare.cpp
     llagent.cpp
@@ -541,6 +542,7 @@ set(viewer_HEADER_FILES
     impprefsfonts.h
     jcfloater_animation_list.h
     jcfloaterareasearch.h
+    kokuastreamingaudio.h
     lightshare.h
 	lggautocorrectfloater.h
 	lggautocorrect.h

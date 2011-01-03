@@ -38,7 +38,8 @@
 #include "indra_constants.h"
 
 // For Listeners
-#include "llaudioengine.h"
+// #include "llaudioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llagent.h"
 #include "llconsole.h"
 #include "lldrawpoolterrain.h"
@@ -310,7 +311,7 @@ static bool handleJoystickChanged(const LLSD& newvalue)
 
 static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 {
-	if (gAudiop)
+	if (gAudioStream)
 	{
 		if ( newvalue.asBoolean() )
 		{
@@ -319,15 +320,15 @@ static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 			{
 				// if stream is already playing, don't call this
 				// otherwise music will briefly stop
-				if ( !gAudiop->isInternetStreamPlaying() )
+				if ( !gAudioStream->isInternetStreamPlaying() )
 				{
-					gAudiop->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
+					gAudioStream->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
 				}
 			}
 		}
 		else
 		{
-			gAudiop->stopInternetStream();
+			gAudioStream->stopInternetStream();
 		}
 	}
 	return true;

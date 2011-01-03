@@ -36,7 +36,6 @@
 #include "linden_common.h"
 
 #include "llaudioengine.h"
-#include "llstreamingaudio.h"
 
 #include "llerror.h"
 #include "llmath.h"
@@ -47,7 +46,6 @@
 #include "lldir.h"
 #include "llaudiodecodemgr.h"
 #include "llassetstorage.h"
-
 
 // necessary for grabbing sounds from sim (implemented in viewer)	
 extern void request_sound(const LLUUID &sound_guid);
@@ -68,16 +66,6 @@ LLAudioEngine::LLAudioEngine()
 
 LLAudioEngine::~LLAudioEngine()
 {
-}
-
-LLStreamingAudioInterface* LLAudioEngine::getStreamingAudioImpl()
-{
-	return mStreamingAudioImpl;
-}
-
-void LLAudioEngine::setStreamingAudioImpl(LLStreamingAudioInterface *impl)
-{
-	mStreamingAudioImpl = impl;
 }
 
 void LLAudioEngine::setDefaults()
@@ -107,8 +95,6 @@ void LLAudioEngine::setDefaults()
 	mMasterGain = 1.f;
 	mInternalGain = 0.f;
 	mNextWindUpdate = 0.f;
-
-	mStreamingAudioImpl = NULL;
 
 	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
 		mSecondaryGain[i] = 1.0f;
@@ -173,62 +159,6 @@ void LLAudioEngine::shutdown()
 		mBuffers[i] = NULL;
 	}
 }
-
-
-// virtual
-void LLAudioEngine::startInternetStream(const std::string& url)
-{
-	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->start(url);
-}
-
-
-// virtual
-void LLAudioEngine::stopInternetStream()
-{
-	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->stop();
-}
-
-// virtual
-void LLAudioEngine::pauseInternetStream(int pause)
-{
-	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->pause(pause);
-}
-
-// virtual
-void LLAudioEngine::updateInternetStream()
-{
-	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->update();
-}
-
-// virtual
-int LLAudioEngine::isInternetStreamPlaying()
-{
-	if (mStreamingAudioImpl)
-		return mStreamingAudioImpl->isPlaying();
-
-	return 0; // Stopped
-}
-
-
-// virtual
-void LLAudioEngine::setInternetStreamGain(F32 vol)
-{
-	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->setGain(vol);
-}
-
-// virtual
-std::string LLAudioEngine::getInternetStreamURL()
-{
-	if (mStreamingAudioImpl)
-		return mStreamingAudioImpl->getURL();
-	else return std::string();
-}
-
 
 void LLAudioEngine::updateChannels()
 {
@@ -512,7 +442,6 @@ void LLAudioEngine::idle(F32 max_decode_time)
 	// or request new data.
 	startNextTransfer();
 
-	updateInternetStream();
 }
 
 
@@ -752,14 +681,6 @@ void LLAudioEngine::setSecondaryGain(S32 type, F32 gain)
 F32 LLAudioEngine::getSecondaryGain(S32 type)
 {
 	return mSecondaryGain[type];
-}
-
-F32 LLAudioEngine::getInternetStreamGain()
-{
-	if (mStreamingAudioImpl)
-		return mStreamingAudioImpl->getGain();
-	else
-		return 1.0f;
 }
 
 void LLAudioEngine::setMaxWindGain(F32 gain)
