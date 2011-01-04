@@ -1283,9 +1283,8 @@ bool LLAppViewer::cleanup()
 	{
 		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
 
-		LLStreamingAudioInterface *sai = gAudioStream->getStreamingAudioImpl();
-		delete sai;
-// 		gAudioStream->setStreamingAudioImpl(NULL);
+		delete gAudioStream;
+ 		gAudioStream = NULL;
 	}
 
 	if (gAudiop)
