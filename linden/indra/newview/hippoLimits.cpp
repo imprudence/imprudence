@@ -65,7 +65,9 @@ void HippoLimits::setOpenSimLimits()
 void HippoLimits::setSecondLifeLimits()
 {
 	llinfos << "Using Second Life limits" << llendl;
-	mMaxAgentGroups = 25;
+	S32 max_groups = gHippoGridManager->getConnectedGrid()->getMaxAgentGroups();
+	mMaxAgentGroups = llmax(max_groups, 25);
+
 	mMaxPrimScale = 10.0f;
 	mMinPrimScale = 0.01f;
 	mMaxHeight = 4096.0f;
