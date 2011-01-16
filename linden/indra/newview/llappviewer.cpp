@@ -605,18 +605,16 @@ bool LLAppViewer::init()
 
     writeSystemInfo();
 
+
 	// Build a string representing the current version number.
-    gCurrentVersion = llformat("%s %d.%d.%d %s / %s %d.%d.%d.%d", 
-        gSavedSettings.getString("VersionChannelName").c_str(), 
+	gCurrentVersion = llformat(
+		"%s %d.%d.%d.%d",
+		gSavedSettings.getString("VersionChannelName").c_str(),
 		ViewerVersion::getImpMajorVersion(), 
 		ViewerVersion::getImpMinorVersion(), 
 		ViewerVersion::getImpPatchVersion(),
-		ViewerVersion::getImpTestVersion().c_str(),
-		ViewerVersion::getLLViewerName().c_str(),
-		ViewerVersion::getLLMajorVersion(), 
-		ViewerVersion::getLLMinorVersion(), 
-		ViewerVersion::getLLPatchVersion(), 
-		ViewerVersion::getLLBuildVersion() );
+		0 // our 'build number'
+    );
 
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -2401,14 +2399,10 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 
@@ -2494,15 +2488,10 @@ void LLAppViewer::handleViewerCrash()
 	//We already do this in writeSystemInfo(), but we do it again here to make /sure/ we have a version
 	//to check against no matter what
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if ( parcel && parcel->getMusicURL()[0])
@@ -4187,11 +4176,11 @@ void LLAppViewer::handleLoginComplete()
 
 	// Store some data to DebugInfo in case of a freeze.
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();
