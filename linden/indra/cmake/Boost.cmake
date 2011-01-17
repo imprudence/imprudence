@@ -35,7 +35,7 @@ else (STANDALONE)
       set(BOOST_SIGNALS_LIBRARY 
           optimized libboost_signals-vc90-mt-${BOOST_VERSION}
           debug libboost_signals-vc90-mt-gd-${BOOST_VERSION})
-     elseif (MSVC100)
+     elseif (MSVC10)
       set(BOOST_PROGRAM_OPTIONS_LIBRARY 
           optimized libboost_program_options-vc100-mt-${BOOST_VERSION}
           debug libboost_program_options-vc100-mt-gd-${BOOST_VERSION})
