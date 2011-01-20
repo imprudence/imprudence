@@ -872,7 +872,47 @@ bool idle_startup()
 
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+
 		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_CLEANUP" << LL_ENDL;
+
+		gDisconnected = TRUE;
+
+		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
+		{
+			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
+		}
+
+		gHippoGridManager->setCurrentGridAsConnected();
+		gHippoLimits->setLimits();
+
+		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+		{
+			LLStartUp::setStartupState( STATE_LECTURE_PRIVACY );
+			LLFirstUse::Privacy();
+		}
+		else
+		{		
+			LLStartUp::setStartupState( STATE_PRIVACY_LECTURED );
+		}
+
+		return FALSE;
+
+	}
+
+	if (STATE_LECTURE_PRIVACY == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LECTURE_PRIVACY" << LL_ENDL;
+
+		//wait for the user to decide
+		ms_sleep(1);
+		return FALSE;
+	}
+
+	if (STATE_PRIVACY_LECTURED == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_PRIVACY_LECTURED" << LL_ENDL;
 		//reset the values that could have come in from a slurl
 		if (!gLoginHandler.getWebLoginKey().isNull())
 		{
@@ -914,15 +954,9 @@ bool idle_startup()
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
-		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
-		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
-		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
-		{
-			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
-		}
 
-		gHippoGridManager->setCurrentGridAsConnected();
-		gHippoLimits->setLimits();
+
+
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
@@ -3767,6 +3801,8 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 		RTNENUM( STATE_LOGIN_SHOW );
 		RTNENUM( STATE_LOGIN_WAIT );
 		RTNENUM( STATE_LOGIN_CLEANUP );
+		RTNENUM( STATE_LECTURE_PRIVACY );
+		RTNENUM( STATE_PRIVACY_LECTURED );
 		RTNENUM( STATE_LOGIN_VOICE_LICENSE );
 		RTNENUM( STATE_UPDATE_CHECK );
 		RTNENUM( STATE_LOGIN_AUTH_INIT );

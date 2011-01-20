@@ -116,7 +116,8 @@ public:
 	static void callbackClientTags(const LLSD& notification, const LLSD& response);
 	static void ClientTags();
 	static void voiceLicenseAgreement();
-	
+	static void callbackPrivacy(const LLSD& notification, const LLSD& response);
+	static void Privacy();
 protected:
 	static std::set<std::string> sConfigVariables;
 

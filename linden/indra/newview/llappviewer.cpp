@@ -1864,6 +1864,7 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstVoice");
 	LLFirstUse::addConfigVariable("FirstMedia");
 	LLFirstUse::addConfigVariable("FirstLoginScreen");
+	LLFirstUse::addConfigVariable("FirstPrivacy");
 		
 // [RLVa:KB] - Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
 	//LLFirstUse::addConfigVariable(RLV_SETTING_FIRSTUSE_DETACH);
@@ -3472,18 +3473,22 @@ void LLAppViewer::idle()
 		// Initialize the viewer_stats_timer with an already elapsed time
 		// of SEND_STATS_PERIOD so that the initial stats report will
 		// be sent immediately.
-		static LLFrameStatsTimer viewer_stats_timer(SEND_STATS_PERIOD);
-		reset_statistics();
-
-		// Update session stats every large chunk of time
-		// *FIX: (???) SAMANTHA
-		/* or don't! part of a larger effort to waste less CPU cycles. -Patrick Sapinski (Sunday, November 29, 2009)
-		if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD && !gDisconnected)
+		if(!gDisconnected && gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
-			llinfos << "Transmitting sessions stats" << llendl;
-			send_stats();
-			viewer_stats_timer.reset();
-		} */
+			static LLFrameStatsTimer viewer_stats_timer(SEND_STATS_PERIOD);
+			reset_statistics();
+
+			// Update session stats every large chunk of time
+			// *FIX: (???) SAMANTHA
+
+			/* or don't! part of a larger effort to waste less CPU cycles. -Patrick Sapinski (Sunday, November 29, 2009)*/
+			if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD )
+			{
+				llinfos << "Transmitting sessions stats" << llendl;
+				send_stats();
+				viewer_stats_timer.reset();
+			} 
+		}
 
 		// Print the object debugging stats
 		static LLFrameTimer object_debug_timer;

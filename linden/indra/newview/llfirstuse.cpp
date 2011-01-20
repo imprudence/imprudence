@@ -390,3 +390,31 @@ void LLFirstUse::voiceLicenseAgreement()
 		LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
 	}
 }
+
+void LLFirstUse::callbackPrivacy(const LLSD& notification, const LLSD& response)
+{
+
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( 0 == option )
+	{
+		gSavedSettings.setWarning("FirstPrivacy", FALSE);
+		LLStartUp::setStartupState(STATE_PRIVACY_LECTURED);
+	}
+	if ( 1 == option )
+	{
+		LLStartUp::resetLogin();
+	}
+}
+
+// static
+void LLFirstUse::Privacy()
+{
+	if (gSavedSettings.getWarning("FirstPrivacy"))
+	{
+		LLNotifications::instance().add("FirstPrivacy", LLSD(), LLSD(), callbackPrivacy);
+	}
+	else
+	{
+		LLStartUp::setStartupState(STATE_PRIVACY_LECTURED);
+	}
+}

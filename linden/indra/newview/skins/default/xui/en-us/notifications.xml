@@ -7221,6 +7221,24 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
 The new font will appear after you restart [VIEWER_NAME].
 </notification>
 
+<notification
+ icon="alertmodal.tga"
+ name="FirstPrivacy"
+ type="alertmodal">
+Terms of service of the grid you are connecting to require sending a "statistics packet" every 5 minutes.
+That is for example: Data about your hardware (CPU, RAM), number of avatars around, number of sims visited.
+Please check *the grids* privacy policy about usage of that data.
+  <form name="form">
+	  <button
+		 index="0"
+		 name="ok"
+		 text="Login anyway"/>
+	  <button
+		 index="1"
+		 name="notok"
+		 text="Do not log in"/>
+  </form>
+</notification>
 
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->
