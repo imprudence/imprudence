@@ -1759,13 +1759,19 @@ void LLViewerImage::setCachedRawImage()
 		if(mForSculpt)
 		{
 			max_size = MAX_CACHED_RAW_SCULPT_IMAGE_AREA ;
+			// Even though we don't use the full pixel size, we want to decode up to discard 0,
+			// because some legacy sculpts are weird like that.
+			mCachedRawImageReady = !mRawDiscardLevel ;
+		}
+		else
+		{
+			mCachedRawImageReady = (!mRawDiscardLevel || ((w * h) >= max_size)) ;
 		}
 
 		while(((w >> i) * (h >> i)) > max_size)
 		{
 			++i ;
 		}
-		mCachedRawImageReady = (!mRawDiscardLevel || ((w * h) >= max_size)) ;
 		
 		if(i)
 		{
@@ -1776,7 +1782,8 @@ void LLViewerImage::setCachedRawImage()
 			mRawImage->scale(w >> i, h >> i) ;
 		}
 		mCachedRawImage = mRawImage ;
-		mCachedRawDiscardLevel = mRawDiscardLevel + i ;			
+		mRawDiscardLevel += i ;
+		mCachedRawDiscardLevel = mRawDiscardLevel ;			
 	}
 }
 
@@ -1784,7 +1791,7 @@ void LLViewerImage::checkCachedRawSculptImage()
 {
 	if(mCachedRawImageReady && mCachedRawDiscardLevel > 0)
 	{
-		if(mCachedRawImage->getWidth() * mCachedRawImage->getHeight() < MAX_CACHED_RAW_SCULPT_IMAGE_AREA)
+		if(getDiscardLevel() != 0)
 		{
 			mCachedRawImageReady = FALSE ;
 		}
