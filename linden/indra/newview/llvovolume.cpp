@@ -706,7 +706,7 @@ void LLVOVolume::updateSculptTexture()
 		LLUUID id =  sculpt_params->getSculptTexture();
 		if (id.notNull())
 		{
-			mSculptTexture = gImageList::getImage(id);
+			mSculptTexture = gImageList.getImage(id);
 		}
 	}
 	else
