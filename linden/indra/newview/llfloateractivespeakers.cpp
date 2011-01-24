@@ -92,18 +92,19 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const std::string& name, const ESpeakerTy
 
 void LLSpeaker::lookupName()
 {
-	gCacheName->getName(mID, onAvatarNameLookup, new LLHandle<LLSpeaker>(getHandle()));
+	LLAvatarNameCache::get(mID, boost::bind(&LLSpeaker::onAvatarNameLookup, _1, _2, new LLHandle<LLSpeaker>(getHandle())));
 }
 
 //static 
-void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* user_data)
+void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const LLAvatarName& avatar_name, void* user_data)
 {
 	LLSpeaker* speaker_ptr = ((LLHandle<LLSpeaker>*)user_data)->get();
 	delete (LLHandle<LLSpeaker>*)user_data;
 
 	if (speaker_ptr)
 	{
-		speaker_ptr->mDisplayName = first + " " + last;
+		// Always show "Display Name [Legacy Name]" for security reasons
+		speaker_ptr->mDisplayName = avatar_name.getNames();
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-1.0.0g
 		// TODO-RLVa: this seems to get called per frame which is very likely an LL bug that will eventuall get fixed
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))

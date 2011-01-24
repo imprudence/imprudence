@@ -18,6 +18,7 @@ set(llcommon_SOURCE_FILES
     llapp.cpp
     llapr.cpp
     llassettype.cpp
+    llavatarname.cpp
     llbase32.cpp
     llbase64.cpp
     llcommon.cpp
@@ -87,6 +88,7 @@ set(llcommon_HEADER_FILES
     llassettype.h
     llassoclist.h
     llavatarconstants.h
+    llavatarname.h
     llbase32.h
     llbase64.h
     llboost.h

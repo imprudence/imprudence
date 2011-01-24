@@ -1357,7 +1357,33 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 		{
 			name_edit->setText(name);
 		}
+		childSetVisible("name", TRUE);
 	}
+	LLNameEditor* complete_name_edit = getChild<LLNameEditor>("complete_name");
+	if (complete_name_edit)
+	{
+		if (LLAvatarNameCache::useDisplayNames())
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(avatar_id, &avatar_name))
+			{
+				// Always show "Display Name [Legacy Name]" for security reasons
+				complete_name_edit->setText(avatar_name.getNames());
+			}
+			else
+			{
+				complete_name_edit->setText(name_edit->getText());
+				LLAvatarNameCache::get(avatar_id, boost::bind(&LLPanelAvatar::completeNameCallback, _1, _2, this));			
+			}
+			childSetVisible("name", FALSE);
+			childSetVisible("complete_name", TRUE);
+		}
+		else
+		{
+			childSetVisible("complete_name", FALSE);
+		}
+	}
+
 // 	if (avatar_changed)
 	{
 		// While we're waiting for data off the network, clear out the
@@ -1480,6 +1506,22 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 	}
 }
 
+void LLPanelAvatar::completeNameCallback(const LLUUID& agent_id,
+										 const LLAvatarName& avatar_name,
+										 void *userdata)
+{
+	LLPanelAvatar* self = (LLPanelAvatar*)userdata;
+	if (!LLAvatarNameCache::useDisplayNames() || agent_id != self->mAvatarID)
+	{
+		return;
+	}
+	LLLineEditor* complete_name_edit = self->getChild<LLLineEditor>("complete_name");
+	if (complete_name_edit)
+	{
+		// Always show "Display Name [Legacy Name]" for security reasons
+		complete_name_edit->setText(avatar_name.getNames());
+	}
+}
 
 void LLPanelAvatar::resetGroupList()
 {

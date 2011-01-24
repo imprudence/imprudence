@@ -33,6 +33,7 @@
 #ifndef LL_LLPANELAVATAR_H
 #define LL_LLPANELAVATAR_H
 
+#include "llavatarnamecache.h"
 #include "llpanel.h"
 #include "v3dmath.h"
 #include "lluuid.h"
@@ -335,6 +336,9 @@ private:
 	static bool finishUnfreeze(const LLSD& notification, const LLSD& response);
 
 	static void showProfileCallback(S32 option, void *userdata);
+	static void completeNameCallback(const LLUUID& agent_id,
+									 const LLAvatarName& avatar_name,
+									 void *userdata);
 
 	static	void*	createPanelAvatar(void*	data);
 	static	void*	createFloaterAvatarInfo(void*	data);

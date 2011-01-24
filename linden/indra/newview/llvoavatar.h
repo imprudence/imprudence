@@ -112,6 +112,10 @@ public:
 	void idleUpdateWindEffect();
 	void idleUpdateBoobEffect();
 	void idleUpdateNameTag(const LLVector3& root_pos_last);
+	void clearNameTag();
+	static void invalidateNameTag(const LLUUID& agent_id);
+	// force all name tags to rebuild, useful when display names turned on/off
+	static void invalidateNameTags();
 	void idleUpdateRenderCost();
 	void idleUpdateTractorBeam();
 	void idleUpdateBelowWater();
@@ -677,6 +681,7 @@ protected:
 
 	LLWString mNameString;
 	std::string  mTitle;
+	std::string  mCompleteName;
 	BOOL	  mNameAway;
 	BOOL	  mNameBusy;
 	BOOL	  mNameMute;

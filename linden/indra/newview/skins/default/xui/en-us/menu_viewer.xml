@@ -259,6 +259,11 @@
                 userdata="appearance" />
       <on_enable function="Edit.EnableCustomizeAvatar" />
     </menu_item_call>
+    <menu_item_call bottom="-362" enabled="true" height="19" label="Display Name..." left="0"
+                    mouse_opaque="true" name="Display Name..." width="153">
+        <on_click function="ShowFloater" userdata="displayname" />
+        <on_enable function="Edit.EnableDisplayName" />
+    </menu_item_call>
     <menu_item_separator />
     <menu_item_check name="Friends" label="Friends"
                      shortcut="control|shift|F">

@@ -38,6 +38,7 @@
 #include <ctype.h>
 
 #include "llaudioengine.h"
+#include "llavatarnamecache.h"
 #include "noise.h"
 
 #include "llagent.h" //  Get state values from here
@@ -748,6 +749,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mAppearanceAnimating(FALSE),
 	mNameString(),
 	mTitle(),
+	mCompleteName(),
 	mNameAway(FALSE),
 	mNameBusy(FALSE),
 	mNameMute(FALSE),
@@ -3609,6 +3611,35 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 
 		if (mNameText.notNull() && firstname && lastname)
 		{
+			std::string complete_name = firstname->getString();
+			if (sRenderGroupTitles)
+			{
+				complete_name += " ";
+			}
+			else
+			{
+				// If all group titles are turned off, stack first name
+				// on a line above last name
+				complete_name += "\n";
+			}
+			complete_name += lastname->getString();
+
+			if (LLAvatarNameCache::useDisplayNames())
+			{
+				LLAvatarName avatar_name;
+				if (LLAvatarNameCache::get(getID(), &avatar_name))
+				{
+					if (LLAvatarNameCache::useDisplayNames() == 2)
+					{
+						complete_name = avatar_name.mDisplayName;
+					}
+					else
+					{
+						complete_name = avatar_name.getNames(true);
+					}
+				}
+			}
+
 			BOOL is_away = mSignaledAnimations.find(ANIM_AGENT_AWAY)  != mSignaledAnimations.end();
 			BOOL is_busy = mSignaledAnimations.find(ANIM_AGENT_BUSY) != mSignaledAnimations.end();
 			BOOL is_appearance = mSignaledAnimations.find(ANIM_AGENT_CUSTOMIZE) != mSignaledAnimations.end();
@@ -3623,7 +3654,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			}
 
 			if (mNameString.empty() ||
-				new_name ||
+				new_name || complete_name != mCompleteName ||
 				(!title && !mTitle.empty()) ||
 				(title && mTitle != title->getString()) ||
 				(is_away != mNameAway || is_busy != mNameBusy || is_muted != mNameMute)
@@ -3639,20 +3670,19 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 						line += title->getString();
 						//LLStringFn::replace_ascii_controlchars(line,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
 						line += "\n";
-						line += firstname->getString();
+						line += complete_name;
 					}
 					else
 					{
-						line += firstname->getString();
+						line += complete_name;
 					}
 
-					line += " ";
-					line += lastname->getString();
+
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
 				}
 				else
 				{
-					line = RlvStrings::getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
+					line = RlvStrings::getAnonym(complete_name);
 				}
 // [/RLVa:KB]
 
@@ -3662,7 +3692,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				bool show_client = client.length() != 0 && (*sShowClientNameTag);
 				if (is_away || is_muted || is_busy || show_client)
 				{
-					line += " (";
+					line += "\n(";
 					if (is_away)
 					{
 						line += "Away";
@@ -3707,6 +3737,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				mNameMute = is_muted;
 				mNameAppearance = is_appearance;
 				mTitle = title ? title->getString() : "";
+				mCompleteName = complete_name;
 				//LLStringFn::replace_ascii_controlchars(mTitle,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
 				mNameString = utf8str_to_wstring(line);
 				new_name = TRUE;
@@ -3823,6 +3854,41 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	}
 }
 
+void LLVOAvatar::clearNameTag()
+{
+	mNameString.clear();
+	if (mNameText)
+	{
+		mNameText->setLabel("");
+		mNameText->setString(mNameString);
+	}
+}
+
+//static
+void LLVOAvatar::invalidateNameTag(const LLUUID& agent_id)
+{
+	LLViewerObject* obj = gObjectList.findObject(agent_id);
+	if (!obj) return;
+
+	LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(obj);
+	if (!avatar) return;
+
+	avatar->clearNameTag();
+}
+
+//static
+void LLVOAvatar::invalidateNameTags()
+{
+	std::vector<LLCharacter*>::iterator it;
+	for (it = LLCharacter::sInstances.begin(); it != LLCharacter::sInstances.end(); ++it)
+	{
+		LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(*it);
+		if (!avatar) continue;
+		if (avatar->isDead()) continue;
+
+		avatar->clearNameTag();
+	}
+}
 
 void LLVOAvatar::idleUpdateTractorBeam()
 {

@@ -41,6 +41,8 @@
 // #include "llaudioengine.h"
 #include "kokuastreamingaudio.h"
 #include "llagent.h"
+#include "llavatarnamecache.h"
+#include "llcallingcard.h"
 #include "llconsole.h"
 #include "lldrawpoolterrain.h"
 #include "llflexibleobject.h"
@@ -426,6 +428,28 @@ static bool handleAuditTextureChanged(const LLSD& newvalue)
 	return true;
 }
 
+static bool handleDisplayNamesUsageChanged(const LLSD& newvalue)
+{
+	LLAvatarNameCache::setUseDisplayNames((U32)newvalue.asInteger());
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleOmitResidentAsLastNameChanged(const LLSD& newvalue)
+{
+	LLAvatarName::sOmitResidentAsLastName =(bool)newvalue.asBoolean();
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleLegacyNamesForFriendsChanged(const LLSD& newvalue)
+{
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
 static bool handleRenderDebugGLChanged(const LLSD& newvalue)
 {
 	gDebugGL = newvalue.asBoolean();
@@ -573,6 +597,9 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelRolloff")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("AudioStreamingMusic")->getSignal()->connect(boost::bind(&handleAudioStreamMusicChanged, _1));
 	gSavedSettings.getControl("AuditTexture")->getSignal()->connect(boost::bind(&handleAuditTextureChanged, _1));
+	gSavedSettings.getControl("DisplayNamesUsage")->getSignal()->connect(boost::bind(&handleDisplayNamesUsageChanged, _1));
+	gSavedSettings.getControl("OmitResidentAsLastName")->getSignal()->connect(boost::bind(&handleOmitResidentAsLastNameChanged, _1));
+	gSavedSettings.getControl("LegacyNamesForFriends")->getSignal()->connect(boost::bind(&handleLegacyNamesForFriendsChanged, _1));
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMusic")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMedia")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
