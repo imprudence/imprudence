@@ -169,8 +169,10 @@ public:
 	/*virtual*/ BOOL 	setMaterial(const U8 material);
 
 				void	setTexture(const S32 face);
-
+				S32     getIndexInTex() const {return mIndexInTex ;}
 	/*virtual*/ BOOL	setVolume(const LLVolumeParams &volume_params, const S32 detail, bool unique_volume = false);
+				void	updateSculptTexture();
+				void    setIndexInTex(S32 index) { mIndexInTex = index ;}
 				void	sculpt();
 				void	updateRelativeXform();
 	/*virtual*/ BOOL	updateGeometry(LLDrawable *drawable);
@@ -231,7 +233,6 @@ private:
 	LLFrameTimer mTextureUpdateTimer;
 	S32			mLOD;
 	BOOL		mLODChanged;
-	S32         mSculptLevel;
 	BOOL		mSculptChanged;
 	LLMatrix4	mRelativeXform;
 	LLMatrix3	mRelativeXformInvTrans;
@@ -239,6 +240,7 @@ private:
 	F32			mVObjRadius;
 	LLVolumeInterface *mVolumeImpl;
 	LLPointer<LLViewerImage> mSculptTexture;
+	S32 mIndexInTex;
 	
 	// statics
 public:
