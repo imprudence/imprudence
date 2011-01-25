@@ -262,7 +262,7 @@ void LLHoverView::updateText()
 					LLAvatarName avatar_name;
 					if (LLAvatarNameCache::get(hit_object->getID(), &avatar_name))
 					{
-						if (LLAvatarNameCache::useDisplayNames() == 2)
+						if (LLAvatarNameCache::useDisplayNames() == 1)
 						{
 							complete_name = avatar_name.mDisplayName;
 						}

@@ -3629,7 +3629,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				LLAvatarName avatar_name;
 				if (LLAvatarNameCache::get(getID(), &avatar_name))
 				{
-					if (LLAvatarNameCache::useDisplayNames() == 2)
+					if (LLAvatarNameCache::useDisplayNames() == 1)
 					{
 						complete_name = avatar_name.mDisplayName;
 					}

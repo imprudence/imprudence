@@ -262,7 +262,7 @@ BOOL LLPanelFriends::addFriend(const LLUUID& agent_id)
 			LLAvatarName avatar_name;
 			if (LLAvatarNameCache::get(agent_id, &avatar_name))
 			{
-				if (LLAvatarNameCache::useDisplayNames() == 2)
+				if (LLAvatarNameCache::useDisplayNames() == 1)
 				{
 					fullname = avatar_name.mDisplayName;
 				}
@@ -358,7 +358,7 @@ BOOL LLPanelFriends::updateFriendItem(const LLUUID& agent_id, const LLRelationsh
 			LLAvatarName avatar_name;
 			if (LLAvatarNameCache::get(agent_id, &avatar_name))
 			{
-				if (LLAvatarNameCache::useDisplayNames() == 2)
+				if (LLAvatarNameCache::useDisplayNames() == 1)
 				{
 					fullname = avatar_name.mDisplayName;
 				}

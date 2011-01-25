@@ -424,13 +424,13 @@
     <key>DisplayNamesUsage</key>
     <map>
       <key>Comment</key>
-      <string>Usage type for display names: 0 = Legacy name only, 1 = Display name with legacy name, 2 = display name only (legacy name when absent)</string>
+      <string>Usage type for display names: 0 = Legacy name only, 1 = display name only (legacy name when absent), 2 = Display name with legacy name</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>U32</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>2</integer>
     </map>
     <key>OmitResidentAsLastName</key>
     <map>

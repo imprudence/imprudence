@@ -652,7 +652,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 			if (LLAvatarNameCache::get(mClosestAgentToCursor, &avatar_name))
 			{
 				result = TRUE;
-				if (LLAvatarNameCache::useDisplayNames() == 2)
+				if (LLAvatarNameCache::useDisplayNames() == 1)
 				{
 					fullname = avatar_name.mDisplayName;
 				}

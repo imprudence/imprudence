@@ -693,7 +693,7 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 							LLAvatarName avatar_name;
 							if (LLAvatarNameCache::get(agent_id, &avatar_name))
 							{
-								if (LLAvatarNameCache::useDisplayNames() == 2)
+								if (LLAvatarNameCache::useDisplayNames() == 1)
 								{
 									first = avatar_name.mDisplayName;
 								}

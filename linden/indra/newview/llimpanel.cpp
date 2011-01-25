@@ -1639,7 +1639,7 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 				LLAvatarName avatar_name;
 				if (LLAvatarNameCache::get(source, &avatar_name))
 				{
-					if (LLAvatarNameCache::useDisplayNames() == 2)
+					if (LLAvatarNameCache::useDisplayNames() == 1)
 					{
 						name = avatar_name.mDisplayName;
 					}
@@ -2220,7 +2220,7 @@ void LLFloaterIMPanel::sendMsg()
 						LLAvatarName avatar_name;
 						if (LLAvatarNameCache::get(gAgent.getID(), &avatar_name))
 						{
-							if (LLAvatarNameCache::useDisplayNames() == 2)
+							if (LLAvatarNameCache::useDisplayNames() == 1)
 							{
 								history_echo = avatar_name.mDisplayName;
 							}

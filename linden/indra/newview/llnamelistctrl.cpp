@@ -475,7 +475,7 @@ bool LLNameListCtrl::getResidentName(const LLUUID& agent_id, std::string& fullna
 			LLAvatarName avatar_name;
 			if (LLAvatarNameCache::get(agent_id, &avatar_name))
 			{
-				if (LLAvatarNameCache::useDisplayNames() == 2)
+				if (LLAvatarNameCache::useDisplayNames() == 1)
 				{
 					fullname = avatar_name.mDisplayName;
 				}

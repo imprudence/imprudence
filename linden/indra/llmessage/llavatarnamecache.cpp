@@ -715,7 +715,7 @@ void LLAvatarNameCache::setUseDisplayNames(U32 use)
 	{
 		if (use > 2)
 		{
-			sUseDisplayNames = 1;
+			sUseDisplayNames = 2;
 		}
 		else
 		{
