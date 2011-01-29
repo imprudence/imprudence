@@ -5973,6 +5973,7 @@ BOOL LLVOAvatar::loadAvatar()
 	if (sAvatarXmlInfo->mLayerInfoList.empty())
 	{
 		llwarns << "avatar file: missing <layer_set> node" << llendl;
+		return FALSE;
 	}
 	else
 	{
@@ -6013,23 +6014,22 @@ BOOL LLVOAvatar::loadAvatar()
 	}
 
 	// avatar_lad.xml : <driver_parameters>
+	LLVOAvatarXmlInfo::driver_info_list_t::iterator iter;
+	for (iter = sAvatarXmlInfo->mDriverInfoList.begin();
+		 iter != sAvatarXmlInfo->mDriverInfoList.end(); iter++)
 	{
-		LLVOAvatarXmlInfo::driver_info_list_t::iterator iter;
-		for (iter = sAvatarXmlInfo->mDriverInfoList.begin();
-			 iter != sAvatarXmlInfo->mDriverInfoList.end(); iter++)
+		LLDriverParamInfo *info = *iter;
+		LLDriverParam* driver_param = new LLDriverParam( this );
+		if (driver_param->setInfo(info))
 		{
-			LLDriverParamInfo *info = *iter;
-			LLDriverParam* driver_param = new LLDriverParam( this );
-			if (driver_param->setInfo(info))
-			{
-				addVisualParam( driver_param );
-			}
-			else
-			{
-				delete driver_param;
-				llwarns << "avatar file: driver_param->parseData() failed" << llendl;
-				return FALSE;
-			}
+			addVisualParam( driver_param );
+		}
+		else
+		{
+			delete driver_param;
+			llwarns << "avatar file: driver_param->parseData() failed" << llendl;
+			return FALSE;
+
 		}
 	}
 
@@ -8669,7 +8669,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		{
 			for( S32 i = 0; i < num_blocks; i++ )
 			{
-				while (param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE)) // should not be any of group VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
+				while( param && (!param->isTweakable()) )
 				{
 					param = getNextVisualParam();
 				}
@@ -8677,7 +8677,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 				if( !param )
 				{
 					llwarns << "Number of params in AvatarAppearance msg does not match number of params in avatar xml file." << llendl;
-					return;
+					break;
 				}
 
 				U8 value;
