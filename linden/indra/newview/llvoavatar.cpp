@@ -2890,7 +2890,7 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 				 param;
 				 param = getNextVisualParam())
 			{
-				if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+				if (param->isTweakable())
 				{
 					param->stopAnimating(mAppearanceAnimSetByUser);
 				}
@@ -2922,7 +2922,7 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 				 param;
 				 param = getNextVisualParam())
 			{
-				if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+				if (param->isTweakable())
 				{
 					// so boobs don't go spastic when a shape's changed, but still seems buggy
 					//if(param->getID() != 507)
@@ -4875,6 +4875,7 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 									    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
 										&& !LLDrawPoolAvatar::sSkipTransparent;
 
+
 		LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
 
 		if (should_alpha_mask)
@@ -4989,7 +4990,6 @@ U32 LLVOAvatar::renderRigid()
 	const bool should_alpha_mask = mSupportsAlphaLayers && mHasBakedHair
 								    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
 									&& !LLDrawPoolAvatar::sSkipTransparent;
-
 
 	LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
 
@@ -8202,6 +8202,14 @@ BOOL LLVOAvatar::teToColorParams( ETextureIndex te, const char* param_name[3] )
 		param_name[2] = "skirt_blue";
 		break;
 
+	case TEX_HEAD_TATTOO:
+	case TEX_LOWER_TATTOO:
+	case TEX_UPPER_TATTOO:
+		param_name[0] = "tattoo_red";
+		param_name[1] = "tattoo_green";
+		param_name[2] = "tattoo_blue";
+		break;	
+
 	default:
 		llassert(0);
 		return FALSE;
@@ -8661,7 +8669,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		{
 			for( S32 i = 0; i < num_blocks; i++ )
 			{
-				while( param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) )
+				while (param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE)) // should not be any of group VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
 				{
 					param = getNextVisualParam();
 				}
@@ -8710,14 +8718,10 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			}
 		}
 
-		while( param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) )
+		S32 expected_tweakable_count = getVisualParamCountInGroup(VISUAL_PARAM_GROUP_TWEAKABLE); // don't worry about VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
+		if (num_blocks != expected_tweakable_count)
 		{
-			param = getNextVisualParam();
-		}
-		if( param )
-		{
-			llwarns << "Number of params in AvatarAppearance msg does not match number of params in avatar xml file." << llendl;
-			return;
+			llinfos << "Number of params in AvatarAppearance msg (" << num_blocks << ") does not match number of tweakable params in avatar xml file (" << expected_tweakable_count << "). Processing what we can. Object: " << getID() << llendl;
 		}
 
 		if (params_changed)
@@ -8988,8 +8992,7 @@ void LLVOAvatar::dumpArchetypeXML( void* )
 		for( LLVisualParam* param = avatar->getFirstVisualParam(); param; param = avatar->getNextVisualParam() )
 		{
 			LLViewerVisualParam* viewer_param = (LLViewerVisualParam*)param;
-			if( (viewer_param->getWearableType() == type) &&
-				(viewer_param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE) )
+			if (viewer_param->getWearableType() == type && viewer_param->isTweakable())
 			{
 				apr_file_printf( file, "\t\t<param id=\"%d\" name=\"%s\" value=\"%.3f\"/>\n",
 						 viewer_param->getID(), viewer_param->getName().c_str(), viewer_param->getWeight() );

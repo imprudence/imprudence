@@ -51,6 +51,7 @@ enum EVisualParamGroup
 {
 	VISUAL_PARAM_GROUP_TWEAKABLE,
 	VISUAL_PARAM_GROUP_ANIMATABLE,
+	VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT,
 	NUM_VISUAL_PARAM_GROUPS
 };
 
@@ -140,6 +141,7 @@ public:
 	
 	virtual void			setAnimating(BOOL is_animating) { mIsAnimating = is_animating; }
 	BOOL					getAnimating() { return mIsAnimating; }
+	BOOL					isTweakable() { return (getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE) || (getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT); }
 
 protected:
 	F32					mCurWeight;			// current weight

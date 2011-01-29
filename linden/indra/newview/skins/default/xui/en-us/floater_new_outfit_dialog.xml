@@ -21,7 +21,7 @@
 	<check_box bottom="-276" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Eyes" left="13"
 	     mouse_opaque="true" name="checkbox_Eyes" radio_style="false" width="100" />
-	<check_box bottom="-456" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom="-434" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Rename Clothing To Folder Name"
 	     left="13" mouse_opaque="true" name="rename" radio_style="false" width="210" />
 	<check_box bottom="-216" enabled="true" follows="left|top" font="SansSerifSmall"
@@ -256,7 +256,7 @@ now wearing into it.
 		Attachments:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-436" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-414" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="13"
 	     mouse_opaque="true" name="Options:" v_pad="0" width="100">
 		Options:
