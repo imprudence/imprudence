@@ -35,52 +35,52 @@ set(debug_files
     windbgdlg.exe
     iconv.dll
     libxml2.dll
-	libcairo-2.dll
-	libfaad-2.dll
+    libcairo-2.dll
+    libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
     libgobject-2.0-0.dll
     libgthread-2.0-0.dll
     charset.dll
-	intl.dll
-	libgcrypt-11.dll
-	libgnutls-26.dll
-	libgpg-error-0.dll
-	libgstapp.dll
-	libgstaudio.dll
-	libgstaudio-0.10.dll
-	libgstbase-0.10.dll
-	libgstcdda.dll
-	libgstcontroller-0.10.dll
-	libgstdataprotocol-0.10.dll
-	libgstdshow.dll
-	libgstfft.dll
-	libgstinterfaces.dll
-	libgstnet-0.10.dll
-	libgstnetbuffer.dll
-	libgstpbutils.dll
-	libgstreamer-0.10.dll
-	libgstriff.dll
-	libgstrtp.dll
-	libgstrtsp.dll
-	libgstsdp.dll
-	libgsttag.dll
-	libgstvideo.dll
-	libjpeg.dll
-	libmp3lame-0.dll
-	libneon-27.dll
-	libogg-0.dll
-	liboil-0.3-0.dll
-	libopenjpeg-2.dll
-	libpng12-0.dll
-	libschroedinger-1.0-0.dll
-	libspeex-1.dll
-	libtheora-0.dll
-	libvorbis-0.dll
-	libvorbisenc-2.dll
-	libxml2-2.dll
-	glew32.dll
+    intl.dll
+    libgcrypt-11.dll
+    libgnutls-26.dll
+    libgpg-error-0.dll
+    libgstapp.dll
+    libgstaudio.dll
+    libgstaudio-0.10.dll
+    libgstbase-0.10.dll
+    libgstcdda.dll
+    libgstcontroller-0.10.dll
+    libgstdataprotocol-0.10.dll
+    libgstdshow.dll
+    libgstfft.dll
+    libgstinterfaces.dll
+    libgstnet-0.10.dll
+    libgstnetbuffer.dll
+    libgstpbutils.dll
+    libgstreamer-0.10.dll
+    libgstriff.dll
+    libgstrtp.dll
+    libgstrtsp.dll
+    libgstsdp.dll
+    libgsttag.dll
+    libgstvideo.dll
+    libjpeg.dll
+    libmp3lame-0.dll
+    libneon-27.dll
+    libogg-0.dll
+    liboil-0.3-0.dll
+    libopenjpeg-2.dll
+    libpng12-0.dll
+    libschroedinger-1.0-0.dll
+    libspeex-1.dll
+    libtheora-0.dll
+    libvorbis-0.dll
+    libvorbisenc-2.dll
+    libxml2-2.dll
+    glew32.dll
     xvidcore.dll
     zlib1.dll
     )
@@ -120,52 +120,52 @@ set(release_files
     xul.dll
     iconv.dll
     libxml2.dll
-	libcairo-2.dll
-	libfaad-2.dll
+    libcairo-2.dll
+    libfaad-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
     libgobject-2.0-0.dll
     libgthread-2.0-0.dll
-	charset.dll
-	intl.dll
-	libgcrypt-11.dll
-	libgnutls-26.dll
-	libgpg-error-0.dll
-	libgstapp.dll
-	libgstaudio.dll
-	libgstaudio-0.10.dll
-	libgstbase-0.10.dll
-	libgstcdda.dll
-	libgstcontroller-0.10.dll
-	libgstdataprotocol-0.10.dll
-	libgstdshow.dll
-	libgstfft.dll
-	libgstinterfaces.dll
-	libgstnet-0.10.dll
-	libgstnetbuffer.dll
-	libgstpbutils.dll
-	libgstreamer-0.10.dll
-	libgstriff.dll
-	libgstrtp.dll
-	libgstrtsp.dll
-	libgstsdp.dll
-	libgsttag.dll
-	libgstvideo.dll
-	libjpeg.dll
-	libmp3lame-0.dll
-	libneon-27.dll
-	libogg-0.dll
-	liboil-0.3-0.dll
-	libopenjpeg-2.dll
-	libpng12-0.dll
-	libschroedinger-1.0-0.dll
-	libspeex-1.dll
-	libtheora-0.dll
-	libvorbis-0.dll
-	libvorbisenc-2.dll
-	libxml2-2.dll
-	glew32.dll
+    charset.dll
+    intl.dll
+    libgcrypt-11.dll
+    libgnutls-26.dll
+    libgpg-error-0.dll
+    libgstapp.dll
+    libgstaudio.dll
+    libgstaudio-0.10.dll
+    libgstbase-0.10.dll
+    libgstcdda.dll
+    libgstcontroller-0.10.dll
+    libgstdataprotocol-0.10.dll
+    libgstdshow.dll
+    libgstfft.dll
+    libgstinterfaces.dll
+    libgstnet-0.10.dll
+    libgstnetbuffer.dll
+    libgstpbutils.dll
+    libgstreamer-0.10.dll
+    libgstriff.dll
+    libgstrtp.dll
+    libgstrtsp.dll
+    libgstsdp.dll
+    libgsttag.dll
+    libgstvideo.dll
+    libjpeg.dll
+    libmp3lame-0.dll
+    libneon-27.dll
+    libogg-0.dll
+    liboil-0.3-0.dll
+    libopenjpeg-2.dll
+    libpng12-0.dll
+    libschroedinger-1.0-0.dll
+    libspeex-1.dll
+    libtheora-0.dll
+    libvorbis-0.dll
+    libvorbisenc-2.dll
+    libxml2-2.dll
+    glew32.dll
     xvidcore.dll
     zlib1.dll
     )
