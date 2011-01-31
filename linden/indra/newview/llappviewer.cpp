@@ -1646,19 +1646,38 @@ bool LLAppViewer::initLogging()
 	LLError::initForApplication(
 				gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
 	LLError::setFatalFunction(errorCallback);
-	
-	// Remove the last ".old" log file.
-	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.old");
-	LLFile::remove(old_log_file);
 
-	// Rename current log file to ".old"
-	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.log");
-	LLFile::rename(log_file, old_log_file);
+	std::string log_name = "Imprudence.log";
+
+	const int MAX_ROTATION = 5;
+	for(int i = MAX_ROTATION; 0 < i; i--)
+	{
+		std::ostringstream current;
+		current << ".";
+		current << i;
+
+		std::ostringstream previous;
+		if( 1 < i )
+		{
+			previous << ".";
+			previous << i-1;
+		}
+
+		std::string current_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
+							     log_name + current.str());
+		std::string previous_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
+							     log_name + previous.str());
+
+		if (MAX_ROTATION == i)
+		{
+			LLFile::remove(current_log_file);
+		}
+
+		LLFile::rename(previous_log_file, current_log_file);
+	}
 
 	// Set the log file to Imprudence.log
-
+	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, log_name);
 	LLError::logToFile(log_file);
 
 	// *FIX:Mani no error handling here!
