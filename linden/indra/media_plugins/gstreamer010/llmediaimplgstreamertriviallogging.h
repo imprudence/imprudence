@@ -38,31 +38,23 @@
 
 #include <cstdio>
 
-extern "C" {
-#include <sys/types.h>
-//#include <unistd.h> //fiuxme
-}
-
-#define MSGMODULEFOO "(media plugin)"
-
-#ifdef LL_LINUX
 /////////////////////////////////////////////////////////////////////////
 // Debug/Info/Warning macros.
-
-#define STDERRMSG(...) do{\
-    fprintf(stderr, " pid:%d: ", (int)getpid());\
-    fprintf(stderr, MSGMODULEFOO " %s:%d: ", __FUNCTION__, __LINE__);\
-    fprintf(stderr, __VA_ARGS__);\
-    fputc('\n',stderr);\
-  }while(0)
+#if LL_WINDOWS
+#include <process.h>
+#define LL_GETPID GetCurrentProcessId
 #else
+#include <sys/types.h>
+#include <unistd.h>
+#define LL_GETPID getpid
+#endif
+#define MSGMODULEFOO "(media plugin)"
 #define STDERRMSG(...) do{\
+    fprintf(stderr, " pid:%d: ", (int)LL_GETPID());\
     fprintf(stderr, MSGMODULEFOO " %s:%d: ", __FUNCTION__, __LINE__);\
     fprintf(stderr, __VA_ARGS__);\
     fputc('\n',stderr);\
   }while(0)
-#endif
-
 #define NULLMSG(...) do{}while(0)
 
 #define DEBUGMSG NULLMSG

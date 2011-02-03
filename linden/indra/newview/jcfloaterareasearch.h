@@ -35,9 +35,11 @@
 #include "lluuid.h"
 #include "llstring.h"
 #include "llframetimer.h"
+#include "llmemberlistener.h"
 
 class LLTextBox;
 class LLScrollListCtrl;
+class LLScrollListItem;
 class LLViewerRegion;
 
 struct AObjectDetails
@@ -71,6 +73,7 @@ private:
 	static void onCommitLine(LLLineEditor* line, void* user_data);
 	static void requestIfNeeded(LLViewerObject *objectp);
 	static void onDoubleClick(void *userdata);
+	static void onRightMouseDown(S32 x, S32 y, void *userdata);
 
 	enum OBJECT_COLUMN_ORDER
 	{
@@ -86,6 +89,7 @@ private:
 
 	LLTextBox* mCounterText;
 	LLScrollListCtrl* mResultList;
+	LLScrollListItem* mSelectedItem;
 	LLFrameTimer mLastUpdateTimer;
 
 	static std::map<LLUUID, AObjectDetails> sObjectDetails;
@@ -96,4 +100,17 @@ private:
 	static std::string sSearchedGroup;
 
 	static LLViewerRegion* sLastRegion;
+
+	LLHandle<LLView> mPopupMenuHandle;
+
+	class PopupMenuHandler : public LLMemberListener<JCFloaterAreaSearch>
+	{
+	public: PopupMenuHandler(const JCFloaterAreaSearch* instance);
+	
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	
+		const JCFloaterAreaSearch* mInstance;
+	};
+
+	class PopupMenuHandler* mPopupMenuHandler;
 };

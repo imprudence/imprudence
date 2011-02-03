@@ -4,10 +4,15 @@
 		Voreinstellungen:
 	</text>
 	<button label="Neu" label_selected="Neu" name="WLNewPreset" />
-	<button label="Speichern" label_selected="Speichern" name="WLSavePreset" />
+  	<flyout_button label="Auf Platte speichern" name="WLSavePreset">
+    	<flyout_button_item name="save_inventory_item">
+      In Inventar speichern
+    	</flyout_button_item>
+    	<flyout_button_item name="save_disk_item">
+      Auf Platte speichern
+    	</flyout_button_item>
+  	</flyout_button>
 	<button label="Löschen" label_selected="Löschen" name="WLDeletePreset" />
-	<button label="Tageszyklus-Editor" label_selected="Tageszyklus-Editor"
-	     name="WLDayCycleMenuButton" />
 	<tab_container name="WindLight Tabs">
 		<panel label="Atmosphäre" name="Atmosphere">
 			<text name="BHText">
@@ -184,6 +189,8 @@
 			<button label=" ?" name="WLClassicCloudsHelp" />
 		</panel>
 	</tab_container>
+	<button label="Tageszyklus-Editor" label_selected="Tageszyklus-Editor"
+	     name="WLDayCycleMenuButton" />
 	<string name="WLDefaultSkyNames">
 		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
 	</string>

@@ -90,6 +90,7 @@ Aleric Inglewood
 	IMP-667
 	IMP-670
 	IMP-688
+	IMP-692
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -467,6 +468,9 @@ Nicholaz Beresford
 	VWR-2412
 	VWR-2682
 	VWR-2684
+Nicky Perian
+	IMP-680
+	IMP-685
 Nounouch Hapmouche
 	VWR-238
 Patric Mills

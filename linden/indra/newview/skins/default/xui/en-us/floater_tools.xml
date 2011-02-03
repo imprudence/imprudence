@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-374" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="left|top" height="565" 
+     can_resize="false" follows="left|top" height="575" 
      left="308" min_height="100" min_width="100" mouse_opaque="true"
      name="toolbox floater" rect_control="ToolboxRect" sound_flags="0" title=""
      short_title="Build" width="272">
@@ -334,7 +334,7 @@
 
 <!-- Sub-tabs -->
 
-	<tab_container bottom="-565" follows="left|top" height="384" left="0" mouse_opaque="false"
+	<tab_container bottom="-575" follows="left|top" height="384" left="0" mouse_opaque="false"
 	     name="Object Info Tabs" tab_max_width="52" tab_min_width="40"
 	     tab_position="top" width="272">
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
@@ -1363,6 +1363,9 @@
 	<string name="status_move">
 		Drag to Move, Shift-Drag to Copy
 	</string>
+  <string name="status_align">
+    CTRL-A to align on an axis, CTRL-Shift-A to Pack 
+  </string>
 	<string name="status_modifyland">
 		Click and Hold to Modify Land
 	</string>

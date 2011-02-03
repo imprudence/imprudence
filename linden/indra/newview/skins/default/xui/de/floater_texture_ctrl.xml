@@ -9,16 +9,38 @@
 	<text type="string" length="1" name="unknown">
 		Maße: [DIMENSIONS]
 	</text>
+
 	<button label="Standard" label_selected="Standard" name="Default" />
 	<button label="Keine" label_selected="Keine" name="None" />
 	<button label="Leer" label_selected="Leer" name="Blank" />
+	<button label="Unsichtbar" label_selected="Unsichtbar" name="Invisible" />
 	<check_box label="Ordner anzeigen" name="show_folders_check" />
-	<search_editor label="Suchanfrage hier eintippen" name="inventory search editor" />
 	<check_box label="Sofort übernehmen" name="apply_immediate_check" />
 	<button label="" label_selected="" name="Pipette" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
 	<button label="Auswählen" label_selected="Auswählen" name="Select" />
-	<text name="pick title">
+	<string name="pick title">
 		Auswählen:
-	</text>
+	</string>
+
+  	<tab_container name="actions_tab_container">
+    <panel label="Inventar" name="server_tab">
+        <search_editor label="Suchanfrage hier eintippen" name="inventory search editor" />
+        <inventory_panel name="inventory panel" />
+    </panel>
+    <panel label="Computer" name="local_tab">
+  <!-- tag: vaa emerald local_asset_browser [begin] -->
+      <text name="select_local">
+        Textur auf Ihrem Computer für Vorschau in-welt auswählen
+      </text>
+      <button label="Hinzufügen" name="Add" width="70" />
+      <button label="Entfernen" name="Remove" />
+      <button label="Eigenschaften..." name="Browser" />
+      <scroll_list name="local_name_list" >
+	      <column name="unit_name" label="Name" />
+	      <column name="unit_id_HIDDEN" label="ID" />
+	</scroll_list>
+	<!-- tag: vaa emerald local_asset_browser [end] -->
+    </panel>
+  </tab_container>
 </floater>

@@ -50,13 +50,13 @@
       <key>gridnick</key><string>osgrid</string>
       <key>gridname</key><string>OSGrid</string>
       <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://osgrid.org:8002/</string>
-      <key>loginpage</key><string>http://osgrid.org/loginscreen.php</string>
-      <key>helperuri</key><string>http://osgrid.org/</string>
+      <key>loginuri</key><string>http://login.osgrid.org/</string>
+      <key>loginpage</key><string>http://osgrid.org/splash/</string>
+      <key>helperuri</key><string>http://helper.osgrid.org/</string>
       <key>website</key><string>http://osgrid.org/</string>
       <key>support</key><string>http://osgrid.org/</string>
-      <key>register</key><string>http://osgrid.org/elgg/account/register.php</string>
-      <key>password</key><string>http://osgrid.org/elgg/account/forgotten_password.php</string>
+      <key>register</key><string>http://www.osgrid.org/index.php/auth/register</string>
+      <key>password</key><string>http://www.osgrid.org/index.php/auth/forgot_password</string>
       <key>version</key><string>1</string>
     </map>
 
@@ -219,7 +219,7 @@
 
     <!-- ScienceSim -->
     <map>
-      <key>gridname</key>  <string>ScienceSim</string>
+      <key>gridname</key>  <string>IEEE/ACM ScienceSim Virtual World</string>
       <key>gridnick</key>  <string>sciencesim</string>
       <key>platform</key>  <string>OpenSim</string>
       <key>loginuri</key>  <string>http://grid.sciencesim.com/</string>

@@ -5490,6 +5490,15 @@ void LLVOAvatar::resetAnimations()
 //-----------------------------------------------------------------------------
 BOOL LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 {
+	// [Ansariel Hiller]: Disable pesky hover up animation that changes
+	//                    hand and finger position and often breaks correct
+	//                    fit of prim nails, rings etc. when flying and
+	//                    using an AO.
+	if ("62c5de58-cb33-5743-3d07-9e4cd4352864" == id.getString() && gSavedSettings.getBOOL("DisableInternalFlyUpAnimation"))
+	{
+		return TRUE;
+	}
+
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 
 	// start special case female walk for female avatars

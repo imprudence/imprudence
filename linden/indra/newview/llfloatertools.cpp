@@ -393,6 +393,7 @@ BOOL	LLFloaterTools::postBuild()
 	mStatusText["rotate"] = getString("status_rotate");
 	mStatusText["scale"] = getString("status_scale");
 	mStatusText["move"] = getString("status_move");
+	mStatusText["align"] = getString("status_align");
 	mStatusText["modifyland"] = getString("status_modifyland");
 	mStatusText["camera"] = getString("status_camera");
 	mStatusText["grab"] = getString("status_grab");
@@ -425,6 +426,7 @@ LLFloaterTools::LLFloaterTools()
 	mRadioRotate(NULL),
 	mRadioStretch(NULL),
 	mRadioSelectFace(NULL),
+	mRadioAlign(NULL),
 	mCheckSelectIndividual(NULL),
 
 	mCheckSnapToGrid(NULL),
@@ -705,6 +707,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	mRadioPosition	->setVisible( edit_visible );
 	mRadioRotate	->setVisible( edit_visible );
 	mRadioStretch	->setVisible( edit_visible );
+	mRadioAlign		->setVisible( edit_visible );
 	if (mRadioSelectFace)
 	{
 		mRadioSelectFace->setVisible( edit_visible );

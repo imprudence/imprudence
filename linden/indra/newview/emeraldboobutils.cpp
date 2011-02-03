@@ -1,3 +1,4 @@
+#include "linden_common.h"
 #include "emeraldboobutils.h"
 
 std::ostream &operator<<(std::ostream &os, const EmeraldGlobalBoobConfig &v)

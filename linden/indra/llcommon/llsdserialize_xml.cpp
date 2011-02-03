@@ -562,7 +562,7 @@ void LLSDXMLParser::Impl::parsePart(const char* buf, int len)
 
 #ifdef XML_PARSER_PERFORMANCE_TESTS
 
-extern U64 totalTime();
+extern LL_COMMON_API U64 totalTime();
 U64	readElementTime = 0;
 U64 startElementTime = 0;
 U64 endElementTime = 0;

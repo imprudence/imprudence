@@ -311,10 +311,11 @@
       <on_enable function="View.EnableLastChatter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Web Browser" label="Web Browser"
+    <menu_item_check name="Web Browser" label="Web Browser"
                     shortcut="control|B">
       <on_click function="ShowFloater" userdata="inworld browser" />
-    </menu_item_call>
+      <on_check function="FloaterVisible" userdata="inworld browser" />
+    </menu_item_check>
     <menu_item_separator />
     <menu_item_check name="Toolbar" label="Toolbar">
       <on_click function="ShowFloater" userdata="toolbar" />
@@ -995,7 +996,8 @@
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
     </menu_item_check>
-		<menu_item_check label="Area Object Search" name="Area Object Search" shortcut="control|shift|A">
+		<menu_item_check label="Area Object Search" name="Area Object Search" 
+                     shortcut="alt|A">
 			<on_click function="ShowFloater" userdata="areasearch" />
 			<on_check function="FloaterVisible" userdata="areasearch" />
     </menu_item_check>

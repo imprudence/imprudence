@@ -59,6 +59,8 @@
 
 #include "llpreeditor.h"
 
+#include "llfasttimer.h"
+
 // culled from winuser.h
 #ifndef WM_MOUSEWHEEL /* Added to be compatible with later SDK's */
 const S32	WM_MOUSEWHEEL = 0x020A;

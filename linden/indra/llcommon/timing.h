@@ -44,6 +44,6 @@ const U64 SEC_TO_MICROSEC_U64 = 1000000;
 const U32 SEC_PER_DAY = 86400;
 
 // This is just a stub, implementation in lltimer.cpp.  This file will be deprecated in the future.
-U64 totalTime();					// Returns current system time in microseconds
+LL_COMMON_API U64 totalTime();					// Returns current system time in microseconds
 
 #endif

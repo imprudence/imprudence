@@ -2,10 +2,6 @@
 
 project(llplugin)
 
-if(HAVE_64_BIT)
-	set(REQUIRE_PIC)
-endif(HAVE_64_BIT)
-
 include(00-Common)
 include(CURL)
 include(LLCommon)

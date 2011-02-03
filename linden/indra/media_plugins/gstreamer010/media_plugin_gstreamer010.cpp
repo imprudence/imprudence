@@ -175,7 +175,7 @@ MediaPluginGStreamer010::MediaPluginGStreamer010(
 	mCommand ( COMMAND_NONE )
 {
 	std::ostringstream str;
-	INFOMSG("MediaPluginGStreamer010 constructor - my PID=%u", U32(getpid()));
+	INFOMSG("MediaPluginGStreamer010 constructor - my PID=%u", U32(LL_GETPID()));
 }
 
 ///////////////////////////////////////////////////////////////////////////////

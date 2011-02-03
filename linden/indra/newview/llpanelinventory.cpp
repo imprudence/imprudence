@@ -145,7 +145,7 @@ public:
 	virtual void move(LLFolderViewEventListener* parent_listener);
 	virtual BOOL isItemCopyable() const;
 	virtual BOOL copyToClipboard() const;
-	virtual void cutToClipboard();
+	virtual BOOL cutToClipboard() const;
 	virtual BOOL isClipboardPasteable() const;
 	virtual void pasteFromClipboard();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
@@ -594,8 +594,9 @@ BOOL LLTaskInvFVBridge::copyToClipboard() const
 	return FALSE;
 }
 
-void LLTaskInvFVBridge::cutToClipboard()
+BOOL LLTaskInvFVBridge::cutToClipboard() const
 {
+	return FALSE;
 }
 
 BOOL LLTaskInvFVBridge::isClipboardPasteable() const

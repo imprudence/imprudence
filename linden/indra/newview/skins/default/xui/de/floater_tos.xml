@@ -2,18 +2,8 @@
 <floater name="modal container" title=" ">
 	<button label="Weiter" label_selected="Weiter" name="Continue" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
-	<radio_group name="tos_agreement">
-		<radio_item name="radio_disagree">
-			Ich stimme den Nutzungsbedingungen nicht zu
-		</radio_item>
-		<radio_item name="radio_agree">
-			Ich stimme den Nutzungsbedingungen zu
-		</radio_item>
-	</radio_group>
-	<text name="tos_title">
-		Nutzungsvereinbarung
-	</text>
-	<check_box label="Ich stimme den Nutzungsbedingungen zu" name="agree_chk" />
+	<check_box label="Ich stimme den Nutzungsbedingungen zu"
+		name="agree_chk" />
 	<text name="tos_heading">
 		Lesen Sie die folgenden Nutzungsbedingungen sorgfältig durch. Sie müssen dieser Vereinbarung
 zustimmen, um Second Life benutzen zu können.
@@ -21,7 +11,8 @@ zustimmen, um Second Life benutzen zu können.
 	<text_editor name="tos_text">
 		TOS_TEXT
 	</text_editor>
-	<text name="real_url">
+
+	<string name="real_url">
 		http://secondlife.com/app/tos/
-	</text>
+	</string>
 </floater>

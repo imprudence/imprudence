@@ -76,6 +76,7 @@ class PlatformSetup(object):
     build_type = build_types['relwithdebinfo']
     standalone = 'OFF'
     unattended = 'OFF'
+    universal = 'OFF'
     project_name = 'Imprudence'
     distcc = True
     cmake_opts = []
@@ -404,7 +405,7 @@ class DarwinSetup(UnixSetup):
         return 'darwin'
 
     def arch(self):
-        if self.unattended == 'ON':
+        if self.universal == 'ON':
             return 'universal'
         else:
             return UnixSetup.arch(self)
@@ -417,10 +418,10 @@ class DarwinSetup(UnixSetup):
             standalone=self.standalone,
             unattended=self.unattended,
             project_name=self.project_name,
-            universal='',
+            universal=self.universal,
             type=self.build_type.upper()
             )
-        if self.unattended == 'ON':
+        if self.universal == 'ON':
             args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386\''
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
@@ -696,6 +697,7 @@ Options:
        --standalone     build standalone, without Linden prebuild libraries
        --unattended     build unattended, do not invoke any tools requiring
                         a human response
+       --universal      build a universal binary on Mac OS X (unsupported)
   -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name

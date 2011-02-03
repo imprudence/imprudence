@@ -136,10 +136,10 @@
 	</combo_box>
 
 	<spinner bottom_delta="-25" decimal_digits="0" follows="left|top" height="20"
-	     increment="32" label="Width" label_width="30" left="10" max_val="4096"
+	     increment="32" label="Width" label_width="30" left="10" max_val="6016"
 	     min_val="32" name="snapshot_width" width="95" allow_text_entry="false"/>
 	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
-	     increment="32" label="Height" label_width="35" left="110" max_val="4096"
+	     increment="32" label="Height" label_width="35" left="110" max_val="6016"
 	     min_val="32" name="snapshot_height" width="95" allow_text_entry="false"/>
 	<check_box bottom_delta="-20" follows="left|top" label="Constrain Proportions" left="10"
 	     name="keep_aspect_check" />
