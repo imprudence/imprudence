@@ -1116,6 +1116,17 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			return false;
 		}
 		S32 datasize = mFormattedImage->getDataSize();
+		if(mFileSize < datasize)//This could happen when http fetching and sim fetching mixed.
+		{
+			if(mHaveAllData)
+			{
+				mFileSize = datasize ;
+			}
+			else
+			{
+				mFileSize = datasize + 1 ; //flag not fully loaded.
+			}
+		}
 		llassert_always(datasize);
 		setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority); // Set priority first since Responder may change it
 		U32 cache_priority = mWorkPriority;
