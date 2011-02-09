@@ -297,7 +297,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	// don't make it a tab stop until SL-27594 is fixed
 	web_browser->setTabStop(FALSE);
-	// web_browser->navigateToLocalPage( "loading", "loading.html" );
+	web_browser->navigateToLocalPage( "loading", "loading.html" );
 
 	// make links open in external browser
 	web_browser->setOpenInExternalBrowser( true );
@@ -338,16 +338,6 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 	else
 	// the site is not available (missing page, server down, other badness)
 	{
-#if !USE_VIEWER_AUTH
-		if ( web_browser )
-		{
-			// hide browser control (revealing default one)
-			web_browser->setVisible( FALSE );
-
-			// mark as unavailable
-			mHtmlAvailable = FALSE;
-		}
-#else
 
 		if ( web_browser )
 		{	
@@ -356,7 +346,7 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			// mark as available
 			mHtmlAvailable = TRUE;
 		}
-#endif
+
 	}
 }
 
