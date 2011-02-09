@@ -39,6 +39,7 @@
 
 #include <sstream>
 
+#include "llavatarnamecache.h"
 #include "lldir.h"
 
 #include "llagent.h"
@@ -254,6 +255,24 @@ BOOL LLPanelFriends::addFriend(const LLUUID& agent_id)
 
 	std::string fullname;
 	BOOL have_name = gCacheName->getFullName(agent_id, fullname);
+	if (have_name)
+	{
+		if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(agent_id, &avatar_name))
+			{
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames();
+				}
+			}
+		}
+	}
 	
 	LLSD element;
 	element["id"] = agent_id;
@@ -332,6 +351,24 @@ BOOL LLPanelFriends::updateFriendItem(const LLUUID& agent_id, const LLRelationsh
 
 	std::string fullname;
 	BOOL have_name = gCacheName->getFullName(agent_id, fullname);
+	if (have_name)
+	{
+		if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(agent_id, &avatar_name))
+			{
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames();
+				}
+			}
+		}
+	}
 	
 	// Name of the status icon to use
 	std::string statusIcon;
@@ -790,6 +827,25 @@ void LLPanelFriends::onClickRemove(void* user_data)
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
+				if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(agent_id, &avatar_name))
+					{
+						// Always show "Display Name [Legacy Name]" for security reasons
+						first = avatar_name.getNames();
+						size_t i = first.find(" ");
+						if (i != std::string::npos)
+						{
+							last = first.substr(i + 1);
+							first = first.substr(0, i);
+						}
+						else
+						{
+							last = "";
+						}
+					}
+				}
 				args["FIRST_NAME"] = first;
 				args["LAST_NAME"] = last;	
 			}
@@ -854,6 +910,25 @@ void LLPanelFriends::confirmModifyRights(rights_map_t& ids, EGrantRevoke command
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
+				if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(agent_id, &avatar_name))
+					{
+						// Always show "Display Name [Legacy Name]" for security reasons
+						first = avatar_name.getNames();
+						size_t i = first.find(" ");
+						if (i != std::string::npos)
+						{
+							last = first.substr(i + 1);
+							first = first.substr(0, i);
+						}
+						else
+						{
+							last = "";
+						}
+					}
+				}
 				args["FIRST_NAME"] = first;
 				args["LAST_NAME"] = last;	
 			}

@@ -36,7 +36,7 @@
 
 #include "stdtypes.h" // from llcommon
 
-// Entirely abstract.  Based exactly on the historic API.
+// Entirely abstract.  Based on the historic API.
 class LLStreamingAudioInterface
 {
  public:
@@ -51,6 +51,7 @@ class LLStreamingAudioInterface
 	virtual void setGain(F32 vol) = 0;
 	virtual F32 getGain() = 0;
 	virtual std::string getURL() = 0;
+	virtual std::string getVersion() = 0;
 };
 
 #endif // LL_STREAMINGAUDIO_H

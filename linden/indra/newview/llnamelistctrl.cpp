@@ -39,6 +39,7 @@
 #include "llcachename.h"
 #include "llagent.h"
 #include "llinventory.h"
+#include "llviewercontrol.h"
 
 static LLRegisterWidget<LLNameListCtrl> r("name_list");
 
@@ -56,7 +57,8 @@ LLNameListCtrl::LLNameListCtrl(const std::string& name,
 :	LLScrollListCtrl(name, rect, cb, userdata, allow_multiple_selection,
 					 draw_border),
 	mNameColumnIndex(name_column_index),
-	mAllowCallingCardDrop(FALSE)
+	mAllowCallingCardDrop(FALSE),
+	mUseDisplayNames(FALSE)
 {
 	setToolTip(tooltip);
 	LLNameListCtrl::sInstances.insert(this);
@@ -77,7 +79,7 @@ BOOL LLNameListCtrl::addNameItem(const LLUUID& agent_id, EAddPosition pos,
 	//llinfos << "LLNameListCtrl::addNameItem " << agent_id << llendl;
 
 	std::string fullname;
-	BOOL result = gCacheName->getFullName(agent_id, fullname);
+	BOOL result = getResidentName(agent_id, fullname);
 
 	fullname.append(suffix);
 
@@ -164,7 +166,7 @@ BOOL LLNameListCtrl::addNameItem(LLScrollListItem* item, EAddPosition pos)
 	//llinfos << "LLNameListCtrl::addNameItem " << item->getUUID() << llendl;
 
 	std::string fullname;
-	BOOL result = gCacheName->getFullName(item->getUUID(), fullname);
+	BOOL result = getResidentName(item->getUUID(), fullname);
 
 	LLScrollListCell* cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
 	((LLScrollListText*)cell)->setText( fullname );
@@ -199,7 +201,7 @@ LLScrollListItem* LLNameListCtrl::addElement(const LLSD& value, EAddPosition pos
 	else // normal resident
 	{
 		std::string name;
-		if (gCacheName->getFullName(item->getUUID(), name))
+		if (getResidentName(item->getUUID(), name))
 		{
 			fullname = name;
 		}
@@ -346,6 +348,12 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 		name_list->setAllowCallingCardDrop(allow_calling_card_drop);
 	}
 
+	BOOL use_display_names;
+	if (node->getAttributeBOOL("use_display_names", use_display_names))
+	{
+		name_list->setUseDisplayNames(use_display_names);
+	}
+
 	name_list->setScrollListParameters(node);
 
 	name_list->initFromXML(node, parent);
@@ -456,5 +464,31 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 	return name_list;
 }
 
-
-
+bool LLNameListCtrl::getResidentName(const LLUUID& agent_id, std::string& fullname)
+{
+	std::string name;
+	if (gCacheName->getFullName(agent_id, name))
+	{
+		fullname = name;
+		if (mUseDisplayNames && LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(agent_id, &avatar_name))
+			{
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames();
+				}
+			}
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

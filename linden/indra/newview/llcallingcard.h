@@ -122,6 +122,9 @@ public:
 	// deal with termination of friendhsip
 	void terminateBuddy(const LLUUID& id);
 
+	// flag the buddy list dirty to force an update
+	void dirtyBuddies();
+
 	// get full info
 	const LLRelationship* getBuddyInfo(const LLUUID& id) const;
 

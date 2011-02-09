@@ -51,6 +51,9 @@ private:
 	static void onClickResetUISize(void*);
 	static void onClickGrid(void*);
 	static void onLocationChanged(LLUICtrl* ctrl, void* data);
+
+	U32 mDisplayNamesUsage;
+	bool mLegacyNamesForFriends;
 };
 
 #endif

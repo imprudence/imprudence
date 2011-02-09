@@ -33,6 +33,7 @@
 #ifndef LL_LLPANELAVATAR_H
 #define LL_LLPANELAVATAR_H
 
+#include "llavatarnamecache.h"
 #include "llpanel.h"
 #include "v3dmath.h"
 #include "lluuid.h"
@@ -76,7 +77,6 @@ public:
 	/*virtual*/ void draw();
 
 	LLPanelAvatar* getPanelAvatar() const { return mPanelAvatar; }
-
 	void setDataRequested(bool requested) { mDataRequested = requested; }
 	bool isDataRequested() const		  { return mDataRequested; }
 
@@ -143,14 +143,15 @@ public:
 	LLPanelAvatarWeb(const std::string& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
 	/*virtual*/ ~LLPanelAvatarWeb();
 	/*virtual*/ BOOL	postBuild(void);
-
 	/*virtual*/ void refresh();
+	/*virtual*/ void onVisibilityChange(BOOL new_visibility);
 
 	void enableControls(BOOL own_avatar);
 
 	void setWebURL(std::string url);
 
 	void load(std::string url);
+
 	static void onURLKeystroke(LLLineEditor* editor, void* data);
 	static void onCommitLoad(LLUICtrl* ctrl, void* data);
 	static void onCommitURL(LLUICtrl* ctrl, void* data);
@@ -335,6 +336,9 @@ private:
 	static bool finishUnfreeze(const LLSD& notification, const LLSD& response);
 
 	static void showProfileCallback(S32 option, void *userdata);
+	static void completeNameCallback(const LLUUID& agent_id,
+									 const LLAvatarName& avatar_name,
+									 void *userdata);
 
 	static	void*	createPanelAvatar(void*	data);
 	static	void*	createFloaterAvatarInfo(void*	data);

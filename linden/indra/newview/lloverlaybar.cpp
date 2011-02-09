@@ -38,7 +38,7 @@
 #include "lloverlaybar.h"
 
 #include "aoremotectrl.h"
-#include "llaudioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llrender.h"
 #include "llagent.h"
 #include "llbutton.h"
@@ -438,17 +438,16 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	if (gOverlayBar->mMusicState != PLAYING)
 	{
 		gOverlayBar->mMusicState = PLAYING; // desired state
-		if (gAudiop)
+		if (gAudioStream)
 		{
 			LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 			if ( parcel )
 			{
 				// this doesn't work properly when crossing parcel boundaries - even when the 
 				// stream is stopped, it doesn't return the right thing - commenting out for now.
-	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
+	// 			if ( gAudioStream->isInternetStreamPlaying() == 0 )
 				{
-					gAudiop->startInternetStream(parcel->getMusicURL());
-//awfixme					sTitleObserver.init(parcel->getMusicURL());
+					gAudioStream->startInternetStream(parcel->getMusicURL());
 				}
 			}
 		}
@@ -456,9 +455,9 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	else
 	{
 		gOverlayBar->mMusicState = STOPPED; // desired state
-		if (gAudiop)
+		if (gAudioStream)
 		{
-			gAudiop->stopInternetStream();
+			gAudioStream->stopInternetStream();
 		}
 	}
 }

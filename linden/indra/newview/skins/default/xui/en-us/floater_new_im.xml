@@ -8,7 +8,7 @@
 	     column_padding="5" draw_border="true" draw_heading="false"
 	     draw_stripes="true" enabled="true" follows="left|top|right|bottom"
 	     height="290" left="6" mouse_opaque="true" multi_select="false"
-	     name="user_list" width="421" />
+	     name="user_list" use_display_names="true" width="421" />
 	<button bottom="-271" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Start" label_selected="Start" left="435"
 	     mouse_opaque="true" name="start_btn" scale_image="true" sound_flags="0"
@@ -17,9 +17,6 @@
 	     halign="center" height="20" label="Close" label_selected="Close" left="435"
 	     mouse_opaque="true" name="close_btn" scale_image="true" sound_flags="0"
 	     width="60" />
-	<string name="name_format">
-		[FIRST] [LAST]
-	</string>
 	<string name="online_descriptor">
 		(online)
 	</string>

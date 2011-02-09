@@ -253,10 +253,29 @@ void LLHoverView::updateText()
 			LLNameValue* lastname =  hit_object->getNVPair("LastName");
 			if (firstname && lastname)
 			{
+				std::string complete_name = firstname->getString();
+				complete_name += " ";
+				complete_name += lastname->getString();
+
+				if (LLAvatarNameCache::useDisplayNames())
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(hit_object->getID(), &avatar_name))
+					{
+						if (LLAvatarNameCache::useDisplayNames() == 1)
+						{
+							complete_name = avatar_name.mDisplayName;
+						}
+						else
+						{
+							complete_name = avatar_name.getNames();
+						}
+					}
+				}
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 				{
-					line = RlvStrings::getAnonym(line.append(firstname->getString()).append(1, ' ').append(lastname->getString()));
+					line = RlvStrings::getAnonym(complete_name);
 				}
 				else
 				{

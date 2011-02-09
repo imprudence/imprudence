@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Display Name" title="CHANGE DISPLAY NAME"
+ can_minimize="true" can_close="true" can_resize="false"
+ enabled="true" mouse_opaque="true" 
+ height="235" width="440">
+	<text name="info_text1" font="SansSerif" wrap="true"
+	 height="18" width="380" left="42" bottom_delta="-48" follows="left|top">
+		The name you give to your avatar is called your Display Name.
+	</text>
+	<text name="info_text2" font="SansSerif" wrap="true"
+	 height="18" width="300" left="120" bottom_delta="-18" follows="left|top">
+		You can change it once a week.
+	</text>
+	<text name="now_ok_text" font="SansSerif"
+	 height="18" width="320" left="105" bottom_delta="-25" follows="left|top">
+		You can change it now if you so wish.
+	</text>
+	<text name="lockout_text" font="SansSerif" visible="false"
+	 height="18" width="380" left="20" bottom_delta="0" follows="left|top">
+		You cannot change it before: [TIME].
+	</text>
+	<text name="set_name_label" font="SansSerif"
+	 height="20" width="380" left="20" bottom_delta="-25" follows="left|top">
+		New Display Name:
+	</text>
+	<line_editor name="display_name_editor" max_length="31"
+	 height="20" width="360" left="40" bottom_delta="-20" follows="left|top" />
+	<text name="name_confirm_label" font="SansSerif"
+	 height="20" width="380" left="20" bottom_delta="-32" follows="left|top">
+		Type your new name again to confirm:
+	</text>
+	<line_editor name="display_name_confirm" max_length="31"
+	 height="20" width="360" left="40" bottom_delta="-20" follows="left|top" />
+    <button name="save_btn" label="Save" font="SansSerif"
+	 tool_tip="Save your new Display Name"
+     height="20" width="120" left="30" bottom_delta="-32"/>
+    <button name="reset_btn" label="Reset" font="SansSerif"
+	 tool_tip="Make Display Name the same as Username"
+     height="20" width="120" left_delta="130" bottom_delta="0"/>
+    <button name="cancel_btn" label="Cancel" font="SansSerif"
+     height="20" width="120" left_delta="130" bottom_delta="0"/>
+</floater>

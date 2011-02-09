@@ -88,6 +88,7 @@ set(viewer_SOURCE_FILES
     impprefsfonts.cpp
     jcfloater_animation_list.cpp
     jcfloaterareasearch.cpp
+    kokuastreamingaudio.cpp
     kowopenregionsettings.cpp
     lightshare.cpp
     llagent.cpp
@@ -172,6 +173,7 @@ set(viewer_SOURCE_FILES
     llfloatercustomize.cpp
     llfloaterdaycycle.cpp
     llfloaterdirectory.cpp
+    llfloaterdisplayname.cpp
     llfloatereditui.cpp
     llfloaterenvsettings.cpp
     llfloaterevent.cpp
@@ -409,6 +411,7 @@ set(viewer_SOURCE_FILES
     llviewercamera.cpp
     llviewercontrol.cpp
     llviewerdisplay.cpp
+    llviewerdisplayname.cpp
     llviewergenericmessage.cpp
     llviewergesture.cpp
     llviewerimage.cpp
@@ -541,6 +544,7 @@ set(viewer_HEADER_FILES
     impprefsfonts.h
     jcfloater_animation_list.h
     jcfloaterareasearch.h
+    kokuastreamingaudio.h
     lightshare.h
 	lggautocorrectfloater.h
 	lggautocorrect.h
@@ -630,6 +634,7 @@ set(viewer_HEADER_FILES
     llfloatercustomize.h
     llfloaterdaycycle.h
     llfloaterdirectory.h
+    llfloaterdisplayname.h
     llfloatereditui.h
     llfloaterenvsettings.h
     llfloaterevent.h
@@ -871,6 +876,7 @@ set(viewer_HEADER_FILES
     llviewercamera.h
     llviewercontrol.h
     llviewerdisplay.h
+    llviewerdisplayname.h
     llviewergenericmessage.h
     llviewergesture.h
     llviewerimage.h

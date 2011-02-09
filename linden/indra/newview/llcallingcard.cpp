@@ -613,6 +613,25 @@ void LLAvatarTracker::processChange(LLMessageSystem* msg)
 					LLSD args;
 					if(gCacheName->getName(agent_id, first, last))
 					{
+						if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+						{
+							LLAvatarName avatar_name;
+							if (LLAvatarNameCache::get(agent_id, &avatar_name))
+							{
+								// Always show "Display Name [Legacy Name]" for security reasons
+								first = avatar_name.getNames();
+								size_t i = first.find(" ");
+								if (i != std::string::npos)
+								{
+									last = first.substr(i + 1);
+									first = first.substr(0, i);
+								}
+								else
+								{
+									last = "";
+								}
+							}
+						}
 						args["FIRST_NAME"] = first;
 						args["LAST_NAME"] = last;	
 					}
@@ -669,6 +688,31 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 					std::string first, last;
 					if(gCacheName->getName(agent_id, first, last))
 					{
+						if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+						{
+							LLAvatarName avatar_name;
+							if (LLAvatarNameCache::get(agent_id, &avatar_name))
+							{
+								if (LLAvatarNameCache::useDisplayNames() == 1)
+								{
+									first = avatar_name.mDisplayName;
+								}
+								else
+								{
+									first = avatar_name.getNames();
+								}
+								size_t i = first.find(" ");
+								if (i != std::string::npos)
+								{
+									last = first.substr(i + 1);
+									first = first.substr(0, i);
+								}
+								else
+								{
+									last = "";
+								}
+							}
+						}
 						notify = TRUE;
 						args["FIRST"] = first;
 						args["LAST"] = last;
@@ -743,6 +787,12 @@ void LLAvatarTracker::processTerminateFriendship(LLMessageSystem* msg, void**)
 		delete buddy;
 		at.notifyObservers();
 	}
+}
+
+void LLAvatarTracker::dirtyBuddies()
+{
+	mModifyMask |=  LLFriendObserver::REMOVE | LLFriendObserver::ADD;
+	notifyObservers();
 }
 
 ///----------------------------------------------------------------------------

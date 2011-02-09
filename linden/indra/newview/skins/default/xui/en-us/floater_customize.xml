@@ -1172,11 +1172,15 @@ scratch and wear it.
             <texture_picker name="Lower Tattoo" label="Lower Tattoo" tool_tip="Click to choose a picture"
              can_apply_immediately="true" default_image_name="Default" allow_no_texture="true"
              follows="left|top" width="70" height="80" left="14" bottom="-325"/>
+			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-415"
+			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
+			     label="Color/Tint" left="14" mouse_opaque="true" name="Color/Tint"
+			     tool_tip="Click to open Color Picker" width="70" />
 			<button name="Create New" label="Create New Tattoo" label_selected="Create New Tattoo"
                  follows="left|top" halign="center" width="170" height="24" left="8" bottom="-128"
 			     mouse_opaque="true" scale_image="true"/>
             <button name="Take Off" label="Take Off" label_selected="Take Off"
-             follows="left|top" width="82" height="20" left="8" bottom="-365"/>
+             follows="left|top" width="82" height="20" left="8" bottom="-440"/>
             <button name="Save" label="Save" label_selected="Save"
              follows="right|bottom" width="82" height="20" left="123" bottom="-478"/>
             <button name="Save As" label="Save As..." label_selected="Save As..."

@@ -4206,7 +4206,7 @@ void LLViewerObject::setParticleSource(const LLPartSysData& particle_parameters,
 			LLViewerImage* image;
 			if (mPartSourcep->mPartSysData.mPartImageID == LLUUID::null)
 			{
-				image = gImageList.getImageFromFile("pixiesmall.tga");
+				image = gImageList.getImageFromFile("pixiesmall.j2c");
 			}
 			else
 			{

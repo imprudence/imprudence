@@ -38,8 +38,11 @@
 #include "indra_constants.h"
 
 // For Listeners
-#include "llaudioengine.h"
+// #include "llaudioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llagent.h"
+#include "llavatarnamecache.h"
+#include "llcallingcard.h"
 #include "llconsole.h"
 #include "lldrawpoolterrain.h"
 #include "llflexibleobject.h"
@@ -310,7 +313,7 @@ static bool handleJoystickChanged(const LLSD& newvalue)
 
 static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 {
-	if (gAudiop)
+	if (gAudioStream)
 	{
 		if ( newvalue.asBoolean() )
 		{
@@ -319,15 +322,15 @@ static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 			{
 				// if stream is already playing, don't call this
 				// otherwise music will briefly stop
-				if ( !gAudiop->isInternetStreamPlaying() )
+				if ( !gAudioStream->isInternetStreamPlaying() )
 				{
-					gAudiop->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
+					gAudioStream->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
 				}
 			}
 		}
 		else
 		{
-			gAudiop->stopInternetStream();
+			gAudioStream->stopInternetStream();
 		}
 	}
 	return true;
@@ -422,6 +425,28 @@ static bool handleRenderUseImpostorsChanged(const LLSD& newvalue)
 static bool handleAuditTextureChanged(const LLSD& newvalue)
 {
 	gAuditTexture = newvalue.asBoolean();
+	return true;
+}
+
+static bool handleDisplayNamesUsageChanged(const LLSD& newvalue)
+{
+	LLAvatarNameCache::setUseDisplayNames((U32)newvalue.asInteger());
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleOmitResidentAsLastNameChanged(const LLSD& newvalue)
+{
+	LLAvatarName::sOmitResidentAsLastName =(bool)newvalue.asBoolean();
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleLegacyNamesForFriendsChanged(const LLSD& newvalue)
+{
+	LLAvatarTracker::instance().dirtyBuddies();
 	return true;
 }
 
@@ -572,6 +597,9 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelRolloff")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("AudioStreamingMusic")->getSignal()->connect(boost::bind(&handleAudioStreamMusicChanged, _1));
 	gSavedSettings.getControl("AuditTexture")->getSignal()->connect(boost::bind(&handleAuditTextureChanged, _1));
+	gSavedSettings.getControl("DisplayNamesUsage")->getSignal()->connect(boost::bind(&handleDisplayNamesUsageChanged, _1));
+	gSavedSettings.getControl("OmitResidentAsLastName")->getSignal()->connect(boost::bind(&handleOmitResidentAsLastNameChanged, _1));
+	gSavedSettings.getControl("LegacyNamesForFriends")->getSignal()->connect(boost::bind(&handleLegacyNamesForFriendsChanged, _1));
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMusic")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMedia")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));

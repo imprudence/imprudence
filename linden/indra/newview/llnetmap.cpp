@@ -36,6 +36,7 @@
 #include "llnetmap.h"
 
 #include "indra_constants.h"
+#include "llavatarnamecache.h"
 #include "llui.h"
 #include "llmath.h"		// clampf()
 #include "llfocusmgr.h"
@@ -640,7 +641,29 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 	{
 		msg.assign("");
 		std::string fullname;
-		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
+		BOOL result = FALSE;
+		if (!LLAvatarNameCache::useDisplayNames())
+		{
+			result = gCacheName->getFullName(mClosestAgentToCursor, fullname);
+		}
+		else
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(mClosestAgentToCursor, &avatar_name))
+			{
+				result = TRUE;
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames(true);
+				}
+			}
+		}
+
+		if(mClosestAgentToCursor.notNull() && result)
 		{
 //			msg.append(fullname);
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
