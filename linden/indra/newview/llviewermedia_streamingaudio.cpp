@@ -72,7 +72,10 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 	mVersion = mMediaPlugin ? mMediaPlugin->getPluginVersion() : std::string();
 
 	if(!mMediaPlugin)
+	{
+		llinfos << "mMediaPlugin failed to initialize!" << llendl;
 		return;
+	}
 	
 	if (!url.empty()) {
 		llinfos << "Starting internet stream: " << url << llendl;
