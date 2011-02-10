@@ -228,9 +228,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>094acc8173faca882ed9532e868d767f</string>
+            <string>ed53511382d0fd9fec59a9f6544d9672</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/boost-1.36.0-windows-20091124.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.39.0-windows-20091029.tar.bz2</uri>
           </map>
         </map>
       </map>
