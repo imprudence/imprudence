@@ -66,7 +66,15 @@
 
 							<!--<string>Messaging</string>-->
 							<!--<string>Notifications</string>-->
-              <!--<string>Plugin</string>-->
+		<string>Plugin</string>
+		<string>PluginClassMedia</string>
+		<string>PluginInstance</string>
+		<string>PluginPipe</string>
+		<string>PluginChild</string>
+	        <!--<string>PluginSpam</string>-->
+		<string>PluginParent</string>
+		<string>PluginViewerMedia</string>
+
               <!--<string>Radar</string>-->
 							<!--<string>ShaderLoading</string>-->
 

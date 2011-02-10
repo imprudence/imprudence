@@ -72,10 +72,10 @@ LLPluginClassMedia::~LLPluginClassMedia()
 }
 
 bool LLPluginClassMedia::init(const std::string &launcher_filename, const std::string &plugin_filename, bool debug)
-{	
-	LL_DEBUGS("Plugin") << "launcher: " << launcher_filename << LL_ENDL;
-	LL_DEBUGS("Plugin") << "plugin: " << plugin_filename << LL_ENDL;
-	
+{
+	LL_DEBUGS("PluginClassMedia") << "launcher: " << launcher_filename << LL_ENDL;
+	LL_DEBUGS("PluginClassMedia") << "plugin: " << plugin_filename << LL_ENDL;
+
 	mPlugin = new LLPluginProcessParent(this);
 	mPlugin->setSleepTime(mSleepTime);
 	
@@ -198,7 +198,7 @@ void LLPluginClassMedia::idle(void)
 				}
 				else
 				{
-					LL_WARNS("Plugin") << "Unable to pad texture width, padding size " << mPadding << "is not a multiple of pixel size " << mRequestedTextureDepth << LL_ENDL;
+					LL_WARNS("PluginClassMedia") << "Unable to pad texture width, padding size " << mPadding << "is not a multiple of pixel size " << mRequestedTextureDepth << LL_ENDL;
 				}
 			}
 		}
@@ -256,11 +256,11 @@ void LLPluginClassMedia::idle(void)
 			message.setValueReal("background_b", mBackgroundColor.mV[VZ]);
 			message.setValueReal("background_a", mBackgroundColor.mV[VW]);
 			mPlugin->sendMessage(message);	// DO NOT just use sendMessage() here -- we want this to jump ahead of the queue.
-			
-			LL_DEBUGS("Plugin") << "Sending size_change" << LL_ENDL;
+
+			LL_DEBUGS("PluginClassMedia") << "Sending size_change" << LL_ENDL;
 		}
 	}
-	
+
 	if(mPlugin && mPlugin->isRunning())
 	{
 		// Send queued messages
@@ -777,7 +777,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 					mDirtyRect.unionWith(newDirtyRect);
 				}
 
-				LL_DEBUGS("Plugin") << "adjusted incoming rect is: (" 
+				LL_DEBUGS("PluginClassMedia") << "adjusted incoming rect is: ("
 					<< newDirtyRect.mLeft << ", "
 					<< newDirtyRect.mTop << ", "
 					<< newDirtyRect.mRight << ", "
@@ -841,9 +841,9 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		else if(message_name == "media_status")
 		{
 			std::string status = message.getValue("status");
-			
-			LL_DEBUGS("Plugin") << "Status changed to: " << status << LL_ENDL;
-			
+
+			LL_DEBUGS("PluginClassMedia") << "Status changed to: " << status << LL_ENDL;
+
 			if(status == "loading")
 			{
 				mStatus = LLPluginClassMediaOwner::MEDIA_LOADING;
@@ -933,7 +933,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		}
 		else
 		{
-			LL_WARNS("Plugin") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
+			LL_WARNS("PluginClassMedia") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
 		}
 	}
 	else if(message_class == LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER)
@@ -990,7 +990,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		}
 		else
 		{
-			LL_WARNS("Plugin") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
+			LL_WARNS("PluginClassMedia") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
 		}
 	}
 	else if(message_class == LLPLUGIN_MESSAGE_CLASS_MEDIA_TIME)
@@ -1001,9 +1001,9 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 //		if(message_name == "message_name")
 //		{
 //		}
-//		else 
+//		else
 		{
-			LL_WARNS("Plugin") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
+			LL_WARNS("PluginClassMedia") << "Unknown " << message_name << " class message: " << message_name << LL_ENDL;
 		}
 	}
 
@@ -1230,6 +1230,6 @@ void LLPluginClassMedia::initializeUrlHistory(const LLSD& url_history)
 	message.setValueLLSD("history", url_history);
 	sendMessage(message);
 
-	LL_DEBUGS("Plugin") << "Sending history" << LL_ENDL;
+	LL_DEBUGS("PluginClassMedia") << "Sending history" << LL_ENDL;
 }
 
