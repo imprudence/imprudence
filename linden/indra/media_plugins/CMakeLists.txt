@@ -8,8 +8,14 @@ if (LINUX)
     add_subdirectory(gstreamer010)
 endif (LINUX)
 
-if (WINDOWS OR DARWIN)
+# We use gstreamer for audio, quicktime for media on win-- MC
+if (WINDOWS)
+    add_subdirectory(gstreamer010)
     add_subdirectory(quicktime)
-endif (WINDOWS OR DARWIN)
+endif (WINDOWS)
+
+if (DARWIN)
+    add_subdirectory(quicktime)
+endif (DARWIN)
 
 add_subdirectory(example)
