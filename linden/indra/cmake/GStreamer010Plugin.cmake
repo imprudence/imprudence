@@ -35,10 +35,10 @@ if (WINDOWS)
   # We don't need to explicitly link against gstreamer itself, because
   # LLMediaImplGStreamer probes for the system's copy at runtime.
     set(GSTREAMER010_LIBRARIES
-         libgstvideo
-         libgstaudio
-         libgstbase-0.10
-         libgstreamer-0.10
+         gstaudio-0.10.lib
+         gstbase-0.10.lib
+         gstreamer-0.10.lib
+         gstvideo-0.10.lib
          gobject-2.0
          gmodule-2.0
          gthread-2.0
