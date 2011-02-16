@@ -33,6 +33,8 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is currently not used
+
 #include "linden_common.h"
 #include "indra_constants.h"
 

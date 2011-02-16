@@ -33,6 +33,8 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the viewer and the SLPlugin
+
 #include "linden_common.h"
 
 #include "llpluginmessagepipe.h"
