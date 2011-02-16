@@ -563,7 +563,7 @@ namespace
 #if LL_WINDOWS
 		LLError::addRecorder(new RecordToWinDebug);
 #endif
-
+		llwarns << "Load LogControlFile from Directory:"<< dir << llendl;
 		LogControlFile& e = LogControlFile::fromDirectory(dir);
 
 		// NOTE: We want to explicitly load the file before we add it to the event timer
