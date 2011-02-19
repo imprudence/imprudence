@@ -233,6 +233,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 
 	// TODO: grok 'duration' message type
 	if (GST_MESSAGE_TYPE(message) != GST_MESSAGE_STATE_CHANGED &&
+		GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING &&
 	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_TAG)
 	{
 		writeToLog("Got GST message type: %s", GST_MESSAGE_TYPE_NAME (message));
