@@ -33,9 +33,8 @@
 #include "llfixedbuffer.h"
 
 LLFixedBuffer::LLFixedBuffer(const U32 max_lines)
-			  : mMutex(NULL)
+ 	: mMaxLines(max_lines)
 {
-	mMaxLines = max_lines;
 	mTimer.reset();
 }
 

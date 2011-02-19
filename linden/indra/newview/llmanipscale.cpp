@@ -1523,7 +1523,7 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 	F32 max_subdivisions = sGridMaxSubdivisionLevel;
 	F32 grid_alpha = gSavedSettings.getF32("GridOpacity");
 
-	F32 max_point_on_scale_line = partToMaxScale(mManipPart, bbox);
+	F32 max_point_on_scale_line = llmin(partToMaxScale(mManipPart, bbox), LLWorld::getInstance()->getRegionWidthInMeters());
 	LLVector3 drag_point = gAgent.getPosAgentFromGlobal(mDragPointGlobal);
 
 	updateGridSettings();

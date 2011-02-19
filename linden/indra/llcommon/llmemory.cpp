@@ -33,6 +33,8 @@
 #include "linden_common.h"
 
 #if defined(LL_WINDOWS)
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 # include <windows.h>
 # include <psapi.h>
 #elif defined(LL_DARWIN)

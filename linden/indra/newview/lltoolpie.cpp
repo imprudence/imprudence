@@ -645,8 +645,6 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 	}
 	*/
 
-	
-	gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 
 	LLViewerObject *object = NULL;
 	LLViewerObject *parent = NULL;
@@ -697,9 +695,14 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 		{
 			gViewerWindow->getWindow()->setCursor(UI_CURSOR_HAND);
 		}
+		else
+		{
+			gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
+		}
 	}
 	else
 	{
+		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 		// We need to clear media hover flag
 		if (LLViewerMediaFocus::getInstance()->getMouseOverFlag())
 		{

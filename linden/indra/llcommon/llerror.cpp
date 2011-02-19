@@ -46,6 +46,8 @@
 # include <unistd.h>
 #endif // !LL_WINDOWS
 #if LL_WINDOWS
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 # include <windows.h>
 #endif // LL_WINDOWS
 #include <vector>
@@ -870,6 +872,9 @@ You get:
 	llfoo.cpp(42) : ERROR: something
 	
 */
+
+apr_thread_mutex_t* gLogMutexp;
+apr_thread_mutex_t* gCallStacksLogMutexp;
 
 namespace {
 	bool checkLevelMap(const LevelMap& map, const std::string& key,
