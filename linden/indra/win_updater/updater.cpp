@@ -459,7 +459,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 			L"The Imprudence auto-update has failed.\n"
 			L"The problem may be caused by other software installed \n"
 			L"on your computer, such as a firewall.\n"
-			L"Please visit http://imprudenceviewer.org/download/ \n"
+			L"Please visit http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads \n"
 			L"to download the latest version of Imprudence.\n",
 			NULL, MB_OK);
 		return 1;
