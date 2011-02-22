@@ -3219,7 +3219,7 @@ void LLAppViewer::badNetworkHandler()
 		"the issue. \n"
 		" \n"
 		"If the problem continues, please report the issue at: \n"
-		"http://imprudenceviewer.org" << grid_support_msg;
+		"http://redmine.kokuaviewer.org/projects/imprudence" << grid_support_msg;
 	forceDisconnect(message.str());
 }
 

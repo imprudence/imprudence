@@ -1,7 +1,7 @@
 <?xml version="1.0" ?><notifications>
 
 <global name="VIEWER_NAME">Imprudence</global>
-<global name="VIEWER_SITE">imprudenceviewer.org</global>
+<global name="VIEWER_SITE">kokuaviewer.org</global>
 <global name="SECOND_LIFE">Second Life</global>
 <global name="SECOND_LIFE_SITE">secondlife.com</global>
 
@@ -6678,7 +6678,7 @@ The region you have entered is running a different simulator version. Click this
  icon="notify.tga"
  name="QueryClientTags"
  type="notify">
-Would you like to have the client tag database automatically updated from imprudenceviewer.org?
+Would you like to have the client tag database automatically updated from kokuaviewer.org?
 
 This ensures that you have the latest information available regarding other clients.
   <form name="form">
@@ -6750,7 +6750,7 @@ GRAVITY  --  -9.8
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Build_Math_Expressions
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Build_Math_Expressions
   </url>
   <usetemplate
    name="okhelpbuttons"
@@ -6779,7 +6779,7 @@ GLOW --  Glow
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Build_Math_Expressions
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Build_Math_Expressions
   </url>
   <usetemplate
    name="okhelpbuttons"
@@ -6882,7 +6882,7 @@ WARNING: Don't restore if you aren't sure where the object will go!
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Restore_to_Last_Position
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Restore_to_Last_Position
   </url>
   <usetemplate
    name="okcancelhelpignore"

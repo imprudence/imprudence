@@ -68,7 +68,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org</string>
+    <string>http://blog.kokuaviewer.org</string>
   </map>
   <key>BrowserLastVisited</key>
   <map>
@@ -1276,7 +1276,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/client_list/</string>
+    <string>http://app.kokuaviewer.org/client_list/</string>
   </map>
 
   <key>WarnClientTags</key>
@@ -6921,7 +6921,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://imprudenceviewer.org/splash/</string>
+      <string></string>
     </map>
     <key>LogTextureDownloadsToViewerLog</key>
     <map>

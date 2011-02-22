@@ -17,7 +17,7 @@
    no matter your skills or the amount of time you can dedicate.
 
 
-   Imprudence is online at ImprudenceViewer.org
+   Imprudence is online at http://kokuaviewer.org/
 
 
    The latest source code for the Imprudence Viewer is available at:

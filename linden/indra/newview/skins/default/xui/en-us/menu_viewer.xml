@@ -815,12 +815,12 @@
     <menu_item_call name="Imprudence Blog"
                     label="Imprudence Blog">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceBlog,http://imprudenceviewer.org/" />
+                userdata="WebLaunchImprudenceBlog,http://blog.kokuaviewer.org/" />
     </menu_item_call>
     <menu_item_call name="Imprudence Forums"
                     label="Imprudence Forums">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceForums,http://imprudenceviewer.org/forums/" />
+                userdata="WebLaunchImprudenceForums,http://forums.kokuaviewer.org/" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Scripting Portal"
