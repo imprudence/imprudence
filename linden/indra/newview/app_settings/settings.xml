@@ -1369,7 +1369,7 @@
   <key>WarnFirstPrivacy</key>
   <map>
     <key>Comment</key>
-    <string>Enables FirstPrivacy warning on login</string>
+    <string>Warn about statistics packet when first logging in to Second Life.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>

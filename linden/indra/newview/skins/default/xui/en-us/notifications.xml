@@ -7304,22 +7304,20 @@ The new font will appear after you restart [VIEWER_NAME].
 </notification>
 
 <notification
- icon="alertmodal.tga"
  name="FirstPrivacy"
+ icon="alertmodal.tga"
  type="alertmodal">
-Terms of service of the grid you are connecting to require sending a "statistics packet" every 5 minutes.
-That is for example: Data about your hardware (CPU, RAM), number of avatars around, number of sims visited.
-Please check *the grids* privacy policy about usage of that data.
-  <form name="form">
-	  <button
-		 index="0"
-		 name="ok"
-		 text="Login anyway"/>
-	  <button
-		 index="1"
-		 name="notok"
-		 text="Do not log in"/>
-  </form>
+Attention: The Second Life Terms of Service require that all viewers, including the Imprudence Viewer, send a "statistics packet" to Linden Lab every 5 minutes while you are connected to Second Life.
+
+The packet includes non-personally-identifying data about your computer and your Second Life usage, such as your computer hardware and operating system, average framerate, number of sims visited, number of avatars nearby, and more. Please check the Second Life Privacy Policy for information about how Linden Lab uses this and other data.
+
+The packet is sent only to Linden Lab; the Imprudence Project does not receive or collect any data of this kind.
+
+The Second Life Terms of Service do not allow you to opt out. By logging in to Second Life, you are consenting to this data collection.
+  <usetemplate
+   name="okcancelbuttons"
+   yestext="Log In"
+   notext="Cancel"/>
 </notification>
 
 <!--End Imprudence notifications-->
