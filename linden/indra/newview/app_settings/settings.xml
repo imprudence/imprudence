@@ -832,6 +832,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>NewsBarURL</key>
+  <map>
+    <key>Comment</key>
+    <string>URL to load in the news bar on the login screen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://app.kokuaviewer.org/news/</string>
+  </map>
   <key>ObjectIMColor</key>
   <map>
     <key>Comment</key>

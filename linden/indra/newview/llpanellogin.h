@@ -87,6 +87,9 @@ public:
 	// inherited from LLViewerMediaObserver
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
 
+	/// Load the news bar web page, return true if successful.
+	bool loadNewsBar();
+
 private:
 	static void onClickConnect(void*);
 	static void onClickGrid(void*);
