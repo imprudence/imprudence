@@ -8,19 +8,73 @@
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-    This version of Imprudence includes the following changes,
-    as compared to Imprudence 1.3.0.
+    RELEASE HIGHLIGHTS
 
-    * Added new options in Preferences > Fonts: "Font size multiplier"
-      and "Force integer font sizes". (Note: increasing the font size
-      too much may cause some parts of the UI to mess up or look bad.)
+      * Added support for the new Second Life maximum group limit.
+        Thanks, Armin!
 
-    * Fixed the mouse not being able to interact with the world after
-      using snapshot freeze frame.
+      * Added new options in Preferences > Fonts: "Font size
+        multiplier" and "Force integer font sizes". (Note: increasing
+        the font size too much may cause some parts of the UI to mess
+        up or look bad.) Thanks, Jacek!
 
-    * Several Preferences alerts (e.g. skin change) are now "blue box"
-      notifications, to avoid focus fights when multiple alerts occurs
-      simultaneously.
+      * Fixed the mouse not being able to interact with the world
+        after using snapshot freeze frame (IMP-629). Thanks, Jacek!
+
+      * Added a "news bar" on the bottom of the login screen, which
+        loads a web page with links to the latest Imprudence blog
+        posts. You can disable loading that page by changing the
+        "NewsBarURL" debug setting to nothing. Thanks, Jacek!
+
+
+    CHANGES
+
+      In addition to the Release Highlights above, this version of
+      Imprudence also includes the following changes, as compared to
+      Imprudence 1.3.0.
+
+
+      IMPROVEMENTS
+
+        * Added highlighting/tooltips for new llSensor keywords in the
+          script editor: AGENT_BY_USERNAME and AGENT_BY_LEGACY_NAME
+          (IMP-675). Thanks for the patch, Ansariel Hiller!
+
+        * Updated the default grid list packaged with the viewer, to
+          reflect the current state of the online list. Thanks, Jacek!
+
+        * Updated all imprudenceviewer.org URLs to their new
+          kokuaviewer.org counterparts. Thanks, Jacek!
+
+
+      BUG FIXES
+
+        * Several Preferences alerts (e.g. skin change) are now "blue
+          box" notifications, to avoid focus fights when multiple
+          alerts occurs simultaneously. Thanks, Jacek!
+
+        * On Linux, the viewer now uses the system versions of GTK+,
+          ATK, freetype, cairo, pango, and pixman. Those libraries are
+          no longer packaged with the viewer, because they caused
+          compatibility issues with the clipboard and file chooser
+          dialogs. Thanks, Aleric Inglewood and Armin!
+
+
+      OTHER CHANGES
+
+        * Re-enabled sending the "statistics packet" when connected to
+          Second Life, as required by the Policy on Third-Party
+          Viewers. A notice will be displayed the first time you log
+          in to Second Life. The packet is still disabled on other
+          grids. Thanks, Armin and Jacek!
+
+        * The viewer now only tells the login server its own version
+          number, instead of also including the version of the Second
+          Life viewer that it was based on. Thanks, Jacek!
+
+        * Removed the "getvoice.sh" script on Linux, since it's no
+          longer necessary and running it can sometimes break audio.
+          Thanks, Jacek!
 
 
 
