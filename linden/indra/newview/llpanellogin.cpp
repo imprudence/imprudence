@@ -305,17 +305,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// make links open in external browser
 	web_browser->setOpenInExternalBrowser( true );
 
-	// force the size to be correct (XML doesn't seem to be sufficient to do this) (with some padding so the other login screen doesn't show through)
-	LLRect htmlRect = getRect();
-#if USE_VIEWER_AUTH
-	htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY(), getRect().getWidth() + 6, getRect().getHeight());
-#else
-	htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY() + 40, getRect().getWidth() + 6, getRect().getHeight() - 78 );
-#endif
-	web_browser->setRect( htmlRect );
-	web_browser->reshape( htmlRect.getWidth(), htmlRect.getHeight(), TRUE );
-	reshape( getRect().getWidth(), getRect().getHeight(), 1 );
-
 	// kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build( this );
 	std::string login_page = gSavedSettings.getString("LoginPage");
@@ -329,6 +318,8 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// Initialize visibility (and don't force visibility - use prefs)
 	refreshLocation( false );
 #endif
+
+	loadNewsBar();
 
 	LLFirstUse::useLoginScreen();
 }
@@ -417,13 +408,20 @@ void LLPanelLogin::draw()
 		S32 width = getRect().getWidth();
 		S32 height = getRect().getHeight();
 
+		S32 news_bar_height = 0;
+		LLWebBrowserCtrl* news_bar = getChild<LLWebBrowserCtrl>("news_bar");
+		if (news_bar)
+		{
+			news_bar_height = news_bar->getRect().getHeight();
+		}
+
 		if ( mHtmlAvailable )
 		{
 #if !USE_VIEWER_AUTH
 			// draw a background box in black
-			gl_rect_2d( 0, height - 264, width, 264, LLColor4( 0.0f, 0.0f, 0.0f, 1.f ) );
+			gl_rect_2d( 0, height - 264 + news_bar_height, width, 264, LLColor4( 0.0f, 0.0f, 0.0f, 1.f ) );
 			// draw the bottom part of the background image - just the blue background to the native client UI
-			mLogoImage->draw(0, -264, width + 8, mLogoImage->getHeight());
+			mLogoImage->draw(0, -264 + news_bar_height, width + 8, mLogoImage->getHeight());
 #endif
 		}
 		else
@@ -1146,3 +1144,75 @@ void LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)
 	}
 }
 */
+
+
+bool LLPanelLogin::loadNewsBar()
+{
+	std::string news_url = gSavedSettings.getString("NewsBarURL");
+
+	if (news_url.empty())
+	{
+		return false;
+	}
+
+	LLWebBrowserCtrl* news_bar = getChild<LLWebBrowserCtrl>("news_bar");
+
+	if (!news_bar)
+	{
+		return false;
+	}
+
+	// *HACK: Not sure how else to make LLWebBrowserCtrl respect user's
+	// preference when opening links with target="_blank". -Jacek
+	if (gSavedSettings.getBOOL("UseExternalBrowser"))
+	{
+		news_bar->setOpenInExternalBrowser( true );
+		news_bar->setOpenInInternalBrowser( false );
+	}
+	else
+	{
+		news_bar->setOpenInExternalBrowser( false );
+		news_bar->setOpenInInternalBrowser( true );
+	}
+
+
+	std::ostringstream full_url;
+
+	full_url << news_url;
+
+	// Append a "?" if the URL doesn't already have query params.
+	if (LLURI(news_url).queryMap().size() == 0)
+	{
+		full_url << "?";
+	}
+
+	std::string channel = gSavedSettings.getString("VersionChannelName");
+	std::string skin = gSavedSettings.getString("SkinCurrent");
+
+	std::string version =
+		llformat("%d.%d.%d",
+		         ViewerVersion::getImpMajorVersion(),
+		         ViewerVersion::getImpMinorVersion(),
+		         ViewerVersion::getImpPatchVersion());
+	if (!ViewerVersion::getImpTestVersion().empty())
+	{
+		version += " " + ViewerVersion::getImpTestVersion();
+	}
+
+	char* curl_channel = curl_escape(channel.c_str(), 0);
+	char* curl_version = curl_escape(version.c_str(), 0);
+	char* curl_skin    = curl_escape(skin.c_str(), 0);
+
+	full_url << "&channel=" << curl_channel;
+	full_url << "&version=" << curl_version;
+	full_url << "&skin="    << curl_skin;
+
+	curl_free(curl_channel);
+	curl_free(curl_version);
+	curl_free(curl_skin);
+
+	news_bar->navigateTo( full_url.str() );
+
+
+	return true;
+}

@@ -84,6 +84,9 @@ public:
 	static void setAlwaysRefresh(bool refresh); 
 	static void mungePassword(LLUICtrl* caller, void* user_data);
 	
+	/// Load the news bar web page, return true if successful.
+	bool loadNewsBar();
+
 private:
 	static void onClickConnect(void*);
 	static void onClickGrid(void*);
