@@ -269,7 +269,7 @@ LLImageRaw::LLImageRaw(U8 *data, U16 width, U16 height, S8 components)
 	: LLImageBase()
 {
 	mMemType = LLMemType::MTYPE_IMAGERAW;
-	if(allocateDataSize(width, height, components))
+	if(allocateDataSize(width, height, components) && data)
 	{
 		memcpy(getData(), data, width*height*components);
 	}
