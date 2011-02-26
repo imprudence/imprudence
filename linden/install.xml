@@ -228,9 +228,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>ed53511382d0fd9fec59a9f6544d9672</string>
+            <string>3d4bd78f30f118c6e35f8d367ec25fc2</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.39.0-windows-20091029.tar.bz2</uri>
+            <uri>http://downloads.phoenixviewer.com/boost-1.43.0-windows-20100902.tar.bz2</uri>
           </map>
         </map>
       </map>

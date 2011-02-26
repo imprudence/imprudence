@@ -14,7 +14,7 @@ else (STANDALONE)
   set(Boost_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include)
 
   if (WINDOWS)
-    set(BOOST_VERSION 1_39)
+    set(BOOST_VERSION 1_43)
     if (MSVC80)
       set(BOOST_PROGRAM_OPTIONS_LIBRARY 
           optimized libboost_program_options-vc80-mt-${BOOST_VERSION}
@@ -25,8 +25,6 @@ else (STANDALONE)
       set(BOOST_SIGNALS_LIBRARY 
           optimized libboost_signals-vc80-mt-${BOOST_VERSION}
           debug libboost_signals-vc80-mt-gd-${BOOST_VERSION})
-	# Default support for VS2008 was lost in the move from 1.36 to 1.39.  
-	# Remove this comment when this is fixed -- MC
     elseif (MSVC90)
       set(BOOST_PROGRAM_OPTIONS_LIBRARY 
           optimized libboost_program_options-vc90-mt-${BOOST_VERSION}
