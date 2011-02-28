@@ -66,6 +66,7 @@ public:
 
 	static void show(void*);
 	static void init();
+	static BOOL fullfetch;
 
 	static void onClickToggleAO(LLUICtrl *, void*);
 	static void onClickToggleSits(LLUICtrl *, void*);

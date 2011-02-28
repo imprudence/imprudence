@@ -601,6 +601,8 @@ void LLFloaterAO::updateLayout(LLFloaterAO* floater)
 	}
 }
 
+BOOL LLFloaterAO::fullfetch = FALSE;
+
 void LLFloaterAO::init()
 {
 	mAOStands.clear();
@@ -694,6 +696,15 @@ void LLFloaterAO::init()
 															TRUE);
 							success = TRUE;
 						}
+					}
+				}else
+				{
+					//static BOOL startedfetch = FALSE;
+					if(fullfetch == FALSE)
+					{
+						fullfetch = TRUE;
+						//no choice, can't move the AO till we find it, should only have to happen once
+						gInventory.startBackgroundFetch();
 					}
 				}
 			}
