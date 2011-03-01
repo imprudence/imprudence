@@ -179,9 +179,9 @@
           <key>common</key>
           <map>
             <key>md5sum</key>
-            <string>a2cde4f24bdcc260b661e139846b8acd</string>
+            <string>bf3547c5bf5555e82355cd82ad8eaf73</string>
             <key>url</key>
-			<uri>http://imprudenceviewer.org/download/libs/imprudence-artwork-20101026.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/extras/imprudence-artwork-20110301.tar.bz2</uri>
           </map>
         </map>
       </map>
