@@ -134,7 +134,7 @@ class ViewerManifest(LLManifest):
             self.path("README.txt")
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
-            self.path("RELEASE_NOTES.txt")
+            #self.path("RELEASE_NOTES.txt")
             self.path("ChangeLog.txt", required=False)
             self.end_prefix("../../..")
 
