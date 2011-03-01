@@ -36,7 +36,6 @@
 #include "llmediactrl.h"
 
 // viewer includes
-#include "llfloaterhtml.h"
 #include "llfloatermediabrowser.h"
 #include "llfloaterworldmap.h"
 #include "lluictrlfactory.h"
