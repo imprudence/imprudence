@@ -51,6 +51,7 @@ public:
 class AOInvTimer : public LLEventTimer
 {
 public:
+	static BOOL fullfetch;
 	AOInvTimer();
 	~AOInvTimer();
 	BOOL tick();
@@ -66,7 +67,6 @@ public:
 
 	static void show(void*);
 	static void init();
-	static BOOL fullfetch;
 
 	static void onClickToggleAO(LLUICtrl *, void*);
 	static void onClickToggleSits(LLUICtrl *, void*);
