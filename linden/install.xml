@@ -1220,6 +1220,7 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20091118.tar.bz2</uri>
           </map>
+<!--      openal compiled against pulse 0.9.10
           <key>linux</key>
           <map>
             <key>md5sum</key>
@@ -1227,12 +1228,21 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-linux32-20100426.tar.bz2</uri>
           </map>
+-->
+	  <!--      openal compiled against pulse 0.9.21 -->
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>44f9bacc69a3d29ae0b46ed69ad7c2ce</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-linux32-20110304.tar.bz2</uri>
+          </map>
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-            <string>ea42b868511e2d5fab2df11dceaf2b7e</string>
+            <string>ea42b868511e2d5fab2df11dceaf2b7e</string>032848c2591a15e26c71998df3644cfc
              <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux64-20100428.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-linux64-pulse0.9.21-20110304.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>
@@ -1336,19 +1346,19 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
         <string>lgpl</string>
         <key>packages</key>
         <map>
-          <key>linux</key>
+<!--          <key>linux</key>
           <map>
             <key>md5sum</key>
             <string>30cb00069fe2a545fbf7be1070386236</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/linux-pulse-headers-0.9.14.tar.bz2</uri>
           </map>
-          <key>linux64</key>
+          <key>linux64</key>--><key>common</key>
           <map>
             <key>md5sum</key>
-            <string>30cb00069fe2a545fbf7be1070386236</string>
+            <string>c5c3b840bb77ee41fa06970663c15302</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/linux-pulse-headers-0.9.14.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/pulseaudio-headers-0.9.21-63-gd3efa-dirty.tar.bz2</uri>
           </map>
         </map>
       </map>
