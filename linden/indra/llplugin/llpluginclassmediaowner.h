@@ -41,7 +41,7 @@
 #include <queue>
 
 class LLPluginClassMedia;
-class LLPluginCookieStore;
+//class LLPluginCookieStore; // IMPRUDENCE: this is currently not used 
 
 class LLPluginClassMediaOwner
 {

@@ -134,7 +134,7 @@ class ViewerManifest(LLManifest):
             self.path("README.txt")
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
-            self.path("RELEASE_NOTES.txt")
+            #self.path("RELEASE_NOTES.txt")
             self.path("ChangeLog.txt", required=False)
             self.end_prefix("../../..")
 
@@ -1002,8 +1002,8 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libz.so.1")
 
             # OpenAL
-            self.path("libopenal.so.1")
-            self.path("libalut.so.0")
+            self.path("libopenal.so.1.12.854", "libopenal.so.1")
+            self.path("libalut.so.0.1.0", "libalut.so.0")
 
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
@@ -1135,17 +1135,15 @@ class Linux_x86_64Manifest(LinuxManifest):
             #self.path("libz.so.1") #not needed
 
             # OpenAL
-            self.path("libopenal.so.1")
-            self.path("libalut.so.0")
-
+            self.path("libopenal.so.1.12.854", "libopenal.so.1")
+            self.path("libalut.so.0.1.0", "libalut.so.0")
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
             ##self.path("libatk-1.0.so.0")
             ##self.path("libcairo.so.2")
             ##self.path("libfontconfig.so.1")
             ##self.path("libfreetype.so.6")
-            self.path("libgdk_pixbuf-2.0.so.0")	# was commented to use systems gdk pixbufs instead -
-	    					# but seems webkit needs it o_O . Packaging for testing now.
+            #self.path("libgdk_pixbuf-2.0.so.0")
             ##self.path("libgdk-x11-2.0.so.0")
             ##self.path("libgtk-x11-2.0.so.0")
 #            self.path("libpango-1.0.so.0")		# use systems pango instead

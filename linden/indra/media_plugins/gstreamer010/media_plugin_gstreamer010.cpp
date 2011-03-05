@@ -181,7 +181,7 @@ MediaPluginGStreamer010::MediaPluginGStreamer010(
 	mVideoSink ( NULL ),
 	mCommand ( COMMAND_NONE )
 {
-	writeToLog("MediaPluginGStreamer010 PID=%u", U32(LL_GETPID()));
+	writeToLog((char*)"MediaPluginGStreamer010 PID=%u", U32(LL_GETPID()));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -236,7 +236,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 		GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING &&
 	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_TAG)
 	{
-		writeToLog("Got GST message type: %s", GST_MESSAGE_TYPE_NAME (message));
+		writeToLog((char*)"Got GST message type: %s", GST_MESSAGE_TYPE_NAME (message));
 	}
 
 	switch (GST_MESSAGE_TYPE (message))
@@ -246,7 +246,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 			// NEEDS GST 0.10.11+ and America discovered by C.Columbus
 			gint percent = 0;
 			gst_message_parse_buffering(message, &percent);
-			writeToLog("GST buffering: %d%%", percent);
+			writeToLog((char*)"GST buffering: %d%%", percent);
 
 			break;
 		}
@@ -260,7 +260,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 							&pending_state);
 			#ifdef LL_GST_REPORT_STATE_CHANGES
 			// not generally very useful, and rather spammy.
-			writeToLog("state change (old,<new>,pending): %s,<%s>,%s",
+			writeToLog((char*)"state change (old,<new>,pending): %s,<%s>,%s",
 				get_gst_state_name(old_state),
 				get_gst_state_name(new_state),
 				get_gst_state_name(pending_state));
@@ -290,7 +290,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 			gchar *debug = NULL;
 	
 			gst_message_parse_error (message, &err, &debug);
-			writeToLog("GST error: %s", err?err->message:"(unknown)");
+			writeToLog((char*)"GST error: %s", err?err->message:"(unknown)");
 			if (err)
 				g_error_free (err);
 			g_free (debug);
@@ -307,7 +307,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 			gchar *debug = NULL;
 			
 			gst_message_parse_info (message, &err, &debug);
-			writeToLog("GST info: %s", err?err->message:"(unknown)");
+			writeToLog((char*)"GST info: %s", err?err->message:"(unknown)");
 			if (err)
 				g_error_free (err);
 			g_free (debug);
@@ -320,7 +320,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 			gchar *debug = NULL;
 	
 			gst_message_parse_warning (message, &err, &debug);
-			writeToLog("GST warning: %s", err?err->message:"(unknown)");
+			writeToLog((char*)"GST warning: %s", err?err->message:"(unknown)");
 			if (err)
 				g_error_free (err);
 			g_free (debug);
@@ -337,7 +337,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 
 			if ( gst_tag_list_get_string(new_tags, GST_TAG_TITLE, &title) )
 			{
-				//writeToLog("Title: %s", title);
+				//writeToLog((char*)"Title: %s", title);
 				std::string newtitle(title);
 				gst_tag_list_free(new_tags);
 
@@ -356,10 +356,10 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 		case GST_MESSAGE_EOS:
 		{
 			/* end-of-stream */
-			writeToLog("GST end-of-stream.");
+			writeToLog((char*)"GST end-of-stream.");
 			if (mIsLooping)
 			{
-				//writeToLog("looping media...");
+				//writeToLog((char*)"looping media...");
 				double eos_pos_sec = 0.0F;
 				bool got_eos_position = getTimePos(eos_pos_sec);
 	
@@ -368,7 +368,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 					// if we know that the movie is really short, don't
 					// loop it else it can easily become a time-hog
 					// because of GStreamer spin-up overhead
-					writeToLog("really short movie (%0.3fsec) - not gonna loop this, pausing instead.", eos_pos_sec);
+					writeToLog((char*)"really short movie (%0.3fsec) - not gonna loop this, pausing instead.", eos_pos_sec);
 					// inject a COMMAND_PAUSE
 					mCommand = COMMAND_PAUSE;
 				}
@@ -387,7 +387,7 @@ MediaPluginGStreamer010::processGSTEvents(GstBus     *bus,
 					else
 					#endif // LLGST_LOOP_BY_SEEKING
 					{  // use clumsy stop-start to loop
-						writeToLog("didn't loop by rewinding - stopping and starting instead...");
+						writeToLog((char*)"didn't loop by rewinding - stopping and starting instead...");
 						stop();
 						play(1.0);
 					}
@@ -433,7 +433,7 @@ MediaPluginGStreamer010::navigateTo ( const std::string urlIn )
 
 	setStatus(STATUS_LOADING);
 
-	writeToLog("Setting media URI: %s", urlIn.c_str());
+	writeToLog((char*)"Setting media URI: %s", urlIn.c_str());
 
 	mSeekWanted = false;
 
@@ -461,13 +461,13 @@ MediaPluginGStreamer010::update(int milliseconds)
 	if (!mDoneInit)
 		return false; // error
 
-	//writeToLog("updating media...");
+	//writeToLog((char*)"updating media...");
 	
 	// sanity check
 	if (NULL == mPump ||
 	    NULL == mPlaybin)
 	{
-		writeToLog("dead media...");
+		writeToLog((char*)"dead media...");
 		return false;
 	}
 
@@ -497,7 +497,7 @@ MediaPluginGStreamer010::update(int milliseconds)
 	        GST_OBJECT_LOCK(mVideoSink);
 		if (mVideoSink->retained_frame_ready)
 		{
-			writeToLog("NEW FRAME READY");
+			writeToLog((char*)"NEW FRAME READY");
 
 			if (mVideoSink->retained_frame_width != mCurrentWidth ||
 			    mVideoSink->retained_frame_height != mCurrentHeight)
@@ -528,7 +528,7 @@ MediaPluginGStreamer010::update(int milliseconds)
 				GST_OBJECT_UNLOCK(mVideoSink);
 
 				mCurrentRowbytes = neww * newd;
-				writeToLog("video container resized to %dx%d",
+				writeToLog((char*)"video container resized to %dx%d",
 					 neww, newh);
 
 				mDepth = newd;
@@ -556,7 +556,7 @@ MediaPluginGStreamer010::update(int milliseconds)
 				}
 
 				GST_OBJECT_UNLOCK(mVideoSink);
-				writeToLog("NEW FRAME REALLY TRULY CONSUMED, TELLING HOST");
+				writeToLog((char*)"NEW FRAME REALLY TRULY CONSUMED, TELLING HOST");
 
 				setDirty(0,0,mCurrentWidth,mCurrentHeight);
 			}
@@ -567,7 +567,7 @@ MediaPluginGStreamer010::update(int milliseconds)
 
 				GST_OBJECT_UNLOCK(mVideoSink);
 
-				writeToLog("NEW FRAME not consumed, still waiting for a shm segment and/or shm resize");
+				writeToLog((char*)"NEW FRAME not consumed, still waiting for a shm segment and/or shm resize");
 			}
 
 			return true;
@@ -606,7 +606,7 @@ MediaPluginGStreamer010::mouseMove( int x, int y )
 bool
 MediaPluginGStreamer010::pause()
 {
-	writeToLog("pausing media...");
+	writeToLog((char*)"pausing media...");
 	// todo: error-check this?
 	gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
 	return true;
@@ -615,7 +615,7 @@ MediaPluginGStreamer010::pause()
 bool
 MediaPluginGStreamer010::stop()
 {
-	writeToLog("stopping media...");
+	writeToLog((char*)"stopping media...");
 	// todo: error-check this?
 	gst_element_set_state(mPlaybin, GST_STATE_READY);
 	return true;
@@ -625,7 +625,7 @@ bool
 MediaPluginGStreamer010::play(double rate)
 {
 	// NOTE: we don't actually support non-natural rate.
-	writeToLog("playing media... rate=%f", rate);
+	writeToLog((char*)"playing media... rate=%f", rate);
 	// todo: error-check this?
 	gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
 	return true;
@@ -662,7 +662,7 @@ MediaPluginGStreamer010::seek(double time_sec)
 				GST_SEEK_TYPE_SET, gint64(time_sec*GST_SECOND),
 				GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
 	}
-	writeToLog("MEDIA SEEK REQUEST to %f sec result was %d",
+	writeToLog((char*)"MEDIA SEEK REQUEST to %f sec result was %d",
 		 float(time_sec), int(success));
 	return success;
 }
@@ -716,7 +716,7 @@ MediaPluginGStreamer010::load()
 
 	setStatus(STATUS_LOADING);
 
-	writeToLog("setting up media...");
+	writeToLog((char*)"setting up media...");
 
 	mIsLooping = false;
 	mVolume = (float) 0.1234567; // minor hack to force an initial volume update
@@ -755,7 +755,7 @@ MediaPluginGStreamer010::load()
 			GST_SLVIDEO(gst_element_factory_make ("private-slvideo", "slvideo"));
 		if (!mVideoSink)
 		{
-			writeToLog("Could not instantiate private-slvideo element.");
+			writeToLog((char*)"Could not instantiate private-slvideo element.");
 			// todo: cleanup.
 			setStatus(STATUS_ERROR);
 			return false; // error
@@ -774,7 +774,7 @@ MediaPluginGStreamer010::unload ()
 	if (!mDoneInit)
 		return false; // error
 
-	writeToLog("unloading media...");
+	writeToLog((char*)"unloading media...");
 	
 	// stop getting callbacks for this bus
 	g_source_remove(mBusWatchID);
@@ -832,7 +832,7 @@ MediaPluginGStreamer010::startup()
 				    "libgstvideo-0.10.so.0") )
 #endif
 		{
-			writeToLog("Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled.");
+			writeToLog((char*)"Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled.");
 			return false;
 		}
 */
@@ -842,7 +842,7 @@ MediaPluginGStreamer010::startup()
 // 		}
 // 		else
 // 		{
-// 			writeToLog("gst_segtrap_set_enabled() is not available; plugin crashes won't be caught.");
+// 			writeToLog((char*)"gst_segtrap_set_enabled() is not available; plugin crashes won't be caught.");
 // 		}
 /*
 #if LL_LINUX
@@ -885,12 +885,12 @@ MediaPluginGStreamer010::startup()
 		{
 			if (err)
 			{
-				writeToLog("GST init failed: %s", err->message);
+				writeToLog((char*)"GST init failed: %s", err->message);
 				g_error_free(err);
 			}
 			else
 			{
-				writeToLog("GST init failed for unspecified reason.");
+				writeToLog((char*)"GST init failed for unspecified reason.");
 			}
 			return false;
 		}
@@ -903,7 +903,7 @@ MediaPluginGStreamer010::startup()
 		gst_slvideo_init_class();
 
 		// List the plugins GStreamer can find
-		writeToLog("Found GStreamer plugins:");
+		writeToLog((char*)"Found GStreamer plugins:");
 		GList *list;
 		GstRegistry *registry = gst_registry_get_default();
 		std::string loaded = "No";
@@ -913,7 +913,7 @@ MediaPluginGStreamer010::startup()
 		{	 
 			GstPlugin *list_plugin = (GstPlugin *)list->data;
 			if (gst_plugin_is_loaded(list_plugin)) loaded = "Yes";
-			writeToLog("%s, loaded? %s", gst_plugin_get_name(list_plugin), loaded.c_str());
+			writeToLog((char*)"%s, loaded? %s", gst_plugin_get_name(list_plugin), loaded.c_str());
 		}
 		gst_plugin_list_free(list);
 
@@ -960,11 +960,11 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 
 	if( imp_dir == "" )
 	{
-		writeToLog("Could not get application directory, not setting GST_PLUGIN_PATH.");
+		writeToLog((char*)"Could not get application directory, not setting GST_PLUGIN_PATH.");
 		return;
 	}
 
-	writeToLog("Imprudence is installed at %s", imp_dir.c_str());
+	writeToLog((char*)"Imprudence is installed at %s", imp_dir.c_str());
 
 	// ":" on Mac and 'Nix, ";" on Windows
 	std::string separator = G_SEARCHPATH_SEPARATOR_S;
@@ -974,7 +974,7 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 	char *old_path = getenv("GST_PLUGIN_PATH");
 	if(old_path == NULL)
 	{
-		writeToLog("Did not find user-set GST_PLUGIN_PATH.");
+		writeToLog((char*)"Did not find user-set GST_PLUGIN_PATH.");
 	}
 	else
 	{
@@ -1005,11 +1005,11 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 
 	if( put_result == -1 )
 	{
-		writeToLog("Setting GST_PLUGIN_PATH failed!");
+		writeToLog((char*)"Setting GST_PLUGIN_PATH failed!");
 	}
 	else
 	{
-		writeToLog("GST_PLUGIN_PATH set to %s", getenv("GST_PLUGIN_PATH"));
+		writeToLog((char*)"GST_PLUGIN_PATH set to %s", getenv("GST_PLUGIN_PATH"));
 	}
 		
 	// Don't load system plugins. We only want to use ours, to avoid conflicts.
@@ -1021,7 +1021,7 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 
 	if( put_result == -1 )
 	{
-		writeToLog("Setting GST_PLUGIN_SYSTEM_PATH=\"\" failed!");
+		writeToLog((char*)"Setting GST_PLUGIN_SYSTEM_PATH=\"\" failed!");
 	}
 		
 #endif // LL_WINDOWS || LL_DARWIN
@@ -1039,7 +1039,7 @@ MediaPluginGStreamer010::sizeChanged()
 	{
 		mNaturalWidth = mCurrentWidth;
 		mNaturalHeight = mCurrentHeight;
-		writeToLog("Media NATURAL size better detected as %dx%d",
+		writeToLog((char*)"Media NATURAL size better detected as %dx%d",
 			 mNaturalWidth, mNaturalHeight);
 	}
 
@@ -1054,7 +1054,7 @@ MediaPluginGStreamer010::sizeChanged()
 		message.setValue("name", mTextureSegmentName);
 		message.setValueS32("width", mNaturalWidth);
 		message.setValueS32("height", mNaturalHeight);
-		writeToLog("<--- Sending size change request to application with name: '%s' - natural size is %d x %d", mTextureSegmentName.c_str(), mNaturalWidth, mNaturalHeight);
+		writeToLog((char*)"<--- Sending size change request to application with name: '%s' - natural size is %d x %d", mTextureSegmentName.c_str(), mNaturalWidth, mNaturalHeight);
 		sendMessage(message);
 	}
 }
@@ -1077,11 +1077,11 @@ MediaPluginGStreamer010::closedown()
 
 MediaPluginGStreamer010::~MediaPluginGStreamer010()
 {
-	//writeToLog("MediaPluginGStreamer010 destructor");
+	//writeToLog((char*)"MediaPluginGStreamer010 destructor");
 
 	closedown();
 
-	writeToLog("GStreamer010 closing down");
+	writeToLog((char*)"GStreamer010 closing down");
 }
 
 
@@ -1125,11 +1125,11 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 
 				if ( load() )
 				{
-					writeToLog("GStreamer010 media instance set up");
+					writeToLog((char*)"GStreamer010 media instance set up");
 				}
 				else
 				{
-					writeToLog("GStreamer010 media instance failed to set up");
+					writeToLog((char*)"GStreamer010 media instance failed to set up");
 				}
 
 				message.setValue("plugin_version", getVersion());
@@ -1156,7 +1156,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 				std::string name = message_in.getValue("name");
 
 				std::ostringstream str;
-				writeToLog("MediaPluginGStreamer010::receiveMessage: shared memory added, name: %s, size: %d, address: %p", name.c_str(), int(info.mSize), info.mAddress);
+				writeToLog((char*)"MediaPluginGStreamer010::receiveMessage: shared memory added, name: %s, size: %d, address: %p", name.c_str(), int(info.mSize), info.mAddress);
 
 				mSharedSegments.insert(SharedSegmentMap::value_type(name, info));
 			}
@@ -1164,7 +1164,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 			{
 				std::string name = message_in.getValue("name");
 
-				writeToLog("MediaPluginGStreamer010::receiveMessage: shared memory remove, name = %s", name.c_str());
+				writeToLog((char*)"MediaPluginGStreamer010::receiveMessage: shared memory remove, name = %s", name.c_str());
 				
 				SharedSegmentMap::iterator iter = mSharedSegments.find(name);
 				if(iter != mSharedSegments.end())
@@ -1182,7 +1182,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 				}
 				else
 				{
-					writeToLog("MediaPluginGStreamer010::receiveMessage: unknown shared memory region!");
+					writeToLog((char*)"MediaPluginGStreamer010::receiveMessage: unknown shared memory region!");
 				}
 
 				// Send the response so it can be cleaned up.
@@ -1193,7 +1193,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 			else
 			{
 				std::ostringstream str;
-				writeToLog("MediaPluginGStreamer010::receiveMessage: unknown base message: %s", message_name.c_str());
+				writeToLog((char*)"MediaPluginGStreamer010::receiveMessage: unknown base message: %s", message_name.c_str());
 			}
 		}
 		else if(message_class == LLPLUGIN_MESSAGE_CLASS_MEDIA)
@@ -1236,7 +1236,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 				S32 texture_height = message_in.getValueS32("texture_height");
 
 				std::ostringstream str;
-				writeToLog("---->Got size change instruction from application with shm name: %s - size is %d x %d", name.c_str(), width, height);
+				writeToLog((char*)"---->Got size change instruction from application with shm name: %s - size is %d x %d", name.c_str(), width, height);
 
 				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "size_change_response");
 				message.setValue("name", name);
@@ -1252,8 +1252,8 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 					SharedSegmentMap::iterator iter = mSharedSegments.find(name);
 					if(iter != mSharedSegments.end())
 					{
-						writeToLog("*** Got size change with matching shm, new size is %d x %d", width, height);
-						writeToLog("*** Got size change with matching shm, texture size size is %d x %d", texture_width, texture_height);
+						writeToLog((char*)"*** Got size change with matching shm, new size is %d x %d", width, height);
+						writeToLog((char*)"*** Got size change with matching shm, texture size size is %d x %d", texture_width, texture_height);
 
 						mPixels = (unsigned char*)iter->second.mAddress;
 						mTextureSegmentName = name;
@@ -1263,7 +1263,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 						if (texture_width > 1 ||
 						    texture_height > 1) // not a dummy size from the app, a real explicit forced size
 						{
-							writeToLog("**** = REAL RESIZE REQUEST FROM APP");
+							writeToLog((char*)"**** = REAL RESIZE REQUEST FROM APP");
 							
 							GST_OBJECT_LOCK(mVideoSink);
 							mVideoSink->resize_forced_always = true;
@@ -1345,7 +1345,7 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 		}
 		else
 		{
-			writeToLog("MediaPluginGStreamer010::receiveMessage: unknown message class: %s", message_class.c_str());
+			writeToLog((char*)"MediaPluginGStreamer010::receiveMessage: unknown message class: %s", message_class.c_str());
 		}
 	}
 }

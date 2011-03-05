@@ -33,6 +33,8 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the viewer
+
 #include "linden_common.h"
 
 #include "llpluginprocessparent.h"

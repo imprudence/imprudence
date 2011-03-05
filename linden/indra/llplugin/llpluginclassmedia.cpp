@@ -33,13 +33,13 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the viewer
+
 #include "linden_common.h"
 #include "indra_constants.h"
 
 #include "llpluginclassmedia.h"
 #include "llpluginmessageclasses.h"
-
-#include "llqtwebkit.h"
 
 static int LOW_PRIORITY_TEXTURE_SIZE_DEFAULT = 256;
 
@@ -777,7 +777,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 					mDirtyRect.unionWith(newDirtyRect);
 				}
 
-				LL_DEBUGS("PluginClassMedia") << "adjusted incoming rect is: ("
+				LL_DEBUGS("PluginClassMediaRect") << "adjusted incoming rect is: ("
 					<< newDirtyRect.mLeft << ", "
 					<< newDirtyRect.mTop << ", "
 					<< newDirtyRect.mRight << ", "
@@ -973,6 +973,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		{
 			mClickURL = message.getValue("uri");
 			mClickTarget = message.getValue("target");
+			LL_DEBUGS("PluginClassMedia") << "Click target \"" << mClickTarget << "\"" << LL_ENDL;
 			mediaEvent(LLPluginClassMediaOwner::MEDIA_EVENT_CLICK_LINK_HREF);
 		}
 		else if(message_name == "click_nofollow")

@@ -35,6 +35,7 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the SLPlugin
 
 #include "linden_common.h"
 
@@ -52,6 +53,20 @@
 #if LL_DARWIN || LL_LINUX
 	#include <signal.h>
 #endif
+
+//imprudence: or we include lldir, or use apache runtime
+//though the one is probably bloat and the other we rather want to avoid
+#include <stdio.h>  // FILENAME_MAX
+#ifdef WINDOWS
+    #include <direct.h>
+    #define getImpruDir _getcwd
+    #define DIR_DELIMITER "\\"
+#else
+    #include <unistd.h>
+    #define getImpruDir getcwd
+    #define DIR_DELIMITER "/"
+#endif
+
 
 /*
 	On Mac OS, since we call WaitNextEvent, this process will show up in the dock unless we set the LSBackgroundOnly or LSUIElement flag in the Info.plist.
@@ -187,9 +202,28 @@ int main(int argc, char **argv)
 {
 	// Set up llerror logging
 	{
-		LLError::initForApplication(".");
-		LLError::setDefaultLevel(LLError::LEVEL_INFO);
-//		LLError::setTagLevel("Plugin", LLError::LEVEL_DEBUG);
+		std::string path;
+		char impruPath[FILENAME_MAX];
+
+		if (!getImpruDir(impruPath, sizeof(impruPath)))
+		{
+			path = "."; //FIXME: root directory of the system - bad idea
+		}
+		else
+		{
+			path = std::string(impruPath);
+
+			path.append(DIR_DELIMITER);
+			path.append("app_settings");
+		}
+		LLError::initForApplication(path);
+// 		LLError::setDefaultLevel(LLError::LEVEL_INFO);
+// 		LLError::setPrintLocation(true);
+// 		LLError::setTagLevel("Plugin", LLError::LEVEL_DEBUG);
+// 		LLError::setTagLevel("PluginPipe", LLError::LEVEL_DEBUG);
+// 		LLError::setTagLevel("PluginChild", LLError::LEVEL_DEBUG);
+// 		LLError::setTagLevel("PluginInstance", LLError::LEVEL_DEBUG);
+
 //		LLError::logToFile("slplugin.log");
 	}
 

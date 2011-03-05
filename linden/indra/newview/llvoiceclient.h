@@ -516,6 +516,9 @@ static	void updatePosition(void);
 		// Currently this will be false only for PSTN P2P calls.
 		// NOTE: this will return true if the session can't be found. 
 		bool isSessionTextIMPossible(const LLUUID &session_id);
+
+		void close();
+		void start();
 		
 	private:
 

@@ -36,7 +36,7 @@
 #include "llmediactrl.h"
 
 // viewer includes
-#include "llfloaterhtml.h"
+#include "llfloatermediabrowser.h"
 #include "llfloaterworldmap.h"
 #include "lluictrlfactory.h"
 #include "llurldispatcher.h"
@@ -746,7 +746,7 @@ void LLMediaCtrl::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
 		
 		case MEDIA_EVENT_CURSOR_CHANGED:
 		{
-			LL_INFOS("Media") <<  "Media event:  MEDIA_EVENT_CURSOR_CHANGED, new cursor is " << self->getCursorName() << LL_ENDL;
+			LL_DEBUGS("MediaEventCursor") <<  "Media event:  MEDIA_EVENT_CURSOR_CHANGED, new cursor is " << self->getCursorName() << LL_ENDL;
 
 			std::string cursor = self->getCursorName();
 			
@@ -865,6 +865,7 @@ void LLMediaCtrl::onClickLinkHref( LLPluginClassMedia* self )
 	const std::string protocol2( "https://" );
 	if( mOpenLinksInExternalBrowser )
 	{
+		LL_DEBUGS("Media") <<  "OpenLinksInExternalBrowser" << LL_ENDL;
 		if ( !url.empty() )
 		{
 			if ( LLStringUtil::compareInsensitive( url.substr( 0, protocol1.length() ), protocol1 ) == 0 ||
@@ -877,6 +878,7 @@ void LLMediaCtrl::onClickLinkHref( LLPluginClassMedia* self )
 	else
 	if( mOpenLinksInInternalBrowser )
 	{
+		LL_DEBUGS("Media") <<  "OpenLinksInInternalBrowser" << LL_ENDL;
 		if ( !url.empty() )
 		{
 			if ( LLStringUtil::compareInsensitive( url.substr( 0, protocol1.length() ), protocol1 ) == 0 ||
@@ -891,6 +893,8 @@ void LLMediaCtrl::onClickLinkHref( LLPluginClassMedia* self )
 //						"Second Life Browser",
 //							open_links_externally,
 //								mTrusted);
+
+				LLFloaterMediaBrowser::getInstance()->openMedia(url);
 			}
 		}
 	}

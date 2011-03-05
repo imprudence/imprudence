@@ -33,6 +33,8 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the SLPlugin
+
 #include "linden_common.h"
 
 #include "llplugininstance.h"

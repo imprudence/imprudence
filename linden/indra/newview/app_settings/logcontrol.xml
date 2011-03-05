@@ -57,7 +57,7 @@
               <!--<string>Inventory</string>-->
 							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
-							<!--<string>MediaImpl</string>-->
+							<!--<string>Media</string>-->
 							<!--<string>MediaInfo</string>-->
 							<!--<string>MediaCallback</string>-->
 							<!--<string>MediaBuffering</string>-->
@@ -65,6 +65,8 @@
 							<!--<string>MediaState</string>-->
 
 							<!--<string>Messaging</string>-->
+							
+							<string>NewsBar</string>
 							<!--<string>Notifications</string>-->
               
               <!--<string>Plugin</string>-->

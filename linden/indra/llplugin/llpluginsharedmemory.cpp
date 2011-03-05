@@ -33,6 +33,8 @@
  * @endcond
  */
 
+/// IMPRUDENCE: this is part of the viewer and the SLPlugin
+
 #include "linden_common.h"
 
 #include "llpluginsharedmemory.h"
@@ -88,7 +90,6 @@
 #	include <winsock2.h>
 #include <windows.h>
 #endif // USE_APR_SHARED_MEMORY
-
 
 int LLPluginSharedMemory::sSegmentNumber = 0;
 
