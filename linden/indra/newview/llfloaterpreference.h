@@ -73,6 +73,7 @@ public:
 	LLTabContainer* getTabContainer() { return mTabContainer; }
 
 	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string&  email);
+	void updateIsLoggedIn(bool enable);
 
 	static void onTabChanged(void* user_data, bool from_click);
 	
@@ -113,6 +114,8 @@ public:
 
 	// static data update, called from message handler
 	static void updateUserInfo(const std::string& visibility, bool im_via_email, const std::string& email);
+	// static data update, called after login
+	static void updateIsLoggedIn(bool enable);
 
 	// refresh all the graphics preferences menus
 	static void refreshEnabledGraphics();

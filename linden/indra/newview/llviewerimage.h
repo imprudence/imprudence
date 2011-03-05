@@ -51,6 +51,7 @@ typedef	void	(*loaded_callback_func)( BOOL success, LLViewerImage *src_vi, LLIma
 
 class LLVFile;
 class LLMessageSystem;
+class LLVOVolume;
  
 class LLLoadedCallbackEntry
 {
@@ -209,6 +210,9 @@ public:
 		INVALID_DISCARD_LEVEL = 0x7fff
 	};
 
+	typedef std::vector<LLFace*> ll_face_list_t;
+	typedef std::vector<LLVOVolume*> ll_volume_list_t;
+
 protected:
 	/*virtual*/ ~LLViewerImage();
 	
@@ -311,8 +315,17 @@ public:
 
 	BOOL        isSameTexture(const LLViewerImage* tex) const ;
 
-	void        addFace(LLFace* facep) ;
-	void        removeFace(LLFace* facep) ;
+	virtual void addFace(LLFace* facep) ;
+	virtual void removeFace(LLFace* facep) ;
+	S32 getNumFaces() const;
+	const ll_face_list_t* getFaceList() const {return &mFaceList;}
+	void reorganizeFaceList() ;
+
+	virtual void addVolume(LLVOVolume* volumep);
+	virtual void removeVolume(LLVOVolume* volumep);
+	S32 getNumVolumes() const;
+	const ll_volume_list_t* getVolumeList() const { return &mVolumeList; }
+	void reorganizeVolumeList() ;
 
 	void        setCanUseHTTP(bool can_use_http) {mCanUseHTTP = can_use_http;};
 
@@ -417,8 +430,13 @@ private:
 	BOOL   mForSculpt ; //a flag if the texture is used for a sculpt data.
 	mutable BOOL    mNeedsResetMaxVirtualSize ;
 
-	typedef std::list<LLFace*> ll_face_list_t ;
-	ll_face_list_t mFaceList ; //reverse pointer pointing to the faces using this image as texture
+	ll_face_list_t    mFaceList ; //reverse pointer pointing to the faces using this image as texture
+	U32               mNumFaces ;
+	LLFrameTimer      mLastFaceListUpdateTimer ;
+
+	ll_volume_list_t  mVolumeList;
+	U32				  mNumVolumes;
+	LLFrameTimer	  mLastVolumeListUpdateTimer;
 
 	bool mCanUseHTTP; // can this image be fetched by http
 

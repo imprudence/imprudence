@@ -250,9 +250,9 @@ bool LLTextureCacheLocalFileWorker::doRead()
 		}
 	}
 #else
-	if (!mDataSize || mDataSize > local_size)
+	if (!mDataSize || mDataSize + mOffset > local_size)
 	{
-		mDataSize = local_size;
+		mDataSize = local_size - mOffset;
 	}
 	mReadData = new U8[mDataSize];
 	
