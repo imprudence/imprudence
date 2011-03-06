@@ -1287,6 +1287,18 @@
           <on_check function="Advanced.CheckInfoDisplay"
                     userdata="glow" />
         </menu_item_check>
+        <menu_item_check name="Raycasting" label="Raycasting">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="raycasting" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="raycasting" />
+        </menu_item_check>
+        <menu_item_check name="Sculpt" label="Sculpt">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="sculpt" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="sculpt" />
+        </menu_item_check>
         <menu_item_check name="Vectorize Perf Test"
                          label="Vectorize Perf Test">
           <on_click function="ToggleControl"

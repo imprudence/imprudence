@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>31</string>
+      <key>default_grids_version</key><string>32</string>
     </map>
 
     <!-- Second Life -->
@@ -58,6 +58,21 @@
       <key>register</key><string>http://www.osgrid.org/index.php/auth/register</string>
       <key>password</key><string>http://www.osgrid.org/index.php/auth/forgot_password</string>
       <key>version</key><string>2</string>
+    </map>
+
+    <!-- Aurora Grid -->
+    <map>
+      <key>gridname</key>   <string>Aurora-Grid</string>
+      <key>gridnick</key>   <string>auroragrid</string>
+      <key>platform</key>   <string>OpenSim</string>
+      <key>loginuri</key>   <string>http://login.aurora-sim.org:8002/</string>
+      <key>loginpage</key>  <string>http://login.aurora-sim.org/splash/</string>
+      <key>helperuri</key>  <string>http://grid.aurora-sim.org/</string>
+      <key>password</key>   <string />
+      <key>register</key>   <string />
+      <key>support</key>    <string>http://forum.aurora-sim.org/</string>
+      <key>website</key>    <string>http://aurora-sim.org</string>
+      <key>version</key>    <string>0</string>
     </map>
 
     <!-- WorldSimTerra -->

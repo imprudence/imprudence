@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<menu_bar name="Login Menu" opaque="true" tear_off="false" height="18" bottom="-18">
+<menu_bar name="Login Menu" opaque="true" tear_off="false" height="18" bottom="-18" follows="left|top|right">
 	<menu create_jump_keys="true" label="File" name="File" opaque="true" tear_off="false">
 		<menu_item_call label="Quit" name="Quit" shortcut="control|Q">
 			<on_click function="File.Quit" userdata="" />

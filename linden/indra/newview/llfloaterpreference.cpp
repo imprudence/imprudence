@@ -362,6 +362,11 @@ void LLPreferenceCore::setPersonalInfo(const std::string& visibility, bool im_vi
 	mPrefsIM->setPersonalInfo(visibility, im_via_email, email);
 }
 
+void LLPreferenceCore::updateIsLoggedIn(bool enable)
+{
+	mPrefsIM->preparePerAccountPrefs(enable);
+}
+
 void LLPreferenceCore::refreshEnabledGraphics()
 {
 	LLFloaterHardwareSettings::instance()->refreshEnabledState();
@@ -534,6 +539,15 @@ void LLFloaterPreference::updateUserInfo(const std::string& visibility, bool im_
 	if(sInstance && sInstance->mPreferenceCore)
 	{
 		sInstance->mPreferenceCore->setPersonalInfo(visibility, im_via_email, email);
+	}
+}
+
+// static
+void LLFloaterPreference::updateIsLoggedIn(bool enable)
+{
+	if(sInstance && sInstance->mPreferenceCore)
+	{
+		sInstance->mPreferenceCore->updateIsLoggedIn(enable);
 	}
 }
 
