@@ -204,7 +204,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 		}
 	}
 	
-	if (gSavedSettings.getBOOL("AudioStreamingMusic") && gAudiop)
+	if (gSavedSettings.getBOOL("AudioStreamingMusic"))
 	{
 		if ( parcel && !parcel->getMusicURL().empty())
 		{
