@@ -57,7 +57,7 @@
 //imprudence: or we include lldir, or use apache runtime
 //though the one is probably bloat and the other we rather want to avoid
 #include <stdio.h>  // FILENAME_MAX
-#ifdef WINDOWS
+#ifdef LL_WINDOWS
     #include <direct.h>
     #define getImpruDir _getcwd
     #define DIR_DELIMITER "\\"
