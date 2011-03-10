@@ -616,6 +616,22 @@ BOOL LLFloaterImagePreview::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return TRUE;
 }
 
+BOOL LLFloaterImagePreview::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	const F32 RAD_PER_CLICK = -F_PI / 16.0f;
+
+	if (mPreviewRect.pointInRect(x, y) && mAvatarPreview)
+	{
+		mAvatarPreview->rotate(RAD_PER_CLICK * clicks, 0);
+		mAvatarPreview->refresh();
+
+		mSculptedPreview->rotate(RAD_PER_CLICK * clicks, 0);
+		mSculptedPreview->refresh();
+	}
+
+	return TRUE;
+}
+
 //-----------------------------------------------------------------------------
 // onMouseCaptureLost()
 //-----------------------------------------------------------------------------

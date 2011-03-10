@@ -239,6 +239,23 @@ BOOL LLScrollableContainerView::handleScrollWheel( S32 x, S32 y, S32 clicks )
 	return TRUE;
 }
 
+BOOL LLScrollableContainerView::handleHScrollWheel( S32 x, S32 y, S32 clicks )
+{
+	for( S32 i = SCROLLBAR_COUNT - 1; i >= 0; i++ )
+	{
+		// Note: tries horizontal and then vertical
+
+		// Pretend the mouse is over the scrollbar
+		if( mScrollbar[i]->handleScrollWheel( 0, 0, clicks ) )
+		{
+			return TRUE;
+		}
+	}
+
+	// Eat scroll wheel event (to avoid scrolling nested containers?)
+	return TRUE;
+}
+
 BOOL LLScrollableContainerView::needsToScroll(S32 x, S32 y, LLScrollableContainerView::SCROLL_ORIENTATION axis) const
 {
 	if(mScrollbar[axis]->getVisible())

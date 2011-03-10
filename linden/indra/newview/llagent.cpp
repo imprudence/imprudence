@@ -4043,7 +4043,11 @@ void LLAgent::handleScrollWheel(S32 clicks)
 		}
 	}
 }
-
+void LLAgent::handleHScrollWheel(S32 clicks)
+{
+	const F32 RAD_PER_CLICK = -F_PI / 16.0f;
+	cameraOrbitAround(RAD_PER_CLICK * clicks);
+}
 
 //-----------------------------------------------------------------------------
 // getCameraMinOffGround()

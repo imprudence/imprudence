@@ -2384,6 +2384,7 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				HIPoint				location = {0.0f, 0.0f};
 				UInt32				modifiers = 0;
 				UInt32				clickCount = 1;
+				EventMouseWheelAxis	wheelAxis = kEventMouseWheelAxisX;
 				long				wheelDelta = 0;
 				LLCoordScreen		inCoords;
 				LLCoordGL			outCoords;
@@ -2393,6 +2394,7 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				GetEventParameter(event, kEventParamMouseLocation, typeHIPoint, NULL, sizeof(location), NULL, &location);
 				GetEventParameter(event, kEventParamKeyModifiers, typeUInt32, NULL, sizeof(modifiers), NULL, &modifiers);
 				GetEventParameter(event, kEventParamMouseWheelDelta, typeLongInteger, NULL, sizeof(wheelDelta), NULL, &wheelDelta);
+				GetEventParameter(event, kEventParamMouseWheelAxis, typeMouseWheelAxis, NULL, sizeof(wheelAxis), NULL, &wheelAxis);
 				GetEventParameter(event, kEventParamClickCount, typeUInt32, NULL, sizeof(clickCount), NULL, &clickCount);
 
 				inCoords.mX = llround(location.x);
@@ -2501,14 +2503,31 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 
 				case kEventMouseWheelMoved:
 					{
-						static S32  z_delta = 0;
+						switch (wheelAxis){
+						case kEventMouseWheelAxisX:
 
-						z_delta += wheelDelta;
+							static S32  wheel_x_delta = 0;
 
-						if (z_delta <= -WHEEL_DELTA || WHEEL_DELTA <= z_delta)
-						{
-							mCallbacks->handleScrollWheel(this, -z_delta / WHEEL_DELTA);
-							z_delta = 0;
+							wheel_x_delta += wheelDelta;
+
+							if (wheel_x_delta <= -WHEEL_DELTA || WHEEL_DELTA <= wheel_x_delta)
+							{
+								mCallbacks->handleHScrollWheel(this, wheel_x_delta / WHEEL_DELTA);
+								wheel_x_delta = 0;
+							}
+							break;
+						case kEventMouseWheelAxisY:
+
+							static S32  wheel_y_delta = 0;
+
+							wheel_y_delta += wheelDelta;
+
+							if (wheel_y_delta <= -WHEEL_DELTA || WHEEL_DELTA <= wheel_y_delta)
+							{
+								mCallbacks->handleScrollWheel(this, -wheel_y_delta / WHEEL_DELTA);
+								wheel_y_delta = 0;
+							}
+							break;
 						}
 					}
 					result = noErr;

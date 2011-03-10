@@ -2259,6 +2259,22 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				}
 				return 0;
 			}
+#ifdef WM_MOUSEHWHEEL
+		case WM_MOUSEHWHEEL:
+			{
+				window_imp->mCallbacks->handlePingWatchdog(window_imp, "Main:WM_MOUSEHWHEEL");
+				static short z_delta = 0;
+
+				z_delta += HIWORD(w_param);
+
+				if (z_delta <= -WHEEL_DELTA || WHEEL_DELTA <= z_delta)
+				{
+					window_imp->mCallbacks->handleHScrollWheel(window_imp, z_delta / WHEEL_DELTA);
+					z_delta = 0;
+				}
+				return 0;
+			}
+#endif //WM_MOUSEHWHEEL
 			/*
 			// TODO: add this after resolving _WIN32_WINNT issue
 			case WM_MOUSELEAVE:

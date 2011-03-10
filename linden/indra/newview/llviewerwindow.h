@@ -172,6 +172,7 @@ public:
 	/*virtual*/ void handleMenuSelect(LLWindow *window,  S32 menu_item);
 	/*virtual*/ BOOL handlePaint(LLWindow *window,  S32 x,  S32 y,  S32 width,  S32 height);
 	/*virtual*/ void handleScrollWheel(LLWindow *window,  S32 clicks);
+	/*virtual*/ void handleHScrollWheel(LLWindow *window,  S32 clicks);
 	/*virtual*/ BOOL handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ void handleWindowBlock(LLWindow *window);
 	/*virtual*/ void handleWindowUnblock(LLWindow *window);
@@ -266,6 +267,7 @@ public:
 
 	BOOL			handleKey(KEY key, MASK mask);
 	void			handleScrollWheel	(S32 clicks);
+	void			handleHScrollWheel	(S32 clicks);
 
 	// Hide normal UI when a logon fails, re-show everything when logon is attempted again
 	void			setNormalControlsVisible( BOOL visible );

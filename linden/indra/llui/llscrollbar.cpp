@@ -426,6 +426,11 @@ BOOL LLScrollbar::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	changeLine( clicks * mStepSize, TRUE );
 	return TRUE;
 }
+BOOL LLScrollbar::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	changeLine( clicks * mStepSize, TRUE );
+	return TRUE;
+}
 
 BOOL LLScrollbar::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 									EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string &tooltip_msg)
