@@ -32,6 +32,67 @@ set(debug_files
     libapr-1.dll
     libaprutil-1.dll
     libapriconv-1.dll
+	
+	# gstreamer streaming files below
+	avcodec-gpl-52.dll
+	avdevice-gpl-52.dll
+	avfilter-gpl-1.dll
+	avformat-gpl-52.dll
+	avutil-gpl-50.dll
+	iconv.dll
+	liba52-0.dll
+	libbz2.dll
+	libcelt-0.dll
+	libdca-0.dll
+	libexpat-1.dll
+	libfaad-2.dll
+	libFLAC-8.dll
+	libgcrypt-11.dll
+	libgio-2.0-0.dll
+	libglib-2.0-0.dll
+	libgmodule-2.0-0.dll
+	libgnutls-26.dll
+	libgobject-2.0-0.dll
+	libgpg-error-0.dll
+	libgstapp-0.10.dll
+	libgstaudio-0.10.dll
+	libgstbase-0.10.dll
+	libgstcontroller-0.10.dll
+	libgstdataprotocol-0.10.dll
+	libgstfft-0.10.dll
+	libgstinterfaces-0.10.dll
+	libgstnet-0.10.dll
+	libgstnetbuffer-0.10.dll
+	libgstpbutils-0.10.dll
+	libgstphotography-0.10.dll
+	libgstreamer-0.10.dll
+	libgstriff-0.10.dll
+	libgstrtp-0.10.dll
+	libgstrtsp-0.10.dll
+	libgstsdp-0.10.dll
+	libgstsignalprocessor-0.10.dll
+	libgsttag-0.10.dll
+	libgstvideo-0.10.dll
+	libgthread-2.0-0.dll
+	libmms-0.dll
+	libmpeg2-0.dll
+	libneon-27.dll
+	libogg-0.dll
+	liboil-0.3-0.dll
+	libsoup-2.4-1.dll
+	libtasn1-3.dll
+	libtheora-0.dll
+	libtheoradec-1.dll
+	libvorbis-0.dll
+	libvorbisenc-2.dll
+	libvorbisfile-3.dll
+	libwavpack-1.dll
+	libx264-67.dll
+	libxml2-2.dll
+	libxml2.dll
+	SDL.dll
+	xvidcore.dll
+	z.dll
     )
 
 copy_if_different(
@@ -215,6 +276,67 @@ set(release_files
     libapr-1.dll
     libaprutil-1.dll
     libapriconv-1.dll
+	
+	# gstreamer streaming files below
+	avcodec-gpl-52.dll
+	avdevice-gpl-52.dll
+	avfilter-gpl-1.dll
+	avformat-gpl-52.dll
+	avutil-gpl-50.dll
+	iconv.dll
+	liba52-0.dll
+	libbz2.dll
+	libcelt-0.dll
+	libdca-0.dll
+	libexpat-1.dll
+	libfaad-2.dll
+	libFLAC-8.dll
+	libgcrypt-11.dll
+	libgio-2.0-0.dll
+	libglib-2.0-0.dll
+	libgmodule-2.0-0.dll
+	libgnutls-26.dll
+	libgobject-2.0-0.dll
+	libgpg-error-0.dll
+	libgstapp-0.10.dll
+	libgstaudio-0.10.dll
+	libgstbase-0.10.dll
+	libgstcontroller-0.10.dll
+	libgstdataprotocol-0.10.dll
+	libgstfft-0.10.dll
+	libgstinterfaces-0.10.dll
+	libgstnet-0.10.dll
+	libgstnetbuffer-0.10.dll
+	libgstpbutils-0.10.dll
+	libgstphotography-0.10.dll
+	libgstreamer-0.10.dll
+	libgstriff-0.10.dll
+	libgstrtp-0.10.dll
+	libgstrtsp-0.10.dll
+	libgstsdp-0.10.dll
+	libgstsignalprocessor-0.10.dll
+	libgsttag-0.10.dll
+	libgstvideo-0.10.dll
+	libgthread-2.0-0.dll
+	libmms-0.dll
+	libmpeg2-0.dll
+	libneon-27.dll
+	libogg-0.dll
+	liboil-0.3-0.dll
+	libsoup-2.4-1.dll
+	libtasn1-3.dll
+	libtheora-0.dll
+	libtheoradec-1.dll
+	libvorbis-0.dll
+	libvorbisenc-2.dll
+	libvorbisfile-3.dll
+	libwavpack-1.dll
+	libx264-67.dll
+	libxml2-2.dll
+	libxml2.dll
+	SDL.dll
+	xvidcore.dll
+	z.dll
     )
     
 copy_if_different(
