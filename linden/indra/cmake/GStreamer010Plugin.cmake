@@ -38,7 +38,8 @@ if (WINDOWS)
          gstaudio-0.10.lib
          gstbase-0.10.lib
          gstreamer-0.10.lib
-         gstvideo-0.10.lib
+         gstvideo-0.10.lib #slvideoplugin
+		 gstinterfaces-0.10.lib
          gobject-2.0
          gmodule-2.0
          gthread-2.0
