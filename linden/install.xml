@@ -207,9 +207,9 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>279834a12a0ed4531fd602594eac8509</string>
+            <string>bb8552f22769da81593f7d47a51d83d8</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.32.0-darwin-20080812.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.39.0-darwin-20100226.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
