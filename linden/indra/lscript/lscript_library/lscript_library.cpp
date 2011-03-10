@@ -571,6 +571,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osGetPrimitiveParams", "l", "kl", "List osGetPrimitiveParams(key prim, list rules)\nGets primitive Params.\n(OpenSim only.)")); 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetPrimitiveParams", NULL, "kl", "osSetPrimitiveParams(key prim, list rules)\nSets primitive Params.\n(OpenSim only.)")); 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetProjectionParams", NULL, "kikfff", "osSetProjectionParams(key prim. bool projection, key texture, float fov, float focus, float amb)\nSet Projection Paramaters (bool = true / false)\n(OpenSim only.)")); 
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osUnixTimeToTimestamp", "s", "i", "osUnixTimeToTimestamp(integer unixtime)\nConverts unixtime to an llGetTimeStamp() formated string.\n(OpenSim only.)")); 
 
 	// LightShare functions
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "cmSetWindlightScene", "i", "l", "integer cmSetWindlightScene(list rules)\nSet the current WindLight scene. Restricted to estate managers and owners only."));
