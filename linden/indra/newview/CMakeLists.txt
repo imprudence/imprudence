@@ -1297,6 +1297,10 @@ if (WINDOWS)
     else(MSVC71)
         set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /LARGEADDRESSAWARE")
     endif(MSVC71)
+    if (MSVC10)
+        set(release_flags "/MAPRelease/${VIEWER_BINARY_NAME}.map /LARGEADDRESSAWARE")
+    endif(MSVC10)
+    
     
     set_target_properties(${VIEWER_BINARY_NAME}
         PROPERTIES
