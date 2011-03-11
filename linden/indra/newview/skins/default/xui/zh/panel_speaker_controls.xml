@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="active_speakers_panel">
 	<string name="moderator_label">
-		(管理员)
+		(主持人)
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
 				<combo_item name="OpenVoice">
-					声音 缺省 开
+					语音默认开放
 				</combo_item>
 				<combo_item name="ModeratedVoice">
-					声音 缺省 关
+					语音默认关闭
 				</combo_item>
 			</combo_box>
 		</layout_panel>
@@ -34,7 +34,7 @@
 				允许语音聊天
 			</check_box>
 			<check_box name="moderator_allow_text">
-				允许文本聊天
+				允许文字聊天
 			</check_box>
 		</layout_panel>
 	</layout_stack>

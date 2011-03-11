@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_login">
+  <web_browser name="login_html" 
+			 bottom="102" top="-1" left="0" right="-1"
+			 border_visible="false" follows="top|left|bottom|right"
+			 start_url="data:text/html,
+			 %3Chtml%3E
+			 %3Chead%3E %3C/head%3E
+			 %3Cbody bgcolor=%22#5a2d65%22 text=%22ffffff%22%3E
+			 %3Ctable width=%22100%%22 height=%22100%%22 border=%220%22%3E
+			   %3Ctr%3E
+				 %3Ctd align=%22center%22 valign=%22middle%22 style=%22font-size:0.8em;%22%3E
+				   %3Cimg src=%22imprudence_loading.png%22 align=%22absmiddle%22%3E
+				   %3Cbr/%3E
+				   %3CH1%3E请稍候...%3C/H1%3E
+				 %3C/td%3E
+			   %3C/tr%3C
+			 %3C/table%3E
+			 %3C/body%3E
+			 %3C/html%3E" />
 	<text name="first_name_text">
 		名:
 	</text>
 	<text name="last_name_text">
 		姓:
+	</text>
+	<text name="username_text">
+		登入名称:
 	</text>
 	<text name="password_text">
 		密码:
@@ -27,6 +48,10 @@
 	<text name="full_screen_text">
 		登陆后显示器会采用全屏显示。
 	</text>
+	<text name="grid_text">
+		网格:
+	</text>
+	<button name="grid_btn" label="网格管理器" />
 	<button label="新帐户..." label_selected="新帐户..." name="new_account_btn" />
 	<button label="登入" label_selected="登入" name="connect_btn" />
 	<button label="参数选择..." label_selected="参数选择..." name="preferences_btn" />

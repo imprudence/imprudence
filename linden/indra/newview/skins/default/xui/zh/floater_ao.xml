@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="geminifloater"
+	 title="动画覆盖">
+ 
+  <text
+		 name="Give inventory"
+		 tool_tip="拖动 ZHAO II 记事卡到这里。动画必须和记事卡在同一个文件夹中。">
+    拖动 ZHAO II 记事卡到这里
+  </text>
+  <text
+		 name="ao_nc_text"
+		 tool_tip="">
+    目前设置到: ITEM
+  </text>
+ 
+  <button
+		 name="opencard"
+		 label="打开记事卡" />
+  <button
+		 name="reloadcard"
+		 label="啥信" />
+ 
+  <check_box
+		 label="启用动画覆盖"
+		 name="AOEnabled" />
+  <check_box
+		 label="启用坐姿覆盖"
+		 name="AOSitsEnabled" />
+ 
+  <text
+		 name="buttons_desc">
+    站立:
+  </text>
+  <combo_box
+		 name="stands"
+		 label="" />
+  <button
+		 name="prevstand"
+		 tool_tip="上一个站立动画"
+		 label="&lt;&lt;" />
+  <button
+		 name="nextstand"
+		 tool_tip="下一个站立动画"
+		 label="&gt;&gt;" />
+  <check_box
+		 label="站立动画顺序随机"
+		 name="AOStandRandomize" />
+  <check_box
+		 label="第一人称视角中禁用站立"
+		 name="AONoStandsInMouselook" />
+  <check_box
+		 label="显示动画覆盖工具栏"
+		 name="ao_remote_checkbox" />
+  <spinner
+		 name="standtime"
+		 label="站立切换时间:"
+		 tool_tip="切换站立动画播放的时间。" />
+ 
+  <button
+		 name="newcard"
+		 label="新建记事卡模板" />
+ 
+  <button
+		 label="展开 &gt;&gt;"
+		 name="more_btn"
+		 tool_tip="高级选项" />
+  <button
+		 label="&lt;&lt; 折叠"
+		 name="less_btn"
+		 tool_tip="高级选项" />
+ 
+  <tab_container
+		 label="默认"
+		 name="tabcontainer"
+		 tab_min_width="50">
+    <panel
+			 label="默认动画"
+			 name="tabdefaultanims">
+ 
+      <text
+				 name="textdefaultwalk">
+        走路:
+      </text>
+      <text
+				 name="textdefaultrun">
+        跑步:
+      </text>
+      <text
+				 name="textdefaultjump">
+        跳跃:
+      </text>
+      <text
+				 name="textdefaultsit">
+        坐下:
+      </text>
+      <text
+				 name="textdefaultgsit">
+        坐在地上:
+      </text>
+      <text
+				 name="textdefaultcrouch">
+        蹲下:
+      </text>
+      <text
+				 name="textdefaultcrouchwalk">
+        蹲走:
+      </text>
+      <text
+				 name="textdefaultfall">
+        下落:
+      </text>
+      <text
+				 name="textdefaulthover">
+        浮空:
+      </text>
+      <combo_box
+				 name="hovers"
+				 label="" />
+      <text
+				 name="textdefaultfly">
+        飞行:
+      </text>
+      <text
+				 name="textdefaultflyslow">
+        慢速飞行:
+      </text>
+      <text
+				 name="textdefaultflyup">
+        向上飞行:
+      </text>
+      <text
+				 name="textdefaultflydown">
+        向下飞行:
+      </text>
+      <text
+				 name="textdefaultland">
+        着陆:
+      </text>
+      <text
+				 name="textdefaultstandup">
+        起身:
+      </text>
+      <text
+				 name="textdefaultprejump">
+        预跳跃:
+      </text>
+  </panel>
+</tab_container>
+</floater>

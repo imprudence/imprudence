@@ -4,15 +4,15 @@
 	 name="popups"
 	 title="弹出窗口">
 	<text name="dont_show_label">
-		不显示这些弹出窗口:
+		不显示这些提示:
 	</text>
 	<scroll_list
 		 name="disabled_popups" />
 	<button
-		 label="启用该弹出窗口"
+		 label="启用该提示"
 		 name="enable_popup" />
 	<text name="show_label">
-		显示这些弹出窗口:
+		显示这些提示:
 	</text>
 	<scroll_list
 		 name="enabled_popups" />
@@ -26,14 +26,33 @@
 	<check_box
 		 label="接受后自动打开"
 		 name="show_new_inventory" />
-	<check_box label="在库存中自动显示新接收的物体" 
+	<check_box label="在库存中自动显示新接收的物品" 
 	     name="show_in_inventory" />
 	<button  width="225"
-		 label="显示所有的“下次不再显示”对话框..."
+		 label="显示所有的提示"
 		 name="reset_dialogs_btn"
 		 tool_tip="启用所有可选的弹出窗口及“首次使用”提示。" />
 	<button  width="225"
-		 label="隐藏所有的“下次不再显示”对话框..."
+		 label="隐藏所有的提示"
 		 name="skip_dialogs_btn"
 		 tool_tip="禁用所有可选的弹出窗口及“首次使用”提示。" />
+  <text  name="radar_text">
+    聊天通知:
+  </text>
+  <text
+		 name="When an avatar enters:">
+    当其他化身:
+  </text>
+	<check_box
+		 label="进入聊天范围时"
+		 name="mini_map_notify_chat" />
+	<check_box
+		 label="进入区域时"
+		 name="mini_map_notify_sim" />
+    <check_box
+		 label="显示好友上线通知"
+		 name="friends_online_notify_checkbox" />
+<check_box
+		 label="收到或付出 [CURRENCY] 时提示"
+		 name="notify_money_change_checkbox" />
 </panel>

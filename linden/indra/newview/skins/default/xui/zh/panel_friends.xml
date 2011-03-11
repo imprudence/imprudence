@@ -9,12 +9,16 @@
 		<column name="icon_visible_online" tool_tip="好友可以看见你是否在线"/>
 		<column name="icon_visible_map" tool_tip="好友可以在地图上找到你"/>
 		<column name="icon_edit_mine" tool_tip="好友可以编辑你的物体"/>
+		<column name="icon_visible_map" tool_tip="你可以在地图上找到这位好友"/>
 		<column name="icon_edit_theirs" tool_tip="你可以编辑这位好友的物体"/>
 	</scroll_list>
 	<button label="聊天/呼叫" name="im_btn" tool_tip="打开即时通信会话"/>
 	<button label="档案" name="profile_btn" tool_tip="显示图片、社团和其他信息"/>
 	<button label="瞬间移动..." name="offer_teleport_btn" tool_tip="邀请该好友瞬间移动到你的当前位置"/>
-	<button label="付款..." name="pay_btn" tool_tip="给这位好友林登币 (L$)"/>
+	<button label="付款..." name="pay_btn" tool_tip="给这位好友货币"/>
 	<button label="移除..." name="remove_btn" tool_tip="将这个人从你的好友列表中去除"/>
 	<button label="添加..." name="add_btn" tool_tip="邀请其他居民成为你的好友"/>
+  <search_editor bottom="-24" enabled="true" follows="left|right|top" font="SansSerif"
+       height="18" left="10" right="-100" name="buddy_search"
+       label="在这里打字查找好友" width="130" />
 </panel>

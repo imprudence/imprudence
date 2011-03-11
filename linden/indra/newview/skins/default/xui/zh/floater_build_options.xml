@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="build options floater" title="网格选项">
-	<spinner label="网格单位 (米)" name="GridResolution" />
-	<spinner label="网格宽度 (米)" name="GridDrawSize" />
+<floater
+	 name="build options floater"
+	 title="高级建造选项">
+  <text name="text_box7">        网格选项:</text>
+  <spinner
+		 label="网格单位 (米):"
+		 name="GridResolution" />
+	<spinner
+		 label="网格范围 (米):"
+		 name="GridDrawSize" />
 	<check_box
-		 
 		 label="启用子单位对齐"
 		 name="GridSubUnit" />
 	<check_box
-		 
 		 label="显示剖面"
 		 name="GridCrossSection" />
-	<slider label="格子不透明度" name="GridOpacity" />
+	<slider
+		 label="网格不透明度:"
+		 name="GridOpacity"
+		 value="0.7" />
+ 
+  <text
+		 name="text_box3">        物体大小:</text>
+ 
+  <spinner
+		 label="X 尺寸:"
+		 name="X size" />
+  <spinner
+		 label="Y 尺寸:"
+		 name="Y size" />
+  <spinner
+		 label="Z 尺寸:"
+		 name="Z size" />
+ 
+  <text
+		 name="text_box6">旋转中心:</text>
+  <spinner
+		 label="X 位置:"
+		 name="X pos" />
+  <spinner
+		 label="Y 位置:"
+		 name="Y pos" />
+  <spinner
+		 label="Z 位置:"
+		 name="Z pos" />
+  <check_box
+		 label="值为百分比"
+		 tool_tip="默认设置为百分比，每个轴都设置为 50"
+		 name="PivotPercToggle" />
+ 
+  <check_box
+		 label="显示选中项轮廓"
+		 name="BuildPrefsRenderHighlight_toggle" />
+  <check_box
+		 label="限制选择距离"
+		 tooltip=""
+		 name="limit_select_dist_check" />
+  <check_box
+		 label="显示轴于根元件位置"
+		 tool_tip="默认行为是在链接组的重心位置显示轴。选中该项将在根元件位置显示轴。"
+		 name="BuildPrefsActualRoot_toggle" />
+  <check_box
+		 label="以地块社团创建物体"
+		 tooltip="创建物体时使用地块社团的身份 (如果可能)"
+		 name="grouplandrez" />
+  <spinner
+		 tool_tip="设置移动、旋转和缩放的小数精度"
+		 label="物体编辑小数位:"
+		 name="spinner_decimal" />
+ 
+  <button
+		 label="应用"
+		 name="btn_apply" />
+  <button
+		 label="取消"
+		 name="btn_cancel" />
+  <button
+		 label="确定"
+		 name="btn_ok" />
+  <button
+		 label="重置为默认值"
+		 name="btn_reset" />
 </floater>

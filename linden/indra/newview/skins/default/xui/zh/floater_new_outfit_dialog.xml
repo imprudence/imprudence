@@ -16,6 +16,8 @@
 	<check_box label="内衣" name="checkbox_Undershirt" />
 	<check_box label="内裤" name="checkbox_Underpants" />
 	<check_box label="裙子" name="checkbox_Skirt" />
+	<check_box	 label="纹身" name="checkbox_Tattoo" />
+	<check_box	 label="透明度" name="checkbox_Alpha" />
 	<check_box label="胸部" name="checkbox_Chest" />
 	<check_box label="头部" name="checkbox_Skull" />
 	<check_box label="左肩" name="checkbox_Left Shoulder" />
@@ -70,6 +72,8 @@
 	<text type="string" length="1" name="Items to include in outfit:">
 		装束中包括的物品:
 	</text>
+  <button label="全部选中" name="Check All" />
+  <button label="全部不选" name="Uncheck All" />
 	<text type="string" length="1" name="Body Parts:">
 		体形
 	</text>

@@ -6,12 +6,29 @@
 <strings>
 
 	<!-- Imprudence-specific strings -->
+  <string name="landmark_created">你创建了一个地标位于</string>
+  <string name="new_home_page">你的新主页是</string>
+  <string name="server_version_changed_chat">你进入的区域正在运行不同的模拟器版本:[SERVER_VERSION_INFO]</string>
+  <string name="hippo_label_free">free</string>
+  <string name="hippo_label_week">周</string>
 	<string name="StatBarDaysOfWeek">
 		星期日:星期一:星期二:星期三:星期四:星期五:星期六
 	</string>
 	<string name="StatBarMonthsOfYear">
 		一月:二月:三月:四月:五月:六月:七月:八月:九月:十月:十一月:十二月
 	</string>
+  <string name="TitleBarMultiple">
+    [FIRST_NAME] [LAST_NAME] 于 [GRID_NAME]
+  </string>
+  <string name="copy_obj_key_info">
+    复制了键为了:
+  </string>
+  <string name="TeleportOfferMaturity">
+    [NAME] 邀请你瞬间移动到 [DESTINATION]
+  </string>
+  <string name="TeleportLureMaturity">
+    [NAME] 邀请你瞬间移动到 [DESTINATION]
+  </string>
 	
 	<string name="LoginInProgress">
 		正在登录。 [APP_NAME] 可能会看上去没有反应。 请稍候。
@@ -110,7 +127,7 @@
 		可任意复制
 	</string>
 	<string name="TooltipForSaleL$">
-		待售: L$[AMOUNT]
+		待售: [CURRENCY][AMOUNT]
 	</string>
 	<string name="TooltipForSaleMsg">
 		待售: [MESSAGE]
@@ -281,7 +298,7 @@
 		摇手指
 	</string>
 	<string name="anim_fist_pump">
-		Fist Pump
+		冲拳
 	</string>
 	<string name="anim_yoga_float">
 		浮空瑜伽
@@ -350,10 +367,10 @@
 		RPS 剪刀
 	</string>
 	<string name="anim_express_repulsed">
-		Repulsed
+		排斥
 	</string>
 	<string name="anim_kick_roundhouse_r">
-		Roundhouse Kick
+		扫堂腿
 	</string>
 	<string name="anim_express_sad">
 		伤心

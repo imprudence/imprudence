@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater
+	 name="floater_chatterbox"
+	 title="交流">
+  <string name="unread_count_string_singular">
+    条未读消息
+  </string>
+  <string name="unread_count_string_plural">
+    条未读消息
+  </string>
+</multi_floater>

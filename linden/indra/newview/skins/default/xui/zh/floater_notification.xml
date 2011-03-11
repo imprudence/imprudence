@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 title="提示控制台"
+	 name="notification">
+  <combo_box
+		 label="回复"
+		 name="response">
+  </combo_box>
+</floater>

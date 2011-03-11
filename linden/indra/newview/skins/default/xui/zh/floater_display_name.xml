@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="Display Name"
+	 title="更改显示名称">
+	<text
+		 name="info_text1"
+		 wrap="true">
+		您给化身的名称叫做显示名称。
+	</text>
+	<text
+		 name="info_text2"
+		 wrap="true">
+		您每个星期可以更改一次。
+	</text>
+	<text
+		 name="now_ok_text">
+		如果您愿意的话，现在就可以更改它。
+	</text>
+	<text
+		 name="lockout_text"
+		 visible="false">
+		您必须等到 [TIME] 之后才能更改它。
+	</text>
+	<text
+		 name="set_name_label">
+		新的显示名称:
+	</text>
+	<line_editor
+		 name="display_name_editor" />
+	<text
+		 name="name_confirm_label">
+		再键入一次你的新名字以确认:
+	</text>
+	<line_editor
+		 name="display_name_confirm" />
+    <button
+		 name="save_btn"
+		 label="保存"
+		 tool_tip="保存您的新显示名称" />
+    <button
+		 name="reset_btn"
+		 label="重置"
+		 tool_tip="将显示名称重置为用户名" />
+    <button
+		 name="cancel_btn"
+		 label="取消" />
+</floater>

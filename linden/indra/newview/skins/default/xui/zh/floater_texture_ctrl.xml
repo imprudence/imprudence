@@ -15,6 +15,7 @@
 	<button label="默认" label_selected="默认" name="Default" />
 	<button label="无材质" label_selected="无材质" name="None" />
 	<button label="空白" label_selected="空白" name="Blank" />
+	<button label="透明" label_selected="透明" name="Invisible" />
 	<check_box label="显示文件夹" name="show_folders_check" />
 	<check_box label="立即应用" name="apply_immediate_check" />
 	<button label="" label_selected="" name="Pipette" />
@@ -23,4 +24,38 @@
 	<string name="pick title">
 		选择:
 	</string>
+ 
+  	<tab_container name="actions_tab_container">
+    <panel	 label="库存" name="server_tab">
+        <search_editor
+				 label="在这里键入要查找的材质"
+				 name="inventory search editor" />
+    </panel>
+    <panel
+			 label="我的电脑"
+			 name="local_tab">
+  <!-- tag: vaa emerald local_asset_browser [begin] -->
+      <text
+				 name="select_local">
+		 选择你的电脑上的材质在世界内预览
+        Select texture on your computer to preview inworld
+      </text>
+      <button
+				 label="添加"
+				 name="Add" />
+      <button
+				 label="移除"
+				 name="Remove" />
+      <button
+				 label="属性..."
+				 name="Browser" />
+      <scroll_list
+				 name="local_name_list">
+	      <column
+					 name="unit_name"
+					 label="名称" />
+	    </scroll_list>
+	  <!-- tag: vaa emerald local_asset_browser [end] -->
+    </panel>
+  </tab_container>
 </floater>

@@ -868,13 +868,13 @@
 
   <!-- ADVANCED -->
 
-  <menu name="Advanced" drop_shadow="true"
+  <menu label="Advanced" name="Advanced" drop_shadow="true"
         opaque="true" tear_off="true">
 
 
     <!-- CONSOLES -->
 
-    <menu name="Consoles" drop_shadow="true"
+    <menu label="Consoles" name="Consoles" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_check name="Frame Console" label="Frame Console"
                        shortcut="control|shift|2">
@@ -958,7 +958,7 @@
 
     <!-- HUD INFO -->
 
-    <menu name="HUD Info" drop_shadow="true"
+    <menu label="HUD Info" name="HUD Info" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_check name="Velocity" label="Velocity">
         <on_click function="Advanced.ToggleHUDInfo"
@@ -1027,11 +1027,11 @@
 
     <!-- RENDERING -->
 
-    <menu name="Rendering" drop_shadow="true"
+    <menu label="Rendering" name="Rendering" drop_shadow="true"
           opaque="true" tear_off="true">
 
       <!-- TYPES -->
-      <menu name="Types" drop_shadow="true"
+      <menu label="Types" name="Types" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_check name="Simple" label="Simple"
                          shortcut="control|alt|shift|1">
@@ -1128,7 +1128,7 @@
 
 
       <!-- FEATURES -->
-      <menu name="Features" drop_shadow="true"
+      <menu label="Features" name="Features" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_check name="UI" label="UI"
                          shortcut="alt|shift|F1">
@@ -1191,7 +1191,7 @@
 
 
       <!-- INFO DISPLAYS -->
-      <menu name="Info Displays" drop_shadow="true"
+      <menu label="Info Displays" name="Info Displays" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_check name="Verify" label="Verify">
           <on_click function="Advanced.ToggleInfoDisplay"
@@ -1318,7 +1318,7 @@
 
 
       <!-- RENDER TESTS -->
-      <menu name="Render Tests" drop_shadow="true"
+      <menu label="Render Tests" name="Render Tests" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_check name="Camera Offset" label="Camera Offset">
           <on_click function="ToggleControl"
@@ -1463,7 +1463,7 @@
 
     <!-- WORLD -->
 
-    <menu name="World" drop_shadow="true"
+    <menu label="World" name="World" drop_shadow="true"
           opaque="true" tear_off="true">
       <!-- Disabled because you can't do this in Windlight.
       <menu_item_check name="Mouse Moves Sun"
@@ -1499,9 +1499,9 @@
 
     <!-- RLVa -->
 
-    <menu name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
+    <menu label="RLVa" name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
 
-      <menu name="Debug" drop_shadow="true" opaque="true" tear_off="true">
+      <menu label="Debug"  name="Debug" drop_shadow="true" opaque="true" tear_off="true">
 
         <menu_item_check name="Show Debug Messages"
                          label="Show Debug Messages">
@@ -1574,7 +1574,7 @@
 
     <!-- UI -->
 
-    <menu name="UI" drop_shadow="true"
+    <menu label="UI" name="UI" drop_shadow="true"
           opaque="true" tear_off="true">
 
       
@@ -1735,7 +1735,7 @@
 
     <!-- XUI -->
 
-    <menu name="XUI" drop_shadow="true"
+    <menu label="XUI" name="XUI" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_call name="Floater Test"
                       label="Floater Test">
@@ -1781,10 +1781,10 @@
 
     <!-- CHARACTER -->
 
-    <menu name="Character" drop_shadow="true"
+    <menu label="Character" name="Character" drop_shadow="true"
           opaque="true" tear_off="true">
 
-      <menu name="Grab Baked Texture" drop_shadow="true"
+      <menu label="Grab Baked Texture" name="Grab Baked Texture" drop_shadow="true"
             opaque="true" tear_off="true">
 
         <menu_item_call name="Iris" enabled="false"
@@ -1825,7 +1825,7 @@
       </menu>
 
       <!-- CHARACTER TESTS -->
-      <menu name="Character Tests" drop_shadow="true"
+      <menu label="Character Tests" name="Character Tests" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_call name="Appearance To XML"
                         label="Appearance To XML">
@@ -1996,7 +1996,7 @@
 
     <!-- CRASH -->
 
-    <menu name="Crash" drop_shadow="true"
+    <menu label="Crash" name="Crash" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_call name="Force Bad Memory Access"
                       label="Force Bad Memory Access">
@@ -2034,7 +2034,7 @@
 
     <!-- NETWORK -->
 
-    <menu name="Network" drop_shadow="true"
+    <menu label="Network" name="Network" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_call name="Enable Message Log"
                       label="Enable Message Log">
@@ -2071,7 +2071,7 @@
 
     <!-- RECORDER -->
 
-    <menu name="Recorder" drop_shadow="true"
+    <menu label="Recorder" name="Recorder" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_check name="Full Session Logging"
                        label="Full Session Logging">
@@ -2129,7 +2129,7 @@
     
     <!-- ADMIN OPTIONS -->
 
-    <menu name="Admin Options" drop_shadow="true"
+    <menu label="Admin Options" name="Admin Options" drop_shadow="true"
           opaque="true" tear_off="true">
       <menu_item_check name="View Admin Options"
                    label="View Admin Options"

@@ -2,6 +2,7 @@
 <floater name="Inventory Finder" title="inventory_recent_items">
 	<check_box label="动画" name="check_animation" />
 	<check_box label="通话卡" name="check_calling_card" />
+	<check_box label="身体部位" name="check_bodypart" />
 	<check_box label="衣物" name="check_clothing" />
 	<check_box label="动作" name="check_gesture" />
 	<check_box label="地标" name="check_landmark" />

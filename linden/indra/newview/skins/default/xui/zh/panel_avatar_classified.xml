@@ -26,7 +26,7 @@
 	<button label="发布..." name="classified_update_btn"/>
 	<check_box label="每周自动更新" name="auto_renew_check"/>
 	<string name="ad_placed_paid">
-		广告发布: [DATE]，为此付出了 L$[AMT]。
+		广告发布: [DATE]，为此付出了 [CURRENCY][AMT]。
 	</string>
 	<string name="update_txt">
 		更新

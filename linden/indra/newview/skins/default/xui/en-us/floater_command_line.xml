@@ -93,12 +93,12 @@
      font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
      tool_tip="Clears the Chat History to prevent lag effects from chat spammers." name="CmdLineChatbarClearChat" control_name="CmdLineChatbarClearChat" width="200"/>
   <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
-        name="loltxt15" width="512">        Set the media url (usage: cmd url type)</text>
+        name="set_media_url_text" width="512">        Set the media url (usage: cmd url type)</text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
         tool_tip="Sets and plays your media stream to the entered url" name="CmdLineChatbarMedia" control_name="CmdLineChatbarMedia" width="200"/>
   <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
-        name="loltxt15" width="512">        Set the music stream url (usage: cmd url)</text>
+        name="set_music_url_text" width="512">        Set the music stream url (usage: cmd url)</text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
         font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
         tool_tip="sets and plays your music stream to the entered url" name="CmdLineChatbarMusic" control_name="CmdLineChatbarMusic" width="200"/>

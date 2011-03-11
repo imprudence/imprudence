@@ -5,5 +5,7 @@
 	<button label="取消" label_selected="取消" name="Cancel" />
 	<button label="应用" label_selected="应用" name="Apply" />
 	<button label="帮助" label_selected="帮助" name="Help" />
-
+	<button label="支持"                      name="Support" />
+	<button label="全部重置为默认值"			 name="reset_btn"
+		tooltip="将所有选项恢复到默认值 (需要重启动)"/>
 </floater>

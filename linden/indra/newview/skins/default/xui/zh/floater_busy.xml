@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="busy"
+	 title="IM Response Options"
+	 can_tear_off="false">
+ 
+  <check_box
+		 label="自动回复收到的即时消息"
+		 name="InstantMessageResponseEnabled" />
+  <check_box
+		 label="Announce 收到的即时消息"
+		 name="InstantMessageAnnounceIncoming" />
+  <check_box
+		 label="偷走焦点 (Steal focus)/自动回复通告在顶端弹出"
+		 name="InstantMessageAnnounceStealFocus" />
+  <check_box
+		 label="自动回复非好友"
+		 name="InstantMessageResponseFriends" />
+  <check_box
+		 label="自动回复屏蔽的人"
+		 name="InstantMessageResponseMuted" />
+  <check_box
+		 label="自动回复任何人"
+		 name="InstantMessageResponseAnyone" />
+  <check_box
+		 label="对方一开始打字就自动回复"
+		 name="InstantMessageShowOnTyping" />
+  <check_box
+		 label="如果信息被自动回复就不要显示"
+		 name="InstantMessageShowResponded" />
+  <check_box
+		 label="自动回复所有信息" name="InstantMessageResponseRepeat" />
+ 
+  <text
+		 name="text_box1">
+    回复文字:
+  </text>
+  <text
+		 name="text_box_a">
+    使用‘#f’代替收件人的名
+  </text>
+  <text
+		 name="text_box_b">
+    使用‘#l’代替收件人的姓
+  </text>
+  <text
+		 name="text_box_c">
+    使用‘#t’代替当前时间
+  </text>
+ 
+  <check_box
+		 label="回复时同时送出物体"
+		 name="InstantMessageResponseItem" />
+ 
+  <text
+		 name="Give inventory"
+		 tool_tip="拖动到这里的库存条目将会被在自动回复时送出。">
+    拖动库存条目到这里
+  </text>
+ 
+  <text
+		 name="im_give_disp_rect_txt"
+		 tool_tip="">
+    目前设置到: ITEM
+  </text>
+ 
+  <button
+		 label="取消"
+		 name="btn_cancel"
+		 tool_tip=""/>
+  <button
+		 label="确定"
+		 name="btn_ok"
+		 tool_tip="" />
+ 
+</floater>

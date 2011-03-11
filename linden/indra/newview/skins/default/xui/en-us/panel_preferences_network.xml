@@ -40,7 +40,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="-25" drop_shadow_visible="true" enabled="true"
 	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	         height="10" left="50" mouse_opaque="false" name="cache_size_label_l"
+	         height="10" left="50" mouse_opaque="false" name="Speed:"
 	         v_pad="0" width="200">
         Speed:
       </text>      
@@ -65,7 +65,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
            bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
            font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+           mouse_opaque="false" name="Texture Fetching:" v_pad="0" width="200">
         Texture Fetching:
       </text>
 
@@ -96,7 +96,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
            bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
            font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+           mouse_opaque="false" name="Disk Cache:" v_pad="0" width="200">
         Disk Cache:
       </text>
       
@@ -114,7 +114,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	         bottom_delta="4" drop_shadow_visible="true" enabled="true"
 	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	         height="10" left_delta="166" mouse_opaque="false" name="cache_size_label_l"
+	         height="10" left_delta="166" mouse_opaque="false" name="text_box5"
 	         v_pad="0" width="200">
         megabytes
       </text>      

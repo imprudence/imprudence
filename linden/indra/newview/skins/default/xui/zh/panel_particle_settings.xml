@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 label="粒子设置"
+	 name="ParticleSettings">
+ 
+	<text
+		 name="part_start_color_textbox">
+		起始颜色:
+	</text>
+	<color_swatch
+		 name="part_start_color_swatch"
+		 tool_tip="点击这里来打开色彩选择器" />
+	<text
+		 name="part_end_color_textbox">
+		结束颜色:
+	</text>
+	<color_swatch
+		 label=""
+		 name="part_end_color_swatch"
+		 tool_tip="点击这里来打开色彩选择器" />
+	<text
+		 name="part_texture_textbox">
+		材质:
+	</text>
+ 
+	<texture_picker
+		 label=""
+		 name="part_texture_picker"
+		 tool_tip="点击这里来选择图片" />
+	<button
+		 name="reset_cloud_this_account"
+		 label="重置该账户"
+		 tool_tip="重置该账户的化身粒子云到默认值" />
+	<button
+		 name="save_cloud_this_account"
+		 label="保存该账户"
+		 tool_tip="保存该账户的化身粒子云" />
+	<button
+		 name="save_cloud_any_account"
+		 label="保存所有账户"
+		 tool_tip="保存化身粒子云设置到所有账户" />
+</panel>
+
+

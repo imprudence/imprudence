@@ -1,5 +1,205 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Joystick" title="Joystick Configuration">
-	<button label="确定" label_selected="确定" name="ok_btn"/>
-	<button label="取消" label_selected="取消" name="cancel_btn"/>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="Joystick"
+	 title="游戏控制器设置">
+ 
+	<check_box
+		 name="enable_joystick">启用手柄:</check_box>
+	<check_box
+		 name="auto_enable_joystick">自动启用手柄</check_box>
+	<spinner
+		 name="JoystickAxis1"
+		 label="X 轴映射" />
+	<spinner
+		 name="JoystickAxis2"
+		 label="Y 轴映射" />
+	<spinner
+		 name="JoystickAxis0"
+		 label="Z 轴映射" />
+ 
+	<spinner
+		 name="JoystickAxis4"
+		 label="俯仰映射" />
+	<spinner
+		 name="JoystickAxis5"
+		 label="偏航映射" />
+	<spinner
+		 name="JoystickAxis3"
+		 label="滚转映射" />
+ 
+	<spinner
+		 name="JoystickAxis6"
+		 label="缩放映射" />
+	<check_box
+		 label="直接缩放"
+		 name="ZoomDirect" />
+	<check_box
+		 label="三维光标"
+		 name="Cursor3D" />
+	<check_box
+		 label="自动平衡"
+		 name="AutoLeveling" />
+ 
+	<text
+		 name="Control Modes:">
+		控制模式:
+	</text>
+ 
+	<check_box
+		 name="JoystickAvatarEnabled">化身</check_box>
+	<check_box
+		 name="JoystickBuildEnabled">建造</check_box>
+	<check_box
+		 name="JoystickFlycamEnabled">浏览</check_box>
+ 
+	<text
+		 name="XScale">X Scale</text>
+	<spinner
+		 name="AvatarAxisScale1" />
+	<spinner
+		 name="BuildAxisScale1" />
+	<spinner
+		 name="FlycamAxisScale1" />
+ 
+	<text
+		 name="YScale">Y Scale</text>
+	<spinner
+		 name="AvatarAxisScale2" />
+	<spinner
+		 name="BuildAxisScale2" />
+	<spinner
+		 name="FlycamAxisScale2" />
+ 
+	<text
+		 name="ZScale">Z Scale</text>
+	<spinner
+		 name="AvatarAxisScale0" />
+	<spinner
+		 name="BuildAxisScale0" />
+	<spinner
+		 name="FlycamAxisScale0" />
+ 
+	<text
+		 name="PitchScale">Pitch Scale</text>
+	<spinner
+		 name="AvatarAxisScale4" />
+	<spinner
+		 name="BuildAxisScale4" />
+	<spinner
+		 name="FlycamAxisScale4" />
+ 
+	<text
+		 name="YawScale">Yaw Scale</text>
+	<spinner
+		 name="AvatarAxisScale5" />
+	<spinner
+		 name="BuildAxisScale5" />
+	<spinner
+		 name="FlycamAxisScale5" />
+ 
+	<text
+		 name="RollScale">Roll Scale</text>
+	<spinner
+		 name="BuildAxisScale3" />
+	<spinner
+		 name="FlycamAxisScale3" />
+ 
+ 
+	<text
+		 name="XDeadZone">X Dead Zone</text>
+	<spinner
+		 name="AvatarAxisDeadZone1" />
+	<spinner
+		 name="BuildAxisDeadZone1" />
+	<spinner
+		 name="FlycamAxisDeadZone1" />
+ 
+	<text
+		 name="YDeadZone">Y Dead Zone</text>
+	<spinner
+		 name="AvatarAxisDeadZone2" />
+	<spinner
+		 name="BuildAxisDeadZone2" />
+	<spinner
+		 name="FlycamAxisDeadZone2" />
+ 
+	<text
+		 name="ZDeadZone">Z Dead Zone</text>
+	<spinner
+		 name="AvatarAxisDeadZone0" />
+	<spinner
+		 name="BuildAxisDeadZone0" />
+	<spinner
+		 name="FlycamAxisDeadZone0" />
+ 
+	<text
+		 name="PitchDeadZone">Pitch Dead Zone</text>
+	<spinner
+		 name="AvatarAxisDeadZone4" />
+	<spinner
+		 name="BuildAxisDeadZone4" />
+	<spinner
+		 name="FlycamAxisDeadZone4" />
+ 
+	<text
+		 name="YawDeadZone">Yaw Dead Zone</text>
+	<spinner
+		 name="AvatarAxisDeadZone5" />
+	<spinner
+		 name="BuildAxisDeadZone5" />
+	<spinner
+		 name="FlycamAxisDeadZone5" />
+ 
+	<text
+		 name="RollDeadZone">Roll Dead Zone</text>
+	<spinner
+		 name="BuildAxisDeadZone3" />
+	<spinner
+		 name="FlycamAxisDeadZone3" />
+ 
+	<text
+		 name="Feathering">Feathering</text>
+	<slider
+		 label=""
+		 name="AvatarFeathering"
+		 value="0.7" />
+	<slider
+		 label=""
+		 name="BuildFeathering"
+		 value="0.7" />
+	<slider
+		 label=""
+		 name="FlycamFeathering"
+		 value="0.7" />
+ 
+	<text
+		 name="ZoomScale2">Zoom Scale</text>
+	<spinner
+		 name="FlycamAxisScale6"
+		 label="" />
+	<text
+		 name="ZoomDeadZone">Zoom Dead Zone</text>
+	<spinner
+		 name="FlycamAxisDeadZone6"
+		 label="" />
+ 
+	<button
+		 label="SpaceNavigator 默认值"
+		 name="SpaceNavigatorDefaults" />
+ 
+	<button
+		 label="确定"
+		 label_selected="确定"
+		 name="ok_btn" />
+	<button
+		 label="取消"
+		 label_selected="取消"
+		 name="cancel_btn" />
+ 
+	<string
+		 name="JoystickMonitor">游戏控制器监视器</string>
+	<string
+		 name="Axis">轴 [NUM]</string>
+	<string
+		 name="NoDevice">没有检测到设备</string>
 </floater>

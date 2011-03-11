@@ -22,6 +22,8 @@
 		<menu_item_call label="新建手套" name="New Gloves"/>
 		<menu_item_call label="新建内衣" name="New Undershirt"/>
 		<menu_item_call label="新建内裤" name="New Underpants"/>
+		<menu_item_call label="新建纹身"	 name="New Tattoo" />
+		<menu_item_call label="新建透明度蒙板"  name="New Alpha" />
 	</menu>
 	<menu name="New Body Parts">
 		<menu_item_call label="新建体型" name="New Shape"/>
@@ -38,6 +40,7 @@
 	<menu_item_call label="属性" name="Properties"/>
 	<menu_item_call label="重命名" name="Rename"/>
 	<menu_item_call label="复制资产UUID" name="Copy Asset UUID"/>
+	<menu_item_call label="剪切" name="Cut" />
 	<menu_item_call label="复制" name="Copy"/>
 	<menu_item_call label="粘贴" name="Paste"/>
 	<menu_item_call label="删除" name="Delete"/>
@@ -55,12 +58,15 @@
 	<menu_item_call label="激活" name="Activate"/>
 	<menu_item_call label="解除激活" name="Deactivate"/>
 	<menu_item_call label="从自己身上卸下" name="Detach From Yourself"/>
-	<menu_item_call label="恢复至上一位置" name="Restore to Last Position"/>
+	<menu_item_call label="恢复至最后位置" name="Restore to Last Position"/>
 	<menu_item_call label="穿上" name="Object Wear"/>
 	<menu label="装备至" name="Attach To"/>
 	<menu label="装备到HUD" name="Attach To HUD"/>
 	<menu_item_call label="编辑" name="Wearable Edit"/>
 	<menu_item_call label="穿上" name="Wearable Wear"/>
 	<menu_item_call label="脱掉" name="Take Off"/>
+	<menu_item_call label="使用 WindLight 设置" name="Use WindLight Settings" />
+	<menu_item_call label="使用水面设置" name="Use WaterLight Settings" />
+	<menu_item_call label="编辑 WindLight 设置" name="Edit WindLight Settings" />
 	<menu_item_call label="--无可用选项--" name="--no options--"/>
 </menu>

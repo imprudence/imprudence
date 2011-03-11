@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="WindLight send to server floater"
+	 title="WindLight 管理器">
+  <button
+		 label="当前地块"
+		 label_selected="当前地块"
+		 name="this_parcel" />
+  <button
+		 label="所有地块"
+		 label_selected="所有地块"
+		 name="all_parcels" />
+  <button
+		 label="当前区域"
+		 label_selected="当前区域"
+		 name="this_region" />
+  <text
+		 name="KeyFramePresetsText">
+    预设:
+  </text>
+  <button
+		 label="显示"
+		 label_selected="显示"
+		 name="show" />
+  <button
+		 label="设置为当前预设"
+		 label_selected="设置为当前预设"
+		 name="set_to_current" />
+  <button
+		 label="移除"
+		 label_selected="移除"
+		 name="remove" />
+</floater>

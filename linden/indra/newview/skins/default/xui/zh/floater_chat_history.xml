@@ -19,13 +19,13 @@
 		-- 日志结束 --
 	</string>
   <string name="ScriptQuestionCautionChatGranted">
-	‘[OBJECTNAME]’, 主人为 ‘[OWNERNAME]’ 的物体, 位于 [REGIONNAME] 地区  [REGIONPOS], 已被授予以下权利： [PERMISSIONS]。
+	‘[OBJECTNAME]’, ‘[OWNERNAME]’ 所拥有的物体, 位于 [REGIONNAME] 地区 [REGIONPOS], 已被授予以下权利： [PERMISSIONS]。
   </string>
   <string name="ScriptQuestionCautionChatDenied">
-	‘[OBJECTNAME]’, 主人为 ‘[OWNERNAME]’ 的物体, 位于 [REGIONNAME] 地区  [REGIONPOS], 已被拒绝以下权利： [PERMISSIONS]。
+	‘[OBJECTNAME]’, ‘[OWNERNAME]’ 所拥有的物体, 位于 [REGIONNAME] 地区 [REGIONPOS], 已被拒绝以下权利： [PERMISSIONS]。
   </string>
   <string name="ScriptTakeMoney">
-	从您那里取走林登币(L$)
+	从您那里取走货币
   </string>
   <string name="ActOnControlInputs">
 	对您的控制输入做出反应
@@ -65,6 +65,9 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="显示屏蔽的文字" name="show mutes"/>
+			<check_box
+				 label="翻译聊天 (由 Google 强力驱动)"
+				 name="translate chat" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="显示在该即时通信会话中活动的参与者。"/>
 			<panel name="chat_panel">
 				<string name="gesture_label">

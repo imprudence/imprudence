@@ -5,4 +5,7 @@
 	</text>
 	<button label="OK" label_selected="OK" name="OK" />
 	<button label="取消" label_selected="取消" name="Cancel" />
+  <string name="none">
+    无
+  </string>
 </floater>

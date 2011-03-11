@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="minimap">
-	<panel label="微型地图" name="mini_mapview" tool_tip="（双击打开地图）"/>
+	<panel label="微型地图" name="mini_mapview"/>
+	<button name="toggle_radar" tool_tip="显示或隐藏雷达" />
 </floater>

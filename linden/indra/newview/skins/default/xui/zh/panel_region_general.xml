@@ -36,6 +36,7 @@
 	<button label="?" name="agent_limit_help"/>
 	<spinner label="额外物体因数" name="object_bonus_spin"/>
 	<button label="?" name="object_bonus_help"/>
+    <spinner label="最小账户年龄" name="minimum_agent_age"/>
 	<text label="成人内容" name="access_text">
 		分级：
 	</text>

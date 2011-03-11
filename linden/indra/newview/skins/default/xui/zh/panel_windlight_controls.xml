@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 name="windlight_controls">
+  <button
+		 label="编辑器"
+		 name="Environment"
+		 tool_tip="点击这里调节世界环境" />
+  <flyout_button
+		 label="天空"
+		 name="Presets"
+		 tool_tip="Windlight 预设">
+  </flyout_button>
+  <button
+		 toggle="true"
+		 label=""
+		 name="Popup"
+		 tool_tip="点击这里调节描绘距离" />
+</panel>
+

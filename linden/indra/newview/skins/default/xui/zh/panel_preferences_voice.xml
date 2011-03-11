@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom" height="408" hidden="false" label="语音聊天" left="102" mouse_opaque="true" name="chat" width="517">
+<panel label="语音聊天" name="voice_chat">
 	<text_editor name="voice_unavailable">
 		语音聊天不可用。
 	</text_editor>
@@ -13,14 +13,14 @@
 		</radio_item>
 	</radio_group>
 	<text name="push_to_talk_heading">
-		即按即说
+		按键通话
 	</text>
 	<text_editor name="voice_chat_description" width="465">
-		即按即说允许你控制什么时候传送声音。在切换模式中，按下并释放即按即说键来切换麦克风开关。不在切换模式的时候，麦克风仅在即按即说键按下时才有效。
+		按键通话允许你控制什么时候传送声音。在切换模式中，按下并释放即按即说键来切换麦克风开关。不在切换模式的时候，麦克风仅在即按即说键按下时才有效。
 	</text_editor>
-	<check_box label="以切换模式使用即按即说" name="push_to_talk_toggle_check"/>
+	<check_box label="以切换模式使用按键通话" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label" type="string">
-		即按即说切换键:
+		按键通话切换键:
 	</text>
 	<line_editor name="modifier_combo"/>
 	<button label="设置按键" name="set_voice_hotkey_button"/>
@@ -34,4 +34,5 @@
 	<text_editor bottom_delta="-45" height="48" name="device_settings_text">
 		*注意*: 运行设备选项或语音设置向导将临时将您从语音聊天断开，并且所作的更改将立即生效。
 	</text_editor>
+  	<button label="重新连接到语音聊天" name="reset_voice" />
 </panel>

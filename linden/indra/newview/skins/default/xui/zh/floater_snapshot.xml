@@ -8,7 +8,7 @@
 			通过电子邮件发送
 		</radio_item>
 		<radio_item name="texture">
-			保存至库存 (L$[AMOUNT])
+			保存至库存 ([UPLOADFEE])
 		</radio_item>
 		<radio_item name="local">
 			保存至硬盘
@@ -19,7 +19,7 @@
 	</text>
 	<button label="刷新截图" name="new_snapshot_btn"/>
 	<button label="发送" name="send_btn"/>
-	<button label="上传 (L$[AMOUNT])" name="upload_btn"/>
+	<button label="上传 ([UPLOADFEE])" name="upload_btn"/>
 	<flyout_button label="保存" list_position="below" name="save_btn" tool_tip="保存图像到文件">
 		<flyout_button_item name="save_item">
 			保存
@@ -42,13 +42,13 @@
 			当前窗口
 		</combo_item>
 		<combo_item name="640x480">
-			640x480
+			640×480
 		</combo_item>
 		<combo_item name="800x600">
-			800x600
+			800×600
 		</combo_item>
 		<combo_item name="1024x768">
-			1024x768
+			1024×768
 		</combo_item>
 		<combo_item name="Custom">
 			自定义
@@ -59,13 +59,13 @@
 			当前窗口
 		</combo_item>
 		<combo_item name="Small(128x128)">
-			小 (128x128)
+			小 (128×128)
 		</combo_item>
 		<combo_item name="Medium(256x256)">
-			中 (256x256)
+			中 (256×256)
 		</combo_item>
 		<combo_item name="Large(512x512)">
-			大 (512x512)
+			大 (512×512)
 		</combo_item>
 		<combo_item name="Custom">
 			自定义
@@ -76,22 +76,22 @@
 			当前窗口
 		</combo_item>
 		<combo_item name="320x240">
-			320x240
+			320×240
 		</combo_item>
 		<combo_item name="640x480">
-			640x480
+			640×480
 		</combo_item>
 		<combo_item name="800x600">
-			800x600
+			800×600
 		</combo_item>
 		<combo_item name="1024x768">
-			1024x768
+			1024×768
 		</combo_item>
 		<combo_item name="1280x1024">
-			1280x1024
+			1280×1024
 		</combo_item>
 		<combo_item name="1600x1200">
-			1600x1200
+			1600×1200
 		</combo_item>
 		<combo_item name="Custom">
 			自定义
@@ -104,6 +104,9 @@
 		<combo_item name="JPEG">
 			JPEG
 		</combo_item>
+		<combo_item name="TGA">
+			TGA
+		</combo_item>
 		<combo_item name="BMP">
 			BMP
 		</combo_item>
@@ -112,8 +115,9 @@
 	<spinner label="高度" name="snapshot_height"/>
 	<check_box label="保持画面宽高比" name="keep_aspect_check"/>
 	<slider label="图像质量" name="image_quality_slider"/>
+	<check_box label="双倍解析度" name="high_res_check" />
 	<text name="layer_type_label">
-		获取:
+		截取:
 	</text>
 	<combo_box label="画面图层" name="layer_types">
 		<combo_item name="Colors">
@@ -131,6 +135,8 @@
 	<check_box label="保存后保持窗口开启" name="keep_open_check"/>
 	<check_box label="冻结当前画面(全屏预览)" name="freeze_frame_check"/>
 	<check_box label="自动截图" name="auto_snapshot_check"/>
+        <check_box enabled="true" label="临时图像 (免费)" 
+        tooltip="设置资产为临时的，这意味着它是免费的，但是作为代价，仅在一段时间内有效，之后它就消失了。" />
 	<string name="unknown">
 		未知
 	</string>

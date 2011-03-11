@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call label="丢下" name="Drop" />
+	<menu_item_call label="审查" name="Object Inspect" />
+	<menu_item_call label="卸下" name="Detach" />
+	<menu_item_call label="编辑..." name="Edit" />
+</pie_menu>

@@ -32,5 +32,25 @@
 			 name="About Second Life...">
 			<on_click />
 		</menu_item_call>
+		<menu_item_call
+			 label="Grid Help"
+			 name="Grid Help" />
+		<menu_item_call
+			 label="Imprudence 网络日志"
+			 name="Imprudence Blog" />
+		<menu_item_call
+			 label="Imprudence 论坛"
+			 name="Imprudence Forums" />
+		<menu_item_call
+			 label="关于 Imprudence"
+			 name="About Imprudence" />
+	</menu>
+	<menu
+		 label="高级"
+		 name="Advanced">
+		<menu_item_call
+			 name="Debug Settings"
+			 label="调试设置" />
 	</menu>
 </menu_bar>
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="teleporthistory"
+	 title="瞬间移动历史">
+	<tab_container
+		 name="tplisttabs">
+		<panel
+			 label="瞬间移动到"
+			 name="TP-in">
+	<scroll_list
+				 name="places_list_in">
+		<column
+					 label="区域"
+					 name="region" />
+		<column
+					 label="位置"
+					 name="position" />
+		<column
+					 label="访问时间"
+					 name="visited" />
+		<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+		<column
+					 label="SLURL"
+					 name="slurl" />
+		<column
+					 label="Sim String"
+					 name="simstring" />
+	</scroll_list>
+		</panel>
+		<panel
+			 label="瞬间移动从"
+			 name="TP-out">
+			<scroll_list
+				 name="places_list_out">
+				<column
+					 label="区域"
+					 name="region" />
+				<column
+					 label="位置"
+					 name="position" />
+				<column
+					 label="访问时间"
+					 name="visited" />
+				<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+				<column
+					 label="SLURL"
+					 name="slurl" />
+				<column
+					 label="Sim String"
+					 name="simstring" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button
+		 label="瞬间移动"
+		 label_selected="瞬间移动"
+		 name="teleport"
+		 tool_tip="瞬间移动到所选位置" />
+	<button
+		 label="在地图上显示"
+		 label_selected="在地图上显示"
+		 name="show_on_map"
+		 tool_tip="居中显示该地点" />
+	<button
+		 label="清除历史"
+		 name="clear_history"
+		 tool_tip="清除保存的历史" />
+	<button
+		 label="复制 SLURL 到剪贴板"
+		 name="copy_slurl"
+		 tool_tip="复制当前位置为 SLURL 供分享。" />
+</floater>

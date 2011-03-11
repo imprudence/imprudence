@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="皮肤" name="Skins panel">
 	<text name="muting_text">
-		选择皮肤 (需要重启动)：
+		选择皮肤：
 	</text>
-  <radio_group  name="skin_selection">
-    <radio_item name="default">默认</radio_item>
-    <radio_item name="silver">Silver</radio_item>
-  </radio_group>
+	<text
+		 name="requires_restart_text">
+		(需要重启动; 信息与作者资料请参见皮肤文件夹)
+	</text>
+	<radio_group  name="skin_selection">
+		<radio_item name="default">默认</radio_item>
+	</radio_group>
+	<text
+		 name="skin_current_text">
+    	其他皮肤:
+	</text>
+	<button
+		name="save_skin"
+		label="保存" />
 </panel>
 
 

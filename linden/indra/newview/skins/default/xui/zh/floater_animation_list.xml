@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="animation list"
+	 title="动画列表">
+	<scroll_list
+		 name="animation_list"
+		 tool_tip="按Shift或Ctrl来选择多个条目">
+		<!-- Icons relating to the avatar, currently: tracking, and marked -->
+		<column
+			 name="Anim Name"
+			 label="动画名称" />
+    <column
+			 name="Animation UUID"
+			 label="动画 UUID" />
+    <!--<column name="object_name" label="Distance" dynamicwidth="true"/>-->
+		<column
+			 name="Source Object UUID"
+			 label="源物体 UUID" />
+    <column
+			 name="Source Owner"
+			 label="源拥有者" />
+    <!-- What the avatar is doing: producing sounds, rezzing, particles, etc -->
+	</scroll_list>
+ 
+  <button
+		 label="停止选中项"
+		 name="Stop Selected"
+		 tool_tip="停止选中的动画" />
+  <button
+		 label="撤回选中项"
+		 name="Revoke Selected"
+		 tool_tip="撤回选中物体的动画许可" />
+  <button
+		 label="停止+撤回选中项"
+		 name="Stop+Revoke Selected"
+		 tool_tip="撤回选中物体的动画许可，并且停止选中的动画" />
+  <button
+		 label="打开拥有者档案"
+		 name="Open Owner Profile"
+		 tool_tip="打开选中物体拥有者的档案" />
+  <button
+		 label="归还物体"
+		 name="Return Object"
+		 tool_tip="归还选中物体，如果你有相关土地权力的话" />
+ 
+</floater>

@@ -187,7 +187,7 @@
 				   tool_tip="Report avatars getting within or beyond the draw distance" />
 
 			<check_box height="16" label="Avatars within/beyond the shout range"
-				   left="20" bottom_delta="-18" name="alerts_chat"
+				   left="20" bottom_delta="-18" name="alerts_shout"
 				   width="200" follows="bottom|left"
 				   hidden="false" mouse_opaque="true" font="SansSerifSmall"
 				   initial_value="true" enabled="true" radio_style="false"

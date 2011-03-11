@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="floater_login"
+	 title="网格管理器">
+ 
+  <!-- Grid Selector -->
+  <text
+		 name="grid_selector_label">
+    选择网格:
+  </text>
+ 
+  <scroll_list
+		 name="grid_selector">
+    <column
+			 label="网格列表"
+			 name="grid" />
+  </scroll_list>
+ 
+  <!-- Grid Selector Buttons -->
+  <button
+		 label="添加新网格"
+		 name="btn_add" />
+  <button
+		 label="创建网格副本"
+		 name="btn_copy" />
+  <button
+		 label="删除网格"
+		 name="btn_delete" />
+ 
+  <!-- Grid Details -->
+  <text
+		 name="gridnick_text">
+    网格昵称 (唯一):
+  </text>
+  <line_editor
+	name="gridnick"
+	label="必须填写" />
+  <text
+		 name="gridname_text">
+    网格名称:
+  </text>
+  <line_editor
+		 name="gridname"
+		 label="必须填写" />
+  <text
+		 name="first_name_text">
+    名:
+  </text>
+  <text
+		 name="username_text">
+    用户名:
+  </text>
+  <text
+		 name="last_name_text">
+    姓:
+  </text>
+  <text
+		 name="avatar_password_text">
+    密码:
+  </text>
+  <text
+		 name="loginuri_text">
+    登入 URI:
+  </text>
+  <line_editor
+		 name="loginuri"
+		 label="必须填写" />
+  <button
+		 label="获取网格信息"
+		 name="btn_gridinfo" />
+  <button
+		 label="清除信息"
+		 name="btn_clear" />
+  <text
+		 name="loginpage_text">
+    网格信息 URL:
+  </text>
+  <text
+		 name="loginpage_text">
+    登入页面:
+  </text>
+  <text
+		 name="helperuri_text">
+    辅助 URI:
+  </text>
+  <text
+		 name="website_text">
+    网站:
+  </text>
+  <text
+		 name="support_text">
+    支持:
+  </text>
+   <text
+		 name="register_text">
+    账户:
+  </text>
+  <text
+		 name="password_text">
+    密码:
+  </text>
+  <text
+		 name="search_text">
+    搜索网页:
+  </text>
+  <button
+		 label="应用"
+		 label_selected="应用"
+		 name="btn_apply" />
+  <button
+		 label="取消"
+		 label_selected="取消"
+		 name="btn_cancel" />
+  <button
+		 label="确定"
+		 label_selected="确定"
+		 name="btn_ok" />
+</floater>

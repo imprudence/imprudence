@@ -7,5 +7,5 @@
 		描述:
 	</text>
 	<button label="取消" name="cancel_btn" />
-	<button label="上传 (L$[AMOUNT])" name="ok_btn" />
+	<button label="上传 ([UPLOADFEE])" name="ok_btn" />
 </floater>
