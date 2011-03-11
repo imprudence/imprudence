@@ -664,7 +664,7 @@
             <key>md5sum</key>
             <string>bd07378834cd1a4ecf7de55d4e2a7da2</string>
             <key>url</key>
-            <uri>http://kokuaviewer.org/download/libs/gstreamer-glib-iconv-libxml-windows-0.10.32-20110503.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/gstreamer-glib-iconv-libxml-windows-0.10.32-20110503.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -686,7 +686,7 @@
             <key>md5sum</key>
             <string>76ad5a08f8f07f99c9e1545c2a0adc27</string>
             <key>url</key>
-            <uri>http://kokuaviewer.org/download/libs/gstreamer-plugins-windows-0.10.32-20110503.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/gstreamer-plugins-windows-0.10.32-20110503.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1225,7 +1225,7 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-            <string>ea42b868511e2d5fab2df11dceaf2b7e</string>032848c2591a15e26c71998df3644cfc
+            <string>032848c2591a15e26c71998df3644cfc</string>
              <key>url</key>
             <uri>http://download.kokuaviewer.org/files/libs/openal-linux64-pulse0.9.21-20110304.tar.bz2</uri>
            </map>
