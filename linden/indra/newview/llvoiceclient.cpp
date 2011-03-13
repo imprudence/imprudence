@@ -1527,12 +1527,10 @@ void LLVoiceClient::setState(state inState)
 
 void LLVoiceClient::stateMachine()
 {
-	if(gDisconnected)
-	{
-		// The viewer has been disconnected from the sim.  Disable voice.
-		setVoiceEnabled(false);
-	}
-	
+
+	// Disable voice as long as the viewer is disconnected from the sim (login/relog)
+	setVoiceEnabled(!gDisconnected);
+
 	if(mVoiceEnabled)
 	{
 		updatePosition();
@@ -1549,7 +1547,7 @@ void LLVoiceClient::stateMachine()
 			if(!mConnected)
 			{
 				// if voice was turned off after the daemon was launched but before we could connect to it, we may need to issue a kill.
-				LL_INFOS("Voice") << "Disabling voice before connection to daemon, terminating." << LL_ENDL;
+				LL_WARNS("Voice") << "Disabling voice before connection to daemon, terminating." << LL_ENDL;
 				killGateway();
 			}
 			
@@ -1753,7 +1751,7 @@ void LLVoiceClient::stateMachine()
 					}	
 					else
 					{
-						LL_INFOS("Voice") << exe_path << " not found." << LL_ENDL;
+						LL_WARNS("Voice") << exe_path << " not found." << LL_ENDL;
 						mVoiceEnabled = false;
 					}	
 				}
@@ -3772,7 +3770,7 @@ void LLVoiceClient::loginResponse(int statusCode, std::string &statusString, std
 	if ( statusCode == 401 )
 	{
 		// Login failure which is probably caused by the delay after a user's password being updated.
-		LL_INFOS("Voice") << "Account.Login response failure (" << statusCode << "): " << statusString << LL_ENDL;
+		LL_WARNS("Voice") << "Account.Login response failure (" << statusCode << "): " << statusString << LL_ENDL;
 		setState(stateLoginRetry);
 	}
 	else if(statusCode != 0)
@@ -3950,7 +3948,7 @@ void LLVoiceClient::sessionAddedEvent(
 			}
 			else
 			{
-				LL_INFOS("Voice") << "Could not generate caller id from uri, using hash of uri " << session->mSIPURI << LL_ENDL;
+				LL_WARNS("Voice") << "Could not generate caller id from uri, using hash of uri " << session->mSIPURI << LL_ENDL;
 				setUUIDFromStringHash(session->mCallerID, session->mSIPURI);
 				session->mSynthesizedCallerID = true;
 				
@@ -4468,7 +4466,7 @@ void LLVoiceClient::participantUpdatedEvent(
 	}
 	else
 	{
-		LL_INFOS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
+		LL_WARNS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
 	}
 }
 
@@ -5062,7 +5060,7 @@ void LLVoiceClient::parcelChanged()
 	else
 	{
 		// The transition to stateNoChannel needs to kick this off again.
-		LL_INFOS("Voice") << "not logged in yet, deferring" << LL_ENDL;
+		LL_WARNS("Voice") << "not logged in yet, deferring" << LL_ENDL;
 	}
 }
 
