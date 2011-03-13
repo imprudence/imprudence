@@ -127,6 +127,11 @@
 			     font="SansSerifSmall" height="16" is_unicode="false" left="12"
 			     max_length="254" mouse_opaque="false" name="name"
 			     width="155" />
+      <name_editor bevel_style="in" border_style="line" visible="false"
+			     border_thickness="1" bottom="-24" enabled="false" follows="left|top"
+			     font="SansSerifSmall" height="16" is_unicode="false" left_delta="0"
+			     max_length="254" mouse_opaque="false" name="complete_name"
+			     width="155" />
       <button bottom_delta="0" font="SansSerif" halign="center" height="20"
            label="Copy Key" label_selected="Copy Key"
            left_delta="157" mouse_opaque="true" name="btn_copy_uuid" width="80" />

@@ -1134,6 +1134,10 @@ void LLViewerWindow::handleScrollWheel(LLWindow *window,  S32 clicks)
 {
 	handleScrollWheel( clicks );
 }
+void LLViewerWindow::handleHScrollWheel(LLWindow *window,  S32 clicks)
+{
+	handleHScrollWheel( clicks );
+}
 
 void LLViewerWindow::handleWindowBlock(LLWindow *window)
 {
@@ -2482,6 +2486,60 @@ void LLViewerWindow::handleScrollWheel(S32 clicks)
 
 	// Zoom the camera in and out behavior
 	gAgent.handleScrollWheel(clicks);
+
+	return;
+}
+
+void LLViewerWindow::handleHScrollWheel(S32 clicks)
+{
+	LLView::sMouseHandlerMessage.clear();
+
+	gMouseIdleTimer.reset();
+
+	// Hide tooltips
+	if( mToolTip )
+	{
+		mToolTip->setVisible( FALSE );
+	}
+
+	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
+	if( mouse_captor )
+	{
+		S32 local_x;
+		S32 local_y;
+		mouse_captor->screenPointToLocal( mCurrentMousePoint.mX, mCurrentMousePoint.mY, &local_x, &local_y );
+		mouse_captor->handleHScrollWheel(local_x, local_y, clicks);
+		if (LLView::sDebugMouseHandling)
+		{
+			llinfos << "Tilt Wheel handled by captor " << mouse_captor->getName() << llendl;
+		}
+		return;
+	}
+
+	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
+	if (top_ctrl)
+	{
+		S32 local_x;
+		S32 local_y;
+		top_ctrl->screenPointToLocal( mCurrentMousePoint.mX, mCurrentMousePoint.mY, &local_x, &local_y );
+		if (top_ctrl->handleHScrollWheel(local_x, local_y, clicks)) return;
+	}
+
+	if (mRootView->handleHScrollWheel(mCurrentMousePoint.mX, mCurrentMousePoint.mY, clicks) )
+	{
+		if (LLView::sDebugMouseHandling)
+		{
+			llinfos << "Tilt Wheel" << LLView::sMouseHandlerMessage << llendl;
+		}
+		return;
+	}
+	else if (LLView::sDebugMouseHandling)
+	{
+		llinfos << "Tilt Wheel not handled by view" << llendl;
+	}
+
+
+	gAgent.handleHScrollWheel(clicks);
 
 	return;
 }

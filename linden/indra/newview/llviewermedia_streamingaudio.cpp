@@ -69,8 +69,13 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 		llinfos << "mMediaPlugin is now " << mMediaPlugin << llendl;
 	}
 
+	mVersion = mMediaPlugin ? mMediaPlugin->getPluginVersion() : std::string();
+
 	if(!mMediaPlugin)
+	{
+		llinfos << "mMediaPlugin failed to initialize!" << llendl;
 		return;
+	}
 	
 	if (!url.empty()) {
 		llinfos << "Starting internet stream: " << url << llendl;
@@ -154,6 +159,11 @@ F32 LLStreamingAudio_MediaPlugins::getGain()
 std::string LLStreamingAudio_MediaPlugins::getURL()
 {
 	return mURL;
+}
+
+std::string LLStreamingAudio_MediaPlugins::getVersion()
+{
+	return mVersion;
 }
 
 void LLStreamingAudio_MediaPlugins::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)

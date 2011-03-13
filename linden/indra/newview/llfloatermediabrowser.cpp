@@ -1,6 +1,6 @@
 /** 
- * @file llfloaterhtmlhelp.cpp
- * @brief HTML Help floater - uses embedded web browser control
+ * @file llmediabrowser.cpp
+ * @brief embedded web browser
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
@@ -33,7 +33,6 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloatermediabrowser.h"
-#include "llfloaterhtml.h"
 
 #include "llchat.h"
 #include "llfloaterchat.h"

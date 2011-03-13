@@ -57,3 +57,9 @@ BOOL LLMouseHandler::handleAnyMouseClick(S32 x, S32 y, MASK mask, EClickType cli
 	}
 	return handled;
 }
+
+BOOL LLMouseHandler::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	BOOL handled = FALSE;
+	return handled;
+}

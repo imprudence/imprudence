@@ -69,7 +69,7 @@
 #include "llviewerparcelmgr.h"
 #include "llviewerparcelmedia.h"
 #include "llparcel.h"
-#include "llaudioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llviewerparcelmediaautoplay.h"
 #include "lloverlaybar.h"
 #include "lggautocorrectfloater.h"
@@ -367,7 +367,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
 					{
 						gOverlayBar->toggleMusicPlay(gOverlayBar);
 					}
-					gAudiop->startInternetStream(status);
+					gAudioStream->startInternetStream(status);
 					return false;
 				}
 			}

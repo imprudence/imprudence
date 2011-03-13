@@ -41,6 +41,7 @@
 
 // linden library includes
 #include "llaudioengine.h"
+#include "llavatarnamecache.h"
 #include "indra_constants.h"
 #include "llassetstorage.h"
 #include "llchat.h"
@@ -102,6 +103,7 @@
 #include "llfloatercustomize.h"
 #include "llfloaterdaycycle.h"
 #include "llfloaterdirectory.h"
+#include "llfloaterdisplayname.h"
 #include "llfloatereditui.h"
 #include "llfloaterchatterbox.h"
 #include "llfloaterfriends.h"
@@ -3434,6 +3436,16 @@ class LLEditEnableCustomizeAvatar : public view_listener_t
 	}
 };
 
+class LLEditEnableDisplayName : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = (LLAvatarNameCache::useDisplayNames() != 0);
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		return true;
+	}
+};
+
 // only works on pie menu
 bool handle_sit_or_stand()
 {
@@ -5958,6 +5970,10 @@ class LLShowFloater : public view_listener_t
 		else if (floater_name == "toolbar")
 		{
 			LLToolBar::toggle(NULL);
+		}
+		else if (floater_name == "displayname")
+		{
+			LLFloaterDisplayName::show();
 		}
 		else if (floater_name == "chat history")
 		{
@@ -9203,6 +9219,14 @@ U32 info_display_from_string(std::string info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_GLOW;
 	}
+	else if ("raycasting" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_RAYCAST;
+	}
+	else if ("sculpt" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_SCULPTED;
+	}
 	else
 	{
 		return 0;
@@ -10666,6 +10690,20 @@ class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
 	}
 };
 
+///////////////////////////////////
+// Reload Avatar Cloud Particles //
+///////////////////////////////////
+
+
+class LLAdvancedReloadAvatarCloudParticle : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::initCloud();
+		return true;
+	}
+};
+
 ///////////
 // Crash //
 ///////////
@@ -11118,6 +11156,7 @@ void initialize_menus()
 	addMenu(new LLEditEnableDuplicate(), "Edit.EnableDuplicate");
 	addMenu(new LLEditEnableTakeOff(), "Edit.EnableTakeOff");
 	addMenu(new LLEditEnableCustomizeAvatar(), "Edit.EnableCustomizeAvatar");
+	addMenu(new LLEditEnableDisplayName(), "Edit.EnableDisplayName");
 	addMenu(new LLAdvancedRebakeTextures(), "Advanced.RebakeTextures");
 
 	// View menu
@@ -11453,6 +11492,7 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
+	addMenu(new LLAdvancedReloadAvatarCloudParticle(), "Advanced.ReloadAvatarCloudParticle");
 
 	// Advanced > Crash
 	addMenu(new LLAdvancedCrash(), "Advanced.Crash");

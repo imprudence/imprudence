@@ -153,7 +153,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	bool stop_media_enabled = false;
 	bool play_music_enabled = false;
 	bool stop_music_enabled = false;
-	bool music_show_pause = false;
+	//bool music_show_pause = false;
 	bool media_show_pause = false;
 
 	static LLColor4* sIconDisabledColor = rebind_llcontrol<LLColor4>("IconDisabledColor", &gColors, true);
@@ -204,7 +204,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 		}
 	}
 	
-	if (gSavedSettings.getBOOL("AudioStreamingMusic") && gAudiop)
+	if (gSavedSettings.getBOOL("AudioStreamingMusic"))
 	{
 		if ( parcel && !parcel->getMusicURL().empty())
 		{
@@ -213,12 +213,12 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 
 			if (gOverlayBar->musicPlaying())
 			{
-				music_show_pause = true;
+				play_music_enabled = false;
 				stop_music_enabled = true;
 			}
 			else
 			{
-				music_show_pause = false;
+				play_music_enabled = true;
 				stop_music_enabled = false;
 			}
 		}
@@ -227,7 +227,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	const std::string media_icon_name = LLMIMETypes::findIcon(media_type);
 	LLButton* music_play_btn = getChild<LLButton>("music_play");
 	LLButton* music_stop_btn = getChild<LLButton>("music_stop");
-	LLButton* music_pause_btn = getChild<LLButton>("music_pause");
+	//LLButton* music_pause_btn = getChild<LLButton>("music_pause");
 	LLButton* media_play_btn = getChild<LLButton>("media_play");
 	LLButton* media_stop_btn = getChild<LLButton>("media_stop");
 	LLButton* media_pause_btn = getChild<LLButton>("media_pause");
@@ -235,9 +235,9 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 
 	music_play_btn->setEnabled(play_music_enabled);
 	music_stop_btn->setEnabled(stop_music_enabled);
-	music_pause_btn->setEnabled(music_show_pause);
-	music_pause_btn->setVisible(music_show_pause);
-	music_play_btn->setVisible(! music_show_pause);
+	//music_pause_btn->setEnabled(music_show_pause);
+	//music_pause_btn->setVisible(music_show_pause);
+	//music_play_btn->setVisible(music_show_pause);
 	childSetColor("music_icon", music_icon_color);
 	if(!media_icon_name.empty())
 	{

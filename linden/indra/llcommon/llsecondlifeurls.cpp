@@ -44,4 +44,4 @@ const std::string BUY_CURRENCY_URL (
 
 
 const std::string RELEASE_NOTES_BASE_URL (
-	"http://imprudenceviewer.org/wiki/Release_Notes/");
+	"http://wiki.kokuaviewer.org/wiki/Imprudence:Release_Notes/");

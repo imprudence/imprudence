@@ -84,7 +84,12 @@ public:
 
 	void setAllowCallingCardDrop(BOOL b) { mAllowCallingCardDrop = b; }
 
+	void setUseDisplayNames(BOOL b) { mUseDisplayNames = b; }
+
 private:
+	bool	getResidentName(const LLUUID& agent_id, std::string& fullname);
+	BOOL	mUseDisplayNames;
+
 	static std::set<LLNameListCtrl*> sInstances;
 	S32    	 mNameColumnIndex;
 	BOOL	 mAllowCallingCardDrop;

@@ -190,9 +190,6 @@ LLMediaPluginTest::LLMediaPluginTest( int app_window, int window_width, int wind
 		std::cout << "Unable to read bookmarks from file: " << bookmarks_filename << std::endl;
 	};
 
-	// initialize linden lab APR module
-	ll_init_apr();
-
 	// Set up llerror logging 
 	{
 		LLError::initForApplication(".");

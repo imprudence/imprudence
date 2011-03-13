@@ -13,11 +13,13 @@ include_directories(
     )
 
 set(llcommon_SOURCE_FILES
+    aiaprpool.cpp
     imageids.cpp
     indra_constants.cpp
     llapp.cpp
     llapr.cpp
     llassettype.cpp
+    llavatarname.cpp
     llbase32.cpp
     llbase64.cpp
     llcommon.cpp
@@ -74,6 +76,8 @@ set(llcommon_SOURCE_FILES
 set(llcommon_HEADER_FILES
     CMakeLists.txt
 
+    aiaprpool.h
+    aithreadsafe.h
     bitpack.h
     ctype_workaround.h
     doublelinkedlist.h
@@ -87,6 +91,7 @@ set(llcommon_HEADER_FILES
     llassettype.h
     llassoclist.h
     llavatarconstants.h
+    llavatarname.h
     llbase32.h
     llbase64.h
     llboost.h
@@ -147,6 +152,7 @@ set(llcommon_HEADER_FILES
     llqueuedthread.h
     llrand.h
     llrun.h
+    llscopedvolatileaprpool.h
     llsd.h
     llsdserialize.h
     llsdserialize_xml.h
@@ -203,3 +209,12 @@ target_link_libraries(
     ${WINDOWS_LIBRARIES}
     )
 
+if (DARWIN)
+  # don't embed a full path in the library's install name
+  set_target_properties(
+    llcommon
+    PROPERTIES
+    BUILD_WITH_INSTALL_RPATH 1
+    INSTALL_NAME_DIR "@executable_path/../Resources"
+    )
+endif (DARWIN)

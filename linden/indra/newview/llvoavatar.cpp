@@ -38,6 +38,7 @@
 #include <ctype.h>
 
 #include "llaudioengine.h"
+#include "llavatarnamecache.h"
 #include "noise.h"
 
 #include "llagent.h" //  Get state values from here
@@ -748,6 +749,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mAppearanceAnimating(FALSE),
 	mNameString(),
 	mTitle(),
+	mCompleteName(),
 	mNameAway(FALSE),
 	mNameBusy(FALSE),
 	mNameMute(FALSE),
@@ -1474,6 +1476,7 @@ void LLVOAvatar::initClass()
 	{
 		loadClientTags();
 	}
+	initCloud();
 }
 
 
@@ -1487,6 +1490,21 @@ void LLVOAvatar::cleanupClass()
 	sAvatarDictionary = NULL;
 	sSkeletonXMLTree.cleanup();
 	sXMLTree.cleanup();
+}
+
+LLPartSysData LLVOAvatar::sCloud;
+void LLVOAvatar::initCloud()
+{
+	// fancy particle cloud designed by Brent
+
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	LLSD cloud;
+	llifstream in_file(filename);
+	LLSDSerialize::fromXMLDocument(cloud, in_file);
+	sCloud.fromLLSD(cloud);
+	LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
+	sCloud.mPartImageID                 = cloud_image->getID();
+
 }
 
 const LLVector3 LLVOAvatar::getRenderPosition() const
@@ -2872,7 +2890,7 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 				 param;
 				 param = getNextVisualParam())
 			{
-				if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+				if (param->isTweakable())
 				{
 					param->stopAnimating(mAppearanceAnimSetByUser);
 				}
@@ -2904,7 +2922,7 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 				 param;
 				 param = getNextVisualParam())
 			{
-				if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+				if (param->isTweakable())
 				{
 					// so boobs don't go spastic when a shape's changed, but still seems buggy
 					//if(param->getID() != 507)
@@ -3070,34 +3088,7 @@ void LLVOAvatar::idleUpdateLoadingEffect()
 		}
 		else
 		{
-			LLPartSysData particle_parameters;
-
-			// fancy particle cloud designed by Brent
-			particle_parameters.mPartData.mMaxAge            = 4.f;
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			particle_parameters.mPartData.mStartScale.mV[VY] = 1.0f;
-			particle_parameters.mPartData.mEndScale.mV[VX]   = 0.02f;
-			particle_parameters.mPartData.mEndScale.mV[VY]   = 0.02f;
-			particle_parameters.mPartData.mStartColor        = LLColor4(1, 1, 1, 0.5f);
-			particle_parameters.mPartData.mEndColor          = LLColor4(1, 1, 1, 0.0f);
-			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
-			LLViewerImage* cloud = gImageList.getImageFromFile("cloud-particle.j2c");
-			particle_parameters.mPartImageID                 = cloud->getID();
-			particle_parameters.mMaxAge                      = 0.f;
-			particle_parameters.mPattern                     = LLPartSysData::LL_PART_SRC_PATTERN_ANGLE_CONE;
-			particle_parameters.mInnerAngle                  = 3.14159f;
-			particle_parameters.mOuterAngle                  = 0.f;
-			particle_parameters.mBurstRate                   = 0.02f;
-			particle_parameters.mBurstRadius                 = 0.0f;
-			particle_parameters.mBurstPartCount              = 1;
-			particle_parameters.mBurstSpeedMin               = 0.1f;
-			particle_parameters.mBurstSpeedMax               = 1.f;
-			particle_parameters.mPartData.mFlags             = ( LLPartData::LL_PART_INTERP_COLOR_MASK | LLPartData::LL_PART_INTERP_SCALE_MASK |
-																 LLPartData::LL_PART_EMISSIVE_MASK | // LLPartData::LL_PART_FOLLOW_SRC_MASK |
-																 LLPartData::LL_PART_TARGET_POS_MASK );
-
-			setParticleSource(particle_parameters, getID());
+			setParticleSource(sCloud, getID());
 		}
 	}
 }
@@ -3620,6 +3611,35 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 
 		if (mNameText.notNull() && firstname && lastname)
 		{
+			std::string complete_name = firstname->getString();
+			if (sRenderGroupTitles)
+			{
+				complete_name += " ";
+			}
+			else
+			{
+				// If all group titles are turned off, stack first name
+				// on a line above last name
+				complete_name += "\n";
+			}
+			complete_name += lastname->getString();
+
+			if (LLAvatarNameCache::useDisplayNames())
+			{
+				LLAvatarName avatar_name;
+				if (LLAvatarNameCache::get(getID(), &avatar_name))
+				{
+					if (LLAvatarNameCache::useDisplayNames() == 1)
+					{
+						complete_name = avatar_name.mDisplayName;
+					}
+					else
+					{
+						complete_name = avatar_name.getNames(true);
+					}
+				}
+			}
+
 			BOOL is_away = mSignaledAnimations.find(ANIM_AGENT_AWAY)  != mSignaledAnimations.end();
 			BOOL is_busy = mSignaledAnimations.find(ANIM_AGENT_BUSY) != mSignaledAnimations.end();
 			BOOL is_appearance = mSignaledAnimations.find(ANIM_AGENT_CUSTOMIZE) != mSignaledAnimations.end();
@@ -3634,7 +3654,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			}
 
 			if (mNameString.empty() ||
-				new_name ||
+				new_name || complete_name != mCompleteName ||
 				(!title && !mTitle.empty()) ||
 				(title && mTitle != title->getString()) ||
 				(is_away != mNameAway || is_busy != mNameBusy || is_muted != mNameMute)
@@ -3650,20 +3670,19 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 						line += title->getString();
 						//LLStringFn::replace_ascii_controlchars(line,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
 						line += "\n";
-						line += firstname->getString();
+						line += complete_name;
 					}
 					else
 					{
-						line += firstname->getString();
+						line += complete_name;
 					}
 
-					line += " ";
-					line += lastname->getString();
+
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
 				}
 				else
 				{
-					line = RlvStrings::getAnonym(line.assign(firstname->getString()).append(" ").append(lastname->getString()));
+					line = RlvStrings::getAnonym(complete_name);
 				}
 // [/RLVa:KB]
 
@@ -3673,7 +3692,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				bool show_client = client.length() != 0 && (*sShowClientNameTag);
 				if (is_away || is_muted || is_busy || show_client)
 				{
-					line += " (";
+					line += "\n(";
 					if (is_away)
 					{
 						line += "Away";
@@ -3718,6 +3737,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				mNameMute = is_muted;
 				mNameAppearance = is_appearance;
 				mTitle = title ? title->getString() : "";
+				mCompleteName = complete_name;
 				//LLStringFn::replace_ascii_controlchars(mTitle,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
 				mNameString = utf8str_to_wstring(line);
 				new_name = TRUE;
@@ -3834,6 +3854,41 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	}
 }
 
+void LLVOAvatar::clearNameTag()
+{
+	mNameString.clear();
+	if (mNameText)
+	{
+		mNameText->setLabel("");
+		mNameText->setString(mNameString);
+	}
+}
+
+//static
+void LLVOAvatar::invalidateNameTag(const LLUUID& agent_id)
+{
+	LLViewerObject* obj = gObjectList.findObject(agent_id);
+	if (!obj) return;
+
+	LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(obj);
+	if (!avatar) return;
+
+	avatar->clearNameTag();
+}
+
+//static
+void LLVOAvatar::invalidateNameTags()
+{
+	std::vector<LLCharacter*>::iterator it;
+	for (it = LLCharacter::sInstances.begin(); it != LLCharacter::sInstances.end(); ++it)
+	{
+		LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(*it);
+		if (!avatar) continue;
+		if (avatar->isDead()) continue;
+
+		avatar->clearNameTag();
+	}
+}
 
 void LLVOAvatar::idleUpdateTractorBeam()
 {
@@ -3874,7 +3929,7 @@ void LLVOAvatar::idleUpdateTractorBeam()
 				msg->nextBlockFast(_PREHASH_ChatData);
 				msg->addStringFast(_PREHASH_Message, "stop");
 				msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
-				msg->addS32("Channel", 9000);
+				msg->addS32("Channel", gSavedSettings.getS32("ParticleChatChannel"));
 				
 				gAgent.sendReliableMessage();
 				sBeamLastAt  =  LLVector3d::zero;
@@ -3894,53 +3949,58 @@ void LLVOAvatar::idleUpdateTractorBeam()
 	if (!mBeam.isNull())
 	{
 		LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
+		LLViewerObject* obj_sel = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
 
 		if (gAgent.mPointAt.notNull())
 		{
 			// get point from pointat effect
 			mBeam->setPositionGlobal(gAgent.mPointAt->getPointAtPosGlobal());
 
+			//lgg crap
 			if(gSavedSettings.getBOOL("ParticleChat"))
 			{
 				if(sPartsNow != TRUE)
 				{
-					sPartsNow = TRUE;
-					LLMessageSystem* msg = gMessageSystem;
-					msg->newMessageFast(_PREHASH_ChatFromViewer);
-					msg->nextBlockFast(_PREHASH_AgentData);
-					msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-					msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-					msg->nextBlockFast(_PREHASH_ChatData);
-					msg->addStringFast(_PREHASH_Message, "start");
-					msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
-					msg->addS32("Channel", 9000);
-					
-					gAgent.sendReliableMessage();
+			
+					sPartsNow = TRUE; 
+					if(obj_sel){
+						LLMessageSystem* msg = gMessageSystem;
+						msg->newMessageFast(_PREHASH_ChatFromViewer);
+						msg->nextBlockFast(_PREHASH_AgentData);
+						msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+						msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+						msg->nextBlockFast(_PREHASH_ChatData);
+						msg->addStringFast(_PREHASH_Message, "start"+obj_sel->getID().asString());
+						msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+						msg->addS32("Channel", gSavedSettings.getS32("ParticleChatChannel"));
+						
+						gAgent.sendReliableMessage();
+					}
 
 					LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
 				}
-				//LLVector3d a = sBeamLastAt-gAgent.mPointAt->getPointAtPosGlobal();
-				//if(a.length > 2)
+
 				if( (sBeamLastAt-gAgent.mPointAt->getPointAtPosGlobal()).length() > .2)
-				//if(sBeamLastAt!=gAgent.mPointAt->getPointAtPosGlobal())
 				{
 					sBeamLastAt = gAgent.mPointAt->getPointAtPosGlobal(); 
-
-					LLMessageSystem* msg = gMessageSystem;
-					msg->newMessageFast(_PREHASH_ChatFromViewer);
-					msg->nextBlockFast(_PREHASH_AgentData);
-					msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-					msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-					msg->nextBlockFast(_PREHASH_ChatData);
-					msg->addStringFast(_PREHASH_Message, llformat("<%.6f, %.6f, %.6f>",(F32)(sBeamLastAt.mdV[VX]),(F32)(sBeamLastAt.mdV[VY]),(F32)(sBeamLastAt.mdV[VZ])));
-					msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
-					msg->addS32("Channel", 9000); // *TODO: make configurable
 					
-					gAgent.sendReliableMessage();
+					if(obj_sel){
+						LLMessageSystem* msg = gMessageSystem;
+						msg->newMessageFast(_PREHASH_ChatFromViewer);
+						msg->nextBlockFast(_PREHASH_AgentData);
+						msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+						msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+						msg->nextBlockFast(_PREHASH_ChatData);
+						msg->addStringFast(_PREHASH_Message, "start"+obj_sel->getID().asString());
+						msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+						msg->addS32("Channel", gSavedSettings.getS32("ParticleChatChannel"));
+						
+						gAgent.sendReliableMessage();
+					}
 				}
 
 			}
-
+			
 			mBeam->triggerLocal();
 		}
 		else if (selection->getFirstRootObject() && 
@@ -3979,6 +4039,8 @@ void LLVOAvatar::idleUpdateTractorBeam()
 		}
 	}
 }
+//</edit>
+
 
 void LLVOAvatar::idleUpdateBelowWater()
 {
@@ -4820,6 +4882,7 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 									    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
 										&& !LLDrawPoolAvatar::sSkipTransparent;
 
+
 		LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
 
 		if (should_alpha_mask)
@@ -4934,7 +4997,6 @@ U32 LLVOAvatar::renderRigid()
 	const bool should_alpha_mask = mSupportsAlphaLayers && mHasBakedHair
 								    && !LLDrawPoolAlpha::sShowDebugAlpha // Don't alpha mask if "Highlight Transparent" checked
 									&& !LLDrawPoolAvatar::sSkipTransparent;
-
 
 	LLGLState test(GL_ALPHA_TEST, should_alpha_mask);
 
@@ -5918,6 +5980,7 @@ BOOL LLVOAvatar::loadAvatar()
 	if (sAvatarXmlInfo->mLayerInfoList.empty())
 	{
 		llwarns << "avatar file: missing <layer_set> node" << llendl;
+		return FALSE;
 	}
 	else
 	{
@@ -5958,23 +6021,22 @@ BOOL LLVOAvatar::loadAvatar()
 	}
 
 	// avatar_lad.xml : <driver_parameters>
+	LLVOAvatarXmlInfo::driver_info_list_t::iterator iter;
+	for (iter = sAvatarXmlInfo->mDriverInfoList.begin();
+		 iter != sAvatarXmlInfo->mDriverInfoList.end(); iter++)
 	{
-		LLVOAvatarXmlInfo::driver_info_list_t::iterator iter;
-		for (iter = sAvatarXmlInfo->mDriverInfoList.begin();
-			 iter != sAvatarXmlInfo->mDriverInfoList.end(); iter++)
+		LLDriverParamInfo *info = *iter;
+		LLDriverParam* driver_param = new LLDriverParam( this );
+		if (driver_param->setInfo(info))
 		{
-			LLDriverParamInfo *info = *iter;
-			LLDriverParam* driver_param = new LLDriverParam( this );
-			if (driver_param->setInfo(info))
-			{
-				addVisualParam( driver_param );
-			}
-			else
-			{
-				delete driver_param;
-				llwarns << "avatar file: driver_param->parseData() failed" << llendl;
-				return FALSE;
-			}
+			addVisualParam( driver_param );
+		}
+		else
+		{
+			delete driver_param;
+			llwarns << "avatar file: driver_param->parseData() failed" << llendl;
+			return FALSE;
+
 		}
 	}
 
@@ -8147,6 +8209,14 @@ BOOL LLVOAvatar::teToColorParams( ETextureIndex te, const char* param_name[3] )
 		param_name[2] = "skirt_blue";
 		break;
 
+	case TEX_HEAD_TATTOO:
+	case TEX_LOWER_TATTOO:
+	case TEX_UPPER_TATTOO:
+		param_name[0] = "tattoo_red";
+		param_name[1] = "tattoo_green";
+		param_name[2] = "tattoo_blue";
+		break;	
+
 	default:
 		llassert(0);
 		return FALSE;
@@ -8606,7 +8676,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		{
 			for( S32 i = 0; i < num_blocks; i++ )
 			{
-				while( param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) )
+				while( param && (!param->isTweakable()) )
 				{
 					param = getNextVisualParam();
 				}
@@ -8614,7 +8684,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 				if( !param )
 				{
 					llwarns << "Number of params in AvatarAppearance msg does not match number of params in avatar xml file." << llendl;
-					return;
+					break;
 				}
 
 				U8 value;
@@ -8655,14 +8725,10 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			}
 		}
 
-		while( param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) )
+		S32 expected_tweakable_count = getVisualParamCountInGroup(VISUAL_PARAM_GROUP_TWEAKABLE); // don't worry about VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
+		if (num_blocks != expected_tweakable_count)
 		{
-			param = getNextVisualParam();
-		}
-		if( param )
-		{
-			llwarns << "Number of params in AvatarAppearance msg does not match number of params in avatar xml file." << llendl;
-			return;
+			llinfos << "Number of params in AvatarAppearance msg (" << num_blocks << ") does not match number of tweakable params in avatar xml file (" << expected_tweakable_count << "). Processing what we can. Object: " << getID() << llendl;
 		}
 
 		if (params_changed)
@@ -8933,8 +8999,7 @@ void LLVOAvatar::dumpArchetypeXML( void* )
 		for( LLVisualParam* param = avatar->getFirstVisualParam(); param; param = avatar->getNextVisualParam() )
 		{
 			LLViewerVisualParam* viewer_param = (LLViewerVisualParam*)param;
-			if( (viewer_param->getWearableType() == type) &&
-				(viewer_param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE) )
+			if (viewer_param->getWearableType() == type && viewer_param->isTweakable())
 			{
 				apr_file_printf( file, "\t\t<param id=\"%d\" name=\"%s\" value=\"%.3f\"/>\n",
 						 viewer_param->getID(), viewer_param->getName().c_str(), viewer_param->getWeight() );

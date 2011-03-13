@@ -472,7 +472,7 @@ int main(int argc, char **argv)
 		err = CreateStandardAlert(
 				kAlertStopAlert,
 				CFSTR("Error"),
-				CFSTR("An error occurred while updating Imprudence.  Please download the latest version from http://imprudenceviewer.org/download/"),
+				CFSTR("An error occurred while updating Imprudence.  Please download the latest version from http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads"),
 				&params,
 				&alert);
 		

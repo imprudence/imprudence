@@ -41,6 +41,7 @@
 #endif
 #include "llpluginclassmediaowner.h"
 #include "llviewermedia_streamingaudio.h"
+#include "kokuastreamingaudio.h"
 #include "llaudioengine.h"
 
 #ifdef LL_FMOD
@@ -101,6 +102,7 @@
 #include "llfloatergesture.h"
 #include "llfloaterhud.h"
 #include "llfloaterland.h"
+#include "llfloaterpreference.h"
 #include "llfloaterteleporthistory.h"
 #include "llfloatertopobjects.h"
 #include "llfloatertos.h"
@@ -681,19 +683,13 @@ bool idle_startup()
 					delete gAudiop;
 					gAudiop = NULL;
 				}
+			}
+		}
 
-				if (gAudiop)
-				{
-					// if the audio engine hasn't set up its own preferred handler for streaming audio then set up the generic streaming audio implementation which uses media plugins
-					if (NULL == gAudiop->getStreamingAudioImpl())
-					{
-						LL_INFOS("AppInit") << "Using media plugins to render streaming audio" << LL_ENDL;
-						gAudiop->setStreamingAudioImpl(new LLStreamingAudio_MediaPlugins());
-			}
-		}
-			}
-		}
-		
+
+		if (!gAudioStream)
+			gAudioStream =  new KOKUAStreamingAudio(new LLStreamingAudio_MediaPlugins());
+
 		LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
 
 		
@@ -877,7 +873,47 @@ bool idle_startup()
 
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+
 		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_CLEANUP" << LL_ENDL;
+
+		gDisconnected = TRUE;
+
+		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
+		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
+		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
+		{
+			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
+		}
+
+		gHippoGridManager->setCurrentGridAsConnected();
+		gHippoLimits->setLimits();
+
+		if (gHippoGridManager->getConnectedGrid()->isSecondLife())
+		{
+			LLStartUp::setStartupState( STATE_LECTURE_PRIVACY );
+			LLFirstUse::Privacy();
+		}
+		else
+		{		
+			LLStartUp::setStartupState( STATE_PRIVACY_LECTURED );
+		}
+
+		return FALSE;
+
+	}
+
+	if (STATE_LECTURE_PRIVACY == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_LECTURE_PRIVACY" << LL_ENDL;
+
+		//wait for the user to decide
+		ms_sleep(1);
+		return FALSE;
+	}
+
+	if (STATE_PRIVACY_LECTURED == LLStartUp::getStartupState())
+	{
+		LL_DEBUGS("AppInitStartupState") << "STATE_PRIVACY_LECTURED" << LL_ENDL;
 		//reset the values that could have come in from a slurl
 		if (!gLoginHandler.getWebLoginKey().isNull())
 		{
@@ -919,15 +955,9 @@ bool idle_startup()
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
-		std::string cmd_line_grid_choice = gSavedSettings.getString("CmdLineGridChoice");
-		std::string cmd_line_login_uri = gSavedSettings.getLLSD("CmdLineLoginURI").asString();
-		if(!cmd_line_grid_choice.empty() && cmd_line_login_uri.empty())
-		{
-			gHippoGridManager->setCurrentGrid(cmd_line_grid_choice);
-		}
 
-		gHippoGridManager->setCurrentGridAsConnected();
-		gHippoLimits->setLimits();
+
+
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
@@ -1747,8 +1777,15 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+
+			//OpenSim
 			tmp = LLUserAuth::getInstance()->getResponse("max_groups");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
+
+			//SL
+			tmp = LLUserAuth::getInstance()->getResponse("max-agent-groups");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
+
 			tmp = LLUserAuth::getInstance()->getResponse("VoiceConnector");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setVoiceConnector(tmp);
 			gHippoGridManager->saveFile();
@@ -2005,6 +2042,12 @@ bool idle_startup()
 	
 			// Load stored cache if possible
             LLAppViewer::instance()->loadNameCache();
+
+			// Start cache in not-running state until we figure out if we have
+			// capabilities for display name lookup
+			LLAvatarNameCache::initClass(false);
+			LLAvatarNameCache::setUseDisplayNames(gSavedSettings.getU32("DisplayNamesUsage"));
+			LLAvatarName::sOmitResidentAsLastName = (bool)gSavedSettings.getBOOL("OmitResidentAsLastName");
 		}
 
 		// *Note: this is where gWorldMap used to be initialized.
@@ -2875,6 +2918,8 @@ bool idle_startup()
 #if 0 // sjb: enable for auto-enabling timer display
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
+
+		LLFloaterPreference::updateIsLoggedIn(true);
 
 		return TRUE;
 	}
@@ -3772,6 +3817,8 @@ std::string LLStartUp::startupStateToString(EStartupState state)
 		RTNENUM( STATE_LOGIN_SHOW );
 		RTNENUM( STATE_LOGIN_WAIT );
 		RTNENUM( STATE_LOGIN_CLEANUP );
+		RTNENUM( STATE_LECTURE_PRIVACY );
+		RTNENUM( STATE_PRIVACY_LECTURED );
 		RTNENUM( STATE_LOGIN_VOICE_LICENSE );
 		RTNENUM( STATE_UPDATE_CHECK );
 		RTNENUM( STATE_LOGIN_AUTH_INIT );

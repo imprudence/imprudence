@@ -49,7 +49,9 @@ typedef enum {
 	STATE_BROWSER_INIT,             // Initialize web browser for login screen
 	STATE_LOGIN_SHOW,				// Show login screen
 	STATE_LOGIN_WAIT,				// Wait for user input at login screen
-	STATE_LOGIN_CLEANUP,			// Get rid of login screen and start login
+	STATE_LOGIN_CLEANUP,			// lecture about privacy
+	STATE_LECTURE_PRIVACY,			//   wait until the lecture was read
+	STATE_PRIVACY_LECTURED,			// Get rid of login screen and start login
 	STATE_LOGIN_VOICE_LICENSE,		// Show license agreement for using voice
 	STATE_UPDATE_CHECK,				// Wait for user at a dialog box (updates, term-of-service, etc)
 	STATE_LOGIN_AUTH_INIT,			// Start login to SL servers

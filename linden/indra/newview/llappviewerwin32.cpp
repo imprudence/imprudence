@@ -78,31 +78,6 @@ extern "C" {
 #endif
 #endif
 
-// Force Imprudence to link against the correct boost libraries -- McCabe
-#if defined(_MSC_VER)
-#if _MSC_VER >= 1500
-#ifdef LL_DEBUG
-#pragma comment( lib, "libboost_signals-vc90-mt-gd-1_36.lib" )
-#pragma comment( lib, "libboost_regex-vc90-mt-gd-1_36.lib" )
-#pragma comment( lib, "libboost_program_options-vc90-mt-gd-1_36.lib" )
-#else
-#pragma comment( lib, "libboost_signals-vc90-mt-1_36.lib" )
-#pragma comment( lib, "libboost_regex-vc90-mt-1_36.lib" )
-#pragma comment( lib, "libboost_program_options-vc90-mt-1_36.lib" )
-#endif
-#elif _MSC_VER >= 1400
-#ifdef LL_DEBUG
-#pragma comment( lib, "libboost_signals-vc80-mt-gd-1_36.lib" )
-#pragma comment( lib, "libboost_regex-vc80-mt-gd-1_36.lib" )
-#pragma comment( lib, "libboost_program_options-vc80-mt-gd-1_36.lib" )
-#else
-#pragma comment( lib, "libboost_signals-vc80-mt-1_36.lib" )
-#pragma comment( lib, "libboost_regex-vc80-mt-1_36.lib" )
-#pragma comment( lib, "libboost_program_options-vc80-mt-1_36.lib" )
-#endif
-#endif
-#endif
-
 const std::string LLAppViewerWin32::sWindowClass = "Imprudence";
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)

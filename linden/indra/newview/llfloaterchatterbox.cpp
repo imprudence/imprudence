@@ -43,6 +43,7 @@
 #include "llviewercontrol.h"
 #include "llimview.h"
 #include "llimpanel.h"
+#include "llcallingcard.h"
 
 //
 // LLFloaterMyFriends
@@ -218,6 +219,8 @@ void LLFloaterChatterBox::draw()
 void LLFloaterChatterBox::onOpen()
 {
 	gSavedSettings.setBOOL("ShowCommunicate", TRUE);
+	// Force a refresh to get latest display names in the new IM panel.
+	LLAvatarTracker::instance().dirtyBuddies();
 }
 
 void LLFloaterChatterBox::onClose(bool app_quitting)

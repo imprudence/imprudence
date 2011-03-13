@@ -36,6 +36,7 @@
 #include "llviewerobject.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterworldmap.h"
+#include "llvoiceclient.h"
 
 //DEBUG includes
 //#include "llsdserialize.h" //LLSDNotationStreamer - for dumping LLSD to string
@@ -199,6 +200,12 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		if ( body.has("AllowParcelWindLight") )
 		{
 			gHippoLimits->mAllowParcelWindLight = body["AllowParcelWindLight"].asInteger() == 1;
+		}
+		if ( body.has("Voice") )
+		{
+			gSavedSettings.setString("VoiceModule", body["Voice"].asString());
+			//gVoiceClient->close();
+			//gVoiceClient->start();
 		}
 
 		if (limitschanged)

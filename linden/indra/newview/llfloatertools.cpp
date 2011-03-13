@@ -1259,7 +1259,8 @@ void LLFloaterTools::onClickLink(void* data)
 	}
 
 	S32 max_linked_prims = 0;
-	if(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject()->usePhysics())
+	LLViewerObject* first_rootp = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject();
+	if(first_rootp && first_rootp->usePhysics())
 	{
 		//Physical - use phys prim limit
 		max_linked_prims = gHippoLimits->getMaxPhysLinkedPrims();

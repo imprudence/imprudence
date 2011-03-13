@@ -238,7 +238,7 @@ void LLVisualParam::setAnimationTarget(F32 target_value, BOOL set_by_user)
 {
 	if (mInfo)
 	{
-		if (getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+		if (isTweakable())
 		{
 			mTargetWeight = llclamp(target_value, mInfo->mMinWeight, mInfo->mMaxWeight);
 		}
@@ -282,7 +282,7 @@ void LLVisualParam::animate( F32 delta, BOOL set_by_user )
 //-----------------------------------------------------------------------------
 void LLVisualParam::stopAnimating(BOOL set_by_user)
 { 
-	if (mIsAnimating && getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+	if (mIsAnimating && isTweakable())
 	{
 		mIsAnimating = FALSE; 
 		setWeight(mTargetWeight, set_by_user);

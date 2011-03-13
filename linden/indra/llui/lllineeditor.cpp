@@ -1034,6 +1034,11 @@ BOOL LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
 
 	return handled;
 }
+BOOL LLLineEditor::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	mScrollHPos = llclamp(mScrollHPos + clicks * 3, 0, mText.length());
+	return TRUE;
+}
 
 
 BOOL LLLineEditor::handleMouseUp(S32 x, S32 y, MASK mask)

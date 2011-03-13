@@ -250,9 +250,9 @@ bool LLTextureCacheLocalFileWorker::doRead()
 		}
 	}
 #else
-	if (!mDataSize || mDataSize > local_size)
+	if (!mDataSize || mDataSize + mOffset > local_size)
 	{
-		mDataSize = local_size;
+		mDataSize = local_size - mOffset;
 	}
 	mReadData = new U8[mDataSize];
 	
@@ -736,9 +736,6 @@ void LLTextureCacheWorker::endWork(S32 param, bool aborted)
 
 LLTextureCache::LLTextureCache(bool threaded)
 	: LLWorkerThread("TextureCache", threaded),
-	  mWorkersMutex(NULL),
-	  mHeaderMutex(NULL),
-	  mListMutex(NULL),
 	  mHeaderAPRFile(NULL),
 	  mReadOnly(FALSE),
 	  mTexturesSizeTotal(0),
@@ -1541,7 +1538,7 @@ bool LLTextureCache::readComplete(handle_t handle, bool abort)
 		}
 	}
 
-      	unlockWorkers();
+	unlockWorkers();
 
 	if (delete_worker) worker->scheduleDelete();
 

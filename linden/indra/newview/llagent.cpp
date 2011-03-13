@@ -4043,7 +4043,11 @@ void LLAgent::handleScrollWheel(S32 clicks)
 		}
 	}
 }
-
+void LLAgent::handleHScrollWheel(S32 clicks)
+{
+	const F32 RAD_PER_CLICK = -F_PI / 16.0f;
+	cameraOrbitAround(RAD_PER_CLICK * clicks);
+}
 
 //-----------------------------------------------------------------------------
 // getCameraMinOffGround()
@@ -7488,7 +7492,7 @@ void LLAgent::sendAgentSetAppearance()
 		 param;
 		 param = (LLViewerVisualParam*)mAvatarObject->getNextVisualParam())
 	{
-		if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
+		if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE) // do not transmit params of group VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
 		{
 			msg->nextBlockFast(_PREHASH_VisualParam );
 			

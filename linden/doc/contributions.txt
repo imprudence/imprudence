@@ -80,6 +80,7 @@ Aleric Inglewood
 	IMP-578
 	IMP-579
 	IMP-581
+	IMP-590
 	IMP-592
 	IMP-595
 	IMP-660
@@ -91,6 +92,8 @@ Aleric Inglewood
 	IMP-670
 	IMP-688
 	IMP-692
+	IMP-701
+	IMP-712
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -339,6 +342,8 @@ Khyota Wulluf
 Kunnis Basiat
 	VWR-82
 	VWR-102
+Lance Corrimal
+	SNOW-717
 Lisa Lowe
 	CT-218
 	CT-219
@@ -469,6 +474,7 @@ Nicholaz Beresford
 Nicky Perian
 	IMP-680
 	IMP-685
+	IMP-741
 Nounouch Hapmouche
 	VWR-238
 Patric Mills

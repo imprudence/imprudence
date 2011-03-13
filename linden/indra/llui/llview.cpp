@@ -960,6 +960,19 @@ BOOL LLView::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return handled;
 }
 
+BOOL LLView::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	BOOL handled = FALSE;
+	if( getVisible() && getEnabled() )
+	{
+		handled = childrenHandleHScrollWheel( x, y, clicks ) != NULL;
+		if( !handled && blockMouseEvent(x, y) )
+		{
+			handled = TRUE;
+		}
+	}
+	return handled;
+}
 BOOL LLView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = childrenHandleRightMouseDown( x, y, mask ) != NULL;
@@ -1018,6 +1031,34 @@ LLView* LLView::childrenHandleScrollWheel(S32 x, S32 y, S32 clicks)
 				&& viewp->getVisible()
 				&& viewp->getEnabled()
 				&& viewp->handleScrollWheel( local_x, local_y, clicks ))
+			{
+				if (sDebugMouseHandling)
+				{
+					sMouseHandlerMessage = std::string("->") + viewp->mName + sMouseHandlerMessage;
+				}
+
+				handled_view = viewp;
+				break;
+			}
+		}
+	}
+	return handled_view;
+}
+
+LLView* LLView::childrenHandleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	LLView* handled_view = NULL;
+	if (getVisible() && getEnabled() )
+	{
+		for ( child_list_iter_t child_it = mChildList.begin(); child_it != mChildList.end(); ++child_it)
+		{
+			LLView* viewp = *child_it;
+			S32 local_x = x - viewp->getRect().mLeft;
+			S32 local_y = y - viewp->getRect().mBottom;
+			if (viewp->pointInView(local_x, local_y)
+				&& viewp->getVisible()
+				&& viewp->getEnabled()
+				&& viewp->handleHScrollWheel( local_x, local_y, clicks ))
 			{
 				if (sDebugMouseHandling)
 				{

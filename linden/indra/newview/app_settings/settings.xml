@@ -37,7 +37,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
+  <key>VoiceModule</key>
+  <map>
+    <key>Comment</key>
+    <string>Executable file that runs voice. Platform specific parts (like .exe on windows) are added automatically.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>SLVoice</string>
+  </map>
   <!-- Imprudence-specific settings -->
 
   <key>AllowEditingOfTrees</key>
@@ -219,7 +229,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org</string>
+    <string>http://blog.kokuaviewer.org</string>
   </map>
   <key>BrowserLastVisited</key>
   <map>
@@ -419,6 +429,42 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+
+  <!-- Display Names -->
+    <key>DisplayNamesUsage</key>
+    <map>
+      <key>Comment</key>
+      <string>Usage type for display names: 0 = Legacy name only, 1 = display name only (legacy name when absent), 2 = Display name with legacy name</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>2</integer>
+    </map>
+    <key>OmitResidentAsLastName</key>
+    <map>
+      <key>Comment</key>
+      <string>Do not display "Resident" as the last name for new residents in their legacy name</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>LegacyNamesForFriends</key>
+    <map>
+      <key>Comment</key>
+      <string>When TRUE, forces the use of the legacy names for the friends list and online notifications</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+
   <key>EmeraldTemporaryUpload</key>
   <map>
     <key>Comment</key>
@@ -574,7 +620,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/grids/</string>
+    <string>http://app.kokuaviewer.org/grids/grids.xml</string>
   </map>
   <key>GoAction</key>
   <map>
@@ -796,6 +842,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>NewsBarURL</key>
+  <map>
+    <key>Comment</key>
+    <string>URL to load in the news bar on the login screen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://app.kokuaviewer.org/news/</string>
+  </map>
   <key>ObjectIMColor</key>
   <map>
     <key>Comment</key>
@@ -815,13 +872,24 @@
   <key>ParticleChat</key>
   <map>
     <key>Comment</key>
-    <string>Chat target of effect beam to channel 9000</string>
+    <string>Chat target of effect beam to channel given by ParticleChatChannel</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
     <integer>0</integer>
+  </map>
+  <key>ParticleChatChannel</key>
+  <map>
+    <key>Comment</key>
+    <string>Channel for the ParticleChat target</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>118000</integer>
   </map>
   <key>PersistShowLookAt</key>
   <map>
@@ -1330,6 +1398,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>WarnFirstPrivacy</key>
+  <map>
+    <key>Comment</key>
+    <string>Warn about statistics packet when first logging in to Second Life.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>WarnFirstVoiceLicense</key>
   <map>
     <key>Comment</key>
@@ -1655,7 +1734,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/client_list/</string>
+    <string>http://app.kokuaviewer.org/client_list/</string>
   </map>
 
   <key>WarnClientTags</key>
@@ -1920,7 +1999,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/dics/</string>
+    <string>http://kokuaviewer.org/app/dics/</string>
   </map>
   <key>EmeraldEnableAutoCorrect</key>
   <map>
@@ -7678,7 +7757,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://imprudenceviewer.org/splash/</string>
+      <string></string>
     </map>
     <key>LogTextureDownloadsToViewerLog</key>
     <map>

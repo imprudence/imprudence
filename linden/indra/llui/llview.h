@@ -473,6 +473,7 @@ public:
 	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
+	/*virtual*/ BOOL	handleHScrollWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask);	
 	/*virtual*/ BOOL	handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect); // Display mToolTipMsg if no child handles it.
@@ -613,6 +614,7 @@ protected:
 	LLView* childrenHandleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	LLView* childrenHandleDoubleClick(S32 x, S32 y, MASK mask);
 	LLView*	childrenHandleScrollWheel(S32 x, S32 y, S32 clicks);
+	LLView*	childrenHandleHScrollWheel(S32 x, S32 y, S32 clicks);
 	LLView* childrenHandleRightMouseDown(S32 x, S32 y, MASK mask);
 	LLView* childrenHandleRightMouseUp(S32 x, S32 y, MASK mask);
 

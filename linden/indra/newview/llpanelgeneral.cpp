@@ -98,6 +98,9 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
 
+// 	mDisplayNamesUsage =  gSavedSettings.getU32("DisplayNamesUsage");
+// 	mLegacyNamesForFriends =  gSavedSettings.getBOOL("LegacyNamesForFriends");
+
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
 	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
@@ -210,6 +213,8 @@ void LLPanelGeneral::apply()
 
 void LLPanelGeneral::cancel()
 {
+// 	gSavedSettings.setU32("DisplayNamesUsage", mDisplayNamesUsage);
+// 	gSavedSettings.setBOOL("LegacyNamesForFriends", mDisplayNamesUsage);
 }
 
 // static

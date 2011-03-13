@@ -1731,7 +1731,10 @@ void LLWindowSDL::gatherInput()
 					mCallbacks->handleScrollWheel(this, -1);
                 else if (event.button.button == 5)  // mousewheel down...thanks to X11 for making SDL consider these "buttons".
 					mCallbacks->handleScrollWheel(this, 1);
-
+                else if (event.button.button == 6)
+					mCallbacks->handleHScrollWheel(this, -1);
+                else if (event.button.button == 7)
+					mCallbacks->handleHScrollWheel(this, 1);
                 break;
             }
 

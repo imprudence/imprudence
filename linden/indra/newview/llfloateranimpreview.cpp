@@ -617,6 +617,18 @@ BOOL LLFloaterAnimPreview::handleScrollWheel(S32 x, S32 y, S32 clicks)
 }
 
 //-----------------------------------------------------------------------------
+// handleHScrollWheel()
+//-----------------------------------------------------------------------------
+BOOL LLFloaterAnimPreview::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	const F32 RAD_PER_CLICK = -F_PI / 16.0f;
+	mAnimPreview->rotate(RAD_PER_CLICK * clicks, 0);
+	mAnimPreview->requestUpdate();
+
+	return TRUE;
+}
+
+//-----------------------------------------------------------------------------
 // onMouseCaptureLost()
 //-----------------------------------------------------------------------------
 void LLFloaterAnimPreview::onMouseCaptureLost()

@@ -57,7 +57,7 @@
               <!--<string>Inventory</string>-->
 							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
-							<!--<string>MediaImpl</string>-->
+							<!--<string>Media</string>-->
 							<!--<string>MediaInfo</string>-->
 							<!--<string>MediaCallback</string>-->
 							<!--<string>MediaBuffering</string>-->
@@ -65,8 +65,19 @@
 							<!--<string>MediaState</string>-->
 
 							<!--<string>Messaging</string>-->
+							
+							<string>NewsBar</string>
 							<!--<string>Notifications</string>-->
+              
               <!--<string>Plugin</string>-->
+              <!--<string>PluginClassMedia</string>-->
+              <!--<string>PluginInstance</string>-->
+              <!--<string>PluginPipe</string>-->
+              <!--<string>PluginChild</string>-->
+              <!--<string>PluginSpam</string>-->
+              <!--<string>PluginParent</string>-->
+              <!--<string>PluginViewerMedia</string>-->
+
               <!--<string>Radar</string>-->
 							<!--<string>ShaderLoading</string>-->
 

@@ -179,9 +179,9 @@
           <key>common</key>
           <map>
             <key>md5sum</key>
-            <string>a2cde4f24bdcc260b661e139846b8acd</string>
+            <string>bf3547c5bf5555e82355cd82ad8eaf73</string>
             <key>url</key>
-			<uri>http://imprudenceviewer.org/download/libs/imprudence-artwork-20101026.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/extras/imprudence-artwork-20110301.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -207,9 +207,9 @@
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>279834a12a0ed4531fd602594eac8509</string>
+            <string>bb8552f22769da81593f7d47a51d83d8</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.32.0-darwin-20080812.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.39.0-darwin-20100226.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
@@ -228,9 +228,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>094acc8173faca882ed9532e868d767f</string>
+            <string>3d4bd78f30f118c6e35f8d367ec25fc2</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/boost-1.36.0-windows-20091124.tar.bz2</uri>
+            <uri>http://downloads.phoenixviewer.com/boost-1.43.0-windows-20100902.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -586,13 +586,6 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20100515.tar.bz2</uri>
           </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>b1e0e16472c0e5d3b6291870e3f20b0c</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.18.4-windows-03162009.tar.bz2</uri>
-          </map>
         </map>
       </map>
 	  <key>glui</key>
@@ -666,8 +659,15 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux64-20091230.tar.bz2</uri>
           </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>bd07378834cd1a4ecf7de55d4e2a7da2</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/gstreamer-glib-iconv-libxml-windows-0.10.32-20110503.tar.bz2</uri>
           </map>
         </map>
+      </map>
       <key>gstreamer-plugins</key>
       <map>
         <key>license</key>
@@ -681,8 +681,15 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-darwin-20100826.tar.bz2</uri>
           </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>76ad5a08f8f07f99c9e1545c2a0adc27</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/gstreamer-plugins-windows-0.10.32-20110503.tar.bz2</uri>
           </map>
-          </map>
+        </map>
+      </map>
       <key>gtk-etc</key>
       <map>
         <key>copyright</key>
@@ -713,61 +720,46 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           </map>
         </map>
       </map>
-	  <key>hunspell</key>
-		<map>
-			<key>copyright</key>
-			<string>various</string>
-			<key>description</key>
-			<string>A open source spell check library</string>
-			<key>license</key>
-			<string>lgpl</string>
-			<key>packages</key>
-			<map>
-				<key>windows</key>
-				<map>
-					<key>md5sum</key>
-					<string>1eb49bf9bcce30f5fe0dddaed2a3c628</string>
-					<key>url</key>
-					<uri>http://imprudenceviewer.org/download/libs/windows_hunspell.tar.bz2</uri>
-				</map>
-				<key>linux</key>
-				<map>
-					<key>md5sum</key>
-					<string>dbe264ef2e932980e31db646ea29bbe7</string>
-					<key>url</key>
-					<uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-linux32-20100902.tar.bz2</uri>
-				</map>
-				<key>linux64</key>
-				<map>
-					<key>md5sum</key>
-					<string>5388725d012c3bfabcc420be53442018</string>
-					<key>url</key>
-					<uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-linux64-20100902.tar.bz2</uri>
-				</map>
-				<key>darwin</key>
-				<map>
-					<key>md5sum</key>
-					<string>9b970abfc9df40ad6d183a4b1f732fb2</string>
-					<key>url</key>
-					<uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-darwin.tar.gz</uri>
-				</map>
-			</map>
-		</map>
-      <key>iconv</key>
-      <map>
-        <key>license</key>
-        <string>gpl</string>
-        <key>packages</key>
-        <map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>dfd86beda3a27a8bfe9f9c0a3ed0bd80</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/iconv-1.9.2-windows-20090608.tar.bz2</uri>
-          </map>
-        </map>
-      </map>
+	    <key>hunspell</key>
+		  <map>
+			  <key>copyright</key>
+			  <string>various</string>
+			  <key>description</key>
+			  <string>A open source spell check library</string>
+			  <key>license</key>
+			  <string>lgpl</string>
+			  <key>packages</key>
+			  <map>
+				  <key>windows</key>
+				  <map>
+					  <key>md5sum</key>
+					  <string>1eb49bf9bcce30f5fe0dddaed2a3c628</string>
+					  <key>url</key>
+					  <uri>http://imprudenceviewer.org/download/libs/windows_hunspell.tar.bz2</uri>
+				  </map>
+				  <key>linux</key>
+				  <map>
+					  <key>md5sum</key>
+					  <string>dbe264ef2e932980e31db646ea29bbe7</string>
+					  <key>url</key>
+					  <uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-linux32-20100902.tar.bz2</uri>
+				  </map>
+				  <key>linux64</key>
+				  <map>
+					  <key>md5sum</key>
+					  <string>5388725d012c3bfabcc420be53442018</string>
+					  <key>url</key>
+					  <uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-linux64-20100902.tar.bz2</uri>
+				  </map>
+				  <key>darwin</key>
+				  <map>
+					  <key>md5sum</key>
+					  <string>9b970abfc9df40ad6d183a4b1f732fb2</string>
+					  <key>url</key>
+					  <uri>http://imprudenceviewer.org/download/libs/hunspell-1.2-darwin.tar.gz</uri>
+				  </map>
+			  </map>
+		  </map>
       <key>jpeglib</key>
       <map>
         <key>copyright</key>
@@ -1018,13 +1010,6 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux64-20091230.tar.bz2</uri>
           </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>d96f950a877836b644f5bd047eb52151</string>
-            <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/libxml2-2.7.2-windows-01262009.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>llqtwebkit</key>
@@ -1036,9 +1021,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>34d9e4c93678a422cf80521bf0cd7628</string>
+            <string>becffca6bd8dcb239de284ea2a8b485b</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6-darwin-20100914.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6+cookies-darwin-20100617.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
@@ -1220,6 +1205,7 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20091118.tar.bz2</uri>
           </map>
+<!--      openal compiled against pulse 0.9.10
           <key>linux</key>
           <map>
             <key>md5sum</key>
@@ -1227,12 +1213,21 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-linux32-20100426.tar.bz2</uri>
           </map>
+-->
+	  <!--      openal compiled against pulse 0.9.21 -->
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>44f9bacc69a3d29ae0b46ed69ad7c2ce</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-linux32-20110304.tar.bz2</uri>
+          </map>
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-            <string>ea42b868511e2d5fab2df11dceaf2b7e</string>
+            <string>032848c2591a15e26c71998df3644cfc</string>
              <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux64-20100428.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-linux64-pulse0.9.21-20110304.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>
@@ -1336,12 +1331,19 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
         <string>lgpl</string>
         <key>packages</key>
         <map>
-          <key>linux</key>
+<!--          <key>linux</key>
           <map>
             <key>md5sum</key>
             <string>30cb00069fe2a545fbf7be1070386236</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/linux-pulse-headers-0.9.14.tar.bz2</uri>
+          </map>
+          <key>linux64</key>--><key>common</key>
+          <map>
+            <key>md5sum</key>
+            <string>c5c3b840bb77ee41fa06970663c15302</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/pulseaudio-headers-0.9.21-63-gd3efa-dirty.tar.bz2</uri>
           </map>
         </map>
       </map>

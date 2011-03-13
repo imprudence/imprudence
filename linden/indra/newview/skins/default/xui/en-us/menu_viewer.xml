@@ -259,6 +259,11 @@
                 userdata="appearance" />
       <on_enable function="Edit.EnableCustomizeAvatar" />
     </menu_item_call>
+    <menu_item_call bottom="-362" enabled="true" height="19" label="Display Name..." left="0"
+                    mouse_opaque="true" name="Display Name..." width="153">
+        <on_click function="ShowFloater" userdata="displayname" />
+        <on_enable function="Edit.EnableDisplayName" />
+    </menu_item_call>
     <menu_item_separator />
     <menu_item_check name="Friends" label="Friends"
                      shortcut="control|shift|F">
@@ -267,7 +272,8 @@
       <on_check function="FloaterVisible"
                 userdata="friends" />
     </menu_item_check>
-    <menu_item_call name="Groups" label="Groups">
+    <menu_item_call name="Groups" label="Groups"
+                    shortcut="control|shift|G">
       <on_click function="ShowAgentGroups"
                 userdata="agent" />
     </menu_item_call>
@@ -821,12 +827,12 @@
     <menu_item_call name="Imprudence Blog"
                     label="Imprudence Blog">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceBlog,http://imprudenceviewer.org/" />
+                userdata="WebLaunchImprudenceBlog,http://blog.kokuaviewer.org/" />
     </menu_item_call>
     <menu_item_call name="Imprudence Forums"
                     label="Imprudence Forums">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceForums,http://imprudenceviewer.org/forums/" />
+                userdata="WebLaunchImprudenceForums,http://forums.kokuaviewer.org/" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Scripting Portal"
@@ -1280,6 +1286,18 @@
                     userdata="glow" />
           <on_check function="Advanced.CheckInfoDisplay"
                     userdata="glow" />
+        </menu_item_check>
+        <menu_item_check name="Raycasting" label="Raycasting">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="raycasting" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="raycasting" />
+        </menu_item_check>
+        <menu_item_check name="Sculpt" label="Sculpt">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="sculpt" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="sculpt" />
         </menu_item_check>
         <menu_item_check name="Vectorize Perf Test"
                          label="Vectorize Perf Test">
@@ -1964,6 +1982,13 @@
                       label="Dump Attachments">
         <on_click function="Advanced.DumpAttachments"
                   userdata="" />
+      </menu_item_call>
+      <menu_item_call
+              label="Reload Avatar Cloud Particle"
+              name="Reload Avatar Cloud Particle">
+                <on_click
+                 function="Advanced.ReloadAvatarCloudParticle"
+                 userdata="" />
       </menu_item_call>
     </menu>
 

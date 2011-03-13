@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>26</string>
+      <key>default_grids_version</key><string>32</string>
     </map>
 
     <!-- Second Life -->
@@ -16,7 +16,7 @@
       <key>support</key><string>http://secondlife.com/support/</string>
       <key>register</key><string>http://secondlife.com/registration/</string>
       <key>password</key><string>http://secondlife.com/account/request.php</string>
-      <key>version</key><string>0</string>
+      <key>version</key><string>2</string>
     </map>
 
     <!-- Second Life Beta -->
@@ -31,7 +31,7 @@
       <key>support</key><string>http://secondlife.com/support/</string>
       <key>register</key><string>http://secondlife.com/registration/</string>
       <key>password</key><string>http://secondlife.com/account/request.php</string>
-      <key>version</key><string>1</string>
+      <key>version</key><string>3</string>
     </map>
 
     <!-- Local Host -->
@@ -57,22 +57,22 @@
       <key>support</key><string>http://osgrid.org/</string>
       <key>register</key><string>http://www.osgrid.org/index.php/auth/register</string>
       <key>password</key><string>http://www.osgrid.org/index.php/auth/forgot_password</string>
-      <key>version</key><string>1</string>
+      <key>version</key><string>2</string>
     </map>
 
-    <!-- Legend City Online -->
+    <!-- Aurora Grid -->
     <map>
-      <key>gridnick</key><string>legendcityonline</string>
-      <key>gridname</key><string>Legend City Online</string>
-      <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://login.legendcityonline.com</string>
-      <key>loginpage</key><string>http://www.legendcityonline.com/welcome.php</string>
-      <key>helperuri</key><string>https://secure.legendcityonline.com/</string>
-      <key>website</key><string>http://www.legendcityonline.com/</string>
-      <key>support</key><string>http://www.legendcityonline.com/</string>
-      <key>register</key><string>http://www.legendcityonline.com/</string>
-      <key>password</key><string>http://www.legendcityonline.com/</string>
-      <key>version</key><string>0</string>
+      <key>gridname</key>   <string>Aurora-Grid</string>
+      <key>gridnick</key>   <string>auroragrid</string>
+      <key>platform</key>   <string>OpenSim</string>
+      <key>loginuri</key>   <string>http://login.aurora-sim.org:8002/</string>
+      <key>loginpage</key>  <string>http://login.aurora-sim.org/splash/</string>
+      <key>helperuri</key>  <string>http://grid.aurora-sim.org/</string>
+      <key>password</key>   <string />
+      <key>register</key>   <string />
+      <key>support</key>    <string>http://forum.aurora-sim.org/</string>
+      <key>website</key>    <string>http://aurora-sim.org</string>
+      <key>version</key>    <string>0</string>
     </map>
 
     <!-- WorldSimTerra -->
@@ -135,15 +135,17 @@
       <key>version</key><string>0</string>
     </map>
 
-    <!-- Cyberlandia -->
+    <!-- Craft (offspring of Cyberlandia) -->
     <map>
-      <key>gridnick</key><string>cyberlandia</string>
-      <key>gridname</key><string>Cyberlandia</string>
+      <key>gridnick</key><string>craft</string>
+      <key>gridname</key><string>Craft</string>
       <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://grid.cyberlandia.net:8002</string>
-      <key>loginpage</key><string></string>
-      <key>helperuri</key><string></string>
-      <key>website</key><string>http://www.cyberlandia.net</string>
+      <key>loginuri</key><string>http://craft-world.org:8002/</string>
+      <key>loginpage</key><string>http://www.craft-world.org/loginscreen.php</string>
+      <key>helperuri</key><string>http://webapp.craft-world.org/</string>
+      <key>website</key><string>http://www.craft-world.org/</string>
+      <key>register</key><string>http://craft-world.org:8002/wifi/user/account/</string>
+      <key>password</key><string>http://craft-world.org:8002/wifi/forgotpassword</string>
       <key>version</key><string>0</string>
     </map>
 

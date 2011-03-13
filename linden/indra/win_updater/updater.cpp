@@ -39,6 +39,8 @@
 // *TODO: Switch to fopen_s, strtok_s, etc.
 #define _CRT_SECURE_NO_DEPRECATE
 
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 #include <windows.h>
 #include <wininet.h>
 #include <stdio.h>
@@ -457,7 +459,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 			L"The Imprudence auto-update has failed.\n"
 			L"The problem may be caused by other software installed \n"
 			L"on your computer, such as a firewall.\n"
-			L"Please visit http://imprudenceviewer.org/download/ \n"
+			L"Please visit http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads \n"
 			L"to download the latest version of Imprudence.\n",
 			NULL, MB_OK);
 		return 1;

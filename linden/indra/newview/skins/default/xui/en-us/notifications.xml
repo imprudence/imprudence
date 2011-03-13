@@ -1,7 +1,7 @@
 <?xml version="1.0" ?><notifications>
 
 <global name="VIEWER_NAME">Imprudence</global>
-<global name="VIEWER_SITE">imprudenceviewer.org</global>
+<global name="VIEWER_SITE">kokuaviewer.org</global>
 <global name="SECOND_LIFE">Second Life</global>
 <global name="SECOND_LIFE_SITE">secondlife.com</global>
 
@@ -5237,6 +5237,88 @@ The string [STRING_NAME] is missing from strings.xml
 </notification>
 
 <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameSuccess"
+   type="alert">
+Hi [DISPLAY_NAME]!
+
+Just like in real life, it takes a while for everyone to learn about a new name.  Please allow several days for your name to update in objects, scripts, search, etc.
+  </notification>
+
+  <notification
+ icon="alertmodal.tga"
+ name="SetDisplayNameBlocked"
+ type="alert">
+Sorry, you cannot change your display name. If you feel this is in error, please contact support.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameFailedLength"
+   type="alertmodal">
+Sorry, that name is too long.  Display names can have a maximum of [LENGTH] characters.
+
+Please try a shorter name.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameFailedGeneric"
+   type="alertmodal">
+    Sorry, we could not set your display name.  Please try again later.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameMismatch"
+   type="alertmodal">
+    The display names you entered do not match. Please re-enter.
+  </notification>
+
+  <!-- *NOTE: This should never happen -->
+  <notification
+   icon="alertmodal.tga"
+   name="AgentDisplayNameUpdateThresholdExceeded"
+   type="alertmodal">
+Sorry, you have to wait longer before you can change your display name.
+
+See http://wiki.secondlife.com/wiki/Setting_your_display_name
+
+Please try again later.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="AgentDisplayNameSetBlocked"
+   type="alertmodal">
+ Sorry, we could not set your requested name because it contains a banned word.
+ 
+ Please try a different name.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+ name="AgentDisplayNameSetInvalidUnicode"
+ type="alertmodal">
+    The display name you wish to set contains invalid characters.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+ name="AgentDisplayNameSetOnlyPunctuation"
+ type="alertmodal">
+    Your display name must contain letters other than punctuation.
+  </notification>
+
+
+  <notification
+   icon="notifytip.tga"
+   name="DisplayNameUpdate"
+   type="notifytip">
+    [OLD_NAME] ([SLID]) is now known as [NEW_NAME].
+  </notification>
+
+<notification
  icon="notifytip.tga"
  name="Cancelled"
  type="notifytip">
@@ -6807,7 +6889,7 @@ The region you have entered is running a different simulator version. Click this
  icon="notify.tga"
  name="QueryClientTags"
  type="notify">
-Would you like to have the client tag database automatically updated from imprudenceviewer.org?
+Would you like to have the client tag database automatically updated from kokuaviewer.org?
 
 This ensures that you have the latest information available regarding other clients.
   <form name="form">
@@ -6874,12 +6956,12 @@ GRAVITY  --  -9.8
 
 *  --  Multiplication
 \  --  Division
-+  --  Addition
+  --  Addition
 -  --  Subtraction
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Build_Math_Expressions
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Build_Math_Expressions
   </url>
   <usetemplate
    name="okhelpbuttons"
@@ -6903,12 +6985,12 @@ GLOW --  Glow
 
 *  --  Multiplication
 \  --  Division
-+  --  Addition
+  --  Addition
 -  --  Subtraction
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Build_Math_Expressions
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Build_Math_Expressions
   </url>
   <usetemplate
    name="okhelpbuttons"
@@ -7025,7 +7107,7 @@ WARNING: Don't restore if you aren't sure where the object will go!
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
-    http://imprudenceviewer.org/wiki/Restore_to_Last_Position
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Restore_to_Last_Position
   </url>
   <usetemplate
    name="okcancelhelpignore"
@@ -7221,6 +7303,22 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
 The new font will appear after you restart [VIEWER_NAME].
 </notification>
 
+<notification
+ name="FirstPrivacy"
+ icon="alertmodal.tga"
+ type="alertmodal">
+Attention: The Second Life Terms of Service require that all viewers, including the Imprudence Viewer, send a "statistics packet" to Linden Lab every 5 minutes while you are connected to Second Life.
+
+The packet includes non-personally-identifying data about your computer and your Second Life usage, such as your computer hardware and operating system, average framerate, number of sims visited, number of avatars nearby, and more. Please check the Second Life Privacy Policy for information about how Linden Lab uses this and other data.
+
+The packet is sent only to Linden Lab; the Imprudence Project does not receive or collect any data of this kind.
+
+The Second Life Terms of Service do not allow you to opt out. By logging in to Second Life, you are consenting to this data collection.
+  <usetemplate
+   name="okcancelbuttons"
+   yestext="Log In"
+   notext="Cancel"/>
+</notification>
 
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->

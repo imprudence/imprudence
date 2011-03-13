@@ -104,6 +104,7 @@
 #include "llassetstorage.h"
 #include "llpolymesh.h"
 #include "llcachename.h"
+#include "kokuastreamingaudio.h"
 #include "llaudioengine.h"
 #include "llstreamingaudio.h"
 #include "llviewermenu.h"
@@ -617,18 +618,16 @@ bool LLAppViewer::init()
 
     writeSystemInfo();
 
+
 	// Build a string representing the current version number.
-    gCurrentVersion = llformat("%s %d.%d.%d %s / %s %d.%d.%d.%d", 
-        gSavedSettings.getString("VersionChannelName").c_str(), 
+	gCurrentVersion = llformat(
+		"%s %d.%d.%d.%d",
+		gSavedSettings.getString("VersionChannelName").c_str(),
 		ViewerVersion::getImpMajorVersion(), 
 		ViewerVersion::getImpMinorVersion(), 
 		ViewerVersion::getImpPatchVersion(),
-		ViewerVersion::getImpTestVersion().c_str(),
-		ViewerVersion::getLLViewerName().c_str(),
-		ViewerVersion::getLLMajorVersion(), 
-		ViewerVersion::getLLMinorVersion(), 
-		ViewerVersion::getLLPatchVersion(), 
-		ViewerVersion::getLLBuildVersion() );
+		0 // our 'build number'
+    );
 
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -920,7 +919,7 @@ bool LLAppViewer::mainLoop()
 	//-------------------------------------------
 
 	// Create IO Pump to use for HTTP Requests.
-	gServicePump = new LLPumpIO(gAPRPoolp);
+	gServicePump = new LLPumpIO;
 	LLHTTPClient::setPump(*gServicePump);
 	LLCurl::setCAFile(gDirUtilp->getCAFile());
 	
@@ -1258,6 +1257,7 @@ bool LLAppViewer::cleanup()
 
 	LLPolyMesh::freeAllMeshes();
 
+	LLAvatarNameCache::cleanupClass();
 	delete gCacheName;
 	gCacheName = NULL;
 
@@ -1278,14 +1278,16 @@ bool LLAppViewer::cleanup()
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
-	if (gAudiop)
+	if (gAudioStream)
 	{
 		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
 
-		LLStreamingAudioInterface *sai = gAudiop->getStreamingAudioImpl();
-		delete sai;
-		gAudiop->setStreamingAudioImpl(NULL);
+		delete gAudioStream;
+ 		gAudioStream = NULL;
+	}
 
+	if (gAudiop)
+	{
 		// shut down the audio subsystem
 
 		bool want_longname = false;
@@ -1642,19 +1644,38 @@ bool LLAppViewer::initLogging()
 	LLError::initForApplication(
 				gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
 	LLError::setFatalFunction(errorCallback);
-	
-	// Remove the last ".old" log file.
-	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.old");
-	LLFile::remove(old_log_file);
 
-	// Rename current log file to ".old"
-	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.log");
-	LLFile::rename(log_file, old_log_file);
+	std::string log_name = "Imprudence.log";
+
+	const int MAX_ROTATION = 5;
+	for(int i = MAX_ROTATION; 0 < i; i--)
+	{
+		std::ostringstream current;
+		current << ".";
+		current << i;
+
+		std::ostringstream previous;
+		if( 1 < i )
+		{
+			previous << ".";
+			previous << i-1;
+		}
+
+		std::string current_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
+							     log_name + current.str());
+		std::string previous_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
+							     log_name + previous.str());
+
+		if (MAX_ROTATION == i)
+		{
+			LLFile::remove(current_log_file);
+		}
+
+		LLFile::rename(previous_log_file, current_log_file);
+	}
 
 	// Set the log file to Imprudence.log
-
+	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, log_name);
 	LLError::logToFile(log_file);
 
 	// *FIX:Mani no error handling here!
@@ -1861,6 +1882,7 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstVoice");
 	LLFirstUse::addConfigVariable("FirstMedia");
 	LLFirstUse::addConfigVariable("FirstLoginScreen");
+	LLFirstUse::addConfigVariable("FirstPrivacy");
 		
 // [RLVa:KB] - Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
 	//LLFirstUse::addConfigVariable(RLV_SETTING_FIRSTUSE_DETACH);
@@ -2437,14 +2459,10 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 
@@ -2530,15 +2548,10 @@ void LLAppViewer::handleViewerCrash()
 	//We already do this in writeSystemInfo(), but we do it again here to make /sure/ we have a version
 	//to check against no matter what
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
-
-	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = ViewerVersion::getImpMajorVersion();
-	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = ViewerVersion::getImpMinorVersion();
-	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = ViewerVersion::getImpPatchVersion();
-	gDebugInfo["ClientInfo"]["ImpTestVersion"] = ViewerVersion::getImpTestVersion();
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if ( parcel && parcel->getMusicURL()[0])
@@ -3264,7 +3277,7 @@ void LLAppViewer::badNetworkHandler()
 		"the issue. \n"
 		" \n"
 		"If the problem continues, please report the issue at: \n"
-		"http://imprudenceviewer.org" << grid_support_msg;
+		"http://redmine.kokuaviewer.org/projects/imprudence" << grid_support_msg;
 	forceDisconnect(message.str());
 }
 
@@ -3296,6 +3309,14 @@ void LLAppViewer::saveFinalSnapshot()
 
 void LLAppViewer::loadNameCache()
 {
+	// display names cache
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "avatar_name_cache.xml");
+	llifstream name_cache_stream(filename);
+	if (name_cache_stream.is_open())
+	{
+		LLAvatarNameCache::importFile(name_cache_stream);
+	}
+
 	if (!gCacheName) return;
 
 	std::string name_cache;
@@ -3318,6 +3339,14 @@ void LLAppViewer::loadNameCache()
 
 void LLAppViewer::saveNameCache()
 {
+	// display names cache
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "avatar_name_cache.xml");
+	llofstream name_cache_stream(filename);
+	if (name_cache_stream.is_open())
+	{
+		LLAvatarNameCache::exportFile(name_cache_stream);
+	}
+
 	if (!gCacheName) return;
 
 	std::string name_cache;
@@ -3469,18 +3498,22 @@ void LLAppViewer::idle()
 		// Initialize the viewer_stats_timer with an already elapsed time
 		// of SEND_STATS_PERIOD so that the initial stats report will
 		// be sent immediately.
-		static LLFrameStatsTimer viewer_stats_timer(SEND_STATS_PERIOD);
-		reset_statistics();
-
-		// Update session stats every large chunk of time
-		// *FIX: (???) SAMANTHA
-		/* or don't! part of a larger effort to waste less CPU cycles. -Patrick Sapinski (Sunday, November 29, 2009)
-		if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD && !gDisconnected)
+		if(!gDisconnected && gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
-			llinfos << "Transmitting sessions stats" << llendl;
-			send_stats();
-			viewer_stats_timer.reset();
-		} */
+			static LLFrameStatsTimer viewer_stats_timer(SEND_STATS_PERIOD);
+			reset_statistics();
+
+			// Update session stats every large chunk of time
+			// *FIX: (???) SAMANTHA
+
+			/* or don't! part of a larger effort to waste less CPU cycles. -Patrick Sapinski (Sunday, November 29, 2009)*/
+			if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD )
+			{
+				llinfos << "Transmitting sessions stats" << llendl;
+				send_stats();
+				viewer_stats_timer.reset();
+			} 
+		}
 
 		// Print the object debugging stats
 		static LLFrameTimer object_debug_timer;
@@ -3518,6 +3551,8 @@ void LLAppViewer::idle()
 	    // floating throughout the various object lists.
 	    //
     
+		idleNameCache();
+
 	    gFrameStats.start(LLFrameStats::IDLE_NETWORK);
 		stop_glerror();
 		idleNetwork();
@@ -3732,6 +3767,10 @@ void LLAppViewer::idle()
 			const F32 max_audio_decode_time = 0.002f; // 2 ms decode time
 			gAudiop->idle(max_audio_decode_time);
 		}
+
+		// update streaming audio
+		if (gAudioStream)
+			gAudioStream->updateInternetStream();
 	}
 	
 
@@ -3893,6 +3932,60 @@ void LLAppViewer::sendLogoutRequest()
 		}
 		apr_file_close(mLogoutMarkerFile);
 	}
+}
+
+void LLAppViewer::idleNameCache()
+{
+	// Neither old nor new name cache can function before agent has a region
+	LLViewerRegion* region = gAgent.getRegion();
+	if (!region) return;
+
+	// deal with any queued name requests and replies.
+	gCacheName->processPending();
+
+	// Can't run the new cache until we have the list of capabilities
+	// for the agent region, and can therefore decide whether to use
+	// display names or fall back to the old name system.
+	if (!region->capabilitiesReceived()) return;
+
+	// Agent may have moved to a different region, so need to update cap URL
+	// for name lookups.  Can't do this in the cap grant code, as caps are
+	// granted to neighbor regions before the main agent gets there.  Can't
+	// do it in the move-into-region code because cap not guaranteed to be
+	// granted yet, for example on teleport.
+	bool had_capability = LLAvatarNameCache::hasNameLookupURL();
+	std::string name_lookup_url;
+	name_lookup_url.reserve(128); // avoid a memory allocation below
+	name_lookup_url = region->getCapability("GetDisplayNames");
+	bool have_capability = !name_lookup_url.empty();
+	if (have_capability)
+	{
+		// we have support for display names, use it
+	    U32 url_size = name_lookup_url.size();
+	    // capabilities require URLs with slashes before query params:
+	    // https://<host>:<port>/cap/<uuid>/?ids=<blah>
+	    // but the caps are granted like:
+	    // https://<host>:<port>/cap/<uuid>
+	    if (url_size > 0 && name_lookup_url[url_size-1] != '/')
+	    {
+		    name_lookup_url += '/';
+	    }
+		LLAvatarNameCache::setNameLookupURL(name_lookup_url);
+	}
+	else
+	{
+		// Display names not available on this region
+		LLAvatarNameCache::setNameLookupURL( std::string() );
+	}
+
+	// Error recovery - did we change state?
+	if (had_capability != have_capability)
+	{
+		// name tags are persistant on screen, so make sure they refresh
+		LLVOAvatar::invalidateNameTags();
+	}
+
+	LLAvatarNameCache::idle();
 }
 
 //
@@ -4230,11 +4323,11 @@ void LLAppViewer::handleLoginComplete()
 
 	// Store some data to DebugInfo in case of a freeze.
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
+	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getImpMajorVersion();
+	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getImpMinorVersion();
+	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getImpPatchVersion();
+	gDebugInfo["ClientInfo"]["BuildVersion"] = 0;
 
-	gDebugInfo["ClientInfo"]["MajorVersion"] = ViewerVersion::getLLMajorVersion();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = ViewerVersion::getLLMinorVersion();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = ViewerVersion::getLLPatchVersion();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = ViewerVersion::getLLBuildVersion();
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();

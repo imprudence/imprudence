@@ -163,6 +163,7 @@ public:
 	void			endAnimationUpdateUI();
 	void			setKey(const S32 direction, S32 &key);		// sets key to +1 for +direction, -1 for -direction
 	void			handleScrollWheel(S32 clicks);				// mousewheel driven zoom
+	void			handleHScrollWheel(S32 clicks);
 	
 	void			setAvatarObject(LLVOAvatar *avatar);
 

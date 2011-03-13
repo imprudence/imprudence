@@ -231,6 +231,20 @@ public:
 		return (mCurIterator++)->second;
 	}
 
+	S32 getVisualParamCountInGroup(EVisualParamGroup group)
+	{
+		S32 rtn = 0;
+		VisualParamIndexMap_t::iterator iter;
+		for (iter = mVisualParamIndexMap.begin(); iter != mVisualParamIndexMap.end(); iter++)
+		{
+			if (iter->second->getGroup() == group)
+			{
+				rtn++;
+			}
+		}
+		return rtn;
+	}
+
 	LLVisualParam*	getVisualParam(S32 id)
 	{
 		VisualParamIndexMap_t::iterator iter = mVisualParamIndexMap.find(id);

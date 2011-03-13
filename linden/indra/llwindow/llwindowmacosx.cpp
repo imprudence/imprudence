@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -250,6 +250,7 @@ LLWindowMacOSX::LLWindowMacOSX(const std::string& title, const std::string& name
 	mTSMScriptCode = 0;
 	mTSMLangCode = 0;
 	mPreeditor = NULL;
+	mRawKeyEvent = NULL;
 	mFSAASamples = fsaa_samples;
 	mForceRebuild = FALSE;
 	
@@ -1029,6 +1030,7 @@ void LLWindowMacOSX::hide()
 	HideWindow(mWindow);
 }
 
+//virtual
 void LLWindowMacOSX::minimize()
 {
 	setMouseClipping(FALSE);
@@ -1036,6 +1038,7 @@ void LLWindowMacOSX::minimize()
 	CollapseWindow(mWindow, true);
 }
 
+//virtual
 void LLWindowMacOSX::restore()
 {
 	show();
@@ -1436,7 +1439,7 @@ static void fixOrigin(void)
 	::GetPortBounds(port, &portrect);
 	if((portrect.left != 0) || (portrect.top != 0))
 	{
-		// Mozilla sometimes changes our port origin.  Fuckers.
+		// Mozilla sometimes changes our port origin.
 		::SetOrigin(0,0);
 	}
 }
@@ -2128,10 +2131,11 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				{
 					UInt32 modifiers = 0;
 
+
 					// First, process the raw event.
 					{
-						EventRef rawEvent;
-
+						EventRef rawEvent = NULL;
+						
 						// Get the original event and extract the modifier keys, so we can ignore command-key events.
 						if (GetEventParameter(event, kEventParamTextInputSendKeyboardEvent, typeEventRef, NULL, sizeof(rawEvent), NULL, &rawEvent) == noErr)
 						{
@@ -2140,6 +2144,9 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 
 							// and call this function recursively to handle the raw key event.
 							eventHandler (myHandler, rawEvent);
+							
+							// save the raw event until we're done processing the unicode input as well.
+							mRawKeyEvent = rawEvent;
 						}
 					}
 
@@ -2167,11 +2174,8 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 						}
 						else
 						{
-							MASK mask = 0;
-							if(modifiers & shiftKey) { mask |= MASK_SHIFT; }
-							if(modifiers & (cmdKey | controlKey)) { mask |= MASK_CONTROL; }
-							if(modifiers & optionKey) { mask |= MASK_ALT; }
-
+							MASK mask = LLWindowMacOSX::modifiersToMask(modifiers);
+							
 							llassert( actualType == typeUnicodeText );
 
 							// The result is a UTF16 buffer.  Pass the characters in turn to handleUnicodeChar.
@@ -2193,6 +2197,7 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 						delete[] buffer;
 					}
 
+					mRawKeyEvent = NULL;
 					result = err;
 				}
 				break;
@@ -2266,6 +2271,9 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 			// Some of these may fail for some event types.  That's fine.
 			GetEventParameter (event, kEventParamKeyCode, typeUInt32, NULL, sizeof(UInt32), NULL, &keyCode);
 			GetEventParameter (event, kEventParamKeyModifiers, typeUInt32, NULL, sizeof(UInt32), NULL, &modifiers);
+
+			// save the raw event so getNativeKeyData can use it.
+			mRawKeyEvent = event;
 
 			//			printf("key event, key code = 0x%08x, char code = 0x%02x (%c), modifiers = 0x%08x\n", keyCode, charCode, (char)charCode, modifiers);
 			//			fflush(stdout);
@@ -2362,6 +2370,8 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				result = eventNotHandledErr;
 				break;
 			}
+			
+			mRawKeyEvent = NULL;
 		}
 		break;
 
@@ -2374,6 +2384,7 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				HIPoint				location = {0.0f, 0.0f};
 				UInt32				modifiers = 0;
 				UInt32				clickCount = 1;
+				EventMouseWheelAxis	wheelAxis = kEventMouseWheelAxisX;
 				long				wheelDelta = 0;
 				LLCoordScreen		inCoords;
 				LLCoordGL			outCoords;
@@ -2383,6 +2394,7 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 				GetEventParameter(event, kEventParamMouseLocation, typeHIPoint, NULL, sizeof(location), NULL, &location);
 				GetEventParameter(event, kEventParamKeyModifiers, typeUInt32, NULL, sizeof(modifiers), NULL, &modifiers);
 				GetEventParameter(event, kEventParamMouseWheelDelta, typeLongInteger, NULL, sizeof(wheelDelta), NULL, &wheelDelta);
+				GetEventParameter(event, kEventParamMouseWheelAxis, typeMouseWheelAxis, NULL, sizeof(wheelAxis), NULL, &wheelAxis);
 				GetEventParameter(event, kEventParamClickCount, typeUInt32, NULL, sizeof(clickCount), NULL, &clickCount);
 
 				inCoords.mX = llround(location.x);
@@ -2491,14 +2503,31 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 
 				case kEventMouseWheelMoved:
 					{
-						static S32  z_delta = 0;
+						switch (wheelAxis){
+						case kEventMouseWheelAxisX:
 
-						z_delta += wheelDelta;
+							static S32  wheel_x_delta = 0;
 
-						if (z_delta <= -WHEEL_DELTA || WHEEL_DELTA <= z_delta)
-						{
-							mCallbacks->handleScrollWheel(this, -z_delta / WHEEL_DELTA);
-							z_delta = 0;
+							wheel_x_delta += wheelDelta;
+
+							if (wheel_x_delta <= -WHEEL_DELTA || WHEEL_DELTA <= wheel_x_delta)
+							{
+								mCallbacks->handleHScrollWheel(this, wheel_x_delta / WHEEL_DELTA);
+								wheel_x_delta = 0;
+							}
+							break;
+						case kEventMouseWheelAxisY:
+
+							static S32  wheel_y_delta = 0;
+
+							wheel_y_delta += wheelDelta;
+
+							if (wheel_y_delta <= -WHEEL_DELTA || WHEEL_DELTA <= wheel_y_delta)
+							{
+								mCallbacks->handleScrollWheel(this, -wheel_y_delta / WHEEL_DELTA);
+								wheel_y_delta = 0;
+							}
+							break;
 						}
 					}
 					result = noErr;
@@ -3162,6 +3191,8 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 	OSStatus result = noErr;
 	CFURLRef urlRef = NULL;
 
+	llinfos << "Opening URL " << escaped_url << llendl;
+
 	CFStringRef	stringRef = CFStringCreateWithCString(NULL, escaped_url.c_str(), kCFStringEncodingUTF8);
 	if (stringRef)
 	{
@@ -3189,6 +3220,60 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 	{
 		llinfos << "Error: couldn't create URL." << llendl;
 	}
+}
+
+LLSD LLWindowMacOSX::getNativeKeyData()
+{
+	LLSD result = LLSD::emptyMap();
+	
+	if(mRawKeyEvent)
+	{
+		char char_code = 0;
+		UInt32 key_code = 0;
+		UInt32 modifiers = 0;
+		UInt32 keyboard_type = 0;
+		
+		GetEventParameter (mRawKeyEvent, kEventParamKeyMacCharCodes, typeChar, NULL, sizeof(char), NULL, &char_code);
+		GetEventParameter (mRawKeyEvent, kEventParamKeyCode, typeUInt32, NULL, sizeof(UInt32), NULL, &key_code);
+		GetEventParameter (mRawKeyEvent, kEventParamKeyModifiers, typeUInt32, NULL, sizeof(UInt32), NULL, &modifiers);
+		GetEventParameter (mRawKeyEvent, kEventParamKeyboardType, typeUInt32, NULL, sizeof(UInt32), NULL, &keyboard_type);
+
+		result["char_code"] = (S32)char_code;
+		result["key_code"] = (S32)key_code;
+		result["modifiers"] = (S32)modifiers;
+		result["keyboard_type"] = (S32)keyboard_type;
+		
+#if 0
+		// This causes trouble for control characters -- apparently character codes less than 32 (escape, control-A, etc)
+		// cause llsd serialization to create XML that the llsd deserializer won't parse!
+		std::string unicode;
+		OSStatus err = noErr;
+		EventParamType actualType = typeUTF8Text;
+		UInt32 actualSize = 0;
+		char *buffer = NULL;
+		
+		err = GetEventParameter (mRawKeyEvent, kEventParamKeyUnicodes, typeUTF8Text, &actualType, 0, &actualSize, NULL);
+		if(err == noErr)
+		{
+			// allocate a buffer and get the actual data.
+			buffer = new char[actualSize];
+			err = GetEventParameter (mRawKeyEvent, kEventParamKeyUnicodes, typeUTF8Text, &actualType, actualSize, &actualSize, buffer);
+			if(err == noErr)
+			{
+				unicode.assign(buffer, actualSize);
+			}
+			delete[] buffer;
+		}
+		
+		result["unicode"] = unicode;
+#endif
+
+	}
+
+
+	lldebugs << "native key data is: " << result << llendl;
+	
+	return result;
 }
 
 void LLWindowMacOSX::ShellEx(const std::string& command)
@@ -3391,4 +3476,14 @@ std::vector<std::string> LLWindowMacOSX::getDynamicFallbackFontList()
 	// Fonts previously in getFontListSans() have moved to fonts.xml.
 	return std::vector<std::string>();
 }
+
+// static
+MASK LLWindowMacOSX::modifiersToMask(SInt16 modifiers)
+{
+	MASK mask = 0;
+	if(modifiers & shiftKey) { mask |= MASK_SHIFT; }
+	if(modifiers & (cmdKey | controlKey)) { mask |= MASK_CONTROL; }
+	if(modifiers & optionKey) { mask |= MASK_ALT; }
+	return mask;
+}	
 

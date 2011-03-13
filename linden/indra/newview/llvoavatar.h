@@ -97,6 +97,7 @@ public:
 	static void initClass(); // Initialize data that's only init'd once per class.
 	static void cleanupClass();	// Cleanup data that's only init'd once per class.
 	static BOOL parseSkeletonFile(const std::string& filename);
+	static void initCloud();
 	virtual U32 processUpdateMessage(LLMessageSystem *mesgsys,
 									 void **user_data,
 									 U32 block_num,
@@ -111,6 +112,10 @@ public:
 	void idleUpdateWindEffect();
 	void idleUpdateBoobEffect();
 	void idleUpdateNameTag(const LLVector3& root_pos_last);
+	void clearNameTag();
+	static void invalidateNameTag(const LLUUID& agent_id);
+	// force all name tags to rebuild, useful when display names turned on/off
+	static void invalidateNameTags();
 	void idleUpdateRenderCost();
 	void idleUpdateTractorBeam();
 	void idleUpdateBelowWater();
@@ -582,6 +587,7 @@ public:
 	static F32		sLODFactor; // user-settable LOD factor
 	static BOOL		sJointDebug; // output total number of joints being touched for each avatar
 	static BOOL     sDebugAvatarRotation;
+	static LLPartSysData sCloud;
 
 	static S32 sNumVisibleAvatars; // Number of instances of this class
 	
@@ -675,6 +681,7 @@ protected:
 
 	LLWString mNameString;
 	std::string  mTitle;
+	std::string  mCompleteName;
 	BOOL	  mNameAway;
 	BOOL	  mNameBusy;
 	BOOL	  mNameMute;

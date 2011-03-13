@@ -46,7 +46,7 @@ typedef const char* (*EngineInfoLLImageJ2CFunction)();
 CreateLLImageJ2CFunction j2cimpl_create_func;
 DestroyLLImageJ2CFunction j2cimpl_destroy_func;
 EngineInfoLLImageJ2CFunction j2cimpl_engineinfo_func;
-apr_pool_t *j2cimpl_dso_memory_pool;
+AIAPRPool j2cimpl_dso_memory_pool;
 apr_dso_handle_t *j2cimpl_dso_handle;
 
 //Declare the prototype for theses functions here, their functionality
@@ -81,13 +81,12 @@ void LLImageJ2C::openDSO()
 				       gDirUtilp->getExecutableDir());
 
 	j2cimpl_dso_handle      = NULL;
-	j2cimpl_dso_memory_pool = NULL;
+	j2cimpl_dso_memory_pool.create();
 
 	//attempt to load the shared library
-	apr_pool_create(&j2cimpl_dso_memory_pool, NULL);
 	rv = apr_dso_load(&j2cimpl_dso_handle,
 					  dso_path.c_str(),
-					  j2cimpl_dso_memory_pool);
+					  j2cimpl_dso_memory_pool());
 
 	//now, check for success
 	if ( rv == APR_SUCCESS )
@@ -151,11 +150,7 @@ void LLImageJ2C::openDSO()
 			j2cimpl_dso_handle = NULL;
 		}
 
-		if ( j2cimpl_dso_memory_pool )
-		{
-			apr_pool_destroy(j2cimpl_dso_memory_pool);
-			j2cimpl_dso_memory_pool = NULL;
-		}
+		j2cimpl_dso_memory_pool.destroy();
 	}
 }
 
@@ -163,7 +158,7 @@ void LLImageJ2C::openDSO()
 void LLImageJ2C::closeDSO()
 {
 	if ( j2cimpl_dso_handle ) apr_dso_unload(j2cimpl_dso_handle);
-	if (j2cimpl_dso_memory_pool) apr_pool_destroy(j2cimpl_dso_memory_pool);
+	j2cimpl_dso_memory_pool.destroy();
 }
 
 //static

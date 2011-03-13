@@ -5,7 +5,7 @@
 	 follows="left|top|right|bottom" mouse_opaque="true" >
 
   <web_browser name="login_html" 
-			 bottom="0" top="-1" left="0" right="-1"
+			 bottom="102" top="-1" left="0" right="-1"
 			 border_visible="false" follows="top|left|bottom|right"
 			 start_url="data:text/html,
 			 %3Chtml%3E
@@ -33,7 +33,7 @@
   <!-- START LOCATION -->
 
 	<text name="start_location_text" 
-	      bottom="8" left="10" height="16" right="115"
+	      bottom="32" left="10" height="16" right="115"
         follows="left|bottom" h_pad="0" halign="right" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -59,7 +59,7 @@
   <!-- FIRST NAME -->
 
 	<text name="first_name_text" 
-	      bottom="56" left="24" height="16" width="120"
+	      bottom="80" left="24" height="16" width="120"
         follows="left|bottom" h_pad="0" halign="left" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -123,7 +123,7 @@
   <!-- GRIDS -->
 
 	<text name="grid_text" 
-	      bottom="56" left_delta="150" height="16" width="120"
+	      bottom="80" left_delta="150" height="16" width="120"
         follows="left|bottom" h_pad="0" halign="left" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -143,7 +143,7 @@
   <!-- LOG IN -->
 
 	<button name="connect_btn" label="Log In"
-          bottom="34" left_delta="140" height="24" width="120"
+          bottom="58" left_delta="140" height="24" width="120"
           follows="left|bottom" font="SansSerif" halign="center"
 	        mouse_opaque="true" scale_image="TRUE" />
 
@@ -151,7 +151,7 @@
   <!-- ACCOUNT / FORGOT PASSWORD -->
 
 	<text name="create_new_account_text"
-	      bottom="45" left="-210" height="16" width="200"
+	      bottom="69" left="-210" height="16" width="200"
         follows="right|bottom" h_pad="0" halign="right" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -161,7 +161,7 @@
 	</text>
 
 	<text name="forgot_password_text"
-	      bottom="25" left="-210" height="16" width="200"
+	      bottom="49" left="-210" height="16" width="200"
         follows="right|bottom" h_pad="0" halign="right" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -174,7 +174,7 @@
   <!-- CHANNEL & VERSION -->
 
 	<text name="channel_text"
-	      bottom="5" left="-310" height="16" width="300"
+	      bottom="29" left="-310" height="16" width="300"
         follows="right|bottom" h_pad="0" halign="right" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -182,4 +182,11 @@
         hover="true" hover_color="50 115 185">
     [CHANNEL] [VERSION]
   </text>
+
+
+  <web_browser name="news_bar"
+               bottom="0" top="20" left="0" right="-1"
+               border_visible="true" follows="left|bottom|right"
+               start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000%22%3E%3C/body%3E%3C/html%3E" />
+
 </panel>

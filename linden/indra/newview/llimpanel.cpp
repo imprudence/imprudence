@@ -106,6 +106,8 @@ LLVoiceChannel* LLVoiceChannel::sSuspendedVoiceChannel = NULL;
 
 BOOL LLVoiceChannel::sSuspended = FALSE;
 
+std::set<LLFloaterIMPanel*> LLFloaterIMPanel::sFloaterIMPanels;
+
 void session_starter_helper(
 	const LLUUID& temp_session_id,
 	const LLUUID& other_participant_id,
@@ -1108,6 +1110,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	mFirstKeystrokeTimer(),
 	mLastKeystrokeTimer()
 {
+	sFloaterIMPanels.insert(this);
 	init(session_label);
 }
 
@@ -1149,6 +1152,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 void LLFloaterIMPanel::init(const std::string& session_label)
 {
 	mSessionLabel = session_label;
+	mProfileButtonEnabled = FALSE;
 
 	std::string xml_filename;
 	switch(mDialog)
@@ -1211,6 +1215,10 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 								FALSE);
 
 	setTitle(mSessionLabel);
+	if (mProfileButtonEnabled)
+	{
+		lookupName();
+	}
 
 	mInputEditor->setMaxTextLength(DB_IM_MSG_STR_LEN);
 	// enable line history support for instant message bar
@@ -1253,9 +1261,32 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 	}
 }
 
+void LLFloaterIMPanel::lookupName()
+{
+	LLAvatarNameCache::get(mOtherParticipantUUID, boost::bind(&LLFloaterIMPanel::onAvatarNameLookup, _1, _2, this));
+}
+
+//static 
+void LLFloaterIMPanel::onAvatarNameLookup(const LLUUID& id, const LLAvatarName& avatar_name, void* user_data)
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*)user_data;
+
+	if (self && sFloaterIMPanels.count(self) != 0)
+	{
+		// Always show "Display Name [Legacy Name]" for security reasons
+		std::string title = avatar_name.getNames();
+		if (!title.empty())
+		{
+			self->setTitle(title);
+		}
+	}
+}
+
 
 LLFloaterIMPanel::~LLFloaterIMPanel()
 {
+	sFloaterIMPanels.erase(this);
+
 	delete mSpeakers;
 	mSpeakers = NULL;
 	
@@ -1550,8 +1581,9 @@ BOOL LLFloaterIMPanel::inviteToSession(const LLDynamicArray<LLUUID>& ids)
 	return TRUE;
 }
 
-void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4& color, bool log_to_file, const LLUUID& source, const std::string& name)
+void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4& color, bool log_to_file, const LLUUID& source, const std::string& const_name)
 {
+	std::string name = const_name;
 	// start tab flashing when receiving im for background session from user
 	if (source != LLUUID::null)
 	{
@@ -1602,6 +1634,21 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 		}
 		else
 		{
+			if (LLAvatarNameCache::useDisplayNames() && source != LLUUID::null)
+			{
+				LLAvatarName avatar_name;
+				if (LLAvatarNameCache::get(source, &avatar_name))
+				{
+					if (LLAvatarNameCache::useDisplayNames() == 1)
+					{
+						name = avatar_name.mDisplayName;
+					}
+					else
+					{
+						name = avatar_name.getNames();
+					}
+				}
+			}
 			// Convert the name to a hotlink and add to message.
 			const LLStyleSP &source_style = LLStyleMap::instance().lookupAgent(source);
 			mHistoryEditor->appendStyledText(name,false,prepend_newline,source_style);
@@ -1619,7 +1666,7 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 		else
 			histstr = name + utf8msg;
 
-		LLLogChat::saveHistory(getTitle(),histstr);
+		LLLogChat::saveHistory(mSessionLabel, histstr);
 	}
 
 	if (!isInVisibleChain())
@@ -2168,6 +2215,21 @@ void LLFloaterIMPanel::sendMsg()
 				{
 					std::string history_echo;
 					gAgent.buildFullname(history_echo);
+					if (LLAvatarNameCache::useDisplayNames())
+					{
+						LLAvatarName avatar_name;
+						if (LLAvatarNameCache::get(gAgent.getID(), &avatar_name))
+						{
+							if (LLAvatarNameCache::useDisplayNames() == 1)
+							{
+								history_echo = avatar_name.mDisplayName;
+							}
+							else
+							{
+								history_echo = avatar_name.getNames();
+							}
+						}
+					}
 
 					// Look for IRC-style emotes here.
 					std::string prefix = utf8_text.substr(0, 4);

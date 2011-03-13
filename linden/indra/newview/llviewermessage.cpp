@@ -2998,6 +2998,33 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 	if (is_audible)
 	{
+		if (chatter && chatter->isAvatar())
+		{
+#ifdef LL_RRINTERFACE_H //MK
+			if (!gRRenabled || !gAgent.mRRInterface.mContainsShownames)
+			{
+#endif //mk
+				if (LLAvatarNameCache::useDisplayNames())
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(from_id, &avatar_name))
+					{
+						if (LLAvatarNameCache::useDisplayNames() == 1)
+						{
+							from_name = avatar_name.mDisplayName;
+						}
+						else
+						{
+							from_name = avatar_name.getNames();
+						}
+					}
+					chat.mFromName = from_name;
+				}
+#ifdef LL_RRINTERFACE_H //MK
+			}
+#endif //mk
+		}
+
 		BOOL visible_in_chat_bubble = FALSE;
 		std::string verb;
 

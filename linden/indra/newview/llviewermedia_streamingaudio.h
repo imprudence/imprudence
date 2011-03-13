@@ -56,6 +56,7 @@ class LLStreamingAudio_MediaPlugins :
 	/*virtual*/ void setGain(F32 vol);
 	/*virtual*/ F32 getGain();
 	/*virtual*/ std::string getURL();
+	/*virtual*/ std::string getVersion();
 
 	// inherited from LLPluginClassMediaOwner
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
@@ -66,6 +67,7 @@ private:
 	LLPluginClassMedia *mMediaPlugin;
 	std::string mURL;
 	F32 mGain;
+	std::string mVersion;
 };
 
 

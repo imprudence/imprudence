@@ -15,11 +15,19 @@ else (STANDALONE)
   use_prebuilt_binary(gstreamer)
   set(GSTREAMER010_FOUND ON FORCE BOOL)
   set(GSTREAMER010_PLUGINS_BASE_FOUND ON FORCE BOOL)
-  set(GSTREAMER010_INCLUDE_DIRS
-      ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
-      ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
-      ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
-      )
+  if (WINDOWS)
+    set(GSTREAMER010_INCLUDE_DIRS
+		${LIBS_PREBUILT_DIR}/include/gstreamer-0.10
+		${LIBS_PREBUILT_DIR}/include/glib
+		${LIBS_PREBUILT_DIR}/include/libxml2
+		)
+  else (WINDOWS)
+	set(GSTREAMER010_INCLUDE_DIRS
+		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
+		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
+		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
+		)
+  endif (WINDOWS)
 
 endif (STANDALONE)
 
@@ -27,10 +35,11 @@ if (WINDOWS)
   # We don't need to explicitly link against gstreamer itself, because
   # LLMediaImplGStreamer probes for the system's copy at runtime.
     set(GSTREAMER010_LIBRARIES
-         libgstvideo
-         libgstaudio
-         libgstbase-0.10
-         libgstreamer-0.10
+         gstaudio-0.10.lib
+         gstbase-0.10.lib
+         gstreamer-0.10.lib
+         gstvideo-0.10.lib #slvideoplugin
+		 gstinterfaces-0.10.lib
          gobject-2.0
          gmodule-2.0
          gthread-2.0
