@@ -2822,6 +2822,8 @@ bool idle_startup()
 			gFloaterTeleportHistory->addEntry(regionp->getName(),(S16)agent_pos.mV[0],(S16)agent_pos.mV[1],(S16)agent_pos.mV[2],false);
 		}
 
+		LLViewerParcelMedia::loadDomainFilterList();
+
 		// Let the map know about the inventory.
 		if(gFloaterWorldMap)
 		{
