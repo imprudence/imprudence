@@ -7320,6 +7320,56 @@ The Second Life Terms of Service do not allow you to opt out. By logging in to S
    notext="Cancel"/>
 </notification>
 
+  <notification
+   icon="alert.tga"
+   name="MediaAlert"
+   type="alert">
+The owner of this parcel has requested [TYPE] URL pertaining to the following domain or scripted object to be loaded by your viewer[WARNING]:
+
+[DOMAIN]
+
+"Allow" and "Deny" apply only for this session, while "Blacklist" and "Whitelist" apply forever to the above domain or scripted object.
+   <form name="form">
+    <button
+	 index="0"
+	 name="Allow"
+	 text="Allow"/>
+	<button
+	 index="1"
+	 name="Deny"
+	 text="Deny"/>
+	<button
+	 index="2"
+	 name="Blacklist"
+	 text="Blacklist"/>
+	<button
+	 index="3"
+	 name="Whitelist"
+	 text="Whitelist"/>
+   </form>
+  </notification>
+
+  <notification
+   icon="alert.tga"
+   name="MediaListed"
+   type="alert">
+Media/audio URLs for [DOMAIN] now [LISTED]
+  </notification>
+
+  <notification
+   icon="notifytip.tga"
+   name="MediaBlocked"
+   type="notifytip">
+Media/audio URL blocked for [DOMAIN]
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="MediaFiltersCleared"
+   type="alertmodal">
+The media filters have been cleared
+  </notification>
+
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->
   <notification

@@ -63,6 +63,7 @@
 #include "llworld.h"
 #include "pipeline.h"
 #include "llviewerjoystick.h"
+#include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
 #include "llnotify.h"
@@ -324,7 +325,7 @@ static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 				// otherwise music will briefly stop
 				if ( !gAudioStream->isInternetStreamPlaying() )
 				{
-					gAudioStream->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
+					LLViewerParcelMedia::playStreamingMusic(LLViewerParcelMgr::getInstance()->getAgentParcel());
 				}
 			}
 		}

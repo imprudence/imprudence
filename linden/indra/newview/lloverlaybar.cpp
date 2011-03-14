@@ -383,6 +383,23 @@ void LLOverlayBar::onClickStandUp(void*)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void LLOverlayBar::audioFilterPlay()
+{
+	if (gOverlayBar && gOverlayBar->mMusicState != PLAYING)
+	{
+		gOverlayBar->mMusicState = PLAYING;
+	}
+}
+
+void LLOverlayBar::audioFilterStop()
+{
+	if (gOverlayBar && gOverlayBar->mMusicState != STOPPED)
+	{
+		gOverlayBar->mMusicState = STOPPED;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // static media helpers
 // *TODO: Move this into an audio manager abstraction
 //static
@@ -416,6 +433,7 @@ void LLOverlayBar::toggleMediaPlay(void*)
 		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 		if (parcel)
 		{
+			LLViewerParcelMedia::sIsUserAction = true;
 			LLViewerParcelMedia::play(parcel);
 		}
 	}
@@ -447,7 +465,8 @@ void LLOverlayBar::toggleMusicPlay(void*)
 				// stream is stopped, it doesn't return the right thing - commenting out for now.
 	// 			if ( gAudioStream->isInternetStreamPlaying() == 0 )
 				{
-					gAudioStream->startInternetStream(parcel->getMusicURL());
+					LLViewerParcelMedia::sIsUserAction = true;
+					LLViewerParcelMedia::playStreamingMusic(parcel);
 				}
 			}
 		}

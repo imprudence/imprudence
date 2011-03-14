@@ -77,6 +77,10 @@ public:
 	static void onClickStandUp(void* data);
 	static void onClickResetView(void* data);
 
+	// media filter
+	static void audioFilterPlay();
+	static void audioFilterStop();
+
 	//static media helper functions
 	static void toggleMediaPlay(void*);
 	static void toggleMusicPlay(void*);

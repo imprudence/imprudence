@@ -58,6 +58,7 @@
 							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
 							<!--<string>Media</string>-->
+							<string>MediaFilter</string>
 							<!--<string>MediaInfo</string>-->
 							<!--<string>MediaCallback</string>-->
 							<!--<string>MediaBuffering</string>-->
