@@ -46,6 +46,8 @@ public:
 
 private:
 	static LLFloaterAbout* sInstance;
+
+	static void onClickCopy(void* user_data);
 };
 
 
