@@ -5011,6 +5011,16 @@ LLRect LLViewerWindow::getChatConsoleRect()
 
 	return console_rect;
 }
+
+bool LLViewerWindow::getUIHasFocus()
+{
+	return gFocusMgr.getKeyboardFocus() != NULL
+		|| LLMenuGL::getKeyboardMode() 
+		|| (gMenuBarView && gMenuBarView->getHighlightedItem() && gMenuBarView->getHighlightedItem()->isActive())
+		|| gFocusMgr.childHasKeyboardFocus(mRootView);
+}
+
+
 //----------------------------------------------------------------------------
 
 
