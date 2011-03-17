@@ -76,7 +76,7 @@ class ViewerManifest(LLManifest):
             self.path("*.tga")
             self.end_prefix("character")
 
-        # Include our fonts
+			# Include our fonts
         if self.prefix(src="fonts"):
             self.path("GPL.txt")
             self.path("Liberation-License.txt")

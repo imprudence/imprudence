@@ -13,6 +13,7 @@ else (STANDALONE)
   use_prebuilt_binary(glib)			# gstreamer needs glib
   use_prebuilt_binary(libxml)
   use_prebuilt_binary(gstreamer)
+  use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER010_FOUND ON FORCE BOOL)
   set(GSTREAMER010_PLUGINS_BASE_FOUND ON FORCE BOOL)
   if (WINDOWS)
