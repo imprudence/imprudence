@@ -6,7 +6,7 @@
 	<text length="1" name="BalanceText" tool_tip="Kontostand" type="string">
 		Wird geladen...
 	</text>
-	<button label="" label_selected="" name="buycurrency" tool_tip="Geld kaufen"/>
+	<button label="[CURRENCY]" label_selected="" name="buycurrency" tool_tip="Geld kaufen"/>
 	<text length="12" name="TimeText" tool_tip="Aktuelle Zeit (Pazifik)" type="string">
 		12:00
 	</text>
