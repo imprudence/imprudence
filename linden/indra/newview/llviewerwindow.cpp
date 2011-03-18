@@ -1309,7 +1309,7 @@ LLViewerWindow::LLViewerWindow(
 	{
 		gSavedSettings.setBOOL("RenderVBOEnable", FALSE);
 	}
-	LLVertexBuffer::initClass(gSavedSettings.getBOOL("RenderVBOEnable"));
+	LLVertexBuffer::initClass(gSavedSettings.getBOOL("RenderVBOEnable") && gGLManager.mHasVertexBufferObject);
 
 	if (LLFeatureManager::getInstance()->isSafe()
 		|| (gSavedSettings.getS32("LastFeatureVersion") != LLFeatureManager::getInstance()->getVersion())
