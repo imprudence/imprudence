@@ -785,7 +785,7 @@ void LLVOVolume::sculpt()
 		for (S32 i = 0; i < mSculptTexture->getNumVolumes(); ++i)
 		{
 			LLVOVolume* volume = (*(mSculptTexture->getVolumeList()))[i];
-			if (volume != this && volume->getVolume() == getVolume())
+			if (volume && volume != this && volume->getVolume() == getVolume())
 			{
 				gPipeline.markRebuild(volume->mDrawable, LLDrawable::REBUILD_GEOMETRY, FALSE);
 			}
