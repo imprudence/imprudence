@@ -65,6 +65,7 @@
 #include "llvoclouds.h"
 #include "llworld.h"
 #include "llspatialpartition.h"
+#include "llviewerparcelmgr.h"
 
 // Viewer object cache version, change if object update
 // format changes. JC
@@ -199,6 +200,8 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	if (!gNoRender)
 	{
 		mParcelOverlay = new LLViewerParcelOverlay(this, region_width_meters);
+		//Re-init the parcel mgr for this sim
+		LLViewerParcelMgr::getInstance()->init(region_width_meters);
 	}
 	else
 	{

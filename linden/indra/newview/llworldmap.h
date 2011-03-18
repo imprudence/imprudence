@@ -81,6 +81,8 @@ public:
 
 public:
 	U64 mHandle;
+	S32 msizeX;
+	S32 msizeY;
 	std::string mName;
 
 	F64 mAgentsUpdateTime;

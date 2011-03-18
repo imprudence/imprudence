@@ -587,6 +587,8 @@ extern char * _PREHASH_LastName;
 extern char * _PREHASH_From;
 extern char * _PREHASH_RoleChange;
 extern char * _PREHASH_Port;
+extern char * _PREHASH_RegionSizeX;
+extern char * _PREHASH_RegionSizeY;
 extern char * _PREHASH_MemberTitle;
 extern char * _PREHASH_LogParcelChanges;
 extern char * _PREHASH_AgentCachedTextureResponse;

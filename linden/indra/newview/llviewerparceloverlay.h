@@ -98,6 +98,7 @@ private:
 	LLViewerRegion*	mRegion;
 
 	S32				mParcelGridsPerEdge;
+	S32				mRegionSize;
 
 	LLPointer<LLImageGL> mTexture;
 	LLPointer<LLImageRaw> mImageRaw;

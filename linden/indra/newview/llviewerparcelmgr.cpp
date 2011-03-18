@@ -137,6 +137,18 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mHoverParcel = new LLParcel();
 	mCollisionParcel = new LLParcel();
 
+	mBlockedImage = gImageList.getImageFromFile("noentrylines.j2c");
+	mPassImage = gImageList.getImageFromFile("noentrypasslines.j2c");
+
+	init(256);
+}
+
+//moved this stuff out of the constructor and into a function that we can call again after we get the region size.
+//LLViewerParcelMgr needs to be changed so we either get an instance per region, or it handles various region sizes
+//on a single grid properly - Patrick Sapinski (2/10/2011)
+void LLViewerParcelMgr::init(F32 region_size)
+{
+
 	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
 	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mHighlightSegments);
@@ -144,10 +156,9 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mCollisionSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mCollisionSegments);
 
-	mBlockedImage = gImageList.getImageFromFile("noentrylines.j2c");
-	mPassImage = gImageList.getImageFromFile("noentrypasslines.j2c");
+	S32 mParcelOverLayChunks = region_size * region_size / (128 * 128);
 
-	S32 overlay_size = mParcelsPerEdge * mParcelsPerEdge / PARCEL_OVERLAY_CHUNKS;
+	S32 overlay_size = mParcelsPerEdge * mParcelsPerEdge / mParcelOverLayChunks;
 	sPackedOverlay = new U8[overlay_size];
 
 	mAgentParcelOverlay = new U8[mParcelsPerEdge * mParcelsPerEdge];
@@ -1351,8 +1362,7 @@ void LLViewerParcelMgr::processParcelOverlay(LLMessageSystem *msg, void **user)
 		return;
 	}
 
-	S32 parcels_per_edge = LLViewerParcelMgr::getInstance()->mParcelsPerEdge;
-	S32 expected_size = parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
+	S32 expected_size = 1024; //parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
 	if (packed_overlay_size != expected_size)
 	{
 		llwarns << "Got parcel overlay size " << packed_overlay_size
