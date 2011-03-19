@@ -120,6 +120,8 @@ void LLMapLayerResponder::result(const LLSD& result)
 		
 			S32 x_regions = map_block["X"];
 			S32 y_regions = map_block["Y"];
+			S32 size_x_regions = map_block["SizeX"];
+			S32 size_y_regions = map_block["SizeY"];
 			std::string name = map_block["Name"];
 			S32 access = map_block["Access"];
 			S32 region_flags = map_block["RegionFlags"];
@@ -168,6 +170,8 @@ void LLMapLayerResponder::result(const LLSD& result)
 				LLWorldMap::getInstance()->mSimInfoMap[handle] = siminfo;
 
 				siminfo->mHandle = handle;
+				siminfo->msizeX = size_x_regions;
+				siminfo->msizeY = size_y_regions;
 				siminfo->mName.assign( name );
 				siminfo->mAccess = access;		/*Flawfinder: ignore*/
 				siminfo->mRegionFlags = region_flags;

@@ -74,7 +74,7 @@ LLVOWater::LLVOWater(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regi
 {
 	// Terrain must draw during selection passes so it can block objects behind it.
 	mbCanSelect = FALSE;
-	setScale(LLVector3(256.f, 256.f, 0.f)); // Hack for setting scale for bounding boxes/visibility.
+	setScale(LLVector3(mRegionp->getWidth(), mRegionp->getWidth(), 0.f)); // Hack for setting scale for bounding boxes/visibility.
 
 	mUseTexture = TRUE;
 	mIsEdgePatch = FALSE;

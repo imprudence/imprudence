@@ -67,6 +67,7 @@ const F32 PARCEL_PASS_HOURS_DEFAULT = 1.f;
 
 // Number of "chunks" in which parcel overlay data is sent
 // Chunk 0 = southern rows, entire width
+// NOTE: NOT USABLE FOR VAR SIZED REGIONS!
 const S32 PARCEL_OVERLAY_CHUNKS = 4;
 
 // Bottom three bits are a color index for the land overlay

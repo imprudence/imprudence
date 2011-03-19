@@ -28,6 +28,7 @@
 * $/LicenseInfo$
 */
 
+#include <sstream> 
 #include "llviewerprecompiledheaders.h"
 
 #include "llappviewer.h" // for gPacificDaylightTime
@@ -129,10 +130,19 @@ void ViewerTime::refresh()
 			if (hour == 0) hour = 12;
 		}
 
-		mTZ = "PST";
-		if (gPacificDaylightTime)
+		if (sUseTimeOffset)
 		{
-			mTZ = "PDT";
+			std::stringstream myString;
+			myString << "UTC " << sTimeOffset;
+			mTZ = myString.str();
+		}
+		else
+		{
+			mTZ = "PST";
+			if (gPacificDaylightTime)
+			{
+				mTZ = "PDT";
+			}
 		}
 	}
 	else // just UTC
