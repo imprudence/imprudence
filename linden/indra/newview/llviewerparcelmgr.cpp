@@ -148,8 +148,7 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 //on a single grid properly - Patrick Sapinski (2/10/2011)
 void LLViewerParcelMgr::init(F32 region_size)
 {
-
-	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
+	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
 	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mHighlightSegments);
 
