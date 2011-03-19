@@ -234,6 +234,7 @@
 #include "hippolimits.h"
 
 #include "llfloaterteleporthistory.h"
+#include "slfloatermediafilter.h"
 
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
@@ -5996,6 +5997,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterMute::toggleInstance();
 		}
+		else if (floater_name == "media filter")
+		{
+			SLFloaterMediaFilter::toggleInstance();
+		}
 		else if (floater_name == "camera controls")
 		{
 			LLFloaterCamera::toggleInstance();
@@ -6160,6 +6165,10 @@ class LLFloaterVisible : public view_listener_t
 		else if (floater_name == "mute list")
 		{
 			new_value = LLFloaterMute::instanceVisible();
+		}
+		else if (floater_name == "media filter")
+		{
+			new_value = SLFloaterMediaFilter::instanceVisible();
 		}
 		else if (floater_name == "camera controls")
 		{

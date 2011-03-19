@@ -35,6 +35,9 @@
 
 #include "llviewermedia.h"
 
+// For use by other patches so they know that media filtering is implemented.
+#define MEDIA_FILTERING 1
+
 class LLMessageSystem;
 class LLParcel;
 class LLViewerParcelMediaNavigationObserver;
@@ -54,8 +57,20 @@ class LLViewerParcelMedia : public LLViewerMediaObserver
 			// called when the agent's parcel has a new URL, or the agent has
 			// walked on to a new parcel with media
 
-		static void play(LLParcel* parcel);
+		static void play(LLParcel* parcel, bool filter = true);
 			// user clicked play button in media transport controls
+		static void playStreamingMusic(LLParcel* parcel, bool filter = true);
+			// play the parcel music stream
+		static void stopStreamingMusic();
+			// stop the parcel music stream
+
+		static void filterMedia(LLParcel* parcel, U32 type); // type: 0 = media, 1 = streaming music
+		static bool allowedMedia(std::string media_url);
+
+		static bool loadDomainFilterList();
+		static void saveDomainFilterList();
+		static void clearDomainFilterList();
+		static std::string extractDomain(std::string url);
 
 		static void stop();
 			// user clicked stop button in media transport controls
@@ -85,6 +100,13 @@ class LLViewerParcelMedia : public LLViewerMediaObserver
 		static LLUUID sMediaRegionID;
 		// HACK: this will change with Media on a Prim
 		static viewer_media_t sMediaImpl;
+
+		static bool sIsUserAction;
+		static bool sMediaFilterListLoaded;
+		static LLSD sMediaFilterList;
+		static std::set<std::string> sMediaQueries;
+		static std::set<std::string> sAllowedMedia;
+		static std::set<std::string> sDeniedMedia;
 };
 
 

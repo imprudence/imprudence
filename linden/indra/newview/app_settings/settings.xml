@@ -7990,6 +7990,33 @@
     <key>Value</key>
     <real>3.0</real>
   </map>
+  <key>MediaEnableFilter</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable media domain filtering</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>MediaFilterRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for Media Filter floater</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+    </array>
+  </map>
   <key>MediaOnAPrimUI</key>
   <map>
     <key>Comment</key>

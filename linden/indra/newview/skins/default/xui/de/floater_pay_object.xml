@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Give Money" title="[PAY TYPE] [FIRST] [LAST>
+<floater name="Give Money" title="[PAY TYPE] [FIRST] [LAST]">
 
 	<string name="pay group">
 		Gruppe bezahlen:
