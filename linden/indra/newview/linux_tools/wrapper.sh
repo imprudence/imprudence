@@ -126,7 +126,7 @@ if [ -n "$LL_RUN_ERR" ]; then
 	LL_RUN_ERR_MSG=""
 	if [ "$LL_RUN_ERR" = "runerr" ]; then
 		# generic error running the binary
-		echo '*** Bad shutdown. ***'
+		echo 'unexpected shutdown'
 
 
 	fi

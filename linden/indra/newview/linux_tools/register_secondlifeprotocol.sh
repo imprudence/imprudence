@@ -18,7 +18,7 @@ LLGCONFTOOL2=gconftool-2
 if which ${LLGCONFTOOL2} >/dev/null; then
     (${LLGCONFTOOL2} -s -t string /desktop/gnome/url-handlers/secondlife/command "${HANDLER} \"%s\"" && ${LLGCONFTOOL2} -s -t bool /desktop/gnome/url-handlers/secondlife/enabled true) || echo Warning: Did not register secondlife:// handler with GNOME: ${LLGCONFTOOL2} failed.
 else
-    echo Warning: Did not register secondlife:// handler with GNOME: ${LLGCONFTOOL2} not found.
+    echo Info: Did not register secondlife:// handler with GNOME: ${LLGCONFTOOL2} not found. You can safely ignore this if you are not using GNOME.
 fi
 
 # Register handler for KDE-aware apps
@@ -42,5 +42,5 @@ makedir=false
 deleting=false
 EOF
 else
-    echo Warning: Did not register secondlife:// handler with KDE: Directory $LLKDEPROTDIR does not exist.
+    echo Info: Did not register secondlife:// handler with KDE: Directory $LLKDEPROTDIR does not exist. You can safely ignore this if you are not using KDE.
 fi
