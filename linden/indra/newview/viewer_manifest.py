@@ -1018,7 +1018,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
-            self.path("libz.so.1")
+            self.path("libz.so.1","libz.so")
 
             # OpenAL
             self.path("libopenal.so.1.12.854", "libopenal.so.1")
