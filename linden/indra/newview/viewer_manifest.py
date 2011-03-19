@@ -923,6 +923,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
+            self.path("libz.so")
             self.path("libz.so.1")
 
             # OpenAL
