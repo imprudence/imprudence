@@ -79,6 +79,10 @@ class LLViewerMedia
 		static void removeMedia(LLViewerMediaImpl* media);
 		static LLViewerMediaImpl* getMediaImplFromTextureID(const LLUUID& texture_id);
 		static std::string getCurrentUserAgent();
+	
+		// Set the proxy config for all loaded plugins
+		static void setProxyConfig(bool enable, const std::string &host, int port);
+
 		static void updateBrowserUserAgent();
 		static bool handleSkinCurrentChanged(const LLSD& /*newvalue*/);
 		static bool textureHasMedia(const LLUUID& texture_id);
@@ -109,6 +113,7 @@ public:
 	void createMediaSource();
 	void destroyMediaSource();
 	void setMediaType(const std::string& media_type);
+        static void setProxy(LLPluginClassMedia* media_source);
 	bool initializeMedia(const std::string& mime_type);
 	bool initializePlugin(const std::string& media_type);
 	LLPluginClassMedia* getMediaPlugin() { return mMediaSource; }

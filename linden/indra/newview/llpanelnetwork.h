@@ -51,6 +51,7 @@ private:
 	static void onClickSetCache(void*);
 	static void onClickResetCache(void*);
 	static void onCommitPort(LLUICtrl* ctrl, void*);
+	static void onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data);
 };
 
 #endif

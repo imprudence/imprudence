@@ -69,6 +69,7 @@ BOOL LLPanelWeb::postBuild()
 	childSetValue("use_external_browser", value);
 
 	childSetValue("cookies_enabled", gSavedSettings.getBOOL("BrowserCookiesEnabled"));
+	childSetAction("clear_cookies", onClickClearCookies,this);
 
 	childSetValue("web_proxy_enabled", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
@@ -102,9 +103,15 @@ LLPanelWeb::~LLPanelWeb()
 void LLPanelWeb::apply()
 {
 	gSavedSettings.setBOOL("BrowserCookiesEnabled", childGetValue("cookies_enabled"));
-	gSavedSettings.setBOOL("BrowserProxyEnabled", childGetValue("web_proxy_enabled"));
-	gSavedSettings.setString("BrowserProxyAddress", childGetValue("web_proxy_editor"));
-	gSavedSettings.setS32("BrowserProxyPort", childGetValue("web_proxy_port"));
+
+	bool proxy_enable = childGetValue("web_proxy_enabled");
+	std::string proxy_address = childGetValue("web_proxy_editor");
+	int proxy_port = childGetValue("web_proxy_port");
+	gSavedSettings.setBOOL("BrowserProxyEnabled", proxy_enable);
+	gSavedSettings.setString("BrowserProxyAddress", proxy_address);
+	gSavedSettings.setS32("BrowserProxyPort", proxy_port);
+	LLViewerMedia::setProxyConfig(proxy_enable, proxy_address, proxy_port);
+
 	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
 	{
 		gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));

@@ -64,6 +64,14 @@ BOOL LLPanelNetwork::postBuild()
 	childSetValue("connection_port_enabled", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetValue("connection_port", (F32)gSavedSettings.getU32("ConnectionPort"));
 
+	childSetCommitCallback("xmlrpc_proxy_enabled", onCommitXMLRPCProxyEnabled, this);
+	childSetValue("xmlrpc_proxy_enabled", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetValue("xmlrpc_proxy_editor", gSavedSettings.getString("XMLRPCProxyAddress"));
+	childSetValue("xmlrpc_proxy_port", gSavedSettings.getS32("XMLRPCProxyPort"));
+	childSetEnabled("xmlrpc_proxy_text_label", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_editor", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_port", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+
 	return TRUE;
 }
 
@@ -79,6 +87,10 @@ void LLPanelNetwork::apply()
 	gSavedSettings.setF32("ThrottleBandwidthKBPS", childGetValue("max_bandwidth").asReal());
 	gSavedSettings.setBOOL("ConnectionPortEnabled", childGetValue("connection_port_enabled"));
 	gSavedSettings.setU32("ConnectionPort", childGetValue("connection_port").asInteger());
+
+	gSavedSettings.setBOOL("XMLRPCProxyEnabled", childGetValue("xmlrpc_proxy_enabled"));
+	gSavedSettings.setString("XMLRPCProxyAddress", childGetValue("xmlrpc_proxy_editor"));
+	gSavedSettings.setS32("XMLRPCProxyPort", childGetValue("xmlrpc_proxy_port"));
 }
 
 void LLPanelNetwork::cancel()
@@ -143,4 +155,16 @@ void LLPanelNetwork::onCommitPort(LLUICtrl* ctrl, void* data)
   if (!self || !check) return;
   self->childSetEnabled("connection_port", check->get());
   LLNotifications::instance().add("ChangeConnectionPort");
+}
+
+// static
+void LLPanelNetwork::onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+	if (!self || !check) return;
+	self->childSetEnabled("xmlrpc_proxy_editor", check->get());
+	self->childSetEnabled("xmlrpc_proxy_port", check->get());
+	self->childSetEnabled("xmlrpc_proxy_text_label", check->get());
 }
