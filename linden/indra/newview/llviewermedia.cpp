@@ -267,6 +267,23 @@ std::string LLViewerMedia::getCurrentUserAgent()
 	
 	return codec.str();
 }
+	
+/////////////////////////////////////////////////////////////////////////////////////////
+// static 
+void LLViewerMedia::setProxyConfig(bool enable, const std::string &host, int port)
+{
+	// Set the proxy config for all loaded plugins
+	impl_list::iterator iter = sViewerMediaImplList.begin();
+	impl_list::iterator end = sViewerMediaImplList.end();
+	for (; iter != end; iter++)
+	{
+		LLViewerMediaImpl* pimpl = *iter;
+		if(pimpl->mMediaSource)
+		{
+			pimpl->mMediaSource->proxy_setup(enable, host, port);
+		}
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // static
@@ -395,6 +412,19 @@ LLViewerMediaImpl::~LLViewerMediaImpl()
 	LLViewerMedia::removeMedia(this);
 }
 
+//static
+void LLViewerMediaImpl::setProxy(LLPluginClassMedia* media_source)
+{
+			// pass proxy settings to browser
+			bool proxy_enabled = gSavedSettings.getBOOL( "BrowserProxyEnabled" );
+			std::string proxy_address = gSavedSettings.getString("BrowserProxyAddress");
+			S32 proxy_port = gSavedSettings.getS32("BrowserProxyPort");
+			media_source->proxy_setup(proxy_enabled, proxy_address, proxy_port);
+			LL_DEBUGS("Media") << "Proxy: " << (proxy_enabled ? "enabled" : "not enabled")
+					<< " Address: " << proxy_address 
+					<< " Port: " << proxy_port << LL_ENDL;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 bool LLViewerMediaImpl::initializeMedia(const std::string& mime_type)
 {
@@ -409,6 +439,11 @@ bool LLViewerMediaImpl::initializeMedia(const std::string& mime_type)
 
 			return false;
 		}
+	}
+
+	if(mMediaSource)
+	{
+		setProxy(mMediaSource);
 	}
 
 	// play();
@@ -507,6 +542,8 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 			// collect 'javascript enabled' setting from prefs and send to embedded browser
 			bool javascript_enabled = gSavedSettings.getBOOL( "BrowserJavascriptEnabled" );
 			media_source->setJavascriptEnabled( javascript_enabled );
+
+			setProxy(media_source);
 
 			if (media_source->init(launcher_name, plugin_name, gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins")))
 			{
@@ -741,6 +778,7 @@ void LLViewerMediaImpl::navigateHome()
 //////////////////////////////////////////////////////////////////////////////////////////
 void LLViewerMediaImpl::navigateTo(const std::string& url, const std::string& mime_type,  bool rediscover_type)
 {
+
 	if(rediscover_type)
 	{
 

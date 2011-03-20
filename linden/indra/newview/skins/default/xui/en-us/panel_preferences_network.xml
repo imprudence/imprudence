@@ -64,4 +64,31 @@
 	     increment="1" initial_val="13000" label="Port number:" label_width="75"
 	     left_delta="20" max_val="13050" min_val="13000" mouse_opaque="true"
 	     name="connection_port" width="150" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-24" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="15" mouse_opaque="false" name="proxy_label" v_pad="0"
+	     width="250">
+		XMLRPC Proxy (Login, Land- and Money purchase):
+	</text>
+	<check_box bottom_delta="-25" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Enable XMLRPC proxy" left_delta="199" mouse_opaque="true"
+	     name="xmlrpc_proxy_enabled" radio_style="false" width="256" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="140" mouse_opaque="false" name="xmlrpc_proxy_text_label"
+	     v_pad="0" width="128">
+		Address:
+	</text>
+	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="217" name="xmlrpc_proxy_editor"
+	     tool_tip="The name or IP address of the proxy you would like to use"
+	     width="200" />
+	<spinner bottom_delta="-25" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" increment="1"
+	     initial_val="80" label="Port number:" label_width="75" left="140"
+	     max_val="12000" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
+	     width="140" />
 </panel>
