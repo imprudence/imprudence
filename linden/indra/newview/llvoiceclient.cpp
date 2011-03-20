@@ -1539,7 +1539,9 @@ void LLVoiceClient::stateMachine()
 {
 
 	// Disable voice as long as the viewer is disconnected from the sim (login/relog)
-	setVoiceEnabled(!gDisconnected);
+	setVoiceEnabled(!gDisconnected
+			&& gSavedSettings.getBOOL("EnableVoiceChat")
+			&& !gSavedSettings.getBOOL("CmdLineDisableVoice") );
 
 	if(mVoiceEnabled)
 	{
