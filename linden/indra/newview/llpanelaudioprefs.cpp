@@ -112,6 +112,7 @@ void LLPanelAudioPrefs::refreshValues()
 
 	mPreviousStreamingMusic = gSavedSettings.getBOOL("AudioStreamingMusic");
 	mPreviousStreamingVideo = gSavedSettings.getBOOL("AudioStreamingVideo");
+	mPreviousHelperWidget = gSavedSettings.getBOOL("MediaOnAPrimUI");
 
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
@@ -140,7 +141,7 @@ void LLPanelAudioPrefs::cancel()
 
 	gSavedSettings.setBOOL("AudioStreamingMusic", mPreviousStreamingMusic );
 	gSavedSettings.setBOOL("AudioStreamingVideo", mPreviousStreamingVideo );
-
+	gSavedSettings.setBOOL("MediaOnAPrimUI", mPreviousHelperWidget );
 	
 	gSavedSettings.setBOOL("MuteAudio", mPreviousMuteAudio );
 	gSavedSettings.setBOOL("MuteWhenMinimized", mPreviousMuteWhenMinimized );
