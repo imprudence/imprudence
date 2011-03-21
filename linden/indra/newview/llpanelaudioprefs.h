@@ -75,6 +75,7 @@ private:
 
 	BOOL			mPreviousStreamingMusic;
 	BOOL			mPreviousStreamingVideo;
+	BOOL			mPreviousHelperWidget;
 	BOOL            mPreviousMuteAudio;
 	BOOL            mPreviousMuteWhenMinimized;
 };

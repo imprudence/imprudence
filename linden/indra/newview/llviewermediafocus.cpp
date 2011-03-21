@@ -48,6 +48,7 @@
 #include "llparcel.h"
 #include "llviewerparcelmgr.h"
 #include "llweb.h"
+#include "llviewercontrol.h"//gSavedSettings
 //
 // LLViewerMediaFocus
 //
@@ -99,7 +100,7 @@ void LLViewerMediaFocus::setFocusFace( BOOL b, LLPointer<LLViewerObject> objectp
 		LLSelectMgr::getInstance()->selectObjectOnly(objectp, face);
 
 		mFocus = LLSelectMgr::getInstance()->getSelection();
-		if(mMediaHUD.get() && ! parcel->getMediaPreventCameraZoom())
+		if(gSavedSettings.getBOOL("MediaOnAPrimUI") && mMediaHUD.get() && ! parcel->getMediaPreventCameraZoom())
 		{
 			mMediaHUD.get()->resetZoomLevel();
 			mMediaHUD.get()->nextZoomLevel();
@@ -224,14 +225,20 @@ void LLViewerMediaFocus::setMouseOverFlag(bool b, viewer_media_t media_impl)
 {
 	if (b && media_impl.notNull())
 	{
-		if(! mMediaHUD.get())
+
+		if(! mMediaHUD.get() && gSavedSettings.getBOOL("MediaOnAPrimUI"))
 		{
 			LLPanelMediaHUD* media_hud = new LLPanelMediaHUD(mMediaImpl);
 			mMediaHUD = media_hud->getHandle();
 			gHUDView->addChild(media_hud);	
 		}
-		mMediaHUD.get()->setMediaImpl(media_impl);
+
+		if(mMediaHUD.get())
+		{
+			mMediaHUD.get()->setMediaImpl(media_impl);
+		}
 		mMediaImpl = media_impl;
+		
 	}
 	mMouseOverFlag = b;
 }
@@ -281,7 +288,10 @@ void LLViewerMediaFocus::update()
 {
 	if (mMediaHUD.get())
 	{
-		if(mFocus.notNull() || mMouseOverFlag || mMediaHUD.get()->isMouseOver())
+		if(gSavedSettings.getBOOL("MediaOnAPrimUI") 
+			&&(mFocus.notNull() 
+				|| mMouseOverFlag 
+				|| mMediaHUD.get()->isMouseOver() ) )
 		{
 			// mMediaHUD.get()->setVisible(true);
 			mMediaHUD.get()->updateShape();
