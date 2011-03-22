@@ -33,7 +33,7 @@
 
 # DO NOT RUN THIS FILE DIRECTLY
 # Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
-#   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
+#   develop.py -G vc100 configure -DPACKAGE:BOOL=ON
 # to generate the "package" project in Visual Studio 2005
 # Note: as of Imprudence 1.3, this defaults to on for Windows
 
@@ -76,7 +76,7 @@ class ViewerManifest(LLManifest):
             self.path("*.tga")
             self.end_prefix("character")
 
-        # Include our fonts
+			# Include our fonts
         if self.prefix(src="fonts"):
             self.path("GPL.txt")
             self.path("Liberation-License.txt")
@@ -310,17 +310,21 @@ class WindowsManifest(ViewerManifest):
             self.path("qtiff4.dll")
             self.end_prefix()
 
+
+    # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+        self.path("skins/default/xui/en-us/mime_types_windows.xml", "skins/default/xui/en-us/mime_types.xml")
+
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
         if self.prefix(src=self.args['configuration'], dst=""):
             if self.args['configuration'] == 'Debug':
-                self.path("msvcr80d.dll")
-                self.path("msvcp80d.dll")
-                self.path("Microsoft.VC80.DebugCRT.manifest")
+                self.path("msvcr100d.dll")
+                self.path("msvcp100d.dll")
+                self.path("Microsoft.VC100.DebugCRT.manifest")
             else:
-                self.path("msvcr80.dll")
-                self.path("msvcp80.dll")
-                self.path("Microsoft.VC80.CRT.manifest")
+                self.path("msvcr100.dll")
+                self.path("msvcp100.dll")
+                self.path("Microsoft.VC100.CRT.manifest")
             self.end_prefix()
 
         # The config file name needs to match the exe's name.

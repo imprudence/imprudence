@@ -67,12 +67,12 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
-	lggautocorrectfloater.cpp
-	lggautocorrect.cpp
-	lgghunspell_wrapper.cpp
-	lggdicdownload.cpp
-	aoremotectrl.cpp
-	chatbar_as_cmdline.cpp
+    lggautocorrectfloater.cpp
+    lggautocorrect.cpp
+    lgghunspell_wrapper.cpp
+    lggdicdownload.cpp
+    aoremotectrl.cpp
+    chatbar_as_cmdline.cpp
     emeraldboobutils.cpp
     floaterao.cpp
     floaterbusy.cpp
@@ -529,7 +529,7 @@ set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
     aoremotectrl.h
-	chatbar_as_cmdline.h
+    chatbar_as_cmdline.h
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
@@ -547,10 +547,10 @@ set(viewer_HEADER_FILES
     jcfloaterareasearch.h
     kokuastreamingaudio.h
     lightshare.h
-	lggautocorrectfloater.h
-	lggautocorrect.h
-	lggdicdownload.h
-	lgghunspell_wrapper.h
+    lggautocorrectfloater.h
+    lggautocorrect.h
+    lggdicdownload.h
+    lgghunspell_wrapper.h
     llagent.h
     llagentaccess.h
     llagentdata.h
@@ -1305,6 +1305,10 @@ if (WINDOWS)
     else(MSVC71)
         set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /LARGEADDRESSAWARE")
     endif(MSVC71)
+    if (MSVC10)
+        set(release_flags "/MAPRelease/${VIEWER_BINARY_NAME}.map /LARGEADDRESSAWARE")
+    endif(MSVC10)
+    
     
     set_target_properties(${VIEWER_BINARY_NAME}
         PROPERTIES
@@ -1314,19 +1318,19 @@ if (WINDOWS)
         )
 
     # sets the 'working directory' for debugging from visual studio.
-    if (NOT UNATTENDED)
-        add_custom_command(
-            TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
-            COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
-            ARGS
-              --solution 
-              ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.sln
-              --workingdir
-              ${VIEWER_BINARY_NAME}
-              ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMENT "Setting the ${VIEWER_BINARY_NAME} working directory for debugging."
-            )
-    endif (NOT UNATTENDED)
+    #if (NOT UNATTENDED)
+    #    add_custom_command(
+    #        TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
+    #        COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
+    #       ARGS
+    #         --solution 
+    #         ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.sln
+    #         --workingdir
+    #          ${VIEWER_BINARY_NAME}
+    #    ${CMAKE_CURRENT_SOURCE_DIR}
+    #    COMMENT "Setting the ${VIEWER_BINARY_NAME} working directory for debugging."
+    #    )
+    #endif (NOT UNATTENDED)
 
     add_custom_command(
         TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
