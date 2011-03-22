@@ -677,6 +677,17 @@
     <key>Value</key>
     <string>Random</string>
   </map>
+  <key>LastConnectedGrid</key>
+  <map>
+    <key>Comment</key>
+    <string>Last grid actually connected to</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>
   <key>LastSelectedGrid</key>
   <map>
     <key>Comment</key>
