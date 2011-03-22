@@ -34,6 +34,10 @@
 		 font="SansSerifSmall" height="16" initial_value="false"
 	     label="Accept cookies from sites" left="140" mouse_opaque="true"
 	     name="cookies_enabled" radio_style="false" width="256" />
+	<button  bottom_delta="-20" enabled="true" follows="left|top" font="SansSerif"
+	     halign="center" height="18" label="Clear Cookies" left_delta="0" 
+	     tool_tip="Clear Cookies"
+	     mouse_opaque="true" name="clear_ookies" scale_image="true" width="110" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"

@@ -226,10 +226,10 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip)
 		mCurlRequest = new LLCurlEasyRequest();
 	}
 	
-	if (gSavedSettings.getBOOL("BrowserProxyEnabled"))
+	if (gSavedSettings.getBOOL("XMLRPCProxyEnabled"))
 	{
-		mProxyAddress = gSavedSettings.getString("BrowserProxyAddress");
-		S32 port = gSavedSettings.getS32 ( "BrowserProxyPort" );
+		mProxyAddress = gSavedSettings.getString("XMLRPCProxyAddress");
+		S32 port = gSavedSettings.getS32 ( "XMLRPCProxyPort" );
 
 		// tell curl about the settings
 		mCurlRequest->setoptString(CURLOPT_PROXY, mProxyAddress);

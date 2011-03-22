@@ -800,6 +800,14 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 			LL_DEBUGS("DoubleClicks") << "Double clicked a touch-scripted object" << LL_ENDL;
 			return FALSE;
 		}
+
+		const LLTextureEntry* tep = object->getTE(mPick.mObjectFace);
+		viewer_media_t media_impl = LLViewerMedia::getMediaImplFromTextureID(tep->getID());
+		if (tep && media_impl.notNull() && media_impl->hasMedia())
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked running parcel media" << LL_ENDL;
+			return FALSE;
+		}
 	}
 
 	std::string action = gSavedSettings.getString("DoubleClickAction");
@@ -938,19 +946,16 @@ static bool handle_media_click(const LLPickInfo& pick)
 	if (tep
 		&& media_impl.notNull()
 		&& media_impl->hasMedia()
-		&& gSavedSettings.getBOOL("MediaOnAPrimUI"))
+		/*&& gSavedSettings.getBOOL("MediaOnAPrimUI")*/)
 	{
 		LLObjectSelectionHandle selection = LLViewerMediaFocus::getInstance()->getSelection(); 
 		if (! selection->contains(pick.getObject(), pick.mObjectFace))
 		{
 			LLViewerMediaFocus::getInstance()->setFocusFace(TRUE, pick.getObject(), pick.mObjectFace, media_impl);
 		}
-		else
-		{
-			media_impl->mouseDown(pick.mXYCoords.mX, pick.mXYCoords.mY);
-			media_impl->mouseCapture(); // the mouse-up will happen when capture is lost
-		}
 
+		media_impl->mouseDown(pick.mXYCoords.mX, pick.mXYCoords.mY);
+		media_impl->mouseCapture(); // the mouse-up will happen when capture is lost
 		return true;
 	}
 
