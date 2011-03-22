@@ -7197,6 +7197,25 @@ IM history could not be found for [NAME].
 </notification>
 
 <notification
+  icon="alertmodal.tga"
+  name="InvalidLogInSecondLife"
+  type="alertmodal">
+Oops! The login name you entered wasn't formatted correctly!
+
+[SECOND_LIFE] accepts the following login formats:
+
+ - username
+ - username.Resident
+ - firstname.lastname
+
+If you don't have an account, would you like to create one now?
+  <usetemplate
+   name="okcancelbuttons"
+   notext="Try again"
+   yestext="Create an account"/>
+</notification>
+
+<notification
  icon="alert.tga"
  name="ShowLookAtInfo"
  type="alert">

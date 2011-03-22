@@ -55,6 +55,7 @@ public:
 	const std::string& getVoiceConnector()  const { return mVoiceConnector; }
 	std::string getSearchUrl(SearchType ty, bool is_web) const;
 	bool isRenderCompat()                   const;
+	bool isUsernameCompat()					const;
 	int getMaxAgentGroups() const { return mMaxAgentGroups; }
 
 	const std::string& getCurrencySymbol()     const;

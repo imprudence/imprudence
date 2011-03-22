@@ -813,8 +813,23 @@ bool idle_startup()
 			// Show the login dialog
 			login_show();
 			// connect dialog is already shown, so fill in the names
-			LLPanelLogin::setFields( firstname, lastname, password);
-
+			// icky how usernames get bolted on here as a kind of hack -- MC
+			if (gHippoGridManager && gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+			{
+				if (lastname == "resident" || lastname == "Resident")
+				{
+					LLPanelLogin::setFields(firstname, password);
+				}
+				else
+				{
+					LLPanelLogin::setFields(firstname+"."+lastname, password);
+				}
+			}
+			else
+			{
+				LLPanelLogin::setFields(firstname, lastname, password);
+			}
+			
 			LLPanelLogin::giveFocus();
 
 			gSavedSettings.setBOOL("FirstRunThisInstall", FALSE);

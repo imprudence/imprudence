@@ -35,6 +35,7 @@
 #include "llloginhandler.h"
 
 // viewer includes
+#include "hippogridmanager.h"
 #include "llpanellogin.h"			// save_password_to_disk()
 #include "llstartup.h"				// getStartupState()
 #include "llurlsimstring.h"
@@ -141,10 +142,27 @@ bool LLLoginHandler::handle(const LLSD& tokens,
 
 	if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)  //on splash page
 	{
+		// if we ever support saving names based on grid, we'll have to support saving usernames too -- MC
+		LLPanelLogin::loadLoginForm();
+
 		if (!mFirstName.empty() || !mLastName.empty())
 		{
 			// Fill in the name, and maybe the password
-			LLPanelLogin::setFields(mFirstName, mLastName, password);
+			if (gHippoGridManager && gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+			{
+				if (mLastName == "resident" || mLastName == "Resident")
+				{
+					LLPanelLogin::setFields(mFirstName, password);
+				}
+				else
+				{
+					LLPanelLogin::setFields(mFirstName+"."+ mLastName, password);
+				}
+			}
+			else
+			{
+				LLPanelLogin::setFields(mFirstName, mLastName, password);
+			}
 		}
 
 		if (mWebLoginKey.isNull())

@@ -2696,7 +2696,6 @@ BOOL LLLineEditor::prevalidatePrintableNotPipe(const LLWString &str)
 	return rv;
 }
 
-
 // static
 BOOL LLLineEditor::prevalidatePrintableNoSpace(const LLWString &str)
 {
@@ -2712,6 +2711,25 @@ BOOL LLLineEditor::prevalidatePrintableNoSpace(const LLWString &str)
 		}
 		if( !(LLStringOps::isAlnum((char)str[len]) ||
 		      LLStringOps::isPunct((char)str[len]) ) )
+		{
+			rv = FALSE;
+			break;
+		}
+	}
+	return rv;
+}
+
+// static
+BOOL LLLineEditor::prevalidatePrintableSpace(const LLWString &str)
+{
+	BOOL rv = TRUE;
+	S32 len = str.length();
+	if(len == 0) return rv;
+	while(len--)
+	{
+		if( !(LLStringOps::isAlnum((char)str[len]) ||
+		      LLStringOps::isPunct((char)str[len]) ||
+			  ' ' == str[len]) )
 		{
 			rv = FALSE;
 			break;

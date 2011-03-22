@@ -165,6 +165,13 @@ const std::string& HippoGridInfo::getRealCurrencySymbol() const
 	return mRealCurrencySymbol;
 }
 
+bool HippoGridInfo::isUsernameCompat() const
+{
+	// currently only SecondLife grids support username-style logins
+	// but Aurora is working on implementing it -- MC
+	return (mPlatform == HippoGridInfo::PLATFORM_SECONDLIFE);
+}
+
 
 
 // ********************************************************************

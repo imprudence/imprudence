@@ -253,6 +253,7 @@ public:
 	static BOOL		prevalidateAlphaNumSpace(const LLWString &str );
 	static BOOL		prevalidatePrintableNotPipe(const LLWString &str); 
 	static BOOL		prevalidatePrintableNoSpace(const LLWString &str);
+	static BOOL		prevalidatePrintableSpace(const LLWString &str);
 	static BOOL		prevalidateASCII(const LLWString &str);
 
 	static BOOL		postvalidateFloat(const std::string &str);
