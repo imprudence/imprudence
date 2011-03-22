@@ -834,7 +834,7 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
 				<key>windows</key>
 				<map>
 					<key>md5sum</key>
-					<string>6d97e988a533fbb2de5028f70ecf8dee</string>
+					<string>3ba7af1b2c04791cc39b4c23b853a488</string>
 					<key>url</key>
 					<uri>https://github.com/downloads/NickyPerian/imprudence/jsonlib_VC100_libs_inc.tar.bz2</uri>
 				</map>
@@ -1042,7 +1042,7 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>aa7be2c350e90a951f20af5274097e8e</string>
+            <string>df1a432001934f537c4f3385dd3436da</string>
             <key>url</key>
             <uri>https://github.com/downloads/NickyPerian/imprudence/llqtwebkit-windows-qt4.7.1-20110117.tar.bz2</uri>
           </map>
