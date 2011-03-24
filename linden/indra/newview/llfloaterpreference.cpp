@@ -456,6 +456,25 @@ void LLFloaterPreference::show(void*)
 }
 
 
+// static
+void LLFloaterPreference::onClickResetPrefs(void* user_data)
+{
+	LLFloaterPreference* self = (LLFloaterPreference*)user_data;
+	LLNotifications::instance().add("ConfirmResetAllPreferences", LLSD(), LLSD(), boost::bind(callbackReset, _1, _2, self));
+}
+
+// static
+bool LLFloaterPreference::callbackReset(const LLSD& notification, const LLSD& response, LLFloaterPreference *self)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 )
+	{
+		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
+	}
+	return false;
+}
+
+
 // static 
 void LLFloaterPreference::onBtnOK( void* userdata )
 {

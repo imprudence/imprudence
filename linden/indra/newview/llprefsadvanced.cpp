@@ -58,7 +58,6 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
 	childSetCommitCallback("command_line_check", onCommitCheckBox, this);
 
-	childSetAction("reset_btn", onClickResetPrefs, this);
 	childSetAction("command_line_btn", onClickCommandLine, this);
 }
 
@@ -272,24 +271,6 @@ void LLPrefsAdvanced::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
 {
 	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
 	self->refresh();
-}
-
-// static
-void LLPrefsAdvanced::onClickResetPrefs(void* user_data)
-{
-	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
-	LLNotifications::instance().add("ConfirmResetAllPreferences", LLSD(), LLSD(), boost::bind(callbackReset, _1, _2, self));
-}
-
-// static
-bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self)
-{
-	S32 option = LLNotification::getSelectedOption(notification, response);
-	if ( option == 0 )
-	{
-		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
-	}
-	return false;
 }
 
 void LLPrefsAdvanced::onSpellAdd(void* data)
