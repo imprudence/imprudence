@@ -67,7 +67,8 @@ public:
 	LLComboBox(
 		const std::string& name, 
 		const LLRect &rect,
-		const std::string& label,
+		const std::string& label, 
+		const LLFontGL* font = NULL,
 		void (*commit_callback)(LLUICtrl*, void*) = NULL,
 		void *callback_userdata = NULL
 		);
@@ -190,6 +191,7 @@ protected:
 	EPreferredPosition	mListPosition;
 	LLPointer<LLUIImage>	mArrowImage;
 	std::string			mLabel;
+	const LLFontGL*		mGLFont;
 
 private:
 	S32					mButtonPadding;

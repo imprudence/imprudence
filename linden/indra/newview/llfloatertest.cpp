@@ -228,7 +228,9 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	combo = new LLComboBox(std::string("combo"),
 		LLRect(LEFT, y, LEFT+100, y-LLCOMBOBOX_HEIGHT),
 		std::string("Combobox Label"),
-		onCommitCombo, this);
+		NULL,
+		onCommitCombo, 
+		this);
 	combo->add(std::string("first item"));
 	combo->add(std::string("second item"));
 	combo->add(std::string("should go to the top"), ADD_TOP);
