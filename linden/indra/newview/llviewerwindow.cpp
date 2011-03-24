@@ -1278,6 +1278,13 @@ LLViewerWindow::LLViewerWindow(
         LLAppViewer::instance()->forceExit(1);
 	}
 	
+	const U32 real_fsaa = mWindow->getFSAASamples();
+	if (real_fsaa != gSavedSettings.getU32("RenderFSAASamples"))
+	{
+		LL_WARNS("Window") << "Window created with reduced anti-aliasing samples: " << real_fsaa << "x FSAA." << LL_ENDL;
+		gSavedSettings.setU32("RenderFSAASamples", real_fsaa);
+	}
+
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
 	F32 ui_scale_factor = gSavedSettings.getF32("UIScaleFactor");
