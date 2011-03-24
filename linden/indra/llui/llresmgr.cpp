@@ -58,7 +58,8 @@ LLResMgr::LLResMgr()
 	mUSAFonts[ LLFONT_OCRA ]			= LLFontGL::getFontMonospace();
 	mUSAFonts[ LLFONT_SANSSERIF ]		= LLFontGL::getFontSansSerif();
 	mUSAFonts[ LLFONT_SANSSERIF_SMALL ]	= LLFontGL::getFontSansSerifSmall();
-	mUSAFonts[ LLFONT_SANSSERIF_BIG ]	= LLFontGL::getFontSansSerifBig();
+	mUSAFonts[ LLFONT_SANSSERIF_BIGGER ]= LLFontGL::getFontSansSerifBigger();
+	mUSAFonts[ LLFONT_SANSSERIF_LARGE ]	= LLFontGL::getFontSansSerifLarge();
 	mUSAFonts[ LLFONT_SMALL ]			= LLFontGL::getFontMonospace();
 /*
 	// USA Strings

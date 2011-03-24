@@ -128,9 +128,13 @@ void LLStyle::setFontName(const std::string& fontname)
 	{
 		mFontID = LLFONT_SMALL;
 	}
-	else if ((fontname_lc == "sansserifbig"))
+	else if ((fontname_lc == "sansserifbigger"))
 	{
-		mFontID = LLFONT_SANSSERIF_BIG;
+		mFontID = LLFONT_SANSSERIF_BIGGER;
+	}
+	else if ((fontname_lc == "sansserifhuge"))
+	{
+		mFontID = LLFONT_SANSSERIF_LARGE;
 	}
 	else if (fontname_lc ==  "small")
 	{

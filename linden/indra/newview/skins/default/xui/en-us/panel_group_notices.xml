@@ -15,7 +15,7 @@ the General tab.
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?"
 	     label_selected="?" left="391" name="help_button" width="20" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"
+	     bottom="-20" drop_shadow_visible="true" font="SansSerifLarge" h_pad="0"
 	     halign="left" height="16" left="7" mouse_opaque="true" name="lbl" v_pad="0"
 	     width="436">
 		Group Notices Archive
@@ -51,7 +51,7 @@ Notice lists are limited to 200 notices per group on a daily basis.
 	<panel border="false" bottom="0" follows="all" height="268" label="Create New Notice"
 	     left="1" mouse_opaque="true" name="panel_create_new_notice" width="418">
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		     bottom="-18" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"
+		     bottom="-18" drop_shadow_visible="true" font="SansSerifLarge" h_pad="0"
 		     halign="left" height="16" left="7" mouse_opaque="false" name="lbl"
 		     v_pad="0" width="436">
 			Create a Notice
@@ -115,7 +115,7 @@ and you can&apos;t send a folder.
 	<panel border="false" bottom="0" follows="all" height="268" label="View Past Notice"
 	     left="1" mouse_opaque="true" name="panel_view_past_notice" width="418">
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		     bottom="-18" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"
+		     bottom="-18" drop_shadow_visible="true" font="SansSerifLarge" h_pad="0"
 		     halign="left" height="16" left="7" mouse_opaque="false" name="lbl"
 		     v_pad="0" width="436">
 			Archived Notice

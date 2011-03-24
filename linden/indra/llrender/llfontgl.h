@@ -233,7 +233,8 @@ public:
 	static LLFontGL* getFontMonospace();
 	static LLFontGL* getFontSansSerifSmall();
 	static LLFontGL* getFontSansSerif();
-	static LLFontGL* getFontSansSerifBig();
+	static LLFontGL* getFontSansSerifBigger();
+	static LLFontGL* getFontSansSerifLarge();
 	static LLFontGL* getFontSansSerifHuge();
 	static LLFontGL* getFontSansSerifBold();
 	static LLFontGL* getFontExtChar();

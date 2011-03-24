@@ -117,7 +117,7 @@ void LLConsole::setFontSize(S32 size_index)
 	}
 	else if (1 == size_index)
 	{
-		mFont = LLFontGL::getFontSansSerifBig();
+		mFont = LLFontGL::getFontSansSerifLarge();
 	}
 	else
 	{

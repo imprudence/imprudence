@@ -2178,7 +2178,7 @@ void LLViewerWindow::draw()
 		{
 			// Used for special titles such as "Second Life - Special E3 2003 Beta"
 			const S32 DIST_FROM_TOP = 20;
-			LLFontGL::getFontSansSerifBig()->renderUTF8(
+			LLFontGL::getFontSansSerifLarge()->renderUTF8(
 				mOverlayTitle, 0,
 				llround( getWindowWidth() * 0.5f),
 				getWindowHeight() - DIST_FROM_TOP,

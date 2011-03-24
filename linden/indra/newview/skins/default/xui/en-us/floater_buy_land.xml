@@ -117,7 +117,7 @@ sold with objects
 	<icon follows="top|left" height="64" image_name="badge_ok.j2c" left="0" name="step_1"
 	     width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="account_action" right="438" width="218" font="SansSerifBig" >
+	     name="account_action" right="438" width="218" font="SansSerifLarge" >
 		Upgrade you to premium membership.
 	</text>
 	<text follows="top|left" height="16" left="72" name="account_reason" right="400"
@@ -139,7 +139,7 @@ sold with objects
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_2" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="land_use_action" right="438" width="218" font="SansSerifBig" >
+	     name="land_use_action" right="438" width="218" font="SansSerifLarge" >
 		Increase your monthly land use fees to US$ 40/month.
 	</text>
 	<text follows="top|left" height="32" left="72" name="land_use_reason" right="435"
@@ -151,7 +151,7 @@ This parcel is 512 sq.m. of land.
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_3" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="purchase_action" right="438" font="SansSerifBig" >
+	     name="purchase_action" right="438" font="SansSerifLarge" >
 		Pay Joe Resident L$ 4000 for the land
 	</text>
 	<text follows="top|left" height="16" left="72" name="currency_reason" right="400">
