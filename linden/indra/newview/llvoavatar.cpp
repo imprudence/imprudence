@@ -1496,8 +1496,16 @@ LLPartSysData LLVOAvatar::sCloud;
 void LLVOAvatar::initCloud()
 {
 	// fancy particle cloud designed by Brent
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "cloud.xml");
+	if(!gDirUtilp->fileExists(filename))
+	{
+		filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "cloud.xml");
+	}
+	if(!gDirUtilp->fileExists(filename))
+	{
+		filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	}
 
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
 	LLSD cloud;
 	llifstream in_file(filename);
 	LLSDSerialize::fromXMLDocument(cloud, in_file);
