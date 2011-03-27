@@ -81,7 +81,9 @@ LLSimInfo::LLSimInfo()
 	mAccess(0x0),
 	mRegionFlags(0x0),
 	mWaterHeight(0.f),
-	mAlpha(-1.f)
+	mAlpha(-1.f),
+	msizeX(REGION_WIDTH_UNITS),
+	msizeY(REGION_WIDTH_UNITS)
 {
 }
 
