@@ -649,13 +649,18 @@ bool LLViewerParcelMedia::allowedMedia(std::string media_url)
 {
 	LLStringUtil::trim(media_url);
 	std::string domain = extractDomain(media_url);
+	LLHost host;
+	host.setHostByName(domain);
+	std::string ip = host.getIPString();
 	if (sAllowedMedia.count(domain))
 	{
 		return true;
 	}
+	std::string server;
 	for (S32 i = 0; i < (S32)sMediaFilterList.size(); i++)
 	{
-		if (sMediaFilterList[i]["domain"].asString() == domain)
+		server = sMediaFilterList[i]["domain"].asString();
+		if (server == domain || server == ip)
 		{
 			if (sMediaFilterList[i]["action"].asString() == "allow")
 			{
@@ -675,6 +680,7 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 	std::string media_action;
 	std::string media_url;
 	std::string domain;
+	std::string ip;
 
 	if (parcel != LLViewerParcelMgr::getInstance()->getAgentParcel())
 	{
@@ -703,31 +709,51 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 		return;
 	}
 
+	LLHost host;
+	host.setHostByName(domain);
+	ip = host.getIPString();
+
 	if (sIsUserAction)
 	{
 		// This was a user manual request to play this media, so give
 		// it another chance...
 		sIsUserAction = false;
+		bool dirty = false;
 		if (sDeniedMedia.count(domain))
 		{
 			sDeniedMedia.erase(domain);
+			dirty = true;
+		}
+		if (sDeniedMedia.count(ip))
+		{
+			sDeniedMedia.erase(ip);
+			dirty = true;
+		}
+		if (dirty)
+		{
 			SLFloaterMediaFilter::setDirty();
 		}
 	}
 
-	if (!sMediaFilterListLoaded || sDeniedMedia.count(domain))
+	if (media_url.empty())
+	{
+		media_action == "allow";
+	}
+	else if (!sMediaFilterListLoaded || sDeniedMedia.count(domain) || sDeniedMedia.count(ip))
 	{
 		media_action = "ignore";
 	}
-	else if (sAllowedMedia.count(domain))
+	else if (sAllowedMedia.count(domain) || sAllowedMedia.count(ip))
 	{
 		media_action = "allow";
 	}
 	else
 	{
+		std::string server;
 		for (S32 i = 0; i < (S32)sMediaFilterList.size(); i++)
 		{
-			if (sMediaFilterList[i]["domain"].asString() == domain)
+			server = sMediaFilterList[i]["domain"].asString();
+			if (server == domain || server == ip)
 			{
 				media_action = sMediaFilterList[i]["action"].asString();
 				break;
@@ -735,7 +761,7 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 		}
 	}
 
-	if (media_action == "allow" || media_url.empty())
+	if (media_action == "allow")
 	{
 		if (type == 0)
 		{
@@ -745,11 +771,29 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 		{
 			playStreamingMusic(parcel, false);
 		}
+		return;
 	}
-	else if (media_action == "deny")
+	if (media_action == "ignore")
 	{
-		LLSD args;
+		if (type == 1)
+		{
+			LLViewerParcelMedia::stopStreamingMusic();
+		}
+		return;
+	}
+
+	LLSD args;
+	if (ip != domain && domain.find('/') == std::string::npos)
+	{
+		args["DOMAIN"] = domain + " (" + ip + ")";
+	}
+	else
+	{
 		args["DOMAIN"] = domain;
+	}
+
+	if (media_action == "deny")
+	{
 		LLNotifications::instance().add("MediaBlocked", args);
 		if (type == 1)
 		{
@@ -757,35 +801,21 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 		}
 		// So to avoid other "blocked" messages later in the session
 		// for this url should it be requested again by a script.
+		// We don't add the IP, on purpose (want to show different
+		// blocks for different domains pointing to the same IP).
 		sDeniedMedia.insert(domain);
-	}
-	else if (media_action == "ignore")
-	{
-		if (type == 1)
-		{
-			LLViewerParcelMedia::stopStreamingMusic();
-		}
 	}
 	else
 	{
 		sMediaQueries.insert(domain);
-		LLSD args;
-		args["DOMAIN"] = domain;
-		if (media_url.find('?') != std::string::npos)
-		{
-			args["WARNING"] = " (WARNING: this URL also contains parameter(s) that could potentially be used to correlate your avatar name with your IP)";
-		}
-		else
-		{
-			args["WARNING"] = "";
-		}
+		args["URL"] = media_url;
 		if (type == 0)
 		{
-			args["TYPE"] = "a media";
+			args["TYPE"] = "media";
 		}
 		else
 		{
-			args["TYPE"] = "an audio";
+			args["TYPE"] = "audio";
 		}
 		LLNotifications::instance().add("MediaAlert", args, LLSD(), boost::bind(callback_media_alert, _1, _2, parcel, type, domain));
 	}
@@ -795,8 +825,19 @@ void callback_media_alert(const LLSD &notification, const LLSD &response, LLParc
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 
+	LLHost host;
+	host.setHostByName(domain);
+	std::string ip = host.getIPString();
+
 	LLSD args;
-	args["DOMAIN"] = domain;
+	if (ip != domain && domain.find('/') == std::string::npos)
+	{
+		args["DOMAIN"] = domain + " (" + ip + ")";
+	}
+	else
+	{
+		args["DOMAIN"] = domain;
+	}
 
 	if (option == 0 || option == 3) // Allow or Whitelist
 	{
@@ -807,6 +848,11 @@ void callback_media_alert(const LLSD &notification, const LLSD &response, LLParc
 			newmedia["domain"] = domain;
 			newmedia["action"] = "allow";
 			LLViewerParcelMedia::sMediaFilterList.append(newmedia);
+			if (ip != domain && domain.find('/') == std::string::npos)
+			{
+				newmedia["domain"] = ip;
+				LLViewerParcelMedia::sMediaFilterList.append(newmedia);
+			}
 			LLViewerParcelMedia::saveDomainFilterList();
 			args["LISTED"] = "whitelisted";
 			LLNotifications::instance().add("MediaListed", args);
@@ -823,6 +869,10 @@ void callback_media_alert(const LLSD &notification, const LLSD &response, LLParc
 	else if (option == 1 || option == 2) // Deny or Blacklist
 	{
 		LLViewerParcelMedia::sDeniedMedia.insert(domain);
+		if (ip != domain && domain.find('/') == std::string::npos)
+		{
+			LLViewerParcelMedia::sDeniedMedia.insert(ip);
+		}
 		if (type == 1)
 		{
 			LLViewerParcelMedia::stopStreamingMusic();
@@ -837,6 +887,11 @@ void callback_media_alert(const LLSD &notification, const LLSD &response, LLParc
 			newmedia["domain"] = domain;
 			newmedia["action"] = "deny";
 			LLViewerParcelMedia::sMediaFilterList.append(newmedia);
+			if (ip != domain && domain.find('/') == std::string::npos)
+			{
+				newmedia["domain"] = ip;
+				LLViewerParcelMedia::sMediaFilterList.append(newmedia);
+			}
 			LLViewerParcelMedia::saveDomainFilterList();
 			args["LISTED"] = "blacklisted";
 			LLNotifications::instance().add("MediaListed", args);
@@ -975,3 +1030,4 @@ std::string LLViewerParcelMedia::extractDomain(std::string url)
 
 	return url;
 }
+

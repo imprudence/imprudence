@@ -52,6 +52,7 @@ public:
 	static void toggleInstance();
 
 	static void onClearLists(void*);
+	static void onShowIPs(void*);
 	static void onWhitelistAdd(void*);
 	static void onWhitelistRemove(void*);
 	static void onBlacklistAdd(void*);
@@ -60,6 +61,7 @@ public:
 
 private:
 	static bool sIsWhitelist;
+	static bool sShowIPs;
 	LLScrollListCtrl* mWhitelistSLC;
 	LLScrollListCtrl* mBlacklistSLC;
 	bool mIsDirty;
