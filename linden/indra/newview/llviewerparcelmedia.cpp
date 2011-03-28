@@ -983,7 +983,12 @@ std::string LLViewerParcelMedia::extractDomain(std::string url)
 		url = url.substr(pos + 1, count);
 	}
 
-	if (url.find(gAgent.getRegion()->getHost().getHostName()) == 0 || url.find(last_region) == 0)
+	std::string current_region = gAgent.getRegion()->getHost().getHostName();
+	if (!current_region.size())
+	{
+		current_region = gAgent.getRegion()->getHost().getIPString();
+	}
+	if (url.find(current_region) == 0 || url.find(last_region) == 0)
 	{
 		// This must be a scripted object rezzed in the region:
 		// extend the concept of "domain" to encompass the
@@ -992,7 +997,7 @@ std::string LLViewerParcelMedia::extractDomain(std::string url)
 
 		// Get rid of any port number
 		pos = url.find('/');		// We earlier made sure that there's one
-		url = gAgent.getRegion()->getHost().getHostName() + url.substr(pos);
+		url = current_region + url.substr(pos);
 
 		pos = url.find('?');
 		if (pos != std::string::npos)
@@ -1027,6 +1032,10 @@ std::string LLViewerParcelMedia::extractDomain(std::string url)
 	// Remember this region, so to cope with requests occuring just after a
 	// TP out of it.
 	last_region = gAgent.getRegion()->getHost().getHostName();
+	if (!last_region.size())
+	{
+		last_region = gAgent.getRegion()->getHost().getIPString();
+	}
 
 	return url;
 }
