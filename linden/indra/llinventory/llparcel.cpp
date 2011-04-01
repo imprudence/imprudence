@@ -691,6 +691,7 @@ void LLParcel::packMessage(LLSD& msg)
 	msg["media_current_url"] = getMediaCurrentURL();
 	msg["obscure_media"] = FALSE; // OBSOLETE - no longer used
 	msg["obscure_music"] = FALSE; // OBSOLETE - no longer used
+	msg["media_id"] = getMediaID();
 	msg["media_allow_navigate"] = getMediaAllowNavigate();
 	msg["media_prevent_camera_zoom"] = getMediaPreventCameraZoom();
 	msg["media_url_timeout"] = getMediaURLTimeout();
