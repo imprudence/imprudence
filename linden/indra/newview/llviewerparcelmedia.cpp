@@ -49,6 +49,7 @@
 #include "llpluginclassmedia.h"
 #include "llnotify.h"
 #include "llsdserialize.h"
+#include "llmemory.h"
 
 #include "lloverlaybar.h"
 #include "slfloatermediafilter.h"
@@ -64,6 +65,7 @@ LLSD LLViewerParcelMedia::sMediaFilterList;
 std::set<std::string> LLViewerParcelMedia::sMediaQueries;
 std::set<std::string> LLViewerParcelMedia::sAllowedMedia;
 std::set<std::string> LLViewerParcelMedia::sDeniedMedia;
+LLPointer<LLViewerParcelMediaInfo> LLViewerParcelMedia::sSavedMediaInfo;
 
 // Local functions
 bool callback_play_media(const LLSD& notification, const LLSD& response, LLParcel* parcel);
@@ -186,7 +188,7 @@ void LLViewerParcelMedia::update(LLParcel* parcel)
 }
 
 // static
-void LLViewerParcelMedia::play(LLParcel* parcel, bool filter)
+void LLViewerParcelMedia::play(LLParcel* parcel, bool filter, const ECommandOrigin origin)
 {
 	lldebugs << "LLViewerParcelMedia::play" << llendl;
 
@@ -198,12 +200,13 @@ void LLViewerParcelMedia::play(LLParcel* parcel, bool filter)
 	std::string media_url = parcel->getMediaURL();
 	LLStringUtil::trim(media_url);
 
-	if (!media_url.empty() && gSavedSettings.getBOOL("MediaEnableFilter") && (filter || !allowedMedia(media_url)))
+	if (!media_url.empty() && gSavedSettings.getBOOL("MediaEnableFilter") && filter
+		&& (!allowedMedia(media_url) || origin == COMMAND_ORIGIN_REMOTE))
 	{
 		// If filtering is needed or in case media_url just changed
 		// to something we did not yet approve.
 		LLViewerParcelMediaAutoPlay::playStarted();
-		filterMedia(parcel, 0);
+		filterMedia(parcel, 0, origin);
 		return;
 	}
 
@@ -384,7 +387,7 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 			else
 			{
 				LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-				play(parcel);
+				play(parcel, true, COMMAND_ORIGIN_REMOTE);
 			}
 		}
 		else
@@ -400,7 +403,7 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 		if(sMediaImpl.isNull())
 		{
 			LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-			play(parcel);
+			play(parcel, true, COMMAND_ORIGIN_REMOTE);
 		}
 		seek(time);
 	}
@@ -437,33 +440,38 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 	}
 
 	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	BOOL same = FALSE;
 	if (parcel)
 	{
-		same = ((parcel->getMediaURL() == media_url) &&
-				(parcel->getMediaType() == media_type) &&
-				(parcel->getMediaID() == media_id) &&
-				(parcel->getMediaWidth() == media_width) &&
-				(parcel->getMediaHeight() == media_height) &&
-				(parcel->getMediaAutoScale() == media_auto_scale) &&
-				(parcel->getMediaLoop() == media_loop));
-
-		if (!same)
+		LLViewerParcelMediaInfo* new_info = new LLViewerParcelMediaInfo(media_url, media_type, media_id, media_width, media_height, media_auto_scale, media_loop);
+		LLViewerParcelMediaInfo* current_info = new LLViewerParcelMediaInfo(parcel);
+		if (new_info != current_info)
 		{
+			if (!sSavedMediaInfo || (sSavedMediaInfo && !sSavedMediaInfo->sameParcel(parcel)))
+			{
+				// only save if no previously saved media info, because
+				// we want to remeber the original parcel media info.
+				sSavedMediaInfo = current_info;
+			}
 			// temporarily store these new values in the parcel
-			parcel->setMediaURL(media_url);
-			parcel->setMediaType(media_type);
-			parcel->setMediaID(media_id);
-			parcel->setMediaWidth(media_width);
-			parcel->setMediaHeight(media_height);
-			parcel->setMediaAutoScale(media_auto_scale);
-			parcel->setMediaLoop(media_loop);
+			new_info->applyToParcel(parcel);
 
-			play(parcel);
+			play(parcel, true, COMMAND_ORIGIN_REMOTE);
 		}
 
 	}
 }
+
+//static
+void LLViewerParcelMedia::undoParcelMediaUpdate()
+{
+	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+	if (sSavedMediaInfo.notNull() && parcel)
+	{
+		sSavedMediaInfo->applyToParcel(parcel);
+	}
+	sSavedMediaInfo = NULL;
+}
+
 // Static
 /////////////////////////////////////////////////////////////////////////////////////////
 void LLViewerParcelMedia::sendMediaNavigateMessage(const std::string& url)
@@ -619,7 +627,7 @@ void LLViewerParcelMedia::playStreamingMusic(LLParcel* parcel, bool filter)
 	{
 		// If filtering is needed or in case music_url just changed
 		// to something we did not yet approve.
-		filterMedia(parcel, 1);
+		filterMedia(parcel, 1, COMMAND_ORIGIN_LOCAL);
 	}
 	else if (gAudioStream)
 	{
@@ -675,13 +683,13 @@ bool LLViewerParcelMedia::allowedMedia(std::string media_url)
 	return false;
 }
 
-void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
+void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type, const ECommandOrigin origin)
 {
 	std::string media_action;
 	std::string media_url;
 	std::string domain;
 	std::string ip;
-
+	
 	if (parcel != LLViewerParcelMgr::getInstance()->getAgentParcel())
 	{
 		// The parcel just changed (may occur right out after a TP)
@@ -775,9 +783,30 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 	}
 	if (media_action == "ignore")
 	{
-		if (type == 1)
+		if (type == 0)
+		{
+			undoParcelMediaUpdate();
+		}
+		else if (type == 1)
 		{
 			LLViewerParcelMedia::stopStreamingMusic();
+		}
+		return;
+	}
+	// skip local-originating play commands, unless the url is blacklisted.
+	if (gSavedSettings.getBOOL("MediaFilterOnlyRemoteCommands")
+		&& (origin != COMMAND_ORIGIN_REMOTE)
+		&& (media_action != "ignore"))
+	{
+		sAllowedMedia.insert(domain);
+		SLFloaterMediaFilter::setDirty();
+		if (type == 0)
+		{
+			play(parcel, false);
+		}
+		else
+		{
+			playStreamingMusic(parcel, false);
 		}
 		return;
 	}
@@ -795,6 +824,10 @@ void LLViewerParcelMedia::filterMedia(LLParcel* parcel, U32 type)
 	if (media_action == "deny")
 	{
 		LLNotifications::instance().add("MediaBlocked", args);
+		if (type == 0)
+		{
+			undoParcelMediaUpdate();
+		}
 		if (type == 1)
 		{
 			LLViewerParcelMedia::stopStreamingMusic();
@@ -873,10 +906,15 @@ void callback_media_alert(const LLSD &notification, const LLSD &response, LLParc
 		{
 			LLViewerParcelMedia::sDeniedMedia.insert(ip);
 		}
-		if (type == 1)
+		if (type == 0)
+		{
+			LLViewerParcelMedia::undoParcelMediaUpdate();
+		}
+		else if (type == 1)
 		{
 			LLViewerParcelMedia::stopStreamingMusic();
 		}
+		
 		if (option == 1) // Deny
 		{
 			LLNotifications::instance().add("MediaBlocked", args);
@@ -1040,3 +1078,65 @@ std::string LLViewerParcelMedia::extractDomain(std::string url)
 	return url;
 }
 
+LLViewerParcelMediaInfo::LLViewerParcelMediaInfo(const std::string url,
+												 const std::string type,
+												 const LLUUID media_id,
+												 const S32 width,
+												 const S32 height,
+												 const U8 scale,
+												 const U8 loop)
+	:
+	mMediaURL(url),
+	mMediaType(type),
+	mMediaID(media_id),
+	mMediaWidth(width),
+	mMediaHeight(height),
+	mMediaAutoScale(scale),
+	mMediaLoop(loop)
+{
+	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+	mParcelLocalID = parcel ? parcel->getLocalID() : 0;
+}
+
+LLViewerParcelMediaInfo::LLViewerParcelMediaInfo(const LLParcel* parcel)
+{
+	mMediaURL = parcel->getMediaURL();
+	mMediaType = parcel->getMediaType();
+	mMediaID = parcel->getMediaID();
+	mMediaWidth = parcel->getMediaWidth();
+	mMediaHeight = parcel->getMediaHeight();
+	mMediaAutoScale = parcel->getMediaAutoScale();
+	mMediaLoop = parcel->getMediaLoop();
+	mParcelLocalID = parcel->getLocalID();
+}
+
+void LLViewerParcelMediaInfo::applyToParcel(LLParcel* parcel)
+{
+	if (parcel && sameParcel(parcel))
+	{
+		parcel->setMediaURL(mMediaURL);
+		parcel->setMediaType(mMediaType);
+		parcel->setMediaID(mMediaID);
+		parcel->setMediaWidth(mMediaWidth);
+		parcel->setMediaHeight(mMediaHeight);
+		parcel->setMediaAutoScale(mMediaAutoScale);
+		parcel->setMediaLoop(mMediaLoop);
+	}
+}
+
+bool LLViewerParcelMediaInfo::sameParcel(const LLParcel* parcel) const
+{
+	return parcel && (parcel->getLocalID() == mParcelLocalID);
+}
+
+bool LLViewerParcelMediaInfo::operator==(const LLViewerParcelMediaInfo &rhs) const
+{
+	return 	(mMediaURL == rhs.mMediaURL) &&
+			(mMediaType == rhs.mMediaType) &&
+			(mMediaID == rhs.mMediaID) &&
+			(mMediaWidth == rhs.mMediaWidth) &&
+			(mMediaHeight == rhs.mMediaHeight) &&
+			(mMediaAutoScale == rhs.mMediaAutoScale) &&
+			(mMediaLoop == rhs.mMediaLoop) &&
+			(mParcelLocalID == rhs.mParcelLocalID);
+}

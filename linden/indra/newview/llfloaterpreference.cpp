@@ -365,6 +365,7 @@ void LLPreferenceCore::setPersonalInfo(const std::string& visibility, bool im_vi
 void LLPreferenceCore::updateIsLoggedIn(bool enable)
 {
 	mPrefsIM->preparePerAccountPrefs(enable);
+	mAudioPanel->updateIsLoggedIn(enable);
 }
 
 void LLPreferenceCore::refreshEnabledGraphics()

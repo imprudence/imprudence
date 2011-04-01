@@ -8017,6 +8017,17 @@
       <integer>100</integer>
     </array>
   </map>
+  <key>MediaFilterOnlyRemoteCommands</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether Media Filter should only filter actions initiated remotely</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>MediaOnAPrimUI</key>
   <map>
     <key>Comment</key>
