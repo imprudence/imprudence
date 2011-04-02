@@ -915,32 +915,18 @@ Only large parcels can be listed in search.
 				 right="-12"
 				 scale_image="true"
 				 width="70" />
-			<check_box
-				 bottom_delta="-22"
-				 enabled="true"
-				 follows="left|top"
-				 font="SansSerifSmall"
-				 height="16"
-				 initial_value="false"
-				 label="Hide URL"
-				 left="80"
-				 mouse_opaque="true"
-				 name="hide_media_url"
-				 radio_style="false"
-				 tool_tip="Checking this option will hide the media URL from any non-authorized viewers of this parcel information. Note this is not available for HTML types."
-				 width="150" />
 			<text
-				 bottom_delta="0"
+				 bottom_delta="-22"
 				 follows="right|top"
 				 font="SansSerifSmall"
-				 halign="right"
+				 halign="left"
 				 height="16"
 				 length="1"
 				 name="media_reset"
-				 right="-164"
+				 left="80"
 				 tool_tip="Amount of time until parcel automatically reverts to default URL (0 for never return)"
 				 type="string"
-				 width="185">
+				 width="120">
 				Return to Home URL in:
 			</text>
 			<spinner
@@ -948,14 +934,13 @@ Only large parcels can be listed in search.
 				 decimal_digits="0"
 				 enabled="false"
 				 follows="right|top"
-				 halign="right"
 				 height="16"
 				 increment="1"
 				 initial_val="0"
 				 max_val="1024"
 				 min_val="0"
 				 name="media_reset_time"
-				 right="-90"
+				 left_delta="126"
 				 tool_tip="Amount of time until parcel reverts to default URL (0 for never return)"
 				 width="64" />
 			<text
@@ -964,12 +949,11 @@ Only large parcels can be listed in search.
 				 font="SansSerifSmall"
 				 halign="left"
 				 height="16"
-				 left_delta="70"
+				 left_delta="72"
 				 length="1"
 				 name="minutes"
-				 right="-10"
 				 type="string">
-				Minutes
+				minutes
 			</text>
 			<text
 				 bottom_delta="-22"
@@ -1315,20 +1299,6 @@ Select the thumbnail to choose a different texture.
 				 name="music_url"
 				 right="-15"
 				 select_on_focus="true" />
-			<check_box
-				 bottom_delta="-25"
-				 enabled="true"
-				 follows="left|top"
-				 font="SansSerifSmall"
-				 height="16"
-				 initial_value="false"
-				 label="Hide URL"
-				 left="80"
-				 mouse_opaque="true"
-				 name="hide_music_url"
-				 radio_style="false"
-				 tool_tip="Checking this option will hide the music URL from any non-authorized viewers of this parcel information."
-				 width="150" />
 			<text
 				 bottom_delta="-65"
 				 follows="left|top"

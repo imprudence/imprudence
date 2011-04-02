@@ -38,6 +38,7 @@
 
 class LLScrollListCtrl;
 class LLButton;
+class LLSD;
 
 class SLFloaterMediaFilter : public LLFloater
 {
@@ -52,14 +53,22 @@ public:
 	static void toggleInstance();
 
 	static void onClearLists(void*);
+	static void onShowIPs(void*);
 	static void onWhitelistAdd(void*);
 	static void onWhitelistRemove(void*);
 	static void onBlacklistAdd(void*);
 	static void onBlacklistRemove(void*);
 	static void onCommitDomain(void*);
+	static void onCancelDomain(void*);
+	static void onMediaEnableFilterChanged(const LLSD& newvalue);
+
+private:
+	void updateWidgets();
 
 private:
 	static bool sIsWhitelist;
+	static bool sShowIPs;
+	static bool sIsAdding;
 	LLScrollListCtrl* mWhitelistSLC;
 	LLScrollListCtrl* mBlacklistSLC;
 	bool mIsDirty;

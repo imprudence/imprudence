@@ -472,7 +472,7 @@ void LLWorldMapView::draw()
 		F32 bottom =	sPanY + half_height + relative_y;
 		F32 left =		sPanX + half_width + relative_x;
 		F32 top =		bottom+ (sMapScale * info->msizeY / REGION_WIDTH_METERS);
-		F32 right =		left + (sMapScale * info->msizeY / REGION_WIDTH_METERS);
+		F32 right =		left + (sMapScale * info->msizeX / REGION_WIDTH_METERS);
 
 		// Switch to world map texture (if available for this region) if either:
 		// 1. Tiles are zoomed out small enough, or

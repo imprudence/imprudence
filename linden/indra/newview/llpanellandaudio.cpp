@@ -91,9 +91,6 @@ BOOL LLPanelLandAudio::postBuild()
 	mMusicURLEdit = getChild<LLLineEditor>("music_url");
 	childSetCommitCallback("music_url", onCommitAny, this);
 
-	mMusicUrlCheck = getChild<LLCheckBoxCtrl>("hide_music_url");
-	childSetCommitCallback("hide_music_url", onCommitAny, this);
-
 	return TRUE;
 }
 
@@ -116,9 +113,6 @@ void LLPanelLandAudio::refresh()
 
 		mMusicURLEdit->setText(parcel->getMusicURL());
 		mMusicURLEdit->setEnabled( can_change_media );
-
-		mMusicUrlCheck->set( parcel->getObscureMusic() );
-		mMusicUrlCheck->setEnabled( can_change_media );
 
 		mCheckSoundLocal->set( parcel->getSoundLocal() );
 		mCheckSoundLocal->setEnabled( can_change_media );
@@ -154,7 +148,6 @@ void LLPanelLandAudio::onCommitAny(LLUICtrl*, void *userdata)
 	BOOL sound_local		= self->mCheckSoundLocal->get();
 	int voice_setting		= self->mRadioVoiceChat->getSelectedIndex();
 	std::string music_url	= self->mMusicURLEdit->getText();
-	U8 obscure_music		= self->mMusicUrlCheck->get();
 
 
 	BOOL voice_enabled;
@@ -185,7 +178,6 @@ void LLPanelLandAudio::onCommitAny(LLUICtrl*, void *userdata)
 	parcel->setParcelFlag(PF_USE_ESTATE_VOICE_CHAN, voice_estate_chan);
 	parcel->setParcelFlag(PF_SOUND_LOCAL, sound_local);
 	parcel->setMusicURL(music_url);
-	parcel->setObscureMusic(obscure_music);
 
 	// Send current parcel data upstream to server
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );

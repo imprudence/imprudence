@@ -172,7 +172,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 		{
 			// Set the tooltip
 			// Put this text into xui file
-			media_url = parcel->getObscureMedia() ? mControls->getString("media_hidden_label") : parcel->getMediaURL();
+			media_url = parcel->getMediaURL();
 			media_type = parcel->getMediaType();
 
 			play_media_enabled = true;

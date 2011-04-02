@@ -431,6 +431,17 @@
 			media_plugin_gstreamer
 		</impl>
 	</mimetype>
+	<mimetype name="video/x-m4v">
+		<label name="video/m4v_label">
+			Movie (M4V)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			media_plugin_gstreamer
+		</impl>
+	</mimetype>
 	<mimetype menu="1" name="video/quicktime">
 		<label name="video/quicktime_label">
 			Movie (QuickTime)

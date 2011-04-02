@@ -80,9 +80,7 @@ LLPanelLandMedia::LLPanelLandMedia(LLParcelSelectionHandle& parcel)
 	mMediaSizeCtrlLabel(NULL),
 	mMediaTextureCtrl(NULL),
 	mMediaAutoScaleCheck(NULL),
-	mMediaLoopCheck(NULL),
-	mMediaUrlCheck(NULL),
-	mMusicUrlCheck(NULL)
+	mMediaLoopCheck(NULL)
 {
 }
 
@@ -131,12 +129,6 @@ BOOL LLPanelLandMedia::postBuild()
 
 	mMediaLoopCheck = getChild<LLCheckBoxCtrl>("media_loop");
 	childSetCommitCallback("media_loop", onCommitAny, this);
-
-	mMediaUrlCheck = getChild<LLCheckBoxCtrl>("hide_media_url");
-	childSetCommitCallback("hide_media_url", onCommitAny, this);
-
-	mMusicUrlCheck = getChild<LLCheckBoxCtrl>("hide_music_url");
-	childSetCommitCallback("hide_music_url", onCommitAny, this);
 
 	mMediaURLEdit = getChild<LLLineEditor>("media_url");
 	childSetCommitCallback("media_url", onCommitAny, this);
@@ -242,30 +234,6 @@ void LLPanelLandMedia::refresh()
 		setMediaType(mime_type);
 		mMediaTypeCombo->setEnabled( can_change_media );
 		childSetText("mime_type", mime_type);
-
-		mMediaUrlCheck->set( parcel->getObscureMedia() );
-		mMediaUrlCheck->setEnabled( can_change_media );
-
-		mMusicUrlCheck->set( parcel->getObscureMusic() );
-		mMusicUrlCheck->setEnabled( can_change_media );
-
-		// don't display urls if you're not able to change it
-		// much requested change in forums so people can't 'steal' urls
-		// NOTE: bug#2009 means this is still vunerable - however, bug
-		// should be closed since this bug opens up major security issues elsewhere.
-		bool obscure_media = ! can_change_media && parcel->getObscureMedia();
-		bool obscure_music = ! can_change_media && parcel->getObscureMusic();
-
-		// Special code to disable asterixes for html type
-		if(mime_type == "text/html")
-		{
-			obscure_media = false;
-			mMediaUrlCheck->set( 0 );
-			mMediaUrlCheck->setEnabled( false );
-		}
-
-		mMusicURLEdit->setDrawAsterixes( obscure_music );
-		mMediaURLEdit->setDrawAsterixes( obscure_media );
 
 		mMediaAutoScaleCheck->set( parcel->getMediaAutoScale () );
 		mMediaAutoScaleCheck->setEnabled ( can_change_media );
@@ -413,8 +381,6 @@ void LLPanelLandMedia::onCommitAny(LLUICtrl*, void *userdata)
 	std::string mime_type	= self->childGetText("mime_type");
 	U8 media_auto_scale		= self->mMediaAutoScaleCheck->get();
 	U8 media_loop           = self->mMediaLoopCheck->get();
-	U8 obscure_media		= self->mMediaUrlCheck->get();
-	U8 obscure_music		= self->mMusicUrlCheck->get();
 	S32 media_width			= (S32)self->mMediaWidthCtrl->get();
 	S32 media_height		= (S32)self->mMediaHeightCtrl->get();
 	LLUUID media_id			= self->mMediaTextureCtrl->getImageAssetID();
@@ -441,8 +407,6 @@ void LLPanelLandMedia::onCommitAny(LLUICtrl*, void *userdata)
 	parcel->setMediaID(media_id);
 	parcel->setMediaAutoScale ( media_auto_scale );
 	parcel->setMediaLoop ( media_loop );
-	parcel->setObscureMedia( obscure_media );
-	parcel->setObscureMusic( obscure_music );
 
 	// Send current parcel data upstream to server
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );

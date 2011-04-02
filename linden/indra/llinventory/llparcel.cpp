@@ -195,8 +195,6 @@ void LLParcel::init(const LLUUID &owner_id,
 	mMediaID.setNull();
 	mMediaAutoScale = 0;
 	mMediaLoop = TRUE;
-	mObscureMedia = 1;
-	mObscureMusic = 1;
 	mMediaWidth = 0;
 	mMediaHeight = 0;
 	setMediaCurrentURL(LLStringUtil::null);
@@ -691,8 +689,8 @@ void LLParcel::packMessage(LLSD& msg)
 	msg["auto_scale"] = getMediaAutoScale();
 	msg["media_loop"] = getMediaLoop();
 	msg["media_current_url"] = getMediaCurrentURL();
-	msg["obscure_media"] = getObscureMedia();
-	msg["obscure_music"] = getObscureMusic();
+	msg["obscure_media"] = FALSE; // OBSOLETE - no longer used
+	msg["obscure_music"] = FALSE; // OBSOLETE - no longer used
 	msg["media_id"] = getMediaID();
 	msg["media_allow_navigate"] = getMediaAllowNavigate();
 	msg["media_prevent_camera_zoom"] = getMediaPreventCameraZoom();
@@ -757,8 +755,6 @@ void LLParcel::unpackMessage(LLMessageSystem* msg)
 		msg->getS32("MediaData", "MediaWidth", mMediaWidth);
 		msg->getS32("MediaData", "MediaHeight", mMediaHeight);
 		msg->getU8 ( "MediaData", "MediaLoop", mMediaLoop );
-		msg->getU8 ( "MediaData", "ObscureMedia", mObscureMedia );
-		msg->getU8 ( "MediaData", "ObscureMusic", mObscureMusic );
 	}
 	else
 	{
@@ -766,8 +762,6 @@ void LLParcel::unpackMessage(LLMessageSystem* msg)
 						// thats what we want -- AW
 		setMediaDesc(std::string("No Description available without Server Upgrade"));
 		mMediaLoop = true;
-		mObscureMedia = true;
-		mObscureMusic = true;
 	}
 
 	if(msg->getNumberOfBlocks("MediaLinkSharing") > 0)
@@ -1233,8 +1227,6 @@ void LLParcel::clearParcel()
     setMediaDesc(LLStringUtil::null);
 	setMediaAutoScale(0);
 	setMediaLoop(TRUE);
-	mObscureMedia = 1;
-	mObscureMusic = 1;
 	mMediaWidth = 0;
 	mMediaHeight = 0;
 	setMediaCurrentURL(LLStringUtil::null);

@@ -7343,11 +7343,15 @@ The Second Life Terms of Service do not allow you to opt out. By logging in to S
    icon="alert.tga"
    name="MediaAlert"
    type="alert">
-The owner of this parcel has requested [TYPE] URL pertaining to the following domain or scripted object to be loaded by your viewer[WARNING]:
+The owner of this parcel has requested the following [TYPE] URL to be loaded by your viewer:
+
+[URL]
+
+You may choose to allow or deny the corresponding domain or in-world scripted object server:
 
 [DOMAIN]
 
-"Allow" and "Deny" apply only for this session, while "Blacklist" and "Whitelist" apply forever to the above domain or scripted object.
+"Allow" and "Deny" apply only for this session, while "Blacklist" and "Whitelist" apply forever.
    <form name="form">
     <button
 	 index="0"
