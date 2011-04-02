@@ -1084,7 +1084,8 @@ bool LLPanelLogin::convertUsernameToLegacy(std::string& username, std::string& f
 	}
 
 	std::vector<std::string> names;
-	boost::algorithm::split(names, username, boost::is_any_of(" ."));
+	boost::algorithm::split(names, username,
+	                        boost::is_any_of(std::string(" .")));
 
 	// maybe they typed in a few too many spaces?
 	if (names.size() > 2)
