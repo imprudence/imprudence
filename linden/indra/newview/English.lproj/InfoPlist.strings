@@ -1,5 +1,5 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "Imprudence";
-CFBundleShortVersionString = "Imprudence Experimental 2010.09.04";
-CFBundleGetInfoString = "Imprudence Experimental 2010.09.04";
+CFBundleShortVersionString = "Imprudence Experimental 2011.04.02";
+CFBundleGetInfoString = "Imprudence Experimental 2011.04.02";

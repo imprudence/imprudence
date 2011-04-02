@@ -156,11 +156,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Imprudence Viewer Project"
             VALUE "FileDescription", "Imprudence Experimental"
-            VALUE "FileVersion", "2010.09.04"
+            VALUE "FileVersion", "2011.04.02"
             VALUE "InternalName", "Imprudence Experimental"
             VALUE "OriginalFilename", "Imprudence.exe"
-            VALUE "ProductName", "Imprudence Weekly"
-            VALUE "ProductVersion", "2010.09.04"
+            VALUE "ProductName", "Imprudence Experimental"
+            VALUE "ProductVersion", "2011.04.02"
         END
     END
     BLOCK "VarFileInfo"
