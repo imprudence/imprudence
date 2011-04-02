@@ -422,7 +422,8 @@ const std::string LLFONT_ID_NAMES[] =
 	std::string("OCRA"),
 	std::string("SANSSERIF"),
 	std::string("SANSSERIF_SMALL"),
-	std::string("SANSSERIF_BIG"),
+	std::string("SANSSERIF_BIGGER"),
+	std::string("SANSSERIF_LARGE"),
 	std::string("SMALL"),
 };
 
