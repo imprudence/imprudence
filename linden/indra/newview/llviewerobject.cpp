@@ -4581,7 +4581,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 bool LLViewerObject::setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin)
 {
 	ExtraParameter* param = getExtraParameterEntryCreate(param_type);
-	if (param->in_use != in_use)
+	if (param && param->in_use != in_use)
 	{
 		param->in_use = in_use;
 		parameterChanged(param_type, param->data, in_use, local_origin);
