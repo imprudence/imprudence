@@ -802,8 +802,8 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		}
 
 		const LLTextureEntry* tep = object->getTE(mPick.mObjectFace);
-		viewer_media_t media_impl = LLViewerMedia::getMediaImplFromTextureID(tep->getID());
-		if (tep && media_impl.notNull() && media_impl->hasMedia())
+		viewer_media_t media_impl = tep ? LLViewerMedia::getMediaImplFromTextureID(tep->getID()) : NULL;
+		if (media_impl.notNull() && media_impl->hasMedia())
 		{
 			LL_DEBUGS("DoubleClicks") << "Double clicked running parcel media" << LL_ENDL;
 			return FALSE;
