@@ -76,6 +76,75 @@ extern int errno;
 static const S32 CPUINFO_BUFFER_SIZE = 16383;
 LLCPUInfo gSysCPU;
 
+#if LL_WINDOWS
+#ifndef DLLVERSIONINFO
+typedef struct _DllVersionInfo
+{
+    DWORD cbSize;
+    DWORD dwMajorVersion;
+    DWORD dwMinorVersion;
+    DWORD dwBuildNumber;
+    DWORD dwPlatformID;
+}DLLVERSIONINFO;
+#endif
+
+#ifndef DLLGETVERSIONPROC
+typedef int (FAR WINAPI *DLLGETVERSIONPROC) (DLLVERSIONINFO *);
+#endif
+
+bool get_shell32_dll_version(DWORD& major, DWORD& minor, DWORD& build_number)
+{
+	bool result = false;
+	const U32 BUFF_SIZE = 32767;
+	WCHAR tempBuf[BUFF_SIZE];
+	if(GetSystemDirectory((LPWSTR)&tempBuf, BUFF_SIZE))
+	{
+		
+		std::basic_string<WCHAR> shell32_path(tempBuf);
+
+		// Shell32.dll contains the DLLGetVersion function. 
+		// according to msdn its not part of the API
+		// so you have to go in and get it.
+		// http://msdn.microsoft.com/en-us/library/bb776404(VS.85).aspx
+		shell32_path += TEXT("\\shell32.dll");
+
+		HMODULE hDllInst = LoadLibrary(shell32_path.c_str());   //load the DLL
+		if(hDllInst) 
+		{  // Could successfully load the DLL
+			DLLGETVERSIONPROC pDllGetVersion;
+			/*
+			You must get this function explicitly because earlier versions of the DLL
+			don't implement this function. That makes the lack of implementation of the
+			function a version marker in itself.
+			*/
+			pDllGetVersion = (DLLGETVERSIONPROC) GetProcAddress(hDllInst, 
+																"DllGetVersion");
+
+			if(pDllGetVersion) 
+			{    
+				// DLL supports version retrieval function
+				DLLVERSIONINFO    dvi;
+
+				ZeroMemory(&dvi, sizeof(dvi));
+				dvi.cbSize = sizeof(dvi);
+				HRESULT hr = (*pDllGetVersion)(&dvi);
+
+				if(SUCCEEDED(hr)) 
+				{ // Finally, the version is at our hands
+					major = dvi.dwMajorVersion;
+					minor = dvi.dwMinorVersion;
+					build_number = dvi.dwBuildNumber;
+					result = true;
+				} 
+			} 
+
+			FreeLibrary(hDllInst);  // Release DLL
+		} 
+	}
+	return result;
+}
+#endif // LL_WINDOWS
+
 LLOSInfo::LLOSInfo() :
 	mMajorVer(0), mMinorVer(0), mBuild(0)
 {
@@ -97,6 +166,11 @@ LLOSInfo::LLOSInfo() :
 	mMajorVer = osvi.dwMajorVersion;
 	mMinorVer = osvi.dwMinorVersion;
 	mBuild = osvi.dwBuildNumber;
+
+	DWORD shell32_major, shell32_minor, shell32_build;
+	bool got_shell32_version = get_shell32_dll_version(shell32_major, 
+													   shell32_minor, 
+													   shell32_build);
 
 	switch(osvi.dwPlatformId)
 	{
@@ -146,8 +220,8 @@ LLOSInfo::LLOSInfo() :
 				pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")),  "GetNativeSystemInfo"); //load kernel32 get function
 				if(NULL != pGNSI) //check if it has failed
 					pGNSI(&si); //success
-				else
-					GetSystemInfo(&si); //if it fails get regular system info
+				else 
+					GetSystemInfo(&si); //if it fails get regular system info 
 				//(Warning: If GetSystemInfo it may result in incorrect information in a WOW64 machine, if the kernel fails to load)
 
 				//msdn microsoft finds 32 bit and 64 bit flavors this way..
@@ -206,6 +280,7 @@ LLOSInfo::LLOSInfo() :
 								  csdversion.c_str(),
 								  (osvi.dwBuildNumber & 0xffff));
 			}
+
 			mOSString = mOSStringSimple + tmpstr;
 		}
 		break;
@@ -235,6 +310,21 @@ LLOSInfo::LLOSInfo() :
 		mOSString = mOSStringSimple;
 		break;
 	}
+
+	std::string compatibility_mode;
+	if(got_shell32_version)
+	{
+		if(osvi.dwMajorVersion != shell32_major 
+			|| osvi.dwMinorVersion != shell32_minor)
+		{
+			compatibility_mode = llformat(" compatibility mode. real ver: %d.%d (Build %d)", 
+											shell32_major,
+											shell32_minor,
+											shell32_build);
+		}
+	}
+	mOSString += compatibility_mode;
+
 #else
 	struct utsname un;
 	if(uname(&un) != -1)
@@ -262,8 +352,8 @@ LLOSInfo::LLOSInfo() :
 		else if (ostype == "Linux")
 		{
 			// Only care about major and minor Linux versions, truncate at second '.'
-			S32 idx1 = mOSStringSimple.find_first_of(".", 0);
-			S32 idx2 = (idx1 != std::string::npos) ? mOSStringSimple.find_first_of(".", idx1+1) : std::string::npos;
+			std::string::size_type idx1 = mOSStringSimple.find_first_of(".", 0);
+			std::string::size_type idx2 = (idx1 != std::string::npos) ? mOSStringSimple.find_first_of(".", idx1+1) : std::string::npos;
 			std::string simple = mOSStringSimple.substr(0, idx2);
 			if (simple.length() > 0)
 				mOSStringSimple = simple;
@@ -429,7 +519,7 @@ LLCPUInfo::LLCPUInfo()
 	mHasSSE = info->_Ext.SSE_StreamingSIMD_Extensions;
 	mHasSSE2 = info->_Ext.SSE2_StreamingSIMD2_Extensions;
 	mHasAltivec = info->_Ext.Altivec_Extensions;
-	mCPUMhz = (S32)(proc.GetCPUFrequency(50)/1000000.0);
+	mCPUMhz = (F64)(proc.GetCPUFrequency(50)/1000000.0);
 	mFamily.assign( info->strFamily );
 	mCPUString = "Unknown";
 
@@ -482,7 +572,7 @@ LLCPUInfo::LLCPUInfo()
 	if (LLStringUtil::convertToF64(cpuinfo["cpu mhz"], mhz)
 	    && 200.0 < mhz && mhz < 10000.0)
 	{
-		mCPUMhz = (S32)llrint(mhz);
+		mCPUMhz = (F64)llrint(mhz);
 	}
 	if (!cpuinfo["model name"].empty())
 		mCPUString = cpuinfo["model name"];
@@ -505,7 +595,7 @@ bool LLCPUInfo::hasSSE2() const
 	return mHasSSE2;
 }
 
-S32 LLCPUInfo::getMhz() const
+F64 LLCPUInfo::getMhz() const
 {
 	return mCPUMhz;
 }
@@ -629,6 +719,26 @@ U32 LLMemoryInfo::getPhysicalMemoryClamped() const
 	{
 		return phys_kb << 10;
 	}
+}
+
+//static
+void LLMemoryInfo::getAvailableMemoryKB(U32& avail_physical_mem_kb, U32& avail_virtual_mem_kb)
+{
+#if LL_WINDOWS
+	MEMORYSTATUSEX state;
+	state.dwLength = sizeof(state);
+	GlobalMemoryStatusEx(&state);
+
+	avail_physical_mem_kb = (U32)(state.ullAvailPhys/1024) ;
+	avail_virtual_mem_kb = (U32)(state.ullAvailVirtual/1024) ;
+
+#else
+	//do not know how to collect available memory info for other systems.
+	//leave it blank here for now.
+
+	avail_physical_mem_kb = -1 ;
+	avail_virtual_mem_kb = -1 ;
+#endif
 }
 
 void LLMemoryInfo::stream(std::ostream& s) const
