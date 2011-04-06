@@ -50,7 +50,8 @@ std::string ll_safe_string(const char* in)
 
 std::string ll_safe_string(const char* in, S32 maxlen)
 {
-	if(in) return std::string(in, maxlen);
+//KOKUA FIXME:  Which wormhole all the antistrings (strings with negative length) come from ?
+	if(in && maxlen > 0) return std::string(in, maxlen);
 	return std::string();
 }
 
