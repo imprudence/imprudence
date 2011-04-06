@@ -162,7 +162,7 @@ LLViewerJoystick::LLViewerJoystick()
 	memset(mBtn, 0, sizeof(mBtn));
 
 	// factor in bandwidth? bandwidth = gViewerStats->mKBitStat
-	mPerfScale = 4000.f / gSysCPU.getMhz();
+	mPerfScale = 4000.f / gSysCPU.getMHz();
 }
 
 // -----------------------------------------------------------------------------

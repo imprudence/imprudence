@@ -617,7 +617,7 @@ void LLFeatureManager::applyBaseMasks()
 #error The 800 is hinky. Would something like a LL_MIN_MHZ make more sense here?
 	if (gSysCPU.getMhz() < 800)
 #else
-	if (gSysCPU.getMhz() < 1100)
+	if (gSysCPU.getMHz() < 1100)
 #endif
 	{
 		maskFeatures("CPUSlow");
