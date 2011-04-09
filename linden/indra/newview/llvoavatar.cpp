@@ -1038,6 +1038,7 @@ LLVOAvatar::~LLVOAvatar()
 		LL_DEBUGS("VOAvatar") << "Destructing Zombie from previous session." << LL_ENDL;	
 	}
 
+
 	mRoot.removeAllChildren();
 
 	delete [] mSkeleton;
@@ -1493,6 +1494,8 @@ void LLVOAvatar::cleanupClass()
 }
 
 LLPartSysData LLVOAvatar::sCloud;
+bool LLVOAvatar::sHasCloud = false;
+
 void LLVOAvatar::initCloud()
 {
 	// fancy particle cloud designed by Brent
@@ -1506,12 +1509,43 @@ void LLVOAvatar::initCloud()
 		filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
 	}
 
+	loadCloud(filename, sCloud);
+	sHasCloud = true;
+}
+
+
+void LLVOAvatar::loadCloud(const std::string& filename,  LLPartSysData& particles)
+{
 	LLSD cloud;
 	llifstream in_file(filename);
 	LLSDSerialize::fromXMLDocument(cloud, in_file);
-	sCloud.fromLLSD(cloud);
-	LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
-	sCloud.mPartImageID                 = cloud_image->getID();
+
+	particles.fromLLSD(cloud);
+	if(particles.mPartImageID.isNull())
+	{
+		LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
+		particles.mPartImageID                 = cloud_image->getID();
+	}
+}
+
+
+void LLVOAvatar::saveCloud(const std::string& filename,  LLPartSysData& particles)
+{
+	llofstream out(filename);
+	if (!out.good())
+	{
+		llwarns << "Unable to open " << filename << " for output." << llendl;
+		return;
+	}
+	LLSDSerialize::toXML(particles.asLLSD(), out);
+	out.close();
+
+	// Imprudence: actually we could export any particle system with this,
+	// though we don't have a clue about its creator (could be from a no mod script) :(
+	// This  is probably also not ok to export on open sim grids,
+	// unless theiy either add a creator property to particle  systems
+	// or their terms of service make sure this sort of content is free and open.
+	// Saving only the cloud for now, which only exists client side.
 
 }
 

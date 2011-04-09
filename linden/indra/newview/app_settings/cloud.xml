@@ -49,8 +49,9 @@
     <key>ParticleMaxAge</key><!-- how long a single particle can live with 0 forever -->
         <real>4</real>
 
-    <key>PartImageID</key> <!--This setting is ignored for the cloud, used instead for now is the hardcoded -->
-        <string>0000000000000-0000-0000-000000000000</string><!-- skins/default/textures/cloud-particle.j2c -->
+    <key>PartImageID</key> 
+        <!--if this is a NULL UUID the hardcoded skins/default/textures/cloud-particle.j2c is used-->
+        <string>0000000000000-0000-0000-000000000000</string>
 
     <key>StartColor</key><!-- RGBA -->
         <array>

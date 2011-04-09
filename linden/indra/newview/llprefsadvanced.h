@@ -33,6 +33,7 @@
 
 #include "llpanel.h"
 #include "llviewerinventory.h"
+class LLColor4;
 
 class LLPrefsAdvanced : public LLPanel
 {
@@ -45,7 +46,7 @@ public:
 	void apply();
 	void cancel();
 	void refresh();
-
+	void draw();
 private:
 	static LLPrefsAdvanced* sInstance;
 
@@ -58,12 +59,21 @@ private:
 	static void onSpellEditCustom(void* data);
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
 	static void onAutoCorrectButton(void * data);
+	static void onSaveThisCloudButton(void * data);
+	static void onSaveAnyoneCloudButton(void * data);
 
 	LLColor4 mClientTagColor;
 
 protected:
+	void setParticleControls(bool is_logged_in);
 	void initHelpBtn(const std::string& name, const std::string& xml_alert);
 	static void onClickHelp(void* data);
+
+private:
+	bool mWasLoggedIn;
+	LLColor4 mCloudStartColor;
+	LLColor4 mCloudEndColor;
+	LLUUID mCloudTextureID;
 };
 
 #endif // LLPREFSADVANCED_H

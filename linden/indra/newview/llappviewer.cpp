@@ -4203,6 +4203,11 @@ void LLAppViewer::disconnectViewer()
 
 	saveNameCache();
 
+	{
+		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "cloud.xml");
+		LLVOAvatar::saveCloud(filename, LLVOAvatar::sCloud);
+	}
+
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();
 	// Don't cleanup menus on disconnect in order to avoid crashes -- MC
