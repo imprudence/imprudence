@@ -194,7 +194,12 @@ To use spellcheck, right-click a misspelled word
 		mouse_opaque="true" name="must_be_logged_in_textbox" v_pad="0" width="394">
 		You must be logged in to change this
 	</text>
+	<check_box bottom_delta="-4" control_name="PreviewAvatarAsCloud" enabled="true"
+             follows="left|top" font="SansSerifSmall" height="16"
+             label="Preview avatar as cloud" left="10"
+             mouse_opaque="true" name="preview_cloud"
+             radio_style="false" tool_tip="Preview avatar as cloud when already rezzed"
+             width="80" />
     </panel>
-
   </tab_container>
 </panel>

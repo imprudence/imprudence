@@ -1521,10 +1521,12 @@ void LLVOAvatar::loadCloud(const std::string& filename,  LLPartSysData& particle
 	LLSDSerialize::fromXMLDocument(cloud, in_file);
 
 	particles.fromLLSD(cloud);
-	if(particles.mPartImageID.isNull())
+	const LLUUID default_id = DEFAULT_UNREZZED_AVATAR_PARTICLE;
+	if(particles.mPartImageID.isNull() || default_id == particles.mPartImageID)
 	{
-		LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
-		particles.mPartImageID                 = cloud_image->getID();
+		LLViewerImage* cloud_image =
+		 	gImageList.getImageFromFile("cloud-particle.j2c", MIPMAP_YES, IMMEDIATE_YES, 0, 0, default_id);
+		particles.mPartImageID = default_id;
 	}
 }
 
@@ -7431,6 +7433,7 @@ BOOL LLVOAvatar::isVisible()
 // returns true if the value has changed.
 BOOL LLVOAvatar::updateIsFullyLoaded()
 {
+
     // a "heuristic" to determine if we have enough avatar data to render
     // (to avoid rendering a "Ruth" - DEV-3168)
 
@@ -7510,11 +7513,19 @@ BOOL LLVOAvatar::updateIsFullyLoaded()
 
 BOOL LLVOAvatar::isFullyLoaded()
 {
+	static BOOL* sPreviewAvatarCloud = rebind_llcontrol<BOOL>("PreviewAvatarAsCloud", &gSavedSettings, true);
 	static BOOL* sRenderUnloadedAvatar = rebind_llcontrol<BOOL>("RenderUnloadedAvatar", &gSavedSettings, true);
-	if (*sRenderUnloadedAvatar)
-		return TRUE;
-	else
-		return mFullyLoaded;
+
+	if(*sPreviewAvatarCloud && mIsSelf)
+	{
+		return FALSE;
+	}
+	else if (*sRenderUnloadedAvatar)
+	{
+		 return TRUE;
+	}
+
+	return mFullyLoaded;
 }
 
 

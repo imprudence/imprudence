@@ -119,7 +119,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
 
-
+	getChild<LLButton>("reset_cloud_this_account")->setClickedCallback(onResetThisCloudButton,this);
 	getChild<LLButton>("save_cloud_this_account")->setClickedCallback(onSaveThisCloudButton,this);
 	getChild<LLButton>("save_cloud_any_account")->setClickedCallback(onSaveAnyoneCloudButton,this);
 
@@ -214,8 +214,11 @@ void LLPrefsAdvanced::apply()
 
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
-
-	onSaveThisCloudButton(NULL);
+	
+	if (LLStartUp::isLoggedIn() && LLVOAvatar::sHasCloud)
+	{
+		onSaveThisCloudButton(NULL);
+	}
 }
 
 void LLPrefsAdvanced::cancel()
@@ -344,13 +347,15 @@ void LLPrefsAdvanced::draw()
 
 void LLPrefsAdvanced::setParticleControls(bool is_logged_in)
 {
-
+	childSetEnabled("reset_cloud_this_account", is_logged_in );
 	childSetEnabled("save_cloud_this_account", is_logged_in);
 	childSetEnabled("save_cloud_any_account", is_logged_in);
 	childSetEnabled("part_start_color_swatch", is_logged_in);
 	childSetEnabled("part_end_color_swatch", is_logged_in);
 	childSetEnabled("part_texture_picker", is_logged_in );
 
+	childSetEnabled("preview_cloud", is_logged_in);
+	childSetVisible("preview_cloud", is_logged_in);
 	childSetVisible("must_be_logged_in_textbox", !is_logged_in);
 }
 
@@ -417,6 +422,25 @@ void LLPrefsAdvanced::onClickCommandLine(void* data)
 {
 	FloaterCommandLine::getInstance()->open();
 	FloaterCommandLine::getInstance()->center();
+}
+
+void LLPrefsAdvanced::onResetThisCloudButton(void * data)
+{
+	LLPrefsAdvanced* self = (LLPrefsAdvanced*)data;
+	if (!self)
+	{
+		return;
+	}
+
+	// keep draw() from overriding the cloud with the values from the UI
+	LLVOAvatar::sHasCloud = false; 
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	LLVOAvatar::loadCloud(filename, LLVOAvatar::sCloud);
+
+	// tell draw() to override values from the UI with the data from the new cloud
+	self-> mWasLoggedIn = !(LLStartUp::isLoggedIn());
+
+	LLVOAvatar::sHasCloud = true;
 }
 
 void LLPrefsAdvanced::onSaveThisCloudButton(void * data)

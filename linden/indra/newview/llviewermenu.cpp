@@ -10724,19 +10724,6 @@ class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
 	}
 };
 
-///////////////////////////////////
-// Reload Avatar Cloud Particles //
-///////////////////////////////////
-
-
-class LLAdvancedReloadAvatarCloudParticle : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOAvatar::initCloud();
-		return true;
-	}
-};
 
 ///////////
 // Crash //
@@ -11526,7 +11513,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
-	addMenu(new LLAdvancedReloadAvatarCloudParticle(), "Advanced.ReloadAvatarCloudParticle");
 
 	// Advanced > Crash
 	addMenu(new LLAdvancedCrash(), "Advanced.Crash");

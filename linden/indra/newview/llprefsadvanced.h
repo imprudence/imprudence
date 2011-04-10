@@ -59,6 +59,7 @@ private:
 	static void onSpellEditCustom(void* data);
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
 	static void onAutoCorrectButton(void * data);
+	static void onResetThisCloudButton(void * data);
 	static void onSaveThisCloudButton(void * data);
 	static void onSaveAnyoneCloudButton(void * data);
 
