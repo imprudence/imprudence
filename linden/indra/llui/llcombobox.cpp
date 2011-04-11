@@ -591,6 +591,13 @@ void LLComboBox::updateLayout()
 	}
 }
 
+
+void LLComboBox::getAllData(std::vector<LLScrollListItem*>& item_list) const
+{
+	item_list = mList->getAllData();
+}
+
+
 void* LLComboBox::getCurrentUserdata()
 {
 	LLScrollListItem* item = mList->getFirstSelected();

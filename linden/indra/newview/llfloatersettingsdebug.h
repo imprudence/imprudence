@@ -37,6 +37,9 @@
 #include "llfloater.h"
 #include "lltexteditor.h"
 
+class LLComboBox;
+class LLScrollListItem;
+
 class LLFloaterSettingsDebug : public LLFloater
 {
 public:
@@ -56,6 +59,12 @@ public:
 protected:
 	static LLFloaterSettingsDebug* sInstance;
 	LLTextEditor* mComment;
+
+private:
+	LLComboBox* mComboNames;
+	std::vector<LLScrollListItem*> mSettingsNames;
+
+	static void onSearchEdit(const std::string& search_string, void* user_data);
 };
 
 #endif //LLFLOATERDEBUGSETTINGS_H
