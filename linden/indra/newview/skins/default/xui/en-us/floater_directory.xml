@@ -726,6 +726,10 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
 	</tab_container>
+  <check_box name="save_results_check" label="Save search results"
+       bottom="-37" right="-80"  height="16" width="80"
+       follows="right|top" font="SansSerifSmall" control_name="SaveSearchResults"
+       initial_value="false" mouse_opaque="true" />
 	<panel bottom="-580" follows="right|top" height="490" left="340"
 	     name="classified_details_panel" width="440" />
 	<panel bottom="-580" follows="right|top" height="506" left="350" name="Panel Avatar"

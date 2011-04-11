@@ -957,6 +957,17 @@
     <key>Value</key>
     <real>0.0</real>
   </map>
+  <key>SaveSearchResults</key>
+  <map>
+    <key>Comment</key>
+    <string>Saves search results when closing search window rather than clearing resources</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>ShowLookAtNames</key>
   <map>
     <key>Comment</key>
