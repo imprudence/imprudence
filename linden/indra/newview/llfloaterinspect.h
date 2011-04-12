@@ -75,7 +75,7 @@ private:
 	static LLFloaterInspect* sInstance;
 
 	LLSafeHandle<LLObjectSelection> mObjectSelection;
-	std::map<LLUUID, std::pair<S32, S32> > mInventoryNums; //<scripts, total>
+	std::map<LLUUID, std::pair<S32, S32>> mInventoryNums; //<scripts, total>
 	std::vector<LLUUID> mQueue;
 };
 

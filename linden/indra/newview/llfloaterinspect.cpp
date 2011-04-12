@@ -288,7 +288,7 @@ void LLFloaterInspect::refresh()
 		row["columns"][0]["type"] = "text";
 		// make sure we're either at the top of the link chain
 		// or top of the editable chain, for attachments
-		if(!(obj->getObject()->isRoot() || obj->getObject()->isRootEdit()))
+		if (!(obj->getObject()->isRoot() || obj->getObject()->isRootEdit()))
 		{
 			row["columns"][0]["value"] = std::string("   ") + obj->mName;
 		}
@@ -296,7 +296,7 @@ void LLFloaterInspect::refresh()
 		{
 			row["columns"][0]["value"] = obj->mName;
 		}
-		int i = 1;
+		S32 i = 1;
 		row["columns"][i]["column"] = "owner_name";
 		row["columns"][i]["type"] = "text";
 		row["columns"][i]["value"] = owner_name;
@@ -318,23 +318,19 @@ void LLFloaterInspect::refresh()
 		row["columns"][i]["value"] = llformat("%d", obj->getObject()->getNumVertices());
 		++i;
 		// inventory silliness
-		S32 scripts,total_inv;
-		std::map<LLUUID, std::pair<S32,S32> >::iterator itr = mInventoryNums.find(obj->getObject()->getID());
+		S32 scripts = 0;
+		S32 total_inv = 0;
+		std::map<LLUUID, std::pair<S32, S32>>::iterator itr = mInventoryNums.find(obj->getObject()->getID());
 		if (itr != mInventoryNums.end())
 		{
 			scripts = itr->second.first;
 			total_inv = itr->second.second;
 		}
-		else
+		else if (std::find(mQueue.begin(), mQueue.end(), obj->getObject()->getID()) == mQueue.end())
 		{
-			scripts = 0;
-			total_inv = 0;
-			if (std::find(mQueue.begin(), mQueue.end(), obj->getObject()->getID()) == mQueue.end())
-			{
-				mQueue.push_back(obj->getObject()->getID());
-				registerVOInventoryListener(obj->getObject(), NULL);
-				requestVOInventory();
-			}
+			mQueue.push_back(obj->getObject()->getID());
+			registerVOInventoryListener(obj->getObject(), NULL);
+			requestVOInventory();
 		}
 		row["columns"][i]["column"] = "script_num";
 		row["columns"][i]["type"] = "text";
@@ -349,7 +345,7 @@ void LLFloaterInspect::refresh()
 		row["columns"][i]["value"] = time;
 		mObjectList->addElement(row, ADD_TOP);
 	}
-	if(selected_index > -1 && mObjectList->getItemIndex(selected_uuid) == selected_index)
+	if (selected_index > -1 && mObjectList->getItemIndex(selected_uuid) == selected_index)
 	{
 		mObjectList->selectNthItem(selected_index);
 	}
@@ -366,22 +362,28 @@ void LLFloaterInspect::inventoryChanged(LLViewerObject* viewer_object,
 											 S32,
 											 void* q_id)
 {
-	S32 scripts = 0;
-	std::vector<LLUUID>::iterator iter = std::find(mQueue.begin(), mQueue.end(), viewer_object->getID());
-	if (viewer_object && inv && iter != mQueue.end() )
+	if (viewer_object && inv && !mQueue.empty())
 	{
-		InventoryObjectList::const_iterator it = inv->begin();
-		InventoryObjectList::const_iterator end = inv->end();
-		for ( ; it != end; ++it)
+		std::vector<LLUUID>::iterator vIt = std::find(mQueue.begin(), mQueue.end(), viewer_object->getID());
+		if (vIt != mQueue.end() )
 		{
-			if ((*it)->getType() == LLAssetType::AT_LSL_TEXT)
+			S32 scripts = 0;
+			S32 inv_size = (inv->empty()) ? 0 : inv->size();
+
+			InventoryObjectList::const_iterator it = inv->begin();
+			InventoryObjectList::const_iterator end = inv->end();
+			for ( ; it != end; ++it)
 			{
-				scripts++;
+				if ((*it)->getType() == LLAssetType::AT_LSL_TEXT)
+				{
+					scripts++;
+				}
 			}
+			
+			mInventoryNums[viewer_object->getID()] = std::make_pair(scripts, inv_size);
+			mQueue.erase(vIt);
+			mDirty = TRUE;
 		}
-		mInventoryNums[viewer_object->getID()] = std::make_pair(scripts, inv->size());
-		mQueue.erase(iter);
-		mDirty = TRUE;
 	}
 }
 
