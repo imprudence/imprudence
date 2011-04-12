@@ -149,6 +149,18 @@ LLMenuItemGL::LLMenuItemGL( const std::string& name, const std::string& label, K
 	setLabel( label );
 }
 
+LLMenuItemGL::~LLMenuItemGL() {
+
+  // Delete all the entries in the mFutureCallbackRequests vector
+  for(std::vector<LLCallbackInformation*>::iterator iter= mFutureCallbackRequests.begin();
+      iter!=mFutureCallbackRequests.end();
+      ++iter) {
+    delete (*iter);
+  }
+
+}
+
+
 // virtual
 LLXMLNodePtr LLMenuItemGL::getXML(bool save_children) const
 {
@@ -517,6 +529,18 @@ BOOL LLMenuItemGL::setLabelArg( const std::string& key, const LLStringExplicit& 
 	return TRUE;
 }
 
+
+void LLMenuItemGL::addCallbackType(U8 theType,
+				       const std::string& name,
+				       const std::string& userdata) {
+
+  // Add the new callback information to the list of callbacks that are being tracked.
+  mFutureCallbackRequests.push_back(new LLCallbackInformation(theType,name,userdata));
+
+}
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLMenuItemSeparatorGL
 //
@@ -541,6 +565,12 @@ public:
 	virtual BOOL handleHover(S32 x, S32 y, MASK mask);
 
 	virtual U32 getNominalHeight( void ) const { return SEPARATOR_HEIGHT_PIXELS; }
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+				     const std::string& name,
+				     void* user_data,
+				     void *callback_fcn) { return FALSE; } ;
+
 };
 
 LLMenuItemSeparatorGL::LLMenuItemSeparatorGL( const std::string &name ) :
@@ -726,6 +756,11 @@ public:
 	}
 	virtual void doIt( void ) {}
 	virtual void draw( void ) {}
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+				     const std::string& name,
+				     void* user_data,
+				     void *callback_fcn) { return FALSE; } ;
+
 };
 
 
@@ -804,6 +839,8 @@ LLMenuItemCallGL::LLMenuItemCallGL(const std::string& name,
 {
 	if(!enabled) setEnabled(FALSE);
 }
+
+
 
 void LLMenuItemCallGL::setEnabledControl(std::string enabled_control, LLView *context)
 {
@@ -920,6 +957,53 @@ BOOL LLMenuItemCallGL::handleAcceleratorKey( KEY key, MASK mask )
 	}
 	return LLMenuItemGL::handleAcceleratorKey(key, mask);
 }
+
+
+
+// Method to add a callback function for the given type and name.
+BOOL LLMenuItemCallGL::setCtrlResponse(U8 llMenuItemCallType,
+				       const std::string& name,
+				       void* user_data,
+				       void *callback_fcn) {
+
+  // Loop through all of the menu items and check to see which ones
+  // match the name and callback type given.
+       BOOL result = FALSE;
+       std::vector<LLCallbackInformation*>::iterator item_iter;
+       for (item_iter  = mFutureCallbackRequests.begin();
+	    item_iter != mFutureCallbackRequests.end();
+	    ++item_iter)
+       {
+	       if( ((*item_iter)->getTypeOfCallback()==llMenuItemCallType) &&
+		   ((*item_iter)->getCallbackName()==name)) {
+
+		 // Found a match. Set the user data and then determine what type it is.
+		 setUserData(user_data);
+
+		 if(llMenuItemCallType == LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK)
+		   {
+		     setMenuCallback((menu_callback)callback_fcn,user_data);
+		   }
+
+		 else if (llMenuItemCallType == LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE)
+		   {
+		     setEnabledCallback((enabled_callback)callback_fcn);
+		   }
+
+		 else if (llMenuItemCallType == LLCallbackInformation::LL_MENU_ITEM_CALL_GL_TRANSLATE) {
+		   setName((*item_iter)->getCallbackUserData());
+		   setMenuCallback((menu_callback)callback_fcn,user_data);
+		 }
+
+	       }
+       }
+
+
+        return result;
+
+}
+
+
 
 ///============================================================================
 /// Class LLMenuItemCheckGL
@@ -1376,6 +1460,17 @@ void LLMenuItemBranchGL::openMenu()
 		getBranch()->setVisible( TRUE );
 		getBranch()->getParent()->sendChildToFront(getBranch());
 	}
+}
+
+
+BOOL LLMenuItemBranchGL::setCtrlResponse(U8 llMenuItemCallType,
+					 const std::string& name,
+					 void* user_data,
+					 void *callback_fcn) {
+
+         // Get the menu branch and set the callback functions on all its children.
+	 return(getBranch()->setCtrlResponse(llMenuItemCallType,name,user_data,callback_fcn));
+
 }
 
 
@@ -1982,13 +2077,31 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 						LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-						if (!callback)
+						if (callback)
 						{
-							lldebugs << "Ignoring \"on_click\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
-							continue;
+						  new_item->addListener(callback, "on_click", callback_data);
 						}
+						else {
 
-						new_item->addListener(callback, "on_click", callback_data);
+						  // A callback for this item has not yet been
+						  // specified. Add it to the list of options
+						  // that do not yet have callbacks.
+						  if (call_child->hasAttribute("translate"))
+						    {
+						      new_item->addCallbackType
+							(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_TRANSLATE,
+							 item_name,
+							 callback_data);
+						    }
+
+						  else
+						    {
+						      new_item->addCallbackType
+							(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+							 item_name,
+							 callback_data);
+						    }
+						}
 					}
 					if (call_child->hasName("on_enable"))
 					{
@@ -2016,13 +2129,22 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 							LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-							if (!callback)
+							if (callback)
 							{
-								lldebugs << "Ignoring \"on_enable\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
-								continue;
+							  new_item->addListener(callback, "on_build", userdata);
+							} else {
+
+							  // A callback for this item has not yet been
+							  // specified. Add it to the list of options
+							  // that do not yet have callbacks.
+
+							  new_item->addCallbackType
+							    (LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+							     item_name,
+							     callback_data);
 							}
 
-							new_item->addListener(callback, "on_build", userdata);
+
 						}
 						else if (call_child->hasAttribute("control"))
 						{
@@ -2188,7 +2310,7 @@ LLView* LLMenuGL::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *fa
 	LLColor4 color(0,0,0,1);
 	if (opaque && LLUICtrlFactory::getAttributeColor(node,"color", color))
 	{
-		menu->setBackgroundColor(color);
+	        menu->setBackgroundColor(color);
 	}
 
 	BOOL create_jump_keys = FALSE;
@@ -2977,7 +3099,8 @@ void LLMenuGL::draw( void )
 
 	if( mBgVisible )
 	{
-		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0, mBackgroundColor );
+	        gl_rect_2d( -1, getRect().getHeight()+2, getRect().getWidth()+2, -2, mBorderColor,FALSE);
+		gl_rect_2d(  0, getRect().getHeight(),   getRect().getWidth(),   0, mBackgroundColor );
 	}
 	LLView::draw();
 }
@@ -3032,6 +3155,41 @@ LLMenuGL* LLMenuGL::getChildMenuByName(const std::string& name, BOOL recurse) co
 	llwarns << "Child Menu " << name << " not found in menu " << getName() << llendl;
 	return NULL;
 }
+
+
+void LLMenuGL::setBackgroundColor( const LLColor4& color ) {
+
+  mBackgroundColor = color;
+  item_list_t::iterator item_iter;
+  for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
+    {
+              if((*item_iter)->getType()=="menu")
+		 {
+		   LLMenuItemBranchGL *menuBranchItem = (LLMenuItemBranchGL*)(*item_iter);
+		   menuBranchItem->getBranch()->setBackgroundColor(color);
+                 }
+    }
+
+
+}
+
+
+void LLMenuGL::setBorderColor( const LLColor4& color ) {
+
+  mBorderColor = color;
+  item_list_t::iterator item_iter;
+  for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
+    {
+              if((*item_iter)->getType()=="menu")
+		 {
+		   LLMenuItemBranchGL *menuBranchItem = (LLMenuItemBranchGL*)(*item_iter);
+		   menuBranchItem->getBranch()->setBorderColor(color);
+                 }
+    }
+
+
+}
+
 
 BOOL LLMenuGL::clearHoverItem()
 {
@@ -3098,6 +3256,26 @@ void LLMenuGL::showPopup(LLView* spawning_view, LLMenuGL* menu, S32 x, S32 y)
 	menu->getParent()->sendChildToFront(menu);
 }
 
+
+BOOL LLMenuGL::setCtrlResponse(U8 llMenuItemCallType,
+			       const std::string& name,
+			       void* user_data,
+			       void *callback_fcn)
+{
+
+       // Go through all of the children on this menu and set the callback function.
+       BOOL result = FALSE;
+       item_list_t::iterator item_iter;
+       for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
+       {
+	         result |= (*item_iter)->setCtrlResponse(llMenuItemCallType,name,user_data,callback_fcn);
+       }
+
+        return result;
+}
+
+
+
 //-----------------------------------------------------------------------------
 // class LLPieMenuBranch
 // A branch to another pie menu
@@ -3116,6 +3294,12 @@ public:
 	virtual void doIt( void );
 
 	LLPieMenu* getBranch() { return mBranch; }
+
+        virtual BOOL setCtrlResponse(U8 llMenuItemCallType,
+				     const std::string& name,
+				     void* user_data,
+				     void *callback_fcn) { return FALSE; } ;
+
 
 protected:
 	LLPieMenu* mBranch;
@@ -4581,3 +4765,16 @@ void LLTearOffMenu::onClose(bool app_quitting)
 	destroy();
 }
 
+
+///============================================================================
+/// Class LLCallbackInformation
+///============================================================================
+
+LLCallbackInformation::LLCallbackInformation(U8 theType,
+			const std::string& theName,
+			const std::string& userData)
+  : callbackName(theName),
+    callbackUserData(userData)
+{
+    setTypeOfCallback(theType);
+}

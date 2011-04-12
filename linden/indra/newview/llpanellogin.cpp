@@ -200,7 +200,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mLogoImage = LLUI::getUIImage("startup_logo.j2c");
 
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_login.xml");
-	
+
 #if USE_VIEWER_AUTH
 	//leave room for the login menu bar
 	setRect(LLRect(0, rect.getHeight()-18, rect.getWidth(), 0)); 

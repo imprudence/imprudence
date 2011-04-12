@@ -167,6 +167,7 @@ public:
 	static void spell_add(void* data);
 	static void spell_show(void* data);
 	std::vector<S32> getMisspelledWordsPositions();
+        void defineMenuCallbacks(LLMenuGL* menu);
 
 	void			selectNext(const std::string& search_text_in, BOOL case_insensitive, BOOL wrap = TRUE);
 	BOOL			replaceText(const std::string& search_text, const std::string& replace_text, BOOL case_insensitive, BOOL wrap = TRUE);
