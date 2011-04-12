@@ -22,6 +22,7 @@
                 <on_click function="textfield_delete" userdata="" />
 		<on_enable function="textfield_delete_enable" />
         </menu_item_call>
+		<menu_item_separator />
         <menu_item_call label="Select All" mouse_opaque="true"
 			name="Select All Text" >
                 <on_click function="textfield_selectall" userdata="" />
@@ -30,7 +31,7 @@
         <menu_item_separator name="Translate" />
 	<menu drop_shadow="true"
 	      mouse_opaque="false" name="Translation Options"
-	      bottom_delta="0" label="Translate To" opaque="true" >
+	      bottom_delta="0" label="Translate To..." opaque="true" >
 	  <menu_item_call label="English" mouse_opaque="true"
 			name="Translate Text" >
                 <on_click function="textfield_translate" translate="true" userdata="en" />
@@ -41,7 +42,7 @@
                 <on_click function="textfield_translate" translate="true" userdata="da" />
 		<on_enable function="textfield_translate_enable" />
 	  </menu_item_call>
-	  <menu_item_call label="Deutsch(German)" mouse_opaque="true"
+	  <menu_item_call label="Deutsch (German)" mouse_opaque="true"
 			name="Translate Text" >
                 <on_click function="textfield_translate" translate="true" userdata="de" />
 		<on_enable function="textfield_translate_enable" />
