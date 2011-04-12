@@ -47,6 +47,8 @@ class LLObjectSelection;
 void pre_init_menus();
 void init_menus();
 void cleanup_menus();
+// Updates grid-specific menu options after login
+void update_grid_specific_menus();
 
 void show_debug_menus(); // checks for if menus should be shown first.
 // builds either current or legacy pie menus depending upon LegacyPieEnabled

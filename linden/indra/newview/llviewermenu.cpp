@@ -725,9 +725,25 @@ void init_menus()
 	gLoginMenuBarView->setBackgroundColor( color );
 
 	gMenuHolder->addChild(gLoginMenuBarView);
-	
 }
 
+
+void update_grid_specific_menus()
+{
+	if (!gMenuHolder || !gMenuBarView)
+	{
+		return;
+	}
+	else
+	{
+		// Disable these when we're not on Second Life grids 
+		// (or don't have URLS for them if non-SL grids start using 'em) -- MC
+		gMenuHolder->childSetEnabled("Manage My Account...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetVisible("Manage My Account...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetEnabled("Account History...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetVisible("Account History...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+	}
+}
 
 
 void init_client_menu(LLMenuGL* menu)

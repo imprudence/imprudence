@@ -2846,6 +2846,9 @@ bool idle_startup()
 		LL_DEBUGS("AppInitStartupState") << "STATE_CLEANUP" << LL_ENDL;
 		set_startup_status(1.0, "", "");
 
+		// Make sure we do this right after the login screen -- MC
+		update_grid_specific_menus();
+
 		// Make sure all the branding is in order -- MC
 		if (gStatusBar)
 		{
