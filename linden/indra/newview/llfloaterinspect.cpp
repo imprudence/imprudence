@@ -320,7 +320,7 @@ void LLFloaterInspect::refresh()
 		// inventory silliness
 		S32 scripts = 0;
 		S32 total_inv = 0;
-		std::map<LLUUID, std::pair<S32, S32>>::iterator itr = mInventoryNums.find(obj->getObject()->getID());
+		std::map<LLUUID, std::pair<S32, S32> >::iterator itr = mInventoryNums.find(obj->getObject()->getID());
 		if (itr != mInventoryNums.end())
 		{
 			scripts = itr->second.first;
