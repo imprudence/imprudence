@@ -1989,15 +1989,31 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		{
 			image_ctrl->setImageAssetID(image_id);
 		}
-		self->childSetValue("about", about_text);
+		LLTextEditor* about_field = self->mPanelSecondLife->getChild<LLTextEditor>("about");
+		if (about_field)
+		{
+			about_field->setParseHTML(TRUE);
+			about_field->appendColoredText(about_text, false, false, 
+																	(self->mAllowEdit && (self->mAvatarID == agent_id)) ? 
+																	gColors.getColor("TextFgColor") :
+																	gColors.getColor("TextFgReadOnlyColor"));
+		}
 
 		self->mPanelSecondLife->setPartnerID(partner_id);
 		self->mPanelSecondLife->updatePartnerName();
 
 		if (self->mPanelFirstLife)
 		{
-			// Teens don't get these
-			self->mPanelFirstLife->childSetValue("about", fl_about_text);
+			about_field = self->mPanelFirstLife->getChild<LLTextEditor>("about");
+			if (about_field)
+			{
+				about_field->setParseHTML(TRUE);
+				about_field->appendColoredText(fl_about_text, false, false, 
+																		(self->mAllowEdit && (self->mAvatarID == agent_id)) ? 
+																		gColors.getColor("TextFgColor") :
+																		gColors.getColor("TextFgReadOnlyColor"));
+			}
+
 			LLTextureCtrl*	image_ctrl = self->mPanelFirstLife->getChild<LLTextureCtrl>("img");
 			if(image_ctrl)
 			{
