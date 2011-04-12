@@ -56,6 +56,7 @@
 #include "lltextbox.h"
 #include "lltexteditor.h"
 #include "lltexturectrl.h"
+#include "llviewercontrol.h"
 #include "llviewerwindow.h"
 
 // consts
@@ -813,7 +814,11 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 	if (mEditCharter)
 	{
-		mEditCharter->setText(gdatap->mCharter);
+		mEditCharter->setParseHTML(TRUE);
+		mEditCharter->appendColoredText(gdatap->mCharter, false, false, 
+																		(mAllowEdit && can_change_ident) ? 
+																		gColors.getColor("TextFgColor") :
+																		gColors.getColor("TextFgReadOnlyColor"));
 		mEditCharter->resetDirty();
 	}
 	
