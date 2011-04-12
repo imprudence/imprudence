@@ -1953,9 +1953,9 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		self->mPanelSecondLife->childSetValue("acct", caption_text);
 
 		//Chalice - Show avatar age in days.
-		int year;
-		int month;
-		int day;
+		S32 year;
+		S32 month;
+		S32 day;
 		sscanf(born_on.c_str(), "%d/%d/%d", &month, &day, &year);
 		time_t now = time(NULL);
 		struct tm * timeinfo;
@@ -1964,8 +1964,11 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		timeinfo->tm_year = year - 1900;
 		timeinfo->tm_mday = day;
 		time_t birth = mktime(timeinfo);
+
 		std::stringstream numberString;
-		numberString << (S32)(difftime(now, birth) / 86400); //(60*60*24)
+		S32 days = difftime(now, birth) / 86400; //(60*60*24)
+		if (days < 0) days = 0; // Happens for people on different timezones -- MC
+		numberString << days; 
 
 		LLStringUtil::format_map_t targs;
 		targs["[DAYS]"] = numberString.str();
