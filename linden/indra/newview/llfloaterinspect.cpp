@@ -161,10 +161,44 @@ void LLFloaterInspect::onClickOwnerProfile(void* ctrl)
 	}
 }
 
+void LLFloaterInspect::onClickLastOwnerProfile(void* ctrl)
+{
+	if(sInstance->mObjectList->getAllSelected().size() == 0) return;
+	LLScrollListItem* first_selected =
+		sInstance->mObjectList->getFirstSelected();
+
+	if (first_selected)
+	{
+		LLUUID selected_id = first_selected->getUUID();
+		struct f : public LLSelectedNodeFunctor
+		{
+			LLUUID obj_id;
+			f(const LLUUID& id) : obj_id(id) {}
+			virtual bool apply(LLSelectNode* node)
+			{
+				return (obj_id == node->getObject()->getID());
+			}
+		} func(selected_id);
+		LLSelectNode* node = sInstance->mObjectSelection->getFirstNode(&func);
+		if(node)
+		{
+			const LLUUID& last_owner_id = node->mPermissions->getLastOwner();
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+			if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				LLFloaterAvatarInfo::showFromDirectory(last_owner_id);
+			}
+// [/RLVa:KB]
+//			LLFloaterAvatarInfo::showFromDirectory(owner_id);
+		}
+	}
+}
+
 BOOL LLFloaterInspect::postBuild()
 {
 	mObjectList = getChild<LLScrollListCtrl>("object_list");
 	childSetAction("button owner",onClickOwnerProfile, this);
+	childSetAction("button_last_owner",onClickLastOwnerProfile, this);
 	childSetAction("button creator",onClickCreatorProfile, this);
 	childSetCommitCallback("object_list", onSelectObject);
 	return TRUE;
@@ -175,8 +209,10 @@ void LLFloaterInspect::onSelectObject(LLUICtrl* ctrl, void* user_data)
 	if(LLFloaterInspect::getSelectedUUID() != LLUUID::null)
 	{
 		//sInstance->childSetEnabled("button owner", true);
+		//sInstance->childSetEnabled("button_last_owner", true);
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-1.0.0e
 		sInstance->childSetEnabled("button owner", !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
+		sInstance->childSetEnabled("button_last_owner", !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
 // [/RLVa:KB]
 		sInstance->childSetEnabled("button creator", true);
 	}
@@ -205,6 +241,7 @@ void LLFloaterInspect::refresh()
 	std::string creator_name;
 	S32 pos = mObjectList->getScrollPos();
 	childSetEnabled("button owner", false);
+	childSetEnabled("button_last_owner", false);
 	childSetEnabled("button creator", false);
 	LLUUID selected_uuid;
 	S32 selected_index = mObjectList->getFirstSelectedIndex();

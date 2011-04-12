@@ -18,12 +18,17 @@
 		<column label="Creation Date" name="creation_date" width="150" />
 	</scroll_list>
 	<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"
-	     label="See Owner Profile..." label_selected="" left="10"
+	     label="Owner Profile" label_selected="" left="10"
 	     mouse_opaque="true" name="button owner"
-	     tool_tip="See profile of the highlighted object&apos;s owner" width="150" />
+	     tool_tip="See profile of the highlighted object&apos;s owner" width="130" />
 	<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"
-	     label="See Creator Profile..." label_selected="" left="170"
+	     label="Last Owner Profile" label_selected="" left="150"
+	     mouse_opaque="true" name="button_last_owner"
+	     tool_tip="See profile of the highlighted object&apos;s last owner"
+	     width="130" />
+	<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     label="Creator Profile" label_selected="" left="290"
 	     mouse_opaque="true" name="button creator"
 	     tool_tip="See profile of the highlighted object&apos;s original creator"
-	     width="150" />
+	     width="130" />
 </floater>

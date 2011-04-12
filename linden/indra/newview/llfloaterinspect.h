@@ -57,6 +57,7 @@ public:
 	virtual void onFocusReceived();
 	static void onClickCreatorProfile(void* ctrl);
 	static void onClickOwnerProfile(void* ctrl);
+	static void onClickLastOwnerProfile(void* ctrl);
 	static void onSelectObject(LLUICtrl* ctrl, void* user_data);
 	LLScrollListCtrl* mObjectList;
 protected:
