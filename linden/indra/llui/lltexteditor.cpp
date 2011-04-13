@@ -505,10 +505,10 @@ void LLTextEditor::spell_show(void * data)
 	}
 }
 
-std::vector<S32> LLTextEditor::getMisspelledWordsPositions()
+void LLTextEditor::getMisspelledWordsPositions(std::vector<S32>& misspell_positions)
 {
 	resetSpellDirty();
-	std::vector<S32> thePosesOfBadWords;
+	misspell_positions.clear();
 	LLWString& text = mWText;
 	S32 wordStart=0;
 	S32 wordEnd=spellStart;//start at the scroll start
@@ -538,15 +538,15 @@ std::vector<S32> LLTextEditor::getMisspelledWordsPositions()
 				{	
 					//misspelled word here, and you have just right clicked on it
 
-					thePosesOfBadWords.push_back(wordStart);
-					thePosesOfBadWords.push_back(wordEnd);
+					misspell_positions.push_back(wordStart);
+					misspell_positions.push_back(wordEnd);
 				}
 			}
 		}
 		wordEnd++;
 	}
-	return thePosesOfBadWords;
 }
+
 void LLTextEditor::spell_add(void* data)
 {
 	SpellMenuBind* tempBind = (SpellMenuBind*)data;
@@ -3280,16 +3280,16 @@ void LLTextEditor::drawMisspelled()
 			{
 				spellEnd = newSpellEnd;
 				spellStart = newSpellStart;
-				misspellLocations = getMisspelledWordsPositions();
+				getMisspelledWordsPositions(mMisspellLocations);
 			}
 		}
 		//draw
-		if (!misspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
+		if (!mMisspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
 		{
-			for (int i = 0; i<(int)misspellLocations.size() ;i++)
+			for (int i = 0; i<(int)mMisspellLocations.size() ;i++)
 			{
-				S32 wstart = misspellLocations[i];
-				S32 wend = misspellLocations[++i];
+				S32 wstart = mMisspellLocations[i];
+				S32 wend = mMisspellLocations[++i];
 				//start curor code mod
 				const LLWString &text = mWText;
 				const S32 text_len = getLength();

@@ -580,9 +580,9 @@ void LLLineEditor::spell_show(void * data)
 	}
 }
 
-std::vector<S32> LLLineEditor::getMisspelledWordsPositions()
+void LLLineEditor::getMisspelledWordsPositions(std::vector<S32>& misspell_positions)
 {
-	std::vector<S32> thePosesOfBadWords;
+	misspell_positions.clear();
     const LLWString& text = mText.getWString();
 
 	//llinfos << "end of box is at " << cursorloc << " and end of text is at " << text.length() << llendl;
@@ -619,14 +619,13 @@ std::vector<S32> LLLineEditor::getMisspelledWordsPositions()
 					//turn this cursor position into a pixel pos
 					//center = findPixelNearestPos(center-getCursor());
 
-					thePosesOfBadWords.push_back(wordStart);
-					thePosesOfBadWords.push_back(wordEnd);
+					misspell_positions.push_back(wordStart);
+					misspell_positions.push_back(wordEnd);
 				}
 			}
 		}
 		wordEnd++;
 	}
-	return thePosesOfBadWords;
 }
 
 void LLLineEditor::spell_add(void* data)
@@ -2055,16 +2054,16 @@ void LLLineEditor::drawMisspelled(LLRect background)
 				mStartSpellHere = newStartSpellHere;
 				mEndSpellHere = newStopSpellHere;
 				resetSpellDirty();
-				misspellLocations=getMisspelledWordsPositions();
+				getMisspelledWordsPositions(mMisspellLocations);
 			}
 		}
 
-		if (!misspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
+		if (!mMisspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
 		{
-			for (int i =0; i<(int)misspellLocations.size(); i++)
+			for (int i =0; i<(int)mMisspellLocations.size(); i++)
 			{
-				S32 wstart =findPixelNearestPos( misspellLocations[i]-getCursor());
-				S32 wend = findPixelNearestPos(misspellLocations[++i]-getCursor());
+				S32 wstart =findPixelNearestPos( mMisspellLocations[i]-getCursor());
+				S32 wend = findPixelNearestPos(mMisspellLocations[++i]-getCursor());
 				S32 maxw = getRect().getWidth();
 
 				if (wend > maxw)

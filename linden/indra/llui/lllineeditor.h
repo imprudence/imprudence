@@ -154,7 +154,8 @@ public:
 	static void spell_show(void* data);
 	static void spell_add(void* data);
 
-	std::vector<S32> getMisspelledWordsPositions();
+	void getMisspelledWordsPositions(std::vector<S32>& misspell_positions);
+
 	// view overrides
 	virtual void	draw();
 	void autoCorrectText();
@@ -305,7 +306,7 @@ protected:
 	std::string		mPrevText;				// Saved string for 'ESC' revert
 	LLUIString		mLabel;					// text label that is visible when no user text provided
 	std::string		mPrevSpelledText;		// saved string so we know whether to respell or not
-	std::vector<S32> misspellLocations;     // where all the mispelled words are
+	std::vector<S32> mMisspellLocations;     // where all the mispelled words are
 	S32				mStartSpellHere;		// the position of the first char on the screen, stored so we know when to update
 	S32				mEndSpellHere;			// the location of the last char on the screen
 	BOOL			mSpellCheckable;		// set in xui as "spell_check". Default value for a field
