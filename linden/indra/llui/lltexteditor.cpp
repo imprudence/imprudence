@@ -527,17 +527,20 @@ std::vector<S32> LLTextEditor::getMisspelledWordsPositions()
 			{
 				wordEnd++;
 			}	
-			//got a word :D
-
-			std::string regText(text.begin(),text.end());
-			std::string selectedWord(regText.substr(wordStart,wordEnd-wordStart));
 			
-			if(!glggHunSpell->isSpelledRight(selectedWord))
-			{	
-				//misspelled word here, and you have just right clicked on it
+			//got a word? -- MC
+			if (wordStart != wordEnd)
+			{
+				std::string regText(text.begin(),text.end());
+				std::string selectedWord(regText.substr(wordStart,wordEnd-wordStart));
+				
+				if(!selectedWord.empty() && !glggHunSpell->isSpelledRight(selectedWord))
+				{	
+					//misspelled word here, and you have just right clicked on it
 
-				thePosesOfBadWords.push_back(wordStart);
-				thePosesOfBadWords.push_back(wordEnd);
+					thePosesOfBadWords.push_back(wordStart);
+					thePosesOfBadWords.push_back(wordEnd);
+				}
 			}
 		}
 		wordEnd++;
@@ -3281,7 +3284,7 @@ void LLTextEditor::drawMisspelled()
 			}
 		}
 		//draw
-		if (glggHunSpell->getSpellCheckHighlight())
+		if (!misspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
 		{
 			for (int i = 0; i<(int)misspellLocations.size() ;i++)
 			{

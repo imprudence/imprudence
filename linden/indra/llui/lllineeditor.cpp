@@ -604,21 +604,24 @@ std::vector<S32> LLLineEditor::getMisspelledWordsPositions()
 			{
 				wordEnd++;
 			}	
-			//got a word :D
-			std::string selectedWord(std::string(text.begin(), 
-				text.end()).substr(wordStart,wordEnd-wordStart));
 			
-			if(!glggHunSpell->isSpelledRight(selectedWord))
-			{	
-				//misspelled word here, and you have just right clicked on it!
-				//get the center of this word..
-				//S32 center =  llround( (wordEnd-wordStart)/2 ) + wordStart;
-				//turn this cursor position into a pixel pos
-				//center = findPixelNearestPos(center-getCursor());
+			//got a word? -- MC
+			if (wordStart != wordEnd)
+			{
+				std::string selectedWord(std::string(text.begin(), 
+					text.end()).substr(wordStart,wordEnd-wordStart));
+				
+				if(!selectedWord.empty() && !glggHunSpell->isSpelledRight(selectedWord))
+				{	
+					//misspelled word here, and you have just right clicked on it!
+					//get the center of this word..
+					//S32 center =  llround( (wordEnd-wordStart)/2 ) + wordStart;
+					//turn this cursor position into a pixel pos
+					//center = findPixelNearestPos(center-getCursor());
 
-				thePosesOfBadWords.push_back(
-					wordStart);
-				thePosesOfBadWords.push_back(wordEnd);
+					thePosesOfBadWords.push_back(wordStart);
+					thePosesOfBadWords.push_back(wordEnd);
+				}
 			}
 		}
 		wordEnd++;
@@ -2056,7 +2059,7 @@ void LLLineEditor::drawMisspelled(LLRect background)
 			}
 		}
 
-		if (glggHunSpell->getSpellCheckHighlight())
+		if (!misspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
 		{
 			for (int i =0; i<(int)misspellLocations.size(); i++)
 			{
