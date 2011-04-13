@@ -85,7 +85,7 @@
 	<spinner bottom_delta="-20" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="80" label="Port number:" label_width="75" left="35"
-	     max_val="12000" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
+	     max_val="65535" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
 	     width="140" />
 
   <!-- SOCKS 5 PROXY -->
@@ -108,7 +108,7 @@
   <spinner bottom_delta="-20" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="80" label="Port number:" label_width="75" left="35"
-	     max_val="12000" min_val="10" mouse_opaque="true" name="socks5_proxy_port"
+	     max_val="65535" min_val="10" mouse_opaque="true" name="socks5_proxy_port"
 	     width="140" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
