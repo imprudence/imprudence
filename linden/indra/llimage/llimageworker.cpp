@@ -164,7 +164,7 @@ void LLImageDecodeThread::ImageRequest::finishRequest(bool completed)
 {
 	if (mResponder.notNull())
 	{
-		bool success = completed && mDecodedRaw && (!mNeedsAux || mDecodedAux);
+		bool success = completed && mDecodedRaw && mDecodedImageRaw->getDataSize() && (!mNeedsAux || mDecodedAux);
 		mResponder->completed(success, mDecodedImageRaw, mDecodedImageAux);
 	}
 	// Will automatically be deleted
