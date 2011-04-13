@@ -2,7 +2,9 @@
 <llsd>
 <map>
 
-<!-- for Aurora Sim -->
+  <!-- BEGIN IMPRUDENCE-SPECIFIC SETTINGS -->
+  
+  <!-- begin Aurora-specific settings -->
 
   <key>TimeOffset</key>
   <map>
@@ -48,7 +50,8 @@
     <key>Value</key>
     <string>SLVoice</string>
   </map>
-  <!-- Imprudence-specific settings -->
+  
+  <!-- end Aurora-specific settings -->
 
   <key>AllowEditingOfTrees</key>
   <map>
@@ -1689,6 +1692,7 @@
   </map>
 
   <!-- Begin: Client Name Tag -->
+  
   <key>ShowClientColor</key>
   <map>
     <key>Comment</key>
@@ -2091,6 +2095,8 @@
   </map>
   
   <!-- End: Spellcheck & Translation -->
+  
+  <!-- Begin: RLVa -->
 
   <key>RestrainedLove</key>
   <map>
@@ -2268,6 +2274,93 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
+  <!-- End: RLVa -->
+  
+  <!-- Begin: socks5 -->
+
+  <key>Socks5ProxyEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Use Socks5 Proxy</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>Socks5HttpProxyType</key>
+  <map>
+    <key>Comment</key>
+    <string>Proxy type to use for HTTP operations</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <integer>None</integer>
+  </map>
+  <key>Socks5ProxyHost</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Proxy Host</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>
+  <key>Socks5ProxyPort</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Proxy Port</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1080</integer>
+  </map>
+  <key>Socks5Username</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Username</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>Socks5Password</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Password</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>Socks5AuthType</key>
+  <map>
+    <key>Comment</key>
+    <string>Selected Auth mechanism for Socks5</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>None</string>
+  </map>
+
+  <!-- End: socks5 -->
+
+  <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
+  
   <key>AFKTimeout</key>
   <map>
     <key>Comment</key>
@@ -3024,7 +3117,7 @@
   <key>BrowserProxyAddress</key>
   <map>
     <key>Comment</key>
-    <string>Address for the Web Proxy]</string>
+    <string>Address for the Web Proxy</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>

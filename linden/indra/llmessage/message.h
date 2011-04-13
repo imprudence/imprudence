@@ -66,6 +66,7 @@
 #include "llmessagesenderinterface.h"
 
 #include "llstoredmessage.h"
+#include "llsocks5.h"
 
 const U32 MESSAGE_MAX_STRINGS_LENGTH = 64;
 const U32 MESSAGE_NUMBER_OF_HASH_BUCKETS = 8192;
@@ -775,7 +776,18 @@ private:
 	LLMessagePollInfo						*mPollInfop;
 
 	U8	mEncodedRecvBuffer[MAX_BUFFER_SIZE];
-	U8	mTrueReceiveBuffer[MAX_BUFFER_SIZE];
+
+// Push current alignment to stack and set alignment to 1 byte boundary
+#pragma pack(push,1)
+
+	struct ReceiveBuffer_t
+	{
+		proxywrap_t header;
+		U8			buffer[MAX_BUFFER_SIZE];
+	} mTrueReceiveBuffer;
+
+#pragma pack(pop)   /* restore original alignment from stack */
+
 	S32	mTrueReceiveSize;
 
 	// Must be valid during decode

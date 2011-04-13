@@ -123,6 +123,9 @@ public:
 	static std::string sSLURLCommand;
 		// *HACK: On startup, if we were passed a secondlife://app/do/foo
 		// command URL, store it for later processing.
+
+	static bool handleSocksProxy(bool reportOK = true);
+
 	static bool shouldAutoLogin() { return mShouldAutoLogin; };
 	static void setShouldAutoLogin(bool value) { mShouldAutoLogin = value; };
 
