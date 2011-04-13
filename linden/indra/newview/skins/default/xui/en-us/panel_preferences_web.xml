@@ -13,16 +13,9 @@
 			Use built-in web browser
 		</radio_item>
 	</radio_group>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="15" mouse_opaque="false" name="cache_size_label_l"
-	     v_pad="0" width="128">
-		Browser Cache:
-	</text>
-	<button bottom_delta="-10" enabled="true" follows="left|top" font="SansSerif"
-	     halign="center" height="22" label="Clear Now" left="140"
-	     mouse_opaque="true" name="clear_cache" scale_image="true" width="100" />
+	<button bottom_delta="-30" enabled="true" follows="left|top" font="SansSerif"
+	     halign="center" height="22" label="Clear Built-In Browser Cache" left="35"
+	     mouse_opaque="true" name="clear_cache" scale_image="true" width="250" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
