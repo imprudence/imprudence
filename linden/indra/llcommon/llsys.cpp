@@ -177,39 +177,64 @@ LLOSInfo::LLOSInfo() :
 	case VER_PLATFORM_WIN32_NT:
 		{
 			// Test for the product.
-			if(osvi.dwMajorVersion <= 4)
+			if (osvi.dwMajorVersion <= 4)
 			{
 				mOSStringSimple = "Microsoft Windows NT ";
 			}
-			else if(osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0)
+			else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0)
 			{
 				mOSStringSimple = "Microsoft Windows 2000 ";
 			}
-			else if(osvi.dwMajorVersion ==5 && osvi.dwMinorVersion == 1)
+			else if (osvi.dwMajorVersion ==5 && osvi.dwMinorVersion == 1)
 			{
 				mOSStringSimple = "Microsoft Windows XP ";
 			}
-			else if(osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2)
+			else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2)
 			{
-				 if(osvi.wProductType == VER_NT_WORKSTATION)
+				if (osvi.wProductType == VER_NT_WORKSTATION)
+				{
 					mOSStringSimple = "Microsoft Windows XP x64 Edition ";
-				 else
-					 mOSStringSimple = "Microsoft Windows Server 2003 ";
+				}
+				else
+				{
+					mOSStringSimple = "Microsoft Windows Server 2003 ";
+				}
 			}
-			else if(osvi.dwMajorVersion == 6 && osvi.dwMinorVersion <= 1)
+			else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion <= 2)
 			{
-				if(osvi.dwMinorVersion == 0)
+				if (osvi.dwMinorVersion == 0)
 				{
-					mOSStringSimple = "Microsoft Windows Vista ";
-				}
-				else if(osvi.dwMinorVersion == 1)
-				{
-					mOSStringSimple = "Microsoft Windows 7 ";
-				}
+					if (osvi.wProductType == VER_NT_WORKSTATION)
+					{
+						mOSStringSimple = "Microsoft Windows Vista ";
+					}
+					else
+					{
+						mOSStringSimple = "Windows Server 2008 ";
+					}
 
-				if(osvi.wProductType != VER_NT_WORKSTATION)
+				}
+				else if (osvi.dwMinorVersion == 1)
 				{
-					mOSStringSimple += "Server ";
+					if (osvi.wProductType == VER_NT_WORKSTATION)
+					{
+						mOSStringSimple = "Microsoft Windows 7 ";
+					}
+					else
+					{
+						mOSStringSimple = "Windows Server 2008 R2 ";
+					}
+				}
+				else if (osvi.dwMinorVersion == 2)
+				{
+					if (osvi.wProductType == VER_NT_WORKSTATION)
+					{
+						mOSStringSimple = "Microsoft Windows 8 ";
+					}
+					else
+					{
+						mOSStringSimple = "Windows Server 2012 ";
+					}
 				}
 
 				///get native system info if available..
@@ -314,8 +339,7 @@ LLOSInfo::LLOSInfo() :
 	std::string compatibility_mode;
 	if(got_shell32_version)
 	{
-		if(osvi.dwMajorVersion != shell32_major 
-			|| osvi.dwMinorVersion != shell32_minor)
+		if(osvi.dwMajorVersion != shell32_major || osvi.dwMinorVersion != shell32_minor)
 		{
 			compatibility_mode = llformat(" compatibility mode. real ver: %d.%d (Build %d)", 
 											shell32_major,
