@@ -7443,9 +7443,9 @@ The Socks5 proxy "[PROXY]" refused the UDP associate request
   </notification>
 
   <notification
-   icon="alertmodal.tga"
+   icon="alert.tga"
    name="SOCKS_HOST_CONNECT_FAILED"
-   type="alertmodal">
+   type="alert">
 Could not connect to Socks5 proxy server "[PROXY]"
   </notification>
 
