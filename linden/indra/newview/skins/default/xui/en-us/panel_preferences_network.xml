@@ -155,7 +155,7 @@
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="-20" drop_shadow_visible="true" enabled="true"
      follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-     height="10" left="35" mouse_opaque="false" name="socks5_auth_label"
+     height="10" left="35" mouse_opaque="false" name="http_proxy_label"
      v_pad="0" width="128">
     HTTP proxy:
   </text>

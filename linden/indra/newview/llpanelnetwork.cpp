@@ -218,6 +218,8 @@ void LLPanelNetwork::onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data)
 	self->childSetEnabled("xmlrpc_proxy_editor", check->get());
 	self->childSetEnabled("xmlrpc_proxy_port", check->get());
 	self->childSetEnabled("xmlrpc_proxy_text_label", check->get());
+
+	self->childSetEnabled("socks5_proxy_enabled", !check->get());
 }
 
 // static
@@ -258,13 +260,13 @@ void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std
 	// to avoid code duplication
 
 	// Update all socks labels and controls except auth specific ones
-	self->childSetEnabled("socks5_proxy_port",  enabled);
-	self->childSetEnabled("socks5_proxy_host",  enabled);
-	self->childSetEnabled("socks5_host_label",  enabled);
-	self->childSetEnabled("socks5_proxy_label", enabled);
-	self->childSetEnabled("socks5_proxy_port",  enabled);
-	self->childSetEnabled("socks5_auth_label",  enabled);
-	self->childSetEnabled("socks5_auth",        enabled);
+	self->childSetEnabled("socks5_proxy_port",	enabled);
+	self->childSetEnabled("socks5_proxy_host",	enabled);
+	self->childSetEnabled("socks5_host_label",	enabled);
+	self->childSetEnabled("socks5_proxy_label",	enabled);
+	self->childSetEnabled("socks5_proxy_port",	enabled);
+	self->childSetEnabled("socks5_auth_label",	enabled);
+	self->childSetEnabled("socks5_auth",		enabled);
 
 	// disable the web option if the web proxy has not been configured
 	// this is still not ideal as apply or ok is needed for this to be saved to the preferences
@@ -272,7 +274,7 @@ void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std
 
 	self->childSetEnabled("Socks", enabled);
 
-	// Hide the auth specific lables if authtype is none or
+	// Hide the auth specific labels if authtype is none or
 	// we are not enabled.
 	if ((authtype.compare("None") == 0) || (enabled == false))
 	{
@@ -283,7 +285,7 @@ void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std
 	}
 
 	// Only show the username and password boxes if we are enabled
-	// and authtype is username pasword.
+	// and authtype is username password.
 	if ((authtype.compare("UserPass") == 0) && (enabled == true))
 	{
 		self->childSetEnabled("socks5_username_label", true);
@@ -291,4 +293,10 @@ void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std
 		self->childSetEnabled("socks5_proxy_username", true);
 		self->childSetEnabled("socks5_proxy_password", true);
 	}
+
+	// Disable the XMLRPC proxy if it's enabled and we enable SOCKS5
+	self->childSetEnabled("xmlrpc_proxy_enabled", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_editor", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_port", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_text_label", !enabled);
 }
