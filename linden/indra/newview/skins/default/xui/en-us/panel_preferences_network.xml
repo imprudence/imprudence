@@ -56,8 +56,9 @@
 	     name="reset_cache" scale_image="true" width="100" />
 	<check_box bottom="-173" bottom_delta="-25" control_name="ConnectionPortEnabled"
 	     enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Custom port connection" left="12"
+	     initial_value="false" label="Enable custom outgoing port" left="12"
 	     mouse_opaque="true" name="connection_port_enabled" radio_style="false"
+       tool_tip="Enables custom port for outgoing connections" 
 	     width="256" />
 	<spinner bottom="-193" bottom_delta="-20" control_name="ConnectionPort"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
