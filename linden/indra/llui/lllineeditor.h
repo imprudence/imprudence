@@ -159,7 +159,7 @@ public:
 	// view overrides
 	virtual void	draw();
 	void autoCorrectText();
-	void drawMisspelled(LLRect background);
+	void drawMisspelled(const LLRect& background);
 	virtual void	reshape(S32 width,S32 height,BOOL called_from_parent=TRUE);
 	virtual void	onFocusReceived();
 	virtual void	onFocusLost();

@@ -2038,7 +2038,7 @@ void LLLineEditor::autoCorrectText()
 	}
 }
 
-void LLLineEditor::drawMisspelled(LLRect background)
+void LLLineEditor::drawMisspelled(const LLRect& background)
 {
 	if (!mReadOnly && mSpellCheckable)
 	{
