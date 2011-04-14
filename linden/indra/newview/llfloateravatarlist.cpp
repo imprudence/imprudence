@@ -93,7 +93,7 @@ void chat_avatar_status(std::string name, LLUUID key, ERadarAlertType type, bool
 		switch(type)
 		{
 		case ALERT_TYPE_SIM:
-			if (gSavedSettings.getBOOL("RadarAlertSim"))
+			if (gSavedSettings.getBOOL("MiniMapNotifySimRange"))
 			{
 				chat.mText = name+" has "+(entering ? "entered" : "left")+" the sim.";
 			}
@@ -111,7 +111,7 @@ void chat_avatar_status(std::string name, LLUUID key, ERadarAlertType type, bool
 			}
 			break;
 		case ALERT_TYPE_CHATRANGE:
-			if (gSavedSettings.getBOOL("RadarAlertChatRange"))
+			if (gSavedSettings.getBOOL("MiniMapNotifyChatRange"))
 			{
 				chat.mText = name+" has "+(entering ? "entered" : "left")+" chat range.";
 			}
