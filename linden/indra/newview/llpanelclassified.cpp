@@ -660,7 +660,15 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 
 		// Update UI controls
         self->mNameEditor->setText(name);
-        self->mDescEditor->setText(desc);
+		if (self->mCreatorID == gAgent.getID())
+		{
+			self->mDescEditor->setText(desc);
+		}
+		else
+		{
+			self->mDescEditor->setParseHTML(TRUE);
+			self->mDescEditor->appendColoredText(desc, false, false, gColors.getColor("TextFgReadOnlyColor"));
+		}
         self->mSnapshotCtrl->setImageAssetID(snapshot_id);
         self->mLocationEditor->setText(location_text);
 		self->mLocationChanged = false;

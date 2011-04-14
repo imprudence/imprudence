@@ -1992,11 +1992,15 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		LLTextEditor* about_field = self->mPanelSecondLife->getChild<LLTextEditor>("about");
 		if (about_field)
 		{
-			about_field->setParseHTML(TRUE);
-			about_field->appendColoredText(about_text, false, false, 
-																	(self->mAllowEdit && (self->mAvatarID == agent_id)) ? 
-																	gColors.getColor("TextFgColor") :
-																	gColors.getColor("TextFgReadOnlyColor"));
+			if (self->mAllowEdit && (self->mAvatarID == agent_id))
+			{
+				about_field->setText(about_text);
+			}
+			else
+			{
+				about_field->setParseHTML(TRUE);
+				about_field->appendColoredText(about_text, false, false, gColors.getColor("TextFgReadOnlyColor"));
+			}
 		}
 
 		self->mPanelSecondLife->setPartnerID(partner_id);
@@ -2007,11 +2011,14 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			about_field = self->mPanelFirstLife->getChild<LLTextEditor>("about");
 			if (about_field)
 			{
-				about_field->setParseHTML(TRUE);
-				about_field->appendColoredText(fl_about_text, false, false, 
-																		(self->mAllowEdit && (self->mAvatarID == agent_id)) ? 
-																		gColors.getColor("TextFgColor") :
-																		gColors.getColor("TextFgReadOnlyColor"));
+				if (self->mAllowEdit && (self->mAvatarID == agent_id))
+				{
+				}
+				else
+				{
+					about_field->setParseHTML(TRUE);
+					about_field->appendColoredText(fl_about_text, false, false, gColors.getColor("TextFgReadOnlyColor"));
+				}
 			}
 
 			LLTextureCtrl*	image_ctrl = self->mPanelFirstLife->getChild<LLTextureCtrl>("img");
