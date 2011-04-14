@@ -1007,6 +1007,10 @@
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
     </menu_item_check>
+    <menu_item_check label="Full Radar" name="Full Radar">
+      <on_click function="ShowFloater" userdata="full radar" />
+      <on_check function="FloaterVisible" userdata="full radar" />
+    </menu_item_check>
 		<menu_item_check label="Area Object Search" name="Area Object Search" 
                      shortcut="alt|A">
 			<on_click function="ShowFloater" userdata="areasearch" />

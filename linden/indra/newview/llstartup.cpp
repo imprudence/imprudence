@@ -82,6 +82,7 @@
 
 #include "llagent.h"
 #include "llagentpilot.h"
+#include "llfloateravatarlist.h"
 #include "llfloateravatarpicker.h"
 #include "llcallbacklist.h"
 #include "llcallingcard.h"
@@ -2060,7 +2061,10 @@ bool idle_startup()
 		{
 			LLFloaterMap::showInstance();
 		}
-
+		if (gSavedSettings.getBOOL("ShowRadar"))
+		{
+			LLFloaterAvatarList::showInstance();
+		}
 		if (gSavedSettings.getBOOL("ShowCameraControls"))
 		{
 			LLFloaterCamera::showInstance();

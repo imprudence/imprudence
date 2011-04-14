@@ -4772,6 +4772,116 @@ void LLAgent::lookAtLastChat()
 	}
 }
 
+void LLAgent::lookAtObject(LLUUID object_id, ECameraPosition camera_pos)
+{
+	// Block if camera is animating or not in normal third person camera mode
+	if (mCameraAnimating || !cameraThirdPerson())
+	{
+		return;
+	}
+
+	LLViewerObject *chatter = gObjectList.findObject(object_id);
+	if (chatter)
+	{
+		LLVector3 delta_pos;
+		if (chatter->isAvatar())
+		{
+			LLVOAvatar *chatter_av = (LLVOAvatar*)chatter;
+			if (!mAvatarObject.isNull() && chatter_av->mHeadp)
+			{
+				delta_pos = chatter_av->mHeadp->getWorldPosition() - mAvatarObject->mHeadp->getWorldPosition();
+			}
+			else
+			{
+				delta_pos = chatter->getPositionAgent() - getPositionAgent();
+			}
+			delta_pos.normVec();
+
+			setControlFlags(AGENT_CONTROL_STOP);
+
+			changeCameraToThirdPerson();
+
+			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
+			LLVector3 left = delta_pos % LLVector3::z_axis;
+			left.normVec();
+			LLVector3 up = left % delta_pos;
+			up.normVec();
+			new_camera_pos -= delta_pos * 0.4f;
+			new_camera_pos += left * 0.3f;
+			new_camera_pos += up * 0.2f;
+
+			F32 radius = chatter_av->getVObjRadius();
+			LLVector3d view_dist(radius, radius, 0.0f);
+
+			if (chatter_av->mHeadp)
+			{
+				setFocusGlobal(getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition()), object_id);
+				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - gAgent.getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition());
+
+				switch(camera_pos)
+				{
+					case CAMERA_POSITION_SELF:
+						mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - gAgent.getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition());
+						break;
+					case CAMERA_POSITION_OBJECT:
+						mCameraFocusOffsetTarget =  view_dist;
+						break;
+				}
+			}
+			else
+			{
+				setFocusGlobal(chatter->getPositionGlobal(), object_id);
+				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
+
+				switch(camera_pos)
+				{
+					case CAMERA_POSITION_SELF:
+						mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
+						break;
+					case CAMERA_POSITION_OBJECT:
+						mCameraFocusOffsetTarget = view_dist;
+						break;
+				}
+			}
+			setFocusOnAvatar(FALSE, TRUE);
+		}
+		else
+		{
+			delta_pos = chatter->getRenderPosition() - getPositionAgent();
+			delta_pos.normVec();
+
+			setControlFlags(AGENT_CONTROL_STOP);
+
+			changeCameraToThirdPerson();
+
+			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
+			LLVector3 left = delta_pos % LLVector3::z_axis;
+			left.normVec();
+			LLVector3 up = left % delta_pos;
+			up.normVec();
+			new_camera_pos -= delta_pos * 0.4f;
+			new_camera_pos += left * 0.3f;
+			new_camera_pos += up * 0.2f;
+
+			setFocusGlobal(chatter->getPositionGlobal(), object_id);
+
+			switch(camera_pos)
+			{
+				case CAMERA_POSITION_SELF:
+					mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
+					break;
+				case CAMERA_POSITION_OBJECT:
+					F32 radius = chatter->getVObjRadius();
+					LLVector3d view_dist(radius, radius, 0.0f);
+					mCameraFocusOffsetTarget = view_dist;
+					break;
+			}
+
+			setFocusOnAvatar(FALSE, TRUE);
+		}
+	}
+}
+
 const F32 SIT_POINT_EXTENTS = 0.2f;
 
 void LLAgent::setStartPosition( U32 location_id )

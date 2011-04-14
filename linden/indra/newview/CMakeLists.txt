@@ -155,6 +155,7 @@ set(viewer_SOURCE_FILES
     llfloaterassetbrowser.cpp
     llfloaterauction.cpp
     llfloateravatarinfo.cpp
+    llfloateravatarlist.cpp
     llfloateravatarpicker.cpp
     llfloateravatartextures.cpp
     llfloaterbeacons.cpp
@@ -617,6 +618,7 @@ set(viewer_HEADER_FILES
     llfloaterassetbrowser.h
     llfloaterauction.h
     llfloateravatarinfo.h
+    llfloateravatarlist.h
     llfloateravatarpicker.h
     llfloateravatartextures.h
     llfloaterbeacons.h

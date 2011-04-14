@@ -89,6 +89,7 @@
 #include "llfloateractivespeakers.h"
 #include "llfloateranimpreview.h"
 #include "llfloateravatarinfo.h"
+#include "llfloateravatarlist.h"
 #include "llfloateravatartextures.h"
 #include "llfloaterbeacons.h"
 #include "llfloaterbuildoptions.h"
@@ -6147,6 +6148,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterPerms::toggleInstance(LLSD());
 		}
+		else if (floater_name == "full radar")
+		{
+			LLFloaterAvatarList::toggle(NULL);
+		}
 		return true;
 	}
 };
@@ -6220,6 +6225,10 @@ class LLFloaterVisible : public view_listener_t
 			JCFloaterAreaSearch* instn = JCFloaterAreaSearch::getInstance();
 			if (!instn) new_value = false;
 			else new_value = instn->getVisible();
+		}
+		else if (floater_name == "full radar")
+		{
+			new_value = (LLFloaterAvatarList::getInstance() != NULL);
 		}
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;

@@ -2359,6 +2359,137 @@
 
   <!-- End: socks5 -->
 
+  <!-- Begin: full radar (Advanced menu) -->
+
+  <key>ShowRadar</key>
+  <map>
+    <key>Comment</key>
+    <string>Show the radar floater</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>FloaterRadarRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for Radar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>400</integer>
+      <integer>200</integer>
+      <integer>0</integer>
+    </array>
+  </map>
+  <key>RadarKeepOpen</key>
+  <map>
+    <key>Comment</key>
+    <string>Keeps radar updates running in background</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarUpdateRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Radar update rate (0 = high, 1 = medium, 2 = low)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>RadarAlertSim</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting sim</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertDraw</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting draw distance</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertShoutRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting shout range</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertChatRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting chat range</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>RadarChatAlerts</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts regarding the status of avatars it displays</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarChatKeys</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable private chat alerts for avatars entering the region</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarChatKeysChannel</key>
+  <map>
+    <key>Comment</key>
+    <string>Private channel used to broadcast the key of incoming avatars</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>-8888888</integer>
+  </map>
+  
+  <!-- End: full radar (Advanced menu) -->
+
   <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
   
   <key>AFKTimeout</key>
