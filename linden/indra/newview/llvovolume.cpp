@@ -2010,7 +2010,7 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& e
 		if (face == -1)
 		{
 			start_face = 0;
-			end_face = volume->getNumFaces();
+			end_face = volume->getNumVolumeFaces();
 		}
 		else
 		{
