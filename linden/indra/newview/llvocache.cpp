@@ -104,7 +104,10 @@ LLVOCacheEntry::LLVOCacheEntry(LLFILE *fp)
 
 LLVOCacheEntry::~LLVOCacheEntry()
 {
-	delete [] mBuffer;
+	if (mBuffer)
+	{
+		delete [] mBuffer;
+	}
 }
 
 
