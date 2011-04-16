@@ -7,10 +7,11 @@
     Or use the Grid Manager to add a new one
   </text>
   <scroll_list background_visible="true" bottom_delta="30" draw_border="true"
-      draw_stripes="false" sort_column="0"
+      draw_stripes="false" sort_column="1"
       follows="top|left|bottom" height="280" left="10" multi_select="false"
       name="grid_list" width="240">
-    <column label="" name="grid" width="230" />
+    <column label="" name="grid_nick" width="0" />
+    <column label="" name="grid_name" width="230" />
   </scroll_list>
   <button bottom="5" follows="bottom|right" height="20" label="Cancel"
       right="-5" name="btn_cancel" width="85" />

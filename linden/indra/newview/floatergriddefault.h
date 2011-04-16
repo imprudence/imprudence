@@ -41,6 +41,9 @@ public:
 
 	/*virtual*/ BOOL postBuild();
 
+	// refresh the default grid list selection. Steals focus
+	void refreshGridList();
+
 private:
 	static void onClickOK(void* userdata);
 	static void onClickCancel(void* userdata);

@@ -1,4 +1,33 @@
-// Ported to Imprudence from the Hippo OpenSim Viewer by Jacek Antonelli
+/**
+* @file hippogridmanager.cpp
+* @brief stores grid information
+*
+* $LicenseInfo:firstyear=2011&license=viewergpl$
+*
+* Copyright (c) 2011
+* Ported to Imprudence from the Hippo OpenSim Viewer by Jacek Antonelli
+*
+* Imprudence Viewer Source Code
+* The source code in this file ("Source Code") is provided to you
+* under the terms of the GNU General Public License, version 2.0
+* ("GPL"). Terms of the GPL can be found in doc/GPL-license.txt in
+* this distribution, or online at
+* http://secondlifegrid.net/programs/open_source/licensing/gplv2
+*
+* There are special exceptions to the terms and conditions of the GPL as
+* it is applied to this Source Code. View the full text of the exception
+* in the file doc/FLOSS-exception.txt in this software distribution, or
+* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+*
+* By copying, modifying or distributing this software, you acknowledge
+* that you have read and understood your obligations described above,
+* and agree to abide by those obligations.
+*
+* ALL SOURCE CODE IS PROVIDED "AS IS." THE AUTHOR MAKES NO
+* WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+* COMPLETENESS OR PERFORMANCE.
+* $/LicenseInfo$
+*/
 
 #include "llviewerprecompiledheaders.h"
 
@@ -43,14 +72,14 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mPlatform(PLATFORM_OPENSIM),
 	mGridNick(gridNick),
 	mGridName(LLStringUtil::null),
-	mLoginUri(LLStringUtil::null),
+	mLoginURI(LLStringUtil::null),
 	mLoginPage(LLStringUtil::null),
-	mHelperUri(LLStringUtil::null),
+	mHelperURI(LLStringUtil::null),
 	mWebSite(LLStringUtil::null),
-	mSupportUrl(LLStringUtil::null),
-	mRegisterUrl(LLStringUtil::null),
-	mPasswordUrl(LLStringUtil::null),
-	mSearchUrl(LLStringUtil::null),
+	mSupportURL(LLStringUtil::null),
+	mRegisterURL(LLStringUtil::null),
+	mPasswordURL(LLStringUtil::null),
+	mSearchURL(LLStringUtil::null),
 	mFirstName(LLStringUtil::null),
 	mLastName(LLStringUtil::null),
 	mAvatarPassword(LLStringUtil::null),
@@ -60,122 +89,13 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mMaxAgentGroups(-1),
 	mCurrencySymbol("OS$"),
 	mRealCurrencySymbol("US$"),
-	mDirectoryFee(30)
+	mDirectoryFee(30),
+	mUsername(LLStringUtil::null),
+	mUsernameCompat(false)
 {
 	std::string nick = gridNick;
-	mGridNick = sanitizeGridNick( nick );
+	mGridNick = sanitizeGridNick(nick);
 }
-
-
-// ********************************************************************
-// Getters
-
-HippoGridInfo::Platform HippoGridInfo::getPlatform()
-{
-	return mPlatform;
-}
-
-bool HippoGridInfo::isOpenSimulator() const
-{
-	return (mPlatform == HippoGridInfo::PLATFORM_OPENSIM);
-}
-
-bool HippoGridInfo::isSecondLife() const
-{
-	return (mPlatform == HippoGridInfo::PLATFORM_SECONDLIFE);
-}
-
-const std::string& HippoGridInfo::getGridNick() const
-{
-	return mGridNick;
-}
-
-const std::string& HippoGridInfo::getGridName() const
-{
-	return mGridName;
-}
-
-const std::string& HippoGridInfo::getLoginUri() const
-{
-	return mLoginUri;
-}
-
-const std::string& HippoGridInfo::getLoginPage() const
-{
-	return mLoginPage;
-}
-
-const std::string& HippoGridInfo::getHelperUri() const
-{
-	return mHelperUri;
-}
-
-const std::string& HippoGridInfo::getWebSite() const
-{
-	return mWebSite;
-}
-
-const std::string& HippoGridInfo::getSupportUrl() const
-{
-	return mSupportUrl;
-}
-
-const std::string& HippoGridInfo::getRegisterUrl() const
-{
-	return mRegisterUrl;
-}
-
-const std::string& HippoGridInfo::getPasswordUrl() const
-{
-	return mPasswordUrl;
-}
-
-const std::string& HippoGridInfo::getSearchUrl() const
-{
-	return mSearchUrl;
-}
-
-const std::string& HippoGridInfo::getFirstName() const
-{
-	return mFirstName;
-}
-
-const std::string& HippoGridInfo::getLastName() const
-{
-	return mLastName;
-}
-
-const std::string& HippoGridInfo::getAvatarPassword() const
-{
-	return mAvatarPassword;
-}
-
-bool HippoGridInfo::isRenderCompat() const
-{
-	return mRenderCompat;
-}
-
-const std::string& HippoGridInfo::getCurrencySymbol() const
-{
-	return mCurrencySymbol;
-}
-
-const std::string& HippoGridInfo::getRealCurrencySymbol() const
-{
-	return mRealCurrencySymbol;
-}
-
-bool HippoGridInfo::isUsernameCompat() const
-{
-	// currently only SecondLife grids support username-style logins
-	// but Aurora is working on implementing it -- MC
-	return (mPlatform == HippoGridInfo::PLATFORM_SECONDLIFE);
-}
-
-
-
-// ********************************************************************
-// Setters
 
 void HippoGridInfo::setPlatform(Platform platform)
 {
@@ -183,9 +103,9 @@ void HippoGridInfo::setPlatform(Platform platform)
 	if (mPlatform == PLATFORM_SECONDLIFE)
 	{
 		mCurrencySymbol = "L$";
+		mUsernameCompat = true;
 	}
 }
-
 
 void HippoGridInfo::setPlatform(const std::string& platform)
 {
@@ -208,96 +128,25 @@ void HippoGridInfo::setPlatform(const std::string& platform)
 	}
 }
 
-void HippoGridInfo::setGridName(const std::string& gridName)
+void HippoGridInfo::setLoginURI(const std::string& loginURI)
 {
-	mGridName = gridName;
+	std::string uri = loginURI;
+	mLoginURI = sanitizeURI(uri);
 }
 
-void HippoGridInfo::setLoginUri(const std::string& loginUri)
+void HippoGridInfo::setHelperURI(const std::string& helperURI)
 {
-	std::string uri = loginUri;
-	mLoginUri = sanitizeUri(uri);
+	std::string uri = helperURI;
+	mHelperURI = sanitizeURI(uri);
 }
-
-void HippoGridInfo::setLoginPage(const std::string& loginPage)
-{
-	mLoginPage = loginPage;
-}
-
-void HippoGridInfo::setHelperUri(const std::string& helperUri)
-{
-	std::string uri = helperUri;
-	mHelperUri = sanitizeUri(uri);
-}
-
-void HippoGridInfo::setWebSite(const std::string& website)
-{
-	mWebSite = website;
-}
-
-void HippoGridInfo::setSupportUrl(const std::string& url)
-{
-	mSupportUrl = url;
-}
-
-void HippoGridInfo::setRegisterUrl(const std::string& url)
-{
-	mRegisterUrl = url;
-}
-
-void HippoGridInfo::setPasswordUrl(const std::string& url)
-{
-	mPasswordUrl = url;
-}
-
-void HippoGridInfo::setSearchUrl(const std::string& url)
-{
-	mSearchUrl = url;
-}
-
-void HippoGridInfo::setFirstName(const std::string& firstName)
-{
-	mFirstName = firstName;
-}
-
-void HippoGridInfo::setLastName(const std::string& lastName)
-{
-	mLastName = lastName;
-}
-
-void HippoGridInfo::setAvatarPassword(const std::string& avatarPassword)
-{
-	mAvatarPassword = avatarPassword;
-}
-
-void HippoGridInfo::setRenderCompat(bool compat)
-{
-	mRenderCompat = compat;
-}
-
-void HippoGridInfo::setCurrencySymbol(const std::string& sym)
-{
-	mCurrencySymbol = sym.substr(0, 3);
-}
-
-void HippoGridInfo::setRealCurrencySymbol(const std::string& sym)
-{
-	mRealCurrencySymbol = sym.substr(0, 3);
-}
-
-void HippoGridInfo::setDirectoryFee(int fee)
-{
-	mDirectoryFee = fee;
-}
-
 
 
 // ********************************************************************
 // Grid Info
 
-std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
+std::string HippoGridInfo::getSearchURL(SearchType ty, bool is_web) const
 {
-	// Don't worry about whether or not mSearchUrl is empty here anymore -- MC
+	// Don't worry about whether or not mSearchURL is empty here anymore -- MC
 	if (is_web)
 	{
 		if (mPlatform == PLATFORM_SECONDLIFE) 
@@ -321,16 +170,16 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
 				return "";
 			}
 		}
-		else if (!mSearchUrl.empty())
+		else if (!mSearchURL.empty())
 		{
 			// Search url sent to us in the login response
 			if (ty == SEARCH_ALL_EMPTY) 
 			{
-				return (mSearchUrl);
+				return (mSearchURL);
 			} 
 			else if (ty == SEARCH_ALL_QUERY) 
 			{
-				return (mSearchUrl + "q=[QUERY]&s=[COLLECTION]&");
+				return (mSearchURL + "q=[QUERY]&s=[COLLECTION]&");
 			} 
 			else if (ty == SEARCH_ALL_TEMPLATE) 
 			{
@@ -369,11 +218,11 @@ std::string HippoGridInfo::getSearchUrl(SearchType ty, bool is_web) const
         // Use the old search all
         if (ty == SEARCH_ALL_EMPTY) 
 		{
-            return (mSearchUrl + "panel=All&");
+            return (mSearchURL + "panel=All&");
         } 
 		else if (ty == SEARCH_ALL_QUERY) 
 		{
-            return (mSearchUrl + "q=[QUERY]&s=[COLLECTION]&");
+            return (mSearchURL + "q=[QUERY]&s=[COLLECTION]&");
         } 
 		else if (ty == SEARCH_ALL_TEMPLATE) 
 		{
@@ -424,7 +273,7 @@ void HippoGridInfo::onXmlElementEnd(void* userData, const XML_Char* name)
 }
 
 //static
-void HippoGridInfo::onXmlCharacterData(void* userData, const XML_Char* s, int len)
+void HippoGridInfo::onXmlCharacterData(void* userData, const XML_Char* s, S32 len)
 {
 	HippoGridInfo* self = (HippoGridInfo*)userData;
 	switch (self->mXmlState) 
@@ -446,30 +295,30 @@ void HippoGridInfo::onXmlCharacterData(void* userData, const XML_Char* s, int le
 		case XML_LOGINURI: 
 		{
 			std::string loginuri(s, len);
-			self->mLoginUri = sanitizeUri( loginuri );
+			self->mLoginURI = sanitizeURI( loginuri );
 			break;
 		}
 
 		case XML_HELPERURI: 
 		{
 			std::string helperuri(s, len);
-			self->mHelperUri = sanitizeUri( helperuri );
+			self->mHelperURI = sanitizeURI( helperuri );
 			break;
 		}
 
 		case XML_SEARCH: 
 		{
-			self->mSearchUrl.assign(s, len);
-			//sanitizeQueryUrl(mSearchUrl);
+			self->mSearchURL.assign(s, len);
+			//sanitizeQueryURL(mSearchURL);
 			break;
 		}
 
 		case XML_GRIDNAME: self->mGridName.assign(s, len); break;
 		case XML_LOGINPAGE: self->mLoginPage.assign(s, len); break;
 		case XML_WEBSITE: self->mWebSite.assign(s, len); break;
-		case XML_SUPPORT: self->mSupportUrl.assign(s, len); break;
-		case XML_REGISTER: self->mRegisterUrl.assign(s, len); break;
-		case XML_PASSWORD: self->mPasswordUrl.assign(s, len); break;
+		case XML_SUPPORT: self->mSupportURL.assign(s, len); break;
+		case XML_REGISTER: self->mRegisterURL.assign(s, len); break;
+		case XML_PASSWORD: self->mPasswordURL.assign(s, len); break;
 
 		case XML_VOID: break;
 	}
@@ -478,16 +327,16 @@ void HippoGridInfo::onXmlCharacterData(void* userData, const XML_Char* s, int le
 
 bool HippoGridInfo::retrieveGridInfo()
 {
-	if (mLoginUri == "") return false;
+	if (mLoginURI == "") return false;
 
 	// If last character in uri is not "/"
-	std::string uri = mLoginUri;
+	std::string uri = mLoginURI;
 	if (uri.compare(uri.length()-1, 1, "/") != 0) 
 	{
 	 	uri += '/';
 	}
 	std::string reply;
-	int result = HippoRestRequest::getBlocking(uri + "get_grid_info", &reply);
+	S32 result = HippoRestRequest::getBlocking(uri + "get_grid_info", &reply);
 	if (result != 200) return false;
 
 	llinfos << "Received: " << reply << llendl;
@@ -508,6 +357,14 @@ bool HippoGridInfo::retrieveGridInfo()
 	return success;
 }
 
+const std::string& HippoGridInfo::getGridName() const
+{
+	if (mGridName.empty())
+	{
+		return mGridNick;
+	}
+	return mGridName;
+}
 
 std::string HippoGridInfo::getUploadFee() const
 {
@@ -531,7 +388,7 @@ std::string HippoGridInfo::getDirectoryFee() const
 	return fee;
 }
 
-void HippoGridInfo::formatFee(std::string &fee, int cost, bool showFree) const
+void HippoGridInfo::formatFee(std::string &fee, S32 cost, bool showFree) const
 {
 	if (showFree && (cost == 0)) 
 	{
@@ -556,7 +413,9 @@ const char* HippoGridInfo::getPlatformString(Platform platform)
 	};
 
 	if ((platform < PLATFORM_OTHER) || (platform >= PLATFORM_LAST))
+	{
 		platform = PLATFORM_OTHER;
+	}
 	return platformStrings[platform];
 }
 
@@ -565,8 +424,8 @@ const char* HippoGridInfo::getPlatformString(Platform platform)
 std::string HippoGridInfo::sanitizeGridNick(std::string &gridnick)
 {
 	std::string tmp;
-	int size = gridnick.size();
-	for (int i=0; i<size; i++) 
+	S32 size = gridnick.size();
+	for (S32 i=0; i<size; i++) 
 	{
 		char c = gridnick[i];
 		if ((c == '_') || isalnum(c)) 
@@ -582,8 +441,10 @@ std::string HippoGridInfo::sanitizeGridNick(std::string &gridnick)
 }
 
 // static
-std::string HippoGridInfo::sanitizeUri(std::string &uri)
+std::string HippoGridInfo::sanitizeURI(std::string &uri)
 {
+	// Why don't we do this anymore? -- MC
+
 	// if (uri.empty()) {
 	// 	return "";
 	// }
@@ -603,8 +464,8 @@ void HippoGridInfo::initFallback()
 	FALLBACK_GRIDINFO.mGridNick = "localhost";
 	FALLBACK_GRIDINFO.setPlatform(PLATFORM_OPENSIM);
 	FALLBACK_GRIDINFO.setGridName("Local Host");
-	FALLBACK_GRIDINFO.setLoginUri("http://127.0.0.1:9000/");
-	FALLBACK_GRIDINFO.setHelperUri("http://127.0.0.1:9000/");
+	FALLBACK_GRIDINFO.setLoginURI("http://127.0.0.1:9000/");
+	FALLBACK_GRIDINFO.setHelperURI("http://127.0.0.1:9000/");
 }
 
 
@@ -683,7 +544,7 @@ HippoGridInfo* HippoGridManager::getGrid(const std::string& grid) const
 
 HippoGridInfo* HippoGridManager::getConnectedGrid() const
 {
-	return (mConnectedGrid)? mConnectedGrid: getCurrentGrid();
+	return (mConnectedGrid) ? mConnectedGrid : getCurrentGrid();
 }
 
 
@@ -700,11 +561,6 @@ HippoGridInfo* HippoGridManager::getCurrentGrid() const
 	}
 }
 
-const std::string& HippoGridManager::getDefaultGridNick() const
-{
-	return mDefaultGrid;
-}
-
 const std::string& HippoGridManager::getCurrentGridNick() const
 {
 	if (mCurrentGrid.empty())
@@ -713,12 +569,6 @@ const std::string& HippoGridManager::getCurrentGridNick() const
 	}
 	return mCurrentGrid;
 }
-
-void HippoGridManager::setCurrentGridAsConnected()
-{
-	mConnectedGrid = getCurrentGrid();
-}
-
 
 void HippoGridManager::addGrid(HippoGridInfo* grid)
 {
@@ -743,17 +593,25 @@ void HippoGridManager::addGrid(HippoGridInfo* grid)
 void HippoGridManager::deleteGrid(const std::string& grid)
 {
 	GridIterator it = mGridInfo.find(grid);
-	if (it == mGridInfo.end()) {
+	if (it == mGridInfo.end()) 
+	{
 		llwarns << "Trying to delete non-existing grid " << grid << '.' << llendl;
 		return;
 	}
+
 	mGridInfo.erase(it);
+
 	llinfos << "Number of grids now: " << mGridInfo.size() << llendl;
+
 	if (mGridInfo.empty()) llinfos << "Grid info map is empty." << llendl;
 	if (grid == mDefaultGrid)
+	{
 		setDefaultGrid(LLStringUtil::null);  // sets first grid, if map not empty
+	}
 	if (grid == mCurrentGrid)
+	{
 		mCurrentGrid = mDefaultGrid;
+	}
 }
 
 
@@ -793,6 +651,18 @@ void HippoGridManager::setCurrentGrid(const std::string& grid)
 	}
 }
 
+bool HippoGridManager::hasGridNick(const std::string& grid_nick)
+{
+	for (GridIterator it = beginGrid(); it != endGrid(); ++it) 
+	{
+		if (grid_nick == it->second->getGridNick())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 // ********************************************************************
 // Persistent Store
@@ -810,7 +680,7 @@ void HippoGridManager::loadFromFile()
 		std::string update_list = gSavedSettings.getString("GridUpdateList");
 		if (!update_list.empty())
 		{
-			parseUrl(update_list, !mGridInfo.empty());
+			parseURL(update_list, !mGridInfo.empty());
 		}
 		else
 		{
@@ -825,7 +695,7 @@ void HippoGridManager::loadFromFile()
 }
 
 
-void HippoGridManager::parseUrl(const std::string url, bool mergeIfNewer)
+void HippoGridManager::parseURL(const std::string url, bool mergeIfNewer)
 {
 	llinfos << "Loading grid info from '" << url << "'." << llendl;
 
@@ -879,7 +749,7 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 			LLSD gridMap = *it;
 			if (gridMap.has("default_grids_version")) 
 			{
-				int version = gridMap["default_grids_version"];
+				S32 version = gridMap["default_grids_version"];
 				if (version <= mDefaultGridsVersion) return;
 				else break;
 			}
@@ -917,20 +787,22 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 				// update existing grid info
 				grid = it->second;
 			}
-			grid->setLoginUri(gridMap["loginuri"]);
+			grid->setLoginURI(gridMap["loginuri"]);
 			if (gridMap.has("platform")) grid->setPlatform(gridMap["platform"]);
 			if (gridMap.has("gridname")) grid->setGridName(gridMap["gridname"]);
 			if (gridMap.has("loginpage")) grid->setLoginPage(gridMap["loginpage"]);
-			if (gridMap.has("helperuri")) grid->setHelperUri(gridMap["helperuri"]);
+			if (gridMap.has("helperuri")) grid->setHelperURI(gridMap["helperuri"]);
 			if (gridMap.has("website")) grid->setWebSite(gridMap["website"]);
-			if (gridMap.has("support")) grid->setSupportUrl(gridMap["support"]);
-			if (gridMap.has("register")) grid->setRegisterUrl(gridMap["register"]);
-			if (gridMap.has("password")) grid->setPasswordUrl(gridMap["password"]);
-			if (gridMap.has("search")) grid->setSearchUrl(gridMap["search"]);
+			if (gridMap.has("support")) grid->setSupportURL(gridMap["support"]);
+			if (gridMap.has("register")) grid->setRegisterURL(gridMap["register"]);
+			if (gridMap.has("password")) grid->setPasswordURL(gridMap["password"]);
+			if (gridMap.has("search")) grid->setSearchURL(gridMap["search"]);
 			if (gridMap.has("render_compat")) grid->setRenderCompat(gridMap["render_compat"]);
-			// if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
-			// if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
-			// if (gridMap.has("avatarpassword")) grid->setAvatarPassword(gridMap["avatarpassword"]);
+			if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
+			if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
+			if (gridMap.has("avatarpassword")) grid->setAvatarPassword(gridMap["avatarpassword"]);
+			if (gridMap.has("username")) grid->setUsername(gridMap["username"]);
+			if (gridMap.has("username_compat")) grid->setUsernameCompat(gridMap["username_compat"]);
 			if (newGrid) addGrid(grid);
 		}
 	}
@@ -955,19 +827,22 @@ void HippoGridManager::saveFile()
 		gridInfo[i]["gridnick"] = grid->getGridNick();
 		gridInfo[i]["platform"] = HippoGridInfo::getPlatformString(grid->getPlatform());
 		gridInfo[i]["gridname"] = grid->getGridName();
-		gridInfo[i]["loginuri"] = grid->getLoginUri();
+		gridInfo[i]["loginuri"] = grid->getLoginURI();
 		gridInfo[i]["loginpage"] = grid->getLoginPage();
-		gridInfo[i]["helperuri"] = grid->getHelperUri();
+		gridInfo[i]["helperuri"] = grid->getHelperURI();
 		gridInfo[i]["website"] = grid->getWebSite();
-		gridInfo[i]["support"] = grid->getSupportUrl();
-		gridInfo[i]["register"] = grid->getRegisterUrl();
-		gridInfo[i]["password"] = grid->getPasswordUrl();
-		// gridInfo[i]["firstname"] = grid->getFirstName();
-		// gridInfo[i]["lastname"] = grid->getLastName();
-		// gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
+		gridInfo[i]["support"] = grid->getSupportURL();
+		gridInfo[i]["register"] = grid->getRegisterURL();
+		gridInfo[i]["password"] = grid->getPasswordURL();
+		gridInfo[i]["firstname"] = grid->getFirstName();
+		gridInfo[i]["lastname"] = grid->getLastName();
+		gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
 		
-		gridInfo[i]["search"] = grid->getSearchUrl();
+		gridInfo[i]["search"] = grid->getSearchURL();
 		gridInfo[i]["render_compat"] = grid->isRenderCompat();
+
+		gridInfo[i]["username"] = grid->getUsername();
+		gridInfo[i]["username_compat"] = grid->isUsernameCompat();
 	}
 
 	// write client grid info file

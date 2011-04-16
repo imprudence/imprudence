@@ -7156,11 +7156,14 @@ You need to specify a unique grid nickname.
 
 <notification
  icon="alertmodal.tga"
- name="GridsNoLoginUri"
+ name="GridInfoDirty"
  type="alertmodal">
-Cannot save new grid '[NAME]'.
-
-You need to specify a login URI.
+You have unsaved changes that will be lost. Continue?
+  <usetemplate
+   ignoretext="When creating new grids"
+   name="okcancelignore"
+   notext="Cancel"
+   yestext="Continue"/>
 </notification>
 
 <notification
@@ -7172,6 +7175,13 @@ Cannot save new grid '[NAME]'.
 A grid with the same nickname already exists.
 </notification>
 
+<notification
+  icon="alertmodal.tga"
+  name="GridInfoNoLoginUri"
+  type="alertmodal">
+  A login URI is required to retrieve the grid info.
+</notification>
+  
 <notification
  icon="alertmodal.tga"
  name="GridInfoNoLoginUri"
@@ -7215,6 +7225,13 @@ If you don't have an account, would you like to create one now?
    yestext="Create an account"/>
 </notification>
 
+<notification
+  icon="alertmodal.tga"
+  name="InvalidPassword"
+  type="alertmodal">
+You have entered an invalid password! Please try again.
+</notification>
+  
 <notification
  icon="alert.tga"
  name="ShowLookAtInfo"

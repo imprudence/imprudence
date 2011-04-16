@@ -3262,10 +3262,10 @@ void LLAppViewer::badNetworkHandler()
 	LLAppViewer::handleViewerCrash();
 
 	std::string grid_support_msg = "";
-	if (!gHippoGridManager->getCurrentGrid()->getSupportUrl().empty())
+	if (!gHippoGridManager->getCurrentGrid()->getSupportURL().empty())
 	{
 		grid_support_msg = "\n\nOr visit the gird support page at: \n " 
-			+ gHippoGridManager->getCurrentGrid()->getSupportUrl();
+			+ gHippoGridManager->getCurrentGrid()->getSupportURL();
 	}
 	std::ostringstream message;
 	message <<

@@ -802,7 +802,7 @@ bool idle_startup()
 
 		timeout_count = 0;
 		
-		if(LLStartUp::shouldAutoLogin())
+		if (LLStartUp::shouldAutoLogin())
 		{
 			show_connect_box = false;
 		}
@@ -823,22 +823,32 @@ bool idle_startup()
 
 			// Show the login dialog
 			login_show();
-			// connect dialog is already shown, so fill in the names
+
+			// connect dialog is already shown, so fill in the names associated with the grid
+			// note how we always remember avatar names, but don't necessarily have to
 			// icky how usernames get bolted on here as a kind of hack -- MC
-			if (gHippoGridManager && gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+			if (gHippoGridManager)
 			{
-				if (lastname == "resident" || lastname == "Resident")
+				firstname = gHippoGridManager->getCurrentGrid()->getFirstName();
+				lastname = gHippoGridManager->getCurrentGrid()->getLastName();
+				// RememberPassword toggles this being saved
+				password = gHippoGridManager->getCurrentGrid()->getAvatarPassword();
+				
+				if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
 				{
-					LLPanelLogin::setFields(firstname, password);
+					if (lastname == "resident" || lastname == "Resident")
+					{
+						LLPanelLogin::setFields(firstname, password);
+					}
+					else
+					{
+						LLPanelLogin::setFields(firstname+"."+lastname, password);
+					}
 				}
 				else
 				{
-					LLPanelLogin::setFields(firstname+"."+lastname, password);
+					LLPanelLogin::setFields(firstname, lastname, password);
 				}
-			}
-			else
-			{
-				LLPanelLogin::setFields(firstname, lastname, password);
 			}
 			
 			LLPanelLogin::giveFocus();
@@ -972,21 +982,8 @@ bool idle_startup()
 			lastname = gLoginHandler.getLastName();
 			web_login_key = gLoginHandler.getWebLoginKey();
 		}
-		
-		/* Jacek - Grid manager stuff that's changed with 1.23
-		if(!gLoginHandler.mPassword.empty())
-		{
-			firstname = gLoginHandler.mFirstName;
-			lastname = gLoginHandler.mLastName;
-			password = gLoginHandler.mPassword;
-			
-			gLoginHandler.mFirstName = "";
-			gLoginHandler.mLastName = "";
-			gLoginHandler.mPassword = "";
-			LLStartUp::setShouldAutoLogin(false);
-		}*/
-				
-		if (show_connect_box)
+		// note: the grid manager overrides defaults, always -- MC
+		else if (show_connect_box)
 		{
 			// TODO if not use viewer auth
 			// Load all the name information out of the login view
@@ -995,6 +992,8 @@ bool idle_startup()
 	 
 			// HACK: Try to make not jump on login
 			gKeyboard->resetKeys();
+			
+			LLStartUp::setShouldAutoLogin(false);
 		}
 
 		if (!firstname.empty() && !lastname.empty())
@@ -1003,16 +1002,17 @@ bool idle_startup()
 			gSavedSettings.setString("LastName", lastname);
 
 			//LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
-			gDebugInfo["LoginName"] = firstname + " " + lastname;	
+			gDebugInfo["LoginName"] = firstname + " " + lastname;
+
+			// create necessary directories
+			gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+			LLFile::mkdir(gDirUtilp->getLindenUserDir());
 		}
-
-
-
-
-		// create necessary directories
-		// *FIX: these mkdir's should error check
-		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-		LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		else
+		{
+			// we don't do anything from here on out -- MC
+			llerrs << "No first or last name given! Cannot proceed!" << llendl;
+		}
 
 		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
@@ -1547,7 +1547,7 @@ bool idle_startup()
 		default:
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
-				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridNick() << ".\n";
+				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridName() << ".\n";
 				emsg << LLUserAuth::getInstance()->errorMessage();
 			} else {
 				sAuthUriNum++;
@@ -1826,31 +1826,31 @@ bool idle_startup()
 			std::string tmp = LLUserAuth::getInstance()->getResponse("gridname");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setGridName(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("loginuri");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("welcome");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("loginpage");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("economy");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("helperuri");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("about");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("website");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("help");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("support");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("register");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("account");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("password");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("search");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("currency");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
@@ -2375,9 +2375,7 @@ bool idle_startup()
 			LLStringUtil::format_map_t args;
 			args["[FIRST_NAME]"] = firstname;
 			args["[LAST_NAME]"] = lastname;
-			args["[GRID_NAME]"] = (gHippoGridManager->getConnectedGrid()->getGridName().empty()) ? 
-				gHippoGridManager->getConnectedGrid()->getGridNick() :
-				gHippoGridManager->getConnectedGrid()->getGridName();
+			args["[GRID_NAME]"] = gHippoGridManager->getConnectedGrid()->getGridName();
 			std::string title_text = LLTrans::getString("TitleBarMultiple", args);
 			gWindowTitle = gSecondLife + " - " + title_text;
 			LLStringUtil::truncate(gWindowTitle, 255);
@@ -3271,7 +3269,7 @@ bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 	if (0 == option)
 	{
 		LL_DEBUGS("AppInit") << "First run dialog cancelling" << LL_ENDL;
-		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterURL();
 		if (!url.empty()) {
 			LLWeb::loadURL(url);
 		} else {
@@ -3323,7 +3321,7 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
         case 0:     // OK
             break;
         case 1: {   // Help
-            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportURL();
             if (!url.empty()) LLWeb::loadURLInternal(url);
             break;
         }

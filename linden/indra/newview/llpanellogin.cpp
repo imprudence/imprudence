@@ -829,9 +829,9 @@ void LLPanelLogin::refreshLoginPage()
     if (!sInstance) return;
 
     sInstance->childSetVisible("create_new_account_text",
-        !gHippoGridManager->getCurrentGrid()->getRegisterUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getRegisterURL().empty());
     sInstance->childSetVisible("forgot_password_text",
-        !gHippoGridManager->getCurrentGrid()->getPasswordUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getPasswordURL().empty());
 
     // kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build(sInstance);
@@ -853,44 +853,43 @@ void LLPanelLogin::loadLoginForm()
 	if (!sInstance) return;
 	
 	// toggle between username/first+last login based on grid -- MC
-	LLTextBox* firstnamet = sInstance->getChild<LLTextBox>("first_name_text");
-	LLTextBox* lastnamet = sInstance->getChild<LLTextBox>("last_name_text");
-	LLTextBox* usernamet = sInstance->getChild<LLTextBox>("username_text");
+	LLTextBox* firstname_t = sInstance->getChild<LLTextBox>("first_name_text");
+	LLTextBox* lastname_t = sInstance->getChild<LLTextBox>("last_name_text");
+	LLTextBox* username_t = sInstance->getChild<LLTextBox>("username_text");
 
-	LLLineEditor* firstnamel = sInstance->getChild<LLLineEditor>("first_name_edit");
-	LLLineEditor* lastnamel = sInstance->getChild<LLLineEditor>("last_name_edit");
-	LLLineEditor* usernamel = sInstance->getChild<LLLineEditor>("username_edit");
+	LLLineEditor* firstname_l = sInstance->getChild<LLLineEditor>("first_name_edit");
+	LLLineEditor* lastname_l = sInstance->getChild<LLLineEditor>("last_name_edit");
+	LLLineEditor* username_l = sInstance->getChild<LLLineEditor>("username_edit");
 
-	firstnamet->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	lastnamet->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	usernamet->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	firstname_t->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	lastname_t->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	username_t->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
 
-	firstnamel->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	lastnamel->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	usernamel->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	firstname_l->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	lastname_l->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	username_l->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
 
-	// these should really REALLY be stored in the grid info -- MC
-	std::string firstnames = gSavedSettings.getString("FirstName");
-	std::string lastnames = gSavedSettings.getString("LastName");
-	if (!firstnames.empty() && !lastnames.empty())
+	// get name info if we've got it
+	std::string firstname_s = gHippoGridManager->getCurrentGrid()->getFirstName();
+	std::string lastname_s = gHippoGridManager->getCurrentGrid()->getLastName();
+	if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
 	{
-		if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+		if (lastname_s == "resident" || lastname_s == "Resident")
 		{
-			if (lastnames == "resident" || lastnames == "Resident")
-			{
-				usernamel->setText(firstnames);
-			}
-			else
-			{
-				usernamel->setText(firstnames+"."+lastnames);
-			}
+			username_l->setText(firstname_s);
 		}
 		else
 		{
-			firstnamel->setText(firstnames);
-			lastnamel->setText(lastnames);
+			username_l->setText(firstname_s+"."+lastname_s);
 		}
 	}
+	else
+	{
+		firstname_l->setText(firstname_s);
+		lastname_l->setText(lastname_s);
+	}
+
+	setPassword(gHippoGridManager->getCurrentGrid()->getAvatarPassword());
 }
 
 
@@ -1208,11 +1207,14 @@ bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD&
 // static
 void LLPanelLogin::onClickNewAccount(void*)
 {
-	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
-	if (!url.empty()) {
+	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterURL();
+	if (!url.empty()) 
+	{
 		llinfos << "Going to account creation URL." << llendl;
 		LLWeb::loadURLExternal(url);
-	} else {
+	} 
+	else 
+	{
 		llinfos << "Account creation URL is empty." << llendl;
 		sInstance->setFocus(TRUE);
 	}
@@ -1246,10 +1248,13 @@ void LLPanelLogin::onClickForgotPassword(void*)
 {
 	if (sInstance )
 	{
-		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordUrl();
-		if (!url.empty()) {
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordURL();
+		if (!url.empty()) 
+		{
 			LLWeb::loadURLExternal(url);
-		} else {
+		} 
+		else 
+		{
 			llwarns << "Link for 'forgotton password' not set." << llendl;
 		}
 	}

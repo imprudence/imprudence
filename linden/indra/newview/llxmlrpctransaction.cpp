@@ -438,7 +438,7 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
 					" \n"
-					"Please check " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s status \n"
+					"Please check " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s status \n"
 					"to see if there is a known problem with the service.";
 
 				//mStatusURI = "http://secondlife.com/status/";
@@ -449,14 +449,14 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 {
 	std::string message;
-	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportUrl();
+	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportURL();
 	
 	switch (code)
 	{
 		case CURLE_COULDNT_RESOLVE_HOST:
 			message =
 				"DNS could not resolve the host name.\n"
-				"Please verify that you can connect to " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s\n"
+				"Please verify that you can connect to " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s\n"
 				"web site.  If you can, but continue to receive this error,\n"
 				"please go to the support section and report this problem.";
 			break;
@@ -465,7 +465,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 			message =
 				"The login server couldn't verify itself via SSL.\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s web site\n"
 				"and report the problem.";
 			break;
 			
@@ -477,7 +477,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 				"are set correctly.\n"
 				"\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s web site\n"
 				"and report the problem.";
 			break;
 			
