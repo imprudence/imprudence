@@ -107,7 +107,13 @@ void ViewerTime::refresh()
 		// it's daylight savings time there.
 		internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 	}
-	
+
+	if(NULL == internal_time)
+	{
+		llwarns << "internal_time == NULL - Kaboom!" << llendl;
+		return;
+	}
+
 	mMinute = internal_time->tm_min;
 	mSecond = internal_time->tm_sec;
 	S32 hour = internal_time->tm_hour;
