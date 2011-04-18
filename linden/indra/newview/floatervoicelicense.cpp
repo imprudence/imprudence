@@ -128,8 +128,16 @@ BOOL FloaterVoiceLicense::postBuild()
 		// start to observe it so we see navigate complete events
 		web_browser->addObserver( this );
 
-		gResponsePtr = LLIamHereVoice::build( this );
-		LLHTTPClient::get( getString( "real_url" ), gResponsePtr );
+		std::string url = getString( "real_url" );
+		if (url.substr(0,4) == "http") 
+		{
+			gResponsePtr = LLIamHereVoice::build( this );
+			LLHTTPClient::get( url, gResponsePtr );
+		}
+		else 
+		{
+			setSiteIsAlive(false);
+		}
 	}
 
 	return TRUE;
