@@ -878,9 +878,13 @@ void LLPanelLogin::loadLoginForm()
 		{
 			username_l->setText(firstname_s);
 		}
-		else
+		else if (!firstname_s.empty() && !lastname_s.empty())
 		{
 			username_l->setText(firstname_s+"."+lastname_s);
+		}
+		else
+		{
+			username_l->clear();
 		}
 	}
 	else
