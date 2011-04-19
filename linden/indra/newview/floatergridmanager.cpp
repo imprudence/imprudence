@@ -47,13 +47,11 @@
 #include "llpanellogin.h"
 
 const std::string PASSWORD_FILLER = "123456789!123456";
-//bool FloaterGridManager::sIsInitialLogin;
 
 FloaterGridManager::FloaterGridManager(const LLSD& key)
 	:	
 	mState(GRID_STATE_NORMAL),
-	mCurGrid(""),
-	mMungedPassword("")
+	mCurGrid("")
 {
 	llinfos << "Opening grid manager" << llendl;
 
@@ -250,7 +248,15 @@ void FloaterGridManager::refreshGrids()
 		FloaterGridManager::getInstance()->getChild<LLLineEditor>("first_name")->setText(gridInfo->getFirstName());
 		FloaterGridManager::getInstance()->getChild<LLLineEditor>("last_name")->setText(gridInfo->getLastName());
 		FloaterGridManager::getInstance()->getChild<LLLineEditor>("username")->setText(gridInfo->getUsername());
-		FloaterGridManager::getInstance()->getChild<LLLineEditor>("avatar_password")->setText(gridInfo->getAvatarPassword());
+
+		if (gridInfo->getPassword().empty())
+		{
+			FloaterGridManager::getInstance()->getChild<LLLineEditor>("avatar_password")->setText(LLStringExplicit(""));
+		}
+		else
+		{
+			FloaterGridManager::getInstance()->getChild<LLLineEditor>("avatar_password")->setText(PASSWORD_FILLER);
+		}
 		
 		FloaterGridManager::getInstance()->getChild<LLLineEditor>("first_name")->setVisible(!gridInfo->isUsernameCompat());
 		FloaterGridManager::getInstance()->getChild<LLTextBox>("first_name_text")->setVisible(!gridInfo->isUsernameCompat());
@@ -353,15 +359,13 @@ void FloaterGridManager::applyChanges()
 
 	// don't allow users to set their password as PASSWORD_FILLER
 	// would be nice to get grid-specific rules on password formatting, too
-	// passwords are remembered by default
+	// passwords are remembered by default when entered in the grid manager (good default?)
 	std::string password_new = childGetValue("avatar_password").asString();
-	std::string password_old = grid->getAvatarPassword(); // initialized to ""
-	if (!password_new.empty() && password_new != PASSWORD_FILLER && password_new != password_old)
+	std::string password_old = grid->getPassword(); // initialized to ""
+	if (password_new != PASSWORD_FILLER && password_new != password_old)
 	{
 		// store account authentication data
-		std::string hashed_password;
-		hashPassword(password_new, hashed_password);
-		grid->setAvatarPassword(hashed_password);
+		grid->setPassword(password_new);
 	}
 
 	FloaterGridManager::getInstance()->getChild<LLScrollListCtrl>("grid_selector")->setEnabled(true);
@@ -380,11 +384,11 @@ void FloaterGridManager::applyChanges()
 	// should this be settable?
 	if (grid->isUsernameCompat())
 	{
-		LLPanelLogin::setFields(grid->getUsername(), grid->getAvatarPassword());
+		LLPanelLogin::setFields(grid->getUsername(), grid->getPassword());
 	}
 	else
 	{
-		LLPanelLogin::setFields(grid->getFirstName(), grid->getLastName(), grid->getAvatarPassword());
+		LLPanelLogin::setFields(grid->getFirstName(), grid->getLastName(), grid->getPassword());
 	}
 
 	if (FloaterGridDefault::instanceVisible())
@@ -540,6 +544,8 @@ void FloaterGridManager::apply()
 
 	gHippoGridManager->saveFile();
 	LLPanelLogin::addServer(LLViewerLogin::getInstance()->getGridLabel());
+	LLPanelLogin::loadLoginForm();
+	LLPanelLogin::loadLoginPage();
 }
 
 // static
@@ -697,36 +703,3 @@ BOOL FloaterGridManager::isGridComboDirty()
 //	LLComboBox* combo = FloaterGridManager::getInstance()->getChild<LLComboBox>("start_location_combo");
 //	location = combo->getValue().asString();
 //}
-
-std::string& FloaterGridManager::getPassword()
-{
-	return mMungedPassword;
-}
-
-void FloaterGridManager::setPassword(std::string &password)
-{
-	mMungedPassword = password;
-}
-
-bool FloaterGridManager::isSamePassword(std::string &password)
-{
-	return mMungedPassword == password;
-}
-
-void FloaterGridManager::hashPassword(const std::string& password, std::string& hashedPassword)
-{
-	// Max "actual" password length is 16 characters.
-	// Hex digests are always 32 characters.
-	if (password.length() == 32)
-	{
-		hashedPassword = password;
-	}
-	else
-	{
-		// this is a normal text password
-		LLMD5 pass((unsigned char *)password.c_str());
-		char munged_password[MD5HEX_STR_SIZE];
-		pass.hex_digest(munged_password);
-		hashedPassword = munged_password;
-	}
-}

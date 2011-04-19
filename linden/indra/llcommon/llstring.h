@@ -456,6 +456,8 @@ LL_COMMON_API std::string mbcsstring_makeASCII(const std::string& str);
 
 LL_COMMON_API std::string utf8str_removeCRLF(const std::string& utf8str);
 
+LL_COMMON_API bool is_hex_string(U8* str, S32 len);
+
 
 #if LL_WINDOWS
 /* @name Windows string helpers

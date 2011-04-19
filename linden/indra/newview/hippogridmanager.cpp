@@ -41,10 +41,14 @@
 #include <llerror.h>
 #include <llfile.h>
 #include <llhttpclient.h>
+#include "llmd5.h"
 #include <llsdserialize.h>
+
 #include "lltrans.h"
 #include "llviewercontrol.h"
+#include "llviewernetwork.h" // gMacAddress
 #include "llweb.h"
+#include "llxorcipher.h"	// saved password, MAC address
 
 #include "hipporestrequest.h"
 
@@ -82,7 +86,7 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mSearchURL(LLStringUtil::null),
 	mFirstName(LLStringUtil::null),
 	mLastName(LLStringUtil::null),
-	mAvatarPassword(LLStringUtil::null),
+	mPasswordAvatar(LLStringUtil::null),
 	mXmlState(XML_VOID),
 	mVoiceConnector("SLVoice"),
 	mRenderCompat(true),
@@ -400,6 +404,92 @@ void HippoGridInfo::formatFee(std::string &fee, S32 cost, bool showFree) const
 	}
 }
 
+
+void HippoGridInfo::setPassword(const std::string& unhashed_password)
+{
+	if (unhashed_password.empty())
+	{
+		mPasswordAvatar = "";
+		return;
+	}
+
+	if (unhashed_password == mPasswordAvatar)
+	{
+		return;
+	}
+
+	std::string hashed_password("");
+
+	// Max "actual" password length is 16 characters.
+	// Hex digests are always 32 characters.
+	if (unhashed_password.length() == 32)
+	{
+		hashed_password = unhashed_password;
+	}
+	else
+	{
+		// this is a user-entered plaintext password
+		LLMD5 pass((unsigned char *)unhashed_password.c_str());
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		hashed_password = munged_password;
+	}
+
+	// need to fix the bug in this
+	/*
+
+	// Encipher with MAC address
+	const S32 HASHED_LENGTH = 32;
+	U8 buffer[HASHED_LENGTH+1];
+
+	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
+
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.encrypt(buffer, HASHED_LENGTH);
+
+	mPasswordAvatar.assign((char*)buffer);
+	*/
+	mPasswordAvatar.assign(hashed_password);
+}
+
+
+std::string HippoGridInfo::getPassword() const
+{
+	// need to fix the bug in this
+	/*
+	if (mPasswordAvatar.empty() || mPasswordAvatar.length() == 32)
+	{
+		return mPasswordAvatar;
+	}
+
+	std::string hashed_password("");
+
+	// UUID is 16 bytes, written into ASCII is 32 characters
+	// without trailing \0
+	const S32 HASHED_LENGTH = 32;
+	U8 buffer[HASHED_LENGTH+1];
+
+	LLStringUtil::copy((char*)buffer, mPasswordAvatar.c_str(), HASHED_LENGTH+1);
+	
+	// Decipher with MAC address
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.decrypt(buffer, HASHED_LENGTH);
+
+	buffer[HASHED_LENGTH] = '\0';
+
+	// Check to see if the mac address generated a bad hashed
+	// password. It should be a hex-string or else the mac adress has
+	// changed. This is a security feature to make sure that if you
+	// get someone's grid_info.xml file, you cannot hack their account.
+	if (is_hex_string(buffer, HASHED_LENGTH))
+	{
+		hashed_password.assign((char*)buffer);
+	}
+
+	return hashed_password;
+	*/
+	return mPasswordAvatar;
+}
 
 // ********************************************************************
 // Static Helpers
@@ -800,7 +890,7 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 			if (gridMap.has("render_compat")) grid->setRenderCompat(gridMap["render_compat"]);
 			if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
 			if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
-			if (gridMap.has("avatarpassword")) grid->setAvatarPassword(gridMap["avatarpassword"]);
+			if (gridMap.has("avatarpassword")) grid->setPassword(gridMap["avatarpassword"]);
 			if (gridMap.has("username")) grid->setUsername(gridMap["username"]);
 			if (gridMap.has("username_compat")) grid->setUsernameCompat(gridMap["username_compat"]);
 			if (newGrid) addGrid(grid);
@@ -836,7 +926,7 @@ void HippoGridManager::saveFile()
 		gridInfo[i]["password"] = grid->getPasswordURL();
 		gridInfo[i]["firstname"] = grid->getFirstName();
 		gridInfo[i]["lastname"] = grid->getLastName();
-		gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
+		gridInfo[i]["avatarpassword"] = grid->getPassword();
 		
 		gridInfo[i]["search"] = grid->getSearchURL();
 		gridInfo[i]["render_compat"] = grid->isRenderCompat();

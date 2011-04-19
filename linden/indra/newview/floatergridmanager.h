@@ -50,19 +50,12 @@ public:
 
 	void refresh();
 
-	// new-style login methods
-	virtual std::string& getPassword();
-	virtual void setPassword(std::string &password);
-	virtual bool isSamePassword(std::string &password);
-
 	// clears either the loginuri fetched info or all the info in the grid manager
 	void clearGridInfo(bool clear_all);
 	
 	//static void getLocation(std::string &location);
 	//void refreshLocation(bool force_visible)
 	static BOOL isGridComboDirty();
-	//static void addServer(const std::string& server, S32 domain_name);
-	static void hashPassword(const std::string& password, std::string& hashedPassword);
 
 private:
 
@@ -75,7 +68,6 @@ private:
 
 	void setGridState(EGridState state) { mState = state; }
 	EGridState getGridState() { return mState; }
-	std::string mMungedPassword;
 	EGridState mState;
 	std::string mCurGrid;
 

@@ -56,6 +56,7 @@
 #include "llsdutil.h"
 //#include "vmath.h"
 
+#include "hippogridmanager.h"
 #include "imageids.h"
 #include "llbox.h"
 #include "llbutton.h"
@@ -5590,7 +5591,7 @@ void LLAgent::getName(std::string& name)
 	}
 	else
 	{
-		name = gSavedSettings.getString("FirstName") + " " + gSavedSettings.getString("LastName");
+		name = gHippoGridManager->getCurrentGrid()->getFirstName() + " " + gHippoGridManager->getCurrentGrid()->getLastName();
 	}
 }
 

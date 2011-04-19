@@ -596,6 +596,40 @@ std::string utf8str_removeCRLF(const std::string& utf8str)
 	return out;
 }
 
+bool is_hex_string(U8* str, S32 len)
+{
+	bool rv = true;
+	U8* c = str;
+	while(rv && len--)
+	{
+		switch(*c)
+		{
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		case 'a':
+		case 'b':
+		case 'c':
+		case 'd':
+		case 'e':
+		case 'f':
+			++c;
+			break;
+		default:
+			rv = false;
+			break;
+		}
+	}
+	return rv;
+}
+
 #if LL_WINDOWS
 // documentation moved to header. Phoenix 2007-11-27
 namespace snprintf_hack

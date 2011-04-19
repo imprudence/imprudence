@@ -1267,6 +1267,19 @@ bool LLAppViewer::cleanup()
 
 	LLCalc::cleanUp();
 
+	// Quitting with "Remember Password" turned off should always stomp your
+	// saved password, whether or not you successfully logged in.  JC
+	if (!gSavedSettings.getBOOL("RememberPassword"))
+	{
+		gHippoGridManager->getConnectedGrid()->setPassword("");
+
+		// kill old password.dat file if it exists. We do this to keep setting compatibility with older versions -- MC
+		std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "password.dat");
+		LLFile::remove(filepath);
+	}
+
+	gHippoGridManager->saveFile();
+
 	delete gHippoGridManager;
 	gHippoGridManager = NULL;
 
@@ -1418,13 +1431,6 @@ bool LLAppViewer::cleanup()
 	//
 	LLVFile::cleanupClass();
 	llinfos << "VFS cleaned up" << llendflush;
-
-	// Quitting with "Remember Password" turned off should always stomp your
-	// saved password, whether or not you successfully logged in.  JC
-	if (!gSavedSettings.getBOOL("RememberPassword"))
-	{
-		LLStartUp::deletePasswordFromDisk();
-	}
 	
 	// Store the time of our current logoff
 	gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());

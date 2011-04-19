@@ -131,23 +131,29 @@ bool LLLoginHandler::handle(const LLSD& tokens,
 
 		if (password.substr(0,3) != "$1$")
 		{
-			LLMD5 pass((unsigned char*)password.c_str());
-			char md5pass[33];		/* Flawfinder: ignore */
-			pass.hex_digest(md5pass);
-			std::string hashed_password = ll_safe_string(md5pass, 32);
-			LLStartUp::savePasswordToDisk(hashed_password);
+			// grids we try in order: loginhandler "grid", LastConnectedGrid, grid manager
+			// icky that we do this here and in LLStartUp
+			std::string grid_nick = query_map["grid"].asString();
+			if (grid_nick.empty()) grid_nick = gSavedSettings.getString("LastConnectedGrid");
+			if (grid_nick.empty()) grid_nick = gHippoGridManager->getCurrentGridNick();
+			HippoGridInfo* grid = gHippoGridManager->getGrid(grid_nick);
+			if (grid) grid->setPassword(password);
 		}
 	}
 			
 
 	if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)  //on splash page
 	{
-		// if we ever support saving names based on grid, we'll have to support saving usernames too -- MC
 		LLPanelLogin::loadLoginForm();
 
 		if (!mFirstName.empty() || !mLastName.empty())
 		{
-			// Fill in the name, and maybe the password
+			// Fill in the name, and the password if we can
+			if (password.empty())
+			{
+				password = gHippoGridManager->getCurrentGrid()->getPassword();
+			}
+
 			if (gHippoGridManager && gHippoGridManager->getCurrentGrid()->isUsernameCompat())
 			{
 				if (mLastName == "resident" || mLastName == "Resident")

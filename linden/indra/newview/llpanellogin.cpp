@@ -91,6 +91,7 @@
 
 const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
+const std::string PASSWORD_FILLER = "123456789!123456";
 
 LLPanelLogin *LLPanelLogin::sInstance = NULL;
 BOOL LLPanelLogin::sCapslockDidNotification = FALSE;
@@ -174,7 +175,8 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mLogoImage(),
 	mCallback(callback),
 	mCallbackData(cb_data),
-	mHtmlAvailable( TRUE )
+	mHtmlAvailable( TRUE ),
+	mActualPassword("")
 {
 	setFocusRoot(TRUE);
 
@@ -212,7 +214,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	childSetPrevalidate("last_name_edit", LLLineEditor::prevalidatePrintableNoSpace);
 	childSetPrevalidate("username_edit", LLLineEditor::prevalidatePrintableSpace);
 
-	childSetCommitCallback("password_edit", mungePassword);
+	childSetCommitCallback("password_edit", onPasswordChanged, this);
 	childSetKeystrokeCallback("password_edit", onPassKey, this);
 	childSetUserData("password_edit", this);
 
@@ -352,22 +354,6 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			mHtmlAvailable = TRUE;
 		}
 
-	}
-}
-
-void LLPanelLogin::mungePassword(LLUICtrl* caller, void* user_data)
-{
-	LLPanelLogin* self = (LLPanelLogin*)user_data;
-	LLLineEditor* editor = (LLLineEditor*)caller;
-	std::string password = editor->getText();
-
-	// Re-md5 if we've changed at all
-	if (password != self->mIncomingPassword)
-	{
-		LLMD5 pass((unsigned char *)password.c_str());
-		char munged_password[MD5HEX_STR_SIZE];
-		pass.hex_digest(munged_password);
-		self->mMungedPassword = munged_password;
 	}
 }
 
@@ -596,6 +582,8 @@ void LLPanelLogin::setFields(const std::string& firstname,
 // static
 void LLPanelLogin::setPassword(const std::string& password)
 {
+	// we check for sInstance before getting here
+
 	// Max "actual" password length is 16 characters.
 	// Hex digests are always 32 characters.
 	if (password.length() == 32)
@@ -604,21 +592,16 @@ void LLPanelLogin::setPassword(const std::string& password)
 		// We don't actually use the password input field, 
 		// fill it with MAX_PASSWORD characters so we get a 
 		// nice row of asterixes.
-		const std::string filler("123456789!123456");
-		sInstance->childSetText("password_edit", filler);
-		sInstance->mIncomingPassword = filler;
-		sInstance->mMungedPassword = password;
+		sInstance->childSetText("password_edit", PASSWORD_FILLER);
 	}
 	else
 	{
 		// this is a normal text password
 		sInstance->childSetText("password_edit", password);
-		sInstance->mIncomingPassword = password;
-		LLMD5 pass((unsigned char *)password.c_str());
-		char munged_password[MD5HEX_STR_SIZE];
-		pass.hex_digest(munged_password);
-		sInstance->mMungedPassword = munged_password;
 	}
+
+	// munging happens in the grid manager now
+	sInstance->mActualPassword = password;
 }
 
 
@@ -714,7 +697,8 @@ void LLPanelLogin::getFields(std::string *firstname,
 		LLStringUtil::trim(*lastname);
 	}
 
-	*password = sInstance->mMungedPassword;
+	// sent to us from LLStartUp. Saved only on an actual connect
+	*password = sInstance->mActualPassword;
 }
 
 // static
@@ -893,7 +877,7 @@ void LLPanelLogin::loadLoginForm()
 		lastname_l->setText(lastname_s);
 	}
 
-	setPassword(gHippoGridManager->getCurrentGrid()->getAvatarPassword());
+	setPassword(gHippoGridManager->getCurrentGrid()->getPassword());
 }
 
 
@@ -1224,6 +1208,20 @@ void LLPanelLogin::onClickNewAccount(void*)
 	}
 }
 
+// static
+void LLPanelLogin::onPasswordChanged(LLUICtrl* caller, void* user_data)
+{
+	LLPanelLogin* self = (LLPanelLogin*)user_data;
+	LLLineEditor* editor = (LLLineEditor*)caller;
+	std::string password = editor->getText();
+
+	// update if we've changed at all
+	// is there a good way to let users know we can't let them use PASSWORD_FILLER?
+	if (password != self->mActualPassword && password != PASSWORD_FILLER)
+	{
+		self->mActualPassword = password;
+	}
+}
 
 // *NOTE: This function is dead as of 2008 August.  I left it here in case
 // we suddenly decide to put the Quit button back. JC

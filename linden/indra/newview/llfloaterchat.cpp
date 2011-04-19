@@ -49,6 +49,7 @@
 #include "message.h"
 
 // project include
+#include "hippogridmanager.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
@@ -475,7 +476,7 @@ BOOL checkStringInText(const std::string &text_line, std::string textToMatch)
 
 BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
 {
-	if (checkStringInText(text_line, gSavedSettings.getString("FirstName")))
+	if (checkStringInText(text_line, gHippoGridManager->getConnectedGrid()->getFirstName()))
 		return TRUE;
 
 	for (int i=1; i<=3; i++)

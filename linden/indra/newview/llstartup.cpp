@@ -76,7 +76,6 @@
 #include "llstring.h"
 #include "lluserrelations.h"
 #include "llvfs.h"
-#include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
 #include "v3math.h"
 
@@ -262,7 +261,6 @@ bool LLStartUp::sLoginFailed = false;
 
 void login_show();
 void login_callback(S32 option, void* userdata);
-bool is_hex_string(U8* str, S32 len);
 void show_first_run_dialog();
 bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
@@ -750,12 +748,13 @@ bool idle_startup()
 #endif
 			gSavedSettings.setBOOL("AutoLogin", TRUE);
 		}
-		else if (gSavedSettings.getBOOL("AutoLogin"))
+		else if (gSavedSettings.getBOOL("AutoLogin") && gHippoGridManager)
 		{
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
-			gSavedSettings.setBOOL("RememberPassword", TRUE);
+			// at this point, getCurrentGrid is the last logged in grid. Should we create a new entry for this? -- MC
+			firstname = gHippoGridManager->getCurrentGrid()->getFirstName();
+			lastname = gHippoGridManager->getCurrentGrid()->getLastName();
+			password = gHippoGridManager->getCurrentGrid()->getPassword();
+			gSavedSettings.setBOOL("RememberPassword", TRUE); // why do we do this, anyway? -- MC
 			
 #ifdef USE_VIEWER_AUTH
 			show_connect_box = true;
@@ -766,9 +765,7 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
+			// name and password are now handled in STATE_LOGIN_SHOW when the login screen's shown -- MC
 			show_connect_box = true;
 		}
 
@@ -826,17 +823,19 @@ bool idle_startup()
 
 			// connect dialog is already shown, so fill in the names associated with the grid
 			// note how we always remember avatar names, but don't necessarily have to
-			// icky how usernames get bolted on here as a kind of hack -- MC
+			// icky how all this gets bolted on here as a kind of hack -- MC
 			if (gHippoGridManager)
 			{
 				firstname = gHippoGridManager->getCurrentGrid()->getFirstName();
 				lastname = gHippoGridManager->getCurrentGrid()->getLastName();
 				// RememberPassword toggles this being saved
-				password = gHippoGridManager->getCurrentGrid()->getAvatarPassword();
+				password = gHippoGridManager->getCurrentGrid()->getPassword();
 				
+				// empty in case we used logout
 				if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
 				{
-					if (lastname == "resident" || lastname == "Resident")
+					if ((lastname == "resident" || lastname == "Resident") ||
+						(firstname.empty() && lastname.empty()))
 					{
 						LLPanelLogin::setFields(firstname, password);
 					}
@@ -998,8 +997,8 @@ bool idle_startup()
 
 		if (!firstname.empty() && !lastname.empty())
 		{
-			gSavedSettings.setString("FirstName", firstname);
-			gSavedSettings.setString("LastName", lastname);
+			gHippoGridManager->getCurrentGrid()->setFirstName(firstname);
+			gHippoGridManager->getCurrentGrid()->setLastName(lastname);
 
 			//LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
 			gDebugInfo["LoginName"] = firstname + " " + lastname;
@@ -1162,7 +1161,9 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		if (gSavedSettings.getBOOL("VivoxLicenseAccepted") || gHippoGridManager->getConnectedGrid()->isSecondLife())
+		if (!gSavedSettings.getBOOL("EnableVoiceChat") ||
+			(gSavedSettings.getBOOL("EnableVoiceChat") && gSavedSettings.getBOOL("VivoxLicenseAccepted")) || 
+			!gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
 			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
 			// skipping over STATE_UPDATE_CHECK because that just waits for input
@@ -1306,6 +1307,21 @@ bool idle_startup()
 			}
 		}
 
+		// We hash a temporary password for login auth. The actual stored password
+		// is in the grid manager, and is XORed with the mac address -- MC
+		std::string hashed_password("");
+		if (password.length() == 32)
+		{
+			hashed_password = password;
+		}
+		else if (!password.empty())
+		{
+			LLMD5 pass((unsigned char *)password.c_str());
+			char munged_password[MD5HEX_STR_SIZE];
+			pass.hex_digest(munged_password);
+			hashed_password = munged_password;
+		}
+
 		// TODO if statement here to use web_login_key
 		if(web_login_key.isNull()){
 		sAuthUriNum = llclamp(sAuthUriNum, 0, (S32)sAuthUris.size()-1);
@@ -1314,7 +1330,7 @@ bool idle_startup()
 			auth_method,
 			firstname,
 			lastname,			
-			password, 
+			hashed_password, 
 			//web_login_key,
 			start.str(),
 			gSkipOptionalUpdate,
@@ -1573,10 +1589,8 @@ bool idle_startup()
 
 		if(successful_login)
 		{
-			{
-				std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
-				gSavedSettings.setString("LastConnectedGrid", current_grid);
-			}
+			std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
+			gSavedSettings.setString("LastConnectedGrid", current_grid);
 
 			std::string text;
 			text = LLUserAuth::getInstance()->getResponse("udp_blacklist");
@@ -1608,19 +1622,23 @@ bool idle_startup()
 			}
 			text = LLUserAuth::getInstance()->getResponse("last_name");
 			if(!text.empty()) lastname.assign(text);
-			gSavedSettings.setString("FirstName", firstname);
-			gSavedSettings.setString("LastName", lastname);
+
+			gHippoGridManager->getConnectedGrid()->setFirstName(firstname);
+			gHippoGridManager->getConnectedGrid()->setLastName(lastname);
 
 			if (gSavedSettings.getBOOL("RememberPassword"))
 			{
 				// Successful login means the password is valid, so save it.
-				LLStartUp::savePasswordToDisk(password);
+				// formerly LLStartUp::savePasswordToDisk(password); 
+				// this needs to happen after gMACAddress is set -- MC
+				gHippoGridManager->getConnectedGrid()->setPassword(password);
 			}
 			else
 			{
 				// Don't leave password from previous session sitting around
 				// during this login session.
-				LLStartUp::deletePasswordFromDisk();
+				// formerly LLStartUp::deletePasswordFromDisk(); -- MC
+				gHippoGridManager->getConnectedGrid()->setPassword("");
 			}
 
 			// this is their actual ability to access content
@@ -3083,180 +3101,6 @@ void login_callback(S32 option, void *userdata)
 	}
 }
 
-
-// static
-std::string LLStartUp::loadPasswordFromDisk()
-{
-	// Only load password if we also intend to save it (otherwise the user
-	// wonders what we're doing behind his back).  JC
-	BOOL remember_password = gSavedSettings.getBOOL("RememberPassword");
-	if (!remember_password)
-	{
-		return std::string("");
-	}
-
-	std::string hashed_password("");
-
-	// Look for legacy "marker" password from settings.ini
-	hashed_password = gSavedSettings.getString("Marker");
-	if (!hashed_password.empty())
-	{
-		// Stomp the Marker entry.
-		gSavedSettings.setString("Marker", "");
-
-		// Return that password.
-		return hashed_password;
-	}
-
-	// UUID is 16 bytes, written into ASCII is 32 characters
-	// without trailing \0
-	const S32 HASHED_LENGTH = 32;
-
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-													   "password.dat");
-	LLFILE* fp = LLFile::fopen(filepath, "rb");		/* Flawfinder: ignore */
-	if (!fp)
-	{
-#if LL_DARWIN
-		UInt32 passwordLength;
-		char *passwordData;
-		OSStatus stat = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, &passwordLength, (void**)&passwordData, NULL);
-		if (stat == noErr)
-		{
-			if (passwordLength == HASHED_LENGTH)
-				hashed_password.assign(passwordData, HASHED_LENGTH);
-			SecKeychainItemFreeContent(NULL, passwordData);
-		}
-#endif
-		return hashed_password;
-	}
-
-	U8 buffer[HASHED_LENGTH+1];
-
-	if (1 != fread(buffer, HASHED_LENGTH, 1, fp))
-	{
-		return hashed_password;
-	}
-
-	fclose(fp);
-
-	// Decipher with MAC address
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.decrypt(buffer, HASHED_LENGTH);
-
-	buffer[HASHED_LENGTH] = '\0';
-
-	// Check to see if the mac address generated a bad hashed
-	// password. It should be a hex-string or else the mac adress has
-	// changed. This is a security feature to make sure that if you
-	// get someone's password.dat file, you cannot hack their account.
-	if(is_hex_string(buffer, HASHED_LENGTH))
-	{
-		hashed_password.assign((char*)buffer);
-	}
-#if LL_DARWIN
-	// we're migrating to the keychain
-	LLFile::remove(filepath);
-#endif
-
-	return hashed_password;
-}
-
-
-// static
-void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
-{
-#if LL_DARWIN
-	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
-	if (status == noErr)
-	{
-		SecKeychainItemModifyAttributesAndData(keychainItem, NULL, hashed_password.length(), hashed_password.c_str());
-		CFRelease(keychainItem);
-	}
-	else
-	{
-		SecKeychainAddGenericPassword(NULL, 10, "Imprudence", 0, NULL, hashed_password.length(), hashed_password.c_str(), NULL);
-	}
-#else
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-													   "password.dat");
-	LLFILE* fp = LLFile::fopen(filepath, "wb");		/* Flawfinder: ignore */
-	if (!fp)
-	{
-		return;
-	}
-
-	// Encipher with MAC address
-	const S32 HASHED_LENGTH = 32;
-	U8 buffer[HASHED_LENGTH+1];
-
-	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
-
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.encrypt(buffer, HASHED_LENGTH);
-
-	if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)
-	{
-		LL_WARNS("AppInit") << "Short write" << LL_ENDL;
-	}
-
-	fclose(fp);
-#endif
-}
-
-
-// static
-void LLStartUp::deletePasswordFromDisk()
-{
-#if LL_DARWIN
-	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
-	if (status == noErr)
-	{
-		SecKeychainItemDelete(keychainItem);
-		CFRelease(keychainItem);
-	}
-#endif
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-														  "password.dat");
-	LLFile::remove(filepath);
-}
-
-
-bool is_hex_string(U8* str, S32 len)
-{
-	bool rv = true;
-	U8* c = str;
-	while(rv && len--)
-	{
-		switch(*c)
-		{
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-			++c;
-			break;
-		default:
-			rv = false;
-			break;
-		}
-	}
-	return rv;
-}
 
 void show_first_run_dialog()
 {

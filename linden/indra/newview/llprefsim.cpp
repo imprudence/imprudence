@@ -179,12 +179,12 @@ void LLPrefsIMImpl::apply()
 		if (gSavedSettings.getBOOL("UseLegacyChatLogsFolder"))
 		{
 			gDirUtilp->setPerAccountChatLogsDir(LLStringUtil::null, 
-				gSavedSettings.getString("FirstName"), gSavedSettings.getString("LastName") );
+				gHippoGridManager->getCurrentGrid()->getFirstName(), gHippoGridManager->getCurrentGrid()->getLastName() );
 		}
 		else
 		{
 			gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), 
-				gSavedSettings.getString("FirstName"), gSavedSettings.getString("LastName") );
+				gHippoGridManager->getCurrentGrid()->getFirstName(), gHippoGridManager->getCurrentGrid()->getLastName() );
 		}
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
 	}

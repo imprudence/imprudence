@@ -88,7 +88,7 @@ public:
 	const std::string& getFirstName()			const { return mFirstName; }
 	const std::string& getLastName()			const { return mLastName; }
 	const std::string& getUsername()			const { return mUsername; }
-	const std::string& getAvatarPassword()		const { return mAvatarPassword; }
+	std::string getPassword()				const;
 	const std::string& getVoiceConnector()		const { return mVoiceConnector; }
 	S32 getMaxAgentGroups()						const { return mMaxAgentGroups; }
 	const std::string& getCurrencySymbol()		const { return mCurrencySymbol; }
@@ -114,7 +114,7 @@ public:
 	void setMaxAgentGroups(S32 max)								{ mMaxAgentGroups = max;   }
 	void setFirstName(const std::string& firstName)				{ mFirstName = firstName; }
 	void setLastName(const std::string& lastName)				{ mLastName = lastName; }
-	void setAvatarPassword(const std::string& avatarPassword)	{ mAvatarPassword = avatarPassword; }
+	void setPassword(const std::string& unhashed_password);
 	void setVoiceConnector(const std::string& vc)				{ mVoiceConnector = vc; }
 	void setCurrencySymbol(const std::string& sym)				{ mCurrencySymbol = sym.substr(0, 3); }
 	void setRealCurrencySymbol(const std::string& sym)			{ mRealCurrencySymbol = sym.substr(0, 3); }
@@ -145,7 +145,7 @@ private:
 	std::string mVoiceConnector;
 	std::string mFirstName;
 	std::string mLastName;
-	std::string mAvatarPassword;
+	std::string mPasswordAvatar;
 	bool		mRenderCompat;
 	S32			mMaxAgentGroups;
 
