@@ -59,6 +59,8 @@ private:
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
 	static void onAutoCorrectButton(void * data);
 
+	LLColor4 mClientTagColor;
+
 protected:
 	void initHelpBtn(const std::string& name, const std::string& xml_alert);
 	static void onClickHelp(void* data);

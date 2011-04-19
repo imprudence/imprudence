@@ -3243,7 +3243,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 
 		if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 		{
-			avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
+			// defaults to LLColor4(0.79f,0.44f,0.88f)
+			avatar_name_color = gSavedSettings.getColor4("ImprudenceTagColor"); //Imprudence
 			client = "Imprudence";
 
 		}else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190") ||
@@ -3567,7 +3568,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				else
 				{
 					// Set your own name to the Imprudence color -- MC
-					client_color = LLColor4(0.79f,0.44f,0.88f);
+					client_color = gSavedSettings.getColor4("ImprudenceTagColor");
 				}
 
 				static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
