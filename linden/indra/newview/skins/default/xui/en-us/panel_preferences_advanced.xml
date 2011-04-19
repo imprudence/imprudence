@@ -82,6 +82,11 @@
            tool_tip="Toggle editing animation and standing up when entering appearance mode" 
            label="Animate avatar when editing appearance" left="12" mouse_opaque="true"
            name="appearance_anim_check" radio_style="false" width="217" />
+      <check_box bottom_delta="-25" control_name="HeadFollowsMouse" enabled="true"
+           follows="left|top" font="SansSerifSmall" height="16" 
+           label="Head follows mouse" tooltip="If your avatars head follows your mouse movements" left="12"
+           mouse_opaque="true" name="head_follows_mouse_checkbox" radio_style="false"
+           width="256" />
       <check_box bottom_delta="-25" enabled="true"
            follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
            label="Use legacy pie menus" left="12"
