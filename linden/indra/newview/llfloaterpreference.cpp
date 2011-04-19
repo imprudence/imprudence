@@ -402,6 +402,8 @@ BOOL LLFloaterPreference::postBuild()
 
 	mOKBtn = getChild<LLButton>("OK");
 	mOKBtn->setClickedCallback(onBtnOK, this);
+
+	childSetAction("reset_btn", onClickResetPrefs, this);
 			
 	mPreferenceCore = new LLPreferenceCore(
 		getChild<LLTabContainer>("pref core"),
