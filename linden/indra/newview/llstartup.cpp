@@ -1087,7 +1087,9 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		if (gSavedSettings.getBOOL("VivoxLicenseAccepted") || gHippoGridManager->getConnectedGrid()->isSecondLife())
+		if (!gSavedSettings.getBOOL("EnableVoiceChat") ||
+			(gSavedSettings.getBOOL("EnableVoiceChat") && gSavedSettings.getBOOL("VivoxLicenseAccepted")) || 
+			!gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
 			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
 			// skipping over STATE_UPDATE_CHECK because that just waits for input
