@@ -363,14 +363,14 @@ LLSD LLPartSysData::asLLSD() const
 	sd["LL_PART_EMISSIVE_MASK"]		= (LLPartData::LL_PART_EMISSIVE_MASK  & mPartData.mFlags) ? 1 : 0;
 	sd["LL_PART_BEAM_MASK"]			= (LLPartData::LL_PART_BEAM_MASK  & mPartData.mFlags) ? 1 : 0;
 
-	sd["SourceMaxage"] = mPartData.mMaxAge;
-	sd["Startcolor"] = ll_sd_from_color4(mPartData.mStartColor);
-	sd["Endcolor"] = ll_sd_from_color4(mPartData.mEndColor);
-	sd["Startscale"] = ll_sd_from_vector2(mPartData.mStartScale);
-	sd["Endscale"] = ll_sd_from_vector2(mPartData.mEndScale);
+	sd["ParticleMaxAge"] = mPartData.mMaxAge;
+	sd["StartColor"] = ll_sd_from_color4(mPartData.mStartColor);
+	sd["EndColor"] = ll_sd_from_color4(mPartData.mEndColor);
+	sd["StartScale"] = ll_sd_from_vector2(mPartData.mStartScale);
+	sd["EndScale"] = ll_sd_from_vector2(mPartData.mEndScale);
 
-	sd["ParticleMaxAge"] = mMaxAge;
-	sd["ParticleStartAge"] = mStartAge;
+	sd["SourceMaxAge"] = mMaxAge;
+	sd["SourceStartAge"] = mStartAge;
 
 
 	sd["LL_PART_SRC_PATTERN_DROP"] = ( mPattern & LL_PART_SRC_PATTERN_DROP) ? 1 : 0;
@@ -406,14 +406,14 @@ bool LLPartSysData::fromLLSD(LLSD& sd)
 	if (sd["LL_PART_EMISSIVE_MASK"])	mPartData.mFlags |= LLPartData::LL_PART_EMISSIVE_MASK;
 	if (sd["LL_PART_BEAM_MASK"])		mPartData.mFlags |= LLPartData::LL_PART_BEAM_MASK;
 
-	mPartData.mMaxAge = (F32)sd["SourceMaxage"].asReal();
-	mPartData.mStartColor = ll_color4_from_sd(sd["Startcolor"]);
-	mPartData.mEndColor = ll_color4_from_sd(sd["Endcolor"]);
-	mPartData.mStartScale = ll_vector2_from_sd(sd["Startscale"]);
-	mPartData.mEndScale = ll_vector2_from_sd(sd["Endscale"]);
+	mPartData.mMaxAge = (F32)sd["ParticleMaxAge"].asReal();
+	mPartData.mStartColor = ll_color4_from_sd(sd["StartColor"]);
+	mPartData.mEndColor = ll_color4_from_sd(sd["EndColor"]);
+	mPartData.mStartScale = ll_vector2_from_sd(sd["StartScale"]);
+	mPartData.mEndScale = ll_vector2_from_sd(sd["EndScale"]);
 
-	mMaxAge 	= (F32)sd["ParticleMaxAge"].asReal();
-	mStartAge	= (F32)sd["ParticleStartAge"].asReal();
+	mMaxAge 	= (F32)sd["SourceMaxAge"].asReal();
+	mStartAge	= (F32)sd["SourceStartAge"].asReal();
 
 	mPattern = 0;
 	if (sd["LL_PART_SRC_PATTERN_DROP"]) 		mPattern |= LL_PART_SRC_PATTERN_DROP;

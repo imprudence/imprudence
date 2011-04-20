@@ -54,7 +54,7 @@ LLNameListCtrl::LLNameListCtrl(const std::string& name,
 							   BOOL draw_border,
 							   S32 name_column_index,
 							   const std::string& tooltip)
-:	LLScrollListCtrl(name, rect, cb, userdata, allow_multiple_selection,
+:	LLScrollListCtrl(name, rect, NULL, cb, userdata, allow_multiple_selection,
 					 draw_border),
 	mNameColumnIndex(name_column_index),
 	mAllowCallingCardDrop(FALSE),

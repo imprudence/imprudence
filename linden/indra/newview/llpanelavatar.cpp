@@ -1953,9 +1953,9 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		self->mPanelSecondLife->childSetValue("acct", caption_text);
 
 		//Chalice - Show avatar age in days.
-		int year;
-		int month;
-		int day;
+		S32 year;
+		S32 month;
+		S32 day;
 		sscanf(born_on.c_str(), "%d/%d/%d", &month, &day, &year);
 		time_t now = time(NULL);
 		struct tm * timeinfo;
@@ -1964,8 +1964,11 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		timeinfo->tm_year = year - 1900;
 		timeinfo->tm_mday = day;
 		time_t birth = mktime(timeinfo);
+
 		std::stringstream numberString;
-		numberString << (S32)(difftime(now, birth) / 86400); //(60*60*24)
+		S32 days = difftime(now, birth) / 86400; //(60*60*24)
+		if (days < 0) days = 0; // Happens for people on different timezones -- MC
+		numberString << days; 
 
 		LLStringUtil::format_map_t targs;
 		targs["[DAYS]"] = numberString.str();
@@ -1986,15 +1989,38 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		{
 			image_ctrl->setImageAssetID(image_id);
 		}
-		self->childSetValue("about", about_text);
+		LLTextEditor* about_field = self->mPanelSecondLife->getChild<LLTextEditor>("about");
+		if (about_field)
+		{
+			if (self->mAllowEdit && (self->mAvatarID == agent_id))
+			{
+				about_field->setText(about_text);
+			}
+			else
+			{
+				about_field->setParseHTML(TRUE);
+				about_field->appendColoredText(about_text, false, false, gColors.getColor("TextFgReadOnlyColor"));
+			}
+		}
 
 		self->mPanelSecondLife->setPartnerID(partner_id);
 		self->mPanelSecondLife->updatePartnerName();
 
 		if (self->mPanelFirstLife)
 		{
-			// Teens don't get these
-			self->mPanelFirstLife->childSetValue("about", fl_about_text);
+			about_field = self->mPanelFirstLife->getChild<LLTextEditor>("about");
+			if (about_field)
+			{
+				if (self->mAllowEdit && (self->mAvatarID == agent_id))
+				{
+				}
+				else
+				{
+					about_field->setParseHTML(TRUE);
+					about_field->appendColoredText(fl_about_text, false, false, gColors.getColor("TextFgReadOnlyColor"));
+				}
+			}
+
 			LLTextureCtrl*	image_ctrl = self->mPanelFirstLife->getChild<LLTextureCtrl>("img");
 			if(image_ctrl)
 			{

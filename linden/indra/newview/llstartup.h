@@ -106,15 +106,6 @@ public:
 	// gender_name is either "male" or "female"
 	static void loadInitialOutfit( const std::string& outfit_folder_name,
 								   const std::string& gender_name );
-
-	// Load MD5 of user's password from local disk file.
-	static std::string loadPasswordFromDisk();
-	
-	// Record MD5 of user's password for subsequent login.
-	static void savePasswordToDisk(const std::string& hashed_password);
-	
-	// Delete the saved password local disk file.
-	static void deletePasswordFromDisk();
 	
 	static bool dispatchURL();
 		// if we have a SLURL or sim string ("Ahern/123/45") that started
@@ -123,6 +114,9 @@ public:
 	static std::string sSLURLCommand;
 		// *HACK: On startup, if we were passed a secondlife://app/do/foo
 		// command URL, store it for later processing.
+
+	static bool handleSocksProxy(bool reportOK = true);
+
 	static bool shouldAutoLogin() { return mShouldAutoLogin; };
 	static void setShouldAutoLogin(bool value) { mShouldAutoLogin = value; };
 

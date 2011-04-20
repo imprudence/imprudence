@@ -579,6 +579,8 @@ protected:
 public:
 	static BOOL				sRenderBeacons;
 	static BOOL				sRenderHighlight;
+	static F32				sSculptSurfaceAreaFrame;
+
 };
 
 void render_bbox(const LLVector3 &min, const LLVector3 &max);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="us-ascii" standalone="yes"?>
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
 <linden_avatar
  version="1.0"
  wearable_definition_version="22">  
@@ -394,306 +394,6 @@
        max_attachment_offset="2.0"
        visible_in_first_person="true" />
 
-      <attachment_point
-       id="39"
-       group="6"
-       pie_slice="2"
-       name="Chest 2"
-       joint="mChest"
-       position="0.15 0 -0.1"
-       rotation="0 90 90"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="40"
-       group="2"
-       pie_slice="2"
-       name="Skull 2"
-       joint="mHead"
-       position="0 0 0.15"
-       rotation="0 0 90"
-       visible_in_first_person="false" />
-
-      <attachment_point
-       id="41"
-       group="3"
-       pie_slice="3"
-       name="Left Shoulder 2"
-       joint="mCollarLeft"
-       position="0 0 0.08"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="42"
-       group="1"
-       pie_slice="1"
-       name="Right Shoulder 2"
-       joint="mCollarRight"
-       position="0 0 0.08"
-       rotation="0 0 0" 
-	   visible_in_first_person="true"/>
-
-      <attachment_point
-       id="43"
-       group="4"
-       name="Left Hand 2"
-       joint="mWristLeft"
-       position="0 0.08 -0.02"
-       rotation="0 0 0"
-       visible_in_first_person="true"
-       max_attachment_offset="1.5" />
-
-      <attachment_point
-       id="44"
-       group="0"
-       name="Right Hand 2"
-       joint="mWristRight"
-       position="0 -0.08 -0.02"
-       rotation="0 0 0"
-       visible_in_first_person="true"
-       max_attachment_offset="1.5" />
-
-      <attachment_point
-       id="45"
-       group="5"
-       pie_slice="6"
-       name="Left Foot 2"
-       joint="mFootLeft"
-       position="0 0.0 0.0"
-       rotation="0 0 0" 
-	   visible_in_first_person="true"/>
-
-      <attachment_point
-       id="46"
-       group="7"
-       pie_slice="6"
-       name="Right Foot 2"
-       joint="mFootRight"
-       position="0 0.0 0.0"
-       rotation="0 0 0" 
-	   visible_in_first_person="true"/>
-
-      <attachment_point
-       id="47"
-       group="6"
-       pie_slice="7"
-       name="Spine 2"
-       joint="mChest"
-       position="-0.15 0 -0.1"
-       rotation="0 -90 90"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="48"
-       group="6"
-       pie_slice="6"
-       name="Pelvis 2"
-       joint="mPelvis"
-       position="0 0 -0.15"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="49"
-       group="2"
-       pie_slice="6"
-       name="Mouth 2"
-       joint="mHead"
-       position="0.12 0 0.001"
-       rotation="0 0 0" 
-	   visible_in_first_person="false"/>
-
-      <attachment_point
-       id="50"
-       group="2"
-       pie_slice="7"
-       name="Chin 2"
-       joint="mHead"
-       position="0.12 0 -0.04"
-       rotation="0 0 0"
-	   visible_in_first_person="false" />
-
-      <attachment_point
-       id="51"
-       group="2"
-       pie_slice="4"
-       name="Left Ear 2"
-       joint="mHead"
-       position="0.015 0.08 0.017"
-       rotation="0 0 0"
-	   visible_in_first_person="false" />
-
-      <attachment_point
-       id="52"
-       group="2"
-       pie_slice="0"
-       name="Right Ear 2"
-       joint="mHead"
-       position="0.015 -0.08 0.017"
-       rotation="0 0 0"
-	   visible_in_first_person="false" />
-
-      <attachment_point
-       id="53"
-       group="2"
-       pie_slice="3"
-       name="Left Eyeball 2"
-       joint="mEyeLeft"
-       position="0 0 0"
-       rotation="0 0 0" 
-	   visible_in_first_person="false"/>
-
-      <attachment_point
-       id="54"
-       group="2"
-       pie_slice="1"
-       name="Right Eyeball 2"
-       joint="mEyeRight"
-       position="0 0 0"
-       rotation="0 0 0"
-	   visible_in_first_person="false" />
-
-      <attachment_point
-       id="55"
-       group="2"
-       pie_slice="5"
-       name="Nose 2"
-       joint="mHead"
-       position="0.1 0 0.05"
-       rotation="0 0 0" 
-	   visible_in_first_person="false"/>
-
-      <attachment_point
-       id="56"
-       group="1"
-       pie_slice="0"
-       name="R Upper Arm 2"
-       joint="mShoulderRight"
-       position="0.01 -0.13 0.01"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="57"
-       group="1"
-       pie_slice="7"
-       name="R Forearm 2"
-       joint="mElbowRight"
-       position="0 -0.12 0"
-       rotation="0 0 0"
-	   visible_in_first_person="true"/>
-
-      <attachment_point
-       id="58"
-       group="3"
-       pie_slice="4"
-       name="L Upper Arm 2"
-       joint="mShoulderLeft"
-       position="0.01 0.15 -0.01"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="59"
-       group="3"
-       pie_slice="5"
-       name="L Forearm 2"
-       joint="mElbowLeft"
-       position="0 0.113 0"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="60"
-       group="7"
-       pie_slice="1"
-       name="Right Hip 2"
-       joint="mHipRight"
-       position="0 0 0"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="61"
-       group="7"
-       pie_slice="0"
-       name="R Upper Leg 2"
-       joint="mHipRight"
-       position="-0.017 0.041 -0.310"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="62"
-       group="7"
-       pie_slice="7"
-       name="R Lower Leg 2"
-       joint="mKneeRight"
-       position="-0.044 -0.007 -0.262"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="63"
-       group="5"
-       pie_slice="3"
-       name="Left Hip 2"
-       joint="mHipLeft"
-       position="0 0 0"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="64"
-       group="5"
-       pie_slice="4"
-       name="L Upper Leg 2"
-       joint="mHipLeft"
-       position="-0.019 -0.034 -0.310"
-       rotation="0 0 0" 
-	   visible_in_first_person="true"/>
-
-      <attachment_point
-       id="65"
-       group="5"
-       pie_slice="5"
-       name="L Lower Leg 2"
-       joint="mKneeLeft"
-       position="-0.044 -0.007 -0.261"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="66"
-       group="6"
-       pie_slice="5"
-       name="Stomach 2"
-       joint="mPelvis"
-       position="0.092 0.0 0.088"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="67"
-       group="6"
-       pie_slice="3"
-       name="Left Pec 2"
-       joint="mTorso"
-       position="0.104 0.082 0.247"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
-      <attachment_point
-       id="68"
-       group="6"
-       pie_slice="1"
-       name="Right Pec 2"
-       joint="mTorso"
-       position="0.104 -0.082 0.247"
-       rotation="0 0 0"
-	   visible_in_first_person="true" />
-
     <param
        id="32"
        group="1"
@@ -704,20 +404,61 @@
        value_min="0"
        value_max="1">
          <param_skeleton>
-				<bone name="mNeck" scale="0 0 .2" />
-				<bone name="mCollarLeft" scale="0 .4 0" />
-				<bone name="mCollarRight" scale="0 .4 0" />
-				<bone name="mShoulderLeft" scale="0 .35 0" />
-				<bone name="mShoulderRight" scale="0 .35 0" />
-				<bone name="mElbowLeft" scale="0 .1 0" />
-				<bone name="mElbowRight" scale="0 .1 0" />
-				<bone name="mChest" scale=".05 .05 .05" />
-				<bone name="mTorso" scale="0 0 .05" />
-				<bone name="mPelvis" scale="0 0 0" />
-				<bone name="mHipLeft" scale=".05 .05 0" />
-				<bone name="mHipRight" scale=".05 .05 0" />
-				<bone name="mKneeLeft" scale=".05 .05 .1" />
-				<bone name="mKneeRight" scale=".05 .05 .1" />
+            <bone
+             name="mNeck"
+             scale="0 0 .2" />
+
+            <bone
+             name="mCollarLeft"
+             scale="0 .4 0" />
+
+            <bone
+             name="mCollarRight"
+             scale="0 .4 0" />
+
+            <bone
+             name="mShoulderLeft"
+             scale="0 .35 0" />
+
+            <bone
+             name="mShoulderRight"
+             scale="0 .35 0" />
+
+            <bone
+             name="mElbowLeft"
+             scale="0 .1 0" />
+
+            <bone
+             name="mElbowRight"
+             scale="0 .1 0" />
+
+            <bone
+             name="mChest"
+             scale=".05 .05 .05" />
+
+            <bone
+             name="mTorso"
+             scale="0 0 .05" />
+
+            <bone
+             name="mPelvis"
+             scale="0 0 0" />
+
+            <bone
+             name="mHipLeft"
+             scale=".05 .05 0" />
+
+            <bone
+             name="mHipRight"
+             scale=".05 .05 0" />
+
+            <bone
+             name="mKneeLeft"
+             scale=".05 .05 .1" />
+
+            <bone
+             name="mKneeRight"
+             scale=".05 .05 .1" />
          </param_skeleton>
       </param>
 
@@ -736,20 +477,61 @@
        value_max="2"
        camera_distance="2.2">
          <param_skeleton>
-				<bone name="mNeck" scale="0 0 .02" />
-				<bone name="mCollarLeft" scale="0 0 0" />
-				<bone name="mCollarRight" scale="0 0 0" />
-				<bone name="mShoulderLeft" scale="0 0.08 0" />
-				<bone name="mShoulderRight" scale="0 0.08 0" />
-				<bone name="mElbowLeft" scale="0 0.06 0" />
-				<bone name="mElbowRight" scale="0 0.06 0" />
-				<bone name="mChest" scale="0 0 0.05" />
-				<bone name="mTorso" scale="0 0 0.05" />
-				<bone name="mPelvis" scale="0 0 0" />
-				<bone name="mHipLeft" scale="0 0 0.1" />
-				<bone name="mHipRight" scale="0 0 0.1" />
-				<bone name="mKneeLeft" scale="0 0 0.1" />
-				<bone name="mKneeRight" scale="0 0 0.1" />
+            <bone
+             name="mNeck"
+             scale="0 0 .02" />
+
+            <bone
+             name="mCollarLeft"
+             scale="0 0 0" />
+
+            <bone
+             name="mCollarRight"
+             scale="0 0 0" />
+
+            <bone
+             name="mShoulderLeft"
+             scale="0 0.08 0" />
+
+            <bone
+             name="mShoulderRight"
+             scale="0 0.08 0" />
+
+            <bone
+             name="mElbowLeft"
+             scale="0 0.06 0" />
+
+            <bone
+             name="mElbowRight"
+             scale="0 0.06 0" />
+
+            <bone
+             name="mChest"
+             scale="0 0 0.05" />
+
+            <bone
+             name="mTorso"
+             scale="0 0 0.05" />
+
+            <bone
+             name="mPelvis"
+             scale="0 0 0" />
+
+            <bone
+             name="mHipLeft"
+             scale="0 0 0.1" />
+
+            <bone
+             name="mHipRight"
+             scale="0 0 0.1" />
+
+            <bone
+             name="mKneeLeft"
+             scale="0 0 0.1" />
+
+            <bone
+             name="mKneeRight"
+             scale="0 0 0.1" />
          </param_skeleton>
       </param>
 
@@ -768,20 +550,61 @@
        value_max="1.5"
        camera_distance="1.8">
          <param_skeleton>
-				<bone name="mNeck" scale="0.1 0.1 0" />
-				<bone name="mCollarLeft" scale="0 0.2 0" />
-				<bone name="mCollarRight" scale="0 0.2 0" />
-				<bone name="mShoulderLeft" scale="0.1 0 0.1" />
-				<bone name="mShoulderRight" scale="0.1 0 0.1" />
-				<bone name="mElbowLeft" scale="0.1 0 0.1" />
-				<bone name="mElbowRight" scale="0.1 0 0.1" />
-				<bone name="mChest" scale="0.1 0.1 0" />
-				<bone name="mTorso" scale="0.1 0.1 0" />
-				<bone name="mPelvis" scale="0.1 0.1 0" />
-				<bone name="mHipLeft" scale="0.13 0.13 0" />
-				<bone name="mHipRight" scale="0.13 0.13 0" />
-				<bone name="mKneeLeft" scale="0.12 0.12 0" />
-				<bone name="mKneeRight" scale="0.12 0.12 0" />
+            <bone
+             name="mNeck"
+             scale="0.1 0.1 0" />
+
+            <bone
+             name="mCollarLeft"
+             scale="0 0.2 0" />
+
+            <bone
+             name="mCollarRight"
+             scale="0 0.2 0" />
+
+            <bone
+             name="mShoulderLeft"
+             scale="0.1 0 0.1" />
+
+            <bone
+             name="mShoulderRight"
+             scale="0.1 0 0.1" />
+
+            <bone
+             name="mElbowLeft"
+             scale="0.1 0 0.1" />
+
+            <bone
+             name="mElbowRight"
+             scale="0.1 0 0.1" />
+
+            <bone
+             name="mChest"
+             scale="0.1 0.1 0" />
+
+            <bone
+             name="mTorso"
+             scale="0.1 0.1 0" />
+
+            <bone
+             name="mPelvis"
+             scale="0.1 0.1 0" />
+
+            <bone
+             name="mHipLeft"
+             scale="0.13 0.13 0" />
+
+            <bone
+             name="mHipRight"
+             scale="0.13 0.13 0" />
+
+            <bone
+             name="mKneeLeft"
+             scale="0.12 0.12 0" />
+
+            <bone
+             name="mKneeRight"
+             scale="0.12 0.12 0" />
          </param_skeleton>
       </param>
 
@@ -803,10 +626,23 @@
        camera_distance="1.2"
        camera_angle="0">
          <param_skeleton>
-				<bone name="mNeck" scale="0.01 0.03 0" />
-				<bone name="mCollarLeft" scale="0 0 0" offset="0 .02 0" />
-				<bone name="mCollarRight" scale="0 0 0" offset="0 -.02 0" />
-				<bone name="mChest" scale="0.02 0.08 0" />
+            <bone
+             name="mNeck"
+             scale="0.01 0.03 0" />
+
+            <bone
+             name="mCollarLeft"
+             scale="0 0 0"
+             offset="0 .02 0" />
+
+            <bone
+             name="mCollarRight"
+             scale="0 0 0"
+             offset="0 -.02 0" />
+
+            <bone
+             name="mChest"
+             scale="0.02 0.08 0" />
          </param_skeleton>
       </param>
 
@@ -825,9 +661,19 @@
        value_max="2.8"
        camera_distance="1.8">
          <param_skeleton>
-				<bone name="mPelvis" scale="0 0.1 0" />
-				<bone name="mHipLeft" scale="0 0 0" offset="0 .004 0" />
-				<bone name="mHipRight" scale="0 0 0" offset="0 -.004 0" />
+            <bone
+             name="mPelvis"
+             scale="0 0.1 0" />
+
+            <bone
+             name="mHipLeft"
+             scale="0 0 0"
+             offset="0 .004 0" />
+
+            <bone
+             name="mHipRight"
+             scale="0 0 0"
+             offset="0 -.004 0" />
          </param_skeleton>
       </param>
 
@@ -844,7 +690,9 @@
        value_max="1"
        camera_distance="1.8">
          <param_skeleton>
-				<bone name="mPelvis" scale="0 0 0.3" />
+            <bone
+             name="mPelvis"
+             scale="0 0 0.3" />
          </param_skeleton>
       </param>
 
@@ -861,12 +709,29 @@
        value_max="1"
        camera_distance="1.8">
          <param_skeleton>
-				<bone name="mTorso" scale="0 0 .3" />
-				<bone name="mPelvis" scale="0 0 .1" />
-				<bone name="mHipLeft" scale="0 0 -.1" />
-				<bone name="mHipRight" scale="0 0 -.1" />
-				<bone name="mKneeRight" scale="0 0 -.05" />
-				<bone name="mKneeLeft" scale="0 0 -.05" />
+            <bone
+             name="mTorso"
+             scale="0 0 .3" />
+
+            <bone
+             name="mPelvis"
+             scale="0 0 .1" />
+
+            <bone
+             name="mHipLeft"
+             scale="0 0 -.1" />
+
+            <bone
+             name="mHipRight"
+             scale="0 0 -.1" />
+
+            <bone
+             name="mKneeRight"
+             scale="0 0 -.05" />
+
+            <bone
+             name="mKneeLeft"
+             scale="0 0 -.05" />
          </param_skeleton>
       </param>
 
@@ -881,8 +746,15 @@
        value_min="-1"
        value_max="1">
          <param_skeleton>
-				<bone name="mEyeLeft" scale="0 0 0" offset="0 .009 0" />
-				<bone name="mEyeRight" scale="0 0 0" offset="0 -.009 0" />
+            <bone
+             name="mEyeLeft"
+             scale="0 0 0"
+             offset="0 .009 0" />
+
+            <bone
+             name="mEyeRight"
+             scale="0 0 0"
+             offset="0 -.009 0" />
          </param_skeleton>
       </param>
 
@@ -897,8 +769,15 @@
        value_min="-2"
        value_max="2">
          <param_skeleton>
-				<bone name="mEyeLeft" scale="0 0 0" offset="0 0 .004" />
-				<bone name="mEyeRight" scale="0 0 0" offset="0 0 -.004" />
+            <bone
+             name="mEyeLeft"
+             scale="0 0 0"
+             offset="0 0 .004" />
+
+            <bone
+             name="mEyeRight"
+             scale="0 0 0"
+             offset="0 0 -.004" />
          </param_skeleton>
       </param>
 
@@ -913,8 +792,15 @@
        value_min="-1"
        value_max="1">
          <param_skeleton>
-				<bone name="mEyeLeft" scale="0 0 0" offset=".016 0 0" />
-				<bone name="mEyeRight" scale="0 0 0" offset=".016 0 0" />
+            <bone
+             name="mEyeLeft"
+             scale="0 0 0"
+             offset=".016 0 0" />
+
+            <bone
+             name="mEyeRight"
+             scale="0 0 0"
+             offset=".016 0 0" />
          </param_skeleton>
       </param>
 
@@ -929,8 +815,15 @@
        value_min="-2"
        value_max="2">
          <param_skeleton>
-				<bone name="mEyeLeft" scale="0 0 0" offset=".005 0 0" />
-				<bone name="mEyeRight" scale="0 0 0" offset=".005 0 0" />
+            <bone
+             name="mEyeLeft"
+             scale="0 0 0"
+             offset=".005 0 0" />
+
+            <bone
+             name="mEyeRight"
+             scale="0 0 0"
+             offset=".005 0 0" />
          </param_skeleton>
       </param>
 
@@ -947,10 +840,25 @@
        value_min="-.25"
        value_max=".10">
          <param_skeleton>
-				<bone name="mSkull" scale="1 1 1" offset="0 0 0.1" />
-				<bone name="mHead" scale="1 1 1" offset="0 0 0" />
-				<bone name="mEyeLeft" scale="1 1 1" offset="0 0 0" />
-				<bone name="mEyeRight" scale="1 1 1" offset="0 0 0" />
+            <bone
+             name="mSkull"
+             scale="1 1 1"
+             offset="0 0 0.1" />
+
+            <bone
+             name="mHead"
+             scale="1 1 1"
+             offset="0 0 0" />
+
+            <bone
+             name="mEyeLeft"
+             scale="1 1 1"
+             offset="0 0 0" />
+
+            <bone
+             name="mEyeRight"
+             scale="1 1 1"
+             offset="0 0 0" />
          </param_skeleton>
       </param>
 
@@ -965,8 +873,15 @@
        value_min="0"
        value_max="1">
          <param_skeleton>
-				<bone name="mFootRight" scale="0 0 0" offset="0 0 -.08" />
-				<bone name="mFootLeft" scale="0 0 0" offset="0 0 -.08" />
+            <bone
+             name="mFootRight"
+             scale="0 0 0"
+             offset="0 0 -.08" />
+
+            <bone
+             name="mFootLeft"
+             scale="0 0 0"
+             offset="0 0 -.08" />
          </param_skeleton>
       </param>
 
@@ -981,8 +896,15 @@
        value_min="0"
        value_max="1">
          <param_skeleton>
-				<bone name="mFootRight" scale="0 0 0" offset="0 0 -.07" />
-				<bone name="mFootLeft" scale="0 0 0" offset="0 0 -.07" />
+            <bone
+             name="mFootRight"
+             scale="0 0 0"
+             offset="0 0 -.07" />
+
+            <bone
+             name="mFootLeft"
+             scale="0 0 0"
+             offset="0 0 -.07" />
          </param_skeleton>
       </param>
 
@@ -1001,8 +923,15 @@
        camera_distance="1.4"
        camera_angle="0">
          <param_skeleton>
-				<bone name="mWristRight" scale="1 1 1" offset="0 0 0" />
-				<bone name="mWristLeft" scale="1 1 1" offset="0 0 0" />
+            <bone
+             name="mWristRight"
+             scale="1 1 1"
+             offset="0 0 0" />
+
+            <bone
+             name="mWristLeft"
+             scale="1 1 1"
+             offset="0 0 0" />
          </param_skeleton>
       </param>
 
@@ -1022,7 +951,10 @@
        camera_distance=".8"
        camera_angle="15">
          <param_skeleton>
-				<bone name="mNeck" scale="1 1 0" offset="0 0 0" />
+            <bone
+             name="mNeck"
+             scale="1 1 0"
+             offset="0 0 0" />
          </param_skeleton>
       </param>
 
@@ -1037,8 +969,15 @@
        value_min="-1"
        value_max="1">
          <param_skeleton>
-				<bone name="mEyeLeft" scale="0 0 0" offset="-.005 0 0" />
-				<bone name="mEyeRight" scale="0 0 0" offset="-.005 0 0" />
+            <bone
+             name="mEyeLeft"
+             scale="0 0 0"
+             offset="-.005 0 0" />
+
+            <bone
+             name="mEyeRight"
+             scale="0 0 0"
+             offset="-.005 0 0" />
          </param_skeleton>
       </param>
 
@@ -1055,10 +994,21 @@
        value_max="1"
        camera_distance="2.5">
          <param_skeleton>
-				<bone name="mHipLeft" scale="0 0 .2" />
-				<bone name="mHipRight" scale="0 0 .2" />
-				<bone name="mKneeRight" scale="0 0 .2" />
-				<bone name="mKneeLeft" scale="0 0 .2" />
+            <bone
+             name="mHipLeft"
+             scale="0 0 .2" />
+
+            <bone
+             name="mHipRight"
+             scale="0 0 .2" />
+
+            <bone
+             name="mKneeRight"
+             scale="0 0 .2" />
+
+            <bone
+             name="mKneeLeft"
+             scale="0 0 .2" />
          </param_skeleton>
       </param>
 
@@ -1076,10 +1026,21 @@
        value_default=".6"
        camera_distance="1.5">
          <param_skeleton>
-				<bone name="mShoulderLeft" scale="0 .2 0" />
-				<bone name="mShoulderRight" scale="0 .2 0" />
-				<bone name="mElbowRight" scale="0 .3 0" />
-				<bone name="mElbowLeft" scale="0 .3 0" />
+            <bone
+             name="mShoulderLeft"
+             scale="0 .2 0" />
+
+            <bone
+             name="mShoulderRight"
+             scale="0 .2 0" />
+
+            <bone
+             name="mElbowRight"
+             scale="0 .3 0" />
+
+            <bone
+             name="mElbowLeft"
+             scale="0 .3 0" />
          </param_skeleton>
       </param>
 
@@ -1099,7 +1060,9 @@
        camera_distance=".8"
        camera_angle="15">
          <param_skeleton>
-       		<bone name="mNeck" scale="0 0 .5" />
+            <bone
+             name="mNeck"
+             scale="0 0 .5" />
          </param_skeleton>
       </param>
    </skeleton>
@@ -6633,7 +6596,7 @@
 			</param_color>
 		</param>
     </layer>
-</layer_set>
+   </layer_set>
 
 <!-- =========================================================== -->
    <layer_set
@@ -11449,6 +11412,6 @@
 			</param_driver>
 		</param>
       
-	</driver_parameters>
+   </driver_parameters>
 </linden_avatar>
 

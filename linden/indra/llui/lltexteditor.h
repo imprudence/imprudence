@@ -166,7 +166,10 @@ public:
 	static void spell_correct(void* data);
 	static void spell_add(void* data);
 	static void spell_show(void* data);
-	std::vector<S32> getMisspelledWordsPositions();
+
+	void getMisspelledWordsPositions(std::vector<S32>& misspell_positions);
+
+    void defineMenuCallbacks(LLMenuGL* menu);
 
 	void			selectNext(const std::string& search_text_in, BOOL case_insensitive, BOOL wrap = TRUE);
 	BOOL			replaceText(const std::string& search_text, const std::string& replace_text, BOOL case_insensitive, BOOL wrap = TRUE);
@@ -534,7 +537,7 @@ private:
 	LLWString		mPrevSpelledText;		// saved string so we know whether to respell or not
 	S32 spellStart;
 	S32 spellEnd;
-	std::vector<S32> misspellLocations;     // where all the mispelled words are
+	std::vector<S32> mMisspellLocations;     // where all the mispelled words are
 	BOOL			mSpellCheckable;			// set in xui as "spell_check". Default value for a field
 	BOOL			mAllowTranslate;		// set in xui as "allow_translate".
 	

@@ -30,32 +30,6 @@
 	</string>
 
 
-  <!-- START LOCATION -->
-
-	<text name="start_location_text" 
-	      bottom="32" left="10" height="16" right="115"
-        follows="left|bottom" h_pad="0" halign="right" v_pad="0"
-        bg_visible="false" drop_shadow_visible="true"
-        border_visible="false" border_drop_shadow_visible="false"
-	      font="SansSerifSmall" mouse_opaque="true">
-		Start location:
-	</text>
-	<combo_box name="start_location_combo"
-             bottom_delta="2" left="120" height="16" width="150"
-             follows="left|bottom" font="SansSerifSmall"
-             mouse_opaque="true" allow_text_entry="true" max_chars="128">
-		<combo_item name="MyHome" value="My Home">
-			My Home
-		</combo_item>
-		<combo_item name="MyLastLocation" value="My Last Location">
-			My Last Location
-		</combo_item>
-		<combo_item name="Typeregionname" value="&lt;Type region name&gt;">
-			&lt;Type region name&gt;
-		</combo_item>
-	</combo_box>
-
-
   <!-- FIRST NAME -->
 
 	<text name="first_name_text" 
@@ -96,10 +70,30 @@
                allow_translate="false" />
 
 
+  <!-- SL USERNAME -->
+
+  <text name="username_text"
+	      bottom="80" left="24" height="16" width="250"
+        follows="left|bottom" h_pad="0" halign="left" v_pad="0"
+        bg_visible="false" drop_shadow_visible="true"
+        border_visible="false" border_drop_shadow_visible="false"
+	      font="SansSerif" mouse_opaque="true">
+    Login name:
+  </text>
+  <line_editor name="username_edit"
+               bottom_delta="-20" left_delta="0" height="20" width="250"
+               follows="left|bottom" font="SansSerif"
+               bevel_style="in" border_style="line" border_thickness="1"
+               max_length="31" mouse_opaque="true"
+               handle_edit_keys_directly="true"
+               select_all_on_focus_received="true"
+               allow_translate="false" />
+
+
   <!-- PASSWORD -->
 
 	<text name="password_text" 
-	      bottom_delta="20" left_delta="130" height="16" width="120"
+	      bottom_delta="20" left="285" height="16" width="120"
         follows="left|bottom" h_pad="0" halign="left" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
@@ -114,36 +108,70 @@
 	             handle_edit_keys_directly="true"
                select_all_on_focus_received="true"
                allow_translate="false" />
-	<check_box name="remember_check" label="Remember password"
-             bottom_delta="-24" left_delta="0" height="16" width="140"
-             follows="left|bottom" font="SansSerifSmall" control_name="RememberPassword" 
-	           initial_value="false" mouse_opaque="true"  />
 
 
   <!-- GRIDS -->
 
-	<text name="grid_text" 
+  <text name="grid_text"
 	      bottom="80" left_delta="150" height="16" width="120"
         follows="left|bottom" h_pad="0" halign="left" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
 	      font="SansSerif" mouse_opaque="true">
-		Grid:
-	</text>
-	<combo_box name="server_combo"
+    Grid:
+  </text>
+  <combo_box name="server_combo"
              bottom_delta="-20" left_delta="0" height="20" width="120"
              follows="left|bottom" allow_text_entry="false"
              max_chars="20" mouse_opaque="true" />
-	<button name="grid_btn" label="Grid Manager"
-          bottom_delta="-24" left_delta="10" height="16" width="100"
-          follows="left|bottom" font="SansSerifSmall" halign="center"
-		      mouse_opaque="true" scale_image="TRUE" />
+
+
+  <!-- START LOCATION -->
+
+  <text name="start_location_text"
+	      bottom="32" left="10" height="16" right="115"
+        follows="left|bottom" h_pad="0" halign="right" v_pad="0"
+        bg_visible="false" drop_shadow_visible="true"
+        border_visible="false" border_drop_shadow_visible="false"
+	      font="SansSerifSmall" mouse_opaque="true">
+    Start location:
+  </text>
+  <combo_box name="start_location_combo"
+             bottom_delta="2" left="120" height="16" width="150"
+             follows="left|bottom" font="SansSerifSmall"
+             mouse_opaque="true" allow_text_entry="true" max_chars="128">
+    <combo_item name="MyHome" value="My Home">
+      My Home
+    </combo_item>
+    <combo_item name="MyLastLocation" value="My Last Location">
+      My Last Location
+    </combo_item>
+    <combo_item name="Typeregionname" value="&lt;Type region name&gt;">
+      &lt;Type region name&gt;
+    </combo_item>
+  </combo_box>
+
+
+  <!-- REMEMBER PASSWORD -->
+
+  <check_box name="remember_check" label="Remember password"
+           bottom_delta="-2" left="282" height="16" width="140"
+           follows="left|bottom" font="SansSerifSmall" control_name="RememberPassword"
+           initial_value="false" mouse_opaque="true"  />
+
+
+  <!-- GRID MANAGER -->
+  
+  <button name="grid_btn" label="Grid Manager"
+        bottom_delta="0" left="434" height="20" width="100"
+        follows="left|bottom" font="SansSerifSmall" halign="center"
+        mouse_opaque="true" scale_image="TRUE" />
 
 
   <!-- LOG IN -->
 
 	<button name="connect_btn" label="Log In"
-          bottom="58" left_delta="140" height="24" width="120"
+          bottom="58" left_delta="150" height="24" width="120"
           follows="left|bottom" font="SansSerif" halign="center"
 	        mouse_opaque="true" scale_image="TRUE" />
 

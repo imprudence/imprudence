@@ -179,9 +179,9 @@
           <key>common</key>
           <map>
             <key>md5sum</key>
-            <string>bf3547c5bf5555e82355cd82ad8eaf73</string>
+            <string>940f85fb8c629b7944688e812a089549</string>
             <key>url</key>
-            <uri>http://download.kokuaviewer.org/files/extras/imprudence-artwork-20110301.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/extras/imprudence-artwork-20110321.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -230,7 +230,11 @@
             <key>md5sum</key>
             <string>17f89b854959b4d728be832d9c8184e4</string>
             <key>url</key>
+<<<<<<< HEAD
             <uri>https://github.com/downloads/NickyPerian/imprudence/boost_1_45_VC100_libs_inc_patch4073.tar.bz2</uri>
+=======
+            <uri>http://download.kokuaviewer.org/files/libs/boost-1.43.0-windows-20100902.tar.bz2</uri>
+>>>>>>> imp/exp
           </map>
         </map>
       </map>

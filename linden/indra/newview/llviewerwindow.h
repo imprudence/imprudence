@@ -195,6 +195,9 @@ public:
 	S32				getWindowDisplayHeight()	const;
 	S32				getWindowDisplayWidth()	const;
 
+	// Returns true when the UI has focus, false when the 3D world does
+	bool			getUIHasFocus();
+
 	// Window in scaled pixels (via UI scale), use this for
 	// UI elements checking size.
 	const LLRect&	getVirtualWindowRect()		const	{ return mVirtualWindowRect; };

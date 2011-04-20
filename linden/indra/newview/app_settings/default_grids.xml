@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>32</string>
+      <key>default_grids_version</key><string>33</string>
     </map>
 
     <!-- Second Life -->
@@ -191,17 +191,17 @@
 
     <!-- InWorldz -->
     <map>
-      <key>gridname</key>  <string>Inworldz</string>
+      <key>gridname</key>  <string>InWorldz</string>
       <key>gridnick</key>  <string>inworldz</string>
       <key>platform</key>  <string>OpenSim</string>
       <key>loginuri</key>  <string>http://inworldz.com:8002/</string>
       <key>loginpage</key> <string>http://inworldz.com/loginscreen.php</string>
       <key>helperuri</key> <string>http://inworldz.com/</string>
-      <key>password</key>  <string>http://inworldz.com/wpassword</string>
-      <key>register</key>  <string>http://inworldz.com/register</string>
-      <key>support</key>   <string>http://inworldz.com/help</string>
-      <key>website</key>   <string>http://inworldz.com/about/</string>
-      <key>version</key>   <string>1</string>
+      <key>password</key>  <string>http://inworldz.com/loginerror.php?error=2</string>
+      <key>register</key>  <string>http://inworldz.com/register.php</string>
+      <key>support</key>   <string>http://inworldz.com/support.php</string>
+      <key>website</key>   <string>http://inworldz.com/</string>
+      <key>version</key>   <string>2</string>
     </map> 
 
     <!-- Meta7 -->

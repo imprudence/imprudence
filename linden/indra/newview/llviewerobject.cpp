@@ -207,7 +207,8 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mJointInfo(NULL),
 	mState(0),
 	mMedia(NULL),
-	mClickAction(0)
+	mClickAction(0),
+	mSculptSurfaceArea(0.0)
 {
 	if(!is_global)
 	{
@@ -4012,9 +4013,15 @@ LLBBox LLViewerObject::getBoundingBoxAgent() const
 {
 	LLVector3 position_agent;
 	LLQuaternion rot;
+	LLViewerObject* avatar_parent = NULL;
 	LLViewerObject* root_edit = (LLViewerObject*)getRootEdit();
-	LLViewerObject* avatar_parent = (LLViewerObject*)root_edit->getParent();
-	if (avatar_parent && avatar_parent->isAvatar() && root_edit->mDrawable.notNull())
+	if (root_edit)
+	{
+		avatar_parent = (LLViewerObject*)root_edit->getParent();
+	}
+
+	if (avatar_parent && avatar_parent->isAvatar() &&
+		root_edit && root_edit->mDrawable.notNull() && root_edit->mDrawable->getXform()->getParent())
 	{
 		LLXform* parent_xform = root_edit->mDrawable->getXform()->getParent();
 		position_agent = (getPositionEdit() * parent_xform->getWorldRotation()) + parent_xform->getWorldPosition();
@@ -4111,6 +4118,14 @@ void LLViewerObject::setDebugText(const std::string &utf8text)
 	mText->setZCompare(FALSE);
 	mText->setDoFade(FALSE);
 	updateText();
+}
+std::string LLViewerObject::getDebugText()
+{
+	if(mText)
+	{
+		return mText->getStringUTF8();
+	}
+	return "";
 }
 
 void LLViewerObject::setIcon(LLViewerImage* icon_image)
@@ -4581,7 +4596,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 bool LLViewerObject::setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin)
 {
 	ExtraParameter* param = getExtraParameterEntryCreate(param_type);
-	if (param->in_use != in_use)
+	if (param && param->in_use != in_use)
 	{
 		param->in_use = in_use;
 		parameterChanged(param_type, param->data, in_use, local_origin);

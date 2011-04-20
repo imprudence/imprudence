@@ -55,15 +55,22 @@
 #include "llui.h"
 #include "lluictrlfactory.h"
 #include "llclipboard.h"
+#include "llmemberlistener.h"
 
 #include "../newview/lgghunspell_wrapper.h"
 #include "../newview/lltranslate.h"
 #include "../newview/llviewercontrol.h"
 #include "../newview/lggautocorrect.h"
 
+
 //
 // Imported globals
 //
+
+//
+// Globals
+
+
 
 //
 // Constants
@@ -89,6 +96,8 @@ const S32	PREEDIT_STANDOUT_THICKNESS = 2;
 static LLRegisterWidget<LLLineEditor> r1("line_editor");
 
 /* static */ LLPointer<LLUIImage> LLLineEditor::sImage;
+
+typedef LLMemberListener<LLView> text_edit_listener_t;
 
 //
 // Member functions
@@ -214,46 +223,18 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 	}
 	mImage = sImage;
 
-	// make the popup menu available
-	//LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_texteditor.xml", parent_view);
-	LLMenuGL* menu = new LLMenuGL("wot");
-	/*if (!menu)
+
+	LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_rightclick_text.xml",this);
+	if (!menu)
 	{
-	menu = new LLMenuGL(LLStringUtil::null);
-	}*/
+	          menu = new LLMenuGL(LLStringUtil::null);
+	}
 
-	menu->append(new LLMenuItemCallGL("Cut", context_cut, context_enable_cut, this));
-	menu->append(new LLMenuItemCallGL("Copy", context_copy, context_enable_copy, this));
-	menu->append(new LLMenuItemCallGL("Paste", context_paste, context_enable_paste, this));
-	menu->append(new LLMenuItemCallGL("Delete", context_delete, context_enable_delete, this));
-	menu->append(new LLMenuItemCallGL("Select All", context_selectall, context_enable_selectall, this));
-
-	menu->appendSeparator("Transep");
-	LLMenuGL* translatemenu = new LLMenuGL("Translate To");
-	translatemenu->setCanTearOff(FALSE);
-	translatemenu->append(new LLMenuItemCallGL("en", "English", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("da", "Danish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("de", "Deutsch(German)", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("es", "Spanish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("fr", "French", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("it", "Italian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("hu", "Hungarian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("nl", "Dutch", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("pl", "Polish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("pt", "Portugese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ru", "Russian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("tr", "Turkish", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("uk", "Ukrainian", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("zh", "Chinese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ja", "Japanese", context_translate, context_enable_translate, this));
-	translatemenu->append(new LLMenuItemCallGL("ko", "Korean", context_translate, context_enable_translate, this));
-
-	menu->appendMenu(translatemenu);
-	menu->appendSeparator("Spelsep");
-	//menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
-	menu->setCanTearOff(FALSE);
-	menu->setVisible(FALSE);
+	defineMenuCallbacks(menu);
 	mPopupMenuHandle = menu->getHandle();
+	menu->setBorderColor(gColors.getColor("MenuItemDisabledColor"));
+	menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
+
 }
 
 
@@ -556,7 +537,7 @@ void LLLineEditor::context_translate(void * data)
 {
 	LLLineEditor* line = (LLLineEditor*)data;
 	LLMenuGL* menu = line ? (LLMenuGL*)(line->mPopupMenuHandle.get()) : NULL;
-	LLMenuGL* translate_menu = menu ? menu->getChildMenuByName("Translate To", TRUE) : NULL;
+	LLMenuGL* translate_menu = menu ? menu->getChildMenuByName("Translation Options", TRUE) : NULL;
 	if (!translate_menu)
 	{
 		return;
@@ -599,9 +580,9 @@ void LLLineEditor::spell_show(void * data)
 	}
 }
 
-std::vector<S32> LLLineEditor::getMisspelledWordsPositions()
+void LLLineEditor::getMisspelledWordsPositions(std::vector<S32>& misspell_positions)
 {
-	std::vector<S32> thePosesOfBadWords;
+	misspell_positions.clear();
     const LLWString& text = mText.getWString();
 
 	//llinfos << "end of box is at " << cursorloc << " and end of text is at " << text.length() << llendl;
@@ -623,26 +604,28 @@ std::vector<S32> LLLineEditor::getMisspelledWordsPositions()
 			{
 				wordEnd++;
 			}	
-			//got a word :D
-			std::string selectedWord(std::string(text.begin(), 
-				text.end()).substr(wordStart,wordEnd-wordStart));
 			
-			if(!glggHunSpell->isSpelledRight(selectedWord))
-			{	
-				//misspelled word here, and you have just right clicked on it!
-				//get the center of this word..
-				//S32 center =  llround( (wordEnd-wordStart)/2 ) + wordStart;
-				//turn this cursor position into a pixel pos
-				//center = findPixelNearestPos(center-getCursor());
+			//got a word? -- MC
+			if (wordStart != wordEnd)
+			{
+				std::string selectedWord(std::string(text.begin(), 
+					text.end()).substr(wordStart,wordEnd-wordStart));
+				
+				if(!selectedWord.empty() && !glggHunSpell->isSpelledRight(selectedWord))
+				{	
+					//misspelled word here, and you have just right clicked on it!
+					//get the center of this word..
+					//S32 center =  llround( (wordEnd-wordStart)/2 ) + wordStart;
+					//turn this cursor position into a pixel pos
+					//center = findPixelNearestPos(center-getCursor());
 
-				thePosesOfBadWords.push_back(
-					wordStart);
-				thePosesOfBadWords.push_back(wordEnd);
+					misspell_positions.push_back(wordStart);
+					misspell_positions.push_back(wordEnd);
+				}
 			}
 		}
 		wordEnd++;
 	}
-	return thePosesOfBadWords;
 }
 
 void LLLineEditor::spell_add(void* data)
@@ -1316,6 +1299,67 @@ void LLLineEditor::deleteSelection()
 BOOL LLLineEditor::canCut() const
 {
 	return !mReadOnly && !mDrawAsterixes && hasSelection();
+}
+
+// method to define the associated callbacks
+void LLLineEditor::defineMenuCallbacks(LLMenuGL* menu) {
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Cut Text",
+			      this,
+			      (void*)context_enable_cut);
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+			      "Cut Text",
+			      this,
+			      (void*)context_cut);
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Copy Text",
+			      this,
+			      (void*)context_enable_copy);
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+			      "Copy Text",
+			      this,
+			      (void*)context_copy);
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Paste Text",
+			      this,
+			      (void*)context_enable_paste);
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+			      "Paste Text",
+			      this,
+			      (void*)context_paste);
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Delete Text",
+			      this,
+			      (void*)context_enable_delete);
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+			      "Delete Text",
+			      this,
+			      (void*)context_delete);
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Select All Text",
+			      this,
+			      (void*)context_enable_selectall);
+	menu->setCtrlResponse(1+LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+			      "Select All Text",
+			      this,
+			      (void*)context_selectall);
+
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_ENABLE,
+			      "Translate Text",
+			      this,
+			      (void*)context_enable_translate);
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_TRANSLATE,
+			      "Translate Text",
+			      this,
+			      (void*)context_translate);
+
+
+
 }
 
 // cut selection to clipboard
@@ -1994,7 +2038,7 @@ void LLLineEditor::autoCorrectText()
 	}
 }
 
-void LLLineEditor::drawMisspelled(LLRect background)
+void LLLineEditor::drawMisspelled(const LLRect& background)
 {
 	if (!mReadOnly && mSpellCheckable)
 	{
@@ -2010,16 +2054,16 @@ void LLLineEditor::drawMisspelled(LLRect background)
 				mStartSpellHere = newStartSpellHere;
 				mEndSpellHere = newStopSpellHere;
 				resetSpellDirty();
-				misspellLocations=getMisspelledWordsPositions();
+				getMisspelledWordsPositions(mMisspellLocations);
 			}
 		}
 
-		if (glggHunSpell->getSpellCheckHighlight())
+		if (!mMisspellLocations.empty() && glggHunSpell->getSpellCheckHighlight())
 		{
-			for (int i =0; i<(int)misspellLocations.size(); i++)
+			for (int i =0; i<(int)mMisspellLocations.size(); i++)
 			{
-				S32 wstart =findPixelNearestPos( misspellLocations[i]-getCursor());
-				S32 wend = findPixelNearestPos(misspellLocations[++i]-getCursor());
+				S32 wstart =findPixelNearestPos( mMisspellLocations[i]-getCursor());
+				S32 wend = findPixelNearestPos(mMisspellLocations[++i]-getCursor());
 				S32 maxw = getRect().getWidth();
 
 				if (wend > maxw)
@@ -2696,7 +2740,6 @@ BOOL LLLineEditor::prevalidatePrintableNotPipe(const LLWString &str)
 	return rv;
 }
 
-
 // static
 BOOL LLLineEditor::prevalidatePrintableNoSpace(const LLWString &str)
 {
@@ -2712,6 +2755,25 @@ BOOL LLLineEditor::prevalidatePrintableNoSpace(const LLWString &str)
 		}
 		if( !(LLStringOps::isAlnum((char)str[len]) ||
 		      LLStringOps::isPunct((char)str[len]) ) )
+		{
+			rv = FALSE;
+			break;
+		}
+	}
+	return rv;
+}
+
+// static
+BOOL LLLineEditor::prevalidatePrintableSpace(const LLWString &str)
+{
+	BOOL rv = TRUE;
+	S32 len = str.length();
+	if(len == 0) return rv;
+	while(len--)
+	{
+		if( !(LLStringOps::isAlnum((char)str[len]) ||
+		      LLStringOps::isPunct((char)str[len]) ||
+			  ' ' == str[len]) )
 		{
 			rv = FALSE;
 			break;

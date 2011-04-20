@@ -859,7 +859,7 @@ bool LLAppViewer::init()
 			minSpecs += "\n";
 			unsupported = true;
 		}
-		if(gSysCPU.getMhz() < minCPU)
+		if(gSysCPU.getMHz() < minCPU)
 		{
 			minSpecs += LLNotifications::instance().getGlobalString("UnsupportedCPU");
 			minSpecs += "\n";
@@ -1267,6 +1267,19 @@ bool LLAppViewer::cleanup()
 
 	LLCalc::cleanUp();
 
+	// Quitting with "Remember Password" turned off should always stomp your
+	// saved password, whether or not you successfully logged in.  JC
+	if (!gSavedSettings.getBOOL("RememberPassword"))
+	{
+		gHippoGridManager->getConnectedGrid()->setPassword("");
+
+		// kill old password.dat file if it exists. We do this to keep setting compatibility with older versions -- MC
+		std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "password.dat");
+		LLFile::remove(filepath);
+	}
+
+	gHippoGridManager->saveFile();
+
 	delete gHippoGridManager;
 	gHippoGridManager = NULL;
 
@@ -1418,13 +1431,6 @@ bool LLAppViewer::cleanup()
 	//
 	LLVFile::cleanupClass();
 	llinfos << "VFS cleaned up" << llendflush;
-
-	// Quitting with "Remember Password" turned off should always stomp your
-	// saved password, whether or not you successfully logged in.  JC
-	if (!gSavedSettings.getBOOL("RememberPassword"))
-	{
-		LLStartUp::deletePasswordFromDisk();
-	}
 	
 	// Store the time of our current logoff
 	gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());
@@ -2468,7 +2474,7 @@ void LLAppViewer::writeSystemInfo()
 
 	gDebugInfo["CPUInfo"]["CPUString"] = gSysCPU.getCPUString();
 	gDebugInfo["CPUInfo"]["CPUFamily"] = gSysCPU.getFamily();
-	gDebugInfo["CPUInfo"]["CPUMhz"] = gSysCPU.getMhz();
+	gDebugInfo["CPUInfo"]["CPUMhz"] = gSysCPU.getMHz();
 	gDebugInfo["CPUInfo"]["CPUAltivec"] = gSysCPU.hasAltivec();
 	gDebugInfo["CPUInfo"]["CPUSSE"] = gSysCPU.hasSSE();
 	gDebugInfo["CPUInfo"]["CPUSSE2"] = gSysCPU.hasSSE2();
@@ -3262,10 +3268,10 @@ void LLAppViewer::badNetworkHandler()
 	LLAppViewer::handleViewerCrash();
 
 	std::string grid_support_msg = "";
-	if (!gHippoGridManager->getCurrentGrid()->getSupportUrl().empty())
+	if (!gHippoGridManager->getCurrentGrid()->getSupportURL().empty())
 	{
 		grid_support_msg = "\n\nOr visit the gird support page at: \n " 
-			+ gHippoGridManager->getCurrentGrid()->getSupportUrl();
+			+ gHippoGridManager->getCurrentGrid()->getSupportURL();
 	}
 	std::ostringstream message;
 	message <<
@@ -4196,6 +4202,11 @@ void LLAppViewer::disconnectViewer()
 	}
 
 	saveNameCache();
+
+	{
+		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "cloud.xml");
+		LLVOAvatar::saveCloud(filename, LLVOAvatar::sCloud);
+	}
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();

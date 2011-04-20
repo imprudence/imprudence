@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<menu drop_shadow="true"
+     mouse_opaque="false" name="Text Edit Menu" opaque="true">
+        <menu_item_call label="Cut" mouse_opaque="true"
+             name="Cut Text">
+                <on_click function="textfield_cut" userdata="about" />
+		<on_enable function="textfield_cut_enable" />
+        </menu_item_call>
+        <menu_item_call label="Copy" mouse_opaque="true"
+			name="Copy Text" >
+                <on_click function="textfield_copy" userdata="" />
+		<on_enable function="textfield_copy_enable"  />
+        </menu_item_call>
+        <menu_item_call label="Paste" mouse_opaque="true"
+			name="Paste Text" >
+                <on_click function="textfield_paste" userdata="" />
+		<on_enable function="textfield_paste_enable" />
+        </menu_item_call>
+        <menu_item_call label="Delete" mouse_opaque="true"
+			name="Delete Text" >
+                <on_click function="textfield_delete" userdata="" />
+		<on_enable function="textfield_delete_enable" />
+        </menu_item_call>
+		<menu_item_separator />
+        <menu_item_call label="Select All" mouse_opaque="true"
+			name="Select All Text" >
+                <on_click function="textfield_selectall" userdata="" />
+		<on_enable function="textfield_selectall_enable" />
+        </menu_item_call>
+        <menu_item_separator name="Translate" />
+	<menu drop_shadow="true"
+	      mouse_opaque="false" name="Translation Options"
+	      bottom_delta="0" label="Translate To..." opaque="true" >
+	  <menu_item_call label="English" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="en" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Danish" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="da" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Deutsch (German)" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="de" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Spanish" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="es" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="French" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="fr" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Italian" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="it" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Hungarian" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="hu" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Dutch" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="nl" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Polish" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="pl" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Portugese" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="pt" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Russian" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="ru" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Turkish" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="tr" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Ukrainian" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="uk" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Chinese" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="zh" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Japanese" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="ja" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	  <menu_item_call label="Korean" mouse_opaque="true"
+			name="Translate Text" >
+                <on_click function="textfield_translate" translate="true" userdata="ko" />
+		<on_enable function="textfield_translate_enable" />
+	  </menu_item_call>
+	</menu>
+</menu>

@@ -1,21 +1,38 @@
-/*
- *  floatergridmanager.h
- *  This is Meerkats grid manager.
- *  -Patrick Sapinski (Monday, August 17, 2009)
- *
- *  Modified by McCabe Maxsted for Imprudence
- */
+/**
+* @file floatergridmanager.h
+* @brief UI for managing grid information
+*
+* $LicenseInfo:firstyear=2011&license=viewergpl$
+*
+* Copyright (c) 2011, McCabe Maxsted
+* based on Meerkat's grid manager by Patrick Sapinski
+*
+* Imprudence Viewer Source Code
+* The source code in this file ("Source Code") is provided to you
+* under the terms of the GNU General Public License, version 2.0
+* ("GPL"). Terms of the GPL can be found in doc/GPL-license.txt in
+* this distribution, or online at
+* http://secondlifegrid.net/programs/open_source/licensing/gplv2
+*
+* There are special exceptions to the terms and conditions of the GPL as
+* it is applied to this Source Code. View the full text of the exception
+* in the file doc/FLOSS-exception.txt in this software distribution, or
+* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+*
+* By copying, modifying or distributing this software, you acknowledge
+* that you have read and understood your obligations described above,
+* and agree to abide by those obligations.
+*
+* ALL SOURCE CODE IS PROVIDED "AS IS." THE AUTHOR MAKES NO
+* WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+* COMPLETENESS OR PERFORMANCE.
+* $/LicenseInfo$
+*/
 
 #ifndef PL_floaterlogin_H
 #define PL_floaterlogin_H
 
-#define LOGIN_OPTION_CONNECT 0
-#define LOGIN_OPTION_QUIT 1
-
 #include "llfloater.h"
-
-class LoginController;
-class AuthenticationModel;
 
 class FloaterGridManager : public LLFloater, public LLFloaterSingleton<FloaterGridManager>
 {
@@ -27,57 +44,40 @@ public:
 
 	static void refreshGrids();
 	void apply();
-	//void setDefault();
 	void cancel();
-
-	void clearInfo();
 
 	virtual void draw();
 
 	void refresh();
 
-	// new-style login methods
-	virtual std::string& getPassword();
-	virtual void setPassword(std::string &password);
-	virtual bool isSamePassword(std::string &password);
-	static void getFields(std::string &loginname, std::string &password,
-						  BOOL &remember);
-	static void setFields(const std::string &loginname, const std::string &password,
-						  BOOL remember);
+	// clears either the loginuri fetched info or all the info in the grid manager
+	void clearGridInfo(bool clear_all);
 	
-	// LLLoginPanel compatibility
-	/*static void setAlwaysRefresh(bool refresh);
-	static void refreshLocation(bool force_visible);
-	virtual void setFocus(BOOL b);
-	static void giveFocus();*/
-	static void getLocation(std::string &location);
+	//static void getLocation(std::string &location);
+	//void refreshLocation(bool force_visible)
 	static BOOL isGridComboDirty();
-	//static void addServer(const std::string& server, S32 domain_name);
-	static void hashPassword(const std::string& password, std::string& hashedPassword);
-protected:
-	static bool sIsInitialLogin;
-	static std::string sGrid;
+
 private:
-	enum State 
+
+	enum EGridState 
 	{ 
-		NORMAL, 
-		ADD_NEW, 
-		ADD_COPY 
+		GRID_STATE_NORMAL, 
+		GRID_STATE_NEW, 
+		GRID_STATE_COPY 
 	};
 
-	State mState;
-	void setState(const State& state) { mState = state; }
-	State getState() { return mState; }
-
+	void setGridState(EGridState state) { mState = state; }
+	EGridState getGridState() { return mState; }
+	EGridState mState;
 	std::string mCurGrid;
-	void setCurGrid(const std::string& grid) { mCurGrid = grid; }
-	std::string getCurGrid() { return mCurGrid; }
 
-	std::string mIncomingPassword;
-	std::string mMungedPassword;
+	void setCurGrid(std::string grid) { mCurGrid = grid; }
+	std::string getCurGrid() { return mCurGrid; }
 	
 	void applyChanges();
-	bool createNewGrid();
+	void createNewGrid();
+	void setupNewGridEntry();
+	void setupCopyGridEntry();
 	void update();
 	void retrieveGridInfo();
 
@@ -87,13 +87,11 @@ private:
 	static void onClickCopy(void* data);
 	static void onClickOk(void* data);
 	static void onClickApply(void* data);
-	static void onClickDefault(void* data);
 	static void onClickGridInfo(void* data);
 	static void onClickCancel(void* data);
 	static void onClickClear(void* data);
 
-	static LoginController* sController;
-	static AuthenticationModel* sModel;
+	static bool newGridCreationCallback(const LLSD& notification, const LLSD& response);
 };
 
 #endif // PL_floaterlogin_H

@@ -55,12 +55,14 @@
 #include "llslider.h"
 #include "llsliderctrl.h"
 #include "llspinctrl.h"
+#include "llstartup.h"
 #include "lltextbox.h"
 #include "llui.h"
 #include "llviewerparcelmgr.h"
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
+#include "slfloatermediafilter.h"
 
 #include "hippogridmanager.h"
 
@@ -92,6 +94,8 @@ BOOL LLPanelAudioPrefs::postBuild()
 	refreshValues(); // initialize member data from saved settings
 	childSetLabelArg("L$ Change Threshold", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	childSetValue("mute_wind_check", !gSavedSettings.getBOOL("MuteWind"));
+	childSetAction("show_media_filter", onShowMediaFilter, this);
+	updateIsLoggedIn(LLStartUp::isLoggedIn());
 
 	return TRUE;
 }
@@ -112,7 +116,8 @@ void LLPanelAudioPrefs::refreshValues()
 
 	mPreviousStreamingMusic = gSavedSettings.getBOOL("AudioStreamingMusic");
 	mPreviousStreamingVideo = gSavedSettings.getBOOL("AudioStreamingVideo");
-
+	mPreviousHelperWidget = gSavedSettings.getBOOL("MediaOnAPrimUI");
+	mPreviousEnableMediaFilter = gSavedSettings.getBOOL("MediaEnableFilter");
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
 }
@@ -140,8 +145,19 @@ void LLPanelAudioPrefs::cancel()
 
 	gSavedSettings.setBOOL("AudioStreamingMusic", mPreviousStreamingMusic );
 	gSavedSettings.setBOOL("AudioStreamingVideo", mPreviousStreamingVideo );
-
-	
+	gSavedSettings.setBOOL("MediaOnAPrimUI", mPreviousHelperWidget );
+	gSavedSettings.setBOOL("MediaEnableFilter", mPreviousEnableMediaFilter );
 	gSavedSettings.setBOOL("MuteAudio", mPreviousMuteAudio );
 	gSavedSettings.setBOOL("MuteWhenMinimized", mPreviousMuteWhenMinimized );
+}
+
+//static
+void LLPanelAudioPrefs::onShowMediaFilter(void* data)
+{
+	SLFloaterMediaFilter::toggleInstance();
+}
+
+void LLPanelAudioPrefs::updateIsLoggedIn(const bool enable)
+{
+	childSetEnabled("show_media_filter", enable);
 }

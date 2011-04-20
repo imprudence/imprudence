@@ -2,7 +2,9 @@
 <llsd>
 <map>
 
-<!-- for Aurora Sim -->
+  <!-- BEGIN IMPRUDENCE-SPECIFIC SETTINGS -->
+  
+  <!-- begin Aurora-specific settings -->
 
   <key>TimeOffset</key>
   <map>
@@ -48,7 +50,8 @@
     <key>Value</key>
     <string>SLVoice</string>
   </map>
-  <!-- Imprudence-specific settings -->
+  
+  <!-- end Aurora-specific settings -->
 
   <key>AllowEditingOfTrees</key>
   <map>
@@ -134,6 +137,17 @@
       <real>0.0</real>
       <real>1</real>
     </array>
+  </map>
+  <key>HeadFollowsMouse</key>
+  <map>
+    <key>Comment</key>
+    <string>IF your avatars head follows your mouse movements (then the extend is defined in YawFromMousePosition  and PitchFromMousePosition</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
   </map>
   <key>HighlightOwnNameInChat</key>
   <map>
@@ -677,6 +691,17 @@
     <key>Value</key>
     <string>Random</string>
   </map>
+  <key>LastConnectedGrid</key>
+  <map>
+    <key>Comment</key>
+    <string>Last grid actually connected to</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>
   <key>LastSelectedGrid</key>
   <map>
     <key>Comment</key>
@@ -913,6 +938,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>PreviewAvatarAsCloud</key>
+  <map>
+    <key>Comment</key>
+    <string>Turns your avatar into the paricle clud if true</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
   <key>PrivateLookAtTarget</key>
   <map>
     <key>Comment</key>
@@ -945,6 +981,17 @@
     <string>F32</string>
     <key>Value</key>
     <real>0.0</real>
+  </map>
+  <key>SaveSearchResults</key>
+  <map>
+    <key>Comment</key>
+    <string>Saves search results when closing search window rather than clearing resources</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
   </map>
   <key>ShowLookAtNames</key>
   <map>
@@ -1667,6 +1714,23 @@
   </map>
 
   <!-- Begin: Client Name Tag -->
+
+  <key>ImprudenceTagColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of Imprudence tags (displayed only locally)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.79</real>
+      <real>0.44</real>
+      <real>0.88</real>
+      <real>1</real>
+    </array>
+  </map>
   <key>ShowClientColor</key>
   <map>
     <key>Comment</key>
@@ -2069,6 +2133,8 @@
   </map>
   
   <!-- End: Spellcheck & Translation -->
+  
+  <!-- Begin: RLVa -->
 
   <key>RestrainedLove</key>
   <map>
@@ -2246,6 +2312,224 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
+  <!-- End: RLVa -->
+  
+  <!-- Begin: socks5 -->
+
+  <key>Socks5ProxyEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Use Socks5 Proxy</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>Socks5HttpProxyType</key>
+  <map>
+    <key>Comment</key>
+    <string>Proxy type to use for HTTP operations</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <integer>None</integer>
+  </map>
+  <key>Socks5ProxyHost</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Proxy Host</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>
+  <key>Socks5ProxyPort</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Proxy Port</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1080</integer>
+  </map>
+  <key>Socks5Username</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Username</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>Socks5Password</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Password</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string></string>
+  </map>
+  <key>Socks5AuthType</key>
+  <map>
+    <key>Comment</key>
+    <string>Selected Auth mechanism for Socks5</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>None</string>
+  </map>
+
+  <!-- End: socks5 -->
+
+  <!-- Begin: full radar (Advanced menu) -->
+
+  <key>ShowRadar</key>
+  <map>
+    <key>Comment</key>
+    <string>Show the radar floater</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>FloaterRadarRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for Radar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>400</integer>
+      <integer>200</integer>
+      <integer>0</integer>
+    </array>
+  </map>
+  <key>RadarKeepOpen</key>
+  <map>
+    <key>Comment</key>
+    <string>Keeps radar updates running in background</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarUpdateRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Radar update rate (0 = high, 1 = medium, 2 = low)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>RadarAlertSim</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting sim</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertDraw</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting draw distance</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertShoutRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting shout range</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarAlertChatRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts for avatars entering/exiting chat range</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>RadarChatAlerts</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether the radar emits chat alerts regarding the status of avatars it displays</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarChatKeys</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable private chat alerts for avatars entering the region</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RadarChatKeysChannel</key>
+  <map>
+    <key>Comment</key>
+    <string>Private channel used to broadcast the key of incoming avatars</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>-8888888</integer>
+  </map>
+  
+  <!-- End: full radar (Advanced menu) -->
+
+  <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
+  
   <key>AFKTimeout</key>
   <map>
     <key>Comment</key>
@@ -2311,6 +2595,41 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+
+  <key>XMLRPCProxyAddress</key>
+  <map>
+    <key>Comment</key>
+    <string>Address for the XMLRPC Web Proxy</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>
+  <key>XMLRPCProxyEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Use XMLRPC Proxy</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>XMLRPCProxyPort</key>
+  <map>
+    <key>Comment</key>
+    <string>Port of the XMLRPC Proxy</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>3128</integer>
+  </map>
+
   <key>AllowIdleAFK</key>
   <map>
     <key>Comment</key>
@@ -2967,7 +3286,7 @@
   <key>BrowserProxyAddress</key>
   <map>
     <key>Comment</key>
-    <string>Address for the Web Proxy]</string>
+    <string>Address for the Web Proxy</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -5584,17 +5903,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  <key>FirstName</key>
-  <map>
-    <key>Comment</key>
-    <string>Login first name</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>String</string>
-    <key>Value</key>
-    <string />
-  </map>
   <key>FirstPersonAvatarVisible</key>
   <map>
     <key>Comment</key>
@@ -7495,17 +7803,6 @@
       <key>Value</key>
       <string>find_all_panel</string>
     </map>
-    <key>LastName</key>
-    <map>
-      <key>Comment</key>
-      <string>Login last name</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
-    </map>
     <key>LastPrefTab</key>
     <map>
       <key>Comment</key>
@@ -7880,17 +8177,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>Marker</key>
-    <map>
-      <key>Comment</key>
-      <string>[NOT USED]</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
-    </map>
     <key>MaxDragDistance</key>
     <map>
       <key>Comment</key>
@@ -7989,6 +8275,44 @@
     <string>F32</string>
     <key>Value</key>
     <real>3.0</real>
+  </map>
+  <key>MediaEnableFilter</key>
+  <map>
+    <key>Comment</key>
+    <string>Enable media domain filtering</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>MediaFilterRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for Media Filter floater</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+    </array>
+  </map>
+  <key>MediaFilterOnlyRemoteCommands</key>
+  <map>
+    <key>Comment</key>
+    <string>Whether Media Filter should only filter actions initiated remotely</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
   </map>
   <key>MediaOnAPrimUI</key>
   <map>

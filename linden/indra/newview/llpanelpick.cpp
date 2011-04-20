@@ -360,7 +360,15 @@ void LLPanelPick::processPickInfoReply(LLMessageSystem *msg, void **)
 
 		// Update UI controls
         self->mNameEditor->setText(std::string(name));
-        self->mDescEditor->setText(std::string(desc));
+		if (self->mCreatorID == gAgent.getID())
+		{
+			self->mDescEditor->setText(std::string(desc));
+		}
+		else
+		{
+			self->mDescEditor->setParseHTML(TRUE);
+			self->mDescEditor->appendColoredText(std::string(desc), false, false, gColors.getColor("TextFgReadOnlyColor"));
+		}
         self->mSnapshotCtrl->setImageAssetID(snapshot_id);
         self->mLocationEditor->setText(location_text);
         self->mEnabledCheck->set(enabled);

@@ -32,9 +32,9 @@
 	     increment="10" initial_val="50" left_delta="0" max_val="1000" min_val="10"
 	     mouse_opaque="true" name="cache_size" show_text="true" width="180" />
 	<button bottom_delta="-4" enabled="true" follows="left|top"
-	     font="SansSerif" halign="center" height="22" label="Clear Cache" left="340"
+	     font="SansSerif" halign="center" height="22" label="Clear Disk Cache" left="340"
 	     left_delta="186" mouse_opaque="true" name="clear_cache" scale_image="true"
-	     width="100" />
+	     width="150" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-17" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
@@ -56,12 +56,123 @@
 	     name="reset_cache" scale_image="true" width="100" />
 	<check_box bottom="-173" bottom_delta="-25" control_name="ConnectionPortEnabled"
 	     enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Custom port connection" left="12"
+	     initial_value="false" label="Enable custom outgoing port" left="12"
 	     mouse_opaque="true" name="connection_port_enabled" radio_style="false"
+       tool_tip="Enables custom port for outgoing connections" 
 	     width="256" />
 	<spinner bottom="-193" bottom_delta="-20" control_name="ConnectionPort"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="1" initial_val="13000" label="Port number:" label_width="75"
 	     left_delta="20" max_val="13050" min_val="13000" mouse_opaque="true"
-	     name="connection_port" width="150" />
+	     name="connection_port" width="140" />
+  
+  <!-- XMLRPC PROXY -->
+
+  <check_box bottom_delta="-25" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Enable XMLRPC proxy (Login, Land, and Money purchases)" left="15" mouse_opaque="true"
+	     name="xmlrpc_proxy_enabled" radio_style="false" width="300" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left_delta="20" mouse_opaque="false" name="xmlrpc_proxy_text_label"
+	     v_pad="0" width="128">
+		Address:
+	</text>
+	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="112" name="xmlrpc_proxy_editor"
+	     tool_tip="The name or IP address of the proxy you would like to use"
+	     width="200" />
+	<spinner bottom_delta="-20" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" increment="1"
+	     initial_val="80" label="Port number:" label_width="75" left="35"
+	     max_val="65535" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
+	     width="140" />
+
+  <!-- SOCKS 5 PROXY -->
+
+  <check_box bottom_delta="-24" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Enable SOCKS 5 proxy" left="15" mouse_opaque="true"
+	     name="socks5_proxy_enabled" radio_style="false" width="256" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="35" mouse_opaque="false" name="socks5_host_label"
+	     v_pad="0" width="128">
+    SOCKS 5 host:
+  </text>
+  <line_editor bottom_delta="-6" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="113" name="socks5_proxy_host"
+	     tool_tip="The name or IP address of the SOCKS5 proxy you would like to use"
+	     width="200" />
+  <spinner bottom_delta="-20" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" increment="1"
+	     initial_val="80" label="Port number:" label_width="75" left="35"
+	     max_val="65535" min_val="10" mouse_opaque="true" name="socks5_proxy_port"
+	     width="140" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="35" mouse_opaque="false" name="socks5_auth_label"
+	     v_pad="0" width="128">
+    SOCKS 5 authentication:
+  </text>
+  <radio_group bottom_delta="-6" draw_border="false" follows="left|top" height="20" left="35"
+	     name="socks5_auth" width="420">
+    <radio_item bottom="0" height="20" left_delta="80" name="None" width="50"
+        tool_tip="No authentication">
+      None
+    </radio_item>
+    <radio_item bottom="0" height="20" left_delta="50" name="UserPass" width="50"
+        tool_tip="Username / Password authentication">
+      Username / Password
+    </radio_item>
+  </radio_group>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="122" mouse_opaque="false" name="socks5_username_label"
+	     v_pad="0" width="128">
+    Username:
+  </text>
+  <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="200" name="socks5_proxy_username"
+	     tool_tip="Username for the Socks5 proxy"
+	     width="200" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-14" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="122" mouse_opaque="false" name="socks5_password_label"
+	     v_pad="0" width="128">
+    Password:
+  </text>
+  <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="200" name="socks5_proxy_password"
+	     tool_tip="Password for the Socks5 proxy"
+	     width="200" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
+     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+     height="10" left="35" mouse_opaque="false" name="http_proxy_label"
+     v_pad="0" width="128">
+    HTTP proxy:
+  </text>
+  <radio_group bottom_delta="-8" draw_border="false" follows="left|top" height="20" left="35"
+	     name="socks5_http_proxy_type" width="380" >
+    <radio_item height="20" bottom="0" left="100" name="None" width="50"
+        tool_tip="No HTTP proxy">
+      None
+    </radio_item>
+    <radio_item height="20" bottom="0" left="170" name="Socks" width="50"
+        tool_tip="Use Socks for HTTP proxy">
+      SOCKS 5
+    </radio_item>
+    <radio_item height="20" bottom="0" left="250" name="Web" width="50"
+        tool_tip="Use web proxy for HTTP proxy">
+      Web
+    </radio_item>
+  </radio_group>
 </panel>

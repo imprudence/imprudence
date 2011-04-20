@@ -152,13 +152,8 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 	/* open a byte stream */
 	cio = opj_cio_open((opj_common_ptr)dinfo, base.getData(), base.getDataSize());
 
-	/* decode the stream and fill the image structure, also fill in an additional
-	   structure to get the decoding result. This structure is a bit unusual in that
-	   it is not received through opj, but still has some dynamically allocated fields
-	   that need to be cleared up at the end by calling a destroy function. */
-	opj_codestream_info_t cinfo;
-	memset(&cinfo, 0, sizeof(opj_codestream_info_t));
-	image = opj_decode_with_info(dinfo, cio, &cinfo);
+	/* decode the stream and fill the image structure */
+	image = opj_decode(dinfo, cio);
 
 	/* close the byte stream */
 	opj_cio_close(cio);
@@ -175,6 +170,7 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 	if(!image) 
 	{
 		LL_DEBUGS("Openjpeg")  << "ERROR -> decodeImpl: failed to decode image - no image" << LL_ENDL;
+		base.decodeFailed();
 		return TRUE; // done
 	}
 
@@ -185,51 +181,35 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 		LL_DEBUGS("Openjpeg") << "ERROR -> decodeImpl: failed to decode image wrong number of components: " << img_components << LL_ENDL;
 		if (image)
 		{
-			opj_destroy_cstr_info(&cinfo);
 			opj_image_destroy(image);
 		}
 
+		base.decodeFailed();
 		return TRUE; // done
 	}
 
 	// sometimes we get bad data out of the cache - check to see if the decode succeeded
-	int decompdifference = 0;
-	if (cinfo.numdecompos) // sanity
+	for (S32 i = 0; i < img_components; i++)
 	{
-		for (int comp = 0; comp < image->numcomps; comp++)
-		{	/* get maximum decomposition level difference, first field is from the COD header and the second
-			   is what is actually met in the codestream, NB: if everything was ok, this calculation will
-			   return what was set in the cp_reduce value! */
-			decompdifference = llmax(decompdifference, cinfo.numdecompos[comp] - image->comps[comp].resno_decoded);
-		}
-		if (decompdifference < 0) // sanity
+		if (image->comps[i].factor != base.getRawDiscardLevel())
 		{
-			decompdifference = 0;
+			// if we didn't get the discard level we're expecting, fail
+			if (image) //anyway somthing odd with the image, better check than crash
+				opj_image_destroy(image);
+			base.decodeFailed();
+			return TRUE;
 		}
 	}
 	
-
-	/* if OpenJPEG failed to decode all requested decomposition levels
-	   the difference will be greater than this level */
-	if (decompdifference > base.getRawDiscardLevel())
-	{
-		llwarns << "not enough data for requested discard level, setting mDecoding to FALSE, difference: " << (decompdifference - base.getRawDiscardLevel()) << llendl;
-		opj_destroy_cstr_info(&cinfo);
-		opj_image_destroy(image);
-		base.mDecoding = FALSE;
-		return TRUE;
-	}
-
 	if(img_components <= first_channel)
 	{
-		// sanity
 		LL_DEBUGS("Openjpeg") << "trying to decode more channels than are present in image: numcomps: " << img_components << " first_channel: " << first_channel << LL_ENDL;
 		if (image)
 		{
-			opj_destroy_cstr_info(&cinfo);
 			opj_image_destroy(image);
 		}
 			
+		base.decodeFailed();
 		return TRUE;
 	}
 
@@ -275,17 +255,16 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 		else // Some rare OpenJPEG versions have this bug.
 		{
 			llwarns << "ERROR -> decodeImpl: failed to decode image! (NULL comp data - OpenJPEG bug)" << llendl;
-			opj_destroy_cstr_info(&cinfo);
 			opj_image_destroy(image);
 
+			base.decodeFailed();
 			return TRUE; // done
 		}
 	}
 
-	/* free opj data structures */
+	/* free image data structure */
 	if (image)
 	{
-		opj_destroy_cstr_info(&cinfo);
 		opj_image_destroy(image);
 	}
 

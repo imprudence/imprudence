@@ -108,6 +108,7 @@ private:
 	static void onClickAR(void* user_data);
 	//static void onClickEjectFromEstate(void* user_data); Not working yet
 	//static void onClickBanFromEstate(void* user_data);
+	static void onClickFullRadar(void* user_data);
 
 	static void callbackAR(void* user_data);
 	static bool	callbackFreeze(const LLSD& notification, const LLSD& response);

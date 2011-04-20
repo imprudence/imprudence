@@ -161,10 +161,44 @@ void LLFloaterInspect::onClickOwnerProfile(void* ctrl)
 	}
 }
 
+void LLFloaterInspect::onClickLastOwnerProfile(void* ctrl)
+{
+	if(sInstance->mObjectList->getAllSelected().size() == 0) return;
+	LLScrollListItem* first_selected =
+		sInstance->mObjectList->getFirstSelected();
+
+	if (first_selected)
+	{
+		LLUUID selected_id = first_selected->getUUID();
+		struct f : public LLSelectedNodeFunctor
+		{
+			LLUUID obj_id;
+			f(const LLUUID& id) : obj_id(id) {}
+			virtual bool apply(LLSelectNode* node)
+			{
+				return (obj_id == node->getObject()->getID());
+			}
+		} func(selected_id);
+		LLSelectNode* node = sInstance->mObjectSelection->getFirstNode(&func);
+		if(node)
+		{
+			const LLUUID& last_owner_id = node->mPermissions->getLastOwner();
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+			if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				LLFloaterAvatarInfo::showFromDirectory(last_owner_id);
+			}
+// [/RLVa:KB]
+//			LLFloaterAvatarInfo::showFromDirectory(owner_id);
+		}
+	}
+}
+
 BOOL LLFloaterInspect::postBuild()
 {
 	mObjectList = getChild<LLScrollListCtrl>("object_list");
 	childSetAction("button owner",onClickOwnerProfile, this);
+	childSetAction("button_last_owner",onClickLastOwnerProfile, this);
 	childSetAction("button creator",onClickCreatorProfile, this);
 	childSetCommitCallback("object_list", onSelectObject);
 	return TRUE;
@@ -175,8 +209,10 @@ void LLFloaterInspect::onSelectObject(LLUICtrl* ctrl, void* user_data)
 	if(LLFloaterInspect::getSelectedUUID() != LLUUID::null)
 	{
 		//sInstance->childSetEnabled("button owner", true);
+		//sInstance->childSetEnabled("button_last_owner", true);
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-1.0.0e
 		sInstance->childSetEnabled("button owner", !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
+		sInstance->childSetEnabled("button_last_owner", !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
 // [/RLVa:KB]
 		sInstance->childSetEnabled("button creator", true);
 	}
@@ -205,6 +241,7 @@ void LLFloaterInspect::refresh()
 	std::string creator_name;
 	S32 pos = mObjectList->getScrollPos();
 	childSetEnabled("button owner", false);
+	childSetEnabled("button_last_owner", false);
 	childSetEnabled("button creator", false);
 	LLUUID selected_uuid;
 	S32 selected_index = mObjectList->getFirstSelectedIndex();
@@ -226,7 +263,7 @@ void LLFloaterInspect::refresh()
 		LLSelectNode* obj = *iter;
 		LLSD row;
 		char time[MAX_STRING];
-		std::string owner_name, creator_name;
+		std::string owner_name, creator_name, last_owner_name;
 
 		if (obj->mCreationDate == 0)
 		{	// Don't have valid information from the server, so skip this one
@@ -245,12 +282,13 @@ void LLFloaterInspect::refresh()
 		}
 // [/RLVa:KB]
 		gCacheName->getFullName(obj->mPermissions->getCreator(), creator_name);
+		gCacheName->getFullName(obj->mPermissions->getLastOwner(), last_owner_name);
 		row["id"] = obj->getObject()->getID();
 		row["columns"][0]["column"] = "object_name";
 		row["columns"][0]["type"] = "text";
 		// make sure we're either at the top of the link chain
 		// or top of the editable chain, for attachments
-		if(!(obj->getObject()->isRoot() || obj->getObject()->isRootEdit()))
+		if (!(obj->getObject()->isRoot() || obj->getObject()->isRootEdit()))
 		{
 			row["columns"][0]["value"] = std::string("   ") + obj->mName;
 		}
@@ -258,18 +296,56 @@ void LLFloaterInspect::refresh()
 		{
 			row["columns"][0]["value"] = obj->mName;
 		}
-		row["columns"][1]["column"] = "owner_name";
-		row["columns"][1]["type"] = "text";
-		row["columns"][1]["value"] = owner_name;
-		row["columns"][2]["column"] = "creator_name";
-		row["columns"][2]["type"] = "text";
-		row["columns"][2]["value"] = creator_name;
-		row["columns"][3]["column"] = "creation_date";
-		row["columns"][3]["type"] = "text";
-		row["columns"][3]["value"] = time;
+		S32 i = 1;
+		row["columns"][i]["column"] = "owner_name";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = owner_name;
+		++i;
+		row["columns"][i]["column"] = "last_owner_name";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = last_owner_name;
+		++i;
+		row["columns"][i]["column"] = "creator_name";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = creator_name;
+		++i;
+		row["columns"][i]["column"] = "face_num";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = llformat("%d", obj->getObject()->getNumFaces());
+		++i;
+		row["columns"][i]["column"] = "vertex_num";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = llformat("%d", obj->getObject()->getNumVertices());
+		++i;
+		// inventory silliness
+		S32 scripts = 0;
+		S32 total_inv = 0;
+		std::map<LLUUID, std::pair<S32, S32> >::iterator itr = mInventoryNums.find(obj->getObject()->getID());
+		if (itr != mInventoryNums.end())
+		{
+			scripts = itr->second.first;
+			total_inv = itr->second.second;
+		}
+		else if (std::find(mQueue.begin(), mQueue.end(), obj->getObject()->getID()) == mQueue.end())
+		{
+			mQueue.push_back(obj->getObject()->getID());
+			registerVOInventoryListener(obj->getObject(), NULL);
+			requestVOInventory();
+		}
+		row["columns"][i]["column"] = "script_num";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = llformat("%d", scripts);
+		++i;
+		row["columns"][i]["column"] = "inv_num";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = llformat("%d", total_inv);
+		++i;
+		row["columns"][i]["column"] = "creation_date";
+		row["columns"][i]["type"] = "text";
+		row["columns"][i]["value"] = time;
 		mObjectList->addElement(row, ADD_TOP);
 	}
-	if(selected_index > -1 && mObjectList->getItemIndex(selected_uuid) == selected_index)
+	if (selected_index > -1 && mObjectList->getItemIndex(selected_uuid) == selected_index)
 	{
 		mObjectList->selectNthItem(selected_index);
 	}
@@ -279,6 +355,36 @@ void LLFloaterInspect::refresh()
 	}
 	onSelectObject(this, NULL);
 	mObjectList->setScrollPos(pos);
+}
+
+void LLFloaterInspect::inventoryChanged(LLViewerObject* viewer_object,
+											 InventoryObjectList* inv,
+											 S32,
+											 void* q_id)
+{
+	if (viewer_object && inv && !mQueue.empty())
+	{
+		std::vector<LLUUID>::iterator vIt = std::find(mQueue.begin(), mQueue.end(), viewer_object->getID());
+		if (vIt != mQueue.end() )
+		{
+			S32 scripts = 0;
+			S32 inv_size = (inv->empty()) ? 0 : inv->size();
+
+			InventoryObjectList::const_iterator it = inv->begin();
+			InventoryObjectList::const_iterator end = inv->end();
+			for ( ; it != end; ++it)
+			{
+				if ((*it)->getType() == LLAssetType::AT_LSL_TEXT)
+				{
+					scripts++;
+				}
+			}
+			
+			mInventoryNums[viewer_object->getID()] = std::make_pair(scripts, inv_size);
+			mQueue.erase(vIt);
+			mDirty = TRUE;
+		}
+	}
 }
 
 void LLFloaterInspect::onFocusReceived()
@@ -291,6 +397,8 @@ void LLFloaterInspect::dirty()
 {
 	if(sInstance)
 	{
+		sInstance->mInventoryNums.clear();
+		sInstance->mQueue.clear();
 		sInstance->setDirty();
 	}
 }

@@ -242,7 +242,8 @@ BOOL LLFontGL::initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
 	// This is primarily for error detection purposes.
  	succ &= (NULL != getFontSansSerifSmall());
  	succ &= (NULL != getFontSansSerif());
- 	succ &= (NULL != getFontSansSerifBig());
+ 	succ &= (NULL != getFontSansSerifBigger());
+	succ &= (NULL != getFontSansSerifLarge());
  	succ &= (NULL != getFontSansSerifHuge());
  	succ &= (NULL != getFontSansSerifBold());
  	succ &= (NULL != getFontMonospace());
@@ -313,7 +314,13 @@ LLFontGL* LLFontGL::getFontSansSerif()
 }
 
 //static
-LLFontGL* LLFontGL::getFontSansSerifBig()
+LLFontGL* LLFontGL::getFontSansSerifBigger()
+{
+	return getFont(LLFontDescriptor("SansSerif","Bigger",0));
+}
+
+//static
+LLFontGL* LLFontGL::getFontSansSerifLarge()
 {
 	return getFont(LLFontDescriptor("SansSerif","Large",0));
 }

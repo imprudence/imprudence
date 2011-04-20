@@ -55,7 +55,6 @@ private:
 	LLCheckBoxCtrl* mCheckSoundLocal;
 	LLRadioGroup*	mRadioVoiceChat;
 	LLLineEditor*	mMusicURLEdit;
-	LLCheckBoxCtrl* mMusicUrlCheck;
 
 	LLSafeHandle<LLParcelSelection>&	mParcel;
 };

@@ -20,6 +20,6 @@ need to be changed manually - MC
   <viewer version_patch="0" />
 
   <!--string-->
-  <viewer version_test="Experimental 2011.03.11" />
+  <viewer version_test="Experimental 2011.04.19" />
   
 </viewer_version>

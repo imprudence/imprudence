@@ -81,7 +81,9 @@ LLSimInfo::LLSimInfo()
 	mAccess(0x0),
 	mRegionFlags(0x0),
 	mWaterHeight(0.f),
-	mAlpha(-1.f)
+	mAlpha(-1.f),
+	msizeX(REGION_WIDTH_UNITS),
+	msizeY(REGION_WIDTH_UNITS)
 {
 }
 
@@ -237,15 +239,26 @@ LLSimInfo* LLWorldMap::simInfoFromPosGlobal(const LLVector3d& pos_global)
 	return simInfoFromHandle(handle);
 }
 
-LLSimInfo* LLWorldMap::simInfoFromHandle(const U64 handle)
+LLSimInfo* LLWorldMap::simInfoFromHandle(const U64 findhandle)
 {
-	sim_info_map_t::iterator it = mSimInfoMap.find(handle);
-	if (it != mSimInfoMap.end())
+	std::map<U64, LLSimInfo*>::const_iterator it;
+	for (it = LLWorldMap::getInstance()->mSimInfoMap.begin(); it != LLWorldMap::getInstance()->mSimInfoMap.end(); ++it)
 	{
-		LLSimInfo* sim_info = (*it).second;
-		if (sim_info)
+		const U64 handle = (*it).first;
+		LLSimInfo* info = (*it).second;
+		if(handle == findhandle)
 		{
-			return sim_info;
+			return info;
+		}
+		U32 x = 0, y = 0;
+		from_region_handle(findhandle, &x, &y);
+		U32 checkRegionX, checkRegionY;
+		from_region_handle(handle, &checkRegionX, &checkRegionY);
+
+        if(x > checkRegionX && x < (checkRegionX + info->msizeX) &&
+			y > checkRegionY && y < (checkRegionY + info->msizeY))
+		{
+			return info;
 		}
 	}
 	return NULL;

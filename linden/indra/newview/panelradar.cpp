@@ -32,6 +32,7 @@
 #include "llagent.h"
 #include "llchat.h"
 #include "llfloateravatarinfo.h"
+#include "llfloateravatarlist.h"
 #include "llfloaterchat.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinvite.h"
@@ -95,6 +96,7 @@ BOOL PanelRadar::postBuild()
 	//childSetAction("estate_eject_btn", onClickEjectFromEstate, this);
 	//childSetAction("estate_ban_btn", onClickBanFromEstate, this);
 	childSetAction("ban_btn", onClickBan, this);
+	childSetAction("full_radar_btn", onClickFullRadar, this);
 
 	setDefaultBtn("im_btn");
 
@@ -1022,6 +1024,13 @@ void PanelRadar::onClickAR(void* user_data)
 	{
 			LLFloaterReporter::showFromObject(agent_id);
 	}
+}
+
+
+// static
+void PanelRadar::onClickFullRadar(void* user_data)
+{
+	LLFloaterAvatarList::toggle(NULL);
 }
 
 

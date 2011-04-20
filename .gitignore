@@ -20,12 +20,10 @@ linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
 linden/indra/newview/skins/default/html/unabletoconnect.png
 linden/indra/newview/res/
 linden/indra/newview/res-sdl/
-linden/indra/newview/character/
 linden/indra/newview/app_settings/*.db2
 linden/indra/newview/app_settings/windlight/
 linden/indra/newview/cursors_mac/
 linden/indra/newview/viewer.icns
-linden/indra/newview/installers/windows/README.txt
 linden/indra/newview/installers/windows/*
 
 # LIBRARIES

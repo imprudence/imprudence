@@ -216,8 +216,8 @@
 	     mouse_opaque="true" name="language_textbox" v_pad="0" width="394">
 		Language:
 	</text>
-	<combo_box allow_text_entry="true" bottom_delta="0" enabled="true"
-	     follows="left|top" height="16" left="153" max_chars="135"
+	<combo_box allow_text_entry="false" bottom_delta="0" enabled="true"
+	     follows="left|top" height="18" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
 			System Default

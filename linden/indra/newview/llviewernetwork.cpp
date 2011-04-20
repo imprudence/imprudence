@@ -75,7 +75,7 @@ void LLViewerLogin::getLoginURIs(std::vector<std::string>& uris) const
 	// If there was no command line uri...
 	if(uris.empty())
 	{
-		uris.push_back(gHippoGridManager->getConnectedGrid()->getLoginUri());
+		uris.push_back(gHippoGridManager->getConnectedGrid()->getLoginURI());
 		/*
 		// If its a known grid choice, get the uri from the table,
 		// else try the grid name.
@@ -92,7 +92,7 @@ void LLViewerLogin::getLoginURIs(std::vector<std::string>& uris) const
 
 const std::string &LLViewerLogin::getGridLabel() const
 {
-	return gHippoGridManager->getConnectedGrid()->getGridNick();
+	return gHippoGridManager->getConnectedGrid()->getGridName();
 }
 
 const std::string &LLViewerLogin::getLoginPage() const
@@ -102,7 +102,7 @@ const std::string &LLViewerLogin::getLoginPage() const
 
 const std::string &LLViewerLogin::getHelperURI() const
 {
-	return gHippoGridManager->getConnectedGrid()->getHelperUri();
+	return gHippoGridManager->getConnectedGrid()->getHelperURI();
 }
   
 bool LLViewerLogin::isOpenSimulator()

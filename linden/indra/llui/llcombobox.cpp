@@ -43,6 +43,7 @@
 
 // newview includes
 #include "llbutton.h"
+#include "llfont.h"
 #include "llkeyboard.h"
 #include "llscrolllistctrl.h"
 #include "llwindow.h"
@@ -60,7 +61,7 @@ S32 MAX_COMBO_WIDTH = 500;
 
 static LLRegisterWidget<LLComboBox> r1("combo_box");
 
-LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::string& label,
+LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::string& label, const LLFontGL* font,
 	void (*commit_callback)(LLUICtrl*,void*),
 	void *callback_userdata
 	)
@@ -76,6 +77,15 @@ LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::
 	mTextEntryCallback( NULL ),
 	mLabel(label)
 {
+	if (font)
+	{
+		mGLFont = font;
+	}
+	else
+	{
+		mGLFont = LLFontGL::getFontSansSerifSmall();
+	}
+
 	// Always use text box 
 	// Text label button
 	mButton = new LLButton(mLabel,
@@ -89,14 +99,14 @@ LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::
 	mButton->setScaleImage(TRUE);
 
 	mButton->setMouseDownCallback(onButtonDown);
-	mButton->setFont(LLFontGL::getFontSansSerifSmall());
+	mButton->setFont(mGLFont);
 	mButton->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM | FOLLOWS_RIGHT);
 	mButton->setHAlign( LLFontGL::LEFT );
 	mButton->setRightHPad(2);
 	addChild(mButton);
 
 	// disallow multiple selection
-	mList = new LLScrollListCtrl(std::string("ComboBox"), LLRect(), 
+	mList = new LLScrollListCtrl(std::string("ComboBox"), LLRect(), mGLFont,
 								 &LLComboBox::onItemSelected, this, FALSE);
 	mList->setVisible(FALSE);
 	mList->setBgWriteableColor( LLColor4(1,1,1,1) );
@@ -167,11 +177,14 @@ LLView* LLComboBox::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *
 	S32 max_chars = 20;
 	node->getAttributeS32("max_chars", max_chars);
 
+	LLFontGL* font = LLView::selectFont(node);
+
 	LLUICtrlCallback callback = NULL;
 
 	LLComboBox* combo_box = new LLComboBox(name,
 							rect, 
 							label,
+							font,
 							callback,
 							NULL);
 	combo_box->setAllowTextEntry(allow_text_entry, max_chars);
@@ -540,7 +553,7 @@ void LLComboBox::updateLayout()
 			mTextEntry = new LLLineEditor(std::string("combo_text_entry"),
 										text_entry_rect,
 										LLStringUtil::null,
-										LLFontGL::getFontSansSerifSmall(),
+										mGLFont,
 										mMaxChars,
 										onTextCommit,
 										onTextEntry,
@@ -577,6 +590,13 @@ void LLComboBox::updateLayout()
 		mButton->setFollowsAll();
 	}
 }
+
+
+void LLComboBox::getAllData(std::vector<LLScrollListItem*>& item_list) const
+{
+	item_list = mList->getAllData();
+}
+
 
 void* LLComboBox::getCurrentUserdata()
 {
@@ -1153,7 +1173,7 @@ LLFlyoutButton::LLFlyoutButton(
 		const std::string& label,
 		void (*commit_callback)(LLUICtrl*, void*) ,
 		void *callback_userdata)
-:		LLComboBox(name, rect, LLStringUtil::null, commit_callback, callback_userdata),
+:		LLComboBox(name, rect, LLStringUtil::null, NULL, commit_callback, callback_userdata),
 		mToggleState(FALSE),
 		mActionButton(NULL)
 {
@@ -1213,6 +1233,8 @@ LLXMLNodePtr LLFlyoutButton::getXML(bool save_children) const
 			child = child->getNextSibling();
 		}
 	}
+
+	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mGLFont));
 
 	return node;
 }

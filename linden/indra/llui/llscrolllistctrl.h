@@ -353,6 +353,7 @@ public:
 	LLScrollListCtrl(
 		const std::string& name,
 		const LLRect& rect,
+		const LLFontGL* font,
 		void (*commit_callback)(LLUICtrl*, void*),
 		void* callback_userdata,
 		BOOL allow_multiple_selection,
@@ -694,6 +695,8 @@ private:
 
 	// HACK:  Did we draw one selected item this frame?
 	BOOL mDrewSelected;
+
+	const LLFontGL*	mGLFont;
 }; // end class LLScrollListCtrl
 
 

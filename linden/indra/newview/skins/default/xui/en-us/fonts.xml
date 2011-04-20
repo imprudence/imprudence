@@ -147,6 +147,10 @@
 	     comment="Size of large font (points, or 1/72 of an inch)"
 	     size="12"
 	     />
+  <font_size name="Bigger"
+	     comment="Size of medium font (points, or 1/72 of an inch)"
+	     size="11"
+	     />
   <font_size name="Medium"
 	     comment="Size of medium font (points, or 1/72 of an inch)"
 	     size="10"

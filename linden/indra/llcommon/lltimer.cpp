@@ -529,14 +529,14 @@ struct tm* utc_to_offset_time(time_t utc_time, S32 offset, BOOL DST)
 {
 	if (DST)
 	{
-		//Subtract one then
-		offset--;
+		//Add one then
+		offset++;
 	}
 
 	// We subtract off the PST/PDT offset _before_ getting
 	// "UTC" time, because this will handle wrapping around
 	// for 5 AM UTC -> 10 PM PDT of the previous day.
-	utc_time -= offset * MIN_PER_HOUR * SEC_PER_MIN;
+	utc_time -= (-1 * offset) * MIN_PER_HOUR * SEC_PER_MIN;
  
 	// Internal buffer to PST/PDT (see above)
 	struct tm* internal_time = gmtime(&utc_time);

@@ -277,6 +277,11 @@
       <on_click function="ShowAgentGroups"
                 userdata="agent" />
     </menu_item_call>
+    <menu_item_check bottom="-192" enabled="true" height="19" label="Media Filter" left="0"
+                     mouse_opaque="true" name="Media Filter" width="211">
+       <on_click function="ShowFloater" userdata="media filter" />
+       <on_check function="FloaterVisible" userdata="media filter" />
+    </menu_item_check>
     <menu_item_separator />
     <menu_item_call name="Preferences..." label="Preferences..."
                     shortcut="control|P">
@@ -1001,6 +1006,10 @@
     <menu_item_check label="Animation List" name="Animation List">
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
+    </menu_item_check>
+    <menu_item_check label="Full Radar" name="Full Radar">
+      <on_click function="ShowFloater" userdata="full radar" />
+      <on_check function="FloaterVisible" userdata="full radar" />
     </menu_item_check>
 		<menu_item_check label="Area Object Search" name="Area Object Search" 
                      shortcut="alt|A">
@@ -1982,13 +1991,6 @@
                       label="Dump Attachments">
         <on_click function="Advanced.DumpAttachments"
                   userdata="" />
-      </menu_item_call>
-      <menu_item_call
-              label="Reload Avatar Cloud Particle"
-              name="Reload Avatar Cloud Particle">
-                <on_click
-                 function="Advanced.ReloadAvatarCloudParticle"
-                 userdata="" />
       </menu_item_call>
     </menu>
 

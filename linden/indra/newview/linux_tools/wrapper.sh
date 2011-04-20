@@ -4,17 +4,26 @@
 ## These options are for self-assisted troubleshooting during this beta
 ## testing phase; you should not usually need to touch them.
 
-## - Avoids using any OpenAL audio driver.
-#export LL_BAD_OPENAL_DRIVER=x
-## - Avoids using any FMOD audio driver.
-#export LL_BAD_FMOD_DRIVER=x
+## If the default configuration of openal-soft isn't working for you.
+## There are 3 places where it looks for a configuration file:
+## /etc/openal/alsoft.conf $HOME/.alsoftrc and ALSOFT_CONF
+## ALSOFT_CONF is the full path including the filename, like: /home/myuser/myconfigfile.txt
+## If none of them is set a hardcoded default is taken.
+## If you set several: ALSOFT_CONF 'wins' always, and $HOME/.alsoftrc 'wins' over /etc/openal/alsoft.conf
+#export ALSOFT_CONF="$(pwd)/alsoft.conf"
 
-## - Avoids using the FMOD ESD audio driver.
-#export LL_BAD_FMOD_ESD=x
-## - Avoids using the FMOD OSS audio driver.
-#export LL_BAD_FMOD_OSS=x
-## - Avoids using the FMOD ALSA audio driver.
-#export LL_BAD_FMOD_ALSA=x
+## - Avoids using the OpenAL audio driver; disables any inworld sound effects.
+##   NOTE: - OpenAL is not used for any streaming audio in Imprudence.
+##         - Other export LL_BAD_<driver> have no effect in Imprudence.
+#export LL_BAD_OPENAL_DRIVER=x
+
+## If you have custom gstreamer plugins, 
+## e.g. you want to use Imprudence-1.4.x with the gstreamer plugins of Imprudence-1.3.1: 
+##			Imprudence-1.3.1-Linux-x86/lib/gstreamer-plugins
+##	respectively	Imprudence-1.3.1-Linux-x86_64/lib64/gstreamer-plugins
+## NOTE: *WAY* better is to install the gstreamer plugins that come with your distros package manager,
+##	thats why Imprudence-1.4.x comes without gstreamer plugins.
+#export GST_PLUGIN_PATH="'${HOME}/Imprudence-1.3.1-Linux-x86/lib/gstreamer-plugins':'${GST_PLUGIN_PATH}'"
 
 ## - Avoids the optional OpenGL extensions which have proven most problematic
 ##   on some hardware.  Disabling this option may cause BETTER PERFORMANCE but
@@ -48,7 +57,6 @@
 
 ## Everything below this line is just for advanced troubleshooters.
 ##-------------------------------------------------------------------
-
 ## - For advanced debugging cases, you can run the viewer under the
 ##   control of another program, such as strace, gdb, or valgrind.  If
 ##   you're building your own viewer, bear in mind that the executable
@@ -126,8 +134,21 @@ if [ -n "$LL_RUN_ERR" ]; then
 	LL_RUN_ERR_MSG=""
 	if [ "$LL_RUN_ERR" = "runerr" ]; then
 		# generic error running the binary
-		echo '*** Bad shutdown. ***'
-
-
+		echo 'unexpected shutdown'
 	fi
+fi
+
+LOGS_PATH="${HOME}/.imprudence/logs"
+if [ -f "${LOGS_PATH}/stack_trace.log" ]; then
+	LOG_PACKAGE_NAME="MAIL-THIS-CRASHLOG-PLEASE.$(date +%y%m%d%H%M).tar.bz2"
+	cp "${LOGS_PATH}/stack_trace.log" stack_trace.log
+	cp "${LOGS_PATH}/Imprudence.log" Imprudence.log
+	tar --numeric-owner -cjf  ${LOG_PACKAGE_NAME} \
+				stack_trace.log \
+				Imprudence.log
+	rm stack_trace.log
+	rm Imprudence.log
+	echo "You find a crash log package to mail to Imprudence here:"
+	echo "${RUN_PATH}/${LOG_PACKAGE_NAME}"
+	echo "See where to send: http://wiki.kokuaviewer.org/wiki/Imprudence:Debug_Logs#Where_to_Send_Them"
 fi

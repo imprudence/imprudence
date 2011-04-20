@@ -226,15 +226,32 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip)
 		mCurlRequest = new LLCurlEasyRequest();
 	}
 	
-	if (gSavedSettings.getBOOL("BrowserProxyEnabled"))
+	if (gSavedSettings.getBOOL("XMLRPCProxyEnabled"))
 	{
-		mProxyAddress = gSavedSettings.getString("BrowserProxyAddress");
-		S32 port = gSavedSettings.getS32 ( "BrowserProxyPort" );
+		mProxyAddress = gSavedSettings.getString("XMLRPCProxyAddress");
+		S32 port = gSavedSettings.getS32 ( "XMLRPCProxyPort" );
 
 		// tell curl about the settings
 		mCurlRequest->setoptString(CURLOPT_PROXY, mProxyAddress);
 		mCurlRequest->setopt(CURLOPT_PROXYPORT, port);
 		mCurlRequest->setopt(CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+	}
+	else if (LLSocks::getInstance()->isHttpProxyEnabled())
+	{
+		std::string address = LLSocks::getInstance()->getHTTPProxy().getIPString();
+		U16 port = LLSocks::getInstance()->getHTTPProxy().getPort();
+		mCurlRequest->setoptString(CURLOPT_PROXY, address.c_str());
+		mCurlRequest->setopt(CURLOPT_PROXYPORT, port);
+		if (LLSocks::getInstance()->getHttpProxyType() == LLPROXY_SOCKS)
+		{
+			mCurlRequest->setopt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+			if(LLSocks::getInstance()->getSelectedAuthMethod()==METHOD_PASSWORD)
+				mCurlRequest->setoptString(CURLOPT_PROXYUSERPWD,LLSocks::getInstance()->getProxyUserPwd());
+		}
+		else
+		{
+			mCurlRequest->setopt(CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+		}
 	}
 
 //	mCurlRequest->setopt(CURLOPT_VERBOSE, 1); // usefull for debugging
@@ -421,7 +438,7 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
 					" \n"
-					"Please check " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s status \n"
+					"Please check " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s status \n"
 					"to see if there is a known problem with the service.";
 
 				//mStatusURI = "http://secondlife.com/status/";
@@ -432,14 +449,14 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 {
 	std::string message;
-	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportUrl();
+	std::string uri = gHippoGridManager->getCurrentGrid()->getSupportURL();
 	
 	switch (code)
 	{
 		case CURLE_COULDNT_RESOLVE_HOST:
 			message =
 				"DNS could not resolve the host name.\n"
-				"Please verify that you can connect to " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s\n"
+				"Please verify that you can connect to " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s\n"
 				"web site.  If you can, but continue to receive this error,\n"
 				"please go to the support section and report this problem.";
 			break;
@@ -448,7 +465,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 			message =
 				"The login server couldn't verify itself via SSL.\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s web site\n"
 				"and report the problem.";
 			break;
 			
@@ -460,7 +477,7 @@ void LLXMLRPCTransaction::Impl::setCurlStatus(CURLcode code)
 				"are set correctly.\n"
 				"\n"
 				"If you continue to receive this error, please go\n"
-				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridNick() + "'s web site\n"
+				"to the Support section of " + gHippoGridManager->getCurrentGrid()->getGridName() + "'s web site\n"
 				"and report the problem.";
 			break;
 			

@@ -916,6 +916,7 @@ class LinuxManifest(ViewerManifest):
 
         self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
+            self.path("alsoft.conf")
             #self.path("client-readme.txt","README-linux.txt")
             self.path("client-readme-voice.txt","README-linux-voice.txt")
             #self.path("client-readme-joystick.txt","README-linux-joystick.txt")
@@ -1022,6 +1023,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
+            self.path("libz.so")
             self.path("libz.so.1")
 
             # OpenAL

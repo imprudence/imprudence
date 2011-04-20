@@ -632,6 +632,15 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			mWindow = SDL_SetVideoMode(width, height, bits, sdlflags);
 		}
 
+		while (!mWindow && mFSAASamples > 0)
+		{
+			llwarns << "Window creating failed with " << mFSAASamples << "x FSAA."<<llendl;
+			mFSAASamples = mFSAASamples>>1;
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, mFSAASamples ? 1 : 0);
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, mFSAASamples);
+			mWindow = SDL_SetVideoMode(width, height, bits, sdlflags);
+		}
+
 		if (!mWindow)
 		{
 			llwarns << "createContext: window creation failure. SDL: " << SDL_GetError() << llendl;

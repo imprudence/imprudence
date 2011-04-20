@@ -36,6 +36,8 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 #include "llcombobox.h"
+#include "lllineeditor.h"
+#include "llscrolllistctrl.h"
 #include "llspinctrl.h"
 #include "llcolorswatch.h"
 #include "llviewercontrol.h"
@@ -58,7 +60,8 @@ LLFloaterSettingsDebug::~LLFloaterSettingsDebug()
 
 BOOL LLFloaterSettingsDebug::postBuild()
 {
-	LLComboBox* settings_combo = getChild<LLComboBox>("settings_combo");
+	mSettingsNames.clear();
+	mComboNames = getChild<LLComboBox>("settings_combo");
 
 	struct f : public LLControlGroup::ApplyFunctor
 	{
@@ -71,16 +74,16 @@ BOOL LLFloaterSettingsDebug::postBuild()
 				combo->add(name, (void*)control);
 			}
 		}
-	} func(settings_combo);
+	} func(mComboNames);
 
 	gSavedSettings.applyToAll(&func);
 	gSavedPerAccountSettings.applyToAll(&func);
 	gColors.applyToAll(&func);
 
-	settings_combo->sortByName();
-	settings_combo->setCommitCallback(onSettingSelect);
-	settings_combo->setCallbackUserData(this);
-	settings_combo->updateSelection();
+	mComboNames->sortByName();
+	mComboNames->setCommitCallback(onSettingSelect);
+	mComboNames->setCallbackUserData(this);
+	//mComboNames->updateSelection();
 
 	childSetCommitCallback("val_spinner_1", onCommitSettings);
 	childSetUserData("val_spinner_1", this);
@@ -98,14 +101,23 @@ BOOL LLFloaterSettingsDebug::postBuild()
 	childSetUserData("color_swatch", this);
 	childSetAction("default_btn", onClickDefault, this);
 	mComment = getChild<LLTextEditor>("comment_text");
+
+	getChild<LLSearchEditor>("control_search")->setSearchCallback(onSearchEdit, this);
+	
+	// There really are many better ways to do this, but laziness... she is powerful... -- MC
+	mComboNames->getAllData(mSettingsNames);
+	getChild<LLSearchEditor>("control_search")->setEnabled(!(mSettingsNames.empty()));
+
 	return TRUE;
 }
 
 void LLFloaterSettingsDebug::draw()
 {
-	LLComboBox* settings_combo = getChild<LLComboBox>("settings_combo");
-	LLControlVariable* controlp = (LLControlVariable*)settings_combo->getCurrentUserdata();
-	updateControl(controlp);
+	if (mComboNames)
+	{
+		LLControlVariable* controlp = (LLControlVariable*)mComboNames->getCurrentUserdata();
+		updateControl(controlp);
+	}
 
 	LLFloater::draw();
 }
@@ -134,11 +146,46 @@ void LLFloaterSettingsDebug::onSettingSelect(LLUICtrl* ctrl, void* user_data)
 }
 
 //static
+void LLFloaterSettingsDebug::onSearchEdit(const std::string& search_string, void* user_data)
+{
+	if (search_string.empty())
+	{
+		return;
+	}
+
+	LLFloaterSettingsDebug* self = (LLFloaterSettingsDebug*)user_data;
+	if (!self || !self->mComboNames)
+	{
+		return;
+	}
+
+	std::string search_text = search_string;
+	LLStringUtil::trim(search_text);
+	LLStringUtil::toUpper(search_text);
+
+	std::string settings_name("");
+	size_t found;
+	for (std::vector<LLScrollListItem*>::iterator vIt = self->mSettingsNames.begin();
+		 vIt != self->mSettingsNames.end(); ++vIt)
+	{
+		settings_name = (*vIt)->getValue().asString();
+		LLStringUtil::toUpper(settings_name);
+		found = settings_name.find(search_text);
+		if (found != std::string::npos)
+		{
+			// search and update combo on partial matches
+			self->mComboNames->selectByValue((*vIt)->getValue());
+			break;
+		}
+	}
+}
+
+//static
 void LLFloaterSettingsDebug::onCommitSettings(LLUICtrl* ctrl, void* user_data)
 {
 	LLFloaterSettingsDebug* floaterp = (LLFloaterSettingsDebug*)user_data;
 
-	LLComboBox* settings_combo = floaterp->getChild<LLComboBox>("settings_combo");
+	LLComboBox* settings_combo = floaterp->mComboNames;
 	LLControlVariable* controlp = (LLControlVariable*)settings_combo->getCurrentUserdata();
 
 	LLVector3 vector;
@@ -212,7 +259,7 @@ void LLFloaterSettingsDebug::onCommitSettings(LLUICtrl* ctrl, void* user_data)
 void LLFloaterSettingsDebug::onClickDefault(void* user_data)
 {
 	LLFloaterSettingsDebug* floaterp = (LLFloaterSettingsDebug*)user_data;
-	LLComboBox* settings_combo = floaterp->getChild<LLComboBox>("settings_combo");
+	LLComboBox* settings_combo = floaterp->mComboNames;
 	LLControlVariable* controlp = (LLControlVariable*)settings_combo->getCurrentUserdata();
 
 	if (controlp)

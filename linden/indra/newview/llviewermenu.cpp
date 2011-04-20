@@ -89,6 +89,7 @@
 #include "llfloateractivespeakers.h"
 #include "llfloateranimpreview.h"
 #include "llfloateravatarinfo.h"
+#include "llfloateravatarlist.h"
 #include "llfloateravatartextures.h"
 #include "llfloaterbeacons.h"
 #include "llfloaterbuildoptions.h"
@@ -234,6 +235,7 @@
 #include "hippolimits.h"
 
 #include "llfloaterteleporthistory.h"
+#include "slfloatermediafilter.h"
 
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
@@ -724,9 +726,25 @@ void init_menus()
 	gLoginMenuBarView->setBackgroundColor( color );
 
 	gMenuHolder->addChild(gLoginMenuBarView);
-	
 }
 
+
+void update_grid_specific_menus()
+{
+	if (!gMenuHolder || !gMenuBarView)
+	{
+		return;
+	}
+	else
+	{
+		// Disable these when we're not on Second Life grids 
+		// (or don't have URLS for them if non-SL grids start using 'em) -- MC
+		gMenuHolder->childSetEnabled("Manage My Account...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetVisible("Manage My Account...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetEnabled("Account History...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+		gMenuHolder->childSetVisible("Account History...", gHippoGridManager->getConnectedGrid()->isSecondLife());
+	}
+}
 
 
 void init_client_menu(LLMenuGL* menu)
@@ -5996,6 +6014,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterMute::toggleInstance();
 		}
+		else if (floater_name == "media filter")
+		{
+			SLFloaterMediaFilter::toggleInstance();
+		}
 		else if (floater_name == "camera controls")
 		{
 			LLFloaterCamera::toggleInstance();
@@ -6126,6 +6148,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterPerms::toggleInstance(LLSD());
 		}
+		else if (floater_name == "full radar")
+		{
+			LLFloaterAvatarList::toggle(NULL);
+		}
 		return true;
 	}
 };
@@ -6161,6 +6187,10 @@ class LLFloaterVisible : public view_listener_t
 		{
 			new_value = LLFloaterMute::instanceVisible();
 		}
+		else if (floater_name == "media filter")
+		{
+			new_value = SLFloaterMediaFilter::instanceVisible();
+		}
 		else if (floater_name == "camera controls")
 		{
 			new_value = LLFloaterCamera::instanceVisible();
@@ -6195,6 +6225,10 @@ class LLFloaterVisible : public view_listener_t
 			JCFloaterAreaSearch* instn = JCFloaterAreaSearch::getInstance();
 			if (!instn) new_value = false;
 			else new_value = instn->getVisible();
+		}
+		else if (floater_name == "full radar")
+		{
+			new_value = (LLFloaterAvatarList::getInstance() != NULL);
 		}
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -10690,19 +10724,6 @@ class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
 	}
 };
 
-///////////////////////////////////
-// Reload Avatar Cloud Particles //
-///////////////////////////////////
-
-
-class LLAdvancedReloadAvatarCloudParticle : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOAvatar::initCloud();
-		return true;
-	}
-};
 
 ///////////
 // Crash //
@@ -11492,7 +11513,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
-	addMenu(new LLAdvancedReloadAvatarCloudParticle(), "Advanced.ReloadAvatarCloudParticle");
 
 	// Advanced > Crash
 	addMenu(new LLAdvancedCrash(), "Advanced.Crash");

@@ -42,8 +42,9 @@
 #include "lggautocorrectfloater.h"
 #include "llcombobox.h"
 #include "llcolorswatch.h"
-
+#include "llstartup.h"
 #include "lluictrlfactory.h"
+#include "lltexturectrl.h"
 
 #include "boost/algorithm/string.hpp"
 
@@ -58,7 +59,6 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
 	childSetCommitCallback("command_line_check", onCommitCheckBox, this);
 
-	childSetAction("reset_btn", onClickResetPrefs, this);
 	childSetAction("command_line_btn", onClickCommandLine, this);
 }
 
@@ -83,12 +83,16 @@ BOOL LLPrefsAdvanced::postBuild()
 {
 	childSetValue("disable_log_screen_check", gSavedSettings.getBOOL("DisableLoginLogoutScreens"));
 	childSetValue("disable_tp_screen_check", gSavedSettings.getBOOL("DisableTeleportScreens"));
+
 	static BOOL* sShowClientNameTag = rebind_llcontrol<BOOL>("ShowClientNameTag", &gSavedSettings, true);
 	childSetValue("client_name_tag_check", (*sShowClientNameTag));
 	static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
 	childSetValue("client_name_color_check", (*sShowClientColor));
 	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
+	getChild<LLColorSwatchCtrl>("client_tag_color")->set(gSavedSettings.getColor4("ImprudenceTagColor"));
+	mClientTagColor = gSavedSettings.getColor4("ImprudenceTagColor");
+
 	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
 	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
 	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
@@ -113,8 +117,11 @@ BOOL LLPrefsAdvanced::postBuild()
 	getChild<LLButton>("EmSpell_Remove")->setClickedCallback(onSpellRemove, this);
 
 	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
-
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
+
+	getChild<LLButton>("reset_cloud_this_account")->setClickedCallback(onResetThisCloudButton,this);
+	getChild<LLButton>("save_cloud_this_account")->setClickedCallback(onSaveThisCloudButton,this);
+	getChild<LLButton>("save_cloud_any_account")->setClickedCallback(onSaveAnyoneCloudButton,this);
 
 	refresh();
 
@@ -128,6 +135,9 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
 	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
 	gSavedSettings.setBOOL("ShowClientNameHoverTip", childGetValue("client_name_hover_check"));
+	gSavedSettings.setColor4("ImprudenceTagColor", getChild<LLColorSwatchCtrl>("client_tag_color")->get());
+	mClientTagColor = getChild<LLColorSwatchCtrl>("client_tag_color")->get();
+
 	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
 	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
 	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
@@ -137,6 +147,8 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("AutoCloseOOC", childGetValue("auto_close_ooc"));
 	gSavedSettings.setU32("LightShareAllowed",
 	                      (U32)childGetValue("lightshare_combo").asInteger());
+
+
 
 	// Need to force a rebake when ClothingLayerProtection toggled for it take effect -- MC
 	if (gSavedSettings.getBOOL("ShowMyClientTagToOthers") != (BOOL)childGetValue("client_name_tag_broadcast_check"))
@@ -202,10 +214,20 @@ void LLPrefsAdvanced::apply()
 
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
+	
+	if (LLStartUp::isLoggedIn() && LLVOAvatar::sHasCloud)
+	{
+		onSaveThisCloudButton(NULL);
+	}
 }
 
 void LLPrefsAdvanced::cancel()
 {
+	gSavedSettings.setColor4("ImprudenceTagColor", mClientTagColor);
+// 	llwarns << "cancel" << llendl;
+//	cool - "ok" is also cancel
+// 	LLVOAvatar::sCloud.mPartData.mStartColor = mCloudStartColor;
+// 	LLVOAvatar::sCloud.mPartData.mEndColor = mCloudEndColor;
 }
 
 void LLPrefsAdvanced::refresh()
@@ -265,6 +287,76 @@ void LLPrefsAdvanced::refresh()
 		}
 		comboBox->selectByValue(selected);
 	}
+
+
+	bool is_logged_in = LLStartUp::isLoggedIn();
+	setParticleControls(is_logged_in);
+
+}
+
+void LLPrefsAdvanced::draw()
+{
+
+	bool is_logged_in = LLStartUp::isLoggedIn();
+	if(LLVOAvatar::sHasCloud && mWasLoggedIn != is_logged_in)
+	{
+
+
+		setParticleControls(is_logged_in);
+
+		mCloudStartColor = LLVOAvatar::sCloud.mPartData.mStartColor;
+		mCloudEndColor = LLVOAvatar::sCloud.mPartData.mEndColor;
+
+
+		getChild<LLColorSwatchCtrl>("part_start_color_swatch")->set(mCloudStartColor);
+		getChild<LLColorSwatchCtrl>("part_end_color_swatch")->set(mCloudEndColor);
+
+
+		mCloudTextureID = LLVOAvatar::sCloud.mPartImageID;
+		LLTextureCtrl* texture_ctrl = getChild<LLTextureCtrl>("part_texture_picker");
+		if (texture_ctrl)
+		{
+			texture_ctrl->setImageAssetID(mCloudTextureID);
+			texture_ctrl->setAllowNoTexture( true );
+
+			// Don't allow (no copy) or (no transfer) textures to be selected.
+			// With that we are less permissive than the original LL code of
+			// LLWaterParamManager, which allows picking (and saving) plain texture uuids
+			// without any permission check.
+			// If real absurdity is necessary we let the user save a windlight water setting
+			// for the texture uuid.
+
+			texture_ctrl->setImmediateFilterPermMask(PERM_NONE);//PERM_COPY | PERM_TRANSFER);
+			texture_ctrl->setNonImmediateFilterPermMask(PERM_NONE);
+		}
+
+
+		mWasLoggedIn = is_logged_in;
+	}
+
+	if(LLVOAvatar::sHasCloud && is_logged_in)
+	{
+
+		LLVOAvatar::sCloud.mPartData.mStartColor = childGetValue("part_start_color_swatch");
+		LLVOAvatar::sCloud.mPartData.mEndColor = childGetValue("part_end_color_swatch");
+		LLVOAvatar::sCloud.mPartImageID  = childGetValue("part_texture_picker");
+	}
+
+	LLPanel::draw();
+}
+
+void LLPrefsAdvanced::setParticleControls(bool is_logged_in)
+{
+	childSetEnabled("reset_cloud_this_account", is_logged_in );
+	childSetEnabled("save_cloud_this_account", is_logged_in);
+	childSetEnabled("save_cloud_any_account", is_logged_in);
+	childSetEnabled("part_start_color_swatch", is_logged_in);
+	childSetEnabled("part_end_color_swatch", is_logged_in);
+	childSetEnabled("part_texture_picker", is_logged_in );
+
+	childSetEnabled("preview_cloud", is_logged_in);
+	childSetVisible("preview_cloud", is_logged_in);
+	childSetVisible("must_be_logged_in_textbox", !is_logged_in);
 }
 
 //static
@@ -272,24 +364,6 @@ void LLPrefsAdvanced::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
 {
 	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
 	self->refresh();
-}
-
-// static
-void LLPrefsAdvanced::onClickResetPrefs(void* user_data)
-{
-	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
-	LLNotifications::instance().add("ConfirmResetAllPreferences", LLSD(), LLSD(), boost::bind(callbackReset, _1, _2, self));
-}
-
-// static
-bool LLPrefsAdvanced::callbackReset(const LLSD& notification, const LLSD& response, LLPrefsAdvanced *self)
-{
-	S32 option = LLNotification::getSelectedOption(notification, response);
-	if ( option == 0 )
-	{
-		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
-	}
-	return false;
 }
 
 void LLPrefsAdvanced::onSpellAdd(void* data)
@@ -349,3 +423,35 @@ void LLPrefsAdvanced::onClickCommandLine(void* data)
 	FloaterCommandLine::getInstance()->open();
 	FloaterCommandLine::getInstance()->center();
 }
+
+void LLPrefsAdvanced::onResetThisCloudButton(void * data)
+{
+	LLPrefsAdvanced* self = (LLPrefsAdvanced*)data;
+	if (!self)
+	{
+		return;
+	}
+
+	// keep draw() from overriding the cloud with the values from the UI
+	LLVOAvatar::sHasCloud = false; 
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	LLVOAvatar::loadCloud(filename, LLVOAvatar::sCloud);
+
+	// tell draw() to override values from the UI with the data from the new cloud
+	self-> mWasLoggedIn = !(LLStartUp::isLoggedIn());
+
+	LLVOAvatar::sHasCloud = true;
+}
+
+void LLPrefsAdvanced::onSaveThisCloudButton(void * data)
+{
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "cloud.xml");
+	LLVOAvatar::saveCloud(filename, LLVOAvatar::sCloud);
+}
+
+void LLPrefsAdvanced::onSaveAnyoneCloudButton(void * data)
+{
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
+	LLVOAvatar::saveCloud(filename, LLVOAvatar::sCloud);
+}
+

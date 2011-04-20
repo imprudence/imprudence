@@ -428,6 +428,17 @@
 			movie
 		</widgettype>
 		<impl>
+			media_plugin_quicktime
+		</impl>
+	</mimetype>
+	<mimetype name="video/x-m4v">
+		<label name="video/m4v_label">
+			Movie (M4V)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
       media_plugin_quicktime
     </impl>
 	</mimetype>

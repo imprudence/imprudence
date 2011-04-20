@@ -67,6 +67,7 @@ const F32 PARCEL_PASS_HOURS_DEFAULT = 1.f;
 
 // Number of "chunks" in which parcel overlay data is sent
 // Chunk 0 = southern rows, entire width
+// NOTE: NOT USABLE FOR VAR SIZED REGIONS!
 const S32 PARCEL_OVERLAY_CHUNKS = 4;
 
 // Bottom three bits are a color index for the land overlay
@@ -243,8 +244,6 @@ public:
 	void	setMediaID(const LLUUID& id) { mMediaID = id; }
 	void	setMediaAutoScale ( U8 flagIn ) { mMediaAutoScale = flagIn; }
 	void    setMediaLoop (U8 loop) { mMediaLoop = loop; }
-	void	setObscureMedia( U8 flagIn ) { mObscureMedia = flagIn; }
-	void	setObscureMusic( U8 flagIn ) { mObscureMusic = flagIn; }
 	void setMediaWidth(S32 width);
 	void setMediaHeight(S32 height);
 	void setMediaCurrentURL(const std::string& url);
@@ -351,8 +350,6 @@ public:
 	U8				getMediaAutoScale() const	{ return mMediaAutoScale; }
 	U8              getMediaLoop() const        { return mMediaLoop; }
 	const std::string&  getMediaCurrentURL() const { return mMediaCurrentURL; }
-	U8				getObscureMedia() const		{ return mObscureMedia; }
-	U8				getObscureMusic() const		{ return mObscureMusic; }
 	U8              getMediaURLFilterEnable() const   { return mMediaURLFilterEnable; }
 	LLSD            getMediaURLFilterList() const     { return mMediaURLFilterList; }
 	U8              getMediaAllowNavigate() const { return mMediaAllowNavigate; }
@@ -644,8 +641,6 @@ protected:
 	U8					mMediaAutoScale;
 	U8                  mMediaLoop;
 	std::string         mMediaCurrentURL;
-	U8					mObscureMedia;
-	U8					mObscureMusic;
 	LLUUID				mMediaID;
 	U8                  mMediaURLFilterEnable;
 	LLSD                mMediaURLFilterList;

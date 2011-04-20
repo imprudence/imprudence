@@ -9,13 +9,13 @@
 		Volume:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-190" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-202" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="streaming_prefs_text" v_pad="0" width="128">
 		Streaming:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-285" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-315" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="audio_prefs_text" v_pad="0" width="128">
 		Audio:
@@ -42,7 +42,21 @@
 	     initial_value="true" label="Automatically play media" left="162"
 	     mouse_opaque="true" name="auto_streaming_video" radio_style="false"
 	     width="338" />
-	<check_box bottom_delta="-27" control_name="MuteWhenMinimized" enabled="true"
+	<check_box bottom_delta="-20" control_name="MediaOnAPrimUI" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="true" label="Media helper widget" left="162"
+	     mouse_opaque="true" name="media_helper_widget" radio_style="false"
+	     width="338" />	
+	<check_box bottom_delta="-20" control_name="MediaEnableFilter" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="true" label="Filter media URLs" left="142"
+	     mouse_opaque="true" name="enable_media_filter" radio_style="false"
+	     width="200" />
+	<button name="show_media_filter" font="SansSerif" label="Media Filter Settings" halign="center"
+	     tool_tip="Edit settings and the blocked and allowed lists for the Media Filter."
+	     enabled="false" mouse_opaque="true" follows="top|right"
+	     bottom_delta="-2" right="-15" height="20" width="180" />
+	<check_box bottom_delta="-33" control_name="MuteWhenMinimized" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Mute audio when window minimized" left="142" mouse_opaque="true"
 	     name="mute_when_minimized" radio_style="false" width="215" />

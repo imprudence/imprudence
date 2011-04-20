@@ -12,7 +12,7 @@
 	     name="help_button" width="20" />
 	<panel border="false" bottom="-24" height="24" left="7" name="members_header"
 	     visible="true" width="380">
-		<text bottom_delta="-20" font="SansSerifBig" halign="left" height="16" left="0"
+		<text bottom_delta="-20" font="SansSerifLarge" halign="left" height="16" left="0"
 		     name="static" width="150">
 			Members &amp; Roles
 		</text>
@@ -24,7 +24,7 @@ easily be customized, allowing for greater organization and flexibility.
 	</panel>
 	<panel border="false" bottom_delta="0" height="24" left="7" name="roles_header"
 	     visible="false" width="380">
-		<text bottom_delta="-20" font="SansSerifBig" halign="left" height="16" left="0"
+		<text bottom_delta="-20" font="SansSerifLarge" halign="left" height="16" left="0"
 		     name="static" width="100">
 			Roles
 		</text>
@@ -47,7 +47,7 @@ easily be customized, allowing for greater organization and flexibility.
 	</panel>
 	<panel border="false" bottom_delta="-20" height="24" left="7" name="actions_header"
 	     visible="false" width="380">
-		<text bottom_delta="0" font="SansSerifBig" halign="left" height="16" left="0"
+		<text bottom_delta="0" font="SansSerifLarge" halign="left" height="16" left="0"
 		     name="static" width="200">
 			Abilities
 		</text>

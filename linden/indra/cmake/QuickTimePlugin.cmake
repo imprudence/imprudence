@@ -42,5 +42,7 @@ mark_as_advanced(QUICKTIME_LIBRARY)
 
 if (QUICKTIME_LIBRARY)
   set(QUICKTIME ON CACHE BOOL "Build with QuickTime streaming media support.")
+else (QUICKTIME_LIBRARY)
+  message(STATUS "CMake cannot find the Quicktime SDK. Building without Quicktime support!")
 endif (QUICKTIME_LIBRARY)
 

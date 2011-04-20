@@ -270,7 +270,7 @@ void LLPanelDirFind::navigateToDefaultPage()
 {
 	std::string start_url = "";
 	// Note: we use the web panel in OpenSim as well as Second Life -- MC
-	if (gHippoGridManager->getConnectedGrid()->getSearchUrl().empty() && 
+	if (gHippoGridManager->getConnectedGrid()->getSearchURL().empty() && 
 		!gHippoGridManager->getConnectedGrid()->isSecondLife())
 	{
 		// OS-based but doesn't have its own web search url -- MC
@@ -293,7 +293,7 @@ void LLPanelDirFind::navigateToDefaultPage()
 		else
 		{
 			// OS-based but has its own web search url -- MC
-			start_url = gHippoGridManager->getConnectedGrid()->getSearchUrl();
+			start_url = gHippoGridManager->getConnectedGrid()->getSearchURL();
 		}
 
 		BOOL inc_pg = childGetValue("incpg").asBoolean();
@@ -323,7 +323,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 	std::string url;
 	if (search_text.empty()) 
 	{
-		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_EMPTY, is_web);
+		url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_EMPTY, is_web);
 	} 
 	else 
 	{
@@ -348,7 +348,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 			"-._~$+!*'()";
 		std::string query = LLURI::escape(search_text_with_plus, allowed);
 
-		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_QUERY, is_web);
+		url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_QUERY, is_web);
 		std::string substring = "[QUERY]";
 		std::string::size_type where = url.find(substring);
 		if (where != std::string::npos)
@@ -373,13 +373,13 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 // static
 std::string LLPanelDirFind::getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult, bool is_web)
 {
-	std::string url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_TEMPLATE, is_web);
+	std::string url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_TEMPLATE, is_web);
 
 	if (!url.empty())
 	{
 		// Note: opensim's default template (SearchURLSuffixOpenSim) is currently empty -- MC
 		if (gHippoGridManager->getConnectedGrid()->isSecondLife() || 
-			!gHippoGridManager->getConnectedGrid()->getSearchUrl().empty())
+			!gHippoGridManager->getConnectedGrid()->getSearchURL().empty())
 		{
 			// if the mature checkbox is unchecked, modify query to remove 
 			// terms with given phrase from the result set

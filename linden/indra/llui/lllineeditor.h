@@ -55,6 +55,7 @@
 class LLFontGL;
 class LLLineEditorRollback;
 class LLButton;
+class LLMenuGL;
 
 typedef BOOL (*LLLinePrevalidateFunc)(const LLWString &wstr);
 
@@ -112,7 +113,8 @@ public:
 	virtual BOOL canTranslate() const;
 	virtual void insert(std::string what,S32 wher);
 
-	// LLEditMenuHandler overrides
+	// LLEditMenuHandler overrides and menu set up methods.
+                void    defineMenuCallbacks(LLMenuGL* menu);
 	virtual void	cut();
 	virtual BOOL	canCut() const;
 
@@ -152,11 +154,12 @@ public:
 	static void spell_show(void* data);
 	static void spell_add(void* data);
 
-	std::vector<S32> getMisspelledWordsPositions();
+	void getMisspelledWordsPositions(std::vector<S32>& misspell_positions);
+
 	// view overrides
 	virtual void	draw();
 	void autoCorrectText();
-	void drawMisspelled(LLRect background);
+	void drawMisspelled(const LLRect& background);
 	virtual void	reshape(S32 width,S32 height,BOOL called_from_parent=TRUE);
 	virtual void	onFocusReceived();
 	virtual void	onFocusLost();
@@ -253,6 +256,7 @@ public:
 	static BOOL		prevalidateAlphaNumSpace(const LLWString &str );
 	static BOOL		prevalidatePrintableNotPipe(const LLWString &str); 
 	static BOOL		prevalidatePrintableNoSpace(const LLWString &str);
+	static BOOL		prevalidatePrintableSpace(const LLWString &str);
 	static BOOL		prevalidateASCII(const LLWString &str);
 
 	static BOOL		postvalidateFloat(const std::string &str);
@@ -302,7 +306,7 @@ protected:
 	std::string		mPrevText;				// Saved string for 'ESC' revert
 	LLUIString		mLabel;					// text label that is visible when no user text provided
 	std::string		mPrevSpelledText;		// saved string so we know whether to respell or not
-	std::vector<S32> misspellLocations;     // where all the mispelled words are
+	std::vector<S32> mMisspellLocations;     // where all the mispelled words are
 	S32				mStartSpellHere;		// the position of the first char on the screen, stored so we know when to update
 	S32				mEndSpellHere;			// the location of the last char on the screen
 	BOOL			mSpellCheckable;		// set in xui as "spell_check". Default value for a field
@@ -466,5 +470,7 @@ private:
 	void (*mSearchCallback)(const std::string& search_string, void* user_data);
 
 };
+
+
 
 #endif  // LL_LINEEDITOR_

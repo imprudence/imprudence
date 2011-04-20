@@ -1514,7 +1514,7 @@ void LLTextureCtrl::draw()
 		 (mTexturep->getDiscardLevel() != 1) &&
 		 (mTexturep->getDiscardLevel() != 0))
 	{
-		LLFontGL* font = LLFontGL::getFontSansSerifBig();
+		LLFontGL* font = LLFontGL::getFontSansSerifLarge();
 		font->renderUTF8(
 			mLoadingPlaceholderString, 0,
 			llfloor(interior.mLeft+10), 

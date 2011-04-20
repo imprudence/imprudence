@@ -97,7 +97,11 @@ public:
 	static void initClass(); // Initialize data that's only init'd once per class.
 	static void cleanupClass();	// Cleanup data that's only init'd once per class.
 	static BOOL parseSkeletonFile(const std::string& filename);
+
 	static void initCloud();
+	static void loadCloud(const std::string& filename,  LLPartSysData& particles);
+	static void saveCloud(const std::string& filename,  LLPartSysData& particles);
+
 	virtual U32 processUpdateMessage(LLMessageSystem *mesgsys,
 									 void **user_data,
 									 U32 block_num,
@@ -587,7 +591,8 @@ public:
 	static F32		sLODFactor; // user-settable LOD factor
 	static BOOL		sJointDebug; // output total number of joints being touched for each avatar
 	static BOOL     sDebugAvatarRotation;
-	static LLPartSysData sCloud;
+	static LLPartSysData sCloud;	
+	static bool sHasCloud;
 
 	static S32 sNumVisibleAvatars; // Number of instances of this class
 	

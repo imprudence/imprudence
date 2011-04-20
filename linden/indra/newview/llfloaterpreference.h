@@ -133,6 +133,9 @@ protected:
 	static void		onBtnCancel(void*);
 	static void		onBtnApply(void*);
 
+	static void onClickResetPrefs(void* user_data);
+	static bool	callbackReset(const LLSD& notification, const LLSD& response, LLFloaterPreference* self);
+
 	static LLFloaterPreference* sInstance;
 };
 

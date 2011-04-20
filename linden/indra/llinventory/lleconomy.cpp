@@ -44,7 +44,7 @@ LLGlobalEconomy::LLGlobalEconomy()
 	mPricePublicObjectDecay( -1 ),
 	mPricePublicObjectDelete( -1 ),
 	mPriceEnergyUnit( -1 ),
-	mPriceUpload( -1 ),
+	mPriceUpload( 0 ),
 	mPriceRentLight( -1 ),
 	mTeleportMinPrice( -1 ),
 	mTeleportPriceExponent( -1 ),

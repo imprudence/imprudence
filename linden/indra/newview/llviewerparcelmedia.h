@@ -34,10 +34,15 @@
 #define LLVIEWERPARCELMEDIA_H
 
 #include "llviewermedia.h"
+#include "llmemory.h"
+
+// For use by other patches so they know that media filtering is implemented.
+#define MEDIA_FILTERING 1
 
 class LLMessageSystem;
 class LLParcel;
 class LLViewerParcelMediaNavigationObserver;
+class LLViewerParcelMediaInfo;
 
 
 // This class understands land parcels, network traffic, LSL media
@@ -46,6 +51,13 @@ class LLViewerParcelMediaNavigationObserver;
 class LLViewerParcelMedia : public LLViewerMediaObserver
 {
 	LOG_CLASS(LLViewerParcelMedia);
+	private:
+		typedef enum e_command_origin
+		{
+			COMMAND_ORIGIN_LOCAL,
+			COMMAND_ORIGIN_REMOTE
+		} ECommandOrigin;
+
 	public:
 		static void initClass();
 		static void cleanupClass();
@@ -54,8 +66,20 @@ class LLViewerParcelMedia : public LLViewerMediaObserver
 			// called when the agent's parcel has a new URL, or the agent has
 			// walked on to a new parcel with media
 
-		static void play(LLParcel* parcel);
+		static void play(LLParcel* parcel, bool filter = true, const ECommandOrigin origin = COMMAND_ORIGIN_LOCAL);
 			// user clicked play button in media transport controls
+		static void playStreamingMusic(LLParcel* parcel, bool filter = true);
+			// play the parcel music stream
+		static void stopStreamingMusic();
+			// stop the parcel music stream
+
+		static void filterMedia(LLParcel* parcel, U32 type, const ECommandOrigin origin); // type: 0 = media, 1 = streaming music
+		static bool allowedMedia(std::string media_url);
+
+		static bool loadDomainFilterList();
+		static void saveDomainFilterList();
+		static void clearDomainFilterList();
+		static std::string extractDomain(std::string url);
 
 		static void stop();
 			// user clicked stop button in media transport controls
@@ -75,6 +99,7 @@ class LLViewerParcelMedia : public LLViewerMediaObserver
 
 		static void processParcelMediaCommandMessage( LLMessageSystem *msg, void ** );
 		static void processParcelMediaUpdate( LLMessageSystem *msg, void ** );
+		static void undoParcelMediaUpdate(); // reset the parcel's media to what it was before ParcelMediaUpdate
 		static void sendMediaNavigateMessage(const std::string& url);
 		
 		// inherited from LLViewerMediaObserver
@@ -85,6 +110,14 @@ class LLViewerParcelMedia : public LLViewerMediaObserver
 		static LLUUID sMediaRegionID;
 		// HACK: this will change with Media on a Prim
 		static viewer_media_t sMediaImpl;
+
+		static bool sIsUserAction;
+		static bool sMediaFilterListLoaded;
+		static LLSD sMediaFilterList;
+		static std::set<std::string> sMediaQueries;
+		static std::set<std::string> sAllowedMedia;
+		static std::set<std::string> sDeniedMedia;
+		static LLPointer<LLViewerParcelMediaInfo> sSavedMediaInfo; // The parcel original media (before a remote command is applied)
 };
 
 
@@ -98,4 +131,29 @@ public:
 
 };
 
+class LLViewerParcelMediaInfo : public LLRefCount
+{
+public:
+	LLViewerParcelMediaInfo(const std::string url, 
+							const std::string type,
+							const LLUUID media_id,
+							const S32 width,
+							const S32 height,
+							const U8 scale,
+							const U8 loop);
+	LLViewerParcelMediaInfo(const LLParcel* parcel);
+	~LLViewerParcelMediaInfo() {}
+	void applyToParcel(LLParcel* parcel);
+	bool sameParcel(const LLParcel* parcel) const;
+	bool operator==(const LLViewerParcelMediaInfo &rhs) const;
+private:
+	std::string			mMediaURL;
+	std::string 		mMediaType;
+	LLUUID				mMediaID;
+	S32					mMediaWidth;
+	S32					mMediaHeight;
+	U8					mMediaAutoScale;
+	U8                  mMediaLoop;
+	S32					mParcelLocalID;
+};
 #endif

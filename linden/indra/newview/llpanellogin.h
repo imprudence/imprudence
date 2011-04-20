@@ -59,9 +59,9 @@ public:
 		void (*callback)(S32 option, void* user_data), 
 		void* callback_data);
 
-	// Remember password checkbox is set via gSavedSettings "RememberPassword"
-	static void setFields(const std::string& firstname, const std::string& lastname, 
-		const std::string& password);
+	// Sets the login screen's name and password editors. Remember password checkbox is set via gSavedSettings "RememberPassword"
+	static void setFields(const std::string& firstname, const std::string& lastname, const std::string& password);
+	static void setFields(const std::string& username, const std::string& password);
 
 	static void addServer(const std::string& server);
 	static void refreshLocation( bool force_visible );
@@ -78,11 +78,11 @@ public:
 
 	void setSiteIsAlive( bool alive );
 
+	static void loadLoginForm();
 	static void loadLoginPage();	
 	static void refreshLoginPage();
 	static void giveFocus();
 	static void setAlwaysRefresh(bool refresh); 
-	static void mungePassword(LLUICtrl* caller, void* user_data);
 	
 	// inherited from LLViewerMediaObserver
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
@@ -97,19 +97,30 @@ private:
 	static bool newAccountAlertCallback(const LLSD& notification, const LLSD& response);
 	static void onClickQuit(void*);
 	static void onClickVersion(void*);
+	static void onPasswordChanged(LLUICtrl* caller, void* user_data);
 	static void onClickForgotPassword(void*);
 	static void onPassKey(LLLineEditor* caller, void* user_data);
 	static void onSelectServer(LLUICtrl*, void*);
 	static void onServerComboLostFocus(LLFocusableElement*, void*);
+
+	// converts the following login name formats into valid firstname lastname combos:
+	// username
+	// username.Resident
+	// first.last
+	// first+" "+last
+	// "     "+first+"    "+last+"     "
+	// returns true if name conversion successful
+	static bool convertUsernameToLegacy(std::string& username, std::string& firstname, std::string& lastname);
+
+	// set the password for the login screen
+	static void setPassword(const std::string& password);
 	
-private:
 	LLPointer<LLUIImage> mLogoImage;
 
 	void			(*mCallback)(S32 option, void *userdata);
 	void*			mCallbackData;
 
-	std::string mIncomingPassword;
-	std::string mMungedPassword;
+	std::string mActualPassword;
 
 	static LLPanelLogin* sInstance;
 	static BOOL		sCapslockDidNotification;

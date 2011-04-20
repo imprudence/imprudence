@@ -49,26 +49,7 @@ FloaterGridDefault::~FloaterGridDefault()
 BOOL FloaterGridDefault::postBuild()
 {
 	// populate the grid chooser
-	LLScrollListCtrl* grid_list = getChild<LLScrollListCtrl>("grid_list");
-	grid_list->deleteAllItems();
-
-	LLSD element;
-
-	for (HippoGridManager::GridIterator it = gHippoGridManager->beginGrid(); it != gHippoGridManager->endGrid(); ++it) 
-	{
-		std::string grid_nick = it->second->getGridNick();
-		// There's no reason why empty grids nicks should be in this list, ugh
-		if (!grid_nick.empty()) 
-		{
-			element["id"] = grid_nick;
-			element["columns"][0]["column"] = "grid";
-			element["columns"][0]["type"] = "text";
-			element["columns"][0]["value"] = grid_nick;
-			grid_list->addElement(element, ADD_BOTTOM);
-		}
-	}
-
-	grid_list->setFocus(TRUE);
+	refreshGridList();
 
 	childSetAction("btn_ok", onClickOK, this);
 	childSetAction("btn_cancel", onClickCancel, this);
@@ -98,4 +79,40 @@ void FloaterGridDefault::onClickCancel(void* userdata)
 {
 	FloaterGridDefault* self = (FloaterGridDefault*)userdata;
 	self->close();
+}
+
+// static
+void FloaterGridDefault::refreshGridList()
+{
+	LLScrollListCtrl* grid_list = FloaterGridDefault::getInstance()->getChild<LLScrollListCtrl>("grid_list");
+	if (grid_list)
+	{
+		grid_list->deleteAllItems();
+
+		LLSD element;
+
+		for (HippoGridManager::GridIterator it = gHippoGridManager->beginGrid(); 
+			it != gHippoGridManager->endGrid(); ++it) 
+		{
+			std::string grid_nick = it->second->getGridNick();
+			// There's no reason why empty grids nicks should be in this list...
+			if (grid_nick.empty()) 
+			{
+				continue;
+			}
+			else
+			{
+				element["id"] = grid_nick;
+				element["columns"][0]["column"] = "grid_nick";
+				element["columns"][0]["type"] = "text";
+				element["columns"][0]["value"] = grid_nick;
+				element["columns"][1]["column"] = "grid_name";
+				element["columns"][1]["type"] = "text";
+				element["columns"][1]["value"] = it->second->getGridName();
+				grid_list->addElement(element, ADD_BOTTOM);
+			}
+		}
+
+		grid_list->setFocus(TRUE);
+	}
 }

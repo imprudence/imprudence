@@ -570,7 +570,7 @@ void LLScrollListItemSeparator::draw(const LLRect& rect, const LLColor4& fg_colo
 // LLScrollListCtrl
 //---------------------------------------------------------------------------
 
-LLScrollListCtrl::LLScrollListCtrl(const std::string& name, const LLRect& rect,
+LLScrollListCtrl::LLScrollListCtrl(const std::string& name, const LLRect& rect, const LLFontGL* font,
 	void (*commit_callback)(LLUICtrl* ctrl, void* userdata),
 	void* callback_user_data,
 	BOOL allow_multiple_selection,
@@ -619,6 +619,15 @@ LLScrollListCtrl::LLScrollListCtrl(const std::string& name, const LLRect& rect,
 	mOriginalSelection(-1),
 	mDrewSelected(FALSE)
 {
+	if (font)
+	{
+		mGLFont = font;
+	}
+	else
+	{
+		mGLFont = LLFontGL::getFontSansSerifSmall();
+	}
+
 	mItemListRect.setOriginAndSize(
 		mBorderThickness,
 		mBorderThickness,
@@ -987,14 +996,14 @@ void LLScrollListCtrl::calcColumnWidths()
 		column->setWidth(new_width);
 
 		// update max content width for this column, by looking at all items
-		column->mMaxContentWidth = column->mHeader ? LLFontGL::getFontSansSerifSmall()->getWidth(column->mLabel) + mColumnPadding + HEADING_TEXT_PADDING : 0;
+		column->mMaxContentWidth = column->mHeader ? mGLFont->getWidth(column->mLabel) + mColumnPadding + HEADING_TEXT_PADDING : 0;
 		item_list::iterator iter;
 		for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
 		{
 			LLScrollListCell* cellp = (*iter)->getColumn(column->mIndex);
 			if (!cellp) continue;
 
-			column->mMaxContentWidth = llmax(LLFontGL::getFontSansSerifSmall()->getWidth(cellp->getValue().asString()) + mColumnPadding + COLUMN_TEXT_PADDING, column->mMaxContentWidth);
+			column->mMaxContentWidth = llmax(mGLFont->getWidth(cellp->getValue().asString()) + mColumnPadding + COLUMN_TEXT_PADDING, column->mMaxContentWidth);
 		}
 
 		max_item_width += column->mMaxContentWidth;
@@ -1642,7 +1651,7 @@ LLScrollListItem* LLScrollListCtrl::addStringUUIDItem(const std::string& item_te
 	if (getItemCount() < mMaxItemCount)
 	{
 		item = new LLScrollListItem( enabled, NULL, id );
-		item->addColumn(item_text, LLResMgr::getInstance()->getRes(LLFONT_SANSSERIF_SMALL), column_width);
+		item->addColumn(item_text, mGLFont, column_width);
 		addItem( item, pos );
 	}
 	return item;
@@ -2900,6 +2909,7 @@ LLView* LLScrollListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	LLScrollListCtrl* scroll_list = new LLScrollListCtrl(
 		name,
 		rect,
+		NULL,
 		callback,
 		NULL,
 		multi_select,
@@ -3374,7 +3384,11 @@ LLScrollListItem* LLScrollListCtrl::addElement(const LLSD& value, EAddPosition p
 		const LLFontGL *font = LLResMgr::getInstance()->getRes(fontname);
 		if (!font)
 		{
-			font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
+			font = mGLFont;
+			if (!font)
+			{
+				font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
+			}
 		}
 		U8 font_style = LLFontGL::getStyleFromString(fontstyle);
 
@@ -3446,7 +3460,7 @@ LLScrollListItem* LLScrollListCtrl::addElement(const LLSD& value, EAddPosition p
 		if (new_item->getColumn(column_idx) == NULL)
 		{
 			LLScrollListColumn* column_ptr = &column_it->second;
-			new_item->setColumn(column_idx, new LLScrollListText(LLStringUtil::null, LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL ), column_ptr->getWidth(), LLFontGL::NORMAL));
+			new_item->setColumn(column_idx, new LLScrollListText(LLStringUtil::null, mGLFont, column_ptr->getWidth(), LLFontGL::NORMAL));
 		}
 	}
 
@@ -3466,7 +3480,7 @@ LLScrollListItem* LLScrollListCtrl::addSimpleElement(const std::string& value, E
 
 	LLScrollListItem *new_item = new LLScrollListItem(entry_id);
 
-	const LLFontGL *font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
+	const LLFontGL *font = mGLFont;
 
 	new_item->addColumn(value, font, getRect().getWidth());
 

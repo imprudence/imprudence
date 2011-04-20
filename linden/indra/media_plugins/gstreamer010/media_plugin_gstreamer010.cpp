@@ -1409,6 +1409,16 @@ void MediaPluginGStreamer010::receiveMessage(const char *message_string)
 // We're building without GStreamer enabled.  Just refuse to initialize.
 int init_media_plugin(LLPluginInstance::sendMessageFunction host_send_func, void *host_user_data, LLPluginInstance::sendMessageFunction *plugin_send_func, void **plugin_user_data)
 {
+	// init log file so we know what happened
+	LLFILE* fp = LLFile::fopen("media_plugin_gstreamer010.log", "w");
+	if (fp)
+	{
+		time_t timeptr = time(NULL);
+		fprintf(fp, "%s", asctime(localtime(&timeptr)));
+		fprintf(fp, "media_plugin_gstreamer010 installed but not built with GStreamer support! It must be recompiled to work!\n");
+		fclose(fp);
+	}
+
     return -1;
 }
 

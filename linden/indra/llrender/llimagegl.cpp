@@ -375,45 +375,54 @@ LLImageGL::~LLImageGL()
 
 void LLImageGL::init(BOOL usemipmaps)
 {
-#ifdef DEBUG_MISS
-	mMissed				= FALSE;
-#endif
+	// keep these members in the same order as declared in llimagehl.h
+	// so that it is obvious by visual inspection if we forgot to
+	// init a field.
 
-	mPickMask		  = NULL;
-	mPickMaskSize	  = 0;
-	mTextureState       = NO_DELETE ;
-	mTextureMemory    = 0;
-	mLastBindTime     = 0.f;
+	mTextureMemory = 0;
+	mLastBindTime = 0.f;
+
+	mPickMask = NULL;
+	mPickMaskSize = 0;
+	mUseMipMaps = usemipmaps;
+	mHasExplicitFormat = FALSE;
+	mAutoGenMips = FALSE;
+
+	mIsMask = FALSE;
+
+	mGLTextureCreated = false;
+	mTexName = 0;
+	mWidth = 0;
+	mHeight	= 0;
+	mCurrentDiscardLevel = -1;	
 	
 	mTarget			  = GL_TEXTURE_2D;
 	mBindTarget		  = LLTexUnit::TT_TEXTURE;
-	mUseMipMaps		  = usemipmaps;
 	mHasMipMaps		  = false;
-	mAutoGenMips	  = FALSE;
-	mTexName          = 0;
-	mIsResident       = 0;
+
+	mIsResident = 0;
+
+	mComponents = 0;
+	mMaxDiscardLevel = MAX_DISCARD_LEVEL;
 
 	mTexOptionsDirty = true;
 	mAddressMode = LLTexUnit::TAM_WRAP;
 	mFilterOption = LLTexUnit::TFO_ANISOTROPIC;
-	mWidth				= 0;
-	mHeight				= 0;
-	mComponents			= 0;
-	
-	mMaxDiscardLevel = MAX_DISCARD_LEVEL;
-	mCurrentDiscardLevel = -1;
-	mDontDiscard = FALSE;
 	
 	mFormatInternal = -1;
 	mFormatPrimary = (LLGLenum) 0;
 	mFormatType = GL_UNSIGNED_BYTE;
 	mFormatSwapBytes = FALSE;
-	mHasExplicitFormat = FALSE;
 
-	mGLTextureCreated = FALSE ;
+#ifdef DEBUG_MISS
+	mMissed				= FALSE;
+#endif
 
-	mIsMask = FALSE;
 	mCategory = -1 ;
+	
+	//LLTexture stuff
+	mDontDiscard = FALSE;
+	mTextureState       = NO_DELETE ;
 }
 
 void LLImageGL::cleanup()

@@ -1278,6 +1278,13 @@ LLViewerWindow::LLViewerWindow(
         LLAppViewer::instance()->forceExit(1);
 	}
 	
+	const U32 real_fsaa = mWindow->getFSAASamples();
+	if (real_fsaa != gSavedSettings.getU32("RenderFSAASamples"))
+	{
+		LL_WARNS("Window") << "Window created with reduced anti-aliasing samples: " << real_fsaa << "x FSAA." << LL_ENDL;
+		gSavedSettings.setU32("RenderFSAASamples", real_fsaa);
+	}
+
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
 	F32 ui_scale_factor = gSavedSettings.getF32("UIScaleFactor");
@@ -1309,7 +1316,7 @@ LLViewerWindow::LLViewerWindow(
 	{
 		gSavedSettings.setBOOL("RenderVBOEnable", FALSE);
 	}
-	LLVertexBuffer::initClass(gSavedSettings.getBOOL("RenderVBOEnable"));
+	LLVertexBuffer::initClass(gSavedSettings.getBOOL("RenderVBOEnable") && gGLManager.mHasVertexBufferObject);
 
 	if (LLFeatureManager::getInstance()->isSafe()
 		|| (gSavedSettings.getS32("LastFeatureVersion") != LLFeatureManager::getInstance()->getVersion())
@@ -2178,7 +2185,7 @@ void LLViewerWindow::draw()
 		{
 			// Used for special titles such as "Second Life - Special E3 2003 Beta"
 			const S32 DIST_FROM_TOP = 20;
-			LLFontGL::getFontSansSerifBig()->renderUTF8(
+			LLFontGL::getFontSansSerifLarge()->renderUTF8(
 				mOverlayTitle, 0,
 				llround( getWindowWidth() * 0.5f),
 				getWindowHeight() - DIST_FROM_TOP,
@@ -5011,6 +5018,16 @@ LLRect LLViewerWindow::getChatConsoleRect()
 
 	return console_rect;
 }
+
+bool LLViewerWindow::getUIHasFocus()
+{
+	return gFocusMgr.getKeyboardFocus() != NULL
+		|| LLMenuGL::getKeyboardMode() 
+		|| (gMenuBarView && gMenuBarView->getHighlightedItem() && gMenuBarView->getHighlightedItem()->isActive())
+		|| gFocusMgr.childHasKeyboardFocus(mRootView);
+}
+
+
 //----------------------------------------------------------------------------
 
 

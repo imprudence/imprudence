@@ -1,90 +1,112 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="true" height="400" min_height="400" min_width="600"
+     can_resize="true" height="420" min_height="420" min_width="600"
      name="floater_login" title="Grid Manager" width="600">
 
-  <!-- Grid Selector -->
+  <!-- GRID LIST -->
+  
   <text type="string" length="1" enabled="true" name="grid_selector_label"
-		height="16" width="100" left="10" top="-18"
-		h_pad="0" v_pad="0" halign="left"
-		font="SansSerif"
-		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		  height="16" width="100" left="10" top="-18"
+		  h_pad="0" v_pad="0" halign="left"
+		  font="SansSerif"
+		  follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
 	    drop_shadow_visible="true" border_drop_shadow_visible="false">
     Select a Grid:
   </text>
   
   <scroll_list background_visible="true" bottom_delta="65" draw_border="true"
-	     draw_stripes="false" sort_column="0"
-	     follows="top|left|bottom" height="300" left="10" multi_select="false"
-	     name="grid_selector" width="170">
-    <column label="Grid List" name="grid" width="170" />
+	     draw_stripes="false" sort_column="1"
+	     follows="top|left|bottom" height="320" left="10" multi_select="false"
+	     name="grid_selector" width="200">
+    <column label="Grid List" name="grid_nick" width="0" />
+    <column label="Grid List" name="grid_name" width="200" />
   </scroll_list>
   
-  <!-- Grid Selector Buttons -->
+  <!-- GRID BUTTONS -->
+  
   <button label="Add New Grid" enabled="true" name="btn_add"
-		height="18" width="150" left="10" bottom_delta="-22"
-		halign="center"
-		follows="left|bottom" scale_image="true"
+		  height="18" width="150" left="35" bottom_delta="-22"
+		  halign="center"
+		  follows="left|bottom" scale_image="true"
 	    font="SansSerifSmall" mouse_opaque="true" />
   <button label="Duplicate Grid" enabled="true" name="btn_copy"
-		height="18" width="150" left_delta="0" bottom_delta="-20"
-		halign="center"
-		follows="left|bottom" scale_image="true"
+		  height="18" width="150" left_delta="0" bottom_delta="-20"
+		  halign="center"
+		  follows="left|bottom" scale_image="true"
 	    font="SansSerifSmall" mouse_opaque="true" />
   <button label="Delete Grid" enabled="true" name="btn_delete"
-		height="18" width="150" left_delta="0" bottom_delta="-20"
-		halign="center"
-		follows="left|bottom" scale_image="true"
+		  height="18" width="150" left_delta="0" bottom_delta="-20"
+		  halign="center"
+		  follows="left|bottom" scale_image="true"
 	    font="SansSerifSmall" mouse_opaque="true" />
 
-  <!-- Grid Details -->
+  <!-- GRID NAME AND NICK -->
+  
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     top="-45" drop_shadow_visible="true" follows="left|top"
-     font="SansSerif" h_pad="0" halign="left" height="16"
-     left="195" mouse_opaque="true" name="gridnick_text" v_pad="0" width="120">
+       bottom="365" drop_shadow_visible="true" follows="left|top"
+       font="SansSerif" h_pad="0" halign="left" height="16"
+       left="220" mouse_opaque="true" name="gridnick_text" v_pad="0" width="120">
+    Grid nick (unique):
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0" 
+	     follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
+	     height="20" max_height="20" left_delta="110" max_length="40" mouse_opaque="true"
+	     name="gridnick" select_all_on_focus_received="true" width="260" label="required" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+       font="SansSerif" h_pad="0" halign="left" height="16"
+       left="220" mouse_opaque="true" name="gridname_text" v_pad="0" width="120">
     Grid name:
   </text>
-  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="335" 
-	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" max_height="20" left_delta="90" max_length="40" mouse_opaque="true"
-	     name="gridnick" select_all_on_focus_received="true" width="300" />
-
-
-  <!--
-  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="left" height="16"
-	     left_delta="-90" mouse_opaque="true" name="first_name_text" v_pad="0" width="100">
-		First Name:
-	</text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-   follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
-   height="20" left_delta="90" max_length="45" mouse_opaque="true"
-   name="first_name" select_all_on_focus_received="true" width="200" />
+	     follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
+	     height="20" max_height="20" left_delta="110" max_length="40" mouse_opaque="true"
+	     name="gridname" select_all_on_focus_received="true" width="260" label="required" />
 
+  <!-- NAME AND PASSWORD -->
+  
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+	     bottom="315" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="16"
-	     left_delta="-90" mouse_opaque="true" name="last_name_text" v_pad="0" width="100">
+	     left="220" mouse_opaque="true" name="first_name_text" v_pad="0" width="100">
+    First Name:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+       follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
+       height="20" left_delta="110" max_length="45" mouse_opaque="true"
+       name="first_name" select_all_on_focus_received="true" width="200" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+       font="SansSerif" h_pad="0" halign="left" height="16"
+       left_delta="-110" mouse_opaque="true" name="username_text" v_pad="0" width="100">
+    Username:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+       follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
+       height="20" left_delta="110" max_length="45" mouse_opaque="true"
+       name="username" select_all_on_focus_received="true" width="200" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="16"
+	     left_delta="-110" mouse_opaque="true" name="last_name_text" v_pad="0" width="100">
     Last Name:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-   follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
-   height="20" left_delta="90" max_length="45" mouse_opaque="true"
-   name="last_name" select_all_on_focus_received="true" width="200" />
-
+       follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
+       height="20" left_delta="110" max_length="45" mouse_opaque="true"
+       name="last_name" select_all_on_focus_received="true" width="200" />
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="16"
-	     left_delta="-90" mouse_opaque="true" name="avatar_password_text" v_pad="0" width="120">
-		Password:
-	</text>
-	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+	     left_delta="-110" mouse_opaque="true" name="avatar_password_text" v_pad="0" width="120">
+    Password:
+  </text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="16" mouse_opaque="true"
+	     height="20" left_delta="110" max_length="16" mouse_opaque="true"
 	     name="avatar_password" select_all_on_focus_received="true" width="200" />
 
-  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+  <!--<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="16"
 	     left_delta="-90" mouse_opaque="true" name="start_location_text" v_pad="0"
@@ -105,112 +127,110 @@
     </combo_item>
   </combo_box>
   -->
+  
+  <!-- LOGIN URI STUFF -->
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
         bottom_delta="-30" drop_shadow_visible="true" follows="left|top"
         font="SansSerif" h_pad="0" halign="left" height="16"
-        left_delta="-90" mouse_opaque="true" name="loginuri_text" v_pad="0" width="120">
+        left_delta="-110" mouse_opaque="true" name="loginuri_text" v_pad="0" width="120">
     Login URI:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	      follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
-	      height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	      name="loginuri" select_all_on_focus_received="true" width="300" />
+	      height="20" left_delta="110" max_length="255" mouse_opaque="true"
+	      name="loginuri" select_all_on_focus_received="true" width="260" label="required" />
 
   <button label="Get Grid Info" enabled="true" name="btn_gridinfo"
-        height="18" width="100" bottom_delta="-25" left_delta="0" 
+        height="18" width="100" bottom_delta="-38" left_delta="0" 
         halign="center" follows="left|top" scale_image="true"
         font="SansSerifSmall" mouse_opaque="true" />
   <button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
         height="18" label="Clear Info" left_delta="104"
         mouse_opaque="true" name="btn_clear" scale_image="true" width="100" />
 
+  <!-- LOGIN URI RETURN URLS-->
+  
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-      bottom_delta="-30" drop_shadow_visible="true" follows="left|top"
-      font="SansSerif" h_pad="0" halign="left" height="16"
-      left="195" mouse_opaque="true" name="loginpage_text" v_pad="0" width="120">
-    Grid Info URLs:
-  </text>
-  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-28" drop_shadow_visible="true" follows="left|top"
-     font="SansSerifSmall" h_pad="0" halign="left" height="16"
-     left="205" mouse_opaque="true" name="loginpage_text" v_pad="0" width="120">
+       bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left="230" mouse_opaque="true" name="loginpage_text" v_pad="0" width="120">
     Login page:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="loginpage" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="loginpage" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-     font="SansSerifSmall" h_pad="0" halign="left" height="16"
-     left_delta="-90" mouse_opaque="true" name="helperuri_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="helperuri_text" v_pad="0" width="120">
     Helper URI:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="helperuri" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="helperuri" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-   font="SansSerifSmall" h_pad="0" halign="left" height="16"
-   left_delta="-90" mouse_opaque="true" name="website_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="website_text" v_pad="0" width="120">
     Website:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="website" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="website" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-   font="SansSerifSmall" h_pad="0" halign="left" height="16"
-   left_delta="-90" mouse_opaque="true" name="support_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="support_text" v_pad="0" width="120">
     Support:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="support" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="support" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-   font="SansSerifSmall" h_pad="0" halign="left" height="16"
-   left_delta="-90" mouse_opaque="true" name="register_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="register_text" v_pad="0" width="120">
     Account:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="register" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="register" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-   font="SansSerifSmall" h_pad="0" halign="left" height="16"
-   left_delta="-90" mouse_opaque="true" name="password_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="password_text" v_pad="0" width="120">
     Password:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="password" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="password" select_all_on_focus_received="true" width="250" />
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
-   font="SansSerifSmall" h_pad="0" halign="left" height="16"
-   left_delta="-90" mouse_opaque="true" name="websearch_text" v_pad="0" width="120">
+       bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="16"
+       left_delta="-100" mouse_opaque="true" name="search_text" v_pad="0" width="120">
     Web Search:
   </text>
   <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 	     follows="left|top|right" font="SansSerifSmall" handle_edit_keys_directly="true"
-	     height="20" left_delta="90" max_length="255" mouse_opaque="true"
-	     name="search" select_all_on_focus_received="true" width="280" />
+	     height="20" left_delta="100" max_length="255" mouse_opaque="true"
+	     name="search" select_all_on_focus_received="true" width="250" />
 
   <view_border bevel_style="none" border_thickness="1" bottom_delta="-10" 
-               follows="top|left|right" height="168" left="195" 
-               name="OptionalPrefsBorder" width="390" />
+       follows="top|left|right" height="193" left="220" 
+       name="OptionalPrefsBorder" width="370" />
 
   <!-- Combo box for multi avatar grid manager avatar name
 	<combo_box allow_text_entry="true" bevel_style="in" border_style="line" border_thickness="1"
@@ -236,39 +256,32 @@
 	     initial_value="false" label="Global Avatar"
 	     left_delta="0" mouse_opaque="true" name="global_check" width="138" />
 
-  <check_box bottom="10" follows="left|bottom" font="SansSerifSmall" height="16"
+  <check_box bottom="10" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Remember password"
 	     left_delta="165" mouse_opaque="true" name="remember_check" width="138" />
   
-  <check_box bottom="10" follows="left|bottom" font="SansSerifSmall" height="16"
+  <check_box bottom="10" follows="left|top" font="SansSerifSmall" height="16"
      initial_value="false" label="secret level"
      left_delta="165" mouse_opaque="true" name="gawd_mode" width="138" />
   -->
 
   <!-- Cancel/Connect Buttons -->
 
-  <!--
-  <button bottom="-44" follows="right|top" font="SansSerif" halign="center"
-	     height="24" label="Set as Default" label_selected="Set as Default"
-	     left="470" mouse_opaque="true" name="set_default" scale_image="TRUE"
-	     width="110" />
-  -->
-
   <!-- <button bottom="28" follows="right|bottom" font="SansSerif" halign="center"
 	     height="24" label="Connect" label_selected="Connect"
 	     left="280" mouse_opaque="true" name="connect_btn" scale_image="TRUE"
 	     width="100" />  -->
   <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
-     height="24" label="Apply" label_selected="Apply" left="-108"
-     mouse_opaque="true" name="btn_apply" scale_image="TRUE" width="100" />
+       height="24" label="Apply" label_selected="Apply" left="-108"
+       mouse_opaque="true" name="btn_apply" scale_image="TRUE" width="100" />
   <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
-     height="24" label="Cancel" label_selected="Cancel" left_delta="-104"
-     mouse_opaque="true" name="btn_cancel" scale_image="TRUE" width="100" />
+       height="24" label="Cancel" label_selected="Cancel" left_delta="-104"
+       mouse_opaque="true" name="btn_cancel" scale_image="TRUE" width="100" />
   <button bottom="2" follows="right|bottom" font="SansSerif" halign="center"
-     height="24" label="OK" label_selected="OK" left_delta="-104"
-     mouse_opaque="true" name="btn_ok" scale_image="TRUE" width="100" />
+       height="24" label="OK" label_selected="OK" left_delta="-104"
+       mouse_opaque="true" name="btn_ok" scale_image="TRUE" width="100" />
   <!--
-	<combo_box allow_text_entry="true" bottom="32" follows="left|bottom" height="18"
+	<combo_box allow_text_entry="true" bottom="32" follows="left|top" height="18"
 	     left_delta="135" max_chars="40" mouse_opaque="true"
 	     name="server_combo" width="200" />
   -->

@@ -81,7 +81,7 @@ public:
 	bool hasAltivec() const;
 	bool hasSSE() const;
 	bool hasSSE2() const;
-	S32	 getMhz() const;
+	F64 getMHz() const;
 
 	// Family is "AMD Duron" or "Intel Pentium Pro"
 	const std::string& getFamily() const { return mFamily; }
@@ -90,7 +90,7 @@ private:
 	bool mHasSSE;
 	bool mHasSSE2;
 	bool mHasAltivec;
-	S32 mCPUMhz;
+	F64 mCPUMHz;
 	std::string mFamily;
 	std::string mCPUString;
 };
@@ -120,6 +120,9 @@ public:
 	**  be returned.
 	*/
 	U32 getPhysicalMemoryClamped() const; ///< Memory size in clamped bytes
+
+	//get the available memory infomation in KiloBytes.
+	static void getAvailableMemoryKB(U32& avail_physical_mem_kb, U32& avail_virtual_mem_kb);
 };
 
 

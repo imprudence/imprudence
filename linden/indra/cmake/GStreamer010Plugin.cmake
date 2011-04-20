@@ -10,9 +10,13 @@ if (STANDALONE)
 else (STANDALONE)
 
   # Possibly libxml and glib should have their own .cmake file instead...
+<<<<<<< HEAD
   use_prebuilt_binary(glib)			# gstreamer needs glib
   use_prebuilt_binary(libxml)
   use_prebuilt_binary(gstreamer)
+=======
+  use_prebuilt_binary(gstreamer)	# includes glib, libxml, and iconv on Windows
+>>>>>>> imp/exp
   use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER010_FOUND ON FORCE BOOL)
   set(GSTREAMER010_PLUGINS_BASE_FOUND ON FORCE BOOL)
@@ -23,6 +27,8 @@ else (STANDALONE)
 		${LIBS_PREBUILT_DIR}/include/libxml2
 		)
   else (WINDOWS)
+    use_prebuilt_binary(glib)			# gstreamer needs glib
+	use_prebuilt_binary(libxml)
 	set(GSTREAMER010_INCLUDE_DIRS
 		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
 		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0

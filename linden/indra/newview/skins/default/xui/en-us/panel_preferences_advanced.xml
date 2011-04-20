@@ -24,16 +24,21 @@
           name="client_name_tag_check" radio_style="false" width="160" />
       <check_box bottom_delta="-18" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
-           label="Show client names with color" left_delta="0" mouse_opaque="true"
-           name="client_name_color_check" radio_style="false" width="160" />
-      <check_box bottom_delta="-18" enabled="true" follows="left|top"
-           font="SansSerifSmall" height="16" initial_value="false"
            label="Show client names in hovertip" left_delta="0" mouse_opaque="true"
            name="client_name_hover_check" radio_style="false" width="160" />
       <check_box bottom_delta="-18" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
            label="Show your client name to others" left_delta="0" mouse_opaque="true"
            name="client_name_tag_broadcast_check" radio_style="false" width="217" />
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-122"
+           can_apply_immediately="true" color="0.79 0.44 0.88 1"
+           enabled="true" follows="left|top"
+           height="65" label="Imprudence" left="250" mouse_opaque="true"
+           name="client_tag_color" width="65" />
+      <check_box bottom_delta="-18" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Show client names with color" left_delta="0" mouse_opaque="true"
+           name="client_name_color_check" radio_style="false" width="160" />
       <check_box bottom_delta="-25" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
            label="Enable shadows (WARNING: unstable and requires Ultra graphics)" left="12" mouse_opaque="true"
@@ -77,6 +82,11 @@
            tool_tip="Toggle editing animation and standing up when entering appearance mode" 
            label="Animate avatar when editing appearance" left="12" mouse_opaque="true"
            name="appearance_anim_check" radio_style="false" width="217" />
+      <check_box bottom_delta="-25" control_name="HeadFollowsMouse" enabled="true"
+           follows="left|top" font="SansSerifSmall" height="16" 
+           label="Head follows mouse" tooltip="If your avatars head follows your mouse movements" left="12"
+           mouse_opaque="true" name="head_follows_mouse_checkbox" radio_style="false"
+           width="256" />
       <check_box bottom_delta="-25" enabled="true"
            follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
            label="Use legacy pie menus" left="12"
@@ -128,9 +138,6 @@
     </combo_item>
   </combo_box>-->
 
-    <button bottom="10" follows="left|bottom" font="SansSerif" height="20" width="250" 
-           label="Reset All Preferences To Default" name="reset_btn" left="12" 
-           tool_tip="Reset all preferences to their default values (requires a restart)" />
     </panel>
     
     <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="SpellCheck"
@@ -179,6 +186,20 @@ To use spellcheck, right-click a misspelled word
          tool_tip="Modify the AutoCorrect word list and settings" left="12"
          bottom_delta="-50" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
     </panel>
-
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Eye Candy"
+       left="1" mouse_opaque="true"  filename="panel_particle_settings.xml" name="AvatarCloud" width="418">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+		mouse_opaque="true" name="must_be_logged_in_textbox" v_pad="0" width="394">
+		You must be logged in to change this
+	</text>
+	<check_box bottom_delta="-4" control_name="PreviewAvatarAsCloud" enabled="true"
+             follows="left|top" font="SansSerifSmall" height="16"
+             label="Preview avatar as cloud" left="10"
+             mouse_opaque="true" name="preview_cloud"
+             radio_style="false" tool_tip="Preview avatar as cloud when already rezzed"
+             width="80" />
+    </panel>
   </tab_container>
 </panel>
