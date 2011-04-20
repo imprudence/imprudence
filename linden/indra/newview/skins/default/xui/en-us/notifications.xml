@@ -7233,6 +7233,13 @@ You have entered an invalid password! Please try again.
 </notification>
   
 <notification
+   icon="notifytip.tga"
+   name="IncompleteInventoryItem"
+   type="notifytip">
+The item you are accessing is not yet locally available. Please try again in a minute.
+</notification>
+  
+<notification
  icon="alert.tga"
  name="ShowLookAtInfo"
  type="alert">

@@ -165,10 +165,9 @@ void LLViewerInventoryItem::updateServer(BOOL is_new) const
 {
 	if(!mIsComplete)
 	{
-		// *FIX: deal with this better.
-		// If we're crashing here then the UI is incorrectly enabled.
-		llerrs << "LLViewerInventoryItem::updateServer() - for incomplete item"
-			   << llendl;
+		llwarns << "LLViewerInventoryItem::updateServer() - for incomplete item"
+				<< llendl;
+		LLNotifications::instance().add("IncompleteInventoryItem");
 		return;
 	}
 	if(gAgent.getID() != mPermissions.getOwner())
