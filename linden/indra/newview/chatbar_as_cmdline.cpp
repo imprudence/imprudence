@@ -367,7 +367,10 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
 					{
 						gOverlayBar->toggleMusicPlay(gOverlayBar);
 					}
-					gAudioStream->startInternetStream(status);
+					if (gAudioStream)
+					{
+						gAudioStream->startInternetStream(status);
+					}
 					return false;
 				}
 			}
