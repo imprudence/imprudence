@@ -9,11 +9,11 @@
 ; These will change
 AppId={{1B3E68BC-13EB-4277-9439-CB5FF9259460}
 AppName=Imprudence Viewer Experimental
-AppVerName=Imprudence Viewer 1.4.0 Experimental 2011.03.20
+AppVerName=Imprudence Viewer 1.4.0 Experimental 2011.04.19
 DefaultDirName={pf}\ImprudenceExperimental
 DefaultGroupName=Imprudence Viewer Experimental
 VersionInfoProductName=Imprudence Viewer Experimental
-OutputBaseFilename=Imprudence-1.4.0-Experimental-2011.03.20-Setup
+OutputBaseFilename=Imprudence-1.4.0-Experimental-2011.04.19-Setup
 VersionInfoVersion=1.4.0
 VersionInfoTextVersion=1.4.0
 VersionInfoProductVersion=1.4.0
