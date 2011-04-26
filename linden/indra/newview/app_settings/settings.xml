@@ -204,7 +204,7 @@
   <key>AutoCloseOOC</key>
   <map>
     <key>Comment</key>
-    <string>Auto-close OOC chat (i.e. add \"))\" if not found and \"((\" was used)</string>
+    <string>Auto-close OOC chat (i.e. add &apos;&quot;))&apos;&quot; if not found and &apos;&quot;((&apos;&quot; was used)</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -459,7 +459,7 @@
     <key>OmitResidentAsLastName</key>
     <map>
       <key>Comment</key>
-      <string>Do not display "Resident" as the last name for new residents in their legacy name</string>
+      <string>Do not display &quot;Resident&quot; as the last name for new residents in their legacy name</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -639,7 +639,7 @@
   <key>GoAction</key>
   <map>
     <key>Comment</key>
-    <string>How to move for "Go Here" or double-click move. Either "Autopilot" or "Teleport".</string>
+    <string>How to move for &quot;Go Here&quot; or double-click move. Either &quot;Autopilot&quot; or &quot;Teleport&quot;.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -2205,7 +2205,7 @@
   <key>RLVaEnableWear</key>
   <map>
     <key>Comment</key>
-    <string>Enables the "Wear" option on the inventory item context menu for attachments</string>
+    <string>Enables the &quot;Wear&quot; option on the inventory item context menu for attachments</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -2227,7 +2227,7 @@
   <key>RLVaHideLockedLayers</key>
   <map>
     <key>Comment</key>
-    <string>Hides "remove outfit" restricted worn clothing layers from @getoufit</string>
+    <string>Hides &quot;remove outfit&quot; restricted worn clothing layers from @getoufit</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -2260,7 +2260,7 @@
   <key>RLVaShowNameTags</key>
   <map>
     <key>Comment</key>
-    <string>Display of names above avatars is subject to the general "Show Names" setting when @shownames=n restricted</string>
+    <string>Display of names above avatars is subject to the general &quot;Show Names&quot; setting when @shownames=n restricted</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -2985,7 +2985,7 @@
   <key>AutomaticFly</key>
   <map>
     <key>Comment</key>
-    <string>Fly by holding jump key or using "Fly" command (FALSE = fly by using "Fly" command only)</string>
+    <string>Fly by holding jump key or using &quot;Fly&quot; command (FALSE = fly by using &quot;Fly&quot; command only)</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -5626,7 +5626,7 @@
   <key>DoubleClickAction</key>
   <map>
     <key>Comment</key>
-    <string>What to do when you double-click. Either "None" or "Go".</string>
+    <string>What to do when you double-click. Either &quot;None&quot; or &quot;Go&quot;.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -5862,7 +5862,7 @@
   <key>FindLandType</key>
   <map>
     <key>Comment</key>
-    <string>Controls which type of land you are searching for in Find Land interface ("All", "Auction", "For Sale")</string>
+    <string>Controls which type of land you are searching for in Find Land interface (&quot;All&quot;, &quot;Auction&quot;, &quot;For Sale&quot;)</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -7795,7 +7795,7 @@
     <key>LastFindPanel</key>
     <map>
       <key>Comment</key>
-      <string>Controls which find operation appears by default when clicking "Find" button </string>
+      <string>Controls which find operation appears by default when clicking &quot;Find&quot; button </string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -8317,7 +8317,7 @@
   <key>MediaOnAPrimUI</key>
   <map>
     <key>Comment</key>
-    <string>Whether or not to show the "link sharing" UI</string>
+    <string>Whether or not to show the &quot;link sharing&quot; UI</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -8914,7 +8914,7 @@
     <key>OverlayTitle</key>
     <map>
       <key>Comment</key>
-      <string>Controls watermark text message displayed on screen when "ShowOverlayTitle" is enabled (one word, underscores become spaces)</string>
+      <string>Controls watermark text message displayed on screen when &quot;ShowOverlayTitle&quot; is enabled (one word, underscores become spaces)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -13257,7 +13257,7 @@
     <key>UISndHealthReductionThreshold</key>
     <map>
       <key>Comment</key>
-      <string>Amount of health reduction required to trigger "pain" sound</string>
+      <string>Amount of health reduction required to trigger &quot;pain&quot; sound</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -13290,7 +13290,7 @@
     <key>UISndMoneyChangeThreshold</key>
     <map>
       <key>Comment</key>
-      <string>Amount of change in L$ balance required to trigger "money" sound</string>
+      <string>Amount of change in L$ balance required to trigger &quot;money&quot; sound</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -13587,7 +13587,7 @@
     <key>UseDebugMenus</key>
     <map>
       <key>Comment</key>
-      <string>Turns on "Debug" menu</string>
+      <string>Turns on &quot;Debug&quot; menu</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
