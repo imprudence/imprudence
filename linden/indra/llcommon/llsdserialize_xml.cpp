@@ -391,6 +391,14 @@ S32 LLSDXMLParser::Impl::parse(std::istream& input, LLSD& data)
 
 		if (status == XML_STATUS_ERROR)
 		{
+			std::string error_string( XML_ErrorString(XML_GetErrorCode( mParser )));
+			if ("parsing aborted" != error_string )//end of input
+			{
+				S32 line_number = XML_GetCurrentLineNumber( mParser );
+				llwarns << "LLXmlTree parse failed.  Line " << line_number << ": " 
+					<< error_string << llendl;
+			}
+
 			break;
 		}
 	}
@@ -408,7 +416,8 @@ S32 LLSDXMLParser::Impl::parse(std::istream& input, LLSD& data)
 		{
 			((char*) buffer)[count ? count - 1 : 0] = '\0';
 		}
-		llinfos << "LLSDXMLParser::Impl::parse: XML_STATUS_ERROR parsing:" << (char*) buffer << llendl;
+
+
 		data = LLSD();
 		return LLSDParser::PARSE_FAILURE;
 	}
@@ -486,7 +495,13 @@ S32 LLSDXMLParser::Impl::parseLines(std::istream& input, LLSD& data)
 	if (status == XML_STATUS_ERROR  
 		&& !mGracefullStop)
 	{
-		llinfos << "LLSDXMLParser::Impl::parseLines: XML_STATUS_ERROR" << llendl;
+		std::string error_string( XML_ErrorString(XML_GetErrorCode( mParser )));
+		if ("parsing aborted" != error_string )//end of input
+		{
+			S32 line_number = XML_GetCurrentLineNumber( mParser );
+			llwarns << "LLXmlTree parse failed.  Line " << line_number << ": " 
+				<< error_string << llendl;
+		}
 		return LLSDParser::PARSE_FAILURE;
 	}
 
@@ -552,7 +567,9 @@ void LLSDXMLParser::Impl::parsePart(const char* buf, int len)
 		XML_Status status = XML_Parse(mParser, buf, len, false);
 		if (status == XML_STATUS_ERROR)
 		{
-			llinfos << "Unexpected XML parsing error at start" << llendl;
+			std::string error_string( XML_ErrorString(XML_GetErrorCode( mParser )) );
+
+			llwarns << "Unexpected XML parsing error at start: " << error_string << llendl;
 		}
 	}
 }
