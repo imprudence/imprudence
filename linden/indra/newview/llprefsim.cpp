@@ -65,7 +65,7 @@ public:
 
 	void apply();
 	void cancel();
-	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email);
+	void setPersonalInfo(const std::string& visibility);
 	void preparePerAccountPrefs(bool enable);
 	void enableHistory();
 	
@@ -78,7 +78,6 @@ protected:
  
 	bool mGotPersonalInfo;
 	bool mGotPerAccountSettings;
-	bool mOriginalIMViaEmail;
 
 	bool mOriginalHideOnlineStatus;
 	std::string mDirectoryVisibility;
@@ -89,7 +88,6 @@ LLPrefsIMImpl::LLPrefsIMImpl()
 	: LLPanel(std::string("IM Prefs Panel")),
 	  mGotPersonalInfo(false),
 	  mGotPerAccountSettings(false),
-	  mOriginalIMViaEmail(false),
 	  mOriginalHideOnlineStatus(false)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
@@ -102,29 +100,14 @@ void LLPrefsIMImpl::cancel()
 BOOL LLPrefsIMImpl::postBuild()
 {
 	requires("online_visibility");
-	requires("send_im_to_email");
+	
 	if (!checkRequirements())
 	{
 		return FALSE;
 	}
 
-	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
-
-	// Don't enable these until we get personal data
+	// Don't enable this until we get personal data
 	childSetEnabled("online_visibility", false);
-	childSetEnabled("send_im_to_email", false);
-
-	// These are safe to enable
-	childSetEnabled("include_im_in_chat_console", true);
-	childSetEnabled("include_im_in_chat_history", true);
-	childSetEnabled("show_timestamps_check", true);
-	childSetEnabled("friends_online_notify_checkbox", true);
-	childSetEnabled("vertical-imtabs-toggle", true);
-	childSetValue("include_im_in_chat_console", gSavedSettings.getBOOL("IMInChatConsole"));
-	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
-	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("IMShowTimestamps"));
-	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
-	childSetValue("vertical-imtabs-toggle", gSavedSettings.getBOOL("VerticalIMTabs"));
 
 	childSetAction("log_path_button", onClickLogPath, this);
 	childSetCommitCallback("log_chat",onCommitLogging,this);
@@ -191,11 +174,9 @@ void LLPrefsIMImpl::apply()
 
 	if (mGotPersonalInfo)
 	{
-		bool new_im_via_email = childGetValue("send_im_to_email").asBoolean();
 		bool new_hide_online = childGetValue("online_visibility").asBoolean();		
 
-		if((new_im_via_email != mOriginalIMViaEmail)
-		   ||(new_hide_online != mOriginalHideOnlineStatus))
+		if (new_hide_online != mOriginalHideOnlineStatus)
 		{
 			LLMessageSystem* msg = gMessageSystem;
 			msg->newMessageFast(_PREHASH_UpdateUserInfo);
@@ -203,7 +184,7 @@ void LLPrefsIMImpl::apply()
 			msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 			msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 			msg->nextBlockFast(_PREHASH_UserData);
-			msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
+			//msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
 			// This hack is because we are representing several different 	 
 			// possible strings with a single checkbox. Since most users 	 
 			// can only select between 2 values, we represent it as a 	 
@@ -220,19 +201,12 @@ void LLPrefsIMImpl::apply()
 			gAgent.sendReliableMessage();
 		}
 	}
-
-	gSavedSettings.setBOOL("VerticalIMTabs", childGetValue("vertical-imtabs-toggle").asBoolean());
-	gSavedSettings.setBOOL("IMInChatConsole", childGetValue("include_im_in_chat_console").asBoolean());
-	gSavedSettings.setBOOL("IMInChatHistory", childGetValue("include_im_in_chat_history").asBoolean());
-	gSavedSettings.setBOOL("IMShowTimestamps", childGetValue("show_timestamps_check").asBoolean());
-	gSavedSettings.setBOOL("ChatOnlineNotification", childGetValue("friends_online_notify_checkbox").asBoolean());
 }
 
 // Enable and set the value of settings recieved from the sim in AgentInfoReply
-void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
+void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility)
 {
 	mGotPersonalInfo = true;
-	mOriginalIMViaEmail = im_via_email;
 	mDirectoryVisibility = visibility;
 	
 	if(visibility == VISIBILITY_DEFAULT)
@@ -252,22 +226,6 @@ void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_e
 
 	childSetValue("online_visibility", mOriginalHideOnlineStatus); 	 
 	childSetLabelArg("online_visibility", "[DIR_VIS]", mDirectoryVisibility);
-	childEnable("send_im_to_email");
-	childSetValue("send_im_to_email", im_via_email);
-
-	// Truncate the e-mail address if it's too long (to prevent going off
-	// the edge of the dialog).
-	std::string display_email(email);
-	if(display_email.size() > 30)
-	{
-		display_email.resize(30);
-		display_email += "...";
-	}
-	else if (display_email.empty())
-	{
-		display_email = getString("default_email_used");
-	}
-	childSetLabelArg("send_im_to_email", "[EMAIL]", display_email);
 }
 
 // Enable and set the value of settings that need an account name
@@ -373,9 +331,9 @@ void LLPrefsIM::cancel()
 	impl.cancel();
 }
 
-void LLPrefsIM::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
+void LLPrefsIM::setPersonalInfo(const std::string& visibility)
 {
-	impl.setPersonalInfo(visibility, im_via_email, email);
+	impl.setPersonalInfo(visibility);
 }
 
 void LLPrefsIM::preparePerAccountPrefs(bool enable)

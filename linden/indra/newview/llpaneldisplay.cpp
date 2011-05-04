@@ -120,7 +120,6 @@ BOOL LLPanelDisplay::postBuild()
 	mCtrlWindowed->setCallbackUserData(this);
 
 	mAspectRatioLabel1 = getChild<LLTextBox>("AspectRatioLabel1");
-	mFullScreenInfo = getChild<LLTextEditor>("FullScreenInfo");
 	mDisplayResLabel = getChild<LLTextBox>("DisplayResLabel");
 
 	S32 num_resolutions = 0;
@@ -229,7 +228,7 @@ BOOL LLPanelDisplay::postBuild()
 	mCtrlReflections = getChild<LLCheckBoxCtrl>("Reflections");
 	mCtrlReflections->setCommitCallback(&LLPanelDisplay::onVertexShaderEnable);
 	mCtrlReflections->setCallbackUserData(this);
-	mRadioReflectionDetail = getChild<LLRadioGroup>("ReflectionDetailRadio");
+	mComboReflectionDetail = getChild<LLComboBox>("ReflectionDetailCombo");
 	
 	// WindLight
 	mCtrlWindLight = getChild<LLCheckBoxCtrl>("WindLightUseAtmosShaders");
@@ -251,11 +250,11 @@ BOOL LLPanelDisplay::postBuild()
 
 	//----------------------------------------------------------------------------
 	// radio set for lighting detail
-	mRadioLightingDetail2 = getChild<LLRadioGroup>("LightingDetailRadio");
+	mComboLightingDetail = getChild<LLComboBox>("LightingDetailCombo");
 
 	//----------------------------------------------------------------------------
 	// radio set for terrain detail mode
-	mRadioTerrainDetail = getChild<LLRadioGroup>("TerrainDetailRadio");
+	mComboTerrainDetail = getChild<LLComboBox>("TerrainDetailCombo");
 
 	//----------------------------------------------------------------------------
 	// Global Shader Enable
@@ -316,7 +315,6 @@ BOOL LLPanelDisplay::postBuild()
 
 	// Avatar imposter count
 	mCtrlAvatarMaxVisible = getChild<LLSliderCtrl>("AvatarMaxVisible");
-	mAvatarCountText = getChild<LLTextBox>("AvatarCountText");
 
 	// Text boxes (for enabling/disabling)
 	mShaderText = getChild<LLTextBox>("ShadersText");
@@ -325,10 +323,7 @@ BOOL LLPanelDisplay::postBuild()
 	mTerrainText = getChild<LLTextBox>("TerrainDetailText");
 	mLightingText = getChild<LLTextBox>("LightingDetailText");
 	mMeshDetailText = getChild<LLTextBox>("MeshDetailText");
-
-	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
-	childSetValue("toggle_windlight_control", (*sEnableWindlightRemote));
-	mWLControl = (*sEnableWindlightRemote);
+	mLimitsText = getChild<LLTextBox>("LimitsText");
 
 	refresh();
 
@@ -420,10 +415,6 @@ void LLPanelDisplay::refresh()
 	mLightingDetail = gSavedSettings.getS32("RenderLightingDetail");
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
 
-	// windlight remote
-	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
-	mWLControl = (*sEnableWindlightRemote);
-
 	// max avatar count
 	mAvatarMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");
 
@@ -449,7 +440,6 @@ void LLPanelDisplay::refreshEnabledState()
 	mCtrlAspectRatio->setVisible(isFullScreen);
 	mAspectRatioLabel1->setVisible(isFullScreen);
 	mCtrlAutoDetectAspect->setVisible(isFullScreen);
-	mFullScreenInfo->setVisible(!isFullScreen);
 	mWindowSizeLabel->setVisible(!isFullScreen);
 
 	// disable graphics settings and exit if it's not set to custom
@@ -475,10 +465,7 @@ void LLPanelDisplay::refreshEnabledState()
 	bool bumpshiny = gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump");
 	mCtrlBumpShiny->setEnabled(bumpshiny ? TRUE : FALSE);
 	
-	for (S32 i = 0; i < mRadioReflectionDetail->getItemCount(); ++i)
-	{
-		mRadioReflectionDetail->setIndexEnabled(i, mCtrlReflections->get() && reflections);
-	}
+	mComboReflectionDetail->setEnabled(mCtrlReflections->get() && reflections);
 
 	// Avatar Mode
 	S32 max_avatar_shader = LLViewerShaderMgr::instance()->mMaxAvatarShaderLevel;
@@ -505,12 +492,12 @@ void LLPanelDisplay::refreshEnabledState()
 	BOOL shaders = mCtrlShaderEnable->get();
 	if (shaders)
 	{
-		mRadioTerrainDetail->setValue(1);
-		mRadioTerrainDetail->setEnabled(FALSE);
+		mComboTerrainDetail->setValue(1);
+		mComboTerrainDetail->setEnabled(FALSE);
 	}
 	else
 	{
-		mRadioTerrainDetail->setEnabled(TRUE);
+		mComboTerrainDetail->setEnabled(TRUE);
 	}
 
 	// *HACK just checks to see if we can use shaders... 
@@ -588,7 +575,6 @@ void LLPanelDisplay::disableUnavailableSettings()
 	}
 	
 	mCtrlAvatarMaxVisible->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
-	mAvatarCountText->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
 }
 
 void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
@@ -622,10 +608,10 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mCtrlShaderEnable != NULL);
 	llassert(mCtrlAvatarImpostors != NULL);
 	llassert(mCtrlAvatarCloth != NULL);
-	llassert(mRadioLightingDetail2 != NULL);
+	llassert(mComboLightingDetail != NULL);
 
-	llassert(mRadioTerrainDetail != NULL);
-	llassert(mRadioReflectionDetail != NULL);
+	llassert(mComboTerrainDetail != NULL);
+	llassert(mComboReflectionDetail != NULL);
 
 	llassert(mMeshDetailText != NULL);
 	llassert(mShaderText != NULL);
@@ -633,7 +619,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mAvatarText != NULL);
 	llassert(mLightingText != NULL);
 	llassert(mTerrainText != NULL);
-	llassert(mAvatarCountText != NULL);
+	llassert(mLimitsText != NULL);
 
 	// enable/disable the states
 	mGraphicsBorder->setVisible(!isHidden);
@@ -668,10 +654,10 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	mCtrlShaderEnable->setVisible(!isHidden);
 	mCtrlAvatarImpostors->setVisible(!isHidden);
 	mCtrlAvatarCloth->setVisible(!isHidden);
-	mRadioLightingDetail2->setVisible(!isHidden);
+	mComboLightingDetail->setVisible(!isHidden);
 
-	mRadioTerrainDetail->setVisible(!isHidden);
-	mRadioReflectionDetail->setVisible(!isHidden);
+	mComboTerrainDetail->setVisible(!isHidden);
+	mComboReflectionDetail->setVisible(!isHidden);
 
 	// text boxes
 	mShaderText->setVisible(!isHidden);
@@ -679,8 +665,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	mAvatarText->setVisible(!isHidden);
 	mLightingText->setVisible(!isHidden);
 	mTerrainText->setVisible(!isHidden);
-	mAvatarCountText->setVisible(!isHidden);
-
+	mLimitsText->setVisible(!isHidden);
 	mMeshDetailText->setVisible(!isHidden);
 
 	mCtrlAvatarMaxVisible->setVisible(!isHidden);
@@ -718,8 +703,6 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setU32("WLSkyDetail", mSkyLOD);
 	gSavedSettings.setS32("RenderMaxPartCount", mParticleCount);
 	gSavedSettings.setS32("RenderGlowResolutionPow", mPostProcess);
-
-	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
 
 	gSavedSettings.setS32("RenderAvatarMaxVisible", mAvatarMaxVisible);
 }
@@ -992,5 +975,4 @@ void LLPanelDisplay::onImpostorsEnable(LLUICtrl* ctrl, void* user_data)
 	LLCheckBoxCtrl* checkbox = (LLCheckBoxCtrl*)ctrl;
 
 	self->mCtrlAvatarMaxVisible->setEnabled(checkbox->getValue().asBoolean());
-	self->mAvatarCountText->setEnabled(checkbox->getValue().asBoolean());
 }

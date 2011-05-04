@@ -44,6 +44,30 @@
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
 
+// project includes
+#include "llcheckboxctrl.h"
+#include "hippogridmanager.h"
+#include "lluictrlfactory.h"
+#include "llviewercontrol.h"
+#include "llviewermedia.h"
+#include "llviewerwindow.h"
+#include "llpluginclassmedia.h"
+
+#include "hippogridmanager.h"
+#include "llpluginclassmedia.h"
+#include "llviewermedia.h"
+
+// helper functions for getting/freeing the web browser media
+// if creating/destroying these is too slow, we'll need to create
+// a static member and update all our static callbacks
+viewer_media_t get_web_media()
+{
+
+	viewer_media_t media_source = LLViewerMedia::newMediaImpl("", LLUUID::null, 0, 0, 0, 0, "text/html");
+
+	return media_source;
+}
+
 bool LLPanelNetwork::sSocksSettingsChanged;
 
 LLPanelNetwork::LLPanelNetwork()
@@ -54,16 +78,16 @@ LLPanelNetwork::LLPanelNetwork()
 BOOL LLPanelNetwork::postBuild()
 {
 	std::string cache_location = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
-	childSetText("cache_location", cache_location);
+	childSetText("disk_cache_location", cache_location);
 		
-	childSetAction("clear_cache", onClickClearCache, this);
-	childSetAction("set_cache", onClickSetCache, this);
-	childSetAction("reset_cache", onClickResetCache, this);
+	childSetAction("clear_disk_cache", onClickClearDiskCache, this);
+	childSetAction("set_disk_cache", onClickSetDiskCache, this);
+	childSetAction("reset_disk_cache", onClickResetDiskCache, this);
 	
 	childSetEnabled("connection_port", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetCommitCallback("connection_port_enabled", onCommitPort, this);
 
-	childSetValue("cache_size", (F32)gSavedSettings.getU32("CacheSize"));
+	childSetValue("disk_cache_size", (F32)gSavedSettings.getU32("CacheSize"));
 	childSetValue("max_bandwidth", gSavedSettings.getF32("ThrottleBandwidthKBPS"));
 	childSetValue("connection_port_enabled", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetValue("connection_port", (F32)gSavedSettings.getU32("ConnectionPort"));
@@ -99,7 +123,47 @@ BOOL LLPanelNetwork::postBuild()
 	// Socks 5 settings, Set all controls and labels enabled state
 	updateProxyEnabled(this, gSavedSettings.getBOOL("Socks5ProxyEnabled"), gSavedSettings.getString("Socks5AuthType"));
 
+	childSetEnabled("xmlrpc_proxy_editor", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_port", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_text_label", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+
+	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
+	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
+	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
+	childSetCommitCallback("speed_rez_check", onCommitSpeedRezCheckBox, this);
+
 	sSocksSettingsChanged = false;
+
+	// formerly the Web panel -- MC
+	childSetAction("clear_web_cache", onClickClearWebCache, this);
+	childSetCommitCallback("web_proxy_enabled", onCommitWebProxyEnabled, this);
+
+	std::string value = gSavedSettings.getBOOL("UseExternalBrowser") ? "external" : "internal";
+	childSetValue("use_external_browser", value);
+
+	childSetValue("cookies_enabled", gSavedSettings.getBOOL("BrowserCookiesEnabled"));
+	childSetAction("clear_cookies", onClickClearCookies,this);
+
+	childSetValue("web_proxy_enabled", gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
+	childSetValue("web_proxy_port", gSavedSettings.getS32("BrowserProxyPort"));
+
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQuery")) ;
+	}
+	else
+	{	
+		childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQueryOpenSim")) ;
+	}
+	childSetAction("world_search_reset_default", onClickSearchDefault, this);
+	childSetAction("world_search_clear", onClickSearchClear, this);
+
+	childSetEnabled("proxy_text_label", gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetEnabled("web_proxy_editor", gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetEnabled("web_proxy_port", gSavedSettings.getBOOL("BrowserProxyEnabled"));
+
+	refresh();
 
 	return TRUE;
 }
@@ -112,7 +176,7 @@ LLPanelNetwork::~LLPanelNetwork()
 
 void LLPanelNetwork::apply()
 {
-	gSavedSettings.setU32("CacheSize", childGetValue("cache_size").asInteger());
+	gSavedSettings.setU32("CacheSize", childGetValue("disk_cache_size").asInteger());
 	gSavedSettings.setF32("ThrottleBandwidthKBPS", childGetValue("max_bandwidth").asReal());
 	gSavedSettings.setBOOL("ConnectionPortEnabled", childGetValue("connection_port_enabled"));
 	gSavedSettings.setU32("ConnectionPort", childGetValue("connection_port").asInteger());
@@ -130,6 +194,10 @@ void LLPanelNetwork::apply()
 	gSavedSettings.setString("Socks5Username", childGetValue("socks5_proxy_username"));
 	gSavedSettings.setString("Socks5Password", childGetValue("socks5_proxy_password"));
 
+	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
+	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
+	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
+
 	if (sSocksSettingsChanged)
 	{
 		if (LLStartUp::getStartupState() != STATE_LOGIN_WAIT)
@@ -142,14 +210,62 @@ void LLPanelNetwork::apply()
 			LLSocks::getInstance()->updated();
 		}
 	}
+
+	// formerly the Web panel -- MC
+	gSavedSettings.setBOOL("BrowserCookiesEnabled", childGetValue("cookies_enabled"));
+
+	bool proxy_enable = childGetValue("web_proxy_enabled");
+	std::string proxy_address = childGetValue("web_proxy_editor");
+	int proxy_port = childGetValue("web_proxy_port");
+	gSavedSettings.setBOOL("BrowserProxyEnabled", proxy_enable);
+	gSavedSettings.setString("BrowserProxyAddress", proxy_address);
+	gSavedSettings.setS32("BrowserProxyPort", proxy_port);
+	LLViewerMedia::setProxyConfig(proxy_enable, proxy_address, proxy_port);
+
+	if (gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+	{
+		gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));
+	}
+	else
+	{
+		gSavedSettings.setString("SearchURLQueryOpenSim", childGetValue("world_search_editor"));
+	}
+
+	bool value = childGetValue("use_external_browser").asString() == "external" ? true : false;
+	gSavedSettings.setBOOL("UseExternalBrowser", value);
+	
+	viewer_media_t media_source = get_web_media();
+	if (media_source && media_source->hasMedia())
+	{
+		media_source->getMediaPlugin()->enable_cookies(childGetValue("cookies_enabled"));
+
+		bool proxy_enable = childGetValue("web_proxy_enabled");
+		std::string proxy_address = childGetValue("web_proxy_editor");
+		int proxy_port = childGetValue("web_proxy_port");
+		media_source->getMediaPlugin()->proxy_setup(proxy_enable, proxy_address, proxy_port);
+	}
 }
 
 void LLPanelNetwork::cancel()
 {
 }
 
+void LLPanelNetwork::refresh()
+{
+	if (childGetValue("speed_rez_check").asBoolean())
+	{
+		childEnable("speed_rez_interval_spinner");
+		childEnable("speed_rez_seconds_text");
+	}
+	else
+	{
+		childDisable("speed_rez_interval_spinner");
+		childDisable("speed_rez_seconds_text");
+	}
+}
+
 // static
-void LLPanelNetwork::onClickClearCache(void*)
+void LLPanelNetwork::onClickClearDiskCache(void*)
 {
 	// flag client cache for clearing next time the client runs
 	gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);
@@ -157,7 +273,7 @@ void LLPanelNetwork::onClickClearCache(void*)
 }
 
 // static
-void LLPanelNetwork::onClickSetCache(void* user_data)
+void LLPanelNetwork::onClickSetDiskCache(void* user_data)
 {
 	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
 
@@ -173,19 +289,19 @@ void LLPanelNetwork::onClickSetCache(void* user_data)
 	std::string dir_name = picker.getDirName();
 	if (!dir_name.empty() && dir_name != cur_name)
 	{
-		self->childSetText("cache_location", dir_name);
+		self->childSetText("disk_cache_location", dir_name);
 		LLNotifications::instance().add("CacheWillBeMoved");
 		gSavedSettings.setString("NewCacheLocation", dir_name);
 	}
 	else
 	{
 		std::string cache_location = gDirUtilp->getCacheDir();
-		self->childSetText("cache_location", cache_location);
+		self->childSetText("disk_cache_location", cache_location);
 	}
 }
 
 // static
-void LLPanelNetwork::onClickResetCache(void* user_data)
+void LLPanelNetwork::onClickResetDiskCache(void* user_data)
 {
  	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
 	if (!gSavedSettings.getString("CacheLocation").empty())
@@ -194,7 +310,7 @@ void LLPanelNetwork::onClickResetCache(void* user_data)
 		LLNotifications::instance().add("CacheWillBeMoved");
 	}
 	std::string cache_location = gDirUtilp->getCacheDir(true);
-	self->childSetText("cache_location", cache_location);
+	self->childSetText("disk_cache_location", cache_location);
 }
 
 // static
@@ -299,4 +415,105 @@ void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std
 	self->childSetEnabled("xmlrpc_proxy_editor", !enabled);
 	self->childSetEnabled("xmlrpc_proxy_port", !enabled);
 	self->childSetEnabled("xmlrpc_proxy_text_label", !enabled);
+}
+
+// static
+void LLPanelNetwork::onClickClearWebCache(void*)
+{
+	LLNotifications::instance().add("ConfirmClearBrowserCache", LLSD(), LLSD(), callback_clear_browser_cache);
+}
+
+//static
+bool LLPanelNetwork::callback_clear_browser_cache(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 ) // YES
+	{
+		viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+			media_source->getMediaPlugin()->clear_cache();
+	}
+	return false;
+}
+
+// static
+void LLPanelNetwork::onClickClearCookies(void*)
+{
+	LLNotifications::instance().add("ConfirmClearCookies", LLSD(), LLSD(), callback_clear_cookies);
+}
+
+//static
+bool LLPanelNetwork::callback_clear_cookies(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 ) // YES
+	{
+		viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+			media_source->getMediaPlugin()->clear_cookies();
+	}
+	return false;
+}
+
+// static
+void LLPanelNetwork::onCommitCookies(LLUICtrl* ctrl, void* data)
+{
+  LLPanelNetwork* self = (LLPanelNetwork*)data;
+  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+  if (!self || !check) return;
+
+  viewer_media_t media_source = get_web_media();
+		if (media_source && media_source->hasMedia())
+	  media_source->getMediaPlugin()->enable_cookies(check->get());
+}
+
+// static
+void LLPanelNetwork::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+	if (!self || !check) return;
+	self->childSetEnabled("web_proxy_editor", check->get());
+	self->childSetEnabled("web_proxy_port", check->get());
+	self->childSetEnabled("proxy_text_label", check->get());
+}
+
+// static
+void LLPanelNetwork::onClickSearchDefault(void* user_data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
+	LLControlVariable* controlp = 
+		(gHippoGridManager->getConnectedGrid()->isSecondLife()) 
+		? 
+		gSavedSettings.getControl("SearchURLQuery")
+		:
+		gSavedSettings.getControl("SearchURLQueryOpenSim");
+
+	if (controlp)
+	{
+		self->childSetValue("world_search_editor",controlp->getDefault().asString()) ;
+	}
+	else
+	{
+		llwarns << "SearchURLQuery or SearchURLQueryOpenSim missing from settings.xml - thats bad!" << llendl;
+	}
+}
+
+// static
+void LLPanelNetwork::onClickSearchClear(void* user_data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
+	self->childSetValue("world_search_editor","") ;
+}
+
+//static
+void LLPanelNetwork::onCommitSpeedRezCheckBox(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
+	if (self)
+	{
+		self->refresh();
+	}
 }

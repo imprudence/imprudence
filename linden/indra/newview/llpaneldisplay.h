@@ -113,14 +113,13 @@ protected:
 	LLCheckBoxCtrl	*mCtrlShaderEnable;
 	LLCheckBoxCtrl	*mCtrlAvatarImpostors;
 	LLCheckBoxCtrl	*mCtrlAvatarCloth;
-	LLRadioGroup	*mRadioLightingDetail2;
+	LLComboBox		*mComboLightingDetail;
 
-	LLRadioGroup	*mRadioTerrainDetail;
-	LLRadioGroup	*mRadioReflectionDetail;
+	LLComboBox		*mComboTerrainDetail;
+	LLComboBox		*mComboReflectionDetail;
 
 	LLTextBox		*mAspectRatioLabel1;
 	LLTextBox		*mDisplayResLabel;
-	LLTextEditor	*mFullScreenInfo;
 	LLTextBox       *mWindowSizeLabel;
 	
 	LLTextBox		*mShaderText;
@@ -137,7 +136,7 @@ protected:
 	LLTextBox		*mTerrainFactorText;
 	LLTextBox		*mSkyFactorText;
 	LLTextBox		*mPostProcessText;
-	LLTextBox		*mAvatarCountText;
+	LLTextBox		*mLimitsText;
 
 	BOOL mFSAutoDetectAspect;
 	F32 mAspectRatio;
@@ -172,8 +171,6 @@ protected:
 	S32 mPostProcess;
 
 	S32 mAvatarMaxVisible;
-
-	BOOL mWLControl;
 
 	static void setGraphicsSettings(LLControlGroup& group);
 	static void createGroup();

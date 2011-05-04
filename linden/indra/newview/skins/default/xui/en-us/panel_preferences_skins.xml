@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Skins" left="102" mouse_opaque="true"
      name="Skins panel" width="517">
+  
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
 	     mouse_opaque="true" name="muting_text" v_pad="0" width="500">
-    Select a skin (requires restart). (Please see the skin folders for information and credits)
+    Select Skin:
   </text>
-  <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="12"
+ 
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="80"
+     mouse_opaque="true" name="muting_text" v_pad="0" width="500">
+    (requires restart).  See skin folder for credits
+  </text>
+  
+  <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="50"
 	     name="skin_selection" width="480">
     <radio_item bottom="-20" height="20" left="0" name="default" width="480">
       Default
@@ -40,24 +65,24 @@
           scale_image="true" label="" image_selected="skin_thumbnail_gemini.png" 
           image_hover_selected="skin_thumbnail_gemini.png" image_unselected="skin_thumbnail_gemini.png" 
           image_hover_unselected="skin_thumbnail_gemini.png" follows="left|top" />
-  <text name="skin_current_text"
-	      left="10" bottom="5" halign="left" height="12"
+  <text name="skin_current_text" font-style="BOLD|SHADOW"
+	      left="20" bottom="5" halign="left" height="12"
         follows="left|bottom" h_pad="0" v_pad="0"
         bg_visible="false" drop_shadow_visible="true"
         border_visible="false" border_drop_shadow_visible="false"
-	      font="SansSerif" mouse_opaque="true">
-    Other Skin Name:
+	      font="SansSerifSmall" mouse_opaque="true">
+    Custom Skin Name:
   </text>
   <line_editor name="skin_current_edit"
-               bottom_delta="0" left_delta="120" height="20" width="120"
+               bottom_delta="-2" left_delta="110" height="18" width="160"
                follows="left|bottom" font="SansSerif"
                bevel_style="in" border_style="line" border_thickness="1"
                max_length="31" mouse_opaque="true"
                handle_edit_keys_directly="true"
                select_all_on_focus_received="true" />
   <button name="save_skin" label="Save"
-          bottom_delta="-2" left_delta="120" height="24" width="90"
-          follows="left|center" font="SansSerif" halign="center"
+          bottom_delta="-2" left_delta="165" height="20" width="110"
+          follows="left|center" font="SansSerifSmall" halign="center"
 	        mouse_opaque="true" scale_image="TRUE" />
 </panel>
 

@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-     height="408" label="Voice" left="102" mouse_opaque="true" name="chat"
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
+<panel border="true" bottom="-20" enabled="true" follows="left|top|right|bottom"
+     height="408" label="Voice" left="102" mouse_opaque="true" name="voice_chat"
      width="517">
-	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-26"
-	     embedded_items="false" enabled="false" follows="left|top"
-	     font="SansSerifSmall" height="20" hide_border="true" hide_scrollbar="true"
-	     left_delta="8" max_length="65535" mouse_opaque="true"
-	     name="voice_unavailable" tab_stop="false" width="450" word_wrap="true">
-		Voice Chat Is Not Available
-	</text_editor>
-	<check_box bottom_delta="0" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Enable voice chat" left="8" mouse_opaque="true"
-	     name="enable_voice_check" radio_style="false" width="200" />
+
+  
+  <text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom="-30"
+     embedded_items="false" enabled="false" follows="left|top"
+     font="SansSerifSmall" height="20" hide_border="true" hide_scrollbar="true"
+     left="20" max_length="65535" mouse_opaque="true"
+     name="voice_unavailable" tab_stop="false" width="450" word_wrap="true">
+    Voice Chat Is Not Available
+  </text_editor>
+  <check_box bottom="-26" enabled="true"
+     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+     label="Enable voice chat" left="20" mouse_opaque="true"
+     name="enable_voice_check" radio_style="false" width="200" />
+  
+  
 	<radio_group bottom_delta="-40" draw_border="false" follows="left|top" height="40"
-	     left_delta="20" name="ear_location" width="364">
+	     left_delta="30" name="ear_location" width="364">
 		<radio_item type="string" length="1" bottom="-19" follows="left|top" height="16" left="3" name="0" width="315">
 			Hear Voice Chat from camera position.
 		</radio_item>
@@ -22,17 +41,19 @@
 			Hear Voice Chat from avatar position.
 		</radio_item>
 	</radio_group>
-	<text type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-20"
-	     embedded_items="false" enabled="true" follows="left|top"
+  
+  
+	<text type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-30"
+	     embedded_items="false" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
 	     font="SansSerifSmall" height="16" hide_border="true" hide_scrollbar="true"
-	     left_delta="0" max_length="65535" mouse_opaque="true"
+	     left="20" max_length="65535" mouse_opaque="true"
 	     name="push_to_talk_heading" width="445" word_wrap="true">
 		Push To Talk:
 	</text>
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-60"
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="65" hide_border="true" hide_scrollbar="true"
-	     left_delta="20" max_length="65535" mouse_opaque="true"
+	     left_delta="30" max_length="65535" mouse_opaque="true"
 	     name="voice_chat_description" tab_stop="false" width="465" word_wrap="true">
 		Push-to-Talk mode lets you control when your voice is transmitted. When in toggle mode, press and release the push-to-talk trigger to switch your microphone on and off. When not in toggle mode, the microphone is active only when the trigger is held down.
 	</text_editor>
@@ -51,34 +72,38 @@
 	     drop_shadow_visible="true" enabled="false"
 	     follows="top|left" font="SansSerifSmall" halign="right" height="19"
 	     left_delta="0" max_length="254" mouse_opaque="false" name="modifier_combo"
-	     width="280" />
-	<button bottom_delta="-25" follows="left|top" font="SansSerif" halign="center"
+	     width="320" />
+	<button bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="center"
 	     height="20" label="Set Key" left_delta="0" mouse_opaque="true"
-	     name="set_voice_hotkey_button" width="115" />
-	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center" height="20"
-	     label="Middle Mouse Button" left_delta="120" mouse_opaque="true"
+	     name="set_voice_hotkey_button" width="160" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center" height="20"
+	     label="Reset to Default" left_delta="165" mouse_opaque="true"
 	     name="set_voice_middlemouse_button" width="160" />
-	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-25"
-	     embedded_items="false" enabled="true" follows="left|top" height="16"
-	     left="28" name="privacy_heading" width="445">
+  
+  
+	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-30" font="SansSerifSmall"
+	     embedded_items="false" enabled="true" follows="left|top" height="16" font-style="BOLD|SHADOW"
+	     left="30" name="privacy_heading" width="445">
 		Privacy:
 	</text>
 	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Only accept voice calls from people on My Friends list"
-	     left_delta="20" mouse_opaque="true" name="voice_call_friends_only_check"
+	     label="Only accept calls from my friends"
+	     left_delta="30" mouse_opaque="true" name="voice_call_friends_only_check"
 	     radio_style="false" width="200" />
 	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Switch off microphone when ending IM calls"
+	     label="Switch off microphone when ending calls"
 		 mouse_opaque="true" name="auto_disengage_mic_check"
 	     radio_style="false" width="200" />
-	<button bottom_delta="-40" follows="left|top" font="SansSerif" height="20"
-	     label="Device Settings" left="28" mouse_opaque="true"
-	     name="device_settings_btn" width="155" />
-  	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center" height="20"
-         	label="Reconnect to Voice" left_delta="160" mouse_opaque="true"
-         	name="reset_voice" width="160" />
+  
+  
+	<button bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="20"
+	     label="Device Settings" left="30" mouse_opaque="true"
+	     name="device_settings_btn" width="160" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center" height="20"
+       	label="Reconnect to Voice" left_delta="160" mouse_opaque="true"
+       	name="reset_voice" width="160" />
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-32"
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="35" hide_border="true" hide_scrollbar="true"
@@ -86,4 +111,6 @@
 	     name="device_settings_text" tab_stop="false" width="450" word_wrap="true">
 		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat, and changes you make will be immediately applied.
 	</text_editor>
+  
+  
 </panel>

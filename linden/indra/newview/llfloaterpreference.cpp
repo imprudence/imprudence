@@ -60,7 +60,6 @@
 #include "llpanellogin.h"
 #include "llpanelLCD.h"
 #include "llpanelmsgs.h"
-#include "llpanelweb.h"
 #include "llpanelskins.h"
 #include "llprefsadvanced.h"
 #include "llprefschat.h"
@@ -151,10 +150,6 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mNetworkPanel, mNetworkPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mNetworkPanel->setDefaultBtn(default_btn);
 
-	mWebPanel = new LLPanelWeb();
-	mTabContainer->addTabPanel(mWebPanel, mWebPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mWebPanel->setDefaultBtn(default_btn);
-
 	mDisplayPanel = new LLPanelDisplay();
 	mTabContainer->addTabPanel(mDisplayPanel, mDisplayPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mDisplayPanel->setDefaultBtn(default_btn);
@@ -166,10 +161,6 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mPrefsChat = new LLPrefsChat();
 	mTabContainer->addTabPanel(mPrefsChat->getPanel(), mPrefsChat->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsChat->getPanel()->setDefaultBtn(default_btn);
-
-	mPrefsColors = new LLPrefsColors();
-	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsColors->setDefaultBtn(default_btn);
 
 	mPrefsIM = new LLPrefsIM();
 	mTabContainer->addTabPanel(mPrefsIM->getPanel(), mPrefsIM->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -197,6 +188,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel = new LLPanelMsgs();
 	mTabContainer->addTabPanel(mMsgPanel, mMsgPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mMsgPanel->setDefaultBtn(default_btn);
+
+	mPrefsColors = new LLPrefsColors();
+	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsColors->setDefaultBtn(default_btn);
 	
 	mSkinsPanel = new LLPanelSkins();
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -259,11 +254,6 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mMsgPanel;
 		mMsgPanel = NULL;
 	}
-	if (mWebPanel)
-	{
-		delete mWebPanel;
-		mWebPanel = NULL;
-	}
 	if (mSkinsPanel)
 	{
 		delete mSkinsPanel;
@@ -306,7 +296,6 @@ void LLPreferenceCore::apply()
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
 
-	mWebPanel->apply();
 #if LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
@@ -314,7 +303,6 @@ void LLPreferenceCore::apply()
 		mLCDPanel->apply();
 	}
 #endif
-//	mWebPanel->apply();
 }
 
 
@@ -337,7 +325,6 @@ void LLPreferenceCore::cancel()
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();
 
-	mWebPanel->cancel();
 #if LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
@@ -345,7 +332,6 @@ void LLPreferenceCore::cancel()
 		mLCDPanel->cancel();
 	}
 #endif
-//	mWebPanel->cancel();
 }
 
 // static
@@ -359,7 +345,8 @@ void LLPreferenceCore::onTabChanged(void* user_data, bool from_click)
 
 void LLPreferenceCore::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
-	mPrefsIM->setPersonalInfo(visibility, im_via_email, email);
+	mPrefsIM->setPersonalInfo(visibility);
+	mPrefsChat->setPersonalInfo(im_via_email, email);
 }
 
 void LLPreferenceCore::updateIsLoggedIn(bool enable)

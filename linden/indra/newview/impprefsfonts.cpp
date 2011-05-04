@@ -51,6 +51,10 @@ ImpPrefsFonts::~ImpPrefsFonts()
 
 BOOL ImpPrefsFonts::postBuild()
 {
+	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
+	childSetValue("ui_auto_scale", gSavedSettings.getBOOL("UIAutoScale"));
+	childSetAction("reset_ui_size", onClickResetUISize, this);
+
 	refresh();
 	return true;
 }
@@ -79,6 +83,9 @@ void ImpPrefsFonts::refresh()
 
 void ImpPrefsFonts::apply()
 {
+	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
+	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
+
 	bool changed = false;
 
 	LLRadioGroup* fonts = getChild<LLRadioGroup>("fonts");
@@ -125,4 +132,12 @@ void ImpPrefsFonts::apply()
 
 void ImpPrefsFonts::cancel()
 {
+}
+
+// static
+void ImpPrefsFonts::onClickResetUISize(void* user_data)
+{
+	ImpPrefsFonts* self = (ImpPrefsFonts*)user_data;
+	F32 def = gSavedSettings.getControl("UIScaleFactor")->getDefault().asReal();
+	self->childSetValue("ui_scale_slider", def);
 }

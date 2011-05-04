@@ -216,7 +216,7 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 {
 	std::string line = chat.mText;
 	bool prepend_newline = true;
-	if (gSavedSettings.getBOOL("ChatShowTimestamps"))
+	if (gSavedSettings.getBOOL("ShowTimestamps"))
 	{
 		edit->appendTime(prepend_newline);
 		prepend_newline = false;
