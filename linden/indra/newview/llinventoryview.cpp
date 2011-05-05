@@ -681,7 +681,7 @@ LLInventoryView::~LLInventoryView( void )
 
 void LLInventoryView::draw()
 {
- 	if (LLInventoryModel::isEverythingFetched())
+ 	if (!LLInventoryModel::backgroundFetchActive())
 	{
 		S32 item_count = gInventory.getItemCount();
 
