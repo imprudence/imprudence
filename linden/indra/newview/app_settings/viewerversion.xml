@@ -14,12 +14,12 @@ need to be changed manually - MC
   <viewer version_major="1" />
 
   <!--int-->
-  <viewer version_minor="3" />
+  <viewer version_minor="4" />
 
   <!--int-->
-  <viewer version_patch="1" />
+  <viewer version_patch="0" />
 
   <!--string-->
-  <viewer version_test="" />
+  <viewer version_test="beta 1" />
   
 </viewer_version>
