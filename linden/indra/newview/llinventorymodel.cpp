@@ -2688,14 +2688,14 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 				// *FIX: Need a better solution, this prevents the
 				// application from freezing, but breaks inventory
 				// caching.
-				if(inv_item->getUUID().isNull())
-				{
-					//delete inv_item; // automatic when inv_cat is reassigned or destroyed
-					llwarns << "Ignoring inventory with null item id: "
-							<< inv_item->getName() << llendl;
-						
-				}
-				else
+				//if(inv_item->getUUID().isNull())MCCABE
+				//{
+				//	//delete inv_item; // automatic when inv_cat is reassigned or destroyed
+				//	llwarns << "Ignoring inventory with null item id: "
+				//			<< inv_item->getName() << llendl;
+				//		
+				//}
+				//else
 				{
 					items.put(inv_item);
 					item_count_total++;
