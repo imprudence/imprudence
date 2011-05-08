@@ -2528,6 +2528,7 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 	// *NOTE: This buffer size is hard coded into scanf() below.
 	char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 	char keyword[MAX_STRING];		/*Flawfinder: ignore*/
+	static S32 item_count_total = 0;
 	while(!feof(file) && fgets(buffer, MAX_STRING, file)) 
 	{
 		sscanf(buffer, " %254s", keyword);	/* Flawfinder: ignore */
@@ -2552,16 +2553,17 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 				// *FIX: Need a better solution, this prevents the
 				// application from freezing, but breaks inventory
 				// caching.
-				if(inv_item->getUUID().isNull())
-				{
-					//delete inv_item; // automatic when inv_cat is reassigned or destroyed
-					llwarns << "Ignoring inventory with null item id: "
-							<< inv_item->getName() << llendl;
-						
-				}
-				else
+				//if(inv_item->getUUID().isNull())MCCABE
+				//{
+				//	//delete inv_item; // automatic when inv_cat is reassigned or destroyed
+				//	llwarns << "Ignoring inventory with null item id: "
+				//			<< inv_item->getName() << llendl;
+				//		
+				//}
+				//else
 				{
 					items.put(inv_item);
+					item_count_total++;
 				}
 			}
 			else
@@ -2576,6 +2578,7 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 					<< llendl;
 		}
 	}
+	LL_DEBUGS("Inventory") << "Inventory items loaded from file: " << item_count_total << LL_ENDL;
 	fclose(file);
 	return true;
 }
@@ -2598,6 +2601,9 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 		return false;
 	}
 
+	static S32 count_total = 0;
+	static S32 category_total = 0;
+
 	S32 count = categories.count();
 	S32 i;
 	for(i = 0; i < count; ++i)
@@ -2606,6 +2612,7 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 		if(cat->getVersion() != LLViewerInventoryCategory::VERSION_UNKNOWN)
 		{
 			cat->exportFileLocal(file);
+			category_total++;
 		}
 	}
 
@@ -2613,7 +2620,10 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 	for(i = 0; i < count; ++i)
 	{
 		items[i]->exportFile(file);
+		count_total++;
 	}
+
+	LL_DEBUGS("Inventory") << "Cached " << category_total << " categories and " << count_total << " inventory items" << LL_ENDL;
 
 	fclose(file);
 	return true;
