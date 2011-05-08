@@ -48,14 +48,19 @@
 #include "lltracker.h"
 #include "llviewercamera.h"
 #include "llui.h"
+#include "lluictrlfactory.h"
 
 LLHUDView *gHUDView = NULL;
 
 const S32 HUD_ARROW_SIZE = 32;
 
-LLHUDView::LLHUDView()
-:	LLPanel()
-{ }
+
+
+LLHUDView::LLHUDView(const LLRect& r)
+{
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_hud.xml");
+	userSetShape(r);
+}
 
 LLHUDView::~LLHUDView()
 { }
@@ -64,6 +69,7 @@ LLHUDView::~LLHUDView()
 void LLHUDView::draw()
 {
 	LLTracker::drawHUDArrow();
+	LLView::draw();
 }
 
 
@@ -89,4 +95,3 @@ BOOL LLHUDView::handleMouseDown(S32 x, S32 y, MASK mask)
 	}
 	return LLView::handleMouseDown(x, y, mask);
 }
-

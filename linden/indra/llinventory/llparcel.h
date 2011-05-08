@@ -39,7 +39,7 @@
 #include "llparcelflags.h"
 #include "llpermissions.h"
 #include "v3math.h"
-
+#include "lltimer.h"
 
 // Grid out of which parcels taken is stepped every 4 meters.
 const F32 PARCEL_GRID_STEP_METERS	= 4.f;
@@ -67,6 +67,7 @@ const F32 PARCEL_PASS_HOURS_DEFAULT = 1.f;
 
 // Number of "chunks" in which parcel overlay data is sent
 // Chunk 0 = southern rows, entire width
+// NOTE: NOT USABLE FOR VAR SIZED REGIONS!
 const S32 PARCEL_OVERLAY_CHUNKS = 4;
 
 // Bottom three bits are a color index for the land overlay
@@ -243,10 +244,16 @@ public:
 	void	setMediaID(const LLUUID& id) { mMediaID = id; }
 	void	setMediaAutoScale ( U8 flagIn ) { mMediaAutoScale = flagIn; }
 	void    setMediaLoop (U8 loop) { mMediaLoop = loop; }
-	void	setObscureMedia( U8 flagIn ) { mObscureMedia = flagIn; }
-	void	setObscureMusic( U8 flagIn ) { mObscureMusic = flagIn; }
 	void setMediaWidth(S32 width);
 	void setMediaHeight(S32 height);
+	void setMediaCurrentURL(const std::string& url);
+	void setMediaURLFilterEnable(U8 enable) { mMediaURLFilterEnable = enable; }
+	void setMediaURLFilterList(LLSD list);
+	void setMediaAllowNavigate(U8 enable) { mMediaAllowNavigate = enable; }
+	void setMediaURLTimeout(F32 timeout) { mMediaURLTimeout = timeout; }
+	void setMediaPreventCameraZoom(U8 enable) { mMediaPreventCameraZoom = enable; }
+
+	void setMediaURLResetTimer(F32 time);
 	virtual void	setLocalID(S32 local_id);
 
 	// blow away all the extra crap lurking in parcels, including urls, access lists, etc
@@ -300,6 +307,7 @@ public:
 //	BOOL	importStream(std::istream& input_stream);
 	BOOL	importAccessEntry(std::istream& input_stream, LLAccessEntry* entry);
 //	BOOL	exportStream(std::ostream& output_stream);
+	BOOL    importMediaURLFilter(std::istream& input_stream, std::string& url);
 
 	void	packMessage(LLMessageSystem* msg);
 	void	packMessage(LLSD& msg);
@@ -341,8 +349,13 @@ public:
 	S32				getMediaHeight() const		{ return mMediaHeight; }
 	U8				getMediaAutoScale() const	{ return mMediaAutoScale; }
 	U8              getMediaLoop() const        { return mMediaLoop; }
-	U8				getObscureMedia() const		{ return mObscureMedia; }
-	U8				getObscureMusic() const		{ return mObscureMusic; }
+	const std::string&  getMediaCurrentURL() const { return mMediaCurrentURL; }
+	U8              getMediaURLFilterEnable() const   { return mMediaURLFilterEnable; }
+	LLSD            getMediaURLFilterList() const     { return mMediaURLFilterList; }
+	U8              getMediaAllowNavigate() const { return mMediaAllowNavigate; }
+	F32				getMediaURLTimeout() const { return mMediaURLTimeout; }
+	U8              getMediaPreventCameraZoom() const { return mMediaPreventCameraZoom; }
+
 	S32				getLocalID() const			{ return mLocalID; }
 	const LLUUID&	getOwnerID() const			{ return mOwnerID; }
 	const LLUUID&	getGroupID() const			{ return mGroupID; }
@@ -418,6 +431,7 @@ public:
 	BOOL getRecordTransaction() const { return mRecordTransaction; }
 	void setRecordTransaction(BOOL record) { mRecordTransaction = record; }
 
+	BOOL isMediaResetTimerExpired(const U64& time);
 
 	// more accessors
 	U32		getParcelFlags() const			{ return mParcelFlags; }
@@ -595,6 +609,8 @@ protected:
 	LLVector3 mUserLookAt;
 	ELandingType mLandingType;
 	LLTimer mSaleTimerExpires;
+	LLTimer mMediaResetTimer;
+
 	S32 mGraceExtension;
 	BOOL mRecordTransaction;
 	
@@ -624,9 +640,13 @@ protected:
 	S32					mMediaHeight;
 	U8					mMediaAutoScale;
 	U8                  mMediaLoop;
-	U8					mObscureMedia;
-	U8					mObscureMusic;
+	std::string         mMediaCurrentURL;
 	LLUUID				mMediaID;
+	U8                  mMediaURLFilterEnable;
+	LLSD                mMediaURLFilterList;
+	U8                  mMediaAllowNavigate;
+	U8					mMediaPreventCameraZoom;
+	F32					mMediaURLTimeout;
 	S32					mPassPrice;
 	F32					mPassHours;
 	LLVector3			mAABBMin;

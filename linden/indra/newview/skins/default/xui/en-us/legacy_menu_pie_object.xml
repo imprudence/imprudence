@@ -65,15 +65,17 @@
         			<on_click function="Tools.Unlink" userdata="" />
         			<on_enable function="Tools.EnableUnlink" />
       			</menu_item_call>
-			<menu_item_call enabled="false" label="Mute" mouse_opaque="true" name="Object Mute">
-				<on_click function="Object.Mute" />
-				<on_enable function="Object.EnableMute" />
-			</menu_item_call>
-			<menu_item_separator />
-			<menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Object Inspect">
-				<on_click function="Object.Inspect" />
-				<on_enable function="Object.EnableInspect" />
-			</menu_item_call>
+      <menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
+        <on_click function="Object.DERENDER" />
+      </menu_item_call>
+      <menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Object Inspect">
+        <on_click function="Object.Inspect" />
+        <on_enable function="Object.EnableInspect" />
+      </menu_item_call>
+      <menu_item_call enabled="false" label="Mute" mouse_opaque="true" name="Object Mute">
+        <on_click function="Object.Mute" />
+        <on_enable function="Object.EnableMute" />
+      </menu_item_call>
 		</pie_menu>
 		<menu_item_call enabled="false" label="Buy..." mouse_opaque="true" name="Buy...">
 			<on_click function="Object.Buy" />

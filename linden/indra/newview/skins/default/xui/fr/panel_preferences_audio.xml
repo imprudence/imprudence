@@ -15,6 +15,7 @@
 	<check_box label="Couper le son lorsque la fenêtre est minimisée" name="mute_when_minimized"/>
 	<check_box bottom="-200" height="32" label="Jouer la musique disponible &#10;
 (consommateur en bande passante)" name="streaming_music"/>
+  <check_box bottom_delta="-30" label="Afficher le titre de la chanson" name="show_stream_title"/>
 	<check_box bottom_delta="-32" height="32" label="Jouer le média disponible &#10;
 (consommateur en bande passante)" name="streaming_video"/>
 	<check_box bottom_delta="-32" label="Lire automatiquement le média" name="auto_streaming_video"/>
@@ -22,5 +23,6 @@
 	<slider label="Facteur d&apos;éloignement" label_width="115" name="Distance Factor"/>
 	<slider label="Facteur d&apos;atténuation" label_width="115" name="Rolloff Factor"/>
 	<spinner label="Alerte L$" name="L$ Change Threshold"/>
-	<spinner label="Alerte santé" name="Health Change Threshold"/>
+	<spinner label="Alerte santé" name="Health change threshold"/>
+  <check_box label="Desactiver le bruit du vent" name="mute_wind_check"/>
 </panel>

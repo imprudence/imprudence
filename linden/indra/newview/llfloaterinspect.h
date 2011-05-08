@@ -36,13 +36,14 @@
 #define LL_LLFLOATERINSPECT_H
 
 #include "llfloater.h"
+#include "llvoinventorylistener.h"
 
 //class LLTool;
 class LLObjectSelection;
 class LLScrollListCtrl;
 class LLUICtrl;
 
-class LLFloaterInspect : public LLFloater
+class LLFloaterInspect : public LLFloater, public LLVOInventoryListener
 {
 public:
 	virtual ~LLFloaterInspect(void);
@@ -56,6 +57,7 @@ public:
 	virtual void onFocusReceived();
 	static void onClickCreatorProfile(void* ctrl);
 	static void onClickOwnerProfile(void* ctrl);
+	static void onClickLastOwnerProfile(void* ctrl);
 	static void onSelectObject(LLUICtrl* ctrl, void* user_data);
 	LLScrollListCtrl* mObjectList;
 protected:
@@ -63,12 +65,18 @@ protected:
 	LLFloaterInspect();
 	void setDirty() { mDirty = TRUE; }
 	bool mDirty;
+	/*virtual*/ void inventoryChanged(LLViewerObject* obj,
+								 InventoryObjectList* inv,
+								 S32 serial_num,
+								 void* queue);
 
 private:
 	// static data
 	static LLFloaterInspect* sInstance;
 
 	LLSafeHandle<LLObjectSelection> mObjectSelection;
+	std::map<LLUUID, std::pair<S32, S32> > mInventoryNums; //<scripts, total>
+	std::vector<LLUUID> mQueue;
 };
 
 #endif //LL_LLFLOATERINSPECT_H

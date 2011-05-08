@@ -64,10 +64,17 @@ typedef long long unsigned int		U64;
 #endif
 #endif
 
+#ifdef LL_DARWIN
+	#ifndef BOOL
+		#define BOOL S32
+	#endif
+#else
+	typedef S32				BOOL;
+#endif
+
 typedef float				F32;
 typedef double				F64;
 
-typedef S32				BOOL;
 typedef U8				KEY;
 typedef U32				MASK;
 typedef U32             		TPACKETID;

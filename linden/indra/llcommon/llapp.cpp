@@ -119,13 +119,8 @@ void LLApp::commonCtor()
 		mOptions.append(sd);
 	}
 
-	// Make sure we clean up APR when we exit
-	// Don't need to do this if we're cleaning up APR in the destructor
-	//atexit(ll_cleanup_apr);
-
 	// Set the application to this instance.
 	sApplication = this;
-
 }
 
 LLApp::LLApp(LLErrorThread *error_thread) :
@@ -420,7 +415,7 @@ void LLApp::incSigChildCount()
 int LLApp::getPid()
 {
 #if LL_WINDOWS
-	return 0;
+	return GetCurrentProcessId();
 #else
 	return getpid();
 #endif

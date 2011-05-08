@@ -115,7 +115,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
 	setBackgroundVisible(TRUE);
 	setBackgroundOpaque(TRUE);
-	setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+
+	static LLColor4* sGroupNotifyBoxColor = rebind_llcontrol<LLColor4>("GroupNotifyBoxColor", &gColors, true);
+
+	setBackgroundColor( (*sGroupNotifyBoxColor) );
 
 	LLIconCtrl* icon;
 	LLTextEditor* text;
@@ -133,7 +136,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 			setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
 			setBorderVisible(FALSE);
 			setColor( gColors.getColor("GroupNotifyTextColor") );
-			setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+
+			static LLColor4* sGroupNotifyBoxColor = rebind_llcontrol<LLColor4>("GroupNotifyBoxColor", &gColors, true);
+
+			setBackgroundColor( (*sGroupNotifyBoxColor) );
 		}
 	};
 
@@ -180,7 +186,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 		LLFontGL::getFontSansSerif(),
 		FALSE);
 
-	static const LLStyleSP headerstyle(new LLStyle(true,LLColor4::black,"SansSerifBig"));
+	static const LLStyleSP headerstyle(new LLStyle(true,LLColor4::black,"SansSerifLarge"));
 	static const LLStyleSP datestyle(new LLStyle(true,LLColor4::black,"serif"));
 
 	text->appendStyledText(subject + "\n",false,false,headerstyle);
@@ -190,6 +196,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
 	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);
+	text->setParseHTML(TRUE);
 	text->appendColoredText(std::string("\n\n") + message,false,false,LLColor4::grey4);
 
 	LLColor4 semi_transparent(1.0f,1.0f,1.0f,0.8f);

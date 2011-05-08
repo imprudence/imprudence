@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>31</string>
+      <key>default_grids_version</key><string>33</string>
     </map>
 
     <!-- Second Life -->
@@ -55,9 +55,24 @@
       <key>helperuri</key><string>http://helper.osgrid.org/</string>
       <key>website</key><string>http://osgrid.org/</string>
       <key>support</key><string>http://osgrid.org/</string>
-      <key>register</key><string>http://osgrid.org/elgg/account/register.php</string>
-      <key>password</key><string>http://osgrid.org/elgg/account/forgotten_password.php</string>
+      <key>register</key><string>http://www.osgrid.org/index.php/auth/register</string>
+      <key>password</key><string>http://www.osgrid.org/index.php/auth/forgot_password</string>
       <key>version</key><string>2</string>
+    </map>
+
+    <!-- Aurora Grid -->
+    <map>
+      <key>gridname</key>   <string>Aurora-Grid</string>
+      <key>gridnick</key>   <string>auroragrid</string>
+      <key>platform</key>   <string>OpenSim</string>
+      <key>loginuri</key>   <string>http://login.aurora-sim.org:8002/</string>
+      <key>loginpage</key>  <string>http://login.aurora-sim.org/splash/</string>
+      <key>helperuri</key>  <string>http://grid.aurora-sim.org/</string>
+      <key>password</key>   <string />
+      <key>register</key>   <string />
+      <key>support</key>    <string>http://forum.aurora-sim.org/</string>
+      <key>website</key>    <string>http://aurora-sim.org</string>
+      <key>version</key>    <string>0</string>
     </map>
 
     <!-- WorldSimTerra -->
@@ -176,17 +191,17 @@
 
     <!-- InWorldz -->
     <map>
-      <key>gridname</key>  <string>Inworldz</string>
+      <key>gridname</key>  <string>InWorldz</string>
       <key>gridnick</key>  <string>inworldz</string>
       <key>platform</key>  <string>OpenSim</string>
       <key>loginuri</key>  <string>http://inworldz.com:8002/</string>
       <key>loginpage</key> <string>http://inworldz.com/loginscreen.php</string>
       <key>helperuri</key> <string>http://inworldz.com/</string>
-      <key>password</key>  <string>http://inworldz.com/wpassword</string>
-      <key>register</key>  <string>http://inworldz.com/register</string>
-      <key>support</key>   <string>http://inworldz.com/help</string>
-      <key>website</key>   <string>http://inworldz.com/about/</string>
-      <key>version</key>   <string>1</string>
+      <key>password</key>  <string>http://inworldz.com/loginerror.php?error=2</string>
+      <key>register</key>  <string>http://inworldz.com/register.php</string>
+      <key>support</key>   <string>http://inworldz.com/support.php</string>
+      <key>website</key>   <string>http://inworldz.com/</string>
+      <key>version</key>   <string>2</string>
     </map> 
 
     <!-- Meta7 -->

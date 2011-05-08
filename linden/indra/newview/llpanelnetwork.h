@@ -51,6 +51,15 @@ private:
 	static void onClickSetCache(void*);
 	static void onClickResetCache(void*);
 	static void onCommitPort(LLUICtrl* ctrl, void*);
+	static void onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data);
+	static void onCommitSocks5ProxyEnabled(LLUICtrl* ctrl, void* data);
+	static void onClickTestProxy(void* user_data);
+	static void onSocksSettingsModified(LLUICtrl* ctrl, void* data);
+	static void onSocksAuthChanged(LLUICtrl* ctrl, void* data);
+	static void updateProxyEnabled(LLPanelNetwork * self, bool enabled, std::string authtype);
+	
+	static bool sSocksSettingsChanged;
+
 };
 
 #endif

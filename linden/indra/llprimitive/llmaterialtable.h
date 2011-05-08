@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -38,6 +38,8 @@
 
 #include <list>
 
+class LLMaterialInfo;
+
 const U32 LLMATERIAL_INFO_NAME_LENGTH = 256;
 
 // We've moved toward more reasonable mass values for the Havok4 engine.
@@ -63,45 +65,6 @@ const F32 LEGACY_DEFAULT_OBJECT_DENSITY = 10.0f;
 // See the physics engine mass properties code for more info.
 const F32 DEFAULT_AVATAR_DENSITY = 445.3f;		// was 444.24f;
 
-
-class LLMaterialInfo
-{
-public:
-	U8		    mMCode;
-	std::string	mName;
-	LLUUID		mDefaultTextureID;
-	LLUUID		mShatterSoundID;
-	F32         mDensity;           // kg/m^3
-	F32         mFriction;
-	F32         mRestitution;
-
-	// damage and energy constants
-	F32			mHPModifier;		// modifier on mass based HP total
-	F32			mDamageModifier;	// modifier on KE based damage
-	F32			mEPModifier;		// modifier on mass based EP total
-
-	LLMaterialInfo(U8 mcode, const std::string& name, const LLUUID &uuid)
-	{
-		init(mcode,name,uuid);
-	};
-
-	void init(U8 mcode, const std::string& name, const LLUUID &uuid)
-	{
-		mDensity = 1000.f;             // default to 1000.0 (water)
-		mHPModifier = 1.f;
-		mDamageModifier = 1.f;
-		mEPModifier = 1.f;
-
-		mMCode = mcode;
-		mName = name;
-		mDefaultTextureID = uuid;		
-	};
-
-	~LLMaterialInfo()
-	{
-	};
-
-};
 
 class LLMaterialTable
 {
@@ -147,6 +110,8 @@ public:
 
 	void initBasicTable();
 
+	void initTableTransNames(std::map<std::string, std::string> namemap);
+	
 	BOOL add(U8 mcode, const std::string& name, const LLUUID &uuid);	                 
 	BOOL addCollisionSound(U8 mcode, U8 mcode2, const LLUUID &uuid);
 	BOOL addSlidingSound(U8 mcode, U8 mcode2, const LLUUID &uuid);
@@ -181,6 +146,48 @@ public:
 	LLUUID getGroundCollisionParticleUUID(U8 mcode);
 
 	static LLMaterialTable basic;
+};
+
+
+class LLMaterialInfo
+{
+public:
+	U8		    mMCode;
+	std::string	mName;
+	LLUUID		mDefaultTextureID;
+	LLUUID		mShatterSoundID;
+	F32         mDensity;           // kg/m^3
+	F32         mFriction;
+	F32         mRestitution;
+
+	// damage and energy constants
+	F32			mHPModifier;		// modifier on mass based HP total
+	F32			mDamageModifier;	// modifier on KE based damage
+	F32			mEPModifier;		// modifier on mass based EP total
+
+	LLMaterialInfo(U8 mcode, const std::string& name, const LLUUID &uuid)
+	{
+		init(mcode,name,uuid);
+	};
+
+	void init(U8 mcode, const std::string& name, const LLUUID &uuid)
+	{
+		mDensity = 1000.f;             // default to 1000.0 (water)
+		mFriction = LLMaterialTable::DEFAULT_FRICTION;
+		mRestitution = LLMaterialTable::DEFAULT_RESTITUTION;
+		mHPModifier = 1.f;
+		mDamageModifier = 1.f;
+		mEPModifier = 1.f;
+
+		mMCode = mcode;
+		mName = name;
+		mDefaultTextureID = uuid;		
+	};
+
+	~LLMaterialInfo()
+	{
+	};
+
 };
 
 #endif

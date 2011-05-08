@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2001-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -39,6 +39,16 @@
 #include "imageids.h"
 
 LLMaterialTable LLMaterialTable::basic(1);
+
+// Material UUIDs.
+LLUUID const LL_DEFAULT_STONE_UUID("87c5765b-aa26-43eb-b8c6-c09a1ca6208e");
+LLUUID const LL_DEFAULT_METAL_UUID("6f3c53e9-ba60-4010-8f3e-30f51a762476");
+LLUUID const LL_DEFAULT_GLASS_UUID("b4ba225c-373f-446d-9f7e-6cb7b5cf9b3d");
+LLUUID const LL_DEFAULT_WOOD_UUID("89556747-24cb-43ed-920b-47caed15465f");
+LLUUID const LL_DEFAULT_FLESH_UUID("80736669-e4b9-450e-8890-d5169f988a50");
+LLUUID const LL_DEFAULT_PLASTIC_UUID("304fcb4e-7d33-4339-ba80-76d3d22dc11a");
+LLUUID const LL_DEFAULT_RUBBER_UUID("9fae0bc5-666d-477e-9f70-84e8556ec867");
+LLUUID const LL_DEFAULT_LIGHT_UUID("00000000-0000-0000-0000-000000000000");
 
 /* 
 	Old Havok 1 constants
@@ -92,6 +102,9 @@ F32 const LLMaterialTable::DEFAULT_FRICTION = 0.5f;
 F32 const LLMaterialTable::DEFAULT_RESTITUTION = 0.4f;
 
 LLMaterialTable::LLMaterialTable()
+	: mCollisionSoundMatrix(NULL),
+	  mSlidingSoundMatrix(NULL),
+	  mRollingSoundMatrix(NULL)
 {
 }
 
@@ -122,6 +135,17 @@ LLMaterialTable::~LLMaterialTable()
 
 	for_each(mMaterialInfoList.begin(), mMaterialInfoList.end(), DeletePointer());
 	mMaterialInfoList.clear();
+}
+
+void LLMaterialTable::initTableTransNames(std::map<std::string, std::string> namemap)
+{
+	for (info_list_t::iterator iter = mMaterialInfoList.begin();
+		 iter != mMaterialInfoList.end(); ++iter)
+	{
+		LLMaterialInfo *infop = *iter;
+		std::string name = infop->mName;
+		infop->mName = namemap[name];
+	}
 }
 
 void LLMaterialTable::initBasicTable()

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-516" can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="true" can_tear_off="true" enabled="true" height="290"
-     left="478" min_height="290" min_width="410" mouse_opaque="true"
-     name="texture picker" title="Pick: Texture" width="410">
+     can_resize="true" can_tear_off="true" enabled="true" height="330"
+     left="478" min_height="330" min_width="460" mouse_opaque="true"
+     name="texture picker" title="Pick: Texture" width="460">
 	<string name="choose_picture">
 		Click to choose a picture
 	</string>
@@ -30,31 +30,77 @@
 	<button bottom="-252" enabled="false" follows="left|bottom" font="SansSerifSmall"
 	     halign="center" height="20" label="Invisible" label_selected="Invisible" left="72"
 	     mouse_opaque="true" name="Invisible" scale_image="true" width="64" />
-	<check_box bottom="-44" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="24" initial_value="true" label="Show Folders" left="175"
+
+	<check_box bottom="-305" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="20" initial_value="true" label="Show Folders" left="4"
 	     mouse_opaque="true" name="show_folders_check" radio_style="false"
-	     width="201" />
-	<search_editor bottom="-36" enabled="true" follows="left|top|right" height="16"
-	     label="Type here to search" left="175" mouse_opaque="true"
-	     name="inventory search editor" width="231" />
-	<inventory_panel allow_multi_select="false" border="true" bottom="-256" enabled="true"
-	     follows="left|top|right|bottom" height="216" left="175" mouse_opaque="true"
-	     name="inventory panel" sort_order="TexturePickerSortOrder" width="231" />
-	<check_box bottom="-282" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     width="150" />
+
+	<check_box bottom="-322" enabled="true" follows="left|bottom" font="SansSerifSmall"
 	     height="20" initial_value="true" label="Apply Immediately" left="4"
 	     mouse_opaque="true" name="apply_immediate_check" radio_style="false"
 	     width="150" />
-	<button bottom="-282" enabled="true" follows="left|bottom" font="SansSerif"
+	<button bottom="-322" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="32" image_selected="eye_button_active.tga"
 	     image_unselected="eye_button_inactive.tga" label="" label_selected=""
 	     left="139" mouse_opaque="true" name="Pipette" scale_image="true" width="32" />
-	<button bottom="-282" enabled="true" follows="right|bottom" font="SansSerif"
+	<button bottom="-322" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Cancel" label_selected="Cancel"
-	     left="186" mouse_opaque="true" name="Cancel" scale_image="true" width="100" />
-	<button bottom="-282" enabled="true" follows="right|bottom" font="SansSerif"
+	     left="176" mouse_opaque="true" name="Cancel" scale_image="true" width="100" />
+	<button bottom="-322" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" label="Select" label_selected="Select"
-	     left="290" mouse_opaque="true" name="Select" scale_image="true" width="100" />
+	     left="280" mouse_opaque="true" name="Select" scale_image="true" width="100" />
 	<string name="pick title">
-		Pick:
+		Pick:  
 	</string>
+
+  	<tab_container border="false" bottom_delta="0" width="410" height="300" left="175" mouse_opaque="false" name="actions_tab_container" tab_position="top" follows="left|top|right|bottom">
+    <panel border="false" bottom_delta="0" follows="right|top" height="300" label="Inventory" left="0" mouse_opaque="false" name="server_tab" width="410">
+        <search_editor bottom_delta="-20" enabled="true" follows="left|top|right" height="16"
+	         label="Type here to search" left="0" mouse_opaque="true"
+	         name="inventory search editor" width="271" />
+        <inventory_panel allow_multi_select="false" border="true" bottom="-270" enabled="true"
+	         follows="left|top|right|bottom" height="245" left="0" mouse_opaque="true"
+	         name="inventory panel" sort_order="TexturePickerSortOrder" width="271" />
+    </panel>
+    <panel border="false" bottom_delta="0" follows="left|top" height="300" label="Computer" left="175" mouse_opaque="false" name="local_tab" width="410">
+  <!-- tag: vaa emerald local_asset_browser [begin] -->
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+           font="SansSerifSmall" h_pad="0" halign="left" height="14" left="4"
+           mouse_opaque="true" name="select_local" v_pad="0" width="400">
+        Select texture on your computer to preview inworld
+      </text>
+      <button bottom_delta="-22" enabled="true" follows="left|top" 
+              font="SansSerifSmall" halign="center" height="20" 
+              label="Add" left="4" mouse_opaque="true" 
+              name="Add" scale_image="true" width="70" visible="true" />
+      <button bottom_delta="0" enabled="true" follows="left|top" 
+              font="SansSerifSmall" halign="center" height="20" 
+              label="Remove" left_delta="73" mouse_opaque="true" 
+              name="Remove" scale_image="true" width="70" visible="true" />
+      <button bottom_delta="0" enabled="true" follows="left|top" 
+              font="SansSerifSmall" halign="center" height="20" 
+              label="Properties..." left_delta="103" mouse_opaque="true" 
+              name="Browser" scale_image="true" width="90" visible="true" />
+      <scroll_list
+              name="local_name_list"
+              left="0"
+              bottom="-270"
+              width="271"
+              height="225"
+              follows="left|top|right|bottom"
+              column_padding="0"
+              can_resize="false"
+              draw_heading="true"
+              multi_select="true"
+              search_column="1"
+              visible="true"
+	  	        >
+	      <column name="unit_name" label="Name" dynamicwidth="true" />
+	      <column name="unit_id_HIDDEN" label="ID" width="0" />
+	    </scroll_list>
+	  <!-- tag: vaa emerald local_asset_browser [end] -->
+    </panel>
+  </tab_container>
 </floater>

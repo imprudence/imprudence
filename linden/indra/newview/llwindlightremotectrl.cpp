@@ -121,6 +121,7 @@ BOOL LLWindlightRemoteCtrl::postBuild()
 	LLComboBox*	presetsCombo = getChild<LLComboBox>("Presets");
 	if (presetsCombo)
 	{
+		presetsCombo->setSimple(LLWLParamManager::instance()->mCurParams.mName);
 		presetsCombo->setCommitCallback(onCommitPreset);
 		presetsCombo->setCallbackUserData(this);
 

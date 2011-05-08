@@ -68,8 +68,7 @@ template <class T>
 class LLOctreeTraveler : public LLTreeTraveler<T>
 {
 public:
-	virtual void traverse(const LLTreeNode<T>* node);
-	virtual void visit(const LLTreeNode<T>* state) { }
+	virtual void traverse(const LLOctreeNode<T>* node);
 	virtual void visit(const LLOctreeNode<T>* branch) = 0;
 };
 
@@ -705,9 +704,8 @@ public:
 //		LLOctreeTraveler
 //========================
 template <class T>
-void LLOctreeTraveler<T>::traverse(const LLTreeNode<T>* tree_node)
+void LLOctreeTraveler<T>::traverse(const LLOctreeNode<T>* node)
 {
-	const LLOctreeNode<T>* node = (const LLOctreeNode<T>*) tree_node;
 	node->accept(this);
 	for (U32 i = 0; i < node->getChildCount(); i++)
 	{

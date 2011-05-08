@@ -122,14 +122,22 @@ BOOL FloaterVoiceLicense::postBuild()
 	LLTextEditor *editor = getChild<LLTextEditor>("license_text");
 	editor->setVisible( FALSE );
 
-	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("license_html");
+	LLMediaCtrl* web_browser = getChild<LLMediaCtrl>("license_html");
 	if ( web_browser )
 	{
 		// start to observe it so we see navigate complete events
 		web_browser->addObserver( this );
 
-		gResponsePtr = LLIamHereVoice::build( this );
-		LLHTTPClient::get( getString( "real_url" ), gResponsePtr );
+		std::string url = getString( "real_url" );
+		if (url.substr(0,4) == "http") 
+		{
+			gResponsePtr = LLIamHereVoice::build( this );
+			LLHTTPClient::get( url, gResponsePtr );
+		}
+		else 
+		{
+			setSiteIsAlive(false);
+		}
 	}
 
 	return TRUE;
@@ -137,7 +145,7 @@ BOOL FloaterVoiceLicense::postBuild()
 
 void FloaterVoiceLicense::setSiteIsAlive( bool alive )
 {
-	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("license_html");
+	LLMediaCtrl* web_browser = getChild<LLMediaCtrl>("license_html");
 	// if the contents of the site was retrieved
 	if ( alive )
 	{
@@ -158,12 +166,6 @@ void FloaterVoiceLicense::setSiteIsAlive( bool alive )
 
 FloaterVoiceLicense::~FloaterVoiceLicense()
 {
-	// stop observing events
-	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("license_html");
-	if ( web_browser )
-	{
-		web_browser->remObserver( this );		
-	}
 
 	// tell the responder we're not here anymore
 	if ( gResponsePtr )
@@ -224,14 +226,17 @@ void FloaterVoiceLicense::onCancel( void* userdata )
 }
 
 //virtual 
-void FloaterVoiceLicense::onNavigateComplete( const EventType& eventIn )
+void FloaterVoiceLicense::handleMediaEvent(LLPluginClassMedia* /*self*/, EMediaEvent event)
 {
-	// skip past the loading screen navigate complete
-	if ( ++mLoadCompleteCount == 2 )
+	if(event == MEDIA_EVENT_NAVIGATE_COMPLETE)
 	{
-		llinfos << "NAVIGATE COMPLETE" << llendl;
-		// enable Agree to License radio button now that page has loaded
-		LLCheckBoxCtrl * license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
-		license_agreement->setEnabled( true );
+		// skip past the loading screen navigate complete
+		if ( ++mLoadCompleteCount == 2 )
+		{
+			llinfos << "NAVIGATE COMPLETE" << llendl;
+			// enable Agree to License radio button now that page has loaded
+			LLCheckBoxCtrl * license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
+			license_agreement->setEnabled( true );
+		}
 	}
 }

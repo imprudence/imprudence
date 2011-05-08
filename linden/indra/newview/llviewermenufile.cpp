@@ -43,6 +43,7 @@
 #include "llfloaternamedesc.h"
 #include "llfloatersnapshot.h"
 #include "llinventorymodel.h"	// gInventory
+#include "llinventoryview.h"	// open_texture()
 #include "llresourcedata.h"
 #include "llfloaterperms.h"
 #include "llstatusbar.h"
@@ -66,7 +67,7 @@
 #include "llstring.h"
 #include "lltransactiontypes.h"
 #include "lluuid.h"
-#include "vorbisencode.h"
+#include "llvorbisencode.h"
 
 // system libraries
 #include <boost/tokenizer.hpp>
@@ -639,6 +640,38 @@ void upload_new_resource(const std::string& src_filename, std::string name,
  			return;
  		}
  	}
+#ifdef LL_DARWIN
+	else if(exten == "psd")
+	{
+		asset_type = LLAssetType::AT_TEXTURE;
+ 		if (!LLViewerImageList::createUploadFile(src_filename,
+ 												 filename,
+ 												 IMG_CODEC_PSD ))
+ 		{
+ 			error_message = llformat("Problem with file %s:\n\n%s\n",
+									 src_filename.c_str(), LLImage::getLastError().c_str());
+ 			args["FILE"] = src_filename;
+ 			args["ERROR"] = LLImage::getLastError();
+ 			upload_error(error_message, "ProblemWithFile", filename, args);
+ 			return;
+ 		}
+	}
+	else if(exten == "tif" || exten == "tiff")
+	{
+		asset_type = LLAssetType::AT_TEXTURE;
+ 		if (!LLViewerImageList::createUploadFile(src_filename,
+ 												 filename,
+ 												 IMG_CODEC_TIFF ))
+ 		{
+ 			error_message = llformat("Problem with file %s:\n\n%s\n",
+									 src_filename.c_str(), LLImage::getLastError().c_str());
+ 			args["FILE"] = src_filename;
+ 			args["ERROR"] = LLImage::getLastError();
+ 			upload_error(error_message, "ProblemWithFile", filename, args);
+ 			return;
+ 		}
+	}
+#endif
 	else if(exten == "wav")
 	{
 		asset_type = LLAssetType::AT_SOUND;  // tag it as audio
@@ -794,7 +827,7 @@ void upload_new_resource(const std::string& src_filename, std::string name,
 	{
 		// Unknown extension
 		// *TODO: Translate?
-		error_message = llformat("Unknown file extension .%s\nExpected .wav, .tga, .bmp, .jpg, .jpeg, or .bvh", exten.c_str());
+		error_message = llformat("Unknown file extension .%s\nExpected .wav, .tga, .bmp, .jpg, .jpeg, .png, or .bvh", exten.c_str());
 		error = TRUE;;
 	}
 
@@ -875,7 +908,9 @@ void temp_upload_done_callback(const LLUUID& uuid, void* user_data, S32 result, 
 		item->updateServer(TRUE);
 		gInventory.updateItem(item);
 		gInventory.notifyObservers();
-	}else // 	if(result >= 0)
+		open_texture(item_id, std::string("Texture: ") + item->getName(), TRUE, LLUUID::null, FALSE);
+	}
+	else // if(result >= 0)
 	{
 		LLSD args;
 		args["FILE"] = LLInventoryType::lookupHumanReadable(data->mInventoryType);

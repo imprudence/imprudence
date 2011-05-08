@@ -131,7 +131,7 @@ namespace LLError
 	
 	class CallSite;
 	
-	class Log
+	class LL_COMMON_API Log
 	{
 	public:
 		static bool shouldLog(CallSite&);
@@ -140,7 +140,7 @@ namespace LLError
 		static void flush(std::ostringstream*, const CallSite&);
 	};
 	
-	class CallSite
+	class LL_COMMON_API CallSite
 	{
 		// Represents a specific place in the code where a message is logged
 		// This is public because it is used by the macros below.  It is not
@@ -189,7 +189,7 @@ namespace LLError
 	//LLCallStacks is designed not to be thread-safe.
    //so try not to use it in multiple parallel threads at same time.
    //Used in a single thread at a time is fine.
-   class LLCallStacks
+   class LL_COMMON_API LLCallStacks
    {
    private:
        static char**  sBuffer ;
@@ -239,7 +239,7 @@ typedef LLError::NoClassInfo _LL_CLASS_TO_LOG;
 */
 
 #define lllog(level, broadTag, narrowTag, once) \
-	{ \
+	do { \
 		static LLError::CallSite _site( \
 			level, __FILE__, __LINE__, typeid(_LL_CLASS_TO_LOG), __FUNCTION__, broadTag, narrowTag, once);\
 		if (_site.shouldLog()) \
@@ -252,7 +252,7 @@ typedef LLError::NoClassInfo _LL_CLASS_TO_LOG;
 			LLError::End(); \
 			LLError::Log::flush(_out, _site); \
 		} \
-	}
+	} while(0)
 
 // DEPRECATED: Use the new macros that allow tags and *look* like macros.
 #define lldebugs	lllog(LLError::LEVEL_DEBUG, NULL, NULL, false)

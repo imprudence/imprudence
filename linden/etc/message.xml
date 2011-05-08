@@ -370,6 +370,32 @@
 				</map>
 
 				<!-- Server to client -->
+				<key>OpenRegionInfo</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+        <key>WindLightSettingsUpdate</key>
+        <map>
+          <key>flavor</key>
+          <string>llsd</string>
+          <key>trusted-sender</key>
+          <boolean>true</boolean>
+        </map>
+
+ 				<!-- Server to client -->
+				<key>DisplayNameUpdate</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+
 				<key>ParcelVoiceInfo</key>
 				<map>
 					<key>flavor</key>
@@ -377,7 +403,23 @@
 					<key>trusted-sender</key>
 					<boolean>true</boolean>
 				</map>
+
+				<key>ParcelMediaURLFilter</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
 				
+				<key>ParcelNavigateMedia</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
 				<key>ParcelObjectOwnersReply</key>
 				<map>
 					<key>flavor</key>
@@ -403,6 +445,14 @@
 				</map>
 
         <key>PlacesReply</key>
+        <map>
+          <key>flavor</key>
+          <string>llsd</string>
+          <key>trusted-sender</key>
+          <boolean>true</boolean>
+        </map>
+
+        <key>SetDisplayNameReply</key>
         <map>
           <key>flavor</key>
           <string>llsd</string>

@@ -64,7 +64,11 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 const S32 SLOP_DIST_SQ = 4;
 
@@ -160,7 +164,11 @@ void LLToolGrab::pickCallback(const LLPickInfo& pick_info)
 	}
 
 	// if not over object, do nothing
-	if (!objectp)
+//	if (!objectp)
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Added: RLVa-1.1.0l
+	// Block initiating a drag operation on an object that can't be touched
+	if ( (!objectp) || ((rlv_handler_t::isEnabled()) && (!gRlvHandler.canTouch(objectp, pick_info.mObjectOffset))) )
+// [/RLVa:KB]
 	{
 		LLToolGrab::getInstance()->setMouseCapture(TRUE);
 		LLToolGrab::getInstance()->mMode = GRAB_NOOBJECT;
@@ -188,12 +196,7 @@ BOOL LLToolGrab::handleObjectHit(const LLPickInfo& info)
 		return FALSE;
 	}
 
-	//if (objectp->isAvatar())
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
-	if ( (objectp->isAvatar()) ||
-		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!objectp->isAttachment()) || (!objectp->permYouOwner())) &&
-		   (dist_vec_squared(gAgent.getPositionAgent(), mGrabPick.mIntersection) > 1.5f * 1.5f) ) )
-// [/RLVa:KB]
+	if (objectp->isAvatar())
 	{
 		if (gGrabTransientTool)
 		{
@@ -428,12 +431,10 @@ BOOL LLToolGrab::handleHover(S32 x, S32 y, MASK mask)
 		return TRUE;
 	}
 
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
-	// Don't allow dragging beyond 1.5m under @fartouch=n
-	LLViewerObject* pObj;
-	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && (GRAB_INACTIVE != mMode) && (hasMouseCapture()) &&
-		 ((pObj = mGrabPick.getObject()) != NULL) && (!pObj->isDead()) && (!pObj->isHUDAttachment()) && 
-		 (dist_vec_squared(gAgent.getPositionAgent(), pObj->getPositionRegion() + mGrabPick.mObjectOffset) > 1.5f * 1.5f) )
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	// Block dragging an object beyond touch range when @fartouch=n restricted
+	if ( (rlv_handler_t::isEnabled()) && (GRAB_INACTIVE != mMode) && (GRAB_NOOBJECT != mMode) && (hasMouseCapture()) &&
+		 (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && (!gRlvHandler.canTouch(mGrabPick.getObject(), mGrabPick.mObjectOffset)) )
 	{
 		if (gGrabTransientTool)
 		{
@@ -442,6 +443,7 @@ BOOL LLToolGrab::handleHover(S32 x, S32 y, MASK mask)
 			gGrabTransientTool = NULL;
 		}
 		setMouseCapture(FALSE);
+		return TRUE;
 	}
 // [/RLVa:KB]
 

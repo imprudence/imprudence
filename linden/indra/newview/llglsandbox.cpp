@@ -69,6 +69,10 @@
 #include "pipeline.h"
 #include "llspatialpartition.h"
  
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 BOOL LLAgent::setLookAt(ELookAtType target_type, LLViewerObject *object, LLVector3 position)
 {
 	if(object && object->isAttachment())
@@ -168,8 +172,8 @@ extern BOOL gDebugSelect;
 // Returns true if you got at least one object
 void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 {
-// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0b)
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT))
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))) )
 	{
 		return;
 	}
@@ -271,7 +275,11 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 			virtual bool apply(LLViewerObject* vobjp)
 			{
 				LLDrawable* drawable = vobjp->mDrawable;
-				if (!drawable || vobjp->getPCode() != LL_PCODE_VOLUME || vobjp->isAttachment())
+				if (!drawable ||
+					((vobjp->getPCode() != LL_PCODE_VOLUME) &&
+					 (vobjp->getPCode() != LL_PCODE_LEGACY_TREE) &&
+					 (vobjp->getPCode() != LL_PCODE_LEGACY_GRASS) )||
+					vobjp->isAttachment())
 				{
 					return true;
 				}
@@ -322,7 +330,9 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 			LLViewerObject* vobjp = drawable->getVObj();
 
 			if (!drawable || !vobjp ||
-				vobjp->getPCode() != LL_PCODE_VOLUME || 
+				((vobjp->getPCode() != LL_PCODE_VOLUME) &&
+				 (vobjp->getPCode() != LL_PCODE_LEGACY_TREE) &&
+				 (vobjp->getPCode() != LL_PCODE_LEGACY_GRASS) )||
 				vobjp->isAttachment() ||
 				(deselect && !vobjp->isSelected()))
 			{
@@ -700,7 +710,7 @@ void LLViewerParcelMgr::renderOneSegment(F32 x1, F32 y1, F32 x2, F32 y2, F32 hei
 {
 	// HACK: At edge of last region of world, we need to make sure the region
 	// resolves correctly so we can get a height value.
-	const F32 BORDER = REGION_WIDTH_METERS - 0.1f;
+	const F32 BORDER = regionp->getWidth() - 0.1f;
 
 	F32 clamped_x1 = x1;
 	F32 clamped_y1 = y1;

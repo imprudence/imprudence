@@ -55,6 +55,7 @@
 #include "llagent.h"
 #include "llfloatertools.h"
 #include "llviewercontrol.h"
+#include "qtoolalign.h"
 
 const S32 BUTTON_HEIGHT = 16;
 const S32 BUTTON_WIDTH_SMALL = 32;
@@ -278,7 +279,12 @@ BOOL LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 
 LLTool* LLToolCompTranslate::getOverrideTool(MASK mask)
 {
-	if (mask == MASK_CONTROL)
+	if (gKeyboard->getKeyDown('A') && 
+		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
+	{
+		return QToolAlign::getInstance();
+	}
+	else if (mask == MASK_CONTROL)
 	{
 		return LLToolCompRotate::getInstance();
 	}
@@ -397,7 +403,12 @@ BOOL LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
 
 LLTool* LLToolCompScale::getOverrideTool(MASK mask)
 {
-	if (mask == MASK_CONTROL)
+	if (gKeyboard->getKeyDown('A') && 
+		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
+	{
+		return QToolAlign::getInstance();
+	}
+	else if (mask == MASK_CONTROL)
 	{
 		return LLToolCompRotate::getInstance();
 	}
@@ -597,7 +608,12 @@ BOOL LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 
 LLTool* LLToolCompRotate::getOverrideTool(MASK mask)
 {
-	if (mask == (MASK_CONTROL | MASK_SHIFT))
+	if (gKeyboard->getKeyDown('A') && 
+		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
+	{
+		return QToolAlign::getInstance();
+	}
+	else if (mask == (MASK_CONTROL | MASK_SHIFT))
 	{
 		return LLToolCompScale::getInstance();
 	}
@@ -766,10 +782,6 @@ void LLToolCompGun::onMouseCaptureLost()
 		return;
 	}
 	mCur->onMouseCaptureLost();
-
-	// JC - I don't know if this is necessary.  Maybe we could lose capture
-	// if someone ALT-Tab's out when in mouselook.
-	setCurrentTool( (LLTool*) mGun );
 }
 
 void	LLToolCompGun::handleSelect()

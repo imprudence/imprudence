@@ -34,6 +34,8 @@
 
 #include "lltoolmgr.h"
 
+#include "llchatbar.h"
+#include "llfloatertools.h"
 #include "lltool.h"
 // tools and manipulators
 #include "llmanipscale.h"
@@ -105,6 +107,8 @@ void LLToolMgr::initTools()
 	gBasicToolset->addTool( LLToolCompInspect::getInstance() );
 	gFaceEditToolset->addTool( LLToolCamera::getInstance() );
 
+	// In case window focus was lost before we got here
+	clearSavedTool();
 	// On startup, use "select" tool
 	setCurrentToolset(gBasicToolset);
 
@@ -188,9 +192,11 @@ LLTool* LLToolMgr::getCurrentTool()
 	}
 	else
 	{
-		mOverrideTool = mBaseTool ? mBaseTool->getOverrideTool(override_mask) : NULL;
+		// due to window management weirdness we can get here with gToolNull
+		bool can_override = mBaseTool && (mBaseTool != gToolNull) ;					
+		mOverrideTool = can_override ? mBaseTool->getOverrideTool(override_mask) : NULL;
 
-		// use override tool if available otherwise drop back to base tool
+		// use keyboard-override tool if available otherwise drop back to base tool
 		cur_tool = mOverrideTool ? mOverrideTool : mBaseTool;
 	}
 
@@ -277,22 +283,20 @@ void LLToolMgr::clearTransientTool()
 }
 
 
-// The "gun tool", used for handling mouselook, captures the mouse and
-// locks it within the window.  When the app loses focus we need to
-// release this locking.
 void LLToolMgr::onAppFocusLost()
 {
-	mSavedTool = mBaseTool;
-	mBaseTool = gToolNull;
+	if (mSelectedTool)
+	{
+		mSelectedTool->handleDeselect();
+	}
 	updateToolStatus();
 }
 
 void LLToolMgr::onAppFocusGained()
 {
-	if (mSavedTool)
+	if (mSelectedTool)
 	{
-		mBaseTool = mSavedTool;
-		mSavedTool = NULL;
+		mSelectedTool->handleSelect();
 	}
 	updateToolStatus();
 }

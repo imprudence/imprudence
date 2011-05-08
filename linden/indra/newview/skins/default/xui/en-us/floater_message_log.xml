@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Message Log" title="Message Log" width="400" min_width="400" height="600" min_height="600" can_close="true" can_resize="true" can_minimize="true">
+	<scroll_list column_padding="0" draw_heading="false" follows="left|top|right" left="10" top="-25"
+			  name="net_list" search_column="0" right="-10" bottom="450">
+		<column dynamicwidth="true" name="text" label="text" />
+		<column name="icon0" label="icon0" width="24" />
+		<column name="icon1" label="icon1" width="24" />
+	</scroll_list>
+	<button name="filter_choice_btn" follows="left|top" left="10" top="-150" right="-370" bottom="430" label="…"/>
+	<line_editor name="filter_edit" follows="left|top|right" left="30" top="-149" right="-28" bottom="430" max_length="65535"/>
+	<button name="filter_apply_btn" follows="top|right" left="370" top="-150" right="-9" bottom="430" label="✔"/>
+	<button name="clear_log_btn" follows="top|right" left="370" top="-170" right="-9" bottom="410" label="C"/>
+	<scroll_list column_padding="0" draw_heading="false" follows="left|top|right" left="10" top="-190"
+			  name="message_log" search_column="0" right="-10" bottom="200">
+		<column name="sequence" label="sequence" width="48"/>
+		<column name="type" label="type" width="32"/>
+		<column name="direction" label="direction" width="32"/>
+		<column name="net" label="net" width="100"/>
+		<column name="name" label="name" width="128"/>
+		<!--<column name="flag_zer" label="zer" width="8"/>
+		<column name="flag_rel" label="rel" width="8"/>
+		<column name="flag_rsd" label="rsd" width="8"/>
+		<column name="flag_ack" label="ack" width="8"/>-->
+		<column name="summary" label="summary" dynamicwidth="true"/>
+	</scroll_list>
+	<text name="log_status_text" follows="left|top|right" left="10" top="-172" right="-10" height="20">
+	</text>
+	<text_editor name="net_info" follows="left|top|right|bottom" left="10" top="-400" bottom="30" right="-10" enabled="false" max_length="65535">
+	</text_editor>
+	<button name="send_to_message_builder_btn" follows="right|bottom" left="210" top="-570" right="-10" bottom="10" label="Send to Message Builder" enabled="false"/>
+</floater>

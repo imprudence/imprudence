@@ -60,6 +60,8 @@ BOOL LLPanelSkins::postBuild()
 
 	getChild<LLButton>("classic_preview")->setClickedCallback(onClickClassic, this);
 	getChild<LLButton>("silver_preview")->setClickedCallback(onClickSilver, this);
+	getChild<LLButton>("dark_preview")->setClickedCallback(onClickDark, this);
+	getChild<LLButton>("gemini_preview")->setClickedCallback(onClickGemini, this);
 
 	refresh();
 	return TRUE;
@@ -107,4 +109,20 @@ void LLPanelSkins::onClickSilver(void* data)
 	LLPanelSkins* self = (LLPanelSkins*)data;
 	gSavedSettings.setString("SkinCurrent", "silver");
 	self->getChild<LLRadioGroup>("skin_selection")->setValue("silver");
+}
+
+//static 
+void LLPanelSkins::onClickDark(void* data)
+{
+	LLPanelSkins* self = (LLPanelSkins*)data;
+	gSavedSettings.setString("SkinCurrent", "dark");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("dark");
+}
+
+//static 
+void LLPanelSkins::onClickGemini(void* data)
+{
+	LLPanelSkins* self = (LLPanelSkins*)data;
+	gSavedSettings.setString("SkinCurrent", "gemini");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("gemini");
 }

@@ -27,7 +27,7 @@
 	<icon bottom_delta="-66" follows="top|left" height="64" image_name="badge_note.j2c"
 	     left="0" name="step_price" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72" name="price_label"
-	     right="-20" font="SansSerifBig" >
+	     right="-20" font="SansSerifLarge" >
 		Set a price:
 	</text>
 	<text follows="top|left" height="16" left="72" name="price_text" right="-20">
@@ -44,7 +44,7 @@
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_sell_to" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72" name="sell_to_label"
-	     right="-20" font="SansSerifBig" >
+	     right="-20" font="SansSerifLarge" >
 		Sell the land to:
 	</text>
 	<text follows="top|left" height="16" left="72" name="sell_to_text" right="-20">
@@ -69,7 +69,7 @@
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_sell_objects" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="sell_objects_label" right="-20" font="SansSerifBig" >
+	     name="sell_objects_label" right="-20" font="SansSerifLarge" >
 		Sell the objects with the land?
 	</text>
 	<text bottom_delta="-20" follows="top|left" height="16" left="72"
@@ -89,7 +89,7 @@
 	<button bottom_delta="4" height="16" label="Show Objects" name="show_objects"
 	     right="414" width="110" />
 	<text bottom_delta="-35" follows="top|left" height="16" left="72"
-	     name="nag_message_label" right="-20" font="SansSerifBig" >
+	     name="nag_message_label" right="-20" font="SansSerifLarge" >
 		REMEMBER: All sales are final.
 	</text>
 	<button bottom="-479" follows="bottom|left" height="20" label="Set Land For Sale"

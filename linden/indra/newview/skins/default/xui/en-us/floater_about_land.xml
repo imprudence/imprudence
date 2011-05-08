@@ -32,7 +32,7 @@
 			     font="SansSerifSmall" handle_edit_keys_directly="false" height="52"
 			     left="96" max_length="255" mouse_opaque="true" name="Description"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     width="350" word_wrap="true" />
+			     width="350" word_wrap="true" spell_check="true" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
@@ -292,7 +292,7 @@ Go to World menu > About Land or select another parcel to show its details.
 			<text_editor type="string" length="1" bottom="-175" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerifSmall" height="115"
 			     left="120" max_length="65535" mouse_opaque="true" name="covenant_editor"
-			     width="330" word_wrap="true">
+			     width="330" word_wrap="true" spell_check="true">
 				There is no Covenant provided for this Estate.
 			</text_editor>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -800,143 +800,603 @@ Only large parcels can be listed in search.
 				No Pushing (Region Override)
 			</string>
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
-		     height="363" label="Media" left="1" mouse_opaque="true"
-		     name="land_media_panel" width="458">
-			<text type="string" length="1" bottom="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
-			     left="10" mouse_opaque="true" name="with media:" width="65">
-				Media Type:
+		<panel
+			 border="true"
+			 border_visible="true"
+			 bottom="-363"
+			 enabled="true"
+			 follows="left|top|right|bottom"
+			 height="513"
+			 label="Media"
+			 left="1"
+			 mouse_opaque="true"
+			 name="land_media_panel"
+			 width="458">
+			<text
+				 bottom="-25"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 mouse_opaque="true"
+				 name="with media:"
+				 type="string"
+				 width="65">
+				Type:
 			</text>
-			<combo_box allow_text_entry="false" bottom_delta="0" follows="left|top" height="18"
-			     left="80" max_chars="20" name="media type"
-			     tool_tip="Specify if the URL is a movie, web page, or other media"
-			     width="120" />
-			<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     left_delta="130" name="mime_type" width="200" />
-			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="at URL:" width="65">
-				Media URL:
+			<combo_box
+				 allow_text_entry="false"
+				 bottom_delta="0"
+				 follows="left|top"
+				 height="18"
+				 left="80"
+				 max_chars="20"
+				 name="media type"
+				 tool_tip="Specify if the URL is a movie, web page, or other media"
+				 width="120" />
+			<text
+				 bottom_delta="0"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 height="16"
+				 left_delta="130"
+				 name="mime_type"
+				 width="200" />
+			<text type="string"
+				 bottom_delta="-21"
+				 follows="left|top"
+				 font="SansSerifSmall" halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 name="at URL:"
+				 width="65">
+				Home URL:
 			</text>
-			<line_editor bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="80"
-			     max_length="255" name="media_url" right="-80"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" />
-			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
-			     name="set_media_url" right="-12" scale_image="true" width="60" />
-			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="Description:" width="364">
+			<line_editor
+				 bottom_delta="0"
+				 follows="left|top|right"
+				 font="SansSerifSmall"
+				 height="16"
+				 left="80"
+				 max_length="255"
+				 name="media_url"
+				 right="-90"
+				 select_all_on_focus_received="true"
+				 select_on_focus="true"
+				 text_readonly_color="0.576471 0.662745 0.835294 1" />
+			<button
+				 bottom_delta="0"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="center"
+				 height="16"
+				 label="Set..."
+				 label_selected="Set..."
+				 mouse_opaque="true"
+				 name="set_media_url"
+				 right="-12"
+				 scale_image="true"
+				 width="70" />
+			<text
+				 bottom_delta="-22"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 name="at URL:"
+				 type="string"
+				 width="65">
+				Current URL:
+			</text>
+			<text
+				 bottom_delta="0"
+				 follows="left|top|right"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="80"
+				 name="current_url"
+				 right="-90" />
+			<button
+				 bottom_delta="0"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="center"
+				 height="16"
+				 label="Reset..."
+				 label_selected="Reset..."
+				 mouse_opaque="true"
+				 name="reset_media_url"
+				 right="-12"
+				 scale_image="true"
+				 width="70" />
+			<text
+				 bottom_delta="-22"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 length="1"
+				 name="media_reset"
+				 left="80"
+				 tool_tip="Amount of time until parcel automatically reverts to default URL (0 for never return)"
+				 type="string"
+				 width="120">
+				Return to Home URL in:
+			</text>
+			<spinner
+				 bottom_delta="0"
+				 decimal_digits="0"
+				 enabled="false"
+				 follows="right|top"
+				 height="16"
+				 increment="1"
+				 initial_val="0"
+				 max_val="1024"
+				 min_val="0"
+				 name="media_reset_time"
+				 left_delta="126"
+				 tool_tip="Amount of time until parcel reverts to default URL (0 for never return)"
+				 width="64" />
+			<text
+				 bottom_delta="0"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left_delta="72"
+				 length="1"
+				 name="minutes"
+				 type="string">
+				minutes
+			</text>
+			<text
+				 bottom_delta="-22"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 name="Description:"
+				 type="string"
+				 width="364">
 				Description:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     follows="left|top" font="SansSerifSmall" height="16" left="80"
-			     max_length="255" name="url_description" right="-80"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     tool_tip="Text displayed next to play/load button" />
-			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="Media texture:" width="364">
-				Replace
-Texture:
+			<line_editor
+				 bevel_style="in"
+				 border_style="line"
+				 border_thickness="1"
+				 bottom_delta="0"
+				 follows="left|top|right"
+				 font="SansSerifSmall"
+				 height="16"
+				 left="80"
+				 max_length="255"
+				 name="url_description"
+				 right="-90"
+				 select_all_on_focus_received="true"
+				 select_on_focus="true"
+				 tool_tip="Text displayed next to play/load button" />
+			<text
+				 bottom_delta="-28"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 name="Media texture:"
+				 type="string"
+				 width="364">
+				Texture:
 			</text>
-			<texture_picker allow_no_texture="true" bottom_delta="-64" can_apply_immediately="false"
-			     default_image_name="Default" follows="left|top" height="80" label=""
-			     left="80" name="media texture" tool_tip="Click to choose a picture"
-			     width="64" />
-			<text type="string" length="1" bottom_delta="48" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left_delta="75" name="replace_texture_help" width="270">
-				(Objects using this texture will show the movie or
-web page after you click the play arrow.)
+			<texture_picker
+				 allow_no_texture="true"
+				 bottom_delta="-64"
+				 can_apply_immediately="false"
+				 default_image_name="Default"
+ 				 follows="left|top"
+				 height="80"
+				 label=""
+				 left="80"
+				 name="media texture"
+				 tool_tip="Click to choose a texture"
+				 width="64" />
+			<text
+				 type="string"
+				 length="1"
+				 bottom_delta="0"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="80"
+				 left_delta="75"
+				 name="replace_texture_help"
+				 width="270">
+				Objects using this texture will show the movie or
+web page after you click the play arrow.
+
+Select the thumbnail to choose a different texture.
 			</text>
-			<text type="string" length="1" bottom_delta="-55" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" mouse_opaque="true" name="Options:" width="292">
-				Media
-Options:
+			<text
+				 bottom_delta="-16"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 mouse_opaque="true"
+				 name="Options:"
+				 top_delta="0"
+				 type="string"
+				 width="64">
+				Options:
 			</text>
-			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Auto scale" left="80"
-			     mouse_opaque="true" name="media_auto_scale" radio_style="false"
-			     tool_tip="Checking this option will scale the content for this parcel automatically. It may be slightly slower and lower quality visually but no other texture scaling or alignment will be required."
-			     width="200" />
-			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Loop Media" left="250"
-			     mouse_opaque="true" name="media_loop" radio_style="false"
-			     tool_tip="Play media in a loop.  When the media has finished playing, it will restart from the beginning."
-			     width="200" />
-			<check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Hide Media URL" left="80"
-			     mouse_opaque="true" name="hide_media_url" radio_style="false"
-			     tool_tip="Checking this option will hide the media url to any non-authorized viewers of this parcel information. Note this is not available for HTML types."
-			     width="200" />
-			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Hide Music URL" left="250"
-			     mouse_opaque="true" name="hide_music_url" radio_style="false"
-			     tool_tip="Checking this option will hide the music url to any non-authorized viewers of this parcel information"
-			     width="200" />
-			<text type="string" length="1" bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="85" name="media_size"
-			     tool_tip="Size to render Web media, leave 0 for default." width="85">
-				Media size:
+			<check_box
+				 bottom_delta="0"
+				 enabled="true"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 height="16"
+				 initial_value="false"
+				 label="Loop"
+				 left="80"
+				 mouse_opaque="true"
+				 name="media_loop"
+				 radio_style="false"
+				 tool_tip="Play media in a loop.  When the media has finished playing, it will restart from the beginning."
+				 width="200" />
+			<check_box
+				 bottom_delta="0"
+				 enabled="true"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 height="16"
+				 initial_value="false"
+				 label="Auto scale"
+				 left_delta="80"
+				 mouse_opaque="true"
+				 name="media_auto_scale"
+				 radio_style="false"
+				 tool_tip="Checking this option will scale the content for this parcel automatically. It may be slightly slower and lower quality visually but no other texture scaling or alignment will be required."
+				 width="200" />
+			<text
+				 bottom_delta="-24"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 name="media_size"
+				 tool_tip="Size to render Web media, leave 0 for default."
+				 type="string"
+				 width="85">
+				Media Size:
 			</text>
-			<spinner bottom_delta="0" decimal_digits="0" enabled="false" follows="left|top"
-			     halign="right" height="16" increment="1" initial_val="0" left_delta="65"
-			     max_val="1024" min_val="0" name="media_size_width"
-			     tool_tip="Size to render Web media, leave 0 for default." width="64" />
-			<spinner bottom_delta="0" decimal_digits="0" enabled="false" follows="left|top"
-			     halign="right" height="16" increment="1" initial_val="0" left_delta="80"
-			     max_val="1024" min_val="0" name="media_size_height"
-			     tool_tip="Size to render Web media, leave 0 for default." width="64" />
-			<text type="string" length="1" bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left_delta="70" name="pixels" right="-10">
+			<spinner
+				 bottom_delta="0"
+				 decimal_digits="0"
+				 enabled="false"
+				 follows="left|top"
+				 halign="right"
+				 height="16"
+				 increment="1"
+				 initial_val="0"
+				 left="80"
+				 max_val="1024"
+				 min_val="0"
+				 name="media_size_width"
+				tool_tip="Width to render Web media, leave 0 for default."
+				 width="60" />
+			<spinner
+				 bottom_delta="0"
+				 decimal_digits="0"
+				 enabled="false"
+				 follows="left|top"
+				 halign="right"
+				 height="16"
+				 increment="1"
+				 initial_val="0"
+				 left_delta="64"
+				 max_val="1024"
+				 min_val="0"
+				 name="media_size_height"
+				 tool_tip="Height to render Web media, leave 0 for default."
+				 width="60" />
+			<text
+				 bottom_delta="0"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 halign="left"
+				 height="16"
+				 left_delta="64"
+				 length="1"
+				 name="pixels"
+				 type="string"
+				 width="70">
 				pixels
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-40" drop_shadow_visible="true" enabled="true"
-			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-			     height="16" left="10" mouse_opaque="true" name="MusicURL:" v_pad="0"
-			     width="364">
+			<text
+				 bg_visible="false"
+				 border_drop_shadow_visible="false"
+				 border_visible="false"
+				 bottom_delta="-30"
+				 drop_shadow_visible="true"
+				 enabled="true"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 h_pad="0"
+				 halign="left"
+				 height="16"
+				 left="10"
+				 length="1"
+				 mouse_opaque="true"
+				 name="Interaction:"
+				 type="string"
+				 v_pad="0"
+				 width="364">
+				Interaction:
+			</text>
+			<radio_group
+				 bottom_delta="-2"
+				 draw_border="false"
+				 enabled="true"
+				 follows="left|top"
+				 height="22"
+				 left="80"
+				 mouse_opaque="true"
+				 name="radio_navigate_allow"
+				 tab_stop="true"
+				 width="219">
+				<radio_item
+					 bottom="-20"
+					 enabled="true"
+					 follows="left|top"
+					 height="16"
+					 left="0"
+					 length="1"
+					 mouse_opaque="true"
+					 name="Anyone"
+					 tool_tip="Any resident can interact with media."
+					 type="string"
+					 width="70">
+					Anyone
+				</radio_item>
+				<radio_item
+					 bottom="-20"
+					 enabled="true"
+					 follows="left|top"
+					 height="16"
+					 left="80"
+					 length="1"
+					 mouse_opaque="true"
+					 name="Group"
+					 tool_tip="Group permissions control who can interact with media."
+					 type="string"
+					 width="70">
+					Group
+				</radio_item>
+			</radio_group>
+			<check_box
+				 bottom_delta="-22"
+				 enabled="true"
+				 follows="left|top"
+				 font="SansSerifSmall"
+				 height="16"
+				 initial_value="false"
+				 label="Allow browsing only within these domains:"
+				 left="80"
+				 mouse_opaque="true"
+				 name="check navigate filter"
+				 radio_style="false"
+				 width="292" />
+			<line_editor
+				 bevel_style="in"
+				 border_style="line"
+				 border_thickness="1"
+				 bottom_delta="-20"
+				 enabled="true"
+				 follows="left|top|right"
+				 font="SansSerifSmall"
+				 handle_edit_keys_directly="false"
+				 height="16"
+				 left="80"
+				 max_length="63"
+				 mouse_opaque="true"
+				 name="navigate_filter_domain"
+				 right="-90"
+				 select_all_on_focus_received="false"
+				 select_on_focus="false" />
+			<button
+				 bottom_delta="0"
+				 enabled="true"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="center"
+				 height="16"
+				 label="Add..."
+				 label_selected="Add..."
+				 right="-12"
+				 mouse_opaque="true"
+				 name="add_navigate_filter"
+				 scale_image="true"
+				 width="70" />
+			<scroll_list
+				 bottom_delta="-52"
+				 can_resize="false"
+				 column_padding="0"
+				 draw_heading="false"
+				 draw_stripes="false"
+				 follows="left|top|right"
+				 height="50"
+				 halign="left"
+				 left="80"
+				 multi_select="false"
+				 name="filter_list"
+				 right="-90"
+				 search_column="0"
+				 sort_column="0">
+				<column
+					 halign="left"
+					 label="Domain"
+					 name="domain"
+					 sort="domain"/>
+			</scroll_list>
+			<button
+				 bottom_delta="0"
+				 enabled="true"
+				 follows="right|top"
+				 font="SansSerifSmall"
+				 halign="center"
+				 height="16"
+				 label="Remove"
+				 label_selected="Remove"
+				 right="-12"
+				 mouse_opaque="true"
+				 name="remove_navigate_filter"
+				 scale_image="true"
+				 width="70" />
+		</panel>
+		<panel
+			 border="true"
+			 follows="left|top|right|bottom"
+			 height="363"
+			 label="Audio"
+			 layout="topleft"
+			 left_delta="0"
+			 name="land_audio_panel"
+			 top_delta="1"
+			 width="458">
+			<text
+				 bottom="-45"
+				 follows="left|top"
+				 height="16"
+				 layout="topleft"
+				 left="10"
+				 length="1"
+				 name="MusicURL:"
+				 type="string"
+				 width="364">
 				Music URL:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" left="80" max_length="255"
-			     mouse_opaque="true" name="music_url" right="-15"
-			     select_all_on_focus_received="true" select_on_focus="true"/>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-40" drop_shadow_visible="true" enabled="true"
-			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-			     height="16" left="10" mouse_opaque="true" name="Sound:" v_pad="0"
-			     width="364">
+			<line_editor
+				 border_style="line"
+				 border_thickness="1"
+				 bottom_delta="0"
+				 follows="left|top|right"
+				 height="16"
+				 layout="topleft"
+				 left="80"
+				 max_length="255"
+				 name="music_url"
+				 right="-15"
+				 select_on_focus="true" />
+			<text
+				 bottom_delta="-65"
+				 follows="left|top"
+				 height="16"
+				 layout="topleft"
+				 left="10"
+				 length="1"
+				 name="Sound:"
+				 type="string"
+				 width="364">
 				Sound:
 			</text>
-			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false"
-			     label="Restrict gesture and object sounds to this parcel" left="80"
-			     mouse_opaque="true" name="check sound local" radio_style="false"
-			     width="292" />
-			<button bottom_delta="0" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="18" label="?" label_selected="?" left="372"
-			     mouse_opaque="true" name="?" width="18" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-40" enabled="true" follows="left|top" font="SansSerifSmall"
-			     h_pad="0" halign="left" height="16" left="10" mouse_opaque="false"
-			     name="Voice settings:" tab_stop="false" v_pad="0" width="364">
+			<check_box
+				 bottom_delta="0"
+				 follows="left|top"
+				 height="16"
+				 label="Restrict gesture and object sounds to this parcel"
+				 layout="topleft"
+				 left_delta="70"
+				 name="check_sound_local"
+				 width="200" />
+			<button
+				 bottom_delta="0"
+				 follows="left|top"
+				 height="18"
+				 label="?"
+				 label_selected="?"
+				 layout="topleft"
+				 left_delta="292"
+				 name="?"
+				 width="18" />
+			<text
+				 bottom_delta="-65"
+				 follows="left|top"
+				 height="16"
+				 layout="topleft"
+				 left="10"
+				 length="1"
+				 mouse_opaque="false"
+				 name="Voice:"
+				 type="string"
+				 width="364">
 				Voice:
 			</text>
-			<check_box bottom_delta="-0" enabled="true" follows="left|top"
-			     height="54" left="80" mouse_opaque="true" name="parcel_enable_voice_channel"
-			     tab_stop="true" width="463"
-			     label="Enable Voice"
-			/>
-			<check_box bottom_delta="-0" enabled="false" follows="left|top"
-			     height="54" left="80" mouse_opaque="true" name="parcel_enable_voice_channel_is_estate_disabled"
-			     tab_stop="true" width="463"
-			     label="Enable Voice (established by the Estate)"
-			/>
-			<check_box bottom_delta="-20" enabled="true" follows="left|top"
-			     height="54" left="100" mouse_opaque="true" name="parcel_enable_voice_channel_parcel"
-			     tab_stop="true" width="443"
-			     label="Restrict Voice to this parcel"
-			/>
+			<radio_group
+				 bottom_delta="-40"
+				 draw_border="false"
+				 enabled="true"
+				 follows="left|top"
+				 height="60"
+				 left="80"
+				 mouse_opaque="true"
+				 name="parcel_voice_channel"
+				 tab_stop="true"
+				 width="219">
+				<radio_item
+					 bottom="-19"
+					 enabled="true"
+					 follows="left|top"
+					 height="16"
+					 left="0"
+					 length="1"
+					 mouse_opaque="true"
+					 name="Estate"
+					 tool_tip="Use the estate voice channel."
+					 type="string"
+					 width="70">
+					Estate Channel
+				</radio_item>
+				<radio_item
+					 bottom="-39"
+					 enabled="true"
+					 follows="left|top"
+					 height="16"
+					 left="0"
+					 length="1"
+					 mouse_opaque="true"
+					 name="Parcel"
+					 tool_tip="Restrict Voice to this parcel."
+					 type="string"
+					 width="70">
+					Parcel Channel
+				</radio_item>
+				<radio_item
+					 bottom="-59"
+					 enabled="true"
+					 follows="left|top"
+					 height="16"
+					 left="0"
+					 length="1"
+					 mouse_opaque="true"
+					 name="Disabled"
+					 tool_tip="Disable voice on this parcel."
+					 type="string"
+					 width="70">
+					Disabled
+				</radio_item>
+			</radio_group>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="Access" left="1" mouse_opaque="true"

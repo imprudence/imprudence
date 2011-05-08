@@ -139,9 +139,6 @@ protected:
 	std::string getTextureFileName(const LLUUID& id);
 	void addCompleted(Responder* responder, bool success);
 	
-protected:
-	//void setFileAPRPool(apr_pool_t* pool) { mFileAPRPool = pool ; }
-
 private:
 	void setDirNames(ELLPath location);
 	void readHeaderCache();
@@ -158,6 +155,7 @@ private:
 	S32 getHeaderCacheEntry(const LLUUID& id, S32& imagesize);
 	S32 setHeaderCacheEntry(const LLUUID& id, S32 imagesize);
 	bool removeHeaderCacheEntry(const LLUUID& id);
+	void removeFromCacheLocked(const LLUUID& id);
 	
 private:
 	// Internal

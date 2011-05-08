@@ -91,8 +91,11 @@ public:
 	/// when user hits the load preset button
 	static void onNewPreset(void* userData);
 
-	/// when user hits the save preset button
-	static void onSavePreset(void* userData);
+	/// when user hits the save to file button
+	static void onSavePreset(LLUICtrl* ctrl, void* userData);
+	
+	/// prompts a user when overwriting a preset notecard
+	static bool saveNotecardCallback(const LLSD& notification, const LLSD& response);
 
 	/// prompts a user when overwriting a preset
 	static bool saveAlertCallback(const LLSD& notification, const LLSD& response);
@@ -114,6 +117,10 @@ public:
 	static void onCloudScrollYMoved(LLUICtrl* ctrl, void* userData);
 	static void onCloudScrollXToggled(LLUICtrl* ctrl, void* userData);
 	static void onCloudScrollYToggled(LLUICtrl* ctrl, void* userData);
+
+	static void onCloudDrawToggled(LLUICtrl* ctrl, void* userData);
+	static void onCloudHeightMoved(LLUICtrl* ctrl, void* userData);
+	static void onCloudRangeMoved(LLUICtrl* ctrl, void* userData);
 
 	//// menu management
 

@@ -4,7 +4,7 @@
 		[NAME] enthält:
 	</text>
 	<text name="buy_text">
-		[AMOUNT] L$ von [NAME] kaufen?
+		Für[CURRENCY][AMOUNT] von [NAME] kaufen?
 	</text>
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" width="73" />
 	<button label="Kaufen" label_selected="Kaufen" name="buy_btn" />
@@ -16,6 +16,6 @@
 		(kein Bearbeiten)
 	</text>
 	<text name="no_transfer_text">
-		(kein Transferieren)
+		(kein Übertragen)
 	</text>
 </floater>

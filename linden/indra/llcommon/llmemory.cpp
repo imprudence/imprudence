@@ -33,6 +33,8 @@
 #include "linden_common.h"
 
 #if defined(LL_WINDOWS)
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 # include <windows.h>
 # include <psapi.h>
 #elif defined(LL_DARWIN)
@@ -283,6 +285,11 @@ LLRefCount::LLRefCount() :
 {
 }
 
+LLRefCount::LLRefCount(const LLRefCount& other)
+:   mRef(0)
+{
+}
+
 LLRefCount::~LLRefCount()
 { 
 	if (mRef != 0)
@@ -290,7 +297,13 @@ LLRefCount::~LLRefCount()
 		llerrs << "deleting non-zero reference" << llendl;
 	}
 }
-	
+
+LLRefCount& LLRefCount::operator=(const LLRefCount&)
+{
+	// do nothing, since ref count is specific to *this* reference
+	return *this;
+}
+
 //----------------------------------------------------------------------------
 
 #if defined(LL_WINDOWS)

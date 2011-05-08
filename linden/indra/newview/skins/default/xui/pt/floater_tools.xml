@@ -122,8 +122,11 @@
 				Doar
 			</string>
 			<button label="Doar..." label_selected="Doar..." name="button deed" tool_tip="Objetos compartilhados do Grupo pode ser doados pelo gerente do grupo."/>
-			<check_box label="Permitir que qualquer um mova" name="checkbox allow everyone move"/>
-			<check_box label="Permitir que qualquer um copie" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				Todos:
+			</text>
+			<check_box label="Movimentar" name="checkbox allow everyone move"/>
+			<check_box label="Copiar" name="checkbox allow everyone copy"/>
 			<check_box label="Mostrar na busca" name="search_check" tool_tip="Permitir que as pessoas vejam este objeto nos resultados de busca"/>
 			<check_box label="À Venda" name="checkbox for sale"/>
 			<text name="Cost">

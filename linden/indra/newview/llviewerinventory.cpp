@@ -165,10 +165,9 @@ void LLViewerInventoryItem::updateServer(BOOL is_new) const
 {
 	if(!mIsComplete)
 	{
-		// *FIX: deal with this better.
-		// If we're crashing here then the UI is incorrectly enabled.
-		llerrs << "LLViewerInventoryItem::updateServer() - for incomplete item"
-			   << llendl;
+		llwarns << "LLViewerInventoryItem::updateServer() - for incomplete item"
+				<< llendl;
+		LLNotifications::instance().add("IncompleteInventoryItem");
 		return;
 	}
 	if(gAgent.getID() != mPermissions.getOwner())
@@ -268,7 +267,7 @@ void LLViewerInventoryItem::packMessage(LLMessageSystem* msg) const
 	msg->addU32Fast(_PREHASH_Flags, mFlags);
 	mSaleInfo.packMessage(msg);
 	msg->addStringFast(_PREHASH_Name, mName);
-	msg->addStringFast(_PREHASH_Description, mDescription);
+		msg->addStringFast(_PREHASH_Description, mDescription);
 	msg->addS32Fast(_PREHASH_CreationDate, mCreationDate);
 	U32 crc = getCRC32();
 	msg->addU32Fast(_PREHASH_CRC, crc);

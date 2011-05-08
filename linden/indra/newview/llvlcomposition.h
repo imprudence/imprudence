@@ -67,6 +67,7 @@ public:
 	F32 getHeightRange(S32 corner);
 
 	void setDetailTextureID(S32 corner, const LLUUID& id);
+	void setDetailTextureID(S32 corner, const std::string& filename, const bool& usemipmap, const bool& levelimmediate,  LLGLint internal_format, LLGLenum primary_format, const LLUUID& force_id);
 	void setStartHeight(S32 corner, F32 start_height);
 	void setHeightRange(S32 corner, F32 range);
 

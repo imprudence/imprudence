@@ -72,10 +72,11 @@ LLVLComposition::LLVLComposition(LLSurface *surfacep, const U32 width, const F32
 	mSurfacep = surfacep;
 
 	// Load Terrain Textures - Original ones
-	setDetailTextureID(0, TERRAIN_DIRT_DETAIL);
-	setDetailTextureID(1, TERRAIN_GRASS_DETAIL);
-	setDetailTextureID(2, TERRAIN_MOUNTAIN_DETAIL);
-	setDetailTextureID(3, TERRAIN_ROCK_DETAIL);
+	// Load from file as OpenSim-based grids don't include these yet -- MC
+	setDetailTextureID(0, TERRAIN_DIRT_DETAIL.asString()+".j2c", TRUE, FALSE, 0, 0, TERRAIN_DIRT_DETAIL);
+	setDetailTextureID(1, TERRAIN_GRASS_DETAIL.asString()+".j2c", TRUE, FALSE, 0, 0, TERRAIN_GRASS_DETAIL);
+	setDetailTextureID(2, TERRAIN_MOUNTAIN_DETAIL.asString()+".j2c", TRUE, FALSE, 0, 0, TERRAIN_MOUNTAIN_DETAIL);
+	setDetailTextureID(3, TERRAIN_ROCK_DETAIL.asString()+".j2c", TRUE, FALSE, 0, 0, TERRAIN_ROCK_DETAIL);
 
 	// Initialize the texture matrix to defaults.
 	for (S32 i = 0; i < CORNER_COUNT; ++i)
@@ -107,6 +108,17 @@ void LLVLComposition::setDetailTextureID(S32 corner, const LLUUID& id)
 		return;
 	}
 	mDetailTextures[corner] = gImageList.getImage(id);
+	mDetailTextures[corner]->setNoDelete() ;
+	mRawImages[corner] = NULL;
+}
+
+void LLVLComposition::setDetailTextureID(S32 corner, const std::string& filename, const bool& usemipmap, const bool& levelimmediate,  LLGLint internal_format, LLGLenum primary_format, const LLUUID& force_id)
+{
+	if(filename.empty())
+	{
+		return;
+	}
+	mDetailTextures[corner] = gImageList.getImageFromFile(filename, usemipmap, levelimmediate, internal_format, primary_format, force_id);
 	mDetailTextures[corner]->setNoDelete() ;
 	mRawImages[corner] = NULL;
 }

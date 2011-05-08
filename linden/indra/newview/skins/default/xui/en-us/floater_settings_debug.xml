@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="215" name="settings_debug"
+     can_resize="false" height="235" name="settings_debug"
      title="Debug Settings" width="350">
-	<combo_box allow_text_entry="true" bottom="-50" follows="top|left" font="SansSerifSmall"
+  <search_editor bottom="-45" height="20" name="control_search" visible="true" width="320" 
+                 left="15" label="Type here to search" />
+	<combo_box allow_text_entry="false" bottom_delta="-30" follows="top|left" font="SansSerifSmall"
 	     height="20" left="15" max_chars="255" name="settings_combo" />
-	<text_editor bottom_delta="-75" enabled="false" height="60" width="320" hide_scrollbar="true"
+	<text_editor bottom_delta="-70" enabled="false" height="60" width="320" hide_scrollbar="true"
 	     name="comment_text" word_wrap="true" />
 	<combo_box bottom_delta="-30" follows="top|left" font="SansSerifSmall" height="20"
 	     left="15" name="boolean_combo" visible="false">
@@ -15,7 +17,7 @@
 			FALSE
 		</combo_item>
 	</combo_box>
-	<line_editor bottom_delta="0" height="20" name="val_text" visible="false" width="300" />
+	<line_editor bottom_delta="0" height="20" name="val_text" visible="false" width="320" />
 	<color_swatch bottom="30" can_apply_immediately="true" height="55" label="Color"
 	     name="color_swatch" visible="true" width="37" />
 	<spinner bottom_delta="25" height="20" label="x" label_width="40" max_val="10000000"

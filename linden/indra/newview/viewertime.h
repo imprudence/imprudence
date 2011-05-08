@@ -59,6 +59,9 @@ public:
 
 	static bool sUse24HourTime;
 	static bool sUseUTCTime;
+	static bool sUseTimeOffset;
+	static S32 sTimeOffset;
+	static bool sTimeOffsetDST;
 
 	void updateTimeFormat(const U32& index);
 

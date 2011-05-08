@@ -54,6 +54,8 @@ public:
 	// this method adds to the current list.
 	void add(const LLUUID& object);
 
+	void addCut(const LLUUID& object);
+
 	// this stores a single inventory object
 	void store(const LLUUID& object);
 
@@ -63,6 +65,10 @@ public:
 	// this method gets the objects in the clipboard by copying them
 	// into the array provided.
 	void retrieve(LLDynamicArray<LLUUID>& inventory_objects) const;
+
+	// this method gets the objects in the clipboard by copying them
+	// into the array provided.
+	void retrieveCuts(LLDynamicArray<LLUUID>& inventory_objects) const;
 
 	// this method empties out the clipboard
 	void reset();
@@ -74,6 +80,7 @@ protected:
 	static LLInventoryClipboard sInstance;
 
 	LLDynamicArray<LLUUID> mObjects;
+	LLDynamicArray<LLUUID> mCutObjects;
 
 public:
 	// please don't actually call these

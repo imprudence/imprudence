@@ -1,6 +1,6 @@
 /**
  * @file llappviewermacosx.cpp
- * @brief The LLAppViewerWin32 class definitions
+ * @brief The LLAppViewerMacOSX class definitions
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
@@ -119,6 +119,7 @@ int main( int argc, char **argv )
 	}
 	delete viewer_app_ptr;
 	viewer_app_ptr = NULL;
+
 	return 0;
 }
 
@@ -474,7 +475,7 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 			url.replace(0, prefix.length(), "secondlife:///app/");
 		}
 		
-		LLWebBrowserCtrl* web = NULL;
+		LLMediaCtrl* web = NULL;
 		const bool trusted_browser = false;
 		LLURLDispatcher::dispatch(url, web, trusted_browser);
 	}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="busy" title="Chatbar Commands"
+         height="400" width="500"
+         follows="top|right" can_close="true" can_drag_on_left="false"
+         can_minimize="true" can_resize="false" can_tear_off="false">
+  <text bottom="-55" follows="left|top" font="SansSerifSmall" height="16" left="15"
+     name="loltxt2" width="512">        Teleport within sim (usage: cmd x y z)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarPos" control_name="CmdLineChatbarPos" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt3" width="512">        Teleport to ground (usage: cmd)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarGround" control_name="CmdLineChatbarGround" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt4" width="512">        Teleport to altitude (usage: cmd z)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarHeight" control_name="CmdLineChatbarHeight" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt5" width="512">        Teleport home (usage: cmd)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarTeleportHome" control_name="CmdLineChatbarTeleportHome"
+     width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt6" width="512">        Rez a platform (usage: cmd 0 - 30)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarRezPlatform" control_name="CmdLineChatbarRezPlatform"
+     width="200"/>
+  <slider bottom_delta="-20" left="20" name="CmdLineChatbarPlatformSize" control_name="CmdLineChatbarPlatformSize"
+     decimal_digits="1" enabled="true" follows="left|top" height="18" increment="0.5"
+     initial_val="5" label="Width" label_width="30" max_val="30" min_val="5"
+     mouse_opaque="true" show_text="true" width="200" auto_resize="false" tool_tip="How big do you want the platform to appear to be?"/>
+  <text bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16" left="15"
+     name="loltxt7" width="512">        Teleport to sim x (usage: cmd simname)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarMapTo" control_name="CmdLineChatbarMapTo" width="200"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     initial_value="false" label="Use same position between sims" left_delta="0" mouse_opaque="true"
+     name="toggle" radio_style="false" width="270" control_name="CmdLineChatbarMapToKeepPos"/>
+  <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt8" width="512">        Calc. expressions (usage: cmd SIN(2+2))</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarCalc" control_name="CmdLineChatbarCalc" width="200"/>
+  <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left_delta="0" name="add_autokorrect"
+     width="512">Add autocorrect word(cmd list|bad|good)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarAutocorrect" control_name="CmdLineChatbarAutocorrect" width="200"/>
+
+  <text bottom_delta="326" follows="left|top" font="SansSerifSmall" height="16" left_delta="230"
+     name="loltxt9" width="512">        Change Draw Distance (usage: cmd meters)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarDrawDistance" control_name="CmdLineChatbarDrawDistance"
+     width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt10" width="512">        Teleport to cam position (usage: cmd)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarTeleportToCam" control_name="CmdLineChatbarTeleportToCam"
+     width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt11" width="512">        Get avatar name from key (usage: cmd key)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarKeyToName" control_name="CmdLineChatbarKeyToName"
+     width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt12" width="512">        Offer teleport to avatar (usage: cmd key)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarOfferTp" control_name="CmdLineChatbarOfferTp" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt13" width="512">        Teleport to avatar (usage: cmd name)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="The syntax of this command allows partial names and is not case sensitive. Better results if used while the Radar is open."
+     name="CmdLineChatbarTP2" control_name="CmdLineChatbarTP2" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt14" width="512">        Turn AO on/off (usage: cmd on/off)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="" name="CmdLineChatbarAO" control_name="CmdLineChatbarAO" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+     name="loltxt15" width="512">        Clear the chat history (usage: cmd)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+     font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+     tool_tip="Clears the Chat History to prevent lag effects from chat spammers." name="CmdLineChatbarClearChat" control_name="CmdLineChatbarClearChat" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+        name="loltxt15" width="512">        Set the media url (usage: cmd url type)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+        font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+        tool_tip="Sets and plays your media stream to the entered url" name="CmdLineChatbarMedia" control_name="CmdLineChatbarMedia" width="200"/>
+  <text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+        name="loltxt15" width="512">        Set the music stream url (usage: cmd url)</text>
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="left|top"
+        font="SansSerifSmall" height="20" left_delta="0" max_length="256" mouse_opaque="true"
+        tool_tip="sets and plays your music stream to the entered url" name="CmdLineChatbarMusic" control_name="CmdLineChatbarMusic" width="200"/>
+  <button bottom="-40" follows="left|top" font="SansSerifSmall" height="18" label="?"
+        name="Help_CmdLine" tool_tip="Click here for help regarding the settings in this page."
+        right="-10" width="18"/>
+</floater>

@@ -174,7 +174,7 @@ public:
 
 	void loadIgnoreGroup();
 	void saveIgnoreGroup();
-	void updateIgnoreGroup(const LLUUID& group_id, const bool& ignore);
+	void updateIgnoreGroup(const LLUUID& group_id, bool ignore);
 	// Returns true if group chat is ignored for the UUID, false if not
 	bool getIgnoreGroup(const LLUUID& group_id);
 
@@ -219,6 +219,10 @@ private:
 	LLSD	mPendingAgentListUpdates;
 
 	std::list<LLUUID> mIgnoreGroupList;
+
+public:
+		
+	S32 getIgnoreGroupListCount() { return mIgnoreGroupList.size(); }
 };
 
 

@@ -50,6 +50,7 @@
 #include "llviewercontrol.h"
 #include "llmenucommands.h"
 #include "llmenugl.h"
+#include "llpluginclassmedia.h"
 #include "lltextbox.h"
 #include "lluiconstants.h"
 #include "llviewerimagelist.h"
@@ -61,6 +62,7 @@
 #include "lluictrlfactory.h"
 #include "llfloaterdirectory.h"
 #include "llpaneldirbrowser.h"
+#include "llpluginclassmedia.h"
 
 #include <boost/tokenizer.hpp>
 #if LL_WINDOWS
@@ -72,7 +74,7 @@
 #include "boost/lexical_cast.hpp"
 #endif
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //---------------------------------------------------------------------------
 // LLPanelDirFindAll - Google search appliance based search
@@ -143,9 +145,11 @@ BOOL LLPanelDirFind::postBuild()
 	}
 	
 	
-	mWebBrowser = getChild<LLWebBrowserCtrl>(mBrowserName);
+	mWebBrowser = getChild<LLMediaCtrl>(mBrowserName);
 	if (mWebBrowser)
 	{
+		mWebBrowser->addObserver(this);
+		
 		// new pages appear in same window as the results page now
 		mWebBrowser->setOpenInInternalBrowser( false );
 		mWebBrowser->setOpenInExternalBrowser( false );	
@@ -156,9 +160,6 @@ BOOL LLPanelDirFind::postBuild()
 		// redirect 404 pages from S3 somewhere else
 		mWebBrowser->set404RedirectUrl( getString("redirect_404_url") );
 
-		// Track updates for progress display.
-		mWebBrowser->addObserver(this);
-
 		navigateToDefaultPage();
 	}
 
@@ -167,8 +168,6 @@ BOOL LLPanelDirFind::postBuild()
 
 LLPanelDirFind::~LLPanelDirFind()
 {
-	if (mWebBrowser) 
-		mWebBrowser->remObserver(this);
 }
 
 // virtual
@@ -198,10 +197,17 @@ void LLPanelDirFind::draw()
 // virtual
 void LLPanelDirFind::onVisibilityChange(BOOL new_visibility)
 {
+	LLPluginClassMedia::EPriority new_priority;
 	if (new_visibility)
 	{
 		mFloaterDirectory->hideAllDetailPanels();
+		new_priority = LLPluginClassMedia::PRIORITY_NORMAL;
 	}
+	else
+		new_priority = LLPluginClassMedia::PRIORITY_HIDDEN;
+
+	mWebBrowser->getMediaPlugin()->setPriority(new_priority);
+
 	LLPanel::onVisibilityChange(new_visibility);
 }
 
@@ -264,7 +270,7 @@ void LLPanelDirFind::navigateToDefaultPage()
 {
 	std::string start_url = "";
 	// Note: we use the web panel in OpenSim as well as Second Life -- MC
-	if (gHippoGridManager->getConnectedGrid()->getSearchUrl().empty() && 
+	if (gHippoGridManager->getConnectedGrid()->getSearchURL().empty() && 
 		!gHippoGridManager->getConnectedGrid()->isSecondLife())
 	{
 		// OS-based but doesn't have its own web search url -- MC
@@ -287,7 +293,7 @@ void LLPanelDirFind::navigateToDefaultPage()
 		else
 		{
 			// OS-based but has its own web search url -- MC
-			start_url = gHippoGridManager->getConnectedGrid()->getSearchUrl();
+			start_url = gHippoGridManager->getConnectedGrid()->getSearchURL();
 		}
 
 		BOOL inc_pg = childGetValue("incpg").asBoolean();
@@ -317,7 +323,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 	std::string url;
 	if (search_text.empty()) 
 	{
-		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_EMPTY, is_web);
+		url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_EMPTY, is_web);
 	} 
 	else 
 	{
@@ -342,7 +348,7 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 			"-._~$+!*'()";
 		std::string query = LLURI::escape(search_text_with_plus, allowed);
 
-		url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_QUERY, is_web);
+		url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_QUERY, is_web);
 		std::string substring = "[QUERY]";
 		std::string::size_type where = url.find(substring);
 		if (where != std::string::npos)
@@ -367,13 +373,13 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 // static
 std::string LLPanelDirFind::getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult, bool is_web)
 {
-	std::string url = gHippoGridManager->getConnectedGrid()->getSearchUrl(HippoGridInfo::SEARCH_ALL_TEMPLATE, is_web);
+	std::string url = gHippoGridManager->getConnectedGrid()->getSearchURL(HippoGridInfo::SEARCH_ALL_TEMPLATE, is_web);
 
 	if (!url.empty())
 	{
 		// Note: opensim's default template (SearchURLSuffixOpenSim) is currently empty -- MC
 		if (gHippoGridManager->getConnectedGrid()->isSecondLife() || 
-			!gHippoGridManager->getConnectedGrid()->getSearchUrl().empty())
+			!gHippoGridManager->getConnectedGrid()->getSearchURL().empty())
 		{
 			// if the mature checkbox is unchecked, modify query to remove 
 			// terms with given phrase from the result set
@@ -485,19 +491,27 @@ void LLPanelDirFind::onClickSearch(void* data)
 	LLFloaterDirectory::sNewSearchCount++;
 }
 
-void LLPanelDirFind::onNavigateBegin( const EventType& eventIn )
+void LLPanelDirFind::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
 {
-	childSetText("status_text", getString("loading_text"));
-}
+	switch(event)
+	{
+		case MEDIA_EVENT_NAVIGATE_BEGIN:
+			childSetText("status_text", getString("loading_text"));
+		break;
+		
+		case MEDIA_EVENT_NAVIGATE_COMPLETE:
+			childSetText("status_text", getString("done_text"));
+		break;
+		
+		case MEDIA_EVENT_LOCATION_CHANGED:
+			// Debugging info to console
+			llinfos << self->getLocation() << llendl;
+		break;
 
-void LLPanelDirFind::onNavigateComplete( const EventType& eventIn )
-{
-	childSetText("status_text", getString("done_text"));
-}
-
-void LLPanelDirFind::onLocationChange( const EventType& eventIn )
-{
-	llinfos << eventIn.getStringValue() << llendl;
+		default:
+			// Having a default case makes the compiler happy.
+		break;
+	}
 }
 
 //---------------------------------------------------------------------------

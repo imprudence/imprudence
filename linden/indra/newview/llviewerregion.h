@@ -75,6 +75,7 @@ public:
 	{
 		PARTITION_HUD=0,
 		PARTITION_TERRAIN,
+		PARTITION_VOIDWATER,
 		PARTITION_WATER,
 		PARTITION_TREE,
 		PARTITION_PARTICLE,
@@ -131,6 +132,7 @@ public:
 
 	void setWaterHeight(F32 water_level);
 	F32 getWaterHeight() const;
+	void rebuildWater();
 
 	BOOL isVoiceEnabled() const;
 
@@ -227,6 +229,11 @@ public:
 	void setSeedCapability(const std::string& url);
 	void setCapability(const std::string& name, const std::string& url);
 	std::string getCapability(const std::string& name) const;
+
+	// has region received its final (not seed) capability list?
+	bool capabilitiesReceived() const;
+	void setCapabilitiesReceived(bool received);
+
 	static bool isSpecialCapabilityName(const std::string &name);
 	void logActiveCapabilities() const;
 
@@ -314,9 +321,10 @@ public:
 	LLDynamicArray<U32> mMapAvatars;
 	LLDynamicArray<LLUUID> mMapAvatarIDs;
 
-private:
 	// The surfaces and other layers
 	LLSurface*	mLandp;
+
+private:
 
 	// Region geometry data
 	LLVector3d	mOriginGlobal;	// Location of southwest corner of region (meters)
@@ -396,6 +404,7 @@ private:
 
 private:
 	bool	mAlive;					// can become false if circuit disconnects
+	bool	mCapabilitiesReceived;
 
 	//spatial partitions for objects in this region
 	std::vector<LLSpatialPartition*> mObjectPartition;

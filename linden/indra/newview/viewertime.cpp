@@ -28,6 +28,7 @@
 * $/LicenseInfo$
 */
 
+#include <sstream> 
 #include "llviewerprecompiledheaders.h"
 
 #include "llappviewer.h" // for gPacificDaylightTime
@@ -47,6 +48,9 @@ ViewerTime* gViewerTime = 0;
 // We use statics here for speed reasons
 bool ViewerTime::sUse24HourTime = false;
 bool ViewerTime::sUseUTCTime = false;
+bool ViewerTime::sUseTimeOffset = false;
+S32 ViewerTime::sTimeOffset = 0;
+bool ViewerTime::sTimeOffsetDST = false;
 
 std::vector<std::string> ViewerTime::sDays;
 std::vector<std::string> ViewerTime::sMonths;
@@ -87,18 +91,29 @@ void ViewerTime::refresh()
 	// There's only one internal tm buffer.
 	struct tm* internal_time;
 
-	if (!sUseUTCTime)
+	if (sUseUTCTime)
+	{
+		time(&utc_time);
+		internal_time = gmtime(&utc_time);
+	}
+	else if (sUseTimeOffset)
+	{
+		//Its a UTC offset, deal with it
+		internal_time = utc_to_offset_time(utc_time, sTimeOffset, sTimeOffsetDST);
+	}
+	else
 	{
 		// Convert to Pacific, based on server's opinion of whether
 		// it's daylight savings time there.
 		internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 	}
-	else
+
+	if(NULL == internal_time)
 	{
-		time(&utc_time);
-		internal_time = gmtime(&utc_time);
+		llwarns << "internal_time == NULL - Kaboom!" << llendl;
+		return;
 	}
-	
+
 	mMinute = internal_time->tm_min;
 	mSecond = internal_time->tm_sec;
 	S32 hour = internal_time->tm_hour;
@@ -121,10 +136,19 @@ void ViewerTime::refresh()
 			if (hour == 0) hour = 12;
 		}
 
-		mTZ = "PST";
-		if (gPacificDaylightTime)
+		if (sUseTimeOffset)
 		{
-			mTZ = "PDT";
+			std::stringstream myString;
+			myString << "UTC " << sTimeOffset;
+			mTZ = myString.str();
+		}
+		else
+		{
+			mTZ = "PST";
+			if (gPacificDaylightTime)
+			{
+				mTZ = "PDT";
+			}
 		}
 	}
 	else // just UTC

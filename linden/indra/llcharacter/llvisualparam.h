@@ -51,6 +51,7 @@ enum EVisualParamGroup
 {
 	VISUAL_PARAM_GROUP_TWEAKABLE,
 	VISUAL_PARAM_GROUP_ANIMATABLE,
+	VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT,
 	NUM_VISUAL_PARAM_GROUPS
 };
 
@@ -124,7 +125,7 @@ public:
 	void					setMaxDisplayName(const std::string& s) { mInfo->mMaxName = s; }
 	void					setMinDisplayName(const std::string& s) { mInfo->mMinName = s; }
 
-	EVisualParamGroup		getGroup() 			{ return mInfo->mGroup; }
+	EVisualParamGroup		getGroup() const	{ return mInfo->mGroup; }
 	F32						getMinWeight() 		{ return mInfo->mMinWeight; }
 	F32						getMaxWeight() 		{ return mInfo->mMaxWeight; }
 	F32						getDefaultWeight() 	{ return mInfo->mDefaultWeight; }
@@ -133,13 +134,15 @@ public:
 	F32						getWeight() 		{ return mIsAnimating ? mTargetWeight : mCurWeight; }
 	F32						getCurrentWeight() 	{ return mCurWeight; }
 	F32						getLastWeight() 	{ return mLastWeight; }
-	BOOL					isAnimating() 	{ return mIsAnimating; }
+	BOOL					isAnimating() 		{ return mIsAnimating; }
+	BOOL					isTweakable()		{ return (getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)  || (getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT); }
 
 	LLVisualParam*			getNextParam()		{ return mNext; }
 	void					setNextParam( LLVisualParam *next );
 	
 	virtual void			setAnimating(BOOL is_animating) { mIsAnimating = is_animating; }
 	BOOL					getAnimating() { return mIsAnimating; }
+
 
 protected:
 	F32					mCurWeight;			// current weight

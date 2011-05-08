@@ -61,6 +61,10 @@
 #include "llsdutil.h"
 #include <deque>
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //#define DIFF_INVENTORY_FILES
 #ifdef DIFF_INVENTORY_FILES
 #include "process.h"
@@ -352,6 +356,28 @@ LLUUID LLInventoryModel::findCatUUID(LLAssetType::EType preferred_type)
 			for(S32 i = 0; i < count; ++i)
 			{
 				if(cats->get(i)->getPreferredType() == preferred_type)
+				{
+					return cats->get(i)->getUUID();
+				}
+			}
+		}
+	}
+	return LLUUID::null;
+}
+
+LLUUID LLInventoryModel::findCategoryByName(std::string name)
+{
+	LLUUID root_id = gAgent.getInventoryRootID();
+	if(root_id.notNull())
+	{
+		cat_array_t* cats = NULL;
+		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
+		if(cats)
+		{
+			S32 count = cats->count();
+			for(S32 i = 0; i < count; ++i)
+			{
+				if(cats->get(i)->getName() == name)
 				{
 					return cats->get(i)->getUUID();
 				}
@@ -1050,8 +1076,12 @@ void LLInventoryModel::mock(const LLUUID& root_id)
 */
 
 //If we get back a normal response, handle it here
+// Note: this is the responder used in "fetchInventory" cap, 
+// this is not responder for "WebFetchInventoryDescendents" or "agent/inventory" cap
+
 void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 {	
+	LL_DEBUGS("Inventory") << " fetch http got " << ll_pretty_print_sd(content) << LL_ENDL; // OGPX
 	start_new_inventory_observer();
 
 	/*LLUUID agent_id;
@@ -1117,8 +1147,8 @@ void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 //If we get back an error (not found, etc...), handle it here
 void LLInventoryModel::fetchInventoryResponder::error(U32 status, const std::string& reason)
 {
-	llinfos << "fetchInventory::error "
-		<< status << ": " << reason << llendl;
+	LL_INFOS("Inventory") << "fetchInventory::error "
+		<< status << ": " << reason << LL_ENDL;
 	gInventory.notifyObservers("fetchinventory");
 }
 
@@ -1169,8 +1199,10 @@ class fetchDescendentsResponder: public LLHTTPClient::Responder
 };
 
 //If we get back a normal response, handle it here
+// Note: this is the handler for WebFetchInventoryDescendents and agent/inventory caps
 void  fetchDescendentsResponder::result(const LLSD& content)
 {
+	LL_DEBUGS("Inventory") << " fetch descendents got " << ll_pretty_print_sd(content) << LL_ENDL; // OGPX
 	if (content.has("folders"))	
 	{
 
@@ -1277,8 +1309,8 @@ void  fetchDescendentsResponder::result(const LLSD& content)
 			LLSD folder_sd = *folder_it;
 			
 			//These folders failed on the dataserver.  We probably don't want to retry them.
-			llinfos << "Folder " << folder_sd["folder_id"].asString() 
-					<< "Error: " << folder_sd["error"].asString() << llendl;
+			LL_INFOS("Inventory") << "Folder " << folder_sd["folder_id"].asString() 
+					<< "Error: " << folder_sd["error"].asString() << LL_ENDL;
 		}
 	}
 
@@ -1286,7 +1318,7 @@ void  fetchDescendentsResponder::result(const LLSD& content)
 	
 	if (LLInventoryModel::isBulkFetchProcessingComplete())
 	{
-		llinfos << "Inventory fetch completed" << llendl;
+		LL_INFOS("Inventory") << "Inventory fetch completed" << LL_ENDL;
 		if (LLInventoryModel::sFullFetchStarted)
 		{
 			LLInventoryModel::sAllFoldersFetched = TRUE;
@@ -1300,8 +1332,8 @@ void  fetchDescendentsResponder::result(const LLSD& content)
 //If we get back an error (not found, etc...), handle it here
 void fetchDescendentsResponder::error(U32 status, const std::string& reason)
 {
-	llinfos << "fetchDescendentsResponder::error "
-		<< status << ": " << reason << llendl;
+	LL_INFOS("Inventory") << "fetchDescendentsResponder::error "
+		<< status << ": " << reason << LL_ENDL;
 						
 	LLInventoryModel::incrBulkFetch(-1);
 
@@ -1386,7 +1418,12 @@ void LLInventoryModel::bulkFetch(std::string url)
 				    folder_sd["fetch_folders"]	= TRUE; //(LLSD::Boolean)sFullFetchStarted;
 				    folder_sd["fetch_items"]	= (LLSD::Boolean)TRUE;
 				    
-				    if (ALEXANDRIA_LINDEN_ID == cat->getOwnerID())
+					LL_DEBUGS("Inventory") << " fetching "<<cat->getUUID()<<" with cat owner "<<cat->getOwnerID()<<" and agent" << gAgent.getID() << LL_ENDL;
+				    //OGPX if (ALEXANDRIA_LINDEN_ID == cat->getOwnerID())
+					// for OGP it really doesnt make sense to have the decision about whether to fetch
+					// from the library or user cap be determined by a hard coded UUID. 
+					// if it isnt an item that belongs to the agent, then fetch from the library
+					if (gAgent.getID() != cat->getOwnerID()) //if i am not the owner, it must be in the library
 					    body_lib["folders"].append(folder_sd);
 				    else
 					    body["folders"].append(folder_sd);
@@ -1417,11 +1454,13 @@ void LLInventoryModel::bulkFetch(std::string url)
 			sBulkFetchCount++;
 			if (body["folders"].size())
 			{
+				LL_DEBUGS("Inventory") << " fetch descendents post to " << url << ": " << ll_pretty_print_sd(body) << LL_ENDL; // OGPX
 				LLHTTPClient::post(url, body, new fetchDescendentsResponder(body),300.0);
 			}
 			if (body_lib["folders"].size())
 			{
 				std::string url_lib = gAgent.getRegion()->getCapability("FetchLibDescendents");
+				LL_DEBUGS("Inventory") << " fetch descendents lib post: " << ll_pretty_print_sd(body_lib) << LL_ENDL; // OGPX
 				LLHTTPClient::post(url_lib, body_lib, new fetchDescendentsResponder(body_lib),300.0);
 			}
 			sFetchTimer.reset();
@@ -1516,7 +1555,7 @@ void LLInventoryModel::backgroundFetch(void*)
 		// no more categories to fetch, stop fetch process
 		if (sFetchQueue.empty())
 		{
-			llinfos << "Inventory fetch completed" << llendl;
+			LL_INFOS("Inventory") << "Inventory fetch completed" << LL_ENDL;
 			if (sFullFetchStarted)
 			{
 				sAllFoldersFetched = TRUE;
@@ -1532,7 +1571,7 @@ void LLInventoryModel::backgroundFetch(void*)
 			// double timeouts on failure
 			sMinTimeBetweenFetches = llmin(sMinTimeBetweenFetches * 2.f, 10.f);
 			sMaxTimeBetweenFetches = llmin(sMaxTimeBetweenFetches * 2.f, 120.f);
-			llinfos << "Inventory fetch times grown to (" << sMinTimeBetweenFetches << ", " << sMaxTimeBetweenFetches << ")" << llendl;
+			LL_INFOS("Inventory") << "Inventory fetch times grown to (" << sMinTimeBetweenFetches << ", " << sMaxTimeBetweenFetches << ")" << LL_ENDL;
 			// fetch is no longer considered "timely" although we will wait for full time-out
 			sTimelyFetchPending = FALSE;
 		}
@@ -2078,9 +2117,9 @@ bool LLInventoryModel::loadSkeleton(
 		categories.clear(); // will unref and delete entries
 	}
 
-	llinfos << "Successfully loaded " << cached_category_count
+	LL_DEBUGS("Inventory") << "Successfully loaded " << cached_category_count
 			<< " categories and " << cached_item_count << " items from cache."
-			<< llendl;
+			<< LL_ENDL;
 
 	return rv;
 }
@@ -2238,7 +2277,7 @@ void LLInventoryModel::buildParentChildMap()
 			// which would be (folder_id, new_parent_id) to be sent up
 			// to the server.
 			llinfos << "Lost categroy: " << cat->getUUID() << " - "
-					<< cat->getName() << llendl;
+				<< cat->getName() << " with parent:" << cat->getParentUUID() << llendl;
 			++lost;
 			// plop it into the lost & found.
 			LLAssetType::EType pref = cat->getPreferredType();
@@ -2366,6 +2405,8 @@ void LLInventoryModel::buildParentChildMap()
 			mIsAgentInvUsable = true;
 		}
 	}
+	llinfos << " finished buildParentChildMap " << llendl;
+	// dumpInventory(); // enable this if debugging inventory or appearance issues OGPX 
 }
 
 struct LLUUIDAndName
@@ -3188,37 +3229,37 @@ void LLInventoryModel::processMoveInventoryItem(LLMessageSystem* msg, void**)
 // *NOTE: DEBUG functionality
 void LLInventoryModel::dumpInventory()
 {
-	llinfos << "\nBegin Inventory Dump\n**********************:" << llendl;
-	llinfos << "mCategroy[] contains " << mCategoryMap.size() << " items." << llendl;
+	LL_DEBUGS("Inventory") << "\nBegin Inventory Dump\n**********************:" << LL_ENDL;
+	LL_DEBUGS("Inventory") << "mCategroy[] contains " << mCategoryMap.size() << " items." << LL_ENDL;
 	for(cat_map_t::iterator cit = mCategoryMap.begin(); cit != mCategoryMap.end(); ++cit)
 	{
 		LLViewerInventoryCategory* cat = cit->second;
 		if(cat)
 		{
-			llinfos << "  " <<  cat->getUUID() << " '" << cat->getName() << "' "
-					<< cat->getVersion() << " " << cat->getDescendentCount()
-					<< llendl;
+			LL_DEBUGS("Inventory") << "  " <<  cat->getUUID() << " '" << cat->getName() << "' "
+				<< cat->getVersion() << " " << cat->getDescendentCount() << " parent: " << cat->getParentUUID() 
+					<< LL_ENDL;
 		}
 		else
 		{
-			llinfos << "  NULL!" << llendl;
+			LL_DEBUGS("Inventory") << "  NULL!" << LL_ENDL;
 		}
 	}	
-	llinfos << "mItemMap[] contains " << mItemMap.size() << " items." << llendl;
+	LL_DEBUGS("Inventory") << "mItemMap[] contains " << mItemMap.size() << " items." << LL_ENDL;
 	for(item_map_t::iterator iit = mItemMap.begin(); iit != mItemMap.end(); ++iit)
 	{
 		LLViewerInventoryItem* item = iit->second;
 		if(item)
 		{
-			llinfos << "  " << item->getUUID() << " "
-					<< item->getName() << llendl;
+			LL_DEBUGS("Inventory") << "  " << item->getUUID() << " "
+					<< item->getName() << LL_ENDL;
 		}
 		else
 		{
-			llinfos << "  NULL!" << llendl;
+			LL_DEBUGS("Inventory") << "  NULL!" << LL_ENDL;
 		}
 	}
-	llinfos << "\n**********************\nEnd Inventory Dump" << llendl;
+	LL_DEBUGS("Inventory") << "\n**********************\nEnd Inventory Dump" << LL_ENDL;
 }
 
 ///----------------------------------------------------------------------------

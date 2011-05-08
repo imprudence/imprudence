@@ -39,6 +39,8 @@
 // *TODO: Switch to fopen_s, strtok_s, etc.
 #define _CRT_SECURE_NO_DEPRECATE
 
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 #include <windows.h>
 #include <wininet.h>
 #include <stdio.h>

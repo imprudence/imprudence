@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-150" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" height="220" left="50" min_height="220"
+     min_width="300" mouse_opaque="true" name="WindLight send to server floater"
+     title="WindLight Send to Server"
+     width="300">
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     left="10" bottom="180" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="10"
+			     mouse_opaque="true" name="label Type" v_pad="0" width="275">
+    WindLight Send to Server
+  </text>
+  <slider can_edit_text="true" control_name="max_altitude"
+          left="20" bottom="110"
+          decimal_digits="2" follows="left" height="18" increment="0.1"
+          initial_val="4096.0" label="Max Altitude" max_val="4096.001" min_val="0"
+          mouse_opaque="true" name="max_altitude" show_text="true" value="4096.0"
+          width="200" />
+  <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+           left_delta="210" bottom="125" name="max_altitude_help" width="18" enabled="true" />
+
+  <slider can_edit_text="true" control_name="min_altitude"
+            left="20" bottom="80"
+            decimal_digits="2" follows="left" height="18" increment="0.1"
+            initial_val="1.0" label="Min Altitude" max_val="4096" min_val="0"
+            mouse_opaque="true" name="min_altitude" show_text="true" value="0"
+            width="200" />
+  <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+           left_delta="210" bottom="95" name="min_altitude_help" width="18" enabled="true" />
+  <slider can_edit_text="true" control_name="Fade"
+               left="20" bottom="50"
+               decimal_digits="2" follows="left" height="18" increment="0.1"
+               initial_val="1.0" label="Fade" max_val="10" min_val="0"
+               mouse_opaque="true" name="Fade" show_text="true" value="1.0"
+               width="200" />
+  <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+           left_delta="210" bottom="65" name="fade_help" width="18" />
+
+  <tab_container bottom="-220" follows="left|top" height="160" left="0"
+	     mouse_opaque="false" name="WindLight_Setting_Types" tab_position="top" width="299">
+    <panel border="true" bottom="175" follows="left|top|right|bottom" height="160"
+		     label="Region" left="1" mouse_opaque="false"
+		     name="Region" width="698">
+      <check_box control_name="override_parcel" follows="left" font="SansSerifSmall" height="16"
+           left="20" bottom="30"
+			     initial_value="false" label="Override Parcels" mouse_opaque="true"
+			     name="override_parcel" width="200" enabled="true" />
+      <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+               left_delta="210" bottom="45" name="override_parcel_help" width="18" enabled="true" />
+
+      <button follows="top|right" font="SansSerif" halign="center"
+               right="-10" bottom="20"
+               height="20" label="Send" label_selected="Send"
+               mouse_opaque="true" name="button_region_send_to_server" scale_image="TRUE" width="78" />
+    </panel>
+    <panel border="true" bottom="175" follows="left|top|right|bottom" height="160"
+		     label="Parcel" left="1" mouse_opaque="false"
+		     name="Parcel" width="698">
+
+      <!--<slider can_edit_text="true" control_name="max_altitude"
+                left="20" bottom="110"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="4096.0" label="Max Altitude" max_val="4096.001" min_val="0"
+                mouse_opaque="true" name="max_altitude" show_text="true" value="4096.0"
+                width="200" />
+      <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+               left_delta="210" bottom="125" name="max_altitude_help" width="18" enabled="true" />
+      
+      <slider can_edit_text="true" control_name="min_altitude"
+                left="20" bottom="80"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="1.0" label="Min Altitude" max_val="4096" min_val="0"
+                mouse_opaque="true" name="min_altitude" show_text="true" value="0"
+                width="200" />
+      <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+               left_delta="210" bottom="95" name="min_altitude_help" width="18" enabled="true" />
+      
+      <slider can_edit_text="true" control_name="Fade"
+                left="20" bottom="50"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="1.0" label="Fade" max_val="10" min_val="0"
+                mouse_opaque="true" name="Fade" show_text="true" value="1.0"
+                width="200" />
+      <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+               left_delta="210" bottom="65" name="fade_help" width="18" />-->
+
+      <button follows="top|right" font="SansSerif" halign="center"
+              right="-10" bottom="20" height="20" label="Send"
+              mouse_opaque="true" name="button_parcel_send_to_server" width="78" />
+    </panel>
+    <!--<panel border="true" bottom="175" follows="left|top|right|bottom" height="160"
+		     label="Area" left="1" mouse_opaque="false"
+		     name="Area" width="698">
+
+      <slider can_edit_text="true" control_name="Max Altitude"
+                left="20" bottom="110"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="4096.0" label="Max Altitude" max_val="4096.001" min_val="0"
+                mouse_opaque="true" name="Max Altitude" show_text="true" value="4096.0"
+                width="200" />
+      <slider can_edit_text="true" control_name="Min Altitude"
+                left="20" bottom="80"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="1.0" label="Min Altitude" max_val="4096" min_val="0"
+                mouse_opaque="true" name="Min Altitude" show_text="true" value="0"
+                width="200" />
+
+      <slider can_edit_text="true" control_name="Fade"
+                left="20" bottom="50"
+                decimal_digits="2" follows="left" height="18" increment="0.1"
+                initial_val="1.0" label="Fade" max_val="10" min_val="0"
+                mouse_opaque="true" name="Fade" show_text="true" value="1.0"
+                width="200" />
+      <button follows="left|top" font="SansSerifSmall" height="18" label="?"
+               left_delta="210" bottom="65" name="fade_help" width="18" />
+
+      <button follows="top|right" font="SansSerif" halign="center"
+               right="-10" bottom="20"
+               height="20" label="Send" label_selected="Send"
+               mouse_opaque="true" name="button send to server" scale_image="TRUE" width="78" />
+    </panel>-->
+   </tab_container>
+</floater>

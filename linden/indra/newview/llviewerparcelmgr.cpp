@@ -35,7 +35,7 @@
 #include "llviewerparcelmgr.h"
 
 // Library includes
-#include "audioengine.h"
+#include "kokuastreamingaudio.h"
 #include "indra_constants.h"
 #include "llcachename.h"
 #include "llgl.h"
@@ -70,7 +70,7 @@
 #include "roles_constants.h"
 #include "llweb.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 const F32 PARCEL_COLLISION_DRAW_SECS = 1.f;
 
@@ -85,7 +85,7 @@ LLPointer<LLViewerImage> sBlockedImage;
 LLPointer<LLViewerImage> sPassImage;
 
 // Local functions
-void optionally_start_music(const std::string& music_url);
+void optionally_start_music(LLParcel* parcel);
 void callback_start_music(S32 option, void* data);
 void optionally_prepare_video(const LLParcel *parcelp);
 void callback_prepare_video(S32 option, void* data);
@@ -137,17 +137,27 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mHoverParcel = new LLParcel();
 	mCollisionParcel = new LLParcel();
 
-	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
+	mBlockedImage = gImageList.getImageFromFile("noentrylines.j2c");
+	mPassImage = gImageList.getImageFromFile("noentrypasslines.j2c");
+
+	init(256);
+}
+
+//moved this stuff out of the constructor and into a function that we can call again after we get the region size.
+//LLViewerParcelMgr needs to be changed so we either get an instance per region, or it handles various region sizes
+//on a single grid properly - Patrick Sapinski (2/10/2011)
+void LLViewerParcelMgr::init(F32 region_size)
+{
+	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
 	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mHighlightSegments);
 
 	mCollisionSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mCollisionSegments);
 
-	mBlockedImage = gImageList.getImageFromFile("noentrylines.j2c");
-	mPassImage = gImageList.getImageFromFile("noentrypasslines.j2c");
+	S32 mParcelOverLayChunks = region_size * region_size / (128 * 128);
 
-	S32 overlay_size = mParcelsPerEdge * mParcelsPerEdge / PARCEL_OVERLAY_CHUNKS;
+	S32 overlay_size = mParcelsPerEdge * mParcelsPerEdge / mParcelOverLayChunks;
 	sPackedOverlay = new U8[overlay_size];
 
 	mAgentParcelOverlay = new U8[mParcelsPerEdge * mParcelsPerEdge];
@@ -651,15 +661,21 @@ BOOL LLViewerParcelMgr::agentCanBuild() const
 {
 	if (mAgentParcel)
 	{
-		return (gAgent.isGodlike()
-				|| (mAgentParcel->allowModifyBy(
-						gAgent.getID(),
-						gAgent.getGroupID())));
+		const LLUUID parcel_group = mAgentParcel->getGroupID();
+		const LLUUID active_group = gAgent.getGroupID();
+
+		if (gAgent.isGodlike())
+			return true;
+
+		if (mAgentParcel->allowModifyBy(gAgent.getID(), active_group))
+			return true;
+
+		// Ele: enable build option if we are in the land group and we have create powers, even if the group tag is not active
+		if (gAgent.isInGroup(parcel_group) && gAgent.hasPowerInGroup(parcel_group, GP_LAND_ALLOW_CREATE))
+			return true;
 	}
-	else
-	{
-		return gAgent.isGodlike();
-	}
+
+	return gAgent.isGodlike();
 }
 
 BOOL LLViewerParcelMgr::agentCanTakeDamage() const
@@ -1071,7 +1087,19 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 		LLNotifications::instance().add("CannotBuyLandNoRegion");
 		return NULL;
 	}
-	
+
+	/* Check for maturity  being not higher than the current users ability and preference. */
+	U8 sim_access = region->getSimAccess();
+	const LLAgentAccess& agent_access = gAgent.getAgentAccess();
+	// if the region is PG, we're happy already, so do nothing
+	// but if we're set to avoid either mature or adult, get us outta here
+	if (((sim_access == SIM_ACCESS_MATURE) && !agent_access.canAccessMature()) ||
+		((sim_access == SIM_ACCESS_ADULT) && !agent_access.canAccessAdult()))
+	{
+		LLNotifications::instance().add("CannotBuyLandMaturity");
+		return NULL;
+	}
+
 	if (is_claim)
 	{
 		llinfos << "Claiming " << mWestSouth << " to " << mEastNorth << llendl;
@@ -1333,8 +1361,7 @@ void LLViewerParcelMgr::processParcelOverlay(LLMessageSystem *msg, void **user)
 		return;
 	}
 
-	S32 parcels_per_edge = LLViewerParcelMgr::getInstance()->mParcelsPerEdge;
-	S32 expected_size = parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
+	S32 expected_size = 1024; //parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
 	if (packed_overlay_size != expected_size)
 	{
 		llwarns << "Got parcel overlay size " << packed_overlay_size
@@ -1587,6 +1614,9 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 			// Request access list information for this land
 			LLViewerParcelMgr::getInstance()->sendParcelAccessListRequest(AL_ACCESS | AL_BAN);
 
+			// Request the media url filter list for this land
+			LLViewerParcelMgr::getInstance()->requestParcelMediaURLFilter();
+
 			// Request dwell for this land, if it's not public land.
 			LLViewerParcelMgr::getInstance()->mSelectedDwell = 0.f;
 			if (0 != local_id)
@@ -1651,7 +1681,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	else
 	{
 		// look for music.
-		if (gAudiop)
+		if (gAudioStream)
 		{
 			if (parcel)
 			{
@@ -1664,69 +1694,54 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 				// On entering a new parcel, stop the last stream if the
 				// new parcel has a different music url.  (Empty URL counts
 				// as different.)
-				const std::string& stream_url = gAudiop->getInternetStreamURL();
+				const std::string& stream_url = gAudioStream->getInternetStreamURL();
 
 				if (music_url.empty() || music_url != stream_url)
 				{
 					// URL is different from one currently playing.
-					gAudiop->stopInternetStream();
+					gAudioStream->stopInternetStream();
 
 					// If there is a new music URL and it's valid, play it.
 					if (music_url.size() > 12)
 					{
 						if (music_url.substr(0,7) == "http://")
 						{
-							optionally_start_music(music_url);
+							optionally_start_music(parcel);
 						}
 					}
-					else if (!gAudiop->getInternetStreamURL().empty())
+					else if (!gAudioStream->getInternetStreamURL().empty())
 					{
 						llinfos << "Stopping parcel music" << llendl;
-						gAudiop->startInternetStream(LLStringUtil::null);
+						gAudioStream->startInternetStream(LLStringUtil::null);
 					}
 				}
 			}
 			else
 			{
 				// Public land has no music
-				gAudiop->stopInternetStream();
+				gAudioStream->stopInternetStream();
 			}
-		}//if gAudiop
+		}//if gAudioStream
 
 		// now check for video
 		LLViewerParcelMedia::update( parcel );
 	};
 }
 
-void optionally_start_music(const std::string& music_url)
+void optionally_start_music(LLParcel* parcel)
 {
 	if (gSavedSettings.getBOOL("AudioStreamingMusic"))
 	{
 		// Make the user click the start button on the overlay bar. JC
-		//		llinfos << "Starting parcel music " << music_url << llendl;
+		//		llinfos << "Starting parcel music " << parcel->getMusicURL() << llendl;
 
 		// now only play music when you enter a new parcel if the control is in PLAY state
 		// changed as part of SL-4878
-		if ( gOverlayBar && gOverlayBar->musicPlaying())
+		if (gOverlayBar && gOverlayBar->musicPlaying())
 		{
-			gAudiop->startInternetStream(music_url);
+			LLViewerParcelMedia::playStreamingMusic(parcel);
 		}
 	}
-}
-
-
-void callback_start_music(S32 option, void* data)
-{
-	if (option == 0)
-	{
-		// Before the callback, we verified the url was good.
-		// We fetch again to avoid lag while loading.
-		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();		
-		gAudiop->startInternetStream(parcel->getMusicURL());
-
-		LLOverlayBar::musicFirstRun();
-	}
-	gSavedSettings.setWarning("FirstStreamingMusic", FALSE);
 }
 
 // static
@@ -1921,6 +1936,66 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 which)
 
 			start_message = TRUE;
 			msg->sendReliable( region->getHost() );
+		}
+	}
+}
+
+class LLParcelMediaURLFilterResponder : public LLHTTPClient::Responder
+{
+	virtual void result(const LLSD& content)
+	{
+		LLViewerParcelMgr::getInstance()->receiveParcelMediaURLFilter(content);
+	}
+};
+
+void LLViewerParcelMgr::requestParcelMediaURLFilter()
+{
+	if (!mSelected)
+	{
+		return;
+	}
+
+	LLViewerRegion* region = LLWorld::getInstance()->getRegionFromPosGlobal( mWestSouth );
+	if (!region)
+	{
+		return;
+	}
+
+	LLParcel* parcel = mCurrentParcel;
+	if (!parcel)
+	{
+		llwarns << "no parcel" << llendl;
+		return;
+	}
+
+	LLSD body;
+	body["local-id"] = parcel->getLocalID();
+	body["list"] = parcel->getMediaURLFilterList();
+
+	std::string url = region->getCapability("ParcelMediaURLFilterList");
+	if (!url.empty())
+	{
+		LLHTTPClient::post(url, body, new LLParcelMediaURLFilterResponder);
+	}
+	else
+	{
+		llwarns << "can't get ParcelMediaURLFilterList cap" << llendl;
+	}
+}
+
+
+void LLViewerParcelMgr::receiveParcelMediaURLFilter(const LLSD &content)
+{
+	if (content.has("list"))
+	{
+		LLParcel* parcel = LLViewerParcelMgr::getInstance()->mCurrentParcel;
+		if (!parcel) return;
+		
+		if (content["local-id"].asInteger() == parcel->getLocalID())
+		{
+			parcel->setMediaURLFilterList(content["list"]);
+			
+			LLViewerParcelMgr::getInstance()->notifyObservers();
 		}
 	}
 }

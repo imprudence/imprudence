@@ -126,8 +126,11 @@
 				Przypisz
 			</string>
 			<button label="Przypisz..." label_selected="Przypisz..." name="button deed" tool_tip=""/>
-			<check_box label="Pozwól przesuwać każdemu" name="checkbox allow everyone move"/>
-			<check_box label="Pozwól kopiować każdemu" name="checkbox allow everyone copy"/>
+			<text name="Anyone can:">
+				Każdy:
+			</text>
+			<check_box label="Przesuń" name="checkbox allow everyone move"/>
+			<check_box label="Kopiuj" name="checkbox allow everyone copy"/>
 			<check_box label="Pokaż w wyszukiwarce" name="search_check" tool_tip="Udostępnij wyświetlanie się tego przedmiotu w wynikach wyszukiwania"/>
 			<check_box label="Na Sprzedaż" name="checkbox for sale"/>
 			<text name="Cost">

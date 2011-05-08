@@ -51,16 +51,16 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
-#include <fstream>
+#include <iosfwd>
 
-// Work Microsoft compiler warnings
+// Work around Microsoft compiler warnings in STL headers
 #ifdef LL_WINDOWS
 #pragma warning (disable : 4702) // unreachable code
 #pragma warning (disable : 4244) // conversion from time_t to S32
 #endif	//	LL_WINDOWS
 
-#include <algorithm>
+// *TODO: Eliminate these, most library .cpp files don't need them.
+// Add them to llviewerprecompiledheaders.h if necessary.
 #include <list>
 #include <map>
 #include <vector>
@@ -76,18 +76,21 @@
 #pragma warning (disable : 4512) // assignment operator could not be generated
 #pragma warning (disable : 4706) // assignment within conditional (even if((x = y)) )
 #pragma warning (disable : 4265) // boost 1.36.0, non-virtual destructor in boost::exception_detail::*
+
+// Reenable warnings we disabled above
+#pragma warning (3 : 4702) // unreachable code, we like level 3, not 4
+// moved msvc warnings to llpreprocessor.h  *TODO - delete this comment after merge conflicts are unlikely -brad
 #endif	//	LL_WINDOWS
 
 // Linden only libs in alpha-order other than stdtypes.h
+// *NOTE: Please keep includes here to a minimum, see above.
 #include "stdtypes.h"
 #include "lldefs.h"
 #include "llerror.h"
 #include "llextendedstatus.h"
-#include "llfasttimer.h"
+// Don't do this, adds 15K lines of header code to every library file.
+//#include "llfasttimer.h"
 #include "llfile.h"
 #include "llformat.h"
-#include "llstring.h"
-#include "llsys.h"
-#include "lltimer.h"
 
 #endif

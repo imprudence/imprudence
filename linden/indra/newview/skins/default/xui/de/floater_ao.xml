@@ -2,28 +2,28 @@
 <floater name="geminifloater" title="Animation Overrider">
   <view_border name="ao_notecard"/>
   <view_border name="ao_notecard_vis"/>
-  <text name="Give inventory" tool_tip="ZHAO Notiz hier fallen lassen. Konfiguration und Animationen müssen im gleichen Inventar Ordner liegen!">
-    ZHAO II Konfiguration hier fallen lassen.
+  <text name="Give inventory" tool_tip="ZHAO Notiz hier einstellen. Konfiguration und Animationen müssen im gleichen Inventar-Ordner liegen!">
+    ZHAO II Konfiguration hier einstellen.
   </text>
   <view_border name="ao_notecard_disp"/>
   <text name="ao_nc_text" tool_tip="">
-    Aktuell: ITEM
+    Aktuell festgesetzt: ITEM
   </text>
-  <button name="opencard" label="Laden"/>
+  <button name="opencard" label="Ansehen"/>
   <button name="reloadcard" label="Neuladen"/>
 	<button label="Mehr &gt;&gt;" name="more_btn" tool_tip="Erweiterte Optionen"/>
 	<button label="&lt;&lt; Weniger" name="less_btn" tool_tip="Erweiterte Optionen"/>
-	<check_box label="Anims übersteuern" name="EmeraldAOEnabled"/>
-  <check_box label="Sitzen übersteuern" name="EmeraldAOSitsEnabled"/>
+	<check_box label="Aktivierung Animationsüberlagerung" name="EmeraldAOEnabled"/>
+  <check_box label="Aktivierung Sitzüberlagerung" name="EmeraldAOSitsEnabled"/>
   <text name="buttons_desc">
-    Stand:
+    Stände:
   </text>
   <combo_box name="stands" label=""/>
   <button name="prevstand" tool_tip="vorheriger Stand" label="&lt;&lt;"/>
   <button name="nextstand" tool_tip="nächster Stand" label="&gt;&gt;"/>
-  <check_box label="zufällige Stand Ani" name="EmeraldAOStandRandomize"/>
-  <check_box label="keine Stand Ani bei Mouselook" name="EmeraldAONoStandsInMouselook"/>
-  <spinner name="standtime" label="Stand Zeit" tool_tip="AO Stand zeit in Sekunden"/>
+  <check_box label="zufällige Stand-Ani" name="EmeraldAOStandRandomize"/>
+  <check_box label="keine Stand-Ani bei Mouselook" name="EmeraldAONoStandsInMouselook"/>
+  <spinner name="standtime" label="Zeit je Stand" tool_tip="AO Standzeit in Sekunden"/>
   <tab_container label="Default" name="tabcontainer">
     <panel label="Standard Anis" name="tabdefaultanims">
       <text name="textdefaultwalk">
@@ -39,7 +39,7 @@
       </text>
       <combo_box name="jumps" label=""/>
       <text name="textdefaultsit">
-        Standard sitzen:
+        Standard Sitz:
       </text>
       <combo_box name="sits" label=""/>
       <text name="textdefaultgsit">
@@ -47,19 +47,19 @@
       </text>
       <combo_box name="gsits" label=""/>
       <text name="textdefaultcrouch">
-        Standard geduckt:
+        Standard Hocke:
       </text>
       <combo_box name="crouchs" label=""/>
       <text name="textdefaultcrouchwalk">
-        Standard geduckt Gang:
+        Standard geduckter Gang:
       </text>
       <combo_box name="cwalks" label=""/>
       <text name="textdefaultfall">
-        Standard fallen:
+        Standard Fall:
       </text>
       <combo_box name="falls" label=""/>
       <text name="textdefaulthover">
-        Standard scheweben:
+        Standard Schweben:
       </text>
       <combo_box name="hovers" label=""/>
       <text name="textdefaultfly">

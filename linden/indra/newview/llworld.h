@@ -71,7 +71,7 @@ public:
 	LLWorld();
 	void destroyClass();
 
-	LLViewerRegion*	addRegion(const U64 &region_handle, const LLHost &host);
+	LLViewerRegion*	addRegion(const U64 &region_handle, const LLHost &host, const U32 &region_size_x, const U32 &region_size_y);
 		// safe to call if already present, does the "right thing" if
 		// hosts are same, or if hosts are different, etc...
 	void			removeRegion(const LLHost &host);
@@ -142,12 +142,15 @@ public:
 
 	LLViewerImage *getDefaultWaterTexture();
 	void updateWaterObjects();
+	void waterHeightRegionInfo(std::string const& sim_name, F32 water_height);
 	void shiftRegions(const LLVector3& offset);
 
 	void setSpaceTimeUSec(const U64 space_time_usec);
 	U64 getSpaceTimeUSec() const;
 
 	void getInfo(LLSD& info);
+
+	void rebuildClouds(LLViewerRegion *regionp);
 
 public:
 	typedef std::list<LLViewerRegion*> region_list_t;
@@ -168,12 +171,12 @@ private:
 	region_list_t	mCulledRegionList;
 
 	// Number of points on edge
-	static const U32 mWidth;
+	static U32 mWidth;
 
 	// meters/point, therefore mWidth * mScale = meters per edge
 	static const F32 mScale;
 
-	static const F32 mWidthInMeters;
+	static F32 mWidthInMeters;
 
 	F32 mLandFarClip;					// Far clip distance for land.
 	LLPatchVertexArray		mLandPatch;

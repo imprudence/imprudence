@@ -466,7 +466,14 @@ void LLFloaterDirectory::setVisible(BOOL visible)
 
 void LLFloaterDirectory::onClose(bool app_quitting)
 {
-	setVisible(FALSE);
+	if (gSavedSettings.getBOOL("SaveSearchResults"))
+	{
+		setVisible(FALSE); //meaning you hide 3 web browsers - one SLPlugin each
+	}
+	else
+	{
+		LLFloater::onClose(app_quitting);
+	}
 }
 
 // static

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- Local Asset Browser: xui -->
+<!-- floater definition start -->
+
+<floater
+	name="local_bitmap_browser_floater"
+	title="Local Texture Properties"
+	can_resize="false"
+	can_minimize="true"
+	can_close="true"
+	can_drag_on_left="false"
+	width="415"
+	height="460"
+	min_width="415"
+	min_height="460"
+  rect_control="FloaterLocalbitmapbrowserRect"
+	>
+
+  <button
+    name="add_btn"
+    label="Add"
+    left="12.5"
+    bottom="-45"
+    width="90"
+    height="20"
+		/>
+  <button
+		name="del_btn"
+		label="Remove"
+		left_delta="95"
+	  bottom_delta="0"
+		width="90"
+		height="20"
+		/>
+  <button
+    name="upload_btn"
+    label="Upload Image ([UPLOADFEE])..."
+    right="-5"
+    bottom_delta="0"
+    width="170"
+    height="20"
+    follows="left|top"
+		/>
+  
+  <scroll_list
+    name="bitmap_list"
+    left="10"
+    bottom_delta="-205"
+    width="395"
+    height="200"
+    column_padding="0"
+    can_resize="false"
+    draw_heading="true"
+    multi_select="false"
+    search_column="1"
+    follows="bottom|top"
+		>
+    <column name="bitmap_name" label="Name" dynamicwidth="true" />
+    <column name="bitmap_uuid" label="UUID" width="240" />
+  </scroll_list>
+  
+  <line_editor
+    bevel_style="in"
+    border_style="line"
+    border_thickness="1"
+    mouse_opaque="true"
+    follows="left|top"
+    height="16"
+    bottom="16"
+    left="10"
+    name="path_text"
+    select_all_on_focus_received="true"
+    width="305"
+    visible="true"
+    />
+
+  <text name="path_caption_text"
+    left_delta="0"
+    bottom_delta="20"
+    follows="left|top"
+    width="100"
+    height="16"
+    visible="true"
+ 	  >
+    Local path:
+  </text>
+
+  <line_editor
+    bevel_style="in"
+    border_style="line"
+    border_thickness="1"
+    mouse_opaque="true"
+		follows="left|top"
+    height="16"
+    bottom_delta="20"
+    left_delta="0"
+    name="uuid_text"
+	  select_all_on_focus_received="true"
+    width="305"
+    visible="true"
+    />
+
+  <text name="uuid_caption_text"
+    left_delta="0"
+    follows="left|top"
+    bottom_delta="21"
+    width="260"
+    height="16"
+    visible="true"
+ 	  >
+    Local UUID:
+  </text>
+
+  <texture_picker
+    allow_no_texture="false"
+    height="100"
+    width="80"
+    default_image_name="Default"
+    can_apply_immediately="true"
+    follows="left|top"
+    label="Texture"
+    bottom_delta="20"
+    left_delta="0"
+    mouse_opaque="true"
+    name="texture_view"
+    visible="true"
+    />
+
+  <check_box
+    bottom_delta="15"
+    left_delta="100"
+    follows="left|top"
+    height="16"
+    initial_value="true"
+    label="Keep updating"
+    mouse_opaque="true"
+    name="keep_updating_checkbox"
+    tool_tip="Enable or disable periodic checks if the source bitmap on your hard drive has been updated"
+    width="166"
+    visible="true"
+    enabled="true"
+    />
+
+  <combo_box
+    visible="true"
+    allow_text_entry="false"
+    bottom_delta="0"
+    follows="left|top"
+    height="18"
+    left_delta="120"
+    max_chars="20"
+    mouse_opaque="true"
+    name="type_combobox"
+    width="83"
+    >
+
+    <combo_item name="type_texture" value="type_texture">
+      Texture
+    </combo_item>
+
+    <combo_item name="type_sculptie" value="type_sculptie">
+      Sculptmap
+    </combo_item>
+
+    <combo_item name="type_layer" value="type_layer">
+      Clothing
+    </combo_item>
+
+  </combo_box>
+
+  <text name="time_caption_text"
+    left_delta="-115"
+    bottom_delta="25"
+    follows="left|top"
+    width="260"
+    height="16"
+    visible="true"
+ 	  >
+    Time:
+  </text>
+
+  <text name="time_text"
+    left_delta="50"
+    bottom_delta="0"
+    follows="left|top"
+    width="260"
+    height="16"
+	  visible="true"
+    >
+    (date here)
+  </text>
+
+  <text name="link_caption_text"
+    left_delta="-50"
+    bottom_delta="20"
+    follows="left|top"
+    width="260"
+    height="16"
+    visible="true"
+	  >
+    Link:
+  </text>
+
+  <text name="link_text"
+    left_delta="50"
+    bottom_delta="0"
+    follows="left|top"
+    width="260"
+    height="16"
+    visible="true"
+    >
+    (link status)
+  </text>
+
+  <text name="name_caption_text"
+    left_delta="-50"
+    bottom_delta="20"
+    follows="left|top"
+    width="260"
+    height="16"
+    visible="true"
+  	>
+    Name:
+  </text>
+
+  <line_editor
+    bevel_style="in"
+    border_style="line"
+    border_thickness="1"
+    mouse_opaque="true"
+		follows="left|top"
+    height="16"
+    bottom_delta="0"
+    left_delta="50"
+    name="name_text"
+	  select_all_on_focus_received="true"
+    width="150"
+    visible="true"
+    />
+
+</floater>

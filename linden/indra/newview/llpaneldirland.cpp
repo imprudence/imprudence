@@ -52,7 +52,7 @@
 #include "llviewercontrol.h"
 #include "llviewermessage.h"
 #include "llnotify.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //-----------------------------------------------------------------------------
 // Constants

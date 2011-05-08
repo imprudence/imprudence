@@ -42,9 +42,9 @@
 
 #include "llcurl.h"
 #include "llimagej2c.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
 #include "llagent.h"
@@ -57,15 +57,18 @@
 #include "lltrans.h"
 #include "llappviewer.h" 
 #include "llglheaders.h"
-#include "llmediamanager.h"
+#include "llviewerwindow.h"
 #include "llwindow.h"
 #include "viewerversion.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #if LL_WINDOWS
 #include "lldxhardware.h"
 #endif
 
-extern LLCPUInfo gSysCPU;
 extern LLMemoryInfo gSysMemory;
 extern U32 gPacketsIn;
 
@@ -104,6 +107,8 @@ LLFloaterAbout::LLFloaterAbout()
 		return;
 	}
 
+	childSetAction("copy_btn", onClickCopy, this);
+
 	// For some reason, adding style doesn't work unless this is true.
 	support_widget->setParseHTML(TRUE);
 
@@ -134,7 +139,7 @@ LLFloaterAbout::LLFloaterAbout()
 #endif
 
 #if LL_GNUC
-    support.append(llformat("Built with GCC version %d\n\n", GCC_VERSION));
+	support.append(llformat("Built with GCC version %s\n\n", __VERSION__));
 #endif
 
 	// Position
@@ -142,7 +147,7 @@ LLFloaterAbout::LLFloaterAbout()
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-04 (RLVa-1.0.0a)
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 	{
-		support.append(rlv_handler_t::cstrHidden);
+		support.append(RlvStrings::getString(RLV_STRING_HIDDEN));
 		support.append("\n\n");
 	}
 	else if (region)
@@ -242,26 +247,10 @@ LLFloaterAbout::LLFloaterAbout()
 
 	support.append("\n");
 
-	LLMediaManager *mgr = LLMediaManager::getInstance();
-	if (mgr)
-	{
-		LLMediaBase *gstreamer = mgr->createSourceFromMimeType("http", "audio/mpeg");
-		if (gstreamer)
-		{
-			support.append("GStreamer Version: ");
-			support.append( gstreamer->getVersion() );
-			support.append("\n");
-		} 
+	// TODO: Implement media plugin version query
 
-		LLMediaBase *media_source = mgr->createSourceFromMimeType("http", "text/html");
-		if (media_source)
-		{
-			support.append("LLMozLib Version: ");
-			support.append(media_source->getVersion());
-			support.append("\n");
-			mgr->destroySource(media_source);
-		}
-	}
+	support.append("Qt Webkit Version: 4.6 (version number hard-coded)");
+	support.append("\n");
 
 	if (gPacketsIn > 0)
 	{
@@ -306,6 +295,23 @@ void LLFloaterAbout::show(void*)
 	}
 
 	sInstance->open();	 /*Flawfinder: ignore*/
+}
+
+// static
+void LLFloaterAbout::onClickCopy(void* user_data)
+{
+	LLFloaterAbout* self = (LLFloaterAbout*)user_data;
+
+	if (self)
+	{
+		LLViewerTextEditor* support_widget = self->getChild<LLViewerTextEditor>("support_editor", true);
+
+		if (support_widget)
+		{
+			std::string buffer = support_widget->getText();
+			gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(buffer));
+		}
+	}
 }
 
 

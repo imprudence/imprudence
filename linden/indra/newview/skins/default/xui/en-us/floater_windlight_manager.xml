@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-150" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="130" left="50" min_height="130"
+     min_width="300" mouse_opaque="true" name="WindLight send to server floater"
+     title="WindLight Manager"
+     width="300">
+  <button bottom="-50" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="This Parcel" label_selected="This Parcel" left="10"
+	     mouse_opaque="true" name="this_parcel" scale_image="true" width="90" />
+  <button  bottom="-50" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="All Parcels" label_selected="All Parcels" left_delta="95 "
+	     mouse_opaque="true" name="all_parcels" scale_image="true" width="90" />
+  <button  bottom="-50" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="This Region" label_selected="This Region" left_delta="95 "
+	     mouse_opaque="true" name="this_region" scale_image="true" width="90" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-75" drop_shadow_visible="true" follows="left|top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16"
+	     left="10" mouse_opaque="true" name="KeyFramePresetsText" v_pad="0"
+	     width="110">
+    Settings:
+  </text>
+  <combo_box allow_text_entry="false" bottom="-77" follows="left|top" height="18"
+	     left_delta="70" max_chars="20" mouse_opaque="true" name="WLSettingsCombo"
+	     width="200" />
+  <button  bottom="-125" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Show" label_selected="Show" left="10"
+	     mouse_opaque="true" name="show" scale_image="true" width="80" />
+  <button  bottom="-125" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Set to Current" label_selected="Set to Current" left="95"
+	     mouse_opaque="true" name="set_to_current" scale_image="true" width="100" />
+  <button  bottom="-125" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Remove" label_selected="Remove" left="200"
+	     mouse_opaque="true" name="remove" scale_image="true" width="80" />
+</floater>

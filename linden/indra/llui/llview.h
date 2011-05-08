@@ -53,6 +53,7 @@
 #include "stdenums.h"
 #include "lluistring.h"
 #include "llcursortypes.h"
+#include "llfocusmgr.h"
 
 const U32	FOLLOWS_NONE	= 0x00;
 const U32	FOLLOWS_LEFT	= 0x01;
@@ -207,7 +208,7 @@ public:
 	}
 };
 
-class LLView : public LLMouseHandler, public LLMortician
+class LLView : public LLMouseHandler, public LLMortician, public LLFocusableElement
 {
 
 public:
@@ -398,9 +399,11 @@ public:
 	virtual BOOL	canSnapTo(const LLView* other_view);
 
 	virtual void	snappedTo(const LLView* snap_view);
+	
+	// inherited from LLFocusableElement
+	/* virtual */ BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	/* virtual */ BOOL	handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
 
-	virtual BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL	handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
 	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 									  EDragAndDropType cargo_type,
 									  void* cargo_data,
@@ -421,8 +424,9 @@ public:
 	BOOL getSaveToXML() const { return mSaveToXML; }
 	void setSaveToXML(BOOL b) { mSaveToXML = b; }
 
-	virtual void onFocusLost();
-	virtual void onFocusReceived();
+	// inherited from LLFocusableElement
+	/* virtual */ void onFocusLost();
+	/* virtual */ void onFocusReceived();
 
 	typedef enum e_hit_test_type
 	{
@@ -469,6 +473,7 @@ public:
 	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
+	/*virtual*/ BOOL	handleHScrollWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask);	
 	/*virtual*/ BOOL	handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect); // Display mToolTipMsg if no child handles it.
@@ -609,6 +614,7 @@ protected:
 	LLView* childrenHandleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	LLView* childrenHandleDoubleClick(S32 x, S32 y, MASK mask);
 	LLView*	childrenHandleScrollWheel(S32 x, S32 y, S32 clicks);
+	LLView*	childrenHandleHScrollWheel(S32 x, S32 y, S32 clicks);
 	LLView* childrenHandleRightMouseDown(S32 x, S32 y, MASK mask);
 	LLView* childrenHandleRightMouseUp(S32 x, S32 y, MASK mask);
 

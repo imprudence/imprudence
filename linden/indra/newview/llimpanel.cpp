@@ -59,6 +59,7 @@
 #include "llfloateractivespeakers.h"
 #include "llfloateravatarinfo.h"
 #include "llfloaterchat.h"
+#include "llfloaterfriends.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
 #include "llmenucommands.h"
@@ -77,6 +78,10 @@
 #include "llmutelist.h"
 #include "llstylemap.h"
 #include <sys/stat.h>
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //
 // Constants
@@ -100,6 +105,8 @@ LLVoiceChannel* LLVoiceChannel::sCurrentVoiceChannel = NULL;
 LLVoiceChannel* LLVoiceChannel::sSuspendedVoiceChannel = NULL;
 
 BOOL LLVoiceChannel::sSuspended = FALSE;
+
+std::set<LLFloaterIMPanel*> LLFloaterIMPanel::sFloaterIMPanels;
 
 void session_starter_helper(
 	const LLUUID& temp_session_id,
@@ -1082,7 +1089,6 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	LLFloater(session_label, LLRect(), session_label),
 	mInputEditor(NULL),
 	mHistoryEditor(NULL),
-	mComboIM(NULL),
 	mSessionUUID(session_id),
 	mVoiceChannel(NULL),
 	mSessionInitialized(FALSE),
@@ -1104,6 +1110,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	mFirstKeystrokeTimer(),
 	mLastKeystrokeTimer()
 {
+	sFloaterIMPanels.insert(this);
 	init(session_label);
 }
 
@@ -1134,7 +1141,8 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	mSpeakers(NULL),
 	mSpeakerPanel(NULL),
 	mFirstKeystrokeTimer(),
-	mLastKeystrokeTimer()
+	mLastKeystrokeTimer(),
+	mIMPanelType(IM_PANEL_PLAIN)
 {
 	mSessionInitialTargetIDs = ids;
 	init(session_label);
@@ -1144,6 +1152,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 void LLFloaterIMPanel::init(const std::string& session_label)
 {
 	mSessionLabel = session_label;
+	mProfileButtonEnabled = FALSE;
 
 	std::string xml_filename;
 	switch(mDialog)
@@ -1152,27 +1161,32 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		xml_filename = "floater_instant_message_group.xml";
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
+		mIMPanelType = IM_PANEL_GROUP;
 		break;
 	case IM_SESSION_INVITE:
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		if (gAgent.isInGroup(mSessionUUID))
 		{
 			xml_filename = "floater_instant_message_group.xml";
+			mIMPanelType = IM_PANEL_GROUP;
 		}
 		else // must be invite to ad hoc IM
 		{
 			xml_filename = "floater_instant_message_ad_hoc.xml";
+			mIMPanelType = IM_PANEL_CONFERENCE;
 		}
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
 		break;
 	case IM_SESSION_P2P_INVITE:
 		xml_filename = "floater_instant_message.xml";
 		mVoiceChannel = new LLVoiceChannelP2P(mSessionUUID, mSessionLabel, mOtherParticipantUUID);
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	case IM_SESSION_CONFERENCE_START:
 		mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, this);
 		xml_filename = "floater_instant_message_ad_hoc.xml";
 		mVoiceChannel = new LLVoiceChannelGroup(mSessionUUID, mSessionLabel);
+		mIMPanelType = IM_PANEL_CONFERENCE;
 		break;
 	// just received text from another user
 	case IM_NOTHING_SPECIAL:
@@ -1184,10 +1198,12 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 		mCallBackEnabled = LLVoiceClient::getInstance()->isSessionCallBackPossible(mSessionUUID);
 		
 		mVoiceChannel = new LLVoiceChannelP2P(mSessionUUID, mSessionLabel, mOtherParticipantUUID);
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	default:
 		llwarns << "Unknown session type" << llendl;
 		xml_filename = "floater_instant_message.xml";
+		mIMPanelType = IM_PANEL_PLAIN;
 		break;
 	}
 
@@ -1199,6 +1215,10 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 								FALSE);
 
 	setTitle(mSessionLabel);
+	if (mProfileButtonEnabled)
+	{
+		lookupName();
+	}
 
 	mInputEditor->setMaxTextLength(DB_IM_MSG_STR_LEN);
 	// enable line history support for instant message bar
@@ -1241,9 +1261,32 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 	}
 }
 
+void LLFloaterIMPanel::lookupName()
+{
+	LLAvatarNameCache::get(mOtherParticipantUUID, boost::bind(&LLFloaterIMPanel::onAvatarNameLookup, _1, _2, this));
+}
+
+//static 
+void LLFloaterIMPanel::onAvatarNameLookup(const LLUUID& id, const LLAvatarName& avatar_name, void* user_data)
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*)user_data;
+
+	if (self && sFloaterIMPanels.count(self) != 0)
+	{
+		// Always show "Display Name [Legacy Name]" for security reasons
+		std::string title = avatar_name.getNames();
+		if (!title.empty())
+		{
+			self->setTitle(title);
+		}
+	}
+}
+
 
 LLFloaterIMPanel::~LLFloaterIMPanel()
 {
+	sFloaterIMPanels.erase(this);
+
 	delete mSpeakers;
 	mSpeakers = NULL;
 	
@@ -1283,10 +1326,6 @@ BOOL LLFloaterIMPanel::postBuild()
 	requires<LLLineEditor>("chat_editor");
 	requires<LLTextEditor>("im_history");
 
-#if LL_LINUX || LL_DARWIN
-	childSetVisible("history_btn", false);
-#endif
-
 	if (checkRequirements())
 	{
 		mInputEditor = getChild<LLLineEditor>("chat_editor");
@@ -1300,18 +1339,16 @@ BOOL LLFloaterIMPanel::postBuild()
 		mInputEditor->setReplaceNewlinesWithSpaces( FALSE );
 
 		// Profile combobox in floater_instant_message.xml
-		mComboIM = getChild<LLComboBox>("profile_callee_btn");
-		mComboIM->setCommitCallback(onCommitCombo);
-		mComboIM->setCallbackUserData(this);
+		childSetCommitCallback("profile_callee_btn", onCommitCombo, this);
+		LLComboBox* comboBox = getChild<LLComboBox>("profile_callee_btn");
+		if (LLAvatarTracker::instance().getBuddyInfo(mOtherParticipantUUID) == NULL)
+		{
+			comboBox->add(getString("add_friend_string"), ADD_TOP);
+		}
+		comboBox->setCommitCallback(onCommitCombo);
+		comboBox->setCallbackUserData(this);
 
-#ifdef LL_WINDOWS
-		mComboIM->add(getString("history_entry"));
-#endif
-		mComboIM->add(getString("pay_entry"));
-		mComboIM->add(getString("teleport_entry"));
-
-		childSetAction("group_info_btn", onClickGroupInfo, this);
-		childSetAction("history_btn", onClickHistory, this);
+		childSetCommitCallback("group_info_btn", onCommitCombo, this);
 
 		childSetAction("start_call_btn", onClickStartCall, this);
 		childSetAction("end_call_btn", onClickEndCall, this);
@@ -1544,8 +1581,9 @@ BOOL LLFloaterIMPanel::inviteToSession(const LLDynamicArray<LLUUID>& ids)
 	return TRUE;
 }
 
-void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4& color, bool log_to_file, const LLUUID& source, const std::string& name)
+void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4& color, bool log_to_file, const LLUUID& source, const std::string& const_name)
 {
+	std::string name = const_name;
 	// start tab flashing when receiving im for background session from user
 	if (source != LLUUID::null)
 	{
@@ -1596,6 +1634,21 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 		}
 		else
 		{
+			if (LLAvatarNameCache::useDisplayNames() && source != LLUUID::null)
+			{
+				LLAvatarName avatar_name;
+				if (LLAvatarNameCache::get(source, &avatar_name))
+				{
+					if (LLAvatarNameCache::useDisplayNames() == 1)
+					{
+						name = avatar_name.mDisplayName;
+					}
+					else
+					{
+						name = avatar_name.getNames();
+					}
+				}
+			}
 			// Convert the name to a hotlink and add to message.
 			const LLStyleSP &source_style = LLStyleMap::instance().lookupAgent(source);
 			mHistoryEditor->appendStyledText(name,false,prepend_newline,source_style);
@@ -1613,7 +1666,7 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 		else
 			histstr = name + utf8msg;
 
-		LLLogChat::saveHistory(getTitle(),histstr);
+		LLLogChat::saveHistory(mSessionLabel, histstr);
 	}
 
 	if (!isInVisibleChain())
@@ -1804,41 +1857,6 @@ void LLFloaterIMPanel::onTabClick(void* userdata)
 }
 
 // static
-void LLFloaterIMPanel::onClickHistory( void* userdata )
-{
-	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	
-	if (self->mOtherParticipantUUID.notNull())
-	{
-		struct stat fileInfo;
-		int result;
-		
-		std::string fullname = self->getTitle();;
-		//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
-		//if(fullname == "(Loading...)")
-		std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
-
-		// check if file exists by trying to get its attributes
-		result = stat(file_path.c_str(), &fileInfo);
-		if(result == 0)
-		{
-			char command[256];
-			sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
-			gViewerWindow->getWindow()->ShellEx(command);
-
-			llinfos << command << llendl;
-		}
-		else
-		{
-			LLSD args;
-			args["[NAME]"] = fullname;
-			LLNotifications::instance().add("IMLogNotFound", args);
-			llinfos << file_path << llendl;
-		}
-	}
-}
-
-// static
 void LLFloaterIMPanel::onClickGroupInfo( void* userdata )
 {
 	//  Bring up the Profile window
@@ -1899,59 +1917,63 @@ void LLFloaterIMPanel::onCommitChat(LLUICtrl* caller, void* userdata)
 void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	LLCtrlListInterface* options = self->mComboIM ? self->mComboIM->getListInterface() : NULL;
-	if (options)
+	if (self->getOtherParticipantID().notNull())
 	{
-		S32 index = options->getFirstSelectedIndex();
-		if (index < 0)
+		if (caller->getValue().asString() == "history_entry")
 		{
-			// Open profile or group window
-			if (self->mOtherParticipantUUID.notNull())
+			if (self->getOtherParticipantID().notNull())
 			{
-				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
-			}
-			return;
-		}
-
-		std::string selected = self->mComboIM->getSelectedValue().asString();
-		if (selected == self->getString("history_entry"))
-		{
-			if (self->mOtherParticipantUUID.notNull())
-			{
-				struct stat fileInfo;
-				int result;
-				
-				std::string fullname = self->getTitle();;
+				std::string fullname = self->getTitle();
 				//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
 				//if(fullname == "(Loading...)")
-				std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+				std::string separator;
+#ifdef LL_WINDOWS
+				separator = "\\";
+#else
+				separator = "/";
+#endif
+				std::string file = gDirUtilp->getPerAccountChatLogsDir() + separator + fullname + ".txt";
 
-				// check if file exists by trying to get its attributes
-				result = stat(file_path.c_str(), &fileInfo);
-				if(result == 0)
-				{
-					char command[256];
-					sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
-					gViewerWindow->getWindow()->ShellEx(command);
-
-					llinfos << command << llendl;
-				}
-				else
+				llstat stat_info;
+				if (LLFile::stat(file.c_str(), &stat_info)) 
 				{
 					LLSD args;
 					args["[NAME]"] = fullname;
-					LLNotifications::instance().add("IMLogNotFound", args);
-					llinfos << file_path << llendl;
+					LLNotifications::instance().add("IMLogNotFound", args, LLSD());
+					//llinfos << file << " not found" << llendl;
+				}
+				else
+				{
+					gViewerWindow->getWindow()->ShellEx(file);
+					//llinfos << file << " found" << llendl;
 				}
 			}
 		}
-		else if (selected == self->getString("pay_entry"))
+		// profile
+		else if (self->getIMType() == IM_PANEL_PLAIN)
 		{
-			handle_pay_by_id(self->mOtherParticipantUUID);
+			if (caller->getValue().asString() == "pay_entry")
+			{
+				handle_pay_by_id(self->getOtherParticipantID());
+			}
+			else if (caller->getValue().asString() == "teleport_entry")
+			{
+				handle_lure(self->getOtherParticipantID());
+			}
+			else if (caller->getValue().asString() == self->getString("add_friend_string"))
+			{
+				std::string fullname = self->getTitle();
+				LLPanelFriends::requestFriendshipDialog(self->getOtherParticipantID(), fullname);
+			}
+			else
+			{
+				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
+			}
 		}
-		else if (selected == self->getString("teleport_entry"))
+		// group
+		else if (self->getIMType() == IM_PANEL_GROUP)
 		{
-			handle_lure(self->mOtherParticipantUUID);
+			LLFloaterGroupInfo::showFromUUID(self->getSessionID());
 		}
 	}
 }
@@ -2144,18 +2166,18 @@ void LLFloaterIMPanel::sendMsg()
 			// Truncate and convert to UTF8 for transport
 			utf8_text = utf8str_truncate(utf8_text, MAX_MSG_BUF_SIZE - 1);
 			
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
 			{
 				if (IM_NOTHING_SPECIAL == mDialog)			// One-on-one IM: allow if recipient is a sendim exception
 				{
 					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mOtherParticipantUUID))
-						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+						utf8_text = RlvStrings::getString(RLV_STRING_BLOCKED_SENDIM);
 				}
 				else if (gAgent.isInGroup(mSessionUUID))	// Group chat: allow if recipient is a sendim exception
 				{
 					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mSessionUUID))
-						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+						utf8_text = RlvStrings::getString(RLV_STRING_BLOCKED_SENDIM);
 				}
 				else if (mSpeakers)							// Conference chat: allow if all participants are sendim exceptions
 				{
@@ -2168,14 +2190,14 @@ void LLFloaterIMPanel::sendMsg()
 						LLSpeaker* pSpeaker = *itSpeaker;
 						if ( (gAgent.getID() != pSpeaker->mID) && (!gRlvHandler.isException(RLV_BHVR_SENDIM, pSpeaker->mID)) )
 						{
-							utf8_text = rlv_handler_t::cstrBlockedSendIM;
+							utf8_text = RlvStrings::getString(RLV_STRING_BLOCKED_SENDIM);
 							break;
 						}
 					}
 				}
 				else										// Catch all fall-through
 				{
-					utf8_text = rlv_handler_t::cstrBlockedSendIM;
+					utf8_text = RlvStrings::getString(RLV_STRING_BLOCKED_SENDIM);
 				}
 			}
 // [/RLVa:KB]
@@ -2193,6 +2215,21 @@ void LLFloaterIMPanel::sendMsg()
 				{
 					std::string history_echo;
 					gAgent.buildFullname(history_echo);
+					if (LLAvatarNameCache::useDisplayNames())
+					{
+						LLAvatarName avatar_name;
+						if (LLAvatarNameCache::get(gAgent.getID(), &avatar_name))
+						{
+							if (LLAvatarNameCache::useDisplayNames() == 1)
+							{
+								history_echo = avatar_name.mDisplayName;
+							}
+							else
+							{
+								history_echo = avatar_name.getNames();
+							}
+						}
+					}
 
 					// Look for IRC-style emotes here.
 					std::string prefix = utf8_text.substr(0, 4);
@@ -2227,8 +2264,8 @@ void LLFloaterIMPanel::sendMsg()
 
 		LLViewerStats::getInstance()->incStat(LLViewerStats::ST_IM_COUNT);
 
+		mInputEditor->setText(LLStringUtil::null);
 	}
-	mInputEditor->setText(LLStringUtil::null);
 
 	// Don't need to actually send the typing stop message, the other
 	// client will infer it from receiving the message.

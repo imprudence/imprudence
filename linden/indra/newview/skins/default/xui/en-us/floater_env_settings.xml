@@ -58,9 +58,11 @@
 	<button bottom="-140" follows="left|top" font="SansSerifSmall" height="20"
 	     label="Use Estate Time" left="8" name="EnvUseEstateTimeButton" width="137" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20"
-	     label="Advanced Sky" left="154" name="EnvAdvancedSkyButton" width="137" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20"
-	     label="Advanced Water" left="300" name="EnvAdvancedWaterButton" width="137" />
-	<button bottom="-40" follows="left|top" font="SansSerif" height="18" label="?"
+	     label="Advanced Sky" left="154" name="EnvAdvancedSkyButton" width="107" />
+  <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20"
+	     label="Advanced Water" left="270" name="EnvAdvancedWaterButton" width="137" />
+  <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20"
+	     label="Advanced WindLight Manager" left="416" name="EnvWLManager" width="177" />
+  <button bottom="-40" follows="left|top" font="SansSerif" height="18" label="?"
 	     left="570" name="EnvSettingsHelpButton" width="22" />
 </floater>

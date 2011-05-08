@@ -47,7 +47,7 @@
 
 #include "floatergriddefault.h"
 #include "floatervoicelicense.h"
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "llstartup.h"
 #include "llvoavatar.h"
 
@@ -326,21 +326,6 @@ void LLFirstUse::showRlvFirstUseNotification(const std::string& strName)
 		gSavedSettings.setWarning(strName, FALSE);
 		LLNotifications::instance().add(strName);
 	}
-}
-
-void LLFirstUse::warnRlvGiveToRLV()
-{
-	if ( (gSavedSettings.getWarning(RLV_SETTING_FIRSTUSE_GIVETORLV)) && (RlvSettings::getForbidGiveToRLV()) )
-		LLNotifications::instance().add(RLV_SETTING_FIRSTUSE_GIVETORLV, LLSD(), LLSD(), &LLFirstUse::onRlvGiveToRLVConfirmation);
-}
-
-void LLFirstUse::onRlvGiveToRLVConfirmation(const LLSD& notification, const LLSD& response)
-{
-	gSavedSettings.setWarning(RLV_SETTING_FIRSTUSE_GIVETORLV, FALSE);
-
-	S32 idxOption = LLNotification::getSelectedOption(notification, response);
-	if ( (0 == idxOption) || (1 == idxOption) )
-		gSavedSettings.setBOOL(RLV_SETTING_FORBIDGIVETORLV, (idxOption == 1));
 }
 
 // [/RLVa:KB]

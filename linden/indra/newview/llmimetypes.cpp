@@ -46,6 +46,8 @@ std::string sDefaultWidgetType;
 	// Returned when we don't know what widget set to use
 std::string sDefaultImpl;
 	// Returned when we don't know what impl to use
+std::string sXMLFilename; 
+    // Squirrel away XML filename so we know how to reset
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -54,6 +56,24 @@ bool LLMIMETypes::parseMIMETypes(const std::string& xml_filename)
 {
 	LLXMLNodePtr root;
 	bool success = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
+
+	if (!success)
+	{
+		// If fails, check if we can read the file from the app_settings folder
+		std::string settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, xml_filename);
+		success = LLUICtrlFactory::getLayeredXMLNode(settings_filename, root);
+
+		#if LL_WINDOWS
+		// On the windows dev builds, unpackaged, the mime_types.xml file will be located in
+		// indra/build-vc**/newview/<config>/app_settings.
+		if (!success)
+		{
+			settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_EXECUTABLE, "app_settings", xml_filename);
+			success = LLUICtrlFactory::getLayeredXMLNode(settings_filename, root);
+		}
+		#endif
+	}
+
 	if ( ! success || root.isNull() || ! root->hasName( "mimetypes" ) )
 	{
 		llwarns << "Unable to read MIME type file: "
@@ -146,6 +166,8 @@ bool LLMIMETypes::parseMIMETypes(const std::string& xml_filename)
 			sWidgetMap[set_name] = info;
 		}
 	}
+
+	sXMLFilename = xml_filename;
 	return true;
 }
 
@@ -267,3 +289,23 @@ bool LLMIMETypes::findAllowLooping(const std::string& mime_type)
 	}
 	return allow_looping;
 }
+
+// static
+bool LLMIMETypes::isTypeHandled(const std::string& mime_type)
+{
+	mime_info_map_t::const_iterator it = sMap.find(mime_type);
+	if (it != sMap.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+// static
+void LLMIMETypes::reload(void*)
+{
+	sMap.clear();
+	sWidgetMap.clear();
+	(void)LLMIMETypes::parseMIMETypes(sXMLFilename);
+}
+

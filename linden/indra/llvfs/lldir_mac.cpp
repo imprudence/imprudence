@@ -173,7 +173,7 @@ LLDir_Mac::LLDir_Mac()
 		if (error == noErr)
 		{
 			FSRefToLLString(&cacheDirRef, mOSCacheDir);
-			(void)CFCreateDirectory(&cacheDirRef, CFSTR("Imprudence"),NULL);
+			(void)CFCreateDirectory(&cacheDirRef, CFSTR("ImprudenceExperimental"),NULL);
 		}
 		
 		// mOSUserAppDir
@@ -190,6 +190,8 @@ LLDir_Mac::LLDir_Mac()
 		}
 		
 		mWorkingDir = getCurPath();
+
+		mLLPluginDir = mAppRODataDir + mDirDelimiter + "llplugin";
 				
 		CFRelease(executableURLRef);
 		executableURLRef = NULL;
@@ -385,6 +387,19 @@ BOOL LLDir_Mac::fileExists(const std::string &filename) const
 	{
 		return FALSE;
 	}
+}
+
+
+/*virtual*/ std::string LLDir_Mac::getLLPluginLauncher()
+{
+	return gDirUtilp->getAppRODataDir() + gDirUtilp->getDirDelimiter() +
+		"SLPlugin.app/Contents/MacOS/SLPlugin";
+}
+
+/*virtual*/ std::string LLDir_Mac::getLLPluginFilename(std::string base_name)
+{
+	return gDirUtilp->getLLPluginDir() + gDirUtilp->getDirDelimiter() +
+		base_name + ".dylib";
 }
 
 

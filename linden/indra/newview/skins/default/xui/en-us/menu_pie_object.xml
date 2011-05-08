@@ -66,11 +66,13 @@
         <on_click function="Object.Inspect" />
         <on_enable function="Object.EnableInspect" />
       </menu_item_call>
+      <menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
+        <on_click function="Object.DERENDER" />
+      </menu_item_call>
       <menu_item_call name="Link" enabled="false" label="Link">
         <on_click function="Tools.Link" userdata="" />
         <on_enable function="Tools.EnableLink" />
       </menu_item_call>
-      <menu_item_separator />
       <menu_item_call name="Unlink" enabled="false" label="Unlink">
         <on_click function="Tools.Unlink" userdata="" />
         <on_enable function="Tools.EnableUnlink" />

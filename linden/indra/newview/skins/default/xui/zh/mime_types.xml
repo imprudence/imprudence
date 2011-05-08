@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <mimetypes name="default">
-	<defaultlabel>
-		(未知)
-	</defaultlabel>
-	<defaultwidget>
-		无
-	</defaultwidget>
-	<defaultimpl>
-		LLMediaImplLLMozLib
-	</defaultimpl>
 	<widgetset name="web">
 		<label name="web_label">
 			网页内容

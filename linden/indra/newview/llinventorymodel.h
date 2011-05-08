@@ -312,6 +312,8 @@ public:
 							 LLAssetType::EType preferred_type,
 							 const std::string& name);
 
+	LLUUID findCategoryByName(std::string name);
+
 	// methods to load up inventory skeleton & meat. These are used
 	// during authentication. return true if everything parsed.
 	typedef std::map<std::string, std::string> response_t;

@@ -20,6 +20,15 @@
   <string name="TitleBarMultiple">
     [FIRST_NAME] [LAST_NAME] on [GRID_NAME]
   </string>
+  <string name="copy_obj_key_info">
+    Copied key(s) for:
+  </string>
+  <string name="TeleportOfferMaturity">
+    [NAME] is offering a TP to [DESTINATION]
+  </string>
+  <string name="TeleportLureMaturity">
+    [NAME]'s teleport lure is to [DESTINATION]
+  </string>
 
   <!-- Login -->
   <string name="LoginInProgress">Logging in. [APP_NAME] may appear frozen.  Please wait.</string>
@@ -225,7 +234,7 @@
   <string name="avi_movie_file">AVI Movie File</string>
   <string name="xaf_animation_file">XAF Anim File</string>
   <string name="xml_file">XML File</string>
-  <string name="dot_raw_file">RAW File</string>
+  <string name="raw_file">RAW File</string>
 	<string name="compressed_image_files">Compressed Images</string>
 	<string name="load_files">Load Files</string>
 	<string name="choose_the_directory">Choose Directory</string>

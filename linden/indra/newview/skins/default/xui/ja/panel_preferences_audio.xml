@@ -20,6 +20,7 @@
 	</text>
 	<check_box label="音楽がある場合再生する（通信が重くなる）"
 	     name="streaming_music" />
+	<check_box label="音楽のタイトルをチャットに表示" name="show_stream_title"/>
 	<check_box
 	     label="ストリーミング・メディア使用可時に再生（帯域幅の消費増）"
 	     name="streaming_video" />
@@ -35,11 +36,15 @@
 	<text type="string" length="1" name="ui_volume_text">
 		UI音量：
 	</text>
+	<text name="ambient_prefs_text">
+		環境音：
+	</text>
+	<check_box label="風の発生を有効にする" name="mute_wind_check"/>
 	<slider label="ドップラー効果" name="Doppler Effect" />
 	<slider label="遠隔要因" name="Distance Factor" />
 	<slider label="ロールオフ係数" name="Rolloff Factor" />
 	<spinner label="L$変更基準点" name="L$ Change Threshold" />
-	<spinner label="ヘルス変化基準点" name="Health Change Threshold" />
+	<spinner label="ヘルス変化基準点" name="Health change threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
 		オーディオ環境設定：
 	</text>

@@ -61,6 +61,7 @@
 #include "llappviewer.h"
 #include "llface.h"
 #include "llviewercamera.h"
+#include "llvovolume.h"
 ///////////////////////////////////////////////////////////////////////////////
 
 // statics
@@ -256,6 +257,10 @@ LLViewerImage::LLViewerImage(const LLUUID& id, const LLHost& host, BOOL usemipma
 {
 	init(true);
 	sImageCount++;
+	if (host != LLHost::invalid)
+	{
+		mCanUseHTTP = false; // this is a baked texture
+	}
 }
 
 LLViewerImage::LLViewerImage(const std::string& url, const LLUUID& id, BOOL usemipmaps)
@@ -346,6 +351,13 @@ void LLViewerImage::init(bool firstinit)
 	mForceToSaveRawImage  = FALSE ;
 	mSavedRawDiscardLevel = -1 ;
 	mDesiredSavedRawDiscardLevel = -1 ;
+
+	mCanUseHTTP = true; //default on if cap/settings allows us
+	
+	mNumFaces = 0 ;
+	mNumVolumes = 0;
+	mFaceList.clear() ;
+	mVolumeList.clear();
 }
 
 // virtual
@@ -382,6 +394,7 @@ LLViewerImage::~LLViewerImage()
 void LLViewerImage::cleanup()
 {
 	mFaceList.clear() ;
+	mVolumeList.clear();
 	for(callback_list_t::iterator iter = mLoadedCallbackList.begin();
 		iter != mLoadedCallbackList.end(); )
 	{
@@ -748,19 +761,19 @@ void LLViewerImage::updateVirtualSize()
 	{
 		addTextureStats(0.f, FALSE) ;//reset
 	}
-	if(mFaceList.size() > 0) 
+	for(U32 i = 0 ; i < mNumFaces ; i++)
 	{				
-		for(std::list<LLFace*>::iterator iter = mFaceList.begin(); iter != mFaceList.end(); ++iter)
+		LLFace* facep = mFaceList[i] ;
+		if(facep->getDrawable()->isRecentlyVisible())
 		{
-			LLFace* facep = *iter ;
-			if(facep->getDrawable()->isRecentlyVisible())
-			{
-				addTextureStats(facep->getVirtualSize()) ;
-				setAdditionalDecodePriority(facep->getImportanceToCamera()) ;
-			}
-		}	
+			addTextureStats(facep->getVirtualSize()) ;
+			setAdditionalDecodePriority(facep->getImportanceToCamera()) ;
+		}
 	}
+
 	mNeedsResetMaxVirtualSize = TRUE ;
+	reorganizeFaceList();
+	reorganizeVolumeList();
 #endif	
 }
 void LLViewerImage::scaleDown()
@@ -1213,7 +1226,7 @@ bool LLViewerImage::updateFetch()
 		// bypass texturefetch directly by pulling from LLTextureCache
 		bool fetch_request_created = false;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mUrl, getID(),getTargetHost(), decode_priority,
-																			  w, h, c, desired_discard, needsAux());
+																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
 
 		if (fetch_request_created)
 		{				
@@ -1292,7 +1305,7 @@ BOOL LLViewerImage::forceFetch()
 		c = getComponents();
 	}
 	fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mUrl, getID(),getTargetHost(), maxDecodePriority(),
-																		  w, h, c, desired_discard, needsAux());
+																		  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
 
 	if (fetch_request_created)
 	{
@@ -1753,13 +1766,19 @@ void LLViewerImage::setCachedRawImage()
 		if(mForSculpt)
 		{
 			max_size = MAX_CACHED_RAW_SCULPT_IMAGE_AREA ;
+			// Even though we don't use the full pixel size, we want to decode up to discard 0,
+			// because some legacy sculpts are weird like that.
+			mCachedRawImageReady = !mRawDiscardLevel ;
+		}
+		else
+		{
+			mCachedRawImageReady = (!mRawDiscardLevel || ((w * h) >= max_size)) ;
 		}
 
 		while(((w >> i) * (h >> i)) > max_size)
 		{
 			++i ;
 		}
-		mCachedRawImageReady = (!mRawDiscardLevel || ((w * h) >= max_size)) ;
 		
 		if(i)
 		{
@@ -1770,7 +1789,8 @@ void LLViewerImage::setCachedRawImage()
 			mRawImage->scale(w >> i, h >> i) ;
 		}
 		mCachedRawImage = mRawImage ;
-		mCachedRawDiscardLevel = mRawDiscardLevel + i ;			
+		mRawDiscardLevel += i ;
+		mCachedRawDiscardLevel = mRawDiscardLevel ;			
 	}
 }
 
@@ -1778,7 +1798,7 @@ void LLViewerImage::checkCachedRawSculptImage()
 {
 	if(mCachedRawImageReady && mCachedRawDiscardLevel > 0)
 	{
-		if(mCachedRawImage->getWidth() * mCachedRawImage->getHeight() < MAX_CACHED_RAW_SCULPT_IMAGE_AREA)
+		if(getDiscardLevel() != 0)
 		{
 			mCachedRawImageReady = FALSE ;
 		}
@@ -1804,11 +1824,111 @@ void LLViewerImage::setForSculpt()
 	checkCachedRawSculptImage() ;
 }
 
+//virtual
 void LLViewerImage::addFace(LLFace* facep) 
 {
-	mFaceList.push_back(facep) ;
+	if(mNumFaces >= mFaceList.size())
+	{
+		mFaceList.resize(2 * mNumFaces + 1) ;		
+	}
+	mFaceList[mNumFaces] = facep ;
+	facep->setIndexInTex(mNumFaces) ;
+	mNumFaces++ ;
+	mLastFaceListUpdateTimer.reset() ;
 }
-void LLViewerImage::removeFace(LLFace* facep) 
+
+//virtual
+void LLViewerImage::removeFace(LLFace* facep)
 {
-	mFaceList.remove(facep) ;
+	if(mNumFaces > 1)
+	{
+		S32 index = facep->getIndexInTex() ; 
+		mFaceList[index] = mFaceList[--mNumFaces] ;
+		mFaceList[index]->setIndexInTex(index) ;
+	}
+	else
+	{
+		mFaceList.clear() ;
+		mNumFaces = 0 ;
+	}
+	mLastFaceListUpdateTimer.reset() ;
+}
+
+S32 LLViewerImage::getNumFaces() const
+{
+	return mNumFaces ;
+}
+
+
+//virtual
+void LLViewerImage::addVolume(LLVOVolume* volumep)
+{
+	if( mNumVolumes >= mVolumeList.size())
+	{
+		mVolumeList.resize(2 * mNumVolumes + 1) ;		
+	}
+	mVolumeList[mNumVolumes] = volumep ;
+	volumep->setIndexInTex(mNumVolumes) ;
+	mNumVolumes++ ;
+	mLastVolumeListUpdateTimer.reset() ;
+}
+
+//virtual
+void LLViewerImage::removeVolume(LLVOVolume* volumep) 
+{
+	if(mNumVolumes > 1)
+	{
+		S32 index = volumep->getIndexInTex() ;
+		mVolumeList[index] = mVolumeList[--mNumVolumes] ;
+		mVolumeList[index]->setIndexInTex(index) ;
+	}
+	else
+	{
+		mVolumeList.clear() ;
+		mNumVolumes = 0 ;
+	}
+	mLastVolumeListUpdateTimer.reset() ;
+}
+
+S32 LLViewerImage::getNumVolumes() const
+{
+	return mNumVolumes ;
+}
+
+void LLViewerImage::reorganizeFaceList()
+{
+	static const F32 MAX_WAIT_TIME = 20.f; // seconds
+	static const U32 MAX_EXTRA_BUFFER_SIZE = 4 ;
+
+	if(mNumFaces + MAX_EXTRA_BUFFER_SIZE > mFaceList.size())
+	{
+		return ;
+	}
+
+	if(mLastFaceListUpdateTimer.getElapsedTimeF32() < MAX_WAIT_TIME)
+	{
+		return ;
+	}
+
+	mLastFaceListUpdateTimer.reset() ;
+	mFaceList.erase(mFaceList.begin() + mNumFaces, mFaceList.end());
+}
+
+void LLViewerImage::reorganizeVolumeList()
+{
+	static const F32 MAX_WAIT_TIME = 20.f; // seconds
+	static const U32 MAX_EXTRA_BUFFER_SIZE = 4 ;
+
+	if(mNumVolumes + MAX_EXTRA_BUFFER_SIZE > mVolumeList.size())
+	{
+		return ;
+	}
+
+	if(mLastVolumeListUpdateTimer.getElapsedTimeF32() < MAX_WAIT_TIME)
+	{
+		return ;
+	}
+
+	mLastVolumeListUpdateTimer.reset() ;
+	mVolumeList.erase(mVolumeList.begin() + mNumVolumes, mVolumeList.end());
 }

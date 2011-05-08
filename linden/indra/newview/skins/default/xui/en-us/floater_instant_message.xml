@@ -37,17 +37,20 @@
 	<string name="unavailable_text_label">
 		Text chat is not available for this call.
 	</string>
-  <string name="history_entry">
-    History
-  </string>
-  <string name="pay_entry">
-    Pay
-  </string>
-  <string name="teleport_entry">
-    Offer Teleport
+  <string name="add_friend_string">
+    Add Friend
   </string>
   <flyout_button bottom="-40" follows="left|top" height="20" label="Profile" left="5" width="90"
        list_position="below" mouse_opaque="true" name="profile_callee_btn">
+    <flyout_button_item value="history_entry" name="history_entry">
+      View History
+    </flyout_button_item>
+    <flyout_button_item value="pay_entry" name="pay_entry">
+      Pay
+    </flyout_button_item>
+    <flyout_button_item value="teleport_entry" name="teleport_entry">
+     Offer Teleport
+    </flyout_button_item>
   </flyout_button>
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
@@ -74,13 +77,13 @@
 	     follows="left|top|right|bottom" font="SansSerif" height="221" left="5"
 	     max_length="2147483647" mouse_opaque="true" name="im_history"
 	     text_color="ChatHistoryTextColor"
-       track_bottom="true" 
+		 track_bottom="true" 
 	     text_readonly_color="ChatHistoryTextColor" width="487" word_wrap="true" />
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
 	     follows="left|right|bottom" font="SansSerif" height="20"
 	     label="Click here to instant message" left="5" max_length="1022"
 	     mouse_opaque="true" name="chat_editor" select_all_on_focus_received="false"
-	     select_on_focus="false" tab_group="1" width="423" />
+	     select_on_focus="false" tab_group="1" width="423" spell_check="true" />
 	<button bottom="7" follows="right|bottom" font="SansSerif" halign="center" height="20"
 	     label="Send" left="433" mouse_opaque="true" name="send_btn"
 	     scale_image="true" width="60" />

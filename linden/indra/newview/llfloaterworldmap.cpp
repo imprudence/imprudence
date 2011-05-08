@@ -70,7 +70,11 @@
 
 #include "llglheaders.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //---------------------------------------------------------------------------
 // Constants
@@ -661,8 +665,8 @@ void LLFloaterWorldMap::trackLocation(const LLVector3d& pos_global)
 	F32 region_y = (F32)fmod( pos_global.mdV[VY], (F64)REGION_WIDTH_METERS );
 	std::string full_name = llformat("%s (%d, %d, %d)", 
 //								  sim_name.c_str(), 
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-04 (RLVa-1.0.0a)
-		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? sim_name.c_str() : rlv_handler_t::cstrHiddenRegion.c_str(),
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-07-04 (RLVa-1.0.0a)
+		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? sim_name.c_str() : RlvStrings::getString(RLV_STRING_HIDDEN_REGION).c_str(),
 // [/RLVa:KB]
 								  llround(region_x), 
 								  llround(region_y),
@@ -721,7 +725,7 @@ void LLFloaterWorldMap::updateLocation()
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 				{
-					childSetValue("location", rlv_handler_t::cstrHiddenRegion);
+					childSetValue("location", RlvStrings::getString(RLV_STRING_HIDDEN_REGION));
 					mSLURL.clear();
 				}
 // [/RLVa:KB]
@@ -771,7 +775,7 @@ void LLFloaterWorldMap::updateLocation()
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 		{
-			childSetValue("location", rlv_handler_t::cstrHiddenRegion);
+			childSetValue("location", RlvStrings::getString(RLV_STRING_HIDDEN_REGION));
 			mSLURL.clear();
 		}
 // [/RLVa:KB]

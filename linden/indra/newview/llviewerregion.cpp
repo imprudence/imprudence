@@ -65,6 +65,7 @@
 #include "llvoclouds.h"
 #include "llworld.h"
 #include "llspatialpartition.h"
+#include "llviewerparcelmgr.h"
 
 // Viewer object cache version, change if object update
 // format changes. JC
@@ -127,6 +128,8 @@ public:
 			}
 		}
 		
+		mRegion->setCapabilitiesReceived(true);
+
 		if (STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
 		{
 			LLStartUp::setStartupState( STATE_SEED_CAP_GRANTED );
@@ -172,7 +175,8 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mCacheEntriesCount(0),
 	mCacheID(),
 	mEventPoll(NULL),
-	mReleaseNotesRequested(FALSE)
+	mReleaseNotesRequested(FALSE),
+	mCapabilitiesReceived(false)
 {
 	mWidth = region_width_meters;
 	mOriginGlobal = from_region_handle(handle); 
@@ -196,6 +200,8 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	if (!gNoRender)
 	{
 		mParcelOverlay = new LLViewerParcelOverlay(this, region_width_meters);
+		//Re-init the parcel mgr for this sim
+		LLViewerParcelMgr::getInstance()->init(region_width_meters);
 	}
 	else
 	{
@@ -215,6 +221,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	//MUST MATCH declaration of eObjectPartitions
 	mObjectPartition.push_back(new LLHUDPartition());		//PARTITION_HUD
 	mObjectPartition.push_back(new LLTerrainPartition());	//PARTITION_TERRAIN
+	mObjectPartition.push_back(new LLVoidWaterPartition());		//PARTITION_VOIDWATER
 	mObjectPartition.push_back(new LLWaterPartition());		//PARTITION_WATER
 	mObjectPartition.push_back(new LLTreePartition());		//PARTITION_TREE
 	mObjectPartition.push_back(new LLParticlePartition());	//PARTITION_PARTICLE
@@ -322,7 +329,7 @@ void LLViewerRegion::loadCache()
 
 	LLUUID cache_id;
 	nread = fread(&cache_id.mData, 1, UUID_BYTES, fp);
-	if (nread != UUID_BYTES || mCacheID != cache_id)
+	if (nread != (size_t)UUID_BYTES || mCacheID != cache_id)
 	{
 		llinfos << "Cache ID doesn't match for this region, discarding"
 			<< llendl;
@@ -398,7 +405,7 @@ void LLViewerRegion::saveCache()
 	}
 
 	// write the cache id for this sim
-	if (fwrite(&mCacheID.mData, 1, UUID_BYTES, fp) != UUID_BYTES)
+	if (fwrite(&mCacheID.mData, 1, UUID_BYTES, fp) != (size_t)UUID_BYTES)
 	{
 		llwarns << "Short write" << llendl;
 	}
@@ -449,6 +456,12 @@ void LLViewerRegion::setFlags(BOOL b, U32 flags)
 void LLViewerRegion::setWaterHeight(F32 water_level)
 {
 	mLandp->setWaterHeight(water_level);
+}
+
+
+void LLViewerRegion::rebuildWater()
+{
+	mLandp->rebuildWater();
 }
 
 F32 LLViewerRegion::getWaterHeight() const
@@ -1415,12 +1428,17 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	LLSD capabilityNames = LLSD::emptyArray();
 	capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
+	// Aurora settings -- MC
+	capabilityNames.append("DispatchOpenRegionSettings");
 	capabilityNames.append("DispatchRegionInfo");
+	capabilityNames.append("DispatchWindLightSettings");
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
 	capabilityNames.append("FetchInventory");
 	capabilityNames.append("FetchLib");
 	capabilityNames.append("FetchLibDescendents");
+	capabilityNames.append("GetDisplayNames");
+	capabilityNames.append("SetDisplayName");
 	capabilityNames.append("GetTexture");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
@@ -1428,11 +1446,14 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ParcelPropertiesUpdate");
+	capabilityNames.append("ParcelMediaURLFilterList");
+	capabilityNames.append("ParcelNavigateMedia");
 	capabilityNames.append("ParcelVoiceInfoRequest");
 	capabilityNames.append("ProductInfoRequest");
 	capabilityNames.append("ProvisionVoiceAccountRequest");
 	capabilityNames.append("RemoteParcelRequest");
 	capabilityNames.append("RequestTextureDownload");
+	capabilityNames.append("RetrieveWindLightSettings");
 	capabilityNames.append("SearchStatRequest");
 	capabilityNames.append("SearchStatTracking");
 	capabilityNames.append("SendPostcard");
@@ -1494,6 +1515,16 @@ std::string LLViewerRegion::getCapability(const std::string& name) const
 		return "";
 	}
 	return iter->second;
+}
+
+bool LLViewerRegion::capabilitiesReceived() const
+{
+	return mCapabilitiesReceived;
+}
+
+void LLViewerRegion::setCapabilitiesReceived(bool received)
+{
+	mCapabilitiesReceived = received;
 }
 
 void LLViewerRegion::logActiveCapabilities() const

@@ -38,12 +38,12 @@
 #include "lloverlaybar.h"
 
 #include "aoremotectrl.h"
-#include "audioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llrender.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llchatbar.h"
-#include "llfloaterchat.h"
+//#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llimview.h"
 #include "llmediaremotectrl.h"
@@ -63,9 +63,13 @@
 #include "llvoiceclient.h"
 #include "llvoavatar.h"
 #include "llvoiceremotectrl.h"
-#include "llwebbrowserctrl.h"
+#include "llmediactrl.h"
 #include "llwindlightremotectrl.h"
 #include "llselectmgr.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //
 // Globals
@@ -75,58 +79,9 @@ LLOverlayBar *gOverlayBar = NULL;
 
 extern S32 MENU_BAR_HEIGHT;
 
-
-class LLTitleObserver
-	:	public LLMediaObserver
-{
-public:
-	void init(std::string url);
-	/*virtual*/ void onMediaTitleChange(const EventType& event_in);
-private:
-	LLMediaBase* mMediaSource;
-};
-
-static LLTitleObserver sTitleObserver;
-
-static LLRegisterWidget<LLMediaRemoteCtrl> r("media_remote");
-
-void LLTitleObserver::init(std::string url)
-{
-
-	if (!gAudiop)
-	{
-		return;
-	}
-
-	mMediaSource = gAudiop->getStreamMedia(); // LLViewerMedia::getSource();
-
-	if ( mMediaSource )
-	{
-		mMediaSource->addObserver(this);
-	}
-}
-
-//virtual
-void LLTitleObserver::onMediaTitleChange(const EventType& event_in)
-{
-	if ( !gSavedSettings.getBOOL("ShowStreamTitle") )
-	{
-		return;
-	}
-
-	LLChat chat;
-	//TODO: set this in XUI
-	std::string playing_msg = "Playing: " + event_in.getStringValue();
-	chat.mText = playing_msg;
-	LLFloaterChat::addChat(chat, FALSE, FALSE);
-}
-
-
 //
 // Functions
 //
-
-
 
 void* LLOverlayBar::createMediaRemote(void* userdata)
 {
@@ -359,19 +314,22 @@ void LLOverlayBar::refresh()
 		// update "remotes"
 		childSetVisible("media_remote_container", TRUE);
 		childSetVisible("voice_remote_container", LLVoiceClient::voiceEnabled());
-		childSetVisible("windlight_remote_container", gSavedSettings.getBOOL("EnableWindlightRemote"));
-		childSetVisible("ao_remote_container", gSavedSettings.getBOOL("EnableAORemote"));
+		static BOOL *sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+		childSetVisible("windlight_remote_container", (*sEnableWindlightRemote));
+		static BOOL *sEnableAORemote = rebind_llcontrol<BOOL>("EnableAORemote", &gSavedSettings, true);
+		childSetVisible("ao_remote_container", (*sEnableAORemote));
 		childSetVisible("state_buttons", TRUE);
 	}
 
+	static BOOL *sChatVisible = rebind_llcontrol<BOOL>("ChatVisible", &gSavedSettings, true);
 	// always let user toggle into and out of chatbar
-	childSetVisible("chat_bar", gSavedSettings.getBOOL("ChatVisible"));
+	childSetVisible("chat_bar", *sChatVisible);//gSavedSettings.getBOOL("ChatVisible"));
+
 
 	if (buttons_changed)
 	{
 		layoutButtons();
 	}
-
 }
 
 //-----------------------------------------------------------------------
@@ -425,6 +383,23 @@ void LLOverlayBar::onClickStandUp(void*)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void LLOverlayBar::audioFilterPlay()
+{
+	if (gOverlayBar && gOverlayBar->mMusicState != PLAYING)
+	{
+		gOverlayBar->mMusicState = PLAYING;
+	}
+}
+
+void LLOverlayBar::audioFilterStop()
+{
+	if (gOverlayBar && gOverlayBar->mMusicState != STOPPED)
+	{
+		gOverlayBar->mMusicState = STOPPED;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // static media helpers
 // *TODO: Move this into an audio manager abstraction
 //static
@@ -445,11 +420,11 @@ void LLOverlayBar::toggleMediaPlay(void*)
 	}
 
 	
-	if (LLViewerMedia::isMediaPaused())
+	if (LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PAUSED)
 	{
 		LLViewerParcelMedia::start();
 	}
-	else if(LLViewerMedia::isMediaPlaying())
+	else if(LLViewerParcelMedia::getStatus() == LLViewerMediaImpl::MEDIA_PLAYING)
 	{
 		LLViewerParcelMedia::pause();
 	}
@@ -458,6 +433,7 @@ void LLOverlayBar::toggleMediaPlay(void*)
 		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 		if (parcel)
 		{
+			LLViewerParcelMedia::sIsUserAction = true;
 			LLViewerParcelMedia::play(parcel);
 		}
 	}
@@ -480,17 +456,17 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	if (gOverlayBar->mMusicState != PLAYING)
 	{
 		gOverlayBar->mMusicState = PLAYING; // desired state
-		if (gAudiop)
+		if (gAudioStream)
 		{
 			LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 			if ( parcel )
 			{
 				// this doesn't work properly when crossing parcel boundaries - even when the 
 				// stream is stopped, it doesn't return the right thing - commenting out for now.
-	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
+	// 			if ( gAudioStream->isInternetStreamPlaying() == 0 )
 				{
-					gAudiop->startInternetStream(parcel->getMusicURL());
-					sTitleObserver.init(parcel->getMusicURL());
+					LLViewerParcelMedia::sIsUserAction = true;
+					LLViewerParcelMedia::playStreamingMusic(parcel);
 				}
 			}
 		}
@@ -498,9 +474,9 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	else
 	{
 		gOverlayBar->mMusicState = STOPPED; // desired state
-		if (gAudiop)
+		if (gAudioStream)
 		{
-			gAudiop->stopInternetStream();
+			gAudioStream->stopInternetStream();
 		}
 	}
 }

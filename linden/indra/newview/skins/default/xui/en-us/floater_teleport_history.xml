@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+		min_width="600" min_height="250" width="600" height="250" name="teleporthistory"
+		rect_control="FloaterTeleportHistoryRect" title="Teleport History">
+	<tab_container label="TPlistTabs" bottom="40" height="185" left="5" follows="left|top|right|bottom" mouse_opaque="false" name="tplisttabs"
+	     tab_min_width="50" tab_position="top" width="480" right="-10" bg_opaque_color="0,0,0,0.0">
+		<panel border="true" bottom="-185" follows="left|top|right|bottom" height="185"
+				 label="Teleported to" left="2" mouse_opaque="true" name="TP-in" width="455">
+	<scroll_list background_visible="true" draw_border="true" draw_stripes="true"
+				draw_heading="true" follows="left|top|right|bottom" left="2" right="-2" top="5" width="450"
+				height="175" bottom_delta="-177" multi_select="false" name="places_list_in">
+		<column dynamicwidth="true" label="Region" name="region" />
+		<column width="100" label="Position" name="position" />
+		<column dynamicwidth="true" label="Visited" name="visited" />
+		<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+		<column width="0" label="SLURL" name="slurl" />
+		<column width="0" label="Sim String" name="simstring" />
+	</scroll_list>
+		</panel>
+		<panel border="true" bottom="-185" follows="left|top|right|bottom" height="185"
+				 label="Teleported from" left="2" mouse_opaque="true" name="TP-out" width="455">
+			<scroll_list background_visible="true" draw_border="true" draw_stripes="true"
+				draw_heading="true" follows="left|top|right|bottom" left="2" right="-2" top="5" width="450"
+				height="175" bottom_delta="-177" multi_select="false" name="places_list_out">
+				<column dynamicwidth="true" label="Region" name="region" />
+				<column width="100" label="Position" name="position" />
+				<column dynamicwidth="true" label="Visited" name="visited" />
+				<!--Hidden fields, used as storage for prebuilt strings, please keep at width 0-->
+				<column width="0" label="SLURL" name="slurl" />
+				<column width="0" label="Sim String" name="simstring" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button
+		bottom_delta="-24" enabled="false" follows="left|bottom" font="SansSerif" halign="center"
+		width="90" height="20" label="Teleport" label_selected="Teleport"
+		left="10" mouse_opaque="true" name="teleport" tool_tip="Teleport to selected location" />
+	<button bottom_delta="0" enabled="false" follows="left|bottom" font="SansSerif" halign="center"
+		height="20" label="Show On Map" label_selected="Show On Map"
+		left_delta="100" mouse_opaque="true" name="show_on_map"
+		tool_tip="Center map on this location" width="125" />
+	<button bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerif" halign="center"
+		height="20" label="Clear History"
+		left_delta="135" mouse_opaque="true" name="clear_history"
+		tool_tip="Clear Saved Teleport History" width="125" />
+	<button bottom_delta="0" enabled="false" follows="bottom|right" font="SansSerif"
+		height="20" label="Copy SLURL to clipboard" left="-190" name="copy_slurl"
+		tool_tip="Copies current location as SLURL to be used on the web."
+		width="182" />
+</floater>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_login" title="Netz-Manager">
+
+  <!-- Grid Selector -->
+  <text name="grid_selector_label">
+    Netz aussuchen:
+  </text>
+  
+  <scroll_list name="grid_selector">
+    <column label="Netzliste" name="grid" />
+  </scroll_list>
+  
+  <!-- Grid Selector Buttons -->
+  <button label="Neues Netz" name="btn_add" />
+  <button label="Netz kopieren" name="btn_copy" />
+  <button label="Netz löschen" name="btn_delete" />
+
+  <!-- Grid Details -->
+  <text name="gridnick_text">
+    Netzname:
+  </text>
+
+  <!--
+  <text name="first_name_text">
+		Vorname:
+	</text>
+
+  <text name="last_name_text">
+    Nachname:
+  </text>
+
+  <text name="avatar_password_text">
+		Passwort:
+	</text>
+
+  <text name="start_location_text">
+    Startort:
+  </text>
+  <combo_box name="start_location_combo">
+    <combo_item name="MyHome" value="My Home">
+      Meine Heimat
+    </combo_item>
+    <combo_item name="MyLastLocation" value="My Last Location">
+      Mein letzter Ort
+    </combo_item>
+    <combo_item name="Typeregionname" value="&lt;Type region name&gt;">
+      &lt;Regionsname eingeben&gt;
+    </combo_item>
+  </combo_box>
+  -->
+
+  <text name="loginuri_text">
+    Einwahl-URI:
+  </text>
+
+  <button label="Netzinfo holen" name="btn_gridinfo" />
+  <button label="Info löschen" name="btn_clear" />
+
+  <text name="loginpage_text">
+    Netzinfo URLs:
+  </text>
+  <text name="loginpage_text">
+    Einwahl-Seite:
+  </text>
+
+  <text name="helperuri_text">
+    Helfer-URI:
+  </text>
+
+  <text name="website_text">
+    Internet-Seite:
+  </text>
+
+  <text name="support_text">
+    Support:
+  </text>
+
+  <text name="register_text">
+    Konto:
+  </text>
+
+  <text name="password_text">
+    Passwort:
+  </text>
+
+  <text name="websearch_text">
+    Internetsuche:
+  </text>
+
+  <!-- Combo box for multi avatar grid manager avatar name
+	<combo_box name="name_combo" />
+  -->
+  <!-- Buttons for multi avatar grid manager
+  <button label="Neu" label_selected="Neu" name="new_btn" />
+  -->
+  <!--
+  <button label="Löschen" label_selected="Löschen" name="remove_btn" />
+-->
+
+  <!-- Checkbox for selecting a global avatar (for when combo box avatar selector works)
+  <check_box label="Globaler Avatar" name="global_check" />
+  <check_box label="Passwort behalten" name="remember_check" />
+  <check_box label="Geheimgrad" name="gawd_mode" />
+  -->
+
+  <!-- Cancel/Connect Buttons -->
+
+  <!--
+  <button label="Als Standard setzen" label_selected="Als Standard setzen" name="set_default" />
+  -->
+
+  <!-- <button label="Verbinden" label_selected="Verbinden" name="connect_btn" />  -->
+  <button label="Übernehmen" label_selected="Übernehmen" name="btn_apply" />
+  <button label="Abbrechen" label_selected="Abrechen" name="btn_cancel" />
+  <button label="OK" label_selected="OK" name="btn_ok" />
+  <!--
+	<combo_box name="server_combo" />
+  -->
+</floater>

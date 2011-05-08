@@ -40,6 +40,9 @@
 #include "llwldaycycle.h"
 #include "llviewercamera.h"
 
+#include "llassettype.h" // Ugh.
+class LLVFS;
+
 class LLGLSLShader;
 
 class LLWLPresetsObserver
@@ -143,10 +146,20 @@ public:
 	void savePresets(const std::string & fileName);
 
 	/// load an individual preset into the sky
-	void loadPreset(const std::string & name,bool propogate=true);
+	void loadPreset(const std::string & name, bool propogate=true);
 
+	/// load an individual preset into the sky from an LLSD stream
+	/// Returns whether the stream was actually reasonable XML to load from.
+	bool loadPresetXML(const std::string& name, std::istream& preset_stream, bool propogate=false, bool check_if_real=false);
+	
+	/// Load an individual preset from a notecard.
+	void loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id);
+	
 	/// save the parameter presets to file
 	void savePreset(const std::string & name);
+	
+	/// save the parameter presets to file
+	bool savePresetToNotecard(const std::string & name);
 
 	/// Set shader uniforms dirty, so they'll update automatically.
 	void propagateParameters(void);
@@ -208,6 +221,8 @@ public:
 	static void removeObserver(LLWLPresetsObserver* observer);
 	static void notifyObservers();
 
+	void SetMixTime(LLWLParamSet* mixSet, F32 mixTime);
+
 public:
 
 	// helper variables
@@ -267,8 +282,15 @@ public:
 private:
 	// our parameter manager singleton instance
 	static LLWLParamManager * sInstance;
+
+	BOOL sNeedsMix;
+	LLWLParamSet* sMixSet;
+	F32 sMixTime;
+	F32 sMixCount;
 	
 	static std::vector<LLWLPresetsObserver*> sObservers;
+
+	static void loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
 
 };
 

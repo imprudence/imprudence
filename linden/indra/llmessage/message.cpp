@@ -86,6 +86,7 @@
 #include "v3math.h"
 #include "v4math.h"
 #include "lltransfertargetvfile.h"
+#include "llmessagelog.h"
 
 // Constants
 //const char* MESSAGE_LOG_FILENAME = "message.log";
@@ -102,8 +103,10 @@ std::string get_shared_secret();
 class LLMessagePollInfo
 {
 public:
+	LLMessagePollInfo(void) : mPool(LLThread::tldata().mRootPool) { }
 	apr_socket_t *mAPRSocketp;
 	apr_pollfd_t mPollFD;
+	AIAPRPool mPool;
 };
 
 namespace
@@ -290,20 +293,13 @@ LLMessageSystem::LLMessageSystem(const std::string& filename, U32 port,
 	}
 //	LL_DEBUGS("Messaging") <<  << "*** port: " << mPort << llendl;
 
-	//
-	// Create the data structure that we can poll on
-	//
-	if (!gAPRPoolp)
-	{
-		LL_ERRS("Messaging") << "No APR pool before message system initialization!" << llendl;
-		ll_init_apr();
-	}
-	apr_socket_t *aprSocketp = NULL;
-	apr_os_sock_put(&aprSocketp, (apr_os_sock_t*)&mSocket, gAPRPoolp);
-
 	mPollInfop = new LLMessagePollInfo;
+
+	apr_socket_t *aprSocketp = NULL;
+	apr_os_sock_put(&aprSocketp, (apr_os_sock_t*)&mSocket, mPollInfop->mPool());
+
 	mPollInfop->mAPRSocketp = aprSocketp;
-	mPollInfop->mPollFD.p = gAPRPoolp;
+	mPollInfop->mPollFD.p = mPollInfop->mPool();
 	mPollInfop->mPollFD.desc_type = APR_POLL_SOCKET;
 	mPollInfop->mPollFD.reqevents = APR_POLLIN;
 	mPollInfop->mPollFD.rtnevents = 0;
@@ -524,10 +520,10 @@ LLCircuitData* LLMessageSystem::findCircuit(const LLHost& host,
 }
 
 // Returns TRUE if a valid, on-circuit message has been received.
-BOOL LLMessageSystem::checkMessages( S64 frame_count )
+BOOL LLMessageSystem::checkMessages( S64 frame_count, bool faked_message, U8 fake_buffer[MAX_BUFFER_SIZE], LLHost fake_host, S32 fake_size )
 {
 	// Pump 
-	BOOL	valid_packet = FALSE;
+	BOOL valid_packet = FALSE;
 	mMessageReader = mTemplateMessageReader;
 
 	LLTransferTargetVFile::updateQueue();
@@ -552,11 +548,18 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 		S32 acks = 0;
 		S32 true_rcv_size = 0;
 
-		U8* buffer = mTrueReceiveBuffer;
+		U8* buffer = mTrueReceiveBuffer.buffer;
 		
-		mTrueReceiveSize = mPacketRing.receivePacket(mSocket, (char *)mTrueReceiveBuffer);
+		mTrueReceiveSize = mPacketRing.receivePacket(mSocket, (char *)mTrueReceiveBuffer.buffer);
 		// If you want to dump all received packets into SecondLife.log, uncomment this
 		//dumpPacketToLog();
+ 		// <edit>
+ 		if(mTrueReceiveSize && receive_size > (S32) LL_MINIMUM_VALID_PACKET_SIZE)
+ 		{
+ 			LLMessageLog::log(mLastSender, LLHost(16777343, mPort), buffer, mTrueReceiveSize);
+ 		}
+ 		// </edit>
+
 		
 		receive_size = mTrueReceiveSize;
 		mLastSender = mPacketRing.getLastSender();
@@ -619,7 +622,7 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 				for(S32 i = 0; i < acks; ++i)
 				{
 					true_rcv_size -= sizeof(TPACKETID);
-					memcpy(&mem_id, &mTrueReceiveBuffer[true_rcv_size], /* Flawfinder: ignore*/
+					memcpy(&mem_id, &buffer[true_rcv_size], /* Flawfinder: ignore*/
 					     sizeof(TPACKETID));
 					packet_id = ntohl(mem_id);
 					//LL_INFOS("Messaging") << "got ack: " << packet_id << llendl;
@@ -1547,6 +1550,12 @@ void LLMessageSystem::dumpCircuitInfo()
 U32 LLMessageSystem::getOurCircuitCode()
 {
 	return mOurCircuitCode;
+}
+
+// <edit>
+LLCircuit* LLMessageSystem::getCircuit()
+{
+	return &mCircuitInfo;
 }
 
 void LLMessageSystem::getCircuitInfo(LLSD& info) const
@@ -3377,7 +3386,7 @@ void LLMessageSystem::dumpPacketToLog()
 	{
 		S32 offset = cur_line_pos * 3;
 		snprintf(line_buffer + offset, sizeof(line_buffer) - offset,
-				 "%02x ", mTrueReceiveBuffer[i]);	/* Flawfinder: ignore */
+				 "%02x ", mTrueReceiveBuffer.buffer[i]);	/* Flawfinder: ignore */
 		cur_line_pos++;
 		if (cur_line_pos >= 16)
 		{

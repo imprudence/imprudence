@@ -60,7 +60,11 @@
 #include "llstring.h"
 #include "llviewercontrol.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
+
+#ifdef LL_DARWIN
+#include "llwindowmacosx-objc.h"
+#endif
 
 //static
 S32 LLFloaterImagePreview::sUploadAmount = 10;
@@ -351,9 +355,22 @@ bool LLFloaterImagePreview::loadImage(const std::string& src_filename)
 	{
 		codec = IMG_CODEC_PNG;
 	}
+#ifdef LL_DARWIN
+	else if( exten == "psd" )
+	{
+		codec = IMG_CODEC_PSD;
+	}
+	else if( exten == "tif" || exten == "tiff" )
+	{
+		codec = IMG_CODEC_TIFF;
+	}
+#endif
 
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-
+#ifdef LL_DARWIN
+	if (! decodeImageQuartz(src_filename, raw_image))
+		return false;
+#else
 	switch (codec)
 	{
 	case IMG_CODEC_BMP:
@@ -427,9 +444,10 @@ bool LLFloaterImagePreview::loadImage(const std::string& src_filename)
 		return false;
 	}
 
+#endif
+
 	raw_image->biasedScaleToPowerOfTwo(1024);
 	mRawImagep = raw_image;
-	
 	return true;
 }
 
@@ -592,6 +610,22 @@ BOOL LLFloaterImagePreview::handleScrollWheel(S32 x, S32 y, S32 clicks)
 		mAvatarPreview->refresh();
 
 		mSculptedPreview->zoom((F32)clicks * -0.2f);
+		mSculptedPreview->refresh();
+	}
+
+	return TRUE;
+}
+
+BOOL LLFloaterImagePreview::handleHScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	const F32 RAD_PER_CLICK = -F_PI / 16.0f;
+
+	if (mPreviewRect.pointInRect(x, y) && mAvatarPreview)
+	{
+		mAvatarPreview->rotate(RAD_PER_CLICK * clicks, 0);
+		mAvatarPreview->refresh();
+
+		mSculptedPreview->rotate(RAD_PER_CLICK * clicks, 0);
 		mSculptedPreview->refresh();
 	}
 

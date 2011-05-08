@@ -64,6 +64,7 @@
 #include "llpanelskins.h"
 #include "llprefsadvanced.h"
 #include "llprefschat.h"
+#include "llprefscolors.h"
 #include "llprefsvoice.h"
 #include "llprefsim.h"
 #include "llresizehandle.h"
@@ -94,7 +95,7 @@ public:
 	// requires trusted browser
 	LLPreferencesHandler() : LLCommandHandler("preferences", true) { }
 	bool handle(const LLSD& tokens, const LLSD& query_map,
-				LLWebBrowserCtrl* web)
+				LLMediaCtrl* web)
 	{
 		LLFloaterPreference::show(NULL);
 		return true;
@@ -133,9 +134,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
 	mSkinsPanel(NULL),
+	mPrefsColors(NULL),
 	mLCDPanel(NULL),
-	mPrefsAdvanced(NULL),
-	mPrefsFonts(NULL)
+	mPrefsFonts(NULL),
+	mPrefsAdvanced(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -165,13 +167,18 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mPrefsChat->getPanel(), mPrefsChat->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsChat->getPanel()->setDefaultBtn(default_btn);
 
-	mPrefsVoice = new LLPrefsVoice();
-	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsVoice->setDefaultBtn(default_btn);
+	mPrefsColors = new LLPrefsColors();
+	mTabContainer->addTabPanel(mPrefsColors, mPrefsColors->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsColors->setDefaultBtn(default_btn);
 
 	mPrefsIM = new LLPrefsIM();
 	mTabContainer->addTabPanel(mPrefsIM->getPanel(), mPrefsIM->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsIM->getPanel()->setDefaultBtn(default_btn);
+	
+	mPrefsVoice = new LLPrefsVoice();
+	mTabContainer->addTabPanel(mPrefsVoice, mPrefsVoice->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsVoice->setDefaultBtn(default_btn);
+
 
 #if LL_LCD_COMPILE
 
@@ -195,13 +202,13 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mSkinsPanel->setDefaultBtn(default_btn);
 
-	mPrefsAdvanced = new LLPrefsAdvanced();
-	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mPrefsAdvanced->setDefaultBtn(default_btn);
-
 	mPrefsFonts = new ImpPrefsFonts();
 	mTabContainer->addTabPanel(mPrefsFonts, mPrefsFonts->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsFonts->setDefaultBtn(default_btn);
+
+	mPrefsAdvanced = new LLPrefsAdvanced();
+	mTabContainer->addTabPanel(mPrefsAdvanced, mPrefsAdvanced->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mPrefsAdvanced->setDefaultBtn(default_btn);
 
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
@@ -272,7 +279,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mPrefsFonts;
 		mPrefsFonts = NULL;
 	}
-
+	if (mPrefsColors)
+	{
+		delete mPrefsColors;
+		mPrefsColors = NULL;
+	}
 }
 
 
@@ -290,6 +301,7 @@ void LLPreferenceCore::apply()
 	mSkinsPanel->apply();
 	mPrefsAdvanced->apply();
 	mPrefsFonts->apply();
+	mPrefsColors->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -320,6 +332,7 @@ void LLPreferenceCore::cancel()
 	mSkinsPanel->cancel();
 	mPrefsAdvanced->cancel();
 	mPrefsFonts->cancel();
+	mPrefsColors->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();
@@ -347,6 +360,12 @@ void LLPreferenceCore::onTabChanged(void* user_data, bool from_click)
 void LLPreferenceCore::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
 	mPrefsIM->setPersonalInfo(visibility, im_via_email, email);
+}
+
+void LLPreferenceCore::updateIsLoggedIn(bool enable)
+{
+	mPrefsIM->preparePerAccountPrefs(enable);
+	mAudioPanel->updateIsLoggedIn(enable);
 }
 
 void LLPreferenceCore::refreshEnabledGraphics()
@@ -383,6 +402,8 @@ BOOL LLFloaterPreference::postBuild()
 
 	mOKBtn = getChild<LLButton>("OK");
 	mOKBtn->setClickedCallback(onBtnOK, this);
+
+	childSetAction("reset_btn", onClickResetPrefs, this);
 			
 	mPreferenceCore = new LLPreferenceCore(
 		getChild<LLTabContainer>("pref core"),
@@ -438,6 +459,25 @@ void LLFloaterPreference::show(void*)
 }
 
 
+// static
+void LLFloaterPreference::onClickResetPrefs(void* user_data)
+{
+	LLFloaterPreference* self = (LLFloaterPreference*)user_data;
+	LLNotifications::instance().add("ConfirmResetAllPreferences", LLSD(), LLSD(), boost::bind(callbackReset, _1, _2, self));
+}
+
+// static
+bool LLFloaterPreference::callbackReset(const LLSD& notification, const LLSD& response, LLFloaterPreference *self)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 )
+	{
+		gSavedSettings.setBOOL("ResetAllPreferences", TRUE);
+	}
+	return false;
+}
+
+
 // static 
 void LLFloaterPreference::onBtnOK( void* userdata )
 {
@@ -445,7 +485,7 @@ void LLFloaterPreference::onBtnOK( void* userdata )
 	// commit any outstanding text entry
 	if (fp->hasFocus())
 	{
-		LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
+		LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 		if (cur_focus->acceptsTextInput())
 		{
 			cur_focus->onCommit();
@@ -479,7 +519,7 @@ void LLFloaterPreference::onBtnApply( void* userdata )
 	LLFloaterPreference *fp =(LLFloaterPreference *)userdata;
 	if (fp->hasFocus())
 	{
-		LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
+		LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 		if (cur_focus->acceptsTextInput())
 		{
 			cur_focus->onCommit();
@@ -505,7 +545,7 @@ void LLFloaterPreference::onBtnCancel( void* userdata )
 	LLFloaterPreference *fp =(LLFloaterPreference *)userdata;
 	if (fp->hasFocus())
 	{
-		LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
+		LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 		if (cur_focus->acceptsTextInput())
 		{
 			cur_focus->onCommit();
@@ -521,6 +561,15 @@ void LLFloaterPreference::updateUserInfo(const std::string& visibility, bool im_
 	if(sInstance && sInstance->mPreferenceCore)
 	{
 		sInstance->mPreferenceCore->setPersonalInfo(visibility, im_via_email, email);
+	}
+}
+
+// static
+void LLFloaterPreference::updateIsLoggedIn(bool enable)
+{
+	if(sInstance && sInstance->mPreferenceCore)
+	{
+		sInstance->mPreferenceCore->updateIsLoggedIn(enable);
 	}
 }
 

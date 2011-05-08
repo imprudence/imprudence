@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="556" min_height="556" min_width="300"
+     can_resize="false" height="556" min_height="256" min_width="300"
      name="Animation Preview" title="" width="300">
 	<pad height="12" />
 	<text follows="top|left" height="15" left="10" name="name_label">
@@ -13,7 +13,7 @@
 		Description:
 	</text>
 	<line_editor bottom_delta="-2" follows="top|left|right" height="19" left="85"
-	     max_length="254" name="description_form" right="-10" />
+	     max_length="254" name="description_form" right="-10" spell_check="true" />
 	<pad height="0" />
 	<spinner decimal_digits="0" follows="left|top" height="18" increment="1" initial_val="0"
 	     label="Priority" label_width="50" left="10" max_val="4" min_val="0"
@@ -180,7 +180,7 @@
 	<slider bottom_delta="0" follows="top|right" height="20" increment="0.0001"
 	     initial_val="0" label="" label_width="0" left="80" max_val="1" min_val="0"
 	     name="playback_slider" right="290" show_text="false" />
-	<text bottom="250" follows="top|left" left="10" name="bad_animation_text">
+	<text bottom="280" follows="top|left" left="20" name="bad_animation_text">
 		Unable to read animation file.
 
 We recommend BVH files exported from Poser 4.
@@ -201,5 +201,8 @@ Maximum animation length is [MAX_LENGTH] seconds.
 		Unable to read animation file.
 
 [STATUS]
+	</string>
+	<string name="in_world">
+		The animation preview is played on your avatar.
 	</string>
 </floater>

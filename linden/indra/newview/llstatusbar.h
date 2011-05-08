@@ -121,7 +121,8 @@ public:
 	S32 getSquareMetersCommitted() const;
 	S32 getSquareMetersLeft() const;
 	LLRegionDetails mRegionDetails;
-
+	
+	void clearBalance() { mBalance = 0; }
 private:
 	static void onCommitSearch(LLUICtrl*, void* data);
 	static void onClickSearch(void* data);

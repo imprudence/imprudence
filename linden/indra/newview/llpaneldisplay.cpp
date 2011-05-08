@@ -83,6 +83,10 @@
 // parent
 #include "llfloaterpreference.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #include <boost/regex.hpp>
 
 const F32 MAX_USER_FAR_CLIP = 512.f;
@@ -242,6 +246,8 @@ BOOL LLPanelDisplay::postBuild()
 	// Avatar Render Mode
 	mCtrlAvatarCloth = getChild<LLCheckBoxCtrl>("AvatarCloth");
 	mCtrlAvatarImpostors = getChild<LLCheckBoxCtrl>("AvatarImpostors");
+	mCtrlAvatarImpostors->setCommitCallback(&LLPanelDisplay::onImpostorsEnable);
+	mCtrlAvatarImpostors->setCallbackUserData(this);
 
 	//----------------------------------------------------------------------------
 	// radio set for lighting detail
@@ -261,9 +267,6 @@ BOOL LLPanelDisplay::postBuild()
 
 	// Object detail slider
 	mCtrlDrawDistance = getChild<LLSliderCtrl>("DrawDistance");
-	mDrawDistanceMeterText1 = getChild<LLTextBox>("DrawDistanceMeterText1");
-	mDrawDistanceMeterText2 = getChild<LLTextBox>("DrawDistanceMeterText2");
-	mCtrlDrawDistance->setCommitCallback(&LLPanelDisplay::updateMeterText);
 	mCtrlDrawDistance->setCallbackUserData(this);
 
 	// Object detail slider
@@ -311,6 +314,10 @@ BOOL LLPanelDisplay::postBuild()
 	mCtrlPostProcess->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlPostProcess->setCallbackUserData(mPostProcessText);
 
+	// Avatar imposter count
+	mCtrlAvatarMaxVisible = getChild<LLSliderCtrl>("AvatarMaxVisible");
+	mAvatarCountText = getChild<LLTextBox>("AvatarCountText");
+
 	// Text boxes (for enabling/disabling)
 	mShaderText = getChild<LLTextBox>("ShadersText");
 	mReflectionText = getChild<LLTextBox>("ReflectionDetailText");
@@ -319,8 +326,9 @@ BOOL LLPanelDisplay::postBuild()
 	mLightingText = getChild<LLTextBox>("LightingDetailText");
 	mMeshDetailText = getChild<LLTextBox>("MeshDetailText");
 
-	childSetValue("toggle_windlight_control", gSavedSettings.getBOOL("EnableWindlightRemote"));
-	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	childSetValue("toggle_windlight_control", (*sEnableWindlightRemote));
+	mWLControl = (*sEnableWindlightRemote);
 
 	refresh();
 
@@ -381,7 +389,8 @@ void LLPanelDisplay::refresh()
 	mCustomSettings = gSavedSettings.getBOOL("RenderCustomSettings");
 
 	// shader settings
-	mBumpShiny = gSavedSettings.getBOOL("RenderObjectBump");
+	static BOOL* sRenderObjectBump = rebind_llcontrol<BOOL>("RenderObjectBump", &gSavedSettings, true);
+	mBumpShiny = *sRenderObjectBump;
 	mShaderEnable = gSavedSettings.getBOOL("VertexShaderEnable");
 	mWindLight = gSavedSettings.getBOOL("WindLightUseAtmosShaders");
 	mReflections = gSavedSettings.getBOOL("RenderWaterReflections");
@@ -411,7 +420,12 @@ void LLPanelDisplay::refresh()
 	mLightingDetail = gSavedSettings.getS32("RenderLightingDetail");
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
 
-	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+	// windlight remote
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	mWLControl = (*sEnableWindlightRemote);
+
+	// max avatar count
+	mAvatarMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");
 
 	// slider text boxes
 	updateSliderText(mCtrlLODFactor, mLODFactorText);
@@ -572,6 +586,9 @@ void LLPanelDisplay::disableUnavailableSettings()
 		mCtrlAvatarImpostors->setEnabled(FALSE);
 		mCtrlAvatarImpostors->setValue(FALSE);
 	}
+	
+	mCtrlAvatarMaxVisible->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
+	mAvatarCountText->setEnabled(mCtrlAvatarImpostors->getValue().asBoolean());
 }
 
 void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
@@ -587,6 +604,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mCtrlTerrainFactor != NULL);
 	llassert(mCtrlSkyFactor != NULL);
 	llassert(mCtrlMaxParticle != NULL);
+	llassert(mCtrlAvatarMaxVisible != NULL);
 	llassert(mCtrlPostProcess != NULL);
 
 	llassert(mLODFactorText != NULL);
@@ -615,8 +633,7 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	llassert(mAvatarText != NULL);
 	llassert(mLightingText != NULL);
 	llassert(mTerrainText != NULL);
-	llassert(mDrawDistanceMeterText1 != NULL);
-	llassert(mDrawDistanceMeterText2 != NULL);
+	llassert(mAvatarCountText != NULL);
 
 	// enable/disable the states
 	mGraphicsBorder->setVisible(!isHidden);
@@ -662,16 +679,11 @@ void LLPanelDisplay::setHiddenGraphicsState(bool isHidden)
 	mAvatarText->setVisible(!isHidden);
 	mLightingText->setVisible(!isHidden);
 	mTerrainText->setVisible(!isHidden);
-	mDrawDistanceMeterText1->setVisible(!isHidden);
-	mDrawDistanceMeterText2->setVisible(!isHidden);
-
-	// hide one meter text if we're making things visible
-	if(!isHidden)
-	{
-		updateMeterText(mCtrlDrawDistance, this);
-	}
+	mAvatarCountText->setVisible(!isHidden);
 
 	mMeshDetailText->setVisible(!isHidden);
+
+	mCtrlAvatarMaxVisible->setVisible(!isHidden);
 }
 
 void LLPanelDisplay::cancel()
@@ -708,6 +720,8 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setS32("RenderGlowResolutionPow", mPostProcess);
 
 	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
+
+	gSavedSettings.setS32("RenderAvatarMaxVisible", mAvatarMaxVisible);
 }
 
 void LLPanelDisplay::apply()
@@ -971,21 +985,12 @@ void LLPanelDisplay::updateSliderText(LLUICtrl* ctrl, void* user_data)
 	}
 }
 
-void LLPanelDisplay::updateMeterText(LLUICtrl* ctrl, void* user_data)
+// static
+void LLPanelDisplay::onImpostorsEnable(LLUICtrl* ctrl, void* user_data)
 {
-	// get our UI widgets
-	LLPanelDisplay* panel = (LLPanelDisplay*)user_data;
-	LLSliderCtrl* slider = (LLSliderCtrl*) ctrl;
+	LLPanelDisplay* self = (LLPanelDisplay*)user_data;
+	LLCheckBoxCtrl* checkbox = (LLCheckBoxCtrl*)ctrl;
 
-	LLTextBox* m1 = panel->getChild<LLTextBox>("DrawDistanceMeterText1");
-	LLTextBox* m2 = panel->getChild<LLTextBox>("DrawDistanceMeterText2");
-
-	// toggle the two text boxes based on whether we have 1 or two digits
-	F32 val = slider->getValueF32();
-	bool two_digits = val < 100;
-	m1->setVisible(two_digits);
-	m2->setVisible(!two_digits);
+	self->mCtrlAvatarMaxVisible->setEnabled(checkbox->getValue().asBoolean());
+	self->mAvatarCountText->setEnabled(checkbox->getValue().asBoolean());
 }
-
-
-

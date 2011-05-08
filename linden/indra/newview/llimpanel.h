@@ -33,6 +33,7 @@
 #ifndef LL_IMPANEL_H
 #define LL_IMPANEL_H
 
+#include "llavatarnamecache.h"
 #include "llfloater.h"
 #include "lllogchat.h"
 #include "lluuid.h"
@@ -194,6 +195,9 @@ public:
 					 EInstantMessage dialog);
 	virtual ~LLFloaterIMPanel();
 
+	void lookupName();
+	static void onAvatarNameLookup(const LLUUID& id, const LLAvatarName& avatar_name, void* user_data);
+
 	/*virtual*/ BOOL postBuild();
 
 	// Check typing timeout timer.
@@ -232,7 +236,6 @@ public:
 	static void		onCommitCombo(LLUICtrl* caller, void* userdata);
 	static void		onTabClick( void* userdata );
 
-	static void		onClickHistory( void* userdata );
 	static void		onClickGroupInfo( void* userdata );
 	static void		onClickClose( void* userdata );
 	static void		onClickStartCall( void* userdata );
@@ -300,7 +303,6 @@ private:
 private:
 	LLLineEditor* mInputEditor;
 	LLViewerTextEditor* mHistoryEditor;
-	LLComboBox* mComboIM;
 
 	// The value of the mSessionUUID depends on how the IM session was started:
 	//   one-on-one  ==> random id
@@ -366,6 +368,20 @@ private:
 
 	typedef std::map<LLUUID, LLStyleSP> styleMap;
 	static styleMap mStyleMap;
+
+	static std::set<LLFloaterIMPanel*> sFloaterIMPanels;
+
+	typedef enum e_im_format
+	{
+		IM_PANEL_PLAIN,
+		IM_PANEL_GROUP,
+		IM_PANEL_CONFERENCE
+	} EIMPanelType;
+
+	EIMPanelType mIMPanelType;
+
+public:
+	EIMPanelType getIMType() { return mIMPanelType; }
 };
 
 

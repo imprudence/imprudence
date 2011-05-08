@@ -84,8 +84,8 @@
 #include "llvograss.h"
 #include "llvotree.h"
 #include "lluictrlfactory.h"
-
-#include "hippoLimits.h"
+#include "qtoolalign.h"
+#include "hippolimits.h"
 
 // Globals
 LLFloaterTools *gFloaterTools = NULL;
@@ -181,26 +181,23 @@ void*	LLFloaterTools::createPanelLandInfo(void* data)
 
 void LLFloaterTools::updateToolsSizeLimits()
 {
-	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
-	{
-		getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+	getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
 
-		getChild<LLSpinCtrl>("Pos X")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Pos Y")->setMaxValue(F32_MAX);
-		getChild<LLSpinCtrl>("Pos Z")->setMaxValue(F32_MAX);
-	}
-	else
-	{
-		getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
-		getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
-		getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale X")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Y")->setMaxValue(gHippoLimits->getMaxPrimScale());
+	getChild<LLSpinCtrl>("Scale Z")->setMaxValue(gHippoLimits->getMaxPrimScale());
 
-		getChild<LLSpinCtrl>("Scale X")->setMinValue(gHippoLimits->getMinPrimScale());
-		getChild<LLSpinCtrl>("Scale Y")->setMinValue(gHippoLimits->getMinPrimScale());
-		getChild<LLSpinCtrl>("Scale Z")->setMinValue(gHippoLimits->getMinPrimScale());
-	}
+	getChild<LLSpinCtrl>("Pos X")->setMinValue(gHippoLimits->getMinPrimXPos());
+	getChild<LLSpinCtrl>("Pos Y")->setMinValue(gHippoLimits->getMinPrimYPos());
+	getChild<LLSpinCtrl>("Pos Z")->setMinValue(gHippoLimits->getMinPrimZPos());
+
+	getChild<LLSpinCtrl>("Pos X")->setMaxValue(gHippoLimits->getMaxPrimXPos());
+	getChild<LLSpinCtrl>("Pos Y")->setMaxValue(gHippoLimits->getMaxPrimYPos());
+	getChild<LLSpinCtrl>("Pos Z")->setMaxValue(gHippoLimits->getMaxPrimZPos());
+
+	getChild<LLCheckBoxCtrl>("Physical Checkbox Ctrl")->setEnabled(gHippoLimits->mAllowPhysicalPrims);
 }
 
 void LLFloaterTools::updateToolsPrecision()
@@ -273,6 +270,8 @@ BOOL	LLFloaterTools::postBuild()
 	childSetCommitCallback("radio stretch",commit_select_tool,LLToolCompScale::getInstance());
 	mRadioSelectFace = getChild<LLCheckBoxCtrl>("radio select face");
 	childSetCommitCallback("radio select face",commit_select_tool,LLToolFace::getInstance());
+	mRadioAlign = getChild<LLCheckBoxCtrl>("radio align");
+	childSetCommitCallback("radio align",commit_select_tool,QToolAlign::getInstance());
 	mCheckSelectIndividual = getChild<LLCheckBoxCtrl>("checkbox edit linked parts");
 	childSetValue("checkbox edit linked parts",(BOOL)gSavedSettings.getBOOL("EditLinkedParts"));
 	childSetCommitCallback("checkbox edit linked parts",commit_select_component,this);
@@ -394,6 +393,7 @@ BOOL	LLFloaterTools::postBuild()
 	mStatusText["rotate"] = getString("status_rotate");
 	mStatusText["scale"] = getString("status_scale");
 	mStatusText["move"] = getString("status_move");
+	mStatusText["align"] = getString("status_align");
 	mStatusText["modifyland"] = getString("status_modifyland");
 	mStatusText["camera"] = getString("status_camera");
 	mStatusText["grab"] = getString("status_grab");
@@ -426,6 +426,7 @@ LLFloaterTools::LLFloaterTools()
 	mRadioRotate(NULL),
 	mRadioStretch(NULL),
 	mRadioSelectFace(NULL),
+	mRadioAlign(NULL),
 	mCheckSelectIndividual(NULL),
 
 	mCheckSnapToGrid(NULL),
@@ -528,14 +529,54 @@ void LLFloaterTools::refresh()
 	mTab->enableTabButton(idx_face, all_volume);
 	mTab->enableTabButton(idx_contents, all_volume);
 
-	// Refresh object and prim count labels
-	LLLocale locale(LLLocale::USER_LOCALE);
-	std::string obj_count_string;
-	LLResMgr::getInstance()->getIntegerString(obj_count_string, LLSelectMgr::getInstance()->getSelection()->getRootObjectCount());
-	childSetTextArg("obj_count",  "[COUNT]", obj_count_string);	
-	std::string prim_count_string;
-	LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
-	childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+	// Added in Link Num value -HgB
+    if (gSavedSettings.getBOOL("EditLinkedParts") && LLSelectMgr::getInstance()->getEditSelection()->getObjectCount() == 1) //Selecting a single prim in "Edit Linked" mode, show link number
+    {
+		childSetVisible("obj_count", FALSE);
+		childSetVisible("prim_count", FALSE);
+		childSetVisible("link_num", TRUE);
+
+		std::string value_string = "";
+		LLViewerObject* selected = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+		if (selected && selected->getRootEdit())
+		{
+			LLViewerObject::child_list_t children = selected->getRootEdit()->getChildren();
+			if (children.empty())
+			{
+				// An unlinked prim is "link 0".
+				value_string = "0";
+			}
+			else 
+			{
+				children.push_front(selected->getRootEdit()); // need root in the list too
+				S32 index = 0;
+				for (LLViewerObject::child_list_t::iterator iter = children.begin(); iter != children.end(); ++iter)
+				{
+					index++;
+					if ((*iter)->isSelected())
+					{
+						LLResMgr::getInstance()->getIntegerString(value_string, index);
+						break;
+					}
+				}
+			}
+		}
+		childSetTextArg("link_num", "[NUMBER]", value_string);
+	}
+	else
+	{
+		// Refresh object and prim count labels
+		childSetVisible("obj_count", TRUE);
+		childSetVisible("prim_count", TRUE);
+		childSetVisible("link_num", FALSE);
+		LLLocale locale(LLLocale::USER_LOCALE);
+		std::string obj_count_string;
+		LLResMgr::getInstance()->getIntegerString(obj_count_string, LLSelectMgr::getInstance()->getSelection()->getRootObjectCount());
+		childSetTextArg("obj_count",  "[COUNT]", obj_count_string);	
+		std::string prim_count_string;
+		LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
+		childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+	}
 
 	updateToolsPrecision();
 
@@ -658,6 +699,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 						tool == LLToolCompScale::getInstance() ||
 						tool == LLToolFace::getInstance() ||
 						tool == LLToolIndividual::getInstance() ||
+						tool == QToolAlign::getInstance() ||
 						tool == LLToolPipette::getInstance();
 
 	mBtnEdit	->setToggleState( edit_visible );
@@ -665,6 +707,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	mRadioPosition	->setVisible( edit_visible );
 	mRadioRotate	->setVisible( edit_visible );
 	mRadioStretch	->setVisible( edit_visible );
+	mRadioAlign		->setVisible( edit_visible );
 	if (mRadioSelectFace)
 	{
 		mRadioSelectFace->setVisible( edit_visible );
@@ -680,6 +723,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	mRadioPosition	->set( tool == LLToolCompTranslate::getInstance() );
 	mRadioRotate	->set( tool == LLToolCompRotate::getInstance() );
 	mRadioStretch	->set( tool == LLToolCompScale::getInstance() );
+	mRadioAlign->set( tool == QToolAlign::getInstance() );
 
 	if (mComboGridMode) 
 	{
@@ -887,8 +931,15 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Strength:", land_visible);
 	}
 
-	childSetVisible("obj_count", !land_visible);
-	childSetVisible("prim_count", !land_visible);
+	if (gSavedSettings.getBOOL("EditLinkedParts") && LLSelectMgr::getInstance()->getEditSelection()->getObjectCount() == 1)
+	{
+		childSetVisible("link_num", !land_visible);
+	}
+	else
+	{
+		childSetVisible("obj_count", !land_visible);
+		childSetVisible("prim_count", !land_visible);
+	}
 	mTab->setVisible(!land_visible);
 	mPanelLandInfo->setVisible(land_visible);
 }
@@ -1056,7 +1107,9 @@ void click_apply_to_selection(void* user)
 
 void commit_select_tool(LLUICtrl *ctrl, void *data)
 {
-	S32 show_owners = gSavedSettings.getBOOL("ShowParcelOwners");
+	static BOOL* sShowParcelOwners = rebind_llcontrol<BOOL>("ShowParcelOwners", &gSavedSettings, true);
+	
+	S32 show_owners = *sShowParcelOwners;
 	gFloaterTools->setEditTool(data);
 	gSavedSettings.setBOOL("ShowParcelOwners", show_owners);
 }
@@ -1205,8 +1258,19 @@ void LLFloaterTools::onClickLink(void* data)
 		return;
 	}
 
-	S32 max_linked_prims = gHippoLimits->getMaxLinkedPrims();
-	if (max_linked_prims > -1)
+	S32 max_linked_prims = 0;
+	LLViewerObject* first_rootp = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject();
+	if(first_rootp && first_rootp->usePhysics())
+	{
+		//Physical - use phys prim limit
+		max_linked_prims = gHippoLimits->getMaxPhysLinkedPrims();
+	}
+	else
+	{
+		//Non phys limit
+		max_linked_prims = gHippoLimits->getMaxLinkedPrims();
+	}
+	if (max_linked_prims > -1) //-1 : no limits
 	{
 		S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 		if (object_count > max_linked_prims + 1)
@@ -1218,7 +1282,7 @@ void LLFloaterTools::onClickLink(void* data)
 			return;
 		}
 	}
-
+	
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
 		LLNotifications::instance().add("CannotLinkIncompleteSet");

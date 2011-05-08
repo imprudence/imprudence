@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Particle Settings"
+left="1" mouse_opaque="true" name="ParticleSettings" width="418">
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-36" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+		mouse_opaque="true" name="part_start_color_textbox" v_pad="0" width="394">
+		Start Color:
+	</text>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-44"
+		can_apply_immediately="true" color="1 1 1 1"
+		enabled="true" follows="left|top" height="55" label="" left_delta="53"
+		mouse_opaque="true" name="part_start_color_swatch"
+		tool_tip="Click to open Color Picker" width="45" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+		mouse_opaque="true" name="part_end_color_textbox" v_pad="0" width="394">
+		End Color:
+	</text>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-44"
+		can_apply_immediately="true" color="1 1 1 1"
+		enabled="true" follows="left|top" height="55" label="" left_delta="53"
+		mouse_opaque="true" name="part_end_color_swatch"
+		tool_tip="Click to open Color Picker" width="45" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+		mouse_opaque="true" name="part_texture_textbox" v_pad="0" width="394">
+		Texture:
+	</text>
+
+	<texture_picker  border_color="0.45098 0.517647 0.607843 1" bottom_delta="-44"
+		can_apply_immediately="true" color="1 1 1 1"
+		enabled="true" follows="left|top" height="55" label="" left_delta="53"
+		mouse_opaque="true" name="part_texture_picker"
+		tool_tip="Click to open Texture Chooser" width="45" />
+	<button name="reset_cloud_this_account" label="reset for this account" halign="center"
+		tool_tip="reset the Avatar particle cloud to default for this account" left="12"
+		bottom_delta="-50" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
+	<button name="save_cloud_this_account" label="save for this account" halign="center"
+		tool_tip="save the Avatar particle cloud for this account" left="12"
+		bottom_delta="-50" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
+	<button name="save_cloud_any_account" label="save for any account" halign="center"
+		tool_tip="save the Avatar particle cloud for any account" left="12"
+		bottom_delta="-24" width="180" height="20" font="SansSerifSmall" follows="left|top"/>
+</panel>
+

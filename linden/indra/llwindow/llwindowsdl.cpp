@@ -42,6 +42,7 @@
 #include "llstring.h"
 #include "lldir.h"
 #include "llfindlocale.h"
+#include "lltimer.h"
 
 #include "indra_constants.h"
 
@@ -250,6 +251,10 @@ LLWindowSDL::LLWindowSDL(const std::string& title, S32 x, S32 y, S32 width,
 #if LL_X11
 	mFlashing = FALSE;
 #endif // LL_X11
+
+	mKeyScanCode = 0;
+	mKeyVirtualKey = 0;
+	mKeyModifiers = KMOD_NONE;
 }
 
 static SDL_Surface *Load_BMP_Resource(const char *basename)
@@ -627,6 +632,15 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			mWindow = SDL_SetVideoMode(width, height, bits, sdlflags);
 		}
 
+		while (!mWindow && mFSAASamples > 0)
+		{
+			llwarns << "Window creating failed with " << mFSAASamples << "x FSAA."<<llendl;
+			mFSAASamples = mFSAASamples>>1;
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, mFSAASamples ? 1 : 0);
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, mFSAASamples);
+			mWindow = SDL_SetVideoMode(width, height, bits, sdlflags);
+		}
+
 		if (!mWindow)
 		{
 			llwarns << "createContext: window creation failure. SDL: " << SDL_GetError() << llendl;
@@ -671,12 +685,12 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	glGetIntegerv(GL_DEPTH_BITS, &depthBits);
 	glGetIntegerv(GL_STENCIL_BITS, &stencilBits);
 	
-	llinfos << "GL buffer:" << llendl
-        llinfos << "  Red Bits " << S32(redBits) << llendl
-        llinfos << "  Green Bits " << S32(greenBits) << llendl
-        llinfos << "  Blue Bits " << S32(blueBits) << llendl
-	llinfos	<< "  Alpha Bits " << S32(alphaBits) << llendl
-	llinfos	<< "  Depth Bits " << S32(depthBits) << llendl
+	llinfos << "GL buffer:" << llendl;
+        llinfos << "  Red Bits " << S32(redBits) << llendl;
+        llinfos << "  Green Bits " << S32(greenBits) << llendl;
+        llinfos << "  Blue Bits " << S32(blueBits) << llendl;
+	llinfos	<< "  Alpha Bits " << S32(alphaBits) << llendl;
+	llinfos	<< "  Depth Bits " << S32(depthBits) << llendl;
 	llinfos	<< "  Stencil Bits " << S32(stencilBits) << llendl;
 
 	GLint colorBits = redBits + greenBits + blueBits + alphaBits;
@@ -1602,6 +1616,7 @@ void LLWindowSDL::processMiscNativeEvents()
 	    // the locale to protect it, as exotic/non-C locales
 	    // causes our code lots of general critical weirdness
 	    // and crashness. (SL-35450)
+	    // Note: It is unknown if this is still needed now that we use webkit.
 	    static std::string saved_locale;
 	    saved_locale = ll_safe_string(setlocale(LC_ALL, NULL));
 
@@ -1725,7 +1740,10 @@ void LLWindowSDL::gatherInput()
 					mCallbacks->handleScrollWheel(this, -1);
                 else if (event.button.button == 5)  // mousewheel down...thanks to X11 for making SDL consider these "buttons".
 					mCallbacks->handleScrollWheel(this, 1);
-
+                else if (event.button.button == 6)
+					mCallbacks->handleHScrollWheel(this, -1);
+                else if (event.button.button == 7)
+					mCallbacks->handleHScrollWheel(this, 1);
                 break;
             }
 
@@ -1933,11 +1951,6 @@ void LLWindowSDL::setCursor(ECursorType cursor)
 		}
 		mCurrentCursor = cursor;
 	}
-}
-
-ECursorType LLWindowSDL::getCursor()
-{
-	return mCurrentCursor;
 }
 
 void LLWindowSDL::initCursors()
@@ -2227,7 +2240,40 @@ static void color_changed_callback(GtkWidget *widget,
 	gtk_color_selection_get_current_color(colorsel, colorp);
 }
 
-BOOL LLWindowSDL::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
+
+/*
+        Make the raw keyboard data available - used to poke through to LLQtWebKit so
+        that Qt/Webkit has access to the virtual keycodes etc. that it needs
+*/
+LLSD LLWindowSDL::getNativeKeyData()
+{
+        LLSD result = LLSD::emptyMap();
+
+	U32 modifiers = 0; // pretend-native modifiers... oh what a tangled web we weave!
+
+	// we go through so many levels of device abstraction that I can't really guess
+	// what a plugin under GDK under Qt under SL under SDL under X11 considers
+	// a 'native' modifier mask.  this has been sort of reverse-engineered... they *appear*
+	// to match GDK consts, but that may be co-incidence.
+	modifiers |= (mKeyModifiers & KMOD_LSHIFT) ? 0x0001 : 0;
+	modifiers |= (mKeyModifiers & KMOD_RSHIFT) ? 0x0001 : 0;// munge these into the same shift
+	modifiers |= (mKeyModifiers & KMOD_CAPS)   ? 0x0002 : 0;
+	modifiers |= (mKeyModifiers & KMOD_LCTRL)  ? 0x0004 : 0;
+	modifiers |= (mKeyModifiers & KMOD_RCTRL)  ? 0x0004 : 0;// munge these into the same ctrl
+	modifiers |= (mKeyModifiers & KMOD_LALT)   ? 0x0008 : 0;// untested
+	modifiers |= (mKeyModifiers & KMOD_RALT)   ? 0x0008 : 0;// untested
+	// *todo: test ALTs - I don't have a case for testing these.  Do you?
+	// *todo: NUM? - I don't care enough right now (and it's not a GDK modifier).
+
+        result["scan_code"] = (S32)mKeyScanCode;
+        result["virtual_key"] = (S32)mKeyVirtualKey;
+	result["modifiers"] = (S32)modifiers;
+
+        return result;
+}
+
+
+BOOL LLWindowSDL::dialog_color_picker( F32 *r, F32 *g, F32 *b)
 {
 	BOOL rtn = FALSE;
 
@@ -2396,7 +2442,7 @@ void *LLWindowSDL::getPlatformWindow()
 		return rtnw;
 	}
 #endif // LL_GTK && LL_LLMOZLIB_ENABLED
-	// Unixoid mozilla really needs GTK.
+	llassert(false);	// Do we even GET here at all? Note that LL_LLMOZLIB_ENABLED is never defined!
 	return NULL;
 }
 

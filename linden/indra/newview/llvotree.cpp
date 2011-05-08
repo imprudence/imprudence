@@ -47,6 +47,7 @@
 #include "llagent.h"
 #include "lldrawable.h"
 #include "llface.h"
+#include "llselectmgr.h"
 #include "llviewercamera.h"
 #include "llviewerimagelist.h"
 #include "llviewerobjectlist.h"
@@ -158,6 +159,11 @@ void LLVOTree::initClass()
 			static LLStdStringHandle texture_id_string = LLXmlTree::addAttributeString("texture_id");
 			success &= tree_def->getFastAttributeUUID(texture_id_string, id);
 			newTree->mTextureID = id;
+
+			std::string texname;
+			static LLStdStringHandle texture_name = LLXmlTree::addAttributeString("texture_name");
+			success &= tree_def->getFastAttributeString(texture_name, texname);
+			newTree->mTextureName = texname;
 			
 			static LLStdStringHandle droop_string = LLXmlTree::addAttributeString("droop");
 			success &= tree_def->getFastAttributeF32(droop_string, F32_val);
@@ -319,7 +325,7 @@ U32 LLVOTree::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	//  Load Species-Specific data 
 	//
-	mTreeImagep = gImageList.getImage(sSpeciesTable[mSpecies]->mTextureID);
+	mTreeImagep = gImageList.getImageFromFile(sSpeciesTable[mSpecies]->mTextureName, TRUE, TRUE, 0, 0, sSpeciesTable[mSpecies]->mTextureID);
 	if (mTreeImagep)
 	{
 		gGL.getTexUnit(0)->bind(mTreeImagep.get());
@@ -354,8 +360,10 @@ BOOL LLVOTree::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	{
 		return TRUE;
 	}
+
+	static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
 	
-	if (gSavedSettings.getBOOL("RenderAnimateTrees"))
+	if (*sRenderAnimateTrees)
 	{
 		F32 mass_inv; 
 
@@ -398,7 +406,7 @@ BOOL LLVOTree::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 		}
 	} 
 
-	if (!gSavedSettings.getBOOL("RenderAnimateTrees"))
+	if (!*sRenderAnimateTrees)
 	{
 		if (mReferenceBuffer.isNull())
 		{
@@ -543,8 +551,8 @@ BOOL LLVOTree::updateGeometry(LLDrawable *drawable)
 			max_indices += sLODIndexCount[lod];
 			max_vertices += sLODVertexCount[lod];
 		}
-
-		mReferenceBuffer = new LLVertexBuffer(LLDrawPoolTree::VERTEX_DATA_MASK, gSavedSettings.getBOOL("RenderAnimateTrees") ? GL_STATIC_DRAW_ARB : 0);
+		static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
+		mReferenceBuffer = new LLVertexBuffer(LLDrawPoolTree::VERTEX_DATA_MASK, *sRenderAnimateTrees ? GL_STATIC_DRAW_ARB : 0);
 		mReferenceBuffer->allocateBuffer(max_vertices, max_indices, TRUE);
 
 		LLStrider<LLVector3> vertices;
@@ -847,8 +855,8 @@ BOOL LLVOTree::updateGeometry(LLDrawable *drawable)
 		llassert(vertex_count == max_vertices);
 		llassert(index_count == max_indices);
 	}
-
-	if (gSavedSettings.getBOOL("RenderAnimateTrees"))
+	static BOOL* sRenderAnimateTrees = rebind_llcontrol<BOOL>("RenderAnimateTrees", &gSavedSettings, true);
+	if (*sRenderAnimateTrees)
 	{
 		mDrawable->getFace(0)->mVertexBuffer = mReferenceBuffer;
 	}
@@ -1320,3 +1328,127 @@ LLTreePartition::LLTreePartition()
 	mLODPeriod = 1;
 }
 
+
+
+void LLVOTree::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
+										  std::vector<LLVector3> &normals,
+										  std::vector<S32> &segments,
+										  const LLVector3& obj_cam_vec,
+										  const LLMatrix4& local_matrix,
+										  const LLMatrix3& normal_matrix)
+{
+	vertices.clear();
+	normals.clear();
+	segments.clear();
+
+	F32 height = mBillboardScale; // *mBillboardRatio * 0.5;
+	F32 width = height * mTrunkAspect;
+
+	LLVector3 position1 = LLVector3(-width * 0.5,0,0) * local_matrix;
+	LLVector3 position2 = LLVector3(-width * 0.5,0,height) * local_matrix;
+	LLVector3 position3 = LLVector3(+width * 0.5,0,height) * local_matrix;
+	LLVector3 position4 = LLVector3(+width * 0.5,0,0) * local_matrix;
+
+	LLVector3 position5 = LLVector3(0,-width * 0.5,0) * local_matrix;
+	LLVector3 position6 = LLVector3(0,-width * 0.5,height) * local_matrix;
+	LLVector3 position7 = LLVector3(0,+width * 0.5,height) * local_matrix;
+	LLVector3 position8 = LLVector3(0,+width * 0.5,0) * local_matrix;
+
+
+	LLVector3 normal = (position1-position2) % (position2-position3);
+	normal.normalize();
+
+	vertices.push_back(position1);
+	normals.push_back(normal);
+	vertices.push_back(position2);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position2);
+	normals.push_back(normal);
+	vertices.push_back(position3);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position3);
+	normals.push_back(normal);
+	vertices.push_back(position4);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position4);
+	normals.push_back(normal);
+	vertices.push_back(position1);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	normal = (position5-position6) % (position6-position7);
+	normal.normalize();
+
+	vertices.push_back(position5);
+	normals.push_back(normal);
+	vertices.push_back(position6);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position6);
+	normals.push_back(normal);
+	vertices.push_back(position7);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position7);
+	normals.push_back(normal);
+	vertices.push_back(position8);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+	vertices.push_back(position8);
+	normals.push_back(normal);
+	vertices.push_back(position5);
+	normals.push_back(normal);
+	segments.push_back(vertices.size());
+
+}
+
+
+void LLVOTree::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point)
+{
+	LLVector3 position;
+	LLQuaternion rotation;
+
+	if (mDrawable->isActive())
+	{
+		if (mDrawable->isSpatialRoot())
+		{
+			position = LLVector3();
+			rotation = LLQuaternion();
+		}
+		else
+		{
+			position = mDrawable->getPosition();
+			rotation = mDrawable->getRotation();
+		}
+	}
+	else
+	{
+		position = getPosition() + getRegion()->getOriginAgent();;
+		rotation = getRotation();
+	}
+
+	// trees have bizzare scaling rules... because it's cool to make needless exceptions
+	// PS: the trees are the last remaining tidbit of Philip's code.  take a look sometime.
+	F32 radius = getScale().length() * 0.05f;
+	LLVector3 scale = LLVector3(1,1,1) * radius;
+
+	// compose final matrix
+	LLMatrix4 local_matrix;
+	local_matrix.initAll(scale, rotation, position);
+
+
+	generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals,
+							   nodep->mSilhouetteSegments,
+							   LLVector3(0,0,0), local_matrix, LLMatrix3());
+
+	nodep->mSilhouetteExists = TRUE;
+}

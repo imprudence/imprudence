@@ -53,6 +53,7 @@ class LLSpinCtrl;
 class LLTextBox;
 
 class LLPanelRegionGeneralInfo;
+class LLPanelRegionOpenSettingsInfo;
 class LLPanelRegionDebugInfo;
 class LLPanelRegionTextureInfo;
 class LLPanelRegionTerrainInfo;
@@ -83,6 +84,7 @@ public:
 
 	static LLPanelEstateInfo* getPanelEstate();
 	static LLPanelEstateCovenant* getPanelCovenant();
+	static LLPanelRegionOpenSettingsInfo* getPanelOpenSettings();
 
 	// from LLPanel
 	virtual void refresh();
@@ -169,6 +171,24 @@ protected:
 	static void onClickMessage(void* userdata);
 	bool onMessageCommit(const LLSD& notification, const LLSD& response);
 	static void onClickManageTelehub(void* data);
+};
+
+/////////////////////////////////////////////////////////////////////////////
+
+class LLPanelRegionOpenSettingsInfo : public LLPanelRegionInfo
+{
+public:
+	LLPanelRegionOpenSettingsInfo()
+		:	LLPanelRegionInfo()	{}
+	~LLPanelRegionOpenSettingsInfo() {}
+	
+	virtual bool refreshFromRegion(LLViewerRegion* region);
+	
+	// LLPanel
+	virtual BOOL postBuild();
+
+protected:
+	static void onClickOrs(void* userdata);
 };
 
 /////////////////////////////////////////////////////////////////////////////

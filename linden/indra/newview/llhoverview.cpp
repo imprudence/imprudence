@@ -73,7 +73,11 @@
 #include "llhudmanager.h" // For testing effects
 #include "llhudeffect.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //
 // Constants
@@ -154,12 +158,13 @@ void LLHoverView::updateHover(LLTool* current_tool)
 
 void LLHoverView::pickCallback(const LLPickInfo& pick_info)
 {
+	gHoverView->mLastPickInfo = pick_info;
 	LLViewerObject* hit_obj = pick_info.getObject();
 
 	if (hit_obj)
 	{
 		gHoverView->setHoverActive(TRUE);
-		LLSelectMgr::getInstance()->setHoverObject(hit_obj);
+		LLSelectMgr::getInstance()->setHoverObject(hit_obj, pick_info.mObjectFace);
 		gHoverView->mLastHoverObject = hit_obj;
 		gHoverView->mHoverOffset = pick_info.mObjectOffset;
 	}
@@ -248,10 +253,29 @@ void LLHoverView::updateText()
 			LLNameValue* lastname =  hit_object->getNVPair("LastName");
 			if (firstname && lastname)
 			{
+				std::string complete_name = firstname->getString();
+				complete_name += " ";
+				complete_name += lastname->getString();
+
+				if (LLAvatarNameCache::useDisplayNames())
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(hit_object->getID(), &avatar_name))
+					{
+						if (LLAvatarNameCache::useDisplayNames() == 1)
+						{
+							complete_name = avatar_name.mDisplayName;
+						}
+						else
+						{
+							complete_name = avatar_name.getNames();
+						}
+					}
+				}
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 				{
-					line = gRlvHandler.getAnonym(line.append(firstname->getString()).append(1, ' ').append(lastname->getString()));
+					line = RlvStrings::getAnonym(complete_name);
 				}
 				else
 				{
@@ -350,7 +374,7 @@ void LLHoverView::updateText()
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 							if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 							{
-								name = gRlvHandler.getAnonym(name);
+								name = RlvStrings::getAnonym(name);
 							}
 // [/RLVa:KB]
 
@@ -480,6 +504,27 @@ void LLHoverView::updateText()
 				}
 				mText.push_back(line);
 			}
+			line.clear();
+			S32 prim_count = LLSelectMgr::getInstance()->getHoverObjects()->getObjectCount();
+			line.append(llformat("Prims: %d", prim_count));
+			mText.push_back(line);
+
+			line.clear();
+			line.append("Position: ");
+
+			LLViewerRegion *region = gAgent.getRegion();
+			LLVector3 position = region->getPosRegionFromGlobal(hit_object->getPositionGlobal());//regionp->getOriginAgent();
+			LLVector3 mypos = region->getPosRegionFromGlobal(gAgent.getPositionGlobal());
+			
+
+			LLVector3 delta = position - mypos;
+			F32 distance = (F32)delta.magVec();
+
+			line.append(llformat("<%.02f,%.02f,%.02f>",position.mV[0],position.mV[1],position.mV[2]));
+			mText.push_back(line);
+			line.clear();
+			line.append(llformat("Distance: %.02fm",distance));
+			mText.push_back(line);
 			
 			//  If the hover tip shouldn't be shown, delete all the object text
 			if (suppressObjectHoverDisplay)
@@ -517,7 +562,8 @@ void LLHoverView::updateText()
 		if (hover_parcel)
 		{
 // [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-0.2.0b
-			line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? hover_parcel->getName() : rlv_handler_t::cstrHiddenParcel );
+			line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+				? hover_parcel->getName() : RlvStrings::getString(RLV_STRING_HIDDEN_PARCEL) );
 // [/RLVa:KB]
 			//line.append(hover_parcel->getName());
 		}
@@ -549,7 +595,7 @@ void LLHoverView::updateText()
 			else if(gCacheName->getFullName(owner, name))
 			{
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
-				line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? name : gRlvHandler.getAnonym(name));
+				line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? name : RlvStrings::getAnonym(name));
 // [/RLVa:KB]
 				//line.append(name);
 			}
@@ -662,7 +708,14 @@ void LLHoverView::draw()
 	// To toggle off hover tips, you have to just suppress the draw.
 	// The picking is still needed to do cursor changes over physical
 	// and scripted objects.  JC
+//	if (!sShowHoverTips)
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+#ifdef RLV_EXTENSION_CMD_INTERACT
+	if ( (!sShowHoverTips) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT)) )
+#else
 	if (!sShowHoverTips) 
+#endif // RLV_EXTENSION_CMD_INTERACT
+// [/RLVa:KB]
 	{
 		return;
 	}

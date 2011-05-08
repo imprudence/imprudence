@@ -74,7 +74,7 @@ bool LLURLHistory::loadFile(const std::string& filename)
 // static
 bool LLURLHistory::saveFile(const std::string& filename)
 {	
-	std::string temp_str = gDirUtilp->getLindenUserDir();
+	std::string temp_str = gDirUtilp->getLindenUserDir(true);
 	if( temp_str.empty() )
 	{
 		llwarns << "Can't save " << filename 

@@ -122,8 +122,7 @@
 				Bağışla
 			</string>
 			<button label="Bağışla..." label_selected="Bağışla..." name="button deed" tool_tip="Grup paylaşımlı objeler grup yetkilisi tarafından bağışlanabilir."/>
-			<check_box label="Herhangi biri taşıyabilir" name="checkbox allow everyone move"/>
-			<check_box label="Herhangi biri kopyalayabilir" name="checkbox allow everyone copy"/>
+			<check_box label="Kopyalama" name="checkbox allow everyone copy"/>
 			<check_box label="Aramada göster" name="search_check" tool_tip="İnsanların bu objeyi arama sonuçlarında görmelerine izin verin"/>
 			<check_box label="Satılık" name="checkbox for sale"/>
 			<text name="Cost">

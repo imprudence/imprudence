@@ -55,9 +55,9 @@
 #include "lloverlaybar.h" // for gOverlayBar
 #include "lluictrlfactory.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
+// [RLVa:KB] - Version: 1.23.4
 #include "rlvhandler.h"
 // [/RLVa:KB]
   
@@ -227,7 +227,10 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 
 		caution_box->setFontStyle(LLFontGL::BOLD);
 		caution_box->setColor(gColors.getColor("NotifyCautionWarnColor"));
-		caution_box->setBackgroundColor(gColors.getColor("NotifyCautionBoxColor"));
+
+		static LLColor4* sNotifyCautionBoxColor = rebind_llcontrol<LLColor4>("NotifyCautionBoxColor", &gColors, true);
+		
+		caution_box->setBackgroundColor((*sNotifyCautionBoxColor));
 		caution_box->setBorderVisible(FALSE);
 		caution_box->setWrappedText(notification->getMessage());
 		
@@ -485,7 +488,10 @@ void LLNotifyBox::drawBackground() const
 	{
 		gGL.getTexUnit(0)->bind(imagep->getImage());
 		// set proper background color depending on whether notify box is a caution or not
-		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
+		static LLColor4* sNotifyCautionBoxColor = rebind_llcontrol<LLColor4>("NotifyCautionBoxColor", &gColors, true);
+		static LLColor4* sNotifyBoxColor = rebind_llcontrol<LLColor4>("NotifyBoxColor", &gColors, true);
+
+		LLColor4 color = mIsCaution? (*sNotifyCautionBoxColor) : (*sNotifyBoxColor);
 		if(gFocusMgr.childHasKeyboardFocus( this ))
 		{
 			const S32 focus_width = 2;
@@ -500,9 +506,9 @@ void LLNotifyBox::drawBackground() const
 			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getTextureWidth(), imagep->getTextureHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 
 			if( mIsCaution )
-				color = gColors.getColor("NotifyCautionBoxColor");
+				color = (*sNotifyCautionBoxColor);
 			else
-				color = gColors.getColor("NotifyBoxColor");
+				color = (*sNotifyBoxColor);
 
 			gGL.color4fv(color.mV);
 			gl_segmented_rect_2d_tex(1, getRect().getHeight()-1, getRect().getWidth()-1, 1, imagep->getTextureWidth(), imagep->getTextureHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);

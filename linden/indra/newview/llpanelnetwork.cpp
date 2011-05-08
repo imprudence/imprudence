@@ -34,13 +34,17 @@
 
 //file include
 #include "llpanelnetwork.h"
+#include "llstartup.h"
 
 // project includes
 #include "llcheckboxctrl.h"
+#include "llradiogroup.h"
 #include "lldirpicker.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
+
+bool LLPanelNetwork::sSocksSettingsChanged;
 
 LLPanelNetwork::LLPanelNetwork()
 {
@@ -64,6 +68,39 @@ BOOL LLPanelNetwork::postBuild()
 	childSetValue("connection_port_enabled", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetValue("connection_port", (F32)gSavedSettings.getU32("ConnectionPort"));
 
+	childSetCommitCallback("xmlrpc_proxy_enabled", onCommitXMLRPCProxyEnabled, this);
+	childSetValue("xmlrpc_proxy_enabled", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetValue("xmlrpc_proxy_editor", gSavedSettings.getString("XMLRPCProxyAddress"));
+	childSetValue("xmlrpc_proxy_port", gSavedSettings.getS32("XMLRPCProxyPort"));
+	childSetEnabled("xmlrpc_proxy_text_label", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_editor", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+	childSetEnabled("xmlrpc_proxy_port", gSavedSettings.getBOOL("XMLRPCProxyEnabled"));
+
+	// Socks 5 proxy settings, commit callbacks
+	childSetCommitCallback("socks5_proxy_enabled", onCommitSocks5ProxyEnabled, this);
+	childSetCommitCallback("socks5_auth", onSocksAuthChanged, this);
+
+	//Socks 5 proxy settings, saved data
+	childSetValue("socks5_proxy_enabled",   gSavedSettings.getBOOL("Socks5ProxyEnabled"));
+	childSetValue("socks5_http_proxy_type", gSavedSettings.getString("Socks5HttpProxyType"));
+
+	childSetValue("socks5_proxy_host",     gSavedSettings.getString("Socks5ProxyHost"));
+	childSetValue("socks5_proxy_port",     (F32)gSavedSettings.getU32("Socks5ProxyPort"));
+	childSetValue("socks5_proxy_username", gSavedSettings.getString("Socks5Username"));
+	childSetValue("socks5_proxy_password", gSavedSettings.getString("Socks5Password"));
+	childSetValue("socks5_auth", gSavedSettings.getString("Socks5AuthType"));
+
+	// Socks 5 proxy settings, check if settings modified callbacks
+	childSetCommitCallback("socks5_proxy_host", onSocksSettingsModified,this);
+	childSetCommitCallback("socks5_proxy_port", onSocksSettingsModified,this);
+	childSetCommitCallback("socks5_proxy_username", onSocksSettingsModified,this);
+	childSetCommitCallback("socks5_proxy_password", onSocksSettingsModified,this);
+	
+	// Socks 5 settings, Set all controls and labels enabled state
+	updateProxyEnabled(this, gSavedSettings.getBOOL("Socks5ProxyEnabled"), gSavedSettings.getString("Socks5AuthType"));
+
+	sSocksSettingsChanged = false;
+
 	return TRUE;
 }
 
@@ -79,6 +116,32 @@ void LLPanelNetwork::apply()
 	gSavedSettings.setF32("ThrottleBandwidthKBPS", childGetValue("max_bandwidth").asReal());
 	gSavedSettings.setBOOL("ConnectionPortEnabled", childGetValue("connection_port_enabled"));
 	gSavedSettings.setU32("ConnectionPort", childGetValue("connection_port").asInteger());
+
+	gSavedSettings.setBOOL("XMLRPCProxyEnabled", childGetValue("xmlrpc_proxy_enabled"));
+	gSavedSettings.setString("XMLRPCProxyAddress", childGetValue("xmlrpc_proxy_editor"));
+	gSavedSettings.setS32("XMLRPCProxyPort", childGetValue("xmlrpc_proxy_port"));
+
+	gSavedSettings.setBOOL("Socks5ProxyEnabled", childGetValue("socks5_proxy_enabled"));		
+	gSavedSettings.setString("Socks5HttpProxyType", childGetValue("socks5_http_proxy_type"));
+	gSavedSettings.setString("Socks5ProxyHost", childGetValue("socks5_proxy_host"));
+	gSavedSettings.setU32("Socks5ProxyPort", childGetValue("socks5_proxy_port").asInteger());
+
+	gSavedSettings.setString("Socks5AuthType", childGetValue("socks5_auth"));
+	gSavedSettings.setString("Socks5Username", childGetValue("socks5_proxy_username"));
+	gSavedSettings.setString("Socks5Password", childGetValue("socks5_proxy_password"));
+
+	if (sSocksSettingsChanged)
+	{
+		if (LLStartUp::getStartupState() != STATE_LOGIN_WAIT)
+		{
+			LLNotifications::instance().add("ProxyNeedRestart");
+		}
+		else
+		{
+			// Mark the socks class that it needs to update its connection
+			LLSocks::getInstance()->updated();
+		}
+	}
 }
 
 void LLPanelNetwork::cancel()
@@ -143,4 +206,97 @@ void LLPanelNetwork::onCommitPort(LLUICtrl* ctrl, void* data)
   if (!self || !check) return;
   self->childSetEnabled("connection_port", check->get());
   LLNotifications::instance().add("ChangeConnectionPort");
+}
+
+// static
+void LLPanelNetwork::onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+	if (!self || !check) return;
+	self->childSetEnabled("xmlrpc_proxy_editor", check->get());
+	self->childSetEnabled("xmlrpc_proxy_port", check->get());
+	self->childSetEnabled("xmlrpc_proxy_text_label", check->get());
+
+	self->childSetEnabled("socks5_proxy_enabled", !check->get());
+}
+
+// static
+void LLPanelNetwork::onCommitSocks5ProxyEnabled(LLUICtrl* ctrl, void* data)
+{
+	LLPanelNetwork* self  = (LLPanelNetwork*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+	if (!self || !check) return;
+
+	sSocksSettingsChanged = true;
+	
+	updateProxyEnabled(self, check->get(), self->childGetValue("socks5_auth"));
+}
+
+// static
+void LLPanelNetwork::onSocksSettingsModified(LLUICtrl* ctrl, void* data)
+{
+	sSocksSettingsChanged = true;
+}
+
+// static
+void LLPanelNetwork::onSocksAuthChanged(LLUICtrl* ctrl, void* data)
+{
+	LLRadioGroup* radio  = static_cast<LLRadioGroup*>(ctrl);
+	LLPanelNetwork* self = static_cast<LLPanelNetwork*>(data);
+
+	sSocksSettingsChanged = true;
+
+	std::string selection = radio->getValue().asString();
+	updateProxyEnabled(self, true, selection);
+}
+
+// static
+void LLPanelNetwork::updateProxyEnabled(LLPanelNetwork * self, bool enabled, std::string authtype)
+{
+	// Manage all the enable/disable of the socks5 options from this single function
+	// to avoid code duplication
+
+	// Update all socks labels and controls except auth specific ones
+	self->childSetEnabled("socks5_proxy_port",	enabled);
+	self->childSetEnabled("socks5_proxy_host",	enabled);
+	self->childSetEnabled("socks5_host_label",	enabled);
+	self->childSetEnabled("socks5_proxy_label",	enabled);
+	self->childSetEnabled("socks5_proxy_port",	enabled);
+	self->childSetEnabled("socks5_auth_label",	enabled);
+	self->childSetEnabled("socks5_auth",		enabled);
+
+	// disable the web option if the web proxy has not been configured
+	// this is still not ideal as apply or ok is needed for this to be saved to the preferences
+	self->childSetEnabled("Web", gSavedSettings.getBOOL("BrowserProxyEnabled"));
+
+	self->childSetEnabled("Socks", enabled);
+
+	// Hide the auth specific labels if authtype is none or
+	// we are not enabled.
+	if ((authtype.compare("None") == 0) || (enabled == false))
+	{
+		self->childSetEnabled("socks5_username_label", false);
+		self->childSetEnabled("socks5_password_label", false);
+		self->childSetEnabled("socks5_proxy_username", false);
+		self->childSetEnabled("socks5_proxy_password", false);
+	}
+
+	// Only show the username and password boxes if we are enabled
+	// and authtype is username password.
+	if ((authtype.compare("UserPass") == 0) && (enabled == true))
+	{
+		self->childSetEnabled("socks5_username_label", true);
+		self->childSetEnabled("socks5_password_label", true);
+		self->childSetEnabled("socks5_proxy_username", true);
+		self->childSetEnabled("socks5_proxy_password", true);
+	}
+
+	// Disable the XMLRPC proxy if it's enabled and we enable SOCKS5
+	self->childSetEnabled("xmlrpc_proxy_enabled", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_editor", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_port", !enabled);
+	self->childSetEnabled("xmlrpc_proxy_text_label", !enabled);
 }

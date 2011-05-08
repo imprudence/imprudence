@@ -39,15 +39,17 @@
 #else
 #	include <sys/stat.h>		// mkdir()
 #endif
-
-#include "audioengine.h"
+#include "llpluginclassmediaowner.h"
+#include "llviewermedia_streamingaudio.h"
+#include "kokuastreamingaudio.h"
+#include "llaudioengine.h"
 
 #ifdef LL_FMOD
-# include "audioengine_fmod.h"
+# include "llaudioengine_fmod.h"
 #endif
 
 #ifdef LL_OPENAL
-#include "audioengine_openal.h"
+#include "llaudioengine_openal.h"
 #endif
 
 #include "llares.h"
@@ -74,12 +76,12 @@
 #include "llstring.h"
 #include "lluserrelations.h"
 #include "llvfs.h"
-#include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
 #include "v3math.h"
 
 #include "llagent.h"
 #include "llagentpilot.h"
+#include "llfloateravatarlist.h"
 #include "llfloateravatarpicker.h"
 #include "llcallbacklist.h"
 #include "llcallingcard.h"
@@ -100,6 +102,8 @@
 #include "llfloatergesture.h"
 #include "llfloaterhud.h"
 #include "llfloaterland.h"
+#include "llfloaterpreference.h"
+#include "llfloaterteleporthistory.h"
 #include "llfloatertopobjects.h"
 #include "llfloatertos.h"
 #include "llfloaterworldmap.h"
@@ -185,14 +189,22 @@
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
 #include "llagentlanguage.h"
+#include "llsocks5.h"
 #include "viewerversion.h"
 
+#include "lgghunspell_wrapper.h"
 #include "jcfloater_animation_list.h"
 #include "jcfloaterareasearch.h"
 
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
+#include "llfloaterteleporthistory.h"
+
+#if LL_DARWIN
+#include <Security/Security.h>
+#endif
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #if LL_WINDOWS
 #include "llwindebug.h"
@@ -201,8 +213,10 @@
 
 #include "floaterao.h"
 
-#include "hippoGridManager.h"
-#include "hippoLimits.h"
+#include "hippogridmanager.h"
+#include "hippolimits.h"
+
+#include "lggautocorrect.h"
 //
 // exported globals
 //
@@ -247,7 +261,6 @@ bool LLStartUp::sLoginFailed = false;
 
 void login_show();
 void login_callback(S32 option, void* userdata);
-bool is_hex_string(U8* str, S32 len);
 void show_first_run_dialog();
 bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
@@ -355,6 +368,8 @@ bool idle_startup()
 	static U64 first_sim_handle = 0;
 	static LLHost first_sim;
 	static std::string first_sim_seed_cap;
+	static U32 first_sim_size_x = 256;
+	static U32 first_sim_size_y = 256;
 
 	static LLVector3 initial_sun_direction(1.f, 0.f, 0.f);
 	static LLVector3 agent_start_position_region(10.f, 10.f, 10.f);		// default for when no space server
@@ -400,7 +415,11 @@ bool idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
-// [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
+		glggHunSpell->initSettings();
+
+		LGGAutoCorrect::getInstance()->loadFromDisk();
+
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
 		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
 			rlv_handler_t::setEnabled(TRUE);
 // [/RLVa:KB]
@@ -616,6 +635,15 @@ bool idle_startup()
 		LL_INFOS("AppInit") << "Message System Initialized." << LL_ENDL;
 		
 		//-------------------------------------------------
+		// Init the socks 5 proxy and open the control TCP 
+		// connection if the user is using SOCKS5
+		// We need to do this early incase the user is using
+		// socks for http so we get the login screen via socks
+		//-------------------------------------------------
+
+		LLStartUp::handleSocksProxy(false);
+
+		//-------------------------------------------------
 		// Init audio, which may be needed for prefs dialog
 		// or audio cues in connection UI.
 		//-------------------------------------------------
@@ -668,7 +696,11 @@ bool idle_startup()
 				}
 			}
 		}
-		
+
+
+		if (!gAudioStream)
+			gAudioStream =  new KOKUAStreamingAudio(new LLStreamingAudio_MediaPlugins());
+
 		LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
 
 		
@@ -716,12 +748,13 @@ bool idle_startup()
 #endif
 			gSavedSettings.setBOOL("AutoLogin", TRUE);
 		}
-		else if (gSavedSettings.getBOOL("AutoLogin"))
+		else if (gSavedSettings.getBOOL("AutoLogin") && gHippoGridManager)
 		{
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
-			gSavedSettings.setBOOL("RememberPassword", TRUE);
+			// at this point, getCurrentGrid is the last logged in grid. Should we create a new entry for this? -- MC
+			firstname = gHippoGridManager->getCurrentGrid()->getFirstName();
+			lastname = gHippoGridManager->getCurrentGrid()->getLastName();
+			password = gHippoGridManager->getCurrentGrid()->getPassword();
+			gSavedSettings.setBOOL("RememberPassword", TRUE); // why do we do this, anyway? -- MC
 			
 #ifdef USE_VIEWER_AUTH
 			show_connect_box = true;
@@ -732,9 +765,7 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
+			// name and password are now handled in STATE_LOGIN_SHOW when the login screen's shown -- MC
 			show_connect_box = true;
 		}
 
@@ -751,7 +782,7 @@ bool idle_startup()
 		std::string msg = LLTrans::getString("LoginInitializingBrowser");
 		set_startup_status(0.03f, msg.c_str(), gAgent.mMOTD.c_str());
 		display_startup();
-		LLViewerMedia::initBrowser();
+		// LLViewerMedia::initBrowser();
 
 		LLStartUp::setStartupState( STATE_LOGIN_SHOW );
 		return FALSE;
@@ -768,7 +799,7 @@ bool idle_startup()
 
 		timeout_count = 0;
 		
-		if(LLStartUp::shouldAutoLogin())
+		if (LLStartUp::shouldAutoLogin())
 		{
 			show_connect_box = false;
 		}
@@ -789,9 +820,36 @@ bool idle_startup()
 
 			// Show the login dialog
 			login_show();
-			// connect dialog is already shown, so fill in the names
-			LLPanelLogin::setFields( firstname, lastname, password);
 
+			// connect dialog is already shown, so fill in the names associated with the grid
+			// note how we always remember avatar names, but don't necessarily have to
+			// icky how all this gets bolted on here as a kind of hack -- MC
+			if (gHippoGridManager)
+			{
+				firstname = gHippoGridManager->getCurrentGrid()->getFirstName();
+				lastname = gHippoGridManager->getCurrentGrid()->getLastName();
+				// RememberPassword toggles this being saved
+				password = gHippoGridManager->getCurrentGrid()->getPassword();
+				
+				// empty in case we used logout
+				if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+				{
+					if ((lastname == "resident" || lastname == "Resident") ||
+						(firstname.empty() && lastname.empty()))
+					{
+						LLPanelLogin::setFields(firstname, password);
+					}
+					else
+					{
+						LLPanelLogin::setFields(firstname+"."+lastname, password);
+					}
+				}
+				else
+				{
+					LLPanelLogin::setFields(firstname, lastname, password);
+				}
+			}
+			
 			LLPanelLogin::giveFocus();
 
 			gSavedSettings.setBOOL("FirstRunThisInstall", FALSE);
@@ -852,8 +910,31 @@ bool idle_startup()
 
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
-
 		LL_DEBUGS("AppInitStartupState") << "STATE_LOGIN_CLEANUP" << LL_ENDL;
+	
+		// Post login screen, we should see if any settings have changed that may
+		// require us to either start/stop or change the socks proxy. As various communications
+		// past this point may require the proxy to be up.
+		bool socks_enable_required = gSavedSettings.getBOOL("Socks5ProxyEnabled");
+		if ((LLSocks::getInstance()->isEnabled() != socks_enable_required) || LLSocks::getInstance()->needsUpdate())
+		{
+			if (socks_enable_required)
+			{
+				if (!LLStartUp::handleSocksProxy(false))
+				{
+					// Proxy start up failed, we should now bail the state machine
+					// HandleSocksProxy() will have reported an error to the user 
+					// already, so we just go back to the login screen. The user
+					// could then change the perferences to fix the issue. 
+					LLStartUp::setStartupState(STATE_LOGIN_SHOW);
+					return FALSE;
+				}
+			}
+			else
+			{
+				LLSocks::getInstance()->stopProxy();
+			}
+		}
 
 		gDisconnected = TRUE;
 
@@ -900,21 +981,8 @@ bool idle_startup()
 			lastname = gLoginHandler.getLastName();
 			web_login_key = gLoginHandler.getWebLoginKey();
 		}
-		
-		/* Jacek - Grid manager stuff that's changed with 1.23
-		if(!gLoginHandler.mPassword.empty())
-		{
-			firstname = gLoginHandler.mFirstName;
-			lastname = gLoginHandler.mLastName;
-			password = gLoginHandler.mPassword;
-			
-			gLoginHandler.mFirstName = "";
-			gLoginHandler.mLastName = "";
-			gLoginHandler.mPassword = "";
-			LLStartUp::setShouldAutoLogin(false);
-		}*/
-				
-		if (show_connect_box)
+		// note: the grid manager overrides defaults, always -- MC
+		else if (show_connect_box)
 		{
 			// TODO if not use viewer auth
 			// Load all the name information out of the login view
@@ -923,24 +991,27 @@ bool idle_startup()
 	 
 			// HACK: Try to make not jump on login
 			gKeyboard->resetKeys();
+			
+			LLStartUp::setShouldAutoLogin(false);
 		}
 
 		if (!firstname.empty() && !lastname.empty())
 		{
-			gSavedSettings.setString("FirstName", firstname);
-			gSavedSettings.setString("LastName", lastname);
+			gHippoGridManager->getCurrentGrid()->setFirstName(firstname);
+			gHippoGridManager->getCurrentGrid()->setLastName(lastname);
 
 			//LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
-			gDebugInfo["LoginName"] = firstname + " " + lastname;	
+			gDebugInfo["LoginName"] = firstname + " " + lastname;
+
+			// create necessary directories
+			gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+			LLFile::mkdir(gDirUtilp->getLindenUserDir());
 		}
-
-
-
-
-		// create necessary directories
-		// *FIX: these mkdir's should error check
-		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-		LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		else
+		{
+			// we don't do anything from here on out -- MC
+			llerrs << "No first or last name given! Cannot proceed!" << llendl;
+		}
 
 		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
@@ -994,6 +1065,9 @@ bool idle_startup()
 
 		std::string user_windlight_days_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/days", ""));
 		LLFile::mkdir(user_windlight_days_path_name.c_str());
+
+		std::string dictionariesFolder(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "dictionaries",""));
+		LLFile::mkdir(dictionariesFolder.c_str());
 
 
 		if (show_connect_box)
@@ -1087,10 +1161,13 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		if (gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+		if (!gSavedSettings.getBOOL("EnableVoiceChat") ||
+			(gSavedSettings.getBOOL("EnableVoiceChat") && gSavedSettings.getBOOL("VivoxLicenseAccepted")) || 
+			!gHippoGridManager->getConnectedGrid()->isSecondLife())
 		{
 			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
 			// skipping over STATE_UPDATE_CHECK because that just waits for input
+			// We don't do this on non-SL grids either
 			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
 		}
 		else
@@ -1216,6 +1293,35 @@ bool idle_startup()
 		hashed_mac.finalize();
 		hashed_mac.hex_digest(hashed_mac_string);
 
+		// Don't report crashes if the grid we crashed in
+		// is different from the grid we log in
+		eLastExecEvent last_exec_event = LAST_EXEC_NORMAL;
+		{
+			std::string current_grid = gHippoGridManager->getCurrentGrid()->getGridNick();
+			std::string last_grid = gSavedSettings.getString("LastConnectedGrid");
+			LL_DEBUGS("AppInit")	<< "current grid: " << current_grid 
+						<< " Last Connected Grid: " << last_grid << LL_ENDL;
+			if( last_grid ==  current_grid )
+			{
+				last_exec_event = gLastExecEvent;
+			}
+		}
+
+		// We hash a temporary password for login auth. The actual stored password
+		// is in the grid manager, and is XORed with the mac address -- MC
+		std::string hashed_password("");
+		if (password.length() == 32)
+		{
+			hashed_password = password;
+		}
+		else if (!password.empty())
+		{
+			LLMD5 pass((unsigned char *)password.c_str());
+			char munged_password[MD5HEX_STR_SIZE];
+			pass.hex_digest(munged_password);
+			hashed_password = munged_password;
+		}
+
 		// TODO if statement here to use web_login_key
 		if(web_login_key.isNull()){
 		sAuthUriNum = llclamp(sAuthUriNum, 0, (S32)sAuthUris.size()-1);
@@ -1224,13 +1330,13 @@ bool idle_startup()
 			auth_method,
 			firstname,
 			lastname,			
-			password, 
+			hashed_password, 
 			//web_login_key,
 			start.str(),
 			gSkipOptionalUpdate,
 			gAcceptTOS,
 			gAcceptCriticalMessage,
-			gLastExecEvent,
+			last_exec_event,
 			requested_options,
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
@@ -1245,7 +1351,7 @@ bool idle_startup()
 			gSkipOptionalUpdate,
 			gAcceptTOS,
 			gAcceptCriticalMessage,
-			gLastExecEvent,
+			last_exec_event,
 			requested_options,
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
@@ -1457,7 +1563,7 @@ bool idle_startup()
 		default:
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
-				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridNick() << ".\n";
+				emsg << "Unable to connect to " << gHippoGridManager->getCurrentGrid()->getGridName() << ".\n";
 				emsg << LLUserAuth::getInstance()->errorMessage();
 			} else {
 				sAuthUriNum++;
@@ -1483,6 +1589,9 @@ bool idle_startup()
 
 		if(successful_login)
 		{
+			std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
+			gSavedSettings.setString("LastConnectedGrid", current_grid);
+
 			std::string text;
 			text = LLUserAuth::getInstance()->getResponse("udp_blacklist");
 			if(!text.empty())
@@ -1513,19 +1622,23 @@ bool idle_startup()
 			}
 			text = LLUserAuth::getInstance()->getResponse("last_name");
 			if(!text.empty()) lastname.assign(text);
-			gSavedSettings.setString("FirstName", firstname);
-			gSavedSettings.setString("LastName", lastname);
+
+			gHippoGridManager->getConnectedGrid()->setFirstName(firstname);
+			gHippoGridManager->getConnectedGrid()->setLastName(lastname);
 
 			if (gSavedSettings.getBOOL("RememberPassword"))
 			{
 				// Successful login means the password is valid, so save it.
-				LLStartUp::savePasswordToDisk(password);
+				// formerly LLStartUp::savePasswordToDisk(password); 
+				// this needs to happen after gMACAddress is set -- MC
+				gHippoGridManager->getConnectedGrid()->setPassword(password);
 			}
 			else
 			{
 				// Don't leave password from previous session sitting around
 				// during this login session.
-				LLStartUp::deletePasswordFromDisk();
+				// formerly LLStartUp::deletePasswordFromDisk(); -- MC
+				gHippoGridManager->getConnectedGrid()->setPassword("");
 			}
 
 			// this is their actual ability to access content
@@ -1594,6 +1707,16 @@ bool idle_startup()
 				U32 region_y = strtoul(region_y_str.c_str(), NULL, 10);
 				first_sim_handle = to_region_handle(region_x, region_y);
 			}
+			
+			text = LLUserAuth::getInstance()->getResponse("region_size_x");
+			if(!text.empty()) {
+				first_sim_size_x = strtoul(text.c_str(), NULL, 10);
+				LLViewerParcelMgr::getInstance()->init(first_sim_size_x);
+			}
+
+			//region Y size is currently unused, major refactoring required. - Patrick Sapinski (2/10/2011)
+			text = LLUserAuth::getInstance()->getResponse("region_size_y");
+			if(!text.empty()) first_sim_size_y = strtoul(text.c_str(), NULL, 10);
 			
 			const std::string look_at_str = LLUserAuth::getInstance()->getResponse("look_at");
 			if (!look_at_str.empty())
@@ -1721,31 +1844,31 @@ bool idle_startup()
 			std::string tmp = LLUserAuth::getInstance()->getResponse("gridname");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setGridName(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("loginuri");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("welcome");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("loginpage");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("economy");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("helperuri");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperURI(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("about");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("website");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("help");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("support");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("register");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("account");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("password");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("search");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchURL(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("currency");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
@@ -1756,6 +1879,7 @@ bool idle_startup()
 			//OpenSim
 			tmp = LLUserAuth::getInstance()->getResponse("max_groups");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
+
 			//SL
 			tmp = LLUserAuth::getInstance()->getResponse("max-agent-groups");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
@@ -1839,6 +1963,10 @@ bool idle_startup()
 	{
 		LL_DEBUGS("AppInitStartupState") << "STATE_WORLD_INIT" << LL_ENDL;
 		set_startup_status(0.40f, LLTrans::getString("LoginInitializingWorld"), gAgent.mMOTD);
+
+		// Initialize the rest of the world.
+		gViewerWindow->initWorldUI_postLogin();
+
 		gDisconnected=FALSE;
 		display_startup();
 		// We should have an agent id by this point.
@@ -1885,7 +2013,7 @@ bool idle_startup()
 
 		gAgent.initOriginGlobal(from_region_handle(first_sim_handle));
 
-		LLWorld::getInstance()->addRegion(first_sim_handle, first_sim);
+		LLWorld::getInstance()->addRegion(first_sim_handle, first_sim, first_sim_size_x, first_sim_size_y);
 
 		LLViewerRegion *regionp = LLWorld::getInstance()->getRegionFromHandle(first_sim_handle);
 		LL_INFOS("AppInit") << "Adding initial simulator " << regionp->getOriginGlobal() << LL_ENDL;
@@ -1951,7 +2079,10 @@ bool idle_startup()
 		{
 			LLFloaterMap::showInstance();
 		}
-
+		if (gSavedSettings.getBOOL("ShowRadar"))
+		{
+			LLFloaterAvatarList::showInstance();
+		}
 		if (gSavedSettings.getBOOL("ShowCameraControls"))
 		{
 			LLFloaterCamera::showInstance();
@@ -1966,7 +2097,9 @@ bool idle_startup()
 			LLFloaterActiveSpeakers::showInstance();
 		}
 
-		if (gSavedSettings.getBOOL("BeaconsEnabled"))
+		static BOOL* sBeaconsEnabled = rebind_llcontrol<BOOL>("BeaconsEnabled", &gSavedSettings, true);
+
+		if (*sBeaconsEnabled)
 		{
 			LLFloaterBeacons::showInstance();
 		}
@@ -2010,6 +2143,12 @@ bool idle_startup()
 	
 			// Load stored cache if possible
             LLAppViewer::instance()->loadNameCache();
+
+			// Start cache in not-running state until we figure out if we have
+			// capabilities for display name lookup
+			LLAvatarNameCache::initClass(false);
+			LLAvatarNameCache::setUseDisplayNames(gSavedSettings.getU32("DisplayNamesUsage"));
+			LLAvatarName::sOmitResidentAsLastName = (bool)gSavedSettings.getBOOL("OmitResidentAsLastName");
 		}
 
 		// *Note: this is where gWorldMap used to be initialized.
@@ -2254,14 +2393,14 @@ bool idle_startup()
 			LLStringUtil::format_map_t args;
 			args["[FIRST_NAME]"] = firstname;
 			args["[LAST_NAME]"] = lastname;
-			args["[GRID_NAME]"] = (gHippoGridManager->getConnectedGrid()->getGridName().empty()) ? 
-				gHippoGridManager->getConnectedGrid()->getGridNick() :
-				gHippoGridManager->getConnectedGrid()->getGridName();
+			args["[GRID_NAME]"] = gHippoGridManager->getConnectedGrid()->getGridName();
 			std::string title_text = LLTrans::getString("TitleBarMultiple", args);
 			gWindowTitle = gSecondLife + " - " + title_text;
 			LLStringUtil::truncate(gWindowTitle, 255);
 			gViewerWindow->getWindow()->setWindowTitle(gWindowTitle);
 		}
+		// Inform simulator of our language preference
+		LLAgentLanguage::update();
 
 		// unpack thin inventory
 		LLUserAuth::options_t options;
@@ -2448,6 +2587,14 @@ bool idle_startup()
 			LLInventoryView::toggleVisibility(NULL);
 		}
 
+// [RLVa:KB] - Checked: 2009-11-27 (RLVa-1.1.0f) | Added: RLVa-1.1.0f
+		if (rlv_handler_t::isEnabled())
+		{
+			// Regularly process a select subset of retained commands during logon
+			gIdleCallbacks.addFunction(RlvHandler::onIdleStartup, new LLTimer());
+		}
+// [/RLVa:KB]
+
 		LLStartUp::setStartupState( STATE_MISC );
 		return FALSE;
 	}
@@ -2580,9 +2727,6 @@ bool idle_startup()
 		// TODO: Put this into RegisterNewAgent
 		// JC - 7/20/2002
 		gViewerWindow->sendShapeToSim();
-
-		// Inform simulator of our language preference
-		LLAgentLanguage::update();
 
 		
 		// Ignore stipend information for now.  Money history is on the web site.
@@ -2755,6 +2899,9 @@ bool idle_startup()
 		LL_DEBUGS("AppInitStartupState") << "STATE_CLEANUP" << LL_ENDL;
 		set_startup_status(1.0, "", "");
 
+		// Make sure we do this right after the login screen -- MC
+		update_grid_specific_menus();
+
 		// Make sure all the branding is in order -- MC
 		if (gStatusBar)
 		{
@@ -2768,6 +2915,16 @@ bool idle_startup()
 		}
 
 		LLFirstUse::ClientTags();
+
+		// Add login location to teleport history 'teleported-into'
+		LLVector3 agent_pos=gAgent.getPositionAgent();
+		LLViewerRegion* regionp = gAgent.getRegion();
+		if (gFloaterTeleportHistory)
+		{
+			gFloaterTeleportHistory->addEntry(regionp->getName(),(S16)agent_pos.mV[0],(S16)agent_pos.mV[1],(S16)agent_pos.mV[2],false);
+		}
+
+		LLViewerParcelMedia::loadDomainFilterList();
 
 		// Let the map know about the inventory.
 		if(gFloaterWorldMap)
@@ -2790,8 +2947,11 @@ bool idle_startup()
 		// Have the agent start watching the friends list so we can update proxies
 		gAgent.observeFriends();
 
-		// Start loading inventory
-		gInventory.startBackgroundFetch();
+		if (gSavedSettings.getBOOL("FetchInventoryOnLogin"))
+		{
+			// Start loading inventory
+			gInventory.startBackgroundFetch();
+		}
 
 		if (gSavedSettings.getBOOL("LoginAsGod"))
 		{
@@ -2842,7 +3002,7 @@ bool idle_startup()
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL);
 
-// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+// [RLVa:KB] - Alternate: Snowglobe-1.2.4 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
 		gRlvHandler.initLookupTables();
 
@@ -2862,6 +3022,8 @@ bool idle_startup()
 #if 0 // sjb: enable for auto-enabling timer display
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
+
+		LLFloaterPreference::updateIsLoggedIn(true);
 
 		return TRUE;
 	}
@@ -2940,141 +3102,6 @@ void login_callback(S32 option, void *userdata)
 }
 
 
-// static
-std::string LLStartUp::loadPasswordFromDisk()
-{
-	// Only load password if we also intend to save it (otherwise the user
-	// wonders what we're doing behind his back).  JC
-	BOOL remember_password = gSavedSettings.getBOOL("RememberPassword");
-	if (!remember_password)
-	{
-		return std::string("");
-	}
-
-	std::string hashed_password("");
-
-	// Look for legacy "marker" password from settings.ini
-	hashed_password = gSavedSettings.getString("Marker");
-	if (!hashed_password.empty())
-	{
-		// Stomp the Marker entry.
-		gSavedSettings.setString("Marker", "");
-
-		// Return that password.
-		return hashed_password;
-	}
-
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-													   "password.dat");
-	LLFILE* fp = LLFile::fopen(filepath, "rb");		/* Flawfinder: ignore */
-	if (!fp)
-	{
-		return hashed_password;
-	}
-
-	// UUID is 16 bytes, written into ASCII is 32 characters
-	// without trailing \0
-	const S32 HASHED_LENGTH = 32;
-	U8 buffer[HASHED_LENGTH+1];
-
-	if (1 != fread(buffer, HASHED_LENGTH, 1, fp))
-	{
-		return hashed_password;
-	}
-
-	fclose(fp);
-
-	// Decipher with MAC address
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.decrypt(buffer, HASHED_LENGTH);
-
-	buffer[HASHED_LENGTH] = '\0';
-
-	// Check to see if the mac address generated a bad hashed
-	// password. It should be a hex-string or else the mac adress has
-	// changed. This is a security feature to make sure that if you
-	// get someone's password.dat file, you cannot hack their account.
-	if(is_hex_string(buffer, HASHED_LENGTH))
-	{
-		hashed_password.assign((char*)buffer);
-	}
-
-	return hashed_password;
-}
-
-
-// static
-void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
-{
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-													   "password.dat");
-	LLFILE* fp = LLFile::fopen(filepath, "wb");		/* Flawfinder: ignore */
-	if (!fp)
-	{
-		return;
-	}
-
-	// Encipher with MAC address
-	const S32 HASHED_LENGTH = 32;
-	U8 buffer[HASHED_LENGTH+1];
-
-	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
-
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.encrypt(buffer, HASHED_LENGTH);
-
-	if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)
-	{
-		LL_WARNS("AppInit") << "Short write" << LL_ENDL;
-	}
-
-	fclose(fp);
-}
-
-
-// static
-void LLStartUp::deletePasswordFromDisk()
-{
-	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-														  "password.dat");
-	LLFile::remove(filepath);
-}
-
-
-bool is_hex_string(U8* str, S32 len)
-{
-	bool rv = true;
-	U8* c = str;
-	while(rv && len--)
-	{
-		switch(*c)
-		{
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-			++c;
-			break;
-		default:
-			rv = false;
-			break;
-		}
-	}
-	return rv;
-}
-
 void show_first_run_dialog()
 {
 	LLNotifications::instance().add("FirstRun", LLSD(), LLSD(), first_run_dialog_callback);
@@ -3086,7 +3113,7 @@ bool first_run_dialog_callback(const LLSD& notification, const LLSD& response)
 	if (0 == option)
 	{
 		LL_DEBUGS("AppInit") << "First run dialog cancelling" << LL_ENDL;
-		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterURL();
 		if (!url.empty()) {
 			LLWeb::loadURL(url);
 		} else {
@@ -3138,7 +3165,7 @@ bool login_alert_status(const LLSD& notification, const LLSD& response)
         case 0:     // OK
             break;
         case 1: {   // Help
-            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportUrl();
+            const std::string &url = gHippoGridManager->getConnectedGrid()->getSupportURL();
             if (!url.empty()) LLWeb::loadURLInternal(url);
             break;
         }
@@ -3807,7 +3834,7 @@ void LLStartUp::multimediaInit()
 	set_startup_status(0.42f, msg.c_str(), gAgent.mMOTD.c_str());
 	display_startup();
 
-	LLViewerMedia::initClass();
+	//LLViewerMedia::initClass();
 	LLViewerParcelMedia::initClass();
 }
 
@@ -3816,7 +3843,7 @@ bool LLStartUp::dispatchURL()
 	// ok, if we've gotten this far and have a startup URL
 	if (!sSLURLCommand.empty())
 	{
-		LLWebBrowserCtrl* web = NULL;
+		LLMediaCtrl* web = NULL;
 		const bool trusted_browser = false;
 		LLURLDispatcher::dispatch(sSLURLCommand, web, trusted_browser);
 	}
@@ -3834,7 +3861,7 @@ bool LLStartUp::dispatchURL()
 			|| (dy*dy > SLOP*SLOP) )
 		{
 			std::string url = LLURLSimString::getURL();
-			LLWebBrowserCtrl* web = NULL;
+			LLMediaCtrl* web = NULL;
 			const bool trusted_browser = false;
 			LLURLDispatcher::dispatch(url, web, trusted_browser);
 		}
@@ -3874,3 +3901,93 @@ void apply_udp_blacklist(const std::string& csv)
 	
 }
 
+bool LLStartUp::handleSocksProxy(bool reportOK)
+{
+	std::string httpProxyType = gSavedSettings.getString("Socks5HttpProxyType");
+
+	// Determine the http proxy type (if any)
+	if ((httpProxyType.compare("Web") == 0) && gSavedSettings.getBOOL("BrowserProxyEnabled"))
+	{
+		LLHost httpHost;
+		httpHost.setHostByName(gSavedSettings.getString("BrowserProxyAddress"));
+		httpHost.setPort(gSavedSettings.getS32("BrowserProxyPort"));
+		LLSocks::getInstance()->EnableHttpProxy(httpHost,LLPROXY_HTTP);
+	}
+	else if ((httpProxyType.compare("Socks") == 0) && gSavedSettings.getBOOL("Socks5ProxyEnabled"))
+	{
+		LLHost httpHost;
+		httpHost.setHostByName(gSavedSettings.getString("Socks5ProxyHost"));
+		httpHost.setPort(gSavedSettings.getU32("Socks5ProxyPort"));
+		LLSocks::getInstance()->EnableHttpProxy(httpHost,LLPROXY_SOCKS);
+	}
+	else
+	{
+		LLSocks::getInstance()->DisableHttpProxy();
+	}
+	
+	bool use_socks_proxy = gSavedSettings.getBOOL("Socks5ProxyEnabled");
+	if (use_socks_proxy)
+	{	
+
+		// Determine and update LLSocks with the saved authentication system
+		std::string auth_type = gSavedSettings.getString("Socks5AuthType");
+			
+		if (auth_type.compare("None") == 0)
+		{
+			LLSocks::getInstance()->setAuthNone();
+		}
+
+		if (auth_type.compare("UserPass") == 0)
+		{
+			LLSocks::getInstance()->setAuthPassword(gSavedSettings.getString("Socks5Username"),gSavedSettings.getString("Socks5Password"));
+		}
+
+		// Start the proxy and check for errors
+		int status = LLSocks::getInstance()->startProxy(gSavedSettings.getString("Socks5ProxyHost"), gSavedSettings.getU32("Socks5ProxyPort"));
+		LLSD subs;
+		subs["PROXY"] = gSavedSettings.getString("Socks5ProxyHost");
+
+		switch(status)
+		{
+			case SOCKS_OK:
+				if (reportOK == true)
+				{
+					LLNotifications::instance().add("SOCKS_CONNECT_OK", subs);
+				}
+				return true;
+				break;
+
+			case SOCKS_CONNECT_ERROR: // TCP Fail
+				LLNotifications::instance().add("SOCKS_CONNECT_ERROR", subs);
+				break;
+
+			case SOCKS_NOT_PERMITTED: // Socks5 server rule set refused connection
+				LLNotifications::instance().add("SOCKS_NOT_PERMITTED", subs);
+				break;
+					
+			case SOCKS_NOT_ACCEPTABLE: // Selected authentication is not acceptable to server
+				LLNotifications::instance().add("SOCKS_NOT_ACCEPTABLE", subs);
+				break;
+
+			case SOCKS_AUTH_FAIL: // Authentication failed
+				LLNotifications::instance().add("SOCKS_AUTH_FAIL", subs);
+				break;
+
+			case SOCKS_UDP_FWD_NOT_GRANTED: // UDP forward request failed
+				LLNotifications::instance().add("SOCKS_UDP_FWD_NOT_GRANTED", subs);
+				break;
+
+			case SOCKS_HOST_CONNECT_FAILED: // Failed to open a TCP channel to the socks server
+				LLNotifications::instance().add("SOCKS_HOST_CONNECT_FAILED", subs);
+				break;		
+		}
+
+		return false;
+	}
+	else
+	{
+		LLSocks::getInstance()->stopProxy(); //ensure no UDP proxy is running and its all cleaned up
+	}
+
+	return true;
+}

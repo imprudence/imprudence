@@ -826,7 +826,7 @@ class LLSpatialSetStateDiff : public LLSpatialSetState
 public:
 	LLSpatialSetStateDiff(U32 state) : LLSpatialSetState(state) { }
 
-	virtual void traverse(const LLSpatialGroup::TreeNode* n)
+	virtual void traverse(const LLSpatialGroup::OctreeNode* n)
 	{
 		LLSpatialGroup* group = (LLSpatialGroup*) n->getListener(0);
 		
@@ -885,7 +885,7 @@ class LLSpatialClearStateDiff : public LLSpatialClearState
 public:
 	LLSpatialClearStateDiff(U32 state) : LLSpatialClearState(state) { }
 
-	virtual void traverse(const LLSpatialGroup::TreeNode* n)
+	virtual void traverse(const LLSpatialGroup::OctreeNode* n)
 	{
 		LLSpatialGroup* group = (LLSpatialGroup*) n->getListener(0);
 		
@@ -1302,7 +1302,11 @@ void LLSpatialGroup::doOcclusion(LLCamera* camera)
 {
 	if (mSpatialPartition->isOcclusionEnabled() && LLPipeline::sUseOcclusion > 1)
 	{
-		if (earlyFail(camera, this))
+		static LLCachedControl<BOOL> render_water_void_culling("RenderWaterVoidCulling", TRUE);
+		// Don't cull hole/edge water, unless RenderWaterVoidCulling is set and we have the GL_ARB_depth_clamp extension.
+		if ((mSpatialPartition->mDrawableType == LLPipeline::RENDER_TYPE_VOIDWATER &&
+			 !(render_water_void_culling && gGLManager.mHasDepthClamp)) ||
+		    earlyFail(camera, this))
 		{
 			setState(LLSpatialGroup::DISCARD_QUERY);
 			assert_states_valid(this);
@@ -1324,11 +1328,28 @@ void LLSpatialGroup::doOcclusion(LLCamera* camera)
 					buildOcclusion();
 				}
 
+				// Depth clamp all water to avoid it being culled as a result of being
+				// behind the far clip plane, and in the case of edge water to avoid
+				// it being culled while still visible.
+				bool const use_depth_clamp =
+					gGLManager.mHasDepthClamp &&
+					(mSpatialPartition->mDrawableType == LLPipeline::RENDER_TYPE_WATER ||
+					 mSpatialPartition->mDrawableType == LLPipeline::RENDER_TYPE_VOIDWATER);
+				if (use_depth_clamp)
+				{
+					glEnable(GL_DEPTH_CLAMP);
+				}
+
 				glBeginQueryARB(GL_SAMPLES_PASSED_ARB, mOcclusionQuery);					
 				glVertexPointer(3, GL_FLOAT, 0, mOcclusionVerts);
 				glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8,
 							GL_UNSIGNED_BYTE, get_box_fan_indices(camera, mBounds[0]));
 				glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+
+				if (use_depth_clamp)
+				{
+					glDisable(GL_DEPTH_CLAMP);
+				}
 			}
 
 			setState(LLSpatialGroup::QUERY_PENDING);
@@ -1498,7 +1519,7 @@ public:
 		return false;
 	}
 	
-	virtual void traverse(const LLSpatialGroup::TreeNode* n)
+	virtual void traverse(const LLSpatialGroup::OctreeNode* n)
 	{
 		LLSpatialGroup* group = (LLSpatialGroup*) n->getListener(0);
 
@@ -2280,9 +2301,10 @@ void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
 						gGL.color4f(0.5f,0.5f,0.5f,1.0f);
 						break;
 				case LLViewerObject::LL_VO_PART_GROUP:
-			case LLViewerObject::LL_VO_HUD_PART_GROUP:
+				case LLViewerObject::LL_VO_HUD_PART_GROUP:
 						gGL.color4f(0,0,1,1);
 						break;
+				case LLViewerObject::LL_VO_VOID_WATER:
 				case LLViewerObject::LL_VO_WATER:
 						gGL.color4f(0,0.5f,1,1);
 						break;

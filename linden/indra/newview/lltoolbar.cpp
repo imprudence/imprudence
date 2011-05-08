@@ -67,6 +67,10 @@
 #include "llimpanel.h"
 #include "llscrolllistctrl.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #if LL_DARWIN
 
 	#include "llresizehandle.h"

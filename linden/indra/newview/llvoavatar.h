@@ -97,6 +97,11 @@ public:
 	static void initClass(); // Initialize data that's only init'd once per class.
 	static void cleanupClass();	// Cleanup data that's only init'd once per class.
 	static BOOL parseSkeletonFile(const std::string& filename);
+
+	static void initCloud();
+	static void loadCloud(const std::string& filename,  LLPartSysData& particles);
+	static void saveCloud(const std::string& filename,  LLPartSysData& particles);
+
 	virtual U32 processUpdateMessage(LLMessageSystem *mesgsys,
 									 void **user_data,
 									 U32 block_num,
@@ -111,6 +116,10 @@ public:
 	void idleUpdateWindEffect();
 	void idleUpdateBoobEffect();
 	void idleUpdateNameTag(const LLVector3& root_pos_last);
+	void clearNameTag();
+	static void invalidateNameTag(const LLUUID& agent_id);
+	// force all name tags to rebuild, useful when display names turned on/off
+	static void invalidateNameTags();
 	void idleUpdateRenderCost();
 	void idleUpdateTractorBeam();
 	void idleUpdateBelowWater();
@@ -147,6 +156,7 @@ public:
 	void updateAttachmentVisibility(U32 camera_mode);
 	void clampAttachmentPositions();
 	S32 getAttachmentCount(); // Warning: order(N) not order(1)
+
 
 	// HUD functions
 	BOOL hasHUDAttachment() const;
@@ -288,6 +298,9 @@ public:
 
 	BOOL isWearingAttachment( const LLUUID& inv_item_id );
 	LLViewerObject* getWornAttachment( const LLUUID& inv_item_id );
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+	LLViewerJointAttachment* getWornAttachmentPoint(const LLUUID& inv_item_id);
+// [/RLVa:KB]
 	const std::string getAttachedPointName(const LLUUID& inv_item_id);
 
 	static LLVOAvatar* findAvatarFromAttachment( LLViewerObject* obj );
@@ -578,6 +591,8 @@ public:
 	static F32		sLODFactor; // user-settable LOD factor
 	static BOOL		sJointDebug; // output total number of joints being touched for each avatar
 	static BOOL     sDebugAvatarRotation;
+	static LLPartSysData sCloud;	
+	static bool sHasCloud;
 
 	static S32 sNumVisibleAvatars; // Number of instances of this class
 	
@@ -671,6 +686,7 @@ protected:
 
 	LLWString mNameString;
 	std::string  mTitle;
+	std::string  mCompleteName;
 	BOOL	  mNameAway;
 	BOOL	  mNameBusy;
 	BOOL	  mNameMute;

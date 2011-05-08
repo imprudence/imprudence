@@ -100,10 +100,13 @@ void LLHomeLocationResponder::result( const LLSD& content )
 		
     LLViewerRegion *viewer_region = gAgent.getRegion();
     gAgent.setHomePosRegion( viewer_region->getHandle(), agent_pos );
+    gAgent.takeHomeScreenshot();
+	
   }
 }
 
-void LLHomeLocationResponder::error( const LLSD& content )
+void LLHomeLocationResponder::error( U32 status, const std::string& reason )
 {
-  llinfos << "received error(" << ll_pretty_print_sd( content ) << ")" << llendl;
+  llinfos << "received error(" << reason  << ")" << llendl;
 }
+

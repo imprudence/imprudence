@@ -33,18 +33,18 @@
 
 #include "llaudiodecodemgr.h"
 
-#include "vorbisdecode.h"
-#include "audioengine.h"
+#include "llvorbisdecode.h"
+#include "llaudioengine.h"
 #include "lllfsthread.h"
 #include "llvfile.h"
 #include "llstring.h"
 #include "lldir.h"
 #include "llendianswizzle.h"
-#include "audioengine.h"
 #include "llassetstorage.h"
 
 #include "vorbis/codec.h"
 #include "vorbis/vorbisfile.h"
+#include "llvorbisencode.h"
 
 extern LLAudioEngine *gAudiop;
 
@@ -218,11 +218,42 @@ BOOL LLVorbisDecodeState::initDecode()
 		return(FALSE);
 	}
 	
-	size_t size_guess = (size_t)ov_pcm_total(&mVF, -1);
+	S32 sample_count = ov_pcm_total(&mVF, -1);
+	size_t size_guess = (size_t)sample_count;
 	vorbis_info* vi = ov_info(&mVF, -1);
 	size_guess *= vi->channels;
 	size_guess *= 2;
 	size_guess += 2048;
+	
+	bool abort_decode = false;
+	
+	if( vi->channels < 1 || vi->channels > LLVORBIS_CLIP_MAX_CHANNELS )
+	{
+		abort_decode = true;
+		llwarns << "Bad channel count: " << vi->channels << llendl;
+	}
+	
+	if( (size_t)sample_count > LLVORBIS_CLIP_REJECT_SAMPLES )
+	{
+		abort_decode = true;
+		llwarns << "Illegal sample count: " << sample_count << llendl;
+	}
+	
+	if( size_guess > LLVORBIS_CLIP_REJECT_SIZE )
+	{
+		abort_decode = true;
+		llwarns << "Illegal sample size: " << size_guess << llendl;
+	}
+	
+	if( abort_decode )
+	{
+		llwarns << "Canceling initDecode. Bad asset: " << mUUID << llendl;
+		llwarns << "Bad asset encoded by: " << ov_comment(&mVF,-1)->vendor << llendl;
+		delete mInFilep;
+		mInFilep = NULL;
+		return FALSE;
+	}
+	
 	mWAVBuffer.reserve(size_guess);
 	mWAVBuffer.resize(WAV_HEADER_SIZE);
 
@@ -375,16 +406,16 @@ BOOL LLVorbisDecodeState::finishDecode()
   
 		// write "data" chunk length, in little-endian format
 		S32 data_length = mWAVBuffer.size() - WAV_HEADER_SIZE;
-		mWAVBuffer[40] = (data_length - 8) & 0x000000FF;
-		mWAVBuffer[41] = ((data_length - 8)>> 8) & 0x000000FF;
-		mWAVBuffer[42] = ((data_length - 8)>> 16) & 0x000000FF;
-		mWAVBuffer[43] = ((data_length - 8)>> 24) & 0x000000FF;
-
+		mWAVBuffer[40] = (data_length) & 0x000000FF;
+		mWAVBuffer[41] = (data_length >> 8) & 0x000000FF;
+		mWAVBuffer[42] = (data_length >> 16) & 0x000000FF;
+		mWAVBuffer[43] = (data_length >> 24) & 0x000000FF;
 		// write overall "RIFF" length, in little-endian format
-		mWAVBuffer[4] = (data_length + 28) & 0x000000FF;
-		mWAVBuffer[5] = ((data_length + 28) >> 8) & 0x000000FF;
-		mWAVBuffer[6] = ((data_length + 28) >> 16) & 0x000000FF;
-		mWAVBuffer[7] = ((data_length + 28) >> 24) & 0x000000FF;
+		data_length += 36;
+		mWAVBuffer[4] = (data_length) & 0x000000FF;
+		mWAVBuffer[5] = (data_length >> 8) & 0x000000FF;
+		mWAVBuffer[6] = (data_length >> 16) & 0x000000FF;
+		mWAVBuffer[7] = (data_length >> 24) & 0x000000FF;
 
 		//
 		// FUDGECAKES!!! Vorbis encode/decode messes up loop point transitions (pop)
@@ -396,8 +427,7 @@ BOOL LLVorbisDecodeState::finishDecode()
 			S32 fade_length;
 			char pcmout[4096];		/*Flawfinder: ignore*/ 	
 
-			fade_length = llmin((S32)128,(S32)(data_length)/8);			
-
+			fade_length = llmin((S32)128,(S32)(data_length-36)/8);			
 			if((S32)mWAVBuffer.size() >= (WAV_HEADER_SIZE + 2* fade_length))
 			{
 				memcpy(pcmout, &mWAVBuffer[WAV_HEADER_SIZE], (2 * fade_length));	/*Flawfinder: ignore*/
@@ -437,7 +467,7 @@ BOOL LLVorbisDecodeState::finishDecode()
 			}
 		}
 
-		if (0 == data_length)
+		if (36 == data_length)
 		{
 			llwarns << "BAD Vorbis decode in finishDecode!" << llendl;
 			mValid = FALSE;
@@ -631,8 +661,11 @@ BOOL LLAudioDecodeMgr::addDecodeRequest(const LLUUID &uuid)
 
 	if (gAssetStorage->hasLocalAsset(uuid, LLAssetType::AT_SOUND))
 	{
-		// Just put it on the decode queue.
-		mImpl->mDecodeQueue.push(uuid);
+		// Just put it on the decode queue if it's not already.
+		if (!mImpl->mDecodeQueue.checkData(uuid))
+		{
+			mImpl->mDecodeQueue.push(uuid);
+		}
 		return TRUE;
 	}
 

@@ -96,6 +96,7 @@ void AORemoteCtrl::onClickToggleAO(void* data)
 {
 	BOOL ao_enable = gSavedSettings.getBOOL("AOEnabled");
 	gSavedSettings.setBOOL("AOEnabled", !ao_enable);
+	LLFloaterAO::run();
 }
 
 //static 
@@ -103,6 +104,7 @@ void AORemoteCtrl::onClickToggleAOSit(void* data)
 {
 	BOOL sit_enable = gSavedSettings.getBOOL("AOSitsEnabled");
 	gSavedSettings.setBOOL("AOSitsEnabled", !sit_enable);
+	LLFloaterAO::run();
 }
 
 //static 

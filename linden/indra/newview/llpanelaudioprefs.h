@@ -54,6 +54,9 @@ public:
 	virtual BOOL postBuild();
 
 	static void* createVolumePanel(void* data);
+	static void onShowMediaFilter(void* data);
+
+	void updateIsLoggedIn(const bool);
 	
 private:
 	void refreshValues();
@@ -75,6 +78,8 @@ private:
 
 	BOOL			mPreviousStreamingMusic;
 	BOOL			mPreviousStreamingVideo;
+	BOOL			mPreviousHelperWidget;
+	BOOL			mPreviousEnableMediaFilter;
 	BOOL            mPreviousMuteAudio;
 	BOOL            mPreviousMuteWhenMinimized;
 };

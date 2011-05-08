@@ -203,6 +203,12 @@ void LLPanel::draw()
 	LLView::draw();
 }
 
+/*virtual*/
+void LLPanel::setAlpha(F32 alpha)
+{
+	mBgColorOpaque.setAlpha(alpha);
+}
+
 void LLPanel::updateDefaultBtn()
 {
 	// This method does not call LLView::draw() so callers will need
@@ -213,8 +219,7 @@ void LLPanel::updateDefaultBtn()
 	{
 		if (gFocusMgr.childHasKeyboardFocus( this ) && mDefaultBtn->getEnabled())
 		{
-			LLUICtrl* focus_ctrl = gFocusMgr.getKeyboardFocus();
-			LLButton* buttonp = dynamic_cast<LLButton*>(focus_ctrl);
+			LLButton* buttonp = dynamic_cast<LLButton*>(gFocusMgr.getKeyboardFocus());
 			BOOL focus_is_child_button = buttonp && buttonp->getCommitOnReturn();
 			// only enable default button when current focus is not a return-capturing button
 			mDefaultBtn->setBorderEnabled(!focus_is_child_button);
@@ -276,7 +281,7 @@ BOOL LLPanel::handleKeyHere( KEY key, MASK mask )
 {
 	BOOL handled = FALSE;
 
-	LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
+	LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 
 	// handle user hitting ESC to defocus
 	if (key == KEY_ESCAPE)
@@ -800,6 +805,14 @@ void LLPanel::childSetColor(const std::string& id, const LLColor4& color)
 		child->setColor(color);
 	}
 }
+void LLPanel::childSetAlpha(const std::string& id, F32 alpha)
+{
+	LLUICtrl* child = getChild<LLUICtrl>(id, true);
+	if (child)
+	{
+		child->setAlpha(alpha);
+	}
+}
 
 LLCtrlSelectionInterface* LLPanel::childGetSelectionInterface(const std::string& id) const
 {
@@ -1158,7 +1171,7 @@ void LLLayoutStack::draw()
 
 		LLLocalClipRect clip(clip_rect);
 		// only force drawing invisible children if visible amount is non-zero
-		drawChild(panelp, 0, 0, !clip_rect.isNull());
+		drawChild(panelp, 0, 0, !clip_rect.isEmpty());
 	}
 }
 

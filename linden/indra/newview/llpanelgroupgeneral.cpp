@@ -34,7 +34,7 @@
 
 #include "llpanelgroupgeneral.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 #include "lluictrlfactory.h"
 #include "llagent.h"
@@ -56,6 +56,7 @@
 #include "lltextbox.h"
 #include "lltexteditor.h"
 #include "lltexturectrl.h"
+#include "llviewercontrol.h"
 #include "llviewerwindow.h"
 
 // consts
@@ -561,6 +562,14 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 		gIMMgr->saveIgnoreGroup();
 	}
 
+	// Make sure we update the group list in our contacts list and our IMs -- MC
+	if (gIMMgr)
+	{
+		// update the talk view
+		gIMMgr->refresh();
+	}
+	gAgent.fireEvent(new LLEvent(&gAgent, "new group"), "");
+
 	mChanged = FALSE;
 
 	return true;
@@ -805,7 +814,15 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 	if (mEditCharter)
 	{
-		mEditCharter->setText(gdatap->mCharter);
+		if (mAllowEdit && can_change_ident)
+		{
+			mEditCharter->setText(gdatap->mCharter);
+		}
+		else
+		{
+			mEditCharter->setParseHTML(TRUE);
+			mEditCharter->appendColoredText(gdatap->mCharter, false, false, gColors.getColor("TextFgReadOnlyColor"));
+		}
 		mEditCharter->resetDirty();
 	}
 	

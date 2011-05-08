@@ -33,7 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfocusmgr.h"
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llagent.h"
 #include "llinventory.h"
 #include "llinventorymodel.h"
@@ -62,6 +62,10 @@
 
 #include "llappviewer.h" // for gPacificDaylightTime
 #include "viewertime.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 static LLRegisterWidget<LLViewerTextEditor> r("text_editor");
 
@@ -97,9 +101,10 @@ public:
 		}
 		else
 		{
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-			if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) )
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))
 			{
+				RlvNotifications::notifyBlockedViewNote();
 				return;
 			}
 // [/RLVa:KB]
@@ -943,6 +948,7 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 BOOL LLViewerTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = childrenHandleRightMouseDown(x, y, mask) != NULL;
+	if(!handled)handled = LLTextEditor::handleRightMouseDown(x, y, mask);
 
 	// *TODO: Add right click menus for SLURLs
 // 	if(! handled)
@@ -1387,9 +1393,10 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, llwchar wc)
 
 void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item, llwchar wc )
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
 	{
+		RlvNotifications::notifyBlockedViewTexture();
 		return;
 	}
 // [/RLVa:KB]

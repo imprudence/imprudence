@@ -7,7 +7,7 @@
 Einwohners ein:
 			</text>
 			<line_editor bottom_delta="-36" name="Edit" />
-			<button label="Suchen" label_selected="Suchen" name="Find"/>
+			<button label="Finden" label_selected="Finden" name="Find"/>
 			<scroll_list height="74" name="SearchResults" bottom_delta="-79"/>
 		</panel>
 		<panel label="Visitenkarten" name="CallingCardsPanel">

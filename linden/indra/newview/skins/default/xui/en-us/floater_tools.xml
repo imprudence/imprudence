@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-374" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="left|top" height="565" 
+     can_resize="false" follows="left|top" height="575" 
      left="308" min_height="100" min_width="100" mouse_opaque="true"
      name="toolbox floater" rect_control="ToolboxRect" sound_flags="0" title=""
      short_title="Build" width="272">
@@ -79,6 +79,10 @@
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select faces to texture" left="4" mouse_opaque="true"
 	     name="radio select face" radio_style="true" width="114" />
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Align (Shift to Pack)" left="4" mouse_opaque="true"
+	     name="radio align" radio_style="true" width="114"
+       tool_tip="Align aligns all selected prims' edges along an axis, Pack moves all selected prims' edges so they're touching" />
 	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Edit linked parts" left="4" mouse_opaque="true"
@@ -321,10 +325,16 @@
        mouse_opaque="true" name="prim_count" v_pad="0" width="143">
     Primitives: [COUNT]
   </text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-168" left="118" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="right" height="16"
+     mouse_opaque="true" name="link_num" v_pad="0" width="143">
+    Link number: [NUMBER]
+  </text>
 
 <!-- Sub-tabs -->
 
-	<tab_container bottom="-565" follows="left|top" height="384" left="0" mouse_opaque="false"
+	<tab_container bottom="-575" follows="left|top" height="384" left="0" mouse_opaque="false"
 	     name="Object Info Tabs" tab_max_width="52" tab_min_width="40"
 	     tab_position="top" width="272">
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
@@ -348,7 +358,8 @@
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-46"
 			     follows="left|top|right" font="SansSerifSmall" height="16" left="88"
 			     max_length="127" mouse_opaque="true" name="Object Description"
-			     select_all_on_focus_received="true" width="172" />
+			     select_all_on_focus_received="true" width="172" spell_check="true" />
+      
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-66" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -358,29 +369,25 @@
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-66" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Creator Name" v_pad="0" width="88">
-				Thrax Linden
-			</text>
-			<button bottom="-66" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button creator profile" scale_image="TRUE"
-			     width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     mouse_opaque="true" name="Creator Name" v_pad="0" width="145"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
+      </text>
+
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-86" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 			     mouse_opaque="true" name="Owner:" v_pad="0" width="78">
-				Owner:
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Owner:
+      </text>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-86" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Owner Name" v_pad="0" width="88">
-				Thrax Linden
-			</text>
-			<button bottom="-86" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button owner profile" scale_image="TRUE"
-			     width="78" />
+			     mouse_opaque="true" name="Owner Name" v_pad="0" width="174"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
+      </text>
+      
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -390,24 +397,22 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-			     mouse_opaque="true" name="Last Owner Name" v_pad="0" width="88">
-        Thrax Linden
+			     mouse_opaque="true" name="Last Owner Name" v_pad="0" width="174"
+           hover="true" hover_color="50 115 185" font-style="UNDERLINE">
+        Imprudent Linden
       </text>
-      <button bottom_delta="0" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
-			     mouse_opaque="true" name="button last owner profile" scale_image="TRUE"
-			     width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 			     mouse_opaque="true" name="Group:" v_pad="0" width="78">
-				Group:
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Group:
+      </text>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
 			     mouse_opaque="true" name="Group Name Proxy" v_pad="0" visible="false"
-			     width="88">
+			     width="88" hover="true" hover_color="50 115 185" font-style="UNDERLINE">
 				The Lindens
 			</text>
 			<button bottom="-126" follows="top|right" font="SansSerifSmall" halign="center"
@@ -441,42 +446,52 @@
 			     mouse_opaque="true" name="button deed" scale_image="TRUE"
 			     tool_tip="Group shared objects can be deeded by a group officer."
 			     width="78" />
-			<check_box bottom="-206" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Allow anyone to move" left="10"
-			     mouse_opaque="true" name="checkbox allow everyone move" width="142" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Allow anyone to copy" left="10"
-			     mouse_opaque="true" name="checkbox allow everyone copy" width="141" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+      <check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Show in search" left="10" name="search_check"
 			     tool_tip="Let people see this object in search results" width="78" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+      <check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="For sale:" left="10" mouse_opaque="true"
 			     name="checkbox for sale" width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="90"
 			     mouse_opaque="true" name="Cost" v_pad="0" width="78">
-				Price: [CURRENCY]
-			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+        Price: [CURRENCY]
+      </text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
 			     follows="left|top|right" font="SansSerifSmall" height="16" left_delta="80"
 			     max_length="25" mouse_opaque="true" name="Edit Cost" width="75" />
-			<radio_group bottom="-286" draw_border="false" follows="left|top|right" height="16"
+      <radio_group bottom_delta="-20" draw_border="false" follows="left|top|right" height="16"
 			     left="42" mouse_opaque="true" name="sale type" width="218">
-				<radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
+        <radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
 				     name="Original" width="70">
-					Original
-				</radio_item>
-				<radio_item bottom="-16" follows="left|top" height="16" left="70" mouse_opaque="true"
+          Original
+        </radio_item>
+        <radio_item bottom="-16" follows="left|top" height="16" left="70" mouse_opaque="true"
 				     name="Copy" width="70">
-					Copy
-				</radio_item>
-				<radio_item bottom="-16" follows="left|top" height="16" left="140" mouse_opaque="true"
+          Copy
+        </radio_item>
+        <radio_item bottom="-16" follows="left|top" height="16" left="140" mouse_opaque="true"
 				     name="Contents" width="76">
-					Contents
-				</radio_item>
-			</radio_group>
+          Contents
+        </radio_item>
+      </radio_group>
+      <button bottom="-358" follows="top|right" font="SansSerifSmall" halign="center"
+             height="20" label="Copy Key" label_selected="Copy Key" right="-10"
+             mouse_opaque="true" name="button copy key" width="78"
+             tool_tip="Copies an object's key(s) to the clipboard" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-262" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+           mouse_opaque="true" name="Anyone can:" v_pad="0" width="250">
+        Anyone Can:
+      </text>
+      <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
+           initial_value="false" label="Move" left="10"
+           mouse_opaque="true" name="checkbox allow everyone move" width="142" />
+      <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Copy" left_delta="60"
+			     mouse_opaque="true" name="checkbox allow everyone copy" width="141" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-298" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -644,6 +659,16 @@
 			     increment="0.01" initial_val="0" label="Z" label_width="10" left="10"
 			     max_val="4096" min_val="0" mouse_opaque="true" name="Pos Z"
 			     text_enabled_color="0, 67, 132, 255" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copypos" enabled="true"
+       tool_tip="Copy Position"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pastepos"  enabled="true"
+       tool_tip="Paste Position"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pasteposclip"  enabled="true"
+       tool_tip="Paste Position from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -662,6 +687,16 @@
 			     increment="0.01" initial_val="0" label="Z" label_width="10" left="10"
 			     mouse_opaque="true" name="Scale Z"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copysize"  enabled="true"
+       tool_tip="Copy Size"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pastesize"  enabled="true"
+       tool_tip="Paste Size"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pastesizeclip"  enabled="true"
+       tool_tip="Paste Size from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -680,6 +715,16 @@
 			     increment="1" initial_val="0" label="Z" label_width="10" left="10"
 			     max_val="9999" min_val="-9999" mouse_opaque="true" name="Rot Z"
 			     text_enabled_color="1, 1, 1, 1" width="96" />
+      <button bottom_delta="36" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="C" left_delta="90" mouse_opaque="true" name="copyrot"  enabled="true"
+       tool_tip="Copy Rotation"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="P" left_delta="0" mouse_opaque="true" name="pasterot"  enabled="true"
+       tool_tip="Paste Rotation"  width="20" />
+      <button bottom_delta="-18" follows="top|right" font="SansSerifSmall" halign="center"
+       height="18" label="p" left_delta="0" mouse_opaque="true" name="pasterotclip"  enabled="true"
+       tool_tip="Paste Rotation from Clipboard"  width="20" />
+
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -863,12 +908,12 @@
 				Slice Begin and End:
 			</text>
 			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
-			     max_val="0.95" min_val="0" mouse_opaque="true" name="Path Limit Begin"
+			     increment="0.02" initial_val="0" label="B" label_width="10" left="121"
+			     max_val="0.98" min_val="0" mouse_opaque="true" name="Path Limit Begin"
 			     width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
-			     max_val="1" min_val="0.05" mouse_opaque="true" name="Path Limit End"
+			     increment="0.02" initial_val="1" label="E" label_width="10" left_delta="73"
+			     max_val="1" min_val="0.02" mouse_opaque="true" name="Path Limit End"
 			     width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"
@@ -1050,7 +1095,7 @@
         Glow:
       </text>
 			<spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16"
-			     increment="0.1" initial_val="0" left="180" max_val="1"
+			     increment="0.05" initial_val="0" left="180" max_val="1"
 			     min_val="0" mouse_opaque="true" name="glow" width="58" />
 			<check_box bottom_delta="-23" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Full bright" left="180" mouse_opaque="true"
@@ -1167,13 +1212,13 @@
 			     mouse_opaque="true" name="tex scale" v_pad="0" width="160">
         Repeats Per Face:
       </text>
-      <spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+      <spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Horizontal (U):" label_width="90" left="20"
 			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleU" width="160" />
 			<check_box bottom="-179" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Flip" left_delta="170" mouse_opaque="true"
 			     name="checkbox flip s" width="70" />
-			<spinner bottom="-196" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+			<spinner bottom="-196" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Vertical (V):" label_width="90" left="20"
 			     max_val="10000" min_val="0" mouse_opaque="true" name="TexScaleV" width="160" />
 			<check_box bottom="-197" follows="left|top" font="SansSerifSmall" height="16"
@@ -1212,11 +1257,11 @@
 			     mouse_opaque="true" name="tex offset" v_pad="0" width="160">
         Offset:
       </text>
-			<spinner bottom="-308" decimal_digits="3" follows="left|top" height="16" increment="0.1"
+			<spinner bottom="-308" decimal_digits="3" follows="left|top" height="16" increment="0.05"
 			     initial_val="0" label="Horizontal (U):" label_width="90" left="20"
 			     max_val="1" min_val="-1" mouse_opaque="true" name="TexOffsetU" width="160" />
 			<spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.1" initial_val="0" label="Vertical (V):" label_width="90"
+			     increment="0.05" initial_val="0" label="Vertical (V):" label_width="90"
 			     left="20" max_val="1" min_val="-1" mouse_opaque="true" name="TexOffsetV"
 			     width="160" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -1318,6 +1363,9 @@
 	<string name="status_move">
 		Drag to Move, Shift-Drag to Copy
 	</string>
+  <string name="status_align">
+    CTRL-A to align on an axis, CTRL-Shift-A to Pack 
+  </string>
 	<string name="status_modifyland">
 		Click and Hold to Modify Land
 	</string>

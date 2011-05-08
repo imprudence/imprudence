@@ -59,6 +59,8 @@
 
 #include "llpreeditor.h"
 
+#include "llfasttimer.h"
+
 // culled from winuser.h
 #ifndef WM_MOUSEWHEEL /* Added to be compatible with later SDK's */
 const S32	WM_MOUSEWHEEL = 0x020A;
@@ -2257,6 +2259,22 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				}
 				return 0;
 			}
+#ifdef WM_MOUSEHWHEEL
+		case WM_MOUSEHWHEEL:
+			{
+				window_imp->mCallbacks->handlePingWatchdog(window_imp, "Main:WM_MOUSEHWHEEL");
+				static short z_delta = 0;
+
+				z_delta += HIWORD(w_param);
+
+				if (z_delta <= -WHEEL_DELTA || WHEEL_DELTA <= z_delta)
+				{
+					window_imp->mCallbacks->handleHScrollWheel(window_imp, z_delta / WHEEL_DELTA);
+					z_delta = 0;
+				}
+				return 0;
+			}
+#endif //WM_MOUSEHWHEEL
 			/*
 			// TODO: add this after resolving _WIN32_WINNT issue
 			case WM_MOUSELEAVE:
@@ -3052,6 +3070,19 @@ void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url )
 	*/
 }
 
+/*
+	Make the raw keyboard data available - used to poke through to LLQtWebKit so
+	that Qt/Webkit has access to the virtual keycodes etc. that it needs
+*/
+LLSD LLWindowWin32::getNativeKeyData()
+{
+	LLSD result = LLSD::emptyMap();
+
+	result["scan_code"] = (S32)mKeyScanCode;
+	result["virtual_key"] = (S32)mKeyVirtualKey;
+
+	return result;
+}
 
 BOOL LLWindowWin32::dialog_color_picker ( F32 *r, F32 *g, F32 *b )
 {

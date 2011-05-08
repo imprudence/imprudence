@@ -57,6 +57,7 @@ class LLPanelMsgs;
 class LLPanelSkins;
 class LLPrefsAdvanced;
 class ImpPrefsFonts;
+class LLPrefsColors;
 class LLScrollListCtrl;
 
 class LLPreferenceCore
@@ -72,6 +73,7 @@ public:
 	LLTabContainer* getTabContainer() { return mTabContainer; }
 
 	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string&  email);
+	void updateIsLoggedIn(bool enable);
 
 	static void onTabChanged(void* user_data, bool from_click);
 	
@@ -94,6 +96,7 @@ private:
 	LLPanelMsgs				*mMsgPanel;
 	LLPanelLCD				*mLCDPanel;
 	LLPrefsAdvanced			*mPrefsAdvanced;
+	LLPrefsColors			*mPrefsColors;
   ImpPrefsFonts* mPrefsFonts;
 };
 
@@ -111,6 +114,8 @@ public:
 
 	// static data update, called from message handler
 	static void updateUserInfo(const std::string& visibility, bool im_via_email, const std::string& email);
+	// static data update, called after login
+	static void updateIsLoggedIn(bool enable);
 
 	// refresh all the graphics preferences menus
 	static void refreshEnabledGraphics();
@@ -127,6 +132,9 @@ protected:
 	static void		onBtnOK(void*);
 	static void		onBtnCancel(void*);
 	static void		onBtnApply(void*);
+
+	static void onClickResetPrefs(void* user_data);
+	static bool	callbackReset(const LLSD& notification, const LLSD& response, LLFloaterPreference* self);
 
 	static LLFloaterPreference* sInstance;
 };

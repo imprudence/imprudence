@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="beacons" title="Beacons">
+<floater name="beacons" title="Leitstrahl">
 	<panel name="beacons_panel">
 		<check_box label="Auf Berührung beschränkte Skriptobjekte" name="touch_only"/>
 		<check_box label="Skripting-Objekte" name="scripted"/>
 		<check_box label="Physische Objekte" name="physical"/>
 		<check_box label="Soundquellen" name="sounds"/>
 		<check_box label="Partikelquellen" name="particles"/>
-		<check_box label="Glanzlichter anzeigen" name="highlights"/>
-		<check_box label="Beacons anzeigen" name="beacons"/>
+		<check_box label="Hervorhebungen anzeigen" name="highlights"/>
+		<check_box label="Leitstrahlen anzeigen" name="beacons"/>
 		<text name="beacon_width_label">
-			Beacon-Breite:
+			Leitstrahl-Breite:
 		</text>
 	</panel>
 </floater>

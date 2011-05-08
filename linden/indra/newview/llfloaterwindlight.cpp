@@ -50,6 +50,10 @@
 #include "lltabcontainer.h"
 #include "llboost.h"
 
+#include "llagent.h"
+#include "llinventorymodel.h"
+#include "llviewerinventory.h"
+
 #include "v4math.h"
 #include "llviewerdisplay.h"
 #include "llviewercontrol.h"
@@ -59,6 +63,9 @@
 #include "llwlparamset.h"
 #include "llwlparammanager.h"
 #include "llpostprocess.h"
+#include "wlfloaterwindlightsend.h"
+#include "llworld.h"
+#include "hippolimits.h"
 
 #undef max
 
@@ -212,7 +219,9 @@ void LLFloaterWindLight::initCallbacks(void) {
 	childSetCommitCallback("WLCloudScrollX", onCloudScrollXMoved, NULL);
 	childSetCommitCallback("WLCloudScrollY", onCloudScrollYMoved, NULL);
 	childSetCommitCallback("WLDistanceMult", onFloatControlMoved, &param_mgr->mDistanceMult);
-	childSetCommitCallback("DrawClassicClouds", LLSavedSettingsGlue::setBOOL, (void*)"SkyUseClassicClouds");
+	childSetCommitCallback("DrawClassicClouds", onCloudDrawToggled, NULL);
+	childSetCommitCallback("WLCloudHeight", onCloudHeightMoved, NULL);
+	childSetCommitCallback("WLCloudRange", onCloudRangeMoved, NULL);
 
 	// WL Top
 	childSetAction("WLDayCycleMenuButton", onOpenDayCycle, NULL);
@@ -221,8 +230,8 @@ void LLFloaterWindLight::initCallbacks(void) {
 
 	//childSetAction("WLLoadPreset", onLoadPreset, comboBox);
 	childSetAction("WLNewPreset", onNewPreset, comboBox);
-	childSetAction("WLSavePreset", onSavePreset, comboBox);
 	childSetAction("WLDeletePreset", onDeletePreset, comboBox);
+	childSetCommitCallback("WLSavePreset", onSavePreset, this);
 
 	comboBox->setCommitCallback(onChangePresetName);
 
@@ -421,7 +430,21 @@ void LLFloaterWindLight::syncMenu()
 	bool lockY = !param_mgr->mCurParams.getEnableCloudScrollY();
 	childSetValue("WLCloudLockX", lockX);
 	childSetValue("WLCloudLockY", lockY);
-	childSetValue("DrawClassicClouds", gSavedSettings.getBOOL("SkyUseClassicClouds"));
+	childSetValue("DrawClassicClouds", gHippoLimits->skyUseClassicClouds);
+
+	childSetValue("WLCloudHeight", gSavedSettings.getF32("ClassicCloudHeight"));
+	childSetValue("WLCloudRange", gSavedSettings.getF32("ClassicCloudRange"));
+
+	if(!gHippoLimits->skyUseClassicClouds)
+	{
+		childDisable("WLCloudHeight");
+		childDisable("WLCloudRange");
+	}
+	else
+	{
+		childEnable("WLCloudHeight");
+		childEnable("WLCloudRange");
+	}
 	
 	// disable if locked, enable if not
 	if(lockX) 
@@ -811,7 +834,23 @@ void LLFloaterWindLight::onNewPreset(void* userData)
 	LLNotifications::instance().add("NewSkyPreset", LLSD(), LLSD(), newPromptCallback);
 }
 
-void LLFloaterWindLight::onSavePreset(void* userData)
+class KVFloaterWindLightNotecardCreatedCallback : public LLInventoryCallback
+{
+public:
+	void fire(const LLUUID& inv_item);
+};
+
+void KVFloaterWindLightNotecardCreatedCallback::fire(const LLUUID& inv_item)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	param_mgr->setParamSet(param_mgr->mCurParams.mName, param_mgr->mCurParams);
+	param_mgr->mParamList[param_mgr->mCurParams.mName].mInventoryID = inv_item;
+	param_mgr->mCurParams.mInventoryID = inv_item;
+	LL_INFOS("WindLight") << "Created inventory item " << inv_item << LL_ENDL;
+	param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+}
+
+void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 {
 	// get the name
 	LLComboBox* comboBox = sWindLight->getChild<LLComboBox>( 
@@ -823,19 +862,72 @@ void LLFloaterWindLight::onSavePreset(void* userData)
 		return;
 	}
 
-	// check to see if it's a default and shouldn't be overwritten
-	std::set<std::string>::iterator sIt = sDefaultPresets.find(
-		comboBox->getSelectedItemLabel());
-	if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
+	if (ctrl->getValue().asString() == "save_inventory_item")
 	{
-		LLNotifications::instance().add("WLNoEditDefault");
-		return;
+		// Check if this is already a notecard.
+		if(LLWLParamManager::instance()->mCurParams.mInventoryID.notNull())
+		{
+			LLNotifications::instance().add("KittyWLSaveNotecardAlert", LLSD(), LLSD(), saveNotecardCallback);
+		}
+		else
+		{
+			// Make sure we have a ".wl" extension.
+			std::string name = comboBox->getSelectedItemLabel();
+			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
+			{
+				name += ".wl";
+			}
+			LLPointer<KVFloaterWindLightNotecardCreatedCallback> cb = new KVFloaterWindLightNotecardCreatedCallback();
+			// Create a notecard and then save it.
+			create_inventory_item(gAgent.getID(), 
+								  gAgent.getSessionID(),
+								  LLUUID::null,
+								  LLTransactionID::tnull,
+								  name,
+								  "WindLight settings (Imprudence compatible)",
+								  LLAssetType::AT_NOTECARD,
+								  LLInventoryType::IT_NOTECARD,
+								  NOT_WEARABLE,
+								  PERM_ITEM_UNRESTRICTED,
+								  cb);
+			
+		}
 	}
+	else if (ctrl->getValue().asString() == "send_to_server_item")
+	{
+		//Open the other box
+		WLFloaterWindLightSend::instance();
+		WLFloaterWindLightSend::instance()->open();
+	}
+	else
+	{
+		// check to see if it's a default and shouldn't be overwritten
+		std::set<std::string>::iterator sIt = sDefaultPresets.find(
+			comboBox->getSelectedItemLabel());
+		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("SkyEditPresets")) 
+		{
+			LLNotifications::instance().add("WLNoEditDefault");
+			return;
+		}
 
-	LLWLParamManager::instance()->mCurParams.mName = 
-		comboBox->getSelectedItemLabel();
+		LLWLParamManager::instance()->mCurParams.mName = 
+			comboBox->getSelectedItemLabel();
 
-	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
+		LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
+	}
+}
+
+bool LLFloaterWindLight::saveNotecardCallback(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	// if they choose save, do it.  Otherwise, don't do anything
+	if(option == 0) 
+	{
+		LLWLParamManager * param_mgr = LLWLParamManager::instance();
+		param_mgr->setParamSet(param_mgr->mCurParams.mName, param_mgr->mCurParams);
+		param_mgr->savePresetToNotecard(param_mgr->mCurParams.mName);
+	}
+	return false;
 }
 
 bool LLFloaterWindLight::saveAlertCallback(const LLSD& notification, const LLSD& response)
@@ -948,9 +1040,10 @@ void LLFloaterWindLight::onChangePresetName(LLUICtrl* ctrl, void * userData)
 	{
 		return;
 	}
-	
-	LLWLParamManager::instance()->loadPreset(
-		combo_box->getSelectedValue().asString());
+	//impfixme fix of an mystherious crash? : kittyviewer: if(!data.empty())
+	//
+	LLWLParamManager::instance()->loadPreset(combo_box->getSelectedValue().asString());
+	LL_INFOS("WindLight") << "Current inventory ID: " << LLWLParamManager::instance()->mCurParams.mInventoryID << LL_ENDL;
 	sWindLight->syncMenu();
 }
 
@@ -977,6 +1070,35 @@ void LLFloaterWindLight::onCloudScrollYMoved(LLUICtrl* ctrl, void* userData)
 
 	// *HACK  all cloud scrolling is off by an additive of 10. 
 	LLWLParamManager::instance()->mCurParams.setCloudScrollY(sldrCtrl->getValueF32() + 10.0f);
+}
+void LLFloaterWindLight::onCloudDrawToggled(LLUICtrl* ctrl, void* userData)
+{
+	LLCheckBoxCtrl* cbCtrl = static_cast<LLCheckBoxCtrl*>(ctrl);
+
+	bool lock = cbCtrl->get();
+	gHippoLimits->skyUseClassicClouds = lock;
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+}
+
+void LLFloaterWindLight::onCloudHeightMoved(LLUICtrl* ctrl, void* userData)
+{
+	deactivateAnimator();
+
+	LLSliderCtrl* sldrCtrl = static_cast<LLSliderCtrl*>(ctrl);
+
+	gSavedSettings.setF32("ClassicCloudHeight", sldrCtrl->getValueF32());
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+}
+
+void LLFloaterWindLight::onCloudRangeMoved(LLUICtrl* ctrl, void* userData)
+{
+	deactivateAnimator();
+
+	LLSliderCtrl* sldrCtrl = static_cast<LLSliderCtrl*>(ctrl);
+
+	gSavedSettings.setF32("ClassicCloudRange", sldrCtrl->getValueF32());
 }
 
 void LLFloaterWindLight::onCloudScrollXToggled(LLUICtrl* ctrl, void* userData)

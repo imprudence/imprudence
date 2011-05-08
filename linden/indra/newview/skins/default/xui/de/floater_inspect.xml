@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="inspect" title="Objekt prüfen" min_width="450" >
 	<scroll_list name="object_list"
-	     tool_tip="Wählen Sie ein Objekt aus dieser Liste, um es in der Second Life-Welt zu markieren">
+	     tool_tip="Wählen Sie ein Objekt aus dieser Liste, um es in der Welt zu markieren">
 		<column label="Objektname" name="object_name" />
 		<column label="Besitzer" name="owner_name"  />
 		<column label="Ersteller" name="creator_name" />

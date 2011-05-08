@@ -42,7 +42,7 @@
 #include "llfontgl.h"
 
 // project includes
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
@@ -55,14 +55,16 @@
 #include "llslider.h"
 #include "llsliderctrl.h"
 #include "llspinctrl.h"
+#include "llstartup.h"
 #include "lltextbox.h"
 #include "llui.h"
 #include "llviewerparcelmgr.h"
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
+#include "slfloatermediafilter.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //
 // Static functions
@@ -92,6 +94,8 @@ BOOL LLPanelAudioPrefs::postBuild()
 	refreshValues(); // initialize member data from saved settings
 	childSetLabelArg("L$ Change Threshold", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 	childSetValue("mute_wind_check", !gSavedSettings.getBOOL("MuteWind"));
+	childSetAction("show_media_filter", onShowMediaFilter, this);
+	updateIsLoggedIn(LLStartUp::isLoggedIn());
 
 	return TRUE;
 }
@@ -105,7 +109,6 @@ void LLPanelAudioPrefs::refreshValues()
 	mPreviousMusicVolume = gSavedSettings.getF32("AudioLevelMusic");
 	mPreviousMediaVolume = gSavedSettings.getF32("AudioLevelMedia");
 	mPreviousDoppler = gSavedSettings.getF32("AudioLevelDoppler");
-	mPreviousDistance = gSavedSettings.getF32("AudioLevelDistance");
 	mPreviousRolloff = gSavedSettings.getF32("AudioLevelRolloff");
 
 	mPreviousMoneyThreshold = gSavedSettings.getF32("UISndMoneyChangeThreshold");
@@ -113,7 +116,8 @@ void LLPanelAudioPrefs::refreshValues()
 
 	mPreviousStreamingMusic = gSavedSettings.getBOOL("AudioStreamingMusic");
 	mPreviousStreamingVideo = gSavedSettings.getBOOL("AudioStreamingVideo");
-
+	mPreviousHelperWidget = gSavedSettings.getBOOL("MediaOnAPrimUI");
+	mPreviousEnableMediaFilter = gSavedSettings.getBOOL("MediaEnableFilter");
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
 }
@@ -134,7 +138,6 @@ void LLPanelAudioPrefs::cancel()
 	gSavedSettings.setF32("AudioLevelMusic", mPreviousMusicVolume);
 	gSavedSettings.setF32("AudioLevelMedia", mPreviousMediaVolume);
 	gSavedSettings.setF32("AudioLevelDoppler", mPreviousDoppler );
-	gSavedSettings.setF32("AudioLevelDistance", mPreviousDistance );
 	gSavedSettings.setF32("AudioLevelRolloff", mPreviousRolloff );
 
 	gSavedSettings.setF32("UISndMoneyChangeThreshold", mPreviousMoneyThreshold );
@@ -142,8 +145,19 @@ void LLPanelAudioPrefs::cancel()
 
 	gSavedSettings.setBOOL("AudioStreamingMusic", mPreviousStreamingMusic );
 	gSavedSettings.setBOOL("AudioStreamingVideo", mPreviousStreamingVideo );
-
-	
+	gSavedSettings.setBOOL("MediaOnAPrimUI", mPreviousHelperWidget );
+	gSavedSettings.setBOOL("MediaEnableFilter", mPreviousEnableMediaFilter );
 	gSavedSettings.setBOOL("MuteAudio", mPreviousMuteAudio );
 	gSavedSettings.setBOOL("MuteWhenMinimized", mPreviousMuteWhenMinimized );
+}
+
+//static
+void LLPanelAudioPrefs::onShowMediaFilter(void* data)
+{
+	SLFloaterMediaFilter::toggleInstance();
+}
+
+void LLPanelAudioPrefs::updateIsLoggedIn(const bool enable)
+{
+	childSetEnabled("show_media_filter", enable);
 }

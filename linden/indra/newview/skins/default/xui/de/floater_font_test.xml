@@ -1,5 +1,90 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="contents" title="Schriftart-Test">
+
+<text font="SansSerif">
+SansSerif, keine Größe oder Stil (sollte gleich medium sein)
+</text>
+
+<text font="SansSerifLarge" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerifGroß
+</text>
+
+<text font="SansSerifHuge" follows="left|top|right" bottom_delta="-36" left="16" height="32">
+SansSerifExtraGroß
+</text>
+
+<text font="Monospace" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large">
+Monospace Größe=Groß
+</text>
+
+<text font="SansSerifLarge" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_style="BOLD">
+SansSerifGroß Stil=FETT 
+</text>
+
+<text font="SansSerifBold" follows="left|top|right" bottom_delta="-20" left="16" height="16">
+SansSerifFett
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_style="BOLD">
+SansSerif Stil=FETT (sollte gleich SansSerifFett sein)
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+SansSerif Stil=KURSIV
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+SansSerif Stil=FETT|KURSIV 
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC|DROP_SHADOW_SOFT">
+SansSerif Stil=FETT|KURSIV|SANFTER_SCHATTEN
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="UNDERLINE">
+SansSerif Stil=UNTERSTRICHEN
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="DROP_SHADOW">
+SansSerif Stil=SCHATTEN
+</text>
+
+<text font="SansSerif" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="DROP_SHADOW_SOFT">
+SansSerif Stil=SANFTER_SCHATTEN
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD">
+DejaVu Stil=FETT
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+DejaVu Stil=KURSIV
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+DejaVu Stil=FETT|KURSIV
+</text>
+
+<text font="DejaVu" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large" font-style="BOLD|ITALIC">
+DejaVu Größe=Groß Stil=FETT|KURSIV
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD">
+Helvetica Stil=FETT 
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="ITALIC">
+Helvetica Stil=KURSIV 
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font-style="BOLD|ITALIC">
+Helvetica Stil=FETT|KURSIV
+</text>
+
+<text font="Helvetica" follows="left|top|right" bottom_delta="-20" left="16" height="16" font_size="Large" font-style="BOLD|ITALIC">
+Helvetica Größe=Groß Stil=FETT|KURSIV
+</text>
+
 	<text name="linea">
 		OverrideTest, sollte hier als Times angezeigt werden. (Aus default/xui/en-us)
 	</text>

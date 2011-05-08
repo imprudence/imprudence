@@ -122,8 +122,8 @@
 				Átruház
 			</string>
 			<button label="Átruház" label_selected="Átruház" name="button deed" tool_tip="Csoporttal megosztott tárgyakat a csoport vezetője törölni tudja."/>
-			<check_box label="Bárki mozgathatja" name="checkbox allow everyone move"/>
-			<check_box label="Bárki másolhatja" name="checkbox allow everyone copy"/>
+			<check_box label="Mozgathatja" name="checkbox allow everyone move"/>
+			<check_box label="Másolás" name="checkbox allow everyone copy"/>
 			<check_box label="Keresőben megjelenít" name="search_check" tool_tip="A tárgy megjelenítése a keresési eredmények között"/>
 			<check_box label="Eladó" name="checkbox for sale"/>
 			<text name="Cost">

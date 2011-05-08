@@ -36,6 +36,7 @@
 #include "llnetmap.h"
 
 #include "indra_constants.h"
+#include "llavatarnamecache.h"
 #include "llui.h"
 #include "llmath.h"		// clampf()
 #include "llfocusmgr.h"
@@ -71,7 +72,11 @@
 
 #include "llglheaders.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 const F32 MAP_SCALE_MIN = 32;
 const F32 MAP_SCALE_MID = 1024;
@@ -108,6 +113,8 @@ LLNetMap::LLNetMap(const std::string& name) :
 	(new LLCheckCenterMap())->registerListener(this, "MiniMap.CheckCenter");
 	(new LLRotateMap())->registerListener(this, "MiniMap.Rotate");
 	(new LLCheckRotateMap())->registerListener(this, "MiniMap.CheckRotate");
+	(new LLShowObjects())->registerListener(this, "MiniMap.ShowObjects");
+	(new LLCheckShowObjects())->registerListener(this, "MiniMap.CheckShowObjects");
 	(new LLShowWorldMap())->registerListener(this, "MiniMap.ShowWorldMap");
 	(new LLStopTracking())->registerListener(this, "MiniMap.StopTracking");
 	(new LLEnableTracking())->registerListener(this, "MiniMap.EnableTracking");
@@ -302,8 +309,12 @@ void LLNetMap::draw()
 			U8 *default_texture = mObjectRawImagep->getData();
 			memset( default_texture, 0, mObjectImagep->getWidth() * mObjectImagep->getHeight() * mObjectImagep->getComponents() );
 
-			// Draw objects
-			gObjectList.renderObjectsForMap(*this);
+			// Draw buildings
+			//gObjectList.renderObjectsForMap(*this);
+			if (gSavedSettings.getBOOL("MiniMapShowObjects"))
+			{
+				gObjectList.renderObjectsForMap(*this);
+			}
 
 			mObjectImagep->setSubImage(mObjectRawImagep, 0, 0, mObjectImagep->getWidth(), mObjectImagep->getHeight());
 			
@@ -344,11 +355,21 @@ void LLNetMap::draw()
 		F32 min_pick_dist = mDotRadius * MIN_PICK_SCALE; 
 
 		// Draw avatars
-		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
-		LLColor4 friend_color = gColors.getColor( "MapFriend" );
-		LLColor4 muted_color = gColors.getColor( "MapMuted" );
-		LLColor4 selected_color = gColors.getColor( "MapSelected" );
-		LLColor4 imp_dev_color = gColors.getColor( "MapImpDev" );
+		static LLColor4* sMapAvatar = rebind_llcontrol<LLColor4>("MapAvatar", &gColors, true);
+		LLColor4 avatar_color = (*sMapAvatar).getValue();
+
+		static LLColor4* sMapFriend = rebind_llcontrol<LLColor4>("MapFriend", &gColors, true);
+		LLColor4 friend_color = (*sMapFriend).getValue();
+
+		static LLColor4* sMapMuted = rebind_llcontrol<LLColor4>("MapMuted", &gColors, true);
+		LLColor4 muted_color = (*sMapMuted).getValue();
+
+		static LLColor4* sMapSelected = rebind_llcontrol<LLColor4>("MapSelected", &gColors, true);
+		LLColor4 selected_color = (*sMapSelected).getValue();
+
+		static LLColor4* sMapImpDev = rebind_llcontrol<LLColor4>("MapImpDev", &gColors, true);
+		LLColor4 imp_dev_color = (*sMapImpDev).getValue();
+
 		LLColor4 glyph_color;
 		int selected = -1;
 
@@ -620,18 +641,40 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 	{
 		msg.assign("");
 		std::string fullname;
-		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
+		BOOL result = FALSE;
+		if (!LLAvatarNameCache::useDisplayNames())
+		{
+			result = gCacheName->getFullName(mClosestAgentToCursor, fullname);
+		}
+		else
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(mClosestAgentToCursor, &avatar_name))
+			{
+				result = TRUE;
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames(true);
+				}
+			}
+		}
+
+		if(mClosestAgentToCursor.notNull() && result)
 		{
 //			msg.append(fullname);
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.0b
-			msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : gRlvHandler.getAnonym(fullname) );
+			msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : RlvStrings::getAnonym(fullname) );
 // [/RLVa:KB]
 			msg.append("\n");
 		}
 		
 // 		msg.append( region->getName() );
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-04 (RLVa-1.0.0a) | Modified: RLVa-0.2.0b
-		msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? region->getName() : rlv_handler_t::cstrHidden );
+		msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? region->getName() : RlvStrings::getString(RLV_STRING_HIDDEN) );
 // [/RLVa:KB]
 		msg.append("\n");
 		gSavedSettings.getBOOL( "MiniMapTeleport" ) ?
@@ -1007,6 +1050,22 @@ bool LLNetMap::LLCheckCenterMap::handleEvent(LLPointer<LLEvent> event, const LLS
 	EMiniMapCenter center = (EMiniMapCenter)userdata["data"].asInteger();
 	BOOL enabled = (gSavedSettings.getS32("MiniMapCenter") == center);
 
+	self->findControl(userdata["control"].asString())->setValue(enabled);
+	return true;
+}
+
+bool LLNetMap::LLShowObjects::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	BOOL show = gSavedSettings.getBOOL("MiniMapShowObjects");
+	gSavedSettings.setBOOL("MiniMapShowObjects", !show);
+
+	return true;
+}
+
+bool LLNetMap::LLCheckShowObjects::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	LLNetMap *self = mPtr;
+	BOOL enabled = gSavedSettings.getBOOL("MiniMapShowObjects");
 	self->findControl(userdata["control"].asString())->setValue(enabled);
 	return true;
 }

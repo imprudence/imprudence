@@ -34,14 +34,14 @@
 #define LL_LLSECONDLIFEURLS_H
 
 
-extern const std::string AUCTION_URL; 
+LL_COMMON_API extern const std::string AUCTION_URL; 
 
-extern const std::string EVENTS_URL;
+LL_COMMON_API extern const std::string EVENTS_URL;
 
 // Currency page
-extern const std::string BUY_CURRENCY_URL;
+LL_COMMON_API extern const std::string BUY_CURRENCY_URL;
 
 // Release Notes Redirect URL for Server and Viewer
-extern const std::string RELEASE_NOTES_BASE_URL;
+LL_COMMON_API extern const std::string RELEASE_NOTES_BASE_URL;
 
 #endif

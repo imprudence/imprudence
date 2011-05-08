@@ -112,7 +112,7 @@ LLDir_Win32::LLDir_Win32()
 	}
 	else
 	{
-		fprintf(stderr, "Couldn't get APP path, assuming current directory!");
+		LL_WARNS("AppInit") << "Couldn't get APP path, assuming current directory!\n" << LL_ENDL;
 		GetCurrentDirectory(MAX_PATH, w_str);
 		mExecutableDir = utf16str_to_utf8str(llutf16string(w_str));
 		// Assume it's the current directory
@@ -143,6 +143,8 @@ LLDir_Win32::LLDir_Win32()
 			llwarns << "Couldn't create LL_PATH_CACHE dir " << mDefaultCacheDir << llendl;
 		}
 	}
+
+	mLLPluginDir = mExecutableDir + mDirDelimiter + "llplugin";
 }
 
 LLDir_Win32::~LLDir_Win32()
@@ -375,6 +377,19 @@ BOOL LLDir_Win32::fileExists(const std::string &filename) const
 	{
 		return FALSE;
 	}
+}
+
+
+/*virtual*/ std::string LLDir_Win32::getLLPluginLauncher()
+{
+	return gDirUtilp->getExecutableDir() + gDirUtilp->getDirDelimiter() +
+		"SLPlugin.exe";
+}
+
+/*virtual*/ std::string LLDir_Win32::getLLPluginFilename(std::string base_name)
+{
+	return gDirUtilp->getLLPluginDir() + gDirUtilp->getDirDelimiter() +
+		base_name + ".dll";
 }
 
 

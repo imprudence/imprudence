@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="bug_reporter" title="Fehler melden">
+	<texture_picker label="" name="screenshot"/>
+	<check_box bottom_delta="-20" label="Screenshot einschließen" name="screen_check"/>
 	<text name="reporter_title">
 		Melder:
 	</text>
@@ -24,13 +26,11 @@ dann auf das Objekt:
 	<text name="owner_name_label">
 		Eigentümer:
 	</text>
-	<check_box label="Screenshot einschließen" name="screen_check" />
-	<texture_picker label="Arbeitet..." name="screenshot" />
 	<text name="owner_name">
 		Hendrerit Vulputate
 	</text>
 	<combo_box name="category_combo"
-	     tool_tip="Category -- select the category that best describes this report">
+	     tool_tip="Kategorie -- wählen Sie die Kategorie aus, die am besten auf diesen Bericht zutrifft">
 		<combo_item name="Selectcategory">
 			Kategorie auswählen
 		</combo_item>
@@ -74,7 +74,7 @@ dann auf das Objekt:
 			Skript
 		</combo_item>
 		<combo_item name="Sound">
-			Sound
+			Klang
 		</combo_item>
 		<combo_item name="Stipends">
 			Stipendium

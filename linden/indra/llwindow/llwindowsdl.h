@@ -36,6 +36,7 @@
 // Simple Directmedia Layer (http://libsdl.org/) implementation of LLWindow class
 
 #include "llwindow.h"
+#include "lltimer.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_endian.h"
@@ -77,7 +78,6 @@ public:
 	/*virtual*/ void hideCursorUntilMouseMove();
 	/*virtual*/ BOOL isCursorHidden();
 	/*virtual*/ void setCursor(ECursorType cursor);
-	/*virtual*/ ECursorType getCursor();
 	/*virtual*/ void captureMouse();
 	/*virtual*/ void releaseMouse();
 	/*virtual*/ void setMouseClipping( BOOL b );
@@ -154,6 +154,8 @@ protected:
 		BOOL ignore_pixel_depth, U32 fsaa_samples);
 	~LLWindowSDL();
 
+	/*virtual*/ LLSD    getNativeKeyData();
+
 	void	initCursors();
 	void	quitCursors();
 	BOOL	isValid();
@@ -206,12 +208,17 @@ protected:
 
 	friend class LLWindowManager;
 
-#if LL_X11
+
 private:
+#if LL_X11
 	void x11_set_urgent(BOOL urgent);
 	BOOL mFlashing;
 	LLTimer mFlashTimer;
 #endif //LL_X11
+	U32 mKeyScanCode;
+        U32 mKeyVirtualKey;
+	SDLMod mKeyModifiers;
+
 };
 
 

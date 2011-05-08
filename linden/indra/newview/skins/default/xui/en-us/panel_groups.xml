@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-371" height="300" left="280" mouse_opaque="true"
-     name="groups" width="350">
+     name="groups" width="350" min_width="350">
 	<scroll_list background_visible="true" bottom="45" column_padding="5" draw_border="true"
-	     draw_heading="false" draw_stripes="true" enabled="true"
+	     draw_heading="true" draw_stripes="true" enabled="true"
 	     follows="left|top|right|bottom" left="10" mouse_opaque="true"
-	     multi_select="false" name="group list" tab_stop="true" top="-10"
+	     multi_select="false" name="group list" tab_stop="true" top="-30"
 	     width="240">
-		<column label="" name="name" width="248" />
+		<column label="Group Name" name="name" dynamicwidth="true" />
+    <column label="Notices" name="receive_notices" width="60" 
+            tool_tip="Receve notices from this group" />
+    <column label="Chat" name="join_group_chat" width="60"
+            tool_tip="Join group IMs (group chat) from this group" />
+    <column label="Public" name="list_in_profile" width="20"
+            image="ff_visible_online_button.tga" 
+            tool_tip="Group is listed in your profile" />
 	</scroll_list>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="22" drop_shadow_visible="true" enabled="true" follows="left|bottom"
@@ -21,7 +28,7 @@
 		You belong to [COUNT] groups (of [MAX] maximum).
 	</text>
 	<pad bottom="-7" height="0" left="-90" width="1" />
-	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
+	<button bottom_delta="-45" follows="top|right" font="SansSerif" height="22"
 	     label="IM/Call" left_delta="0" name="IM"
 	     tool_tip="Open Instant Message session" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
@@ -38,6 +45,9 @@
 	     label="Search..." name="Search..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Leave" name="Leave" width="80" />
+  <search_editor bottom="-24" enabled="true" follows="left|right|top" font="SansSerif"
+       height="18" left="10" right="-100" name="group_search"
+       label="Type here to search your groups" width="130" />
   <string name="none">
 		none
   </string>

@@ -33,6 +33,7 @@
 #include "linden_common.h"
 
 #include "lltimer.h"
+#include "timing.h"	// totalTime prototype.
 
 #include "u64.h"
 
@@ -51,9 +52,6 @@
 //
 // Locally used constants
 //
-const U32 SEC_PER_DAY = 86400;
-const F64 SEC_TO_MICROSEC = 1000000.f;
-const U64 SEC_TO_MICROSEC_U64 = 1000000;
 const F64 USEC_TO_SEC_F64 = 0.000001;
 
 
@@ -511,6 +509,34 @@ struct tm* utc_to_pacific_time(time_t utc_time, BOOL pacific_daylight_time)
 	// "UTC" time, because this will handle wrapping around
 	// for 5 AM UTC -> 10 PM PDT of the previous day.
 	utc_time -= pacific_offset_hours * MIN_PER_HOUR * SEC_PER_MIN;
+ 
+	// Internal buffer to PST/PDT (see above)
+	struct tm* internal_time = gmtime(&utc_time);
+
+	/*
+	// Don't do this, this won't correctly tell you if daylight savings is active in CA or not.
+	if (pacific_daylight_time)
+	{
+		internal_time->tm_isdst = 1;
+	}
+	*/
+
+	return internal_time;
+}
+
+
+struct tm* utc_to_offset_time(time_t utc_time, S32 offset, BOOL DST)
+{
+	if (DST)
+	{
+		//Add one then
+		offset++;
+	}
+
+	// We subtract off the PST/PDT offset _before_ getting
+	// "UTC" time, because this will handle wrapping around
+	// for 5 AM UTC -> 10 PM PDT of the previous day.
+	utc_time -= (-1 * offset) * MIN_PER_HOUR * SEC_PER_MIN;
  
 	// Internal buffer to PST/PDT (see above)
 	struct tm* internal_time = gmtime(&utc_time);

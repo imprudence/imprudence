@@ -48,6 +48,17 @@
 #include "lllineeditor.h"
 #include "llsdserialize.h"
 
+// For notecard loading
+#include "llvfile.h"
+#include "llnotecard.h"
+#include "llmemorystream.h"
+#include "llnotify.h"
+#include "llagent.h"
+#include "llinventorymodel.h"
+#include "llviewerinventory.h"
+#include "llviewerregion.h"
+#include "llassetuploadresponders.h"
+
 #include "v4math.h"
 #include "llviewerdisplay.h"
 #include "llviewercontrol.h"
@@ -64,6 +75,7 @@
 #include "curl/curl.h"
 
 LLWaterParamManager * LLWaterParamManager::sInstance = NULL;
+LLFrameTimer waterSmoothTransitionTimer;
 
 LLWaterParamManager::LLWaterParamManager() :
 	mFogColor(22.f/255.f, 43.f/255.f, 54.f/255.f, 0.0f, 0.0f, "waterFogColor", "WaterFogColor"),
@@ -141,6 +153,17 @@ void LLWaterParamManager::loadAllPresets(const std::string& file_name)
 
 void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 {
+	// Check if we already have the preset before we try loading it again.
+	if(mParamList.find(name) != mParamList.end())
+	{
+		if(propagate)
+		{
+			getParamSet(name, mCurParams);
+			propagateParameters();
+		}
+		return;
+	}
+
 	// bugfix for SL-46920: preventing filenames that break stuff.
 	char * curl_str = curl_escape(name.c_str(), name.size());
 	std::string escaped_filename(curl_str);
@@ -165,21 +188,7 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 
 	if (presetsXML)
 	{
-		LLSD paramsData(LLSD::emptyMap());
-
-		LLPointer<LLSDParser> parser = new LLSDXMLParser();
-
-		parser->parse(presetsXML, paramsData, LLSDSerialize::SIZE_UNLIMITED);
-
-		std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
-		if(mIt == mParamList.end())
-		{
-			addParamSet(name, paramsData);
-		}
-		else 
-		{
-			setParamSet(name, paramsData);
-		}
+		loadPresetXML(name, presetsXML);
 		presetsXML.close();
 	} 
 	else 
@@ -193,7 +202,76 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 		getParamSet(name, mCurParams);
 		propagateParameters();
 	}
-}	
+}
+
+bool LLWaterParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool propagate /* = false */, bool check_if_real /* = false */)
+{
+	LLSD paramsData(LLSD::emptyMap());
+	
+	LLPointer<LLSDParser> parser = new LLSDXMLParser();
+	
+	if(parser->parse(preset_stream, paramsData, LLSDSerialize::SIZE_UNLIMITED) == LLSDParser::PARSE_FAILURE)
+	{
+		return false;
+	}
+	
+	if(check_if_real)
+	{
+		static const char* expected_windlight_settings[] = {
+			"blurMultiplier",
+			"fresnelOffset",
+			"fresnelScale",
+			"normScale",
+			"normalMap",
+			"scaleAbove",
+			"scaleBelow",
+			"waterFogColor",
+			"waterFogDensity",
+			"wave1Dir",
+			"wave2Dir"
+		};
+		static S32 expected_count = LL_ARRAY_SIZE(expected_windlight_settings);
+		for(S32 i = 0; i < expected_count; ++i)
+		{
+			if(!paramsData.has(expected_windlight_settings[i]))
+			{
+				LL_WARNS("WindLight") << "Attempted to load WindLight water param set without " << expected_windlight_settings[i] << LL_ENDL;
+				return false;
+			}
+		}
+	}
+	
+	std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
+	if(mIt == mParamList.end())
+	{
+		addParamSet(name, paramsData);
+	}
+	else 
+	{
+		setParamSet(name, paramsData);
+	}
+	
+	if(propagate)
+	{
+		getParamSet(name, mCurParams);
+		propagateParameters();
+	}
+	return true;
+}
+
+void LLWaterParamManager::loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id)
+{
+	gAssetStorage->getInvItemAsset(LLHost::invalid,
+								   gAgent.getID(),
+								   gAgent.getSessionID(),
+								   gAgent.getID(),
+								   LLUUID::null,
+								   inv_id,
+								   asset_id,
+								   LLAssetType::AT_NOTECARD,
+								   &loadWaterNotecard,
+								   (void*)&inv_id);
+}
 
 void LLWaterParamManager::savePreset(const std::string & name)
 {
@@ -221,6 +299,62 @@ void LLWaterParamManager::savePreset(const std::string & name)
 	propagateParameters();
 }
 
+// Yes, this function is completely identical to LLWLParamManager::savePresetToNotecard.
+// I feel some refactoring of this whole WindLight thing would be generally beneficial.
+// Damned if I'm going to be the one to do it, though.
+bool LLWaterParamManager::savePresetToNotecard(const std::string & name)
+{
+	// make an empty llsd
+	LLSD paramsData(LLSD::emptyMap());
+	
+	// fill it with LLSD windlight params
+	paramsData = mParamList[name].getAll();
+	
+	// get some XML
+	std::ostringstream presetsXML;
+	LLPointer<LLSDFormatter> formatter = new LLSDXMLFormatter();
+	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
+	
+	// Write it to a notecard
+	LLNotecard notecard;
+	notecard.setText(presetsXML.str());
+	
+	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
+	if(!item)
+	{
+		mParamList[name].mInventoryID = LLUUID::null;
+		return false;
+	}
+	std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
+	if(!agent_url.empty())
+	{
+		LLTransactionID tid;
+		LLAssetID asset_id;
+		tid.generate();
+		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
+		
+		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
+		
+		std::ostringstream stream;
+		notecard.exportStream(stream);
+		std::string buffer = stream.str();
+		
+		S32 size = buffer.length() + 1;
+		file.setMaxSize(size);
+		file.write((U8*)buffer.c_str(), size);
+		LLSD body;
+		body["item_id"] = item->getUUID();
+		LLHTTPClient::post(agent_url, body, new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+	}
+	else
+	{
+		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
+		return false;
+	}
+	
+	propagateParameters();
+	return true;
+}
 
 void LLWaterParamManager::propagateParameters(void)
 {
@@ -321,9 +455,44 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 				shaders_iter->mUniformsDirty = TRUE;
 			}
 		}
+		//Mix windlight settings if needed
+		if(sNeedsMix == TRUE)
+		{
+			if(sMixSet == NULL)
+			{
+				sNeedsMix = FALSE;
+				return;
+			}
+			if (waterSmoothTransitionTimer.getElapsedTimeF32() >=
+				(sMixTime / 100)) //100 steps inbetween
+			{
+				waterSmoothTransitionTimer.reset();
+				mCurParams.mix(mCurParams, *sMixSet, sMixCount / 100);//.01 to 1.0
+			}
+			sMixCount++;
+			if((sMixCount / 100) == 1)
+			{
+				//All done
+				sNeedsMix = FALSE;
+				std::string wlWaterPresetName   = "(Region settings)";
+				mCurParams.mName = wlWaterPresetName;
+				removeParamSet( wlWaterPresetName, true );
+				addParamSet( wlWaterPresetName, mCurParams );
+				savePreset( wlWaterPresetName );
+				loadPreset( wlWaterPresetName, true );
+				sMixSet = NULL;
+			}
+		}
 	}
 }
-
+void LLWaterParamManager::SetMixTime(LLWaterParamSet *mixSet, F32 mixTime)
+{
+	waterSmoothTransitionTimer.reset();
+	sNeedsMix = TRUE;
+	sMixSet = mixSet;
+	sMixTime = mixTime;
+	sMixCount = 1;
+}
 // static
 void LLWaterParamManager::initClass(void)
 {
@@ -456,4 +625,42 @@ LLWaterParamManager * LLWaterParamManager::instance()
 	}
 
 	return sInstance;
+}
+
+// static
+void LLWaterParamManager::loadWaterNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status)
+{
+	LLUUID inventory_id(*((LLUUID*)user_data));
+	std::string name = "WindLight Setting.ww";
+	LLViewerInventoryItem *item = gInventory.getItem(inventory_id);
+	if(item)
+	{
+		inventory_id = item->getUUID();
+		name = item->getName();
+	}
+	if(LL_ERR_NOERR == status)
+	{
+		LLVFile file(vfs, asset_id, asset_type, LLVFile::READ);
+		S32 file_length = file.getSize();
+		std::vector<char> buffer(file_length + 1);
+		file.read((U8*)&buffer[0], file_length);
+		buffer[file_length] = 0;
+		LLNotecard notecard(LLNotecard::MAX_SIZE);
+		LLMemoryStream str((U8*)&buffer[0], file_length + 1);
+		notecard.importStream(str);
+		std::string settings = notecard.getText();
+		LLMemoryStream settings_str((U8*)settings.c_str(), settings.length());
+		bool is_real_setting = sInstance->loadPresetXML(name, settings_str, true, true);
+		if(!is_real_setting)
+		{
+			LLSD subs;
+			subs["NAME"] = name;
+			LLNotifications::instance().add("KittyInvalidWaterlightNotecard", subs);
+		}
+		else
+		{
+			// We can do this because we know mCurParams 
+			sInstance->mParamList[name].mInventoryID = inventory_id;
+		}
+	}
 }

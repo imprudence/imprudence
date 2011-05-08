@@ -19,7 +19,6 @@ include(LLRender)
 include(LLVFS)
 include(LLWindow)
 include(LLXML)
-include(Mozlib)
 include(UI)
 
 include_directories(
@@ -54,6 +53,21 @@ set(viewer_HEADER_FILES
     llpreeditor.h
     llmousehandler.h
     )
+
+# Libraries on which this library depends, needed for Linux builds
+# Sort by high-level to low-level
+if (LINUX)
+	set(llwindow_LINK_LIBRARIES
+		${UI_LIBRARIES}     # for GTK
+		${SDL_LIBRARY}
+		fontconfig			# For FCInit and other FC* functions.
+		)
+else (LINUX)
+    set(llwindow_LINK_LIBRARIES
+		${UI_LIBRARIES}     # for GTK
+		${SDL_LIBRARY}
+		)
+endif (LINUX)
 
 if (DARWIN)
   list(APPEND llwindow_SOURCE_FILES
@@ -98,6 +112,9 @@ if (WINDOWS)
        lldxhardware.h
        llkeyboardwin32.h
        )
+  list(APPEND llwindow_LINK_LIBRARIES
+       comdlg32     # Common Dialogs for ChooseColor
+       )
 endif (WINDOWS)
 
 if (SOLARIS)
@@ -134,6 +151,7 @@ if (SERVER AND NOT WINDOWS AND NOT DARWIN)
     ${server_SOURCE_FILES}
     )
 endif (SERVER AND NOT WINDOWS AND NOT DARWIN)
+  # *TODO: This should probably have target_link_libraries
 
 if (llwindow_HEADER_FILES)
   list(APPEND llwindow_SOURCE_FILES ${llwindow_HEADER_FILES})
@@ -145,4 +163,6 @@ if (VIEWER)
     ${llwindow_SOURCE_FILES}
     ${viewer_SOURCE_FILES}
     )
+  target_link_libraries (llwindow ${llwindow_LINK_LIBRARIES})
 endif (VIEWER)
+

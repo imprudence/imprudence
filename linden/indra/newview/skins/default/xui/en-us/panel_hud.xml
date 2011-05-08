@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" auto_resize="true" background_visible="false" bottom="50"
+     follows="left|right|top|bottom" height="728" left="0" mouse_opaque="false"
+     name="hud" user_resize="false" width="1024" />

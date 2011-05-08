@@ -8,9 +8,17 @@
 		se connecter pour changer
 	</text>
 	<check_box label="Envoyer les IM à mon adresse e-mail ([EMAIL])" name="send_im_to_email"/>
-	<check_box label="Afficher les IM dans la console du chat" name="include_im_in_chat_console"/>
-	<check_box label="Afficher l&apos;heure dans les IM" name="show_timestamps_check"/>
-	<check_box label="Me prévenir quand des amis se connectent" name="friends_online_notify_checkbox"/>
+	<check_box bottom="-90" label="La console chat" name="include_im_in_chat_console" left="160"/>
+	<check_box bottom="-90" label="La fenêtre communiquer" name="include_im_in_chat_history" left="260" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="160"
+	     mouse_opaque="false" name="show_ims_label" v_pad="0" width="100">
+    Afficher les IMs dans:
+  </text>
+   	<check_box bottom="-120" label="Afficher l&apos;heure dans les IM" name="show_timestamps_check"/>
+	<check_box bottom="-140" label="Me prévenir quand des amis se connectent" name="friends_online_notify_checkbox"/>
+	<check_box label="Afficher les IMs verticalement (redémarrage requis)" name="vertical-imtabs-toggle"/>
 	<text name="text_box3">
 		Réponse si occupé(e) :
 	</text>
@@ -24,8 +32,8 @@
 	<check_box label="Inclure les heures" name="log_chat_timestamp"/>
 	<check_box label="Inclure les IM reçus" name="log_chat_IM"/>
 	<check_box label="Inclure la date avec les heures" name="log_date_timestamp"/>
-	<button label="Changer d&apos;emplacement" label_selected="Changer d&apos;emplacement" name="log_path_button" width="150"/>
-	<line_editor left="308" name="log_path_string" right="-20"/>
+	<button label="Changer d&apos;emplacement" label_selected="Changer d&apos;emplacement" name="log_path_button" left="145" width="170"/>
+	<line_editor left="320" name="log_path_string" right="-20"/>
 	<text length="1" name="text_box2" type="string">
 		IM :
 	</text>

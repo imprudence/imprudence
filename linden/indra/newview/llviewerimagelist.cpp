@@ -65,6 +65,10 @@
 
 #include <sys/stat.h>
 
+#ifdef LL_DARWIN
+#include "llwindowmacosx-objc.h"
+#endif
+
 ////////////////////////////////////////////////////////////////////////////
 
 void (*LLViewerImageList::sUUIDCallback)(void **, const LLUUID&) = NULL;
@@ -136,8 +140,8 @@ void LLViewerImageList::doPreloadImages()
 	//uv_test->setMipFilterNearest(TRUE, TRUE);
 
 	// prefetch specific UUIDs
-	getImage(IMG_SHOT, TRUE);
-	getImage(IMG_SMOKE_POOF, TRUE);
+	gImageList.getImageFromFile(IMG_SHOT.asString()+".j2c", TRUE, TRUE); /*getImage(IMG_SHOT, TRUE);*/
+	gImageList.getImageFromFile(IMG_SMOKE_POOF.asString()+".j2c", TRUE, TRUE); /*getImage(IMG_SMOKE_POOF, TRUE);*/
 	LLViewerImage* image = getImageFromFile("silhouette.j2c", MIPMAP_YES, IMMEDIATE_YES);
 	if (image) 
 	{
@@ -156,7 +160,7 @@ void LLViewerImageList::doPreloadImages()
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
 		mImagePreloads.insert(image);
 	}
-	image = getImage(DEFAULT_WATER_NORMAL, MIPMAP_YES, IMMEDIATE_YES);
+	image = getImageFromFile(DEFAULT_WATER_NORMAL.asString()+".j2c", MIPMAP_YES, IMMEDIATE_YES,0,0,DEFAULT_WATER_NORMAL);
 	if (image) 
 	{
 		image->setAddressMode(LLTexUnit::TAM_WRAP);	
@@ -168,7 +172,27 @@ void LLViewerImageList::doPreloadImages()
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
 		mImagePreloads.insert(image);
 	}
-	
+
+	std::string id;
+
+	// Preload default avatar eyes
+	id = gSavedSettings.getString("UIImgDefaultEyesUUID");
+	image = getImageFromFile(id+".j2c",MIPMAP_YES,IMMEDIATE_YES,0,0,LLUUID(id));
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_WRAP);
+		mImagePreloads.insert(image);
+	}
+
+	// Preload default avatar hair
+	id = gSavedSettings.getString("UIImgDefaultHairUUID");
+	image = getImageFromFile(id+".j2c",MIPMAP_YES,IMMEDIATE_YES,0,0,LLUUID(id));
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_WRAP);
+		mImagePreloads.insert(image);
+	}
+
 }
 
 static std::string get_texture_list_name()
@@ -573,7 +597,7 @@ void LLViewerImageList::updateImages(F32 max_time)
 	llpushcallstacks ;
 	if (!gNoRender && !gGLManager.mIsDisabled)
 	{
-		LLViewerMedia::updateImagesMediaStreams();
+		LLViewerMedia::updateMedia();
 	}
 	llpushcallstacks ;
 	updateImagesUpdateStats();
@@ -900,7 +924,10 @@ BOOL LLViewerImageList::createUploadFile(const std::string& filename,
 {
 	// First, load the image.
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-	
+#ifdef LL_DARWIN
+	if (!decodeImageQuartz(filename, raw_image))
+		return FALSE;
+#else
 	switch (codec)
 	{
 		case IMG_CODEC_BMP:
@@ -973,7 +1000,7 @@ BOOL LLViewerImageList::createUploadFile(const std::string& filename,
 		default:
 			return FALSE;
 	}
-	
+#endif
 	LLPointer<LLImageJ2C> compressedImage = convertToUploadFile(raw_image);
 	
 	if( !compressedImage->save(out_filename) )

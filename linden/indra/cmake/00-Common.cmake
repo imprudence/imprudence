@@ -9,9 +9,9 @@ include(Variables)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-D_DEBUG -DLL_DEBUG=1")
 set(CMAKE_CXX_FLAGS_RELEASE
-    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DNDEBUG")
+    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=1 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
-    "-DLL_RELEASE=1 -D_SECURE_SCL=0 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
+    "-DLL_RELEASE=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=0 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
 
 
 # Don't bother with a MinSizeRel build.
@@ -19,6 +19,14 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
 set(CMAKE_CONFIGURATION_TYPES "RelWithDebInfo;Release;Debug" CACHE STRING
     "Supported build types." FORCE)
 
+
+# Determine the number of bits of this processor
+
+if(CMAKE_SIZEOF_VOID_P MATCHES 4)
+   set( HAVE_64_BIT 0 )
+else(CMAKE_SIZEOF_VOID_P MATCHES 4)
+   set( HAVE_64_BIT 1 )
+endif(CMAKE_SIZEOF_VOID_P MATCHES 4)
 
 # Platform-specific compilation flags.
 
@@ -55,6 +63,7 @@ if (WINDOWS)
       /Zc:forScope
       /nologo
       /Oy-
+      /MP
       )
      
   if(MSVC80 OR MSVC90)
@@ -169,23 +178,10 @@ if (LINUX)
       add_definitions(-fno-stack-protector)
     endif (NOT STANDALONE)
     if (${ARCH} STREQUAL "x86_64")
-       add_definitions( -DLINUX64=1
-			#this rather needs to be done elsewhere
-			#anyway these are the flags for the 64bit releases:
-			-DLL_VECTORIZE=1
-			-O2
-			-fomit-frame-pointer
-			-pipe 
-			-mmmx
-			-msse
-			-mfpmath=sse
-			-msse2
-			-ffast-math
-			-ftree-vectorize
-			-fweb -fexpensive-optimizations
-			-frename-registers
-			)
-
+       # This rather needs to be done elsewhere
+       # anyway these are the flags for the 64bit releases:
+       add_definitions(-DLINUX64=1 -pipe)
+       set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fomit-frame-pointer -mmmx -msse -mfpmath=sse -msse2 -ffast-math -ftree-vectorize -fweb -fexpensive-optimizations -frename-registers")
     endif (${ARCH} STREQUAL "x86_64")
   endif (VIEWER)
 
@@ -198,8 +194,8 @@ if (DARWIN)
   add_definitions(-DLL_DARWIN=1)
   set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlong-branch")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch -msse3 -mssse3 -w")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlong-branch -msse3 -mssse3 -w")
   # NOTE: it's critical that the optimization flag is put in front.
   # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0 ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
@@ -214,7 +210,7 @@ if (LINUX OR DARWIN)
     set(GCC_WARNINGS "${GCC_WARNINGS} -Werror")
   endif (NOT GCC_DISABLE_FATAL_WARNINGS)
 
-  set(GCC_CXX_WARNINGS "${GCC_WARNINGS} -Wno-reorder -Wno-non-virtual-dtor")
+  set(GCC_CXX_WARNINGS "${GCC_WARNINGS} -Wno-reorder -Wno-non-virtual-dtor -Woverloaded-virtual")
 
   set(CMAKE_C_FLAGS "${GCC_WARNINGS} ${CMAKE_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${GCC_CXX_WARNINGS} ${CMAKE_CXX_FLAGS}")

@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="build options floater" title="Rasteroptionen">
-	<spinner label="Rastereinheit (Meter)" name="GridResolution" />
-	<spinner label="Rastergröße (Meter)" name="GridDrawSize" />
-	<check_box label="Einrasten von Untereinheiten aktivieren" name="GridSubUnit" />
+<floater name="build options floater" title="Erweiterte Bauoptionen">
+  <text name="text_box7"> 
+        Rasteroptionen:</text>
+	<spinner label="Rastereinheit (m)" name="GridResolution" />
+	<spinner label="Rastergröße (m)" name="GridDrawSize" />
+	<check_box label="Untereinheiten einrasten" name="GridSubUnit" />
 	<check_box label="Querschnitte anzeigen" name="GridCrossSection" />
 	<slider label="Rasterdeckkraft" name="GridOpacity" />
+  <text name="text_box3">
+        Objektgröße:</text>
+	<spinner label="X-Größe:" name="X size" />
+	<spinner label="Y-Größe:" name="Y size" />
+	<spinner label="Z-Größe:" name="Z size" />
+  <text name="text_box6">
+        Angelpunkt der Achsen:</text>
+	<check_box label="Größen in Prozent" tool_tip="Standardeinstellung sind Prozent und alle Achsen auf 50" name="PivotPercToggle" />
+	<check_box label="Selektionsumrisse zeigen" name="BuildPrefsRenderHighlight_toggle" />
+	<check_box label="Selektionsdistanz limitieren" name="limit_select_dist_check" />
+	<check_box label="Achsen auf Hauptprim zeigen" tool_tip="Standardverhalten ist die Anzeige der Achsen auf dem Massensenter des gesamten Objekts. Aktiviert werden die Achsen stattdessen auf dem Hauptprim eines Objektes gezeigt." name="BuildPrefsActualRoot_toggle" />
+	<check_box label="Objekteintritt mit Landesgruppe" tool_tip="Objekte auf Gruppenland mit dieser Gruppe erzeugen (wenn möglich." name="grouplandrez" />
+	<spinner label="Dezimalstellen Bearbeitung" tool_tip="Setzt die Standard-Genauigkeit für bewegen, Größe ändern und rotieren fest." name="spinner_decimal" />
+  <button label="Übernehmen" name="btn_apply" />
+  <button label="Abbrechen" name="btn_cancel" />
+  <button label="OK" name="btn_ok" />
+  <button label="Standard wiederherstellen" name="btn_reset" />
 </floater>

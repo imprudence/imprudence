@@ -33,6 +33,9 @@
 	<string name="unavailable_text_label">
 		Tekst chat er ikke tilgængeligt i dette opkald.
 	</string>
+	<string name="add_friend_string">
+		Tilføj ven
+	</string>
 	<flyout_button label="Profil..." name="profile_callee_btn"/>
 	<button label="Opkald" name="start_call_btn" pad_right="7" width="120"/>
 	<button halign="right" label="Afbryd" name="end_call_btn" width="120"/>

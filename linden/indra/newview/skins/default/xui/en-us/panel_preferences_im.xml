@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-     height="408" label="Communication" left="102" mouse_opaque="true" name="im"
+     height="408" label="IMs &amp; Logging" left="102" mouse_opaque="true" name="im"
      width="517">
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -21,6 +21,9 @@
   </text>
   <string name="log_in_to_change">
     log in to change
+  </string>
+  <string name="default_email_used">
+    using default address
   </string>
   <check_box bottom="-45" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Send IM to email ([EMAIL])"
@@ -61,7 +64,7 @@
   </text>
   <text_editor type="string" length="1" bottom_delta="-60" embedded_items="false" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="70" left="148" max_length="255"
-	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" />
+	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" spell_check="true" />
   <button bottom_delta="-25" follows="top|right" height="22" label="IM Response Options"
      left="164" name="busy_adv_btn" tool_tip="Instant message Auto-Response options"
      width="180" />
@@ -101,8 +104,8 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Include date with timestamps" left="148" mouse_opaque="true"
 	     name="log_date_timestamp" radio_style="false" width="237" />
-  <button bottom_delta="-22" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Change Path" label_selected="Change Path" left="170"
+  <button bottom_delta="-22" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="Change Path" label_selected="Change Path" left="148"
 	     mouse_opaque="true" name="log_path_button" width="96" />
   <line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="1"
 	     drop_shadow_visible="true" enabled="false" follows="top|left|right"

@@ -33,6 +33,9 @@
 	<string name="unavailable_text_label">
 		このコールでは文字チャットが利用できません。
 	</string>
+	<string name="add_friend_string">
+		フレンドに追加
+	</string>
 	<flyout_button label="プロフィール" name="profile_callee_btn" width="100"/>
 	<button label="コール" left_delta="105" name="start_call_btn" width="100"/>
 	<button label="呼出終了" name="end_call_btn" width="100"/>

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2009, Linden Research, Inc.
+ * Copyright (c) 2006-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -31,6 +31,14 @@
  * $/LicenseInfo$
  */
 
+#include "llimagej2c.h"
+#include <Carbon/Carbon.h>
+
+#ifdef __OBJC__
+#ifdef BOOL
+#undef BOOL
+#endif
+#endif // __OBJC__
 
 // This will actually hold an NSCursor*, but that type is only available in objective C.
 typedef void *CursorRef;
@@ -40,4 +48,5 @@ void setupCocoa();
 CursorRef createImageCursor(const char *fullpath, int hotspotX, int hotspotY);
 OSErr releaseImageCursor(CursorRef ref);
 OSErr setImageCursor(CursorRef ref);
-
+BOOL decodeImageQuartz(std::string filename, LLImageRaw *raw_image);
+BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image, std::string ext);

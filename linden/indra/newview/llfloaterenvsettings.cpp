@@ -47,6 +47,7 @@
 #include "llwaterparammanager.h"
 #include "llmath.h"
 #include "llviewerwindow.h"
+#include "wlfloatermanager.h"
 
 #include "pipeline.h"
 
@@ -87,7 +88,7 @@ void LLFloaterEnvSettings::initCallbacks(void)
 	// WL Top
 	childSetAction("EnvAdvancedSkyButton", onOpenAdvancedSky, NULL);
 	childSetAction("EnvAdvancedWaterButton", onOpenAdvancedWater, NULL);
-	childSetAction("EnvSubmitWindlight", onSubmitWindlight, NULL);
+	childSetAction("EnvWLManager", onOpenWLManager, NULL);
 	childSetAction("EnvUseEstateTimeButton", onUseEstateTime, NULL);
 	childSetAction("EnvSettingsHelpButton", onClickHelp, this);
 }
@@ -283,6 +284,11 @@ void LLFloaterEnvSettings::onOpenAdvancedSky(void* userData)
 void LLFloaterEnvSettings::onOpenAdvancedWater(void* userData)
 {
 	LLFloaterWater::show();
+}
+
+void LLFloaterEnvSettings::onOpenWLManager(void* userData)
+{
+	WLFloaterManager::show();
 }
 
 void LLFloaterEnvSettings::onSubmitWindlight(void* userData)

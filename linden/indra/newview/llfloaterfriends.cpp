@@ -39,6 +39,7 @@
 
 #include <sstream>
 
+#include "llavatarnamecache.h"
 #include "lldir.h"
 
 #include "llagent.h"
@@ -151,7 +152,7 @@ void LLPanelFriends::updateFriends(U32 changed_mask)
 	LLDynamicArray<LLUUID> selected_friends = getSelectedIDs();
 	if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE))
 	{
-		refreshNames(changed_mask);
+		refreshNames(changed_mask, "");
 	}
 	else if(changed_mask & LLFriendObserver::POWERS)
 	{
@@ -183,6 +184,28 @@ void LLPanelFriends::updateFriends(U32 changed_mask)
 	mShowMaxSelectWarning = true;
 }
 
+void LLPanelFriends::filterContacts(const std::string& search_string)
+{
+	if (search_string.empty())
+	{
+		refreshNames(LLFriendObserver::ADD, "");
+	}
+	else
+	{
+		refreshNames(LLFriendObserver::ADD, search_string);
+	}
+	refreshUI();
+}
+
+void LLPanelFriends::onContactSearchKeystroke(const std::string& search_string, void* user_data)
+{
+	LLPanelFriends* panelp = (LLPanelFriends*)user_data;
+	if (panelp)
+	{
+		panelp->filterContacts(search_string);
+	}
+}
+
 // virtual
 BOOL LLPanelFriends::postBuild()
 {
@@ -193,8 +216,14 @@ BOOL LLPanelFriends::postBuild()
 	childSetCommitCallback("friend_list", onSelectName, this);
 	childSetDoubleClickCallback("friend_list", onClickIM);
 
+	LLSearchEditor* buddy_search = getChild<LLSearchEditor>("buddy_search");
+	if (buddy_search)
+	{
+		buddy_search->setSearchCallback(&onContactSearchKeystroke, this);
+	}
+
 	U32 changed_mask = LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE;
-	refreshNames(changed_mask);
+	refreshNames(changed_mask, "");
 
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
@@ -226,6 +255,24 @@ BOOL LLPanelFriends::addFriend(const LLUUID& agent_id)
 
 	std::string fullname;
 	BOOL have_name = gCacheName->getFullName(agent_id, fullname);
+	if (have_name)
+	{
+		if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(agent_id, &avatar_name))
+			{
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames();
+				}
+			}
+		}
+	}
 	
 	LLSD element;
 	element["id"] = agent_id;
@@ -265,6 +312,18 @@ BOOL LLPanelFriends::addFriend(const LLUUID& agent_id)
 	edit_my_object_column["type"] = "checkbox";
 	edit_my_object_column["value"] = relationInfo->isRightGrantedTo(LLRelationship::GRANT_MODIFY_OBJECTS);
 
+//	LLSD& online_their_column = element["columns"][LIST_VISIBLE_ONLINE_THEIRS];
+//	online_their_column["column"] = "icon_visible_online_theirs";
+//	online_their_column["type"] = "checkbox";
+//	online_their_column["enabled"] = "";
+//	online_their_column["value"] = relationInfo->isRightGrantedFrom(LLRelationship::GRANT_ONLINE_STATUS);
+
+	LLSD& map_their_column = element["columns"][LIST_VISIBLE_MAP_THEIRS];
+	map_their_column["column"] = "icon_visible_map_theirs";
+	map_their_column["type"] = "checkbox";
+	map_their_column["enabled"] = "";
+	map_their_column["value"] = relationInfo->isRightGrantedFrom(LLRelationship::GRANT_MAP_LOCATION);
+
 	LLSD& edit_their_object_column = element["columns"][LIST_EDIT_THEIRS];
 	edit_their_object_column["column"] = "icon_edit_theirs";
 	edit_their_object_column["type"] = "checkbox";
@@ -292,6 +351,24 @@ BOOL LLPanelFriends::updateFriendItem(const LLUUID& agent_id, const LLRelationsh
 
 	std::string fullname;
 	BOOL have_name = gCacheName->getFullName(agent_id, fullname);
+	if (have_name)
+	{
+		if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+		{
+			LLAvatarName avatar_name;
+			if (LLAvatarNameCache::get(agent_id, &avatar_name))
+			{
+				if (LLAvatarNameCache::useDisplayNames() == 1)
+				{
+					fullname = avatar_name.mDisplayName;
+				}
+				else
+				{
+					fullname = avatar_name.getNames();
+				}
+			}
+		}
+	}
 	
 	// Name of the status icon to use
 	std::string statusIcon;
@@ -313,6 +390,11 @@ BOOL LLPanelFriends::updateFriendItem(const LLUUID& agent_id, const LLRelationsh
 	itemp->getColumn(LIST_VISIBLE_ONLINE)->setValue(info->isRightGrantedTo(LLRelationship::GRANT_ONLINE_STATUS));
 	itemp->getColumn(LIST_VISIBLE_MAP)->setValue(info->isRightGrantedTo(LLRelationship::GRANT_MAP_LOCATION));
 	itemp->getColumn(LIST_EDIT_MINE)->setValue(info->isRightGrantedTo(LLRelationship::GRANT_MODIFY_OBJECTS));
+
+//	itemp->getColumn(LIST_VISIBLE_ONLINE_THEIRS)->setValue(info->isRightGrantedFrom(LLRelationship::GRANT_ONLINE_STATUS));
+	itemp->getColumn(LIST_VISIBLE_MAP_THEIRS)->setValue(info->isRightGrantedFrom(LLRelationship::GRANT_MAP_LOCATION));
+	itemp->getColumn(LIST_EDIT_THEIRS)->setValue(info->isRightGrantedFrom(LLRelationship::GRANT_MODIFY_OBJECTS));
+
 	S32 change_generation = have_name ? info->getChangeSerialNum() : -1;
 	itemp->getColumn(LIST_FRIEND_UPDATE_GEN)->setValue(change_generation);
 
@@ -384,7 +466,7 @@ struct SortFriendsByID
 	}
 };
 
-void LLPanelFriends::refreshNames(U32 changed_mask)
+void LLPanelFriends::refreshNames(U32 changed_mask, const std::string& search_string)
 {
 	LLDynamicArray<LLUUID> selected_ids = getSelectedIDs();	
 	S32 pos = mFriendsList->getScrollPos();	
@@ -395,14 +477,51 @@ void LLPanelFriends::refreshNames(U32 changed_mask)
 
 	BOOL have_names = TRUE;
 
-	if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+	// I hate doing it this way. There's no need for it. I blame LL -- MC
+	if (search_string.empty())
 	{
-		have_names &= refreshNamesSync(all_buddies);
-	}
+		if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+		{
+			have_names &= refreshNamesSync(all_buddies);
+		}
 
-	if(changed_mask & LLFriendObserver::ONLINE)
+		if(changed_mask & LLFriendObserver::ONLINE)
+		{
+			have_names &= refreshNamesPresence(all_buddies);
+		}
+	}
+	else
 	{
-		have_names &= refreshNamesPresence(all_buddies);
+		std::string firstname;
+		std::string lastname;
+		std::string filter = search_string;
+		LLStringUtil::toLower(filter);
+		LLAvatarTracker::buddy_map_t temp_buddies;
+
+		for (LLAvatarTracker::buddy_map_t::reverse_iterator bIt = all_buddies.rbegin();
+			 bIt != all_buddies.rend(); ++bIt)
+		{
+			if (gCacheName->getName((*bIt).first, firstname, lastname))
+			{
+				std::string l_name(firstname);
+				LLStringUtil::toLower(l_name);
+				std::string l_sname(lastname);
+				LLStringUtil::toLower(l_sname);
+				if (l_name.find(filter) == 0 || l_sname.find(filter) == 0)
+				{
+					temp_buddies.insert(temp_buddies.begin(), std::pair<LLUUID, LLRelationship*>((*bIt).first, (*bIt).second));
+				}
+			}
+		}
+		if(changed_mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+		{
+			have_names &= refreshNamesSync(temp_buddies);
+		}
+
+		if(changed_mask & LLFriendObserver::ONLINE)
+		{
+			have_names &= refreshNamesPresence(temp_buddies);
+		}
 	}
 
 	if (!have_names)
@@ -708,6 +827,25 @@ void LLPanelFriends::onClickRemove(void* user_data)
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
+				if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(agent_id, &avatar_name))
+					{
+						// Always show "Display Name [Legacy Name]" for security reasons
+						first = avatar_name.getNames();
+						size_t i = first.find(" ");
+						if (i != std::string::npos)
+						{
+							last = first.substr(i + 1);
+							first = first.substr(0, i);
+						}
+						else
+						{
+							last = "";
+						}
+					}
+				}
 				args["FIRST_NAME"] = first;
 				args["LAST_NAME"] = last;	
 			}
@@ -772,6 +910,25 @@ void LLPanelFriends::confirmModifyRights(rights_map_t& ids, EGrantRevoke command
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
+				if (LLAvatarNameCache::useDisplayNames() && !gSavedSettings.getBOOL("LegacyNamesForFriends"))
+				{
+					LLAvatarName avatar_name;
+					if (LLAvatarNameCache::get(agent_id, &avatar_name))
+					{
+						// Always show "Display Name [Legacy Name]" for security reasons
+						first = avatar_name.getNames();
+						size_t i = first.find(" ");
+						if (i != std::string::npos)
+						{
+							last = first.substr(i + 1);
+							first = first.substr(0, i);
+						}
+						else
+						{
+							last = "";
+						}
+					}
+				}
 				args["FIRST_NAME"] = first;
 				args["LAST_NAME"] = last;	
 			}

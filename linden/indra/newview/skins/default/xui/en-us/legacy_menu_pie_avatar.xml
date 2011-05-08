@@ -37,15 +37,18 @@
 			<on_click function="Avatar.Eject" />
 			<on_enable function="Avatar.EnableFreezeEject" />
 		</menu_item_call>
-		<menu_item_call enabled="false" label="Debug..." mouse_opaque="true" name="Debug...">
-			<on_click function="Avatar.Debug" />
-			<on_visible function="Avatar.VisibleDebug" />
-			<on_enable function="Avatar.EnableDebug" />
-		</menu_item_call>
-		<menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Avatar Inspect">
+    <menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
+      <on_click function="Object.DERENDER" />
+    </menu_item_call>
+    <menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Avatar Inspect">
 			<on_click function="Object.Inspect" />
 			<on_enable function="Object.EnableInspect" />
 		</menu_item_call>
+    <menu_item_call enabled="false" label="Debug..." mouse_opaque="true" name="Debug...">
+      <on_click function="Avatar.Debug" />
+      <on_visible function="Avatar.VisibleDebug" />
+      <on_enable function="Avatar.EnableDebug" />
+    </menu_item_call>
 	</pie_menu>
 	<menu_item_call enabled="false" label="Send IM..." mouse_opaque="true" name="Send IM...">
 		<on_click function="Avatar.SendIM" />

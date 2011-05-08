@@ -66,7 +66,11 @@
 #include "llui.h"
 #include "pipeline.h"
 
-#include "hippoLimits.h"
+#include "hippolimits.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 const S32 NUM_AXES = 3;
 const S32 MOUSE_DRAG_SLOP = 2;       // pixels
@@ -525,16 +529,13 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	relative_move -= mDragCursorStartGlobal;
 
 	// You can't move more than some distance from your original mousedown point.
-	if (gSavedSettings.getBOOL("LimitDragDistance"))
-	{
-		F32 max_drag_distance = gSavedSettings.getF32("MaxDragDistance");
+	F32 max_drag_distance = gHippoLimits->getMaxDragDistance();
 
-		if (relative_move.magVecSquared() > max_drag_distance * max_drag_distance)
-		{
-			lldebugst(LLERR_USER_INPUT) << "hover handled by LLManipTranslate (too far)" << llendl;
-			gViewerWindow->setCursor(UI_CURSOR_NOLOCKED);
-			return TRUE;
-		}
+	if (max_drag_distance != FLT_MAX && relative_move.magVecSquared() > max_drag_distance * max_drag_distance)
+	{
+		lldebugst(LLERR_USER_INPUT) << "hover handled by LLManipTranslate (too far)" << llendl;
+		gViewerWindow->setCursor(UI_CURSOR_NOLOCKED);
+		return TRUE;
 	}
 
 	F64 axis_magnitude = relative_move * axis_d;					// dot product

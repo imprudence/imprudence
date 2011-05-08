@@ -41,50 +41,6 @@
 # - After you build the viewer, replace the stripped
 #   do-not-directly-run-secondlife-bin binary with an unstripped copy.
 
-# Mozilla noise.
-
-{
-   Cond:mozilla-runtime/*.so
-   Memcheck:Cond
-   obj:*/mozilla-runtime-*/*.so
-}
-
-{
-   Value4:mozilla-runtime/*.so
-   Memcheck:Value4
-   obj:*/mozilla-runtime-*/*.so
-}
-
-{
-   Cond:mozilla-runtime/*/*.so
-   Memcheck:Cond
-   obj:*/mozilla-runtime-*/*/*.so
-}
-
-{
-   Value4:mozilla-runtime/*/*.so
-   Memcheck:Value4
-   obj:*/mozilla-runtime-*/*/*.so
-}
-
-{
-   Cond:mozilla-runtime/libmozjs.so
-   Memcheck:Cond
-   obj:*/libmozjs.so
-}
-
-{
-   Cond:mozilla-runtime/libxul
-   Memcheck:Cond
-   obj:*/libxul.so
-}
-
-{
-   Value4:mozilla-runtime/libxul
-   Memcheck:Value4
-   obj:*/libxul.so
-}
-
 # libcurl badness.
 
 {

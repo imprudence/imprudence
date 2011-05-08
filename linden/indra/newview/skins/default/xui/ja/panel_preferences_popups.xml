@@ -18,4 +18,5 @@
 	<button width="235" label="ポップアップ全てを有効化..." label_selected="「次回表示」ダイアログリセット..." name="reset_dialogs_btn" tool_tip="全てのオプショナルポップアップと「初回使用」通知を有効にしてください。"/>
 	<button width="235" label="これらのポップアップ全てを無効化..." name="skip_dialogs_btn" tool_tip="全てのオプショナルポップアップと「初回使用」通知を無効にしてください。"/>
 	<check_box label="新たに受け取ったオブジェクトを持ち物に自動的に表示" name="show_in_inventory"/>
+	<check_box label="[CURRENCY]を使用・受け取る時に通知" name="notify_money_change_checkbox"/>
 </panel>

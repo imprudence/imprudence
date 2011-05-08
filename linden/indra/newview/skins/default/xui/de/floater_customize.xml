@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="floater customize" title="Aussehen">
 	<tab_container name="customize tab container">
-		<panel label="Körperteile" name="body_parts_placeholder"/>
+		<panel label="Körperteile" name="body_parts_placeholder" />
 		<panel label="Form" name="Shape">
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 			<button label="Körper" label_selected="Körper" name="Body"/>
@@ -12,8 +12,8 @@
 			<button label="Mund" label_selected="Mund" name="Mouth"/>
 			<button label="Kinn" label_selected="Kinn" name="Chin"/>
 			<button label="Oberkörper" label_selected="Oberkörper" name="Torso"/>
-			<button label="Beine" label_selected="Beine" name="Legs"/>
-			<radio_group name="sex radio">
+			<button label="Beine" label_selected="Beine" name="Legs" />
+			<radio_group control_name="AvatarSex" name="sex radio">
 				<radio_item length="1" name="radio" type="string">
 					Weiblich
 				</radio_item>
@@ -51,10 +51,11 @@ und diese anziehen.
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
 			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 		</panel>
+
 		<panel label="Haut" name="Skin">
 			<button label="Hautfarbe" label_selected="Hautfarbe" left="2" name="Skin Color" width="92"/>
 			<button label="Gesichtsdetails" label_selected="Gesichtsdetails" left="2" name="Face Detail" width="92"/>
-			<button label="Make-Uup" label_selected="Make-Uup" left="2" name="Makeup" width="92"/>
+			<button label="Make-Up" label_selected="Make-Up" left="2" name="Makeup" width="92"/>
 			<button label="Körperdetails" label_selected="Körperdetails" left="2" name="Body Detail" width="92"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -82,9 +83,9 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Haut:
 			</text>
-			<texture_picker label="Kopftattoo" name="Head Tattoos" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<texture_picker label="Obere Tattoos" name="Upper Tattoos" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<texture_picker label="Untere Tattoos" name="Lower Tattoos" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
+			<texture_picker label="Kopftattoo" name="Head Tattoos" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<texture_picker label="Obere Tattoos" name="Upper Tattoos" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<texture_picker label="Untere Tattoos" name="Lower Tattoos" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
 			<button label="Neue Haut" label_selected="Neue Haut" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
 			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
@@ -121,7 +122,7 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Haare:
 			</text>
-			<texture_picker label="Textur" name="Texture" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
+			<texture_picker label="Textur" name="Texture" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
 			<button label="Neue Haare" label_selected="Neue Haare" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
 			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
@@ -154,7 +155,7 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Augen:
 			</text>
-			<texture_picker label="Iris" name="Iris" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
+			<texture_picker label="Iris" name="Iris" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
 			<button label="Neue Augen" label_selected="Neue Augen" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
 			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
@@ -162,8 +163,8 @@ und diese anziehen.
 		</panel>
 		<panel label="Kleidung" name="clothes_placeholder"/>
 		<panel label="Hemd" name="Shirt">
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neues Hemd" label_selected="Neues Hemd" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -197,8 +198,8 @@ und dieses anziehen.
 			</text>
 		</panel>
 		<panel label="Hose" name="Pants">
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Hose" label_selected="Neue Hose" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -258,8 +259,8 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Schuhe:
 			</text>
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Schuhe" label_selected="Neue Schuhe" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -328,9 +329,9 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Jacke:
 			</text>
-			<texture_picker label="Oberstoff" name="Upper Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<texture_picker label="Unterstoff" name="Lower Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff oben" name="Upper Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<texture_picker label="Stoff unten" name="Lower Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Jacke" label_selected="Neue Jacke" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -364,8 +365,8 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Handschuhe:
 			</text>
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Handschuhe" label_selected="Neue Handschuhe" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -399,8 +400,8 @@ und dieses anziehen.
 			<text name="Item Action Label" right="100">
 				Unterhemd:
 			</text>
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neues Unterhemd" label_selected="Neues Unterhemd" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -434,8 +435,8 @@ und diese anziehen.
 			<text name="Item Action Label" right="100">
 				Unterhose:
 			</text>
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Unterhose" label_selected="Neue Unterhose" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
@@ -469,16 +470,105 @@ und diesen anziehen.
 			<text name="Item Action Label" right="100">
 				Rock:
 			</text>
-			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
-			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Hier klicken, um die Farbauswahl zu öffnen"/>
 			<button label="Neuer Rock" label_selected="Neuer Rock" name="Create New"/>
 			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
 			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
+		<panel label="Tätowierung" name="Tattoo">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: bearbeiten nicht möglich
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: wird geladen...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nicht getragen
+			</text>
+			<text length="1" name="path" type="string">
+				In [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Ziehen Sie eine Tätowierung aus dem Inventar auf Ihren Avatar,
+um ihn zu tragen. Sie können auch eine neuen Tätowierung erstellen
+und diese anziehen.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
+			</text>
+			<text name="Item Action Label" right="100">
+				Tätowierung:
+			</text>
+			<texture_picker label="Kopftattoo" name="Head Tattoo" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<texture_picker label="Tattoo oben" name="Upper Tattoo" tool_tip="Hier klicken, um ein Bild auszuwählen"/>
+			<texture_picker label="Tattoo unten" name="Lower Tattoo" tool_tip="Hier klicken, um ein Bild auszuwählen"/>			<button font="SansSerifSmall" label="Neue Tätowierung" label_selected="Neue Tätowierung" name="Create New"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
+			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
+			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
+		</panel>
+		<panel label="Transparenz" name="Alpha">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: bearbeiten nicht möglich
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: wird geladen...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nicht getragen
+			</text>
+			<text length="1" name="path" type="string">
+				In [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Ziehen Sie eine Transparenz-Maske aus dem Inventar auf Ihren Avatar,
+um ihn zu tragen. Sie können auch eine neue Maske erstellen
+und diese anziehen.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
+			</text>
+			<text name="Item Action Label" right="100">
+				Transparenz:
+			</text>
+			<texture_picker label="Transp. Kopf" name="Head Alpha" tool_tip="Hier klicken, um ein Bild auszuwählen" width="68" left_delta="85" />
+			<texture_picker label="Transp. oben" name="Upper Alpha" tool_tip="Hier klicken, um ein Bild auszuwählen" width="68" left_delta="85" />
+			<texture_picker label="Transp. unten" name="Lower Alpha" tool_tip="Hier klicken, um ein Bild auszuwählen" width="68" left_delta="85" />
+			<texture_picker label="Transp. Haar" name="Hair Alpha" tool_tip="Hier klicken, um ein Bild auszuwählen" width="68" left_delta="85" />
+			<texture_picker label="Transp. Augen" name="Eye Alpha" tool_tip="Hier klicken, um ein Bild auszuwählen" width="68" left_delta="85" />
+			<button label="Neue Maske" label_selected="Neue Maske" name="Create New"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
+			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
+			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
+		</panel>
 	</tab_container>
-	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel"/>
-	<button label="OK" label_selected="OK" name="Ok"/>
+
+	<text type="string" name="AvatarHeightText">
+    Avatar Größe:
+	</text>
+	<text type="string" name="HeightText">
+    Avatar Größe
+	</text>
+	<text type="string" name="HeightText2">
+    Avatar Größe2
+	</text>
+	<text type="string" name="includes_shoes">
+    (inkl. Schuhe)
+	</text>
+
+	<button name="Import" label="Import." label_selected="Importieren" />
+	<button name="Export" label="Export." label_selected="Exportieren" />
 	<button label="Outfit erstellen..." label_selected="Outfit erstellen..." name="Make Outfit" width="115"/>
+ 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel"/>
+	<button label="OK" label_selected="OK" name="Ok"/>
 </floater>

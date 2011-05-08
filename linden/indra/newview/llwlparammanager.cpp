@@ -60,10 +60,24 @@
 #include "llfloaterdaycycle.h"
 #include "llfloaterenvsettings.h"
 
+
+// For notecard loading
+#include "llvfile.h"
+#include "llnotecard.h"
+#include "llmemorystream.h"
+#include "llnotify.h"
+#include "llagent.h"
+#include "llinventorymodel.h"
+#include "llviewerinventory.h"
+#include "llviewerregion.h"
+#include "llassetuploadresponders.h"
+#include "llframetimer.h"
+
 #include "curl/curl.h"
 
 LLWLParamManager * LLWLParamManager::sInstance = NULL;
 std::vector<LLWLPresetsObserver*> LLWLParamManager::sObservers;
+LLFrameTimer wlSmoothTransitionTimer;
 
 LLWLParamManager::LLWLParamManager() :
 
@@ -159,6 +173,85 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 
 }
 
+bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool propagate /* = false */, bool check_if_real /* = false */)
+{
+	LLSD paramsData(LLSD::emptyMap());
+	
+	LLPointer<LLSDParser> parser = new LLSDXMLParser();
+	
+	if(parser->parse(preset_stream, paramsData, LLSDSerialize::SIZE_UNLIMITED) == LLSDParser::PARSE_FAILURE)
+	{
+		return false;
+	}
+	
+	if(check_if_real)
+	{
+		static const char* expected_windlight_settings[] = {
+			"ambient",
+			"blue_density",
+			"blue_horizon",
+			"cloud_color",
+			"cloud_pos_density1",
+			"cloud_pos_density2",
+			"cloud_scale",
+			"cloud_scroll_rate",
+			"cloud_shadow",
+			"density_multiplier",
+			"distance_multiplier",
+			"east_angle",
+			"enable_cloud_scroll",
+			"gamma",
+			"glow",
+			"haze_density",
+			"haze_horizon",
+			"lightnorm",
+			"max_y",
+			"star_brightness",
+			"sun_angle",
+			"sunlight_color"
+		};
+		static S32 expected_count = LL_ARRAY_SIZE(expected_windlight_settings);
+		for(S32 i = 0; i < expected_count; ++i)
+		{
+			if(!paramsData.has(expected_windlight_settings[i]))
+			{
+				LL_WARNS("WindLight") << "Attempted to load WindLight param set without " << expected_windlight_settings[i] << LL_ENDL;
+				return false;
+			}
+		}
+	}
+	
+	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
+	if(mIt == mParamList.end())
+	{
+		addParamSet(name, paramsData);
+	}
+	else 
+	{
+		setParamSet(name, paramsData);
+	}
+
+	if(propagate)
+	{
+		getParamSet(name, mCurParams);
+		propagateParameters();
+	}
+	return true;
+}
+void LLWLParamManager::loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id)
+{
+	gAssetStorage->getInvItemAsset(LLHost::invalid,
+								   gAgent.getID(),
+								   gAgent.getSessionID(),
+								   gAgent.getID(),
+								   LLUUID::null,
+								   inv_id,
+								   asset_id,
+								   LLAssetType::AT_NOTECARD,
+								   &loadWindlightNotecard,
+								   (void*)&inv_id);
+}
+
 void LLWLParamManager::savePresets(const std::string & fileName)
 {
 	//Nobody currently calls me, but if they did, then its reasonable to write the data out to the user's folder
@@ -182,11 +275,77 @@ void LLWLParamManager::savePresets(const std::string & fileName)
 	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
 
 	presetsXML.close();
+
+	propagateParameters();
+}
+
+bool LLWLParamManager::savePresetToNotecard(const std::string & name)
+{
+	// make an empty llsd
+	LLSD paramsData(LLSD::emptyMap());
+
+	// fill it with LLSD windlight params
+	paramsData = mParamList[name].getAll();
+
+	// get some XML
+	std::ostringstream presetsXML;
+	LLPointer<LLSDFormatter> formatter = new LLSDXMLFormatter();
+	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
+
+	// Write it to a notecard
+	LLNotecard notecard;
+	notecard.setText(presetsXML.str());
+ 
+	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
+	if(!item)
+	{
+		mParamList[name].mInventoryID = LLUUID::null;
+		return false;
+	}
+	std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
+	if(!agent_url.empty())
+	{
+		LLTransactionID tid;
+		LLAssetID asset_id;
+		tid.generate();
+		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
+		
+		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
+		
+		std::ostringstream stream;
+		notecard.exportStream(stream);
+		std::string buffer = stream.str();
+		
+		S32 size = buffer.length() + 1;
+		file.setMaxSize(size);
+		file.write((U8*)buffer.c_str(), size);
+		LLSD body;
+		body["item_id"] = item->getUUID();
+		LLHTTPClient::post(agent_url, body, new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+	}
+	else
+	{
+		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
+		return false;
+	}
+	
+	propagateParameters();
+	return true;
 }
 
 void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 {
-	
+	// Check if we already have the preset before we try loading it again.
+	if(mParamList.find(name) != mParamList.end())
+	{
+		if(propagate)
+		{
+			getParamSet(name, mCurParams);
+			propagateParameters();
+		}
+		return;
+	}
+
 	// bugfix for SL-46920: preventing filenames that break stuff.
 	char * curl_str = curl_escape(name.c_str(), name.size());
 	std::string escaped_filename(curl_str);
@@ -211,21 +370,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 
 	if (presetsXML)
 	{
-		LLSD paramsData(LLSD::emptyMap());
-
-		LLPointer<LLSDParser> parser = new LLSDXMLParser();
-
-		parser->parse(presetsXML, paramsData, LLSDSerialize::SIZE_UNLIMITED);
-
-		std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
-		if(mIt == mParamList.end())
-		{
-			addParamSet(name, paramsData);
-		}
-		else 
-		{
-			setParamSet(name, paramsData);
-		}
+		loadPresetXML(name, presetsXML);
 		presetsXML.close();
 	} 
 	else 
@@ -419,6 +564,46 @@ void LLWLParamManager::update(LLViewerCamera * cam)
 			}
 		}
 	}
+
+	//Mix windlight settings if needed
+	if(sNeedsMix == TRUE)
+	{
+		if(sMixSet == NULL)
+		{
+			sNeedsMix = FALSE;
+			return;
+		}
+		if (wlSmoothTransitionTimer.getElapsedTimeF32() >=
+			(sMixTime / 100)) //100 steps inbetween
+		{
+			wlSmoothTransitionTimer.reset();
+			mCurParams.mix(mCurParams, *sMixSet, sMixCount / 100);//.01 to 1.0
+		}
+		sMixCount++;
+		if((sMixCount / 100) == 1)
+		{
+			//All done
+			sNeedsMix = FALSE;
+			std::string wlSkyPresetName   = "(Region settings)";
+			mCurParams.mName = wlSkyPresetName;
+			removeParamSet( wlSkyPresetName, true );
+			addParamSet( wlSkyPresetName, mCurParams );
+			savePreset( wlSkyPresetName );
+			mAnimator.mIsRunning = false;
+			mAnimator.mUseLindenTime = false;
+			loadPreset( wlSkyPresetName, true );
+			sMixSet = NULL;
+		}
+	}
+}
+
+void LLWLParamManager::SetMixTime(LLWLParamSet *mixSet, F32 mixTime)
+{
+	wlSmoothTransitionTimer.reset();
+	sNeedsMix = TRUE;
+	sMixSet = mixSet;
+	sMixTime = mixTime;
+	sMixCount = 1;
 }
 
 // static
@@ -572,6 +757,50 @@ LLWLParamManager * LLWLParamManager::instance()
 	}
 
 	return sInstance;
+}
+
+// static
+void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status)
+{
+	LLUUID inventory_id(*((LLUUID*)user_data));
+	std::string name = "WindLight Setting.wl";
+	LLViewerInventoryItem *item = gInventory.getItem(inventory_id);
+	if(item)
+	{
+		inventory_id = item->getUUID();
+		name = item->getName();
+	}
+	if(LL_ERR_NOERR == status)
+	{
+		LLVFile file(vfs, asset_id, asset_type, LLVFile::READ);
+		S32 file_length = file.getSize();
+		std::vector<char> buffer(file_length + 1);
+		file.read((U8*)&buffer[0], file_length);
+		buffer[file_length] = 0;
+		LLNotecard notecard(LLNotecard::MAX_SIZE);
+		LLMemoryStream str((U8*)&buffer[0], file_length + 1);
+		notecard.importStream(str);
+		std::string settings = notecard.getText();
+		LLMemoryStream settings_str((U8*)settings.c_str(), settings.length());
+		bool is_animator_running = sInstance->mAnimator.mIsRunning;
+		bool animator_linden_time = sInstance->mAnimator.mUseLindenTime;
+		sInstance->mAnimator.mIsRunning = false;
+		sInstance->mAnimator.mUseLindenTime = false;
+		bool is_real_setting = sInstance->loadPresetXML(name, settings_str, true, true);
+		if(!is_real_setting)
+		{
+			sInstance->mAnimator.mIsRunning = is_animator_running;
+			sInstance->mAnimator.mUseLindenTime = animator_linden_time;
+			LLSD subs;
+			subs["NAME"] = name;
+			LLNotifications::getInstance()->add("KittyInvalidWindlightNotecard", subs);
+		}
+		else
+		{
+			// We can do this because we know mCurParams 
+			sInstance->mParamList[name].mInventoryID = inventory_id;
+		}
+	}
 }
 
 // static

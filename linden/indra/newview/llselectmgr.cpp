@@ -59,6 +59,7 @@
 #include "llfloaterreporter.h"
 #include "llfloatertools.h"
 #include "llframetimer.h"
+#include "llfocusmgr.h"
 #include "llhudeffecttrail.h"
 #include "llhudmanager.h"
 #include "llinventorymodel.h"
@@ -75,6 +76,8 @@
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
+#include "llviewermediafocus.h"
 #include "llviewermenu.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
@@ -82,10 +85,16 @@
 #include "llviewerregion.h"
 #include "llviewerstats.h"
 #include "llvoavatar.h"
+#include "llvograss.h"
+#include "llvotree.h"
 #include "llvovolume.h"
 #include "pipeline.h"
 
 #include "llglheaders.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 LLViewerObject* getSelectedParentObject(LLViewerObject *object) ;
 //
@@ -825,7 +834,10 @@ void LLSelectMgr::highlightObjectOnly(LLViewerObject* objectp)
 		return;
 	}
 
-	if (objectp->getPCode() != LL_PCODE_VOLUME)
+	if ((objectp->getPCode() != LL_PCODE_VOLUME) &&
+		(objectp->getPCode() != LL_PCODE_LEGACY_TREE) &&
+		(objectp->getPCode() != LL_PCODE_LEGACY_GRASS))
+
 	{
 		return;
 	}
@@ -873,7 +885,10 @@ void LLSelectMgr::highlightObjectAndFamily(const std::vector<LLViewerObject*>& o
 		{
 			continue;
 		}
-		if (object->getPCode() != LL_PCODE_VOLUME)
+
+		if ((object->getPCode() != LL_PCODE_VOLUME) &&
+			(object->getPCode() != LL_PCODE_LEGACY_TREE) &&
+			(object->getPCode() != LL_PCODE_LEGACY_GRASS))
 		{
 			continue;
 		}
@@ -893,7 +908,14 @@ void LLSelectMgr::highlightObjectAndFamily(const std::vector<LLViewerObject*>& o
 
 void LLSelectMgr::unhighlightObjectOnly(LLViewerObject* objectp)
 {
-	if (!objectp || (objectp->getPCode() != LL_PCODE_VOLUME))
+	if (!objectp)
+	{
+		return;
+	}
+
+	if ((objectp->getPCode() != LL_PCODE_VOLUME) &&
+		(objectp->getPCode() != LL_PCODE_LEGACY_TREE) &&
+		(objectp->getPCode() != LL_PCODE_LEGACY_GRASS))
 	{
 		return;
 	}
@@ -1112,8 +1134,11 @@ void LLSelectMgr::getGrid(LLVector3& origin, LLQuaternion &rotation, LLVector3 &
 			{
 				// this means this object *has* to be an attachment
 				LLXform* attachment_point_xform = first_object->getRootEdit()->mDrawable->mXform.getParent();
-				mGridOrigin = attachment_point_xform->getWorldPosition();
-				mGridRotation = attachment_point_xform->getWorldRotation();
+				if (attachment_point_xform) 
+				{
+					mGridOrigin = attachment_point_xform->getWorldPosition();
+					mGridRotation = attachment_point_xform->getWorldRotation();
+				}
 				mGridScale = LLVector3(1.f, 1.f, 1.f) * gSavedSettings.getF32("GridResolution");
 			}
 			break;
@@ -1714,7 +1739,7 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	U8 media_flags = LLTextureEntry::MF_NONE;
 	if (media_type == LLViewerObject::MEDIA_TYPE_WEB_PAGE)
 	{
-		media_flags = LLTextureEntry::MF_WEB_PAGE;
+		media_flags = LLTextureEntry::MF_HAS_MEDIA;
 	}
 	
 	struct f : public LLSelectedTEFunctor
@@ -1857,7 +1882,7 @@ BOOL LLSelectMgr::selectionAllPCode(LLPCode code)
 		f(const LLPCode& t) : mCode(t) {}
 		virtual bool apply(LLViewerObject* object)
 		{
-			if (object->getPCode() != mCode)
+			if (object->getPCode() != mCode && !gSavedSettings.getBOOL("AllowEditingOfTrees"))
 			{
 				return FALSE;
 			}
@@ -3446,6 +3471,17 @@ void LLSelectMgr::deselectAllIfTooFar()
 		return;
 	}
 
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+#ifdef RLV_EXTENSION_CMD_INTERACT
+	// [Fall-back code] Don't allow an active selection (except for HUD attachments - see above) when @interact=n restricted
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))
+	{
+		deselectAll();
+		return;
+	}
+#endif // RLV_EXTENSION_CMD_INTERACT
+// [/RLVa:KB]
+
 	// HACK: Don't deselect when we're navigating to rate an object's
 	// owner or creator.  JC
 	if (gPieObject->getVisible())
@@ -4282,6 +4318,12 @@ void LLSelectMgr::requestObjectPropertiesFamily(LLViewerObject* object)
 	msg->sendReliable( regionp->getHost() );
 }
 
+// static
+void LLSelectMgr::waitForObjectResponse(LLUUID id)
+{
+	if (sObjectPropertiesFamilyRequests.count(id) == 0)
+		sObjectPropertiesFamilyRequests.insert(id);
+}
 
 // static
 void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data)
@@ -4902,7 +4944,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 	if (mSelectedObjects->getNumNodes())
 	{
 		LLUUID inspect_item_id = LLFloaterInspect::getSelectedUUID();
-		
+		LLUUID focus_item_id = LLViewerMediaFocus::getInstance()->getSelectedUUID();
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
@@ -4916,7 +4958,11 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 				{
 					continue;
 				}
-				if(objectp->getID() == inspect_item_id)
+				if (objectp->getID() == focus_item_id)
+				{
+					node->renderOneSilhouette(gFocusMgr.getFocusColor());
+				}
+				else if(objectp->getID() == inspect_item_id)
 				{
 					node->renderOneSilhouette(sHighlightInspectColor);
 				}
@@ -4991,6 +5037,14 @@ void LLSelectMgr::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_
 	if (objectp && objectp->getPCode() == LL_PCODE_VOLUME)
 	{
 		((LLVOVolume*)objectp)->generateSilhouette(nodep, view_point);
+	}
+	else if (objectp && objectp->getPCode() == LL_PCODE_LEGACY_GRASS)
+	{
+		((LLVOGrass*)objectp)->generateSilhouette(nodep, view_point);
+	}
+	else if (objectp && objectp->getPCode() == LL_PCODE_LEGACY_TREE)
+	{
+		((LLVOTree*)objectp)->generateSilhouette(nodep, view_point);
 	}
 }
 
@@ -5327,8 +5381,10 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 		glMultMatrixf((F32*) objectp->getRenderMatrix().mMatrix);
 	}
 
-	LLVolume *volume = objectp->getVolume();
-	if (volume)
+	//LLVolume *volume = objectp->getVolume();
+	//if (volume)
+	// we used to only call this for volumes.  but let's render silhouettes for any node that has them.
+	if (1)
 	{
 		F32 silhouette_thickness;
 		if (is_hud_object && gAgent.getAvatarObject())

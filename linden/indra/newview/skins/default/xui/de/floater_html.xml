@@ -2,7 +2,6 @@
 <floater name="htmlfloater" title="">
 	<button label="Schließen" name="close_btn" />
 	<button label="Zurück" name="back_btn" />
-	<button label="Zuhause" name="home_btn" />
 	<button label="Weiter" name="forward_btn" />
 	<button label="Los" name="go_btn" />
 	<string name="home_page_url">

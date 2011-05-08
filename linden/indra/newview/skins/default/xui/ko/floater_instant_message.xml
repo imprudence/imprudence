@@ -21,6 +21,9 @@
 	<string name="default_text_label">
 		메신저를 사용하려면 여기를 클릭하십시오.
 	</string>
+	<string name="add_friend_string">
+		친구 추가
+	</string>
 	<flyout_button label="프로필" name="profile_callee_btn" />
 	<button label="음성연결" name="start_call_btn" />
 	<button label="연결종료" name="end_call_btn" />

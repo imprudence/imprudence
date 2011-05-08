@@ -103,6 +103,7 @@ public:
 	void setZCompare(const BOOL zcompare);
 	void setDoFade(const BOOL do_fade);
 	void setVisibleOffScreen(BOOL visible) { mVisibleOffScreen = visible; }
+	std::string getStringUTF8();
 	
 	// mMaxLines of -1 means unlimited lines.
 	void setMaxLines(S32 max_lines) { mMaxLines = max_lines; }

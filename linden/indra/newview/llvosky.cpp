@@ -78,9 +78,13 @@ static const LLVector2 TEX01 = LLVector2(0.f, 1.f);
 static const LLVector2 TEX10 = LLVector2(1.f, 0.f);
 static const LLVector2 TEX11 = LLVector2(1.f, 1.f);
 
-// Exported globals
+// Exported global semi-constants.
 LLUUID gSunTextureID = IMG_SUN;
 LLUUID gMoonTextureID = IMG_MOON;
+// Exported global constants.
+LLColor3 const gAirScaSeaLevel = calc_air_sca_sea_level();
+F32 const AIR_SCA_INTENS = color_intens(gAirScaSeaLevel);
+F32 const AIR_SCA_AVG = AIR_SCA_INTENS / 3.f;
 
 //static 
 LLColor3 LLHaze::sAirScaSeaLevel;
@@ -380,7 +384,7 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
 	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
-	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
+	mBloomTexturep = gImageList.getImageFromFile(IMG_BLOOM1.asString()+".j2c", TRUE, TRUE);/*gImageList.getImage(IMG_BLOOM1);*/
 	mBloomTexturep->setNoDelete() ;
 	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
@@ -476,7 +480,7 @@ void LLVOSky::restoreGL()
 	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
 	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
-	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
+	mBloomTexturep = gImageList.getImageFromFile(IMG_BLOOM1.asString()+".j2c", TRUE, TRUE);/*gImageList.getImage(IMG_BLOOM1);*/
 	mBloomTexturep->setNoDelete() ;
 	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
@@ -1023,7 +1027,10 @@ void LLVOSky::calcAtmospherics(void)
 
 	// Since WL scales everything by 2, there should always be at least a 2:1 brightness ratio
 	// between sunlight and point lights in windlight to normalize point lights.
-	F32 sun_dynamic_range = llmax(gSavedSettings.getF32("RenderSunDynamicRange"), 0.0001f);
+
+	static F32 *sRenderSunDynamicRange = rebind_llcontrol<F32>("RenderSunDynamicRange", &gSavedSettings, true);
+
+	F32 sun_dynamic_range = llmax((*sRenderSunDynamicRange), 0.0001f);
 	LLWLParamManager::instance()->mSceneLightStrength = 2.0f * (1.0f + sun_dynamic_range * dp);
 
 	mSunDiffuse = vary_SunlightColor;

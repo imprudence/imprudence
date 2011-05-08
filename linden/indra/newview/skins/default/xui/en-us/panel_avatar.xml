@@ -54,30 +54,30 @@
 			     mouse_opaque="true" name="online_no" v_pad="0" width="200">
         Currently: Offline
       </text>
-      <button bottom_delta="-19" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-23" font="SansSerif" halign="center" height="22"
 			     label="Instant Message..." label_selected="Instant Message..."
 			     right="-12" mouse_opaque="true" name="Instant Message..."
 			     tool_tip="Instant Message (IM)" width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="0" mouse_opaque="true" name="Offer Teleport..." width="145" />
-      <button bottom_delta="-34" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Add to Friends..." label_selected="Add to Friends..." left_delta="0"
 			     mouse_opaque="true" name="Add Friend..." width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22"
 			     label="Invite to Group..." label_selected="Invite to Group..." left_delta="0"
 			     mouse_opaque="true" name="Invite to Group..." width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20" label="Find on Map"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Find on Map"
 			     label_selected="Find on Map" left_delta="0" mouse_opaque="true"
 			     name="Find on Map" width="145" />
-      <button bottom_delta="-34" font="SansSerif" halign="center" height="20" label="Pay..."
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Pay..."
 			     label_selected="Pay..." left_delta="0" mouse_opaque="true" name="Pay..."
 			     width="145" />
-      <button bottom_delta="-23" font="SansSerif" halign="center" height="20" label="Mute"
+      <button bottom_delta="-26" font="SansSerif" halign="center" height="22" label="Mute"
 			     label_selected="Mute" left_delta="0" mouse_opaque="true" name="Mute"
 			     width="145" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+			     bottom="-227" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
 			     mouse_opaque="true" name="label" v_pad="0" width="145">
         Born:
@@ -127,6 +127,11 @@
 			     font="SansSerifSmall" height="16" is_unicode="false" left="12"
 			     max_length="254" mouse_opaque="false" name="name"
 			     width="155" />
+      <name_editor bevel_style="in" border_style="line" visible="false"
+			     border_thickness="1" bottom="-24" enabled="false" follows="left|top"
+			     font="SansSerifSmall" height="16" is_unicode="false" left_delta="0"
+			     max_length="254" mouse_opaque="false" name="complete_name"
+			     width="155" />
       <button bottom_delta="0" font="SansSerif" halign="center" height="20"
            label="Copy Key" label_selected="Copy Key"
            left_delta="157" mouse_opaque="true" name="btn_copy_uuid" width="80" />
@@ -138,12 +143,12 @@
 			     bottom_delta="-6" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
 			     mouse_opaque="true" name="About:" v_pad="0" width="170">
-        About (500 chars):
+        About (8196 chars):
       </text>
       <text_editor bottom_delta="-137" embedded_items="false"
 			     enabled="true" follows="left|top" font="SansSerifSmall" height="137"
-			     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"
-			     name="about" width="235" word_wrap="true" />
+			     is_unicode="false" left_delta="0" max_length="8196" mouse_opaque="true"
+			     name="about" width="235" word_wrap="true" spell_check="true" />
 
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
@@ -243,7 +248,7 @@
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Hire" left_delta="170" mouse_opaque="true"
 			     name="chk7" width="92" />
-      <line_editor bevel_style="in" border_style="line"
+      <line_editor bevel_style="in" border_style="line" spell_check="true"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
 			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="want_to_edit"
@@ -272,7 +277,7 @@
       <check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Custom Characters" left_delta="170"
 			     mouse_opaque="true" name="schk5" width="127" />
-      <line_editor bevel_style="in" border_style="line"
+      <line_editor bevel_style="in" border_style="line" spell_check="true"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
 			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="skills_edit"
@@ -283,7 +288,7 @@
 			     mouse_opaque="true" name="Languages:" v_pad="0" width="70">
         Languages:
       </text>
-      <line_editor bevel_style="in" border_style="line"
+      <line_editor bevel_style="in" border_style="line" spell_check="true"
 			     border_thickness="1" bottom_delta="0" enabled="true" follows="left|top"
 			     font="SansSerifSmall" height="16" is_unicode="false" left="80"
 			     max_length="254" mouse_opaque="true" name="languages_edit"
@@ -350,12 +355,12 @@
 			     bottom_delta="-8" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
 			     mouse_opaque="true" name="Info:" v_pad="0" width="161">
-        Info (250 chars):
+        Info (8196 chars):
       </text>
       <text_editor bottom_delta="-179" embedded_items="false"
 			     enabled="true" follows="left|top" font="SansSerifSmall" height="178"
-			     is_unicode="false" left="12" max_length="254" mouse_opaque="false"
-			     name="about" width="378" word_wrap="true" />
+			     is_unicode="false" left="12" max_length="8196" mouse_opaque="false"
+			     name="about" width="378" word_wrap="true" spell_check="true" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="My Notes" left="1" mouse_opaque="true" name="My Notes" width="418">
@@ -372,8 +377,8 @@
       </text>
       <text_editor bottom_delta="-260" embedded_items="false" enabled="true" follows="left|top"
 			     font="SansSerif" height="256" is_unicode="false" left="10"
-			     max_length="1023" mouse_opaque="true" name="notes edit" width="400"
-			     word_wrap="false" />
+			     max_length="8196" mouse_opaque="true" name="notes edit" width="400"
+			     word_wrap="false" spell_check="true" />
     </panel>
   </tab_container>
   <button bottom="-508" font="SansSerif" halign="center" height="20" label="OK"

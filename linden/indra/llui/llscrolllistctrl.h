@@ -163,10 +163,18 @@ public:
 	virtual void	setColor(const LLColor4&);
 	virtual BOOL	isText()const { return FALSE; }
 	virtual void	setValue(const LLSD& value);
+	// <edit>
+	void setClickCallback(BOOL (*callback)(void*), void* user_data);
+	virtual BOOL handleClick();
+	// </edit>
 
 private:
 	LLUIImagePtr mIcon;
 	LLColor4 mColor;
+	// <edit>
+	BOOL (*mCallback)(void*);
+	void* mUserData;
+	// </edit>
 };
 
 /*
@@ -233,6 +241,7 @@ public:
 
 	/*virtual*/ void draw();
 	/*virtual*/ BOOL handleDoubleClick(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ void showList();
 	/*virtual*/ LLView*	findSnapEdge(S32& new_edge_val, const LLCoordGL& mouse_dir, ESnapEdge snap_edge, ESnapType snap_type, S32 threshold, S32 padding);
@@ -344,6 +353,7 @@ public:
 	LLScrollListCtrl(
 		const std::string& name,
 		const LLRect& rect,
+		const LLFontGL* font,
 		void (*commit_callback)(LLUICtrl*, void*),
 		void* callback_userdata,
 		BOOL allow_multiple_selection,
@@ -423,6 +433,7 @@ public:
 
 	void			highlightNthItem( S32 index );
 	void			setDoubleClickCallback( void (*cb)(void*) ) { mOnDoubleClickCallback = cb; }
+	void			setRightMouseDownCallback( void (*cb)(S32 x, S32 y, void*) ) { mOnRightMouseDownCallback = cb; }
 	void			setMaximumSelectCallback( void (*cb)(void*) ) { mOnMaximumSelectCallback = cb; }
 	void			setSortChangedCallback( void (*cb)(void*) ) { mOnSortChangedCallback = cb; }
 
@@ -493,6 +504,9 @@ public:
 
 	virtual S32		getScrollPos() const;
 	virtual void	setScrollPos( S32 pos );
+	// <edit>
+	S32 getPageLines() { return mPageLines; }
+	// </edit>
 	S32 getSearchColumn();
 	void			setSearchColumn(S32 column) { mSearchColumn = column; }
 	S32				getColumnIndexFromOffset(S32 x);
@@ -506,6 +520,7 @@ public:
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ BOOL	handleUnicodeCharHere(llwchar uni_char);
@@ -649,6 +664,7 @@ private:
 
 	S32				mBorderThickness;
 	void			(*mOnDoubleClickCallback)(void* userdata);
+	void			(*mOnRightMouseDownCallback)(S32 x, S32 y, void* userdata);
 	void			(*mOnMaximumSelectCallback)(void* userdata );
 	void			(*mOnSortChangedCallback)(void* userdata);
 
@@ -679,6 +695,8 @@ private:
 
 	// HACK:  Did we draw one selected item this frame?
 	BOOL mDrewSelected;
+
+	const LLFontGL*	mGLFont;
 }; // end class LLScrollListCtrl
 
 

@@ -61,7 +61,7 @@
   
   <text_editor type="string" length="1" bottom_delta="-85" embedded_items="false" enabled="true"
      follows="left|top" font="SansSerifSmall" height="75" left_delta="-15" max_length="1100"
-     mouse_opaque="true" name="im_response" width="245" word_wrap="true"/>
+     mouse_opaque="true" name="im_response" width="245" word_wrap="true" spell_check="true" />
 
   <check_box bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
      initial_value="false" label="Send an item along with the response" left_delta="0"

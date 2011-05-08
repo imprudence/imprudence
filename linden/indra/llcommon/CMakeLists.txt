@@ -4,6 +4,7 @@ project(llcommon)
 
 include(00-Common)
 include(LLCommon)
+include(Linking)
 
 include_directories(
     ${EXPAT_INCLUDE_DIRS}
@@ -12,9 +13,13 @@ include_directories(
     )
 
 set(llcommon_SOURCE_FILES
+    aiaprpool.cpp
+    imageids.cpp
+    indra_constants.cpp
     llapp.cpp
     llapr.cpp
     llassettype.cpp
+    llavatarname.cpp
     llbase32.cpp
     llbase64.cpp
     llcommon.cpp
@@ -42,6 +47,7 @@ set(llcommon_SOURCE_FILES
     llmetrics.cpp
     llmortician.cpp
     llprocessor.cpp
+    llprocesslauncher.cpp
     llqueuedthread.cpp
     llrand.cpp
     llrun.cpp
@@ -70,6 +76,8 @@ set(llcommon_SOURCE_FILES
 set(llcommon_HEADER_FILES
     CMakeLists.txt
 
+    aiaprpool.h
+    aithreadsafe.h
     bitpack.h
     ctype_workaround.h
     doublelinkedlist.h
@@ -83,6 +91,7 @@ set(llcommon_HEADER_FILES
     llassettype.h
     llassoclist.h
     llavatarconstants.h
+    llavatarname.h
     llbase32.h
     llbase64.h
     llboost.h
@@ -136,12 +145,14 @@ set(llcommon_HEADER_FILES
     llnametable.h
     llpreprocessor.h
     llpriqueuemap.h
+    llprocesslauncher.h
     llprocessor.h
     llptrskiplist.h
     llptrskipmap.h
     llqueuedthread.h
     llrand.h
     llrun.h
+    llscopedvolatileaprpool.h
     llsd.h
     llsdserialize.h
     llsdserialize_xml.h
@@ -188,11 +199,22 @@ set_source_files_properties(${llcommon_HEADER_FILES}
 
 list(APPEND llcommon_SOURCE_FILES ${llcommon_HEADER_FILES})
 
-add_library (llcommon ${llcommon_SOURCE_FILES})
+add_library (llcommon SHARED ${llcommon_SOURCE_FILES})
 target_link_libraries(
     llcommon
     ${APRUTIL_LIBRARIES}
     ${APR_LIBRARIES}
     ${EXPAT_LIBRARIES}
     ${ZLIB_LIBRARIES}
+    ${WINDOWS_LIBRARIES}
     )
+
+if (DARWIN)
+  # don't embed a full path in the library's install name
+  set_target_properties(
+    llcommon
+    PROPERTIES
+    BUILD_WITH_INSTALL_RPATH 1
+    INSTALL_NAME_DIR "@executable_path/../Resources"
+    )
+endif (DARWIN)

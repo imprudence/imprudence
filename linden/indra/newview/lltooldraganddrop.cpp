@@ -72,6 +72,10 @@
 #include "llparcel.h" // RezWithLandGroup
 #include "llviewerparcelmgr.h" // RezWithLandGroup
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+#include "hippolimits.h"
 
 // MAX ITEMS is based on (sizeof(uuid)+2) * count must be < MTUBYTES
 // or 18 * count < 1200 => count < 1200/18 => 66. I've cut it down a
@@ -1676,8 +1680,10 @@ void LLToolDragAndDrop::giveInventoryCategory(const LLUUID& to_agent,
 		LLNotifications::instance().add("IncompleteInventory");
 		return;
 	}
+
  	count = items.count() + cats.count();
- 	if(count > MAX_ITEMS)
+ 	if(count > gHippoLimits->getMaxInventoryItemsTransfer() &&
+		gHippoLimits->getMaxInventoryItemsTransfer() != -1) //MAX_ITEMS)
   	{
 		LLNotifications::instance().add("TooManyItems");
   		return;
@@ -1773,8 +1779,9 @@ void LLToolDragAndDrop::commitGiveInventoryCategory(const LLUUID& to_agent,
 	// MTUBYTES or 18 * count < 1200 => count < 1200/18 =>
 	// 66. I've cut it down a bit from there to give some pad.
  	S32 count = items.count() + cats.count();
- 	if(count > MAX_ITEMS)
-  	{
+ 	if(count > gHippoLimits->getMaxInventoryItemsTransfer() &&
+		gHippoLimits->getMaxInventoryItemsTransfer() != -1) //MAX_ITEMS)
+	{
 		LLNotifications::instance().add("TooManyItems");
   		return;
   	}
@@ -2183,8 +2190,8 @@ EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
 EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
 {
-// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))) )
 	{
 		return ACCEPT_NO_LOCKED;
 	}
@@ -2253,9 +2260,12 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
 	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
 {
-// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
-	// NOTE: if (mask & MASK_CONTROL) then it's a drop rather than a rez, so we let that pass through
-	if ( !(mask & MASK_CONTROL) && (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	// NOTE: if (mask & MASK_CONTROL) then it's a drop rather than a rez, so we let that pass through when @rez=n restricted
+	// (but not when @interact=n restricted unless the drop target is a HUD attachment)
+	if ( (rlv_handler_t::isEnabled()) &&
+		 ( ( (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) && ((mask & MASK_CONTROL) == 0) ) ||
+		   ( (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT)) && (((mask & MASK_CONTROL) == 0) || (!obj->isHUDAttachment())) ) ) )
 	{
 		return ACCEPT_NO_LOCKED;
 	}
@@ -2844,9 +2854,9 @@ EAcceptance LLToolDragAndDrop::dad3dGiveInventoryCategory(
 EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnLand(
 	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
 {
-// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
-	// NOTE: it looks like this is only ever called from LLToolDragAndDrop::dad3dRezObjectOnLand() making this a bit redundant
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	// [Fall-back code] Looks like this is only ever called from LLToolDragAndDrop::dad3dRezObjectOnObject()
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))) )
 	{
 		return ACCEPT_NO_LOCKED;
 	}
@@ -2873,9 +2883,9 @@ EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnLand(
 EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnObject(
 	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
 {
-// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
-	// NOTE: it looks like this is only ever called from LLToolDragAndDrop::dad3dRezObjectOnObject) making this a bit redundant
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
+	// [Fall-back code] Looks like this is only ever called from LLToolDragAndDrop::dad3dRezObjectOnObject()
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) || (gRlvHandler.hasBehaviour(RLV_BHVR_INTERACT))) )
 	{
 		return ACCEPT_NO_LOCKED;
 	}

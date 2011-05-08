@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2009, Linden Research, Inc.
+ * Copyright (c) 2006-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -32,6 +32,8 @@
  */
 
 #include <AppKit/AppKit.h>
+#include <Accelerate/Accelerate.h>
+#include <Quartz/Quartz.h>
 
 /*
  * These functions are broken out into a separate file because the
@@ -41,6 +43,68 @@
  */
 
 #include "llwindowmacosx-objc.h"
+#include "lldir.h"
+
+BOOL decodeImageQuartz(const UInt8* data, int len, LLImageRaw *raw_image, std::string ext)
+{
+	CFDataRef theData = CFDataCreate(kCFAllocatorDefault, data, len);
+
+	CGImageSourceRef srcRef = CGImageSourceCreateWithData(theData, NULL);
+	CGImageRef image_ref = CGImageSourceCreateImageAtIndex(srcRef, 0, NULL);
+	CFRelease(srcRef);
+
+	size_t width = CGImageGetWidth(image_ref);
+	size_t height = CGImageGetHeight(image_ref);
+	size_t comps = CGImageGetBitsPerPixel(image_ref) / 8;
+	size_t bytes_per_row = CGImageGetBytesPerRow(image_ref);
+	CFDataRef result = CGDataProviderCopyData(CGImageGetDataProvider(image_ref));
+	UInt8* bitmap = (UInt8*)CFDataGetBytePtr(result);
+
+	CGImageAlphaInfo format = CGImageGetAlphaInfo(image_ref);
+	if (comps == 4)
+	{
+		vImage_Buffer vb;
+		vb.data = bitmap;
+		vb.height = height;
+		vb.width = width;
+		vb.rowBytes = bytes_per_row;
+
+		if (format & kCGImageAlphaPremultipliedFirst)
+		{
+			// Ele: Skip unpremultiplication for PSD, PNG and TGA files
+			if (ext != std::string("psd") && ext != std::string("tga") && ext != std::string("png"))
+				vImageUnpremultiplyData_ARGB8888(&vb, &vb, 0);
+		}
+		else if (format & kCGImageAlphaPremultipliedLast)
+		{
+			// Ele: Photoshop Native Transparency needs unmultiplication
+			vImageUnpremultiplyData_RGBA8888(&vb, &vb, 0);
+		}
+	}
+
+	raw_image->resize(width, height, comps);
+	memcpy(raw_image->getData(), bitmap, height * bytes_per_row);
+	raw_image->verticalFlip();
+
+	CFRelease(theData);
+	CGImageRelease(image_ref);
+	CFRelease(result);
+
+	return TRUE;
+}
+
+BOOL decodeImageQuartz(std::string filename, LLImageRaw *raw_image)
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSURL *url = [[NSURL alloc] initFileURLWithPath:[NSString stringWithCString:filename.c_str()]];
+	NSData *data = [NSData dataWithContentsOfURL:url];
+
+	std::string ext = gDirUtilp->getExtension(filename);
+
+	BOOL result = decodeImageQuartz((UInt8*)[data bytes], [data length], raw_image, ext);
+	[pool release];
+	return result;
+}
 
 void setupCocoa()
 {
@@ -116,4 +180,3 @@ OSErr setImageCursor(CursorRef ref)
 	
 	return noErr;
 }
-

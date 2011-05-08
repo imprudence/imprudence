@@ -6,6 +6,7 @@
 
 include(CMakeCopyIfDifferent)
 
+# Copying vivox's alut.dll breaks inworld audio, never use it
 set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")
 set(vivox_files
     SLVoice.exe
@@ -14,75 +15,84 @@ set(vivox_files
     ortp.dll
     wrap_oal.dll
     )
+copy_if_different(
+    ${vivox_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/Debug"
+    out_targets
+    ${vivox_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
 
 set(debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
 set(debug_files
     alut.dll
-    freebl3.dll
-    js3250.dll
-    nspr4.dll
-    nss3.dll
-    nssckbi.dll
     openal32.dll
     openjpegd.dll
-    plc4.dll
-    plds4.dll
-    smime3.dll
-    softokn3.dll
-    ssl3.dll
-    xpcom.dll
-    xul.dll
-    windbgdlg.exe
-    iconv.dll
-    libxml2.dll
-	libcairo-2.dll
+    libhunspell.dll
+    libapr-1.dll
+    libaprutil-1.dll
+    libapriconv-1.dll
+	
+	# gstreamer streaming files below
+	avcodec-gpl-52.dll
+	avdevice-gpl-52.dll
+	avfilter-gpl-1.dll
+	avformat-gpl-52.dll
+	avutil-gpl-50.dll
+	iconv.dll
+	liba52-0.dll
+	libbz2.dll
+	libcelt-0.dll
+	libdca-0.dll
+	libexpat-1.dll
 	libfaad-2.dll
-    libgio-2.0-0.dll
-    libglib-2.0-0.dll
-    libgmodule-2.0-0.dll
-    libgobject-2.0-0.dll
-    libgthread-2.0-0.dll
-    charset.dll
-	intl.dll
+	libFLAC-8.dll
 	libgcrypt-11.dll
+	libgio-2.0-0.dll
+	libglib-2.0-0.dll
+	libgmodule-2.0-0.dll
 	libgnutls-26.dll
+	libgobject-2.0-0.dll
 	libgpg-error-0.dll
-	libgstapp.dll
-	libgstaudio.dll
+	libgstapp-0.10.dll
 	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
-	libgstcdda.dll
 	libgstcontroller-0.10.dll
 	libgstdataprotocol-0.10.dll
-	libgstdshow.dll
-	libgstfft.dll
-	libgstinterfaces.dll
+	libgstfft-0.10.dll
+	libgstinterfaces-0.10.dll
 	libgstnet-0.10.dll
-	libgstnetbuffer.dll
-	libgstpbutils.dll
+	libgstnetbuffer-0.10.dll
+	libgstpbutils-0.10.dll
+	libgstphotography-0.10.dll
 	libgstreamer-0.10.dll
-	libgstriff.dll
-	libgstrtp.dll
-	libgstrtsp.dll
-	libgstsdp.dll
-	libgsttag.dll
-	libgstvideo.dll
-	libjpeg.dll
-	libmp3lame-0.dll
+	libgstriff-0.10.dll
+	libgstrtp-0.10.dll
+	libgstrtsp-0.10.dll
+	libgstsdp-0.10.dll
+	libgstsignalprocessor-0.10.dll
+	libgsttag-0.10.dll
+	libgstvideo-0.10.dll
+	libgthread-2.0-0.dll
+	libmms-0.dll
+	libmpeg2-0.dll
 	libneon-27.dll
 	libogg-0.dll
 	liboil-0.3-0.dll
-	libopenjpeg-2.dll
-	libpng12-0.dll
-	libschroedinger-1.0-0.dll
-	libspeex-1.dll
+	libsoup-2.4-1.dll
+	libtasn1-3.dll
 	libtheora-0.dll
+	libtheoradec-1.dll
 	libvorbis-0.dll
 	libvorbisenc-2.dll
+	libvorbisfile-3.dll
+	libwavpack-1.dll
+	libx264-67.dll
 	libxml2-2.dll
-	glew32.dll
-    xvidcore.dll
-    zlib1.dll
+	libxml2.dll
+	SDL.dll
+	xvidcore.dll
+	z.dll
     )
 
 copy_if_different(
@@ -93,81 +103,240 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
+# Debug config runtime files required for the plugin test mule
+set(plugintest_debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
+set(plugintest_debug_files
+    libeay32.dll
+    qtcored4.dll
+    qtguid4.dll
+    qtnetworkd4.dll
+    qtopengld4.dll
+    qtwebkitd4.dll
+	qtxmlpatternsd4.dll
+    ssleay32.dll
+    )
 copy_if_different(
-    ${vivox_src_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/Debug"
-    out_targets 
-    ${vivox_files}
+    ${plugintest_debug_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/Debug"
+    out_targets
+    ${plugintest_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+# Debug config runtime files required for the plugin test mule (Qt image format plugins)
+set(plugintest_debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug/imageformats")
+set(plugintest_debug_files
+    qgifd4.dll
+    qicod4.dll
+    qjpegd4.dll
+    qmngd4.dll
+    qsvgd4.dll
+    qtiffd4.dll
+    )
+copy_if_different(
+    ${plugintest_debug_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/Debug/imageformats"
+    out_targets
+    ${plugintest_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_debug_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/llplugin/imageformats"
+    out_targets
+    ${plugintest_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+# Release & ReleaseDebInfo config runtime files required for the plugin test mule
+set(plugintest_release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
+set(plugintest_release_files
+    libeay32.dll
+    qtcore4.dll
+    qtgui4.dll
+    qtnetwork4.dll
+    qtopengl4.dll
+    qtwebkit4.dll
+	qtxmlpatterns4.dll
+    ssleay32.dll
+    )
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/Release"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/RelWithDebInfo"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+# Release & ReleaseDebInfo config runtime files required for the plugin test mule (Qt image format plugins)
+set(plugintest_release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/imageformats")
+set(plugintest_release_files
+    qgif4.dll
+    qico4.dll
+    qjpeg4.dll
+    qmng4.dll
+    qsvg4.dll
+    qtiff4.dll
+    )
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/Release/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/RelWithDebInfo/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/Release/llplugin/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/llplugin/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+# Debug config runtime files required for the plugins
+set(plugins_debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
+set(plugins_debug_files
+    libeay32.dll
+    qtcored4.dll
+    qtguid4.dll
+    qtnetworkd4.dll
+    qtopengld4.dll
+    qtwebkitd4.dll
+	qtxmlpatternsd4.dll
+    ssleay32.dll
+    )
+copy_if_different(
+    ${plugins_debug_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/Debug/llplugin"
+    out_targets
+    ${plugins_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+# Release & ReleaseDebInfo config runtime files required for the plugins
+set(plugins_release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
+set(plugins_release_files
+    libeay32.dll
+    qtcore4.dll
+    qtgui4.dll
+    qtnetwork4.dll
+    qtopengl4.dll
+    qtwebkit4.dll
+	qtxmlpatterns4.dll
+    ssleay32.dll
+    )
+copy_if_different(
+    ${plugins_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/Release/llplugin"
+    out_targets
+    ${plugins_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugins_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/llplugin"
+    out_targets
+    ${plugins_release_files}
     )
 set(all_targets ${all_targets} ${out_targets})
 
 set(release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
 set(release_files
     alut.dll
-    freebl3.dll
-    js3250.dll
-    nspr4.dll
-    nss3.dll
-    nssckbi.dll
     openal32.dll
     openjpeg.dll
-    plc4.dll
-    plds4.dll
-    smime3.dll
-    softokn3.dll
-    ssl3.dll
-    xpcom.dll
-    xul.dll
-    iconv.dll
-    libxml2.dll
-	libcairo-2.dll
+    libhunspell.dll
+    libapr-1.dll
+    libaprutil-1.dll
+    libapriconv-1.dll
+	
+	# gstreamer streaming files below
+	avcodec-gpl-52.dll
+	avdevice-gpl-52.dll
+	avfilter-gpl-1.dll
+	avformat-gpl-52.dll
+	avutil-gpl-50.dll
+	iconv.dll
+	liba52-0.dll
+	libbz2.dll
+	libcelt-0.dll
+	libdca-0.dll
+	libexpat-1.dll
 	libfaad-2.dll
-    libgio-2.0-0.dll
-    libglib-2.0-0.dll
-    libgmodule-2.0-0.dll
-    libgobject-2.0-0.dll
-    libgthread-2.0-0.dll
-	charset.dll
-	intl.dll
+	libFLAC-8.dll
 	libgcrypt-11.dll
+	libgio-2.0-0.dll
+	libglib-2.0-0.dll
+	libgmodule-2.0-0.dll
 	libgnutls-26.dll
+	libgobject-2.0-0.dll
 	libgpg-error-0.dll
-	libgstapp.dll
-	libgstaudio.dll
+	libgstapp-0.10.dll
 	libgstaudio-0.10.dll
 	libgstbase-0.10.dll
-	libgstcdda.dll
 	libgstcontroller-0.10.dll
 	libgstdataprotocol-0.10.dll
-	libgstdshow.dll
-	libgstfft.dll
-	libgstinterfaces.dll
+	libgstfft-0.10.dll
+	libgstinterfaces-0.10.dll
 	libgstnet-0.10.dll
-	libgstnetbuffer.dll
-	libgstpbutils.dll
+	libgstnetbuffer-0.10.dll
+	libgstpbutils-0.10.dll
+	libgstphotography-0.10.dll
 	libgstreamer-0.10.dll
-	libgstriff.dll
-	libgstrtp.dll
-	libgstrtsp.dll
-	libgstsdp.dll
-	libgsttag.dll
-	libgstvideo.dll
-	libjpeg.dll
-	libmp3lame-0.dll
+	libgstriff-0.10.dll
+	libgstrtp-0.10.dll
+	libgstrtsp-0.10.dll
+	libgstsdp-0.10.dll
+	libgstsignalprocessor-0.10.dll
+	libgsttag-0.10.dll
+	libgstvideo-0.10.dll
+	libgthread-2.0-0.dll
+	libmms-0.dll
+	libmpeg2-0.dll
 	libneon-27.dll
 	libogg-0.dll
 	liboil-0.3-0.dll
-	libopenjpeg-2.dll
-	libpng12-0.dll
-	libschroedinger-1.0-0.dll
-	libspeex-1.dll
+	libsoup-2.4-1.dll
+	libtasn1-3.dll
 	libtheora-0.dll
+	libtheoradec-1.dll
 	libvorbis-0.dll
 	libvorbisenc-2.dll
+	libvorbisfile-3.dll
+	libwavpack-1.dll
+	libx264-67.dll
 	libxml2-2.dll
-	glew32.dll
-    xvidcore.dll
-    zlib1.dll
+	libxml2.dll
+	SDL.dll
+	xvidcore.dll
+	z.dll
     )
     
 copy_if_different(

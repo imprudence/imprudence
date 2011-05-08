@@ -64,10 +64,18 @@
 #include "llselectmgr.h"
 #include "pipeline.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const S32 MIN_QUIET_FRAMES_COALESCE = 30;
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
 
+static const F32 sSculptSAThresh = 1750.f;	// Surface area at which sculpts are considered for not being rendered
+static const F32 sSculptSAMax = 50000.f;	// The maximum combined surface area of sculpts(per frame) that are above the 
+											// threshold before they stop being rendered
+		
 BOOL gAnimateTextures = TRUE;
 extern BOOL gHideSelectedObjects;
 
@@ -91,6 +99,7 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mNumFaces = 0;
 	mLODChanged = FALSE;
 	mSculptChanged = FALSE;
+	mIndexInTex = 0;
 }
 
 LLVOVolume::~LLVOVolume()
@@ -530,15 +539,15 @@ void LLVOVolume::updateTextureVirtualSize()
 				(texture_discard < current_discard || //texture has more data than last rebuild
 				current_discard < 0)) //no previous rebuild
 			{
-				gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
+				markForUpdate(FALSE);
 				mSculptChanged = TRUE;
 			}
 
 			if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SCULPTED))
 			{
-				setDebugText(llformat("T%d C%d V%d\n%dx%d",
+				setDebugText(llformat("T%d C%d V%d\n%dx%d SA%f",
 										  texture_discard, current_discard, getVolume()->getSculptLevel(),
-										  mSculptTexture->getHeight(), mSculptTexture->getWidth()));
+										  mSculptTexture->getHeight(), mSculptTexture->getWidth(), mSculptSurfaceArea));
 			}
 		}
 	}
@@ -685,11 +694,13 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &volume_params, const S32 detail
 			{
 				sculpt();
 				mSculptLevel = getVolume()->getSculptLevel();
+				mSculptSurfaceArea = getVolume()->sculptGetSurfaceArea();
 			}
 		}
 		else
 		{
 			mSculptTexture = NULL;
+			mSculptSurfaceArea = 0.0;
 		}
 
 		return TRUE;
@@ -750,6 +761,16 @@ void LLVOVolume::sculpt()
 			sculpt_data = raw_image->getData();
 		}
 		getVolume()->sculpt(sculpt_width, sculpt_height, sculpt_components, sculpt_data, discard_level);
+
+		/*//notify rebuild any other VOVolumes that reference this sculpty volume
+		for (S32 i = 0; i < mSculptTexture->getNumVolumes(); ++i)
+		{
+			LLVOVolume* volume = (*(mSculptTexture->getVolumeList()))[i];
+			if (volume && volume != this && volume->getVolume() == getVolume())
+			{
+				gPipeline.markRebuild(volume->mDrawable, LLDrawable::REBUILD_GEOMETRY, FALSE);
+			}
+		}*/
 	}
 }
 
@@ -1694,7 +1715,7 @@ void LLVOVolume::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_p
 			trans_mat.translate(getRegion()->getOriginAgent());
 		}
 
-		volume->generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals, nodep->mSilhouetteSegments, view_vector, trans_mat, mRelativeXformInvTrans);
+		volume->generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals, nodep->mSilhouetteSegments, view_vector, trans_mat, mRelativeXformInvTrans, nodep->getTESelectMask());
 
 		nodep->mSilhouetteExists = TRUE;
 	}
@@ -1989,7 +2010,7 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& e
 		if (face == -1)
 		{
 			start_face = 0;
-			end_face = volume->getNumFaces();
+			end_face = volume->getNumVolumeFaces();
 		}
 		else
 		{
@@ -2231,8 +2252,13 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 	std::vector<LLFace*> alpha_faces;
 	U32 useage = group->mSpatialPartition->mBufferUsage;
 
-	U32 max_vertices = (gSavedSettings.getS32("RenderMaxVBOSize")*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
-	U32 max_total = (gSavedSettings.getS32("RenderMaxNodeSize")*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
+
+	static S32* sRenderMaxVBOSize = rebind_llcontrol<S32>("RenderMaxVBOSize", &gSavedSettings, true);
+	static S32* sRenderMaxNodeSize = rebind_llcontrol<S32>("RenderMaxNodeSize", &gSavedSettings, true);
+
+
+	U32 max_vertices = ((*sRenderMaxVBOSize)*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
+	U32 max_total = ((*sRenderMaxNodeSize)*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
 	max_vertices = llmin(max_vertices, (U32) 65535);
 
 	U32 cur_total = 0;
@@ -2253,6 +2279,16 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		}
 
 		LLVOVolume* vobj = drawablep->getVOVolume();
+
+		if (vobj->mSculptSurfaceArea > sSculptSAThresh)
+		{
+		    LLPipeline::sSculptSurfaceAreaFrame += vobj->mSculptSurfaceArea;
+		    if(LLPipeline::sSculptSurfaceAreaFrame > sSculptSAMax)
+		    {
+		      continue;
+		    }
+		}
+		
 		llassert_always(vobj);
 		vobj->updateTextureVirtualSize();
 		vobj->preRebuild();
@@ -2505,8 +2541,9 @@ void LLVolumeGeometryManager::rebuildMesh(LLSpatialGroup* group)
 
 void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, std::vector<LLFace*>& faces, BOOL distance_sort)
 {
+	static S32* sRenderMaxVBOSize = rebind_llcontrol<S32>("RenderMaxVBOSize", &gSavedSettings, true);
 	//calculate maximum number of vertices to store in a single buffer
-	U32 max_vertices = (gSavedSettings.getS32("RenderMaxVBOSize")*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
+	U32 max_vertices = ((*sRenderMaxVBOSize)*1024)/LLVertexBuffer::calcStride(group->mSpatialPartition->mVertexDataMask);
 	max_vertices = llmin(max_vertices, (U32) 65535);
 
 	if (!distance_sort)

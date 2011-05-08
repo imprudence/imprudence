@@ -33,9 +33,25 @@
 	<string name="unavailable_text_label">
 		Für diese Verbindung ist kein Text-Chat verfügbar.
 	</string>
+	<string name="add_friend_string">
+		Freund hinzufügen
+	</string>
 	<flyout_button label="Profil..." name="profile_callee_btn"/>
+    <flyout_button_item name="history_entry">
+      Verlauf anzeigen
+    </flyout_button_item>
+    <flyout_button_item name="pay_entry">
+      Bezahlen
+    </flyout_button_item>
+    <flyout_button_name="teleport_entry">
+     Teleport anbieten
+    </flyout_button_item>
+  </flyout_button>
 	<button label="Anrufen" name="start_call_btn" pad_right="7" width="115"/>
 	<button halign="right" label="Anruf beenden" name="end_call_btn" width="115"/>
+  <text name="inventory_send">
+    Inventar hier hereinziehen (Drag & Drop), um es zu senden
+  </text>
 	<panel left_delta="111" name="speaker_controls">
 		<button label="" name="mute_btn" tool_tip="Voice stummschalten"/>
 	</panel>

@@ -218,6 +218,7 @@ public:
 	BOOL					needsRender();
 	void					requestUpdate();
 	void					requestUpload();
+	void					requestDelayedUpload(U64 delay_usec);
 	void					cancelUpload();
 	BOOL					uploadPending() { return mUploadPending; }
 	BOOL					render( S32 x, S32 y, S32 width, S32 height );
@@ -234,12 +235,15 @@ public:
 private:
 	void					pushProjection();
 	void					popProjection();
+	BOOL					needsUploadNow() const;
 
 private:
 	BOOL					mNeedsUpdate;
 	BOOL					mNeedsUpload;
 	BOOL					mUploadPending;
 	LLUUID					mUploadID;		// Identifys the current upload process (null if none).  Used to avoid overlaps (eg, when the user rapidly makes two changes outside of Face Edit)
+	S32						mUploadFailCount;
+	U64						mUploadAfter;	// delay upload until after this time (in microseconds)
 	LLTexLayerSet*			mTexLayerSet;
 
 	static S32				sGLByteCount;

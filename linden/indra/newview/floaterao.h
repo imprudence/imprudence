@@ -51,6 +51,7 @@ public:
 class AOInvTimer : public LLEventTimer
 {
 public:
+	static BOOL fullfetch;
 	AOInvTimer();
 	~AOInvTimer();
 	BOOL tick();

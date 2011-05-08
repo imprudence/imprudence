@@ -31,7 +31,7 @@
 		Wiederverkauf möglich oder nicht möglich.
 	</text>
 	<text name="changeable_clause">
-		Darft oder darf nicht zusammengelegt/unterteilt werden.
+		Darf oder darf nicht zusammengelegt/unterteilt werden.
 	</text>
 	<text name="covenant_text">
 		Sie müssen dem Grundstücksvertrag zustimmen:
@@ -99,7 +99,7 @@ Diese Parzelle ist 512 qm groß.
 		Sie haben 2.100 L$.
 	</text>
 	<text name="currency_action">
-		Mehr L$ kaufen
+		Mehr [CURRENCY] kaufen
 	</text>
 	<line_editor name="currency_amt">
 		1000
@@ -114,10 +114,10 @@ Diese Parzelle ist 512 qm groß.
 	<button label="Kaufen" name="buy_btn"/>
 	<button label="Abbrechen" name="cancel_btn"/>
 	<string name="can_resell">
-		Verkauf möglich.
+		Weiterverkauf möglich.
 	</string>
 	<string name="can_not_resell">
-		Verkauf nicht möglich.
+		Weiterverkauf nicht möglich.
 	</string>
 	<string name="can_change">
 		Zusammenlegen/unterteilen möglich.
@@ -126,7 +126,7 @@ Diese Parzelle ist 512 qm groß.
 		Zusammenlegen/unterteilen nicht möglich.
 	</string>
 	<string name="cant_buy_for_group">
-		Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
+		Sie sind nicht berechtigt, Land für Ihre aktive Gruppe zu kaufen.
 	</string>
 	<string name="no_land_selected">
 		Kein Land ausgewählt.
@@ -136,7 +136,7 @@ Diese Parzelle ist 512 qm groß.
 Verkleinern Sie Ihre Auswahl.
 	</string>
 	<string name="no_permission">
-		Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
+		Sie sind nicht berechtigt, Land für Ihre aktive Gruppe zu kaufen.
 	</string>
 	<string name="parcel_not_for_sale">
 		Die ausgewählte Parzelle steht nicht zum Verkauf.
@@ -169,7 +169,7 @@ Verkleinern Sie Ihre Auswahl.
 		Bei Landkauf:
 	</string>
 	<string name="buying_for_group">
-		Landkauf für Gruppe:
+		Bei Landkauf für Gruppe:
 	</string>
 	<string name="cannot_buy_now">
 		Kaufen jetzt nicht möglich:
@@ -181,7 +181,7 @@ Verkleinern Sie Ihre Auswahl.
 		nicht benötigt
 	</string>
 	<string name="must_upgrade">
-		Sie müssen Ihr Konto upgraden, um Land kaufen zu können.
+		Sie müssen Ihr Konto erweitern, um Land kaufen zu können.
 	</string>
 	<string name="cant_own_land">
 		Mit Ihrem Konto können Sie Land kaufen.
@@ -190,10 +190,10 @@ Verkleinern Sie Ihre Auswahl.
 		Sie besitzen [BUYER] qm Land.
 	</string>
 	<string name="pay_to_for_land">
-		[SELLER] [AMOUNT] L$ für das Land bezahlen
+		[SELLER] [AMOUNT] [CURRENCY] für das Land bezahlen
 	</string>
 	<string name="buy_for_US">
-		[AMOUNT] L$ für circa [AMOUNT2] US$ kaufen,
+		[AMOUNT] [CURRENCY] für circa [AMOUNT2] US$ kaufen,
 	</string>
 	<string name="parcel_meters">
 		Diese Parzelle ist [AMOUNT] qm groß.
@@ -215,29 +215,29 @@ unterstützt [AMOUNT2] Objekte
 		Objekte nicht im Verkauf mit eingeschlossen
 	</string>
 	<string name="info_price_string">
-		[PRICE] L$
-([PRICE_PER_SQM] L$/qm)
+		[PRICE] [CURRENCY] 
+([PRICE_PER_SQM] [CURRENCY] /qm)
 [SOLD_WITH_OBJECTS]
 	</string>
 	<string name="insufficient_land_credits">
 		Die Gruppe [GROUP] benötigt ausreichende gespendete Landnutzungsrechte, um die Parzelle abzudecken, bevor der Kauf abgeschlossen werden kann.
 	</string>
 	<string name="have_enough_lindens">
-		Sie haben [AMOUNT] L$, genug zum Kauf dieses Landes.
+		Sie haben [AMOUNT] [CURRENCY], genug zum Kauf dieses Landes.
 	</string>
 	<string name="not_enough_lindens">
-		Sie haben nur [AMOUNT] L$, brauchen aber mindestens [AMOUNT2] L$.
+		Sie haben nur [AMOUNT] [CURRENCY] , brauchen aber mindestens [AMOUNT2] [CURRENCY] .
 	</string>
 	<string name="balance_left">
-		Nach dem Einkauf verbleiben Ihnen noch [AMOUNT] L$.
+		Nach dem Einkauf verbleiben Ihnen noch [AMOUNT] [CURRENCY].
 	</string>
 	<string name="balance_needed">
-		Für dieses Land müssen Sie mindestens [AMOUNT] L$ kaufen.
+		Für dieses Land müssen Sie mindestens [AMOUNT] [CURRENCY]  kaufen.
 	</string>
 	<string name="no_parcel_selected">
 		(keine Parzelle ausgewählt)
 	</string>
 	<string name="buy_currency">
-		[LINDENS] L$ für ca. [USD] US$ kaufen
+		[LINDENS] [CURRENCY] für ca. [USD] US$ kaufen
 	</string>
 </floater>

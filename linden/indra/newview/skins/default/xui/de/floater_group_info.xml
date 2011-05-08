@@ -15,10 +15,10 @@
 				Jede Person kann eine Gruppe erstellen. Eine Person kann maximal zu 15 Gruppen gehören.
 			</text>
 			<text name="txt4">
-				Gruppen müssen aus mindestens 3 Mitgliedern bestehen.
+				Aktive Gruppen müssen aus mindestens 3 Mitgliedern bestehen.
 			</text>
 			<text name="group_create_text">
-				Die Gründung einer Gruppe kostet 100 L$.
+				Die Gründung einer Gruppe kostet 100 [CURRENCY].
 			</text>
 			<text name="lbl">
 				Name:
@@ -33,20 +33,20 @@
 			<check_box label="Mitglieder in Gruppenliste anzeigen" name="sho_mem"/>
 			<check_box label="Im Web veröffentlichen." name="allow_publish" tool_tip="Veröffentlicht Ihre Profilinformationen im Web."/>
 			<button label="?" label_selected="?" name="publish_help_btn"/>
-			<check_box label="Mature" name="mature" tool_tip="Ihre Profilinformationen sind als „Mature“ gekennzeichnet."/>
+			<check_box label="Reif" name="mature" tool_tip="Ihre Profilinformationen sind als „Reif“ gekennzeichnet."/>
 		</panel>
 		<panel label="Titel" name="tit">
 			<text name="txt">
 				Gruppentitel
 			</text>
 			<text name="txt2">
-				Gruppen können Officer und Mitglieder haben, jeweils mit besonderen Titeln.
+				Gruppen können Offiziere und Mitglieder haben, jeweils mit besonderen Titeln.
 			</text>
 			<text name="txt3">
 				Die Titel werden in der Welt, beim Chat und in IM vor dem Namen angezeigt.
 			</text>
 			<text name="lbl">
-				Officer-Titel:
+				Offizierstitel:
 			</text>
 			<text name="lbl2">
 				Mitgliedstitel:
@@ -61,13 +61,13 @@
 				Gruppenmitglieder
 			</text>
 			<text name="txt2">
-				Aktuelle Officers und Gruppenmitglieder.
+				Aktuelle Offiziere und Gruppenmitglieder.
 			</text>
 			<text name="txt3">
 				Klicken Sie auf einen Namen, um das Mitgliedsprofil anzuzeigen.
 			</text>
 			<text name="lbl">
-				Officers:
+				Offiziere:
 			</text>
 			<text name="members_label">
 				Mitglieder:
@@ -82,7 +82,7 @@
 					</text>
 					<text name="instructions">
 						Klicken Sie auf „Wahl starten“, um eine neue Wahl zu starten. 
-Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
+Zu den Kandidaten gehören alle Mitglieder, die keine Offiziere sind.
 					</text>
 					<text name="lbl">
 						Kandidaten:
@@ -100,7 +100,7 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 					<text name="lbl3">
 						Mehrheit:
 					</text>
-					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+					<radio_group name="majority" tool_tip="Mehrheit aller Stimmen zum Gewinn benötigt.">
 						<radio_item name="radio">
 							Einfache Mehrheit
 						</radio_item>
@@ -116,7 +116,7 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 					</text>
 					<spinner name="duration" tool_tip="# Tage bis zum Ende der Wahl."/>
 					<text name="duration_days">
-						Tage
+						Tag
 					</text>
 					<text name="start_lbl">
 						Beginn der Wahl:
@@ -130,7 +130,7 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 						Gruppenanfragen
 					</text>
 					<text name="instructions">
-						Keine aktiven Anfragen.  Klicken Sie auf „Neue Anfrage“,
+						Keine aktiven Anfragen. Klicken Sie auf „Neue Anfrage“,
 um eine neue Anfrage zu erstellen.
 					</text>
 					<text name="proposal_lbl">
@@ -153,7 +153,7 @@ um eine neue Anfrage zu erstellen.
 					<text name="majority_lbl">
 						Mehrheit:
 					</text>
-					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+					<radio_group name="majority" tool_tip="Mehrheit aller Stimmen zum Gewinn benötigt.">
 						<radio_item name="radio">
 							Einfache Mehrheit
 						</radio_item>
@@ -183,7 +183,7 @@ um eine neue Anfrage zu erstellen.
 						Alte Gruppenabstimmungen
 					</text>
 					<text name="instructions">
-						Sie können die Abstimmergebisse anzeigen, indem Sie die Abstimmung auswählen und auf
+						Sie können alte Abstimmergebisse anzeigen, indem Sie die Abstimmung auswählen und auf
 					</text>
 					<text name="instructions2">
 						„Objekt anzeigen“ klicken.
@@ -210,9 +210,9 @@ um eine neue Anfrage zu erstellen.
 				Klicken Sie auf „Hinzufügen“, um Benutzer zur Liste hinzuzufügen.
 			</text>
 			<text name="lbl">
-				Officers:
+				Offiziere:
 			</text>
-			<button label="Officer hinzufügen..." label_selected="Officer hinzufügen..." name="add_officer_btn"/>
+			<button label="Offiziere hinzufügen..." label_selected="Officer hinzufügen..." name="add_officer_btn"/>
 			<button label="Auswahl entfernen" label_selected="Auswahl entfernen" name="remove_officer_btn"/>
 			<text name="lbl2">
 				Mitglieder:
@@ -222,7 +222,7 @@ um eine neue Anfrage zu erstellen.
 			<text name="lbl3">
 				Beitrittsgebühr:
 			</text>
-			<check_box label="Freier Beitritt (kein Einladung nötig)" name="open"/>
+			<check_box label="Freier Beitritt (keine Einladung nötig)" name="open"/>
 		</panel>
 		<panel label="Land" name="land">
 			<text name="txt">
@@ -245,7 +245,8 @@ um eine neue Anfrage zu erstellen.
 		</panel>
 		<panel label="Geld" name="mon">
 			<tab_container name="group money history tab">
-				<panel label="Planung" name="money panel"/>
+				<panel label="Planung" name="money panel" />
+				</panel>
 				<panel label="Details" name="money panel2">
 					<button label="&lt; Früher" label_selected="&lt; Früher" name="&lt; Earlier" tool_tip="Zurück in der Zeit"/>
 					<button label="Später &gt;" label_selected="Später &gt;" name="Later &gt;" tool_tip="Weiter in der Zeit"/>

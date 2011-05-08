@@ -91,11 +91,15 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("show_all_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitleAll"));
 	childSetValue("show_my_name_checkbox", gSavedSettings.getBOOL("RenderNameHideSelf"));
 	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
+	childSetValue("highlight_friends_checkbox", gSavedSettings.getBOOL("HighlightFriends"));
 	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
 	childSetValue("afk_timeout_checkbox", gSavedSettings.getBOOL("AllowIdleAFK"));
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
+
+// 	mDisplayNamesUsage =  gSavedSettings.getU32("DisplayNamesUsage");
+// 	mLegacyNamesForFriends =  gSavedSettings.getBOOL("LegacyNamesForFriends");
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
@@ -163,6 +167,7 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("RenderHideGroupTitleAll", childGetValue("show_all_title_checkbox"));
 	gSavedSettings.setBOOL("RenderNameHideSelf", childGetValue("show_my_name_checkbox"));
 	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
+	gSavedSettings.setBOOL("HighlightFriends", childGetValue("highlight_friends_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
 	gSavedSettings.setBOOL("AllowIdleAFK", childGetValue("afk_timeout_checkbox"));
@@ -208,6 +213,8 @@ void LLPanelGeneral::apply()
 
 void LLPanelGeneral::cancel()
 {
+// 	gSavedSettings.setU32("DisplayNamesUsage", mDisplayNamesUsage);
+// 	gSavedSettings.setBOOL("LegacyNamesForFriends", mDisplayNamesUsage);
 }
 
 // static

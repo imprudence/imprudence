@@ -51,7 +51,8 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+// [RLVa:KB]
+#include "rlvhandler.h"
 #include "llfloatertools.h"
 // [/RLVa:KB]
 
@@ -88,7 +89,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 		object = object->getRootEdit();
 	}
 
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
+// [RLVa:KB] - Checked: 2010-01-02 (RLVa-1.1.0l) | Modified: RLVa-1.1.0l
 	if (rlv_handler_t::isEnabled())
 	{
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT))

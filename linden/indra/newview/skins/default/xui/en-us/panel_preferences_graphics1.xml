@@ -29,9 +29,6 @@
 	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
 	     height="18" left="185" max_chars="20" mouse_opaque="true"
 	     name="windowsize combo" width="150">
-		<combo_item type="string" length="1" enabled="true" name="640x480" value="640 x 480">
-			640x480
-		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="800x600" value="800 x 600">
 			800x600 
 		</combo_item>
@@ -44,8 +41,16 @@
 		<combo_item type="string" length="1" enabled="true" name="1024x768" value="1024 x 768">
 			1024x768
 		</combo_item>
-
-	</combo_box>
+    <combo_item type="string" length="1" enabled="true" name="1280x720" value="1280 x 720">
+      1280x720 (HDV720)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="1440x1080" value="1440 x 1080">
+      1440x1080 (HDV1080)
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="1920x1080" value="1920 x 1080">
+      1920x1080 (HD1080)
+    </combo_item>
+  </combo_box>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
@@ -141,16 +146,16 @@
 	     name="QualityText2" v_pad="0" width="95">
 		Quality
 	</text>
-	<icon bottom="-89" color="0.12 0.12 0.12 1.0" height="14"
+	<icon bottom="-89" color="0.12 0.12 0.12 1.0" height="14" follows="left|top" 
 	     image_name="rounded_square.tga" left="173" name="LowGraphicsDivet"
 	     width="2" />
-	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14"
+	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14" follows="left|top"
 	     image_name="rounded_square.tga" left_delta="44" name="MidGraphicsDivet"
 	     width="2" />
-	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14"
+	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14" follows="left|top"
 	     image_name="rounded_square.tga" left_delta="44" name="HighGraphicsDivet"
 	     width="2" />
-	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14"
+	<icon bottom_delta="0" color="0.12 0.12 0.12 1.0" height="14" follows="left|top"
 	     image_name="rounded_square.tga" left_delta="44" name="UltraGraphicsDivet"
 	     width="2" />
 	<slider bottom="-90" can_edit_text="false" control_name="RenderQualityPerformance"
@@ -162,8 +167,8 @@
 	     follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="true" label="Custom" left="385" mouse_opaque="true"
 	     name="CustomSettings" radio_style="false" width="256" />
-	<view_border bevel_style="none" border_thickness="1" bottom="-375" follows="top|left"
-	     height="260" left="5" name="GraphicsBorder" width="485" />
+	<view_border bevel_style="none" border_thickness="1" bottom="-415" follows="left|top"
+	     height="300" left="5" name="GraphicsBorder" width="485" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-130" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
@@ -235,26 +240,23 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Avatar cloth" left_delta="0" mouse_opaque="true" name="AvatarCloth"
 	     radio_style="false" width="256" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
-	     left="457" mouse_opaque="true" name="DrawDistanceMeterText1" v_pad="0"
-	     width="128">
-		m
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-131" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
-	     left="463" mouse_opaque="true" name="DrawDistanceMeterText2" v_pad="0"
-	     width="128">
-		m
-	</text>
-	<slider bottom="-135" can_edit_text="false" control_name="RenderFarClip"
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="0" 
+       mouse_opaque="true" name="AvatarCountText" v_pad="0" width="128">
+    Max. non-imposters:
+  </text>
+  <slider bottom_delta="-20" can_edit_text="true" control_name="RenderAvatarMaxVisible"
+       decimal_digits="0" enabled="true" follows="left|top" height="16"
+       increment="1" initial_val="35" label="" 
+       label_width="0" left_delta="0" max_val="50" min_val="0" mouse_opaque="true"
+       name="AvatarMaxVisible" show_text="true" width="100" />
+	<slider bottom="-135" can_edit_text="true" control_name="RenderFarClip"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="8" initial_val="160" label="Draw distance:"
-	     label_width="140" left="215" max_val="512" min_val="32" mouse_opaque="true"
-	     name="DrawDistance" show_text="true" width="255" />
-	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderMaxPartCount"
+	     increment="4" initial_val="160" label="Draw distance (meters):"
+	     label_width="140" left="215" max_val="1024" min_val="32" mouse_opaque="true"
+	     name="DrawDistance" show_text="true" width="262" />
+	<slider bottom_delta="-20" can_edit_text="true" control_name="RenderMaxPartCount"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="256" initial_val="4096"
 	     label="Max. particle count:" label_width="140" left_delta="0"
@@ -275,7 +277,7 @@
 	<slider bottom_delta="-22" can_edit_text="false" control_name="RenderVolumeLODFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"
 	     increment="0.125" initial_val="160" label="  Objects:"
-	     label_width="140" left_delta="0" max_val="2" min_val="0"
+	     label_width="140" left_delta="0" max_val="4" min_val="0"
 	     mouse_opaque="true" name="ObjectMeshDetail" show_text="false" width="223" />
 	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderFlexTimeFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"
@@ -387,13 +389,13 @@
 			High
 		</radio_item>
 	</radio_group>
-	<button bottom="-400" enabled="true" font="SansSerif" halign="center" height="20"
+	<button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Recommended Settings" left="130" mouse_opaque="true"
-	     name="Defaults" scale_image="true" width="170" />
-	<button bottom="-400" enabled="true" font="SansSerif" halign="center" height="20"
+	     name="Defaults" scale_image="true" width="170" follows="left|bottom" />
+  <button bottom="4" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Hardware Options" label_selected="Hardware Options"
 	     left="310" mouse_opaque="true" name="GraphicsHardwareButton"
-	     scale_image="true" width="170" />
+	     scale_image="true" width="170" follows="left|bottom" />
 	<string name="resolution_format">
 		[RES_X] x [RES_Y]
 	</string>

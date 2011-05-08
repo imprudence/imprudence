@@ -169,8 +169,9 @@ public:
 	/*virtual*/ BOOL 	setMaterial(const U8 material);
 
 				void	setTexture(const S32 face);
-
+				S32     getIndexInTex() const {return mIndexInTex ;}
 	/*virtual*/ BOOL	setVolume(const LLVolumeParams &volume_params, const S32 detail, bool unique_volume = false);
+				void    setIndexInTex(S32 index) { mIndexInTex = index ;}
 				void	sculpt();
 				void	updateRelativeXform();
 	/*virtual*/ BOOL	updateGeometry(LLDrawable *drawable);
@@ -211,6 +212,9 @@ public:
 	BOOL isVolumeGlobal() const;
 	BOOL canBeFlexible() const;
 	BOOL setIsFlexible(BOOL is_flexible);
+
+	// tag: vaa emerald local_asset_browser
+	void setSculptChanged(BOOL has_changed) { mSculptChanged = has_changed; }
 			
 protected:
 	S32	computeLODDetail(F32	distance, F32 radius);
@@ -236,6 +240,7 @@ private:
 	F32			mVObjRadius;
 	LLVolumeInterface *mVolumeImpl;
 	LLPointer<LLViewerImage> mSculptTexture;
+	S32 mIndexInTex;
 	
 	// statics
 public:

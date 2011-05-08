@@ -78,6 +78,9 @@ public:
 	/// open the advanced water settings menu
 	static void onOpenAdvancedWater(void* userData);
 
+	/// open the windlight manager floater
+	static void onOpenWLManager(void* userData);
+
 	/// submit windlight settings to the estate
 	static void onSubmitWindlight(void* userData);
 

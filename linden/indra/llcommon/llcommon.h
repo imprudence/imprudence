@@ -38,13 +38,11 @@
 #include "lltimer.h"
 #include "llfile.h"
 
-class LLCommon
+class LL_COMMON_API LLCommon
 {
 public:
 	static void initClass();
 	static void cleanupClass();
-private:
-	static BOOL sAprInitialized;
 };
 
 #endif

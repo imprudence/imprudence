@@ -76,6 +76,7 @@ class PlatformSetup(object):
     build_type = build_types['relwithdebinfo']
     standalone = 'OFF'
     unattended = 'OFF'
+    universal = 'OFF'
     project_name = 'Imprudence'
     distcc = True
     cmake_opts = []
@@ -404,7 +405,7 @@ class DarwinSetup(UnixSetup):
         return 'darwin'
 
     def arch(self):
-        if self.unattended == 'ON':
+        if self.universal == 'ON':
             return 'universal'
         else:
             return UnixSetup.arch(self)
@@ -417,11 +418,11 @@ class DarwinSetup(UnixSetup):
             standalone=self.standalone,
             unattended=self.unattended,
             project_name=self.project_name,
-            universal='',
+            universal=self.universal,
             type=self.build_type.upper()
             )
-        if self.unattended == 'ON':
-            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386;ppc\''
+        if self.universal == 'ON':
+            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386\''
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
         return ('cmake -G %(generator)r '
@@ -696,6 +697,7 @@ Options:
        --standalone     build standalone, without Linden prebuild libraries
        --unattended     build unattended, do not invoke any tools requiring
                         a human response
+       --universal      build a universal binary on Mac OS X (unsupported)
   -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
@@ -706,9 +708,10 @@ Options:
   -p | --project=NAME   set the root project name. (Doesn't effect makefiles)
                         
 Commands:
-  build      configure and build default target
-  clean      delete all build directories, does not affect sources
-  configure  configure project by running cmake (default command if none given)
+  build           configure and build default target
+  clean           delete all build directories, does not affect sources
+  configure       configure project by running cmake (default if none given)
+  printbuilddirs  print the build directory that will be used
 
 Command-options for "configure":
   We use cmake variables to change the build configuration.
@@ -788,6 +791,9 @@ For example: develop.py configure -DSERVER:BOOL=OFF"""
             if args:
                 raise CommandError('clean takes no arguments')
             setup.cleanup()
+        elif cmd == 'printbuilddirs':
+            for d in setup.build_dirs():
+                print >> sys.stdout, d
         else:
             print >> sys.stderr, 'Error: unknown subcommand', repr(cmd)
             print >> sys.stderr, "(run 'develop.py --help' for help)"

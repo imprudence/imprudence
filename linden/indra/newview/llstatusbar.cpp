@@ -83,7 +83,7 @@
 #include "llstring.h"
 #include "message.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 #include "viewertime.h"
 
 //
@@ -93,6 +93,9 @@ LLStatusBar *gStatusBar = NULL;
 S32 STATUS_BAR_HEIGHT = 0;
 extern S32 MENU_BAR_HEIGHT;
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 // TODO: these values ought to be in the XML too
 const S32 MENU_PARCEL_SPACING = 1;	// Distance from right of menu item to parcel information
@@ -227,12 +230,15 @@ void LLStatusBar::draw()
 {
 	refresh();
 
+	/*static LLColor4* sColorDropShadow = rebind_llcontrol<LLColor4>("ColorDropShadow", LLUI::sColorsGroup, true);
+	static S32* sDropShadowFloater = rebind_llcontrol<S32>("DropShadowFloater", LLUI::sConfigGroup, true);
+
 	if (isBackgroundVisible())
 	{
 		gl_drop_shadow(0, getRect().getHeight(), getRect().getWidth(), 0, 
-			LLUI::sColorsGroup->getColor("ColorDropShadow"), 
-			LLUI::sConfigGroup->getS32("DropShadowFloater") );
-	}
+			(*sColorDropShadow), 
+			(*sDropShadowFloater) );
+	}*/
 	LLPanel::draw();
 }
 
@@ -536,7 +542,8 @@ void LLStatusBar::refresh()
 	{
 		// TODO-RLVa: find out whether the LCD code is still used because if so then we need to filter that as well
 		location_name = llformat("%s (%s) - %s", 
-			rlv_handler_t::cstrHiddenRegion.c_str(), region->getSimAccessString().c_str(), rlv_handler_t::cstrHidden.c_str());
+			RlvStrings::getString(RLV_STRING_HIDDEN_REGION).c_str(), region->getSimAccessString().c_str(),
+			RlvStrings::getString(RLV_STRING_HIDDEN).c_str());
 	}
 // [/RLVa:KB]
 
@@ -574,7 +581,7 @@ void LLStatusBar::refresh()
 	childGetRect("BalanceText", r);
 	r.translate( new_right - r.mRight, 0);
 	childSetRect("BalanceText", r);
-	new_right -= r.getWidth() - 18;
+	new_right -= r.getWidth() - 2;
 
 	childGetRect("buycurrency", r);
 	r.translate( new_right - r.mRight, 0);
@@ -857,7 +864,7 @@ class LLBalanceHandler : public LLCommandHandler
 public:
 	// Requires "trusted" browser/URL source
 	LLBalanceHandler() : LLCommandHandler("balance", true) { }
-	bool handle(const LLSD& tokens, const LLSD& query_map, LLWebBrowserCtrl* web)
+	bool handle(const LLSD& tokens, const LLSD& query_map, LLMediaCtrl* web)
 	{
 		if (tokens.size() == 1
 			&& tokens[0].asString() == "request")

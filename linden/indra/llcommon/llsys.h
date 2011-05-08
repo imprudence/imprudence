@@ -45,7 +45,7 @@
 #include <iosfwd>
 #include <string>
 
-class LLOSInfo
+class LL_COMMON_API LLOSInfo
 {
 public:
 	LLOSInfo();
@@ -70,7 +70,7 @@ private:
 };
 
 
-class LLCPUInfo
+class LL_COMMON_API LLCPUInfo
 {
 public:
 	LLCPUInfo();	
@@ -81,7 +81,7 @@ public:
 	bool hasAltivec() const;
 	bool hasSSE() const;
 	bool hasSSE2() const;
-	S32	 getMhz() const;
+	F64 getMHz() const;
 
 	// Family is "AMD Duron" or "Intel Pentium Pro"
 	const std::string& getFamily() const { return mFamily; }
@@ -90,7 +90,7 @@ private:
 	bool mHasSSE;
 	bool mHasSSE2;
 	bool mHasAltivec;
-	S32 mCPUMhz;
+	F64 mCPUMHz;
 	std::string mFamily;
 	std::string mCPUString;
 };
@@ -99,7 +99,7 @@ private:
 //
 //	CLASS		LLMemoryInfo
 
-class LLMemoryInfo
+class LL_COMMON_API LLMemoryInfo
 
 /*!	@brief		Class to query the memory subsystem
 
@@ -120,18 +120,21 @@ public:
 	**  be returned.
 	*/
 	U32 getPhysicalMemoryClamped() const; ///< Memory size in clamped bytes
+
+	//get the available memory infomation in KiloBytes.
+	static void getAvailableMemoryKB(U32& avail_physical_mem_kb, U32& avail_virtual_mem_kb);
 };
 
 
-std::ostream& operator<<(std::ostream& s, const LLOSInfo& info);
-std::ostream& operator<<(std::ostream& s, const LLCPUInfo& info);
-std::ostream& operator<<(std::ostream& s, const LLMemoryInfo& info);
+LL_COMMON_API std::ostream& operator<<(std::ostream& s, const LLOSInfo& info);
+LL_COMMON_API std::ostream& operator<<(std::ostream& s, const LLCPUInfo& info);
+LL_COMMON_API std::ostream& operator<<(std::ostream& s, const LLMemoryInfo& info);
 
 // gunzip srcfile into dstfile.  Returns FALSE on error.
-BOOL gunzip_file(const std::string& srcfile, const std::string& dstfile);
+LL_COMMON_API BOOL gunzip_file(const std::string& srcfile, const std::string& dstfile);
 // gzip srcfile into dstfile.  Returns FALSE on error.
-BOOL gzip_file(const std::string& srcfile, const std::string& dstfile);
+LL_COMMON_API BOOL gzip_file(const std::string& srcfile, const std::string& dstfile);
 
-extern LLCPUInfo gSysCPU;
+LL_COMMON_API extern LLCPUInfo gSysCPU;
 
 #endif // LL_LLSYS_H

@@ -56,6 +56,7 @@
 #include "lllineeditor.h"
 #include "llnamelistctrl.h"
 #include "llnotify.h"
+#include "llpanellandaudio.h"
 #include "llpanellandmedia.h"
 #include "llradiogroup.h"
 #include "llscrolllistctrl.h"
@@ -76,7 +77,11 @@
 #include "llviewercontrol.h"
 #include "roles_constants.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 static std::string OWNER_ONLINE 	= "0";
 static std::string OWNER_OFFLINE	= "1";
@@ -204,6 +209,7 @@ LLFloaterLand::LLFloaterLand(const LLSD& seed)
 	factory_map["land_covenant_panel"] = LLCallbackMap(createPanelLandCovenant, this);
 	factory_map["land_objects_panel"] = LLCallbackMap(createPanelLandObjects, this);
 	factory_map["land_options_panel"] = LLCallbackMap(createPanelLandOptions, this);
+	factory_map["land_audio_panel"] =	LLCallbackMap(createPanelLandAudio, this);
 	factory_map["land_media_panel"] =	LLCallbackMap(createPanelLandMedia, this);
 	factory_map["land_access_panel"] =	LLCallbackMap(createPanelLandAccess, this);
 
@@ -239,6 +245,7 @@ void LLFloaterLand::refresh()
 	mPanelGeneral->refresh();
 	mPanelObjects->refresh();
 	mPanelOptions->refresh();
+	mPanelAudio->refresh();
 	mPanelMedia->refresh();
 	mPanelAccess->refresh();
 }
@@ -275,6 +282,15 @@ void* LLFloaterLand::createPanelLandOptions(void* data)
 	LLFloaterLand* self = (LLFloaterLand*)data;
 	self->mPanelOptions = new LLPanelLandOptions(self->mParcel);
 	return self->mPanelOptions;
+}
+
+
+// static
+void* LLFloaterLand::createPanelLandAudio(void* data)
+{
+	LLFloaterLand* self = (LLFloaterLand*)data;
+	self->mPanelAudio = new LLPanelLandAudio(self->mParcel);
+	return self->mPanelAudio;
 }
 
 // static
@@ -570,7 +586,7 @@ void LLPanelLandGeneral::refresh()
 			mTextClaimDate->setEnabled(is_leased);
 
 			BOOL enable_auction = (gAgent.getGodLevel() >= GOD_LIAISON)
-								  && (owner_id == GOVERNOR_LINDEN_ID)
+								  /*&& (owner_id == GOVERNOR_LINDEN_ID) -- MC*/ 
 								  && (parcel->getAuctionID() == 0);
 			mBtnStartAuction->setEnabled(enable_auction);
 		}

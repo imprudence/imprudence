@@ -58,7 +58,7 @@ public:
 	// requires trusted browser to trigger
 	LLEventHandler() : LLCommandHandler("event", true) { }
 	bool handle(const LLSD& tokens, const LLSD& query_map,
-				LLWebBrowserCtrl* web)
+				LLMediaCtrl* web)
 	{
 		if (tokens.size() < 2)
 		{

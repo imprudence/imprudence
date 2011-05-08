@@ -86,7 +86,7 @@ class LLAvatarTracker
 {
 public:
 	static LLAvatarTracker& instance() { return sInstance; }
-	
+	void reset();
 	void track(const LLUUID& avatar_id, const std::string& name);
 	void untrack(const LLUUID& avatar_id);
 	bool isTrackedAgentValid() { return mTrackedAgentValid; }
@@ -122,12 +122,18 @@ public:
 	// deal with termination of friendhsip
 	void terminateBuddy(const LLUUID& id);
 
+	// flag the buddy list dirty to force an update
+	void dirtyBuddies();
+
 	// get full info
 	const LLRelationship* getBuddyInfo(const LLUUID& id) const;
 
 	// online status
 	void setBuddyOnline(const LLUUID& id, bool is_online);
 	bool isBuddyOnline(const LLUUID& id) const;
+
+	// get count of buddies
+	S32 getBuddyCount();
 
 	// simple empowered status
 	void setBuddyEmpowered(const LLUUID& id, bool is_empowered);

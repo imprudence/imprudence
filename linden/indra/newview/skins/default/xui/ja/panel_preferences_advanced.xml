@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="advanced_panel">
+<panel label="高度な設定" name="advanced_panel">
+	<check_box label="ログイン／ログアウト画面を非表示" name="disable_log_screen_check"/>
+	<check_box label="テレポート画面を非表示" name="disable_tp_screen_check"/>
+	<check_box label="名前タグに使用ビューワの名称を表示" name="client_name_tag_check"/>
+	<check_box label="ビューワを色で識別" name="client_name_color_check"/>
+	<check_box label="ビューワの名称にヒントを表示" name="client_name_hover_check"/>
+	<check_box label="自分のビューワ名称をタグに表示" name="client_name_tag_broadcast_check"/>
+	<check_box label="影を有効にする（警告：動作が不安定になり、高いグラフィック性能が必要です。）" name="shadows_check"/>
+	<text bottom_delta="-25" left="16" height="15" width="300"
+        follows="top|left">
+		LightShare機能の使用（OpenSimのみ）：
+	</text>
+	<combo_box name="lightshare_combo">
+		<combo_item name="never">
+			使用しない
+		</combo_item>
+		<combo_item name="ask">
+			毎回確認
+		</combo_item>
+		<combo_item name="always">
+			常に使用
+		</combo_item>
+	</combo_box>
+	<check_box label="HTTPテクスチャを使用（試験中の機能）" name="http_texture_check"/>
+	<check_box label="遠距離の描画をスキップして早く読み込む" name="speed_rez_check"/>
+	<check_box label="容姿編集中のアニメーションを表示" name="appearance_anim_check"/>
+	<check_box label="伝統的なパイメニューを使用" name="legacy_pie_menu_checkbox"/>
 	<check_box label="言語をオブジェクトと共有" name="language_is_public" tool_tip="優先言語をインワールドのオブジェクトが認識する"/>
+	<check_box label="チャットとIMで MU* ポーズ・スタイルを使用" name="allow_mupose"/>
+	<check_box label="OOCチャットの自動クローズ" name="auto_close_ooc"/>
+	<button label="全ての設定を初期値に戻す" name="reset_btn"/>
 </panel>

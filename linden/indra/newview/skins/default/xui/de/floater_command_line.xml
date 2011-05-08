@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="busy" title="Chatleisten-Befehle">
+  <text name="loltxt2">        Innerhalb des Sims teleportieren (Nutzung: cmd x y z)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarPos"/>
+  <text name="loltxt3">        Zum Boden teleportieren (Nutzung: cmd)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarGround"/>
+  <text name="loltxt4">        In Höhe teleportieren (Nutzung: cmd z)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarHeight"/>
+  <text name="loltxt5">        Nach Hause teleportieren (Nutzung: cmd)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarTeleportHome"/>
+  <text name="loltxt6">        Eine Plattform schaffen (Nutzung: cmd 0 - 30)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarRezPlatform"/>
+  <slider name="CmdLineChatbarPlatformSize" label="Breite" tool_tip="Wie groß soll die Plattform sein?"/>
+  <text name="loltxt7">        Zu Sim x teleportieren (Nutzung: cmd simname)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarMapTo"/>
+  <check_box label="Gleiche Position nutzen" name="toggle"/>
+  <text name="loltxt8">        math. Ausdruck rechnen (Nutzung: cmd SIN(2+2))</text>
+  <line_editor tool_tip="" name="CmdLineChatbarCalc"/>
+  <text name="add_autokorrect">Wort zu Autokorrekt zufügen(Nutzung: cmd list|bad|good)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarAutocorrect"/>
+  <text name="loltxt9">        Sichtweite ändern (Nutzung: cmd meters)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarDrawDistance"/>
+  <text name="loltxt10">        Zur Kameraposition teleportieren (Nutzung: cmd)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarTeleportToCam"/>
+  <text name="loltxt11">        Avatarname von Schl�ssel beziehen (Nutzung: cmd key)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarKeyToName"/>
+  <text name="loltxt12">        Avatar Teleport anbieten (Nutzung: cmd key)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarOfferTp"/>
+  <text name="loltxt13">        Zu Avatar teleportieren (Nutzung: cmd name)</text>
+  <line_editor tool_tip="Die syntax dieses Befehls erlaubt partielle Namen (ohne Groß-/Kleinschreibung).  Bessere Resultate bei Nutzung mit offenem Radar."
+     name="CmdLineChatbarTP2"/>
+  <text name="loltxt14">        AO an/aus (Nutzung: cmd on/off)</text>
+  <line_editor tool_tip="" name="CmdLineChatbarAO"/>
+  <text name="loltxt15">        Chat-Historie löschen (Nutzung: cmd)</text>
+  <line_editor tool_tip="Löscht die Chat-Historie, um Lag-Effekte von Chat-Spammern zu verhindern." name="CmdLineChatbarClearChat"/>
+  <text name="loltxt15">        Medien-URL bestimmen (Nutzung: cmd url type)</text>
+  <line_editor tool_tip="Bestimmt und spielt Ihren Medienstrom auf die eingegebene URL" name="CmdLineChatbarMedia"/>
+  <text name="loltxt15">        Musik-URL bestimmen (Nutzung: cmd url)</text>
+  <line_editor tool_tip="Bestimmt und spielt Ihren Musikstrom auf die eingegebene URL" name="CmdLineChatbarMusic"/>
+  <button label="?" name="Help_CmdLine" 
+tool_tip="Hier für Hilfe betreffend der Einstellungen dieser Seite klicken."/>
+</floater>

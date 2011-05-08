@@ -22,6 +22,7 @@ include_directories(
 set(llmessage_SOURCE_FILES
     llares.cpp
     llassetstorage.cpp
+    llavatarnamecache.cpp
     llblowfishcipher.cpp
     llbuffer.cpp
     llbufferstream.cpp
@@ -48,6 +49,7 @@ set(llmessage_SOURCE_FILES
     llmail.cpp
     llmessagebuilder.cpp
     llmessageconfig.cpp
+	llmessagelog.cpp
     llmessagereader.cpp
     llmessagetemplate.cpp
     llmessagetemplateparser.cpp
@@ -96,6 +98,8 @@ set(llmessage_SOURCE_FILES
     patch_code.cpp
     patch_dct.cpp
     patch_idct.cpp
+    llsocks5.cpp
+    sound_ids.cpp
     )
 
 set(llmessage_HEADER_FILES
@@ -103,6 +107,7 @@ set(llmessage_HEADER_FILES
 
     llares.h
     llassetstorage.h
+    llavatarnamecache.h
     llblowfishcipher.h
     llbuffer.h
     llbufferstream.h
@@ -137,6 +142,7 @@ set(llmessage_HEADER_FILES
     llmail.h
     llmessagebuilder.h
     llmessageconfig.h
+	llmessagelog.h
     llmessagereader.h
     llmessagetemplate.h
     llmessagetemplateparser.h
@@ -193,6 +199,7 @@ set(llmessage_HEADER_FILES
     patch_code.h
     patch_dct.h
     sound_ids.h
+    llsocks5.h
     )
 
 set_source_files_properties(${llmessage_HEADER_FILES}
@@ -215,7 +222,7 @@ IF (NOT LINUX AND VIEWER)
     # These can not be found when we try to run the tests, so we had to disable them, for the viewer build.
     # TODO: Can someone with viewer knowledge figure out how to make these find the correct so.
     #ADD_BUILD_TEST(llhttpclientadapter llmessage)
-    ADD_BUILD_TEST(lltrustedmessageservice llmessage)
-    ADD_BUILD_TEST(lltemplatemessagedispatcher llmessage)
+	#ADD_BUILD_TEST(lltrustedmessageservice llmessage)
+	#ADD_BUILD_TEST(lltemplatemessagedispatcher llmessage)
 ENDIF (NOT LINUX AND VIEWER)
 

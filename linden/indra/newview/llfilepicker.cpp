@@ -532,12 +532,16 @@ Boolean LLFilePicker::navOpenFilterProc(AEDesc *theItem, void *info, void *callB
 						{
 							if (fileInfo.filetype != 'JPEG' && fileInfo.filetype != 'JPG ' && 
 								fileInfo.filetype != 'BMP ' && fileInfo.filetype != 'TGA ' &&
+								fileInfo.filetype != 'TIFF' && fileInfo.filetype != 'PSD ' &&
 								fileInfo.filetype != 'BMPf' && fileInfo.filetype != 'TPIC' &&
 								fileInfo.filetype != 'PNG ' &&
 								(fileInfo.extension && (CFStringCompare(fileInfo.extension, CFSTR("jpeg"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("jpg"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("bmp"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("tga"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("psd"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("tiff"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
+								CFStringCompare(fileInfo.extension, CFSTR("tif"), kCFCompareCaseInsensitive) != kCFCompareEqualTo &&
 								CFStringCompare(fileInfo.extension, CFSTR("png"), kCFCompareCaseInsensitive) != kCFCompareEqualTo))
 								)
 							{
@@ -1177,7 +1181,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 			break;
 		case FFSAVE_RAW:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.raw", LLTrans::getString("dot_raw_file") + " (*.raw)");
+				(picker, "*.raw", LLTrans::getString("raw_file") + " (*.raw)");
 			suggest_ext = ".raw";
 			break;
 		case FFSAVE_J2C:

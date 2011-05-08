@@ -30,7 +30,10 @@
 	<string name="unavailable_text_label">
 		本次通话不可以文字聊天。
 	</string>
-  <flyout_button label="档案..." name="profile_callee_btn"/>
+	<string name="add_friend_string">
+		添加为好友
+	</string>
+	<flyout_button label="档案..." name="profile_callee_btn"/>
 	<button label="呼叫" name="start_call_btn"/>
 	<button label="结束呼叫" name="end_call_btn" pad_right="10" visible="false"/>
 	<panel name="speaker_controls">

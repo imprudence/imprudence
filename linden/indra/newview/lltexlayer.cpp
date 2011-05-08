@@ -61,6 +61,8 @@
 
 using namespace LLVOAvatarDefines;
 
+const S32 MAX_BAKE_UPLOAD_ATTEMPTS = 4;
+
 // static
 S32 LLTexLayerSetBuffer::sGLByteCount = 0;
 
@@ -98,6 +100,8 @@ LLTexLayerSetBuffer::LLTexLayerSetBuffer(LLTexLayerSet* owner, S32 width, S32 he
 	mNeedsUpdate( TRUE ),
 	mNeedsUpload( FALSE ),
 	mUploadPending( FALSE ), // Not used for any logic here, just to sync sending of updates
+	mUploadFailCount( 0 ),
+	mUploadAfter( 0 ),
 	mTexLayerSet( owner )	
 {
 	LLTexLayerSetBuffer::sGLByteCount += getSize();
@@ -151,6 +155,18 @@ void LLTexLayerSetBuffer::requestUpload()
 	{
 		mNeedsUpload = TRUE;
 		mUploadPending = TRUE;
+		mUploadAfter = 0;
+	}
+}
+
+// request an upload to start delay_usec microseconds from now
+void LLTexLayerSetBuffer::requestDelayedUpload(U64 delay_usec)
+{
+	if (!mNeedsUpload)
+	{
+		mNeedsUpload = TRUE;
+		mUploadPending = TRUE;
+		mUploadAfter = LLFrameTimer::getTotalTime() + delay_usec;
 	}
 }
 
@@ -161,6 +177,14 @@ void LLTexLayerSetBuffer::cancelUpload()
 		mNeedsUpload = FALSE;
 	}
 	mUploadPending = FALSE;
+	mUploadAfter = 0;
+}
+
+// do we need to upload, and do we have sufficient data to create an uploadable composite?
+BOOL LLTexLayerSetBuffer::needsUploadNow() const
+{
+	BOOL upload = mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal() && (gAgent.mNumPendingQueries == 0);
+	return (upload && (LLFrameTimer::getTotalTime() > mUploadAfter));
 }
 
 void LLTexLayerSetBuffer::pushProjection()
@@ -187,8 +211,9 @@ void LLTexLayerSetBuffer::popProjection()
 BOOL LLTexLayerSetBuffer::needsRender()
 {
 	LLVOAvatar* avatar = mTexLayerSet->getAvatar();
-	BOOL upload_now = mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal() && gAgent.mNumPendingQueries == 0;
+	BOOL upload_now = needsUploadNow();
 	BOOL needs_update = (mNeedsUpdate || upload_now) && !avatar->mAppearanceAnimating;
+
 	if (needs_update)
 	{
 		BOOL invalid_skirt = avatar->getBakedTE(mTexLayerSet) == TEX_SKIRT_BAKED && !avatar->isWearingWearableType(WT_SKIRT);
@@ -229,9 +254,6 @@ BOOL LLTexLayerSetBuffer::render()
 	// Default color mask for tex layer render
 	gGL.setColorMask(true, true);
 
-	// do we need to upload, and do we have sufficient data to create an uploadable composite?
-	// When do we upload the texture if gAgent.mNumPendingQueries is non-zero?
-	BOOL upload_now = (gAgent.mNumPendingQueries == 0 && mNeedsUpload && mTexLayerSet->isLocalTextureDataFinal());
 	BOOL success = TRUE;
 
 	// Composite the color data
@@ -239,7 +261,7 @@ BOOL LLTexLayerSetBuffer::render()
 	success &= mTexLayerSet->render( mOrigin.mX, mOrigin.mY, mWidth, mHeight );
 	gGL.flush();
 
-	if( upload_now )
+	if( needsUploadNow() )
 	{
 		if (!success)
 		{
@@ -254,16 +276,16 @@ BOOL LLTexLayerSetBuffer::render()
 			}
 			else
 			{
-				//				mUploadPending = FALSE;//see...
-				// 				mNeedsUpload = FALSE;//     ...below...
+				//mUploadPending = FALSE;//see...
+				//mNeedsUpload = FALSE;//     ...below...
 				LLVOAvatar*	avatar = mTexLayerSet->getAvatar();
 				if (avatar)
 				{
 					avatar->setNewBakedTexture(avatar->getBakedTE(mTexLayerSet), IMG_INVISIBLE);
 					llinfos << "Invisible baked texture set for " << mTexLayerSet->getBodyRegion() << llendl;
 				}
-				readBackAndUpload(); 	//... here: Opensim is not happy if we don't
-							//TODO: find out if SL is happy if we do
+				readBackAndUpload();   //... here: Opensim is not happy if we don't
+				//TODO: find out if SL is happy if we do
 			}
 		}
 	}
@@ -329,12 +351,11 @@ void LLTexLayerSetBuffer::readBackAndUpload()
 	// writes into baked_color_data
 	const char* comment_text = NULL;
 
-	S32 baked_image_components = 5; // red green blue bump clothing
+	S32 baked_image_components =  5; // red green blue bump clothing
 	LLPointer<LLImageRaw> baked_image = new LLImageRaw( mWidth, mHeight, baked_image_components );
 	U8* baked_image_data = baked_image->getData();
 	
 	comment_text = LINDEN_J2C_COMMENT_PREFIX "RGBHM"; // 5 channels: rgb, heightfield/alpha, mask
-
 	S32 i = 0;
 	for (S32 u = 0; u < mWidth; u++)
 	{
@@ -387,7 +408,8 @@ void LLTexLayerSetBuffer::readBackAndUpload()
 				std::string url = gAgent.getRegion()->getCapability("UploadBakedTexture");
 
 				if(!url.empty()
-					&& !LLPipeline::sForceOldBakedUpload) // Toggle the debug setting UploadBakedTexOld to change between the new caps method and old method
+					&& !LLPipeline::sForceOldBakedUpload // Toggle the debug setting UploadBakedTexOld to change between the new caps method and old method
+					&& (mUploadFailCount < MAX_BAKE_UPLOAD_ATTEMPTS-1)) // allow last ditch attempt via asset store, since capabilty seems prone to transient failures.
 				{
 					llinfos << "Baked texture upload via capability of " << mUploadID << " to " << url << llendl;
 
@@ -436,12 +458,14 @@ void LLTexLayerSetBuffer::onTextureUploadComplete(const LLUUID& uuid, void* user
 
 	LLVOAvatar* avatar = gAgent.getAvatarObject();
 
-	if (0 == result &&
-		avatar && !avatar->isDead() &&
+	if (avatar && !avatar->isDead() &&
+		baked_upload_data &&
 		baked_upload_data->mAvatar == avatar && // Sanity check: only the user's avatar should be uploading textures.
 		baked_upload_data->mLayerSet->hasComposite())
 	{
 		LLTexLayerSetBuffer* layerset_buffer = baked_upload_data->mLayerSet->getComposite();
+		S32 failures = layerset_buffer->mUploadFailCount;
+		layerset_buffer->mUploadFailCount = 0;
 
 		if (layerset_buffer->mUploadID.isNull())
 		{
@@ -468,10 +492,21 @@ void LLTexLayerSetBuffer::onTextureUploadComplete(const LLUUID& uuid, void* user
 				avatar->setNewBakedTexture(baked_te, uuid);
 			}
 			else
-			{	
-				// Avatar appearance is changing, ignore the upload results
-				llinfos << "Baked upload failed. Reason: " << result << llendl;
-				// *FIX: retry upload after n seconds, asset server could be busy
+			{
+				++failures;
+				llinfos << "Baked upload failed (attempt " << failures << "/" << MAX_BAKE_UPLOAD_ATTEMPTS << "), ";
+				if (failures >= MAX_BAKE_UPLOAD_ATTEMPTS)
+				{
+					llcont << "giving up.";
+				}
+				else
+				{
+					const F32 delay = 5.f;
+					llcont << llformat("retrying in %.2f seconds.", delay);
+					layerset_buffer->mUploadFailCount = failures;
+					layerset_buffer->requestDelayedUpload((U64)(delay * 1000000));
+				}
+				llcont << llendl;
 			}
 		}
 		else
@@ -1377,7 +1412,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1395,7 +1430,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			LLImageGL* image_gl = gTexStaticImageList.getImageGL( getInfo()->mStaticImageFileName, getInfo()->mStaticImageIsMask );
 			if( image_gl )
 			{
-				gGL.getTexUnit(0)->bind(image_gl);
+				gGL.getTexUnit(0)->bind(image_gl, TRUE);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			}
@@ -1621,7 +1656,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1643,7 +1678,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 					( (image_gl->getComponents() == 1) && getInfo()->mStaticImageIsMask ) )
 				{
 					LLGLSNoAlphaTest gls_no_alpha_test;
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gl_rect_2d_simple_tex( width, height );
 					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
@@ -2111,7 +2146,7 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				}
 
 				LLGLSNoAlphaTest gls_no_alpha_test;
-				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
+				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL, TRUE);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				stop_glerror();

@@ -50,7 +50,7 @@ class LLWorkerClass;
 // Note: ~LLWorkerThread is O(N) N=# of worker threads, assumed to be small
 //   It is assumed that LLWorkerThreads are rarely created/destroyed.
 
-class LLWorkerThread : public LLQueuedThread
+class LL_COMMON_API LLWorkerThread : public LLQueuedThread
 {
 	friend class LLWorkerClass;
 public:
@@ -114,7 +114,7 @@ public:
 // Only one background task can be active at a time (per instance).
 //  i.e. don't call addWork() if haveWork() returns true
 
-class LLWorkerClass
+class LL_COMMON_API LLWorkerClass
 {
 	friend class LLWorkerThread;
 	friend class LLWorkerThread::WorkRequest;
@@ -194,7 +194,7 @@ protected:
 	U32 mRequestPriority; // last priority set
 
 private:
-	LLMutex mMutex;
+	LLMutexRootPool mMutex;		// Use LLMutexRootPool since this object is created and destructed by multiple threads.
 	LLAtomicU32 mWorkFlags;
 };
 

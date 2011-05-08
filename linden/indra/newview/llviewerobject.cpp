@@ -34,7 +34,7 @@
 
 #include "llviewerobject.h"
 
-#include "audioengine.h"
+#include "llaudioengine.h"
 #include "imageids.h"
 #include "indra_constants.h"
 #include "llmath.h"
@@ -98,6 +98,10 @@
 #include "llvowlsky.h"
 #include "llmanip.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //#define DEBUG_UPDATE_TYPE
 
 BOOL gVelocityInterpolate = TRUE;
@@ -144,6 +148,8 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	  res = new LLVOSurfacePatch(id, pcode, regionp); break;
 	case LL_VO_SKY:
 	  res = new LLVOSky(id, pcode, regionp); break;
+	case LL_VO_VOID_WATER:
+	  res = new LLVOVoidWater(id, pcode, regionp); break;
 	case LL_VO_WATER:
 	  res = new LLVOWater(id, pcode, regionp); break;
 	case LL_VO_GROUND:
@@ -201,7 +207,8 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mJointInfo(NULL),
 	mState(0),
 	mMedia(NULL),
-	mClickAction(0)
+	mClickAction(0),
+	mSculptSurfaceArea(0.0)
 {
 	if(!is_global)
 	{
@@ -1614,6 +1621,24 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 								gObjectList.killObject(this);
 								return retval;
 							}
+// [RLVa:KB] - Checked: 2009-12-27 (RLVa-1.1.0k) | Added: RLVa-1.1.0k
+							if ( (rlv_handler_t::isEnabled()) && (sent_parentp->isAvatar()) && (sent_parentp->getID() == gAgent.getID()) )
+							{
+								// Rezzed object that's being worn as an attachment (we're assuming this will be due to llAttachToAvatar())
+								S32 idxAttachPt = ATTACHMENT_ID_FROM_STATE(getState());
+								if (gRlvHandler.isLockedAttachment(idxAttachPt, RLV_LOCK_ANY))
+								{
+									// If this will end up on an "add locked" attachment point then treat the attach as a user action
+									LLNameValue* nvItem = getNVPair("AttachItemID");
+									if (nvItem)
+									{
+										LLUUID idItem(nvItem->getString());
+										if (idItem.notNull())
+											gRlvHandler.onWearAttachment(idItem);
+									}
+								}
+							}
+// [/RLVa:KB]
 							sent_parentp->addChild(this);
 							// make sure this object gets a non-damped update
 							if (sent_parentp->mDrawable.notNull())
@@ -3988,9 +4013,15 @@ LLBBox LLViewerObject::getBoundingBoxAgent() const
 {
 	LLVector3 position_agent;
 	LLQuaternion rot;
+	LLViewerObject* avatar_parent = NULL;
 	LLViewerObject* root_edit = (LLViewerObject*)getRootEdit();
-	LLViewerObject* avatar_parent = (LLViewerObject*)root_edit->getParent();
-	if (avatar_parent && avatar_parent->isAvatar() && root_edit->mDrawable.notNull())
+	if (root_edit)
+	{
+		avatar_parent = (LLViewerObject*)root_edit->getParent();
+	}
+
+	if (avatar_parent && avatar_parent->isAvatar() &&
+		root_edit && root_edit->mDrawable.notNull() && root_edit->mDrawable->getXform()->getParent())
 	{
 		LLXform* parent_xform = root_edit->mDrawable->getXform()->getParent();
 		position_agent = (getPositionEdit() * parent_xform->getWorldRotation()) + parent_xform->getWorldPosition();
@@ -4088,6 +4119,14 @@ void LLViewerObject::setDebugText(const std::string &utf8text)
 	mText->setDoFade(FALSE);
 	updateText();
 }
+std::string LLViewerObject::getDebugText()
+{
+	if(mText)
+	{
+		return mText->getStringUTF8();
+	}
+	return "";
+}
 
 void LLViewerObject::setIcon(LLViewerImage* icon_image)
 {
@@ -4182,7 +4221,7 @@ void LLViewerObject::setParticleSource(const LLPartSysData& particle_parameters,
 			LLViewerImage* image;
 			if (mPartSourcep->mPartSysData.mPartImageID == LLUUID::null)
 			{
-				image = gImageList.getImageFromFile("pixiesmall.tga");
+				image = gImageList.getImageFromFile("pixiesmall.j2c");
 			}
 			else
 			{
@@ -4557,7 +4596,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 bool LLViewerObject::setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin)
 {
 	ExtraParameter* param = getExtraParameterEntryCreate(param_type);
-	if (param->in_use != in_use)
+	if (param && param->in_use != in_use)
 	{
 		param->in_use = in_use;
 		parameterChanged(param_type, param->data, in_use, local_origin);

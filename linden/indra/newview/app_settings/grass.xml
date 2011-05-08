@@ -4,6 +4,7 @@
   <grass
     name="Grass - Medium"
 	species_id="0"
+	texture_name="6c4727b8-ac79-ba44-3b81-f9aa887b47eb.j2c"
  	texture_id="6c4727b8-ac79-ba44-3b81-f9aa887b47eb"
 	blade_size_x="1.35"
 	blade_size_y="1.35"
@@ -11,6 +12,7 @@
   <grass
     name="Grass - Short 2"
 	species_id="1"
+	texture_name="79504bf5-c3ec-0763-6563-d843de66d0a1.j2c"
  	texture_id="79504bf5-c3ec-0763-6563-d843de66d0a1"
 	blade_size_x="1.0"
 	blade_size_y="0.66"
@@ -18,6 +20,7 @@
   <grass
     name="Grass - Tall Green"
 	species_id="2"
+	texture_name="6c4727b8-ac79-ba44-3b81-f9aa887b47eb.j2c"
  	texture_id="6c4727b8-ac79-ba44-3b81-f9aa887b47eb"
 	blade_size_x="1.8"
 	blade_size_y="1.8"
@@ -25,6 +28,7 @@
   <grass
     name="Grass - Short 1"
 	species_id="3"
+	texture_name="99bd60a2-3250-efc9-2e39-2fbcadefbecc.j2c"
  	texture_id="99bd60a2-3250-efc9-2e39-2fbcadefbecc"
 	blade_size_x="1.0"
 	blade_size_y="1.0"
@@ -32,6 +36,7 @@
   <grass
     name="Grass - Tall Brown"
 	species_id="4"
+	texture_name="7a2b3a4a-53c2-53ac-5716-aac7d743c020.j2c"
  	texture_id="7a2b3a4a-53c2-53ac-5716-aac7d743c020"
 	blade_size_x="2.25"
 	blade_size_y="2.25"
@@ -39,6 +44,7 @@
   <grass
     name="Leafy Ground Cover"
 	species_id="5"
+	texture_name="8f458549-173b-23ff-d4ff-bfaa5ea2371b.j2c"
  	texture_id="8f458549-173b-23ff-d4ff-bfaa5ea2371b"
 	blade_size_x="2.0"
 	blade_size_y="2.0"

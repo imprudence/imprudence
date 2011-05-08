@@ -46,6 +46,8 @@
 # include <unistd.h>
 #endif // !LL_WINDOWS
 #if LL_WINDOWS
+#	define WIN32_LEAN_AND_MEAN
+#	include <winsock2.h>
 # include <windows.h>
 #endif // LL_WINDOWS
 #include <vector>
@@ -58,7 +60,9 @@
 #include "llsd.h"
 #include "llsdserialize.h"
 #include "llstl.h"
+#include "lltimer.h"
 
+extern apr_thread_mutex_t* gCallStacksLogMutexp;
 
 namespace {
 #if !LL_WINDOWS
@@ -164,6 +168,9 @@ namespace {
 				}
 			}
 			fprintf(stderr, "%s\n", message.c_str());
+#if LL_WINDOWS
+		    fflush(stderr); //Now using a buffer. flush is required.
+#endif
 			if (ANSI_YES == mUseANSI) colorANSI("0"); // reset
 		}
 	
@@ -559,7 +566,7 @@ namespace
 #if LL_WINDOWS
 		LLError::addRecorder(new RecordToWinDebug);
 #endif
-
+		llwarns << "Load LogControlFile from Directory:"<< dir << llendl;
 		LogControlFile& e = LogControlFile::fromDirectory(dir);
 
 		// NOTE: We want to explicitly load the file before we add it to the event timer
@@ -868,6 +875,9 @@ You get:
 	llfoo.cpp(42) : ERROR: something
 	
 */
+
+apr_thread_mutex_t* gLogMutexp;
+apr_thread_mutex_t* gCallStacksLogMutexp;
 
 namespace {
 	bool checkLevelMap(const LevelMap& map, const std::string& key,

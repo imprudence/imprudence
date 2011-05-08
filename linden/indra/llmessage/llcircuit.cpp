@@ -1231,6 +1231,17 @@ void LLCircuit::getCircuitRange(
 	first = mCircuitData.upper_bound(key);
 }
 
+// <edit>
+std::vector<LLCircuitData*> LLCircuit::getCircuitDataList()
+{
+	std::vector<LLCircuitData*> list;
+	circuit_data_map::iterator end = mCircuitData.end();
+	for(circuit_data_map::iterator iter = mCircuitData.begin(); iter != end; ++iter)
+		list.push_back((*iter).second);
+	return list;
+}
+// </edit>
+
 TPACKETID LLCircuitData::nextPacketOutID()
 {
 	mPacketsOut++;

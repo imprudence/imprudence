@@ -71,6 +71,10 @@
 
 #include "llfirstuse.h"
 
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 //
 // Globals
 //
@@ -544,6 +548,20 @@ LLIMMgr::~LLIMMgr()
 	// Children all cleaned up by default view destructor.
 }
 
+LLColor4 get_extended_text_color(const LLUUID session_id, const LLUUID other_partecipant_id, const std::string& msg, LLColor4 defaultColor)
+{
+	if (gSavedSettings.getBOOL("HighlightOwnNameInIM") && (other_partecipant_id != LLUUID::null))
+	{
+		if (LLFloaterChat::isOwnNameInText(msg))
+			return gSavedSettings.getColor4("OwnNameChatColor");
+	}
+
+	if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(other_partecipant_id))
+		return gSavedSettings.getColor4("FriendsChatColor");
+
+	return defaultColor;
+}
+
 // Add a message to a session. 
 void LLIMMgr::addMessage(
 	const LLUUID& session_id,
@@ -595,11 +613,11 @@ void LLIMMgr::addMessage(
 	// create IM window as necessary
 	if(!floater)
 	{
-		if (!mIgnoreGroupList.empty())
+		if (gIMMgr->getIgnoreGroupListCount() > 0 && gAgent.isInGroup(session_id))
 		{
 			// Check to see if we're blocking this group's chat
-			LLGroupData *group_data = NULL;
-
+			LLGroupData* group_data = NULL;
+			
 			// Search for this group in the agent's groups list
 			LLDynamicArray<LLGroupData>::iterator i;
 
@@ -613,9 +631,8 @@ void LLIMMgr::addMessage(
 			}
 
 			// If the group is in our list then return
-			if (group_data && getIgnoreGroup(group_data->mID))
+			if (group_data && gIMMgr->getIgnoreGroup(group_data->mID))
 			{
-				// llinfos << "ignoring chat from group " << group_data->mID << llendl;
 				return;
 			}
 		}
@@ -660,9 +677,21 @@ void LLIMMgr::addMessage(
 
 	// now add message to floater
 	bool is_from_system = target_id.isNull() || (from == SYSTEM_FROM);
-	const LLColor4& color = ( is_from_system ? 
-							  gSavedSettings.getColor4("SystemChatColor") : 
-							  gSavedSettings.getColor("IMChatColor"));
+
+	LLColor4 color;
+	if (is_from_system) 
+		color = gSavedSettings.getColor4("SystemChatColor");
+	else
+	{
+		std::string new_line = std::string(msg);
+		if (new_line.find(": ") == 0)
+			new_line = new_line.substr(2);
+		else
+			new_line = new_line.substr(1);
+
+		color = get_extended_text_color(session_id, other_participant_id, new_line, gSavedSettings.getColor("IMChatColor"));
+	}
+
 	if ( !link_name )
 	{
 		floater->addHistoryLine(msg,color); // No name to prepend, so just add the message normally
@@ -1334,7 +1363,7 @@ void LLIMMgr::saveIgnoreGroup()
 {
 	// llinfos << "saving ignore_groups.xml" << llendl;
 
-	std::string user_dir = gDirUtilp->getLindenUserDir();
+	std::string user_dir = gDirUtilp->getLindenUserDir(true);
 	if (!user_dir.empty())
 	{
 		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
@@ -1353,7 +1382,7 @@ void LLIMMgr::saveIgnoreGroup()
 	}
 }
 
-void LLIMMgr::updateIgnoreGroup(const LLUUID& group_id, const bool& ignore)
+void LLIMMgr::updateIgnoreGroup(const LLUUID& group_id, bool ignore)
 {
 	if (group_id.notNull())
 	{
@@ -1656,7 +1685,7 @@ public:
 						return;
 				}
 				else if (!gRlvHandler.isException(RLV_BHVR_RECVIM, from_id))
-					message = message.substr(0, message_offset) + rlv_handler_t::cstrBlockedRecvIM;
+					message = message.substr(0, message_offset) + RlvStrings::getString(RLV_STRING_BLOCKED_RECVIM);
 			}
 // [/RLVa:KB]
 

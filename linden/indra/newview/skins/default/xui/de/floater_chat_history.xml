@@ -28,7 +28,7 @@
 		Dem Objekt „[OBJECTNAME]“, ein Objekt von „[OWNERNAME]“, in [REGIONNAME] [REGIONPOS], wurde folgende Berechtigung verweigert: [PERMISSIONS].
 	</string>
 	<string name="ScriptTakeMoney">
-		Linden-Dollar (L$) von Ihnen nehmen
+		Geld von Ihnen nehmen
 	</string>
 	<string name="ActOnControlInputs">
 		Steuerung festlegen
@@ -68,11 +68,14 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="Stummgeschalteten Text anzeigen" name="show mutes"/>
+			<check_box label="Chat übersetzen (powered by Google)" name="translate chat" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen."/>
 			<panel name="chat_panel">
 				<string name="gesture_label">
 					Gesten
 				</string>
+        <!--<spinner label="Kanal" name="channel_control" 
+tool_tip="Standardkanal für In-Welt-Chat festlegen"/>-->
 				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" right="-75"/>
 				<flyout_button label="Sagen" left="-70" name="Say" tool_tip="(Eingabe)" width="75">
 					<flyout_button_item name="shout_item">

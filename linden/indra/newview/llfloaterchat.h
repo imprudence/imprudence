@@ -40,6 +40,7 @@
 
 #include "llfloater.h"
 #include "lllogchat.h"
+
 class LLButton;
 class LLChat;
 class LLComboBox;
@@ -65,18 +66,23 @@ public:
 	virtual void onVisibilityChange(BOOL cur_visibility);
 	virtual void setMinimized(BOOL);
 	void updateConsoleVisibility();
+	void updateSettings();
 
 	static void setHistoryCursorAndScrollToEnd();
 	
 	// Add chat to console and history list.
 	// Color based on source, type, distance.
 	static void addChat(const LLChat& chat, BOOL from_im = FALSE, BOOL local_agent = FALSE);
+	static BOOL isOwnNameInText(const std::string &text_line);
 	
 	// Add chat to history alone.
 	static void addChatHistory(const LLChat& chat, bool log_to_file = true);
 	
+	static void triggerAlerts(const std::string& text);
+
 	static void onClickMute(void *data);
 	static void onClickToggleShowMute(LLUICtrl* caller, void *data);
+	static void onClickToggleTranslateChat(LLUICtrl* caller, void *data);
 	static void onClickToggleActiveSpeakers(void* userdata);
 	static void chatFromLogFile(LLLogChat::ELogLineType type,std::string line, void* userdata);
 	static void loadHistory();

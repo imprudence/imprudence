@@ -38,8 +38,11 @@
 #include "indra_constants.h"
 
 // For Listeners
-#include "audioengine.h"
+// #include "llaudioengine.h"
+#include "kokuastreamingaudio.h"
 #include "llagent.h"
+#include "llavatarnamecache.h"
+#include "llcallingcard.h"
 #include "llconsole.h"
 #include "lldrawpoolterrain.h"
 #include "llflexibleobject.h"
@@ -60,6 +63,7 @@
 #include "llworld.h"
 #include "pipeline.h"
 #include "llviewerjoystick.h"
+#include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
 #include "llnotify.h"
@@ -69,8 +73,8 @@
 #include "llvosurfacepatch.h"
 #include "llvowlsky.h"
 #include "llrender.h"
-#include "llmediamanager.h"
 #include "llslider.h"
+#include "llfloaterchat.h"
 
 
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
@@ -310,7 +314,7 @@ static bool handleJoystickChanged(const LLSD& newvalue)
 
 static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 {
-	if (gAudiop)
+	if (gAudioStream)
 	{
 		if ( newvalue.asBoolean() )
 		{
@@ -319,15 +323,15 @@ static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 			{
 				// if stream is already playing, don't call this
 				// otherwise music will briefly stop
-				if ( !gAudiop->isInternetStreamPlaying() )
+				if ( !gAudioStream->isInternetStreamPlaying() )
 				{
-					gAudiop->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
+					LLViewerParcelMedia::playStreamingMusic(LLViewerParcelMgr::getInstance()->getAgentParcel());
 				}
 			}
 		}
 		else
 		{
-			gAudiop->stopInternetStream();
+			gAudioStream->stopInternetStream();
 		}
 	}
 	return true;
@@ -425,6 +429,28 @@ static bool handleAuditTextureChanged(const LLSD& newvalue)
 	return true;
 }
 
+static bool handleDisplayNamesUsageChanged(const LLSD& newvalue)
+{
+	LLAvatarNameCache::setUseDisplayNames((U32)newvalue.asInteger());
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleOmitResidentAsLastNameChanged(const LLSD& newvalue)
+{
+	LLAvatarName::sOmitResidentAsLastName =(bool)newvalue.asBoolean();
+	LLVOAvatar::invalidateNameTags();
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
+static bool handleLegacyNamesForFriendsChanged(const LLSD& newvalue)
+{
+	LLAvatarTracker::instance().dirtyBuddies();
+	return true;
+}
+
 static bool handleRenderDebugGLChanged(const LLSD& newvalue)
 {
 	gDebugGL = newvalue.asBoolean();
@@ -485,21 +511,18 @@ bool handleVoiceClientPrefsChanged(const LLSD& newvalue)
 	return true;
 }
 
-bool handleMediaDebugLevelChanged(const LLSD& newvalue)
+bool handleTranslateChatPrefsChanged(const LLSD& newvalue)
 {
-	LLMediaManager *mgr = LLMediaManager::getInstance();
-	if (mgr)
-	{
-		LLMediaBase *impl = 
-		  mgr->createSourceFromMimeType("http", "audio/mpeg");
+	LLFloaterChat* floaterp = LLFloaterChat::getInstance();
 
-		if (impl)
-		{
-			impl->setDebugLevel( (LLMediaBase::EDebugLevel)newvalue.asInteger() );
-		}
+	if(floaterp)
+	{
+		// update "translate chat" pref in "Local Chat" floater
+		floaterp->updateSettings();
 	}
 	return true;
 }
+
 
 bool handleSliderScrollWheelMultiplierChanged(const LLSD& newvalue)
 {
@@ -507,19 +530,6 @@ bool handleSliderScrollWheelMultiplierChanged(const LLSD& newvalue)
 	return true;
 }
 
-// [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
-bool rlvHandleEnableLegacyNamingChanged(const LLSD& newvalue)
-{
-	rlv_handler_t::fLegacyNaming = newvalue.asBoolean();
-	return true;
-}
-
-bool rlvHandleShowNameTagsChanged(const LLSD& newvalue)
-{
-	RlvSettings::fShowNameTags = newvalue.asBoolean();
-	return true;
-}
-// [/RLVa:KB]
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -588,6 +598,9 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelRolloff")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("AudioStreamingMusic")->getSignal()->connect(boost::bind(&handleAudioStreamMusicChanged, _1));
 	gSavedSettings.getControl("AuditTexture")->getSignal()->connect(boost::bind(&handleAuditTextureChanged, _1));
+	gSavedSettings.getControl("DisplayNamesUsage")->getSignal()->connect(boost::bind(&handleDisplayNamesUsageChanged, _1));
+	gSavedSettings.getControl("OmitResidentAsLastName")->getSignal()->connect(boost::bind(&handleOmitResidentAsLastNameChanged, _1));
+	gSavedSettings.getControl("LegacyNamesForFriends")->getSignal()->connect(boost::bind(&handleLegacyNamesForFriendsChanged, _1));
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMusic")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMedia")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
@@ -661,15 +674,8 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("VoiceOutputAudioDevice")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));
 	gSavedSettings.getControl("AudioLevelMic")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));
 	gSavedSettings.getControl("LipSyncEnabled")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));	
-	gSavedSettings.getControl("MediaDebugLevel")->getSignal()->connect(boost::bind(&handleMediaDebugLevelChanged, _1));	
 	gSavedSettings.getControl("SliderScrollWheelMultiplier")->getSignal()->connect(boost::bind(&handleSliderScrollWheelMultiplierChanged, _1));	
-
-// [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
-	if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
-		gSavedSettings.getControl(RLV_SETTING_ENABLELEGACYNAMING)->getSignal()->connect(boost::bind(&rlvHandleEnableLegacyNamingChanged, _1));
-	if (gSavedSettings.controlExists(RLV_SETTING_SHOWNAMETAGS))
-		gSavedSettings.getControl(RLV_SETTING_SHOWNAMETAGS)->getSignal()->connect(boost::bind(&rlvHandleShowNameTagsChanged, _1));
-// [/RLVa:KB]
+	gSavedSettings.getControl("TranslateChat")->getSignal()->connect(boost::bind(&handleTranslateChatPrefsChanged, _1));	
 }
 
 template <> eControlType get_control_type<U32>(const U32& in, LLSD& out) 
@@ -750,7 +756,6 @@ template <> eControlType get_control_type<LLSD>(const LLSD& in, LLSD& out)
 	out = in;
 	return TYPE_LLSD; 
 }
-
 
 #if TEST_CACHED_CONTROL
 

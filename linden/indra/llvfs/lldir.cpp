@@ -43,6 +43,7 @@
 #include "lldir.h"
 #include "llerror.h"
 #include "lluuid.h"
+#include "lltimer.h"
 
 #if LL_WINDOWS
 #include "lldir_win32.h"
@@ -192,8 +193,9 @@ const std::string &LLDir::getOSUserAppDir() const
 	return mOSUserAppDir;
 }
 
-const std::string &LLDir::getLindenUserDir() const
+const std::string &LLDir::getLindenUserDir(bool empty_ok) const
 {
+	llassert(empty_ok || !mLindenUserDir.empty());
 	return mLindenUserDir;
 }
 
@@ -247,7 +249,7 @@ std::string LLDir::buildSLOSCacheDir() const
 	}
 	else
 	{
-		res = getOSCacheDir() + mDirDelimiter + "Imprudence";
+		res = getOSCacheDir() + mDirDelimiter + "ImprudenceExperimental";
 	}
 	return res;
 }
@@ -294,6 +296,10 @@ const std::string LLDir::getSkinBaseDir() const
 	return dir;
 }
 
+const std::string &LLDir::getLLPluginDir() const
+{
+	return mLLPluginDir;
+}
 
 std::string LLDir::getExpandedFilename(ELLPath location, const std::string& filename) const
 {
@@ -465,6 +471,8 @@ std::string LLDir::getDirName(const std::string& filepath) const
 
 std::string LLDir::getExtension(const std::string& filepath) const
 {
+	if (filepath.empty())
+		return std::string();
 	std::string basename = getBaseFileName(filepath, false);
 	std::size_t offset = basename.find_last_of('.');
 	std::string exten = (offset == std::string::npos || offset == 0) ? "" : basename.substr(offset+1);

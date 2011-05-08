@@ -58,7 +58,7 @@
 #include "llweb.h"
 #include "llsdutil.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
 //static
 std::list<LLPanelPlace*> LLPanelPlace::sAllPanels;

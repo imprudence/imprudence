@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <floater name="minimap" short_title="Mini-Map"
-         height="455" width="200" min_height="400" min_width="240"
+         height="455" width="200" min_height="325" min_width="200"
          follows="top|right" can_close="true" can_drag_on_left="false"
          can_minimize="true" can_resize="true" can_tear_off="false"
 	       rect_control="FloaterMiniMapRect">

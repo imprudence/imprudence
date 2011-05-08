@@ -35,7 +35,7 @@
 #include "pipeline.h"
 
 // library includes
-#include "audioengine.h" // For MAX_BUFFERS for debugging.
+#include "llaudioengine.h" // For MAX_BUFFERS for debugging.
 #include "imageids.h"
 #include "llerror.h"
 #include "llviewercontrol.h"
@@ -101,6 +101,11 @@
 #include "llwaterparammanager.h"
 #include "llspatialpartition.h"
 #include "llmutelist.h"
+#include "hippolimits.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #ifdef _DEBUG
 // Debug indices is disabled for now for debug performance - djs 4/24/02
@@ -152,6 +157,7 @@ std::string gPoolNames[] =
 	"POOL_GROUND",
 	"POOL_INVISIBLE",
 	"POOL_AVATAR",
+	"POOL_VOIDWATER",
 	"POOL_WATER",
 	"POOL_GRASS",
 	"POOL_FULLBRIGHT",
@@ -251,7 +257,8 @@ BOOL	LLPipeline::sRenderFrameTest = FALSE;
 BOOL	LLPipeline::sRenderAttachedLights = TRUE;
 BOOL	LLPipeline::sRenderAttachedParticles = TRUE;
 BOOL	LLPipeline::sRenderDeferred = FALSE;
-S32		LLPipeline::sVisibleLightCount = 0;
+S32	LLPipeline::sVisibleLightCount = 0;
+F32	LLPipeline::sSculptSurfaceAreaFrame = 0.0;
 
 static LLCullResult* sCull = NULL;
 
@@ -1014,8 +1021,8 @@ U32 LLPipeline::addObject(LLViewerObject *vobj)
 	{
 		return 0;
 	}
-
-	if (gSavedSettings.getBOOL("RenderDelayCreation"))
+	static BOOL sRenderDelayCreation = gSavedSettings.getBOOL("RenderDelayCreation");
+	if (sRenderDelayCreation)
 	{
 		mCreateQ.push_back(vobj);
 	}
@@ -1078,7 +1085,9 @@ void LLPipeline::createObject(LLViewerObject* vobj)
 
 	markRebuild(drawablep, LLDrawable::REBUILD_ALL, TRUE);
 
-	if (drawablep->getVOVolume() && gSavedSettings.getBOOL("RenderAnimateRes"))
+	static BOOL sRenderAnimateRes = gSavedSettings.getBOOL("RenderAnimateRes");
+
+	if (drawablep->getVOVolume() && sRenderAnimateRes)
 	{
 		// fun animated res
 		drawablep->updateXform(TRUE);
@@ -1117,7 +1126,8 @@ void LLPipeline::resetFrameStats()
 //external functions for asynchronous updating
 void LLPipeline::updateMoveDampedAsync(LLDrawable* drawablep)
 {
-	if (gSavedSettings.getBOOL("FreezeTime"))
+	static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
+	if ((*sFreezeTime))
 	{
 		return;
 	}
@@ -1147,7 +1157,8 @@ void LLPipeline::updateMoveDampedAsync(LLDrawable* drawablep)
 
 void LLPipeline::updateMoveNormalAsync(LLDrawable* drawablep)
 {
-	if (gSavedSettings.getBOOL("FreezeTime"))
+	static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
+	if ((*sFreezeTime))
 	{
 		return;
 	}
@@ -1200,7 +1211,8 @@ void LLPipeline::updateMove()
 	LLFastTimer t(LLFastTimer::FTM_UPDATE_MOVE);
 	LLMemType mt(LLMemType::MTYPE_PIPELINE);
 
-	if (gSavedSettings.getBOOL("FreezeTime"))
+	static BOOL* sFreezeTime = rebind_llcontrol<BOOL>("FreezeTime", &gSavedSettings, true);
+	if ((*sFreezeTime))
 	{
 		return;
 	}
@@ -1833,11 +1845,12 @@ void LLPipeline::markRebuild(LLDrawable *drawablep, LLDrawable::EDrawableFlags f
 void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 {
 	const U32 face_mask = (1 << LLPipeline::RENDER_TYPE_AVATAR) |
-						  (1 << LLPipeline::RENDER_TYPE_GROUND) |
-						  (1 << LLPipeline::RENDER_TYPE_TERRAIN) |
-						  (1 << LLPipeline::RENDER_TYPE_TREE) |
-						  (1 << LLPipeline::RENDER_TYPE_SKY) |
-						  (1 << LLPipeline::RENDER_TYPE_WATER);
+	                      (1 << LLPipeline::RENDER_TYPE_GROUND) |
+	                      (1 << LLPipeline::RENDER_TYPE_TERRAIN) |
+	                      (1 << LLPipeline::RENDER_TYPE_TREE) |
+	                      (1 << LLPipeline::RENDER_TYPE_SKY) |
+	                      (1 << LLPipeline::RENDER_TYPE_VOIDWATER) |
+	                      (1 << LLPipeline::RENDER_TYPE_WATER);
 
 	if (mRenderTypeMask & face_mask)
 	{
@@ -2186,6 +2199,8 @@ void LLPipeline::postSort(LLCamera& camera)
 	LLFastTimer ftm(LLFastTimer::FTM_STATESORT_POSTSORT);
 
 	assertInitialized();
+	
+	sSculptSurfaceAreaFrame = 0.0;
 
 	//rebuild drawable geometry
 	for (LLCullResult::sg_list_t::iterator i = sCull->beginDrawableGroups(); i != sCull->endDrawableGroups(); ++i)
@@ -2294,8 +2309,10 @@ void LLPipeline::postSort(LLCamera& camera)
 		std::sort(sCull->beginAlphaGroups(), sCull->endAlphaGroups(), LLSpatialGroup::CompareDepthGreater());
 	}
 	
+	static BOOL* sBeaconsEnabled = rebind_llcontrol<BOOL>("BeaconsEnabled", &gSavedSettings, true);
+
 	// only render if the flag is set. The flag is only set if we are in edit mode or the toggle is set in the menus
-	if (gSavedSettings.getBOOL("BeaconsEnabled") && !sShadowRender)
+	if (*sBeaconsEnabled && !sShadowRender)
 	{
 		if (sRenderScriptedTouchBeacons)
 		{
@@ -2442,7 +2459,8 @@ void LLPipeline::renderHighlights()
 		// Make sure the selection image gets downloaded and decoded
 		if (!mFaceSelectImagep)
 		{
-			mFaceSelectImagep = gImageList.getImage(IMG_FACE_SELECT);
+			// Load the select texture texture from file -- MC
+			mFaceSelectImagep = gImageList.getImageFromFile(IMG_FACE_SELECT.asString()+".j2c", TRUE, TRUE); /*gImageList.getImage(IMG_FACE_SELECT);*/
 		}
 		mFaceSelectImagep->addTextureStats((F32)MAX_IMAGE_AREA);
 
@@ -4435,6 +4453,11 @@ void LLPipeline::toggleRenderType(U32 type)
 {
 	U32 bit = (1<<type);
 	gPipeline.mRenderTypeMask ^= bit;
+	if (type == RENDER_TYPE_WATER)
+	{
+		bit = (1 << RENDER_TYPE_VOIDWATER);
+		gPipeline.mRenderTypeMask ^= bit;
+	}
 }
 
 //static
@@ -4914,7 +4937,7 @@ void LLPipeline::setUseVBO(BOOL use_vbo)
 		}
 		
 		resetVertexBuffers();
-		LLVertexBuffer::initClass(use_vbo);
+		LLVertexBuffer::initClass(use_vbo && gGLManager.mHasVertexBufferObject);
 	}
 }
 
@@ -5743,18 +5766,19 @@ void LLPipeline::renderDeferredLighting()
 		LLGLDisable stencil(GL_STENCIL_TEST);
 
 		U32 render_mask = mRenderTypeMask;
-		mRenderTypeMask =	mRenderTypeMask & 
-							((1 << LLPipeline::RENDER_TYPE_SKY) |
-							(1 << LLPipeline::RENDER_TYPE_CLOUDS) |
-							(1 << LLPipeline::RENDER_TYPE_WL_SKY) |
-							(1 << LLPipeline::RENDER_TYPE_ALPHA) |
-							(1 << LLPipeline::RENDER_TYPE_AVATAR) |
-							(1 << LLPipeline::RENDER_TYPE_WATER) |
-							(1 << LLPipeline::RENDER_TYPE_FULLBRIGHT) |
-							(1 << LLPipeline::RENDER_TYPE_VOLUME) |
-							(1 << LLPipeline::RENDER_TYPE_GLOW) |
+		mRenderTypeMask = mRenderTypeMask &
+		                  ((1 << LLPipeline::RENDER_TYPE_SKY) |
+		                   (1 << LLPipeline::RENDER_TYPE_CLOUDS) |
+		                   (1 << LLPipeline::RENDER_TYPE_WL_SKY) |
+		                   (1 << LLPipeline::RENDER_TYPE_ALPHA) |
+		                   (1 << LLPipeline::RENDER_TYPE_AVATAR) |
+		                   (1 << LLPipeline::RENDER_TYPE_VOIDWATER) |
+		                   (1 << LLPipeline::RENDER_TYPE_WATER) |
+		                   (1 << LLPipeline::RENDER_TYPE_FULLBRIGHT) |
+		                   (1 << LLPipeline::RENDER_TYPE_VOLUME) |
+		                   (1 << LLPipeline::RENDER_TYPE_GLOW) |
 							(1 << LLPipeline::RENDER_TYPE_BUMP));
-		
+
 		renderGeomPostDeferred(*LLViewerCamera::getInstance());
 		mRenderTypeMask = render_mask;
 	}
@@ -5909,10 +5933,11 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 
 			if (LLDrawPoolWater::sNeedsDistortionUpdate)
 			{
-				mRenderTypeMask &=	~((1<<LLPipeline::RENDER_TYPE_WATER) |
-									  (1<<LLPipeline::RENDER_TYPE_GROUND) |
-									  (1<<LLPipeline::RENDER_TYPE_SKY) |
-									  (1<<LLPipeline::RENDER_TYPE_CLOUDS));	
+				mRenderTypeMask &= ~((1<<LLPipeline::RENDER_TYPE_WATER) |
+				                     (1<<LLPipeline::RENDER_TYPE_VOIDWATER) |
+				                     (1<<LLPipeline::RENDER_TYPE_GROUND) |
+				                     (1<<LLPipeline::RENDER_TYPE_SKY) |
+				                     (1<<LLPipeline::RENDER_TYPE_CLOUDS));
 
 				if (gSavedSettings.getBOOL("RenderWaterReflections"))
 				{ //mask out selected geometry based on reflection detail
@@ -5954,11 +5979,15 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		if (last_update)
 		{
 			camera.setFar(camera_in.getFar());
-			mRenderTypeMask = type_mask & (~(1<<LLPipeline::RENDER_TYPE_WATER) |
-											(1<<LLPipeline::RENDER_TYPE_GROUND));	
+			mRenderTypeMask = type_mask & ~((1<<LLPipeline::RENDER_TYPE_WATER) |
+							(1<<LLPipeline::RENDER_TYPE_VOIDWATER) |
+							(1<<LLPipeline::RENDER_TYPE_GROUND));
 			stop_glerror();
 
 			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? FALSE : TRUE;
+			
+			if (!gSavedSettings.getBOOL("RenderWater") || !gHippoLimits->mRenderWater)
+				LLPipeline::sUnderWaterRender = FALSE;
 
 			if (LLPipeline::sUnderWaterRender)
 			{

@@ -12,11 +12,11 @@
 			<text name="Sim Name:" width="55">
 				Sim-Name:
 			</text>
-			<check_box label="Startbereich Einleitung" name="check prelude"
+			<check_box label="Startbereich" name="check prelude"
 			     tool_tip="Diese Region zu einem Startbereich machen." />
 			<check_box label="Sonne fest" name="check fixed sun"
 			     tool_tip="Fixiert den Sonnenstand (wie in „Region/Grundstück“ &gt; „Terrain“." />
-			<check_box label="Zuhause auf Teleport &#10;zurücksetzen" name="check reset home"
+			<check_box label="Zuhause bei Teleport &#10;zurücksetzen" name="check reset home"
 			     tool_tip="Wenn Einwohner wegteleportieren, ihr Zuhause auf Zielposition setzen." height="32" />
 			<check_box label="Sichtbar" name="check visible"
 			     tool_tip="Diese Region für Nicht-Götter sichtbar machen." bottom_delta="-32" />
@@ -25,7 +25,7 @@
 			<check_box label="Trafficüberwachung blockieren" name="block dwell"
 			     tool_tip="In dieser Region die Traffic-Berechnung abschalten." />
 			<check_box label="Terraformen blockieren" name="block terraform"
-			     tool_tip="Das Terraformen von Land verbieten (Benutzen Sie dies um Leuten das Terraformen ihres Landes zu verbieten)" />
+			     tool_tip="Das Terraformen von Land verbieten (Benutzen Sie dies, um Leuten das Terraformen ihres Landes zu verbieten)" />
 			<check_box label="Sandkasten" name="is sandbox"
 			     tool_tip="Sandkastenregion ein-/ausschalten." />
 			<button label="Terrain formen" label_selected="Terrain formen" name="Bake Terrain"
@@ -56,7 +56,7 @@
 				Abrechnungsfaktor:
 			</text>
 			<text name="land cost text">
-				L$ pro qm:
+				 [CURRENCY] pro qm:
 			</text>
 			<button label="Aktualisieren" label_selected="Aktualisieren" name="Refresh"
 			     tool_tip="Klicken Sie hier, um die obigen Informationen zu aktualisieren." />
@@ -76,8 +76,8 @@
 			<text name="region name">
 				Welsh
 			</text>
-			<check_box label="Skripts &#10;deaktivieren" name="disable scripts"
-			     tool_tip="Skripts in dieser Region komplett abschalten" />
+			<check_box label="Skripte &#10;deaktivieren" name="disable scripts"
+			     tool_tip="Skripte in dieser Region komplett abschalten" />
 			<check_box label="Kollisionen &#10;deaktivieren" name="disable collisions"
 			     tool_tip="Nicht-Avatar-Kollisionen in dieser Region komplett abschalten" />
 			<check_box label="Physik deaktivieren" name="disable physics"
@@ -96,7 +96,7 @@
 			<button label="Geskriptete Objekte des Ziels auf *allen* Ländern löschen"
 			     label_selected="Geskriptete Objekte des Ziels auf *allen* Ländern löschen"
 			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
-			     tool_tip="Alle dem Ziel gehörenden geskripteten Objekte in dieser Region löschen. Objekte (nicht kopierfähig) werden zurückgegeben." />
+			     tool_tip="Alle dem Ziel gehörenden geskripteten Objekte auf Land, das nicht dem Ziel gehört löschen. Objekte (nicht kopierfähig) werden zurückgegeben." />
 			<button label="*ALLE* Objekte des Ziels löschen"
 			     label_selected="*ALLE* Objekte des Ziels löschen"
 			     name="Delete *ALL* Of Target&apos;s Objects"
@@ -104,11 +104,11 @@
 			<button label="Top-Kollisionsobjekte" label_selected="Top-Kollisionsobjekte"
 			     name="Get Top Colliders"
 			     tool_tip="Zeigt eine Liste der Objekte mit den meisten Callbacks in der nahen Phase an." width="130" />
-			<button label="Top-Skripts" label_selected="Top-Skripts" name="Get Top Scripts"
-			     tool_tip="Zeigt eine Liste der Objekte an, die die meiste Zeit über Skripts ausführen." width="130" />
-			<button label="Scripting-Übersicht" label_selected="Scripting-Übersicht"
+			<button label="Top-Skripte" label_selected="Top-Skripte" name="Get Top Scripts"
+			     tool_tip="Zeigt eine Liste der Objekte an, die die meiste Zeit über Skripte ausführen." width="130" />
+			<button label="Skripte-Übersicht" label_selected="Skripte-Übersicht"
 			     name="Scripts digest"
-			     tool_tip="Zeigt eine Liste aller Skripts mit Häufigkeit an." width="130" />
+			     tool_tip="Zeigt eine Liste aller Skripte mit Häufigkeit an." width="130" />
 		</panel>
 		<panel label="Anfrage" name="request">
 			<text name="Destination:">
@@ -130,7 +130,7 @@
 					Kollisionsobjekte &lt;Schritte&gt;
 				</combo_item>
 				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">
-					Skripts &lt;Zähler&gt;,&lt;Optionales Muster&gt;
+					Skripte &lt;Zähler&gt;,&lt;Optionales Muster&gt;
 				</combo_item>
 				<combo_item name="objects&lt;pattern&gt;">
 					Objekte &lt;Muster&gt;
@@ -142,7 +142,7 @@
 			<text name="Parameter:">
 				Parameter:
 			</text>
-			<button label="Anfrage" label_selected="Anfrage" name="Make Request" />
+			<button label="Anfragen" label_selected="Anfragen" name="Make Request" />
 		</panel>
 	</tab_container>
 </floater>

@@ -82,10 +82,10 @@
 #include "llviewerwindow.h"
 #include "llwearable.h"
 
-#include "hippoGridManager.h"
+#include "hippogridmanager.h"
 
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-#include "llvoavatar.h"
+// [RLVa:KB]
+#include "rlvhandler.h"
 // [/RLVa:KB]
 
 ///----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ public:
 	virtual void move(LLFolderViewEventListener* parent_listener);
 	virtual BOOL isItemCopyable() const;
 	virtual BOOL copyToClipboard() const;
-	virtual void cutToClipboard();
+	virtual BOOL cutToClipboard() const;
 	virtual BOOL isClipboardPasteable() const;
 	virtual void pasteFromClipboard();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
@@ -594,8 +594,9 @@ BOOL LLTaskInvFVBridge::copyToClipboard() const
 	return FALSE;
 }
 
-void LLTaskInvFVBridge::cutToClipboard()
+BOOL LLTaskInvFVBridge::cutToClipboard() const
 {
+	return FALSE;
 }
 
 BOOL LLTaskInvFVBridge::isClipboardPasteable() const
@@ -750,13 +751,13 @@ void LLTaskInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		{
 			disabled_items.push_back(std::string("Task Open"));
 		}
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 		else if (rlv_handler_t::isEnabled())
 		{
 			bool fLocked = gRlvHandler.isLockedAttachment(gObjectList.findObject(mPanel->getTaskUUID()), RLV_LOCK_REMOVE);
 			if ( ((LLAssetType::AT_LSL_TEXT == item->getType()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT)) || (fLocked))) ||
 				 ((LLAssetType::AT_NOTECARD == item->getType()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) || (fLocked))) ||
-				 ((LLAssetType::AT_NOTECARD == item->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) )
+				 ((LLAssetType::AT_TEXTURE == item->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) )
 			{
 				disabled_items.push_back(std::string("Task Open"));
 			}
@@ -986,9 +987,10 @@ LLUIImagePtr LLTaskTextureBridge::getIcon() const
 
 void LLTaskTextureBridge::openItem()
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
 	{
+		RlvNotifications::notifyBlockedViewTexture();
 		return;
 	}
 // [/RLVa:KB]
@@ -1274,11 +1276,12 @@ LLTaskLSLBridge::LLTaskLSLBridge(
 
 void LLTaskLSLBridge::openItem()
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	if ( (rlv_handler_t::isEnabled()) && 
 		((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT)) || (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE))) )
 	{
+		RlvNotifications::notifyBlockedViewScript();
 		return;
 	}
 // [/RLVa:KB]
@@ -1377,6 +1380,9 @@ public:
 	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
+	bool isSkySetting() const;
+	bool isWaterSetting() const;
+	bool isWindLight() const;
 };
 
 LLTaskNotecardBridge::LLTaskNotecardBridge(
@@ -1385,11 +1391,6 @@ LLTaskNotecardBridge::LLTaskNotecardBridge(
 	const std::string& name) :
 	LLTaskInvFVBridge(panel, uuid, name)
 {
-}
-
-LLUIImagePtr LLTaskNotecardBridge::getIcon() const
-{
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 }
 
 void LLTaskNotecardBridge::openItem()
@@ -1403,13 +1404,18 @@ void LLTaskNotecardBridge::openItem()
 	{
 		return;
 	}
-// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if ( (rlv_handler_t::isEnabled()) && 
 		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) || (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE)) ) )
 	{
+		RlvNotifications::notifyBlockedViewNote();
 		return;
 	}
 // [/RLVa:KB]
+	if(isWindLight())
+	{
+		return;
+	}
 	if(object->permModify() || gAgent.isGodlike())
 	{
 		S32 left, top;
@@ -1434,6 +1440,37 @@ BOOL LLTaskNotecardBridge::removeItem()
 	LLPreview::hide(mUUID);
 	return LLTaskInvFVBridge::removeItem();
 }
+LLUIImagePtr LLTaskNotecardBridge::getIcon() const
+{
+	if(isSkySetting())
+	{
+		return LLUI::getUIImage("Inv_WindLight");
+	}
+	else if(isWaterSetting())
+	{
+		return LLUI::getUIImage("Inv_WaterLight");
+	}
+	else
+	{
+		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
+	}
+}
+
+bool LLTaskNotecardBridge::isSkySetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+}
+
+bool LLTaskNotecardBridge::isWaterSetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
+}
+
+bool LLTaskNotecardBridge::isWindLight() const
+{
+	return (isSkySetting() || isWaterSetting());
+}
+
 
 ///----------------------------------------------------------------------------
 /// Class LLTaskGestureBridge

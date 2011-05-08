@@ -32,6 +32,7 @@
 #include "llagent.h"
 #include "llchat.h"
 #include "llfloateravatarinfo.h"
+#include "llfloateravatarlist.h"
 #include "llfloaterchat.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinvite.h"
@@ -57,7 +58,9 @@
 #include "llvoavatar.h"
 #include "llworld.h"
 #include "panelradarentry.h"
-
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 PanelRadar::PanelRadar()
 	:
@@ -93,6 +96,7 @@ BOOL PanelRadar::postBuild()
 	//childSetAction("estate_eject_btn", onClickEjectFromEstate, this);
 	//childSetAction("estate_ban_btn", onClickBanFromEstate, this);
 	childSetAction("ban_btn", onClickBan, this);
+	childSetAction("full_radar_btn", onClickFullRadar, this);
 
 	setDefaultBtn("im_btn");
 
@@ -112,7 +116,9 @@ bool PanelRadar::isImpDev(const LLUUID& agent_id)
 	std::string agent_name = getSelectedName(agent_id);
 	return (agent_name == "McCabe Maxsted" || 
 	        agent_name == "Jacek Antonelli" ||
-	        agent_name == "Armin Weatherwax");
+	        agent_name == "Armin Weatherwax" ||
+			agent_name == "Elektra Hesse" || 
+			agent_name == "CodeBastard Redgrave");
 }
 
 void PanelRadar::updateRadarInfo()
@@ -175,6 +181,11 @@ void PanelRadar::updateRadarInfo()
 	}
 	else // avatar_ids empty
 	{
+		// Just in case
+		if (!mAvatars.empty())
+		{
+			mAvatars.clear();
+		}
 		mRadarList->deleteAllItems();
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		LLUIString av_count_string = getString("avatars_in_plural");
@@ -211,6 +222,8 @@ void PanelRadar::updateRadarDisplay()
 	F32 range = gSavedSettings.getF32("NearMeRange");
 	bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
 	bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
+	// We show avatars outside the estate even if you can't manage it in case griefers are lying on the border
+	bool is_manager = gAgent.getRegion()->canManageEstate();
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 	{
@@ -279,7 +292,7 @@ void PanelRadar::updateRadarDisplay()
 		}
 
 		// Only display avatars in range
-		if (entry->getDistance() <= range)
+		if (is_manager || entry->getDistance() <= range)
 		{
 			// Append typing string
 			std::string typing = "";
@@ -296,7 +309,7 @@ void PanelRadar::updateRadarDisplay()
 // [RLVa:KB] - Alternate: Imprudence-1.2.0
 			element["columns"][0]["value"] =
 				(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
-					? gRlvHandler.getAnonym(entry->getName())
+					? RlvStrings::getAnonym(entry->getName())
 					: typing + entry->getName() + " " + mute_text;
 // [/RLVa:KB]
 			element["columns"][1]["column"] = "avatar_distance";
@@ -1011,6 +1024,13 @@ void PanelRadar::onClickAR(void* user_data)
 	{
 			LLFloaterReporter::showFromObject(agent_id);
 	}
+}
+
+
+// static
+void PanelRadar::onClickFullRadar(void* user_data)
+{
+	LLFloaterAvatarList::toggle(NULL);
 }
 
 

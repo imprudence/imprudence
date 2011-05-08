@@ -49,6 +49,7 @@
 #include "message.h"
 
 // project include
+#include "hippogridmanager.h"
 #include "llagent.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
@@ -73,9 +74,11 @@
 #include "lllogchat.h"
 #include "lltexteditor.h"
 #include "lltextparser.h"
-#include "llfloaterhtml.h"
 #include "llweb.h"
 #include "llstylemap.h"
+#include "llviewermenu.h"
+
+#include "boost/regex.hpp"
 
 // Used for LCD display
 extern void AddNewIMToLCD(const std::string &newLine);
@@ -87,6 +90,10 @@ const F32 INSTANT_MSG_SIZE = 8.0f;
 const F32 CHAT_MSG_SIZE = 8.0f;
 const LLColor4 MUTED_MSG_COLOR(0.5f, 0.5f, 0.5f, 1.f);
 const S32 MAX_CHATTER_COUNT = 16;
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 //
 // Global statics
@@ -108,6 +115,8 @@ LLFloaterChat::LLFloaterChat(const LLSD& seed)
 	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_chat_history.xml",&getFactoryMap(),no_open);
 
 	childSetCommitCallback("show mutes",onClickToggleShowMute,this); //show mutes
+	childSetCommitCallback("translate chat",onClickToggleTranslateChat,this);
+	childSetValue("translate chat", gSavedSettings.getBOOL("TranslateChat"));
 	childSetVisible("Chat History Editor with mute",FALSE);
 	childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
 	setDefaultBtn("Chat");
@@ -185,6 +194,15 @@ void LLFloaterChat::setMinimized(BOOL minimized)
 	updateConsoleVisibility();
 }
 
+// linden library includes
+#include "llaudioengine.h"
+#include "llchat.h"
+#include "llfontgl.h"
+#include "llrect.h"
+#include "llerror.h"
+#include "llstring.h"
+#include "llwindow.h"
+#include "message.h"
 
 void LLFloaterChat::updateConsoleVisibility()
 {
@@ -380,7 +398,6 @@ void LLFloaterChat::setHistoryCursorAndScrollToEnd()
 	}
 }
 
-
 //static 
 void LLFloaterChat::onClickMute(void *data)
 {
@@ -427,6 +444,79 @@ void LLFloaterChat::onClickToggleShowMute(LLUICtrl* caller, void *data)
 		history_editor_with_mute->setVisible(FALSE);
 		history_editor->setCursorAndScrollToEnd();
 	}
+}
+
+// Update the "TranslateChat" pref after "translate chat" checkbox is toggled in
+// the "Local Chat" floater.
+//static
+void LLFloaterChat::onClickToggleTranslateChat(LLUICtrl* caller, void *data)
+{
+	LLFloaterChat* floater = (LLFloaterChat*)data;
+
+	BOOL translate_chat = floater->getChild<LLCheckBoxCtrl>("translate chat")->get();
+	gSavedSettings.setBOOL("TranslateChat", translate_chat);
+}
+
+// Update the "translate chat" checkbox after the "TranslateChat" pref is set in
+// some other place (e.g. prefs dialog).
+//static
+void LLFloaterChat::updateSettings()
+{
+	BOOL translate_chat = gSavedSettings.getBOOL("TranslateChat");
+	LLFloaterChat::getInstance(LLSD())->getChild<LLCheckBoxCtrl>("translate chat")->set(translate_chat);
+}
+
+BOOL checkStringInText(const std::string &text_line, std::string textToMatch)
+{
+	boost::smatch what;
+	std::string pattern_s = "(^|.*[_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+)(" + textToMatch + ")([_=&\\|\\<\\>#@\\[\\]\\-\\+\"',\\.\\?!:;\\*\\(\\)\\s]+.*|$)";
+	boost::regex expression(pattern_s, boost::regex::icase);
+	return boost::regex_search(text_line, what, expression);
+}
+
+BOOL LLFloaterChat::isOwnNameInText(const std::string &text_line)
+{
+	if (checkStringInText(text_line, gHippoGridManager->getConnectedGrid()->getFirstName()))
+		return TRUE;
+
+	for (int i=1; i<=3; i++)
+	{
+		std::stringstream key;
+		key << "HighlightNickname0" << i;
+		std::string nick = gSavedSettings.getString(key.str());
+		if (! nick.empty())
+		{
+			if (checkStringInText(text_line, nick))
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+LLColor4 get_extended_text_color(const LLChat& chat, LLColor4 defaultColor)
+{
+	if (gSavedSettings.getBOOL("HighlightOwnNameInChat"))
+	{
+		std::string new_line = std::string(chat.mText);
+		int name_pos = new_line.find(chat.mFromName);
+		if (name_pos == 0)
+		{
+			new_line = new_line.substr(chat.mFromName.length());
+			if (new_line.find(": ") == 0)
+				new_line = new_line.substr(2);
+			else
+				new_line = new_line.substr(1);
+		}
+
+		if (LLFloaterChat::isOwnNameInText(new_line))
+			return gSavedSettings.getColor4("OwnNameChatColor");
+	}
+
+	if (gSavedSettings.getBOOL("HighlightFriendsChat") && is_agent_friend(chat.mFromID))
+		return gSavedSettings.getColor4("FriendsChatColor");
+
+	return defaultColor;
 }
 
 // Put a line of chat in all the right places
@@ -506,11 +596,52 @@ void LLFloaterChat::addChat(const LLChat& chat,
 	if(from_instant_message && gSavedSettings.getBOOL("IMInChatHistory")) 	 
 		addChatHistory(chat,false);
 
-	LLTextParser* highlight = LLTextParser::getInstance();
-	highlight->triggerAlerts(gAgent.getID(), gAgent.getPositionGlobal(), chat.mText, gViewerWindow->getWindow());
+	triggerAlerts(chat.mText);
 
 	if(!from_instant_message)
 		addChatHistory(chat);
+}
+
+// Moved from lltextparser.cpp to break llui/llaudio library dependency.
+//static
+void LLFloaterChat::triggerAlerts(const std::string& text)
+{
+	LLTextParser* parser = LLTextParser::getInstance();
+//    bool spoken=FALSE;
+	for (S32 i=0;i<parser->mHighlights.size();i++)
+	{
+		LLSD& highlight = parser->mHighlights[i];
+		if (parser->findPattern(text,highlight) >= 0 )
+		{
+			if(gAudiop)
+			{
+				if ((std::string)highlight["sound_lluuid"] != LLUUID::null.asString())
+				{
+					gAudiop->triggerSound(highlight["sound_lluuid"].asUUID(), 
+						gAgent.getID(),
+						1.f,
+						LLAudioEngine::AUDIO_TYPE_UI,
+						gAgent.getPositionGlobal() );
+				}
+/*				
+				if (!spoken) 
+				{
+					LLTextToSpeech* text_to_speech = NULL;
+					text_to_speech = LLTextToSpeech::getInstance();
+					spoken = text_to_speech->speak((LLString)highlight["voice"],text); 
+				}
+ */
+			}
+			if (highlight["flash"])
+			{
+				LLWindow* viewer_window = gViewerWindow->getWindow();
+				if (viewer_window && viewer_window->getMinimized())
+				{
+					viewer_window->flashIcon(5.f);
+				}
+			}
+		}
+	}
 }
 
 LLColor4 get_text_color(const LLChat& chat)
@@ -529,19 +660,21 @@ LLColor4 get_text_color(const LLChat& chat)
 			text_color = gSavedSettings.getColor4("SystemChatColor");
 			break;
 		case CHAT_SOURCE_AGENT:
-		    if (chat.mFromID.isNull())
 			{
-				text_color = gSavedSettings.getColor4("SystemChatColor");
-			}
-			else
-			{
-				if(gAgent.getID() == chat.mFromID)
+				if (chat.mFromID.isNull())
 				{
-					text_color = gSavedSettings.getColor4("UserChatColor");
+					text_color = gSavedSettings.getColor4("SystemChatColor");
 				}
 				else
 				{
-					text_color = gSavedSettings.getColor4("AgentChatColor");
+					if(gAgent.getID() == chat.mFromID)
+					{
+						text_color = gSavedSettings.getColor4("UserChatColor");
+					}
+					else
+					{
+						text_color = get_extended_text_color(chat, gSavedSettings.getColor4("AgentChatColor"));
+					}
 				}
 			}
 			break;

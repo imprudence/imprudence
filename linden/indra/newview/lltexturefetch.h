@@ -60,7 +60,7 @@ public:
 	/*virtual*/ S32 update(U32 max_time_ms);	
 
 	bool createRequest(const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux);
+					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool use_http);
 	void deleteRequest(const LLUUID& id, bool cancel);
 	bool getRequestFinished(const LLUUID& id, S32& discard_level,
 							LLPointer<LLImageRaw>& raw, LLPointer<LLImageRaw>& aux);
@@ -86,6 +86,8 @@ public:
 
 	LLTextureInfo* getTextureInfo() { return &mTextureInfo; }
 	
+	static bool hasBuggyHTTPRange(); // *TODO: remove this *HACK once buggy OpenSim versions are gone
+
 protected:
 	void addToNetworkQueue(LLTextureFetchWorker* worker);
 	void removeFromNetworkQueue(LLTextureFetchWorker* worker, bool cancel);

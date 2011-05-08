@@ -53,6 +53,7 @@
 #include "llfloaterchat.h"
 #include "llfloatercustomize.h"
 #include "llfloaterproperties.h"
+#include "llfloatertools.h"
 #include "llfloaterworldmap.h"
 #include "llfocusmgr.h"
 #include "llfolderview.h"
@@ -72,12 +73,17 @@
 #include "llresmgr.h"
 #include "llscrollcontainer.h"
 #include "llimview.h"
+#include "lltoolcomp.h"
 #include "lltooldraganddrop.h"
+#include "lltoolmgr.h"
 #include "llviewerimagelist.h"
 #include "llviewerinventory.h"
+#include "llviewerjoystick.h"
 #include "llviewerobjectlist.h"
+#include "llviewerparcelmgr.h"
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
+#include "llwaterparammanager.h"
 #include "llwearable.h"
 #include "llwearablelist.h"
 #include "llviewermessage.h" 
@@ -86,6 +92,11 @@
 #include "lluictrlfactory.h"
 #include "llselectmgr.h"
 #include "llfloateropenobject.h"
+#include "llwlparammanager.h"
+
+// [RLVa:KB]
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 // Helpers
 // bug in busy count inc/dec right now, logic is complex... do we really need it?
@@ -157,7 +168,9 @@ struct LLWearInfo
 	BOOL	mAppend;
 };
 
-BOOL gAddToOutfit = FALSE;
+// [RLVa:KB] - Made this part of LLWearableHoldingPattern
+//BOOL gAddToOutfit = FALSE;
+// [/RLVa:KB]
 
 // +=================================================+
 // |        LLInvFVBridge                            |
@@ -450,6 +463,12 @@ void LLInvFVBridge::getClipboardEntries(bool show_asset_id, std::vector<std::str
 
 	items.push_back(std::string("Copy Separator"));
 
+	items.push_back(std::string("Cut"));
+	if (!isItemCopyable())
+	{
+		disabled_items.push_back(std::string("Cut"));
+	}
+
 	items.push_back(std::string("Copy"));
 	if (!isItemCopyable())
 	{
@@ -491,14 +510,14 @@ void LLInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("Open"));
 		items.push_back(std::string("Properties"));
 
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 		if (rlv_handler_t::isEnabled())
 		{
 			LLInventoryObject* pItem = (mInventoryPanel->getModel()) ? mInventoryPanel->getModel()->getObject(mUUID) : NULL;
 			if ( (pItem) &&
 				 ( ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))) ||
 				   ((LLAssetType::AT_LSL_TEXT == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))) ||
-				   ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
+				   ((LLAssetType::AT_TEXTURE == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
 			{
 				disabled_items.push_back(std::string("Open"));
 			}
@@ -800,6 +819,11 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 		copyToClipboard();
 		return;
 	}
+	else if ("cut" == action)
+	{
+		cutToClipboard();
+		return;
+	}
 	else if ("paste" == action)
 	{
 		// Single item only
@@ -1069,6 +1093,15 @@ BOOL LLItemBridge::copyToClipboard() const
 	if(isItemCopyable())
 	{
 		LLInventoryClipboard::instance().add(mUUID);
+		return TRUE;
+	}
+	return FALSE;
+}
+BOOL LLItemBridge::cutToClipboard() const
+{
+	if(isItemCopyable())
+	{
+		LLInventoryClipboard::instance().addCut(mUUID);
 		return TRUE;
 	}
 	return FALSE;
@@ -1877,6 +1910,35 @@ void LLFolderBridge::pasteFromClipboard()
 					LLPointer<LLInventoryCallback>(NULL));
 			}
 		}
+		//Do cuts as well
+		LLInventoryClipboard::instance().retrieveCuts(objects);
+		count = objects.count();
+		parent_id = mUUID;
+		for(S32 i = 0; i < count; i++)
+		{
+			item = model->getItem(objects.get(i));
+			if (item)
+			{
+				copy_inventory_item(
+					gAgent.getID(),
+					item->getPermissions().getOwner(),
+					item->getUUID(),
+					parent_id,
+					std::string(),
+					LLPointer<LLInventoryCallback>(NULL));
+				LLInventoryCategory* cat = model->getCategory(item->getUUID());
+				if(cat)
+				{
+					model->purgeDescendentsOf(mUUID);
+				}
+				LLInventoryObject* obj = model->getObject(item->getUUID());
+				if(!obj) return;
+				obj->removeFromServer();
+				LLPreview::hide(item->getUUID());
+				model->deleteObject(item->getUUID());
+				model->notifyObservers();
+			}
+		}
 	}
 }
 
@@ -2496,9 +2558,10 @@ void open_texture(const LLUUID& item_id,
 				   const LLUUID& source_id,
 				   BOOL take_focus)
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
 	{
+		RlvNotifications::notifyBlockedViewTexture();
 		return;
 	}
 // [/RLVa:KB]
@@ -2992,10 +3055,7 @@ BOOL LLCallingCardBridge::dragOrDrop(MASK mask, BOOL drop,
 std::string LLNotecardBridge::sPrefix("Note: ");
 
 
-LLUIImagePtr LLNotecardBridge::getIcon() const
-{
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
-}
+
 
 void open_notecard(LLViewerInventoryItem* inv_item,
 				   const std::string& title,
@@ -3004,9 +3064,10 @@ void open_notecard(LLViewerInventoryItem* inv_item,
 				   const LLUUID& source_id,
 				   BOOL take_focus)
 {
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) )
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))
 	{
+		RlvNotifications::notifyBlockedViewNote();
 		return;
 	}
 // [/RLVa:KB]
@@ -3056,10 +3117,132 @@ void LLNotecardBridge::openItem()
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
-		open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
+		if(isSkySetting())
+ 		{
+			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
+		}
+		else if(isWaterSetting())
+		{
+			LLWaterParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
+		}
+		else
+		{
+			open_notecard(item, getPrefix() + item->getName(), LLUUID::null, FALSE);
+		}
+	}
+}
+ 
+void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
+{
+	// *TODO: Translate
+	lldebugs << "LLNotecardBridge::buildContextMenu()" << llendl;
+	std::vector<std::string> items;
+	std::vector<std::string> disabled_items;
+	if(isInTrash())
+	{
+		items.push_back(std::string("Purge Item"));
+		if (!isItemRemovable())
+		{
+			disabled_items.push_back(std::string("Purge Item"));
+		}
+
+		items.push_back(std::string("Restore Item"));
+	}
+
+	else
+	{
+
+		if(isWindLight())
+		{
+			if(isSkySetting())
+			{
+				items.push_back(std::string("Use WindLight Settings"));
+			}
+			else if(isWaterSetting())
+			{
+				items.push_back(std::string("Use WaterLight Settings"));
+			}
+			items.push_back(std::string("Edit WindLight Settings"));
+		}
+		else
+		{
+			items.push_back(std::string("Open"));
+		}
+		items.push_back(std::string("Properties"));
+
+		// RLVa stuff copied from LLInvFVBridge::buildContextMenu
+		// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+		if (rlv_handler_t::isEnabled())
+		{
+			LLInventoryObject* pItem = (mInventoryPanel->getModel()) ? mInventoryPanel->getModel()->getObject(mUUID) : NULL;
+			if ( (pItem) &&
+				 ( ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE))) ||
+				   ((LLAssetType::AT_LSL_TEXT == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))) ||
+				   ((LLAssetType::AT_NOTECARD == pItem->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) ) )
+			{
+				disabled_items.push_back(std::string("Open"));
+			}
+		}
+		// [/RLVa:KB]
+
+		getClipboardEntries(true, items, disabled_items, flags);
+	}
+	hideContextEntries(menu, items, disabled_items);
+}
+
+void LLNotecardBridge::performAction(LLFolderView* folder, LLInventoryModel* model, std::string action)
+{
+	LLViewerInventoryItem* itemp = model->getItem(mUUID);
+	if(!itemp) return;
+
+	if ("load_windlight" == action)
+	{
+		LLWLParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
+	}
+	else if ("load_waterlight" == action)
+	{
+		LLWaterParamManager::instance()->loadPresetNotecard(itemp->getName(), itemp->getAssetUUID(), mUUID);
+	}
+	else if ("edit_windlight" == action)
+	{
+		open_notecard(itemp, getPrefix() + itemp->getName(), LLUUID::null, FALSE);
+	}
+	else
+	{
+		LLItemBridge::performAction(folder, model, action);
 	}
 }
 
+LLUIImagePtr LLNotecardBridge::getIcon() const
+{
+	if(isSkySetting())
+	{
+		return LLUI::getUIImage("Inv_WindLight");
+	}
+	else if(isWaterSetting())
+ 	{
+		return LLUI::getUIImage("Inv_WaterLight");
+	}
+	else
+	{
+		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
+	}
+}
+
+bool LLNotecardBridge::isSkySetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
+}
+
+bool LLNotecardBridge::isWaterSetting() const
+{
+	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
+}
+
+bool LLNotecardBridge::isWindLight() const
+{
+	return (isSkySetting() || isWaterSetting());
+}
 
 // +=================================================+
 // |        LLGestureBridge                          |
@@ -3392,6 +3575,55 @@ void LLObjectBridge::performAction(LLFolderView* folder, LLInventoryModel* model
 			llwarns << "object not found - ignoring" << llendl;
 		}
 	}
+	else if ("edit" == action)
+	{
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT))
+			return;
+		LLVOAvatar* avatarp = gAgent.getAvatarObject();
+		if (!avatarp)
+			return;
+		LLViewerObject* objectp = avatarp->getWornAttachment(mUUID);
+		if (!objectp)
+			return;
+
+		// [Selective copy/paste from LLObjectEdit::handleEvent()]
+		LLViewerParcelMgr::getInstance()->deselectLand();
+		LLSelectMgr::getInstance()->deselectAll();
+
+		if (gAgent.getFocusOnAvatar() && !LLToolMgr::getInstance()->inEdit())
+		{
+			if (objectp->isHUDAttachment() || !gSavedSettings.getBOOL("EditCameraMovement"))
+			{
+				// always freeze camera in space, even if camera doesn't move
+				// so, for example, follow cam scripts can't affect you when in build mode
+				gAgent.setFocusGlobal(gAgent.calcFocusPositionTargetGlobal(), LLUUID::null);
+				gAgent.setFocusOnAvatar(FALSE, ANIMATE);
+			}
+			else
+			{
+				gAgent.setFocusOnAvatar(FALSE, ANIMATE);
+
+				// zoom in on object center instead of where we clicked, as we need to see the manipulator handles
+				gAgent.setFocusGlobal(objectp->getPositionGlobal(), objectp->getID());
+				gAgent.cameraZoomIn(0.666f);
+				gAgent.cameraOrbitOver( 30.f * DEG_TO_RAD );
+				gViewerWindow->moveCursorToCenter();
+			}
+		}
+
+		gFloaterTools->open();
+	
+		LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
+		gFloaterTools->setEditTool( LLToolCompTranslate::getInstance() );
+
+		LLViewerJoystick::getInstance()->moveObjects(true);
+		LLViewerJoystick::getInstance()->setNeedsReset(true);
+
+		LLSelectMgr::getInstance()->selectObjectAndFamily(objectp);
+
+		// Could be first use
+		LLFirstUse::useBuild();
+	}
 	else LLItemBridge::performAction(folder, model, action);
 }
 
@@ -3553,9 +3785,15 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				return;
 			}
 			
+			items.push_back(std::string("Attach Separator"));
 			if( avatarp->isWearingAttachment( mUUID ) )
 			{
 				items.push_back(std::string("Detach From Yourself"));
+				items.push_back(std::string("Attachment Edit"));
+				if ( ( (flags & FIRST_SELECTED_ITEM) == 0) || (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) )
+				{
+					disabled_items.push_back(std::string("Attachment Edit"));
+				}
 
 // [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 				if ( (rlv_handler_t::isEnabled()) && 
@@ -3568,7 +3806,6 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			else
 			if( !isInTrash() )
 			{
-				items.push_back(std::string("Attach Separator"));
 				items.push_back(std::string("Object Wear"));
 				items.push_back(std::string("Attach To"));
 				items.push_back(std::string("Attach To HUD"));
@@ -3687,9 +3924,10 @@ LLUIImagePtr LLLSLTextBridge::getIcon() const
 
 void LLLSLTextBridge::openItem()
 {
-// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+// [RLVa:KB] - Checked: 2009-11-11 (RLVa-1.1.0a) | Modified: RLVa-1.1.0a
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT))
 	{
+		RlvNotifications::notifyBlockedViewScript();
 		return;
 	}
 // [/RLVa:KB]
@@ -3737,6 +3975,9 @@ void wear_inventory_item_on_avatar( LLInventoryItem* item )
 	}
 }
 
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+// Moved to llinventorybridge.h because we need it in RlvForceWear
+/*
 struct LLFoundData
 {
 	LLFoundData(const LLUUID& item_id,
@@ -3768,7 +4009,8 @@ struct LLWearableHoldingPattern
 	found_list_t mFoundList;
 	S32 mResolved;
 };
-
+*/
+// [/RLVa:KB]
 
 class LLOutfitObserver : public LLInventoryFetchObserver
 {
@@ -3844,7 +4086,7 @@ protected:
 		}
 		else
 		{
-			llwarns << "Dropping unhandled LLWearAttachments" << llendl;
+			llwarns << "Dropping unhandled LLWearAttachmentsCallback" << llendl;
 		}
 	}
 private:
@@ -4196,7 +4438,10 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 			// wearables can be resolved immediately, then the
 			// callback will be called (and this object deleted)
 			// before the final getNextData().
-			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern;
+//			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern;
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+			LLWearableHoldingPattern* holder = new LLWearableHoldingPattern(wear_info->mAppend);
+// [/RLVa:KB]
 			LLFoundData* found;
 			LLDynamicArray<LLFoundData*> found_container;
 			for(i = 0; i  < wearable_count; ++i)
@@ -4210,7 +4455,9 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 			}
 			for(i = 0; i < wearable_count; ++i)
 			{
-				gAddToOutfit = wear_info->mAppend;
+// [RLVa:KB] - Part of LLWearableHoldingPattern
+//				gAddToOutfit = wear_info->mAppend;
+// [/RLVa:KB]
 
 				found = found_container.get(i);
 				gWearableList.getAsset(found->mAssetID,
@@ -4242,7 +4489,9 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 void wear_inventory_category_on_avatar_loop(LLWearable* wearable, void* data)
 {
 	LLWearableHoldingPattern* holder = (LLWearableHoldingPattern*)data;
-	BOOL append= gAddToOutfit;
+// [RLVa:KB] - Part of LLWearableHoldingPattern
+//	BOOL append= gAddToOutfit;
+// [/RLVa:KB]
 	
 	if(wearable)
 	{
@@ -4260,7 +4509,10 @@ void wear_inventory_category_on_avatar_loop(LLWearable* wearable, void* data)
 	holder->mResolved += 1;
 	if(holder->mResolved >= (S32)holder->mFoundList.size())
 	{
-		wear_inventory_category_on_avatar_step3(holder, append);
+//		wear_inventory_category_on_avatar_step3(holder, append);
+// [RLVa:KB] - Checked: 2009-12-18 (RLVa-1.1.0i) | Added: RLVa-1.1.0i
+		wear_inventory_category_on_avatar_step3(holder, holder->mAddToOutfit);
+// [/RLVa:KB]
 	}
 }
 
@@ -4415,7 +4667,7 @@ void wear_attachments_on_avatar(const LLInventoryModel::item_array_t& items, BOO
 			msg->nextBlockFast(_PREHASH_HeaderData);
 			msg->addUUIDFast(_PREHASH_CompoundMsgID, compound_msg_id );
 			msg->addU8Fast(_PREHASH_TotalObjects, count );
-//			msg->addBOOLFast(_PREHASH_FirstDetachAll, remove );
+//			msg->addBOOLFast(_PREHASH_FirstDetachAll, !wear_info->mAppend );
 // [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
 			// This really should just *always* be FALSE since TRUE can result in loss of the current asset state
 			msg->addBOOLFast(_PREHASH_FirstDetachAll,
@@ -4428,11 +4680,22 @@ void wear_attachments_on_avatar(const LLInventoryModel::item_array_t& items, BOO
 		msg->addUUIDFast(_PREHASH_ItemID, item->getUUID() );
 		msg->addUUIDFast(_PREHASH_OwnerID, item->getPermissions().getOwner());
 //		msg->addU8Fast(_PREHASH_AttachmentPt, 0 );	// Wear at the previous or default attachment point
-// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+// [RLVa:KB] - Checked: 2009-11-16 (RLVa-1.1.0c) | Modified: RLVa-1.1.0c
+		// We'll attach to the default attachment point if:
+		//   - RLV isn't enabled (or nothing is currently locked on)
+		//   - "Enable Default Wear" is checked and the current attach isn't the direct result of an RLV command
+		//   - "Enable Shared Wear" is checked and the current attach is the direct result of an RLV command
+		// RELEASE-RLVa: make sure the above assertions are still valid
 		msg->addU8Fast(_PREHASH_AttachmentPt,
-			( (!rlv_handler_t::isEnabled()) || (RlvSettings::getEnableWear()) || (!gRlvHandler.hasLockedAttachment(RLV_LOCK_ANY)) )
+			( (!rlv_handler_t::isEnabled()) || (!gRlvHandler.hasLockedAttachment(RLV_LOCK_ANY)) ||
+#ifndef RLV_WORKAROUND_REZMULTIPLEATTACH
+			  ( (!gRlvHandler.getCurrentCommand()) && (RlvSettings::getEnableWear()) ) ||
+			  ( (gRlvHandler.getCurrentCommand()) && (RlvSettings::getEnableSharedWear()) ) )
+#else
+			  (RlvSettings::getEnableWear()) )
+#endif // RLV_WORKAROUND_REZMULTIPLEATTACH
 				? 0
-				: gRlvHandler.getAttachPointIndex(gRlvHandler.getAttachPoint(item, true)));
+				: gRlvHandler.getAttachPointIndex(gRlvHandler.getAttachPoint(item, true)) );
 // [/RLVa:KB]
 		pack_permissions_slam(msg, item->getFlags(), item->getPermissions());
 		msg->addStringFast(_PREHASH_Name, item->getName());

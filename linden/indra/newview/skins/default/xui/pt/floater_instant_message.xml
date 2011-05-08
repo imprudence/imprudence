@@ -33,6 +33,9 @@
 	<string name="unavailable_text_label">
 		Conversa por texto não está disponível para esta chamada.
 	</string>
+	<string name="add_friend_string">
+		Adicionar amigo
+	</string>
 	<flyout_button label="Perfil..." name="profile_callee_btn"/>
 	<button label="Chamar" name="start_call_btn"/>
 	<button label="Terminar Chamada" name="end_call_btn"/>
