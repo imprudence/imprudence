@@ -192,6 +192,7 @@ LLInventoryModel::LLInventoryModel() :
 	mCategoryLock(),
 	mItemLock(),
 	mLastItem(NULL),
+	mAnimationsFolderUUID(LLUUID::null),
 	mParentChildCategoryTree(),
 	mParentChildItemTree(),
 	mObservers(),
@@ -1945,16 +1946,6 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 
 		clean_cat = false;
 
-		skel = (*it).find("name");
-		if (skel == no_response)
-		{
-			clean_cat = true;
-		}
-		else
-		{
-			cat->rename(std::string((*skel).second));
-		}
-
 		skel = (*it).find("folder_id");
 		if (skel == no_response)
 		{
@@ -1986,6 +1977,16 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 			cat->setParent(id);
 		}
 
+		skel = (*it).find("name");
+		if (skel == no_response)
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			cat->rename(std::string((*skel).second));
+		}
+
 		skel = (*it).find("type_default");
 		if (skel == no_response)
 		{
@@ -1995,6 +1996,13 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 		{
 			S32 t = atoi((*skel).second.c_str());
 			preferred_type = (LLAssetType::EType)t;
+
+			// This UUID is different for each avatar and "Animations" is hardcoded into the skeleton -- MC
+			if (LLAssetType::AT_ANIMATION == preferred_type && cat->getName() == "Animations")
+			{
+				//llinfos << "Animations folder uuid from skeleton: " << cat->getUUID() << llendl;
+				mAnimationsFolderUUID = id;
+			}
 		}
 		cat->setPreferredType(preferred_type);
 

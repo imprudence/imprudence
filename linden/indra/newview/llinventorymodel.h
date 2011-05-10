@@ -452,6 +452,9 @@ protected:
 	// cache recent lookups
 	mutable LLPointer<LLViewerInventoryItem> mLastItem;
 
+	// UUID of the 'Animations' folder in 'My Inventory'
+	LLUUID mAnimationsFolderUUID;
+
 	// This last set of indices is used to map parents to children.
 	typedef std::map<LLUUID, cat_array_t*> parent_cat_map_t;
 	typedef std::map<LLUUID, item_array_t*> parent_item_map_t;
@@ -474,6 +477,8 @@ protected:
 	bool mIsAgentInvUsable;
 
 public:
+	// Returns the UUID of the 'Animations' folder in 'My Inventory' sent from the server at startup
+	LLUUID getAnimationsFolderUUID() const		{ return mAnimationsFolderUUID; }
 	// *NOTE: DEBUG functionality
 	void dumpInventory();
 	static bool isBulkFetchProcessingComplete();

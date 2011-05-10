@@ -2450,6 +2450,18 @@ bool idle_startup()
  			}
  		}
 
+		// start background fetching for animations here in case the cache is empty.
+		// We do this to improve AO support (that's Animatoni Overrider, not LL's
+		// silly "AO" acronym -- MC
+		if (gInventory.getAnimationsFolderUUID() != LLUUID::null)
+		{
+			gInventory.startBackgroundFetch(gInventory.getAnimationsFolderUUID());
+		}
+		else
+		{
+			gInventory.startBackgroundFetch();
+		}
+
 		options.clear();
  		if(LLUserAuth::getInstance()->getOptions("buddy-list", options))
  		{
