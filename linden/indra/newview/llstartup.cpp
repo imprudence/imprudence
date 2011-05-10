@@ -2588,19 +2588,6 @@ bool idle_startup()
 		llinfos << "Requesting Agent Data" << llendl;
 		gAgent.sendAgentDataUpdateRequest();
 
-		bool shown_at_exit = gSavedSettings.getBOOL("ShowInventory");
-
-		// Create the inventory views
-		llinfos << "Creating Inventory Views" << llendl;
-		LLInventoryView::showAgentInventory();
-		llinfos << "Inventory Views Created" << llendl;
-
-		// Hide the inventory if it wasn't shown at exit
-		if(!shown_at_exit)
-		{
-			LLInventoryView::toggleVisibility(NULL);
-		}
-
 // [RLVa:KB] - Checked: 2009-11-27 (RLVa-1.1.0f) | Added: RLVa-1.1.0f
 		if (rlv_handler_t::isEnabled())
 		{
@@ -2990,6 +2977,17 @@ bool idle_startup()
 		
 		// Clean up the userauth stuff.
 		LLUserAuth::getInstance()->reset();
+
+		// Show the inventory if it was shown at exit
+		// Don't do this before here or we screw up inv loading -- MC
+		if (gSavedSettings.getBOOL("ShowInventory"))
+		{
+			// Create the inventory views
+			llinfos << "Creating Inventory Views" << llendl;
+			LLInventoryView::showAgentInventory();
+			llinfos << "Inventory Views Created" << llendl;
+			//LLInventoryView::toggleVisibility(NULL);
+		}
 
 		LLStartUp::setStartupState( STATE_STARTED );
 		LLStartUp::setStartedOnce(true);
