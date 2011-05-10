@@ -2093,14 +2093,18 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 					continue;
 				}
 
-				if (cat->getVersion() != tcat->getVersion())
+				// We insert them anyway to keep the cache from breaking.
+				// If we delete or add a folder (aka "category") then the server
+				// increments the version and we reload the items on next login anyway
+				// this *may* result in duplicates that are cleared on relog-- MC
+				/*if (cat->getVersion() != tcat->getVersion())
 				{
 					// if the cached version does not match the server version,
 					// throw away the version we have so we can fetch the
 					// correct contents the next time the viewer opens the folder.
 					tcat->setVersion(NO_VERSION);
 				}
-				else
+				else*/
 				{
 					cached_ids.insert(tcat->getUUID());
 				}
@@ -2126,12 +2130,11 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 			// Add all the items loaded which are parented to a
 			// category with a correctly cached parent
 			count = items.count();
-			cat_map_t::iterator unparented = mCategoryMap.end();
 			for (int i = 0; i < count; ++i)
 			{
 				cat_map_t::iterator cit = mCategoryMap.find(items[i]->getParentUUID());
 				
-				if (cit != unparented)
+				if (cit != mCategoryMap.end())
 				{
 					LLViewerInventoryCategory* cat = cit->second;
 					if (cat->getVersion() != NO_VERSION)
