@@ -8329,7 +8329,7 @@ class LLViewCheckAO: public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getInstance());
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLFloaterAO::getVisible());
 		return true;
 	}
 };

@@ -2913,12 +2913,6 @@ bool idle_startup()
 			gStatusBar->updateElements();
 		}
 
-		// Start the AO now that settings have loaded and login successful -- MC
-		if (!gAOInvTimer)
-		{
-			gAOInvTimer = new AOInvTimer();
-		}
-
 		LLFirstUse::ClientTags();
 
 		// Add login location to teleport history 'teleported-into'
@@ -2985,6 +2979,12 @@ bool idle_startup()
 			LLInventoryView::showAgentInventory();
 			llinfos << "Inventory Views Created" << llendl;
 			//LLInventoryView::toggleVisibility(NULL);
+		}
+
+		// Init the AO now that settings have loaded and login successful -- MC
+		if (!gAOInvTimer)
+		{
+			gAOInvTimer = new AOInvTimer();
 		}
 
 		LLStartUp::setStartupState( STATE_STARTED );
