@@ -159,6 +159,7 @@ void LLFace::init(LLDrawable* drawablep, LLViewerObject* objp)
 	mIndicesIndex	= 0;
 	mTexture		= NULL;
 	mTEOffset		= -1;
+	mIndexInTex		= 0;
 
 	setDrawable(drawablep);
 	mVObjp = objp;
