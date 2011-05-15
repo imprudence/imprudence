@@ -115,7 +115,9 @@ LLButton::LLButton(const std::string& name, const LLRect& rect,
 				   void *callback_data,
 				   const LLFontGL *font,
 				   const std::string& unselected_label, 
-				   const std::string& selected_label )
+				   const std::string& selected_label,
+				   const std::string& disabled_label,
+				   const std::string& disabled_selected_label)
 :	LLUICtrl(name, rect, TRUE, NULL, NULL),
 	mClickedCallback( click_callback ),
 	mMouseDownCallback( NULL ),
@@ -148,6 +150,8 @@ LLButton::LLButton(const std::string& name, const LLRect& rect,
 {
 	mUnselectedLabel = unselected_label;
 	mSelectedLabel = selected_label;
+	mDisabledLabel = disabled_label;
+	mDisabledSelectedLabel = disabled_selected_label;
 
 	// by default, disabled color is same as enabled
 	mImageColor = LLUI::sColorsGroup->getColor( "ButtonImageColor" );
@@ -989,6 +993,8 @@ LLXMLNodePtr LLButton::getXML(bool save_children) const
 
 	node->createChild("label", TRUE)->setStringValue(getLabelUnselected());
 	node->createChild("label_selected", TRUE)->setStringValue(getLabelSelected());
+	node->createChild("label_disabled", TRUE)->setStringValue(getLabelDisabled());
+	node->createChild("label_selected_disabled", TRUE)->setStringValue(getLabelDisabledSelected());
 	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mGLFont));
 	node->createChild("halign", TRUE)->setStringValue(LLFontGL::nameFromHAlign(mHAlign));
 
@@ -1028,6 +1034,12 @@ LLView* LLButton::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *fa
 
 	std::string label_selected = label;
 	node->getAttributeString("label_selected", label_selected);
+
+	std::string label_disabled = label;
+	node->getAttributeString("label_disabled", label_disabled);
+
+	std::string label_disabled_selected = label;
+	node->getAttributeString("label_disabled_selected", label_disabled_selected);
 
 	LLFontGL* font = selectFont(node);
 
@@ -1070,7 +1082,9 @@ LLView* LLButton::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *fa
 			parent,
 			font,
 			label,
-			label_selected);
+			label_selected,
+			label_disabled,
+			label_disabled_selected);
 
 	node->getAttributeS32("pad_right", button->mRightHPad);
 	node->getAttributeS32("pad_left", button->mLeftHPad);
