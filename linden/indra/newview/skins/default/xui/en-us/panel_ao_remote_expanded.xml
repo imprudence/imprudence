@@ -5,7 +5,7 @@
   <panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="47" left="0" width="96" />
   <button bottom="-20" control_name="AOSitsEnabled" enabled="true" tool_tip="Toggles AO sit animation" 
 	     follows="left|top" font="SansSerif" height="22" label="Sits Off" label_selected="Sits On" 
-	     mouse_opaque="true" name="ao_sit_btn" width="66" left="3" />
+	     mouse_opaque="true" name="ao_sit_btn" width="66" left="3" label_selected_disabled="Sits Off" />
   <button bottom="-20" enabled="true" tool_tip="Toggle AO window"
        follows="left|top" font="SansSerif" height="22" label="" image_overlay="arrow_up.tga" 
        mouse_opaque="true" name="ao_show_btn" width="22" left_delta="68" />

@@ -88,15 +88,22 @@ BOOL AORemoteCtrl::postBuild()
 	childSetAction("ao_show_btn", onClickShowAO, this);
 	childSetAction("popup_btn", onClickPopupBtn, this);
 
+	childSetEnabled("ao_sit_btn", gSavedSettings.getBOOL("AOEnabled"));
+
 	return TRUE;
 }
 
 // static
 void AORemoteCtrl::onClickToggleAO(void* data)
 {
-	BOOL ao_enable = gSavedSettings.getBOOL("AOEnabled");
-	gSavedSettings.setBOOL("AOEnabled", !ao_enable);
-	LLFloaterAO::run();
+	AORemoteCtrl* self = (AORemoteCtrl*)data;
+	if (self)
+	{
+		BOOL ao_enable = gSavedSettings.getBOOL("AOEnabled");
+		gSavedSettings.setBOOL("AOEnabled", !ao_enable);
+		self->childSetEnabled("ao_sit_btn", !ao_enable);
+		LLFloaterAO::run();
+	}
 }
 
 //static 
