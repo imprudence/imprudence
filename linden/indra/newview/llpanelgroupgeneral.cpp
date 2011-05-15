@@ -814,6 +814,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 	if (mEditCharter)
 	{
+		mEditCharter->clear();
 		if (mAllowEdit && can_change_ident)
 		{
 			mEditCharter->setText(gdatap->mCharter);
