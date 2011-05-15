@@ -1038,7 +1038,7 @@ LLView* LLButton::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *fa
 	std::string label_disabled = label;
 	node->getAttributeString("label_disabled", label_disabled);
 
-	std::string label_disabled_selected = label;
+	std::string label_disabled_selected = label_selected;
 	node->getAttributeString("label_disabled_selected", label_disabled_selected);
 
 	LLFontGL* font = selectFont(node);
