@@ -52,6 +52,7 @@
 #include "lltextbox.h"
 
 #include "roles_constants.h"
+#include "llviewercontrol.h"
 #include "llviewerwindow.h"
 #include "llviewermessage.h"
 #include "llnotifications.h"
@@ -533,7 +534,12 @@ void LLPanelGroupNotices::showNotice(const std::string& subject,
 	arrangeNoticeView(VIEW_PAST_NOTICE);
 
 	if(mViewSubject) mViewSubject->setText(subject);
-	if(mViewMessage) mViewMessage->setText(message);
+	if(mViewMessage)
+	{
+		mViewMessage->clear();
+		mViewMessage->setParseHTML(TRUE);
+		mViewMessage->appendColoredText(message, false, false, gColors.getColor("TextFgReadOnlyColor"));
+	}
 	
 	if (mInventoryOffer)
 	{
