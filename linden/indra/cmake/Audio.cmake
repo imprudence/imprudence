@@ -32,6 +32,12 @@ else (STANDALONE)
     set(VORBISENC_LIBRARIES vorbisenc)
     set(VORBISFILE_LIBRARIES vorbisfile)
   endif (WINDOWS)
+  if(LINUX AND ${ARCH} STREQUAL "x86_64")
+    set(VORBIS_LIBRARY_DIRS ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/lib)
+    set(VORBISENC_LIBRARY_DIRS ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/lib)
+    set(VORBISFILE_LIBRARY_DIRS ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/lib)
+    set(OGG_LIBRARY_DIRS ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/lib)
+  endif(LINUX AND ${ARCH} STREQUAL "x86_64")
 endif (STANDALONE)
 
 link_directories(
@@ -40,3 +46,13 @@ link_directories(
     ${VORBISFILE_LIBRARY_DIRS}
     ${OGG_LIBRARY_DIRS}
     )
+
+if(NOT vorbis_link_msg)
+  set(vorbis_link_msg ON CACHE BOOL "ogg vorbis linked from:\n")
+  message("ogg vorbis linked from:\n"
+    ${VORBIS_LIBRARY_DIRS} "\n"
+    ${VORBISENC_LIBRARY_DIRS} "\n"
+    ${VORBISFILE_LIBRARY_DIRS} "\n"
+    ${OGG_LIBRARY_DIRS} "\n"
+  )
+endif(NOT vorbis_link_msg)

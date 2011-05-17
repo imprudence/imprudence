@@ -1092,10 +1092,11 @@ class Linux_x86_64Manifest(LinuxManifest):
 
             # Gstreamer plugin dependencies
             self.path("libfaad.so.0")
-            self.path("libogg.so.0")
+            self.path("../lib/libogg.so.0.7.1", "libogg.so.0")
             self.path("libtheora.so.0")
-            self.path("libvorbis.so.0")
-            self.path("libvorbisenc.so.2")
+            self.path("../lib/libvorbis.so.0.4.5","libvorbis.so.0")
+            self.path("../lib/libvorbisenc.so.2.0.8","libvorbisenc.so.2")
+            self.path("../lib/libvorbisfile.so.3.3.4","libvorbisfile.so.3")
             self.path("liboil-0.3.so.0")
 
             # Gstreamer plugins
