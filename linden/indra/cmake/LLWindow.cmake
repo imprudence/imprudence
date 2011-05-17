@@ -45,4 +45,7 @@ else (SERVER AND LINUX)
           comdlg32
           )
   endif (WINDOWS)
+  if (LINUX)
+    list(APPEND LLWINDOW_LIBRARIES fontconfig)
+  endif (LINUX)
 endif (SERVER AND LINUX)
