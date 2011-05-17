@@ -1193,9 +1193,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
       <key>ogg-vorbis</key>
       <map>
         <key>copyright</key>
-        <string>Copyright (C) 2008 Xiph.org Foundation</string>
+        <string>Copyright (C) Xiph.org Foundation</string>
         <key>description</key>
-        <string>Ogg: container format Vorbis: audio compression scheme</string>
+        <string>Ogg: container format; Vorbis: audio compression scheme</string>
         <key>license</key>
         <string>xiph-bsd</string>
         <key>packages</key>
@@ -1203,30 +1203,30 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>88eec3965fc2384436192faef1db2629</string>
+            <string>30c75ce29c2ce2f6e8063067db31989d</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-darwin-20100620.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/ogg-vorbis-darwin-1.2.2-1.3.2-20110517.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>72bde567859934024c8a4a70b97b24f5</string>
+            <string>a132634c28f0d7fb0e7e4f62c82a0579</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-linux-20091115.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/ogg-vorbis-linux-1.2.2-1.3.2-20110514.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>83c72b57a95e8c42560fb67955169f19</string>
+            <string>dded849d4d46fb5d94f088c86407ec98</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-linux64-20091202.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/ogg-vorbis-linux64-1.2.2-1.3.2-20110514.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>9bf1fea65e66b2cd3075e6ffd7eb57ad</string>
+            <string>946bab72f6774220eaf139ce378ba671</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ogg-vorbis-1.1.3-1.2.0-windows-20080723.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/ogg-vorbis-windows-1.2.2-1.3.2-20110511.tar.bz2</uri>
           </map>
         </map>
       </map>
