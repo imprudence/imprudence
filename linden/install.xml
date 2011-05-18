@@ -327,9 +327,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>eb25444142d4102b0ce1b7ffaadb071e</string>
+            <string>5bbf7e33dadc7d046dcf44883a9ec3d0</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/dbusglib-linux-20080707.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/dbusglib-linux-20101031.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
