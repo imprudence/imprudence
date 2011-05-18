@@ -4,6 +4,38 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.3.2                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+    CHANGES
+
+      This version of Imprudence includes the following changes,
+      as compared to Imprudence 1.3.1.
+
+      * Updated the ogg-vorbis libraries to address an exploit that
+        allowed attackers to crash the viewer. libogg is now version
+        1.2.2; libvorbis is now version 1.3.2.
+
+      * Fixed VWR-25479: Avatar physics causing broken shapes on other
+        viewers. Thanks for the patch, Seraph Linden!
+
+      * Fixed the Vivox Acceptable Use Policy window appearing under
+        the wrong conditions.
+
+      * Fixed voice chat always being disabled at startup, even if you
+        had enabled it in your Preferences in the previous session.
+
+      * Fixed a startup error related to "libz.so" on certain Linux
+        distros. (IMP-790)
+
+      * Fixed the viewer encountering an error: "Vertex buffer
+        destroyed while mapped!"
+
+      * Tweaked the compile system so the viewer can link using "gold".
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.3.1                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

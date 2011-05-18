@@ -8754,7 +8754,6 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 
 				if( !param )
 				{
-					llwarns << "Number of params in AvatarAppearance msg does not match number of params in avatar xml file." << llendl;
 					break;
 				}
 
@@ -8796,10 +8795,9 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			}
 		}
 
-		S32 expected_tweakable_count = getVisualParamCountInGroup(VISUAL_PARAM_GROUP_TWEAKABLE); // don't worry about VISUAL_PARAM_GROUP_TWEAKABLE_NO_TRANSMIT
-		if (num_blocks != expected_tweakable_count)
+		while( param && (param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) )
 		{
-			llinfos << "Number of params in AvatarAppearance msg (" << num_blocks << ") does not match number of tweakable params in avatar xml file (" << expected_tweakable_count << "). Processing what we can. Object: " << getID() << llendl;
+			param = getNextVisualParam();
 		}
 
 		if (params_changed)
