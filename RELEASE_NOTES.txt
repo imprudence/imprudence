@@ -28,6 +28,11 @@
       * Fixed a startup error related to "libz.so" on certain Linux
         distros. (IMP-790)
 
+      * Fixed the viewer encountering an error: "Vertex buffer
+        destroyed while mapped!"
+
+      * Tweaked the compile system so the viewer can link using "gold".
+
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
