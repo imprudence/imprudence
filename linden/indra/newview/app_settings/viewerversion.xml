@@ -1,5 +1,6 @@
 <!-- 
-Set the version for Imprudence here!
+This file is obsolete and will be removed in the future.
+Use newview/viewerinfo.cpp instead.
 
 NOTE: llcommon/llviewerversion.h still
 contains the version for the LL viewer.
@@ -11,15 +12,15 @@ need to be changed manually - MC
 <viewer_version>
 
   <!--int-->
-  <viewer version_major="1" />
+  <viewer version_major="0" />
 
   <!--int-->
-  <viewer version_minor="4" />
+  <viewer version_minor="0" />
 
   <!--int-->
   <viewer version_patch="0" />
 
   <!--string-->
-  <viewer version_test="beta 1" />
+  <viewer version_test="" />
   
 </viewer_version>

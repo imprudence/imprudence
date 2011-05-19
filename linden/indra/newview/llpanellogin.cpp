@@ -73,7 +73,7 @@
 #include "lluictrlfactory.h"
 #include "llhttpclient.h"
 #include "llweb.h"
-#include "viewerversion.h"
+#include "viewerinfo.h"
 #include "llmediactrl.h"
 
 #include "llfloatermediabrowser.h"
@@ -264,25 +264,10 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	// childSetAction("quit_btn", onClickQuit, this);
 
-	std::string imp_channel = gSavedSettings.getString("VersionChannelName");
-	std::string imp_version = llformat("%d.%d.%d %s",
-		ViewerVersion::getImpMajorVersion(),
-		ViewerVersion::getImpMinorVersion(),
-		ViewerVersion::getImpPatchVersion(),
-		ViewerVersion::getImpTestVersion().c_str() );
-
-	std::string ll_channel = ViewerVersion::getLLViewerName();
-	std::string ll_version = llformat("%d.%d.%d (%d)",
-		ViewerVersion::getLLMajorVersion(),
-		ViewerVersion::getLLMinorVersion(),
-		ViewerVersion::getLLPatchVersion(),
-		ViewerVersion::getLLBuildVersion() );
+	std::string imp_version = ViewerInfo::prettyInfo();
 
 	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
-	channel_text->setTextArg("[CHANNEL]", imp_channel);
 	channel_text->setTextArg("[VERSION]", imp_version);
-	channel_text->setTextArg("[ALT_CHANNEL]", ll_channel);
-	channel_text->setTextArg("[ALT_VERSION]", ll_version);
 	channel_text->setClickedCallback(onClickVersion);
 	channel_text->setCallbackUserData(this);
 	
@@ -916,12 +901,8 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Channel and Version
-	std::string version = llformat("%d.%d.%d %s",
-		ViewerVersion::getImpMajorVersion(), ViewerVersion::getImpMinorVersion(),
-		ViewerVersion::getImpPatchVersion(), ViewerVersion::getImpTestVersion().c_str() );
-
-	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
-	char* curl_version = curl_escape(version.c_str(), 0);
+	char* curl_channel = curl_escape(ViewerInfo::nameWithVariant().c_str(), 0);
+	char* curl_version = curl_escape(ViewerInfo::versionNumbers4().c_str(), 0);
 
 	oStr << "&channel=" << curl_channel;
 	oStr << "&version=" << curl_version;
@@ -1373,18 +1354,9 @@ bool LLPanelLogin::loadNewsBar()
 		full_url << "?";
 	}
 
-	std::string channel = gSavedSettings.getString("VersionChannelName");
+	std::string channel = ViewerInfo::nameWithVariant();
+	std::string version = ViewerInfo::versionNumbers4();
 	std::string skin = gSavedSettings.getString("SkinCurrent");
-
-	std::string version =
-		llformat("%d.%d.%d",
-		         ViewerVersion::getImpMajorVersion(),
-		         ViewerVersion::getImpMinorVersion(),
-		         ViewerVersion::getImpPatchVersion());
-	if (!ViewerVersion::getImpTestVersion().empty())
-	{
-		version += " " + ViewerVersion::getImpTestVersion();
-	}
 
 	char* curl_channel = curl_escape(channel.c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);

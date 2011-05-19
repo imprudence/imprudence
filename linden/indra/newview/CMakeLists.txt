@@ -500,8 +500,8 @@ set(viewer_SOURCE_FILES
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
     slfloatermediafilter.cpp
+    viewerinfo.cpp
     viewertime.cpp
-    viewerversion.cpp
     windlightsettingsupdate.cpp
     wlfloatermanager.cpp
     wlfloaterwindlightsend.cpp
@@ -973,8 +973,8 @@ set(viewer_HEADER_FILES
     slfloatermediafilter.h
     VertexCache.h
     VorbisFramework.h
+    viewerinfo.h
     viewertime.h
-    viewerversion.h
     wlfloatermanager.h
     wlfloaterwindlightsend.h
     wlretrievesettings.h
