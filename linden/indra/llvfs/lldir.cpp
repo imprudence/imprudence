@@ -249,7 +249,7 @@ std::string LLDir::buildSLOSCacheDir() const
 	}
 	else
 	{
-		res = getOSCacheDir() + mDirDelimiter + "ImprudenceExperimental";
+		res = getOSCacheDir() + mDirDelimiter + "Imprudence";
 	}
 	return res;
 }

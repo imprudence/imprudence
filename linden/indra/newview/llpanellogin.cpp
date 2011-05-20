@@ -1398,7 +1398,7 @@ bool LLPanelLogin::loadNewsBar()
 	curl_free(curl_version);
 	curl_free(curl_skin);
 
-        LL_DEBUGS("NewsBar")<< "news bar setup to navigate to: " << full_url.str() << LL_ENDL;
+	LL_DEBUGS("NewsBar")<< "news bar setup to navigate to: " << full_url.str() << LL_ENDL;
 	news_bar->navigateTo( full_url.str() );
 
 

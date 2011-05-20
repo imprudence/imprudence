@@ -208,13 +208,21 @@ set_source_files_properties(${llmessage_HEADER_FILES}
 list(APPEND llmessage_SOURCE_FILES ${llmessage_HEADER_FILES})
 
 add_library (llmessage ${llmessage_SOURCE_FILES})
-target_link_libraries(
+set (llmessage_link_LIBRARIES
     llmessage
     ${CURL_LIBRARIES}
     ${CARES_LIBRARIES}
     ${OPENSSL_LIBRARIES}
     ${CRYPTO_LIBRARIES}
     ${XMLRPCEPI_LIBRARIES}
+)
+if (LINUX)
+  list(APPEND llmessage_link_LIBRARIES pthread)
+endif (LINUX)
+
+target_link_libraries(
+    ${llmessage_link_LIBRARIES}
+
     )
 
 IF (NOT LINUX AND VIEWER)
