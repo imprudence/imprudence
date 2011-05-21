@@ -3,6 +3,7 @@
 project(viewer)
 
 include(00-Common)
+include(AddPackageTarget)
 include(Boost)
 include(BuildVersion)
 include(DBusGlib)
@@ -1290,6 +1291,10 @@ add_executable(${VIEWER_BINARY_NAME}
     )
 check_message_template(${VIEWER_BINARY_NAME})
 
+
+# NOTE: This variable is DEPRECATED, and should not be used anymore.
+# The package target should always be added. The variable AUTOPACKAGE
+# (in AddPackageTarget.cmake) controls whether package is auto-built.
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
 
@@ -1431,42 +1436,48 @@ set(ARTWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
 
 
 if (LINUX)
+
+  string(REPLACE "-bin" "-stripped"
+         VIEWER_STRIPPED_NAME ${VIEWER_BINARY_NAME})
+
+  add_dependencies(${VIEWER_BINARY_NAME}
+    SLPlugin
+    media_plugin_gstreamer010
+    media_plugin_webkit)
+
   add_custom_command(
-      OUTPUT imprudence-stripped
-      COMMAND strip
-      ARGS --strip-debug -o imprudence-stripped ${VIEWER_BINARY_NAME}
-      DEPENDS imprudence-bin
-      )
+    OUTPUT ${VIEWER_STRIPPED_NAME}
+    COMMAND strip
+    ARGS --strip-debug -o ${VIEWER_STRIPPED_NAME} ${VIEWER_BINARY_NAME}
+    DEPENDS ${VIEWER_BINARY_NAME}
+    )
 
-  set(product Imprudence-${ARCH}-${viewer_VERSION})
+  add_custom_target(
+    viewer-manifest-target
+    COMMAND
+      ${PYTHON_EXECUTABLE}
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+      --standalone=${STANDALONE}
+      --buildtype=${CMAKE_BUILD_TYPE}
+      --grid=${GRID}
+      --channel=${VIEWER_CHANNEL}
+      --login_channel=${VIEWER_LOGIN_CHANNEL}
+      --arch=${ARCH}
+      --source=${CMAKE_CURRENT_SOURCE_DIR}
+      --artwork=${ARTWORK_DIR}
+      --build=${CMAKE_CURRENT_BINARY_DIR}
+      --dest=${CMAKE_CURRENT_BINARY_DIR}/packaged
+    DEPENDS
+      ${VIEWER_STRIPPED_NAME}
+      linux-crash-logger
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+    )
 
-  add_custom_command(
-      OUTPUT ${product}.tar.bz2
-      COMMAND ${PYTHON_EXECUTABLE}
-      ARGS
-        ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-        --standalone=${STANDALONE}
-        --buildtype=${CMAKE_BUILD_TYPE}
-        --grid=${GRID}
-        --channel=${VIEWER_CHANNEL}
-        --login_channel=${VIEWER_LOGIN_CHANNEL}
-        --installer_name=${product}
-        --arch=${ARCH}
-        --source=${CMAKE_CURRENT_SOURCE_DIR}
-        --artwork=${ARTWORK_DIR}
-        --build=${CMAKE_CURRENT_BINARY_DIR}
-        --dest=${CMAKE_CURRENT_BINARY_DIR}/packaged
-        --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-      DEPENDS imprudence-stripped ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-      
-  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_gstreamer010 media_plugin_webkit)
+  add_package_target()
+  add_dependencies(package viewer-manifest-target)
 
-  if (NOT INSTALL)
-    add_custom_target(package ALL DEPENDS ${product}.tar.bz2)
-    add_dependencies(package linux-crash-logger-strip-target)
-  endif (NOT INSTALL)
 endif (LINUX)
+
 
 if (DARWIN)
   set(product "Imprudence")
