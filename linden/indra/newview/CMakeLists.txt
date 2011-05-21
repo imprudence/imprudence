@@ -1480,83 +1480,58 @@ endif (LINUX)
 
 
 if (DARWIN)
-  set(product "Imprudence")
+  set(product "${viewer_NAME}")
+
   set_target_properties(
     ${VIEWER_BINARY_NAME}
     PROPERTIES
     OUTPUT_NAME "${product}"
-    MACOSX_BUNDLE_INFO_STRING "info string - localize me"
-    MACOSX_BUNDLE_ICON_FILE "viewer.icns"
-    MACOSX_BUNDLE_GUI_IDENTIFIER "Imprudence"
-    MACOSX_BUNDLE_LONG_VERSION_STRING "ververver"
-    MACOSX_BUNDLE_BUNDLE_NAME "Imprudence"
-    MACOSX_BUNDLE_SHORT_VERSION_STRING "asdf"
-    MACOSX_BUNDLE_BUNDLE_VERSION "asdf"
-    MACOSX_BUNDLE_COPYRIGHT "copyright linden lab 2007 - localize me and run me through a legal wringer"
     )
+    
+  # Generate Info.plist from the template.
+  add_custom_target(
+    GenerateInfoPlist
+    ALL
+    COMMENT "Generating Info.plist..."
+    VERBATIM
+    DEPENDS
+      ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/GenerateInfoPlist.cmake
+      ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/Info.plist.in
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewerinfo.cpp
+    COMMAND
+      ${CMAKE_COMMAND}
+      -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
+      -DBINARY_DIR=${CMAKE_BINARY_DIR}
+      -P ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/GenerateInfoPlist.cmake
+  )
+
+  # Ensure that it's generated before the binary is built, so
+  # that it will definitely be ready when viewer_manifest.py runs.
+  add_dependencies(${VIEWER_BINARY_NAME} GenerateInfoPlist)
+
 
   add_custom_command(
     TARGET ${VIEWER_BINARY_NAME} POST_BUILD
     COMMAND ${PYTHON_EXECUTABLE}
     ARGS
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      --grid=${GRID}
       --actions=copy
-      --configuration=${CMAKE_CFG_INTDIR}
-      --source=${CMAKE_CURRENT_SOURCE_DIR}
       --artwork=${ARTWORK_DIR}
       --build=${CMAKE_CURRENT_BINARY_DIR}
+      --buildtype=${CMAKE_BUILD_TYPE}
+      --configuration=${CMAKE_CFG_INTDIR}
       --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
+      --grid=${GRID}
+      --source=${CMAKE_CURRENT_SOURCE_DIR}
+      --standalone=${STANDALONE}
     DEPENDS ${VIEWER_BINARY_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
     )
-    
-  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010)
 
-  if (PACKAGE)
-      add_custom_target(package ALL DEPENDS ${VIEWER_BINARY_NAME}) 
-      add_dependencies(package mac-updater mac-crash-logger)
+  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010 mac-updater mac-crash-logger)
 
-      add_custom_command(
-        TARGET package POST_BUILD
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --standalone=${STANDALONE}
-          --buildtype=${CMAKE_BUILD_TYPE}
-          --grid=${GRID}
-          --configuration=${CMAKE_CFG_INTDIR}
-          --channel=${VIEWER_CHANNEL}
-          --login_channel=${VIEWER_LOGIN_CHANNEL}
-          --source=${CMAKE_CURRENT_SOURCE_DIR}
-          --artwork=${ARTWORK_DIR}
-          --build=${CMAKE_CURRENT_BINARY_DIR}
-          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
+  add_package_target()
+  add_dependencies(package ${VIEWER_BINARY_NAME})
 
-        DEPENDS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-
-      add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010)
-      add_custom_command(
-        TARGET package POST_BUILD
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --grid=${GRID}
-          --configuration=${CMAKE_CFG_INTDIR}
-          --channel=${VIEWER_CHANNEL}
-          --login_channel=${VIEWER_LOGIN_CHANNEL}
-          --source=${CMAKE_CURRENT_SOURCE_DIR}
-          --artwork=${ARTWORK_DIR}
-          --build=${CMAKE_CURRENT_BINARY_DIR}
-          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-        DEPENDS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-
-  endif (PACKAGE)
 endif (DARWIN)
 
 if (INSTALL)

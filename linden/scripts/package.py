@@ -196,16 +196,12 @@ true""" % {'d': packaged_dir})
                       os.path.join(dmg_dst, 'background.png'))
 
         config_script = os.path.join(self.source_dir, 'newview',
-                                        'packaging', 'mac', 'ConfigureDMG.scpt')
+                                     'packaging', 'mac', 'ConfigureDMG.scpt')
 
         self.__run_command(
             "Configuring temp disk image's view options...",
             'osascript %(script)r %(volname)r %(app_name)r' %
             {'script': config_script, 'volname': volname, 'app_name': app_name})
-
-        # self.__run_command(
-        #     'Hiding background.png...',
-        #     'SetFile -a V %r' % os.path.join(dmg_dst, 'background.png'))
 
         self.__run_command(
             'Unmounting temp disk image...',

@@ -585,7 +585,8 @@ class DarwinManifest(ViewerManifest):
 
         if self.prefix(src="", dst="Contents"):  # everything goes in Contents
             
-            self.path("Info-Imprudence.plist", dst="Info.plist")
+            # Info.plist goes directly in Contents
+            self.path("packaging/mac/Info.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
             if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
@@ -653,27 +654,27 @@ class DarwinManifest(ViewerManifest):
                 self.gather_documents()
 
                 self.path("featuretable_mac.txt")
-                self.path("SecondLife.nib")
-
                 self.path("viewer.icns")
                 
-                # Translations
-                self.path("English.lproj")
-                self.path("German.lproj")
-                self.path("Japanese.lproj")
-                self.path("Korean.lproj")
-                self.path("da.lproj")
-                self.path("es.lproj")
-                self.path("fr.lproj")
-                self.path("hu.lproj")
-                self.path("it.lproj")
-                self.path("nl.lproj")
-                self.path("pl.lproj")
-                self.path("pt.lproj")
-                self.path("ru.lproj")
-                self.path("tr.lproj")
-                self.path("uk.lproj")
-                self.path("zh-Hans.lproj")
+                if self.prefix(src="packaging/mac", dst=""):
+                    self.path("SecondLife.nib")
+                    self.path("English.lproj")
+                    self.path("German.lproj")
+                    self.path("Japanese.lproj")
+                    self.path("Korean.lproj")
+                    self.path("da.lproj")
+                    self.path("es.lproj")
+                    self.path("fr.lproj")
+                    self.path("hu.lproj")
+                    self.path("it.lproj")
+                    self.path("nl.lproj")
+                    self.path("pl.lproj")
+                    self.path("pt.lproj")
+                    self.path("ru.lproj")
+                    self.path("tr.lproj")
+                    self.path("uk.lproj")
+                    self.path("zh-Hans.lproj")
+                    self.end_prefix("packaging/mac")
 
 
                 # if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
