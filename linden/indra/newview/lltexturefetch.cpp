@@ -874,15 +874,6 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				}
 			}
 
-			// *TODO: remove this hack when not needed anymore
-			S32 buggy_range_fudge = 0;
-			if (LLTextureFetch::hasBuggyHTTPRange())
-			{
-				buggy_range_fudge = 1;
-				resetFormattedData(); // discard any previous data we had
-				cur_size = 0 ;
-			}
-
 			mRequestedSize = mDesiredSize;
 			mRequestedDiscard = mDesiredDiscard;
 			mRequestedSize -= cur_size;
@@ -898,7 +889,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				mGetReason.clear();
 				LL_DEBUGS("TextureFetch") << "HTTP GET: " << mID << " Offset: " << offset
 						<< " Bytes: " << mRequestedSize
-						<< " Range: " << offset << "-" << offset+mRequestedSize-1+buggy_range_fudge
+						<< " Range: " << offset << "-" << offset+mRequestedSize-1
 						<< " Bandwidth(kbps): " << mFetcher->getTextureBandwidth() << "/" << max_bandwidth
 						<< LL_ENDL;
 				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
@@ -908,7 +899,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				// Will call callbackHttpGet when curl request completes
 				std::vector<std::string> headers;
 				headers.push_back("Accept: image/x-j2c");
-				res = mFetcher->mCurlGetRequest->getByteRange(mUrl, headers, offset, mRequestedSize + buggy_range_fudge,
+				res = mFetcher->mCurlGetRequest->getByteRange(mUrl, headers, offset, mRequestedSize,
 															  new HTTPGetResponder(mFetcher, mID, LLTimer::getTotalTime(), mRequestedSize, offset));
 			}
 			if (!res)
@@ -2278,46 +2269,4 @@ void LLTextureFetch::dump()
 				<< " STATE: " << worker->sStateDescs[worker->mState]
 				<< llendl;
 	}
-}
-
-// This tries to detect if the sim has this bug:
-// http://opensimulator.org/mantis/view.php?id=5081
-//
-// *TODO: This is a *HACK and may not work if the grid is heterogenous.
-//        Remove it once OpenSim versions in the wild are > 0.7.0.2!
-#include "hippogridmanager.h"
-#include <boost/regex.hpp> 
-//static
-bool LLTextureFetch::hasBuggyHTTPRange()
-{
-	static std::string s_version;
-	static bool buggy = false;
-	if ((s_version != gLastVersionChannel) && !gLastVersionChannel.empty())
-	{
-		s_version = gLastVersionChannel;
-		buggy = false;
-		if (gHippoGridManager->getConnectedGrid()->getPlatform() == HippoGridInfo::PLATFORM_OPENSIM)
-		{
-			std::string ver_string;
-			try
-			{
-				const boost::regex re(".*OpenSim.*?([0-9.]+).+");
-				ver_string = regex_replace(s_version, re, "\\1", boost::match_default);
-			}
-			catch(std::runtime_error)
-			{
-				ver_string = "0.0";
-			}
-			LLStringUtil::replaceChar(ver_string, '.', '0');
-			ver_string = "0." + ver_string;
-			F64 version = atof(ver_string.c_str());
-			// we look for "0.6.8" < version < "0.7.0.3"
-			if ((version > 0.00608) && (version < 0.0070003))
-			{
-				buggy = true;
-				llwarns << "Setting buggy http ranges mode for current sim, because we're on " << s_version << llendl;
-			}
-		}
-	}
-	return buggy;
 }
