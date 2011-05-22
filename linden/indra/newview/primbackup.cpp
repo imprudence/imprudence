@@ -625,6 +625,8 @@ void primbackup::export_next_texture()
 
 void primbackup::import_object(bool upload)
 {
+
+
 	textures.clear();
 	assetmap.clear();
 	current_asset=LLUUID::null;
@@ -641,9 +643,21 @@ void primbackup::import_object(bool upload)
 	std::string file_name = file_picker.getFirstFile().c_str();
 	folder = gDirUtilp->getDirName(file_name);
 
-	llifstream import_file(file_name);
-	LLSDSerialize::fromXML(llsd, import_file);
-	import_file.close();
+	{
+		LLSD import_llsd;
+		llifstream import_file(file_name);
+		S32 status;
+		status = LLSDSerialize::fromXML(import_llsd, import_file);
+		import_file.close();
+	
+		if (LLSDParser::PARSE_FAILURE == status)
+		{
+			llwarns << "invalid xml file." << llendl;
+			return;
+		}
+
+		llsd = import_llsd;
+	}
 
 	show();
 

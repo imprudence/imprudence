@@ -424,10 +424,14 @@ static	void updatePosition(void);
 			const std::string& account_name,
 			const std::string& password,
 			const std::string& voice_sip_uri_hostname,
-			const std::string& voice_account_server_uri);
+			const std::string& voice_account_server_uri,
+			const LLUUID& response_id);
+
 		void loginSendMessage();
 		void logout();
 		void logoutSendMessage();
+
+		void loadDaemon(const std::string& scheme);
 
 		void accountListBlockRulesSendMessage();
 		void accountListAutoAcceptRulesSendMessage();
@@ -474,7 +478,8 @@ static	void updatePosition(void);
 			const std::string &credentials);
 		void setSpatialChannel(
 			const std::string &uri,
-			const std::string &credentials);
+			const std::string &credentials,
+			const LLUUID& response_id);
 		// start a voice session with the specified user
 		void callUser(const LLUUID &uuid);
 		
@@ -519,7 +524,7 @@ static	void updatePosition(void);
 
 		void close();
 		void start();
-		
+		void setPIRCapResponseID(const LLUUID& response_id){ mPIRCapResponseID = response_id; }
 	private:
 
 		// internal state for a simple state machine.  This is used to deal with the asynchronous nature of some of the messages.
@@ -595,7 +600,13 @@ static	void updatePosition(void);
 		std::string mAccountDisplayName;
 		std::string mAccountFirstName;
 		std::string mAccountLastName;
-				
+
+		bool mAccountActive;
+		bool mVAPRequested;
+		std::string mDaemonScheme;
+		LLUUID mVAPCapResponseID;
+		LLUUID mPIRCapResponseID;
+
 		bool mTuningMode;
 		float mTuningEnergy;
 		std::string mTuningAudioFile;
@@ -667,6 +678,7 @@ static	std::string displayNameFromAvatar(LLVOAvatar *avatar);
 static	std::string nameFromsipURI(const std::string &uri);		
 
 		bool inSpatialChannel(void);
+		bool inNonSpatialChannel(void);
 		std::string getAudioSessionURI();
 		std::string getAudioSessionHandle();
 				

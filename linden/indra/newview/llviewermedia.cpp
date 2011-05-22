@@ -547,6 +547,13 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 
 			if (media_source->init(launcher_name, plugin_name, gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins")))
 			{
+				#if LL_WINDOWS
+				if (gSavedSettings.getBOOL("ShowConsoleWindow"))
+				{
+					media_source->showConsole();
+				}
+				#endif
+
 				return media_source;
 			}
 			else

@@ -89,7 +89,7 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mPasswordAvatar(LLStringUtil::null),
 	mXmlState(XML_VOID),
 	mVoiceConnector("SLVoice"),
-	mRenderCompat(true),
+	mRenderCompat(false),
 	mMaxAgentGroups(-1),
 	mCurrencySymbol("OS$"),
 	mRealCurrencySymbol("US$"),

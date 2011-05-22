@@ -1525,7 +1525,7 @@ void LLVOAvatar::loadCloud(const std::string& filename,  LLPartSysData& particle
 	if(particles.mPartImageID.isNull() || default_id == particles.mPartImageID)
 	{
 		LLViewerImage* cloud_image =
-		 	gImageList.getImageFromFile("cloud-particle.j2c", MIPMAP_YES, IMMEDIATE_YES, 0, 0, default_id);
+		 	gImageList.getImage(default_id);
 		particles.mPartImageID = cloud_image->getID();
 	}
 }

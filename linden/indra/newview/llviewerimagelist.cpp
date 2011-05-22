@@ -193,6 +193,13 @@ void LLViewerImageList::doPreloadImages()
 		mImagePreloads.insert(image);
 	}
 
+	// Preload default unrezzad avatar cloud
+	image = getImageFromFile("cloud-particle.j2c",MIPMAP_YES,IMMEDIATE_YES,0,0,DEFAULT_UNREZZED_AVATAR_PARTICLE);
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_WRAP);
+		mImagePreloads.insert(image);
+	}
 }
 
 static std::string get_texture_list_name()

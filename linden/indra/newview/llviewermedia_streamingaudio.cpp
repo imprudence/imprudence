@@ -96,7 +96,7 @@ void LLStreamingAudio_MediaPlugins::stop()
 	{
 		mMediaPlugin->stop();
 	}
-
+	llinfos << "Stopping internet stream." << llendl;
 	mURL.clear();
 }
 
