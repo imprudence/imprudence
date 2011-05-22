@@ -228,7 +228,7 @@ private:
 	U16			mGeomIndex;			// index into draw pool
 	U32			mIndicesCount;
 	U32			mIndicesIndex;		// index into draw pool for indices (yeah, I know!)
-	S32			mIndexInTex ;
+	S32			mIndexInTex ;		// index of this face in the texture's face list
 
 	//previous rebuild's geometry info
 	U16			mLastGeomCount;
