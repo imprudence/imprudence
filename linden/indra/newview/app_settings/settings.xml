@@ -39,16 +39,27 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-  <key>VoiceModule</key>
+  <key>VoiceModuleMumble</key>
   <map>
     <key>Comment</key>
-    <string>Executable file that runs voice. Platform specific parts (like .exe on windows) are added automatically.</string>
+    <string>Executable file that runs mumble voice . Platform specific parts (like .exe on windows) are added automatically, paths are stripped off if present. Defaults to mumble if empty</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>SLVoice</string>
+    <string />
+  </map>
+  <key>VoiceModuleVivox</key>
+  <map>
+    <key>Comment</key>
+    <string>Executable file that runs vivox voice. Platform specific parts (like .exe on windows) are added automatically, paths are stripped off if present. Defaults to SLVoice if empty.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
   </map>
   
   <!-- end Aurora-specific settings -->
