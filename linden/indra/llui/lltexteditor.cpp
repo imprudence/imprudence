@@ -636,7 +636,7 @@ void LLTextEditor::defineMenuCallbacks(LLMenuGL* menu) {
 			      "Select All Text",
 			      this,
 			      (void*)context_enable_selectall);
-	menu->setCtrlResponse(1+LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
+	menu->setCtrlResponse(LLCallbackInformation::LL_MENU_ITEM_CALL_GL_ON_CLICK,
 			      "Select All Text",
 			      this,
 			      (void*)context_selectall);
