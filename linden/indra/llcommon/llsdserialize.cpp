@@ -441,7 +441,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading map." << llendl;
+			llwarns << "STREAM FAILURE reading map." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -460,7 +460,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading array." << llendl;
+			llwarns << "STREAM FAILURE reading array." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -496,7 +496,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading boolean." << llendl;
+			llwarns << "STREAM FAILURE reading boolean." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -522,7 +522,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading boolean." << llendl;
+			llwarns << "STREAM FAILURE reading boolean." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -535,7 +535,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		data = integer;
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading integer." << llendl;
+			llwarns << "STREAM FAILURE reading integer." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -549,7 +549,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		data = real;
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading real." << llendl;
+			llwarns << "STREAM FAILURE reading real." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -563,7 +563,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		data = id;
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading uuid." << llendl;
+			llwarns << "STREAM FAILURE reading uuid." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -578,7 +578,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading string." << llendl;
+			llwarns << "STREAM FAILURE reading string." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -600,7 +600,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading link." << llendl;
+			llwarns << "STREAM FAILURE reading link." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -623,7 +623,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading date." << llendl;
+			llwarns << "STREAM FAILURE reading date." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -636,14 +636,14 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading data." << llendl;
+			llwarns << "STREAM FAILURE reading data." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
 
 	default:
 		parse_count = PARSE_FAILURE;
-		llinfos << "Unrecognized character while parsing: int(" << (int)c
+		llwarns << "Unrecognized character while parsing: int(" << (int)c
 			<< ")" << llendl;
 		break;
 	}
@@ -905,7 +905,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary map." << llendl;
+			llwarns << "STREAM FAILURE reading binary map." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -924,7 +924,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary array." << llendl;
+			llwarns << "STREAM FAILURE reading binary array." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -949,7 +949,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		data = (S32)ntohl(value_nbo);
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary integer." << llendl;
+			llwarns << "STREAM FAILURE reading binary integer." << llendl;
 		}
 		break;
 	}
@@ -961,7 +961,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		data = ll_ntohd(real_nbo);
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary real." << llendl;
+			llwarns << "STREAM FAILURE reading binary real." << llendl;
 		}
 		break;
 	}
@@ -973,7 +973,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		data = id;
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary uuid." << llendl;
+			llwarns << "STREAM FAILURE reading binary uuid." << llendl;
 		}
 		break;
 	}
@@ -994,7 +994,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary (notation-style) string."
+			llwarns << "STREAM FAILURE reading binary (notation-style) string."
 				<< llendl;
 			parse_count = PARSE_FAILURE;
 		}
@@ -1014,7 +1014,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary string." << llendl;
+			llwarns << "STREAM FAILURE reading binary string." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -1033,7 +1033,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary link." << llendl;
+			llwarns << "STREAM FAILURE reading binary link." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -1046,7 +1046,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		data = LLDate(real);
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary date." << llendl;
+			llwarns << "STREAM FAILURE reading binary date." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -1075,7 +1075,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 		}
 		if(istr.fail())
 		{
-			llinfos << "STREAM FAILURE reading binary." << llendl;
+			llwarns << "STREAM FAILURE reading binary." << llendl;
 			parse_count = PARSE_FAILURE;
 		}
 		break;
@@ -1083,7 +1083,7 @@ S32 LLSDBinaryParser::doParse(std::istream& istr, LLSD& data) const
 
 	default:
 		parse_count = PARSE_FAILURE;
-		llinfos << "Unrecognized character while parsing: int(" << (int)c
+		llwarns << "Unrecognized character while parsing: int(" << (int)c
 			<< ")" << llendl;
 		break;
 	}

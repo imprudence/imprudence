@@ -42,6 +42,14 @@
 #include "llpluginmessagepipe.h"
 #include "llpluginmessageclasses.h"
 
+#if LL_WINDOWS
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
+#include <iostream>
+#include <fstream>
+#endif
+
 static const F32 HEARTBEAT_SECONDS = 1.0f;
 static const F32 PLUGIN_IDLE_SECONDS = 1.0f / 100.0f;  // Each call to idle will give the plugin this much time.
 
@@ -420,6 +428,12 @@ void LLPluginProcessChild::receiveMessageRaw(const std::string &message)
 			{
 				mSleepTime = parsed.getValueReal("time");
 			}
+     		#if LL_WINDOWS
+			else if(message_name == "show_console")
+			{
+				createConsole();
+			}
+			#endif
 			else if(message_name == "crash")
 			{
 				// Crash the plugin
@@ -569,3 +583,46 @@ void LLPluginProcessChild::deliverQueuedMessages()
 		}
 	}
 }
+
+#if LL_WINDOWS
+void LLPluginProcessChild::createConsole()
+{
+	const S32 MAX_CONSOLE_LINES = 500;
+
+	int h_con_handle;
+	long l_std_handle;
+
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	FILE *fp;
+
+	// allocate a console for this app
+	AllocConsole();
+
+	// set the screen buffer to be big enough to let us scroll text
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	coninfo.dwSize.Y = MAX_CONSOLE_LINES;
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
+
+	// redirect unbuffered STDOUT to the console
+	l_std_handle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
+	h_con_handle = _open_osfhandle(l_std_handle, _O_TEXT);
+	fp = _fdopen( h_con_handle, "w" );
+	*stdout = *fp;
+	setvbuf( stdout, NULL, _IONBF, 0 );
+
+	// redirect unbuffered STDIN to the console
+	l_std_handle = (long)GetStdHandle(STD_INPUT_HANDLE);
+	h_con_handle = _open_osfhandle(l_std_handle, _O_TEXT);
+	fp = _fdopen( h_con_handle, "r" );
+	*stdin = *fp;
+	setvbuf( stdin, NULL, _IONBF, 0 );
+
+	// redirect unbuffered STDERR to the console
+	l_std_handle = (long)GetStdHandle(STD_ERROR_HANDLE);
+	h_con_handle = _open_osfhandle(l_std_handle, _O_TEXT);
+	fp = _fdopen( h_con_handle, "w" );
+	*stderr = *fp;
+	setvbuf( stderr, NULL, _IOFBF, 1024 );  //Assigning a buffer improves speed a LOT, esp on vista/win7
+                      //_IOLBF is borked.
+}
+#endif

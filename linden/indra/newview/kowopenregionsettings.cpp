@@ -36,7 +36,6 @@
 #include "llviewerobject.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterworldmap.h"
-#include "llvoiceclient.h"
 #include "viewertime.h"
 
 //DEBUG includes
@@ -205,12 +204,7 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		{
 			gHippoLimits->mAllowParcelWindLight = body["AllowParcelWindLight"].asInteger() == 1;
 		}
-		if ( body.has("Voice") )
-		{
-			gSavedSettings.setString("VoiceModule", body["Voice"].asString());
-			//gVoiceClient->close();
-			//gVoiceClient->start();
-		}
+
 
 		if (limitschanged)
 			gFloaterTools->updateToolsSizeLimits();

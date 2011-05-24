@@ -139,22 +139,23 @@ class LLViewerVoiceAccountProvisionResponder :
 	public LLHTTPClient::Responder
 {
 public:
-	LLViewerVoiceAccountProvisionResponder(int retries)
+	LLViewerVoiceAccountProvisionResponder(int retries, LLUUID response_id)
 	{
 		mRetries = retries;
+		mResponseID = response_id;
 	}
 
 	virtual void error(U32 status, const std::string& reason)
 	{
 		if ( mRetries > 0 )
 		{
-			LL_WARNS("Voice") << "ProvisionVoiceAccountRequest returned an error, retrying.  status = " << status << ", reason = \"" << reason << "\"" << LL_ENDL;
+			LL_DEBUGS("VoiceCaps") << "ProvisionVoiceAccountRequest returned an error, retrying.  status = " << status << ", reason = \"" << reason << "\"" << LL_ENDL;
 			if ( gVoiceClient ) gVoiceClient->requestVoiceAccountProvision(
 				mRetries - 1);
 		}
 		else
 		{
-			LL_WARNS("Voice") << "ProvisionVoiceAccountRequest returned an error, too many retries (giving up).  status = " << status << ", reason = \"" << reason << "\"" << LL_ENDL;
+			LL_DEBUGS("VoiceCaps") << "ProvisionVoiceAccountRequest returned an error, too many retries (giving up).  status = " << status << ", reason = \"" << reason << "\"" << LL_ENDL;
 			if ( gVoiceClient ) gVoiceClient->giveUp();
 		}
 	}
@@ -166,7 +167,7 @@ public:
 			std::string voice_sip_uri_hostname;
 			std::string voice_account_server_uri;
 			
-			LL_DEBUGS("Voice") << "ProvisionVoiceAccountRequest response:" << ll_pretty_print_sd(content) << LL_ENDL;
+			LL_DEBUGS("VoiceCaps") << "ProvisionVoiceAccountRequest response:" << ll_pretty_print_sd(content) << LL_ENDL;
 			
 			if(content.has("voice_sip_uri_hostname"))
 				voice_sip_uri_hostname = content["voice_sip_uri_hostname"].asString();
@@ -179,12 +180,14 @@ public:
 				content["username"].asString(),
 				content["password"].asString(),
 				voice_sip_uri_hostname,
-				voice_account_server_uri);
+				voice_account_server_uri,
+				mResponseID);
 		}
 	}
 
 private:
 	int mRetries;
+	LLUUID mResponseID;
 };
 
 /** 
@@ -364,7 +367,7 @@ LLIOPipe::EStatus LLVivoxProtocolParser::process_impl(
 		// If this message isn't set to be squelched, output the raw XML received.
 		if(!squelchDebugOutput)
 		{
-			LL_DEBUGS("Voice") << "parsing: " << mInput.substr(start, delim - start) << LL_ENDL;
+			LL_DEBUGS("VivoxProtocolParser") << "parsing: " << mInput.substr(start, delim - start) << LL_ENDL;
 		}
 		
 		start = delim + 3;
@@ -378,7 +381,7 @@ LLIOPipe::EStatus LLVivoxProtocolParser::process_impl(
 	if(!gVoiceClient->mConnected)
 	{
 		// If voice has been disabled, we just want to close the socket.  This does so.
-		LL_INFOS("Voice") << "returning STATUS_STOP" << LL_ENDL;
+		LL_INFOS("VivoxProtocolParser") << "returning STATUS_STOP" << LL_ENDL;
 		return STATUS_STOP;
 	}
 	
@@ -1008,12 +1011,13 @@ static LLVoiceClientFriendsObserver *friendslist_listener = NULL;
 class LLVoiceClientCapResponder : public LLHTTPClient::Responder
 {
 public:
-	LLVoiceClientCapResponder(void){};
+	LLVoiceClientCapResponder(LLUUID response_id):mResponseID(response_id) {};
 
 	virtual void error(U32 status, const std::string& reason);	// called with bad status codes
 	virtual void result(const LLSD& content);
 
 private:
+	LLUUID mResponseID;
 };
 
 void LLVoiceClientCapResponder::error(U32 status, const std::string& reason)
@@ -1027,7 +1031,7 @@ void LLVoiceClientCapResponder::result(const LLSD& content)
 {
 	LLSD::map_const_iterator iter;
 	
-	LL_DEBUGS("Voice") << "ParcelVoiceInfoRequest response:" << ll_pretty_print_sd(content) << LL_ENDL;
+	LL_DEBUGS("VoiceCaps") << "ParcelVoiceInfoRequest response:\n" << ll_pretty_print_sd(content) << LL_ENDL;
 
 	if ( content.has("voice_credentials") )
 	{
@@ -1045,7 +1049,7 @@ void LLVoiceClientCapResponder::result(const LLSD& content)
 				voice_credentials["channel_credentials"].asString();
 		}
 
-		gVoiceClient->setSpatialChannel(uri, credentials);
+		gVoiceClient->setSpatialChannel(uri, credentials, mResponseID);
 	}
 }
 
@@ -1126,6 +1130,8 @@ LLVoiceClient::LLVoiceClient()
 	mAudioSessionChanged = false;
 
 	// Initial dirty state
+	mAccountActive = false;
+	mVAPRequested = false;
 	mSpatialCoordsDirty = false;
 	mPTTDirty = true;
 	mFriendsListDirty = true;
@@ -1347,6 +1353,7 @@ void LLVoiceClient::userAuthorized(const std::string& firstName, const std::stri
 	sConnectingToAgni = LLViewerLogin::getInstance()->isInProductionGrid();
 
 	mAccountName = nameFromID(agentID);
+	mAccountActive = true;
 }
 
 void LLVoiceClient::requestVoiceAccountProvision(S32 retries)
@@ -1357,12 +1364,21 @@ void LLVoiceClient::requestVoiceAccountProvision(S32 retries)
 			gAgent.getRegion()->getCapability(
 				"ProvisionVoiceAccountRequest");
 
-		if ( url == "" ) return;
+		if ( url.empty() )
+		{
+			mVAPRequested = false;
+			mAccountActive = false;
+			setState(stateDisableCleanup);
+		}
 
+		LL_DEBUGS("VoiceCaps") << "Got ProvisionVoiceAccountRequest capability: " 
+				<< url << llendl;
+
+		mVAPCapResponseID.generate();
 		LLHTTPClient::post(
 			url,
 			LLSD(),
-			new LLViewerVoiceAccountProvisionResponder(retries));
+			new LLViewerVoiceAccountProvisionResponder(retries, mVAPCapResponseID));
 	}
 }
 
@@ -1370,10 +1386,43 @@ void LLVoiceClient::login(
 	const std::string& account_name,
 	const std::string& password,
 	const std::string& voice_sip_uri_hostname,
-	const std::string& voice_account_server_uri)
+	const std::string& voice_account_server_uri,
+	const LLUUID& response_id)
 {
+	if(response_id != mVAPCapResponseID) return;
+
+	std::string new_scheme;
+	std::string old_scheme;
+	if(!voice_account_server_uri.empty())
+	{
+		new_scheme = voice_account_server_uri.substr(0, voice_account_server_uri.find("://"));
+	}
+	if(!mDaemonScheme.empty())
+	{
+		old_scheme = mDaemonScheme;
+	}
+	else
+	{
+		old_scheme = new_scheme;
+	}
+
 	mVoiceSIPURIHostName = voice_sip_uri_hostname;
 	mVoiceAccountServerURI = voice_account_server_uri;
+
+
+	LL_DEBUGS("VoiceCaps") << "new_scheme: \"" << new_scheme << "\""
+		<< "\nold_scheme: \"" << old_scheme << "\""
+		<< "\ngateway running: " << ( isGatewayRunning() ? "true" : "false" ) << llendl;
+	if(!isGatewayRunning() )
+	{
+		loadDaemon(new_scheme);
+	}
+	else if(old_scheme != new_scheme)
+	{
+		mAccountActive = true;
+		setState(stateDisableCleanup);
+	}
+
 
 	if(!mAccountHandle.empty())
 	{
@@ -1431,6 +1480,183 @@ void LLVoiceClient::login(
 		mVoiceAccountServerURI = "https://www." + mVoiceSIPURIHostName + "/api2/";		
 	}
 }
+
+void LLVoiceClient::loadDaemon(const std::string& scheme)
+{
+
+	// Launch the voice daemon
+
+	
+	// *FIX:Mani - Using the executable dir instead 
+	// of mAppRODataDir, the working directory from which the app
+	// is launched.
+	//std::string exe_path = gDirUtilp->getAppRODataDir();
+	std::string exe_path = gDirUtilp->getExecutableDir();
+	exe_path += gDirUtilp->getDirDelimiter();
+
+#if LL_DARWIN
+	exe_path += "../Resources/";
+#endif
+
+	//exe_path += gSavedSettings.getString("VoiceModule");
+	llwarns << "Scheme: " << scheme << llendl;
+	
+	std::string module;
+	if (scheme == "tcp")
+	{
+
+		module = gSavedSettings.getString("VoiceModuleMumble").empty() ?
+				"mumble" : gSavedSettings.getString("VoiceModuleMumble");
+	}
+	else
+	{
+		module = gSavedSettings.getString("VoiceModuleVivox").empty() ?
+				"SLVoice" : gSavedSettings.getString("VoiceModuleVivox");
+	}
+
+	size_t pos_to_tst = module.find_last_of("/\\");
+	if( pos_to_tst != std::string::npos )
+	{
+		module = module.substr(pos_to_tst+1);
+	}
+
+#if LL_WINDOWS
+	std::string extension = ".exe";
+	if ( module.rfind(extension) != module.length()-extension.length())
+	{
+		module.append(extension);
+	}
+#endif
+
+	exe_path.append(module);
+
+	// See if the vivox executable exists
+	llstat s;
+	if(!LLFile::stat(exe_path, &s))
+	{
+		// vivox executable exists.  Build the command line and launch the daemon.
+		// SLIM SDK: these arguments are no longer necessary.
+		// std::string args = " -p tcp -h -c";
+		std::string args;
+		std::string cmd;
+		std::string loglevel = gSavedSettings.getString("VivoxDebugLevel");
+		
+		if(loglevel.empty())
+		{
+			loglevel = "-1";	// turn logging off completely
+		}
+		
+		args += " -ll ";
+		args += loglevel;
+		
+		llwarns << "Voice loaded from: " << exe_path << " " << args << LL_ENDL;
+
+#if LL_WINDOWS
+		PROCESS_INFORMATION pinfo;
+		STARTUPINFOA sinfo;
+		memset(&sinfo, 0, sizeof(sinfo));
+		std::string exe_dir = gDirUtilp->getAppRODataDir();
+
+		
+		// So retarded.  Windows requires that the second parameter to CreateProcessA be a writable (non-const) string...
+		char *args2 = new char[args.size() + 1];
+		strcpy(args2, args.c_str());
+
+		if(!CreateProcessA(exe_path.c_str(), args2, NULL, NULL, FALSE, 0, NULL, exe_dir.c_str(), &sinfo, &pinfo))
+		{
+			// DWORD dwErr = GetLastError();
+		}
+		else
+		{
+			// foo = pinfo.dwProcessId; // get your pid here if you want to use it later on
+			// CloseHandle(pinfo.hProcess); // stops leaks - nothing else
+			sGatewayHandle = pinfo.hProcess;
+			CloseHandle(pinfo.hThread); // stops leaks - nothing else
+		}		
+		
+		delete[] args2;
+#else	// LL_WINDOWS
+		// This should be the same for mac and linux
+		{
+			std::vector<std::string> arglist;
+			arglist.push_back(exe_path);
+			
+			// Split the argument string into separate strings for each argument
+			typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+			boost::char_separator<char> sep(" ");
+			tokenizer tokens(args, sep);
+			tokenizer::iterator token_iter;
+
+			for(token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
+			{
+				arglist.push_back(*token_iter);
+			}
+			
+			// create an argv vector for the child process
+			char **fakeargv = new char*[arglist.size() + 1];
+			int i;
+			for(i=0; i < arglist.size(); i++)
+				fakeargv[i] = const_cast<char*>(arglist[i].c_str());
+
+			fakeargv[i] = NULL;
+			
+			fflush(NULL); // flush all buffers before the child inherits them
+			pid_t id = vfork();
+			if(id == 0)
+			{
+				// child
+				execv(exe_path.c_str(), fakeargv);
+				
+				// If we reach this point, the exec failed.
+				// Use _exit() instead of exit() per the vfork man page.
+				_exit(0);
+			}
+
+			// parent
+			delete[] fakeargv;
+			sGatewayPID = id;
+
+		}
+
+#endif	// LL_WINDOWS
+
+		mDaemonScheme = scheme;
+		mDaemonHost = LLHost(gSavedSettings.getString("VoiceHost").c_str(), gSavedSettings.getU32("VoicePort"));
+
+		// Dirty the states we'll need to sync with the daemon when it comes up.
+		mPTTDirty = true;
+		mMicVolumeDirty = true;
+		mSpeakerVolumeDirty = true;
+		mSpeakerMuteDirty = true;
+		// These only need to be set if they're not default (i.e. empty string).
+		mCaptureDeviceDirty = !mCaptureDevice.empty();
+		mRenderDeviceDirty = !mRenderDevice.empty();
+		
+		mMainSessionGroupHandle.clear();
+
+		// kick in
+	
+		mUpdateTimer.start();
+		mUpdateTimer.setTimerExpirySec(CONNECT_THROTTLE_SECONDS);
+		
+		setState(stateDaemonLaunched);
+	
+		//trigger parcel changed in the state engine
+		mCurrentRegionName.append("kick in");
+
+	
+	}	
+	else
+	{
+		LL_WARNS("Voice") << exe_path << " not found." << LL_ENDL;
+		mAccountActive = false;
+		setState(stateDisableCleanup);
+	}
+
+	// we are done, re-allow ProvisionVoiceAccountRequest
+	mVAPRequested = false;
+}
+
 
 void LLVoiceClient::idle(void* user_data)
 {
@@ -1537,11 +1763,20 @@ void LLVoiceClient::start()
 
 void LLVoiceClient::stateMachine()
 {
+	if( stateJail == getState())
+	{
+		return;
+	}
+
+	if(gSavedSettings.getBOOL("CmdLineDisableVoice"))
+	{
+		// Voice is locked out, we must not launch the vivox daemon.
+		setState(stateJail);
+	}
 
 	// Disable voice as long as the viewer is disconnected from the sim (login/relog)
 	setVoiceEnabled(!gDisconnected
-			&& gSavedSettings.getBOOL("EnableVoiceChat")
-			&& !gSavedSettings.getBOOL("CmdLineDisableVoice") );
+			&& gSavedSettings.getBOOL("EnableVoiceChat") );
 
 	if(mVoiceEnabled)
 	{
@@ -1560,11 +1795,7 @@ void LLVoiceClient::stateMachine()
 			{
 				// if voice was turned off after the daemon was launched but before we could connect to it, we may need to issue a kill.
 				LL_WARNS("Voice") << "Disabling voice before connection to daemon, terminating." << LL_ENDL;
-				killGateway();
 			}
-			
-			logout();
-			connectorShutdown();
 			
 			setState(stateDisableCleanup);
 		}
@@ -1580,42 +1811,23 @@ void LLVoiceClient::stateMachine()
 		{
 			S32 parcelLocalID = parcel->getLocalID();
 			std::string regionName = region->getName();
-			std::string capURI = region->getCapability("ParcelVoiceInfoRequest");
-		
-//			LL_DEBUGS("Voice") << "Region name = \"" << regionName << "\", parcel local ID = " << parcelLocalID << ", cap URI = \"" << capURI << "\"" << LL_ENDL;
+
 
 			// The region name starts out empty and gets filled in later.  
 			// Also, the cap gets filled in a short time after the region cross, but a little too late for our purposes.
 			// If either is empty, wait for the next time around.
-			if(!regionName.empty())
+			if(/*getState() >= stateNoChannel &&*/ !regionName.empty())
 			{
-				if(!capURI.empty())
+
+				if((parcelLocalID != mCurrentParcelLocalID) || (regionName != mCurrentRegionName))
 				{
-					if((parcelLocalID != mCurrentParcelLocalID) || (regionName != mCurrentRegionName))
-					{
-						// We have changed parcels.  Initiate a parcel channel lookup.
-						mCurrentParcelLocalID = parcelLocalID;
-						mCurrentRegionName = regionName;
-						
-						parcelChanged();
-					}
+					// We have changed parcels.  Initiate a parcel channel lookup.
+					mCurrentParcelLocalID = parcelLocalID;
+					mCurrentRegionName = regionName;
+					
+					parcelChanged();
 				}
-				else
-				{
-				  	static int count = 0;
-				  	static int count2 = 0;
-					static int num = 1;
-					++count;
-					if (count % num == 0)
-					{
-					  LL_DEBUGS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long (" << count << ")." << LL_ENDL;
-					  if (num < 1000 && ++count2 == 10)
-					  {
-					    num *= 10;
-					    count2 = 0;
-					  }
-					}
-				}
+
 			}
 		}
 	}
@@ -1624,22 +1836,34 @@ void LLVoiceClient::stateMachine()
 	{
 		//MARK: stateDisableCleanup
 		case stateDisableCleanup:
-			// Clean up and reset everything. 
+			// Clean up and reset everything.
+
+			mVAPCapResponseID.setNull();
+			mPIRCapResponseID.setNull();
+
+			if(isGatewayRunning())
+			{
+				killGateway();
+			}
+			logoutSendMessage();
+			mConnected = false;
+
+
 			closeSocket();
 			deleteAllSessions();
-			deleteAllBuddies();		
+			deleteAllBuddies();
 			
 			mConnectorHandle.clear();
 			mAccountHandle.clear();
 			mAccountPassword.clear();
 			mVoiceAccountServerURI.clear();
-			
-			setState(stateDisabled);	
+			mVAPRequested = false;
+			setState(stateDisabled);
 		break;
 		
 		//MARK: stateDisabled
 		case stateDisabled:
-			if(mTuningMode || (mVoiceEnabled && !mAccountName.empty()))
+			if(mTuningMode || (mVoiceEnabled && mAccountActive && !mAccountName.empty()))
 			{
 				setState(stateStart);
 			}
@@ -1647,165 +1871,26 @@ void LLVoiceClient::stateMachine()
 		
 		//MARK: stateStart
 		case stateStart:
-			if(gSavedSettings.getBOOL("CmdLineDisableVoice"))
+		{
+			bool have_region = (NULL != gAgent.getRegion() );
+			if(mVoiceEnabled && !mVAPRequested && !mAccountName.empty() && have_region)
 			{
-				// Voice is locked out, we must not launch the vivox daemon.
-				setState(stateJail);
+				mVAPRequested = true;
+				requestVoiceAccountProvision();
 			}
-			else if(!isGatewayRunning())
-			{
-				if(true)
-				{
-					// Launch the voice daemon
-					
-					// *FIX:Mani - Using the executable dir instead 
-					// of mAppRODataDir, the working directory from which the app
-					// is launched.
-					//std::string exe_path = gDirUtilp->getAppRODataDir();
-					std::string exe_path = gDirUtilp->getExecutableDir();
-					exe_path += gDirUtilp->getDirDelimiter();
-#if LL_DARWIN
-					exe_path += "../Resources/";
-#endif
-					exe_path += gSavedSettings.getString("VoiceModule");
-#if LL_WINDOWS
-					exe_path += ".exe";
-#endif
-					// See if the vivox executable exists
-					llstat s;
-					if(!LLFile::stat(exe_path, &s))
-					{
-						// vivox executable exists.  Build the command line and launch the daemon.
-						// SLIM SDK: these arguments are no longer necessary.
-//						std::string args = " -p tcp -h -c";
-						std::string args;
-						std::string cmd;
-						std::string loglevel = gSavedSettings.getString("VivoxDebugLevel");
-						
-						if(loglevel.empty())
-						{
-							loglevel = "-1";	// turn logging off completely
-						}
-						
-						args += " -ll ";
-						args += loglevel;
-						
-						LL_DEBUGS("Voice") << "Args for SLVoice: " << args << LL_ENDL;
-
-#if LL_WINDOWS
-						PROCESS_INFORMATION pinfo;
-						STARTUPINFOA sinfo;
-						memset(&sinfo, 0, sizeof(sinfo));
-						std::string exe_dir = gDirUtilp->getAppRODataDir();
-						cmd = gSavedSettings.getString("VoiceModule");
-						cmd += ".exe";
-						cmd += args;
-						
-						// So retarded.  Windows requires that the second parameter to CreateProcessA be a writable (non-const) string...
-						char *args2 = new char[args.size() + 1];
-						strcpy(args2, args.c_str());
-
-						if(!CreateProcessA(exe_path.c_str(), args2, NULL, NULL, FALSE, 0, NULL, exe_dir.c_str(), &sinfo, &pinfo))
-						{
-//							DWORD dwErr = GetLastError();
-						}
-						else
-						{
-							// foo = pinfo.dwProcessId; // get your pid here if you want to use it later on
-							// CloseHandle(pinfo.hProcess); // stops leaks - nothing else
-							sGatewayHandle = pinfo.hProcess;
-							CloseHandle(pinfo.hThread); // stops leaks - nothing else
-						}		
-						
-						delete[] args2;
-#else	// LL_WINDOWS
-						// This should be the same for mac and linux
-						{
-							std::vector<std::string> arglist;
-							arglist.push_back(exe_path);
-							
-							// Split the argument string into separate strings for each argument
-							typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-							boost::char_separator<char> sep(" ");
-							tokenizer tokens(args, sep);
-							tokenizer::iterator token_iter;
-
-							for(token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
-							{
-								arglist.push_back(*token_iter);
-							}
-							
-							// create an argv vector for the child process
-							char **fakeargv = new char*[arglist.size() + 1];
-							int i;
-							for(i=0; i < arglist.size(); i++)
-								fakeargv[i] = const_cast<char*>(arglist[i].c_str());
-
-							fakeargv[i] = NULL;
-							
-							fflush(NULL); // flush all buffers before the child inherits them
-							pid_t id = vfork();
-							if(id == 0)
-							{
-								// child
-								execv(exe_path.c_str(), fakeargv);
-								
-								// If we reach this point, the exec failed.
-								// Use _exit() instead of exit() per the vfork man page.
-								_exit(0);
-							}
-
-							// parent
-							delete[] fakeargv;
-							sGatewayPID = id;
-						}
-#endif	// LL_WINDOWS
-						mDaemonHost = LLHost(gSavedSettings.getString("VoiceHost").c_str(), gSavedSettings.getU32("VoicePort"));
-					}	
-					else
-					{
-						LL_WARNS("Voice") << exe_path << " not found." << LL_ENDL;
-						mVoiceEnabled = false;
-					}	
-				}
-				else
-				{		
-					// SLIM SDK: port changed from 44124 to 44125.
-					// We can connect to a client gateway running on another host.  This is useful for testing.
-					// To do this, launch the gateway on a nearby host like this:
-					//  vivox-gw.exe -p tcp -i 0.0.0.0:44125
-					// and put that host's IP address here.
-					mDaemonHost = LLHost(gSavedSettings.getString("VoiceHost"), gSavedSettings.getU32("VoicePort"));
-				}
-
-				mUpdateTimer.start();
-				mUpdateTimer.setTimerExpirySec(CONNECT_THROTTLE_SECONDS);
-
-				setState(stateDaemonLaunched);
-				
-				// Dirty the states we'll need to sync with the daemon when it comes up.
-				mPTTDirty = true;
-				mMicVolumeDirty = true;
-				mSpeakerVolumeDirty = true;
-				mSpeakerMuteDirty = true;
-				// These only need to be set if they're not default (i.e. empty string).
-				mCaptureDeviceDirty = !mCaptureDevice.empty();
-				mRenderDeviceDirty = !mRenderDevice.empty();
-				
-				mMainSessionGroupHandle.clear();
-			}
-		break;
+		} break;
 
 		//MARK: stateDaemonLaunched
 		case stateDaemonLaunched:
 			if(mUpdateTimer.hasExpired())
 			{
-				LL_DEBUGS("Voice") << "Connecting to vivox daemon" << LL_ENDL;
-
+				
 				mUpdateTimer.setTimerExpirySec(CONNECT_THROTTLE_SECONDS);
 
 				if(!mSocket)
 				{
+					LL_DEBUGS("VoiceDaemon") << "Connecting to voice daemon. Protocol: " 
+						<< mDaemonScheme << LL_ENDL;
 					mSocket = LLSocket::create(LLSocket::STREAM_TCP);
 				}
 				
@@ -1817,6 +1902,7 @@ void LLVoiceClient::stateMachine()
 				else
 				{
 					// If the connect failed, the socket may have been put into a bad state.  Delete it.
+					LL_DEBUGS("VoiceDaemon") << "voice daemon not ready yet, retrying" << LL_ENDL;
 					closeSocket();
 				}
 			}
@@ -1871,24 +1957,16 @@ void LLVoiceClient::stateMachine()
 			}
 			else if(!mAccountName.empty() && mVoiceEnabled)
 			{
-				LLViewerRegion *region = gAgent.getRegion();
-				
-				if(region)
+				if ( mAccountPassword.empty() )
 				{
-					if ( region->getCapability("ProvisionVoiceAccountRequest") != "" )
-					{
-						if ( mAccountPassword.empty() )
-						{
-							requestVoiceAccountProvision();
-						}
-						setState(stateConnectorStart);
-					}
-					else
-					{
-						LL_DEBUGS("Voice") << "region doesn't have ProvisionVoiceAccountRequest capability!" << LL_ENDL;
-					}
+					requestVoiceAccountProvision();
+				}
+				else
+				{
+					setState(stateConnectorStart);
 				}
 			}
+
 		break;
 
 		//MARK: stateMicTuningStart
@@ -2025,7 +2103,8 @@ void LLVoiceClient::stateMachine()
 			if(mLoginRetryCount > MAX_LOGIN_RETRIES)
 			{
 				LL_WARNS("Voice") << "too many login retries, giving up." << LL_ENDL;
-				setState(stateLoginFailed);
+				mAccountActive = false;
+				setState(stateDisableCleanup);
 			}
 			else
 			{
@@ -2569,7 +2648,7 @@ void LLVoiceClient::sessionGroupCreateSendMessage()
 
 void LLVoiceClient::sessionCreateSendMessage(sessionState *session, bool startAudio, bool startText)
 {
-	LL_DEBUGS("Voice") << "requesting create: " << session->mSIPURI << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "requesting create: " << session->mSIPURI << LL_ENDL;
 	
 	session->mCreateInProgress = true;
 	if(startAudio)
@@ -2605,7 +2684,7 @@ void LLVoiceClient::sessionCreateSendMessage(sessionState *session, bool startAu
 
 void LLVoiceClient::sessionGroupAddSessionSendMessage(sessionState *session, bool startAudio, bool startText)
 {
-	LL_DEBUGS("Voice") << "requesting create: " << session->mSIPURI << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "requesting create: " << session->mSIPURI << LL_ENDL;
 	
 	session->mCreateInProgress = true;
 	if(startAudio)
@@ -2642,7 +2721,7 @@ void LLVoiceClient::sessionGroupAddSessionSendMessage(sessionState *session, boo
 
 void LLVoiceClient::sessionMediaConnectSendMessage(sessionState *session)
 {
-	LL_DEBUGS("Voice") << "connecting audio to session handle: " << session->mHandle << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "connecting audio to session handle: " << session->mHandle << LL_ENDL;
 
 	session->mMediaConnectInProgress = true;
 	
@@ -2660,7 +2739,7 @@ void LLVoiceClient::sessionMediaConnectSendMessage(sessionState *session)
 
 void LLVoiceClient::sessionTextConnectSendMessage(sessionState *session)
 {
-	LL_DEBUGS("Voice") << "connecting text to session handle: " << session->mHandle << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "connecting text to session handle: " << session->mHandle << LL_ENDL;
 	
 	std::ostringstream stream;
 
@@ -2689,7 +2768,7 @@ void LLVoiceClient::leaveAudioSession()
 {
 	if(mAudioSession)
 	{
-		LL_DEBUGS("Voice") << "leaving session: " << mAudioSession->mSIPURI << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "leaving session: " << mAudioSession->mSIPURI << LL_ENDL;
 
 		switch(getState())
 		{
@@ -2724,7 +2803,7 @@ void LLVoiceClient::leaveAudioSession()
 				}
 				else
 				{
-					LL_WARNS("Voice") << "called with no session handle" << LL_ENDL;	
+					LL_WARNS("VoiceSession") << "called with no session handle" << LL_ENDL;	
 					setState(stateSessionTerminated);
 				}
 			break;
@@ -2734,13 +2813,13 @@ void LLVoiceClient::leaveAudioSession()
 			break;
 			
 			default:
-				LL_WARNS("Voice") << "called from unknown state" << LL_ENDL;
+				LL_WARNS("VoiceSession") << "called from unknown state" << LL_ENDL;
 			break;
 		}
 	}
 	else
 	{
-		LL_WARNS("Voice") << "called with no active session" << LL_ENDL;
+		LL_WARNS("VoiceSession") << "called with no active session" << LL_ENDL;
 		setState(stateSessionTerminated);
 	}
 }
@@ -2749,7 +2828,7 @@ void LLVoiceClient::sessionTerminateSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
 	
-	LL_DEBUGS("Voice") << "Sending Session.Terminate with handle " << session->mHandle << LL_ENDL;	
+	LL_DEBUGS("VoiceSession") << "Sending Session.Terminate with handle " << session->mHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Session.Terminate.1\">"
 		<< "<SessionHandle>" << session->mHandle << "</SessionHandle>"
@@ -2762,7 +2841,7 @@ void LLVoiceClient::sessionGroupTerminateSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
 	
-	LL_DEBUGS("Voice") << "Sending SessionGroup.Terminate with handle " << session->mGroupHandle << LL_ENDL;	
+	LL_DEBUGS("VoiceSession") << "Sending SessionGroup.Terminate with handle " << session->mGroupHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"SessionGroup.Terminate.1\">"
 		<< "<SessionGroupHandle>" << session->mGroupHandle << "</SessionGroupHandle>"
@@ -2775,7 +2854,7 @@ void LLVoiceClient::sessionMediaDisconnectSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
 	
-	LL_DEBUGS("Voice") << "Sending Session.MediaDisconnect with handle " << session->mHandle << LL_ENDL;	
+	LL_DEBUGS("VoiceSession") << "Sending Session.MediaDisconnect with handle " << session->mHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Session.MediaDisconnect.1\">"
 		<< "<SessionGroupHandle>" << session->mGroupHandle << "</SessionGroupHandle>"
@@ -2791,7 +2870,7 @@ void LLVoiceClient::sessionTextDisconnectSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
 	
-	LL_DEBUGS("Voice") << "Sending Session.TextDisconnect with handle " << session->mHandle << LL_ENDL;	
+	LL_DEBUGS("VoiceSession") << "Sending Session.TextDisconnect with handle " << session->mHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Session.TextDisconnect.1\">"
 		<< "<SessionGroupHandle>" << session->mGroupHandle << "</SessionGroupHandle>"
@@ -2823,13 +2902,13 @@ void LLVoiceClient::getRenderDevicesSendMessage()
 
 void LLVoiceClient::clearCaptureDevices()
 {
-	LL_DEBUGS("Voice") << "called" << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << "called" << LL_ENDL;
 	mCaptureDevices.clear();
 }
 
 void LLVoiceClient::addCaptureDevice(const std::string& name)
 {
-	LL_DEBUGS("Voice") << name << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << name << LL_ENDL;
 
 	mCaptureDevices.push_back(name);
 }
@@ -2861,13 +2940,13 @@ void LLVoiceClient::setCaptureDevice(const std::string& name)
 
 void LLVoiceClient::clearRenderDevices()
 {	
-	LL_DEBUGS("Voice") << "called" << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << "called" << LL_ENDL;
 	mRenderDevices.clear();
 }
 
 void LLVoiceClient::addRenderDevice(const std::string& name)
 {
-	LL_DEBUGS("Voice") << name << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << name << LL_ENDL;
 	mRenderDevices.push_back(name);
 }
 
@@ -2951,7 +3030,7 @@ void LLVoiceClient::tuningRenderStopSendMessage()
 
 void LLVoiceClient::tuningCaptureStartSendMessage(int duration)
 {
-	LL_DEBUGS("Voice") << "sending CaptureAudioStart" << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << "sending CaptureAudioStart" << LL_ENDL;
 	
 	std::ostringstream stream;
 	stream
@@ -2964,7 +3043,7 @@ void LLVoiceClient::tuningCaptureStartSendMessage(int duration)
 
 void LLVoiceClient::tuningCaptureStopSendMessage()
 {
-	LL_DEBUGS("Voice") << "sending CaptureAudioStop" << LL_ENDL;
+	LL_DEBUGS("VoiceDevice") << "sending CaptureAudioStop" << LL_ENDL;
 	
 	std::ostringstream stream;
 	stream
@@ -3038,12 +3117,8 @@ void LLVoiceClient::daemonDied()
 
 void LLVoiceClient::giveUp()
 {
-	// All has failed.  Clean up and stop trying.
-	closeSocket();
-	deleteAllSessions();
-	deleteAllBuddies();
-	
-	setState(stateJail);
+	mAccountActive = false;
+	setState(stateDisableCleanup);
 }
 
 static void oldSDKTransform (LLVector3 &left, LLVector3 &up, LLVector3 &at, LLVector3d &pos, LLVector3 &vel)
@@ -3378,7 +3453,7 @@ void LLVoiceClient::buildSetCaptureDevice(std::ostringstream &stream)
 {
 	if(mCaptureDeviceDirty)
 	{
-		LL_DEBUGS("Voice") << "Setting input device = \"" << mCaptureDevice << "\"" << LL_ENDL;
+		LL_DEBUGS("VoiceDevice") << "Setting input device = \"" << mCaptureDevice << "\"" << LL_ENDL;
 	
 		stream 
 		<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Aux.SetCaptureDevice.1\">"
@@ -4099,29 +4174,29 @@ void LLVoiceClient::reapSession(sessionState *session)
 	{
 		if(!session->mHandle.empty())
 		{
-			LL_DEBUGS("Voice") << "NOT deleting session " << session->mSIPURI << " (non-null session handle)" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "NOT deleting session " << session->mSIPURI << " (non-null session handle)" << LL_ENDL;
 		}
 		else if(session->mCreateInProgress)
 		{
-			LL_DEBUGS("Voice") << "NOT deleting session " << session->mSIPURI << " (create in progress)" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "NOT deleting session " << session->mSIPURI << " (create in progress)" << LL_ENDL;
 		}
 		else if(session->mMediaConnectInProgress)
 		{
-			LL_DEBUGS("Voice") << "NOT deleting session " << session->mSIPURI << " (connect in progress)" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "NOT deleting session " << session->mSIPURI << " (connect in progress)" << LL_ENDL;
 		}
 		else if(session == mAudioSession)
 		{
-			LL_DEBUGS("Voice") << "NOT deleting session " << session->mSIPURI << " (it's the current session)" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "NOT deleting session " << session->mSIPURI << " (it's the current session)" << LL_ENDL;
 		}
 		else if(session == mNextAudioSession)
 		{
-			LL_DEBUGS("Voice") << "NOT deleting session " << session->mSIPURI << " (it's the next session)" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "NOT deleting session " << session->mSIPURI << " (it's the next session)" << LL_ENDL;
 		}
 		else
 		{
 			// TODO: Question: Should we check for queued text messages here?
 			// We don't have a reason to keep tracking this session, so just delete it.
-			LL_DEBUGS("Voice") << "deleting session " << session->mSIPURI << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "deleting session " << session->mSIPURI << LL_ENDL;
 			deleteSession(session);
 			session = NULL;
 		}	
@@ -4179,17 +4254,17 @@ void LLVoiceClient::leftAudioSession(
 			case stateJoinSessionFailed:
 			case stateJoinSessionFailedWaiting:
 				// normal transition
-				LL_DEBUGS("Voice") << "left session " << session->mHandle << " in state " << state2string(getState()) << LL_ENDL;
+				LL_DEBUGS("VoiceSession") << "left session " << session->mHandle << " in state " << state2string(getState()) << LL_ENDL;
 				setState(stateSessionTerminated);
 			break;
 			
 			case stateSessionTerminated:
 				// this will happen sometimes -- there are cases where we send the terminate and then go straight to this state.
-				LL_WARNS("Voice") << "left session " << session->mHandle << " in state " << state2string(getState()) << LL_ENDL;
+				LL_WARNS("VoiceSession") << "left session " << session->mHandle << " in state " << state2string(getState()) << LL_ENDL;
 			break;
 			
 			default:
-				LL_WARNS("Voice") << "unexpected SessionStateChangeEvent (left session) in state " << state2string(getState()) << LL_ENDL;
+				LL_WARNS("VoiceSession") << "unexpected SessionStateChangeEvent (left session) in state " << state2string(getState()) << LL_ENDL;
 				setState(stateSessionTerminated);
 			break;
 		}
@@ -4249,7 +4324,7 @@ void LLVoiceClient::mediaStreamUpdatedEvent(
 {
 	sessionState *session = findSession(sessionHandle);
 	
-	LL_DEBUGS("Voice") << "session " << sessionHandle << ", status code " << statusCode << ", string \"" << statusString << "\"" << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "session " << sessionHandle << ", status code " << statusCode << ", string \"" << statusString << "\"" << LL_ENDL;
 	
 	if(session)
 	{
@@ -4314,7 +4389,7 @@ void LLVoiceClient::mediaStreamUpdatedEvent(
 	}
 	else
 	{
-		LL_WARNS("Voice") << "session " << sessionHandle << "not found"<< LL_ENDL;
+		LL_WARNS("VoiceSession") << "session " << sessionHandle << "not found"<< LL_ENDL;
 	}
 }
 
@@ -4435,7 +4510,7 @@ void LLVoiceClient::participantRemovedEvent(
 	}
 	else
 	{
-		LL_DEBUGS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "unknown session " << sessionHandle << LL_ENDL;
 	}
 }
 
@@ -4479,7 +4554,7 @@ void LLVoiceClient::participantUpdatedEvent(
 	}
 	else
 	{
-		LL_WARNS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
+		LL_WARNS("VoiceSession") << "unknown session " << sessionHandle << LL_ENDL;
 	}
 }
 
@@ -5058,22 +5133,34 @@ LLVoiceClient::participantState* LLVoiceClient::findParticipantByID(const LLUUID
 
 void LLVoiceClient::parcelChanged()
 {
-	if(getState() >= stateNoChannel)
+	if( (getState() >= stateNoChannel) && !inNonSpatialChannel() )
 	{
-		// If the user is logged in, start a channel lookup.
-		LL_DEBUGS("Voice") << "sending ParcelVoiceInfoRequest (" << mCurrentRegionName << ", " << mCurrentParcelLocalID << ")" << LL_ENDL;
+		// If the user is logged in, start a channel lookup,
+		// but not if already in a private call/conference.
+		mAccountActive = true;
 
 		std::string url = gAgent.getRegion()->getCapability("ParcelVoiceInfoRequest");
-		LLSD data;
-		LLHTTPClient::post(
-			url,
-			data,
-			new LLVoiceClientCapResponder);
+		LL_DEBUGS("VoiceCaps") << "sending ParcelVoiceInfoRequest (" << mCurrentRegionName << ", " << mCurrentParcelLocalID << ")" << " cap url:" << url << LL_ENDL;
+		if(! url.empty() )
+		{
+			mPIRCapResponseID.generate();
+			LLSD data;
+			LLHTTPClient::post(
+				url,
+				data,
+				new LLVoiceClientCapResponder(mPIRCapResponseID));
+		}
+		else
+		{
+			mAccountActive = false;
+			setState(stateDisableCleanup);
+		}
 	}
 	else
 	{
+		mAccountActive = true;
 		// The transition to stateNoChannel needs to kick this off again.
-		LL_WARNS("Voice") << "not logged in yet, deferring" << LL_ENDL;
+		LL_DEBUGS("Voice") << "not logged in yet, deferring" << LL_ENDL;
 	}
 }
 
@@ -5086,12 +5173,40 @@ void LLVoiceClient::switchChannel(
 {
 	bool needsSwitch = false;
 	
-	LL_DEBUGS("Voice") 
-		<< "called in state " << state2string(getState()) 
+	LL_DEBUGS("VoiceSession") 
+		<< "Switch channel called in state " << state2string(getState()) 
 		<< " with uri \"" << uri << "\"" 
 		<< (spatial?", spatial is true":", spatial is false")
 		<< LL_ENDL;
-	
+
+	size_t new_uri_find_sip = std::string::npos;
+	size_t old_uri_find_sip = std::string::npos;
+	if(!uri.empty())
+	{
+		new_uri_find_sip = uri.find("sip:");
+	}
+
+	if(	mNextAudioSession 
+		&& !( mNextAudioSession->mSIPURI.empty() )
+		&& (mNextAudioSession->mSIPURI != uri) )
+	{
+		old_uri_find_sip = mNextAudioSession->mSIPURI.find("sip:");
+	}
+	else
+	{
+
+		// just logged in or voice disabled land in SL,
+		// anyway right daemon is already up
+		old_uri_find_sip = new_uri_find_sip;
+	}
+
+	if(old_uri_find_sip != new_uri_find_sip)
+	{
+		mAccountActive = true;
+		setState(stateDisableCleanup);
+		return;
+	}
+
 	switch(getState())
 	{
 		case stateJoinSessionFailed:
@@ -5148,7 +5263,7 @@ void LLVoiceClient::switchChannel(
 		if(uri.empty())
 		{
 			// Leave any channel we may be in
-			LL_DEBUGS("Voice") << "leaving channel" << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "leaving channel" << LL_ENDL;
 
 			sessionState *oldSession = mNextAudioSession;
 			mNextAudioSession = NULL;
@@ -5160,7 +5275,7 @@ void LLVoiceClient::switchChannel(
 		}
 		else
 		{
-			LL_DEBUGS("Voice") << "switching to channel " << uri << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "switching to channel " << uri << LL_ENDL;
 
 			mNextAudioSession = addSession(uri);
 			mNextAudioSession->mHash = hash;
@@ -5205,8 +5320,14 @@ void LLVoiceClient::setNonSpatialChannel(
 
 void LLVoiceClient::setSpatialChannel(
 	const std::string &uri,
-	const std::string &credentials)
+	const std::string &credentials,
+	const LLUUID& response_id)
 {
+	if (response_id != mPIRCapResponseID)
+	{
+		return;
+	}
+
 	mSpatialSessionURI = uri;
 	mSpatialSessionCredentials = credentials;
 	mAreaVoiceDisabled = mSpatialSessionURI.empty();
@@ -5282,7 +5403,7 @@ bool LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::str
 	}	
 	else
 	{
-		LL_DEBUGS("Voice") << "Session not found for participant ID " << participant_id << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "Session not found for participant ID " << participant_id << LL_ENDL;
 	}
 	
 	return result;
@@ -5331,7 +5452,7 @@ void LLVoiceClient::endUserIMSession(const LLUUID &uuid)
 	}	
 	else
 	{
-		LL_DEBUGS("Voice") << "Session not found for participant ID " << uuid << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "Session not found for participant ID " << uuid << LL_ENDL;
 	}
 }
 
@@ -5452,7 +5573,7 @@ void LLVoiceClient::declineInvite(std::string &sessionHandle)
 
 void LLVoiceClient::leaveNonSpatialChannel()
 {
-	LL_DEBUGS("Voice") 
+	LL_DEBUGS("VoiceSession") 
 		<< "called in state " << state2string(getState()) 
 		<< LL_ENDL;
 	
@@ -5641,6 +5762,18 @@ bool LLVoiceClient::inSpatialChannel(void)
 	if(mAudioSession)
 		result = mAudioSession->mIsSpatial;
 		
+	return result;
+}
+
+bool LLVoiceClient::inNonSpatialChannel(void)
+{
+	bool result = false;
+	
+	if(mAudioSession)
+		result =  !(mAudioSession->mIsSpatial);
+        if(mNextAudioSession)
+		result |= !(mNextAudioSession->mIsSpatial);
+
 	return result;
 }
 
@@ -6397,7 +6530,7 @@ LLVoiceClient::sessionState *LLVoiceClient::addSession(const std::string &uri, c
 	{
 		// No existing session found.
 		
-		LL_DEBUGS("Voice") << "adding new session: handle " << handle << " URI " << uri << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "adding new session: handle " << handle << " URI " << uri << LL_ENDL;
 		result = new sessionState();
 		result->mSIPURI = uri;
 		result->mHandle = handle;
@@ -6416,7 +6549,7 @@ LLVoiceClient::sessionState *LLVoiceClient::addSession(const std::string &uri, c
 		if(uri != result->mSIPURI)
 		{
 			// TODO: Should this be an internal error?
-			LL_DEBUGS("Voice") << "changing uri from " << result->mSIPURI << " to " << uri << LL_ENDL;
+			LL_DEBUGS("VoiceSession") << "changing uri from " << result->mSIPURI << " to " << uri << LL_ENDL;
 			setSessionURI(result, uri);
 		}
 
@@ -6425,17 +6558,17 @@ LLVoiceClient::sessionState *LLVoiceClient::addSession(const std::string &uri, c
 			if(handle.empty())
 			{
 				// There's at least one race condition where where addSession was clearing an existing session handle, which caused things to break.
-				LL_DEBUGS("Voice") << "NOT clearing handle " << result->mHandle << LL_ENDL;
+				LL_DEBUGS("VoiceSession") << "NOT clearing handle " << result->mHandle << LL_ENDL;
 			}
 			else
 			{
 				// TODO: Should this be an internal error?
-				LL_DEBUGS("Voice") << "changing handle from " << result->mHandle << " to " << handle << LL_ENDL;
+				LL_DEBUGS("VoiceSession") << "changing handle from " << result->mHandle << " to " << handle << LL_ENDL;
 				setSessionHandle(result, handle);
 			}
 		}
 		
-		LL_DEBUGS("Voice") << "returning existing session: handle " << handle << " URI " << uri << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "returning existing session: handle " << handle << " URI " << uri << LL_ENDL;
 	}
 
 	verifySessionState();
@@ -6455,14 +6588,14 @@ void LLVoiceClient::setSessionHandle(sessionState *session, const std::string &h
 		{
 			if(iter->second != session)
 			{
-				LL_ERRS("Voice") << "Internal error: session mismatch!" << LL_ENDL;
+				LL_ERRS("VoiceSession") << "Internal error: session mismatch!" << LL_ENDL;
 			}
 
 			mSessionsByHandle.erase(iter);
 		}
 		else
 		{
-			LL_ERRS("Voice") << "Internal error: session handle not found in map!" << LL_ENDL;
+			LL_ERRS("VoiceSession") << "Internal error: session handle not found in map!" << LL_ENDL;
 		}
 	}
 			
@@ -6494,7 +6627,7 @@ void LLVoiceClient::deleteSession(sessionState *session)
 		{
 			if(iter->second != session)
 			{
-				LL_ERRS("Voice") << "Internal error: session mismatch" << LL_ENDL;
+				LL_ERRS("VoiceSession") << "Internal error: session mismatch" << LL_ENDL;
 			}
 			mSessionsByHandle.erase(iter);
 		}
@@ -6525,7 +6658,7 @@ void LLVoiceClient::deleteSession(sessionState *session)
 
 void LLVoiceClient::deleteAllSessions()
 {
-	LL_DEBUGS("Voice") << "called" << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "called" << LL_ENDL;
 
 	while(!mSessions.empty())
 	{
@@ -6534,20 +6667,20 @@ void LLVoiceClient::deleteAllSessions()
 	
 	if(!mSessionsByHandle.empty())
 	{
-		LL_ERRS("Voice") << "Internal error: empty session map, non-empty handle map" << LL_ENDL;
+		LL_ERRS("VoiceSession") << "Internal error: empty session map, non-empty handle map" << LL_ENDL;
 	}
 }
 
 void LLVoiceClient::verifySessionState(void)
 {
 	// This is mostly intended for debugging problems with session state management.
-	LL_DEBUGS("Voice") << "Total session count: " << mSessions.size() << " , session handle map size: " << mSessionsByHandle.size() << LL_ENDL;
+	LL_DEBUGS("VoiceSession") << "Total session count: " << mSessions.size() << " , session handle map size: " << mSessionsByHandle.size() << LL_ENDL;
 
 	for(sessionIterator iter = sessionsBegin(); iter != sessionsEnd(); iter++)
 	{
 		sessionState *session = *iter;
 
-		LL_DEBUGS("Voice") << "session " << session << ": handle " << session->mHandle << ", URI " << session->mSIPURI << LL_ENDL;
+		LL_DEBUGS("VoiceSession") << "session " << session << ": handle " << session->mHandle << ", URI " << session->mSIPURI << LL_ENDL;
 		
 		if(!session->mHandle.empty())
 		{
@@ -6555,13 +6688,13 @@ void LLVoiceClient::verifySessionState(void)
 			sessionMap::iterator i2 = mSessionsByHandle.find(&(session->mHandle));
 			if(i2 == mSessionsByHandle.end())
 			{
-				LL_ERRS("Voice") << "internal error (handle " << session->mHandle << " not found in session map)" << LL_ENDL;
+				LL_ERRS("VoiceSession") << "internal error (handle " << session->mHandle << " not found in session map)" << LL_ENDL;
 			}
 			else
 			{
 				if(i2->second != session)
 				{
-					LL_ERRS("Voice") << "internal error (handle " << session->mHandle << " in session map points to another session)" << LL_ENDL;
+					LL_ERRS("VoiceSession") << "internal error (handle " << session->mHandle << " in session map points to another session)" << LL_ENDL;
 				}
 			}
 		}
@@ -6574,13 +6707,13 @@ void LLVoiceClient::verifySessionState(void)
 		sessionIterator i2 = mSessions.find(session);
 		if(i2 == mSessions.end())
 		{
-			LL_ERRS("Voice") << "internal error (session for handle " << session->mHandle << " not found in session map)" << LL_ENDL;
+			LL_ERRS("VoiceSession") << "internal error (session for handle " << session->mHandle << " not found in session map)" << LL_ENDL;
 		}
 		else
 		{
 			if(session->mHandle != (*i2)->mHandle)
 			{
-				LL_ERRS("Voice") << "internal error (session for handle " << session->mHandle << " points to session with different handle " << (*i2)->mHandle << ")" << LL_ENDL;
+				LL_ERRS("VoiceSession") << "internal error (session for handle " << session->mHandle << " points to session with different handle " << (*i2)->mHandle << ")" << LL_ENDL;
 			}
 		}
 	}
@@ -7010,6 +7143,8 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 		{
 			LLSD body = input["body"];
 
+			LL_DEBUGS("VoiceCaps") << "ParcelVoiceInfo response: " 
+			<< ll_pretty_print_sd(input) << LL_ENDL; 
 			//body has "region_name" (str), "parcel_local_id"(int),
 			//"voice_credentials" (map).
 
@@ -7036,7 +7171,10 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 						voice_credentials["channel_credentials"].asString();
 				}
 
-				gVoiceClient->setSpatialChannel(uri, credentials);
+				LLUUID response_id;
+				response_id.generate();
+				gVoiceClient->setPIRCapResponseID(response_id);
+				gVoiceClient->setSpatialChannel(uri, credentials, response_id);
 			}
 		}
 	}
@@ -7050,10 +7188,13 @@ class LLViewerRequiredVoiceVersion : public LLHTTPNode
 		const LLSD& context,
 		const LLSD& input) const
 	{
+
 		//You received this messsage (most likely on region cross or
 		//teleport)
 		if ( input.has("body") && input["body"].has("major_version") )
 		{
+			LL_DEBUGS("VoiceCaps") << "RequiredVoiceVersion response: " 
+				<< ll_pretty_print_sd(input)<< LL_ENDL;
 			int major_voice_version =
 				input["body"]["major_version"].asInteger();
 // 			int minor_voice_version =

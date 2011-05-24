@@ -86,8 +86,6 @@ public:
 
 	LLTextureInfo* getTextureInfo() { return &mTextureInfo; }
 	
-	static bool hasBuggyHTTPRange(); // *TODO: remove this *HACK once buggy OpenSim versions are gone
-
 protected:
 	void addToNetworkQueue(LLTextureFetchWorker* worker);
 	void removeFromNetworkQueue(LLTextureFetchWorker* worker, bool cancel);

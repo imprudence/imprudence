@@ -90,7 +90,12 @@
               <!--<string>TextureCache</string>-->
               <!--<string>Throttle</string>-->
 							<!--<string>Voice</string>-->
+							<!--<string>"VoiceCaps"</string>-->
+							<!--<string>VoiceSession</string>-->
+							<!--<string>VoiceDaemon</string>-->
+							<!--<string>VoiceDevice</string>-->
 							<!--<string>VivoxProtocolParser</string>-->
+
 							<!--<string>Wearable</string>-->
               <!--<string>WindLight</string>-->
 

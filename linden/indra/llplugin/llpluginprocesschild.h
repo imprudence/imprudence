@@ -76,7 +76,11 @@ public:
 
 	// Inherited from LLPluginInstanceMessageListener
 	/* virtual */ void receivePluginMessage(const std::string &message);
-	
+
+#if LL_WINDOWS
+	void createConsole();
+#endif
+
 private:
 
 	enum EState

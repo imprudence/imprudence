@@ -1884,8 +1884,7 @@ bool idle_startup()
 			tmp = LLUserAuth::getInstance()->getResponse("max-agent-groups");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setMaxAgentGroups(atoi(tmp.c_str()));
 
-			tmp = LLUserAuth::getInstance()->getResponse("VoiceConnector");
-			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setVoiceConnector(tmp);
+
 			gHippoGridManager->saveFile();
 			gHippoLimits->setLimits();
 
@@ -1931,8 +1930,7 @@ bool idle_startup()
 			}
 			// else llwarns << "MapServerURL empty"<< llendl;
 
-			// Pass the user information to the voice chat server interface.
-			gVoiceClient->userAuthorized(firstname, lastname, gAgentID);
+
 		}
 		else // if(successful_login)
 		{
@@ -2065,6 +2063,7 @@ bool idle_startup()
 		LL_DEBUGS("AppInitStartupState") << "STATE_SEED_CAP_GRANTED" << LL_ENDL;
 		update_texture_fetch();
 
+
 		if ( gViewerWindow != NULL)
 		{	// This isn't the first logon attempt, so show the UI
 			gViewerWindow->setNormalControlsVisible( TRUE );
@@ -2123,6 +2122,9 @@ bool idle_startup()
 		//
 		LL_INFOS("AppInit") << "Initializing communications..." << LL_ENDL;
 
+		// Pass the user information to the voice chat server interface.
+		gVoiceClient->userAuthorized(firstname, lastname, gAgentID);
+
 		// register callbacks for messages. . . do this after initial handshake to make sure that we don't catch any unwanted
 		register_viewer_callbacks(gMessageSystem);
 
@@ -2142,7 +2144,7 @@ bool idle_startup()
 			gCacheName->addObserver(callback_cache_name);
 	
 			// Load stored cache if possible
-            LLAppViewer::instance()->loadNameCache();
+			LLAppViewer::instance()->loadNameCache();
 
 			// Start cache in not-running state until we figure out if we have
 			// capabilities for display name lookup
