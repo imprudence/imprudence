@@ -33,8 +33,6 @@
 #ifndef LL_LLVERSIONVIEWER_H
 #define LL_LLVERSIONVIEWER_H
 
-// Version info should be accessed using newview\viewerversion.h -- MC
-
 const S32 LL_VERSION_MAJOR = 1;
 const S32 LL_VERSION_MINOR = 23;
 const S32 LL_VERSION_PATCH = 5;
@@ -42,17 +40,13 @@ const S32 LL_VERSION_BUILD = 136262;
 
 const char * const LL_VIEWER_NAME = "Second Life";
 
-// These aren't used anymore. 
-// The channel is ViewerChannelName in settings.xml
-// The Imprudence version is set in app_settings\viewerversion.xml -- MC
-
-/*const char * const LL_CHANNEL = "Imprudence";
-
-const char * const IMP_VIEWER_NAME = "Imprudence";
-
-const S32 IMP_VERSION_MAJOR = 1;
-const S32 IMP_VERSION_MINOR = 3;
-const S32 IMP_VERSION_PATCH = 0;
-const char * const IMP_VERSION_TEST = "beta 4";*/
+// These aren't used anymore. See newview/viewerinfo.cpp instead.
+//
+// const char * const LL_CHANNEL = "Imprudence";
+// const char * const IMP_VIEWER_NAME = "Imprudence";
+// const S32 IMP_VERSION_MAJOR = 0;
+// const S32 IMP_VERSION_MINOR = 0;
+// const S32 IMP_VERSION_PATCH = 0;
+// const char * const IMP_VERSION_TEST = "";
 
 #endif

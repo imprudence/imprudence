@@ -1304,6 +1304,7 @@ public:
 
 BOOL LLTextureCtrl::handleHover(S32 x, S32 y, MASK mask)
 {
+	if (!getEnabled()) { return FALSE; }
 	getWindow()->setCursor(UI_CURSOR_HAND);
 	return TRUE;
 }
@@ -1311,6 +1312,7 @@ BOOL LLTextureCtrl::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLTextureCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
+	if (!getEnabled()) { return FALSE; }
 	BOOL handled = LLUICtrl::handleMouseDown( x, y , mask );
 	if( handled )
 	{
@@ -1421,6 +1423,8 @@ BOOL LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
 					  EAcceptance *accept,
 					  std::string& tooltip_msg)
 {
+	if (!getEnabled()) { return FALSE; }
+
 	BOOL handled = FALSE;
 
 	// this downcast may be invalid - but if the second test below

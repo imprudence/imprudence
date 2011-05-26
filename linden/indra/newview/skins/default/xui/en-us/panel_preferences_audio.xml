@@ -1,93 +1,121 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Audio &amp; Video" left="102" mouse_opaque="true"
      name="Media panel" width="517">
+  
+  
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
 	     mouse_opaque="true" name="muting_text" v_pad="0" width="128">
 		Volume:
 	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-202" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-	     mouse_opaque="true" name="streaming_prefs_text" v_pad="0" width="128">
-		Streaming:
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-315" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-	     mouse_opaque="true" name="audio_prefs_text" v_pad="0" width="128">
-		Audio:
-	</text>
-	<panel border="true" bottom="-187" enabled="true" filename="panel_audio.xml"
-	     follows="left|top|right|bottom" height="180" label="Volume" left="148"
+  
+  <panel border="true" bottom_delta="-180" enabled="true" filename="panel_audio.xml"
+	     follows="left|top|right|bottom" height="180" label="Volume" left_delta="30"
 	     mouse_opaque="true" name="Volume Panel" width="260" />
-	<check_box bottom="-205" control_name="AudioStreamingMusic" enabled="true"
+
+  
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="0" follows="left|top"
+      height="1" left="55" name="border" width="380" />
+  
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+	     mouse_opaque="true" name="streaming_prefs_text" v_pad="0" width="128">
+    Streaming:
+  </text>
+
+  <check_box bottom_delta="-25" control_name="AudioStreamingMusic" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play streaming music when available (uses more bandwidth)"
-	     left="142" mouse_opaque="true" name="streaming_music" radio_style="false"
+	     left_delta="30" mouse_opaque="true" name="streaming_music" radio_style="false"
 	     width="339" />
   <check_box bottom_delta="-20" control_name="ShowStreamTitle" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Show stream info in chat" left="162" mouse_opaque="true"
+	     label="Show stream info in chat" left_delta="30" mouse_opaque="true"
        name="show_stream_title" radio_style="false" width="338" />
-	<check_box bottom_delta="-20" control_name="AudioStreamingVideo" enabled="true"
+  <check_box bottom_delta="-20" control_name="AudioStreamingVideo" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play Streaming Media When Available (uses more bandwidth)"
-	     left="142" mouse_opaque="true" name="streaming_video" radio_style="false"
+	     left_delta="-30" mouse_opaque="true" name="streaming_video" radio_style="false"
 	     width="338" />
-	<check_box bottom_delta="-20" control_name="ParcelMediaAutoPlayEnable" enabled="true"
+  <check_box bottom_delta="-20" control_name="ParcelMediaAutoPlayEnable" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Automatically play media" left="162"
+	     initial_value="true" label="Automatically play media" left_delta="30"
 	     mouse_opaque="true" name="auto_streaming_video" radio_style="false"
 	     width="338" />
-	<check_box bottom_delta="-20" control_name="MediaOnAPrimUI" enabled="true"
+  <check_box bottom_delta="-20" control_name="MediaOnAPrimUI" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Media helper widget" left="162"
+	     initial_value="true" label="Media helper widget" left_delta="0"
 	     mouse_opaque="true" name="media_helper_widget" radio_style="false"
-	     width="338" />	
-	<check_box bottom_delta="-20" control_name="MediaEnableFilter" enabled="true"
+	     width="338" />
+  <check_box bottom_delta="-20" control_name="MediaEnableFilter" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="true" label="Filter media URLs" left="142"
+	     initial_value="true" label="Filter media URLs" left_delta="-30"
 	     mouse_opaque="true" name="enable_media_filter" radio_style="false"
 	     width="200" />
-	<button name="show_media_filter" font="SansSerif" label="Media Filter Settings" halign="center"
+  <button name="show_media_filter" font="SansSerifSmall" label="Media Filter Settings" halign="center"
 	     tool_tip="Edit settings and the blocked and allowed lists for the Media Filter."
-	     enabled="false" mouse_opaque="true" follows="top|right"
-	     bottom_delta="-2" right="-15" height="20" width="180" />
-	<check_box bottom_delta="-33" control_name="MuteWhenMinimized" enabled="true"
+	     enabled="false" mouse_opaque="true" follows="left|top"
+	     bottom_delta="-2" left="270" height="20" width="160" />
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+      height="1" left="55" name="border" width="380" />
+
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+	     mouse_opaque="true" name="audio_prefs_text" v_pad="0" width="128">
+    Audio:
+  </text>
+
+	<check_box bottom_delta="-25" control_name="MuteWhenMinimized" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Mute audio when window minimized" left="142" mouse_opaque="true"
+	     label="Mute audio when minimized" left_delta="30" mouse_opaque="true"
 	     name="mute_when_minimized" radio_style="false" width="215" />
   <spinner bottom_delta="-20" control_name="UISndMoneyChangeThreshold" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="10"
-	     initial_val="10" label="[CURRENCY] change threshold:" label_width="158" left="148"
+	     initial_val="10" label="[CURRENCY] sound threshhold:" label_width="138" left_delta="0"
 	     max_val="10000" min_val="0" mouse_opaque="true" name="L$ Change Threshold"
-	     width="212" />
+	     width="192" />
   <spinner bottom_delta="-20" control_name="UISndHealthReductionThreshold"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="10" initial_val="20" label="Health change threshold:"
-	     label_width="158" left="148" max_val="10000" min_val="0"
-	     mouse_opaque="true" name="Health change threshold" width="212" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-       bottom_delta="-27" drop_shadow_visible="true" enabled="true" follows="left|top"
-       font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-       mouse_opaque="true" name="ambient_prefs_text" v_pad="0" width="128">
-    Ambient:
-  </text>
-  <check_box bottom_delta="-4" enabled="true" follows="left|top"
+	     increment="10" initial_val="20" label="Health sound threshold:"
+	     label_width="138" left_delta="0"  max_val="10000" min_val="0"
+	     mouse_opaque="true" name="Health change threshold" width="192" />
+  <check_box bottom_delta="40" enabled="true" follows="left|top"
        font="SansSerifSmall" height="16" initial_value="false"
-       label="Enable wind generation" left="142" mouse_opaque="true"
+       label="Enable wind generation" left="270" mouse_opaque="true"
        name="mute_wind_check" radio_style="false" width="217" />
   <slider bottom_delta="-20" control_name="AudioLevelDoppler" edit_text="true"
        enabled="true" follows="left|top" height="15" increment="0.1"
-       initial_val="1" label="Doppler effect:" label_width="100" left="148"
+       initial_val="1" label="Doppler effect:" label_width="100" left_delta="0"
        max_val="2" min_val="0" mouse_opaque="true" name="Doppler Effect"
-       show_text="true" width="250" />
+       show_text="true" width="200" />
   <slider bottom_delta="-20" control_name="AudioLevelRolloff" edit_text="true"
 	     enabled="true" follows="left|top" height="15" increment="0.1"
-	     initial_val="1" label="Rolloff factor:" label_width="100" left="148"
+	     initial_val="1" label="Rolloff factor:" label_width="100" left_delta="0"
 	     max_val="2" min_val="0" mouse_opaque="true" name="Rolloff Factor"
-	     show_text="true" width="250" />
+	     show_text="true" width="200" />
+  
+  
 </panel>

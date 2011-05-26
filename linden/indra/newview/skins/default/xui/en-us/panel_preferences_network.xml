@@ -1,178 +1,434 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Network" left="102" mouse_opaque="true" name="network"
      width="517">
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box" v_pad="0" width="200">
-		Maximum bandwidth:
-	</text>
-	<slider bottom_delta="-25" can_edit_text="true" control_name="ThrottleBandwidthKBPS"
-	     decimal_digits="0" enabled="true" follows="left|top" height="15"
-	     increment="10" initial_val="1000" left_delta="0" max_val="5000" min_val="50"
-	     mouse_opaque="true" name="max_bandwidth" show_text="true" value="1000"
-	     width="180" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="4" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left_delta="186" mouse_opaque="false" name="text_box2"
-	     v_pad="0" width="200">
-		kbps (kilobits per second)
-	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="12" mouse_opaque="false" name="cache_size_label_l"
-	     v_pad="0" width="200">
-		Disk cache size (MB):
-	</text>
-	<slider bottom_delta="-25" can_edit_text="true" control_name="CacheSize"
-	     decimal_digits="0" enabled="true" follows="left|top" height="15"
-	     increment="10" initial_val="50" left_delta="0" max_val="1000" min_val="10"
-	     mouse_opaque="true" name="cache_size" show_text="true" width="180" />
-	<button bottom_delta="-4" enabled="true" follows="left|top"
-	     font="SansSerif" halign="center" height="22" label="Clear Disk Cache" left="340"
-	     left_delta="186" mouse_opaque="true" name="clear_cache" scale_image="true"
-	     width="150" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-17" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="12" mouse_opaque="false" name="cache_location_label"
-	     v_pad="0" width="200">
-		Disk cache location:
-	</text>
-	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-28"
-	     enabled="false" follows="left|top" font="SansSerif"
-	     handle_edit_keys_directly="true" height="20" left_delta="0"
-	     max_length="4096" mouse_opaque="true" name="cache_location"
-	     select_all_on_focus_received="false" width="470" word_wrap="false" />
-	<button bottom_delta="-25" enabled="true" follows="left|top" font="SansSerif"
-	     halign="center" height="22" label="Set" label_selected="Set" left_delta="0"
-	     mouse_opaque="true" name="set_cache" scale_image="true" width="100" />
-	<button bottom="-105" bottom_delta="0" enabled="true" follows="left|top"
-	     font="SansSerif" halign="center" height="22" label="Reset"
-	     label_selected="Set" left_delta="103" mouse_opaque="true"
-	     name="reset_cache" scale_image="true" width="100" />
-	<check_box bottom="-173" bottom_delta="-25" control_name="ConnectionPortEnabled"
-	     enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Enable custom outgoing port" left="12"
-	     mouse_opaque="true" name="connection_port_enabled" radio_style="false"
-       tool_tip="Enables custom port for outgoing connections" 
-	     width="256" />
-	<spinner bottom="-193" bottom_delta="-20" control_name="ConnectionPort"
-	     decimal_digits="0" enabled="true" follows="left|top" height="16"
-	     increment="1" initial_val="13000" label="Port number:" label_width="75"
-	     left_delta="20" max_val="13050" min_val="13000" mouse_opaque="true"
-	     name="connection_port" width="140" />
-  
-  <!-- XMLRPC PROXY -->
 
-  <check_box bottom_delta="-25" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Enable XMLRPC proxy (Login, Land, and Money purchases)" left="15" mouse_opaque="true"
-	     name="xmlrpc_proxy_enabled" radio_style="false" width="300" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-18" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left_delta="20" mouse_opaque="false" name="xmlrpc_proxy_text_label"
-	     v_pad="0" width="128">
-		Address:
-	</text>
-	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="112" name="xmlrpc_proxy_editor"
-	     tool_tip="The name or IP address of the proxy you would like to use"
-	     width="200" />
-	<spinner bottom_delta="-20" decimal_digits="0"
-	     enabled="true" follows="left|top" height="16" increment="1"
-	     initial_val="80" label="Port number:" label_width="75" left="35"
-	     max_val="65535" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
-	     width="140" />
 
-  <!-- SOCKS 5 PROXY -->
+  <tab_container bottom="0" height="450" left="0" mouse_opaque="false"
+     name="networktab2" tab_min_width="50" tab_position="top" width="495" bg_opaque_color="0,0,0,0.0">
 
-  <check_box bottom_delta="-24" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Enable SOCKS 5 proxy" left="15" mouse_opaque="true"
-	     name="socks5_proxy_enabled" radio_style="false" width="256" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-18" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="35" mouse_opaque="false" name="socks5_host_label"
-	     v_pad="0" width="128">
-    SOCKS 5 host:
-  </text>
-  <line_editor bottom_delta="-6" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="113" name="socks5_proxy_host"
-	     tool_tip="The name or IP address of the SOCKS5 proxy you would like to use"
-	     width="200" />
-  <spinner bottom_delta="-20" decimal_digits="0"
-	     enabled="true" follows="left|top" height="16" increment="1"
-	     initial_val="80" label="Port number:" label_width="75" left="35"
-	     max_val="65535" min_val="10" mouse_opaque="true" name="socks5_proxy_port"
-	     width="140" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="35" mouse_opaque="false" name="socks5_auth_label"
-	     v_pad="0" width="128">
-    SOCKS 5 authentication:
-  </text>
-  <radio_group bottom_delta="-6" draw_border="false" follows="left|top" height="20" left="35"
-	     name="socks5_auth" width="420">
-    <radio_item bottom="0" height="20" left_delta="80" name="None" width="50"
-        tool_tip="No authentication">
-      None
-    </radio_item>
-    <radio_item bottom="0" height="20" left_delta="50" name="UserPass" width="50"
-        tool_tip="Username / Password authentication">
-      Username / Password
-    </radio_item>
-  </radio_group>
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-16" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="122" mouse_opaque="false" name="socks5_username_label"
-	     v_pad="0" width="128">
-    Username:
-  </text>
-  <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="200" name="socks5_proxy_username"
-	     tool_tip="Username for the Socks5 proxy"
-	     width="200" />
+    
+    <!-- BANDWIDTH SETTINGS PANEL -->
+    
 
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-14" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="122" mouse_opaque="false" name="socks5_password_label"
-	     v_pad="0" width="128">
-    Password:
-  </text>
-  <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="200" name="socks5_proxy_password"
-	     tool_tip="Password for the Socks5 proxy"
-	     width="200" />
+    <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+       height="408" label="Performance" left="102" mouse_opaque="true"
+       name="bandwidth_panel" width="517">
 
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
-     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-     height="10" left="35" mouse_opaque="false" name="http_proxy_label"
-     v_pad="0" width="128">
-    HTTP proxy:
-  </text>
-  <radio_group bottom_delta="-8" draw_border="false" follows="left|top" height="20" left="35"
-	     name="socks5_http_proxy_type" width="380" >
-    <radio_item height="20" bottom="0" left="100" name="None" width="50"
-        tool_tip="No HTTP proxy">
-      None
-    </radio_item>
-    <radio_item height="20" bottom="0" left="170" name="Socks" width="50"
-        tool_tip="Use Socks for HTTP proxy">
-      SOCKS 5
-    </radio_item>
-    <radio_item height="20" bottom="0" left="250" name="Web" width="50"
-        tool_tip="Use web proxy for HTTP proxy">
-      Web
-    </radio_item>
-  </radio_group>
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	         mouse_opaque="false" name="text_box" v_pad="0" width="200">
+        Maximum Viewer Bandwidth:
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left="50" mouse_opaque="false" name="cache_size_label_l"
+	         v_pad="0" width="200">
+        Speed:
+      </text>      
+      <slider bottom_delta="-4" can_edit_text="true" control_name="ThrottleBandwidthKBPS"
+	         decimal_digits="0" enabled="true" follows="left|top" height="15"
+	         increment="10" initial_val="1000" left_delta="50" max_val="5000" min_val="50"
+	         mouse_opaque="true" name="max_bandwidth" show_text="true" value="1000"
+	         width="160" />
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="4" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="166" mouse_opaque="false" name="text_box2"
+	         v_pad="0" width="200">
+        kbps (kilobits per second)
+      </text>
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+        Texture Fetching:
+      </text>
+
+      <check_box bottom_delta="-25" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Use HTTP texture fetching (experimental)" left="50" mouse_opaque="true"
+           name="http_texture_check" radio_style="false" width="217" />
+
+      <check_box bottom_delta="-25" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Increase rez speed via draw distance stepping" left_delta="0" mouse_opaque="true"
+           name="speed_rez_check" radio_style="false" width="217" />
+      <spinner bottom_delta="-20" decimal_digits="0"
+           tool_tip="Interval in seconds between each draw distance increment"
+           follows="left|top" height="16" increment="1" initial_val="12"
+           label="Step interval every:" label_width="105" left_delta="30" max_val="20"
+           min_val="1" mouse_opaque="true" name="speed_rez_interval_spinner" width="145" />
+      <text bottom_delta="0" follows="top|left" height="15" left_delta="150"
+	         name="speed_rez_seconds_text" width="115">
+        seconds
+      </text>      
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+        Disk Cache:
+      </text>
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left="50" mouse_opaque="false" name="cache_size_label_l"
+	         v_pad="0" width="200">
+        Size:
+      </text>
+      <slider bottom_delta="-4" can_edit_text="true" control_name="CacheSize"
+	         decimal_digits="0" enabled="true" follows="left|top" height="15"
+	         increment="10" initial_val="50" left_delta="50" max_val="1000" min_val="10"
+	         mouse_opaque="true" name="disk_cache_size" show_text="true" width="160" />
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="4" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="166" mouse_opaque="false" name="cache_size_label_l"
+	         v_pad="0" width="200">
+        megabytes
+      </text>      
+      
+      <button bottom_delta="-30" enabled="true" follows="left|top"
+	         font="SansSerifSmall" halign="center" height="20" label="Clear Disk Cache"
+	         left="50" mouse_opaque="true" name="clear_disk_cache" scale_image="true"
+	         width="160" />
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left="50" mouse_opaque="false" name="cache_location_label"
+	         v_pad="0" width="200">
+        Location:
+      </text>
+      <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-25"
+	         enabled="false" follows="left|top" font="SansSerif"
+	         handle_edit_keys_directly="true" height="20" left_delta="0"
+	         max_length="4096" mouse_opaque="true" name="disk_cache_location"
+	         select_all_on_focus_received="false" width="395" word_wrap="false" />
+      <button bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall"
+	         halign="center" height="20" label="Change Location" left_delta="0"
+	         mouse_opaque="true" name="set_disk_cache" scale_image="true" width="160" />
+      <button bottom_delta="0" enabled="true" follows="left|top"
+	         font="SansSerifSmall" halign="center" height="20" label="Reset to Default"
+	         left_delta="165" mouse_opaque="true"
+	         name="reset_disk_cache" scale_image="true" width="160" />
+
+
+    </panel>
+
+
+    <!-- PROXY SETTINGS PANEL -->
+
+
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Proxy Settings"
+           left="1" mouse_opaque="true" name="proxies" width="418">
+
+
+      <!-- XMLRPC PROXY -->
+      
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+        XMLRPC:
+      </text>
+      
+      <check_box bottom_delta="-25" enabled="true"
+	         follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	         label="Enable XMLRPC proxy (Login, Land, and Money purchases)" left="50" mouse_opaque="true"
+	         name="xmlrpc_proxy_enabled" radio_style="false" width="300" />
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="30" mouse_opaque="false" name="xmlrpc_proxy_text_label"
+	         v_pad="0" width="128">
+        Address:
+      </text>
+      <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	         height="20" left_delta="50" name="xmlrpc_proxy_editor"
+	         tool_tip="The name or IP address of the proxy you would like to use"
+	         width="200" />
+      <spinner bottom_delta="-20" decimal_digits="0"
+	         enabled="true" follows="left|top" height="16" increment="1"
+	         initial_val="80" label="Port number:" label_width="75" left_delta="-50"
+	         max_val="65535" min_val="10" mouse_opaque="true" name="xmlrpc_proxy_port"
+	         width="140" />
+      
+      
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+      
+      
+      <!-- SOCKS 5 PROXY -->
+      
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+           mouse_opaque="false" name="text_box" v_pad="0" width="200">
+        SOCKS 5:
+      </text>
+      
+      <check_box bottom_delta="-25" enabled="true"
+	         follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	         label="Enable SOCKS 5 proxy" left="50" mouse_opaque="true"
+	         name="socks5_proxy_enabled" radio_style="false" width="256" />
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="30" mouse_opaque="false" name="socks5_host_label"
+	         v_pad="0" width="128">
+        SOCKS 5 host:
+      </text>
+      <line_editor bottom_delta="-6" enabled="true" follows="left|top" font="SansSerif"
+	         height="20" left_delta="80" name="socks5_proxy_host"
+	         tool_tip="The name or IP address of the SOCKS5 proxy you would like to use"
+	         width="200" />
+      <spinner bottom_delta="-20" decimal_digits="0"
+	         enabled="true" follows="left|top" height="16" increment="1"
+	         initial_val="80" label="Port number:" label_width="78" left_delta="-80"
+	         max_val="65535" min_val="10" mouse_opaque="true" name="socks5_proxy_port"
+	         width="140" />
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-20" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="0" mouse_opaque="false" name="socks5_auth_label"
+	         v_pad="0" width="128">
+        SOCKS 5 authentication:
+      </text>
+      <radio_group bottom_delta="-6" draw_border="false" follows="left|top" height="20" left_delta="0"
+	         name="socks5_auth" width="420">
+        <radio_item bottom="0" height="20" left_delta="80" name="None" width="50"
+            tool_tip="No authentication">
+          None
+        </radio_item>
+        <radio_item bottom="0" height="20" left_delta="50" name="UserPass" width="50"
+            tool_tip="Username / Password authentication">
+          Username / Password
+        </radio_item>
+      </radio_group>
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-16" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left="122" mouse_opaque="false" name="socks5_username_label"
+	         v_pad="0" width="128">
+        Username:
+      </text>
+      <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	         height="20" left="200" name="socks5_proxy_username"
+	         tool_tip="Username for the Socks5 proxy"
+	         width="200" />
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-14" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left="122" mouse_opaque="false" name="socks5_password_label"
+	         v_pad="0" width="128">
+        Password:
+      </text>
+      <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	         height="20" left="200" name="socks5_proxy_password"
+	         tool_tip="Password for the Socks5 proxy"
+	         width="200" />
+      
+      
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+      
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
+           follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+           height="10" left="20" mouse_opaque="false" name="http_proxy_label"
+           v_pad="0" width="128">
+        HTTP Textures Proxy:
+      </text>
+      <radio_group bottom_delta="-25" draw_border="false" follows="left|top" height="20" left="50"
+	         name="socks5_http_proxy_type" width="380" >
+        <radio_item height="20" bottom="0" left="50" name="None" width="50"
+            tool_tip="No HTTP proxy">
+          None
+        </radio_item>
+        <radio_item height="20" bottom="0" left="160" name="Socks" width="50"
+            tool_tip="Use Socks for HTTP proxy">
+          SOCKS 5
+        </radio_item>
+        <radio_item height="20" bottom="0" left="270" name="Web" width="50"
+            tool_tip="Use web proxy for HTTP proxy">
+          Web
+        </radio_item>
+      </radio_group>
+      
+      
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
+           follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+           height="10" left="20" mouse_opaque="false" name="port_label"
+           v_pad="0" width="128">
+        Ougoing Connections:
+      </text>
+      <check_box bottom_delta="-25" control_name="ConnectionPortEnabled"
+           enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+           initial_value="false" label="Enable custom outgoing port" left_delta="30"
+           mouse_opaque="true" name="connection_port_enabled" radio_style="false"
+           tool_tip="Enables custom port for outgoing connections"
+           width="256" />
+      <spinner bottom_delta="-20" control_name="ConnectionPort"
+	         decimal_digits="0" enabled="true" follows="left|top" height="16"
+	         increment="1" initial_val="13000" label="Port number:" label_width="75"
+	         left_delta="30" max_val="13050" min_val="13000" mouse_opaque="true"
+	         name="connection_port" width="140" />
+      
+      
+    </panel>
+
+
+    <!-- WEB BROWSER PANEL -->
+
+
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Web Browser"
+           left="1" mouse_opaque="true" name="web_browser" width="418">
+
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
+           follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+           height="10" left="20" mouse_opaque="false" name="open_links_label"
+           v_pad="0" width="128">
+        Open Links In:
+      </text>
+      
+      <radio_group bottom_delta="-45" draw_border="false" follows="top|left" height="40" left="50"
+         name="use_external_browser" width="480">
+        <radio_item bottom="-20" height="20" left="0" name="external" width="480"
+          tool_tip="Use the default system web browser for help, web links, etc. Not recommended if running full screen.">
+          My external browser (Firefox, Safari, Internet Explorer, etc.)
+        </radio_item>
+        <radio_item bottom="-40" height="20" left="0" name="internal" width="480"
+          tool_tip="Use the internal browser for help, web links, etc. This browser opens as a new window inside Second Life.">
+          Imprudence's internal browser
+        </radio_item>
+      </radio_group>
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+          bottom_delta="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
+          follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+          height="10" left="20" mouse_opaque="false" name="internal_browser_label"
+          v_pad="0" width="128">
+        Internal Browser:
+      </text>
+      
+      <button bottom_delta="-30" enabled="true" follows="left|top" font="SansSerifSmall"
+           halign="center" height="20" label="Clear Internal Browser Cache" left_delta="30"
+           mouse_opaque="true" name="clear_web_cache" scale_image="true" width="320" />
+      
+      <check_box bottom_delta="-35" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Accept cookies while using internal browser" left_delta="0" mouse_opaque="true"
+           tool_top="Allows the internal browser to accept cookies from websites"
+           name="cookies_enabled" radio_style="false" width="256" />
+      <button bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall"
+           halign="center" height="20" label="Clear Cookies" left_delta="30"
+           tool_tip="Clear Cookies"
+           mouse_opaque="true" name="clear_ookies" scale_image="true" width="160" />
+      
+      <check_box bottom_delta="-35" enabled="true"
+           follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+           label="Enable proxy for internal browser" left="50" mouse_opaque="true"
+           name="web_proxy_enabled" radio_style="false" width="256" />
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+           follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+           height="10" left_delta="30" mouse_opaque="false" name="proxy_text_label"
+           v_pad="0" width="128">
+        Address:
+      </text>
+      <line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+           height="20" left_delta="50" name="web_proxy_editor"
+           tool_tip="The name or IP address of the proxy you would like to use"
+           width="200" />
+      <spinner bottom_delta="-20" decimal_digits="0"
+           enabled="true" follows="left|top" height="16" increment="1"
+           initial_val="80" label="Port number:" label_width="75" left_delta="-50"
+           max_val="12000" min_val="10" mouse_opaque="true" name="web_proxy_port"
+           width="140" />
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+           height="1" left="55" name="border" width="380" />
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+          bottom_delta="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
+          follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+          height="10" left="20" mouse_opaque="false" name="search_url_label"
+          v_pad="0" width="200">
+        Custom All (Web) Search URL:
+      </text>      
+      
+      <line_editor bottom_delta="-25" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="18" left_delta="30" name="world_search_editor"
+           tool_tip="Address of the world search engine you would like to use"
+           width="395" />
+      <button  bottom_delta="-22" enabled="true" follows="left|top" font="SansSerifSmall"
+           halign="center" height="20" label="Clear" left_delta="0"
+           tool_tip="clear field"
+           mouse_opaque="true" name="world_search_clear" scale_image="true" width="160" />
+      <button bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+           halign="center" height="20" label="Reset to Default" left_delta="165"
+           mouse_opaque="true" name="world_search_reset_default" scale_image="true" width="160" />
+
+
+    </panel>
+
+
+  </tab_container>
+
+
 </panel>

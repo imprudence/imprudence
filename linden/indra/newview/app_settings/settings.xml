@@ -1015,6 +1015,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>ShowTimestamps</key>
+  <map>
+    <key>Comment</key>
+    <string>Show timestamps in chat and IMs</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>SpeedRez</key>
   <map>
     <key>Comment</key>
@@ -1049,7 +1060,7 @@
     <integer>1</integer>
   </map>
   <key>RenderWaterVoidCulling</key>
-    <map>
+  <map>
     <key>Comment</key>
     <string>Cull void water objects when off-screen.</string>
     <key>Persist</key>
@@ -1071,16 +1082,16 @@
     <integer>0</integer>
   </map>
   <key>ResetFocusOnSelfClick</key>
-		<map>
-		<key>Comment</key>
-		<string>Setting this to TRUE resets your camera when you left-click your avatar</string>
-		<key>Persist</key>
-		<integer>1</integer>
-		<key>Type</key>
-		<string>Boolean</string>
-		<key>Value</key>
-		<integer>1</integer>
-		</map>
+  <map>
+    <key>Comment</key>
+    <string>Setting this to TRUE resets your camera when you left-click your avatar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>RezWithLandGroup</key>
   <map>
     <key>Comment</key>
@@ -1524,7 +1535,7 @@
   </map>
 
   <!-- Begin: OpenRegionInfo -->
-  
+
   <key>ToggleTeenMode</key>
   <map>
     <key>Comment</key>
@@ -1536,7 +1547,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  
+
   <!-- Begin: AO-->
 
   <key>AOEnabled</key>
@@ -1787,7 +1798,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-  
+
   <key>DownloadClientTags</key>
   <map>
     <key>Comment</key>
@@ -2142,9 +2153,9 @@
     <key>Value</key>
     <string>English (United States of America)</string>
   </map>
-  
+
   <!-- End: Spellcheck & Translation -->
-  
+
   <!-- Begin: RLVa -->
 
   <key>RestrainedLove</key>
@@ -2325,7 +2336,7 @@
   </map>
 
   <!-- End: RLVa -->
-  
+
   <!-- Begin: socks5 -->
 
   <key>Socks5ProxyEnabled</key>
@@ -2536,11 +2547,11 @@
     <key>Value</key>
     <integer>-8888888</integer>
   </map>
-  
+
   <!-- End: full radar (Advanced menu) -->
 
   <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
-  
+
   <key>AFKTimeout</key>
   <map>
     <key>Comment</key>
@@ -3954,17 +3965,6 @@
     <string>F32</string>
     <key>Value</key>
     <real>20.0</real>
-  </map>
-  <key>ChatShowTimestamps</key>
-  <map>
-    <key>Comment</key>
-    <string>Show timestamps in chat</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
   </map>
   <key>ChatVisible</key>
   <map>
@@ -7423,17 +7423,6 @@
     <string>Boolean</string>
     <key>Value</key>
     <integer>0</integer>
-  </map>
-  <key>IMShowTimestamps</key>
-  <map>
-    <key>Comment</key>
-    <string>Show timestamps in IM</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
   </map>
   <key>IgnorePixelDepth</key>
   <map>

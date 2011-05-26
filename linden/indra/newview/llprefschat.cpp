@@ -33,13 +33,20 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llcombobox.h"
+#include "llpanel.h"
+#include "llstylemap.h"
+#include "lluictrlfactory.h"
+
+#include "floatercommandline.h"
+#include "llagent.h"
 #include "llchatbar.h"
 #include "llfloaterchat.h"
+#include "lgghunspell_wrapper.h"
+#include "lggautocorrectfloater.h"
 #include "llprefschat.h"
 #include "llviewercontrol.h"
-#include "lluictrlfactory.h"
-#include "llradiogroup.h"
-#include "llstylemap.h"
+#include "llviewermessage.h"
 
 class LLPrefsChatImpl : public LLPanel
 {
@@ -47,44 +54,53 @@ public:
 	LLPrefsChatImpl();
 	/*virtual*/ ~LLPrefsChatImpl(){};
 
+	/*virtual*/ BOOL postBuild();
+
 	void apply();
 	void cancel();
+	void refresh();
+	void setPersonalInfo(bool im_via_email, const std::string& email);
+	void initHelpBtn(const std::string& name, const std::string& xml_alert);
+
+	static void onAutoCorrectButton(void * data);
+	static void onClickHelp(void* data);
+	static void onClickCommandLine(void* data);
+	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
+	static void onSpellAdd(void* data);
+	static void onSpellRemove(void* data);
+	static void onSpellGetMore(void* data);
+	static void onSpellEditCustom(void* data);
+	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);
+
+protected:
+	bool mOriginalIMViaEmail;
+	bool mGotPersonalInfo;
 
 private:
-	void refreshValues();
-	S32	mChatSize;
-	F32	mChatPersist;
-	S32	mChatMaxLines;
-	BOOL mChatFullWidth;
-	BOOL mCloseChatOnReturn;
-	BOOL mArrowKeysMoveAvatar;
-	BOOL mShowTimestamps;
-	BOOL mPlayTypingAnim;
-	BOOL mChatBubbles;
-	BOOL mLocalChatBubbles;
-	BOOL mScriptErrorAsChat;
-	BOOL mChatChannel;
-	F32	mConsoleOpacity;
-	F32	mBubbleOpacity;
-	std::string mTranslateLanguage;
-	BOOL mTranslateChat;
+	bool mChatChannel;
 };
 
 LLPrefsChatImpl::LLPrefsChatImpl()
-	:	LLPanel(std::string("Chat Panel"))
+	:	LLPanel(std::string("Chat Panel")),
+	mChatChannel(false),
+	mOriginalIMViaEmail(false),
+	mGotPersonalInfo(false)
 {
-	refreshValues(); // initialize member data from saved settings
-
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
+}
 
-	getChild<LLRadioGroup>("chat_font_size")->setSelectedIndex(gSavedSettings.getS32("ChatFontSize"));
+BOOL LLPrefsChatImpl::postBuild()
+{
+	requires("send_im_to_email");
+	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
+
+	// Don't enable these until we get personal data
+	childSetEnabled("send_im_to_email", false);
+
+	getChild<LLComboBox>("chat_font_size")->setValue(gSavedSettings.getS32("ChatFontSize"));
 	childSetValue("fade_chat_time", gSavedSettings.getF32("ChatPersistTime"));
 	childSetValue("max_chat_count", gSavedSettings.getS32("ConsoleMaxLines"));
 
-	childSetValue("arrow_keys_move_avatar_check", gSavedSettings.getBOOL("ArrowKeysMoveAvatar"));
-	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("ChatShowTimestamps"));
-	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
- 
 	childSetValue("bubble_text_chat", gSavedSettings.getBOOL("UseChatBubbles"));
 	childSetValue("local_bubble_text_chat", gSavedSettings.getBOOL("UseLocalChatWithBubbles"));
 	childSetValue("chat_full_width_check", gSavedSettings.getBOOL("ChatFullWidth"));
@@ -95,59 +111,89 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
 	childSetValue("translate_language_combobox", 	gSavedSettings.getString("TranslateLanguage"));
 	childSetValue("translate_chat", 	gSavedSettings.getBOOL("TranslateChat"));
+
+	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
+
+	childSetValue("command_line_check", gSavedSettings.getBOOL("CmdLineChatbarEnabled"));
+	childSetCommitCallback("command_line_check", onCommitCheckBox, this);
+	childSetAction("command_line_btn", onClickCommandLine, this);
+
+	getChild<LLComboBox>("EmeraldSpellBase")->setCommitCallback(onSpellBaseComboBoxCommit);
+	getChild<LLButton>("EmSpell_EditCustom")->setClickedCallback(onSpellEditCustom, this);
+	getChild<LLButton>("EmSpell_GetMore")->setClickedCallback(onSpellGetMore, this);
+	getChild<LLButton>("EmSpell_Add")->setClickedCallback(onSpellAdd, this);
+	getChild<LLButton>("EmSpell_Remove")->setClickedCallback(onSpellRemove, this);
+
+	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton, this);
+	initHelpBtn("EmeraldHelp_SpellCheck", "EmeraldHelp_SpellCheck");
+
+	childSetValue("include_im_in_chat_console", gSavedSettings.getBOOL("IMInChatConsole"));
+	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
+	childSetValue("vertical-imtabs-toggle", gSavedSettings.getBOOL("VerticalIMTabs"));
+
+	refresh();
+
+	return TRUE;
 }
 
-void LLPrefsChatImpl::refreshValues()
+void LLPrefsChatImpl::refresh()
 {
-	//set values
-	mChatSize = gSavedSettings.getS32("ChatFontSize");
-	mChatPersist = gSavedSettings.getF32("ChatPersistTime");
-	mChatMaxLines = gSavedSettings.getS32("ConsoleMaxLines");
-	mArrowKeysMoveAvatar = gSavedSettings.getBOOL("ArrowKeysMoveAvatar");
-	mShowTimestamps = gSavedSettings.getBOOL("ChatShowTimestamps");
-	mScriptErrorAsChat = gSavedSettings.getBOOL("ScriptErrorsAsChat");
-	mChatBubbles = gSavedSettings.getBOOL("UseChatBubbles");
-	mLocalChatBubbles = gSavedSettings.getBOOL("UseLocalChatWithBubbles");
-	mChatFullWidth = gSavedSettings.getBOOL("ChatFullWidth");
-	mCloseChatOnReturn = gSavedSettings.getBOOL("CloseChatOnReturn");
-	mPlayTypingAnim = gSavedSettings.getBOOL("PlayTypingAnim"); 
-	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
-	mConsoleOpacity = gSavedSettings.getF32("ConsoleBackgroundOpacity");
-	mTranslateLanguage = gSavedSettings.getString("TranslateLanguage");
-	mTranslateChat = gSavedSettings.getBOOL("TranslateChat");
-	static F32* sChatBubbleOpacity = rebind_llcontrol<F32>("ChatBubbleOpacity", &gSavedSettings, true);
-	mBubbleOpacity = *sChatBubbleOpacity;
+		if (childGetValue("command_line_check").asBoolean())
+	{
+		childEnable("command_line_btn");
+	}
+	else
+	{
+		childDisable("command_line_btn");
+	}
+
+	LLComboBox* comboBox = getChild<LLComboBox>("EmeraldSpellBase");
+	if (comboBox != NULL) 
+	{
+		comboBox->removeall();
+		std::vector<std::string> names = glggHunSpell->getDicts();
+		for (int i = 0; i < (int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->setSimple(gSavedSettings.getString("EmeraldSpellBase"));
+	}
+	comboBox = getChild<LLComboBox>("EmSpell_Avail");
+	if (comboBox != NULL) 
+	{
+		LLSD selected = comboBox->getSelectedValue();
+		comboBox->removeall();
+		std::vector<std::string> names = glggHunSpell->getAvailDicts();
+		for (int i = 0; i < (int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->selectByValue(selected);
+	}
+	comboBox = getChild<LLComboBox>("EmSpell_Installed");
+	if (comboBox != NULL) 
+	{
+		LLSD selected = comboBox->getSelectedValue();
+		comboBox->removeall();
+		std::vector<std::string> names = glggHunSpell->getInstalledDicts();
+		for (int i = 0; i < (int)names.size(); i++) 
+		{
+			comboBox->add(names[i]);
+		}
+		comboBox->selectByValue(selected);
+	}
 }
 
 void LLPrefsChatImpl::cancel()
 {
-	gSavedSettings.setS32("ChatFontSize", mChatSize);
-	gSavedSettings.setF32("ChatPersistTime", mChatPersist);
-	gSavedSettings.setS32("ConsoleMaxLines", mChatMaxLines);
-	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", mArrowKeysMoveAvatar);
-	gSavedSettings.setBOOL("ChatShowTimestamps", mShowTimestamps);
-	gSavedSettings.setBOOL("ScriptErrorsAsChat", mScriptErrorAsChat);
-	gSavedSettings.setBOOL("UseChatBubbles", mChatBubbles);
-	gSavedSettings.setBOOL("UseLocalChatWithBubbles", mLocalChatBubbles);
-	gSavedSettings.setBOOL("ChatFullWidth", mChatFullWidth);
-	gSavedSettings.setBOOL("CloseChatOnReturn", mCloseChatOnReturn);
-	gSavedSettings.setBOOL("PlayTypingAnim", mPlayTypingAnim); 
-	gSavedSettings.setBOOL("ChatChannelSelect", mChatChannel); 
-	gSavedSettings.setF32("ConsoleBackgroundOpacity", mConsoleOpacity);
-	gSavedSettings.setF32("ChatBubbleOpacity", mBubbleOpacity);	
-	gSavedSettings.setString("TranslateLanguage", mTranslateLanguage);	
-	gSavedSettings.setBOOL("TranslateChat", mTranslateChat);
 }
 
 void LLPrefsChatImpl::apply()
 {
-	gSavedSettings.setS32("ChatFontSize", getChild<LLRadioGroup>("chat_font_size")->getSelectedIndex());
+	gSavedSettings.setS32("ChatFontSize", getChild<LLComboBox>("chat_font_size")->getValue().asInteger());
 	gSavedSettings.setF32("ChatPersistTime", childGetValue("fade_chat_time").asReal());
 	gSavedSettings.setS32("ConsoleMaxLines", childGetValue("max_chat_count"));
 
-	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", childGetValue("arrow_keys_move_avatar_check"));
-	gSavedSettings.setBOOL("ChatShowTimestamps", childGetValue("show_timestamps_check"));
-	gSavedSettings.setBOOL("ScriptErrorsAsChat", childGetValue("script_errors_as_chat"));
 	gSavedSettings.setBOOL("UseChatBubbles", childGetValue("bubble_text_chat"));
 	gSavedSettings.setBOOL("UseLocalChatWithBubbles", childGetValue("local_bubble_text_chat"));
 	gSavedSettings.setBOOL("ChatFullWidth", childGetValue("chat_full_width_check"));
@@ -160,7 +206,7 @@ void LLPrefsChatImpl::apply()
 	gSavedSettings.setString("TranslateLanguage", childGetValue("translate_language_combobox"));
 	gSavedSettings.setBOOL("TranslateChat", childGetValue("translate_chat"));
 
-	BOOL chan_check = childGetValue("toggle_channel_control");
+	bool chan_check = childGetValue("toggle_channel_control");
 	gSavedSettings.setBOOL("ChatChannelSelect", chan_check);
 	if (mChatChannel != chan_check)
 	{
@@ -172,7 +218,138 @@ void LLPrefsChatImpl::apply()
 		mChatChannel = chan_check;
 	}
 
-	refreshValues(); // member values become the official values and cancel becomes a no-op.
+	gSavedSettings.setBOOL("CmdLineChatbarEnabled", childGetValue("command_line_check").asBoolean());
+
+	gSavedSettings.setBOOL("VerticalIMTabs", childGetValue("vertical-imtabs-toggle").asBoolean());
+	gSavedSettings.setBOOL("IMInChatConsole", childGetValue("include_im_in_chat_console").asBoolean());
+	gSavedSettings.setBOOL("IMInChatHistory", childGetValue("include_im_in_chat_history").asBoolean());
+
+	if (mGotPersonalInfo)
+	{
+		bool new_im_via_email = childGetValue("send_im_to_email").asBoolean();	
+
+		if (new_im_via_email != mOriginalIMViaEmail)
+		{
+			LLMessageSystem* msg = gMessageSystem;
+			msg->newMessageFast(_PREHASH_UpdateUserInfo);
+			msg->nextBlockFast(_PREHASH_AgentData);
+			msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+			msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+			msg->nextBlockFast(_PREHASH_UserData);
+			msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
+			gAgent.sendReliableMessage();
+		}
+	}
+
+	// Spell checking prefs aren't here because Emerald never supported the cancel button. We should fix this -- MC
+}
+
+// Enable and set the value of settings recieved from the sim in AgentInfoReply
+void LLPrefsChatImpl::setPersonalInfo(bool im_via_email, const std::string& email)
+{
+	mGotPersonalInfo = true;
+	mOriginalIMViaEmail = im_via_email;
+
+	childEnable("send_im_to_email");
+	childSetValue("send_im_to_email", im_via_email);
+
+	// Truncate the e-mail address if it's too long (to prevent going off
+	// the edge of the dialog).
+	std::string display_email(email);
+	if(display_email.size() > 30)
+	{
+		display_email.resize(30);
+		display_email += "...";
+	}
+	else if (display_email.empty())
+	{
+		display_email = getString("default_email_used");
+	}
+	childSetLabelArg("send_im_to_email", "[EMAIL]", display_email);
+}
+
+// static
+void LLPrefsChatImpl::onSpellAdd(void* data)
+{
+	LLPrefsChatImpl* panel = (LLPrefsChatImpl*)data;
+	if (panel)
+	{
+		glggHunSpell->addButton(panel->childGetValue("EmSpell_Avail").asString());
+		panel->refresh();
+	}
+}
+
+// static
+void LLPrefsChatImpl::onSpellRemove(void* data)
+{
+	LLPrefsChatImpl* panel = (LLPrefsChatImpl*)data;
+	if (panel)
+	{
+		glggHunSpell->removeButton(panel->childGetValue("EmSpell_Installed").asString());
+		panel->refresh();
+	}
+}
+
+// static
+void LLPrefsChatImpl::onSpellGetMore(void* data)
+{
+	glggHunSpell->getMoreButton(data);
+}
+
+// static
+void LLPrefsChatImpl::onSpellEditCustom(void* data)
+{
+	glggHunSpell->editCustomButton();
+}
+
+// static
+void LLPrefsChatImpl::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
+{
+	LLComboBox* box = (LLComboBox*)ctrl;
+	if (box)
+	{
+		glggHunSpell->newDictSelection(box->getValue().asString());
+	}
+	LLPrefsChatImpl* panel = (LLPrefsChatImpl*)userdata;
+	if (panel)
+	{
+		panel->refresh();
+	}
+}
+
+// static
+void LLPrefsChatImpl::onAutoCorrectButton(void * data)
+{
+	lggAutoCorrectFloaterStart::show(TRUE,data);
+}
+
+// static
+void LLPrefsChatImpl::onClickCommandLine(void* data)
+{
+	FloaterCommandLine::getInstance()->open();
+	FloaterCommandLine::getInstance()->center();
+}
+
+//static
+void LLPrefsChatImpl::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
+{
+	LLPrefsChatImpl* self = (LLPrefsChatImpl*)user_data;
+	if (self)
+	{
+		self->refresh();
+	}
+}
+
+void LLPrefsChatImpl::initHelpBtn(const std::string& name, const std::string& xml_alert)
+{
+	childSetAction(name, onClickHelp, new std::string(xml_alert));
+}
+
+// static
+void LLPrefsChatImpl::onClickHelp(void* data)
+{
+	std::string* xml_alert = (std::string*)data;
+	LLNotifications::instance().add(*xml_alert);
 }
 
 //---------------------------------------------------------------------------
@@ -195,6 +372,11 @@ void LLPrefsChat::apply()
 void LLPrefsChat::cancel()
 {
 	impl.cancel();
+}
+
+void LLPrefsChat::setPersonalInfo(bool im_via_email, const std::string& email)
+{
+	impl.setPersonalInfo(im_via_email, email);
 }
 
 LLPanel* LLPrefsChat::getPanel()

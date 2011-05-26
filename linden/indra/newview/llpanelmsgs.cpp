@@ -70,6 +70,8 @@ BOOL LLPanelMsgs::postBuild()
 	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 	childSetLabelArg("notify_money_change_checkbox", "[CURRENCY]", gHippoGridManager->getConnectedGrid()->getCurrencySymbol());
 
+	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
+
 	return TRUE;
 }
 
@@ -166,6 +168,8 @@ void LLPanelMsgs::apply()
 	gSavedSettings.setBOOL("ShowNewInventory", childGetValue("show_new_inventory"));
 	gSavedSettings.setBOOL("ShowInInventory", childGetValue("show_in_inventory"));
 	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
+
+	gSavedSettings.setBOOL("ChatOnlineNotification", childGetValue("friends_online_notify_checkbox").asBoolean());
 }
 
 void LLPanelMsgs::cancel()

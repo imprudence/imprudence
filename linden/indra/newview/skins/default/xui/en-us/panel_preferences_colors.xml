@@ -1,115 +1,152 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-    height="408" label="Chat Colors" left="102" mouse_opaque="true" name="colors"
+    height="408" label="Colors" left="102" mouse_opaque="true" name="colors"
     width="517">
+
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
-    Chat Colors:
+        bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+        mouse_opaque="true" name="effects_color_textbox" v_pad="0" width="394">
+    Selection Beam Color:
   </text>
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+  
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-80"
+	     can_apply_immediately="false" color="1 1 1 1"
+	     enabled="true" follows="left|top" height="65" label="" left="50"
+	     mouse_opaque="true" name="effect_color_swatch"
+	     tool_tip="Click to open Color Picker" width="65" />
+  
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="270"
+        mouse_opaque="true" name="effects_color_textbox" v_pad="0" width="394">
+    Client Tag Color:
+  </text>
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-80"
+       can_apply_immediately="true" color="0.79 0.44 0.88 1"
+       enabled="true" follows="left|top"
+       height="65" label="Imprudence" left_delta="30" mouse_opaque="true"
+       name="client_tag_color" width="65" />
+  <check_box bottom_delta="45" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="false"
+       label="Color client tags" left_delta="76" mouse_opaque="true"
+       name="client_name_color_check" radio_style="false" width="160" />
+  
+  
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="left|top"
+       height="1" left="55" name="border" width="380" />  
+  
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
+    Chat:
+  </text>
+
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-80"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
-	     enabled="true" follows="left|top" height="65" label="Your chat" left="120"
+	     enabled="true" follows="left|top" height="65" label="Your chat" left="50"
 	     mouse_opaque="true" name="user" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
 	     enabled="true" follows="left|top" height="65" label="Others' chat" left_delta="76"
 	     mouse_opaque="true" name="agent" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     enabled="true" follows="left|top" height="65" label="IMs" left_delta="76"
 	     mouse_opaque="true" name="im" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.8 1 1 1"
 	     enabled="true" follows="left|top"
 	     height="65" label="System" left_delta="76" mouse_opaque="true"
 	     name="system" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-75"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.82 0.82 0.99 1"
 	     control_name="ScriptErrorColor" enabled="true" follows="left|top"
 	     height="65" label="Script errors" left_delta="76" mouse_opaque="true"
 	     name="script_error" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+  
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-70"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
-	     height="65" label="Object chat" left="120" mouse_opaque="true"
+	     height="65" label="Object chat" left="50" mouse_opaque="true"
 	     name="objects" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
        control_name="ObjectIMColor" enabled="true" follows="left|top"
 	     height="65" label="Object IMs" left_delta="76" mouse_opaque="true"
        name="object_ims" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     enabled="true" follows="left|top"
 	     height="65" label="Owner chat" left_delta="76" mouse_opaque="true" name="owner"
 	     width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0 0 0 1"
 	     enabled="true" follows="left|top"
 	     height="65" label="Bubble chat" left_delta="76" mouse_opaque="true"
 	     name="background" width="65" />
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-146"
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="0"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     enabled="true" follows="left|top" height="65"
 	     label="Links" left_delta="76" mouse_opaque="true" name="links" width="65" />
+  
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-85"
+       can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
+       enabled="true" follows="left|top" height="65" label="Friends" left="50"
+       mouse_opaque="true" name="FriendsChatColor" width="65" />
+  <check_box bottom_delta="45" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+       initial_value="true" label="Highlight chat from friends" left_delta="76"
+       mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
 
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
-     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-     mouse_opaque="false" name="text_box3" v_pad="0" width="128">
-    Line Highlighting:
-  </text>
-
-  <check_box bottom_delta="-7" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-      initial_value="true" label="Highlight chat from friends" left="120"
-      mouse_opaque="true" name="HighlightFriendsChat" radio_style="false" width="270"/>
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-70"
-      can_apply_immediately="true" color="1 1 1 1" control_name="FriendsChatColor"
-      enabled="true" follows="left|top" height="65" label="Friends" left_delta="20"
-      mouse_opaque="true" name="FriendsChatColor" width="65" />
-
-  <check_box bottom_delta="-25" enabled="true" follows="left|top"
-     font="SansSerifSmall" height="16" initial_value="true"
-     label="Highlight local chat containing your name" left="120" mouse_opaque="true"
-     name="HighlightOwnNameInChat" radio_style="false" width="217" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-121"
+       can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
+       enabled="true" follows="left|top" height="65" label="Your name" left="50"
+       mouse_opaque="true" name="OwnNameChatColor" width="65" />
+  <check_box bottom_delta="45" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="true"
+       label="Highlight local chat containing your name and/or nicknames:" left_delta="76" mouse_opaque="true"
+       name="HighlightOwnNameInChat" radio_style="false" width="217" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-      initial_value="true" label="Highlight group chat containing your name" left_delta="0"
-      mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-70"
-      can_apply_immediately="true" color="1 1 1 1" control_name="OwnNameChatColor"
-      enabled="true" follows="left|top" height="65" label="Your name" left_delta="20"
-      mouse_opaque="true" name="OwnNameChatColor" width="65" />
+       initial_value="true" label="Highlight group chat containing your name and/or nicknames:" left_delta="0"
+       mouse_opaque="true" name="HighlightOwnNameInIM" radio_style="false" width="270"/>
 
-  <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="20" 
-      left="140" name="nick01_text" width="150">
-    Highlight nickname 1:
-  </text>
-  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
-      enabled="true" follows="left|top" font="SansSerif"
-      handle_edit_keys_directly="true" height="20" left_delta="125"
+
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-22"
+      enabled="true" follows="left|top" font="SansSerif" label="Nickname 1"
+      handle_edit_keys_directly="true" height="18" left_delta="0"  
       max_length="50" mouse_opaque="true" name="nick01"
-      select_all_on_focus_received="true" width="160" word_wrap="false" />
+      select_all_on_focus_received="true" width="110" word_wrap="false" />
 
-  <text bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="20" 
-      left="140" name="nick02_text" width="150">
-    Highlight nickname 2:
-  </text>
-  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
-      enabled="true" follows="left|top" font="SansSerif"
-      handle_edit_keys_directly="true" height="20" left_delta="125"
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+      enabled="true" follows="left|top" font="SansSerif" label="Nickname 2"
+      handle_edit_keys_directly="true" height="18" left_delta="120"
       max_length="50" mouse_opaque="true" name="nick02"
-      select_all_on_focus_received="true" width="160" word_wrap="false" />
+      select_all_on_focus_received="true" width="110" word_wrap="false" />
 
-  <text bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="20"
-      left="140" name="nick03_text" width="150">
-    Highlight nickname 3:
-  </text>
-  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="3"
-      enabled="true" follows="left|top" font="SansSerif"
-      handle_edit_keys_directly="true" height="20" left_delta="125"
+  <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
+      enabled="true" follows="left|top" font="SansSerif" label="Nickname 3"
+      handle_edit_keys_directly="true" height="18" left_delta="120"
       max_length="50" mouse_opaque="true" name="nick03"
-      select_all_on_focus_received="true" width="160" word_wrap="false" />
+      select_all_on_focus_received="true" width="110" word_wrap="false" />
+
 
 </panel>

@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
-<panel name="font_panel" label="Fonts"
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
+<panel name="fonts_panel" label="Fonts"
        bottom="-409" left="102" height="408" width="517"
        border="true" follows="left|top|right|bottom">
 
-  <text bottom="-25" left="10" height="15" width="300">
-    User interface font (requires restart):
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+       mouse_opaque="true" name="fontselect" v_pad="0" width="128" font-style="BOLD|SHADOW">
+    Select UI Font:
+  </text>
+  <text font="SansSerifSmall" bottom="-22" left_delta="80" height="12" width="300">
+    (requires restart)
   </text>
 
   <radio_group name="fonts" draw_border="false"
-               top="-30" left="20" bottom="0" right="-20"
+               top="-30" left="50" bottom="0" right="-20"
                follows="top|left|bottom|right">
 
     <radio_item name="DroidSans" bottom="-20" left="0" height="20">
@@ -48,12 +68,37 @@
 
 
   <spinner name="font_mult" label="Font size multiplier:" label_width="130"
-           bottom="-280" left="20" height="16" width="180" follows="left|top"
+           bottom_delta="150" left="50" height="16" width="180" follows="left|top"
            decimal_digits="2" increment="0.01" max_val="3.0" min_val="0.1"
            tool_tip="Multiply all font sizes by this amount." />
 
   <check_box name="font_round" follows="left|top"
-             bottom="-300" left="20" height="16" width="300"
+             bottom_delta="-20" left_delta="0" height="16" width="300"
              label="Force integer font sizes (may fix blurry fonts)" />
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+      height="1" left="55" name="border" width="380" />
+  
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+       mouse_opaque="true" name="UI Size:" v_pad="0" width="128" font-style="BOLD|SHADOW">
+    UI Size:
+  </text>
+  
+  <slider bottom_delta="22" can_edit_text="true" label_width="0" label=""
+	     decimal_digits="3" enabled="true" height="16" increment="0.001"
+	     initial_val="1" left="50" max_val="1.4" min_val="0.75" mouse_opaque="true"
+	     name="ui_scale_slider" show_text="true" value="1" width="160" />
+  <button bottom_delta="-48" enabled="true" follows="left|top"
+	     font="SansSerifSmall" halign="center" height="20" label="Reset to Default"
+	     left="270" mouse_opaque="true"
+	     name="reset_ui_size" scale_image="true" width="160" />
+  <check_box bottom_delta="-20" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Use resolution independent scale" left="50" mouse_opaque="true"
+	     name="ui_auto_scale" radio_style="false" width="256" />
 
 </panel>

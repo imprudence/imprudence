@@ -1,6 +1,6 @@
 /**
  * @file impprefsfonts.h
- * @brief Font preferences panel
+ * @brief UI and font preferences panel
  *
  * Copyright (c) 2010, Jacek Antonelli
  *
@@ -40,6 +40,9 @@ public:
 	void refresh();
 	void apply();
 	void cancel();
+	
+private:
+	static void onClickResetUISize(void*);
 };
 
 #endif // IMP_PREFSFONTS_H

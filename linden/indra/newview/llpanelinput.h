@@ -47,6 +47,8 @@ public:
 
 private:
 	static void onClickJoystickSetup(void* user_data);
+	static void onCommitAction(LLUICtrl* ctrl, void* user_data);
+
 	F32 mPreAdjustFOV;
 	F32 mPreAdjustCameraOffsetScale;
 };

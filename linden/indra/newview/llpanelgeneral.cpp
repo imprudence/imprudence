@@ -36,7 +36,7 @@
 #include "llpanelgeneral.h"
 
 // project includes
-#include "llcolorswatch.h"
+#include "llcheckboxctrl.h"
 #include "llcombobox.h"
 #include "lluictrlfactory.h"
 #include "llurlsimstring.h"
@@ -90,28 +90,25 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("show_location_checkbox", gSavedSettings.getBOOL("ShowStartLocation"));
 	childSetValue("show_all_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitleAll"));
 	childSetValue("show_my_name_checkbox", gSavedSettings.getBOOL("RenderNameHideSelf"));
-	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
+	childSetValue("large_avatar_names_checkbox", !gSavedSettings.getBOOL("SmallAvatarNames"));
 	childSetValue("highlight_friends_checkbox", gSavedSettings.getBOOL("HighlightFriends"));
-	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
-	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
+	//childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle")); -- MC
+
+	childSetEnabled("afk_timeout_spinner", gSavedSettings.getBOOL("AllowIdleAFK"));
+	childSetValue("afk_timeout_spinner", llround(gSavedSettings.getF32("AFKTimeout") / 60)); // User enters minutes, we store as seconds -- MC
 	childSetValue("afk_timeout_checkbox", gSavedSettings.getBOOL("AllowIdleAFK"));
+	childSetCommitCallback("afk_timeout_checkbox", onCommitAFKCheckbox, this);
+
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
 
 // 	mDisplayNamesUsage =  gSavedSettings.getU32("DisplayNamesUsage");
 // 	mLegacyNamesForFriends =  gSavedSettings.getBOOL("LegacyNamesForFriends");
 
-	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
-
-	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
-	childSetValue("ui_auto_scale", gSavedSettings.getBOOL("UIAutoScale"));
-
 	LLComboBox* time_combobox = getChild<LLComboBox>("time_combobox");
 	time_combobox->setCurrentByIndex(gSavedSettings.getU32("TimeFormat"));
 	
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
-
-	childSetAction("reset_ui_size", onClickResetUISize, this);
 	
 	// if we have no agent, we can't let them choose anything
 	// if we have an agent, then we only let them choose if they have a choice
@@ -166,16 +163,13 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("ShowStartLocation", childGetValue("show_location_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitleAll", childGetValue("show_all_title_checkbox"));
 	gSavedSettings.setBOOL("RenderNameHideSelf", childGetValue("show_my_name_checkbox"));
-	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
+	gSavedSettings.setBOOL("SmallAvatarNames", !childGetValue("large_avatar_names_checkbox"));
 	gSavedSettings.setBOOL("HighlightFriends", childGetValue("highlight_friends_checkbox"));
-	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
-	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
+	//gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox")); -- MC
+	gSavedSettings.setF32("AFKTimeout", 60 * childGetValue("afk_timeout_spinner").asReal()); // User enters minutes, we store as seconds -- MC
 	gSavedSettings.setBOOL("AllowIdleAFK", childGetValue("afk_timeout_checkbox"));
 	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
 	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
-	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
-	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
-	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
 	gSavedSettings.setString("Language", childGetValue("language_combobox"));
 
 	/*
@@ -218,14 +212,6 @@ void LLPanelGeneral::cancel()
 }
 
 // static
-void LLPanelGeneral::onClickResetUISize(void* user_data)
-{
-	LLPanelGeneral* self = (LLPanelGeneral*)user_data;
-	F32 def = gSavedSettings.getControl("UIScaleFactor")->getDefault().asReal();
-	self->childSetValue("ui_scale_slider", def);
-}
-
-// static
 void LLPanelGeneral::onClickGrid(void *)
 {
 	FloaterGridManager::getInstance()->open();
@@ -240,4 +226,15 @@ void LLPanelGeneral::onLocationChanged(LLUICtrl* ctrl, void* data)
 	{
 		self->getChild<LLComboBox>("default_location_combo")->setTextEntry(LLURLSimString::sInstance.mSimString);
 	}
+}
+
+// static
+void LLPanelGeneral::onCommitAFKCheckbox(LLUICtrl* ctrl, void* data)
+{
+	LLPanelGeneral* self = (LLPanelGeneral*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+	if (!self || !check) return;
+	self->childSetEnabled("afk_timeout_spinner", check->get());
+	self->childSetEnabled("minutes_textbox", check->get());
 }

@@ -80,7 +80,7 @@
 #include "llselectmgr.h"
 #include "lluictrlfactory.h"
 #include "llviewernetwork.h"
-#include "viewerversion.h"
+#include "viewerinfo.h"
 
 #include "llassetuploadresponders.h"
 
@@ -742,13 +742,11 @@ LLSD LLFloaterReporter::gatherReport()
 
 	if ( mReportType == BUG_REPORT)
 	{
-		summary << short_platform << " V" << ViewerVersion::getLLMajorVersion() << "."
-			<< ViewerVersion::getLLMinorVersion() << "."
-			<< ViewerVersion::getLLPatchVersion() << "."
-			<< ViewerVersion::getLLBuildVersion()
-			<< " (" << regionp->getName() << ")"
-			<< "[" << category_name << "] "
-			<< "\"" << childGetValue("summary_edit").asString() << "\"";
+		summary << short_platform << " "
+		        << ViewerInfo::terseInfo()
+		        << " (" << regionp->getName() << ")"
+		        << "["  << category_name << "] "
+		        << "\"" << childGetValue("summary_edit").asString() << "\"";
 	}
 	else
 	{
@@ -763,10 +761,7 @@ LLSD LLFloaterReporter::gatherReport()
 	std::ostringstream details;
 	if (mReportType != BUG_REPORT)
 	{
-		details << "V" << ViewerVersion::getLLMajorVersion() << "."								// client version moved to body of email for abuse reports
-			<< ViewerVersion::getLLMinorVersion() << "."
-			<< ViewerVersion::getLLPatchVersion() << "."
-			<< ViewerVersion::getLLBuildVersion() << std::endl << std::endl;
+		details << ViewerInfo::terseInfo() << std::endl << std::endl;
 	}
 	std::string object_name = childGetText("object_name");
 	std::string owner_name = childGetText("owner_name");
@@ -786,10 +781,8 @@ LLSD LLFloaterReporter::gatherReport()
 
 	std::string version_string;
 	version_string = llformat(
-			"%d.%d.%d %s %s %s %s",
-			ViewerVersion::getLLMajorVersion(),
-			ViewerVersion::getLLMinorVersion(),
-			ViewerVersion::getLLPatchVersion(),
+			"%s %s %s %s %s",
+			ViewerInfo::terseInfo().c_str(),
 			platform,
 			gSysCPU.getFamily().c_str(),
 			gGLManager.mGLRenderer.c_str(),

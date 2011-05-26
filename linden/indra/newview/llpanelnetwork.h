@@ -47,9 +47,13 @@ public:
 	void cancel();
 
 private:
-	static void onClickClearCache(void*);
-	static void onClickSetCache(void*);
-	static void onClickResetCache(void*);
+	void refresh();
+
+	static void onCommitSpeedRezCheckBox(LLUICtrl* ctrl, void* user_data);
+
+	static void onClickClearDiskCache(void*);
+	static void onClickSetDiskCache(void*);
+	static void onClickResetDiskCache(void*);
 	static void onCommitPort(LLUICtrl* ctrl, void*);
 	static void onCommitXMLRPCProxyEnabled(LLUICtrl* ctrl, void* data);
 	static void onCommitSocks5ProxyEnabled(LLUICtrl* ctrl, void* data);
@@ -59,6 +63,16 @@ private:
 	static void updateProxyEnabled(LLPanelNetwork * self, bool enabled, std::string authtype);
 	
 	static bool sSocksSettingsChanged;
+
+	// formerly the web panel -- MC
+	static void onClickClearWebCache(void*);
+	static void onClickClearCookies(void*);
+	static void onClickSearchDefault(void* user_data);
+	static void onClickSearchClear(void* user_data);
+	static bool callback_clear_browser_cache(const LLSD& notification, const LLSD& response);
+	static bool callback_clear_cookies(const LLSD& notification, const LLSD& response);
+	static void onCommitCookies(LLUICtrl* ctrl, void* data);
+	static void onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data);
 
 };
 
