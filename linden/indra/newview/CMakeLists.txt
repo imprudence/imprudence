@@ -1213,7 +1213,6 @@ set(viewer_APPSETTINGS_FILES
     app_settings/trees.xml
     app_settings/ultra_graphics.xml
     app_settings/viewerart.xml
-    app_settings/viewerversion.xml
     ${CMAKE_SOURCE_DIR}/../etc/message.xml
     ${CMAKE_SOURCE_DIR}/../scripts/messages/message_template.msg
     )
