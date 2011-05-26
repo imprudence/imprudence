@@ -1451,6 +1451,7 @@ if (LINUX)
 
   add_custom_target(
     viewer-manifest-target
+    ALL
     COMMAND
       ${PYTHON_EXECUTABLE}
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
