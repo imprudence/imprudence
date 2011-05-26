@@ -51,30 +51,19 @@ private:
 	static LLPrefsAdvanced* sInstance;
 
 	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
-	static void onClickCommandLine(void* data);
-
-	static void onSpellAdd(void* data);
-	static void onSpellRemove(void* data);
-	static void onSpellGetMore(void* data);
-	static void onSpellEditCustom(void* data);
-	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
-	static void onAutoCorrectButton(void * data);
 	static void onResetThisCloudButton(void * data);
 	static void onSaveThisCloudButton(void * data);
 	static void onSaveAnyoneCloudButton(void * data);
 
-	LLColor4 mClientTagColor;
-
 protected:
 	void setParticleControls(bool is_logged_in);
-	void initHelpBtn(const std::string& name, const std::string& xml_alert);
-	static void onClickHelp(void* data);
 
 private:
 	bool mWasLoggedIn;
 	LLColor4 mCloudStartColor;
 	LLColor4 mCloudEndColor;
 	LLUUID mCloudTextureID;
+	BOOL mWLControl;
 };
 
 #endif // LLPREFSADVANCED_H

@@ -47,9 +47,11 @@ public:
 private:
 	static void onCommitCheckSelfName(LLUICtrl* ctrl, void* userdata);
 	static void onCommitCheckFriends(LLUICtrl* ctrl, void* userdata);
+	static void onCommitCheckClient(LLUICtrl* ctrl, void* userdata);
 	void refreshColors();
 	void updateFriendsCheck();
 	void updateSelfCheck();
+	void updateClientCheck();
 
 	LLColor4 mSystemChatColor;
 	LLColor4 mUserChatColor;
@@ -62,6 +64,8 @@ private:
 	LLColor4 mHTMLLinkColor;
 	LLColor4 mFriendsChatColor;
 	LLColor4 mOwnNameChatColor;
+	LLColor4 mEffectColor;
+	LLColor4 mClientTagColor;
 };
 
 #endif //LLPREFSCOLORS_H

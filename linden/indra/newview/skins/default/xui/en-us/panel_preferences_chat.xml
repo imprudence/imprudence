@@ -1,196 +1,358 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
     height="408" label="Chat" left="102" mouse_opaque="true" name="chat"
     width="517">
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box" v_pad="0" width="128">
-		Font Size:
-	</text>
-	<radio_group bottom="-40" draw_border="true" enabled="true"
-	     follows="left|top" height="30" left="148" mouse_opaque="true"
-	     name="chat_font_size" width="331">
-		<radio_item type="string" length="1" bottom="-24" enabled="true" height="16" left="0" mouse_opaque="true"
-		     name="radio" width="98">
-			Small
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-24" enabled="true" height="16" left="110" mouse_opaque="true"
-		     name="radio2" width="98">
-			Medium
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-24" enabled="true" height="16" left="220" mouse_opaque="true"
-		     name="radio3" width="98">
-			Large
-		</radio_item>
-	</radio_group>
 
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="128">
-    Translate Chat:
-  </text>
-  <check_box bottom_delta="-3" control_name="TranslateChat" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Use machine translation while chatting (powered by Google)" left="148" mouse_opaque="true"
-	     name="translate_chat" radio_style="false" width="237" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-16" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="149"
-	     mouse_opaque="false" name="text_translate_chat" v_pad="0" width="160">
-    Translate into this language:
-  </text>
-  <combo_box allow_text_entry="true" bottom_delta="-5" enabled="true"
-	     follows="left|top" height="16" left_delta="183" max_chars="135"
-	     mouse_opaque="true" name="translate_language_combobox" width="146">
-    <combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
-      System Default
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="English" value="en">
-      English
-    </combo_item>
+  <tab_container bottom="0" height="450" left="0" mouse_opaque="false"
+      name="chattab2" tab_min_width="50" tab_position="top" width="495" bg_opaque_color="0,0,0,0.0">
 
-    <!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
 
-    <combo_item type="string" length="1" enabled="true" name="Danish" value="da">
-      Dansk (Danish)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
-      Deutsch (German)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
-      Español (Spanish)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="French" value="fr">
-      Français (French)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Italian" value="it">
-      Italiano (Italian)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Hungarian" value="hu">
-      Magyar (Hungarian)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Dutch" value="nl">
-      Nederlands (Dutch)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Polish" value="pl">
-      Polski (Polish)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
-      Portugués (Portuguese)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Russian" value="ru">
-      Русский (Russian)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Turkish" value="tr">
-      Türkçe (Turkish)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Ukrainian" value="uk">
-      Українська (Ukrainian)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-      中文 (简体) (Chinese)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
-      日本語 (Japanese)
-    </combo_item>
-    <combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
-      한국어 (Korean)
-    </combo_item>
-  </combo_box>
+    <!-- CHAT OPTIONS PANEL -->
+
+
+    <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+           height="408" label="Chat &amp; IMs" left="102" mouse_opaque="true"
+           name="chat_panel" width="517">
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	         mouse_opaque="false" name="text_box" v_pad="0" width="128">
+        Chat Text Size:
+      </text>
+
+      <combo_box allow_text_entry="false" bottom_delta="-25" enabled="true" follows="left|top"
+           height="16" left_delta="30" max_chars="100" mouse_opaque="true"
+           name="chat_font_size" width="160">
+        <combo_item type="string" length="1" enabled="true" name="0" value="0">
+          Small
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="1" value="1">
+          Medium
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="2" value="2">
+          Large
+        </combo_item>
+      </combo_box>
+      
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+          height="1" left="55" name="border" width="380" />
+      
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	         mouse_opaque="false" name="text_box3" v_pad="0" width="135">
+        Chat Console:
+      </text>
+      <spinner bottom_delta="-25" control_name="ChatPersistTime" decimal_digits="0"
+	         enabled="true" follows="left|top" height="16" increment="1"
+	         initial_val="10" label="Fade chat after" label_width="80" left_delta="30"
+	         max_val="60" min_val="2" mouse_opaque="true" name="fade_chat_time"
+	         width="130" />
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="6" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="135" mouse_opaque="false" name="text_box4" v_pad="0"
+	         width="80">
+        seconds and
+      </text>
+      <spinner bottom_delta="-6" decimal_digits="0"
+	         enabled="true" follows="left|top" height="16" increment="1"
+	         initial_val="10" left_delta="82" max_val="50" min_val="1" mouse_opaque="true"
+	         name="max_chat_count" width="60" />
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	         bottom_delta="6" drop_shadow_visible="true" enabled="true"
+	         follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	         height="10" left_delta="65" mouse_opaque="false" name="text_box5" v_pad="0"
+	         width="60">
+        lines
+      </text>
+      
+      <slider bottom_delta="-25" can_edit_text="false" control_name="ConsoleBackgroundOpacity"
+	         decimal_digits="3" enabled="true" follows="left|top" height="12"
+	         increment="0.05" initial_val="1" label="Console opacity:" left="50" max_val="1"
+	         min_val="0" mouse_opaque="true" name="console_opacity" show_text="true"
+	         value="0.4" width="200" />
+      <check_box bottom_delta="-4" control_name="ChatFullWidth" enabled="true"
+	         follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	         label="Full screen width (requires restart)" left="270"
+	         mouse_opaque="true" name="chat_full_width_check" radio_style="false"
+	         width="239" />
+      
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+          height="1" left="55" name="border" width="380" />
+      
+      
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+         mouse_opaque="false" name="text_box7" v_pad="0" width="128">
+        Chat Bubbles:
+      </text>
+      
+      <check_box bottom_delta="-25" control_name="UseChatBubbles" enabled="true" follows="left|top"
+	         font="SansSerifSmall" height="16" initial_value="false"
+	         label="Show chat bubbles" left_delta="30" mouse_opaque="true"
+	         name="bubble_text_chat" radio_style="false" width="237" />
+      <check_box bottom_delta="-0" control_name="UseLocalChatBubbles" enabled="true" follows="left|top"
+	         font="SansSerifSmall" height="16" initial_value="false"
+	         label="Show local chat and bubbles" left="270" mouse_opaque="true"
+	         name="local_bubble_text_chat" radio_style="false" width="237" />
+      <slider bottom_delta="-20" can_edit_text="false" control_name="ChatBubbleOpacity"
+	         decimal_digits="3" enabled="true" follows="left|top" height="12"
+	         increment="0.05" initial_val="1" label="Bubble opacity:" left="50" max_val="1"
+	         min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"
+	         value="0.5" width="200" />
+      
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+          height="1" left="55" name="border" width="380" />
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	          bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	         mouse_opaque="false" name="text_box6" v_pad="0" width="135">
+        Chatbar:
+      </text>
+
+      <check_box bottom_delta="-25" enabled="true"
+           follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+           label="Close chatbar after hitting return" left_delta="30" mouse_opaque="true"
+           name="close_chat_on_return_check" radio_style="false" width="237" />
+      <check_box bottom_delta="0" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Show custom chat channel" left="270" mouse_opaque="true"
+           name="toggle_channel_control" radio_style="false" width="237" />
+      <check_box bottom_delta="-20" enabled="true"
+	         follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
+	         label="Play typing animation when chatting" left="50" mouse_opaque="true"
+	         name="play_typing_animation" radio_style="false" width="237" />
+      <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+           initial_value="false" label="Use the chatbar as a command line" left="50"
+           mouse_opaque="true" name="command_line_check" radio_style="false" width="250"/>
+      <button bottom_delta="-2" follows="left|top" font="SansSerifSmall" height="20" width="160"
+           label="Chatbar Commands" name="command_line_btn" left="270"
+           tool_tip="Set specific chatbar command line commands here" />
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+            height="1" left="55" name="border" width="380" />
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	          bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	         mouse_opaque="false" name="text_box6" v_pad="0" width="135">
+        Instant Messages:
+      </text>
+
+      <check_box bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall"
+           height="16" initial_value="false" label="Send offline IMs to email ([EMAIL])"
+           left_delta="30" mouse_opaque="true" name="send_im_to_email" radio_style="false"
+           width="350" />
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-14" drop_shadow_visible="true" enabled="true" follows="left|top"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+           mouse_opaque="false" name="show_ims_label" v_pad="0" width="100">
+        Show IMs in:
+      </text>
+      <check_box bottom_delta="-6" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Main chat" left="150" mouse_opaque="true"
+           name="include_im_in_chat_console" radio_style="false" width="100" />
+      <check_box bottom_delta="0" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Local Chat window" left="270" mouse_opaque="true"
+           name="include_im_in_chat_history" radio_style="false" width="100" />
+      <check_box bottom_delta="-20" enabled="true"
+           follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+           label="Vertical IM tabs (requires restart)" left="50" mouse_opaque="true"
+           name="vertical-imtabs-toggle" radio_style="false" width="270" />
+
+
+    </panel>
+    
+    
+    <!-- SPELL CHECKING AND TRANSLATE PANEL -->
+
+
+    <panel border="true" bottom="-580" follows="left|top|right|bottom" height="525" label="Spell Checking &amp; Translate"
+         left="1" mouse_opaque="true" name="spell_check_tab" width="418">
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+          bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+          font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+          mouse_opaque="false" name="text_box" v_pad="0" width="128">
+        Spell Checking:
+      </text>
+      <check_box bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+         label="Enable spell checking" left_delta="30" mouse_opaque="true" name="EmeraldSpellDisplay"
+         control_name="EmeraldSpellDisplay" width="126"/>
+      <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left_delta="30"
+         name="EmSpell_txt4" width="512">
+        Right-click a misspelled/red-underlined word to correct
+      </text>
+
+      <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="-30"
+         name="EmSpell_txt1" width="512">
+        Current language (dictionary):
+      </text>
+      <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
+         max_chars="200" mouse_opaque="true" name="EmeraldSpellBase" width="250"
+         control_name="EmeraldSpellBase" tool_tip=""/>
+
+      <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="EmSpell_txt3" width="512">
+        Downloaded languages (dictionaries):
+      </text>
+      <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
+         max_chars="200" mouse_opaque="true" name="EmSpell_Avail" width="250"
+         control_name="EmSpell_Avail" tool_tip=""/>
+
+      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Install"
+         name="EmSpell_Add" tool_tip="" left_delta="255" width="110"/>
+
+      <button bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20" label="Download More..."
+         name="EmSpell_GetMore" tool_tip="Get more dictionaries availabe online" left="50" width="250"/>
+
+      <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
+         name="EmSpell_txt2" width="512">
+        Additional custom languages (dictionaries):
+      </text>
+      <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
+         max_chars="200" mouse_opaque="true" name="EmSpell_Installed" width="250"
+         control_name="EmSpell_Installed" tool_tip=""/>
+
+      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Remove"
+         name="EmSpell_Remove" tool_tip="" left_delta="255" width="110"/>
+
+      <!--<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="18" label="Edit Custom dictionary"
+         name="EmSpell_EditCustom" tool_tip="" left_delta="20" width="130"/>-->
+
+      <button name="ac_button" label="AutoCorrect..." halign="center"
+         tool_tip="Modify the AutoCorrect word list and settings" left="50"
+         bottom_delta="-40" width="160" height="20" font="SansSerifSmall" follows="left|top"/>
+
+
+      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+            height="1" left="55" name="border" width="380" />
+
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+          bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+          font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+          mouse_opaque="false" name="text_box" v_pad="0" width="128">
+        Translate Chat:
+      </text>
+      <check_box bottom_delta="-25" control_name="TranslateChat" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Use machine translation while chatting (powered by Google)" left_delta="30" mouse_opaque="true"
+           name="translate_chat" radio_style="false" width="237" />
+
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom_delta="-16" drop_shadow_visible="true" enabled="true" follows="left|top"
+           font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+           mouse_opaque="false" name="text_translate_chat" v_pad="0" width="160">
+        Translate into this language:
+      </text>
+
+      <combo_box allow_text_entry="false" bottom_delta="-5" enabled="true"
+           follows="left|top" height="16" left="270" max_chars="135"
+           mouse_opaque="true" name="translate_language_combobox" width="160">
+        <combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
+          System Default
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="English" value="en">
+          English
+        </combo_item>
+
+        <!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
+
+        <combo_item type="string" length="1" enabled="true" name="Danish" value="da">
+          Dansk (Danish)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
+          Deutsch (German)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
+          Español (Spanish)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="French" value="fr">
+          Français (French)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Italian" value="it">
+          Italiano (Italian)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Hungarian" value="hu">
+          Magyar (Hungarian)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Dutch" value="nl">
+          Nederlands (Dutch)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Polish" value="pl">
+          Polski (Polish)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
+          Portugués (Portuguese)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Russian" value="ru">
+          Русский (Russian)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Turkish" value="tr">
+          Türkçe (Turkish)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Ukrainian" value="uk">
+          Українська (Ukrainian)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
+          中文 (简体) (Chinese)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
+          日本語 (Japanese)
+        </combo_item>
+        <combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
+          한국어 (Korean)
+        </combo_item>
+      </combo_box>
+
+
+      <button bottom="-20" follows="left|top" font="SansSerifSmall" height="18" label="?"
+             name="EmeraldHelp_SpellCheck" tool_tip="Click here for help regarding the settings in this page."
+             right="490" width="18"/>
+
+
+    </panel>
+    
+    
+  </tab_container>
   
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box3" v_pad="0" width="135">
-		Chat Console:
-	</text>
-	<spinner bottom_delta="-8" control_name="ChatPersistTime" decimal_digits="0"
-	     enabled="true" follows="left|top" height="16" increment="1"
-	     initial_val="10" label="Fade chat after" label_width="80" left="148"
-	     max_val="60" min_val="2" mouse_opaque="true" name="fade_chat_time"
-	     width="130" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="6" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="282" mouse_opaque="false" name="text_box4" v_pad="0"
-	     width="80">
-		(seconds)
-	</text>
-	<spinner bottom_delta="-6" decimal_digits="0"
-	     enabled="true" follows="left|top" height="16" increment="1"
-	     initial_val="10" left="340" max_val="50" min_val="1" mouse_opaque="true"
-	     name="max_chat_count" width="60" />
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="6" drop_shadow_visible="true" enabled="true"
-	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="405" mouse_opaque="false" name="text_box5" v_pad="0"
-	     width="60">
-		(# lines)
-	</text>
-	<slider bottom_delta="-25" can_edit_text="false" control_name="ConsoleBackgroundOpacity"
-	     decimal_digits="3" enabled="true" follows="left|top" height="12"
-	     increment="0.05" initial_val="1" label="Console opacity:" left="148" max_val="1"
-	     min_val="0" mouse_opaque="true" name="console_opacity" show_text="true"
-	     value="0.4" width="225" />
-	<check_box bottom_delta="-25" control_name="ChatFullWidth" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Use full screen width  (requires restart)" left="148"
-	     mouse_opaque="true" name="chat_full_width_check" radio_style="false"
-	     width="239" />
-
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-     bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-     mouse_opaque="false" name="text_box7" v_pad="0" width="128">
-    Chat Bubbles:
-  </text>
-  <check_box bottom_delta="-8" control_name="UseChatBubbles" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show chat bubbles" left="148" mouse_opaque="true"
-	     name="bubble_text_chat" radio_style="false" width="237" />
-  <check_box bottom_delta="-0" control_name="UseLocalChatBubbles" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show local chat and bubbles" left="288" mouse_opaque="true"
-	     name="local_bubble_text_chat" radio_style="false" width="237" />
-  <slider bottom_delta="-20" can_edit_text="false" control_name="ChatBubbleOpacity"
-	     decimal_digits="3" enabled="true" follows="left|top" height="12"
-	     increment="0.05" initial_val="1" label="Bubble opacity:" left="148" max_val="1"
-	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"
-	     value="0.5" width="225" />
   
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	      bottom_delta="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box6" v_pad="0" width="135">
-    Miscellaneous:
-  </text>
-	<check_box bottom_delta="-8" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Close chat bar after hitting return" left="148" mouse_opaque="true"
-	     name="close_chat_on_return_check" radio_style="false" width="237" />
-	<check_box bottom_delta="-18" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Arrow keys always move avatar when chatting" left="148"
-	     mouse_opaque="true" name="arrow_keys_move_avatar_check" radio_style="false"
-	     width="237" />
-	<check_box bottom_delta="-18" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show timestamps in Local Chat" left="148" mouse_opaque="true"
-	     name="show_timestamps_check" radio_style="false" width="237" />
-  	<check_box bottom_delta="-18" control_name="ScriptErrorsAsChat" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show script errors and warnings as regular chat" left="148"
-	     mouse_opaque="true" name="script_errors_as_chat" radio_style="false"
-	     width="275" />
-	<check_box bottom_delta="-18" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Play typing animation when chatting" left="148" mouse_opaque="true"
-	     name="play_typing_animation" radio_style="false" width="237" />
-  	<check_box bottom_delta="-18" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" 
-	     label="Show custom chat channel" left="148" mouse_opaque="true"
-	     name="toggle_channel_control" radio_style="false" width="237" />
+  <string name="log_in_to_change">
+    log in to change
+  </string>
+  <string name="default_email_used">
+    using default address
+  </string>
+  
 
 </panel>

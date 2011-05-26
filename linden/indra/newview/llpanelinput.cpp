@@ -31,7 +31,10 @@
  */
 
 #include "llviewerprecompiledheaders.h"
+
 #include "llpanelinput.h"
+
+#include "llcombobox.h"
 #include "lluictrlfactory.h"
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
@@ -60,7 +63,6 @@ BOOL LLPanelInput::postBuild()
 	mPreAdjustCameraOffsetScale = gSavedSettings.getF32("CameraOffsetScale");
 
 	childSetValue("mouse_sensitivity", gSavedSettings.getF32("MouseSensitivity"));
-	childSetValue("automatic_fly", gSavedSettings.getBOOL("AutomaticFly"));
 	childSetValue("invert_mouse", gSavedSettings.getBOOL("InvertMouse"));
 	childSetValue("edit_camera_movement", gSavedSettings.getBOOL("EditCameraMovement"));
 	childSetValue("appearance_camera_movement", gSavedSettings.getBOOL("AppearanceCameraMovement"));
@@ -75,6 +77,7 @@ BOOL LLPanelInput::postBuild()
 	fov_slider->setValue(LLViewerCamera::getInstance()->getView());
 	
 	childSetValue("double_click_action", gSavedSettings.getString("DoubleClickAction"));
+	childSetCommitCallback("double_click_action", onCommitAction, this);
 	childSetValue("go_action", gSavedSettings.getString("GoAction"));
 
 	childSetValue("Disable camera constraints", gSavedSettings.getBOOL("DisableCameraConstraints"));
@@ -95,7 +98,6 @@ void LLPanelInput::apply()
 	mPreAdjustCameraOffsetScale = childGetValue("camera_offset_scale").asReal();
 
 	gSavedSettings.setF32("MouseSensitivity", childGetValue("mouse_sensitivity").asReal());
-	gSavedSettings.setBOOL("AutomaticFly", childGetValue("automatic_fly"));
 	gSavedSettings.setBOOL("InvertMouse", childGetValue("invert_mouse"));
 	gSavedSettings.setBOOL("EditCameraMovement", childGetValue("edit_camera_movement"));
 	gSavedSettings.setBOOL("AppearanceCameraMovement", childGetValue("appearance_camera_movement"));
@@ -130,3 +132,14 @@ void LLPanelInput::onClickJoystickSetup(void* user_data)
 	}
 }
 
+// static
+void LLPanelInput::onCommitAction(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelInput* self = (LLPanelInput*)user_data;
+	LLComboBox* combo = (LLComboBox*)ctrl;
+	if (self && combo)
+	{
+		self->childSetEnabled("go_action_label", combo->getSimple() == "Go");
+		self->childSetEnabled("go_action", combo->getSimple() == "Go");
+	}
+}

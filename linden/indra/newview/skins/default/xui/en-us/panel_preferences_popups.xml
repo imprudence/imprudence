@@ -1,47 +1,117 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel border="true" bottom="0" height="500" label="Popups" left="0" name="popups"
-     title="Popups" width="400">
-	<text bottom="-20" follows="top|left" left="15" width="300" name="dont_show_label">
-		Hide These Popups:
-	</text>
-	<scroll_list follows="top|left" height="88" left="15" name="disabled_popups" width="480" />
-	<button follows="top|left" height="20" label="Enable This Popup" left="15"
-	     name="enable_popup" width="175" />
-	<button follows="top|left" height="20" label="Enable All Popups" left="200"
-	     name="reset_dialogs_btn"
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
+<panel border="true" bottom="-409" height="408" label="Notifications" left="0" name="popups"
+     title="Notifications" width="400">
+
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+       mouse_opaque="true" name="hidetext" v_pad="0" width="200" font-style="BOLD|SHADOW">
+    Hide These Notifications:
+  </text>
+  
+	<scroll_list follows="top|left" height="88" left="50" name="disabled_popups" width="420"/>
+  
+	<button follows="top|left" height="20" label="Enable This" left="50" bottom_delta="-22" 
+	     name="enable_popup" width="160" font="SansSerifSmall" />
+	<button follows="top|left" height="20" label="Enable All" left="270"
+	     name="reset_dialogs_btn" font="SansSerifSmall" 
 	     tool_tip="Enable all of the optional popups and &apos;first time use&apos; notifications."
-	     width="175" bottom_delta="0" />
-	<text follows="top|left" left="15" width="128" name="show_label" bottom_delta="-24">
-		Show These Popups:
-	</text>
-	<scroll_list follows="top|left" height="88" left="15" name="enabled_popups" width="480" />
-	<button bottom_delta="-24" follows="top|left" height="20"
-	     label="Disable All Popups" left="200"
-	     name="skip_dialogs_btn"
+	     width="160" bottom_delta="0" />
+
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
+       mouse_opaque="true" name="showtext" v_pad="0" width="200" font-style="BOLD|SHADOW">
+    Show These Notifications:
+  </text>
+  
+	<scroll_list follows="top|left" height="88" left="50" name="enabled_popups" width="420" />
+  
+	<button bottom_delta="-22" follows="top|left" height="20"
+	     label="Disable All" left="270"
+	     name="skip_dialogs_btn" font="SansSerifSmall" 
 	     tool_tip="Disable all of the optional popups and &apos;first time use&apos; notifications."
-	     width="175" />
+	     width="160" />
+
+    
+    <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+         height="1" left="55" name="border" width="380" />
+    
+    
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-24" drop_shadow_visible="true" enabled="true"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" font-style="BOLD|SHADOW"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="15" mouse_opaque="false" name="text_box2" v_pad="0"
+	     height="10" left="20" mouse_opaque="false" name="text_box2" v_pad="0"
 	     width="270">
-		Offers of Notecards, Textures and Landmarks:
+		Inventory Offers:
 	</text>
 	<check_box bottom_delta="-25" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Automatically accept" left="40" mouse_opaque="true"
+	     label="Automatically accept" left="50" mouse_opaque="true"
 	     name="accept_new_inventory" radio_style="false" width="270" />
 	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Automatically view after accepting" left="40" mouse_opaque="true"
+	     label="Automatically view Notecards, Textures and Landmarks after accepting" left_delta="0" mouse_opaque="true"
 	     name="show_new_inventory" radio_style="false" width="270" />
-   	<check_box bottom_delta="-20" enabled="true"
+ <check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
-	     label="Automatically show newly accepted objects in inventory" left="40" mouse_opaque="true"
+	     label="Automatically show newly accepted objects in inventory" left_delta="0" mouse_opaque="true"
 	     name="show_in_inventory" radio_style="false" width="270" />
-  <check_box bottom_delta="-30" enabled="true"
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+     height="1" left="55" name="border" width="380" />
+
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20" font-style="BOLD|SHADOW"
+     mouse_opaque="true" name="radar_text" v_pad="0" width="128">
+    Chat Notifications:
+  </text>
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-16" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
+       mouse_opaque="true" name="radar_text" v_pad="0" width="128">
+    When an avatar enters:
+  </text>
+  <check_box bottom_delta="-6" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Chat range" left="270"
+	     mouse_opaque="true" name="mini_map_notify_chat" radio_style="false"
+	     width="256" />
+  <check_box bottom_delta="0" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Notify when [CURRENCY] spent or received" left="15"
+       label="Current sim" left="390"
+       mouse_opaque="true" name="mini_map_notify_sim" radio_style="false"
+       width="256" />
+
+  <check_box bottom_delta="-20" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16"
+       initial_value="false" label="When Friends come online" left="50"
+       mouse_opaque="true" name="friends_online_notify_checkbox"
+       radio_style="false" width="256" />
+  <check_box bottom_delta="0" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+       label="When [CURRENCY] spent or received" left="270"
        mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"
        width="256" />
+
 </panel>

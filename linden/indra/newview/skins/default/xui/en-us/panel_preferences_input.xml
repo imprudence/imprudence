@@ -1,152 +1,180 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="Input &amp; Camera" left="102" mouse_opaque="true"
      name="Input panel" width="517">
+
+
+  <text name="double_click_action_label" font-style="BOLD|SHADOW"
+      bottom="-26" left="20" height="16" width="200"
+      follows="left|top" font="SansSerifSmall" mouse_opaque="true">
+    Double-Click Action:
+  </text>
+
+  <combo_box name="double_click_action"
+             bottom_delta="-25" left_delta="30" height="18" width="160"
+             follows="left|top" mouse_opaque="true">
+    <combo_item name="None" value="None">
+      No action
+    </combo_item>
+    <combo_item name="Go" value="Go">
+      Autopilot
+    </combo_item>
+  </combo_box>
+
+  <text name="go_action_label"
+	      bottom_delta="-25" left_delta="0" height="18" width="200"
+        follows="left|top" font="SansSerifSmall" mouse_opaque="true">
+    Autopilot:
+  </text>
+
+  <combo_box name="go_action"
+             bottom_delta="0" left_delta="70" height="18" width="90"
+             follows="left|top" mouse_opaque="true">
+    <combo_item name="Move" value="Move">
+      Move
+    </combo_item>
+    <combo_item name="Teleport" value="Teleport">
+      Teleport
+    </combo_item>
+  </combo_box>
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+     height="1" left="55" name="border" width="380" />
+  
+  
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
 	     mouse_opaque="true" name=" Mouselook Options:" v_pad="0" width="266">
 		Mouselook:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
 	     mouse_opaque="true" name=" Mouse Sensitivity:" v_pad="0" width="128">
 		Mouse sensitivity:
 	</text>
-	<slider_bar bottom="-26" enabled="true" follows="left|top"
-	     height="16" increment="0.25" initial_val="2" left="276" max_val="15"
-	     min_val="0" mouse_opaque="true" name="mouse_sensitivity" width="128" />
-	<check_box bottom_delta="-18" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" label="Invert mouse" left="148"
+	<slider_bar bottom_delta="-6" enabled="true" follows="left|top"
+	     height="16" increment="0.25" initial_val="2" left_delta="98" max_val="15"
+	     min_val="0" mouse_opaque="true" name="mouse_sensitivity" width="88" />
+	<check_box bottom_delta="0" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" label="Invert mouse" left="270"
 	     mouse_opaque="true" name="invert_mouse" radio_style="false" width="128" />
-  <check_box bottom_delta="-18" enabled="true"
+  <check_box bottom_delta="-20" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Show avatar in mouselook" left="148" mouse_opaque="true" name="first_person_avatar_visible"
+       label="Show my avatar in mouselook" left_delta="0" mouse_opaque="true" name="first_person_avatar_visible"
        radio_style="false" width="256" />
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+     height="1" left="55" name="border" width="380" />
+
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20" font-style="BOLD|SHADOW"
+       mouse_opaque="true" name="text2" v_pad="0" width="128">
+    Joystick:
+  </text>
+  <button bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="20"
+	     label="Joystick Setup" left="50" mouse_opaque="true"
+	     name="joystick_setup_button" width="160" />
+
+
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+     height="1" left="55" name="border" width="380" />
+  
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+	     mouse_opaque="true" name="Camera Options:" v_pad="0" width="266">
+    Camera:
+  </text>
+  <check_box bottom_delta="-25" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+       label="Automatic edit camera movement" left="50" mouse_opaque="true"
+       name="edit_camera_movement" radio_style="false"
+       tool_tip="Use automatic camera positioning when entering and exiting edit mode"
+       width="201" />
+  <check_box bottom_delta="-20" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Automatic appearance camera movement" left_delta="0" mouse_opaque="true"
+	     name="appearance_camera_movement" radio_style="false"
+	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
+  <check_box bottom_delta="-20" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Disable camera constraints" left_delta="0" mouse_opaque="true"
+	     name="Disable camera constraints" radio_style="false"
+	     tool_tip="Disables camera limits such as distance and terrain" width="242" />
+  <check_box bottom_delta="-20" enabled="true"
+       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+       label="Disable minimum zoom distance" left_delta="30" mouse_opaque="true"
+       name="disable_min_zoom_check" radio_style="false"
+       tool_tip="Disables minimum zoom distance for prims and avatars" width="242" />
+  
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
-	     mouse_opaque="true" name=" Auto Fly Options:" v_pad="0" width="266">
-    Auto-Fly:
-  </text>
-  <check_box bottom_delta="-6" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" label="Fly/land on holding up/down"
-	     left="148" mouse_opaque="true" name="automatic_fly" radio_style="false"
-	     width="178" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
-	     mouse_opaque="true" name=" Camera Options:" v_pad="0" width="266">
-    Default Camera:
-  </text>
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
 	     mouse_opaque="true" name="camera_fov_label" v_pad="0" width="128">
-    Camera view angle:
+    View angle:
   </text>
   <slider bottom_delta="-6" can_edit_text="true"
-	     decimal_digits="2" enabled="true" follows="left|top" width="128" height="16"
-	     increment=".025" initial_val="1.57" left="276" max_val="2.97" min_val=".17"
+	     decimal_digits="2" enabled="true" follows="left|top" width="100" height="16"
+	     increment=".025" initial_val="1.57" left_delta="98" max_val="2.97" min_val=".17"
 	     mouse_opaque="true" name="camera_fov" show_text="false" value="60" />
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
 	     mouse_opaque="true" name="Camera Follow Distance:" v_pad="0" width="128">
-    Camera follow distance:
+    Follow distance:
   </text>
   <slider bottom_delta="-6" can_edit_text="true" control_name="CameraOffsetScale"
 	     decimal_digits="2" enabled="true" follows="left|top" height="16"
-	     increment=".025" initial_val="1" left="276" min_val=".5" max_val="3"
+	     increment=".025" initial_val="1" left_delta="98" min_val=".5" max_val="3"
 	     mouse_opaque="true" name="camera_offset_scale" show_text="false" value="1"
-	     width="128" />
+	     width="100" />
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
-       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
        mouse_opaque="true" name="Camera Transition Time:" v_pad="0" width="128">
-    Camera transition time:
+    Transition time:
   </text>
   <slider bottom_delta="-6" can_edit_text="true" decimal_digits="1"
        enabled="true" follows="left|top" height="16" increment="0.1"
-       initial_val="0.4" left="276" max_val="4" min_val="0" mouse_opaque="true"
-       name="zoom_time" show_text="false" value="2" width="128" />
+       initial_val="0.4" left_delta="98" max_val="4" min_val="0" mouse_opaque="true"
+       name="zoom_time" show_text="false" value="2" width="100" />
+
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
 	     mouse_opaque="true" name="Camera Smoothing:" v_pad="0" width="128">
-    Camera smoothing:
+    Smoothing:
   </text>
   <slider bottom_delta="-6" can_edit_text="true"
 	     decimal_digits="1" enabled="true" follows="left|top" height="16"
-	     increment="0.1" initial_val="1" left="276" max_val="9" min_val="0"
+	     increment="0.1" initial_val="1" left_delta="98" max_val="9" min_val="0"
 	     mouse_opaque="true" name="camera_position_smoothing" show_text="false" value="2"
-	     width="128" />
-  <check_box bottom_delta="-24" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Automatic edit camera movement" left="148" mouse_opaque="true"
-	     name="edit_camera_movement" radio_style="false"
-	     tool_tip="Use automatic camera positioning when entering and exiting edit mode"
-	     width="201" />
-  <check_box bottom_delta="-18" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Automatic appearance camera movement" left="148" mouse_opaque="true"
-	     name="appearance_camera_movement" radio_style="false"
-	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
-  <check_box bottom_delta="-18" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Disable camera constraints" left="148" mouse_opaque="true"
-	     name="Disable camera constraints" radio_style="false"
-	     tool_tip="Disables camera limits such as distance and terrain" width="242" />
-  <check_box bottom_delta="-18" enabled="true"
-       follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Disable minimum zoom distance" left="168" mouse_opaque="true"
-       name="disable_min_zoom_check" radio_style="false"
-       tool_tip="Disables minimum zoom distance for prims and avatars" width="242" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-32" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
-	     mouse_opaque="true" name="text2" v_pad="0" width="128">
-		Joystick:
-	</text>
-	<button bottom_delta="-4" follows="left|top" font="SansSerif" height="20"
-	     label="Joystick Setup" left="148" mouse_opaque="true"
-	     name="joystick_setup_button" width="155" />
+	     width="100" />
 
-
-	<text name="double_click_action_label"
-	      bottom_delta="-35" left="10" height="18" width="200"
-        follows="left|top" font="SansSerifSmall" mouse_opaque="true">
-    Double-Click Action:
-	</text>
-
-  <combo_box name="double_click_action"
-             bottom_delta="0" left_delta="138" height="18" width="150"
-             follows="left|top" mouse_opaque="true">
-		<combo_item name="None" value="None">
-			None
-		</combo_item>
-		<combo_item name="Go" value="Go">
-			Autopilot
-		</combo_item>
-  </combo_box>
-
-
-	<text name="go_action_label"
-	      bottom_delta="-20" left="10" height="18" width="200"
-        follows="left|top" font="SansSerifSmall" mouse_opaque="true">
-    Autopilot Style:
-	</text>
-
-  <combo_box name="go_action"
-             bottom_delta="0" left_delta="138" height="18" width="150"
-             follows="left|top" mouse_opaque="true">
-		<combo_item name="Move" value="Move">
-			Move
-		</combo_item>
-		<combo_item name="Teleport" value="Teleport">
-			Teleport
-		</combo_item>
-  </combo_box>
 
 </panel>

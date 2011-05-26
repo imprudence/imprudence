@@ -48,9 +48,9 @@ public:
 	void cancel();
 	
 private:
-	static void onClickResetUISize(void*);
 	static void onClickGrid(void*);
 	static void onLocationChanged(LLUICtrl* ctrl, void* data);
+	static void onCommitAFKCheckbox(LLUICtrl* ctrl, void* data);
 
 	U32 mDisplayNamesUsage;
 	bool mLegacyNamesForFriends;

@@ -32,14 +32,11 @@
 
 #include "llcombobox.h"
 
-#include "floatercommandline.h"
 #include "llagent.h"
 #include "llprefsadvanced.h"
 #include "llviewercontrol.h"
 #include "llviewermenu.h"
 #include "llvoavatar.h"
-#include "lgghunspell_wrapper.h"
-#include "lggautocorrectfloater.h"
 #include "llcombobox.h"
 #include "llcolorswatch.h"
 #include "llstartup.h"
@@ -57,26 +54,12 @@ LLPrefsAdvanced::LLPrefsAdvanced()
 	sInstance = this;
 
 	childSetCommitCallback("speed_rez_check", onCommitCheckBox, this);
-	childSetCommitCallback("command_line_check", onCommitCheckBox, this);
-
-	childSetAction("command_line_btn", onClickCommandLine, this);
 }
 
 LLPrefsAdvanced::~LLPrefsAdvanced()
 {
 	// Children all cleaned up by default view destructor.
 	sInstance = NULL;
-}
-
-void LLPrefsAdvanced::initHelpBtn(const std::string& name, const std::string& xml_alert)
-{
-	childSetAction(name, onClickHelp, new std::string(xml_alert));
-}
-
-void LLPrefsAdvanced::onClickHelp(void* data)
-{
-	std::string* xml_alert = (std::string*)data;
-	LLNotifications::instance().add(*xml_alert);
 }
 
 BOOL LLPrefsAdvanced::postBuild()
@@ -86,23 +69,15 @@ BOOL LLPrefsAdvanced::postBuild()
 
 	static BOOL* sShowClientNameTag = rebind_llcontrol<BOOL>("ShowClientNameTag", &gSavedSettings, true);
 	childSetValue("client_name_tag_check", (*sShowClientNameTag));
-	static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
-	childSetValue("client_name_color_check", (*sShowClientColor));
 	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
-	getChild<LLColorSwatchCtrl>("client_tag_color")->set(gSavedSettings.getColor4("ImprudenceTagColor"));
-	mClientTagColor = gSavedSettings.getColor4("ImprudenceTagColor");
 
-	childSetValue("http_texture_check", gSavedSettings.getBOOL("ImagePipelineUseHTTP"));
-	childSetValue("speed_rez_check", gSavedSettings.getBOOL("SpeedRez"));
-	childSetValue("speed_rez_interval_spinner", (F32)gSavedSettings.getU32("SpeedRezInterval"));
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
 	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 	childSetValue("allow_mupose", gSavedSettings.getBOOL("AllowMUpose"));
 	childSetValue("auto_close_ooc", gSavedSettings.getBOOL("AutoCloseOOC"));
 	childSetValue("shadows_check", gSavedSettings.getBOOL("ShadowsEnabled"));
-	childSetValue("command_line_check", gSavedSettings.getBOOL("CmdLineChatbarEnabled"));
 
 	childSetValue("lightshare_combo",
 	              LLSD((S32)gSavedSettings.getU32("LightShareAllowed")));
@@ -110,18 +85,19 @@ BOOL LLPrefsAdvanced::postBuild()
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
 
-	getChild<LLComboBox>("EmeraldSpellBase")->setCommitCallback(onSpellBaseComboBoxCommit);
-	getChild<LLButton>("EmSpell_EditCustom")->setClickedCallback(onSpellEditCustom, this);
-	getChild<LLButton>("EmSpell_GetMore")->setClickedCallback(onSpellGetMore, this);
-	getChild<LLButton>("EmSpell_Add")->setClickedCallback(onSpellAdd, this);
-	getChild<LLButton>("EmSpell_Remove")->setClickedCallback(onSpellRemove, this);
-
-	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
-	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
-
 	getChild<LLButton>("reset_cloud_this_account")->setClickedCallback(onResetThisCloudButton,this);
 	getChild<LLButton>("save_cloud_this_account")->setClickedCallback(onSaveThisCloudButton,this);
 	getChild<LLButton>("save_cloud_any_account")->setClickedCallback(onSaveAnyoneCloudButton,this);
+
+	childSetValue("automatic_fly", gSavedSettings.getBOOL("AutomaticFly"));
+
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	childSetValue("toggle_windlight_control", (*sEnableWindlightRemote));
+	mWLControl = (*sEnableWindlightRemote);
+
+	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
+	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("ShowTimestamps"));
+	childSetValue("arrow_keys_move_avatar_check", gSavedSettings.getBOOL("ArrowKeysMoveAvatar"));
 
 	refresh();
 
@@ -133,18 +109,11 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableLoginLogoutScreens", childGetValue("disable_log_screen_check"));
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
-	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
 	gSavedSettings.setBOOL("ShowClientNameHoverTip", childGetValue("client_name_hover_check"));
-	gSavedSettings.setColor4("ImprudenceTagColor", getChild<LLColorSwatchCtrl>("client_tag_color")->get());
-	mClientTagColor = getChild<LLColorSwatchCtrl>("client_tag_color")->get();
 
-	gSavedSettings.setBOOL("ImagePipelineUseHTTP", childGetValue("http_texture_check"));
-	gSavedSettings.setBOOL("SpeedRez", childGetValue("speed_rez_check"));
-	gSavedSettings.setU32("SpeedRezInterval", childGetValue("speed_rez_interval_spinner").asReal());
 	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
 	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
-	gSavedSettings.setBOOL("AllowMUpose", childGetValue("allow_mupose"));
-	gSavedSettings.setBOOL("AutoCloseOOC", childGetValue("auto_close_ooc"));
+
 	gSavedSettings.setU32("LightShareAllowed",
 	                      (U32)childGetValue("lightshare_combo").asInteger());
 
@@ -210,8 +179,6 @@ void LLPrefsAdvanced::apply()
 		build_pie_menus();
 	}
 
-	gSavedSettings.setBOOL("CmdLineChatbarEnabled", childGetValue("command_line_check").asBoolean());
-
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
 	
@@ -219,79 +186,34 @@ void LLPrefsAdvanced::apply()
 	{
 		onSaveThisCloudButton(NULL);
 	}
+
+	gSavedSettings.setBOOL("AutomaticFly", childGetValue("automatic_fly"));
+
+	// windlight remote
+	static BOOL* sEnableWindlightRemote = rebind_llcontrol<BOOL>("EnableWindlightRemote", &gSavedSettings, true);
+	mWLControl = (*sEnableWindlightRemote);
+
+	gSavedSettings.setBOOL("AllowMUpose", childGetValue("allow_mupose"));
+	gSavedSettings.setBOOL("AutoCloseOOC", childGetValue("auto_close_ooc"));
+	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", childGetValue("arrow_keys_move_avatar_check"));
+	gSavedSettings.setBOOL("ScriptErrorsAsChat", childGetValue("script_errors_as_chat"));
+	gSavedSettings.setBOOL("ShowTimestamps", childGetValue("show_timestamps_check"));
 }
 
 void LLPrefsAdvanced::cancel()
 {
-	gSavedSettings.setColor4("ImprudenceTagColor", mClientTagColor);
 // 	llwarns << "cancel" << llendl;
 //	cool - "ok" is also cancel
 // 	LLVOAvatar::sCloud.mPartData.mStartColor = mCloudStartColor;
 // 	LLVOAvatar::sCloud.mPartData.mEndColor = mCloudEndColor;
+
+	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
 }
 
 void LLPrefsAdvanced::refresh()
 {
-	if (childGetValue("speed_rez_check").asBoolean())
-	{
-		childEnable("speed_rez_interval_spinner");
-		childEnable("speed_rez_seconds_text");
-	}
-	else
-	{
-		childDisable("speed_rez_interval_spinner");
-		childDisable("speed_rez_seconds_text");
-	}
-
-	if (childGetValue("command_line_check").asBoolean())
-	{
-		childEnable("command_line_btn");
-	}
-	else
-	{
-		childDisable("command_line_btn");
-	}
-
-	LLComboBox* comboBox = getChild<LLComboBox>("EmeraldSpellBase");
-	if (comboBox != NULL) 
-	{
-		comboBox->removeall();
-		std::vector<std::string> names = glggHunSpell->getDicts();
-		for (int i = 0; i < (int)names.size(); i++) 
-		{
-			comboBox->add(names[i]);
-		}
-		comboBox->setSimple(gSavedSettings.getString("EmeraldSpellBase"));
-	}
-	comboBox = getChild<LLComboBox>("EmSpell_Avail");
-	if (comboBox != NULL) 
-	{
-		LLSD selected = comboBox->getSelectedValue();
-		comboBox->removeall();
-		std::vector<std::string> names = glggHunSpell->getAvailDicts();
-		for (int i = 0; i < (int)names.size(); i++) 
-		{
-			comboBox->add(names[i]);
-		}
-		comboBox->selectByValue(selected);
-	}
-	comboBox = getChild<LLComboBox>("EmSpell_Installed");
-	if (comboBox != NULL) 
-	{
-		LLSD selected = comboBox->getSelectedValue();
-		comboBox->removeall();
-		std::vector<std::string> names = glggHunSpell->getInstalledDicts();
-		for (int i = 0; i < (int)names.size(); i++) 
-		{
-			comboBox->add(names[i]);
-		}
-		comboBox->selectByValue(selected);
-	}
-
-
 	bool is_logged_in = LLStartUp::isLoggedIn();
 	setParticleControls(is_logged_in);
-
 }
 
 void LLPrefsAdvanced::draw()
@@ -363,65 +285,10 @@ void LLPrefsAdvanced::setParticleControls(bool is_logged_in)
 void LLPrefsAdvanced::onCommitCheckBox(LLUICtrl* ctrl, void* user_data)
 {
 	LLPrefsAdvanced* self = (LLPrefsAdvanced*)user_data;
-	self->refresh();
-}
-
-void LLPrefsAdvanced::onSpellAdd(void* data)
-{
-	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
-	if(panel)
+	if (self)
 	{
-		glggHunSpell->addButton(panel->childGetValue("EmSpell_Avail").asString());
+		self->refresh();
 	}
-	panel->refresh();
-}
-
-void LLPrefsAdvanced::onSpellRemove(void* data)
-{
-	LLPrefsAdvanced* panel = (LLPrefsAdvanced*)data;
-	if(panel)
-	{
-		glggHunSpell->removeButton(panel->childGetValue("EmSpell_Installed").asString());
-	}
-	panel->refresh();
-}
-
-void LLPrefsAdvanced::onSpellGetMore(void* data)
-{
-	glggHunSpell->getMoreButton(data);
-}
-
-void LLPrefsAdvanced::onSpellEditCustom(void* data)
-{
-	glggHunSpell->editCustomButton();
-}
-
-void LLPrefsAdvanced::onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata)
-{
-
-	LLComboBox* box = (LLComboBox*)ctrl;
-	if (box)
-	{
-		glggHunSpell->newDictSelection(box->getValue().asString());
-		//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;//box->getParent();
-		if (sInstance)
-		{
-			sInstance->refresh();
-		}
-	}
-	//LLPanelEmerald* panel = (LLPanelEmerald*)userdata;
-	//if(panel)panel->refresh();
-}
-
-void LLPrefsAdvanced::onAutoCorrectButton(void * data)
-{
-	lggAutoCorrectFloaterStart::show(TRUE,data);
-}
-
-void LLPrefsAdvanced::onClickCommandLine(void* data)
-{
-	FloaterCommandLine::getInstance()->open();
-	FloaterCommandLine::getInstance()->center();
 }
 
 void LLPrefsAdvanced::onResetThisCloudButton(void * data)

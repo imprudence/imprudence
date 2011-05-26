@@ -329,7 +329,6 @@ set(viewer_SOURCE_FILES
     llpanelplace.cpp
     llpanelskins.cpp
     llpanelvolume.cpp
-    llpanelweb.cpp
     llparcelselection.cpp
     llpatchvertexarray.cpp
     llpolymesh.cpp
@@ -792,7 +791,6 @@ set(viewer_HEADER_FILES
     llpanelplace.h
     llpanelskins.h
     llpanelvolume.h
-    llpanelweb.h
     llparcelselection.h
     llpatchvertexarray.h
     llpolymesh.h

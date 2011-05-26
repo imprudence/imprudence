@@ -1,114 +1,108 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+ALL PREFS OPTIONS START AT 20px FROM LEFT, 10px FROM TOP
+
+USE bottom_delta BETWEEN OPTIONS IN A GROUP
+
+USE LINES BETWEEN GROUPS
+
+USE font-style="BOLD|SHADOW" FOR GROUP LABELS
+
+GROUP LABEL CONTENTS ARE INDENTED 30px
+
+USE left="270" FOR TABBING OPTIONS
+-->
+
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-     height="408" label="IMs &amp; Logging" left="102" mouse_opaque="true" name="im"
+     height="408" label="Logging &amp; Privacy" left="102" mouse_opaque="true" name="im"
      width="517">
+  
+  
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box" v_pad="0" width="128">
-    My Online Status:
+       bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+    Logging:
   </text>
-  <check_box bottom="-25" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="16" initial_value="false"
-	     label="Only my Friends and Groups can see when I am online"
-	     left="148" mouse_opaque="true" name="online_visibility" radio_style="false"
-	     width="350" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
-    IM Options:
-  </text>
-  <string name="log_in_to_change">
-    log in to change
-  </string>
-  <string name="default_email_used">
-    using default address
-  </string>
-  <check_box bottom="-45" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="16" initial_value="false" label="Send IM to email ([EMAIL])"
-	     left="148" mouse_opaque="true" name="send_im_to_email" radio_style="false"
-	     width="350" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-59" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
-	     mouse_opaque="false" name="show_ims_label" v_pad="0" width="100">
-    Show IMs in:
-  </text>
-  <check_box bottom="-65" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Main chat" left="248" mouse_opaque="true"
-	     name="include_im_in_chat_console" radio_style="false" width="100" />
-  <check_box bottom="-65" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Local Chat window" left="348" mouse_opaque="true"
-	     name="include_im_in_chat_history" radio_style="false" width="100" />
-  <check_box bottom="-85" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show timestamps in IM" left="148" mouse_opaque="true"
-	     name="show_timestamps_check" radio_style="false" width="237" />
-  <check_box bottom="-105" enabled="true"
+
+  <check_box bottom_delta="-25" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16"
-       initial_value="false" label="Show online Friend notifications" left="148"
-       mouse_opaque="true" name="friends_online_notify_checkbox"
-       radio_style="false" width="256" />
-  <check_box bottom_delta="-20" enabled="true"
-           follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-           label="Vertical IM tabs (requires restart)" left_delta="0" mouse_opaque="true"
-           name="vertical-imtabs-toggle" radio_style="false" width="270" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box3" v_pad="0" width="128">
-    Busy Mode Response:
-  </text>
-  <text_editor type="string" length="1" bottom_delta="-60" embedded_items="false" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="70" left="148" max_length="255"
-	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" spell_check="true" />
-  <button bottom_delta="-25" follows="top|right" height="22" label="IM Response Options"
-     left="164" name="busy_adv_btn" tool_tip="Instant message Auto-Response options"
-     width="180" />
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-23" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
-	     mouse_opaque="false" name="text_box4" v_pad="0" width="128">
-    Logging Options:
-  </text>
-  <check_box bottom_delta="-7" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Save a log of IM on my computer" left="148"
-	     mouse_opaque="true" name="log_instant_messages" radio_style="false"
-	     width="237" />
+       initial_value="false" label="Save a log of IM on my computer" left_delta="30"
+       mouse_opaque="true" name="log_instant_messages" radio_style="false"
+       width="237" />
   <check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Show timestamps in IM log" left="168"
+	     initial_value="false" label="Show timestamps in IM log" left_delta="30"
 	     mouse_opaque="true" name="log_instant_messages_timestamp" radio_style="false"
 	     width="217" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show the end of last IM conversation" left="168" mouse_opaque="true"
+	     label="Show the end of last IM conversation" left_delta="0" mouse_opaque="true"
 	     name="log_show_history" radio_style="false" width="217" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false" label="Save a log of Local Chat on my computer"
-	     left="148" mouse_opaque="true" name="log_chat" radio_style="false"
+	     left_delta="-30" mouse_opaque="true" name="log_chat" radio_style="false"
 	     width="237" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show timestamps in Local Chat log" left="168" mouse_opaque="true"
+	     label="Show timestamps in Local Chat log" left_delta="30" mouse_opaque="true"
 	     name="log_chat_timestamp" radio_style="false" width="217" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show incoming IM in Local Chat log" left="168" mouse_opaque="true"
+	     label="Show incoming IM in Local Chat log" left_delta="0" mouse_opaque="true"
 	     name="log_chat_IM" radio_style="false" width="217" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Include date with timestamps" left="148" mouse_opaque="true"
+	     label="Include date with timestamps" left_delta="-30" mouse_opaque="true"
 	     name="log_date_timestamp" radio_style="false" width="237" />
-  <button bottom_delta="-22" follows="left|top" font="SansSerif" halign="center"
-	     height="20" label="Change Path" label_selected="Change Path" left="148"
-	     mouse_opaque="true" name="log_path_button" width="96" />
-  <line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="1"
-	     drop_shadow_visible="true" enabled="false" follows="top|left|right"
-	     font="SansSerifSmall" halign="right" height="19" left="248"
-	     max_length="254" mouse_opaque="false" name="log_path_string" right="-20" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+    Log location:
+  </text>
+  <line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="-25"
+       drop_shadow_visible="true" enabled="false" follows="top|left|right" width="395" 
+       font="SansSerifSmall" halign="right" height="19" left_delta="0"
+       max_length="254" mouse_opaque="false" name="log_path_string" />
+  <button bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" label="Change Location" label_selected="Change Path" left_delta="0"
+	     mouse_opaque="true" name="log_path_button" width="160" />
+
+
+  
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
+      height="1" left="55" name="border" width="380" />
+  
+  
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
+       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+    Privacy:
+  </text>
+  <check_box bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false"
+	     label="Only my Friends and Groups can see when I am online"
+	     left_delta="30" mouse_opaque="true" name="online_visibility" radio_style="false"
+	     width="350" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+	     mouse_opaque="false" name="text_box3" v_pad="0" width="128">
+    Busy Mode Response:
+  </text>
+  <text_editor type="string" length="1" bottom_delta="-75" embedded_items="false" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="70" left_delta="0" max_length="255"
+	     mouse_opaque="true" name="busy_response" width="330" word_wrap="true" spell_check="true" />
+  <button bottom_delta="-30" follows="top|left" height="20" label="Auto-Response Options"
+       left_delta="0" name="busy_adv_btn" tool_tip="Instant message Auto-Response options"
+       width="160" font="SansSerifSmall" />
+
+  <string name="log_in_to_change">
+    log in to change
+  </string>
+  
+  
 </panel>
