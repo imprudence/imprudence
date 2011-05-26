@@ -121,7 +121,7 @@ class PlatformSetup(object):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
-            type=self.build_type.upper(),
+            type=self.build_type,
             )
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
@@ -287,7 +287,7 @@ class LinuxSetup(UnixSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
-            type=self.build_type.upper(),
+            type=self.build_type,
             project_name=self.project_name
             )
         if not self.is_internal_tree():
@@ -419,7 +419,7 @@ class DarwinSetup(UnixSetup):
             unattended=self.unattended,
             project_name=self.project_name,
             universal=self.universal,
-            type=self.build_type.upper()
+            type=self.build_type
             )
         if self.universal == 'ON':
             args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386\''

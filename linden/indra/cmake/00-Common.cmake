@@ -14,10 +14,13 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
     "-DLL_RELEASE=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=0 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
 
 
-# Don't bother with a MinSizeRel build.
+# Available build types / configurations.
+# Add our current build type first, to coax Xcode into selecting it by default.
 
-set(CMAKE_CONFIGURATION_TYPES "RelWithDebInfo;Release;Debug" CACHE STRING
-    "Supported build types." FORCE)
+set(TYPES ${CMAKE_BUILD_TYPE} RelWithDebInfo Release Debug)
+list(REMOVE_DUPLICATES TYPES)
+set(CMAKE_CONFIGURATION_TYPES ${TYPES} CACHE STRING "Supported build types." FORCE)
+unset(TYPES)
 
 
 # Determine the number of bits of this processor

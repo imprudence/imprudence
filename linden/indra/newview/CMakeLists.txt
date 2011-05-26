@@ -3,6 +3,7 @@
 project(viewer)
 
 include(00-Common)
+include(AddPackageTarget)
 include(Boost)
 include(BuildVersion)
 include(DBusGlib)
@@ -499,8 +500,8 @@ set(viewer_SOURCE_FILES
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
     slfloatermediafilter.cpp
+    viewerinfo.cpp
     viewertime.cpp
-    viewerversion.cpp
     windlightsettingsupdate.cpp
     wlfloatermanager.cpp
     wlfloaterwindlightsend.cpp
@@ -971,8 +972,8 @@ set(viewer_HEADER_FILES
     slfloatermediafilter.h
     VertexCache.h
     VorbisFramework.h
+    viewerinfo.h
     viewertime.h
-    viewerversion.h
     wlfloatermanager.h
     wlfloaterwindlightsend.h
     wlretrievesettings.h
@@ -1002,14 +1003,14 @@ if (DARWIN)
     viewer.icns
     macview.r
     gpu_table.txt
-    Info-Imprudence.plist
-    Imprudence.nib/
+    packaging/mac/Info.plist.in
+    packaging/mac/SecondLife.nib/
     # CMake doesn't seem to support Xcode language variants well just yet
-    English.lproj/InfoPlist.strings
-    English.lproj/language.txt
-    German.lproj/language.txt
-    Japanese.lproj/language.txt
-    Korean.lproj/language.txt
+    packaging/mac/English.lproj/InfoPlist.strings
+    packaging/mac/English.lproj/language.txt
+    packaging/mac/German.lproj/language.txt
+    packaging/mac/Japanese.lproj/language.txt
+    packaging/mac/Korean.lproj/language.txt
     )
   set_source_files_properties(
     ${viewer_RESOURCE_FILES}
@@ -1210,7 +1211,6 @@ set(viewer_APPSETTINGS_FILES
     app_settings/trees.xml
     app_settings/ultra_graphics.xml
     app_settings/viewerart.xml
-    app_settings/viewerversion.xml
     ${CMAKE_SOURCE_DIR}/../etc/message.xml
     ${CMAKE_SOURCE_DIR}/../scripts/messages/message_template.msg
     )
@@ -1288,6 +1288,10 @@ add_executable(${VIEWER_BINARY_NAME}
     )
 check_message_template(${VIEWER_BINARY_NAME})
 
+
+# NOTE: This variable is DEPRECATED, and should not be used anymore.
+# The package target should always be added. The variable AUTOPACKAGE
+# (in AddPackageTarget.cmake) controls whether package is auto-built.
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
 
@@ -1429,121 +1433,102 @@ set(ARTWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
 
 
 if (LINUX)
+
+  string(REPLACE "-bin" "-stripped"
+         VIEWER_STRIPPED_NAME ${VIEWER_BINARY_NAME})
+
+  add_dependencies(${VIEWER_BINARY_NAME}
+    SLPlugin
+    media_plugin_gstreamer010
+    media_plugin_webkit)
+
   add_custom_command(
-      OUTPUT imprudence-stripped
-      COMMAND strip
-      ARGS --strip-debug -o imprudence-stripped ${VIEWER_BINARY_NAME}
-      DEPENDS imprudence-bin
-      )
+    OUTPUT ${VIEWER_STRIPPED_NAME}
+    COMMAND strip
+    ARGS --strip-debug -o ${VIEWER_STRIPPED_NAME} ${VIEWER_BINARY_NAME}
+    DEPENDS ${VIEWER_BINARY_NAME}
+    )
 
-  set(product Imprudence-${ARCH}-${viewer_VERSION})
+  add_custom_target(
+    viewer-manifest-target
+    COMMAND
+      ${PYTHON_EXECUTABLE}
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+      --standalone=${STANDALONE}
+      --buildtype=${CMAKE_BUILD_TYPE}
+      --grid=${GRID}
+      --channel=${VIEWER_CHANNEL}
+      --login_channel=${VIEWER_LOGIN_CHANNEL}
+      --arch=${ARCH}
+      --source=${CMAKE_CURRENT_SOURCE_DIR}
+      --artwork=${ARTWORK_DIR}
+      --build=${CMAKE_CURRENT_BINARY_DIR}
+      --dest=${CMAKE_CURRENT_BINARY_DIR}/packaged
+    DEPENDS
+      ${VIEWER_STRIPPED_NAME}
+      linux-crash-logger
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+    )
 
-  add_custom_command(
-      OUTPUT ${product}.tar.bz2
-      COMMAND ${PYTHON_EXECUTABLE}
-      ARGS
-        ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-        --standalone=${STANDALONE}
-        --buildtype=${CMAKE_BUILD_TYPE}
-        --grid=${GRID}
-        --channel=${VIEWER_CHANNEL}
-        --login_channel=${VIEWER_LOGIN_CHANNEL}
-        --installer_name=${product}
-        --arch=${ARCH}
-        --source=${CMAKE_CURRENT_SOURCE_DIR}
-        --artwork=${ARTWORK_DIR}
-        --build=${CMAKE_CURRENT_BINARY_DIR}
-        --dest=${CMAKE_CURRENT_BINARY_DIR}/packaged
-        --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-      DEPENDS imprudence-stripped ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-      
-  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_gstreamer010 media_plugin_webkit)
+  add_package_target()
+  add_dependencies(package viewer-manifest-target)
 
-  if (NOT INSTALL)
-    add_custom_target(package ALL DEPENDS ${product}.tar.bz2)
-    add_dependencies(package linux-crash-logger-strip-target)
-  endif (NOT INSTALL)
 endif (LINUX)
 
+
 if (DARWIN)
-  set(product "Imprudence")
+  set(product "${viewer_NAME}")
+
   set_target_properties(
     ${VIEWER_BINARY_NAME}
     PROPERTIES
     OUTPUT_NAME "${product}"
-    MACOSX_BUNDLE_INFO_STRING "info string - localize me"
-    MACOSX_BUNDLE_ICON_FILE "viewer.icns"
-    MACOSX_BUNDLE_GUI_IDENTIFIER "Imprudence"
-    MACOSX_BUNDLE_LONG_VERSION_STRING "ververver"
-    MACOSX_BUNDLE_BUNDLE_NAME "Imprudence"
-    MACOSX_BUNDLE_SHORT_VERSION_STRING "asdf"
-    MACOSX_BUNDLE_BUNDLE_VERSION "asdf"
-    MACOSX_BUNDLE_COPYRIGHT "copyright linden lab 2007 - localize me and run me through a legal wringer"
     )
+    
+  # Generate Info.plist from the template.
+  add_custom_target(
+    GenerateInfoPlist
+    ALL
+    COMMENT "Generating Info.plist..."
+    VERBATIM
+    DEPENDS
+      ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/GenerateInfoPlist.cmake
+      ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/Info.plist.in
+      ${CMAKE_CURRENT_SOURCE_DIR}/viewerinfo.cpp
+    COMMAND
+      ${CMAKE_COMMAND}
+      -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
+      -DBINARY_DIR=${CMAKE_BINARY_DIR}
+      -P ${CMAKE_CURRENT_SOURCE_DIR}/packaging/mac/GenerateInfoPlist.cmake
+  )
+
+  # Ensure that it's generated before the binary is built, so
+  # that it will definitely be ready when viewer_manifest.py runs.
+  add_dependencies(${VIEWER_BINARY_NAME} GenerateInfoPlist)
+
 
   add_custom_command(
     TARGET ${VIEWER_BINARY_NAME} POST_BUILD
     COMMAND ${PYTHON_EXECUTABLE}
     ARGS
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      --grid=${GRID}
       --actions=copy
-      --configuration=${CMAKE_CFG_INTDIR}
-      --source=${CMAKE_CURRENT_SOURCE_DIR}
       --artwork=${ARTWORK_DIR}
       --build=${CMAKE_CURRENT_BINARY_DIR}
+      --buildtype=${CMAKE_BUILD_TYPE}
+      --configuration=${CMAKE_CFG_INTDIR}
       --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
+      --grid=${GRID}
+      --source=${CMAKE_CURRENT_SOURCE_DIR}
+      --standalone=${STANDALONE}
     DEPENDS ${VIEWER_BINARY_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
     )
-    
-  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010)
 
-  if (PACKAGE)
-      add_custom_target(package ALL DEPENDS ${VIEWER_BINARY_NAME}) 
-      add_dependencies(package mac-updater mac-crash-logger)
+  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010 mac-updater mac-crash-logger)
 
-      add_custom_command(
-        TARGET package POST_BUILD
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --standalone=${STANDALONE}
-          --buildtype=${CMAKE_BUILD_TYPE}
-          --grid=${GRID}
-          --configuration=${CMAKE_CFG_INTDIR}
-          --channel=${VIEWER_CHANNEL}
-          --login_channel=${VIEWER_LOGIN_CHANNEL}
-          --source=${CMAKE_CURRENT_SOURCE_DIR}
-          --artwork=${ARTWORK_DIR}
-          --build=${CMAKE_CURRENT_BINARY_DIR}
-          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
+  add_package_target()
+  add_dependencies(package ${VIEWER_BINARY_NAME})
 
-        DEPENDS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-
-      add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010)
-      add_custom_command(
-        TARGET package POST_BUILD
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --grid=${GRID}
-          --configuration=${CMAKE_CFG_INTDIR}
-          --channel=${VIEWER_CHANNEL}
-          --login_channel=${VIEWER_LOGIN_CHANNEL}
-          --source=${CMAKE_CURRENT_SOURCE_DIR}
-          --artwork=${ARTWORK_DIR}
-          --build=${CMAKE_CURRENT_BINARY_DIR}
-          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-        DEPENDS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-
-  endif (PACKAGE)
 endif (DARWIN)
 
 if (INSTALL)

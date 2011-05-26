@@ -190,7 +190,7 @@
 #include "llwaterparammanager.h"
 #include "llagentlanguage.h"
 #include "llsocks5.h"
-#include "viewerversion.h"
+#include "viewerinfo.h"
 
 #include "lgghunspell_wrapper.h"
 #include "jcfloater_animation_list.h"
@@ -533,9 +533,9 @@ bool idle_startup()
 			if(!start_messaging_system(
 				   message_template_path,
 				   port,
-				   ViewerVersion::getLLMajorVersion(),
-				   ViewerVersion::getLLMinorVersion(),
-				   ViewerVersion::getLLPatchVersion(),
+				   ViewerInfo::versionMajor(),
+				   ViewerInfo::versionMinor(),
+				   ViewerInfo::versionPatch(),
 				   FALSE,
 				   std::string(),
 				   responder,
