@@ -943,7 +943,7 @@ void FloaterLocalAssetBrowser::UpdateRightSide()
 			sLFInstance->mLinkTxt->setText( unit->getLinkStatus() );
 			sLFInstance->mTypeComboBox->selectNthItem( unit->getType() );
 
-			sLFInstance->mTextureView->setEnabled(true);
+			sLFInstance->mTextureView->setEnabled(false);
 			sLFInstance->mUpdateChkBox->setEnabled(true);
 			sLFInstance->mTypeComboBox->setEnabled(true);
 		}
