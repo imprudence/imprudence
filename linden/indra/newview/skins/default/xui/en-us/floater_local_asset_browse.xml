@@ -118,12 +118,12 @@
     default_image_name="Default"
     can_apply_immediately="true"
     follows="left|top"
-    label="Texture"
     bottom_delta="20"
     left_delta="0"
     mouse_opaque="true"
     name="texture_view"
     visible="true"
+    enabled="false"
     />
 
   <check_box
