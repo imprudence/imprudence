@@ -208,7 +208,7 @@
         border_visible="false" border_drop_shadow_visible="false"
         font="SansSerifSmall" mouse_opaque="true"
         hover="true" hover_color="50 115 185">
-    [CHANNEL] [VERSION]
+    [VERSION]
   </text>
 
 
