@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <menu_bar name="Login Menu" opaque="true" tear_off="false" height="18" bottom="-18" follows="left|top|right">
-	<menu create_jump_keys="true" label="File" name="File" opaque="true" tear_off="false">
-		<menu_item_call label="Quit" name="Quit" shortcut="control|Q">
-			<on_click function="File.Quit" userdata="" />
-		</menu_item_call>
-	</menu>
-	<menu create_jump_keys="true" label="Edit" name="Edit" 
-        opaque="true" tear_off="false">
+	<menu create_jump_keys="true" label="File" name="File" opaque="true" tear_off="false"
+        drop_shadow="true" mouse_opaque="false">
+    <menu_item_call label="Quit" name="Quit" shortcut="control|Q">
+      <on_click function="File.Quit" userdata="" />
+    </menu_item_call>
+  </menu>
+  <menu create_jump_keys="true" label="Edit" name="Edit"
+        opaque="true" tear_off="false"
+        drop_shadow="true" mouse_opaque="false">
 		<menu_item_call label="Preferences..." name="Preferences..." shortcut="control|P">
 			<on_click function="ShowFloater" userdata="preferences" />
 		</menu_item_call>
 	</menu>
 	<menu create_jump_keys="true" label="Help" name="Help" 
-        opaque="true" tear_off="false">
+        opaque="true" tear_off="false"
+        drop_shadow="true" mouse_opaque="false">
 		<menu_item_call label="Grid Help" name="Grid Help" shortcut="F1">
 			<on_click function="ShowFloater" userdata="help f1" />
 		</menu_item_call>
@@ -32,7 +35,8 @@
 			<on_click function="ShowFloater" userdata="about" />
 		</menu_item_call>
 	</menu>
-	<menu name="Advanced" create_jump_keys="true" opaque="true">
+	<menu name="Advanced" create_jump_keys="true" opaque="true"
+        drop_shadow="true" mouse_opaque="false">
 		<menu_item_call name="Debug Settings" label="Debug Settings">
 			<on_click function="Advanced.ShowDebugSettings" userdata="" />
 		</menu_item_call>

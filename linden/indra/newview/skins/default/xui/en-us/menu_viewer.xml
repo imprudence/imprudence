@@ -7,6 +7,7 @@
   <!-- FILE -->
 
   <menu name="File" create_jump_keys="true" label="File"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true">
     <menu label="Upload" create_jump_keys="true" name="Upload"
           opaque="true" tear_off="true">
@@ -103,6 +104,7 @@
   <!-- EDIT -->
 
   <menu name="Edit" create_jump_keys="true" label="Edit"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true">
     <menu_item_call name="Undo" enabled="false" label="Undo"
                     shortcut="control|Z">
@@ -156,13 +158,16 @@
     <menu_item_separator />
 
     <menu name="Attach Object" create_jump_keys="true"
+          drop_shadow="true" mouse_opaque="false"
           label="Attach Object" opaque="true" tear_off="true" />
 
     <menu name="Detach Object" create_jump_keys="true"
+          drop_shadow="true" mouse_opaque="false"
           label="Detach Object" opaque="true" tear_off="true" />
 
 
     <menu name="Take Off Clothing" create_jump_keys="true"
+          drop_shadow="true" mouse_opaque="false"
           label="Take Off Clothing" opaque="true" tear_off="true">
 
       <menu_item_call name="Shirt" enabled="false" label="Shirt">
@@ -295,6 +300,7 @@
   <!-- VIEW -->
 
   <menu name="View" create_jump_keys="true" label="View"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true">
     <menu_item_call name="Mouselook" label="Mouselook"
                     shortcut="M">
@@ -406,6 +412,7 @@
     </menu_item_check>
     <menu_item_separator />
     <menu name="Hover Tips" create_jump_keys="true" label="Hover Tips"
+          drop_shadow="true" mouse_opaque="false"
           opaque="true" tear_off="true">
       <menu_item_check name="Show Tips" label="Show Tips"
                        shortcut="control|shift|T">
@@ -449,8 +456,9 @@
       <on_check function="View.CheckHUDAttachments" />
     </menu_item_check>
     <menu_item_separator />
-    <menu name="Zoom Level" create_jump_keys="true"
-            label="Zoom Level" opaque="true" tear_off="true">
+    <menu name="Zoom Level" label="Zoom Level" create_jump_keys="true"
+          drop_shadow="true" mouse_opaque="false"
+          opaque="true" tear_off="true">
       <menu_item_call name="Zoom In" label="Zoom In"
                       shortcut="control|0">
         <on_click function="View.ZoomIn" userdata="" />
@@ -483,6 +491,7 @@
   <!-- WORLD -->
 
   <menu name="World" create_jump_keys="true" label="World"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true">
     <menu_item_call name="Chat" label="Chat" shortcut="">
       <on_click function="World.Chat" userdata="" />
@@ -562,8 +571,9 @@
       <on_click function="ShowFloater" userdata="about region" />
     </menu_item_call>
     <menu_item_separator />
-    <menu name="Environment Settings" create_jump_keys="true"
-          label="Environment Settings" opaque="true" tear_off="true">
+    <menu name="Environment Settings" label="Environment Settings"
+          create_jump_keys="true" drop_shadow="true"
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_call name="Sunrise" label="Sunrise">
         <on_click function="World.EnvSettings" userdata="sunrise" />
       </menu_item_call>
@@ -595,8 +605,10 @@
   <!-- TOOLS -->
 
   <menu name="Tools" create_jump_keys="true" label="Tools"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true" visible="false">
     <menu name="Select Tool" create_jump_keys="true" label="Choose Tool"
+          drop_shadow="true" mouse_opaque="false"
           opaque="true" tear_off="true">
       <menu_item_call name="Focus" label="Focus" shortcut="control|1">
         <on_click function="Tools.SelectTool" userdata="focus" />
@@ -626,6 +638,7 @@
       <on_enable function="Tools.SomethingSelectedNoHUD" />
     </menu_item_call>
     <menu name="Selection Options" label="Selection Options"
+          drop_shadow="true" mouse_opaque="false"
           create_jump_keys="true" opaque="true" tear_off="true">
       <menu_item_check name="Select Only My Objects"
                        label="Select Only My Objects">
@@ -774,6 +787,7 @@
     </menu_item_call>
 		<menu name="Recompile Scripts in Selection" create_jump_keys="true"
 		      label="Recompile Scripts in Selection" opaque="true"
+          drop_shadow="true" mouse_opaque="false"
           tear_off="true">
 		  <menu_item_call name="Mono" label="Mono">
 			  <on_click function="Tools.SelectedScriptAction"
@@ -820,6 +834,7 @@
   <!-- HELP -->
 
   <menu name="Help" create_jump_keys="true" label="Help"
+        drop_shadow="true" mouse_opaque="false"
         opaque="true" tear_off="true">
     <menu_item_call name="Grid Help" label="Grid Help"
                     shortcut="F1">
@@ -869,13 +884,13 @@
   <!-- ADVANCED -->
 
   <menu label="Advanced" name="Advanced" drop_shadow="true"
-        opaque="true" tear_off="true">
+        mouse_opaque="false" opaque="true" tear_off="true">
 
 
     <!-- CONSOLES -->
 
     <menu label="Consoles" name="Consoles" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_check name="Frame Console" label="Frame Console"
                        shortcut="control|shift|2">
         <on_click function="Advanced.ToggleConsole"
@@ -959,7 +974,7 @@
     <!-- HUD INFO -->
 
     <menu label="HUD Info" name="HUD Info" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_check name="Velocity" label="Velocity">
         <on_click function="Advanced.ToggleHUDInfo"
                   userdata="velocity" />
@@ -1028,11 +1043,11 @@
     <!-- RENDERING -->
 
     <menu label="Rendering" name="Rendering" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
 
       <!-- TYPES -->
       <menu label="Types" name="Types" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
         <menu_item_check name="Simple" label="Simple"
                          shortcut="control|alt|shift|1">
           <on_click function="Advanced.ToggleRenderType"
@@ -1129,7 +1144,7 @@
 
       <!-- FEATURES -->
       <menu label="Features" name="Features" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
         <menu_item_check name="UI" label="UI"
                          shortcut="alt|shift|F1">
           <on_click function="Advanced.ToggleFeature"
@@ -1192,7 +1207,7 @@
 
       <!-- INFO DISPLAYS -->
       <menu label="Info Displays" name="Info Displays" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
         <menu_item_check name="Verify" label="Verify">
           <on_click function="Advanced.ToggleInfoDisplay"
                     userdata="verify" />
@@ -1319,7 +1334,7 @@
 
       <!-- RENDER TESTS -->
       <menu label="Render Tests" name="Render Tests" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
         <menu_item_check name="Camera Offset" label="Camera Offset">
           <on_click function="ToggleControl"
                     userdata="CameraOffset" />
@@ -1464,7 +1479,7 @@
     <!-- WORLD -->
 
     <menu label="World" name="World" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <!-- Disabled because you can't do this in Windlight.
       <menu_item_check name="Mouse Moves Sun"
                        label="Mouse Moves Sun"
@@ -1499,9 +1514,11 @@
 
     <!-- RLVa -->
 
-    <menu label="RLVa" name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
+    <menu label="RLVa" name="RLVa" drop_shadow="true"
+          mouse_opaque="false" opaque="true" tear_off="true">
 
-      <menu label="Debug"  name="Debug" drop_shadow="true" opaque="true" tear_off="true">
+      <menu label="Debug"  name="Debug" drop_shadow="true"
+            mouse_opaque="false" opaque="true" tear_off="true">
 
         <menu_item_check name="Show Debug Messages"
                          label="Show Debug Messages">
@@ -1575,7 +1592,7 @@
     <!-- UI -->
 
     <menu label="UI" name="UI" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
 
       
       <menu_item_check name="Use default system color picker"
@@ -1736,7 +1753,7 @@
     <!-- XUI -->
 
     <menu label="XUI" name="XUI" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_call name="Floater Test"
                       label="Floater Test">
         <on_click function="Advanced.ShowFloaterTest"
@@ -1782,10 +1799,10 @@
     <!-- CHARACTER -->
 
     <menu label="Character" name="Character" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
 
       <menu label="Grab Baked Texture" name="Grab Baked Texture" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
 
         <menu_item_call name="Iris" enabled="false"
                         label="Iris">
@@ -1826,7 +1843,7 @@
 
       <!-- CHARACTER TESTS -->
       <menu label="Character Tests" name="Character Tests" drop_shadow="true"
-            opaque="true" tear_off="true">
+            mouse_opaque="false" opaque="true" tear_off="true">
         <menu_item_call name="Appearance To XML"
                         label="Appearance To XML">
           <on_click function="Advanced.ToggleAppearanceToXML"
@@ -1997,7 +2014,7 @@
     <!-- CRASH -->
 
     <menu label="Crash" name="Crash" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_call name="Force Bad Memory Access"
                       label="Force Bad Memory Access">
         <on_click function="Advanced.Crash"
@@ -2035,7 +2052,7 @@
     <!-- NETWORK -->
 
     <menu label="Network" name="Network" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_call name="Enable Message Log"
                       label="Enable Message Log">
         <on_click function="Advanced.EnableMessageLog"
@@ -2072,7 +2089,7 @@
     <!-- RECORDER -->
 
     <menu label="Recorder" name="Recorder" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_check name="Full Session Logging"
                        label="Full Session Logging">
         <on_click function="ToggleControl"
@@ -2130,7 +2147,7 @@
     <!-- ADMIN OPTIONS -->
 
     <menu label="Admin Options" name="Admin Options" drop_shadow="true"
-          opaque="true" tear_off="true">
+          mouse_opaque="false" opaque="true" tear_off="true">
       <menu_item_check name="View Admin Options"
                    label="View Admin Options"
                    shortcut="control|alt|V">

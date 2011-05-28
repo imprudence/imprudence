@@ -85,7 +85,7 @@
 <ScrollReadOnlyColor value="100, 100, 100, 255" />      <!-- Color for inactive but not disabled lists -->
  
 <!-- MENUS -->
-<MenuBarBgColor value="62, 62, 62, 255" />                  <!-- Menu bar background -->
+<MenuBarBgColor value="0, 0, 0, 255" />                  	<!-- Menu bar background -->
 <MenuBarGodBgColor value="62, 128, 62, 255" />              <!-- Menu bar background with God Mode enabled -->
 <MenuNonProductionGodBgColor value="0, 128, 0, 255" />      <!-- Beta viewer menu bar background -->
 <MenuNonProductionBgColor value="128, 0, 0, 255" />         <!-- Beta viewer menu bar background with God Mode enabled -->

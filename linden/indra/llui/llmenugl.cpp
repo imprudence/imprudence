@@ -3099,8 +3099,7 @@ void LLMenuGL::draw( void )
 
 	if( mBgVisible )
 	{
-	        gl_rect_2d( -1, getRect().getHeight()+2, getRect().getWidth()+2, -2, mBorderColor,FALSE);
-		gl_rect_2d(  0, getRect().getHeight(),   getRect().getWidth(),   0, mBackgroundColor );
+		gl_rect_2d(  0, getRect().getHeight(),   getRect().getWidth(),    0, mBackgroundColor );
 	}
 	LLView::draw();
 }
@@ -3157,37 +3156,18 @@ LLMenuGL* LLMenuGL::getChildMenuByName(const std::string& name, BOOL recurse) co
 }
 
 
-void LLMenuGL::setBackgroundColor( const LLColor4& color ) {
-
-  mBackgroundColor = color;
-  item_list_t::iterator item_iter;
-  for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
+void LLMenuGL::setBackgroundColor( const LLColor4& color )
+{
+	mBackgroundColor = color;
+	item_list_t::iterator item_iter;
+	for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
     {
-              if((*item_iter)->getType()=="menu")
-		 {
-		   LLMenuItemBranchGL *menuBranchItem = (LLMenuItemBranchGL*)(*item_iter);
-		   menuBranchItem->getBranch()->setBackgroundColor(color);
-                 }
-    }
-
-
-}
-
-
-void LLMenuGL::setBorderColor( const LLColor4& color ) {
-
-  mBorderColor = color;
-  item_list_t::iterator item_iter;
-  for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
-    {
-              if((*item_iter)->getType()=="menu")
-		 {
-		   LLMenuItemBranchGL *menuBranchItem = (LLMenuItemBranchGL*)(*item_iter);
-		   menuBranchItem->getBranch()->setBorderColor(color);
-                 }
-    }
-
-
+        if((*item_iter)->getType()=="menu")
+		{
+			LLMenuItemBranchGL *menuBranchItem = (LLMenuItemBranchGL*)(*item_iter);
+			menuBranchItem->getBranch()->setBackgroundColor(color);
+		}
+	}
 }
 
 

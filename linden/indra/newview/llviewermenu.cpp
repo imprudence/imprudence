@@ -564,7 +564,7 @@ void pre_init_menus()
 	// static information
 	LLColor4 color;
 	color = gColors.getColor( "MenuDefaultBgColor" );
-	LLMenuGL::setDefaultBackgroundColor( color );
+	LLMenuGL::setDefaultBackgroundColor(color);
 	color = gColors.getColor( "MenuItemEnabledColor" );
 	LLMenuItemGL::setEnabledColor( color );
 	color = gColors.getColor( "MenuItemDisabledColor" );
@@ -662,7 +662,9 @@ void init_menus()
 	}
 	gMenuBarView = (LLMenuBarGL*)LLUICtrlFactory::getInstance()->buildMenu("menu_viewer.xml", gMenuHolder);
 	gMenuBarView->setRect(LLRect(0, top, 0, top - MENU_BAR_HEIGHT));
-	gMenuBarView->setBackgroundColor( color );
+	
+	// main menu colors
+	gMenuBarView->setBackgroundColor(color);
 
     // gMenuBarView->setItemVisible("Tools", FALSE);
 	gMenuBarView->arrange();

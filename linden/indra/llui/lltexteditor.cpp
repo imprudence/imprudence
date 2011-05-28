@@ -389,14 +389,12 @@ LLTextEditor::LLTextEditor(
 	LLMenuGL* menu = LLUICtrlFactory::getInstance()->buildMenu("menu_rightclick_text.xml",this);
 	if (!menu)
 	{
-	          menu = new LLMenuGL(LLStringUtil::null);
+		menu = new LLMenuGL(LLStringUtil::null);
 	}
 
 	defineMenuCallbacks(menu);
 	mPopupMenuHandle = menu->getHandle();
-	menu->setBorderColor(gColors.getColor("MenuItemDisabledColor"));
 	menu->setBackgroundColor(gColors.getColor("MenuPopupBgColor"));
-
 }
 
 LLTextEditor::~LLTextEditor()
