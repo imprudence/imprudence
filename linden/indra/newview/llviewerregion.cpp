@@ -1439,12 +1439,14 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("FetchLibDescendents");
 	capabilityNames.append("GetDisplayNames");
 	capabilityNames.append("SetDisplayName");
+	capabilityNames.append("GetMesh"); // lets us know if this is a SL-Mesh region
 	capabilityNames.append("GetTexture");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("NewFileAgentInventory");
+	capabilityNames.append("ObjectAdd"); // lets us know if this is a SL-Mesh region
 	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelMediaURLFilterList");
 	capabilityNames.append("ParcelNavigateMedia");

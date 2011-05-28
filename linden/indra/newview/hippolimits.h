@@ -64,6 +64,7 @@ public:
 private:
 	void	setOpenSimLimits();
 	void	setSecondLifeLimits();
+	void	setSecondLifeMaxPrimScale();
 };
 
 

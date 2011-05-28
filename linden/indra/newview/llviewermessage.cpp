@@ -3828,10 +3828,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		return;
 	}
 
+	gHippoLimits->setLimits();
+
 	if (!gLastVersionChannel.empty())
 	{
-		gHippoLimits->setLimits();
-
 		if (gSavedSettings.getBOOL("ServerVersionChangedChat"))
 		{
 			LLStringUtil::format_map_t args;
