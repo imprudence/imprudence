@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <menu_bar name="Main Menu" drop_shadow="false" follows="left|top|right"
-          opaque="false" tear_off="false">
+          opaque="false" mouse_opaque="false" tear_off="false">
 
 
   <!-- FILE -->
