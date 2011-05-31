@@ -455,13 +455,13 @@ void LLVivoxProtocolParser::StartTag(const char *tag, const char **attr)
 				}
 			}
 		}
-		LL_DEBUGS("VivoxProtocolParser") << tag << " (" << responseDepth << ")"  << LL_ENDL;
+		LL_DEBUGS("VivoxProtocolParserTag") << tag << " (" << responseDepth << ")"  << LL_ENDL;
 	}
 	else
 	{
 		if (ignoringTags)
 		{
-			LL_DEBUGS("VivoxProtocolParser") << "ignoring tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
+			LL_DEBUGS("VivoxProtocolParserTag") << "ignoring tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
 		}
 		else
 		{
@@ -474,7 +474,7 @@ void LLVivoxProtocolParser::StartTag(const char *tag, const char **attr)
 				ignoreDepth = responseDepth;
 				accumulateText = false;
 
-				LL_DEBUGS("VivoxProtocolParser") << "starting ignore, ignoreDepth is " << ignoreDepth << LL_ENDL;
+				LL_DEBUGS("VivoxProtocolParserTag") << "starting ignore, ignoreDepth is " << ignoreDepth << LL_ENDL;
 			}
 			else if (!stricmp("CaptureDevices", tag))
 			{
@@ -515,18 +515,18 @@ void LLVivoxProtocolParser::EndTag(const char *tag)
 	{
 		if (ignoreDepth == responseDepth)
 		{
-			LL_DEBUGS("VivoxProtocolParser") << "end of ignore" << LL_ENDL;
+			LL_DEBUGS("VivoxProtocolParserTag") << "end of ignore" << LL_ENDL;
 			ignoringTags = false;
 		}
 		else
 		{
-			LL_DEBUGS("VivoxProtocolParser") << "ignoring tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
+			LL_DEBUGS("VivoxProtocolParserTag") << "ignoring tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
 		}
 	}
 	
 	if (!ignoringTags)
 	{
-		LL_DEBUGS("VivoxProtocolParser") << "processing tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
+		LL_DEBUGS("VivoxProtocolParserTag") << "processing tag " << tag << " (depth = " << responseDepth << ")" << LL_ENDL;
 
 		// Closing a tag. Finalize the text we've accumulated and reset
 		if (!stricmp("ReturnCode", tag))
@@ -1175,11 +1175,13 @@ LLVoiceClient::LLVoiceClient()
 		// Ignoring SIGCHLD should prevent zombies from being created.  Alternately, we could use wait(), but I'd rather not do that.
 		signal(SIGCHLD, SIG_IGN);
 #endif
-
-	// set up state machine
-	setState(stateDisabled);
-	
-	gIdleCallbacks.addFunction(idle, this);
+	if(!gSavedSettings.getBOOL("CmdLineDisableVoice"))//no reason to lag non-voice users
+	{
+		// set up state machine
+		setState(stateDisabled);
+		
+		gIdleCallbacks.addFunction(idle, this);
+	}
 }
 
 //---------------------------------------------------
@@ -1358,16 +1360,17 @@ void LLVoiceClient::userAuthorized(const std::string& firstName, const std::stri
 
 void LLVoiceClient::requestVoiceAccountProvision(S32 retries)
 {
-	if ( gAgent.getRegion() && mVoiceEnabled )
+	LLViewerRegion* region =  gAgent.getRegion();
+	if ( mVoiceEnabled  && region && region->capabilitiesReceived())
 	{
-		std::string url = 
-			gAgent.getRegion()->getCapability(
-				"ProvisionVoiceAccountRequest");
+		std::string url = region->getCapability("ProvisionVoiceAccountRequest");
 
 		if ( url.empty() )
 		{
 			mVAPRequested = false;
 			mAccountActive = false;
+			LL_DEBUGS("VoiceSession") << "Cancel Session: ProvisionVoiceAccountRequest capability empty."
+				<< llendl;
 			setState(stateDisableCleanup);
 		}
 
@@ -1420,6 +1423,8 @@ void LLVoiceClient::login(
 	else if(old_scheme != new_scheme)
 	{
 		mAccountActive = true;
+		LL_DEBUGS("VoiceSession") << "Cancel Session: Protocol changed."
+				<< llendl;
 		setState(stateDisableCleanup);
 	}
 
@@ -1636,8 +1641,8 @@ void LLVoiceClient::loadDaemon(const std::string& scheme)
 
 		// kick in
 	
-		mUpdateTimer.start();
 		mUpdateTimer.setTimerExpirySec(CONNECT_THROTTLE_SECONDS);
+		mUpdateTimer.start();
 		
 		setState(stateDaemonLaunched);
 	
@@ -1650,6 +1655,8 @@ void LLVoiceClient::loadDaemon(const std::string& scheme)
 	{
 		LL_WARNS("Voice") << exe_path << " not found." << LL_ENDL;
 		mAccountActive = false;
+		LL_DEBUGS("VoiceSession") << "Cancel Session: no module"
+				<< llendl;
 		setState(stateDisableCleanup);
 	}
 
@@ -1753,6 +1760,8 @@ void LLVoiceClient::setState(state inState)
 }
 void LLVoiceClient::close()
 {
+	LL_DEBUGS("VoiceSession") << "Cancel Session: LLVoiceClient::close() called."
+				<< llendl;
 	setState(stateDisableCleanup);
 }
 
@@ -1796,7 +1805,9 @@ void LLVoiceClient::stateMachine()
 				// if voice was turned off after the daemon was launched but before we could connect to it, we may need to issue a kill.
 				LL_WARNS("Voice") << "Disabling voice before connection to daemon, terminating." << LL_ENDL;
 			}
-			
+			LL_DEBUGS("VoiceSession") << "Cancel Session: User turned off voice or logs off."
+				<< llendl;
+			mAccountActive = false;
 			setState(stateDisableCleanup);
 		}
 	}
@@ -1805,20 +1816,14 @@ void LLVoiceClient::stateMachine()
 	if(mVoiceEnabled)
 	{
 		LLViewerRegion *region = gAgent.getRegion();
-		LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-		
-		if(region && parcel)
+		if(region && region->capabilitiesReceived())
 		{
-			S32 parcelLocalID = parcel->getLocalID();
-			std::string regionName = region->getName();
-
-
-			// The region name starts out empty and gets filled in later.  
-			// Also, the cap gets filled in a short time after the region cross, but a little too late for our purposes.
-			// If either is empty, wait for the next time around.
-			if(/*getState() >= stateNoChannel &&*/ !regionName.empty())
+			LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+			if(parcel)
 			{
-
+				S32 parcelLocalID = parcel->getLocalID();
+				std::string regionName = region->getName();
+	
 				if((parcelLocalID != mCurrentParcelLocalID) || (regionName != mCurrentRegionName))
 				{
 					// We have changed parcels.  Initiate a parcel channel lookup.
@@ -1827,7 +1832,6 @@ void LLVoiceClient::stateMachine()
 					
 					parcelChanged();
 				}
-
 			}
 		}
 	}
@@ -1868,11 +1872,12 @@ void LLVoiceClient::stateMachine()
 				setState(stateStart);
 			}
 		break;
-		
+
 		//MARK: stateStart
 		case stateStart:
 		{
-			bool have_region = (NULL != gAgent.getRegion() );
+			LLViewerRegion *region = gAgent.getRegion();
+			bool have_region = (NULL != region && region->capabilitiesReceived());
 			if(mVoiceEnabled && !mVAPRequested && !mAccountName.empty() && have_region)
 			{
 				mVAPRequested = true;
@@ -1889,11 +1894,11 @@ void LLVoiceClient::stateMachine()
 
 				if(!mSocket)
 				{
-					LL_DEBUGS("VoiceDaemon") << "Connecting to voice daemon. Protocol: " 
+					LL_DEBUGS("VoiceDaemon") << "Connecting to voice daemon. Protocol: "
 						<< mDaemonScheme << LL_ENDL;
 					mSocket = LLSocket::create(LLSocket::STREAM_TCP);
 				}
-				
+
 				mConnected = mSocket->blockingConnect(mDaemonHost);
 				if(mConnected)
 				{
@@ -1928,9 +1933,8 @@ void LLVoiceClient::stateMachine()
 
 			setState(stateConnected);
 		}
-
 		break;
-		
+
 		//MARK: stateConnected
 		case stateConnected:
 			// Initial devices query
@@ -2103,6 +2107,8 @@ void LLVoiceClient::stateMachine()
 			if(mLoginRetryCount > MAX_LOGIN_RETRIES)
 			{
 				LL_WARNS("Voice") << "too many login retries, giving up." << LL_ENDL;
+				LL_DEBUGS("VoiceSession") << "Cancel Session: too many login retries."
+				<< llendl;
 				mAccountActive = false;
 				setState(stateDisableCleanup);
 			}
@@ -2464,7 +2470,11 @@ void LLVoiceClient::stateMachine()
 
 		//MARK: stateConnectorStopped
 		case stateConnectorStopped:		// connector stop received
+		{
+			LL_DEBUGS("VoiceSession") << "Cancel Session: entered stateConnectorStopped."
+				<< llendl;	
 			setState(stateDisableCleanup);
+		}
 		break;
 
 		//MARK: stateConnectorFailed
@@ -2475,6 +2485,8 @@ void LLVoiceClient::stateMachine()
 		case stateConnectorFailedWaiting:
 			if(!mVoiceEnabled)
 			{
+				LL_DEBUGS("VoiceSession") << "Cancel Session: entered stateConnectorFailedWaiting."
+					<< llendl;
 				setState(stateDisableCleanup);
 			}
 		break;
@@ -2487,6 +2499,8 @@ void LLVoiceClient::stateMachine()
 		case stateLoginFailedWaiting:
 			if(!mVoiceEnabled)
 			{
+				LL_DEBUGS("VoiceSession") << "Cancel Session: entered stateLoginFailedWaiting."
+						<< llendl;
 				setState(stateDisableCleanup);
 			}
 		break;
@@ -3112,12 +3126,16 @@ void LLVoiceClient::daemonDied()
 	LL_WARNS("Voice") << "Connection to vivox daemon lost.  Resetting state."<< LL_ENDL;
 
 	// Try to relaunch the daemon
+	LL_DEBUGS("VoiceSession") << "Cancel Session: voice daemon died."
+				<< llendl;
 	setState(stateDisableCleanup);
 }
 
 void LLVoiceClient::giveUp()
 {
 	mAccountActive = false;
+	LL_DEBUGS("VoiceSession") << "Cancel Session: giveUp() called."
+				<< llendl;
 	setState(stateDisableCleanup);
 }
 
@@ -5133,13 +5151,15 @@ LLVoiceClient::participantState* LLVoiceClient::findParticipantByID(const LLUUID
 
 void LLVoiceClient::parcelChanged()
 {
-	if( (getState() >= stateNoChannel) && !inNonSpatialChannel() )
+	mAccountActive = true;
+	LLViewerRegion* region = gAgent.getRegion();
+	if( (getState() >= stateNoChannel) && region && region->capabilitiesReceived())
 	{
 		// If the user is logged in, start a channel lookup,
-		// but not if already in a private call/conference.
-		mAccountActive = true;
+		// but not if already in a private call/conference (then SL regions return an empty cap).
+			//
 
-		std::string url = gAgent.getRegion()->getCapability("ParcelVoiceInfoRequest");
+		std::string url = region->getCapability("ParcelVoiceInfoRequest");
 		LL_DEBUGS("VoiceCaps") << "sending ParcelVoiceInfoRequest (" << mCurrentRegionName << ", " << mCurrentParcelLocalID << ")" << " cap url:" << url << LL_ENDL;
 		if(! url.empty() )
 		{
@@ -5152,13 +5172,21 @@ void LLVoiceClient::parcelChanged()
 		}
 		else
 		{
+
 			mAccountActive = false;
+			LL_DEBUGS("VoiceSession") << "Cancel Session: ParcelVoiceInfoRequest cap empty."
+				<< llendl;
 			setState(stateDisableCleanup);
 		}
 	}
+	else if (region && !region->capabilitiesReceived())
+	{
+		// We don't know yet where to get the cap so requesting it makes no sense
+		mCurrentRegionName.append("retry");
+		return;
+	}
 	else
 	{
-		mAccountActive = true;
 		// The transition to stateNoChannel needs to kick this off again.
 		LL_DEBUGS("Voice") << "not logged in yet, deferring" << LL_ENDL;
 	}
@@ -5203,6 +5231,8 @@ void LLVoiceClient::switchChannel(
 	if(old_uri_find_sip != new_uri_find_sip)
 	{
 		mAccountActive = true;
+		LL_DEBUGS("VoiceSession") << "Cancel Session: Session type changed"
+				<< llendl;
 		setState(stateDisableCleanup);
 		return;
 	}
@@ -5761,16 +5791,6 @@ bool LLVoiceClient::inSpatialChannel(void)
 	
 	if(mAudioSession)
 		result = mAudioSession->mIsSpatial;
-		
-	return result;
-}
-
-bool LLVoiceClient::inNonSpatialChannel(void)
-{
-	bool result = false;
-	
-	if(mAudioSession)
-		result =  !(mAudioSession->mIsSpatial);
         if(mNextAudioSession)
 		result |= !(mNextAudioSession->mIsSpatial);
 
@@ -5954,11 +5974,13 @@ void LLVoiceClient::setVoiceEnabled(bool enabled)
 		mVoiceEnabled = enabled;
 		if (enabled)
 		{
+			mAccountActive = true;
 			LLVoiceChannel::getCurrentVoiceChannel()->activate();
 		}
 		else
 		{
 			// Turning voice off looses your current channel -- this makes sure the UI isn't out of sync when you re-enable it.
+			mAccountActive = false;
 			LLVoiceChannel::getCurrentVoiceChannel()->deactivate();
 		}
 	}
