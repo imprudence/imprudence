@@ -25,7 +25,7 @@ regions in the estate.
 		(unknown)
 	</text>
 	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-295"
-	     follows="top|left" height="350" left="6" width="250" />
+	     follows="top|left" height="290" left="6" width="250" />
 	<check_box bottom_delta="265" follows="left|top" height="20" label="Use Global Time"
 	     left="12" name="use_global_time_check" width="200" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"

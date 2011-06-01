@@ -345,7 +345,7 @@ USE left="270" FOR TABBING OPTIONS
           My external browser (Firefox, Safari, Internet Explorer, etc.)
         </radio_item>
         <radio_item bottom="-40" height="20" left="0" name="internal" width="480"
-          tool_tip="Use the internal browser for help, web links, etc. This browser opens as a new window inside Second Life.">
+          tool_tip="Use the internal browser for help, web links, etc. This browser opens as a new window inside Imprudence.">
           Imprudence's internal browser
         </radio_item>
       </radio_group>
