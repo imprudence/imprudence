@@ -1992,6 +1992,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		LLTextEditor* about_field = self->mPanelSecondLife->getChild<LLTextEditor>("about");
 		if (about_field)
 		{
+			about_field->clear();
 			if (self->mAllowEdit && (self->mAvatarID == agent_id))
 			{
 				about_field->setText(about_text);
@@ -2011,8 +2012,10 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			about_field = self->mPanelFirstLife->getChild<LLTextEditor>("about");
 			if (about_field)
 			{
+				about_field->clear();
 				if (self->mAllowEdit && (self->mAvatarID == agent_id))
 				{
+					about_field->setText(fl_about_text);
 				}
 				else
 				{

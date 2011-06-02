@@ -119,7 +119,6 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("pause", onClickPlay, this);
 	childSetAction("seek", onClickSeek, this);
 	childSetAction("go", onClickGo, this);
-	childSetAction("close", onClickClose, this);
 	childSetAction("open_browser", onClickOpenWebBrowser, this);
 	childSetAction("assign", onClickAssign, this);
 	childSetAction("home", onClickHome, this);
@@ -245,14 +244,6 @@ void LLFloaterMediaBrowser::onClickGo(void* user_data)
 	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
 
 	self->mBrowser->navigateTo(self->mAddressCombo->getValue().asString());
-}
-
-//static 
-void LLFloaterMediaBrowser::onClickClose(void* user_data)
-{
-	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
-
-	self->close();
 }
 
 //static 
