@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="asset browser"
+	 title="材质浏览器">
+
+	<button
+		 label="下一页 &gt;&gt;"
+		 name="button next" />
+ 
+	<button
+		 label="&lt;&lt; 上一页"
+		 name="button previous" />
+ 
+	<button
+		 label="刷新"
+		 name="button refresh" />
+ 
+</floater>

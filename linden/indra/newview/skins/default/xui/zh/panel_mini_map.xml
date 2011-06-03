@@ -24,4 +24,13 @@
 	<text name="nw_label" width="40">
 		西北
 	</text>
+	<string name="tooltip_tp">
+		双击瞬间移动
+	</string>
+	<string name="tooltip_pan">
+		按住 Shift 拖动平移
+	</string>
+	<string name="tooltip_map">
+		双击打开地图
+	</string>
 </panel>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="floatermediafilter"
+	 title="媒体过滤">
+ 
+	<check_box
+		 name="enable_mediafilter"
+		 label="启用媒体过滤"
+		 tool_tip="根据域名过滤媒体 URL。" />
+ 
+	<check_box
+		 name="filter_only_remote"
+		 label="仅过滤脚本启动的媒体流 (较不安全)"
+		 tool_tip="这将防止弹出窗口询问屏蔽地块上永久设置的URL。仅脚本对媒体URL的更改以及脚本请求播放媒体流会被过滤。" />
+ 
+	<text
+		 name="info1">
+		粗体显示的域名位于持续列表中 (即列于白名单或黑名单中).
+	</text>
+	<text
+		 name="info2">
+		斜体显示的域名位于会话列表中 (即临时被允许或被禁止).
+	</text>
+ 
+	<scroll_list
+		 name="whitelist_list">
+		<column
+			 name="whitelist_col"
+			 label="允许的域名或服务器对象" />
+	</scroll_list>
+ 
+	<scroll_list
+		 name="blacklist_list">
+		<column
+			 name="blacklist_col"
+			 label="阻止的域名或服务器对象" />
+	</scroll_list>
+ 
+	<button
+		 name="add_whitelist"
+		 label="添加..."
+		 tool_tip="添加服务器到允许列表" />
+ 
+	<button
+		 name="remove_whitelist"
+		 label="移除"
+		 tool_tip="从允许列表中清除选中的服务器" />
+ 
+	<button
+		 name="clear_lists"
+		 label="清除列表"
+		 tool_tip="清除所有列表" />
+ 
+	<button
+		 name="show_ips"
+		 label="显示 IP"
+		 tool_tip="显示域名所对应的IP地址 (由于DNS查询，列表刷新时将会使客户端停止)" />
+ 
+	<button
+		 name="add_blacklist"
+		 label="添加..."
+		 tool_tip="添加服务器到" />
+ 
+	<button
+		 name="remove_blacklist"
+		 label="移除"
+		 tool_tip="从禁止列表中清除选中的服务器" />
+ 
+	<text
+		 name="add_text">
+		新域名:
+	</text>
+ 
+	<check_box
+		 name="match_ip"
+		 label="添加/删除相关的 IP"
+		 tool_tip="添加或删除域名时同时添加或删除其 IP 地址" />
+ 
+	<line_editor
+		 name="input_domain"
+		 tool_tip="键入新的URL，域名，IP 地址或脚本对象 HTTP 服务器路径" />
+ 
+	<button
+		 name="cancel_domain"
+		 label="取消" />
+	<button
+		 name="commit_domain"
+		 label="添加"
+		 tool_tip="添加到列表中" />
+</floater>
+
+

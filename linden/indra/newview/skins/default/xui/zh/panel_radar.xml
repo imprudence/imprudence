@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- Note: panel rect (size) is specified in floater_mini_map.xml --><panel
+	 name="RadarPanel"
+	 label="Radar">
+	<string name="no_one_near">
+		范围内无化身
+	</string>
+	<string name="is_muted">
+		(已屏蔽)
+	</string>
+	<string name="is_typing">
+		(打字中)
+	</string>
+	<string name="entering_chat_range">
+		[NAME] 进入了聊天范围 ([DISTANCE]m)
+	</string>
+	<string name="entering_sim_range">
+		[NAME] 进入了当前区域 ([DISTANCE]m)
+	</string>
+	<string name="avatars_in_singular">
+		[COUNT] 名化身于
+	</string>
+	<string name="avatars_in_plural">
+		[COUNT] 名化身于
+	</string>
+	<string name="unknown_avatar">
+		(未知)
+	</string>
+	<text name="avatar_count" left="5">
+		0 名化身于
+	</text>
+	<text name="meters" left_delta="100">
+		m内
+	</text>
+	<tab_container name="radar_tab_container">
+		<panel
+			 name="avatar_tab"
+			 label="化身">
+			<button
+				 name="im_btn"
+				 label="聊天/呼叫"
+				 tool_tip="打开即时通信会话" />
+			<button
+				 name="profile_btn"
+				 label="档案"
+				 tool_tip="显示图片、社团和其他信息" />
+			<button
+				 name="offer_teleport_btn"
+				 label="邀请瞬移"
+				 tool_tip="邀请此人瞬间移动到你的位置" />
+			<button
+				 name="teleport_btn"
+				 label="瞬移到..."
+				 tool_tip="瞬间移动到他人的位置" />
+			<button
+				 name="track_btn"
+				 label="追踪"
+				 tool_tip="创建信标追踪可以在地图上显示的好友" />
+			<button
+				 name="invite_btn"
+				 label="邀请..."
+				 tool_tip="邀请加入社团" />
+			<button
+				 name="add_btn"
+				 label="添加..."
+				 tool_tip="邀请其他居民成为你的好友" />
+		</panel>
+		<panel
+			 name="estate_tab"
+			 label="地产">
+			<button
+				 name="cam_btn"
+				 label="聚焦..." />
+			<button
+				 name="freeze_btn"
+				 label="冻结..." />
+			<button
+				 name="eject_btn"
+				 label="驱逐..." />
+			<button
+				 name="ban_btn"
+				 label="封禁..." />
+			<button
+				 name="mute_btn"
+				 label="屏蔽..." />
+			<button
+				 name="unmute_btn"
+				 label="解除屏蔽..." />
+			<button
+				 name="ar_btn"
+				 label="报告..." />
+		</panel>
+	</tab_container>
+
+	<scroll_list name="RadarList">
+		<column
+			 name="avatar_name"
+			 label="名称" />
+		<column
+			 name="avatar_distance"
+			 label="距离" />
+	</scroll_list>
+</panel>
+

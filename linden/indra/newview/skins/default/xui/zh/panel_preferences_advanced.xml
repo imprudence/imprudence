@@ -1,4 +1,164 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="advanced_panel">
-	<check_box label="与物体共享语言" name="language_is_public" tool_tip="这使得世界内的物体可以知道你偏好的语言。"/>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 label="高级"
+	 name="advanced_panel">
+  <!-- Start organizing these when we get enough of 'em - MC -->
+  <tab_container
+		 label="第 2 页"
+		 name="tab2"
+		 tab_min_width="50">
+ 
+    <panel
+			 label="主要"
+			 name="main_panel">
+      <text name="user_interface_text">
+        用户界面:
+      </text>
+
+      <check_box
+				 label="禁用登入 / 登出屏幕"
+				 name="disable_log_screen_check" />
+      <check_box
+				 label="禁用瞬间移动屏幕"
+				 name="disable_tp_screen_check" />
+      <check_box
+				 label="显示 WindLight 工具栏"
+				 name="toggle_windlight_control" />
+      <check_box
+				 label="使用旧式菜单"
+				 name="legacy_pie_menu_checkbox" />
+      <text	name="avatar_text">
+        化身:
+      </text>
+      
+      <check_box
+				 label="在姓名标签中显示客户端名称"
+				 name="client_name_tag_check" />
+      <check_box
+				 label="用颜色显示客户端名称"
+				 name="client_name_color_check" />
+      <check_box
+				 label="悬停提示中显示客户端名称"
+				 name="client_name_hover_check" />
+      <check_box
+				 label="对他人显示你的客户端名称"
+				 name="client_name_tag_broadcast_check" />
+      <check_box
+				 tool_tip="切换编辑外观时是否起立转身。"
+				 label="编辑外观时播放化身动画"
+				 name="appearance_anim_check" />
+      <check_box label="头部跟随鼠标" tooltip="如果您的化身头部跟随您的鼠标动作" name="head_follows_mouse_checkbox" />
+      <check_box label="起飞/着陆通过键盘上/下键控制" name="automatic_fly"/>
+      <check_box label="聊天时箭头键总是移动你的化身"
+	     name="arrow_keys_move_avatar_check" />
+
+      <text name="chat_text">
+        聊天:
+      </text>
+      <check_box label="以聊天形式显示脚本错误和警告" name="script_errors_as_chat" />
+      <check_box label="显示收到消息的时间" name="show_timestamps_check" />
+      <check_box
+				 label="聊天和即时通信中使用 MU* 风格动作"
+				 name="allow_mupose"
+				 tool_tip="聊天和即时通信中使用 MU* 风格动作 (':' 可以用来代替 '/me ')。" />
+      <check_box
+				 label="自动关闭 OOC (( )) 发言"
+				 name="auto_close_ooc"
+				 tool_tip="自动关闭脱离角色的发言 (即是， 如果键入了 (( 但没有 )) 就添加 )) )." />
+
+      <text
+				 name="textbox">
+        世界:
+      </text>
+      <check_box
+				 label="启用阴影 (警告: 不稳定并需要图像设置为最高)"
+				 name="shadows_check" />
+      <text name="lightshare_text">
+          启用区域  WindLight 设置 (LightShare):
+      </text>
+      <combo_box
+				 name="lightshare_combo"
+				 allow_text_entry="false">
+        <combo_item
+					 name="never"
+					 value="0">
+          从不
+        </combo_item>
+        <combo_item
+					 name="ask"
+					 value="1">
+          每次都询问我
+        </combo_item>
+        <combo_item
+					 name="always"
+					 value="2">
+          总是
+        </combo_item>
+      </combo_box>
+
+      <check_box label="用颜色区别客户端" name="client_name_color_check" />
+
+
+      <check_box
+				 label="使用 HTTP 获取材质 (实验性)"
+				 name="http_texture_check" />
+      <check_box
+				 label="通过逐渐增加描绘距离加速载入"
+				 name="speed_rez_check" />
+      <spinner
+				 tool_tip="描绘距离增加之间的将各"
+				 label="步进间隔:"
+				 name="speed_rez_interval_spinner" />
+      <text
+				 name="speed_rez_seconds_text">
+        seconds
+      </text>
+
+
+      <check_box label="与物体共享语言" name="language_is_public" tool_tip="这使得世界内的物体可以知道你偏好的语言。"/>
+
+
+ 
+  <!-- Uncomment when we start using the crash logger - MC -->
+  <!--<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="18" left="12"
+       mouse_opaque="true" name="crash_report_textbox" v_pad="0" width="394">
+    崩溃报告:
+  </text>
+  <combo_box allow_text_entry="false" bottom_delta="0" enabled="true" follows="left|top"
+	     height="18" left="153" max_chars="20" mouse_opaque="true"
+	     name="crash_behavior_combobox" width="146">
+    <combo_item type="string" length="1" enabled="true" name="Askbeforesending" value="Ask before sending">
+      Ask before sending
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Alwayssend" value="Always send">
+      Always send
+    </combo_item>
+    <combo_item type="string" length="1" enabled="true" name="Neversend" value="Never send">
+      Never send
+    </combo_item>
+  </combo_box>-->
+ 
+    <button
+				 label="重置所有选项到默认值"
+				 name="reset_btn"
+				 tool_tip="重置所有选项到默认值 (需要重启动)" />
+    </panel>
+ 
+
+  <panel
+		   label="化身粒子设置"
+		   name="AvatarCloud">
+  <text
+			   name="must_be_logged_in_textbox">
+	  必须登入后才能更改
+  </text>
+  <check_box
+			   label="预览化身为云"
+			   name="preview_cloud"
+			   tool_tip="预览化身为云，即使已经 rezzed" />
+  </panel>
+  </tab_container>
+
 </panel>

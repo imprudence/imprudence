@@ -29,7 +29,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
      font="SansSerifSmall" h_pad="0" halign="left" height="12" left_delta="80"
-     mouse_opaque="true" name="muting_text" v_pad="0" width="500">
+     mouse_opaque="true" name="requires_restart_text" v_pad="0" width="500">
     (requires restart).  See skin folder for credits
   </text>
   

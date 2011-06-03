@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
-		<panel label="Avatar" name="2nd Life">
+		<panel label="档案" name="2nd Life">
+			<button label="复制键值" label_selected="复制键值" name="btn_copy_uuid" />
+           
+        
 			<string name="CaptionTextAcctInfo">
 [ACCTTYPE]
 [PAYMENTINFO]
@@ -14,7 +17,7 @@
 				试用者
 			</string>
 			<string name="AcctTypeCharterMember">
-				宪章制定委员会成员
+				终身会员
 			</string>
 			<string name="AcctTypeEmployee">
 				林登实验室雇员
@@ -40,11 +43,23 @@
 			<text name="online_yes">
 				当前在线
 			</text>
+			<text name="online_no">
+				不在线
+			</text>
+			<text name="online_unknown">
+				在线状态未知
+			</text>
 			<text name="label">
 				出生:
 			</text>
+			<string name="copy_key_info">
+				已将 [AVATAR] 的键值复制到剪贴板: [KEY]
+			</string>
+			<string name="days_old_text">
+				([DAYS] 天)
+			</string>
 			<text name="label2">
-				账户:
+				账户信息:
 			</text>
 			<text name="partner_label" tool_tip="第二人生搭档。要获取更多关于如何设置此项功能， 请登陆www.secondlife.com/partner">
 				搭档:
@@ -61,7 +76,7 @@
 				社团:
 			</text>
 			<text name="About:">
-				关于:
+				关于: (8196个字)
 			</text>
 			<text name="(500 chars)">
 				(500 个字)
@@ -69,8 +84,11 @@
 			<text name="Give item:">
 				给与物品:
 			</text>
-			<text name="Give inventory" tool_tip="要把库存中的物体赠与这个人，将其拖动到这里。">
-				放置库存物品于此。
+			<text name="drop target" tool_tip="要把库存中的物体赠与这个人，将其拖动到这里。">
+				拖动库存条目
+			</text>
+			<text name="Give inventory 2" tool_tip="要把库存中的物体赠与这个人，将其拖动到这里。">
+				到这里赠与居民
 			</text>
 			<check_box label="在搜索结果中显示" name="allow_publish" tool_tip="在搜索中显示额外信息，例如描述和照片。"/>
 			<button label="?" label_selected="?" name="?"/>
@@ -78,17 +96,18 @@
 			<button label="邀请瞬间移动..." label_selected="邀请瞬间移动..." name="Offer Teleport..."/>
 			<button label="添加为好友..." label_selected="添加为好友..." name="Add Friend..."/>
 			<button label="付款..." label_selected="付款..." name="Pay..."/>
-			<button label="即时消息..." label_selected="即时消息..." name="Instant Message..." tool_tip="即时通信"/>
+			<button label="即时消息..." label_selected="即时消息..." name="Instant Message..." tool_tip="即时消息 (IM)"/>
 			<button label="屏蔽" label_selected="屏蔽" name="Mute"/>
+			<button label="邀请加入社团..."	 label_selected="邀请加入社团..." name="Invite to Group..." />
 		</panel>
 		<panel label="Web" name="WebProfile">
 			<line_editor is_unicode="false" name="url_edit"/>
 			<flyout_button label="加载" label_selected="加载" name="load" tool_tip="用内部浏览器打开这个档案页面。">
 				<flyout_button_item name="open_item">
-					在外部浏览器中
+					在外部浏览器中打开
 				</flyout_button_item>
 				<flyout_button_item name="home_item">
-					家连接
+					返回起始页面
 				</flyout_button_item>
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
@@ -122,31 +141,31 @@
 		</panel>
 		<panel label="收藏" name="Picks">
 			<text name="Tell everyone about your favorite places in Second Life.">
-				告诉大家你在第二人生中最喜欢的地点。
+				告诉大家你最喜欢的地点。
 			</text>
 			<button label="新建..." label_selected="新建..." name="New..."/>
 			<button label="删除..." label_selected="删除..." name="Delete..."/>
 			<text name="loading_text">
-				加载...
+				载入中...
 			</text>
 		</panel>
 		<panel label="分类广告" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
-				在第二人生的分类栏中刊登广告。
+				在分类广告栏中刊登广告。
 			</text>
 			<button label="新建..." label_selected="新建..." name="New..."/>
 			<button label="删除..." label_selected="删除..." name="Delete..."/>
 			<text name="loading_text">
-				加载...
+				载入中...
 			</text>
 		</panel>
-		<panel label="第一人生" name="1st Life">
+		<panel label="真实生活" name="1st Life">
 			<text name="Photo:">
 				照片：
 			</text>
 			<texture_picker label="" name="img" tool_tip="点击这里来选择图片"/>
 			<text name="Info:">
-				消息:
+				消息 (8196 个字):
 			</text>
 			<text name="(250 chars)">
 				(250个字)
@@ -154,7 +173,7 @@
 		</panel>
 		<panel label="我的备注" name="My Notes">
 			<string name="Loading">
-				加载...
+				载入中...
 			</string>
 			<text name="label">
 				使用这块空间来记录你关于这个人的笔记。 追踪交易
@@ -171,7 +190,7 @@
 	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="对此位居民开启顾客服务工具。"/>
 	<string name="ShowOnMapNonFriend">
 		在地图上显示位置。
-由于你和它们之间没有友谊关系，所以刚才的操作无效。
+由于你和对方之间没有友谊关系，所以刚才的操作无效。
 	</string>
 	<string name="ShowOnMapFriendOffline">
 		在地图上显示位置。
@@ -190,6 +209,9 @@
 		邀请瞬间移动到你所在的位置。
 	</string>
 	<string name="Loading">
-		加载...
+		载入中...
+	</string>
+	<string name="HiddenLabel">
+		(隐藏)
 	</string>
 </panel>

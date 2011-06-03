@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="goup titles"
+	 title="社团头衔">
+	<scroll_list
+		 name="titles_list">
+		<column
+			 name="title"
+			 label="头衔" />
+		<column
+			 name="group_name"
+			 label="社团" />
+		<!--隐藏字段，用于存储 UUID，请保持宽度为 0-->
+	</scroll_list>
+	<button
+		 name="activate"
+		 label="激活"
+		 tool_tip="激活选中的社团头衔" />
+</floater>

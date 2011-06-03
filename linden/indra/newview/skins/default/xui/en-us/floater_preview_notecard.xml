@@ -20,14 +20,14 @@
 	<menu_bar bottom="-56" drop_shadow="false" enabled="true" follows="left|top|right"
 	     height="18" left="8" mouse_opaque="false" name="motecard_menu" opaque="false"
 	     tear_off="false" width="220">
-    <menu drop_shadow="true" enabled="true" mouse_opaque="false" name="File" opaque="true" tear_off="false">
+    <menu drop_shadow="true" enabled="true" label="File" mouse_opaque="false" name="File" opaque="true" tear_off="false">
       <menu_item_call enabled="false" mouse_opaque="true" label="Save" name="Save Menu" shortcut="control|S" />
       <menu_item_separator />
       <menu_item_call enabled="false" mouse_opaque="true" label="Export Text..." name="Export Text..." />
       <menu_item_call enabled="false" mouse_opaque="true" label="Import Text..." name="Import Text..." />
     </menu>
 		<menu bottom_delta="16" left="0" drop_shadow="true" enabled="true" height="198" width="150"
-		     mouse_opaque="false" name="Edit" opaque="true" tear_off="false">
+		    label="Edit" mouse_opaque="false" name="Edit" opaque="true" tear_off="false">
 			<menu_item_call bottom_delta="-30" enabled="false" height="20" label="Undo" left="0"
 			     mouse_opaque="true" name="Undo" width="139" />
 			<menu_item_call bottom_delta="-50" enabled="false" height="20" label="Redo" left="0"

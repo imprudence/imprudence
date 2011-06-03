@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="Message Builder"
+	 title="消息建造器">
+	<scroll_list
+		 name="net_list">
+	</scroll_list>
+	<combo_box
+		 name="untrusted_message_combo"
+		 tool_tip="不可信">
+	</combo_box>
+	<combo_box
+		 name="trusted_message_combo"
+		 tool_tip="可信">
+	</combo_box>
+	<button
+		 name="send_btn"
+		 label="发送"
+		 tool_tip="发送 (Ctrl-Enter)" />
+</floater>

@@ -5,7 +5,22 @@
 	</text>
 	<combo_box allow_text_entry="false" max_chars="20" name="WaterPresetsCombo"/>
 	<button label="新建" label_selected="新建" name="WaterNewPreset"/>
-	<button label="保存" label_selected="保存" name="WaterSavePreset"/>
+	<flyout_button
+		label="保存到硬盘"
+		name="WaterSavePreset">
+		<flyout_button_item
+			name="save_inventory_item">
+			保存到库存
+		</flyout_button_item>
+		<flyout_button_item
+			name="save_disk_item">
+			保存到硬盘
+		</flyout_button_item>
+		<flyout_button_item
+			name="send_to_server_item">
+			发送到服务器
+		</flyout_button_item>
+	</flyout_button>
 	<button label="删除" label_selected="Delete" name="WaterDeletePreset"/>
 	<tab_container name="Water Tabs" tab_position="top">
 		<panel label="设置" name="Settings">

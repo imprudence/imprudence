@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="图像" name="Display panel">
+	<text name="Display_textbox">
+		显示模式:
+	</text>
 	<button label="?" name="GraphicsPreferencesHelpButton"/>
 	<check_box label="在窗口中运行" name="windowed mode"/>
 	<text_editor name="FullScreenInfo">
@@ -10,19 +13,28 @@
 	</text>
 	<combo_box name="windowsize combo">
 		<combo_item name="640x480">
-			640x480
+			640 × 480
 		</combo_item>
 		<combo_item name="800x600">
-			800x600
+			800 × 600
 		</combo_item>
 		<combo_item name="720x480">
-			720x480 (NTSC)
+			720 × 480 (NTSC)
 		</combo_item>
 		<combo_item name="768x576">
-			768x576 (PAL)
+			768 × 576 (PAL)
 		</combo_item>
 		<combo_item name="1024x768">
-			1024x768
+			1024 × 768
+		</combo_item>
+		<combo_item name="1280x720">
+			1280 × 720 (HDV720)
+		</combo_item>
+		<combo_item name="1440x1080">
+			1440 × 1080 (HDV1080)
+		</combo_item>
+		<combo_item	name="1920x1080">
+			1920 × 1080 (HD1080)
 		</combo_item>
 	</combo_box>
 	<text name="DisplayResLabel">
@@ -40,20 +52,20 @@
 			5:4 (1280x1024 液晶显示器)
 		</combo_item>
 		<combo_item name="8:5(Widescreen)">
-			8:5 (宽屏)
+			8:5 (宽屏幕)
 		</combo_item>
 		<combo_item name="16:9(Widescreen)">
 			16:9 (宽屏幕)
 		</combo_item>
 	</combo_box>
 	<check_box label="自动检测" name="aspect_auto_detect"/>
-	<text name="HigherText">
-		质量和
+	<text name="textbox">
+		性能
 	</text>
-	<text name="QualityText" width="95">
-		性能:
+	<text name="HigherText2">
+		图像质量
 	</text>
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom="-86" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false" left="115" length="1" mouse_opaque="true" name="FasterText" type="string" v_pad="0" width="80">
+	<text name="FasterText">
 		更快
 	</text>
 	<text name="ShadersPrefText">
@@ -67,9 +79,6 @@
 	</text>
 	<text name="ShadersPrefText4">
 		最高
-	</text>
-	<text name="HigherText2">
-		更高
 	</text>
 	<text name="QualityText2">
 		质量
@@ -87,26 +96,31 @@
 	<text name="ReflectionDetailText">
 		反射细节:
 	</text>
-	<radio_group name="ReflectionDetailRadio">
-		<radio_item name="0">
+	<combo_box name="ReflectionDetailCombo">
+		<combo_item name="0">
 			地面和树木
-		</radio_item>
-		<radio_item name="1">
+		</combo_item>
+		<combo_item name="1">
 			所有静态物体
-		</radio_item>
-		<radio_item name="2">
+		</combo_item>
+		<combo_item name="2">
 			所有化身和物体
-		</radio_item>
-		<radio_item name="3">
+		</combo_item>
+		<combo_item name="3">
 			一切东西
-		</radio_item>
-	</radio_group>
+		</combo_item>
+	</combo_box>
+
 	<text name="AvatarRenderingText" width="128">
 		化身渲染:
 	</text>
 	<check_box label="化身替身" name="AvatarImpostors" width="256"/>
 	<check_box label="硬件 Skinning" name="AvatarVertexProgram" width="256"/>
 	<check_box label="化身衣物效果" name="AvatarCloth" width="256"/>
+	<slider	name="AvatarMaxVisible" label="非替身最多 (名)：" />
+	<text name="LimitsText">
+		限制:
+	</text>
 	<text name="DrawDistanceMeterText1" width="128">
 		m
 	</text>
@@ -149,29 +163,30 @@
 	<text name="LightingDetailText">
 		光照细节:
 	</text>
-	<radio_group name="LightingDetailRadio">
-		<radio_item name="SunMoon">
+	<combo_box name="LightingDetailCombo">
+		<combo_item name="0">
 			仅有日月光效
-		</radio_item>
-		<radio_item name="LocalLights">
+		</combo_item>
+		<combo_item name="1">
 			附近的灯光
-		</radio_item>
-	</radio_group>
+		</combo_item>
+	</combo_box>
 	<text name="TerrainDetailText">
 		地面细节:
 	</text>
-	<radio_group name="TerrainDetailRadio">
-		<radio_item name="0">
+	<combo_box name="TerrainDetailCombo">
+		<combo_item name="0">
 			低
-		</radio_item>
-		<radio_item name="2">
+		</combo_item>
+		<combo_item name="1">
 			高
-		</radio_item>
-	</radio_group>
+		</combo_item>
+	</combo_box>
+
 	<button label="建议设置" name="Defaults"/>
 	<button label="硬件选项" label_selected="硬件选项" name="GraphicsHardwareButton"/>
 	<string hidden="true" name="resolution_format">
-		[RES_X] x [RES_Y]
+		[RES_X] × [RES_Y]
 	</string>
 	<string hidden="true" name="aspect_ratio_text">
 		[NUM]:[DEN]

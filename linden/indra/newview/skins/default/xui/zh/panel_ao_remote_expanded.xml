@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 name="ao_remote">
+  <button
+		 label="坐姿覆盖关闭"
+		 label_selected="坐姿覆盖打开"
+		 name="ao_sit_btn" />
+</panel>

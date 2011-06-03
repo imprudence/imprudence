@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="em_ac_floater"
+	 title="自动更正设置">
+  <check_box
+         font="SansSerif"
+		 label="启用自动更正"
+		 name="em_ac_enable"
+		 tool_tip="你必须选中这个框才能使用这些设置，他将会搜索你的所有可写的文本输入，并用替换项替换任何搜索条目" />
+  <button
+		 name="em_ac_loadlist"
+		 label="读取列表.."
+		 tool_tip="点击这里从文件导入之前导出的列表" />
+  <text
+		 name="em_ac_notecard">
+	 
+    拖动要读取的
+    记事卡到这里。
+  </text>
+  <text  
+         font="SansSerif"
+		 name="em_ac_text1">列表名称                                                          列表项目</text>
+  <text
+         font="SansSerif"
+		 name="em_ac_text_name">列表名称</text>
+  <text
+         font="SansSerif"
+		 name="em_ac_text2">作者:</text>
+  <view_border
+		 name="em_ac_box2" />
+  <text
+         font="SansSerif"
+		 name="em_ac_text_author">作者名</text>
+  <check_box
+         font="SansSerif"
+		 label="启用，优先级:"
+		 name="em_ac_list_enabled"
+		 tool_tip="你是否希望使用该列表" />
+  <spinner
+		 label=""
+		 name="em_ac_priority"
+		 tool_tip="决定列表使用的顺序。高优先级的列表将在低优先级列表之前用来替换文字。" />
+  <check_box
+		 label="显示提示"
+		 name="em_ac_list_show"
+		 tool_tip="每当一个单词被替换时，弹出提示" />
+  <check_box
+		 label="匹配整个单词"
+		 name="em_ac_list_style"
+		 tool_tip="仅当整个单词完全匹配时才进行替换。不选中的话，将在单词内部替换文字。" />
+		 <!--Only replace when matches a whole word. If unselected, will replace inside words.-->
+  <button
+		 name="em_ac_deletelist"
+		 label="删除列表"
+		 tool_tip="这将删除整个单词和替换项列表。此动作不能撤销。" />
+  <button
+		 name="em_ac_exportlist"
+		 label="导出列表"
+		 tool_tip="这将保存你的当前列表到文件供共享或编辑。" />
+  <button
+		 name="em_ac_addentry"
+		 label="添加条目" />
+  <button
+		 name="em_ac_rementry"
+		 label="移除条目" />
+  <text
+		 name="em_ac_text3">已自动更正的词数:</text>
+  <text
+		 name="em_ac_stats">计数</text>
+ 
+ 
+</floater>

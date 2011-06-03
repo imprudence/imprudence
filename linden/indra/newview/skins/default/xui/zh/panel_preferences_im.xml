@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="即时消息" name="im">
+<panel label="聊天记录和隐私" name="im">
+	<text name="Logging:">
+		聊天记录:
+	</text>
 	<text type="string" length="1" name="text_box">
 		我的在线状态: 
 	</text>
@@ -11,8 +14,6 @@
 	<text name="log_in_to_change">
 		登陆后更改
 	</text>
-	<check_box label="发送即时消息至电子邮件([EMAIL])" name="send_im_to_email" />
-	<check_box label="本地聊天中包含即时通信息" name="include_im_in_chat_console" />
 	<check_box label="在即时消息中显示时间" name="show_timestamps_check" />
     <check_box
 		 label="显示好友上线通知"
@@ -20,11 +21,21 @@
 	<check_box label="保存即时通信记录到我的电脑上" name="log_instant_messages" />
 	<check_box label="保存对话记录到我的电脑上" name="log_chat" />
 	<check_box label="显示上次即时通信的结尾" name="log_show_history" />
-	<button label="更改路径" label_selected="更改路径" name="log_path_button" />
+	<text name="Log location:">
+	记录位置:
+	</text>
+	<button label="更改位置" name="log_path_button" />
+	<text name="Privacy:">
+		隐私:
+	</text>
 	<text
 		 name="text_box3">
 		忙碌模式的自动回复:
 	</text>
+	<button
+		 label="即时消息自动回复选项"
+		 name="busy_adv_btn"
+		 tool_tip="即时消息自动回复选项" />
 	<text
 		 name="text_box4">
 		聊天记录选项:
@@ -47,6 +58,5 @@
 		 
 		 label="显示时间时包括日期"
 		 name="log_date_timestamp" />
-
 
 </panel>

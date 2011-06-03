@@ -6,21 +6,21 @@
 	<button label="瞬间移动" name="classified_teleport_btn"/>
 	<button label="在地图中显示" name="classified_map_btn"/>
 	<button label="档案" name="classified_profile_btn"/>
-	<combo_box name="classified_mature_check">
+	<combo_box label="" name="classified_mature_check">
 		<combo_item name="select_mature">
-			-选择限制级-
+			- 选择限制级 -
 		</combo_item>
 		<combo_item name="mature">
-			Mature Content
+			Mature内容
 		</combo_item>
 		<combo_item name="pg">
-			PG Content
+			PG内容
 		</combo_item>
 	</combo_box>
 	<combo_box label="" name="classified_category_combo"/>
 	<button label="更新" name="classified_update_btn"/>
 	<string name="ad_placed_paid">
-		广告地址：[DATE],发布付款 L$[AMT]
+		广告发布: [DATE]，为此付出了 [CURRENCY][AMT]。
 	</string>
 	<string name="update_txt">
 		更新

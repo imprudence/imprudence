@@ -4,13 +4,16 @@
 		<layout_panel min_width="420" name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
-					<button label="已收到即时消息" label_selected="已收到即时消息" name="IM Received" tool_tip="你有一个未察看的即时消息。请点击察看"/>
-					<button label="取消忙碌状态" label_selected="取消忙碌状态" name="Set Not Busy" tool_tip="聊天与即时消息模式已对你隐藏。 点击这里来设定你不在忙碌模式下"/>
-					<button label="三维浏览" label_selected="三维浏览" name="Flycam" tool_tip="你的手柄当前被手柄所控制，点击这里释放。"/>
+					<button label="条未读消息" label_selected="条未读消息" name="IM Received" tool_tip="你有一条未察看的即时消息。请点击察看"/>
+					<button label="取消忙碌状态" label_selected="取消忙碌状态" name="Set Not Busy" tool_tip="聊天与即时消息模式已对你隐藏。 点击这里离开忙碌模式"/>
+					<button label="三维浏览" label_selected="三维浏览" name="Flycam" tool_tip="你的视角当前被手柄所控制，点击这里释放。"/>
 					<button label="第一人称视角" label_selected="第一人称视角" name="Mouselook" tool_tip="使用鼠标控制屏幕。如果你有枪，点击则可以射击。"/>
 					<button label="起身" label_selected="起身" name="Stand Up" tool_tip="点击这里来站立"/>
 				</layout_panel>
 			</layout_stack>
 		</layout_panel>
 	</layout_stack>
+	<string name="unread_count_string_plural">
+		条未读消息
+	</string>
 </panel>

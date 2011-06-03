@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- Local Asset Browser: xui --><!-- floater definition start --><floater
+	 name="local_bitmap_browser_floater"
+	 title="本地材质属性">
+ 
+  <button
+		 name="add_btn"
+		 label="添加" />
+  <button
+		 name="del_btn"
+		 label="移除" />
+  <button
+		 name="upload_btn"
+		 label="上传图像 ([UPLOADFEE])..." />
+    <column
+			 name="bitmap_name"
+			 label="名称" />
+    <column
+			 name="bitmap_uuid"
+			 label="UUID" />
+  </scroll_list>
+  <text
+		 name="path_caption_text"
+		 visible="true">
+    本地路径:
+  </text>
+  <text
+		 name="uuid_caption_text"
+		 visible="true">
+    本地 UUID:
+  </text>
+ 
+  <texture_picker
+		 label="材质"
+		 name="texture_view"/>
+ 
+  <check_box
+		 label="保持更新"
+		 name="keep_updating_checkbox"
+		 tool_tip="启用定时检查硬盘上的位图是否已更新"/>
+ 
+  <combo_box
+		 visible="true"
+		 allow_text_entry="false"
+		 max_chars="20"
+		 name="type_combobox">
+ 
+    <combo_item
+			 name="type_texture"
+			 value="type_texture">
+      材质
+    </combo_item>
+ 
+    <combo_item
+			 name="type_sculptie"
+			 value="type_sculptie">
+      雕塑材质
+    </combo_item>
+ 
+    <combo_item
+			 name="type_layer"
+			 value="type_layer">
+      衣物
+    </combo_item>
+ 
+  </combo_box>
+ 
+  <text
+		 name="time_caption_text"
+		 visible="true">
+    时间:
+  </text>
+ 
+  <text
+		 name="time_text"
+		 visible="true">
+    (date here)
+  </text>
+ 
+  <text
+		 name="link_caption_text"
+		 visible="true">
+    链接:
+  </text>
+ 
+  <text
+		 name="link_text"
+		 visible="true">
+    (link status)
+  </text>
+ 
+  <text
+		 name="name_caption_text"
+		 visible="true">
+    名称:
+  </text>
+ 
+</floater>

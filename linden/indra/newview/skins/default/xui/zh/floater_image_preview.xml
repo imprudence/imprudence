@@ -50,6 +50,10 @@
 		<check_box
 		 label="使用无损压缩"
 		 name="lossless_check" />
+	<check_box
+		 label="临时图像 (免费)"
+		 name="temp_check"
+		 tooltip="设置资产为临时的，这意味着它是免费的，但是作为代价，仅在一段时间内有效，之后它就消失了。" />
 	<button label="取消" name="cancel_btn" />
-	<button label="上传(L$[AMOUNT])" name="ok_btn" />
+	<button label="上传 ([UPLOADFEE])" name="ok_btn" />
 </floater>

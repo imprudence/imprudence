@@ -2,10 +2,10 @@
 <floater name="floaterland" title="关于土地">
 	<tab_container name="landtab">
 		<panel label="一般" name="land_general_panel">
-			<text length="1" name="Name:" type="string">
+			<text  name="Name:" type="string">
 				名字:
 			</text>
-			<text length="1" name="Description:" type="string">
+			<text  name="Description:" type="string">
 				描述:
 			</text>
 			<text name="LandType">
@@ -20,56 +20,56 @@
 			<text name="ContentRatingText">
 				Adult
 			</text>
-			<text length="1" name="Owner:" type="string">
+			<text  name="Owner:" type="string">
 				主人:
 			</text>
-			<text length="1" name="OwnerText" type="string">
+			<text  name="OwnerText" type="string">
 				Leyla Linden
 			</text>
 			<button label="档案..." label_selected="档案..." name="Profile..."/>
-			<text length="1" name="Group:" type="string">
+			<text  name="Group:" type="string">
 				社团:
 			</text>
 			<button label="更改..." label_selected="更改..." name="Set..."/>
 			<check_box label="允许转让给社团" name="check deed" tool_tip="一个社团官员可以转让这块土地至社团，使其被社团的土地配额支持。"/>
 			<button label="转让..." label_selected="转让..." name="Deed..." tool_tip="只有你是所选社团官员的时候才能转让土地。"/>
-			<check_box label="土地拥有者通过转让土地来贡献" name="check contrib" tool_tip="当土地转让到社团，原土地拥有者将需贡献足够的土地来支持。"/>
-			<text length="1" name="For Sale:" type="string">
+			<check_box label="拥有者在转让同时给出贡献" name="check contrib" tool_tip="当土地被转让给社团时, 前一个主人贡献足够的土地配额以支持土地的运行。"/>
+			<text  name="For Sale:" type="string">
 				出售:
 			</text>
-			<text length="1" name="Not for sale." type="string">
+			<text  name="Not for sale." type="string">
 				非卖状态。
 			</text>
-			<text length="1" name="For Sale: Price L$[PRICE]." type="string">
-				价格: L$[PRICE]（L$[PRICE_PER_SQM]/m²）。
+			<text  name="For Sale: Price L$[PRICE]." type="string">
+				价格: [CURRENCY][PRICE] ([CURRENCY][PRICE_PER_SQM]/m²)。
 			</text>
 			<button label="出售土地..." label_selected="出售土地..." name="Sell Land..."/>
-			<text length="1" name="For sale to" type="string">
+			<text  name="For sale to" type="string">
 				出售给: [BUYER]
 			</text>
-			<text length="1" name="Sell with landowners objects in parcel." type="string">
+			<text  name="Sell with landowners objects in parcel." type="string">
 				出售中包括物体。
 			</text>
-			<text length="1" name="Selling with no objects in parcel." type="string">
+			<text  name="Selling with no objects in parcel." type="string">
 				出售中不包括物体。
 			</text>
 			<button label="取消土地出售" label_selected="取消土地出售" name="Cancel Land Sale"/>
-			<text length="1" name="Claimed:" type="string">
+			<text  name="Claimed:" type="string">
 				认购时间:
 			</text>
-			<text length="1" name="DateClaimText" type="string">
+			<text  name="DateClaimText" type="string">
 				星期二 八月15日 13:47:25 2006年
 			</text>
-			<text length="1" name="PriceLabel" type="string">
+			<text  name="PriceLabel" type="string">
 				面积：
 			</text>
-			<text length="1" name="PriceText" type="string">
+			<text  name="PriceText" type="string">
 				4048m²
 			</text>
-			<text length="1" name="Traffic:" type="string">
+			<text  name="Traffic:" type="string">
 				流量:
 			</text>
-			<text length="1" name="DwellText" type="string">
+			<text  name="DwellText" type="string">
 				0
 			</text>
 			<button label="购买土地..." label_selected="购买土地..." name="Buy Land..."/>
@@ -123,31 +123,31 @@
 			<text name="estate_section_lbl">
 				地产：
 			</text>
-			<text length="1" name="estate_name_lbl" type="string">
+			<text  name="estate_name_lbl" type="string">
 				名称：
 			</text>
-			<text length="1" name="estate_name_text" type="string">
+			<text  name="estate_name_text" type="string">
 				大陆
 			</text>
-			<text length="1" name="estate_owner_lbl" type="string">
+			<text  name="estate_owner_lbl" type="string">
 				拥有者：
 			</text>
-			<text length="1" name="estate_owner_text" type="string">
+			<text  name="estate_owner_text" type="string">
 				(无)
 			</text>
-			<text_editor length="1" name="covenant_editor" type="string">
+			<text_editor  name="covenant_editor" type="string">
 				这块地产没有提供任何契约合同。
 			</text_editor>
-			<text length="1" name="covenant_timestamp_text" type="string">
+			<text  name="covenant_timestamp_text" type="string">
 				上次修改时间 星期三12 月3 1日 16:00:00 1969年
 			</text>
 			<text name="region_section_lbl">
 				地区：
 			</text>
-			<text length="1" name="region_name_lbl" type="string">
+			<text  name="region_name_lbl" type="string">
 				名称：
 			</text>
-			<text length="1" name="region_name_text" type="string">
+			<text  name="region_name_text" type="string">
 				leyla
 			</text>
 			<text name="region_landtype_lbl">
@@ -165,13 +165,13 @@
 			<text name="resellable_lbl">
 				转售：
 			</text>
-			<text length="1" name="resellable_clause" type="string">
+			<text  name="resellable_clause" type="string">
 				此地区内购买的土地不能被重新出售。
 			</text>
 			<text name="changeable_lbl">
 				划分：
 			</text>
-			<text length="1" name="changeable_clause" type="string">
+			<text  name="changeable_clause" type="string">
 				此地区内购买的土地不能被合并或划分。
 			</text>
 			<string name="can_resell">
@@ -191,7 +191,7 @@
 			<text name="parcel_object_bonus">
 				区域额外物体因数: [BONUS]
 			</text>
-			<text length="1" name="Simulator primitive usage:" type="string">
+			<text  name="Simulator primitive usage:" type="string">
 				模拟器元件使用情况:
 			</text>
 			<text left="146" name="objects_available">
@@ -203,53 +203,53 @@
 			<string name="objects_deleted_text">
 				[COUNT] 个, 最多 [MAX] 个 ([DELETED] 个将会被删除)
 			</string>
-			<text length="1" name="Primitives parcel supports:" type="string">
+			<text  name="Primitives parcel supports:" type="string">
 				地块支持元件数:
 			</text>
-			<text left="146" length="1" name="object_contrib_text" type="string" width="222">
+			<text left="146"  name="object_contrib_text" type="string" width="222">
 				[COUNT] 个
 			</text>
-			<text length="1" name="Primitives on parcel:" type="string">
+			<text  name="Primitives on parcel:" type="string">
 				地块上的元件数:
 			</text>
-			<text left="146" length="1" name="total_objects_text" type="string" width="58">
+			<text left="146"  name="total_objects_text" type="string" width="58">
 				[COUNT] 个
 			</text>
-			<text length="1" name="Owned by parcel owner:" type="string">
+			<text  name="Owned by parcel owner:" type="string">
 				土地拥有者所有:
 			</text>
-			<text left="146" length="1" name="owner_objects_text" type="string" width="58">
+			<text left="146"  name="owner_objects_text" type="string" width="58">
 				[COUNT] 个
 			</text>
 			<button label="显示" label_selected="显示" name="ShowOwner"/>
 			<button label="归还..." label_selected="归还..." name="ReturnOwner..." tool_tip="将物体归还其主人。"/>
-			<text length="1" name="Set to group:" type="string">
+			<text  name="Set to group:" type="string">
 				设为社团的元件数:
 			</text>
-			<text left="146" length="1" name="group_objects_text" type="string" width="58">
+			<text left="146"  name="group_objects_text" type="string" width="58">
 				[COUNT] 个
 			</text>
 			<button label="显示" label_selected="显示" name="ShowGroup"/>
 			<button label="归还..." label_selected="归还..." name="ReturnGroup..." tool_tip="将物体归还其主人。"/>
-			<text length="1" name="Owned by others:" type="string">
+			<text  name="Owned by others:" type="string">
 				为其他人所有:
 			</text>
-			<text left="146" length="1" name="other_objects_text" type="string" width="58">
+			<text left="146"  name="other_objects_text" type="string" width="58">
 				[COUNT] 个
 			</text>
 			<button label="显示" label_selected="显示" name="ShowOther"/>
 			<button label="归还..." label_selected="归还..." name="ReturnOther..." tool_tip="将物体归还其主人。"/>
-			<text length="1" name="Selected / sat upon:" type="string">
+			<text  name="Selected / sat upon:" type="string">
 				被选择 / 被坐上的:
 			</text>
-			<text left="146" length="1" name="selected_objects_text" type="string" width="58">
+			<text left="146"  name="selected_objects_text" type="string" width="58">
 				[COUNT] 个
 			</text>
-			<text length="1" name="Autoreturn" type="string">
+			<text  name="Autoreturn" type="string">
 				自动归还其他居民的物体 (分钟, 0为关闭):
 			</text>
 			<line_editor name="clean other time" right="-170"/>
-			<text length="1" name="Object Owners:" type="string">
+			<text  name="Object Owners:" type="string">
 				物体主人:
 			</text>
 			<button label="更新名单" label_selected="更新名单" left="78" name="Refresh List"/>
@@ -263,7 +263,7 @@
 			</name_list>
 		</panel>
 		<panel label="选项" name="land_options_panel">
-			<text length="1" name="allow_label" type="string">
+			<text  name="allow_label" type="string">
 				允许其他居民:
 			</text>
 			<check_box label="编辑地形" name="edit land check" tool_tip="如果选中的话，谁都能编辑您的土地地形。最好是不要选中这项，因为您总可以编辑您自己的土地。"/>
@@ -284,7 +284,7 @@
 			</text>
 			<check_box label="所有居民" name="check other scripts"/>
 			<check_box label="社团" name="check group scripts"/>
-			<text length="1" name="land_options_label" type="string">
+			<text  name="land_options_label" type="string">
 				土地选项:
 			</text>
 			<check_box label="安全 (不会受伤)" name="check safe" tool_tip="如果选中的话，土地设置为安全，禁用格斗伤害。不选中的话，启用格斗伤害。"/>
@@ -392,11 +392,11 @@
 			<string name="mature_check_adult_tooltip">
 				您的地块信息或其内容被认为是adult内容。
 			</string>
-			<text length="1" name="Snapshot:" type="string">
+			<text  name="Snapshot:" type="string">
 				快照:
 			</text>
 			<texture_picker label="" name="snapshot_ctrl" tool_tip="点击这里来选择图片"/>
-			<text length="1" name="landing_point" type="string">
+			<text  name="landing_point" type="string">
 				着陆点: [LANDING]
 			</text>
 			<string name="landing_point_none">
@@ -404,17 +404,17 @@
 			</string>
 			<button label="设置" label_selected="设置" name="Set" tool_tip="设置访问者抵达时的着陆点。将会设置到您化身在该地块内的位置。"/>
 			<button label="清除" label_selected="清除" name="Clear" tool_tip="清除着陆点"/>
-			<text length="1" name="Teleport Routing: " type="string">
+			<text  name="Teleport Routing: " type="string">
 				瞬间移动传送路线:
 			</text>
 			<combo_box name="landing type" tool_tip="Teleport Routing -- 选择如何应对到你的土地的瞬间移动。">
-				<combo_item length="1" name="Blocked" type="string">
+				<combo_item  name="Blocked" type="string">
 					不允许
 				</combo_item>
-				<combo_item length="1" name="LandingPoint" type="string">
+				<combo_item  name="LandingPoint" type="string">
 					着陆点
 				</combo_item>
-				<combo_item length="1" name="Anywhere" type="string">
+				<combo_item  name="Anywhere" type="string">
 					任意位置
 				</combo_item>
 			</combo_box>
@@ -434,12 +434,43 @@
 				媒体 URL:
 			</text>
 			<button label="设置..." label_selected="设置..." name="set_media_url"/>
+			<text
+				 name="Current URL:">
+				当前 URL:
+			</text>
+
+			<button
+				 label="重置..."
+				 label_selected="重置..."
+				 name="reset_media_url"
+				 right="-12" />
+			<check_box label="隐藏媒体 URL" name="hide_media_url" tool_tip="选中该项将会对未被授权的查看该地块信息的人隐藏媒体 URL 。注意对 HTML 类型，此项不可用。"/>
+			<text
+				 font="SansSerifSmall"
+				 name="media_reset"
+				 right="-264"
+				 tool_tip="地块在该时间之后，将自动返回初始 URL (0 为不返回)"
+				 type="string"
+				 width="185">
+				在
+			</text>
+			<spinner
+				 name="media_reset_time"
+				 right="-195"
+				 tool_tip="地块在该时间之后，将自动返回初始 URL (0 为不返回)" />
+			<text
+
+				 name="minutes"
+				 tool_tip="地块在该时间之后，将自动返回初始 URL (0 为不返回)"
+				 right="-90">
+				分钟后回到初始 URL
+			</text>
 			<text name="Description:">
 				描述:
 			</text>
 			<line_editor name="url_description" tool_tip="在播放/加载按钮旁显示的文字"/>
-			<text length="1" name="Media texture:" type="string">
-				媒体 材质:
+			<text  name="Media texture:" type="string">
+				材质:
 			</text>
 			<texture_picker label="" name="media texture" tool_tip="点击这里来选择图片"/>
 			<text name="replace_texture_help">
@@ -447,38 +478,98 @@
 显示选择的动画或网页。)
 			</text>
 			<text name="Options:">
-				媒体 选项:
+				选项:
 			</text>
 			<check_box label="自动调整内容大小 " name="media_auto_scale" tool_tip="打开此项将自动缩放该地块上的内容。其速度和质量可能会稍稍降低，但不会需要任何其他的材质缩放或对齐。"/>
 			<check_box label="循环播放" name="media_loop" tool_tip="循环播放媒体。当媒体播放完毕时，它将从开始处重新播放。"/>
-			<check_box label="隐藏媒体 URL" name="hide_media_url" tool_tip="打开该选项将对未经允许的土地信息察看者隐藏媒体 URL。请注意该选项不适用于 HTML 类型。"/>
-			<check_box label="隐藏音乐 URL" name="hide_music_url" tool_tip="打开该选项将对未经允许的土地信息察看者隐藏音乐 URL。"/>
 			<text name="media_size" tool_tip="渲染媒体的尺寸，设为 0 使用默认值">
 				媒体尺寸:
 			</text>
-			<spinner name="media_size_width" tool_tip="渲染媒体的尺寸，设为 0 使用默认值"/>
-			<spinner name="media_size_height" tool_tip="渲染媒体的尺寸，设为 0 使用默认值"/>
-			<text name="pixels" right="-10">
+		
+	<spinner name="media_size_width" tool_tip="渲染媒体的尺寸，设为 0 使用默认值"/>
+			<text
+				 name="pixels">
 				像素
 			</text>
+			<text
+				 name="Interaction:">
+				交互:
+			</text>
+			<radio_group
+				 name="radio_navigate_allow">
+				<radio_item
+					 name="Anyone"
+					 tool_tip="任何居民都可以和媒体交互。">
+					任何人
+				</radio_item>
+				<radio_item
+					 name="Group"
+					 tool_tip="社团权限控制谁可以与媒体交互。">
+					社团
+				</radio_item>
+			</radio_group>
+			<check_box
+				 label="仅允许浏览这些域:"
+				 name="check navigate filter" />
+			<line_editor
+				 name="navigate_filter_domain" />
+			<button
+				 label="添加..."
+				 label_selected="添加..."
+				 name="add_navigate_filter" />
+			<scroll_list
+				 name="filter_list">
+				<column
+					 label="域名"
+					 name="domain" />
+			</scroll_list>
+			<button
+				 label="移除"
+				 label_selected="移除"
+				 name="remove_navigate_filter" />
+		</panel>
+		<panel
+			 label="音频"
+			 layout="topleft"
+			 name="land_audio_panel"
+			 top_delta="1">
 			<text name="MusicURL:">
 				音乐 URL:
 			</text>
-			<line_editor name="music_url" right="-15"/>
+			<check_box label="隐藏音乐 URL" name="hide_music_url" tool_tip="选中该项将会对未被授权的查看该地块信息的人隐藏媒体 URL 。"/>			
+
 			<text name="Sound:">
 				声音:
 			</text>
-			<check_box label="动作和物品的声音只存在于此地块。" name="check sound local"/>
+			<check_box label="限制动作和物品的声音到此地块。" name="check_sound_local"/>
 			<button label="?" label_selected="?" name="?"/>
-			<text name="Voice settings:">
+			<text name="Voice:">
 				语音:
 			</text>
+<radio_group
+	 name="parcel_voice_channel">
+				<radio_item
+		 name="Estate"
+		 tool_tip="使用地产语音频道。">
+					地产频道
+				</radio_item>
+				<radio_item
+		 name="Parcel"
+		 tool_tip="限制语音到该地块。">
+					地块频道
+				</radio_item>
+				<radio_item
+		 name="Disabled"
+		 tool_tip="在此地块上禁用语音。">
+					禁用
+				</radio_item>
+			</radio_group>
 			<check_box label="使用语音功能" name="parcel_enable_voice_channel"/>
 			<check_box label="允许使用地产声音频道（由地产所创建）" name="parcel_enable_voice_channel_is_estate_disabled"/>
 			<check_box label="限制声音于地块私有频道" name="parcel_enable_voice_channel_parcel"/>
 		</panel>
 		<panel label="访问" name="land_access_panel">
-			<text length="1" name="Limit access to this parcel to:" type="string">
+			<text  name="Limit access to this parcel to:" type="string">
 				对该地块的访问
 			</text>
 			<check_box label="允许公众访问" name="public_access"/>
@@ -500,7 +591,7 @@
 					社团
 				</combo_item>
 			</combo_box>
-			<spinner label="L$ 标价:" name="PriceSpin"/>
+			<spinner label="[CURRENCY] 标价:" name="PriceSpin"/>
 			<spinner label="访问时间:" name="HoursSpin"/>
 			<text label="总是允许" name="AllowedText">
 				被允许的居民

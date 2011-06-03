@@ -4,7 +4,7 @@
 		恢复停靠窗口
 	</string>
 	<layout_stack name="toolbar_stack">
-		<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
+		<button label="即时消息" name="im_btn" tool_tip="用即时消息联系你的朋友。" />
 		<button label="" name="chat_btn" tool_tip="显示聊天栏。(回车键)" />
 		<flyout_button label="交流" name="communicate_btn"
 		     tool_tip="查找并与你的好友和社团交流。" />

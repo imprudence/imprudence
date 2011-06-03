@@ -11,7 +11,7 @@
 		你没有查看这个社团账户信息的权限。
 	</string>
 	<string name="loading_txt">
-		载入...
+		载入中...
 	</string>
 	<text name="group_land_heading">
 		社团所持有土地
@@ -55,7 +55,7 @@
 		社团成员必须贡献更多的土地额度，来支持土地的使用。
 	</text>
 	<text name="group_money_heading">
-		社团资产 L$
+		社团 [CURRENCY]
 	</text>
 	<tab_container name="group_money_tab_container">
 		<panel label="计划" name="group_money_planning_tab">

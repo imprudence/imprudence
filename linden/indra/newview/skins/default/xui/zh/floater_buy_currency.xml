@@ -17,19 +17,19 @@
 		正在连接 LindeX...
 	</text>
 	<text name="buy_action_unknown">
-		在 LindeX 货币交换所购买 L$
+		在 货币交换所购买 [CURRENCY]
 	</text>
 	<text name="buy_action">
-		[NAME] L$ [PRICE]
+		[NAME] [CURRENCY] [PRICE]
 	</text>
 	<text name="currency_action">
-		购买L$
+		购买[CURRENCY]
 	</text>
 	<line_editor name="currency_amt">
 		1234
 	</line_editor>
 	<text name="currency_est">
-		需要大概 US$ [USD]
+		需要大概 [REALCURRENCY] [USD]
 	</text>
 	<text name="getting_data">
 		获取数据...
@@ -38,22 +38,22 @@
 		你目前有
 	</text>
 	<text name="balance_amount">
-		L$ [AMT]
+		[CURRENCY] [AMT]
 	</text>
 	<text name="buying_label">
 		你正在购买
 	</text>
 	<text name="buying_amount">
-		L$ [AMT]
+		[CURRENCY] [AMT]
 	</text>
 	<text name="total_label">
 		你的帐户结余是
 	</text>
 	<text name="total_amount">
-		L$ [AMT]
+		[CURRENCY] [AMT]
 	</text>
 	<text name="purchase_warning_repurchase">
-		确认此次操作只会购买现钞。
+		确认此次操作只会购买货币。
 你需要重试该操作。
 	</text>
 	<text name="purchase_warning_notenough">
@@ -62,6 +62,6 @@
 	<button label="取消" name="cancel_btn"/>
 	<button label="购买" name="buy_btn"/>
 	<string name="buy_currency">
-		以大约 US$ [USD] 购买 L$ [LINDENS]
+		以大约 [REALCURRENCY] [USD] 购买 [CURRENCY] [LINDENS]
 	</string>
 </floater>

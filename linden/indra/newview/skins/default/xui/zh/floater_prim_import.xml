@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="Import"
+	 title="导入进度">
+  <text
+		 name="name_label"> 进度 </text>  
+</floater>

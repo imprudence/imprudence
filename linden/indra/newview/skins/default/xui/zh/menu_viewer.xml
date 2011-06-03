@@ -2,15 +2,19 @@
 <menu_bar name="Main Menu">
 	<menu label="文件" name="File">
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
-		<menu label="上传" name="upload">
-			<menu_item_call label="图像（L$[COST]）..." name="Upload Image"/>
-			<menu_item_call label="声音（L$[COST]）..." name="Upload Sound"/>
-			<menu_item_call label="动画（L$[COST]）..." name="Upload Animation"/>
-			<menu_item_call label="大宗（每份需付L$[COST]）..." name="Bulk Upload"/>
-			<menu_item_separator label="-----------" name="separator"/>
+		<menu label="上传" name="Upload">
+			<menu_item_call label="上传图像 ([UPLOADFEE])..." name="Upload Image"/>
+			<menu_item_call label="上传声音 ([UPLOADFEE])..." name="Upload Sound"/>
+			<menu_item_call label="上传动画 ([UPLOADFEE])..." name="Upload Animation"/>
+			<menu_item_call label="批量上传 (每个文件需 [UPLOADFEE])..." name="Bulk Upload"/>
 			<menu_item_call label="设置默认权限..." name="perm prefs"/>
 		</menu>
-		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="导入物体..." name="Import" />
+		<menu_item_call label="导入并上传... (每个材质 [UPLOADFEE])" name="ImportUpload" />
+		<menu_item_call label="导出所选物体..." name="Export" />
+		<menu_item_call
+		 name="Minimize All Windows"
+		 label="最小化所有窗口" />	
 		<menu_item_call label="关闭窗口" name="Close Window"/>
 		<menu_item_call label="关闭所有窗口" name="Close All Windows"/>
 		<menu_item_separator label="-----------" name="separator2"/>
@@ -49,15 +53,20 @@
 			<menu_item_call label="内衣" name="Menu Undershirt"/>
 			<menu_item_call label="内裤" name="Menu Underpants"/>
 			<menu_item_call label="裙子" name="Skirt"/>
+			<menu_item_call label="纹身" name="Tattoo" />
+			<menu_item_call label="透明度蒙板" name="Alpha" />
 			<menu_item_call label="所有服饰" name="All Clothes"/>
 		</menu>
 		<menu_item_separator label="-----------" name="separator6"/>
-		<menu_item_call label="动作..." name="Gestures..."/>
+		<menu_item_call label="动作..." name="Gestures"/>
 		<menu_item_call label="档案..." name="Profile..."/>
 		<menu_item_call label="外观..." name="Appearance..."/>
-		<menu_item_separator label="-----------" name="separator7"/>
-		<menu_item_check label="朋友..." name="Friends..."/>
-		<menu_item_call label="社团..." name="Groups..."/>
+		<menu_item_call	label="显示名称..." name="Display Name..." />
+		<menu_item_call label="刷新外观" name="Refresh Appearance" />
+		<menu_item_separator label="-----------" name="separator7" />
+		<menu_item_check label="好友..." name="Friends"/>
+		<menu_item_call label="社团..." name="Groups"/>
+		<menu_item_check label="媒体过滤" name="Media Filter" />
 		<menu_item_separator label="-----------" name="separator8"/>
 		<menu_item_call label="参数设置..." name="Preferences..."/>
 	</menu>
@@ -69,17 +78,20 @@
 		<menu_item_call label="重新设置视角" name="Reset View"/>
 		<menu_item_call label="查看最后一次聊天者" name="Look at Last Chatter"/>
 		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="网络浏览器" name="Web Browser" />
 		<menu_item_check label="工具栏" name="Toolbar"/>
 		<menu_item_check label="聊天记录" name="Chat History"/>
 		<menu_item_check label="即时消息" name="Instant Message"/>
 		<menu_item_check label="库存" name="Inventory"/>
 		<menu_item_check label="活跃的说话人" name="Active Speakers"/>
 		<menu_item_check label="屏蔽名单" name="Mute List"/>
+	 	<menu_item_check label="瞬间移动历史" name="Teleport History" />
 		<menu_item_separator label="-----------" name="separator2"/>
 		<menu_item_check label="摄像头控制" name="Camera Controls"/>
 		<menu_item_check label="移动控制" name="Movement Controls"/>
 		<menu_item_check label="世界地图" name="World Map"/>
 		<menu_item_check label="迷你地图" name="Mini-Map"/>
+		<menu_item_check label="动画覆盖" name="AO" />
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_check label="统计条" name="Statistics Bar"/>
 		<menu_item_check label="地块边线" name="Property Lines"/>
@@ -97,11 +109,14 @@
 		<menu_item_check label="隐藏粒子" name="Hide Particles"/>
 		<menu_item_check label="显示界面附件" name="Show HUD Attachments"/>
 		<menu_item_separator label="-----------" name="separator5"/>
-		<menu_item_call label="缩小" name="Zoom In"/>
-		<menu_item_call label="默认缩放" name="Zoom Default"/>
-		<menu_item_call label="放大" name="Zoom Out"/>
 		<menu_item_separator label="-----------" name="separator6"/>
 		<menu_item_call label="切换全屏状态" name="Toggle Fullscreen"/>
+		<menu label="缩放" name="Zoom Level">
+			<menu_item_call label="缩小" name="Zoom In"/>
+			<menu_item_call label="默认缩放" name="Zoom Default"/>
+			<menu_item_call label="放大" name="Zoom Out"/>
+		</menu>
+		<menu_item_check name="Toggle Advanced Menu" label="高级菜单"/>
 		<menu_item_call label="设置用户界面尺寸为默认值" name="Set UI Size to Default"/>
 	</menu>
 	<menu label="世界" name="World">
@@ -115,18 +130,19 @@
 		<menu_item_call label="瞬间移动回家" name="Teleport Home"/>
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_call label="设成离开状态" name="Set Away"/>
-		<menu_item_call label="设成繁忙状态" name="Set Busy"/>
+		<menu_item_call label="设成忙碌状态" name="Set Busy"/>
+		<menu_item_check label="自动回复即时消息" name="Auto-Respond to IMs" />
 		<menu_item_call label="停止化身动画" name="Stop Animating My Avatar"/>
 		<menu_item_call label="释放按键" name="Release Keys"/>
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="帐户历史纪录..." name="Account History..."/>
 		<menu_item_call label="管理我的帐户..." name="Manage My Account..."/>
-		<menu_item_call label="购买 L$..." name="Buy and Sell L$..."/>
+		<menu_item_call label="购买 [CURRENCY]..." name="Buy and Sell L$..."/>
 		<menu_item_separator label="-----------" name="separator5"/>
-		<menu_item_call label="我的土地..." name="My Land..."/>
-		<menu_item_call label="关于土地..." name="About Land..."/>
+		<menu_item_call label="我的土地..." name="My Land"/>
+		<menu_item_call label="关于土地..." name="About Land"/>
 		<menu_item_call label="购买土地..." name="Buy Land..."/>
-		<menu_item_call label="地区/地产..." name="Region/Estate..."/>
+		<menu_item_call label="地区/地产..." name="Region/Estate"/>
 		<menu_item_separator label="-----------" name="separator6"/>
 		<menu label="环境设置" name="Environment Settings">
 			<menu_item_call label="日出" name="Sunrise"/>
@@ -146,28 +162,34 @@
 			<menu_item_call label="土地" name="Land"/>
 		</menu>
 		<menu_item_separator label="-----------" name="separator"/>
-		<menu_item_check label="只选择我的物体" name="Select Only My Objects"/>
-		<menu_item_check label="只选择可移动的物体" name="Select Only Movable Objects"/>
-		<menu_item_check label="选中包围区域" name="Select By Surrounding"/>
-		<menu_item_check label="显示隐藏的选中项" name="Show Hidden Selection"/>
-		<menu_item_check label="显示选择项的光照半径" name="Show Light Radius for Selection"/>
-		<menu_item_check label="显示选择导引" name="Show Selection Beam"/>
+		<menu label="选择选项" name="Selection Options">
+			<menu_item_check label="只选择我的物体" name="Select Only My Objects"/>
+			<menu_item_check label="只选择可移动的物体" name="Select Only Movable Objects"/>
+			<menu_item_check label="只选择可复制的物体" name="Select Only Copyable Objects" />
+			<menu_item_check label="包围选择" name="Select By Surrounding" />
+			<menu_item_check label="显示隐藏的选中项" name="Show Hidden Selection"/>
+			<menu_item_check label="显示选中项轮廓" name="Show Selection Outlines" />
+			<menu_item_check label="显示选中项的光照半径" name="Show Light Radius for Selection"/>
+			<menu_item_check label="显示选择导引" name="Show Selection Beam"/>
+		</menu>
+
 		<menu_item_separator label="-----------" name="separator2"/>
 		<menu_item_check label="对齐到网格" name="Snap to Grid"/>
 		<menu_item_call label="在 XY 面上对齐网格" name="Snap Object XY to Grid"/>
 		<menu_item_call label="以选项作为网格" name="Use Selection for Grid"/>
-		<menu_item_call label="网格选项..." name="Grid Options..."/>
+		<menu_item_call label="高级建造选项..." name="Advanced Build Options..."/>
 		<menu_item_separator label="-----------" name="separator3"/>
-		<menu_item_check label="编辑链接部件" name="Edit Linked Parts" shortcut=""/>
+		<menu_item_check label="编辑链接部件" name="Edit Linked Parts" />
+		<menu_item_check label="选择链接部件" name="Select Linked Parts" />
 		<menu_item_call label="链接" name="Link"/>
 		<menu_item_call label="解除链接" name="Unlink"/>
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="聚焦于所选物体" name="Focus on Selection"/>
 		<menu_item_call label="缩放到所选物体" name="Zoom to Selection"/>
-		<menu_item_call label="购买物体" name="Menu Object Take">
-			<on_enable userdata="购买,拿走" name="EnableBuyOrTake"/>
-		</menu_item_call>
+		<menu_item_call	label="创建副本" name="Duplicate" />
+		<menu_item_call label="购买物体" name="Menu Object Take" />
 		<menu_item_call label="拿走副本" name="Take Copy"/>
+		<menu_item_call label="归还物体" name="Return..." />
 		<menu_item_call label="将物体存回至物体内容" name="Save Object Back to Object Contents"/>
 		<menu_item_separator label="-----------" name="separator6"/>
 		<menu_item_call label="显示脚本警告/错误窗口" name="Show Script Warning/Error Window"/>
@@ -178,17 +200,30 @@
 		<menu_item_call label="重置所选项中脚本" name="Reset Scripts in Selection"/>
 		<menu_item_call label="设置所选项中脚本运行" name="Set Scripts to Running in Selection"/>
 		<menu_item_call label="设置所选项中脚本不运行" name="Set Scripts to Not Running in Selection"/>
+		<menu_item_call
+			 name="Set permissions on selected task inventory"
+			 label="批量设置权限"/>
 	</menu>
 	<menu label="帮助" name="Help">
 		<menu_item_call label="第二人生帮助" name="Second Life Help"/>
 		<menu_item_call label="教程" name="Tutorial"/>
 		<menu_item_separator label="-----------" name="separator"/>
-		<menu_item_call label="官方林登博客..." name="Official Linden Blog..."/>
+		<menu_item_call label="Imprudence 网络日志" name="Imprudence Blog" />
+		<menu_item_call label="Imprudence 论坛" name="Imprudence Forums" />
+		<menu_item_call	label="脚本参考首页" name="Scripting Portal">
+			<!--
+			<on_click 
+			 	function="PromptShowURL" 
+			 	name="ScriptingPortal_url"
+				userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal/zh-Hans" />
+			-->
+		</menu_item_call>
+
 		<menu_item_separator label="-----------" name="separator2"/>
 		<menu_item_call label="脚本 Wiki 门户..." name="Scripting Portal..."/>
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_call label="报告不良行为..." name="Report Abuse..."/>
-		<menu_item_call label="颠簸，推动和碰撞..." name="Bumps, Pushes &amp;amp; Hits..."/>
+		<menu_item_call label="颠簸，推动和碰撞..." name="Bumps, Pushes &amp; Hits"/>
 		<menu_item_call label="延迟计量器" name="Lag Meter"/>
 		<menu create_jump_keys="true" drop_shadow="true" label="错误汇报" name="Bug Reporting" opaque="true" tear_off="true">
 			<menu_item_call label="公开 Issue Tracker..." name="Public Issue Tracker..."/>
@@ -199,6 +234,325 @@
 			<menu_item_call label="质量保证 Wiki..." name="QA Wiki..."/>
 			<menu_item_call label="汇报错误..." name="Report Bug..."/>
 		</menu>
-		<menu_item_call label="关于第二人生..." name="About Second Life..."/>
+		<menu_item_call name="About Imprudence" label="关于 Imprudence..." />
 	</menu>
+	
+	<menu label="高级" name="Advanced">
+		<!-- CONSOLES -->
+		<menu name="Consoles" label="控制台">
+			<menu_item_check name="Frame Console" label="帧控制台" />
+			<menu_item_check name="Texture Console" label="材质控制台" />
+			<menu_item_check name="Debug Console" label="调试信息" />
+			<menu_item_check name="Fast Timers" label="快速计时器" />
+			<!-- Requires compiled-in support, I think?
+	<menu_item_check name="Memory" label="Memory"
+					 shortcut="control|shift|0">
+		<on_click function="Advanced.ToggleConsole"
+				userdata="memory" />
+		<on_check function="Advanced.CheckConsole"
+				userdata="memory" />
+	</menu_item_check>
+	-->
+			<menu_item_call name="Notifications Console" label="提示控制台" />
+			<menu_item_call name="Message Log" label="消息日志" />
+			<menu_item_call name="Message Builder" label="消息建筑器" />
+			<menu_item_call name="Region Info to Debug Console" label="区域信息到调试控制台" />
+			<menu_item_call name="Group Info to Debug Console" label="社团信息到调试控制台" />
+			<menu_item_call name="Capabilities Info to Debug Console" label="Capabilities 信息到调试控制台" />
+		</menu>
+		<menu_item_call name="Reload personal setting overrides" label="重新载入个人设置" />
+		<!-- HUD INFO -->
+		<menu name="HUD Info" label="HUD 信息">
+			<menu_item_check name="Velocity" label="速度" />
+			<menu_item_check name="Camera" label="摄像机" />
+			<menu_item_check name="Wind" label="风" />
+			<!--Field of View-->
+			<menu_item_check name="FOV" label="FOV" />
+		</menu>
+		<menu_item_call label="坐在地上" name="Ground Sit" />
+		<menu_item_call name="Teleport to Ground" label="瞬间移动到地面" />
+		<menu_item_check label="幻影化身" name="Phantom" />
+		<menu_item_check label="动画列表" name="Animation List" />
+		<menu_item_check label="全功能雷达" name="Full Radar" />
+		<menu_item_check label="区域物体搜索" name="Area Object Search" />
+		<menu_item_check label="资产浏览器" name="asset browser" />
+		<!-- RENDERING -->
+		<menu name="Rendering" label="渲染">
+			<!-- TYPES -->
+			<menu name="Types" label="类型">
+				<menu_item_check name="Simple" label="简单" />
+				<menu_item_check name="Alpha" label="透明度" />
+				<menu_item_check name="Tree" label="树木" />
+				<menu_item_check name="Character" label="人物" />
+				<menu_item_check name="SurfacePatch" label="SurfacePatch" />
+				<menu_item_check name="Sky" label="天空" />
+				<menu_item_check name="Water" label="水面" />
+				<menu_item_check name="Ground" label="地面" />
+				<menu_item_check name="Volume" label="体积" />
+				<menu_item_check name="Grass" label="草木" />
+				<menu_item_check name="Clouds" label="云层" />
+				<menu_item_check name="Particles" label="粒子" />
+				<menu_item_check name="Bump" label="凹凸贴图" />
+			</menu>
+			<!-- FEATURES -->
+			<menu name="Features" label="特征">
+				<menu_item_check name="UI" label="界面" />
+				<menu_item_check name="Selected" label="选中项" />
+				<menu_item_check name="Highlighted" label="高亮" />
+				<menu_item_check name="Dynamic Textures" label="动态材质" />
+				<menu_item_check name="Foot Shadows" label="脚阴影" />
+				<menu_item_check name="Fog" label="雾" />
+				<menu_item_check name="Test FRInfo" label="测试 FRInfo" />
+				<menu_item_check name="Flexible Objects" label="活动物体" />
+			</menu>
+			<!-- INFO DISPLAYS -->
+			<menu name="Info Displays" label="信息显示">
+				<menu_item_check name="Verify" label="验证" />
+				<menu_item_check name="BBoxes" label="包围盒" />
+				<menu_item_check name="Points" label="点" />
+				<menu_item_check name="Octree" label="八叉树" />
+				<menu_item_check name="Occlusion" label="遮蔽" />
+				<menu_item_check name="Render Batches" label="渲染批次" />
+				<menu_item_check name="Animated Textures" label="材质动画" />
+				<menu_item_check name="Texture Priority" label="材质优先级" />
+				<menu_item_check name="Avatar Rendering Cost" label="化身渲染开销" />
+				<menu_item_check name="Texture Area (sqrt(A))" label="材质面积 (sqrt(A))" />
+				<menu_item_check name="Face Area (sqrt(A))" label="表面面积 (sqrt(A))" />
+				<menu_item_check name="Pick Render" label="选取渲染" />
+				<menu_item_check name="Lights" label="光源" />
+				<menu_item_check name="Particles" label="粒子" />
+				<menu_item_check name="Composition" label="Composition" />
+				<menu_item_check name="Glow" label="发光" />
+				<menu_item_check name="Raycasting" label="光线投射" />
+				<menu_item_check name="Sculpt" label="雕塑元件" />
+				<menu_item_check name="Vectorize Perf Test" label="向量化性能测试" />
+			</menu>
+			<!-- RENDER TESTS -->
+			<menu name="Render Tests" label="渲染测试">
+				<menu_item_check name="Camera Offset" label="摄像机偏移" />
+				<menu_item_check name="Randomize Framerate" label="随机化帧率" />
+				<menu_item_check name="Periodic Slow Frame" label="周期性减慢帧" />
+				<menu_item_check name="Frame Test" label="帧测试" />
+			</menu>
+			<menu_item_check name="Axes" label="轴" />
+			<menu_item_check name="Hide Selected" label="隐藏选中项" />
+			<menu_item_check name="Tangent Basis" label="切向基础" />
+			<menu_item_call name="Selected Texture Info" label="选中的材质信息" />
+			<menu_item_check name="Wireframe" label="线框" />
+			<menu_item_check name="Object-Object Occlusion" label="对象对对象遮蔽" />
+			<menu_item_check name="Debug GL" label="调试 GL" />
+			<menu_item_check name="Debug Pipeline" label="调试流水线" />
+			<menu_item_check name="Fast Alpha" label="快速透明度" />
+			<menu_item_check name="Animate Trees" label="树木动画" />
+			<menu_item_check name="Animate Textures" label="材质动画" />
+			<menu_item_check name="Disable Textures" label="禁用材质" />
+			<!-- Disabled because it doesn't seem to be used anymore.
+	<menu_item_check name="HTTP Get Textures"
+					 label="HTTP Get Textures">
+		<on_click function="ToggleControl"
+				userdata="ImagePipelineUseHTTP" />
+		<on_check control="ImagePipelineUseHTTP" />
+	</menu_item_check>
+	-->
+			<menu_item_check name="Run Multiple Threads" label="运行多个线程" />
+			<!-- Disabled because it doesn't work very well?
+	<menu_item_check name="Dynamic Reflections"
+					 label="Dynamic Reflections">
+		<on_click function="ToggleControl"
+				userdata="RenderDynamicReflections" />
+		<on_check control="RenderDynamicReflections" />
+	</menu_item_check>
+	-->
+			<menu_item_check name="Cheesy Beacon" label="给力的信标" />
+			<menu_item_check name="Attached Lights" label="装备的光源" />
+			<menu_item_check name="Attached Particles" label="装备的粒子源" />
+		</menu>
+		<!-- WORLD -->
+		<menu name="World" label="世界">
+			<!-- Disabled because you can't do this in Windlight.
+	<menu_item_check name="Mouse Moves Sun"
+					 label="Mouse Moves Sun"
+					 shortcut="control|alt|M">
+		<on_click function="ToggleControl" userdata="MouseSun" />
+		<on_check control="MouseSun" />
+	</menu_item_check>
+	-->
+			<menu_item_check name="Sim Sun Override" label="模拟器太阳覆盖" />
+			<menu_item_call name="Dump Scripted Camera" label="脚本摄像机控制转储" />
+			<menu_item_check name="Fixed Weather" label="固定天气" />
+			<menu_item_call name="Dump Region Object Cache" label="转储区域物体缓存" />
+		</menu>
+		<!-- RLVa -->
+		<menu name="RLVa">
+			<menu name="Debug" label="调试">
+				<menu_item_check name="Show Debug Messages" label="显示调试信息" />
+				<menu_item_check name="Enable Legacy Naming" label="启用旧式命名" />
+			</menu>
+			<menu_item_check name="Enable Wear" label="启用穿着" />
+			<menu_item_check name="Hide locked layers" label="隐藏锁定的衣物层次" />
+			<menu_item_check name="Hide locked attachments" label="隐藏锁定的附件" />
+			<!--
+	<menu_item_check name="Hide locked inventory"
+					 label="Hide locked inventory">
+		<on_click function="ToggleControl"
+				userdata="RLVaHideLockedInventory" />
+		<on_check control="RLVaHideLockedInventory" />
+	</menu_item_check>
+	-->
+			<menu_item_check name="Forbid Give to #RLV" label="禁止给与到 #RLV" />
+			<menu_item_check name="Show Name Tags" label="显示姓名标签" />
+			<menu_item_call name="Restrictions..." label="限制..." />
+		</menu>
+		<!-- UI -->
+		<menu name="UI" label="界面">
+			<menu_item_check name="Use default system color picker" label="使用系统默认颜色选择器" />
+			<menu_item_check name="Show search panel in overlay bar" label="覆盖栏中显示搜索面板" />
+			<menu_item_call name="Reload Balance" label="重新载入 [CURRENCY] 余额" />
+			<menu_item_call name="Web Browser Test" label="网络浏览器测试" />
+			<!--
+		 *TODO: Make this a proper toggle item with the "X" indicator.
+		 1. Add a "Advanced.CheckEditableUI" function in llviewermenu.cpp.
+		 2. Change this surrounding menu_item_call to a menu_item_check.
+		 3. Uncomment the "on_check" line below.
+		-->
+			<menu_item_call name="Editable UI" label="可编辑的用户界面">
+				<!--
+		<on_check function="Advanced.CheckEditableUI" userdata="" />
+		-->
+			</menu_item_call>
+			<menu_item_call name="Dump SelectMgr" label="转储 SelectMgr" />
+			<menu_item_call name="Dump Inventory" label="转储库存" />
+			<menu_item_call name="Dump Focus Holder" label="转储焦点持有者" />
+			<menu_item_call name="Print Selected Object Info" label="打印选中物体信息" />
+			<menu_item_call name="Print Agent Info" label="打印 Agent 信息" />
+			<menu_item_call name="Memory Stats" label="内存状态" />
+			<menu_item_call name="Clear Cached Group Info" label="清除缓存的社团信息" />
+			<menu_item_check name="Debug SelectMgr" label="调试 SelectMgr" />
+			<menu_item_check name="Debug Clicks" label="调试点击" />
+			<menu_item_check name="Debug Views" label="调试视图" />
+			<menu_item_check name="Show Name Tooltips" label="显示名称提示" />
+			<menu_item_check name="Debug Mouse Events" label="调试鼠标事件" />
+			<menu_item_check name="Debug Keys" label="调试键盘" />
+			<menu_item_check name="Debug WindowProc" label="调试 WindowProc" />
+			<menu_item_check name="Debug Text Editor Tips" label="调试文本编辑器提示" />
+			<menu_item_check name="Show Time" label="显示时间" />
+			<menu_item_check name="Show Render Info" label="显示渲染信息" />
+			<menu_item_check name="Show Matrices" label="显示矩阵" />
+			<menu_item_check name="Show Color Under Cursor" label="显示指针之下的颜色" />
+		</menu>
+		<!-- XUI -->
+		<menu name="XUI">
+			<menu_item_call name="Floater Test" label="浮动框测试" />
+			<menu_item_call name="Font Test" label="字体测试" />
+			<menu_item_call name="Export Menus to XML..." label="导出菜单到 XML..." />
+			<menu_item_call name="Edit UI..." label="编辑界面..." />
+			<menu_item_call name="Load from XML..." label="从 XML 读取..." />
+			<menu_item_call name="Save to XML..." label="保存到 XML..." />
+			<menu_item_check name="Show XUI Names" label="显示 XUI 名称" />
+		</menu>
+		<!-- CHARACTER -->
+		<menu name="Character" label="人物">
+			<menu name="Grab Baked Texture" label="获取烘烤材质">
+				<menu_item_call name="Iris" label="瞳孔" />
+				<menu_item_call name="Head" label="头部" />
+				<menu_item_call name="Upper Body" label="上身" />
+				<menu_item_call name="Lower Body" label="下身" />
+				<menu_item_call name="Skirt" label="裙子" />
+			</menu>
+			<!-- CHARACTER TESTS -->
+			<menu name="Character Tests" label="人物测试">
+				<menu_item_call name="Appearance To XML" label="外观到 XML" />
+				<menu_item_call name="Toggle Character Geometry" label="切换角色几何" />
+				<menu_item_call name="Test Male" label="测试男性" />
+				<menu_item_call name="Test Female" label="测试女性" />
+				<menu_item_call name="Toggle PG" label="测试未成年模式" />
+				<menu_item_check name="Allow Select Avatar" label="允许选择化身" />
+			</menu>
+			<menu_item_check name="Enable Lip Sync (Beta)" label="启用口型同步 (测试)" />
+			<menu_item_check name="Tap-Tap-Hold To Run" label="双敲并按住跑步" />
+			<menu_item_call name="Force Params to Default" label="强制参数到默认值" />
+			<menu_item_call name="Reload Vertex Shader" label="重新载入顶点着色器" />
+			<menu_item_check label="Animation Info" name="动画信息" />
+			<!--
+		 *TODO: Make this a proper toggle item with the "X" indicator.
+		 1. Add a "Advanced.CheckSlowmotionAnimation" function in
+		 llviewermenu.cpp.
+		 2. Change this surrounding menu_item_call to a menu_item_check.
+		 3. Uncomment the "on_check" line below.
+	-->
+			<menu_item_call name="Slow Motion Animations" label="慢动作动画" />
+			<menu_item_check name="Show Look At" label="显示视线目标" />
+			<menu_item_check name="Show Point At" label="显示指向目标" />
+			<menu_item_check name="Private Look At" label="对他人隐藏视线目标" />
+			<menu_item_check name="Private Point At" label="对他人隐藏指向目标" />
+			<menu_item_check name="Debug Joint Updates" label="调试关节更新" />
+			<menu_item_check name="Disable LOD" label="禁用 LOD" />
+			<menu_item_check name="Debug Character Vis" label="调试人物可见性" />
+			<!--  Disabled. See DEV-14477
+	<menu_item_check name="Show Collision Plane"
+					 label="Show Collision Plane">
+		<on_click function="Advanced.ToggleShowCollisionPlane"
+				userdata="" />
+		<on_check function="Advanced.CheckShowCollisionPlane"
+				userdata="" />
+	</menu_item_check>
+	-->
+			<menu_item_check name="Show Collision Skeleton" label="显示碰撞骨骼" />
+			<menu_item_check name="Display Agent Target" label="显示 Agent 目标" />
+			<menu_item_check name="Debug Rotation" label="调试旋转" />
+			<menu_item_call name="Dump Attachments" label="打印附件" />
+			<menu_item_call label="Reload Avatar Cloud Particle" name="重新加载化身云粒子" />
+		</menu>
+		<!-- CRASH -->
+		<menu name="Crash" label="崩溃">
+			<menu_item_call name="Force Bad Memory Access" label="强制无效内存访问" />
+			<menu_item_call name="Force LLError And Crash" label="强制 LLError 并崩溃" />
+			<menu_item_call name="Force Infinite Loop" label="强制无限循环" />
+			<menu_item_call name="Force Driver Crash" label="强制驱动程序崩溃" />
+			<menu_item_call name="Force Disconnect Viewer" label="强制断开连接" />
+			<menu_item_check name="Output Debug Minidump" label="输出调试小转储" />
+		</menu>
+		<!-- NETWORK -->
+		<menu name="Network" label="网络">
+			<menu_item_call name="Enable Message Log" label="启用消息日志" />
+			<menu_item_call name="Disable Message Log" label="禁用消息日志" />
+			<menu_item_check name="Velocity Interpolate Objects" label="物体速度插值" />
+			<menu_item_check name="Ping Interpolate Object Positions" label="Ping Interpolate Object Positions" />
+			<menu_item_call name="Drop a Packet" label="丢弃一个封包" />
+		</menu>
+		<!-- RECORDER -->
+		<menu name="Recorder" label="记录器">
+			<menu_item_check name="Full Session Logging" label="录制整个会话" />
+			<menu_item_call name="Start Logging" label="开始记录" />
+			<menu_item_call name="Stop Logging" label="停止记录" />
+			<menu_item_call name="Log 10 Seconds" label="记录 10 秒" />
+			<menu_item_call name="Log 30 Seconds" label="记录 30 秒" />
+			<menu_item_call name="Log 60 Seconds" label="记录 60 秒" />
+			<menu_item_call name="Start Playback" label="开始播放" />
+			<menu_item_call name="Stop Playback" label="停止播放" />
+			<menu_item_check name="Loop Playback" label="循环播放" />
+			<menu_item_call name="Start Record" label="开始录制" />
+			<menu_item_call name="Stop Record" label="停止录制" />
+		</menu>
+		<!-- ADMIN OPTIONS -->
+		<menu name="Admin Options" label="管理员选项">
+			<menu_item_check name="View Admin Options" label="显示管理员选项" />
+			<menu_item_call name="Request Admin Status" label="请求管理员状态" />
+			<menu_item_call name="Leave Admin Status" label="离开管理员状态" />
+		</menu>
+		<menu_item_check name="Show Updates" label="显示更新" />
+		<menu_item_check name="Quiet Snapshots to Disk" label="无声快照到磁盘" />
+		<menu_item_call name="Compress Image..." label="压缩图像..." />
+		<menu_item_check name="Disable Max Build Constraints" label="禁用建造尺寸最大限制" />
+		<menu_item_check name="Debug Permissions" label="调试权限" />
+		<menu_item_check name="Mouse Smoothing" label="鼠标平滑" />
+		<menu_item_check name="Show Mouselook Crosshairs" label="显示第一人称视角准星" />
+		<menu_item_check name="Console Window" label="控制台窗口" />
+		<menu_item_check name="Restrained Love Support" label="Restrained Love 支持" />
+		<menu_item_check name="Allow Multiple Instances" label="允许多个实例" />
+		<menu_item_call name="Logout" label="登出 (不稳定)" />
+		<menu_item_call name="Debug Settings" label="调试设置" />
+	</menu>
+	
+	
 </menu_bar>

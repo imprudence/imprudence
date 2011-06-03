@@ -1733,7 +1733,7 @@ Cannot find the region this land is in.
  type="alertmodal">
 Unable to buy land:
 
-Your allowed/preferred maturity level does not permit you to buy this land. You may need to your maturity level in Preferences first.
+Your allowed/preferred maturity level does not permit you to buy this land. You may need to adjust your maturity level in Preferences first.
 </notification>
 
 <notification
@@ -6920,44 +6920,44 @@ The URL you clicked cannot be opened from this web browser.
  type="alert">
 The following constants are accepted in this tab:
 
-PX  --  X-axis position
-PY  --  Y-axis position
-PZ  --  Z-axis position
-SX  --  X-axis size
-SY  --  Y-axis size
-SZ  --  Z-axis size
-RX  --  X-axis rotation
-RY  --  Y-axis rotation
-RZ  --  Z-axis rotation
-CB  --  Path cut begin
-CE  --  Path cut end
-HLW  --  Hollow size
-SKW  --  Skew
-PB  --  Slice/Dimple/Profile cut begin
-PE  --  Slice/Dimple/Profile cut end
-TB  --  Twist begin
-TE  --  Twist end
-SHX  --  X-axis top shear
-SHY  --  Y-axis top shear
-HLX  --  X-axis hole size
-HLY  --  Y-axis hole size
-TPX  --  X-axis taper
-TPY  --  Y-axis taper
-ROF  --  Radius offset
-REV  --  Revolutions
+PX  —  X-axis position
+PY  —  Y-axis position
+PZ  —  Z-axis position
+SX  —  X-axis size
+SY  —  Y-axis size
+SZ  —  Z-axis size
+RX  —  X-axis rotation
+RY  —  Y-axis rotation
+RZ  —  Z-axis rotation
+CB  —  Path cut begin
+CE  —  Path cut end
+HLW  —  Hollow size
+SKW  —  Skew
+PB  —  Slice/Dimple/Profile cut begin
+PE  —  Slice/Dimple/Profile cut end
+TB  —  Twist begin
+TE  —  Twist end
+SHX  —  X-axis top shear
+SHY  —  Y-axis top shear
+HLX  —  X-axis hole size
+HLY  —  Y-axis hole size
+TPX  —  X-axis taper
+TPY  —  Y-axis taper
+ROF  —  Radius offset
+REV  —  Revolutions
 
-PI  --  pi
-TWO_PI  --  2pi
-PI_BY_TWO  --  pi/2
-SQRT2  --  Square root of 2
-DEG_TO_RAD  --  DEG_TO_RAD conversion (pi/180)
-RAD_TO_DEG  --  RAD_TO_DEG conversion (180/pi)
-GRAVITY  --  -9.8
+PI  —  π
+TWO_PI  —  2π
+PI_BY_TWO  —  π/2
+SQRT2  —  Square root of 2
+DEG_TO_RAD  —  degrees to radians (pi/180)
+RAD_TO_DEG  —  radians to degrees (180/pi)
+GRAVITY  —  -9.8
 
-*  --  Multiplication
-\  --  Division
-  --  Addition
--  --  Subtraction
+*  —  Multiplication
+\  —  Division
+  —  Addition
+-  —  Subtraction
 
 For information about this feature, click "More Info".
   <url option="1" name="url">
@@ -6975,18 +6975,18 @@ For information about this feature, click "More Info".
  type="alert">
 The following constants are accepted in this tab:
 
-TSU  --  Repeats per face (horizontal)
-TSV  --  Repeats per face (vertical)
-TOU  --  Offsets per face (horizontal)
-TOV  --  Offsets per face (vertical)
-TRNS --  Transparency
-TROT --  Texture rotation
-GLOW --  Glow
+TSU  —  Repeats per face (horizontal)
+TSV  —  Repeats per face (vertical)
+TOU  —  Offsets per face (horizontal)
+TOV  —  Offsets per face (vertical)
+TRNS —  Transparency
+TROT —  Texture rotation
+GLOW —  Glow
 
-*  --  Multiplication
-\  --  Division
-  --  Addition
--  --  Subtraction
+*  —  Multiplication
+\  —  Division
+  —  Addition
+-  —  Subtraction
 
 For information about this feature, click "More Info".
   <url option="1" name="url">

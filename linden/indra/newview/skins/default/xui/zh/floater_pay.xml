@@ -6,9 +6,11 @@
 	</text>
 
 	<text name="amount text">
-		数量:
+		额度:
 	</text>
-
+	<text name="message text">
+	  备注:
+	</text>
 	<button name="pay btn"    label="支付" />
 	<button name="cancel btn" label="取消" />
 

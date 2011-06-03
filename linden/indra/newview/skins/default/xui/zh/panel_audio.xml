@@ -23,6 +23,9 @@
 	<slider 
 		 name="Wind Volume" 
 	     label="环境"  />
+	<slider
+		 label="动作"
+		 name="Gestures Volume" />
 	<slider name="UI Volume"
 	     label="界面" />
 		 

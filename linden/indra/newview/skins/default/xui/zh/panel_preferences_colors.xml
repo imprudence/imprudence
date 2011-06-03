@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 label="聊天颜色"
+	 name="colors">
+  <text
+		 name="text_box2">
+    聊天颜色:
+  </text>
+  <text
+		 name="effects_color_textbox">
+    我的选择光束颜色:
+  </text>
+  <color_swatch
+		 name="effect_color_swatch"
+		 tool_tip="点击这里来打开色彩选择器" />
+
+  <text
+		 name="client_tag_color_textbox">
+    客户端标签颜色:
+  </text>
+  <check_box label="用颜色区别客户端" name="client_name_color_check" />
+  <color_swatch
+		 label="你的聊天"
+		 name="user" />
+  <color_swatch
+		 label="他人的聊天"
+		 name="agent" />
+  <color_swatch
+		 label="即时消息"
+		 name="im" />
+  <color_swatch
+		 label="系统"
+		 name="system" />
+  <color_swatch
+		 label="脚本错误"
+		 name="script_error" />
+  <color_swatch
+		 label="物体的聊天"
+		 name="objects" />
+  <color_swatch
+		 label="物体即时消息"
+		 name="object_ims" />
+  <color_swatch
+		 label="物体对拥有者"
+		 name="owner" />
+  <color_swatch
+		 label="聊天气球"
+		 name="background" />
+  <color_swatch
+		 label="链接"
+		 name="links" />
+ 
+  <text
+		 name="text_box3">
+    高亮:
+  </text>
+ 
+  <check_box
+		 label="高亮好友的聊天"
+		 name="HighlightFriendsChat" />
+  <color_swatch
+		 label="好友"
+		 name="FriendsChatColor" />
+ 
+  <check_box
+		 label="高亮含有你的名字的本地聊天"
+		 name="HighlightOwnNameInChat" />
+  <check_box
+		 label="高亮含有你的名字的社团聊天"
+		 name="HighlightOwnNameInIM" />
+  <color_swatch
+		 label="你的名字"
+		 name="OwnNameChatColor" />
+ 
+  <line_editor label="高亮昵称 1:"
+		 name="nick01" />
+  <line_editor label="高亮昵称 2:"
+		 name="nick02" />
+  <line_editor label="高亮昵称 3:"
+		 name="nick03">
+</panel>
