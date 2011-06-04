@@ -28,7 +28,7 @@
 		库:
 	</text>
 	<text name="steps_label">
-		阶段：
+		步骤：
 	</text>
 	<scroll_list name="library_list">
 		动画

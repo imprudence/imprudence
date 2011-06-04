@@ -4,10 +4,10 @@
 	<button label="查找" label_selected="查找" name="search_btn" />
 	<button label="替换" label_selected="替换" name="replace_btn" />
 	<button label="全部替换" label_selected="全部替换" name="replace_all_btn" />
-	<text type="string" length="1" name="txt">
+	<text type="string" name="search_label">
 		查找
 	</text>
-	<text type="string" length="1" name="txt2">
+	<text type="string" name="replace_label">
 		替换
 	</text>
 </floater>

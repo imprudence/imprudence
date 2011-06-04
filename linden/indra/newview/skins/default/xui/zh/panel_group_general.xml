@@ -26,7 +26,7 @@
 	<text_editor name="charter">
 		社团宪章
 	</text_editor>
-	<button label="加入(L$0)" label_selected="加入(L$0)" name="join_button"/>
+	<button label="加入 (免费)" label_selected="加入 (免费)" name="join_button"/>
 	<button label="详细视图" label_selected="详细察看" name="info_button"/>
 	<text name="text_owners_and_visible_members">
 		拥有者和可见的会员
@@ -45,7 +45,7 @@
 	<panel name="preferences_container">
 		<check_box label="在搜索中显示" name="show_in_group_list" tool_tip="让别人在搜索结果中看到这个社团。"/>
 		<check_box label="公开注册" name="open_enrollement" tool_tip="设置该社团是否允许新会员加入而不需要被邀请。"/>
-		<check_box label="注册费用: L$" name="check_enrollment_fee" tool_tip="设定是否收将取社团入会费。"/>
+		<check_box label="注册费用: [CURRENCY]" name="check_enrollment_fee" tool_tip="设定是否收将取社团入会费。"/>
 		<spinner name="spin_enrollment_fee" tool_tip="如果选择了注册费用的话，新会员加入社团时必须付出这笔费用。"/>
 		<combo_box name="group_mature_check" tool_tip="设置是否应将社团信息看作Mature内容。">
 			<combo_item name="select_mature">
@@ -65,14 +65,18 @@
 			<combo_box name="active_title" tool_tip="设置当该社团激活时，在化身姓名标签中显示的头衔。"/>
 		</panel>
 		<check_box label="接受社团通知" name="receive_notices" tool_tip="设置您是否想要从该社团接受通知。如果这个社团向您乱发垃圾信息，那就取消选择这项。"/>
+		<check_box
+			 label="加入社团聊天"
+			 name="receive_chat"
+			 tool_tip="设置是否想参加社团聊天。如果这个社团向您乱发垃圾信息，那就取消选择这项。" />
 		<check_box label="在我的档案中列出该社团" name="list_groups_in_profile" tool_tip="设置您是否想要在档案中列出该社团"/>
 	</panel>
 	<string name="incomplete_member_data_str">
-		重新获取会员信息
+		获取团员信息中
 	</string>
 	<string name="confirm_group_create_str">
-		创建这个社团将花费L$100. 
-你真的，真的，真----的----确定要花费L$100来创建这个社团吗?
+		创建这个社团将花费 [GROUPCREATEFEE]. 
+你真的，真的，真----的----确定要花费 [GROUPCREATEFEE] 来创建这个社团吗?
 请注意如果没有别人在48小时内加入该社团，它将会被解散，并且这个社团名字将来将不能使用。
 	</string>
 </panel>

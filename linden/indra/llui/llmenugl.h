@@ -514,10 +514,8 @@ public:
 
 	// background colors
 	static void setDefaultBackgroundColor( const LLColor4& color ) { sDefaultBackgroundColor = color; }
-        void setBackgroundColor( const LLColor4& color );
-        void setBorderColor( const LLColor4& color );
+    void setBackgroundColor( const LLColor4& color );
 	const LLColor4& getBackgroundColor() const { return mBackgroundColor; }
-        const LLColor4& getBorderColor() const { return mBorderColor; }
 	void setBackgroundVisible( BOOL b )	{ mBgVisible = b; }
 	void setCanTearOff(BOOL tear_off, LLHandle<LLFloater> parent_floater_handle = LLHandle<LLFloater>());
 
@@ -631,7 +629,6 @@ private:
 	static BOOL		sKeyboardMode;
 
 	LLColor4		mBackgroundColor;
-        LLColor4                mBorderColor;
 	BOOL			mBgVisible;
 	LLMenuItemGL*	mParentMenuItem;
 	LLUIString		mLabel;

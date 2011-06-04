@@ -54,6 +54,13 @@
 			<button
 				 label="社团信息"
 				 name="group_info_btn" />
+		<flyout_button
+			 label="社团信息"
+			 name="group_info_btn">
+				<flyout_button_item name="history_entry">
+				  查看聊天历史
+				</flyout_button_item>
+			  </flyout_button>
 			<button
 				 image_overlay_alignment="left"
 				 label="加入通话"

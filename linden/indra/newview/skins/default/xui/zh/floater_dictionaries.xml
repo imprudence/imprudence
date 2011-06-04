@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="EmeraldIRC_dictionaries"
+	 title="下载新词典">
+     <text
+		 name="EmDics_txt">
+以下是可以从 Imprudence 网站下载的附加词典的列表。
+
+请选择您想下载的词典，然后按下载按钮。</text>
+	<combo_box
+		 allow_text_entry="false"
+		 max_chars="255"
+		 name="Emerald_combo_dics"
+		 tool_tip="" />
+     <button
+		 label="下载"
+		 name="Emerald_dic_download" />
+</floater>

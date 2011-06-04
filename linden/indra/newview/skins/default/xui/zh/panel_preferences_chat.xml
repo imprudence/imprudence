@@ -1,72 +1,253 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="聊天" name="chat">
-	<text type="string" length="1" name="text_box">
-		聊天字体大小:
-	</text>
-	<radio_group name="chat_font_size">
-		<radio_item type="string" length="1" name="radio">
-			小号
-		</radio_item>
-		<radio_item type="string" length="1" name="radio2">
-			中号
-		</radio_item>
-		<radio_item type="string" length="1" name="radio3">
-			大号
-		</radio_item>
-	</radio_group>
-	<text type="string" length="1" name="text_box2">
-		聊天颜色:
-	</text>
-	<!--Geneko Nemeth: 最多只能写三个字。/Maximum 3 Chinese characters.-->
-	<color_swatch
-		 label="您"
-		 name="user" />
-	<color_swatch
-		 label="其他人"
-		 name="agent" />
-	<color_swatch
-		 label="即时"
-		 name="im" />
-	<color_swatch label="系统" name="system" />
-	<color_swatch label="错误" name="script_error" />
-	<color_swatch label="用户" name="users" />
-	<color_swatch label="物体" name="objects" />
-	<color_swatch label="Owner" name="owner" />
-	<color_swatch label="气球" name="background" />
-	<color_swatch label="链接" name="links" />
-	<text type="string" length="1" name="text_box3">
-		聊天控制台:
-	</text>
-	<spinner label="对话淡出时间" name="fade_chat_time" />
-	<text type="string" length="1" name="text_box4">
-		(秒)
-	</text>
-	<text type="string" length="1" name="text_box5">
-		(行)
-	</text>
-	<slider label="不透明度" name="console_opacity" />
-	<check_box
-		 label="使用全屏宽度  (需要重启动)"
-		 name="chat_full_width_check" />
-	<text type="string" length="1" name="text_box6">
-		聊天选项:
-	</text>
-	<check_box label="用全屏宽度聊天 (需重启)" name="chat_full_width_check" />
-	<check_box label="按回车键关闭聊天栏" name="close_chat_on_return_check" />
-	<check_box label="聊天时箭头键总是移动你的化身"
-	     name="arrow_keys_move_avatar_check" />
-	<check_box label="本地聊天时显示时间戳" name="show_timestamps_check" />
-	<check_box
-		 label="聊天时播放打字动画"
-		 name="play_typing_animation" />
-	<text type="string" length="1" name="text_box7">
-		聊天气球:
-	</text>
-	<check_box label="使用气球聊天" name="bubble_text_chat" />
-	<slider label="不透明度" name="bubble_chat_opacity" />
-	<text type="string" length="1" name="text_box8">
-		脚本错误:
-	</text>
-	<check_box label="以聊天形式显示脚本错误和警告" name="script_errors_as_chat" />
+  <tab_container
+		 name="chattab2">
+    <panel
+			 label="聊天和即时消息"
+			 name="chat_panel">
+		<text type="string" length="1" name="text_box">
+			聊天字体大小:
+		</text>
+		<combo_box
+				 name="chat_font_size">
+			<combo_item name="0">
+			  小号
+			</combo_item>
+			<combo_item name="1">
+			  中号
+			</combo_item>
+			<combo_item name="2">
+			  大号
+			</combo_item>
+		</combo_box>
 
+		<text type="string" length="1" name="text_box2">
+			聊天颜色:
+		</text>
+		<color_swatch
+			 label="您"
+			 name="user" />
+		<color_swatch
+			 label="其他人"
+			 name="agent" />
+		<color_swatch
+			 label="即时消息"
+			 name="im" />
+		<color_swatch label="系统" name="system" />
+		<color_swatch label="错误" name="script_error" />
+		<color_swatch label="用户" name="users" />
+		<color_swatch label="物体" name="objects" />
+		<color_swatch label="Owner" name="owner" />
+		<color_swatch label="气球" name="background" />
+		<color_swatch label="链接" name="links" />
+		<text type="string" length="1" name="text_box3">
+			聊天控制台:
+		</text>
+		<spinner label="对话淡出时间" name="fade_chat_time" />
+		<text type="string" length="1" name="text_box4">
+			(秒)
+		</text>
+		<text type="string" length="1" name="text_box5">
+			(行)
+		</text>
+		<slider label="不透明度" name="console_opacity" />
+		<check_box
+			 label="使用全屏宽度  (需要重启动)"
+			 name="chat_full_width_check" />
+		<text type="string" length="1" name="text_box6">
+			聊天栏:
+		</text>
+		<check_box label="用全屏宽度聊天 (需重启)" name="chat_full_width_check" />
+		<check_box label="按回车键关闭聊天栏" name="close_chat_on_return_check" />
+		<check_box
+			 label="聊天时播放打字动画"
+			 name="play_typing_animation" />
+        <check_box
+			 label="将聊天栏作为命令行使用"
+			 name="command_line_check" />
+        <button
+			 label="聊天栏命令"
+			 name="command_line_btn"
+			 tool_tip="Set specific chatbar command line commands here" />
+		<text type="string" length="1" name="text_box7">
+			聊天气球:
+		</text>
+		<check_box label="使用气球聊天" name="bubble_text_chat" />
+		<check_box
+			 label="同时显示本地聊天和气球"
+			 name="local_bubble_text_chat" />
+		<slider label="不透明度" name="bubble_chat_opacity" />
+		<text type="string" length="1" name="text_box8">
+			脚本错误:
+		</text>
+		<check_box
+			 label="显示自定义聊天频道"
+			 name="toggle_channel_control" />
+	    <text
+				 name="Instant Messages:">
+        即时消息:
+      </text>
+
+		<check_box label="发送即时消息至电子邮件([EMAIL])" name="send_im_to_email" />
+		<text
+			 name="show_ims_label">
+			显示即时消息:
+		</text>
+		<check_box
+			 label="聊天控制台"
+			 name="include_im_in_chat_console" />
+		<check_box
+			 label="本地聊天窗口"
+			 name="include_im_in_chat_history" />
+		<check_box
+			 label="垂直即时消息标签页 (需要重启动)"
+			 name="vertical-imtabs-toggle" />
+	</panel>
+    <panel
+			 label="拼写检查"
+			 name="spell_check_tab">
+
+      <text name="text_box">
+        拼写检查:
+      </text>
+      <button
+				 label="?"
+				 name="EmeraldHelp_SpellCheck"
+				 tool_tip="点击这里获取该页面设置的帮助。" />
+      <check_box
+				 label="以红色显示拼错的词"
+				 name="EmeraldSpellDisplay" />
+      <text
+				 name="EmSpell_txt1">
+        当前语言 (词典):
+      </text>
+      <text
+				 name="EmSpell_txt3">
+        下载语言 (词典):
+      </text>
+      <button
+				 label="安装"
+				 name="EmSpell_Add"
+				 tool_tip="" />
+      <button
+				 label="下载更多..."
+				 name="EmSpell_GetMore"
+				 tool_tip="在线获取更多词典" />
+      <text
+				 name="EmSpell_txt2">
+        附加的自定义词典:
+      </text>
+      <button
+				 label="移除"
+				 name="EmSpell_Remove"
+				 tool_tip="" />
+      <!--<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="18" label="Edit Custom dictionary"
+         name="EmSpell_EditCustom" tool_tip="" left_delta="20" width="130"/>-->
+      <text
+				 name="EmSpell_txt4">
+				 要使用拼写检查，右键单击拼错的词并选择正确的词替换。
+      </text>
+      <button
+				 name="ac_button"
+				 label="自动更正设定..."
+				 tool_tip="更改自动更正词汇表和设置" />
+		<text
+			 name="text_translate">
+			翻译聊天:
+		</text>
+		<check_box
+			 label="机器翻译聊天 (由 Google 强力驱动)"
+			 name="translate_chat" />
+		<text
+			 name="text_translate_chat">
+			翻译为以下语言:
+		</text>
+		<combo_box
+			 name="translate_language_combobox">
+			<combo_item
+					 name="System Default Language">
+			  系统默认值
+			</combo_item>
+			<combo_item
+					 name="English">
+			  English (英语)
+			</combo_item>
+
+			<!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
+
+			<combo_item
+					 name="Danish">
+			  Dansk (丹麦语)
+			</combo_item>
+			<combo_item
+					 name="Deutsch(German)">
+			  Deutsch (德语)
+			</combo_item>
+			<combo_item
+					 name="Spanish">
+			  Español (西班牙语)
+			</combo_item>
+			<combo_item
+					 name="French">
+			  Français (法语)
+			</combo_item>
+			<combo_item
+					 name="Italian">
+			  Italiano (意大利语)
+			</combo_item>
+			<combo_item
+					 name="Hungarian">
+			  Magyar (匈牙利语)
+			</combo_item>
+			<combo_item
+					 name="Dutch">
+			  Nederlands (荷兰语)
+			</combo_item>
+			<combo_item
+					 name="Polish">
+			  Polski (波兰语)
+			</combo_item>
+			<combo_item
+					 name="Portugese">
+			  Portugués (葡萄牙语)
+			</combo_item>
+			<combo_item
+					 name="Russian">
+			  Русский (俄语)
+			</combo_item>
+			<combo_item
+					 name="Turkish">
+			  Türkçe (土耳其语)
+			</combo_item>
+			<combo_item
+					 name="Ukrainian"
+					 value="uk">
+			  Українська (乌克兰语)
+			</combo_item>
+			<combo_item
+					 name="Chinese"
+					 value="zh">
+			  中文
+			</combo_item>
+			<combo_item
+					 name="(Japanese)"
+					 value="ja">
+			  日本語
+			</combo_item>
+			<combo_item
+					 name="(Korean)"
+					 value="ko">
+			  한국어 (韩语)
+			</combo_item>
+		</combo_box>
+    </panel>
+
+ </tab_container>
+		<string name="log_in_to_change">
+		登陆后更改
+		</string>
+  <string
+		 name="default_email_used">
+    使用默认的电子邮件地址
+  </string>
 </panel>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="ao_controls">
+  <button label="动画覆盖" label_selected="动画覆盖" name="ao_btn" 
+		tool_tip="点击这里切换动画覆盖器" />
+  <button name="popup_btn" tool_tip="更多选项" width="22" />
+</panel>

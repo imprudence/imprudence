@@ -22,10 +22,10 @@
 		为这块土地选择一个合适的价位
 	</text>
 	<text name="price_ld">
-		L$
+		[CURRENCY]
 	</text>
 	<text name="price_per_m">
-		(L$[PER_METER]每平方米)
+		([CURRENCY][PER_METER] 每平方米)
 	</text>
 	<text name="sell_to_label">
 		把土地出售给:

@@ -37,7 +37,7 @@
 	</string>
 	<string
 		 name="forsale_text">
-		以L$[PRICE]的价格出售
+		以 [CURRENCY][PRICE] 的价格出售
 	</string>
 	<string
 		 name="auction_text">

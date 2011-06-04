@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel label="输入和摄像头" name="Input panel">
+<panel label="输入和摄像机" name="Input panel">
 	<text length="1" name=" Mouselook Options:" type="string">
 		第一人称视角选项设置:
 	</text>
@@ -11,7 +11,7 @@
 		自动飞翔选项:
 	</text>
 	<check_box label="起飞/着陆通过键盘上/下键控制" name="automatic_fly"/>
-	<text length="1" name=" Camera Options:" type="string">
+	<text length="1" name="Camera Options:" type="string">
 		摄像机选项:
 	</text>
 	<text name="camera_fov_label">
@@ -20,11 +20,52 @@
 	<text name="Camera Follow Distance:">
 		摄像机跟随距离:
 	</text>
-	<check_box label="编辑物体时使用自动视角" name="edit_camera_movement" tool_tip="当进入和离开编辑模式时，自动移动摄像头"/>
-	<check_box label="编辑外观时使用自动视角" name="appearance_camera_movement" tool_tip="在编辑外观时，摄像头自动定位"/>
+	<text
+		 name="Camera Transition Time:">
+		摄像机过渡时间:
+	</text>
+	<text
+		 name="Camera Smoothing:">
+		摄像机平滑:
+	</text>
+	<check_box label="编辑物体时使用自动视角" name="edit_camera_movement" tool_tip="当进入和离开编辑模式时，自动移动摄像机"/>
+	<check_box label="编辑外观时使用自动视角" name="appearance_camera_movement" tool_tip="在编辑外观时，摄像机自动定位"/>
+	<check_box
+		 label="禁用摄像机限制"
+		 name="Disable camera constraints"
+		 tool_tip="禁用摄像机限制，例如距离限制和地面限制" />
+	<check_box
+		 label="禁用最小放大距离"
+		 name="disable_min_zoom_check"
+		 tool_tip="聚焦元件或化身并拉近视角时，禁用最小距离" />
 	<text name="text2">
 		化身显示选项:
 	</text>
 	<check_box label="第一人称视角中，显示自己的化身" name="first_person_avatar_visible"/>
 	<button label="游戏杆设置" name="joystick_setup_button"/>
+	
+	<text name="double_click_action_label">
+		双击动作:
+	</text>
+	<combo_box
+		 name="double_click_action">
+		<combo_item	name="None">
+			无
+		</combo_item>
+		<combo_item name="Go">
+			<!--前往-->自动寻路
+		</combo_item>
+	</combo_box>
+
+	<text name="go_action_label">
+		自动寻路方式:
+	</text>
+	<combo_box name="go_action">
+		<combo_item	name="Move">
+			移动
+		</combo_item>
+		<combo_item name="Teleport">
+			瞬间移动
+		</combo_item>
+	</combo_box>
 </panel>

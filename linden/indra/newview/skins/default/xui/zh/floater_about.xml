@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floater_about" title="关于第二人生">
+  <tab_container name="about_tab">
+    <panel label="版本" name="support_panel">
+      <button label="复制到剪贴板"	 name="copy_btn" />
+    </panel>
+    <panel label="工作人员" name="credits_panel" />
+  </tab_container>
+
 	<string name="you_are_at">
 		您现在位于 [POSITION]
 	</string>
+
 </floater>

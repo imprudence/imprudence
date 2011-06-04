@@ -38,7 +38,7 @@
 				地产ID:
 			</text>
 			<text name="parent id">
-				母区域ID:
+				上级ID:
 			</text>
 			<line_editor name="parentestate" tool_tip="这是这块区域的母区域。" />
 			<text name="Grid Pos: ">
@@ -53,7 +53,7 @@
 				帐单明细:
 			</text>
 			<text name="land cost text">
-				L$每平方米:
+				[CURRENCY] 每平方米:
 			</text>
 			<button label="更新" label_selected="更新" name="Refresh"
 			     tool_tip="点击这里来更新以上信息." />
@@ -88,12 +88,12 @@
 			     label_selected="删除目标于他人土地上有脚本的物体"
 			     name="Delete Target&apos;s Scripted Objects On Others Land"
 			     tool_tip="删除他人土地上目标所有有脚本的物体。(不可复制)的物体将被返还。" />
-			<button label="删除*任何*土地上选中的脚本东东"
-			     label_selected="删除*任何*土地上选中的脚本东东"
+			<button label="删除目标于*任何*土地上选中的脚本物体"
+			     label_selected="删除目标于*任何*土地上选中的脚本物体"
 			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
 			     tool_tip="删除该区域中目标所有有脚本的物体。(不可复制)的物体将被返还。" />
-			<button label="删除*所有*选中的东东"
-			     label_selected="删除*所有*选中的东东"
+			<button label="删除*所有*选中的物体"
+			     label_selected="删除*所有*选中的物体"
 			     name="Delete *ALL* Of Target&apos;s Objects"
 			     tool_tip="删除该区域中目标所有的物体。(不可复制)的物体将被返还。" />
 			<button label="获取首要碰撞源" label_selected="取最首要碰撞源"

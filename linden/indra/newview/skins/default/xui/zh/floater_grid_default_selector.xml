@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="default_grid"
+	 title="选择默认网格">
+  <text
+		 name="select_label">
+	或者使用网格管理器添加新的网格
+  </text>
+  <button
+		 label="取消"
+		 name="btn_cancel" />
+  <button
+		 label="确定"
+		 name="btn_ok" />
+</floater>

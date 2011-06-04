@@ -68,7 +68,7 @@
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
-		价格：L$
+		价格：[CURRENCY]
 	</text>
 	<string name="unknown">
 		(未知)

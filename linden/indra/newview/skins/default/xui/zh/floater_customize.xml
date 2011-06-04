@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="floater customize" title="外表">
+<floater name="floater customize" title="外观">
 	<tab_container name="customize tab container">
 		<panel label="身体部位" name="body_parts_placeholder"/>
 		<panel label="体型" name="Shape">
@@ -465,8 +465,92 @@
 			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
+		<panel label="纹身" name="Tattoo">
+			<text length="1" name="title">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify">
+				[DESC]: 无法修改
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: 载入中...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: 没有被穿着
+			</text>
+			<text length="1" name="path" type="string">
+				位于[PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				要使用新的纹身，需从你的库存中拖拽一个新的纹身至你的化身上。
+或者，你也可以从新创建一个，并穿上它。
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				你没有修改这件服饰的权利。
+			</text>
+			<text name="Item Action Label">
+				纹身：
+			</text>
+			<texture_picker label="头部纹身" name="Head Tattoo" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="上身的纹身" name="Upper Tattoo" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="下身纹身" name="Lower Tattoo" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的纹身" label_selected="创建新的纹身" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
+		</panel>
+		<panel label="透明度" name="Alpha">
+			<text length="1" name="title">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify">
+				[DESC]: 无法修改
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: 载入中...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: 没有被穿着
+			</text>
+			<text length="1" name="path" type="string">
+				位于[PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				要使用新的透明度蒙板，需从你的库存中拖拽一个新的透明度蒙板至你的化身上。
+或者，你也可以从新创建一个，并穿上它。
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				你没有修改这件服饰的权利。
+			</text>
+			<text name="Item Action Label">
+				透明度蒙板：
+			</text>
+			<texture_picker label="头部透明度" name="Head Alpha" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="上身透明度" name="Upper Alpha" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="下身透明度" name="Lower Alpha" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="头发透明度" name="Hair Alpha" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="眼睛透明度" name="Eye Alpha" tool_tip="点击这里来选择图片"/>
+			<button label="创建新的透明度蒙板" label_selected="创建新的透明度蒙板" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
+		</panel>
 	</tab_container>
+	<text
+		 name="AvatarHeightText">
+    化身高度:
+  </text>
+  <text name="includes_shoes">
+    (包括鞋)
+  </text>
+ 
+    <button name="Import" label="导入" />
+    <button name="Export" label="导出" />
+ 
+	<button label="保存为装束" label_selected="保存为装束" name="Make Outfit" />
 	<button label="取消" label_selected="取消" name="Cancel"/>
 	<button label="确定" label_selected="确定" name="Ok"/>
-	<button label="Make Outfit..." label_selected="制作装束..." name="Make Outfit"/>
 </floater>

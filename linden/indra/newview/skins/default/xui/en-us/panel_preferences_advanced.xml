@@ -31,7 +31,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
           bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-          mouse_opaque="true" name="textbox" v_pad="0" width="394">
+          mouse_opaque="true" name="user_interface_text" v_pad="0" width="394">
         User Interface:
       </text>
       
@@ -63,7 +63,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
           bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-          mouse_opaque="true" name="textbox" v_pad="0" width="394">
+          mouse_opaque="true" name="avatar_text" v_pad="0" width="394">
         Avatar:
       </text>
       
@@ -113,7 +113,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
           bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-          mouse_opaque="true" name="textbox" v_pad="0" width="394">
+          mouse_opaque="true" name="chat_text" v_pad="0" width="394">
         Chat:
       </text>
 
@@ -156,7 +156,7 @@ USE left="270" FOR TABBING OPTIONS
            label="Enable shadows (WARNING: unstable and requires Ultra graphics)" left_delta="30" mouse_opaque="true"
            name="shadows_check" radio_style="false" width="217" />
       <text bottom_delta="-25" left_delta="0" height="15" width="300"
-           follows="top|left">
+           follows="top|left" name="lightshare_text">
         Allow region WindLight settings (LightShare):
       </text>
       <combo_box name="lightshare_combo"

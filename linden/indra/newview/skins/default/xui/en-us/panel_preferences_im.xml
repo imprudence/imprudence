@@ -22,7 +22,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+       mouse_opaque="false" name="Logging:" v_pad="0" width="128">
     Logging:
   </text>
 
@@ -59,7 +59,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
-       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+       mouse_opaque="false" name="Log location:" v_pad="0" width="128">
     Log location:
   </text>
   <line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="-25"
@@ -67,7 +67,7 @@ USE left="270" FOR TABBING OPTIONS
        font="SansSerifSmall" halign="right" height="19" left_delta="0"
        max_length="254" mouse_opaque="false" name="log_path_string" />
   <button bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="Change Location" label_selected="Change Path" left_delta="0"
+	     height="20" label="Change Location" left_delta="0"
 	     mouse_opaque="true" name="log_path_button" width="160" />
 
 
@@ -79,7 +79,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-       mouse_opaque="false" name="text_box" v_pad="0" width="128">
+       mouse_opaque="false" name="Privacy:" v_pad="0" width="128">
     Privacy:
   </text>
   <check_box bottom_delta="-25" enabled="true" follows="left|top" font="SansSerifSmall"

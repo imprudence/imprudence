@@ -161,7 +161,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	          bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
 	         font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-	         mouse_opaque="false" name="text_box6" v_pad="0" width="135">
+	         mouse_opaque="false" name="Instant Messages:" v_pad="0" width="135">
         Instant Messages:
       </text>
 
@@ -261,7 +261,7 @@ USE left="270" FOR TABBING OPTIONS
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
           bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
           font="SansSerifSmall" h_pad="0" halign="left" height="10" left="20"
-          mouse_opaque="false" name="text_box" v_pad="0" width="128">
+          mouse_opaque="false" name="text_translate" v_pad="0" width="128">
         Translate Chat:
       </text>
       <check_box bottom_delta="-25" control_name="TranslateChat" enabled="true" follows="left|top"

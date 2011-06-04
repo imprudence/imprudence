@@ -24,7 +24,7 @@ USE left="270" FOR TABBING OPTIONS
        mouse_opaque="true" name="fontselect" v_pad="0" width="128" font-style="BOLD|SHADOW">
     Select UI Font:
   </text>
-  <text font="SansSerifSmall" bottom="-22" left_delta="80" height="12" width="300">
+  <text font="SansSerifSmall" bottom="-22" left_delta="80" height="12" name="(requires restart)" width="300">
     (requires restart)
   </text>
 

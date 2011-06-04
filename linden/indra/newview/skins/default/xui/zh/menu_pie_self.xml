@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Self Pie">
 	<menu_item_call label="档案..." name="Profile..." />
-	<menu_item_call label="社团..." name="Groups..." />
-	<menu_item_call label="去往..." name="Go..." />
+	<menu_item_call label="社团" name="Groups" />
+	<menu_item_call label="前往..." name="Go..." />
 	<menu_item_call label="起身" name="Stand Up" />
-	<menu_item_call label="朋友..." name="Friends..." />
+	<menu_item_call label="好友" name="Friends" />
 	<menu_item_call label="动作..." name="Gestures..." />
 	<pie_menu label="脱下 &gt;" name="Take Off &gt;">
 		<pie_menu label="服饰 &gt;" name="Clothes &gt;">
@@ -16,7 +16,9 @@
 			<menu_item_call label="手套" name="Gloves" />
 			<pie_menu label="更多 &gt;" name="More &gt;">
 				<menu_item_call label="内衣" name="Self Undershirt" />
+				<menu_item_call label="透明度蒙板" name="Self Alpha" />
 				<menu_item_call label="所有服饰" name="All Clothes" />
+				<menu_item_call label="纹身" name="Self Tattoo" />
 				<menu_item_call label="内裤" name="Self Underpants" />
 			</pie_menu>
 			<menu_item_call label="裙子" name="Skirt" />

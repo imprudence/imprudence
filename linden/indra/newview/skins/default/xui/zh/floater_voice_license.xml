@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="modal container"
+	 title="">
+  <button
+		 label="继续"
+		 label_selected="继续"
+		 name="Continue" />
+  <button
+		 label="取消"
+		 label_selected="取消"
+		 name="Cancel" />
+  <check_box
+		 label="我接受Vivox使用条例。"
+		 name="agree_chk" />
+  <text
+		 name="license_heading">
+请仔细阅读以下的条例文本。
+要使用Vivox语音聊天，您必须接受条例款项。
+  </text>
+  <!-- Loading text says: "Loading Vivox Acceptable Use Policy..." URL encoded -->
+  <web_browser
+		 name="license_html"
+		 start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody text=%22000000%22%3E%3Ch2%3E Loading %3Ca%20target%3D%22_external%22%20href%3D%22http%3A//vivox.com/vivox_aup.html%22%3EVivox%20Acceptable%20Use%20Policy%3C/a%3E...%3C/h2%3E %3C/body%3E %3C/html%3E" />
+</floater>

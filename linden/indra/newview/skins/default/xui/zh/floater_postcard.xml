@@ -20,12 +20,11 @@
 		在这里键入你的信息。
 	</text_editor>
 	<text name="fine_print">
-		如果你的收件人加入SL，你会得到一份介绍奖励。
 	</text>
 	<button label="取消" name="cancel_btn"/>
 	<button label="发送" name="send_btn"/>
 	<string name="default_subject">
-		来自第二人生的明信片
+		来自 [GRID_NAME] 的明信片
 	</string>
 	<string name="default_message">
 		瞧瞧这个!

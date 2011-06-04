@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="rlvBehaviours"
+	 title="激活的 RLV 限制">
+  <scroll_list
+		 name="behaviour_list">
+    <column
+			 label="限制"
+			 name="behaviour" />
+    <column
+			 label="物体名称"
+			 name="name" />
+  </scroll_list>
+</floater>

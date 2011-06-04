@@ -276,18 +276,17 @@ void LLDrawPoolWLSky::render(S32 pass)
 	LLVector3 const & origin = LLViewerCamera::getInstance()->getOrigin();
 	glPushMatrix();
 
-		glTranslatef(origin.mV[0], origin.mV[1], origin.mV[2]);
+	glTranslatef(origin.mV[0], origin.mV[1], origin.mV[2]);
 
-		// *NOTE: have to bind a texture here since register combiners blending in
-		// renderStars() requires something to be bound and we might as well only
-		// bind the moon's texture once.
-		LLImageGL * tex  = gSky.mVOSkyp->mFace[LLVOSky::FACE_MOON]->getTexture();
-		gGL.getTexUnit(0)->bind(tex);
+	// *NOTE: have to bind a texture here since register combiners blending in
+	// renderStars() requires something to be bound and we might as well only
+	// bind the moon's texture once.
+	LLImageGL * tex  = gSky.mVOSkyp->mFace[LLVOSky::FACE_MOON]->getTexture();
+	gGL.getTexUnit(0)->bind(tex);
 
-		renderHeavenlyBodies();
+	renderStars();
 
-		renderStars();
-		
+	renderHeavenlyBodies();
 
 	glPopMatrix();
 

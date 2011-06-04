@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="radar"
+	 title="雷达">
+ 
+	<scroll_list
+		 name="avatar_list"
+		 tool_tip="点击时按住 Shift 或 Control 选择多名化身">
+		<column
+			 name="marked"
+			 label="标记"
+			 tool_tip="标记的化身" />
+		<column
+			 name="avatar_name"
+			 label="名字"
+			 tool_tip="点击时按住 Shift 或 Control 选择多名化身" />
+		<column
+			 name="distance"
+			 label="距离"
+			 tool_tip="到您的化身的距离 (红色=聊天距离内, 黄色=喊叫距离内, 绿色=描绘距离内)" />
+		<column
+			 name="position"
+			 label="位置"
+			 tool_tip="区域内的位置 (X, Y), 或区域外大致方向" />
+		<column
+			 name="altitude"
+			 label="高度"
+			 tool_tip="高度" />
+	</scroll_list>
+ 
+	<tab_container
+		 name="actions_tab_container">
+		<panel
+			 label="化身"
+			 name="actions_tab">
+			<!-- upper row -->
+			<button
+				 name="profile_btn"
+				 label="档案"
+				 tool_tip="显示图片、社团和其他信息" />
+			<button
+				 name="track_btn"
+				 label="追踪/取消"
+				 tool_tip="切换追踪该化身的位置" />
+			<button
+				 name="get_key_btn"
+				 label="获取键值"
+				 tool_tip="复制化身的键值到剪贴板" />
+			<!-- upper middle row -->
+			<button
+				 name="im_btn"
+				 label="即时消息"
+				 tool_tip="打开即时通信会话" />
+			<button
+				 name="offer_btn"
+				 label="邀请瞬移"
+				 tool_tip="邀请此人瞬间移动到你的位置" />
+			<button
+				 name="teleport_btn"
+				 label="瞬移到"
+				 tool_tip="瞬间移动到他人的位置" />			
+			<!-- lower middle row-->
+			<button
+				 name="mark_btn"
+				 label="标记/取消"
+				 tool_tip="在列表中标记或取消标记该化身" />
+			<button
+				 name="prev_marked_btn"
+				 label="上个标记"
+				 tool_tip="聚焦摄像机于上个已标记的化身" />
+			<button
+				 name="next_marked_btn"
+				 label="下个标记"
+				 tool_tip="聚焦摄像机于下个已标记的化身" />
+			<!-- lower row-->
+			<button
+				 name="focus_btn"
+				 label="聚焦"
+				 tool_tip="聚焦摄像机于当前选中的化身" />
+			<button
+				 name="prev_in_list_btn"
+				 label="上个"
+				 tool_tip="聚焦摄像机于列表中上一个化身" />
+			<button
+				 name="next_in_list_btn"
+				 label="下个"
+				 tool_tip="聚焦摄像机于列表中下一个化身" />
+ 
+		</panel>
+ 
+		<panel
+			 label="提醒"
+			 name="alerts_tab">
+			<check_box
+				 label="聊天中显示提醒"
+				 name="radar_alerts"
+				 tool_tip="在聊天记录中显示进入和离开范围的化身" />
+ 
+			<check_box
+				 label="化身进入 / 离开区域"
+				 name="alerts_sim"
+				 tool_tip="报告进入或离开区域的化身" />
+ 
+			<check_box
+				 label="化身进入 / 离开描绘距离"
+				 name="alerts_draw"
+				 tool_tip="报告进入或离开描绘距离的化身" />
+ 
+			<check_box
+				 label="化身进入 / 离开喊叫距离"
+				 name="alerts_shout"
+				 tool_tip="报告进入或离开喊叫距离的化身" />
+ 
+			<check_box
+				 label="化身进入 / 离开聊天距离"
+				 name="alerts_chat"
+				 tool_tip="报告进入或离开聊天距离的化身" />
+		</panel>
+ 
+		<panel
+			 label="管理"
+			 name="land_tab">
+ 
+			<!-- Upper row -->
+			<button
+				 name="mute_btn"
+				 label="屏蔽/解除"
+				 tool_tip="屏蔽或解除屏蔽该化身 (屏蔽的化身名字会在列表中以红色高亮显示)。" />
+			<button
+				 name="freeze_btn"
+				 label="冻结"
+				 tool_tip="冻结该化身，防止其移动" />
+			<button
+				 name="ar_btn"
+				 label="报告"
+				 tool_tip="报告该化身的不良行为。" />
+			<!-- Lower row -->
+			<button
+				 name="eject_btn"
+				 label="驱逐"
+				 tool_tip="从地块中驱逐该化身。" />
+ 
+			<button
+				 name="estate_eject_btn"
+				 label="从地产中驱逐"
+				 tool_tip="从地产中驱逐该化身。" />
+		</panel>
+ 
+		<panel
+			 label="选项"
+			 name="options_tab">
+			<check_box
+				 label="更新"
+				 name="update_enabled_cb"
+				 tool_tip="选择化身列表应何时更新" />
+			<text
+				 name="rate">
+					速率:
+			</text>
+			<radio_group
+				 name="update_rate"
+				 tool_tip="雷达更新频率 (高频率将降低 FPS)">
+				<radio_item
+					 name="high">
+					高
+				</radio_item>
+				<radio_item
+					 name="medium">
+					中
+				</radio_item>
+				<radio_item
+					 name="low">
+					低
+				</radio_item>
+			</radio_group>
+			<check_box
+				 label="关闭时继续提醒"
+				 name="keep_open"
+				 tool_tip="隐藏窗口而不关闭，以继续在聊天记录中显示进入的化身" />
+			<check_box
+				 label="发送键值到 HUD"
+				 name="radar_chat_keys"
+				 tool_tip="设置是否将化身的键值发送给LSL脚本" />
+			<button
+				 name="send_keys_btn"
+				 label="现在发送"
+				 tool_tip="立即将所有键值发送到 HUD" />
+		</panel>
+	</tab_container>
+</floater>
+

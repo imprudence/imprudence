@@ -678,7 +678,6 @@ static	std::string displayNameFromAvatar(LLVOAvatar *avatar);
 static	std::string nameFromsipURI(const std::string &uri);		
 
 		bool inSpatialChannel(void);
-		bool inNonSpatialChannel(void);
 		std::string getAudioSessionURI();
 		std::string getAudioSessionHandle();
 				

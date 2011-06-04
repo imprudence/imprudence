@@ -6,6 +6,56 @@
 	<text type="string" length="1" name="desc txt">
 		描述:
 	</text>
+	<menu_bar
+		 name="motecard_menu">
+    <menu
+			 name="File"
+ 			 label="文件">
+      <menu_item_call
+				 label="保存"
+				 name="Save Menu"/>
+      <menu_item_call
+				 label="导出文字..."
+				 name="Export Text..." />
+      <menu_item_call
+				 label="导入文字..."
+				 name="Import Text..." />
+    </menu>
+		<menu
+			 label="编辑"
+			name="Edit">
+			<menu_item_call
+				 label="撤销"
+				 name="Undo" />
+			<menu_item_call
+				 label="重做"
+				 name="Redo" />
+			<menu_item_separator
+				 label="-----------"
+				 name="separator1" />
+			<menu_item_call
+				 label="剪切"
+				 name="Cut" />
+			<menu_item_call
+				 label="复制"
+				 name="Copy" />
+			<menu_item_call
+				 label="粘贴"
+				 name="Paste" />
+			<menu_item_call
+				 label="全选"
+				 name="Select All" />
+			<menu_item_call
+				 label="全不选"
+				 name="Deselect" />
+			<menu_item_separator
+				 label="-----------"
+				 name="separator3" />
+			<menu_item_call
+				 label="查找 / 替换..."
+				 name="Search / Replace..." />
+		</menu>
+	</menu_bar>
 	<button label="保留" label_selected="保留" name="Keep" />
 	<button label="放弃" label_selected="放弃" name="Discard" />
 	<string

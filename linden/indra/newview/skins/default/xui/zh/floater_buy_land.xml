@@ -97,7 +97,7 @@
 		你有L$2,100.
 	</text>
 	<text name="currency_action">
-		购买额外的 L$
+		购买额外的 [CURRENCY]
 	</text>
 	<line_editor name="currency_amt">
 		1000
@@ -186,10 +186,10 @@
 		你拥有[BUYER]平方米的土地。
 	</string>
 	<string name="pay_to_for_land">
-		支付L$ [AMOUNT] 至 [SELLER] 购买这块土地
+		支付[CURRENCY] [AMOUNT] 至 [SELLER] 购买这块土地
 	</string>
 	<string name="buy_for_US">
-		以大约US$[AMOUNT2]购买L$[AMOUNT]，
+		以大约US$[AMOUNT2]购买[CURRENCY][AMOUNT]，
 	</string>
 	<string name="parcel_meters">
 		这块土地的面积为[AMOUNT]平方米。
@@ -210,30 +210,31 @@
 	<string name="sold_without_objects">
 		物品不包括在其中
 	</string>
+<!--Does not appear to be using [CURRENCY]-->
 	<string name="info_price_string">
-		L$[PRICE]
-（L$[PRICE_PER_SQM]/m²）
+		[CURRENCY][PRICE]
+（[CURRENCY][PRICE_PER_SQM]/m²）
 [SOLD_WITH_OBJECTS]
 	</string>
 	<string name="insufficient_land_credits">
 		在这次购买完成之前，社团[GROUP]将需要足够的被贡献的土地所用的信用额度，来覆盖这片土地。
 	</string>
 	<string name="have_enough_lindens">
-		你有L$ [AMOUNT], 这些钱足够购买这块土地。
+		你有[CURRENCY] [AMOUNT], 这些钱足够购买这块土地。
 	</string>
 	<string name="not_enough_lindens">
-		你只有L$ [AMOUNT], 你还需要 L$ [AMOUNT2]。
+		你只有[CURRENCY] [AMOUNT], 你还需要 [CURRENCY] [AMOUNT2]。
 	</string>
 	<string name="balance_left">
-		此项消费后, 你还会有L$ [AMOUNT]结余.
+		此项消费后, 你还会有[CURRENCY] [AMOUNT]结余.
 	</string>
 	<string name="balance_needed">
-		你需要购买至少 L$ [AMOUNT]来购买这块土地。
+		你需要购买至少 [CURRENCY] [AMOUNT]来购买这块土地。
 	</string>
 	<string name="no_parcel_selected">
 		(没有选择地块)
 	</string>
 	<string name="buy_currency">
-		以大约 US$ [USD] 购买 L$ [LINDENS]
+		以大约 US$ [USD] 购买 [CURRENCY] [LINDENS]
 	</string>
 </floater>

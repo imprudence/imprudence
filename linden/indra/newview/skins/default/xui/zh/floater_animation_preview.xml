@@ -59,7 +59,7 @@
 	</text>
 	<combo_box label="" name="emote_combo" tool_tip="控制在动画中的表情">
 		<combo_item name="[None]">
-			[None]
+			[无]
 		</combo_item>
 		<combo_item name="Aaaaah">
 			啊啊啊
@@ -147,7 +147,7 @@
 我们推荐从Poser 4软件中导出的BVH文件
 	</text>
 	<button label="取消" name="cancel_btn"/>
-	<button label="上传(L$[AMOUNT])" name="ok_btn"/>
+	<button label="上传 ([UPLOADFEE])" name="ok_btn"/>
 	<string name="failed_to_initialize">
 		初始化动作失败。
 	</string>
@@ -160,5 +160,8 @@
 		无法读取动画文件。
 
 [STATUS]
+	</string>
+	<string name="in_world">
+		动画预览将在你的化身上播放。
 	</string>
 </floater>

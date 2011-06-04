@@ -4,19 +4,30 @@
 		音量:
 	</text>
 	<text name="streaming_prefs_text">
-		流媒体首选项:
+		流媒体:
 	</text>
 	<text name="audio_prefs_text">
-		音频首选项:
+		音频:
 	</text>
 	<panel label="音量" name="Volume Panel"/>
 	<check_box label="当音乐可用时播放音乐流(会占用更多带宽)" name="streaming_music"/>
+	<check_box label="聊天记录中显示流信息" name="show_stream_title" />
 	<check_box label="当视频可用时播放视频流(会占用更多带宽)" name="streaming_video"/>
 	<check_box label="自动播放媒体" name="auto_streaming_video"/>
+	<check_box label="媒体控制小工具" name="media_helper_widget" />	
+	<check_box label="过滤媒体 URL" name="enable_media_filter" />
+	<button
+		 name="show_media_filter"
+		 label="媒体过滤设置"
+		 tool_tip="编辑媒体过滤器的设置和允许和禁止列表。" />
 	<check_box label="当窗口最小化时屏蔽声音" name="mute_when_minimized"/>
 	<slider label="多普勒效应" name="Doppler Effect" width="250"/>
 	<slider label="距离系数" name="Distance Factor"/>
 	<slider label="衰减系数:" name="Rolloff Factor"/>
-	<spinner label="L$ 变化阈值" name="L$ Change Threshold"/>
-	<spinner label="生命值变化阈值" name="Health Change Threshold"/>
+	<spinner label="[CURRENCY] 变化阈值" name="L$ Change Threshold"/>
+	<spinner label="生命值变化阈值" name="Health change threshold"/>
+  <text name="ambient_prefs_text">
+    环境:
+  </text>
+  <check_box label="启用风声" name="mute_wind_check" />
 </panel>

@@ -2025,15 +2025,15 @@ void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
     LLSD args;
     LLColor4 new_bg_color;
 
-    if(god_mode && LLViewerLogin::getInstance()->isInProductionGrid())
+    if (god_mode && dev_grid)
     {
         new_bg_color = gColors.getColor( "MenuBarGodBgColor" );
     }
-    else if(god_mode && !LLViewerLogin::getInstance()->isInProductionGrid())
+    else if(god_mode && !dev_grid)
     {
         new_bg_color = gColors.getColor( "MenuNonProductionGodBgColor" );
     }
-    else if(!god_mode && !LLViewerLogin::getInstance()->isInProductionGrid())
+    else if(!god_mode && !dev_grid)
     {
         new_bg_color = gColors.getColor( "MenuNonProductionBgColor" );
     }
@@ -2042,10 +2042,12 @@ void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
         new_bg_color = gColors.getColor( "MenuBarBgColor" );
     }
 
-    if(gMenuBarView)
+	// Not doing this is a cheap workaround for the menu not having a good way to tell
+	// the difference between bar and item color -- MC
+	/*if(gMenuBarView)
     {
         gMenuBarView->setBackgroundColor( new_bg_color );
-    }
+    }*/
 
     if(gStatusBar)
     {

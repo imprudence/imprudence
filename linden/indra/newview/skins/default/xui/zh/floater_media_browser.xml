@@ -10,18 +10,33 @@
 		<layout_panel
 			 name="nav_controls">
 			<button
-				 label="后退"
 				 name="back" />
 			<button
-				 label="前进"
 				 name="forward" />
 			<button
-				 label="刷新"
 				 name="reload" />
 			<button
 				 label="转到"
 				 name="go" />
 		</layout_panel>
+    <layout_panel
+			 name="time_controls">
+      <button
+				 label="快退"
+				 name="rewind" />
+      <button
+				 label=""
+				 name="play" />
+      <button
+				 label=""
+				 name="pause" />
+      <button
+				 label="停止"
+				 name="stop" />
+      <button
+				 label="快进"
+				 name="seek" />
+    </layout_panel>
 		<layout_panel
 			 name="parcel_owner_controls">
 			<button
@@ -39,6 +54,7 @@
 			<button
 				 label="关闭"
 				 name="close" />
+			<button label="设置为主页" name="set_home"/>
 		</layout_panel>
 	</layout_stack>
 </floater>

@@ -4,7 +4,22 @@
 		天空预设:
 	</text>
 	<button label="新建" label_selected="新建" name="WLNewPreset"/>
-	<button label="保存" label_selected="保存" name="WLSavePreset"/>
+	<flyout_button
+		label="保存到硬盘"
+		name="WLSavePreset">
+		<flyout_button_item
+			name="save_inventory_item">
+			保存到库存
+		</flyout_button_item>
+		<flyout_button_item
+			name="save_disk_item">
+			保存到硬盘
+		</flyout_button_item>
+		<flyout_button_item
+			name="send_to_server_item">
+			发送到服务器
+		</flyout_button_item>
+	</flyout_button>
 	<button label="删除" label_selected="删除" name="WLDeletePreset"/>
 	<button label="日夜循环编辑器" label_selected="日夜循环编辑器" name="WLDayCycleMenuButton"/>
 	<tab_container name="WindLight Tabs" tab_position="top">
@@ -64,6 +79,10 @@
 			</text>
 			<button label="?" name="WLMaxAltitudeHelp"/>
 			<slider label="" name="WLMaxAltitude" />
+			<button 
+				label="日夜周期编辑器" 
+				label_selected="日夜周期编辑器" 
+				name="WLDayCycleMenuButton" />
 		</panel>
 		<panel label="光照" name="Lighting">
 			<text name="SLCText">
@@ -181,6 +200,14 @@
 			<check_box label="Lock" name="WLCloudLockY"/>
 			<check_box label="渲染旧云层" name="DrawClassicClouds"/>
 			<button label="?" name="WLClassicCloudsHelp"/>
+			<text
+					 name="WLCloudHeightText">
+			旧云层高度
+			</text>
+			<text
+					 name="WLCloudClassicRangeText">
+			旧云层范围
+			</text>
 		</panel>
 	</tab_container>
 	<string name="WLDefaultSkyNames">

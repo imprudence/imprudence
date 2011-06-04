@@ -25,7 +25,7 @@
 		面积：[AREA]平方米。
 	</string>
 	<string name="forsale_text">
-		以L$[PRICE]出售
+		以 [CURRENCY][PRICE] 出售
 	</string>
 	<string name="auction_text">
 		拍卖 ID [ID]。

@@ -564,7 +564,7 @@ void pre_init_menus()
 	// static information
 	LLColor4 color;
 	color = gColors.getColor( "MenuDefaultBgColor" );
-	LLMenuGL::setDefaultBackgroundColor( color );
+	LLMenuGL::setDefaultBackgroundColor(color);
 	color = gColors.getColor( "MenuItemEnabledColor" );
 	LLMenuItemGL::setEnabledColor( color );
 	color = gColors.getColor( "MenuItemDisabledColor" );
@@ -651,18 +651,8 @@ void init_menus()
 	color = gColors.getColor( "MenuPopupBgColor" );
 	gPopupMenuView->setBackgroundColor( color );
 
-	// If we are not in production, use a different color to make it apparent.
-	if (LLViewerLogin::getInstance()->isInProductionGrid())
-	{
-		color = gColors.getColor( "MenuBarBgColor" );
-	}
-	else
-	{
-		color = gColors.getColor( "MenuNonProductionBgColor" );
-	}
 	gMenuBarView = (LLMenuBarGL*)LLUICtrlFactory::getInstance()->buildMenu("menu_viewer.xml", gMenuHolder);
 	gMenuBarView->setRect(LLRect(0, top, 0, top - MENU_BAR_HEIGHT));
-	gMenuBarView->setBackgroundColor( color );
 
     // gMenuBarView->setItemVisible("Tools", FALSE);
 	gMenuBarView->arrange();
@@ -673,8 +663,7 @@ void init_menus()
 	// flash when an item is triggered (the flash occurs in the holder)
 	gViewerWindow->getRootView()->addChild(gMenuHolder);
    
-    gViewerWindow->setMenuBackgroundColor(false, 
-        LLViewerLogin::getInstance()->isInProductionGrid());
+    gViewerWindow->setMenuBackgroundColor(false, LLViewerLogin::getInstance()->isInProductionGrid());
 
 	// Assume L$10 for now, the server will tell us the real cost at login
 	std::string fee = gHippoGridManager->getConnectedGrid()->getCurrencySymbol() + "10";
@@ -722,8 +711,6 @@ void init_menus()
 	gLoginMenuBarView = (LLMenuBarGL*)LLUICtrlFactory::getInstance()->buildMenu("menu_login.xml", gMenuHolder);
 	LLRect menuBarRect = gLoginMenuBarView->getRect();
 	gLoginMenuBarView->setRect(LLRect(menuBarRect.mLeft, menuBarRect.mTop, gViewerWindow->getRootView()->getRect().getWidth() - menuBarRect.mLeft,  menuBarRect.mBottom));
-
-	gLoginMenuBarView->setBackgroundColor( color );
 
 	gMenuHolder->addChild(gLoginMenuBarView);
 }

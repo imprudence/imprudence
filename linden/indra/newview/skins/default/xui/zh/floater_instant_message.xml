@@ -33,7 +33,27 @@
 	<string name="add_friend_string">
 		添加为好友
 	</string>
-	<flyout_button label="档案..." name="profile_callee_btn"/>
+
+
+  <string
+		 name="add_friend_string">
+    添加好友
+  </string>
+	<flyout_button label="档案..." name="profile_callee_btn" >
+    <flyout_button_item name="history_entry">
+      查看对话历史
+    </flyout_button_item>
+    <flyout_button_item name="pay_entry">
+      付款
+    </flyout_button_item>
+    <flyout_button_item name="teleport_entry">
+     邀请瞬间移动
+    </flyout_button_item>
+  </flyout_button>
+  <text
+		 name="inventory_send">
+    拖动库存条目到这里送出
+  </text>
 	<button label="呼叫" name="start_call_btn"/>
 	<button label="结束呼叫" name="end_call_btn" pad_right="10" visible="false"/>
 	<panel name="speaker_controls">

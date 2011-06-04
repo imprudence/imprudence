@@ -21,8 +21,8 @@
 	<button label="" label_selected="" name="restrictpush" tool_tip="不允许推动"/>
 	<button label="" label_selected="" name="status_no_voice" tool_tip="此处语音不可用"/>
 	<button label="" label_selected="" name="buyland" tool_tip="购买这块土地"/>
-	<line_editor label="搜索" name="search_editor" tool_tip="搜索 Second Life"/>
-	<button label="" label_selected="" name="search_btn" tool_tip="搜索 Second Life"/>
+	<line_editor label="搜索" name="search_editor" tool_tip="搜索世界"/>
+	<button label="" label_selected="" name="search_btn" tool_tip="搜索世界"/>
 	<string name="packet_loss_tooltip">
 		封包丢失率
 	</string>

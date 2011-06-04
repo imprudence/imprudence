@@ -14,7 +14,12 @@
 	<check_box label="位置" name="radio position"/>
 	<check_box label="旋转(Ctrl)" name="radio rotate"/>
 	<check_box label="拉伸(Ctrl-Shift)" name="radio stretch"/>
-	<check_box label="选择材质" name="radio select face"/>
+	<check_box label="选择表面添加材质" name="radio select face"/>
+	<check_box label="对齐 (按 Shift 堆砌)"
+	     name="radio align"
+       tool_tip="Align aligns all selected prims' edges along an axis, Pack moves all selected prims' edges so they're touching" />
+  <button label="链接" label_selected="链接" name="link_btn" />
+  <button label="解除链接" label_selected="解除链接" name="unlink_btn"/>
 	<check_box label="编辑连接部件" name="checkbox edit linked parts"/>
 	<text name="text ruler mode">
 		标尺：
@@ -33,7 +38,7 @@
 	<check_box label="同时拉伸两边" name="checkbox uniform"/>
 	<check_box label="拉伸材质" name="checkbox stretch textures"/>
 	<check_box label="使用网格" name="checkbox snap to grid"/>
-	<button label="选项..." label_selected="选项..." name="Options..."/>
+	<button label="建造选项..." label_selected="建造选项..." name="Options..."/>
 	<text name="text status">
 		拖动来移动物体, 按住 Shift 拖动来复制
 	</text>
@@ -74,11 +79,14 @@
 		强度
 	</text>
 	<text name="obj_count">
-		选择物品：[COUNT]
+		选择物体数：[COUNT]
 	</text>
 	<text name="prim_count">
-		元件：[COUNT]
+		元件数：[COUNT]
 	</text>
+	<text name="link_num">
+    	链接编号: [NUMBER]
+  	</text>
 	<tab_container name="Object Info Tabs">
 		<panel label="一般" name="General">
 			<text name="Name:">
@@ -98,7 +106,7 @@
 				主人:
 			</text>
 			<text name="Owner Name">
-				斯雷萨斯·林登
+				Kakurady Drakenar
 			</text>
 			<button label="档案..." label_selected="档案..." name="button owner profile"/>
 			<text name="Group:">
@@ -126,7 +134,7 @@
 			<check_box label="在搜索中显示" name="search_check" tool_tip="让别人可以在搜索结果中看到这件物体。"/>
 			<check_box label="出售" name="checkbox for sale"/>
 			<text name="Cost">
-				价格:   L$
+				价格:   [CURRENCY]
 			</text>
 			<radio_group name="sale type">
 				<radio_item name="Original">
@@ -139,6 +147,21 @@
 					内容
 				</radio_item>
 			</radio_group>
+      <button
+				 label="复制键值"
+				 label_selected="复制键值"
+				 name="button copy key"
+				 tool_tip="复制物体的键值到剪贴板。" />
+      <text
+				 name="Anyone can:">
+        任何人都可以:
+      </text>
+      <check_box
+				 label="移动"
+				 name="checkbox allow everyone move" />
+      <check_box
+				 label="复制"
+				 name="checkbox allow everyone copy" />
 			<text name="Next owner can:">
 				下个拥有者可以:
 			</text>
@@ -205,24 +228,24 @@
 				必须选择一个完整的物体来设置许可。
 			</string>
 			<string name="Cost Default">
-				价格:      L$
+				价格:      [CURRENCY]
 			</string>
 			<string name="Cost Total">
-				总价格:     L$
+				总价格:     [CURRENCY]
 			</string>
 			<string name="Cost Per Unit">
-				每个的价格:  L$
+				单价:      [CURRENCY]
 			</string>
 			<string name="Cost Mixed">
-				混合价格
+				价格不相同
 			</string>
 			<string name="Sale Mixed">
-				混合销售
+				部分不出售
 			</string>
 		</panel>
 		<panel label="物体" name="Object">
 			<text name="select_single">
-				一次只能编辑一个元件的参数。请选择单个元件。
+				不能同时编辑多个元件的参数。请选择单个元件。
 			</text>
 			<text name="edit_object">
 				编辑物体参数:
@@ -237,15 +260,50 @@
 			<spinner label="X" name="Pos X"/>
 			<spinner label="Y" name="Pos Y"/>
 			<spinner label="Z" name="Pos Z"/>
+      <button
+				 name="copypos"
+				 tool_tip="复制位置" />
+      <button
+				 name="pastepos"
+				 tool_tip="粘贴位置" />
+      <button
+				 label="p"
+				 name="pasteposclip"
+				 tool_tip="从剪贴板粘贴位置" />
 			<text name="label size">
 				尺寸 (米)
 			</text>
 			<spinner label="X" name="Scale X"/>
 			<spinner label="Y" name="Scale Y"/>
 			<spinner label="Z" name="Scale Z"/>
+      <button
+				 label="C"
+				 name="copysize"
+				 tool_tip="复制尺寸" />
+      <button
+				 label="P"
+				 name="pastesize"
+				 tool_tip="粘贴尺寸" />
+      <button
+				 label="p"
+				 name="pastesizeclip"
+				 tool_tip="从剪贴板粘贴尺寸" />
 			<text name="label rotation">
 				旋转 (角度)
 			</text>
+      <button
+				 label="C"
+				 name="copyrot"
+				 tool_tip="复制方向" />
+      <button
+				 label="P"
+				 name="pasterot"
+				 tool_tip="粘贴方向" />
+      <button
+				 label="p"
+				 name="pasterotclip"
+				 tool_tip="从剪贴板粘贴方向" />
+ 
 			<spinner label="X" name="Rot X"/>
 			<spinner label="Y" name="Rot Y"/>
 			<spinner label="Z" name="Rot Z"/>
@@ -518,6 +576,10 @@
 					编织
 				</combo_item>
 			</combo_box>
+			<check_box
+				 label="对齐平面材质"
+				 name="checkbox planar align"
+				 tool_tip="所有选中面的材质与最后选中面的材质对齐。需要选择平面材质映射。" />
 			<text name="tex scale">
 				每面重复次数
 			</text>
@@ -556,10 +618,10 @@
 	</tab_container>
 	<panel name="land info panel">
 		<text name="label_parcel_info">
-			土地信息
+			土地信息:
 		</text>
 		<text name="label_area_price">
-			价格: L$[PRICE] 每 [AREA]平方米.
+			价格: [CURRENCY][PRICE] 每 [AREA]平方米.
 		</text>
 		<text name="label_area">
 			面积: [AREA] 平方米.
@@ -594,8 +656,11 @@
 		点击并拖动来更改视角
 	</string>
 	<string name="status_grab">
-		拖动以移动，按住Ctrl抬起，Ctrl+Shift旋转
+		拖动以移动，按住 Ctrl 抬起，Ctrl+Shift 旋转
 	</string>
+  <string name="status_align">
+    CTRL-A 以对齐到轴, CTRL-Shift-A 堆砌
+  </string>
 	<string name="status_place">
 		在世界中点击以创建
 	</string>

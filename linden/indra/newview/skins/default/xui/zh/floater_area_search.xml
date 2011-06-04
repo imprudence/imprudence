@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="area search"
+	 title="区域物体搜索">
+	<text
+		 name="name_label">
+		名称搜索字符串:
+	</text>
+	<text
+		 name="desc_label">
+		描述搜索字符串:
+	</text>
+
+	<text
+		 name="owner_label">
+		拥有者搜索字符串:
+	</text>
+	<text
+		 name="group_label">
+		社团搜索字符串:
+	</text>
+	<scroll_list
+		 name="result_list">
+		<column
+			 name="Name"
+			 label="名称"
+			 tool_tip="双击任何项目在物体的位置显示信标" />
+	  <column
+			 name="Description"
+			 label="描述"
+			 tool_tip="双击任何项目在物体的位置显示信标" />
+	  <column
+			 name="Owner"
+			 label="拥有者"
+			 tool_tip="双击任何项目在物体的位置显示信标" />
+		<column
+			 name="Group"
+			 label="社团"
+			 tool_tip="双击任何项目在物体的位置显示信标" />
+	</scroll_list>
+	<button
+		 name="Refresh"
+		 label="刷新" />
+	<button
+		 name="Stop"
+		 label="停止" />
+	<text
+		 name="counter">
+		已列出/等待中/总计
+	</text>
+</floater>

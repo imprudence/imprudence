@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call label="档案..." name="Profile..." />
+	<menu_item_call label="屏蔽" name="Avatar Mute" />
+	<!--TODO-->
+	<menu_item_call label="前往" name="Go To" />
+	<menu_item_call label="报告..." name="abuse"/>
+
+
+	<menu_item_call label="添加好友..." name="Add Friend" />
+	<menu_item_call label="付款..." name="Pay..." />
+	<pie_menu label="更多 &gt;" name="More &gt;">
+		<menu_item_call label="冻结..." name="Freeze..." />
+		<menu_item_call label="赠与名片" name="Give Card" />
+		<menu_item_call label="社团邀请..." name="Invite..." />
+		<menu_item_call label="驱逐..." name="Eject..." />
+		<menu_item_call label="调试..." name="Debug..." />
+		<menu_item_call label="审查" name="Avatar Inspect"/>
+		<menu_item_call label="隐藏" name="Derender" />
+	</pie_menu>
+	<menu_item_call label="发送消息..." name="Send IM..." />
+</pie_menu>

@@ -1,29 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="一般选项" name="general_panel">
-	<radio_group draw_border="false" name="default_start_location">
-		<radio_item name="MyHome" tool_tip="默认登录到我的家。">
-			我的家
-		</radio_item>
-		<radio_item name="MyLastLocation" tool_tip="默认登录到我最后的位置。">
-			我最后在的位置
-		</radio_item>
-	</radio_group>
-	<check_box label="在登陆界面上显示起始位置" name="show_location_checkbox"/>
+	<combo_box
+		 name="default_location_combo"
+		 allow_text_entry="true"
+		 max_chars="128">
+		<combo_item
+			 name="MyHome"
+			 value="My Home">
+		  我的家
+		</combo_item>
+		<combo_item
+			 name="MyLastLocation"
+			 value="My Last Location">
+		  我最后在的位置
+		</combo_item>
+		<combo_item
+			 name="Typeregionname"
+			 value="&lt;Type region name&gt;">
+		  &lt;输入地域名&gt;
+		</combo_item>
+	</combo_box>
+	<check_box label="在登陆界面上显示" name="show_location_checkbox"/>
+	<button
+		 name="grid_btn"
+		 label="网格管理器" />
 	<combo_box name="fade_out_combobox">
 		<combo_item name="Never">
 			从不显示
 		</combo_item>
 		<combo_item name="Show Temporarily">
-			暂时显示
+			短暂地显示
 		</combo_item>
 		<combo_item name="Always">
 			总是显示
 		</combo_item>
 	</combo_box>
-	<check_box label="化身名字使用小号字体" name="small_avatar_names_checkbox"/>
+	<check_box label="放大姓名标签" name="large_avatar_names_checkbox"/>
 	<check_box label="在我的屏幕上隐藏我的名字" name="show_my_name_checkbox"/>
+	<check_box
+		 label="粗体显示好友的姓名标签"
+		 name="highlight_friends_checkbox" />
+	<text
+		 name="Display_Names_textbox">
+		显示名称:
+	</text>
+	<radio_group
+		 name="displaynames">
+		<radio_item
+			 name="0">
+		经典名字
+		</radio_item>
+		<radio_item
+			 name="1">
+		显示名称
+		</radio_item>
+		<radio_item
+			 name="2">
+		两者都显示
+		</radio_item>
+	</radio_group>
+	<check_box
+		 label="显示好友的经典名字"
+		 name="legacy_friends_checkbox" />
 	<text name="group_titles_textbox">
 		社团头衔:
+	</text>
+	<text
+		 name="show_names_textbox">
+		姓名标签:
 	</text>
 	<check_box label="隐藏所有社团头衔" name="show_all_title_checkbox"/>
 	<check_box label="隐藏我的社团头衔" name="show_my_title_checkbox"/>
@@ -32,39 +76,75 @@
 		界面尺寸:
 	</text>
 	<check_box bottom="-236" label="使用分辨率无关尺寸" left="148" name="ui_auto_scale" width="256"/>
+  <button
+		 label="重置"
+		 label_selected="重置"
+		 name="reset_ui_size" />
+ <text
+		 name="afk_textbox">
+    空闲时离开:
+  </text>
 	<spinner label="离开休息计时:" name="afk_timeout_spinner"/>
-	<check_box label="在付出或收到林登币 (L$) 时提醒我" name="notify_money_change_checkbox"/>
+	<check_box
+		 label="空闲时进入离开状态"
+		 name="afk_timeout_checkbox" />
+
+	<text
+		 name="Mini-Map Notify:">
+	迷你地图提醒:
+	</text>
 	<text name="maturity_desired_label">
 		分级：
 	</text>
 	<text name="maturity_desired_prompt">
-		我希望获的土地访问权限：
+		我希望访问以下级别的内容：
 	</text>
 	<combo_box name="maturity_desired_combobox">
 		<combo_item name="Desired_Adult">
-			PG，Mature和Adult
+			PG、Mature 和 Adult
 		</combo_item>
 		<combo_item name="Desired_Mature">
-			PG和Mature
+			PG 和 Mature
 		</combo_item>
 		<combo_item name="Desired_PG">
-			仅限PG
+			仅限 PG
 		</combo_item>
 	</combo_box>
 	<text name="maturity_desired_textbox">
-		仅限PG
+		仅限 PG
 	</text>
+	<text
+		name="time_textbox">
+	时钟:
+	</text>
+	<combo_box
+		 allow_text_entry="false"
+		 max_chars="20"
+		 name="time_combobox">
+		<combo_item
+			 name="12HourTime"
+			 value="PST 12">
+			12小时 太平洋标准/夏令时
+		</combo_item>
+		<combo_item
+			 name="24HourTime"
+			 value="PST 24">
+			24小时 太平洋标准/夏令时
+		</combo_item>
+		<combo_item
+			 name="UTCTime"
+			 value="UTC">
+			协调世界时
+		</combo_item>
+	</combo_box>
 	<text length="1" name="start_location_textbox" type="string">
 		起始位置:
-	</text>
-	<text length="1" name="show_names_textbox" type="string">
-		显示名字:
 	</text>
 	<text length="1" name="effects_color_textbox" type="string">
 		我的效果颜色:
 	</text>
-	<text length="1" name="seconds_textbox" type="string">
-		秒
+	<text length="1" name="minutes_textbox" type="string">
+		分钟
 	</text>
 	<text length="1" name="crash_report_textbox" type="string">
 		崩溃报告:

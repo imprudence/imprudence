@@ -11,7 +11,7 @@
 			从化身的位置听语音聊天。
 		</radio_item>
 	</radio_group>
-	<check_box label="仅好友可向我发起语聊请求" name="friends_only_check"/>
+	<check_box label="仅好友可向我发起语音呼叫请求" name="friends_only_check"/>
 	<check_box label="以切换模式使用即按即说" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label" word_wrap="true">
 		即按即说切换键:

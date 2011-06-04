@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 label="区域设置"
+	 name="RegionSettings">
+	<spinner
+		 label="默认描绘距离"
+		 name="draw_distance" />
+  <check_box
+		 label="强制描绘距离"
+		 name="force_draw_distance" />
+  <spinner
+		 label="最大拖动距离"
+		 name="max_drag_distance" />
+  <spinner
+		 label="最大元件尺寸"
+		 name="max_prim_scale" />
+  <spinner
+		 label="最小元件尺寸"
+		 name="min_prim_scale" />
+  <spinner
+		 label="最大物理元件尺寸"
+		 name="max_phys_prim_scale" />
+  <spinner
+		 label="最大窟窿尺寸"
+		 name="max_hollow_size" />
+  <spinner
+		 label="最小窟窿尺寸"
+		 name="min_hole_size" />
+  <spinner
+		 label="最大链接数"
+		 name="max_link_count" />
+  <spinner
+		 label="最大物理链接数"
+		 name="max_link_count_phys" />
+  <spinner
+		 label="最大库存物品转让数"
+		 name="max_inventory_items_transfer" />
+  <spinner
+		 label="显示标签"
+		 name="show_tags" />
+  <spinner
+		 label="最大社团数"
+		 name="max_groups" />
+  <check_box
+		 label="渲染水面"
+		 name="render_water" />
+	<check_box
+		 label="允许迷你地图"
+		 name="allow_minimap" />
+	<check_box
+		 label="允许物理元件"
+		 name="allow_physical_prims" />
+	<check_box
+		 label="启用未成年模式"
+		 name="enable_teen_mode" />
+  <check_box
+		 label="启用建造尺寸限制"
+		 name="enforce_max_build" />
+	<check_box
+		 label="允许地块 WindLight 设置"
+		 name="allow_parcel_windlight" />
+  <button
+		 label="应用"
+		 name="apply_ors_btn" />
+</panel>
+
+

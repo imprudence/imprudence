@@ -888,7 +888,7 @@ Only large parcels can be listed in search.
 				 height="16"
 				 left="10"
 				 length="1"
-				 name="at URL:"
+				 name="Current URL:"
 				 type="string"
 				 width="65">
 				Current URL:

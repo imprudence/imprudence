@@ -21,7 +21,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
-       mouse_opaque="true" name="hidetext" v_pad="0" width="200" font-style="BOLD|SHADOW">
+       mouse_opaque="true" name="dont_show_label" v_pad="0" width="200" font-style="BOLD|SHADOW">
     Hide These Notifications:
   </text>
   
@@ -38,7 +38,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="12" left="20"
-       mouse_opaque="true" name="showtext" v_pad="0" width="200" font-style="BOLD|SHADOW">
+       mouse_opaque="true" name="show_label" v_pad="0" width="200" font-style="BOLD|SHADOW">
     Show These Notifications:
   </text>
   
@@ -89,7 +89,7 @@ USE left="270" FOR TABBING OPTIONS
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom_delta="-16" drop_shadow_visible="true" enabled="true" follows="left|top"
        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="50"
-       mouse_opaque="true" name="radar_text" v_pad="0" width="128">
+       mouse_opaque="true" name="When an avatar enters:" v_pad="0" width="128">
     When an avatar enters:
   </text>
   <check_box bottom_delta="-6" enabled="true"
@@ -99,7 +99,7 @@ USE left="270" FOR TABBING OPTIONS
 	     width="256" />
   <check_box bottom_delta="0" enabled="true"
        follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-       label="Current sim" left="390"
+       label="Current region" left="390"
        mouse_opaque="true" name="mini_map_notify_sim" radio_style="false"
        width="256" />
 
