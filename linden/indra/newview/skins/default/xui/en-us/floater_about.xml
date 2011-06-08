@@ -35,16 +35,17 @@
            max_length="65536" mouse_opaque="true" name="credits_editor" width="423"
            word_wrap="true">
         The Imprudence Viewer was rocked hard by:
-        Jacek Antonelli, McCabe Maxsted, Armin Weatherwax, Elektra Hesse, and CodeBastard Redgrave.
+        Jacek Antonelli, McCabe Maxsted, Armin Weatherwax, Elektra Hesse, CodeBastard Redgrave and Boroondas Gupte.
+
         http://kokuaviewer.org/
 
         Imprudence is so awesome thanks to contributions from many generous people:
 
-        For their patches and code contributions, we thank Admiral Admiral, Aimee Trescothick, Aleric Inglewood, Alissa Sabre, Archimedies Plutonian, Angus Boyd, Ansariel Hiller, Ardy Lay, Asuka Neely, Balp Allen, Carjay McGinnis, Chalice Yao, Dale Glass, Damian Delacrois, Danny Nolan, Felix Duesenburg, Geneko Nemeth, Henri Beauchamp, Katharine Berry, KirstenLee Cinquetti, Kitty Barnett, Latif Khalifa, Lilly Zenovka, Makomk Makosen, Mana Janus, Matthew Dowd, Michelle2 Zenovka, Mm Alder, Nemurimasu Neiro, Nicholaz Beresford, Patrick Sapinski, Paul Churchill, Peter Lameth, Robin Cornelius, Stephen Zenith, Thickbrick Sleaford, Thomas Shikami, Tom Meta, tx Oh, Vaalith Jinn, Vadim Bigbear, Vex Streeter, Zi Ree, and Zwagoth Klaar.
+        For their patches and code contributions, we thank Admiral Admiral, Aimee Trescothick, Aleric Inglewood, Alissa Sabre, Angus Boyd, Ansariel Hiller, Archimedies Plutonian, Ardy Lay, Asuka Neely, Balp Allen,  Carjay McGinnis, Chalice Yao, Dale Glass, Damian Delacrois, Danny Nolan, Eryn, Felix Duesenburg, Frederick Martian, Geneko Nemeth,  Grandma Bates, Hazim Gazov, Henri Beauchamp, Hg Beeks, Hiroshi Kumaki, Kakurady Drakenar, Katharine Berry, KirstenLee Cinquetti, Kitty Barnett, Latif Khalifa,  Lance Corrimal, Lilly Zenovka, Makomk Makosen, Mana Janus, Matthew Dowd, Michelle2 Zenovka, Mimika Oh, Mm Alder, Nemurimasu Neiro, Nicholaz Beresford, Nicky Perian, Patrick Sapinski, Paul Churchill, Peter Lameth, Qarl Fizz, Revolution Smythe, Robin Cornelius, Seraph Linden, Shyotl Kuhr,  Siana Gearz, SignpostMarv Martin, Stephen Zenith, TankMaster Finesmith, Thickbrick Sleaford, Thomas Shikami, Tom Meta, Tonya Souther, tx Oh, Vaalith Jinn, Vadim Bigbear, Vex Streeter, WhiteStar Magic, Zi Ree, and Zwagoth Klaar.
 
         For their WindLight presets, we thank Ana Lutetia, CodeBastard Redgrave, and Torley Linden.
 
-        Thanks also to the developer(s) of the Emerald Viewer, Hippo Viewer, Cool VL Viewer, Snowglobe Viewer, Meta7 Viewer, FrozenGlobe Viewer, and Meerkat Viewer for viewer enhancements we have incorporated, as well as Kitty Barnett for RLVa. Special thanks to the folks at Linden Lab for releasing the viewer source, without which this endeavor would have been impossible.
+        Thanks also to the developer(s) of the  Ascent Viewer, Astra Viewer, Cool VL Viewer, Dolphin Viewer, Emerald Viewer, FrozenGlobe Viewer, Hippo Viewer, Meerkat Viewer, Meta7 Viewer, Phoenix Viewer, Singularity Viewer and Snowglobe Viewer  for viewer enhancements we have incorporated, as well as Kitty Barnett for RLVa. Special thanks to the folks at Linden Lab for releasing the viewer source, without which this endeavor would have been impossible.
 
         For a complete list of who did what, read the release notes!
 
