@@ -38,7 +38,7 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<flyout_button label="Gruppeninfo" name="group_info_btn" width="85"/>
+			<flyout_button label="Gruppeninfo" name="group_info_btn" width="85">
         <flyout_button_item name="history_entry">
           Verlauf anzeigen
         </flyout_button_item>

@@ -1921,6 +1921,12 @@ void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 	{
 		if (caller->getValue().asString() == "history_entry")
 		{
+#ifdef LL_LINUX
+			LLSD args;
+			args["[FEATURE]"] = LLNotifications::instance().getGlobalString("view history");
+			args["[OS]"] = "Linux";
+			LLNotifications::instance().add("FeatureNotAvailableOnOS", args, LLSD());
+#else // LL_LINUX
 			if (self->getOtherParticipantID().notNull())
 			{
 				std::string fullname = self->getTitle();
@@ -1948,6 +1954,7 @@ void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
 					//llinfos << file << " found" << llendl;
 				}
 			}
+#endif // LL_LINUX
 		}
 		// profile
 		else if (self->getIMType() == IM_PANEL_PLAIN)
