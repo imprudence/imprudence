@@ -1823,7 +1823,7 @@ void LLManipTranslate::renderTranslationHandles()
 		// Don't draw handles if you're too far away
 		if (gSavedSettings.getBOOL("LimitSelectDistance"))
 		{
-			if (range_from_agent > gSavedSettings.getF32("MaxSelectDistance"))
+			if (range_from_agent > gHippoLimits->getMaxSelectDistance())
 			{
 				return;
 			}

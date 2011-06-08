@@ -69,6 +69,8 @@
 #include "llviewerparcelmgr.h" // RezWithLandGroup
 #include "roles_constants.h" // Ele: Land Group Override
 
+#include "hippolimits.h"
+
 // [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]

@@ -51,6 +51,8 @@
 #include "lltoolmgr.h"
 #include "llviewerjoystick.h"
 
+#include "hippolimits.h"
+
 //glu pick matrix implementation borrowed from Mesa3D
 glh::matrix4f gl_pick_matrix(GLfloat x, GLfloat y, GLfloat width, GLfloat height, GLint* viewport)
 {
@@ -334,7 +336,7 @@ void LLViewerCamera::setPerspective(BOOL for_selection,
 		if (limit_select_distance)
 		{
 			// ...select distance from control
-			z_far = gSavedSettings.getF32("MaxSelectDistance");
+			z_far = gHippoLimits->getMaxSelectDistance();
 		}
 		else
 		{

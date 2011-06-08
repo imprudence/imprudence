@@ -24,7 +24,8 @@ HippoLimits::HippoLimits()
 	mMaxPrimScale(256.0f),
 	mMaxLinkedPrims(-1),
 	mMaxDragDistance(0.f),
-	mVoiceConnector("SLVoice")
+	mVoiceConnector("SLVoice"),
+	mMaxSelectDistance(64.0f)
 {
 	setLimits();
 }
@@ -71,6 +72,7 @@ void HippoLimits::setOpenSimLimits()
 	mEnforceMaxBuild = FALSE;
 	mRenderWater = TRUE;
 	mVoiceConnector = "SLVoice";
+	mMaxSelectDistance = 192.0f;
 
 	if (gHippoGridManager->getConnectedGrid()->isRenderCompat()) {
 		llinfos << "Using rendering compatible OpenSim limits" << llendl;
@@ -114,6 +116,7 @@ void HippoLimits::setSecondLifeLimits()
 	mEnforceMaxBuild = FALSE;
 	mRenderWater = TRUE;
 	mVoiceConnector = "SLVoice";
+	mMaxSelectDistance = 64.0f;
 }
 
 void HippoLimits::setSecondLifeMaxPrimScale()

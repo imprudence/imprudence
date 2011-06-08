@@ -92,6 +92,8 @@
 
 #include "llglheaders.h"
 
+#include "hippolimits.h"
+
 // [RLVa:KB]
 #include "rlvhandler.h"
 // [/RLVa:KB]
@@ -3500,9 +3502,9 @@ void LLSelectMgr::deselectAllIfTooFar()
 		&& !mSelectedObjects->isAttachment()
 		&& !selectionCenter.isExactlyZero())
 	{
-//		F32 deselect_dist = gSavedSettings.getF32("MaxSelectDistance");
+//		F32 deselect_dist = gHippoLimits->getMaxSelectDistance();
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
-		F32 deselect_dist = (!fRlvFartouch) ? gSavedSettings.getF32("MaxSelectDistance") : 1.5f;
+		F32 deselect_dist = (!fRlvFartouch) ? gHippoLimits->getMaxSelectDistance() : 1.5f;
 // [/RLVa:KB]
 		F32 deselect_dist_sq = deselect_dist * deselect_dist;
 

@@ -238,7 +238,7 @@ void LLManipScale::render()
 			// Don't draw manip if object too far away
 			if (gSavedSettings.getBOOL("LimitSelectDistance"))
 			{
-				F32 max_select_distance = gSavedSettings.getF32("MaxSelectDistance");
+				F32 max_select_distance = gHippoLimits->getMaxSelectDistance();
 				if (range_from_agent > max_select_distance)
 				{
 					return;

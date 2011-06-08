@@ -8188,17 +8188,6 @@
       <key>Value</key>
       <real>48.0</real>
     </map>
-    <key>MaxSelectDistance</key>
-    <map>
-      <key>Comment</key>
-      <string>Maximum allowed selection distance (meters from avatar)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>64.0</real>
-    </map>
     <key>MeanCollisionBump</key>
     <map>
       <key>Comment</key>

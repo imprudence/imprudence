@@ -15,6 +15,7 @@ public:
 	const S32&	getMaxPhysLinkedPrims() const { return mMaxPhysLinkedPrims; }
 	const F32&	getMaxInventoryItemsTransfer() const { return mMaxInventoryItemsTransfer; }
 	const std::string& getVoiceConnector()  const { return mVoiceConnector; }
+	const F32&	getMaxSelectDistance()	const { return mMaxSelectDistance; }
 
 	// Returns the max prim size we can use on a grid
 	F32		getMinPrimScale() const;
@@ -46,6 +47,7 @@ public:
 	F32		mMinPrimXPos;
 	F32		mMinPrimYPos;
 	F32		mMinPrimZPos;
+	F32		mMaxSelectDistance;
 
 	S32     mRenderName;
 

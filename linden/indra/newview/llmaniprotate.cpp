@@ -63,6 +63,8 @@
 #include "lldrawable.h"
 #include "llglheaders.h"
 
+#include "hippolimits.h"
+
 const F32 RADIUS_PIXELS = 100.f;		// size in screen space
 const F32 SQ_RADIUS = RADIUS_PIXELS * RADIUS_PIXELS;
 const F32 WIDTH_PIXELS = 8;
@@ -1126,7 +1128,7 @@ BOOL LLManipRotate::updateVisiblity()
 			// Don't drag manip if object too far away
 			if (gSavedSettings.getBOOL("LimitSelectDistance"))
 			{
-				F32 max_select_distance = gSavedSettings.getF32("MaxSelectDistance");
+				F32 max_select_distance = gHippoLimits->getMaxSelectDistance();
 				if (dist_vec(gAgent.getPositionAgent(), center) > max_select_distance)
 				{
 					visible = FALSE;
