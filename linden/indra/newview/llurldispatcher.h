@@ -66,6 +66,8 @@ public:
 
 	static std::string buildSLURL(const std::string& regionname, S32 x, S32 y, S32 z);
 		//   builds: http://slurl.com/secondlife/RegionName/x/y/z/
+
+	static std::string createGroupJoinLink(const LLUUID& group_id);
 };
 
 #endif

@@ -8,9 +8,12 @@ general Group Preferences and member options.
 
 Hover your mouse over the options for more help.
 	</string>
-	<string name="group_info_unchanged">
+  <string name="group_info_unchanged">
 		General group information has changed.
 	</string>
+  <string name="copy_group_link_info">
+    Copied group link: [SLURL]
+  </string>
 	<button bottom="-24" follows="left|top" font="SansSerif" halign="center" height="16"
 	     label="?" label_selected="?" left="391" mouse_opaque="true"
 	     name="help_button" width="20" />
@@ -50,7 +53,10 @@ Hover your mouse over the options for more help.
 	     width="265" word_wrap="true" spell_check="true">
 		Group Charter
 	</text_editor>
-	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+  <button bottom_delta="-28" follows="left|top" font="SansSerif" halign="center"
+       height="22" label="Copy Group Link"
+       right="-7" mouse_opaque="true" name="copy_link_button" width="128" />
+	<button bottom_delta="28" follows="left|top" font="SansSerif" halign="center"
 	     height="22" label="Join (free)" label_selected="Join (free)" left="7"
 	     mouse_opaque="true" name="join_button" width="128" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"

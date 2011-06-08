@@ -402,6 +402,18 @@ std::string LLURLDispatcherImpl::stripProtocol(const std::string& url)
 	return stripped;
 }
 
+// static
+std::string LLURLDispatcher::createGroupJoinLink(const LLUUID& group_id)
+{
+	std::string slurl = "";
+	if (group_id.notNull())
+	{
+		//secondlife:///app/group/uuid/about
+		slurl = SLURL_SECONDLIFE_PREFIX + "/" + SLURL_APP_TOKEN + "group/" + group_id.asString() + "/about";
+	}
+	return slurl;
+}
+
 //---------------------------------------------------------------------------
 // Teleportation links are handled here because they are tightly coupled
 // to URL parsing and sim-fragment parsing

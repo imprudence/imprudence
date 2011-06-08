@@ -38,6 +38,8 @@
 
 #include "lluictrlfactory.h"
 #include "llagent.h"
+#include "llchat.h"
+#include "llfloaterchat.h"
 #include "roles_constants.h"
 #include "llfloateravatarinfo.h"
 #include "llfloatergroupinfo.h"
@@ -56,6 +58,7 @@
 #include "lltextbox.h"
 #include "lltexteditor.h"
 #include "lltexturectrl.h"
+#include "llurldispatcher.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
 
@@ -142,6 +145,13 @@ BOOL LLPanelGroupGeneral::postBuild()
 	{
 		mBtnInfo->setClickedCallback(onClickInfo);
 		mBtnInfo->setCallbackUserData(this);
+	}
+
+	mBtnCopyLink = getChild<LLButton>("copy_link_button", recurse);
+	if ( mBtnCopyLink )
+	{
+		mBtnCopyLink->setClickedCallback(onClickCopyLink);
+		mBtnCopyLink->setCallbackUserData(this);
 	}
 
 	LLTextBox* founder = getChild<LLTextBox>("founder_name");
@@ -269,6 +279,7 @@ BOOL LLPanelGroupGeneral::postBuild()
 
 		mBtnJoinGroup->setVisible(FALSE);
 		mBtnInfo->setVisible(FALSE);
+		mBtnCopyLink->setVisible(FALSE);
 		mGroupName->setVisible(FALSE);
 	}
 
@@ -401,6 +412,39 @@ bool LLPanelGroupGeneral::joinDlgCB(const LLSD& notification, const LLSD& respon
 
 	LLGroupMgr::getInstance()->sendGroupMemberJoin(notification["payload"]["group_id"].asUUID());
 	return false;
+}
+
+// static
+void LLPanelGroupGeneral::onClickCopyLink(void* userdata)
+{
+	LLPanelGroupGeneral* self = (LLPanelGroupGeneral*)userdata;
+
+	if (!self || (self->mGroupID).isNull()) return;
+
+	LLGroupMgrGroupData* gdatap = LLGroupMgr::getInstance()->getGroupData(self->mGroupID);
+
+	// make sure we don't have junk
+	if (gdatap)
+	{
+		std::string buffer = LLURLDispatcher::createGroupJoinLink(gdatap->getID());
+
+		// Say same info in chat -- MC
+		LLStringUtil::format_map_t targs;	
+		targs["[SLURL]"] = buffer;
+		std::string msg = self->getString("copy_group_link_info");
+		LLStringUtil::format(msg, targs);
+
+		LLChat chat;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		chat.mText = msg;
+		LLFloaterChat::addChat(chat);
+
+		gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(buffer));
+	}
+	else
+	{
+		llwarns << "Trying to copy group slurl link with no group data!" << llendl;
+	}
 }
 
 // static
