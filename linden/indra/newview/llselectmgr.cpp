@@ -3496,7 +3496,7 @@ void LLSelectMgr::deselectAllIfTooFar()
 //	if (gSavedSettings.getBOOL("LimitSelectDistance")
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
 	BOOL fRlvFartouch = gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH) && gFloaterTools->getVisible();
-	if ( (gSavedSettings.getBOOL("LimitSelectDistance") || (fRlvFartouch) )
+	if ( ((!gSavedSettings.getBOOL("DisableMaxBuildConstraints") && gSavedSettings.getBOOL("LimitSelectDistance")) || (fRlvFartouch) )
 // [/RLVa:KB]
 		&& (!mSelectedObjects->getPrimaryObject() || !mSelectedObjects->getPrimaryObject()->isAvatar())
 		&& !mSelectedObjects->isAttachment()
