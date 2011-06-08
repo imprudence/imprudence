@@ -934,7 +934,7 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 				}
 				break;
 			case LLAssetType::AT_LANDMARK:
-				if (!show_keep_discard)
+				if (show_keep_discard)
 					open_landmark((LLViewerInventoryItem*)item, std::string("Landmark: ") + item->getName(), FALSE, LLUUID::null, FALSE);
 				break;
 			case LLAssetType::AT_TEXTURE:
