@@ -3818,6 +3818,10 @@ Socks5 代理服务器 [PROXY] 拒绝了 UDP 关联请求
 无法连接到 Socks5 代理服务器 [PROXY]
   </notification>
 
+
+  <global name="view history">查看对话历史</global>
+
+
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->
   <notification

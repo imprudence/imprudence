@@ -3011,4 +3011,8 @@ Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://
 	<global name="PermNo">
 		Nein
 	</global>
+
+
+  <global name="view history">Verlauf anzeigen</global>
+
 </notifications>
