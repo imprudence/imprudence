@@ -7473,6 +7473,19 @@ The Socks5 proxy "[PROXY]" refused the UDP associate request
 Could not connect to Socks5 proxy server "[PROXY]"
   </notification>
 
+
+  <notification
+   icon="alert.tga"
+   name="FeatureNotAvailableOnOS"
+   type="alert">
+Sorry, [FEATURE] is not yet available on [OS].
+  </notification>
+
+  <!-- Non-specific defaults for use with FeatureNotAvailableOnOS -->
+  <global name="this feature">this feature</global>
+  <global name="this os">this operating system</global>
+
+
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->
   <notification
