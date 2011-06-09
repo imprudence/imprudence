@@ -2453,13 +2453,17 @@ bool idle_startup()
 		// start background fetching for animations here in case the cache is empty.
 		// We do this to improve AO support (that's Animatoni Overrider, not LL's
 		// silly "AO" acronym -- MC
-		if (gInventory.getAnimationsFolderUUID() != LLUUID::null)
+		if (gSavedSettings.getBOOL("FetchInventoryOnLogin2"))
 		{
-			gInventory.startBackgroundFetch(gInventory.getAnimationsFolderUUID());
-		}
-		else
-		{
-			gInventory.startBackgroundFetch();
+			// Start loading inventory
+			if (gInventory.getAnimationsFolderUUID() != LLUUID::null)
+			{
+				gInventory.startBackgroundFetch(gInventory.getAnimationsFolderUUID());
+			}
+			else
+			{
+				gInventory.startBackgroundFetch();
+			}
 		}
 
 		options.clear();
@@ -2947,12 +2951,6 @@ bool idle_startup()
 
 		// Have the agent start watching the friends list so we can update proxies
 		gAgent.observeFriends();
-
-		if (gSavedSettings.getBOOL("FetchInventoryOnLogin"))
-		{
-			// Start loading inventory
-			gInventory.startBackgroundFetch();
-		}
 
 		if (gSavedSettings.getBOOL("LoginAsGod"))
 		{
