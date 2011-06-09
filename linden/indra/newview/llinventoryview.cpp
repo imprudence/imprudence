@@ -491,7 +491,9 @@ LLInventoryView::LLInventoryView(const std::string& name,
 	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES),
-	mActivePanel(NULL)
+	mActivePanel(NULL),
+	mOldFilterText(""),
+	mFilterText("")
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
@@ -683,10 +685,11 @@ void LLInventoryView::draw()
 {
  	if (!LLInventoryModel::backgroundFetchActive())
 	{
+		static S32 old_item_count = 0;
 		S32 item_count = gInventory.getItemCount();
 
 		//don't let llfloater work more than necessary
-		if (item_count != mOldItemCount || mOldFilterText != mFilterText)
+		if (item_count > old_item_count || mOldFilterText != mFilterText)
 		{
 			LLLocale locale(LLLocale::USER_LOCALE);
 			std::ostringstream title;
@@ -696,11 +699,10 @@ void LLInventoryView::draw()
 			title << " (" << item_count_string << " items)";
 			title << mFilterText;
 			setTitle(title.str());
+
+			mOldFilterText = mFilterText;
+			old_item_count = item_count;
 		}
-
-		mOldFilterText = mFilterText;
-		mOldItemCount = item_count;
-
 	}
 	if (mActivePanel && mSearchEditor)
 	{
@@ -889,6 +891,12 @@ void LLInventoryView::changed(U32 mask)
 	}
 	else
 	{
+		// This is here because it gets called on login even when it shouldn't -- MC
+		LLLocale locale(LLLocale::USER_LOCALE);
+		std::string item_count_string;
+		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
+		title << " (" << item_count_string << " items)";
+
 		gSavedPerAccountSettings.setS32("InventoryPreviousCount", gInventory.getItemCount());
 	}
 	title << mFilterText;
