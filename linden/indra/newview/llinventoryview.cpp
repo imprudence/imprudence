@@ -492,6 +492,7 @@ LLInventoryView::LLInventoryView(const std::string& name,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES),
 	mActivePanel(NULL),
+	mOldItemCount(-1),
 	mOldFilterText(""),
 	mFilterText("")
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
@@ -685,11 +686,10 @@ void LLInventoryView::draw()
 {
  	if (!LLInventoryModel::backgroundFetchActive())
 	{
-		static S32 old_item_count = 0;
 		S32 item_count = gInventory.getItemCount();
 
 		//don't let llfloater work more than necessary
-		if (item_count > old_item_count || mOldFilterText != mFilterText)
+		if (item_count > mOldItemCount || mOldFilterText != mFilterText)
 		{
 			LLLocale locale(LLLocale::USER_LOCALE);
 			std::ostringstream title;
@@ -701,7 +701,7 @@ void LLInventoryView::draw()
 			setTitle(title.str());
 
 			mOldFilterText = mFilterText;
-			old_item_count = item_count;
+			mOldItemCount = item_count;
 		}
 	}
 	if (mActivePanel && mSearchEditor)
@@ -800,6 +800,8 @@ void LLInventoryView::setVisible( BOOL visible )
 // Destroy all but the last floater, which is made invisible.
 void LLInventoryView::onClose(bool app_quitting)
 {
+	mOldItemCount = 0;
+	mOldFilterText = "";
 //	S32 count = sActiveViews.count();
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
 	// See LLInventoryView::closeAll() on why we're doing it this way
