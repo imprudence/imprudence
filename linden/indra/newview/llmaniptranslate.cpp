@@ -1821,9 +1821,9 @@ void LLManipTranslate::renderTranslationHandles()
 		F32 range_from_agent = dist_vec(gAgent.getPositionAgent(), selection_center);
 		
 		// Don't draw handles if you're too far away
-		if (gSavedSettings.getBOOL("LimitSelectDistance"))
+		if (!gSavedSettings.getBOOL("DisableMaxBuildConstraints") && gSavedSettings.getBOOL("LimitSelectDistance"))
 		{
-			if (range_from_agent > gSavedSettings.getF32("MaxSelectDistance"))
+			if (range_from_agent > gHippoLimits->getMaxSelectDistance())
 			{
 				return;
 			}

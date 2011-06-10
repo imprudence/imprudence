@@ -5119,7 +5119,7 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end, std::string& url) const
 {
 	  
-	S32 m1,m2,m3;
+	S32 m1,m2,m3,m4;
 	BOOL matched = FALSE;
 	
 	m1=line.find("://",*end);
@@ -5132,10 +5132,11 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end, std::
 		//Load_url only handles http and https so don't hilite ftp, smb, etc.
 		m2 = line.substr(*begin,(m1 - *begin)).find("http");
 		m3 = line.substr(*begin,(m1 - *begin)).find("secondlife");
+		m4 = line.substr(*begin,(m1 - *begin)).find("inworldz");
 	
 		std::string badneighbors=".,<>?';\"][}{=-+_)(*&^%$#@!~`\t\r\n\\";
 	
-		if (m2 >= 0 || m3>=0)
+		if (m2 >= 0 || m3>=0 || m4>=0)
 		{
 			S32 bn = badneighbors.find(line.substr(m1+3,1));
 			
@@ -5179,9 +5180,28 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end, std::
 		try
 		{
 			url = line.substr(*begin,*end - *begin);
-			std::string slurlID = "slurl.com/secondlife/";
-			strpos = url.find(slurlID);
 			
+			// see if it's an izurl
+			std::string slurlID = "places.inworldz.com/";
+			strpos = url.find(slurlID);
+			if (strpos < 0)
+			{
+				slurlID="inworldz://";
+				strpos = url.find(slurlID);
+			}
+			if (strpos < 0)
+			{
+				slurlID="iz://";
+				strpos = url.find(slurlID);
+			}
+	
+			// see if it's an slurl
+			if (strpos < 0)
+			{
+				slurlID = "slurl.com/secondlife/";
+				strpos = url.find(slurlID);
+			}
+
 			if (strpos < 0)
 			{
 				slurlID="maps.secondlife.com/secondlife/";

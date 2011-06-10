@@ -34,6 +34,8 @@
 #include "llboost.h"
 #include <boost/regex.hpp>
 
+static LLFrameTimer sInitTimer;
+
 void cmdline_printchat(std::string message);
 
 AOInvTimer* gAOInvTimer = NULL;
@@ -72,6 +74,11 @@ public:
 						text->insertText(line);
 					}
 					file.close();
+
+					if (line.empty())
+					{
+						llwarns << "Can't open ao_template.ini at << " << mFileName << llendl;
+					}
 			
 					nc->saveIfNeeded();
 				}
@@ -113,37 +120,71 @@ BOOL AOStandTimer::tick()
 
 // -------------------------------------------------------
 
+BOOL AOInvTimer::sInitialized = FALSE;
+
 AOInvTimer::AOInvTimer() : LLEventTimer( (F32)1.0 )
 {
+	// if we can't find the item we need, start the init timer
+	// background inventory fetching has already begun in llstartup -- MC
+	if (LLStartUp::getStartupState() == STATE_STARTED)
+	{
+		LLUUID ao_notecard = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
+		if (ao_notecard.notNull())
+		{
+			const LLInventoryItem* item = gInventory.getItem(ao_notecard);
+			if (!item)
+			{
+				sInitTimer.start();
+				sInitTimer.setTimerExpirySec(10.0f);
+			}
+			else
+			{
+				sInitialized = LLFloaterAO::init();
+				if (!sInitialized) // should never happen, but just in case -- MC
+				{
+					sInitTimer.start();
+					sInitTimer.setTimerExpirySec(10.0f);
+				}
+			}
+		}
+	}
 }
+
 AOInvTimer::~AOInvTimer()
 {
 }
 
-BOOL AOInvTimer::fullfetch = FALSE;
-
 BOOL AOInvTimer::tick()
 {
-	if (!(gSavedSettings.getBOOL("AOEnabled"))) return TRUE;
-	if(LLStartUp::getStartupState() >= STATE_INVENTORY_SEND)
+	/*if (!(gSavedSettings.getBOOL("AOEnabled")))
 	{
-		if(gInventory.isEverythingFetched())
+		return TRUE;
+	}*/
+
+	if (gInventory.isEverythingFetched())
+	{
+		if (!sInitialized)
 		{
-//			cmdline_printchat("Inventory fetched, loading AO.");
 			LLFloaterAO::init();
-			return TRUE;
-		}else
+			sInitialized = TRUE; // this can happen even if we can't initialize the AO -- MC
+		}
+		
+		if (sInitTimer.getStarted())
 		{
-			//static BOOL startedfetch = FALSE;
-			if(fullfetch == FALSE)
-			{
-				fullfetch = TRUE;
-				//no choice, can't move the AO till we find it, should only have to happen once
-				gInventory.startBackgroundFetch();
-			}
+			sInitTimer.stop();
 		}
 	}
-	return FALSE;
+
+	if (!sInitialized && LLStartUp::getStartupState() == STATE_STARTED)
+	{
+		if (sInitTimer.hasExpired())
+		{
+			sInitTimer.start();
+			sInitTimer.setTimerExpirySec(10.0f);
+			sInitialized = LLFloaterAO::init();
+		}
+	}
+	return sInitialized;
 }
 // NC DROP -------------------------------------------------------
 
@@ -210,40 +251,40 @@ BOOL AONoteCardDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 	return handled;
 }
 
-AONoteCardDropTarget * LLFloaterAO::mAOItemDropTarget;
+AONoteCardDropTarget * LLFloaterAO::sAOItemDropTarget;
 
 
 // STUFF -------------------------------------------------------
 
-int LLFloaterAO::mAnimationState = 0;
-int LLFloaterAO::stand_iterator = 0;
+S32 LLFloaterAO::sAnimationState = 0;
+S32 LLFloaterAO::stand_iterator = 0;
 
 LLUUID LLFloaterAO::invfolderid = LLUUID::null;
-LLUUID LLFloaterAO::mCurrentStandId = LLUUID::null;
+LLUUID LLFloaterAO::sCurrentStandId = LLUUID::null;
 
-LLComboBox* mcomboBox_stands;
-LLComboBox* mcomboBox_walks;
-LLComboBox* mcomboBox_runs;
-LLComboBox* mcomboBox_jumps;
-LLComboBox* mcomboBox_sits;
-LLComboBox* mcomboBox_gsits;
-LLComboBox* mcomboBox_crouchs;
-LLComboBox* mcomboBox_cwalks;
-LLComboBox* mcomboBox_falls;
-LLComboBox* mcomboBox_hovers;
-LLComboBox* mcomboBox_flys;
-LLComboBox* mcomboBox_flyslows;
-LLComboBox* mcomboBox_flyups;
-LLComboBox* mcomboBox_flydowns;
-LLComboBox* mcomboBox_lands;
-LLComboBox* mcomboBox_standups;
-LLComboBox* mcomboBox_prejumps;
+LLComboBox*				mComboBox_stands;
+LLComboBox* 			mComboBox_walks;
+LLComboBox* 			mComboBox_runs;
+LLComboBox* 			mComboBox_jumps;
+LLComboBox* 			mComboBox_sits;
+LLComboBox* 			mComboBox_gsits;
+LLComboBox* 			mComboBox_crouchs;
+LLComboBox* 			mComboBox_cwalks;
+LLComboBox* 			mComboBox_falls;
+LLComboBox* 			mComboBox_hovers;
+LLComboBox* 			mComboBox_flys;
+LLComboBox* 			mComboBox_flyslows;
+LLComboBox* 			mComboBox_flyups;
+LLComboBox* 			mComboBox_flydowns;
+LLComboBox* 			mComboBox_lands;
+LLComboBox* 			mComboBox_standups;
+LLComboBox* 			mComboBox_prejumps;
 
 struct struct_overrides
 {
 	LLUUID orig_id;
 	LLUUID ao_id;
-	int state;
+	S32 state;
 };
 std::vector<struct_overrides> mAOOverrides;
 
@@ -257,14 +298,16 @@ std::vector<struct_stands> mAOStands;
 struct struct_tokens
 {
 	std::string token;
-	int state;
+	S32 state;
 };
 std::vector<struct_tokens> mAOTokens;
 
 LLFloaterAO* LLFloaterAO::sInstance = NULL;
 
 LLFloaterAO::LLFloaterAO()
-:LLFloater(std::string("floater_ao"))
+	: 
+	LLFloater(std::string("floater_ao")),
+	mDirty(FALSE)
 {
 //	init();
 	llassert_always(sInstance == NULL);
@@ -275,80 +318,55 @@ LLFloaterAO::LLFloaterAO()
 LLFloaterAO::~LLFloaterAO()
 {
     sInstance=NULL;
-	mcomboBox_stands = 0;
-	mcomboBox_walks = 0;
-	mcomboBox_runs = 0;
-	mcomboBox_jumps = 0;
-	mcomboBox_sits = 0;
-	mcomboBox_gsits = 0;
-	mcomboBox_crouchs = 0;
-	mcomboBox_cwalks = 0;
-	mcomboBox_falls = 0;
-	mcomboBox_hovers = 0;
-	mcomboBox_flys = 0;
-	mcomboBox_flyslows = 0;
-	mcomboBox_flyups = 0;
-	mcomboBox_flydowns = 0;
-	mcomboBox_lands = 0;
-	mcomboBox_standups = 0;
-	mcomboBox_prejumps = 0;
-	delete mAOItemDropTarget;
-	mAOItemDropTarget = NULL;
+	mComboBox_stands = 0;
+	mComboBox_walks = 0;
+	mComboBox_runs = 0;
+	mComboBox_jumps = 0;
+	mComboBox_sits = 0;
+	mComboBox_gsits = 0;
+	mComboBox_crouchs = 0;
+	mComboBox_cwalks = 0;
+	mComboBox_falls = 0;
+	mComboBox_hovers = 0;
+	mComboBox_flys = 0;
+	mComboBox_flyslows = 0;
+	mComboBox_flyups = 0;
+	mComboBox_flydowns = 0;
+	mComboBox_lands = 0;
+	mComboBox_standups = 0;
+	mComboBox_prejumps = 0;
+	delete sAOItemDropTarget;
+	sAOItemDropTarget = NULL;
 //	llinfos << "floater destroyed" << llendl;
-}
-
-void LLFloaterAO::show(void*)
-{
-    if (!sInstance)
-	{
-		sInstance = new LLFloaterAO();
-		updateLayout(sInstance);
-		init();
-
-		sInstance->open();
-	}
-	else
-	{
-		sInstance->close();
-	}
-	LLFirstUse::useAO();
-}
-
-bool LLFloaterAO::getInstance()
-{
-	if (sInstance) 
-		return true;
-	else 
-		return false;
 }
 
 BOOL LLFloaterAO::postBuild()
 {
 	LLView *target_view = getChild<LLView>("ao_notecard");
-	if(target_view)
+	if (target_view)
 	{
-		if (mAOItemDropTarget)
+		if (sAOItemDropTarget)
 		{
-			delete mAOItemDropTarget;
+			delete sAOItemDropTarget;
 		}
-		mAOItemDropTarget = new AONoteCardDropTarget("drop target", target_view->getRect(), AOItemDrop);//, mAvatarID);
-		addChild(mAOItemDropTarget);
+		sAOItemDropTarget = new AONoteCardDropTarget("drop target", target_view->getRect(), AOItemDrop);//, mAvatarID);
+		addChild(sAOItemDropTarget);
 	}
-	if(LLStartUp::getStartupState() == STATE_STARTED)
+	if (LLStartUp::getStartupState() == STATE_STARTED)
 	{
 		LLUUID itemidimport = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
 		LLViewerInventoryItem* itemimport = gInventory.getItem(itemidimport);
-		if(itemimport)
+		if (itemimport)
 		{
 			childSetValue("ao_nc_text","Currently set to: "+itemimport->getName());
 		}
-		else if(itemidimport.isNull())
+		else if (itemidimport.isNull())
 		{
 			childSetValue("ao_nc_text","Currently not set");
 		}
 		else
 		{
-			childSetValue("ao_nc_text","Currently set to a item not on this account");
+			childSetValue("ao_nc_text","Currently not loaded");
 		}
 	}
 	else
@@ -366,23 +384,23 @@ BOOL LLFloaterAO::postBuild()
 	childSetCommitCallback("AOEnabled",onClickToggleAO);
 	childSetCommitCallback("AOSitsEnabled",onClickToggleSits);
 	childSetCommitCallback("standtime",onSpinnerCommit);
-	mcomboBox_stands = getChild<LLComboBox>("stands");
-	mcomboBox_walks = getChild<LLComboBox>("walks");
-	mcomboBox_runs = getChild<LLComboBox>("runs");
-	mcomboBox_jumps = getChild<LLComboBox>("jumps");
-	mcomboBox_sits = getChild<LLComboBox>("sits");
-	mcomboBox_gsits = getChild<LLComboBox>("gsits");
-	mcomboBox_crouchs = getChild<LLComboBox>("crouchs");
-	mcomboBox_cwalks = getChild<LLComboBox>("cwalks");
-	mcomboBox_falls = getChild<LLComboBox>("falls");
-	mcomboBox_hovers = getChild<LLComboBox>("hovers");
-	mcomboBox_flys = getChild<LLComboBox>("flys");
-	mcomboBox_flyslows = getChild<LLComboBox>("flyslows");
-	mcomboBox_flyups = getChild<LLComboBox>("flyups");
-	mcomboBox_flydowns = getChild<LLComboBox>("flydowns");
-	mcomboBox_lands = getChild<LLComboBox>("lands");
-	mcomboBox_standups = getChild<LLComboBox>("standups");
-	mcomboBox_prejumps = getChild<LLComboBox>("prejumps");
+	mComboBox_stands = getChild<LLComboBox>("stands");
+	mComboBox_walks = getChild<LLComboBox>("walks");
+	mComboBox_runs = getChild<LLComboBox>("runs");
+	mComboBox_jumps = getChild<LLComboBox>("jumps");
+	mComboBox_sits = getChild<LLComboBox>("sits");
+	mComboBox_gsits = getChild<LLComboBox>("gsits");
+	mComboBox_crouchs = getChild<LLComboBox>("crouchs");
+	mComboBox_cwalks = getChild<LLComboBox>("cwalks");
+	mComboBox_falls = getChild<LLComboBox>("falls");
+	mComboBox_hovers = getChild<LLComboBox>("hovers");
+	mComboBox_flys = getChild<LLComboBox>("flys");
+	mComboBox_flyslows = getChild<LLComboBox>("flyslows");
+	mComboBox_flyups = getChild<LLComboBox>("flyups");
+	mComboBox_flydowns = getChild<LLComboBox>("flydowns");
+	mComboBox_lands = getChild<LLComboBox>("lands");
+	mComboBox_standups = getChild<LLComboBox>("standups");
+	mComboBox_prejumps = getChild<LLComboBox>("prejumps");
 	getChild<LLComboBox>("stands")->setCommitCallback(onComboBoxCommit);
 	getChild<LLComboBox>("walks")->setCommitCallback(onComboBoxCommit);
 	getChild<LLComboBox>("runs")->setCommitCallback(onComboBoxCommit);
@@ -404,10 +422,49 @@ BOOL LLFloaterAO::postBuild()
 	return TRUE;
 }
 
+// static
+void LLFloaterAO::show(void*)
+{
+    if (!sInstance)
+	{
+		sInstance = new LLFloaterAO();
+		updateLayout(sInstance);
+		init();
+
+		sInstance->open();
+	}
+	else
+	{
+		sInstance->close();
+	}
+	LLFirstUse::useAO();
+}
+
+// static
+LLFloaterAO* LLFloaterAO::getInstance()
+{
+	if (!sInstance)
+	{
+		sInstance = new LLFloaterAO();
+	}
+	return sInstance;
+}
+
+// static
+bool LLFloaterAO::getVisible()
+{
+	if (sInstance)
+	{
+		return true;
+	}
+	return false;
+}
+
+// static
 void LLFloaterAO::onSpinnerCommit(LLUICtrl* ctrl, void* userdata)
 {
-	LLSpinCtrl* spin = (LLSpinCtrl*) ctrl;
-	if(spin)
+	LLSpinCtrl* spin = (LLSpinCtrl*)ctrl;
+	if (spin)
 	{
 		if (spin->getName() == "standtime")
 		{
@@ -416,10 +473,11 @@ void LLFloaterAO::onSpinnerCommit(LLUICtrl* ctrl, void* userdata)
 	}
 }
 
+// static
 void LLFloaterAO::onComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 {
 	LLComboBox* box = (LLComboBox*)ctrl;
-	if(box)
+	if (box)
 	{
 		if (box->getName() == "stands")
 		{
@@ -429,7 +487,7 @@ void LLFloaterAO::onComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 		}
 		else
 		{
-			int state = STATE_AGENT_IDLE;
+			S32 state = STATE_AGENT_IDLE;
 			std::string stranim = box->getValue().asString();
 //			llinfos << "state " << (gAgent.getAvatarObject()->mIsSitting) << " - " << getAnimationState() << llendl;
 			if (box->getName() == "walks")
@@ -556,6 +614,7 @@ void LLFloaterAO::onComboBoxCommit(LLUICtrl* ctrl, void* userdata)
 	}
 }
 
+// static
 void LLFloaterAO::updateLayout(LLFloaterAO* floater)
 {
 	if (floater)
@@ -613,8 +672,10 @@ void LLFloaterAO::updateLayout(LLFloaterAO* floater)
 	}
 }
 
-void LLFloaterAO::init()
+// static
+bool LLFloaterAO::init()
 {
+	//cmdline_printchat("init() called");
 	mAOStands.clear();
 	mAOTokens.clear();
 	mAOOverrides.clear();
@@ -673,82 +734,87 @@ void LLFloaterAO::init()
 	overrideloader.orig_id = ANIM_AGENT_FLY;					overrideloader.ao_id = LLUUID::null; overrideloader.state = STATE_AGENT_FLY;			mAOOverrides.push_back(overrideloader);
 	overrideloader.orig_id = ANIM_AGENT_FLYSLOW;				overrideloader.ao_id = LLUUID::null; overrideloader.state = STATE_AGENT_FLYSLOW;		mAOOverrides.push_back(overrideloader);
 
-	BOOL success = TRUE;
+	BOOL success = FALSE;
 
-	if(LLStartUp::getStartupState() >= STATE_INVENTORY_SEND)
+	if (LLStartUp::getStartupState() >= STATE_INVENTORY_SEND)
 	{
-		if(gInventory.isEverythingFetched())
+		LLUUID configncitem = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
+		if (configncitem.notNull())
 		{
-			LLUUID configncitem = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
-			if (configncitem.notNull())
+			const LLInventoryItem* item = gInventory.getItem(configncitem);
+			if (item)
 			{
-				success = FALSE;
-				const LLInventoryItem* item = gInventory.getItem(configncitem);
-				if(item)
+				if (gAgent.allowOperation(PERM_COPY, item->getPermissions(),GP_OBJECT_MANIPULATE) || gAgent.isGodlike())
 				{
-					if (gAgent.allowOperation(PERM_COPY, item->getPermissions(),GP_OBJECT_MANIPULATE) || gAgent.isGodlike())
+					if (!item->getAssetUUID().isNull())
 					{
-						if(!item->getAssetUUID().isNull())
-						{
-							LLUUID* new_uuid = new LLUUID(configncitem);
-							LLHost source_sim = LLHost::invalid;
-							invfolderid = item->getParentUUID();
-							gAssetStorage->getInvItemAsset(source_sim,
-															gAgent.getID(),
-															gAgent.getSessionID(),
-															item->getPermissions().getOwner(),
-															LLUUID::null,
-															item->getUUID(),
-															item->getAssetUUID(),
-															item->getType(),
-															&onNotecardLoadComplete,
-															(void*)new_uuid,
-															TRUE);
-							success = TRUE;
-						}
+						LLUUID* new_uuid = new LLUUID(configncitem);
+						LLHost source_sim = LLHost::invalid;
+						invfolderid = item->getParentUUID();
+						gAssetStorage->getInvItemAsset(source_sim,
+														gAgent.getID(),
+														gAgent.getSessionID(),
+														item->getPermissions().getOwner(),
+														LLUUID::null,
+														item->getUUID(),
+														item->getAssetUUID(),
+														item->getType(),
+														&onNotecardLoadComplete,
+														(void*)new_uuid,
+														TRUE);
+						success = TRUE;
 					}
 				}
 			}
+			else // item
+			{
+				//cmdline_printchat("no item (notecard)");
+			}
 		}
 	}
-
-	if (!success)
+	else // notecard null
 	{
-		cmdline_printchat("Could not read the specified Config Notecard");
+		//cmdline_printchat("Config Notecard set to a null UUID!");
 	}
 
-//	mAnimationState = 0;
-//	mCurrentStandId = LLUUID::null;
+//	sAnimationState = 0;
+//	sCurrentStandId = LLUUID::null;
 //	setAnimationState(STATE_AGENT_IDLE);
 
+	return success;
 }
 
+// static
 void LLFloaterAO::onClickMore(void* data)
 {
 	gSavedSettings.setBOOL( "AOAdvanced", TRUE );
 	updateLayout(sInstance);
 }
+
+// static
 void LLFloaterAO::onClickLess(void* data)
 {
 	gSavedSettings.setBOOL( "AOAdvanced", FALSE );
 	updateLayout(sInstance);
 }
 
+// static
 void LLFloaterAO::onClickToggleAO(LLUICtrl *, void*)
 {
 	run();
 }
 
+// static
 void LLFloaterAO::onClickToggleSits(LLUICtrl *, void*)
 {
 	run();
 }
 
-
+// static
 void LLFloaterAO::run()
 {
 	setAnimationState(STATE_AGENT_IDLE); // reset state
-	int state = getAnimationState(); // check if sitting or hovering
+	S32 state = getAnimationState(); // check if sitting or hovering
 	if ((state == STATE_AGENT_IDLE) || (state == STATE_AGENT_STAND))
 	{
 		if (gSavedSettings.getBOOL("AOEnabled"))
@@ -771,98 +837,158 @@ void LLFloaterAO::run()
 	}
 	else
 	{
-		if (state == STATE_AGENT_SIT) gAgent.sendAnimationRequest(GetAnimIDFromState(state), (gSavedSettings.getBOOL("AOEnabled") && gSavedSettings.getBOOL("AOSitsEnabled")) ? ANIM_REQUEST_START : ANIM_REQUEST_STOP);
-		else gAgent.sendAnimationRequest(GetAnimIDFromState(state), gSavedSettings.getBOOL("AOEnabled") ? ANIM_REQUEST_START : ANIM_REQUEST_STOP);
+		if (state == STATE_AGENT_SIT)
+		{
+			gAgent.sendAnimationRequest(GetAnimIDFromState(state), (gSavedSettings.getBOOL("AOEnabled") && gSavedSettings.getBOOL("AOSitsEnabled")) ? ANIM_REQUEST_START : ANIM_REQUEST_STOP);
+		}
+		else
+		{
+			gAgent.sendAnimationRequest(GetAnimIDFromState(state), gSavedSettings.getBOOL("AOEnabled") ? ANIM_REQUEST_START : ANIM_REQUEST_STOP);
+		}
 	}
 }
 
-int LLFloaterAO::getAnimationState()
+// static
+S32 LLFloaterAO::getAnimationState()
 {
 	if (gAgent.getAvatarObject())
 	{
-		if (gAgent.getAvatarObject()->mIsSitting) setAnimationState(STATE_AGENT_SIT);
-		else if (gAgent.getFlying()) setAnimationState(STATE_AGENT_HOVER);
+		if (gAgent.getAvatarObject()->mIsSitting)
+		{
+			setAnimationState(STATE_AGENT_SIT);
+		}
+		else if (gAgent.getFlying())
+		{
+			setAnimationState(STATE_AGENT_HOVER);
+		}
 	}
-	return mAnimationState;
+	return sAnimationState;
 }
 
-void LLFloaterAO::setAnimationState(const int state)
+// static
+void LLFloaterAO::setAnimationState(const S32 state)
 {
-	mAnimationState = state;
+	sAnimationState = state;
 }
 
+// static
 LLUUID LLFloaterAO::getCurrentStandId()
 {
-	return mCurrentStandId;
+	return sCurrentStandId;
 }
 
+// static
 void LLFloaterAO::setCurrentStandId(const LLUUID& id)
 {
-	mCurrentStandId = id;
+	sCurrentStandId = id;
 }
 
+// static
 void LLFloaterAO::AOItemDrop(LLViewerInventoryItem* item)
 {
 	gSavedPerAccountSettings.setString("AOConfigNotecardID", item->getUUID().asString());
 	sInstance->childSetValue("ao_nc_text","Currently set to: "+item->getName());
 }
 
+// static
 LLUUID LLFloaterAO::GetAnimID(const LLUUID& id)
 {
 	for (std::vector<struct_overrides>::iterator iter = mAOOverrides.begin(); iter != mAOOverrides.end(); ++iter)
 	{
-		if (iter->orig_id == id) return iter->ao_id;
+		if (iter->orig_id == id)
+		{
+			return iter->ao_id;
+		}
 	}
 	return LLUUID::null;
 }
 
-int LLFloaterAO::GetStateFromAnimID(const LLUUID& id)
+// static
+S32 LLFloaterAO::GetStateFromAnimID(const LLUUID& id)
 {
 	for (std::vector<struct_overrides>::iterator iter = mAOOverrides.begin(); iter != mAOOverrides.end(); ++iter)
 	{
-		if (iter->orig_id == id) return iter->state;
+		if (iter->orig_id == id)
+		{
+			return iter->state;
+		}
 	}
 	return STATE_AGENT_IDLE;
 }
 
-LLUUID LLFloaterAO::GetAnimIDFromState(const int state)
+// static
+LLUUID LLFloaterAO::GetAnimIDFromState(const S32 state)
 {
 	for (std::vector<struct_overrides>::iterator iter = mAOOverrides.begin(); iter != mAOOverrides.end(); ++iter)
 	{
-		if (iter->state == state) return iter->ao_id;
+		if (iter->state == state)
+		{
+			return iter->ao_id;
+		}
 	}
 	return LLUUID::null;
 }
 
-int LLFloaterAO::GetStateFromToken(std::string strtoken)
+// static
+S32 LLFloaterAO::GetStateFromToken(std::string strtoken)
 {
 	for (std::vector<struct_tokens>::iterator iter = mAOTokens.begin(); iter != mAOTokens.end(); ++iter)
 	{
-		if (iter->token == strtoken) return iter->state;
+		if (iter->token == strtoken)
+		{
+			return iter->state;
+		}
 	}
 	return STATE_AGENT_IDLE;
 }
 
+// static
 void LLFloaterAO::onClickPrevStand(void* user_data)
 {
-	if (!(mAOStands.size() > 0)) return;
-	stand_iterator=stand_iterator-1;
-	if (stand_iterator < 0) stand_iterator = int( mAOStands.size()-stand_iterator);
-	if (stand_iterator > int( mAOStands.size()-1)) stand_iterator = 0;
+	if (!(mAOStands.size() > 0))
+	{
+		return;
+	}
+	
+	stand_iterator = stand_iterator-1;
+
+	if (stand_iterator < 0)
+	{
+		stand_iterator = S32( mAOStands.size()-stand_iterator);
+	}
+	if (stand_iterator > S32( mAOStands.size()-1))
+	{
+		stand_iterator = 0;
+	}
+
 	cmdline_printchat(llformat("Changing stand to %s.",mAOStands[stand_iterator].anim_name.c_str()));
 	ChangeStand();
 }
 
+// static
 void LLFloaterAO::onClickNextStand(void* user_data)
 {
-	if (!(mAOStands.size() > 0)) return;
-	stand_iterator=stand_iterator+1;
-	if (stand_iterator < 0) stand_iterator = int( mAOStands.size()-stand_iterator);
-	if (stand_iterator > int( mAOStands.size()-1)) stand_iterator = 0;
+	if (!(mAOStands.size() > 0))
+	{
+		return;
+	}
+
+	stand_iterator = stand_iterator+1;
+
+	if (stand_iterator < 0)
+	{
+		stand_iterator = S32( mAOStands.size()-stand_iterator);
+	}
+	if (stand_iterator > S32( mAOStands.size()-1))
+	{
+		stand_iterator = 0;
+	}
+
 	cmdline_printchat(llformat("Changing stand to %s.",mAOStands[stand_iterator].anim_name.c_str()));
 	ChangeStand();
 }
 
+// static
 BOOL LLFloaterAO::ChangeStand()
 {
 	if (gSavedSettings.getBOOL("AOEnabled"))
@@ -881,17 +1007,32 @@ BOOL LLFloaterAO::ChangeStand()
 		}
 		if ((getAnimationState() == STATE_AGENT_IDLE) || (getAnimationState() == STATE_AGENT_STAND))// stands have lowest priority
 		{
-			if (!(mAOStands.size() > 0)) return TRUE;
+			if (!(mAOStands.size() > 0))
+			{
+				return TRUE;
+			}
+
 			if (gSavedSettings.getBOOL("AOStandRandomize"))
 			{
 				stand_iterator = ll_rand(mAOStands.size()-1);
 			}
-			if (stand_iterator < 0) stand_iterator = int( mAOStands.size()-stand_iterator);
-			if (stand_iterator > int( mAOStands.size()-1)) stand_iterator = 0;
 
-			int stand_iterator_previous = stand_iterator -1;
+			if (stand_iterator < 0)
+			{
+				stand_iterator = S32( mAOStands.size()-stand_iterator);
+			}
+			
+			if (stand_iterator > S32( mAOStands.size()-1))
+			{
+				stand_iterator = 0;
+			}
 
-			if (stand_iterator_previous < 0) stand_iterator_previous = int( mAOStands.size()-1);
+			S32 stand_iterator_previous = stand_iterator -1;
+
+			if (stand_iterator_previous < 0)
+			{
+				stand_iterator_previous = S32( mAOStands.size()-1);
+			}
 			
 			if (mAOStands[stand_iterator].ao_id.notNull())
 			{
@@ -900,7 +1041,10 @@ BOOL LLFloaterAO::ChangeStand()
 
 				setAnimationState(STATE_AGENT_STAND);
 				setCurrentStandId(mAOStands[stand_iterator].ao_id);
-				if ((sInstance)&&(mcomboBox_stands)) mcomboBox_stands->selectNthItem(stand_iterator);
+				if (sInstance && mComboBox_stands)
+				{
+					mComboBox_stands->selectNthItem(stand_iterator);
+				}
 //				llinfos << "changing stand to " << mAOStands[stand_iterator].anim_name << llendl;
 				return FALSE;
 			}
@@ -926,7 +1070,10 @@ BOOL LLFloaterAO::startMotion(const LLUUID& id, F32 time_offset, BOOL stand)
 			{
 				sitting = gAgent.getAvatarObject()->mIsSitting;
 			}
-			if (sitting) return FALSE;
+			if (sitting)
+			{
+				return FALSE;
+			}
 			gAgent.sendAnimationRequest(id, ANIM_REQUEST_START);
 			return TRUE;
 		}
@@ -939,7 +1086,10 @@ BOOL LLFloaterAO::startMotion(const LLUUID& id, F32 time_offset, BOOL stand)
 			setAnimationState(GetStateFromAnimID(id));
 		
 //			llinfos << " state " << getAnimationState() << " start anim " << id << " overriding with " << GetAnimID(id) << llendl;
-			if ((GetStateFromAnimID(id) == STATE_AGENT_SIT) && !(gSavedSettings.getBOOL("AOSitsEnabled"))) return TRUE;
+			if ((GetStateFromAnimID(id) == STATE_AGENT_SIT) && !(gSavedSettings.getBOOL("AOSitsEnabled"))) 
+			{
+				return TRUE;
+			}
 			gAgent.sendAnimationRequest(GetAnimID(id), ANIM_REQUEST_START);
 			return TRUE;
 		}
@@ -972,35 +1122,36 @@ BOOL LLFloaterAO::stopMotion(const LLUUID& id, BOOL stop_immediate, BOOL stand)
 	return FALSE;
 }
 
+// static
 void LLFloaterAO::onClickReloadCard(void* user_data)
 {
-	if(gInventory.isEverythingFetched())
-	{
-		LLFloaterAO::init();
-	}
+	LLFloaterAO::init();
 }
 
+// static
 void LLFloaterAO::onClickOpenCard(void* user_data)
 {
-	if(gInventory.isEverythingFetched())
+	LLUUID configncitem = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
+	if (configncitem.notNull())
 	{
-		LLUUID configncitem = (LLUUID)gSavedPerAccountSettings.getString("AOConfigNotecardID");
-		if (configncitem.notNull())
+		const LLInventoryItem* item = gInventory.getItem(configncitem);
+		if (item)
 		{
-			const LLInventoryItem* item = gInventory.getItem(configncitem);
-			if(item)
+			if (gAgent.allowOperation(PERM_COPY, item->getPermissions(),GP_OBJECT_MANIPULATE) || gAgent.isGodlike())
 			{
-				if (gAgent.allowOperation(PERM_COPY, item->getPermissions(),GP_OBJECT_MANIPULATE) || gAgent.isGodlike())
-				{
-					if(!item->getAssetUUID().isNull())
-					open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, FALSE);
-	//				open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, FALSE, LLUUID::null, FALSE);
-				}
+				if(!item->getAssetUUID().isNull())
+				open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, FALSE);
+//				open_notecard((LLViewerInventoryItem*)item, std::string("Note: ") + item->getName(), LLUUID::null, FALSE, LLUUID::null, FALSE);
 			}
+		}
+		else
+		{
+			cmdline_printchat("Could not find notecard UUID " + configncitem.asString() + " in your inventory. Make sure your inventory is fully loaded and try again.");
 		}
 	}
 }
 
+// static
 void LLFloaterAO::onClickNewCard(void* user_data)
 {
 	// load the template file from app_settings/ao_template.ini then
@@ -1026,15 +1177,16 @@ struct AOAssetInfo
 	std::string name;
 };
 
+// static
 void LLFloaterAO::onNotecardLoadComplete(LLVFS *vfs,const LLUUID& asset_uuid,LLAssetType::EType type,void* user_data, S32 status, LLExtStat ext_status)
 {
-	if(status == LL_ERR_NOERR)
+	if (status == LL_ERR_NOERR)
 	{
 		S32 size = vfs->getSize(asset_uuid, type);
 		U8* buffer = new U8[size];
 		vfs->getData(asset_uuid, type, buffer, 0, size);
 
-		if(type == LLAssetType::AT_NOTECARD)
+		if (type == LLAssetType::AT_NOTECARD)
 		{
 			LLViewerTextEditor* edit = new LLViewerTextEditor("",LLRect(0,0,0,0),S32_MAX,"");
 			if(edit->importBuffer((char*)buffer, (S32)size))
@@ -1043,27 +1195,43 @@ void LLFloaterAO::onNotecardLoadComplete(LLVFS *vfs,const LLUUID& asset_uuid,LLA
 				std::string card = edit->getText();
 				edit->die();
 
-				if (mcomboBox_stands)
+				if (sInstance && mComboBox_stands)
 				{
-					mcomboBox_stands->clear();
-					mcomboBox_stands->removeall();
+					mComboBox_stands->clear();
+					mComboBox_stands->removeall();
 				}
-				if (mcomboBox_walks) mcomboBox_walks->clear();
-				if (mcomboBox_runs) mcomboBox_runs->clear();
-				if (mcomboBox_jumps) mcomboBox_jumps->clear();
-				if (mcomboBox_sits) mcomboBox_sits->clear();
-				if (mcomboBox_gsits) mcomboBox_gsits->clear();
-				if (mcomboBox_crouchs) mcomboBox_cwalks->clear();
-				if (mcomboBox_cwalks) mcomboBox_cwalks->clear();
-				if (mcomboBox_falls) mcomboBox_falls->clear();
-				if (mcomboBox_hovers) mcomboBox_hovers->clear();
-				if (mcomboBox_flys) mcomboBox_flys->clear();
-				if (mcomboBox_flyslows) mcomboBox_flyslows->clear();
-				if (mcomboBox_flyups) mcomboBox_flyups->clear();
-				if (mcomboBox_flydowns) mcomboBox_flydowns->clear();
-				if (mcomboBox_lands) mcomboBox_lands->clear();
-				if (mcomboBox_standups) mcomboBox_standups->clear();
-				if (mcomboBox_prejumps) mcomboBox_prejumps->clear();
+				if (sInstance && mComboBox_walks) 
+					mComboBox_walks->clear();
+				if (sInstance && mComboBox_runs) 
+					mComboBox_runs->clear();
+				if (sInstance && mComboBox_jumps) 
+					mComboBox_jumps->clear();
+				if (sInstance && mComboBox_sits) 
+					mComboBox_sits->clear();
+				if (sInstance && mComboBox_gsits) 
+					mComboBox_gsits->clear();
+				if (sInstance && mComboBox_crouchs) 
+					mComboBox_cwalks->clear();
+				if (sInstance && mComboBox_cwalks) 
+					mComboBox_cwalks->clear();
+				if (sInstance && mComboBox_falls) 
+					mComboBox_falls->clear();
+				if (sInstance && mComboBox_hovers) 
+					mComboBox_hovers->clear();
+				if (sInstance && mComboBox_flys) 
+					mComboBox_flys->clear();
+				if (sInstance && mComboBox_flyslows) 
+					mComboBox_flyslows->clear();
+				if (sInstance && mComboBox_flyups) 
+					mComboBox_flyups->clear();
+				if (sInstance && mComboBox_flydowns) 
+					mComboBox_flydowns->clear();
+				if (sInstance && mComboBox_lands) 
+					mComboBox_lands->clear();
+				if (sInstance && mComboBox_standups) 
+					mComboBox_standups->clear();
+				if (sInstance && mComboBox_prejumps) 
+					mComboBox_prejumps->clear();
 
 
 				struct_stands loader;
@@ -1106,134 +1274,185 @@ void LLFloaterAO::onNotecardLoadComplete(LLVFS *vfs,const LLUUID& asset_uuid,LLA
 								{
 								case STATE_AGENT_STAND:
 										loader.ao_id = animid; loader.anim_name = stranim.c_str(); mAOStands.push_back(loader);
-										if(mcomboBox_stands != NULL) mcomboBox_stands->add(stranim.c_str(), ADD_BOTTOM, TRUE);
+										if (sInstance && mComboBox_stands != NULL)
+										{
+											mComboBox_stands->add(stranim.c_str(), ADD_BOTTOM, TRUE);
+										}
 										break;
 								case STATE_AGENT_WALK:
 										{
-											if (sInstance && (mcomboBox_walks != NULL))
+											if (sInstance && mComboBox_walks != NULL)
 											{
 												//llinfos << "1 anim: " << stranim.c_str() << " assetid: " << animid << llendl;
-												if (!(mcomboBox_walks->selectByValue(stranim.c_str()))) mcomboBox_walks->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_walks->selectByValue(stranim.c_str()))) 
+												{
+													mComboBox_walks->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										}
 										break;
 								case STATE_AGENT_RUN:
 										{
-											if (sInstance && (mcomboBox_runs != NULL))
+											if (sInstance && mComboBox_runs != NULL)
 											{
-												if (!(mcomboBox_runs->selectByValue(stranim.c_str()))) mcomboBox_runs->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_runs->selectByValue(stranim.c_str())))
+												{
+													mComboBox_runs->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										}
 										break;
 								case STATE_AGENT_JUMP:
 										 {
-											if (sInstance && (mcomboBox_jumps != NULL))
+											if (sInstance && mComboBox_jumps != NULL)
 											{
-												if (!(mcomboBox_jumps->selectByValue(stranim.c_str()))) mcomboBox_jumps->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_jumps->selectByValue(stranim.c_str())))
+												{
+													mComboBox_jumps->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_SIT:
 										 {
-											if (sInstance && (mcomboBox_sits != NULL))
+											if (sInstance && mComboBox_sits != NULL)
 											{
-												if (!(mcomboBox_sits->selectByValue(stranim.c_str()))) mcomboBox_sits->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_sits->selectByValue(stranim.c_str())))
+												{
+													mComboBox_sits->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_GROUNDSIT:
 										 {
-											if (sInstance && (mcomboBox_gsits != NULL))
+											if (sInstance && mComboBox_gsits != NULL)
 											{
-												if (!(mcomboBox_gsits->selectByValue(stranim.c_str()))) mcomboBox_gsits->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_gsits->selectByValue(stranim.c_str())))
+												{
+													mComboBox_gsits->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_CROUCH:
 										 {
-											if (sInstance && (mcomboBox_crouchs != NULL))
+											if (sInstance && mComboBox_crouchs != NULL)
 											{
-												if (!(mcomboBox_crouchs->selectByValue(stranim.c_str()))) mcomboBox_crouchs->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_crouchs->selectByValue(stranim.c_str())))
+												{
+													mComboBox_crouchs->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_CROUCHWALK:
 										 {
-											if (sInstance && (mcomboBox_cwalks != NULL))
+											if (sInstance && mComboBox_cwalks != NULL)
 											{
-												if (!(mcomboBox_cwalks->selectByValue(stranim.c_str()))) mcomboBox_cwalks->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_cwalks->selectByValue(stranim.c_str())))
+												{
+													mComboBox_cwalks->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_FALLDOWN:
 										 {
-											if (sInstance && (mcomboBox_falls != NULL))
+											if (sInstance && mComboBox_falls != NULL)
 											{
-												if (!(mcomboBox_falls->selectByValue(stranim.c_str()))) mcomboBox_falls->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_falls->selectByValue(stranim.c_str())))
+												{
+													mComboBox_falls->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_HOVER:
 										 {
-											if (sInstance && (mcomboBox_hovers != NULL))
+											if (sInstance && mComboBox_hovers != NULL)
 											{
-												if (!(mcomboBox_hovers->selectByValue(stranim.c_str()))) mcomboBox_hovers->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_hovers->selectByValue(stranim.c_str())))
+												{
+													mComboBox_hovers->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_FLY:
 										 {
-											if (sInstance && (mcomboBox_flys != NULL))
+											if (sInstance && mComboBox_flys != NULL)
 											{
-												if (!(mcomboBox_flys->selectByValue(stranim.c_str()))) mcomboBox_flys->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_flys->selectByValue(stranim.c_str())))
+												{
+													mComboBox_flys->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_FLYSLOW:
 										 {
-											if (sInstance && (mcomboBox_flyslows != NULL))
+											if (sInstance && mComboBox_flyslows != NULL)
 											{
-												if (!(mcomboBox_flyslows->selectByValue(stranim.c_str()))) mcomboBox_flyslows->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_flyslows->selectByValue(stranim.c_str())))
+												{
+													mComboBox_flyslows->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_HOVER_UP:
 										 {
-											if (sInstance && (mcomboBox_flyups != NULL))
+											if (sInstance && mComboBox_flyups != NULL)
 											{
-												if (!(mcomboBox_flyups->selectByValue(stranim.c_str()))) mcomboBox_flyups->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_flyups->selectByValue(stranim.c_str())))
+												{
+													mComboBox_flyups->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										break;
 								case STATE_AGENT_HOVER_DOWN:
 										 {
-											if (sInstance && (mcomboBox_flydowns != NULL))
+											if (sInstance && mComboBox_flydowns != NULL)
 											{
-												if (!(mcomboBox_flydowns->selectByValue(stranim.c_str()))) mcomboBox_flydowns->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_flydowns->selectByValue(stranim.c_str())))
+												{
+													mComboBox_flydowns->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_LAND:
 										 {
-											if (sInstance && (mcomboBox_lands != NULL))
+											if (sInstance && mComboBox_lands != NULL)
 											{
-												if (!(mcomboBox_lands->selectByValue(stranim.c_str()))) mcomboBox_lands->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_lands->selectByValue(stranim.c_str())))
+												{
+													mComboBox_lands->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_STANDUP:
 										 {
-											if (sInstance && (mcomboBox_standups != NULL))
+											if (sInstance && mComboBox_standups != NULL)
 											{
-												if (!(mcomboBox_standups->selectByValue(stranim.c_str()))) mcomboBox_standups->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_standups->selectByValue(stranim.c_str())))
+												{
+													mComboBox_standups->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
 								case STATE_AGENT_PRE_JUMP:
 										 {
-											if (sInstance && (mcomboBox_prejumps != NULL))
+											if (sInstance && mComboBox_prejumps != NULL)
 											{
-												if (!(mcomboBox_prejumps->selectByValue(stranim.c_str()))) mcomboBox_prejumps->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												if (!(mComboBox_prejumps->selectByValue(stranim.c_str())))
+												{
+													mComboBox_prejumps->add(stranim.c_str(), ADD_BOTTOM, TRUE); //check if exist
+												}
 											}
 										 }
 										 break;
@@ -1259,113 +1478,161 @@ void LLFloaterAO::onNotecardLoadComplete(LLVFS *vfs,const LLUUID& asset_uuid,LLA
 					case STATE_AGENT_WALK:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultWalk");
-							SetDefault(mcomboBox_walks,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_walks, iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null) 
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_RUN:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultRun");
-							SetDefault(mcomboBox_runs,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_runs, iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_JUMP:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultJump");
-							SetDefault(mcomboBox_jumps,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_jumps, iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null) 
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						break;
 					case STATE_AGENT_SIT:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultSit");
-							SetDefault(mcomboBox_sits,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_sits, iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null) 
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_CROUCH:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultCrouch");
-							SetDefault(mcomboBox_crouchs,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_crouchs,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_GROUNDSIT:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultGroundSit");
-							SetDefault(mcomboBox_gsits,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_gsits,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_CROUCHWALK:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultCrouchWalk");
-							SetDefault(mcomboBox_cwalks,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_cwalks,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_FALLDOWN:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultFall");
-							SetDefault(mcomboBox_falls,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_falls,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_HOVER:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultHover");
-							SetDefault(mcomboBox_hovers,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_hovers,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_FLY:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultFly");
-							SetDefault(mcomboBox_flys,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_flys,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_HOVER_UP:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultFlyUp");
-							SetDefault(mcomboBox_flyups,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_flyups,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_FLYSLOW:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultFlySlow");
-							SetDefault(mcomboBox_flyslows,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_flyslows,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_HOVER_DOWN:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultFlyDown");
-							SetDefault(mcomboBox_flydowns,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_flydowns,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_LAND:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultLand");
-							SetDefault(mcomboBox_lands,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_lands,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_STANDUP:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultStandUp");
-							SetDefault(mcomboBox_standups,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_standups,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					case STATE_AGENT_PRE_JUMP:
 						{
 							std::string defaultanim = gSavedPerAccountSettings.getString("AODefaultPreJump");
-							SetDefault(mcomboBox_prejumps,iter->ao_id,defaultanim);
-							if (getAssetIDByName(defaultanim) != LLUUID::null) iter->ao_id = getAssetIDByName(defaultanim);
+							setDefault(mComboBox_prejumps,iter->ao_id,defaultanim);
+							if (getAssetIDByName(defaultanim) != LLUUID::null)
+							{
+								iter->ao_id = getAssetIDByName(defaultanim);
+							}
 						}
 						 break;
 					}
@@ -1384,7 +1651,8 @@ void LLFloaterAO::onNotecardLoadComplete(LLVFS *vfs,const LLUUID& asset_uuid,LLA
 	}
 }
 
-BOOL LLFloaterAO::SetDefault(void* userdata, LLUUID ao_id, std::string defaultanim)
+// static
+bool LLFloaterAO::setDefault(void* userdata, LLUUID ao_id, std::string defaultanim)
 {
 	if (sInstance && (userdata))
 	{
@@ -1427,14 +1695,18 @@ private:
 	std::string sName;
 };
 
+// static
 const LLUUID& LLFloaterAO::getAssetIDByName(const std::string& name)
 {
-	if (name.empty() || !(gInventory.isEverythingFetched())) return LLUUID::null;
+	if (name.empty())
+	{
+		return LLUUID::null;
+	}
 
 	LLViewerInventoryCategory::cat_array_t cats;
 	LLViewerInventoryItem::item_array_t items;
 	ObjectNameMatches objectnamematches(name);
-	gInventory.collectDescendentsIf(LLUUID::null,cats,items,FALSE,objectnamematches);
+	gInventory.collectDescendentsIf(LLUUID::null, cats, items, FALSE, objectnamematches);
 
 	if (items.count())
 	{

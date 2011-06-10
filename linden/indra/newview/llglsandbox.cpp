@@ -68,6 +68,8 @@
 #include "llresmgr.h"
 #include "pipeline.h"
 #include "llspatialpartition.h"
+
+#include "hippolimits.h"
  
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -180,7 +182,7 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 // [/RLVa:KB]
 
 	LLVector3 av_pos = gAgent.getPositionAgent();
-	F32 select_dist_squared = gSavedSettings.getF32("MaxSelectDistance");
+	F32 select_dist_squared = gHippoLimits->getMaxSelectDistance();
 	select_dist_squared = select_dist_squared * select_dist_squared;
 
 	BOOL deselect = (mask == MASK_CONTROL);
@@ -228,15 +230,15 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 	glMatrixMode(GL_PROJECTION);
 	gGL.pushMatrix();
 
-	BOOL limit_select_distance = gSavedSettings.getBOOL("LimitSelectDistance");
+	BOOL limit_select_distance = (!gSavedSettings.getBOOL("DisableMaxBuildConstraints") && gSavedSettings.getBOOL("LimitSelectDistance"));
 	if (limit_select_distance)
 	{
 		// ...select distance from control
 		LLVector3 relative_av_pos = av_pos;
 		relative_av_pos -= LLViewerCamera::getInstance()->getOrigin();
 
-		F32 new_far = relative_av_pos * LLViewerCamera::getInstance()->getAtAxis() + gSavedSettings.getF32("MaxSelectDistance");
-		F32 new_near = relative_av_pos * LLViewerCamera::getInstance()->getAtAxis() - gSavedSettings.getF32("MaxSelectDistance");
+		F32 new_far = relative_av_pos * LLViewerCamera::getInstance()->getAtAxis() + gHippoLimits->getMaxSelectDistance();
+		F32 new_near = relative_av_pos * LLViewerCamera::getInstance()->getAtAxis() - gHippoLimits->getMaxSelectDistance();
 
 		new_near = llmax(new_near, 0.1f);
 

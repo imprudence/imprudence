@@ -8,7 +8,8 @@
 #include "llviewercontrol.h"
 
 #include <llerror.h>
-
+#include "llagent.h"
+#include "llviewerregion.h"
 
 HippoLimits *gHippoLimits = 0;
 
@@ -23,7 +24,8 @@ HippoLimits::HippoLimits()
 	mMaxPrimScale(256.0f),
 	mMaxLinkedPrims(-1),
 	mMaxDragDistance(0.f),
-	mVoiceConnector("SLVoice")
+	mVoiceConnector("SLVoice"),
+	mMaxSelectDistance(64.0f)
 {
 	setLimits();
 }
@@ -70,6 +72,7 @@ void HippoLimits::setOpenSimLimits()
 	mEnforceMaxBuild = FALSE;
 	mRenderWater = TRUE;
 	mVoiceConnector = "SLVoice";
+	mMaxSelectDistance = 192.0f;
 
 	if (gHippoGridManager->getConnectedGrid()->isRenderCompat()) {
 		llinfos << "Using rendering compatible OpenSim limits" << llendl;
@@ -90,7 +93,7 @@ void HippoLimits::setSecondLifeLimits()
 	S32 max_groups = gHippoGridManager->getConnectedGrid()->getMaxAgentGroups();
 	mMaxAgentGroups = llmax(max_groups, 25);
 
-	mMaxPrimScale = 10.0f;
+	setSecondLifeMaxPrimScale();
 	mMinPrimScale = 0.01f;
 	mMaxHeight = 4096.0f;
 	mMinHoleSize = 0.05f;  
@@ -113,6 +116,22 @@ void HippoLimits::setSecondLifeLimits()
 	mEnforceMaxBuild = FALSE;
 	mRenderWater = TRUE;
 	mVoiceConnector = "SLVoice";
+	mMaxSelectDistance = 64.0f;
+}
+
+void HippoLimits::setSecondLifeMaxPrimScale()
+{
+	// SecondLife Mesh sims that allow 64m prims are ones that have BOTH these caps
+	if (gAgent.getRegion()
+		&& !gAgent.getRegion()->getCapability("GetMesh").empty()
+		&& !gAgent.getRegion()->getCapability("ObjectAdd").empty())
+	{
+		mMaxPrimScale = 64.f;
+	}
+	else
+	{
+		mMaxPrimScale = 10.f;
+	}
 }
 
 F32 HippoLimits::getMaxPrimScale() const

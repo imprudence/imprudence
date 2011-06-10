@@ -55,6 +55,11 @@ const std::string SLURL_SECONDLIFE_PREFIX	= "secondlife://";
 const std::string SLURL_SLURL_PREFIX		= "http://slurl.com/secondlife/";
 const std::string SLURL_SLURL_ALT_PREFIX	= "http://maps.secondlife.com/secondlife/";
 
+const std::string IZURL_IZ_HELP_PREFIX		= "inworldz://app.";
+const std::string IZURL_IZ_PREFIX			= "iz://";
+const std::string IZURL_INWORLDZ_PREFIX		= "inworldz://";
+const std::string IZURL_IZURL_PREFIX		= "http://places.inworldz.com/";
+
 const std::string SLURL_APP_TOKEN = "app/";
 
 class LLURLDispatcherImpl
@@ -119,6 +124,10 @@ bool LLURLDispatcherImpl::isSLURL(const std::string& url)
 	if (matchPrefix(url, SLURL_SECONDLIFE_PREFIX)) return true;
 	if (matchPrefix(url, SLURL_SLURL_PREFIX)) return true;
 	if (matchPrefix(url, SLURL_SLURL_ALT_PREFIX)) return true;
+	if (matchPrefix(url, IZURL_IZ_HELP_PREFIX)) return true;
+	if (matchPrefix(url, IZURL_IZ_PREFIX)) return true;
+	if (matchPrefix(url, IZURL_INWORLDZ_PREFIX)) return true;
+	if (matchPrefix(url, IZURL_IZURL_PREFIX)) return true;
 	return false;
 }
 
@@ -128,7 +137,10 @@ bool LLURLDispatcherImpl::isSLURLCommand(const std::string& url)
 	if (matchPrefix(url, SLURL_SL_PREFIX + SLURL_APP_TOKEN)
 		|| matchPrefix(url, SLURL_SECONDLIFE_PREFIX + "/" + SLURL_APP_TOKEN)
 		|| matchPrefix(url, SLURL_SLURL_PREFIX + SLURL_APP_TOKEN)
-		|| matchPrefix(url, SLURL_SLURL_ALT_PREFIX + SLURL_APP_TOKEN))
+		|| matchPrefix(url, SLURL_SLURL_ALT_PREFIX + SLURL_APP_TOKEN)
+		|| matchPrefix(url, IZURL_IZ_PREFIX + SLURL_APP_TOKEN)
+		|| matchPrefix(url, IZURL_INWORLDZ_PREFIX + "/" + SLURL_APP_TOKEN)
+		|| matchPrefix(url, IZURL_IZURL_PREFIX + SLURL_APP_TOKEN))
 	{
 		return true;
 	}
@@ -371,7 +383,35 @@ std::string LLURLDispatcherImpl::stripProtocol(const std::string& url)
 	{
 		stripped.erase(0, SLURL_SLURL_ALT_PREFIX.length());
 	}
+	else if (matchPrefix(stripped, IZURL_IZ_HELP_PREFIX))
+	{
+		stripped.erase(0, IZURL_IZ_HELP_PREFIX.length());
+	}
+	else if (matchPrefix(stripped, IZURL_IZ_PREFIX))
+	{
+		stripped.erase(0, IZURL_IZ_PREFIX.length());
+	}
+	else if (matchPrefix(stripped, IZURL_INWORLDZ_PREFIX))
+	{
+		stripped.erase(0, IZURL_INWORLDZ_PREFIX.length());
+	}
+	else if (matchPrefix(stripped, IZURL_IZURL_PREFIX))
+	{
+		stripped.erase(0, IZURL_IZURL_PREFIX.length());
+	}
 	return stripped;
+}
+
+// static
+std::string LLURLDispatcher::createGroupJoinLink(const LLUUID& group_id)
+{
+	std::string slurl = "";
+	if (group_id.notNull())
+	{
+		//secondlife:///app/group/uuid/about
+		slurl = SLURL_SECONDLIFE_PREFIX + "/" + SLURL_APP_TOKEN + "group/" + group_id.asString() + "/about";
+	}
+	return slurl;
 }
 
 //---------------------------------------------------------------------------

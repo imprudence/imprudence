@@ -491,7 +491,10 @@ LLInventoryView::LLInventoryView(const std::string& name,
 	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES),
-	mActivePanel(NULL)
+	mActivePanel(NULL),
+	mOldItemCount(-1),
+	mOldFilterText(""),
+	mFilterText("")
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
@@ -681,12 +684,12 @@ LLInventoryView::~LLInventoryView( void )
 
 void LLInventoryView::draw()
 {
- 	if (LLInventoryModel::isEverythingFetched())
+ 	if (!LLInventoryModel::backgroundFetchActive())
 	{
 		S32 item_count = gInventory.getItemCount();
 
 		//don't let llfloater work more than necessary
-		if (item_count != mOldItemCount || mOldFilterText != mFilterText)
+		if (item_count > mOldItemCount || mOldFilterText != mFilterText)
 		{
 			LLLocale locale(LLLocale::USER_LOCALE);
 			std::ostringstream title;
@@ -696,11 +699,10 @@ void LLInventoryView::draw()
 			title << " (" << item_count_string << " items)";
 			title << mFilterText;
 			setTitle(title.str());
+
+			mOldFilterText = mFilterText;
+			mOldItemCount = item_count;
 		}
-
-		mOldFilterText = mFilterText;
-		mOldItemCount = item_count;
-
 	}
 	if (mActivePanel && mSearchEditor)
 	{
@@ -798,6 +800,8 @@ void LLInventoryView::setVisible( BOOL visible )
 // Destroy all but the last floater, which is made invisible.
 void LLInventoryView::onClose(bool app_quitting)
 {
+	mOldItemCount = 0;
+	mOldFilterText = "";
 //	S32 count = sActiveViews.count();
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
 	// See LLInventoryView::closeAll() on why we're doing it this way
@@ -889,6 +893,12 @@ void LLInventoryView::changed(U32 mask)
 	}
 	else
 	{
+		// This is here because it gets called on login even when it shouldn't -- MC
+		LLLocale locale(LLLocale::USER_LOCALE);
+		std::string item_count_string;
+		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
+		title << " (" << item_count_string << " items)";
+
 		gSavedPerAccountSettings.setS32("InventoryPreviousCount", gInventory.getItemCount());
 	}
 	title << mFilterText;

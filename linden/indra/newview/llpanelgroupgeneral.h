@@ -76,6 +76,7 @@ private:
 	static void onClickInfo(void* userdata);
 	static void onReceiveNotices(LLUICtrl* ctrl, void* data);
 	static void openProfile(void* data);
+	static void onClickCopyLink(void* userdata);
 
     static bool joinDlgCB(const LLSD& notification, const LLSD& response);
 
@@ -98,6 +99,7 @@ private:
 	LLTextEditor		*mEditCharter;
 	LLButton			*mBtnJoinGroup;
 	LLButton			*mBtnInfo;
+	LLButton			*mBtnCopyLink;
 
 	LLNameListCtrl	*mListVisibleMembers;
 
