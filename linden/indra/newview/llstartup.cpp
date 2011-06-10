@@ -2450,6 +2450,22 @@ bool idle_startup()
  			}
  		}
 
+		// start background fetching for animations here in case the cache is empty.
+		// We do this to improve AO support (that's Animatoni Overrider, not LL's
+		// silly "AO" acronym -- MC
+		if (gSavedSettings.getBOOL("FetchInventoryOnLogin2"))
+		{
+			// Start loading inventory
+			if (gInventory.getAnimationsFolderUUID() != LLUUID::null)
+			{
+				gInventory.startBackgroundFetch(gInventory.getAnimationsFolderUUID());
+			}
+			else
+			{
+				gInventory.startBackgroundFetch();
+			}
+		}
+
 		options.clear();
  		if(LLUserAuth::getInstance()->getOptions("buddy-list", options))
  		{
@@ -2575,19 +2591,6 @@ bool idle_startup()
 		// request all group information
 		llinfos << "Requesting Agent Data" << llendl;
 		gAgent.sendAgentDataUpdateRequest();
-
-		bool shown_at_exit = gSavedSettings.getBOOL("ShowInventory");
-
-		// Create the inventory views
-		llinfos << "Creating Inventory Views" << llendl;
-		LLInventoryView::showAgentInventory();
-		llinfos << "Inventory Views Created" << llendl;
-
-		// Hide the inventory if it wasn't shown at exit
-		if(!shown_at_exit)
-		{
-			LLInventoryView::toggleVisibility(NULL);
-		}
 
 // [RLVa:KB] - Checked: 2009-11-27 (RLVa-1.1.0f) | Added: RLVa-1.1.0f
 		if (rlv_handler_t::isEnabled())
@@ -2910,12 +2913,6 @@ bool idle_startup()
 			gStatusBar->updateElements();
 		}
 
-		// Start the AO now that settings have loaded and login successful -- MC
-		if (!gAOInvTimer)
-		{
-			gAOInvTimer = new AOInvTimer();
-		}
-
 		LLFirstUse::ClientTags();
 
 		// Add login location to teleport history 'teleported-into'
@@ -2949,12 +2946,6 @@ bool idle_startup()
 		// Have the agent start watching the friends list so we can update proxies
 		gAgent.observeFriends();
 
-		if (gSavedSettings.getBOOL("FetchInventoryOnLogin"))
-		{
-			// Start loading inventory
-			gInventory.startBackgroundFetch();
-		}
-
 		if (gSavedSettings.getBOOL("LoginAsGod"))
 		{
 			gAgent.requestEnterGodMode();
@@ -2978,6 +2969,23 @@ bool idle_startup()
 		
 		// Clean up the userauth stuff.
 		LLUserAuth::getInstance()->reset();
+
+		// Show the inventory if it was shown at exit
+		// Don't do this before here or we screw up inv loading -- MC
+		if (gSavedSettings.getBOOL("ShowInventory"))
+		{
+			// Create the inventory views
+			llinfos << "Creating Inventory Views" << llendl;
+			LLInventoryView::showAgentInventory();
+			llinfos << "Inventory Views Created" << llendl;
+			//LLInventoryView::toggleVisibility(NULL);
+		}
+
+		// Init the AO now that settings have loaded and login successful -- MC
+		if (!gAOInvTimer)
+		{
+			gAOInvTimer = new AOInvTimer();
+		}
 
 		LLStartUp::setStartupState( STATE_STARTED );
 		LLStartUp::setStartedOnce(true);

@@ -84,7 +84,9 @@ public:
 			 void *callback_data = NULL,
 			 const LLFontGL* mGLFont = NULL,
 			 const std::string& unselected_label = LLStringUtil::null,
-			 const std::string& selected_label = LLStringUtil::null );
+			 const std::string& selected_label = LLStringUtil::null,
+			 const std::string& disabled_label = LLStringUtil::null,
+			 const std::string& disabled_selected_label = LLStringUtil::null);
 
 	virtual ~LLButton();
 	void init(void (*click_callback)(void*), void *callback_data, const LLFontGL* font, const std::string& control_name);
@@ -133,6 +135,8 @@ public:
 
 	const std::string	getLabelUnselected() const { return wstring_to_utf8str(mUnselectedLabel); }
 	const std::string	getLabelSelected() const { return wstring_to_utf8str(mSelectedLabel); }
+	const std::string	getLabelDisabled() const { return wstring_to_utf8str(mDisabledLabel); }
+	const std::string	getLabelDisabledSelected() const { return wstring_to_utf8str(mDisabledSelectedLabel); }
 
 	void			setImageColor(const std::string& color_control);
 	void			setImageColor(const LLColor4& c);

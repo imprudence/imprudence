@@ -186,7 +186,16 @@ LLInventoryModel gInventory;
 // Default constructor
 LLInventoryModel::LLInventoryModel() :
 	mModifyMask(LLInventoryObserver::ALL),
+	mChangedItemIDs(),
+	mCategoryMap(),
+	mItemMap(),
+	mCategoryLock(),
+	mItemLock(),
 	mLastItem(NULL),
+	mAnimationsFolderUUID(LLUUID::null),
+	mParentChildCategoryTree(),
+	mParentChildItemTree(),
+	mObservers(),
 	mIsAgentInvUsable(false)
 {
 }
@@ -404,7 +413,7 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 
 	if(preferred_type == LLAssetType::AT_SIMSTATE)
 	{
-		lldebugs << "Attempt to create simstate category." << llendl;
+		LL_DEBUGS("Inventory") << "Attempt to create simstate category." << LL_ENDL;
 		return id;
 	}
 
@@ -761,7 +770,7 @@ void LLInventoryModel::updateCategory(const LLViewerInventoryCategory* cat)
 
 void LLInventoryModel::moveObject(const LLUUID& object_id, const LLUUID& cat_id)
 {
-	lldebugs << "LLInventoryModel::moveObject()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::moveObject()" << LL_ENDL;
 	if(!isInventoryUsable())
 	{
 		llwarns << "Inventory is broken." << llendl;
@@ -803,11 +812,11 @@ void LLInventoryModel::moveObject(const LLUUID& object_id, const LLUUID& cat_id)
 // Delete a particular inventory object by ID.
 void LLInventoryModel::deleteObject(const LLUUID& id)
 {
-	lldebugs << "LLInventoryModel::deleteObject()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::deleteObject()" << LL_ENDL;
 	LLPointer<LLInventoryObject> obj = getObject(id);
 	if(obj)
 	{
-		lldebugs << "Deleting inventory object " << id << llendl;
+		LL_DEBUGS("Inventory") << "Deleting inventory object " << id << LL_ENDL;
 		mLastItem = NULL;
 		LLUUID parent_id = obj->getParentUUID();
 		mCategoryMap.erase(id);
@@ -1103,8 +1112,8 @@ void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 		LLPointer<LLViewerInventoryItem> titem = new LLViewerInventoryItem;
 		titem->unpackMessage(content["items"][i]);
 		
-		lldebugs << "LLInventoryModel::messageUpdateCore() item id:"
-				 << titem->getUUID() << llendl;
+		LL_DEBUGS("Inventory") << "LLInventoryModel::messageUpdateCore() item id:"
+				 << titem->getUUID() << LL_ENDL;
 		items.push_back(titem);
 		// examine update for changes.
 		LLViewerInventoryItem* itemp = gInventory.getItem(titem->getUUID());
@@ -1673,8 +1682,8 @@ void LLInventoryModel::cache(
 	const LLUUID& parent_folder_id,
 	const LLUUID& agent_id)
 {
-	lldebugs << "Caching " << parent_folder_id << " for " << agent_id
-			 << llendl;
+	LL_DEBUGS("Inventory") << "Caching " << parent_folder_id << " for " << agent_id
+						   << LL_ENDL;
 	LLViewerInventoryCategory* root_cat = getCategory(parent_folder_id);
 	if(!root_cat) return;
 	cat_array_t categories;
@@ -1699,7 +1708,7 @@ void LLInventoryModel::cache(
 	gzip_filename.append(".gz");
 	if(gzip_file(inventory_filename, gzip_filename))
 	{
-		lldebugs << "Successfully compressed " << inventory_filename << llendl;
+		LL_DEBUGS("Inventory") << "Successfully compressed " << inventory_filename << LL_ENDL;
 		LLFile::remove(inventory_filename);
 	}
 	else
@@ -1781,8 +1790,8 @@ void LLInventoryModel::accountForUpdate(const LLCategoryUpdate& update)
 		}
 		if(!accounted)
 		{
-			lldebugs << "No accounting for: '" << cat->getName() << "' "
-					 << version << llendl;
+			LL_DEBUGS("Inventory") << "No accounting for: '" << cat->getName() << "' "
+					 << version << LL_ENDL;
 		}
 	}
 	else
@@ -1914,40 +1923,72 @@ bool LLInventoryModel::isCategoryComplete(const LLUUID& cat_id) const
 	return false;
 }
 
-bool LLInventoryModel::loadSkeleton(
-	const LLInventoryModel::options_t& options,
-	const LLUUID& owner_id)
+bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
+									const LLUUID& owner_id)
 {
-	lldebugs << "importing inventory skeleton for " << owner_id << llendl;
+	LL_DEBUGS("Inventory") << "importing inventory skeleton for " << owner_id << LL_ENDL;
 
 	typedef std::set<LLPointer<LLViewerInventoryCategory>, InventoryIDPtrLess> cat_set_t;
 	cat_set_t temp_cats;
 
 	update_map_t child_counts;
-
 	LLUUID id;
 	LLAssetType::EType preferred_type;
 	bool rv = true;
-	for(options_t::const_iterator it = options.begin(); it < options.end(); ++it)
+	bool clean_cat = false;
+
+	for (options_t::const_iterator it = options.begin(); it < options.end(); ++it)
 	{
 		LLPointer<LLViewerInventoryCategory> cat = new LLViewerInventoryCategory(owner_id);
+
 		response_t::const_iterator no_response = (*it).end();
 		response_t::const_iterator skel;
-		skel = (*it).find("name");
-		if(skel == no_response) goto clean_cat;
-		cat->rename(std::string((*skel).second));
+
+		clean_cat = false;
+
 		skel = (*it).find("folder_id");
-		if(skel == no_response) goto clean_cat;
-		id.set((*skel).second);
+		if (skel == no_response)
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			id.set((*skel).second);
+		}
+
 		// if an id is null, it locks the viewer.
-		if(id.isNull()) goto clean_cat;
-		cat->setUUID(id);
+		if (id.isNull())
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			cat->setUUID(id);
+		}
+
 		skel = (*it).find("parent_id");
-		if(skel == no_response) goto clean_cat;
-		id.set((*skel).second);
-		cat->setParent(id);
+		if (skel == no_response)
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			id.set((*skel).second);
+			cat->setParent(id);
+		}
+
+		skel = (*it).find("name");
+		if (skel == no_response)
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			cat->rename(std::string((*skel).second));
+		}
+
 		skel = (*it).find("type_default");
-		if(skel == no_response)
+		if (skel == no_response)
 		{
 			preferred_type = LLAssetType::AT_NONE;
 		}
@@ -1955,40 +1996,71 @@ bool LLInventoryModel::loadSkeleton(
 		{
 			S32 t = atoi((*skel).second.c_str());
 			preferred_type = (LLAssetType::EType)t;
+
+			// This UUID is different for each avatar and "Animations" is hardcoded into the skeleton -- MC
+			if (LLAssetType::AT_ANIMATION == preferred_type && cat->getName() == "Animations")
+			{
+				//llinfos << "Animations folder uuid from skeleton: " << cat->getUUID() << llendl;
+				mAnimationsFolderUUID = id;
+			}
 		}
 		cat->setPreferredType(preferred_type);
+
 		skel = (*it).find("version");
-		if(skel == no_response) goto clean_cat;
-		cat->setVersion(atoi((*skel).second.c_str()));
-		temp_cats.insert(cat);
-		continue;
-	clean_cat:
-		llwarns << "Unable to import near " << cat->getName() << llendl;
-		rv = false;
-		//delete cat; // automatic when cat is reasigned or destroyed
+		if (skel == no_response)
+		{
+			clean_cat = true;
+		}
+		else
+		{
+			cat->setVersion(atoi((*skel).second.c_str()));
+		}
+
+		if (clean_cat)
+		{
+			llwarns << "Unable to import near " << cat->getName() << llendl;
+			rv = false;
+			//delete cat; // automatic when cat is reasigned or destroyed
+			temp_cats.clear();
+			break;
+		}
+		else
+		{
+			temp_cats.insert(cat);
+		}
 	}
 
 	S32 cached_category_count = 0;
 	S32 cached_item_count = 0;
-	if(!temp_cats.empty())
+	if (temp_cats.empty())
+	{
+		LL_WARNS("Inventory") << "No categories found! Cannot continue!" << LL_ENDL;
+	}
+	else
 	{
 		cat_array_t categories;
 		item_array_t items;
 		std::string owner_id_str;
 		owner_id.toString(owner_id_str);
+
 		std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, owner_id_str));
 		std::string inventory_filename;
 		inventory_filename = llformat(CACHE_FORMAT_STRING, path.c_str());
+
 		const S32 NO_VERSION = LLViewerInventoryCategory::VERSION_UNKNOWN;
+
 		std::string gzip_filename(inventory_filename);
 		gzip_filename.append(".gz");
 		LLFILE* fp = LLFile::fopen(gzip_filename, "rb");
+
 		bool remove_inventory_file = false;
-		if(fp)
+
+		// try to ungzip the inventory -- MC
+		if (fp)
 		{
 			fclose(fp);
 			fp = NULL;
-			if(gunzip_file(gzip_filename, inventory_filename))
+			if (gunzip_file(gzip_filename, inventory_filename))
 			{
 				// we only want to remove the inventory file if it was
 				// gzipped before we loaded, and we successfully
@@ -2000,7 +2072,9 @@ bool LLInventoryModel::loadSkeleton(
 				llinfos << "Unable to gunzip " << gzip_filename << llendl;
 			}
 		}
-		if(loadFromFile(inventory_filename, categories, items))
+
+		// begin cache loading -- MC
+		if (loadFromFile(inventory_filename, categories, items))
 		{
 			// We were able to find a cache of files. So, use what we
 			// found to generate a set of categories we should add. We
@@ -2009,10 +2083,11 @@ bool LLInventoryModel::loadSkeleton(
 			S32 count = categories.count();
 			cat_set_t::iterator not_cached = temp_cats.end();
 			std::set<LLUUID> cached_ids;
-			for(S32 i = 0; i < count; ++i)
+			for (S32 i = 0; i < count; ++i)
 			{
 				LLViewerInventoryCategory* cat = categories[i];
 				cat_set_t::iterator cit = temp_cats.find(cat);
+
 				if (cit == temp_cats.end())
 				{
 					continue; // cache corruption?? not sure why this happens -SJB
@@ -2021,18 +2096,23 @@ bool LLInventoryModel::loadSkeleton(
 				
 				// we can safely ignore anything loaded from file, but
 				// not sent down in the skeleton.
-				if(cit == not_cached)
+				if (cit == not_cached)
 				{
 					continue;
 				}
-				if(cat->getVersion() != tcat->getVersion())
+
+				// We insert them anyway to keep the cache from breaking.
+				// If we delete or add a folder (aka "category") then the server
+				// increments the version and we reload the items on next login anyway
+				// this *may* result in duplicates that are cleared on relog-- MC
+				/*if (cat->getVersion() != tcat->getVersion())
 				{
 					// if the cached version does not match the server version,
 					// throw away the version we have so we can fetch the
 					// correct contents the next time the viewer opens the folder.
 					tcat->setVersion(NO_VERSION);
 				}
-				else
+				else*/
 				{
 					cached_ids.insert(tcat->getUUID());
 				}
@@ -2041,9 +2121,9 @@ bool LLInventoryModel::loadSkeleton(
 			// go ahead and add the cats returned during the download
 			std::set<LLUUID>::iterator not_cached_id = cached_ids.end();
 			cached_category_count = cached_ids.size();
-			for(cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
+			for (cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
 			{
-				if(cached_ids.find((*it)->getUUID()) == not_cached_id)
+				if (cached_ids.find((*it)->getUUID()) == not_cached_id)
 				{
 					// this check is performed so that we do not
 					// mark new folders in the skeleton (and not in cache)
@@ -2058,15 +2138,14 @@ bool LLInventoryModel::loadSkeleton(
 			// Add all the items loaded which are parented to a
 			// category with a correctly cached parent
 			count = items.count();
-			cat_map_t::iterator unparented = mCategoryMap.end();
-			for(int i = 0; i < count; ++i)
+			for (int i = 0; i < count; ++i)
 			{
 				cat_map_t::iterator cit = mCategoryMap.find(items[i]->getParentUUID());
 				
-				if(cit != unparented)
+				if (cit != mCategoryMap.end())
 				{
 					LLViewerInventoryCategory* cat = cit->second;
-					if(cat->getVersion() != NO_VERSION)
+					if (cat->getVersion() != NO_VERSION)
 					{
 						addItem(items[i]);
 						cached_item_count += 1;
@@ -2079,7 +2158,7 @@ bool LLInventoryModel::loadSkeleton(
 		{
 			// go ahead and add everything after stripping the version
 			// information.
-			for(cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
+			for (cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
 			{
 				LLViewerInventoryCategory *llvic = (*it);
 				llvic->setVersion(NO_VERSION);
@@ -2092,13 +2171,13 @@ bool LLInventoryModel::loadSkeleton(
 		// needlessly fetch descendents for categories which we have.
 		update_map_t::iterator no_child_counts = child_counts.end();
 		update_map_t::iterator the_count;
-		for(cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
+		for (cat_set_t::iterator it = temp_cats.begin(); it != temp_cats.end(); ++it)
 		{
 			LLViewerInventoryCategory* cat = (*it);
-			if(cat->getVersion() != NO_VERSION)
+			if (cat->getVersion() != NO_VERSION)
 			{
 				the_count = child_counts.find(cat->getUUID());
-				if(the_count != no_child_counts)
+				if (the_count != no_child_counts)
 				{
 					cat->setDescendentCount((*the_count).second.mValue);
 				}
@@ -2109,7 +2188,7 @@ bool LLInventoryModel::loadSkeleton(
 			}
 		}
 
-		if(remove_inventory_file)
+		if (remove_inventory_file)
 		{
 			// clean up the gunzipped file.
 			LLFile::remove(inventory_filename);
@@ -2118,53 +2197,98 @@ bool LLInventoryModel::loadSkeleton(
 	}
 
 	LL_DEBUGS("Inventory") << "Successfully loaded " << cached_category_count
-			<< " categories and " << cached_item_count << " items from cache."
+			<< " categories and " << cached_item_count << " items from cache skeleton."
 			<< LL_ENDL;
 
 	return rv;
 }
 
-bool LLInventoryModel::loadMeat(
-	const LLInventoryModel::options_t& options, const LLUUID& owner_id)
+bool LLInventoryModel::loadMeat(const LLInventoryModel::options_t& options, 
+								const LLUUID& owner_id)
 {
 	llinfos << "importing inventory for " << owner_id << llendl;
 	LLPermissions default_perm;
 	default_perm.init(LLUUID::null, owner_id, LLUUID::null, LLUUID::null);
 	LLPointer<LLViewerInventoryItem> item;
 	LLUUID id;
-	LLAssetType::EType type;
+	LLAssetType::EType type = LLAssetType::AT_NONE;
 	LLInventoryType::EType inv_type;
+
 	bool rv = true;
-	for(options_t::const_iterator it = options.begin(); it < options.end(); ++it)
+	bool clean_item = false;
+	static S32 cached_meat_count = 0;
+
+	for (options_t::const_iterator it = options.begin(); it < options.end(); ++it)
 	{
 		item = new LLViewerInventoryItem;
+
 		response_t::const_iterator no_response = (*it).end();
 		response_t::const_iterator meat;
+
+		clean_item = false;
+
 		meat = (*it).find("name");
-		if(meat == no_response) goto clean_item;
-		item->rename(std::string((*meat).second));
+		if (meat == no_response)
+		{
+			clean_item = true;
+		}
+		else
+		{
+			item->rename(std::string((*meat).second));
+		}
+
 		meat = (*it).find("item_id");
-		if(meat == no_response) goto clean_item;
-		id.set((*meat).second);
-		item->setUUID(id);
+		if (meat == no_response)
+		{
+			clean_item = true;
+		}
+		else
+		{
+			id.set((*meat).second);
+			item->setUUID(id);
+		}
+
 		meat = (*it).find("parent_id");
-		if(meat == no_response) goto clean_item;
-		id.set((*meat).second);
-		item->setParent(id);
+		if (meat == no_response)
+		{
+			clean_item = true;
+		}
+		else
+		{
+			id.set((*meat).second);
+			item->setParent(id);
+		}
+
 		meat = (*it).find("type");
-		if(meat == no_response) goto clean_item;
-		type = (LLAssetType::EType)atoi((*meat).second.c_str());
-		item->setType(type);
+		if (meat == no_response)
+		{
+			clean_item = true;
+		}
+		else
+		{
+			type = (LLAssetType::EType)atoi((*meat).second.c_str());
+			item->setType(type);
+		}
+
+		// Do we want to clean if there's no inv_type too? -- MC
 		meat = (*it).find("inv_type");
-		if(meat != no_response)
+		if (meat != no_response)
 		{
 			inv_type = (LLInventoryType::EType)atoi((*meat).second.c_str());
 			item->setInventoryType(inv_type);
 		}
+
 		meat = (*it).find("data_id");
-		if(meat == no_response) goto clean_item;
-		id.set((*meat).second);
-		if(LLAssetType::AT_CALLINGCARD == type)
+		if (meat == no_response)
+		{
+			clean_item = true;
+		}
+		else
+		{
+			id.set((*meat).second);
+		}
+
+		if (LLAssetType::AT_CALLINGCARD == type)
 		{
 			LLPermissions perm;
 			perm.init(id, owner_id, LLUUID::null, LLUUID::null);
@@ -2173,37 +2297,48 @@ bool LLInventoryModel::loadMeat(
 		else
 		{
 			meat = (*it).find("perm_mask");
-			if(meat != no_response)
+			if (meat != no_response)
 			{
 				PermissionMask perm_mask = atoi((*meat).second.c_str());
-				default_perm.initMasks(
-					perm_mask, perm_mask, perm_mask, perm_mask, perm_mask);
+				default_perm.initMasks(perm_mask, perm_mask, perm_mask, perm_mask, perm_mask);
 			}
 			else
 			{
-				default_perm.initMasks(
-					PERM_NONE, PERM_NONE, PERM_NONE, PERM_NONE, PERM_NONE);
+				default_perm.initMasks(PERM_NONE, PERM_NONE, PERM_NONE, PERM_NONE, PERM_NONE);
 			}
 			item->setPermissions(default_perm);
 			item->setAssetUUID(id);
 		}
+
 		meat = (*it).find("flags");
-		if(meat != no_response)
+		if (meat != no_response)
 		{
 			item->setFlags(strtoul((*meat).second.c_str(), NULL, 0));
 		}
+
 		meat = (*it).find("time");
-		if(meat != no_response)
+		if (meat != no_response)
 		{
 			item->setCreationDate(atoi((*meat).second.c_str()));
 		}
-		addItem(item);
-		continue;
-	clean_item:
-		llwarns << "Unable to import near " << item->getName() << llendl;
-		rv = false;
-		//delete item; // automatic when item is reassigned or destroyed
+
+		if (clean_item)
+		{
+			llwarns << "Unable to import near " << item->getName() << llendl;
+			rv = false;
+			//delete item; // automatic when item is reassigned or destroyed
+			break;
+		}
+		else
+		{
+			addItem(item);
+			cached_meat_count++;
+		}
 	}
+
+	LL_DEBUGS("Inventory") << "Successfully added " << cached_meat_count << " items from cache."
+						   << LL_ENDL;
+
 	return rv;
 }
 
@@ -2528,6 +2663,7 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 	// *NOTE: This buffer size is hard coded into scanf() below.
 	char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 	char keyword[MAX_STRING];		/*Flawfinder: ignore*/
+	static S32 item_count_total = 0;
 	while(!feof(file) && fgets(buffer, MAX_STRING, file)) 
 	{
 		sscanf(buffer, " %254s", keyword);	/* Flawfinder: ignore */
@@ -2552,16 +2688,17 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 				// *FIX: Need a better solution, this prevents the
 				// application from freezing, but breaks inventory
 				// caching.
-				if(inv_item->getUUID().isNull())
-				{
-					//delete inv_item; // automatic when inv_cat is reassigned or destroyed
-					llwarns << "Ignoring inventory with null item id: "
-							<< inv_item->getName() << llendl;
-						
-				}
-				else
+				//if(inv_item->getUUID().isNull())MCCABE
+				//{
+				//	//delete inv_item; // automatic when inv_cat is reassigned or destroyed
+				//	llwarns << "Ignoring inventory with null item id: "
+				//			<< inv_item->getName() << llendl;
+				//		
+				//}
+				//else
 				{
 					items.put(inv_item);
+					item_count_total++;
 				}
 			}
 			else
@@ -2576,6 +2713,7 @@ bool LLInventoryModel::loadFromFile(const std::string& filename,
 					<< llendl;
 		}
 	}
+	LL_DEBUGS("Inventory") << "Inventory items loaded from file: " << item_count_total << LL_ENDL;
 	fclose(file);
 	return true;
 }
@@ -2598,6 +2736,9 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 		return false;
 	}
 
+	static S32 count_total = 0;
+	static S32 category_total = 0;
+
 	S32 count = categories.count();
 	S32 i;
 	for(i = 0; i < count; ++i)
@@ -2606,6 +2747,7 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 		if(cat->getVersion() != LLViewerInventoryCategory::VERSION_UNKNOWN)
 		{
 			cat->exportFileLocal(file);
+			category_total++;
 		}
 	}
 
@@ -2613,7 +2755,10 @@ bool LLInventoryModel::saveToFile(const std::string& filename,
 	for(i = 0; i < count; ++i)
 	{
 		items[i]->exportFile(file);
+		count_total++;
 	}
+
+	LL_DEBUGS("Inventory") << "Cached " << category_total << " categories and " << count_total << " inventory items" << LL_ENDL;
 
 	fclose(file);
 	return true;
@@ -2709,8 +2854,8 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 	{
 		LLPointer<LLViewerInventoryItem> titem = new LLViewerInventoryItem;
 		titem->unpackMessage(msg, _PREHASH_InventoryData, i);
-		lldebugs << "LLInventoryModel::messageUpdateCore() item id:"
-				 << titem->getUUID() << llendl;
+		LL_DEBUGS("Inventory") << "LLInventoryModel::messageUpdateCore() item id:"
+						       << titem->getUUID() << LL_ENDL;
 		items.push_back(titem);
 		// examine update for changes.
 		LLViewerInventoryItem* itemp = gInventory.getItem(titem->getUUID());
@@ -2759,7 +2904,7 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 // 	static
 void LLInventoryModel::processRemoveInventoryItem(LLMessageSystem* msg, void**)
 {
-	lldebugs << "LLInventoryModel::processRemoveInventoryItem()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::processRemoveInventoryItem()" << LL_ENDL;
 	LLUUID agent_id, item_id;
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id);
 	if(agent_id != gAgent.getID())
@@ -2796,7 +2941,7 @@ void LLInventoryModel::processRemoveInventoryItem(LLMessageSystem* msg, void**)
 void LLInventoryModel::processUpdateInventoryFolder(LLMessageSystem* msg,
 													void**)
 {
-	lldebugs << "LLInventoryModel::processUpdateInventoryFolder()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::processUpdateInventoryFolder()" << LL_ENDL;
 	LLUUID agent_id, folder_id, parent_id;
 	//char name[DB_INV_ITEM_NAME_BUF_SIZE];
 	msg->getUUIDFast(_PREHASH_FolderData, _PREHASH_AgentID, agent_id);
@@ -2856,7 +3001,7 @@ void LLInventoryModel::processUpdateInventoryFolder(LLMessageSystem* msg,
 void LLInventoryModel::processRemoveInventoryFolder(LLMessageSystem* msg,
 													void**)
 {
-	lldebugs << "LLInventoryModel::processRemoveInventoryFolder()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::processRemoveInventoryFolder()" << LL_ENDL;
 	LLUUID agent_id, folder_id;
 	msg->getUUIDFast(_PREHASH_FolderData, _PREHASH_AgentID, agent_id);
 	if(agent_id != gAgent.getID())
@@ -2905,8 +3050,8 @@ void LLInventoryModel::processSaveAssetIntoInventory(LLMessageSystem* msg,
 	// The viewer ignores the asset id because this message is only
 	// used for attachments/objects, so the asset id is not used in
 	// the viewer anyway.
-	lldebugs << "LLInventoryModel::processSaveAssetIntoInventory itemID="
-		<< item_id << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::processSaveAssetIntoInventory itemID="
+		<< item_id << LL_ENDL;
 	LLViewerInventoryItem* item = gInventory.getItem( item_id );
 	if( item )
 	{
@@ -3173,7 +3318,7 @@ void LLInventoryModel::processInventoryDescendents(LLMessageSystem* msg,void**)
 // static
 void LLInventoryModel::processMoveInventoryItem(LLMessageSystem* msg, void**)
 {
-	lldebugs << "LLInventoryModel::processMoveInventoryItem()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryModel::processMoveInventoryItem()" << LL_ENDL;
 	LLUUID agent_id;
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id);
 	if(agent_id != gAgent.getID())
@@ -3198,8 +3343,8 @@ void LLInventoryModel::processMoveInventoryItem(LLMessageSystem* msg, void**)
 			msg->getUUIDFast(_PREHASH_InventoryData, _PREHASH_FolderID, folder_id, i);
 			msg->getString("InventoryData", "NewName", new_name, i);
 
-			lldebugs << "moving item " << item_id << " to folder "
-					 << folder_id << llendl;
+			LL_DEBUGS("Inventory") << "moving item " << item_id << " to folder "
+					 << folder_id << LL_ENDL;
 			update_list_t update;
 			LLCategoryUpdate old_folder(item->getParentUUID(), -1);
 			update.push_back(old_folder);
@@ -3759,7 +3904,7 @@ void LLInventoryFetchComboObserver::fetch(
 	const folder_ref_t& folder_ids,
 	const item_ref_t& item_ids)
 {
-	lldebugs << "LLInventoryFetchComboObserver::fetch()" << llendl;
+	LL_DEBUGS("Inventory") << "LLInventoryFetchComboObserver::fetch()" << LL_ENDL;
 	for(folder_ref_t::const_iterator fit = folder_ids.begin(); fit != folder_ids.end(); ++fit)
 	{
 		LLViewerInventoryCategory* cat = gInventory.getCategory(*fit);
@@ -3767,13 +3912,13 @@ void LLInventoryFetchComboObserver::fetch(
 		if(!gInventory.isCategoryComplete(*fit))
 		{
 			cat->fetchDescendents();
-			lldebugs << "fetching folder " << *fit <<llendl;
+			LL_DEBUGS("Inventory") << "fetching folder " << *fit << LL_ENDL;
 			mIncompleteFolders.push_back(*fit);
 		}
 		else
 		{
 			mCompleteFolders.push_back(*fit);
-			lldebugs << "completing folder " << *fit <<llendl;
+			LL_DEBUGS("Inventory") << "completing folder " << *fit << LL_ENDL;
 		}
 	}
 
@@ -3788,14 +3933,14 @@ void LLInventoryFetchComboObserver::fetch(
 		LLViewerInventoryItem* item = gInventory.getItem(*iit);
 		if(!item)
 		{
-			lldebugs << "uanble to find item " << *iit << llendl;
+			LL_DEBUGS("Inventory") << "uanble to find item " << *iit << LL_ENDL;
 			continue;
 		}
 		if(item->isComplete())
 		{
 			// It's complete, so put it on the complete container.
 			mCompleteItems.push_back(*iit);
-			lldebugs << "completing item " << *iit << llendl;
+			LL_DEBUGS("Inventory") << "completing item " << *iit << LL_ENDL;
 			continue;
 		}
 		else
@@ -3812,7 +3957,7 @@ void LLInventoryFetchComboObserver::fetch(
 		}
 		else
 		{
-			lldebugs << "not worrying about " << *iit << llendl;
+			LL_DEBUGS("Inventory") << "not worrying about " << *iit << LL_ENDL;
 		}
 	}
 	fetch_items_from_llsd(items_llsd);
