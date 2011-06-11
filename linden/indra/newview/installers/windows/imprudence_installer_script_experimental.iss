@@ -27,7 +27,7 @@ AppPublisherURL=http://kokuaviewer.org
 AppSupportURL=http://kokuaviewer.org
 AppUpdatesURL=http://kokuaviewer.org
 AllowNoIcons=true
-InfoAfterFile=..\windows\README.txt
+InfoAfterFile=..\..\..\..\..\README.txt
 OutputDir=C:\imprudence_installers
 SetupIconFile=..\windows\imp_icon.ico
 Compression=lzma2/ultra64
@@ -156,6 +156,14 @@ Source: ..\windows\vcredist_x86_VS2005.exe; DestDir: {tmp}; DestName: vcredist_x
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 ;Source: ..\..\..\build-vc80\newview\release\package\msvcr71.dll; DestDir: {app}; Flags: ignoreversion; MinVersion: 0,6.01; Tasks: ; Languages:
 
+[Registry]
+Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: (default); ValueData: URL:Second Life
+Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: URL Protocol
+Root: HKCR; Subkey: secondlife\DefaultIcon; Flags: uninsdeletekey deletekey; ValueType: string; Tasks: slurlassociate; ValueData: {app}\imprudence.exe
+Root: HKCR; Subkey: secondlife\shell\open\command; ValueType: expandsz; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueData: "{app}\imprudence.exe --settings settings_imprudence_experimental.xml -url ""%1"""; Languages: 
+; Root: HKCU; Subkey: Environment; ValueType: string; ValueName: GST_PLUGIN_PATH; Flags: deletevalue uninsdeletevalue; ValueData: {app}\lib
+; Root: HKCU; Subkey: Environment; ValueType: expandsz; ValueName: PATH; ValueData: {app}
+
 [Icons]
 Name: {group}\{cm:UninstallProgram,Imprudence Experimental}; Filename: {uninstallexe}
 Name: {commondesktop}\Imprudence Experimental; Filename: {app}\imprudence.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
@@ -260,4 +268,5 @@ Name: {app}\SLPlugin.exe.config; Type: files; Tasks: ; Languages:
 Name: {app}\Microsoft.VC80.CRT.manifest; Type: files; Tasks: ; Languages:
 Name: {app}\msvcp80.dll; Type: files; Tasks: ; Languages:
 Name: {app}\msvcr80.dll; Type: files; Tasks: ; Languages:
+Name: {app}\msvcr71.dll; Type: files; Tasks: ; Languages:
 Name: {app}\imprudence.exe.config; Type: files; Tasks: ; Languages:

@@ -9,31 +9,31 @@
 ; These will change
 AppId={{D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8}
 AppName=Imprudence
-AppVerName=Imprudence Viewer 1.3.0 RC2 (SSE2 optimized)
+AppVerName=Imprudence Viewer 1.4.0 (SSE2 optimized)
 DefaultDirName={pf}\Imprudence
 DefaultGroupName=Imprudence Viewer
 VersionInfoProductName=Imprudence Viewer
-OutputBaseFilename=Imprudence-1.3.0-RC2-(SSE2-optimized)-Setup
-VersionInfoVersion=1.3.0
-VersionInfoTextVersion=1.3.0
-VersionInfoProductVersion=1.3.0
-VersionInfoCopyright=2010
-AppCopyright=2010
+OutputBaseFilename=Imprudence-1.4.0-(SSE2-optimized)-Setup
+VersionInfoVersion=1.4.0
+VersionInfoTextVersion=1.4.0
+VersionInfoProductVersion=1.4.0
+VersionInfoCopyright=2011
+AppCopyright=2011
 
 ; These won't change
 VersionInfoCompany=Imprudence
 AppPublisher=The Imprudence Project
-AppPublisherURL=http://www.imprudenceviewer.org
-AppSupportURL=http://www.imprudenceviewer.org
-AppUpdatesURL=http://www.imprudenceviewer.org
+AppPublisherURL=http://kokuaviewer.org
+AppSupportURL=http://kokuaviewer.org
+AppUpdatesURL=http://kokuaviewer.org
 AllowNoIcons=true
-InfoAfterFile=..\windows\README.txt
-OutputDir=C:\
+InfoAfterFile=..\..\..\..\..\README.txt
+OutputDir=C:\imprudence_installers
 SetupIconFile=..\windows\imp_icon.ico
 Compression=lzma2/ultra64
 InternalCompressLevel=ultra64
 SolidCompression=true
-PrivilegesRequired=poweruser
+;PrivilegesRequired=poweruser
 AllowRootDirectory=true
 WizardImageFile=..\windows\imprudence_installer_icon_left.bmp
 WizardSmallImageFile=..\windows\imprudence_installer_icon_right.bmp
@@ -50,106 +50,111 @@ Name: slurlassociate; Description: Associate Imprudence with SLURLs; GroupDescri
 ; Name: uninstallsettings; Description: Remove user settings; Flags: checkablealone; Languages: ; GroupDescription: Uninstall:
 
 [Files]
-Source: C:\imp_1.3\imprudence.exe; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\character\*; DestDir: {app}\character; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\fonts\*; DestDir: {app}\fonts; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\app_settings\*; DestDir: {app}\app_settings; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\skins\*; DestDir: {app}\skins; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\doc\*; DestDir: {app}\doc; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\lib\*; DestDir: {app}\lib; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\imp_1.3\alut.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\ChangeLog.txt; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\charset.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\dbghelp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\featuretable.txt; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\freebl3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\glew32.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\gpu_table.txt; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\iconv.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\imprudence.exe.config; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\imprudence.url; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\intl.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\js3250.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libcairo-2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libfaad-2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgcrypt-11.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgio-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libglib-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgmodule-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgnutls-26.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgobject-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgpg-error-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstapp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstaudio.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstaudio-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstbase-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstcdda.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstcontroller-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstdataprotocol-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstdshow.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstfft.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstinterfaces.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstnet-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstnetbuffer.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstpbutils.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstreamer-0.10.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstriff.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstrtp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstrtsp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstsdp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgsttag.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgstvideo.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libgthread-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libjpeg.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libmp3lame-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libneon-27.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libogg-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\liboil-0.3-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libopenjpeg-2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libpng12-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libschroedinger-1.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libspeex-1.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libtheora-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libvorbis-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libvorbisenc-2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libxml2-2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libxml2.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\llkdu.dll.2.config; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\Microsoft.VC80.CRT.manifest; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\msvcp80.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\msvcr80.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\nspr4.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\nss3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\nssckbi.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\openal32.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\OpenJPEG.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\plc4.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\plds4.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\smime3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\softokn3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\ssl3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\xpcom.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\xul.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\xvidcore.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\zlib1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\imprudence.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\character\*; DestDir: {app}\character; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\fonts\*; DestDir: {app}\fonts; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\app_settings\*; DestDir: {app}\app_settings; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\skins\*; DestDir: {app}\skins; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\doc\*; DestDir: {app}\doc; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\llplugin\*; DestDir: {app}\llplugin; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\alut.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\ChangeLog.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\dbghelp.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\featuretable.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\gpu_table.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\imprudence.url; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libapr-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libapriconv-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libaprutil-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libhunspell.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\llcommon.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\llkdu.dll.2.config; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\openal32.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\OpenJPEG.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\SLPlugin.exe; DestDir: {app}; Flags: ignoreversion
+
+; Gstreamer-specific files below
+Source: ..\..\..\build-vc80\newview\release\package\lib\*; DestDir: {app}\lib; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\..\build-vc80\newview\release\package\avcodec-gpl-52.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\avdevice-gpl-52.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\avfilter-gpl-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\avformat-gpl-52.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\avutil-gpl-50.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\iconv.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\liba52-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libbz2.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libcelt-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libdca-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libexpat-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libfaad-2.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libFLAC-8.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgcrypt-11.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgio-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libglib-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgmodule-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgnutls-26.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgobject-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgpg-error-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstapp-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstaudio-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstbase-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstcontroller-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstdataprotocol-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstfft-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstinterfaces-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstnet-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstnetbuffer-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstpbutils-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstphotography-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstreamer-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstriff-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstrtp-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstrtsp-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstsdp-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstsignalprocessor-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgsttag-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgstvideo-0.10.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libgthread-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libmms-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libmpeg2-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libneon-27.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libogg-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\liboil-0.3-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libsoup-2.4-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libtasn1-3.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libtheora-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libtheoradec-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libvorbis-0.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libvorbisenc-2.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libvorbisfile-3.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libwavpack-1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libx264-67.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libxml2-2.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\libxml2.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\SDL.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\xvidcore.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\z.dll; DestDir: {app}; Flags: ignoreversion
 
 ; Voice files
-Source: C:\imp_1.3\ortp.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\SLVoice.exe; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\ortp.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\SLVoice.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\..\build-vc80\newview\release\package\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
 
-; Old files we don't use anymore
-; Source: C:\imp_1.3\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\volume_settings.xml; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\srtp.dll; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\ssleay32.dll; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\tntk.dll; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\libeay32.dll; DestDir: {app}; Flags: ignoreversion
-; Source: C:\imp_1.3\lsl_guide.html; DestDir: {app}; Flags: ignoreversion
+; VC++ 2005 x86 redist
+Source: ..\windows\vcredist_x86_VS2005.exe; DestDir: {tmp}; DestName: vcredist_x86_2005.exe
+
+; Old files we don't use anymore:
+; Source: ..\..\..\build-vc80\newview\release\package\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\volume_settings.xml; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\srtp.dll; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\ssleay32.dll; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\tntk.dll; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\libeay32.dll; DestDir: {app}; Flags: ignoreversion
+; Source: ..\..\..\build-vc80\newview\release\package\lsl_guide.html; DestDir: {app}; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-;Source: C:\imp_1.3\msvcr71.dll; DestDir: {app}; Flags: ignoreversion; MinVersion: 0,6.01; Tasks: ; Languages:
+;Source: ..\..\..\build-vc80\newview\release\package\msvcr71.dll; DestDir: {app}; Flags: ignoreversion; MinVersion: 0,6.01; Tasks: ; Languages:
 
 [Registry]
 Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: (default); ValueData: URL:Second Life
@@ -168,6 +173,7 @@ Name: {group}\Imprudence; Filename: {app}\imprudence.exe; WorkingDir: {app}; Com
 [Run]
 Filename: {app}\imprudence.exe; WorkingDir: {app}; Flags: nowait postinstall
 Filename: {app}\imprudence.url; WorkingDir: {app}; Flags: nowait postinstall shellexec; Description: See what makes Imprudence different
+Filename: {tmp}\vcredist_x86_2005.exe; Parameters: "/q:a /c:""VCREDI~1.EXE /q:a /c:""""msiexec /i vcredist.msi /qn"""" """; Flags: runhidden
 
 [UninstallDelete]
 Name: {userappdata}\Imprudence\user_settings\password.dat; Type: files; Languages: 
@@ -190,4 +196,77 @@ Name: {app}\lib\gstreamer-plugins\*; Type: filesandordirs; Tasks: ; Languages:
 Name: C:\Documents and Settings\{username}\.gstreamer-0.10\*; Type: filesandordirs
 Name: C:\Users\{username}\.gstreamer-0.10\*; Type: filesandordirs
 ; Breaks the browser if installing on top of 1.1:
-Name: {app}\gksvggdiplus.dll; Type: files; Tasks: ; Languages:
+Name: {app}\gksvggdiplus.dll; Type: files; Tasks: ; Languages: 
+
+; Pre-plugin files:
+Name: {app}\charset.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\freebl3.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\glew32.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\iconv.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\intl.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\js3250.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libcairo-2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libfaad-2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgcrypt-11.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgio-2.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libglib-2.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgmodule-2.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgnutls-26.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgobject-2.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgpg-error-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstapp.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstaudio.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstaudio-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstbase-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstcdda.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstcontroller-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstdataprotocol-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstdshow.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstfft.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstinterfaces.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstnet-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstnetbuffer.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstpbutils.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstreamer-0.10.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstriff.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstrtp.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstrtsp.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstsdp.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgsttag.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgstvideo.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libgthread-2.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libjpeg.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libmp3lame-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libneon-27.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libogg-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\liboil-0.3-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libopenjpeg-2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libpng12-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libschroedinger-1.0-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libspeex-1.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libtheora-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libvorbis-0.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libvorbisenc-2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libxml2-2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\libxml2.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\nspr4.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\nss3.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\nssckbi.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\plc4.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\plds4.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\RELEASE_NOTES.txt; Type: files; Tasks: ; Languages: 
+Name: {app}\smime3.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\softokn3.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\ssl3.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\xpcom.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\xul.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\xvidcore.dll; Type: files; Tasks: ; Languages: 
+Name: {app}\zlib1.dll; Type: files; Tasks: ; Languages: 
+
+; We don't distribute the CRT like this anymore; kill old files
+Name: {app}\SLPlugin.exe.config; Type: files; Tasks: ; Languages:
+Name: {app}\Microsoft.VC80.CRT.manifest; Type: files; Tasks: ; Languages:
+Name: {app}\msvcp80.dll; Type: files; Tasks: ; Languages:
+Name: {app}\msvcr80.dll; Type: files; Tasks: ; Languages:
+Name: {app}\msvcr71.dll; Type: files; Tasks: ; Languages:
+Name: {app}\imprudence.exe.config; Type: files; Tasks: ; Languages:
