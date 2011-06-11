@@ -2494,7 +2494,7 @@ class LLObjectEnableExport : public view_listener_t
 			{
 				virtual bool apply(LLSelectNode* node)
 				{
-					return primbackup::check_perms( node );
+					return PrimBackup::validatePerms(node->mPermissions);
 				}
 			} func;
 
@@ -2521,7 +2521,7 @@ class LLObjectExport : public view_listener_t
 
 		if (!avatar)
 		{
-			primbackup::getInstance()->pre_export_object();
+			PrimBackup::getInstance()->exportObject();
 		}
 
 		return true;
@@ -2542,7 +2542,7 @@ class LLObjectImport : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		primbackup::getInstance()->import_object(FALSE);
+		PrimBackup::getInstance()->importObject(FALSE);
 		return true;
 	}
 };
@@ -2551,7 +2551,7 @@ class LLObjectImportUpload : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		primbackup::getInstance()->import_object(TRUE);
+		PrimBackup::getInstance()->importObject(TRUE);
 		return true;
 	}
 };

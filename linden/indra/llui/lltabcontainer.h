@@ -145,7 +145,6 @@ public:
 
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
-private:
 	// Structure used to map tab buttons to and from tab panels
 	struct LLTabTuple
 	{
@@ -176,11 +175,12 @@ private:
 		LLTextBox*		 mPlaceholderText;
 		S32				 mPadding;
 	};
-
-	void initButtons();
 	
 	LLTabTuple* getTab(S32 index) 		{ return mTabList[index]; }
 	LLTabTuple* getTabByPanel(LLPanel* child);
+
+	LLTextBox*	getTitle()				{ return mTitleBox; }
+
 	void insertTuple(LLTabTuple * tuple, eInsertionPoint insertion_point);
 
 	S32 getScrollPos() const			{ return mScrollPos; }
@@ -194,6 +194,10 @@ private:
 	BOOL getTabsHidden() const			{ return mTabsHidden; }
 	
 	void setCurrentPanelIndex(S32 index) { mCurrentTabIdx = index; }
+
+private:
+
+	void initButtons();
 
 	void scrollPrev() { mScrollPos = llmax(0, mScrollPos-1); } // No wrap
 	void scrollNext() { mScrollPos = llmin(mScrollPos+1, mMaxScrollPos); } // No wrap
