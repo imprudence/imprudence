@@ -64,6 +64,7 @@ private:
 	LLColor4 mCloudEndColor;
 	LLUUID mCloudTextureID;
 	BOOL mWLControl;
+	BOOL mAOControl;
 };
 
 #endif // LLPREFSADVANCED_H

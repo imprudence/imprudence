@@ -48,6 +48,9 @@
 LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
 LLPrefsAdvanced::LLPrefsAdvanced()
+:
+	mWLControl(FALSE),
+	mAOControl(FALSE)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_advanced.xml");
 	if(sInstance)delete sInstance;
@@ -98,6 +101,10 @@ BOOL LLPrefsAdvanced::postBuild()
 	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
 	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("ShowTimestamps"));
 	childSetValue("arrow_keys_move_avatar_check", gSavedSettings.getBOOL("ArrowKeysMoveAvatar"));
+
+	static BOOL *sEnableAORemote = rebind_llcontrol<BOOL>("EnableAORemote", &gSavedSettings, true);
+	childSetValue("ao_remote_check", *sEnableAORemote);
+	mAOControl = (*sEnableAORemote);
 
 	refresh();
 
@@ -198,6 +205,9 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", childGetValue("arrow_keys_move_avatar_check"));
 	gSavedSettings.setBOOL("ScriptErrorsAsChat", childGetValue("script_errors_as_chat"));
 	gSavedSettings.setBOOL("ShowTimestamps", childGetValue("show_timestamps_check"));
+
+	static BOOL *sEnableAORemote = rebind_llcontrol<BOOL>("EnableAORemote", &gSavedSettings, true);
+	mAOControl = *sEnableAORemote;
 }
 
 void LLPrefsAdvanced::cancel()
@@ -208,6 +218,7 @@ void LLPrefsAdvanced::cancel()
 // 	LLVOAvatar::sCloud.mPartData.mEndColor = mCloudEndColor;
 
 	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
+	gSavedSettings.setBOOL("EnableAORemote", mAOControl);
 }
 
 void LLPrefsAdvanced::refresh()
