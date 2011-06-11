@@ -1004,6 +1004,15 @@ void LLPanelAvatarPicks::refresh()
 	childSetVisible("Delete...", self && getPanelAvatar()->isEditable());
 
 	sendAvatarProfileRequestIfNeeded("avatarpicksrequest");
+
+	for (int i = 0; i < tab_count; ++i)
+	{
+		LLTabContainer::LLTabTuple* tab = tabs->getTab(i);
+		if (tab)
+		{
+			tab->mButton->setToolTip(tabs->getPanelTitle(i));
+		}
+	}
 }
 
 
