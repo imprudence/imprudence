@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>33</string>
+      <key>default_grids_version</key><string>37</string>
     </map>
 
     <!-- Second Life -->
@@ -51,13 +51,15 @@
       <key>gridname</key><string>OSGrid</string>
       <key>platform</key><string>OpenSim</string>
       <key>loginuri</key><string>http://login.osgrid.org/</string>
-      <key>loginpage</key><string>http://osgrid.org/splash/</string>
+      <key>loginpage</key><string>http://www.osgrid.org/splash/</string>
       <key>helperuri</key><string>http://helper.osgrid.org/</string>
-      <key>website</key><string>http://osgrid.org/</string>
-      <key>support</key><string>http://osgrid.org/</string>
-      <key>register</key><string>http://www.osgrid.org/index.php/auth/register</string>
-      <key>password</key><string>http://www.osgrid.org/index.php/auth/forgot_password</string>
-      <key>version</key><string>2</string>
+      <key>website</key><string>http://www.osgrid.org/</string>
+      <key>support</key><string>http://www.osgrid.org/</string>
+      <key>register</key>
+        <string>http://www.osgrid.org/index.php/auth/register</string>
+      <key>password</key>
+        <string>http://www.osgrid.org/index.php/auth/forgot_password</string>
+      <key>version</key><string>3</string>
     </map>
 
     <!-- Aurora Grid -->
@@ -155,12 +157,13 @@
       <key>gridname</key><string>Role Play Worlds</string>
       <key>platform</key><string>OpenSim</string>
       <key>loginuri</key><string>http://grid.roleplayworlds.net:8002/</string>
-      <key>loginpage</key><string>http://grid.roleplayworlds.net/loginscreen.php</string>
+      <key>loginpage</key><string>http://roleplayworlds.net/loginscreen</string>
       <key>helperuri</key><string>http://grid.roleplayworlds.net/</string>
       <key>website</key><string>http://roleplayworlds.net/</string>
-      <key>register</key><string>http://grid.roleplayworlds.net/index.php?page=create</string>
-      <key>password</key><string>http://grid.roleplayworlds.net/index.php?page=change</string>
-      <key>version</key><string>0</string>
+      <key>support</key><string>http://roleplayworlds.net/help</string>
+      <key>register</key><string>http://roleplayworlds.net/register</string>
+      <key>password</key><string>http://roleplayworlds.net/password</string>
+      <key>version</key><string>1</string>
     </map>
 
     <!-- GiantGrid -->
@@ -168,10 +171,14 @@
       <key>gridnick</key><string>giantgrid</string>
       <key>gridname</key><string>GiantGrid</string>
       <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://Gianttest.no-ip.biz:8002/</string>
-      <key>loginpage</key><string>http://gianttest.no-ip.biz:80/gridsplash?method=login</string>
-      <key>helperuri</key><string>http://gianttest.no-ip.biz/giantmap/</string>
-      <key>version</key><string>0</string>
+      <key>loginuri</key><string>http://giantgrid.no-ip.biz:8002/</string>
+      <key>loginpage</key><string>http://www.giantgrid.nl</string>
+      <key>helperuri</key><string>http://giantgrid.no-ip.biz/XoopCube/html/modules/xoopensim/helper/</string>
+      <key>website</key><string>http://www.giantgrid.nl</string>
+      <key>register</key><string>http://giantgrid.no-ip.biz:8002/wifi/user/account/</string>
+      <key>password</key><string>http://giantgrid.no-ip.biz:8002/wifi/forgotpassword</string>
+      <key>support</key><string>http://gianttest.no-ip.biz/ticket/</string>
+      <key>version</key><string>1</string>
     </map>
 
     <!-- 3rd Rock Grid -->
