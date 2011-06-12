@@ -1004,6 +1004,15 @@ void LLPanelAvatarPicks::refresh()
 	childSetVisible("Delete...", self && getPanelAvatar()->isEditable());
 
 	sendAvatarProfileRequestIfNeeded("avatarpicksrequest");
+
+	for (int i = 0; i < tab_count; ++i)
+	{
+		LLTabContainer::LLTabTuple* tab = tabs->getTab(i);
+		if (tab)
+		{
+			tab->mButton->setToolTip(tabs->getPanelTitle(i));
+		}
+	}
 }
 
 
@@ -1953,29 +1962,37 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		self->mPanelSecondLife->childSetValue("acct", caption_text);
 
 		//Chalice - Show avatar age in days.
-		S32 year;
-		S32 month;
-		S32 day;
+		S32 year = 0;
+		S32 month = 0;
+		S32 day = 0;
 		sscanf(born_on.c_str(), "%d/%d/%d", &month, &day, &year);
-		time_t now = time(NULL);
-		struct tm * timeinfo;
-		timeinfo = localtime(&now);
-		timeinfo->tm_mon = --month;
-		timeinfo->tm_year = year - 1900;
-		timeinfo->tm_mday = day;
-		time_t birth = mktime(timeinfo);
+		if (year == 0 || month == 0 || day == 0)
+		{
+			// In case the string sent gets screwed up. It happens -- MC
+			born_on = self->mPanelSecondLife->getString("invalid");
+		}
+		else
+		{
+			time_t now = time(NULL);
+			struct tm * timeinfo;
+			timeinfo = localtime(&now);
+			timeinfo->tm_mon = --month;
+			timeinfo->tm_year = year - 1900;
+			timeinfo->tm_mday = day;
+			time_t birth = mktime(timeinfo);
 
-		std::stringstream numberString;
-		S32 days = difftime(now, birth) / 86400; //(60*60*24)
-		if (days < 0) days = 0; // Happens for people on different timezones -- MC
-		numberString << days; 
+			std::stringstream numberString;
+			S32 days = difftime(now, birth) / 86400; //(60*60*24)
+			if (days < 0) days = 0; // Happens for people on different timezones -- MC
+			numberString << days; 
 
-		LLStringUtil::format_map_t targs;
-		targs["[DAYS]"] = numberString.str();
-		std::string born_msg = self->mPanelSecondLife->getString("days_old_text");
-		LLStringUtil::format(born_msg, targs);
-		born_on += " ";
-		born_on += born_msg;
+			LLStringUtil::format_map_t targs;
+			targs["[DAYS]"] = numberString.str();
+			std::string born_msg = self->mPanelSecondLife->getString("days_old_text");
+			LLStringUtil::format(born_msg, targs);
+			born_on += " ";
+			born_on += born_msg;
+		}
 		self->mPanelSecondLife->childSetValue("born", born_on);
 
 		EOnlineStatus online_status = (online) ? ONLINE_STATUS_YES : ONLINE_STATUS_NO;

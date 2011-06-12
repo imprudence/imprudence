@@ -49,11 +49,16 @@ USE left="270" FOR TABBING OPTIONS
            label="Show WindLight toolbar" left="50"  mouse_opaque="true"
            name="toggle_windlight_control" radio_style="false" width="237"
            control_name="EnableWindlightRemote" />
-      <check_box bottom_delta="-18" enabled="true"
+      <check_box bottom_delta="0" enabled="true"
            follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-           label="Use legacy pie menus" left_delta="0"
+           label="Use legacy pie menus" left="270"
            mouse_opaque="true" name="legacy_pie_menu_checkbox" radio_style="false"
            width="256" />
+      <check_box bottom_delta="-18" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Show AO toolbar" left="50"  mouse_opaque="true"
+           name="toggle_ao_control" radio_style="false" width="237"
+           control_name="EnableAORemote" />
 
 
       <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
