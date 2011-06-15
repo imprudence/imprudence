@@ -33,24 +33,7 @@ USE left="270" FOR TABBING OPTIONS
 	     tool_tip="Click to open Color Picker" width="65" />
   
   
-  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-        bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top" font-style="BOLD|SHADOW"
-        font="SansSerifSmall" h_pad="0" halign="left" height="10" left="270"
-        mouse_opaque="true" name="client_tag_color_textbox" v_pad="0" width="394">
-    Client Tag Color:
-  </text>
-  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom_delta="-80"
-       can_apply_immediately="true" color="0.79 0.44 0.88 1"
-       enabled="true" follows="left|top"
-       height="65" label="Imprudence" left_delta="30" mouse_opaque="true"
-       name="client_tag_color" width="65" />
-  <check_box bottom_delta="45" enabled="true" follows="left|top"
-       font="SansSerifSmall" height="16" initial_value="false"
-       label="Color client tags" left_delta="76" mouse_opaque="true"
-       name="client_name_color_check" radio_style="false" width="160" />
-  
-  
-  <view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="left|top"
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="0" follows="left|top"
        height="1" left="55" name="border" width="380" />  
   
   
