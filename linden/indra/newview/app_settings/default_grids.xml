@@ -62,21 +62,6 @@
       <key>version</key><string>3</string>
     </map>
 
-    <!-- Aurora Grid -->
-    <map>
-      <key>gridname</key>   <string>Aurora-Grid</string>
-      <key>gridnick</key>   <string>auroragrid</string>
-      <key>platform</key>   <string>OpenSim</string>
-      <key>loginuri</key>   <string>http://login.aurora-sim.org:8002/</string>
-      <key>loginpage</key>  <string>http://login.aurora-sim.org/splash/</string>
-      <key>helperuri</key>  <string>http://grid.aurora-sim.org/</string>
-      <key>password</key>   <string />
-      <key>register</key>   <string />
-      <key>support</key>    <string>http://forum.aurora-sim.org/</string>
-      <key>website</key>    <string>http://aurora-sim.org</string>
-      <key>version</key>    <string>0</string>
-    </map>
-
     <!-- WorldSimTerra -->
     <map>
       <key>gridnick</key><string>worldsimterra</string>
