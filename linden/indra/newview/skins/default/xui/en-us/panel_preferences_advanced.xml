@@ -74,7 +74,7 @@ USE left="270" FOR TABBING OPTIONS
       
       <check_box bottom_delta="-25" enabled="true" follows="left|top"
           font="SansSerifSmall" height="16" initial_value="false"
-          label="Show client names in nametags" left_delta="30" mouse_opaque="true"
+          label="Show client names in nametags" left="50" mouse_opaque="true"
           name="client_name_tag_check" radio_style="false" width="160" />
       <check_box bottom_delta="0" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
@@ -82,12 +82,16 @@ USE left="270" FOR TABBING OPTIONS
            name="client_name_hover_check" radio_style="false" width="160" />
       <check_box bottom_delta="-18" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
-           label="Show your client name to others" left="50" mouse_opaque="true"
+           label="Show client name tag colors" left="50" mouse_opaque="true"
+           name="client_colors_check" radio_style="false" width="160" />
+      <check_box bottom_delta="0" enabled="true" follows="left|top"
+           font="SansSerifSmall" height="16" initial_value="false"
+           label="Show your client name to others" left="270" mouse_opaque="true"
            name="client_name_tag_broadcast_check" radio_style="false" width="217" />
       <check_box bottom_delta="-18" enabled="true" follows="left|top"
            font="SansSerifSmall" height="16" initial_value="false"
            tool_tip="Toggle editing animation and standing up when entering appearance mode"
-           label="Animate avatar when editing appearance" left_delta="0" mouse_opaque="true"
+           label="Animate avatar when editing appearance" left="50" mouse_opaque="true"
            name="appearance_anim_check" radio_style="false" width="217" />
       <check_box bottom_delta="-18" control_name="HeadFollowsMouse" enabled="true"
            follows="left|top" font="SansSerifSmall" height="16"
