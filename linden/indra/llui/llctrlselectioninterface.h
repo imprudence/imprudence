@@ -67,8 +67,8 @@ public:
 	virtual BOOL	setCurrentByID( const LLUUID& id ) = 0;
 	virtual LLUUID	getCurrentID() const = 0;
 
-			BOOL	selectByValue(const LLSD value);
-			BOOL	deselectByValue(const LLSD value);
+			BOOL	selectByValue(const LLSD& value);
+			BOOL	deselectByValue(const LLSD& value);
 	virtual BOOL	setSelectedByValue(const LLSD& value, BOOL selected) = 0;
 	virtual LLSD	getSelectedValue() = 0;
 
