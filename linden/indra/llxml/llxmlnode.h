@@ -245,7 +245,7 @@ public:
 	void setFloatValue(const F32 value, Encoding encoding = ENCODING_DEFAULT, U32 precision = 0) { setFloatValue(1, &value, encoding); }
 	void setDoubleValue(const F64 value, Encoding encoding = ENCODING_DEFAULT, U32 precision = 0) { setDoubleValue(1, &value, encoding); }
 	void setStringValue(const std::string& value) { setStringValue(1, &value); }
-	void setUUIDValue(const LLUUID value) { setUUIDValue(1, &value); }
+	void setUUIDValue(const LLUUID& value) { setUUIDValue(1, &value); }
 	void setNodeRefValue(const LLXMLNode *value) { setNodeRefValue(1, &value); }
 
 	void setBoolValue(U32 length, const BOOL *array);
