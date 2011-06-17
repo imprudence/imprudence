@@ -215,7 +215,7 @@ USE left="270" FOR TABBING OPTIONS
 
       <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="-30"
          name="EmSpell_txt1" width="512">
-        Current language (dictionary):
+        Base dictionary:
       </text>
       <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
          max_chars="200" mouse_opaque="true" name="EmeraldSpellBase" width="250"
@@ -223,13 +223,13 @@ USE left="270" FOR TABBING OPTIONS
 
       <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
          name="EmSpell_txt3" width="512">
-        Downloaded languages (dictionaries):
+        Available (inactive) extra dictionaries:
       </text>
       <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
          max_chars="200" mouse_opaque="true" name="EmSpell_Avail" width="250"
          control_name="EmSpell_Avail" tool_tip=""/>
 
-      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Install"
+      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Activate"
          name="EmSpell_Add" tool_tip="" left_delta="255" width="110"/>
 
       <button bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20" label="Download More..."
@@ -237,13 +237,13 @@ USE left="270" FOR TABBING OPTIONS
 
       <text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="16" left_delta="0"
          name="EmSpell_txt2" width="512">
-        Additional custom languages (dictionaries):
+        Active extra dictionaries:
       </text>
       <combo_box allow_text_entry="false" bottom_delta="-20" left_delta="0" follows="left|top" height="18"
          max_chars="200" mouse_opaque="true" name="EmSpell_Installed" width="250"
          control_name="EmSpell_Installed" tool_tip=""/>
 
-      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Remove"
+      <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" label="Deactivate"
          name="EmSpell_Remove" tool_tip="" left_delta="255" width="110"/>
 
       <!--<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="18" label="Edit Custom dictionary"
