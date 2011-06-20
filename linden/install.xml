@@ -153,9 +153,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>c4242416e0b2e642c0bf062a19a250e4</string>
+            <string>301a1317c7d5bebbdc396e1a4874175b</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ares-1.3.0-linux64-20080909.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/ares-1.7.1-Linux-x86_64-20110405.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -261,9 +261,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>6e9242d11d785f643f34d925a29967e7</string>
+            <string>7e698e37a1425d66f709163a36ce0b5a</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/curl-7.16.4-linux64-20080909.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/curl-7.21.4-Linux-x86_64-20110405.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -998,10 +998,32 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           </map>
         </map>
       </map>
-      <key>llqtwebkit</key>
+      <key>kokua-qt</key>
       <map>
         <key>license</key>
         <string>lgpl</string>
+        <key>packages</key>
+        <map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>380775ee42191982c22fa5f5f5428250</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/kokua-qt4.7.4-Linux-i686-20110620.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>4c6c0f607f7cc9ebaa5446fd9ca3371a</string>
+            <key>url</key>
+            <uri>http://download.kokuaviewer.org/files/libs/kokua-qt4.7.4-Linux-x86_64-20110620.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
+      <key>llqtwebkit</key>
+      <map>
+        <key>license</key>
+        <string>gpl</string>
         <key>packages</key>
         <map>
           <key>darwin</key>
@@ -1014,16 +1036,16 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>5d743c93b970abe685b185de83001a6e</string>
+            <string>d2f69c0d72e28037f5377538d4ec8dfe</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-qt4.6-20100923.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/kokua-llqtwebkit-Linux-i686-20110620.tar.bz2</uri>
           </map>
           <key>linux64</key>
            <map>
              <key>md5sum</key>
-             <string>d5deaf897fe8effa3d3537c875060379</string>
-             <key>url</key>
-             <uri>http://imprudenceviewer.org/download/libs/llqtwebkit-linux64-20100907.tar.bz2</uri>
+              <string>28fe808f318a2b66146e4bbcf1f96306</string>
+              <key>url</key>
+              <uri>http://download.kokuaviewer.org/files/libs/kokua-llqtwebkit-Linux-x86_64-20110620.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>
@@ -1244,9 +1266,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>00b23f28a2457d9dabbaff0b29ee7323</string>
+            <string>d02fd5e08e7300e418ac86f00a321b23</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openSSL-0.9.8g-linux64-20080909.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/openSSL-1.0.0-Linux-x86_64-20110405.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1551,9 +1573,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>d085a173e3c05ff3bb0ee36ba42deb2c</string>
+            <string>36716acbb29ed2adbc8d82d9ddbdec65</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/zlib-1.2.3-linux64-lenny-20091202.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/z-lib-1.2.5-Linux-x86_64-20110405.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
