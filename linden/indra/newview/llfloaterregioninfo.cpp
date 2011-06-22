@@ -641,6 +641,7 @@ BOOL LLPanelRegionGeneralInfo::postBuild()
 	initHelpBtn("land_resell_help",	"HelpRegionLandResell");
 	initHelpBtn("parcel_changes_help", "HelpParcelChanges");
 	initHelpBtn("parcel_search_help", "HelpRegionSearch");
+	initHelpBtn("minimum_agent_age_help",	"HelpRegionMinimumAge");
 
 	childSetAction("kick_btn", onClickKick, this);
 	childSetAction("kick_all_btn", onClickKickAll, this);
@@ -977,8 +978,6 @@ BOOL LLPanelRegionDebugInfo::postBuild()
 	initHelpBtn("top_colliders_help",		"HelpRegionTopColliders");
 	initHelpBtn("top_scripts_help",			"HelpRegionTopScripts");
 	initHelpBtn("restart_help",				"HelpRegionRestart");
-	initHelpBtn("minimum_agent_age_help",	"HelpRegionMinimumAge");
-	
 
 	childSetAction("choose_avatar_btn", onClickChooseAvatar, this);
 	childSetAction("return_btn", onClickReturn, this);

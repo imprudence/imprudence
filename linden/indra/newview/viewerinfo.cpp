@@ -34,7 +34,7 @@ namespace ViewerInfo
 	const std::string VARNT = "";
 	const S32         MAJOR = 1;
 	const S32         MINOR = 4;
-	const S32         PATCH = 1;
+	const S32         PATCH = 0;
 	const S32         RLEAS = 1; // increment for each beta/RC/release
 	const std::string EXTRA = "beta 1";
 

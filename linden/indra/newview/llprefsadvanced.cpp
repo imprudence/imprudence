@@ -73,6 +73,7 @@ BOOL LLPrefsAdvanced::postBuild()
 	static BOOL* sShowClientNameTag = rebind_llcontrol<BOOL>("ShowClientNameTag", &gSavedSettings, true);
 	childSetValue("client_name_tag_check", (*sShowClientNameTag));
 	childSetValue("client_name_hover_check", gSavedSettings.getBOOL("ShowClientNameHoverTip"));
+	childSetValue("client_colors_check", gSavedSettings.getBOOL("ShowClientColor"));
 	childSetValue("client_name_tag_broadcast_check", gSavedSettings.getBOOL("ShowMyClientTagToOthers"));
 
 	childSetValue("appearance_anim_check", gSavedSettings.getBOOL("AppearanceAnimate"));
@@ -117,6 +118,7 @@ void LLPrefsAdvanced::apply()
 	gSavedSettings.setBOOL("DisableTeleportScreens", childGetValue("disable_tp_screen_check"));
 	gSavedSettings.setBOOL("ShowClientNameTag", childGetValue("client_name_tag_check"));
 	gSavedSettings.setBOOL("ShowClientNameHoverTip", childGetValue("client_name_hover_check"));
+	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_colors_check"));
 
 	gSavedSettings.setBOOL("AppearanceAnimate", childGetValue("appearance_anim_check"));
 	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
@@ -332,4 +334,3 @@ void LLPrefsAdvanced::onSaveAnyoneCloudButton(void * data)
 	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
 	LLVOAvatar::saveCloud(filename, LLVOAvatar::sCloud);
 }
-

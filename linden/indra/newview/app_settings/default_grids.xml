@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>37</string>
+      <key>default_grids_version</key><string>38</string>
     </map>
 
     <!-- Second Life -->
@@ -60,36 +60,6 @@
       <key>password</key>
         <string>http://www.osgrid.org/index.php/auth/forgot_password</string>
       <key>version</key><string>3</string>
-    </map>
-
-    <!-- Aurora Grid -->
-    <map>
-      <key>gridname</key>   <string>Aurora-Grid</string>
-      <key>gridnick</key>   <string>auroragrid</string>
-      <key>platform</key>   <string>OpenSim</string>
-      <key>loginuri</key>   <string>http://login.aurora-sim.org:8002/</string>
-      <key>loginpage</key>  <string>http://login.aurora-sim.org/splash/</string>
-      <key>helperuri</key>  <string>http://grid.aurora-sim.org/</string>
-      <key>password</key>   <string />
-      <key>register</key>   <string />
-      <key>support</key>    <string>http://forum.aurora-sim.org/</string>
-      <key>website</key>    <string>http://aurora-sim.org</string>
-      <key>version</key>    <string>0</string>
-    </map>
-
-    <!-- WorldSimTerra -->
-    <map>
-      <key>gridnick</key><string>worldsimterra</string>
-      <key>gridname</key><string>WorldSimTerra</string>
-      <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://wsterra.com:8002</string>
-      <key>loginpage</key><string>http://wsterra.com/log.php</string>
-      <key>helperuri</key><string>http://wsterra.com/</string>
-      <key>website</key><string>http://www.worldsimterra.com/</string>
-      <key>support</key><string>http://www.worldsimterra.com/</string>
-      <key>register</key><string>http://www.worldsimterra.com/</string>
-      <key>password</key><string>http://www.worldsimterra.com/</string>
-      <key>version</key><string>0</string>
     </map>
 
     <!-- Your Alternative Life -->
@@ -210,21 +180,6 @@
       <key>website</key>   <string>http://inworldz.com/</string>
       <key>version</key>   <string>2</string>
     </map> 
-
-    <!-- Meta7 -->
-    <map>
-      <key>gridname</key>  <string>Meta7</string>
-      <key>gridnick</key>  <string>meta7</string>
-      <key>platform</key>  <string>OpenSim</string>
-      <key>loginuri</key>  <string>http://login.meta7.com/</string>
-      <key>loginpage</key> <string>http://api.meta7.com/loginscreen.php</string>
-      <key>helperuri</key> <string>https://secure.meta7.com/</string>
-      <key>password</key>  <string>http://www.meta7.com/resetpass.php</string>
-      <key>register</key>  <string>http://www.meta7.com/register.php</string>
-      <key>support</key>   <string>http://www.meta7.com/support.php</string>
-      <key>website</key>   <string>http://meta7.com/</string>
-      <key>version</key>   <string>0</string>
-    </map>
 
     <!-- ScienceSim -->
     <map>
