@@ -627,12 +627,12 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					 LLStringUtil::compareInsensitive("/icanhashelp", cur_token) == 0 ||
 					 LLStringUtil::compareInsensitive("/icanhashalp", cur_token) == 0)
 			{
-				LLWeb::loadURLInternal("http://support.imprudenceviewer.org/");
+				LLWeb::loadURLInternal("http://support.kokuaviewer.org/");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhasblog", cur_token) == 0)
 			{
-				LLWeb::loadURLInternal("http://www.imprudenceviewer.org/");
+				LLWeb::loadURLInternal("http://kokuaviewer.org/");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhascodie", cur_token) == 0)
@@ -657,23 +657,23 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					 LLStringUtil::compareInsensitive("/icanhasupdate", cur_token) == 0 ||
 					 LLStringUtil::compareInsensitive("/icanhasupdates", cur_token) == 0 )
 			{
-				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/Downloads");
+				LLWeb::loadURLInternal("http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhasfeatures", cur_token) == 0)
 			{
-				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/Features");
+				LLWeb::loadURLInternal("http://wiki.kokuaviewer.org/wiki/Imprudence:Features");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhaswiki", cur_token) == 0)
 			{
-				LLWeb::loadURLInternal("http://imprudenceviewer.org/wiki/");
+				LLWeb::loadURLInternal("http://wiki.kokuaviewer.org/wiki/");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhasbugs", cur_token) == 0 ||
 					 LLStringUtil::compareInsensitive("/icanhasbug", cur_token) == 0 )
 			{
-				LLWeb::loadURLInternal("http://redmine.imprudenceviewer.org/");
+				LLWeb::loadURLInternal("http://redmine.kokuaviewer.org/");
 				return TRUE;
 			}
 			else if (LLStringUtil::compareInsensitive("/icanhasgit", cur_token) == 0)
@@ -691,7 +691,6 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 				LLWeb::loadURLInternal("http://twitter.com/ImpViewer");
 				return TRUE;
 			}
-			
 
 			else if (LLStringUtil::compareInsensitive("/icanhasimprudence", cur_token) == 0)
 			{
