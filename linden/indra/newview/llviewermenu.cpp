@@ -84,6 +84,7 @@
 #include "llfirstuse.h"
 #include "llfloater.h"
 #include "floaterao.h"
+#include "floaterdice.h"
 #include "llfloaterabout.h"
 #include "llfloaterbuycurrency.h"
 #include "llfloateractivespeakers.h"
@@ -9601,6 +9602,32 @@ class LLAdvancedReloadBalance : public view_listener_t
 	}
 };
 
+
+/////////////////
+// DICE WINDOW //
+/////////////////
+
+
+class LLAdvancedToggleDice : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		FloaterDice::toggleInstance();
+		return true;
+	}
+};
+
+class LLAdvancedCheckDice : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = FloaterDice::instanceVisible();
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
 /////////////////////
 // DUMP SELECT MGR //
 /////////////////////
@@ -11421,6 +11448,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedWebBrowserTest(), "Advanced.WebBrowserTest");
 	addMenu(new LLAdvancedToggleEditableUI(), "Advanced.ToggleEditableUI");
 	addMenu(new LLAdvancedReloadBalance(), "Advanced.ReloadBalance");
+	addMenu(new LLAdvancedToggleDice(), "Advanced.ToggleDice");
+	addMenu(new LLAdvancedCheckDice(), "Advanced.CheckDice");
 	//addMenu(new LLAdvancedCheckEditableUI(), "Advanced.CheckEditableUI");
 	addMenu(new LLAdvancedDumpSelectMgr(), "Advanced.DumpSelectMgr");
 	addMenu(new LLAdvancedDumpInventory(), "Advanced.DumpInventory");

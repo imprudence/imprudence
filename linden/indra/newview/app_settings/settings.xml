@@ -399,6 +399,44 @@
     <key>Value</key>
     <integer>3</integer>
   </map>
+  <key>DiceLastCount</key>
+  <map>
+    <key>Comment</key>
+    <string>Last entered dice count</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>DiceLastSides</key>
+  <map>
+    <key>Comment</key>
+    <string>Last entered dice sides</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>6</integer>
+  </map>
+  <key>DiceFloaterRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for dice window</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+    </array>
+  </map>
   <key>DisableInternalFlyUpAnimation</key>
   <map>
     <key>Comment</key>

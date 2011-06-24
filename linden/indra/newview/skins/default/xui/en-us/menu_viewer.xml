@@ -1609,10 +1609,15 @@
         <on_check control="ShowSearchBar" />
       </menu_item_check>
 
-	<menu_item_call name="Reload Balance" label="Reload [CURRENCY] balance" shortcut="control|alt|B">
+	    <menu_item_call name="Reload Balance" label="Reload [CURRENCY] balance" shortcut="control|alt|B">
         <on_click function="Advanced.ReloadBalance" userdata="" />
       </menu_item_call>
 
+      <menu_item_check name="Roll Dice"
+                       label="Roll Dice">
+        <on_click function="Advanced.ToggleDice" userdata="" />
+        <on_check function="Advanced.CheckDice" userdata="" />
+      </menu_item_check>
 
       <menu_item_separator />
 

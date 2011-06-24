@@ -78,6 +78,7 @@ set(viewer_SOURCE_FILES
     floaterao.cpp
     floaterbusy.cpp
     floatercommandline.cpp
+    floaterdice.cpp
     floatergriddefault.cpp
     floatergridmanager.cpp
     floaterlocalassetbrowse.cpp
@@ -535,6 +536,7 @@ set(viewer_HEADER_FILES
     floaterao.h
     floaterbusy.h
     floatercommandline.h
+    floaterdice.h
     floatergriddefault.h
     floatergridmanager.h
     floaterlocalassetbrowse.h
