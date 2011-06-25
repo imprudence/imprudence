@@ -25,8 +25,8 @@ elseif (OPENAL)
   
   if (WINDOWS)
     set(OPENAL_LIB
-	  optimized ${ARCH_PREBUILT_DIRS_RELEASE}/libOpenAL32.dll.a.lib
-	  debug ${ARCH_PREBUILT_DIRS_DEBUG}/libOpenAL32.dll.a.lib
+	  optimized ${ARCH_PREBUILT_DIRS_RELEASE}/openal32.lib
+	  debug ${ARCH_PREBUILT_DIRS_DEBUG}/openal32.lib
       )
   
   elseif (DARWIN)
