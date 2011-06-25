@@ -38,7 +38,7 @@
 #include "lllistener_openal.h"
 
 
-static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+static const F32 WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
 
 std::string convertALErrorToString(ALenum error)
 {
@@ -94,7 +94,7 @@ bool LLAudioEngine_OpenAL::init(const S32 num_channels, void* userdata)
 	mWindGen = NULL;
 	LLAudioEngine::init(num_channels, userdata);
 
-	if(!alutInit(NULL, NULL))
+	if (!alutInit(NULL, NULL))
 	{
 		llwarns << "LLAudioEngine_OpenAL::init() ALUT initialization failed: " << alutGetErrorString (alutGetError ()) << llendl;
 		return false;
@@ -230,7 +230,7 @@ std::string LLAudioEngine_OpenAL::getDriverName(bool verbose)
 void LLAudioEngine_OpenAL::allocateListener()
 {
 	mListenerp = (LLListener *) new LLListener_OpenAL();
-	if(!mListenerp)
+	if (!mListenerp)
 	{
 		llwarns << "LLAudioEngine_OpenAL::allocateListener() Listener creation failed" << llendl;
 	}
@@ -239,18 +239,19 @@ void LLAudioEngine_OpenAL::allocateListener()
 // virtual
 void LLAudioEngine_OpenAL::shutdown()
 {
-	llinfos << "About to LLAudioEngine::shutdown()" << llendl;
+	llinfos << "Entering LLAudioEngine::shutdown()" << llendl;
 
 	LLAudioEngine::shutdown();
 
-	llinfos << "About to alutExit()" << llendl;
-	if(!alutExit())
+	llinfos << "Entering alutExit()" << llendl;
+	if (!alutExit())
 	{
-		llwarns << "Nuts." << llendl;
 		llwarns << "LLAudioEngine_OpenAL::shutdown() ALUT shutdown failed: " << alutGetErrorString(alutGetError()) << llendl;
 	}
-
-	llinfos << "LLAudioEngine_OpenAL::shutdown() OpenAL successfully shut down" << llendl;
+	else
+	{
+		llinfos << "LLAudioEngine_OpenAL::shutdown() OpenAL successfully shut down" << llendl;
+	}
 
 	delete mListenerp;
 	mListenerp = NULL;
@@ -270,12 +271,20 @@ void LLAudioEngine_OpenAL::shutdown()
 	{
 		llinfos << "AL error: " << convertALErrorToString(error) << ". Could not destroy context!" << llendl;
 	}
+	else
+	{
+		mContext = NULL;
+	}
 
     alcCloseDevice(mDevice);
 	error = alGetError();
 	if (error != AL_NO_ERROR)
 	{
 		llinfos << "AL error: " << convertALErrorToString(error) << ". Could not close device!" << llendl;
+	}
+	else
+	{
+		mDevice = NULL;
 	}
 }
 
@@ -306,7 +315,7 @@ LLAudioChannelOpenAL::LLAudioChannelOpenAL()
 LLAudioChannelOpenAL::~LLAudioChannelOpenAL()
 {
 	cleanup();
-	if (mALSource != AL_NONE) //MC
+	if (mALSource != AL_NONE)
 	{
 		alDeleteSources(1, &mALSource);
 		mALSource = AL_NONE;
@@ -327,7 +336,7 @@ void LLAudioChannelOpenAL::play()
 		return;
 	}
 
-	if(!isPlaying())
+	if (!isPlaying())
 	{
 		alSourcePlay(mALSource);
 		getSource()->setPlayedOnce(true);
@@ -453,7 +462,7 @@ LLAudioBufferOpenAL::~LLAudioBufferOpenAL()
 
 void LLAudioBufferOpenAL::cleanup()
 {
-	if(mALBuffer != AL_NONE)
+	if (mALBuffer != AL_NONE)
 	{
 		alDeleteBuffers(1, &mALBuffer);
 		mALBuffer = AL_NONE;
@@ -464,7 +473,7 @@ bool LLAudioBufferOpenAL::loadWAV(const std::string& filename)
 {
 	cleanup();
 	mALBuffer = alutCreateBufferFromFile(filename.c_str());
-	if(mALBuffer == AL_NONE)
+	if (mALBuffer == AL_NONE)
 	{
 		ALenum error = alutGetError(); 
 		if (gDirUtilp->fileExists(filename))
@@ -492,7 +501,7 @@ bool LLAudioBufferOpenAL::loadWAV(const std::string& filename)
 
 U32 LLAudioBufferOpenAL::getLength()
 {
-	if(mALBuffer == AL_NONE)
+	if (mALBuffer == AL_NONE)
 	{
 		return 0;
 	}
@@ -514,7 +523,7 @@ void LLAudioEngine_OpenAL::initWind()
 	
 	alGenSources(1,&mWindSource);
 	
-	if((error=alGetError()) != AL_NO_ERROR)
+	if ((error=alGetError()) != AL_NO_ERROR)
 	{
 		llwarns << "LLAudioEngine_OpenAL::initWind() Error creating wind sources: " << convertALErrorToString(error) << llendl;
 	}
@@ -527,7 +536,7 @@ void LLAudioEngine_OpenAL::initWind()
 
 	mWindBuf = new WIND_SAMPLE_T [mWindBufSamples * 2 /*stereo*/];
 
-	if(mWindBuf==NULL)
+	if (mWindBuf == NULL)
 	{
 		llerrs << "LLAudioEngine_OpenAL::initWind() Error creating wind memory buffer" << llendl;
 		mEnableWind=false;
@@ -576,7 +585,7 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 	if (!mEnableWind)
 		return;
 	
-	if(!mWindBuf)
+	if (!mWindBuf)
 		return;
 	
 	if (mWindUpdateTimer.checkExpirationAndReset(LL_WIND_UPDATE_INTERVAL))

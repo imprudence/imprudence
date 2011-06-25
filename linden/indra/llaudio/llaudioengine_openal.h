@@ -70,9 +70,9 @@ class LLAudioEngine_OpenAL : public LLAudioEngine
     	U32 mWindBufSamples;
     	U32 mWindBufBytes;
     	ALuint mWindSource;
-        int mNumEmptyWindALBuffers;
+        S32 mNumEmptyWindALBuffers;
 
-    	static const int MAX_NUM_WIND_BUFFERS = 80;
+    	static const S32 MAX_NUM_WIND_BUFFERS = 80;
 
 		ALCcontext* mContext;
 		ALCdevice* mDevice;
@@ -109,7 +109,7 @@ class LLAudioBufferOpenAL : public LLAudioBuffer
 		friend class LLAudioChannelOpenAL;
 	protected:
 		void cleanup();
-		ALuint getBuffer() {return mALBuffer;}
+		ALuint getBuffer() { return mALBuffer; }
 
 		ALuint mALBuffer;
 };

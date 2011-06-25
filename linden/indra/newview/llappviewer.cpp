@@ -1284,35 +1284,6 @@ bool LLAppViewer::cleanup()
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
-	if (gAudioStream)
-	{
-		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
-
-		delete gAudioStream;
- 		gAudioStream = NULL;
-	}
-
-	if (gAudiop)
-	{
-		// shut down the audio subsystem
-
-		bool want_longname = false;
-		if (gAudiop->getDriverName(want_longname) == "FMOD")
-		{
-			// This hack exists because fmod likes to occasionally
-			// crash or hang forever when shutting down, for no
-			// apparent reason.
-			llwarns << "Hack, skipping FMOD audio engine cleanup" << llendflush;
-		}
-		else
-		{
-			gAudiop->shutdown();
-		}
-
-		delete gAudiop;
-		gAudiop = NULL;
-	}
-
 	// Note: this is where LLFeatureManager::getInstance()-> used to be deleted.
 
 	// Patch up settings for next time
@@ -1547,6 +1518,36 @@ bool LLAppViewer::cleanup()
 
 	end_messaging_system();
 	llinfos << "Message system deleted." << llendflush;
+
+	if (gAudioStream)
+	{
+		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
+
+		delete gAudioStream;
+ 		gAudioStream = NULL;
+	}
+
+	if (gAudiop)
+	{
+		// shut down the audio subsystem
+
+		bool want_longname = false;
+		if (gAudiop->getDriverName(want_longname) == "FMOD")
+		{
+			// This hack exists because fmod likes to occasionally
+			// crash or hang forever when shutting down, for no
+			// apparent reason.
+			llwarns << "Hack, skipping FMOD audio engine cleanup" << llendflush;
+		}
+		else
+		{
+			gAudiop->shutdown();
+		}
+
+		delete gAudiop;
+		gAudiop = NULL;
+	}
+	llinfos << "Audio system deleted" << llendl;
 
 	// *NOTE:Mani - The following call is not thread safe. 
 	LLCurl::cleanupClass();
