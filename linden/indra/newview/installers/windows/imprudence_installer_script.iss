@@ -17,15 +17,14 @@ OutputBaseFilename=Imprudence-1.4.0-beta1-(SSE2-optimized)
 VersionInfoVersion=1.4.0
 VersionInfoTextVersion=1.4.0
 VersionInfoProductVersion=1.4.0
+AppVersion=1.4.0
 VersionInfoCopyright=2011
-AppCopyright=2011
 
 ; These won't change
 VersionInfoCompany=Imprudence
 AppPublisher=The Imprudence Project
 AppPublisherURL=http://kokuaviewer.org
 AppSupportURL=http://kokuaviewer.org
-AppUpdatesURL=http://kokuaviewer.org
 AllowNoIcons=true
 InfoAfterFile=..\..\..\..\..\README.txt
 OutputDir=C:\imprudence_installers
@@ -38,6 +37,8 @@ AllowRootDirectory=true
 WizardImageFile=..\windows\imprudence_installer_icon_left.bmp
 WizardSmallImageFile=..\windows\imprudence_installer_icon_right.bmp
 SetupLogging=true
+RestartIfNeededByRun=false
+AlwaysRestart=false
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -141,8 +142,10 @@ Source: ..\..\..\build-vc80\newview\release\package\SLVoice.exe; DestDir: {app};
 Source: ..\..\..\build-vc80\newview\release\package\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\..\build-vc80\newview\release\package\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
 
-; VC++ 2005 x86 redist
-Source: ..\windows\vcredist_x86_VS2005.exe; DestDir: {tmp}; DestName: vcredist_x86_2005.exe
+; VC++ 2005 SP1 x86 and VC++ 2010 SP1 x86 redist
+; TODO: add checking for VS2005. See http://blogs.msdn.com/b/astebner/archive/2007/01/16/mailbag-how-to-detect-the-presence-of-the-vc-8-0-runtime-redistributable-package.aspx and
+Source: ..\windows\vcredist_x86_VS2005_SP1.exe; DestDir: {tmp}; DestName: vcredist_x86_VS2005_SP1.exe
+Source: ..\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {tmp}; DestName: vcredist_x86_VS2010_SP1.exe
 
 ; Old files we don't use anymore:
 ; Source: ..\..\..\build-vc80\newview\release\package\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
@@ -173,7 +176,8 @@ Name: {group}\Imprudence; Filename: {app}\imprudence.exe; WorkingDir: {app}; Com
 [Run]
 Filename: {app}\imprudence.exe; WorkingDir: {app}; Flags: nowait postinstall
 Filename: {app}\imprudence.url; WorkingDir: {app}; Flags: nowait postinstall shellexec; Description: See what makes Imprudence different
-Filename: {tmp}\vcredist_x86_2005.exe; Parameters: "/q:a /c:""VCREDI~1.EXE /q:a /c:""""msiexec /i vcredist.msi /qn"""" """; Flags: runhidden
+Filename: {tmp}\vcredist_x86_VS2005_SP1.exe; Parameters: "/q:a /c:""VCREDI~1.EXE /q:a /c:""""msiexec /i vcredist.msi /qn"""" """; Flags: runhidden
+Filename: {tmp}\vcredist_x86_VS2010_SP1.exe; Parameters: "/q /norestart"; Check: Needs2010Redist; Flags: runhidden
 
 [UninstallDelete]
 Name: {userappdata}\Imprudence\user_settings\password.dat; Type: files; Languages: 
@@ -270,3 +274,34 @@ Name: {app}\msvcp80.dll; Type: files; Tasks: ; Languages:
 Name: {app}\msvcr80.dll; Type: files; Tasks: ; Languages:
 Name: {app}\msvcr71.dll; Type: files; Tasks: ; Languages:
 Name: {app}\imprudence.exe.config; Type: files; Tasks: ; Languages:
+
+
+[Code]
+// [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86] 
+//   Installed = 1 (REG_DWORD)
+function IsVS2010RedistInstalled(): Boolean;
+var
+  V: Cardinal;
+  Success: Boolean;
+begin
+  if IsWin64 then begin
+    Success := RegQueryDWordValue(HKLM64, 'SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86', 'Installed', V);
+  end else begin
+    Success := RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86', 'Installed', V);
+  end
+
+  if Success = TRUE then begin
+    if V = 1 then begin
+      Result := TRUE;
+    end else begin
+      Result := FALSE;
+    end
+  end else begin
+    Result := FALSE;
+  end
+end;
+
+function Needs2010Redist(): Boolean;
+begin
+  Result := (IsVS2010RedistInstalled = FALSE);
+end;
