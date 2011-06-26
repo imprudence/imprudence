@@ -69,7 +69,12 @@ enum
 //---------------------------------------------------------------------------
 
 LLPanelLandAudio::LLPanelLandAudio(LLParcelSelectionHandle& parcel)
-:	LLPanel(std::string("land_media_panel")), mParcel(parcel)
+:	LLPanel(std::string("land_media_panel")), 
+	mParcel(parcel),
+	mCheckSoundLocal(NULL),
+	mSoundHelpButton(NULL),
+	mRadioVoiceChat(NULL),
+	mMusicURLEdit(NULL)
 {
 }
 
@@ -82,6 +87,9 @@ LLPanelLandAudio::~LLPanelLandAudio()
 
 BOOL LLPanelLandAudio::postBuild()
 {
+	mSoundHelpButton = getChild<LLButton>("?");
+	mSoundHelpButton->setClickedCallback(onClickSoundHelp, this);
+
 	mCheckSoundLocal = getChild<LLCheckBoxCtrl>("check_sound_local");
 	childSetCommitCallback("check_sound_local", onCommitAny, this);
 
@@ -184,4 +192,11 @@ void LLPanelLandAudio::onCommitAny(LLUICtrl*, void *userdata)
 
 	// Might have changed properties, so let's redraw!
 	self->refresh();
+}
+
+
+// static
+void LLPanelLandAudio::onClickSoundHelp(void*)
+{
+	LLNotifications::instance().add("ClickSoundHelpLand");
 }

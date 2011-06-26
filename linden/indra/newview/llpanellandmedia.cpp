@@ -65,12 +65,9 @@ LLPanelLandMedia::LLPanelLandMedia(LLParcelSelectionHandle& parcel)
 :	LLPanel(std::string("land_media_panel")),
 
 	mParcel(parcel),
-	mCheckSoundLocal(NULL),
-	mSoundHelpButton(NULL),
 	mCheckEnableVoiceChat(NULL),
 	mCheckEnableVoiceChatIsEstateDisabled(NULL),
 	mCheckEnableVoiceChatParcel(NULL),
-	mMusicURLEdit(NULL),
 	mMediaURLEdit(NULL),
 	mMediaDescEdit(NULL),
 	mMediaTypeCombo(NULL),
@@ -92,30 +89,14 @@ LLPanelLandMedia::~LLPanelLandMedia()
 }
 
 
-// static
-void LLPanelLandMedia::onClickSoundHelp(void*)
-{
-	LLNotifications::instance().add("ClickSoundHelpLand");
-}
-
-
 BOOL LLPanelLandMedia::postBuild()
 {
-	mCheckSoundLocal = getChild<LLCheckBoxCtrl>("check sound local");
-	childSetCommitCallback("check sound local", onCommitAny, this);
-
-	mSoundHelpButton = getChild<LLButton>("?");
-	mSoundHelpButton->setClickedCallback(onClickSoundHelp, this);
-
 	mCheckEnableVoiceChat = getChild<LLCheckBoxCtrl>("parcel_enable_voice_channel");
 	childSetCommitCallback("parcel_enable_voice_channel", onCommitAny, this);
 	mCheckEnableVoiceChatIsEstateDisabled = getChild<LLCheckBoxCtrl>("parcel_enable_voice_channel_is_estate_disabled");
 	childSetCommitCallback("parcel_enable_voice_channel_is_estate_disabled", onCommitAny, this);
 	mCheckEnableVoiceChatParcel = getChild<LLCheckBoxCtrl>("parcel_enable_voice_channel_parcel");
 	childSetCommitCallback("parcel_enable_voice_channel_parcel", onCommitAny, this);
-
-	mMusicURLEdit = getChild<LLLineEditor>("music_url");
-	childSetCommitCallback("music_url", onCommitAny, this);
 
 	mMediaTextureCtrl = getChild<LLTextureCtrl>("media texture");
 	mMediaTextureCtrl->setCommitCallback( onCommitAny );
@@ -169,9 +150,6 @@ void LLPanelLandMedia::refresh()
 		// Display options
 		BOOL can_change_media = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA);
 
-		mCheckSoundLocal->set( parcel->getSoundLocal() );
-		mCheckSoundLocal->setEnabled( can_change_media );
-
 		LLViewerRegion* region = LLViewerParcelMgr::getInstance()->getSelectionRegion();
 		if (!region)
 		{
@@ -216,9 +194,6 @@ void LLPanelLandMedia::refresh()
 		}
 
 		mCheckEnableVoiceChatParcel->set(!parcel->getParcelFlagUseEstateVoiceChannel());
-
-		mMusicURLEdit->setText(parcel->getMusicURL());
-		mMusicURLEdit->setEnabled( can_change_media );
 
 		mMediaURLEdit->setText(parcel->getMediaURL());
 		mMediaURLEdit->setEnabled( FALSE );
@@ -374,8 +349,6 @@ void LLPanelLandMedia::onCommitAny(LLUICtrl*, void *userdata)
 	}
 
 	// Extract data from UI
-	BOOL sound_local		= self->mCheckSoundLocal->get();
-	std::string music_url	= self->mMusicURLEdit->getText();
 	std::string media_url	= self->mMediaURLEdit->getText();
 	std::string media_desc	= self->mMediaDescEdit->getText();
 	std::string mime_type	= self->childGetText("mime_type");
@@ -391,14 +364,11 @@ void LLPanelLandMedia::onCommitAny(LLUICtrl*, void *userdata)
 	self->childSetText("mime_type", mime_type);
 
 	// Remove leading/trailing whitespace (common when copying/pasting)
-	LLStringUtil::trim(music_url);
 	LLStringUtil::trim(media_url);
 
 	// Push data into current parcel
 	parcel->setParcelFlag(PF_ALLOW_VOICE_CHAT, voice_enabled);
 	parcel->setParcelFlag(PF_USE_ESTATE_VOICE_CHAN, voice_estate_chan);
-	parcel->setParcelFlag(PF_SOUND_LOCAL, sound_local);
-	parcel->setMusicURL(music_url);
 	parcel->setMediaURL(media_url);
 	parcel->setMediaType(mime_type);
 	parcel->setMediaDesc(media_desc);
