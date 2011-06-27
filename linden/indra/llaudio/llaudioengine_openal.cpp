@@ -650,7 +650,7 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 		alGenBuffers(1,&buffer);
 		if ((error=alGetError()) != AL_NO_ERROR)
 		{
-			llwarns << "LLAudioEngine_OpenAL::initWind() Error creating wind buffer: " << convertALErrorToString(error) << llendl;
+			llwarns << "LLAudioEngine_OpenAL::updateWind() Error creating wind buffer: " << convertALErrorToString(error) << llendl;
 			break;
 		}
 
