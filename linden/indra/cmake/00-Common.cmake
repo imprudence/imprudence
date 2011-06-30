@@ -195,7 +195,8 @@ if (LINUX)
        # This rather needs to be done elsewhere
        # anyway these are the flags for the 64bit releases:
        add_definitions(-DLINUX64=1 -pipe)
-       set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fomit-frame-pointer -mmmx -msse -mfpmath=sse -msse2 -ffast-math -ftree-vectorize -fweb -fexpensive-optimizations -frename-registers")
+       # with -ffast-math lloctree crashes teleporting to mega regions, and it didn't do much for us anyway
+       set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fomit-frame-pointer -mmmx -msse -mfpmath=sse -msse2  -ftree-vectorize -fweb -fexpensive-optimizations -frename-registers")
     endif (${ARCH} STREQUAL "x86_64")
 	set(CMAKE_CXX_FLAGS_RELEASESSE2 "${CMAKE_CXX_FLAGS_RELEASESSE2} -mfpmath=sse2 -msse2")
   endif (VIEWER)
