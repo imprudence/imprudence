@@ -2991,7 +2991,7 @@ bool LLAppViewer::initCache()
 		cache_location = gSavedSettings.getString("CacheLocation");
 	}
 	std::string new_cache_location = gSavedSettings.getString("NewCacheLocation");
-	if ((new_cache_location != cache_location) && new_cache_location != "")
+	if (new_cache_location != cache_location)
 	{
 		gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation"));
 		purgeCache(); // purge old cache
@@ -2999,7 +2999,7 @@ bool LLAppViewer::initCache()
 		cache_location = new_cache_location;
 	}
 	
-	if (!gDirUtilp->setCacheDir(cache_location))
+	if (!gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation")))
 	{
 		LL_WARNS("AppCache") << "Unable to set cache location" << LL_ENDL;
 		gSavedSettings.setString("CacheLocation", "");
