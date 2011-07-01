@@ -50,6 +50,9 @@ public:
 
 	LLPanel* getPanel();
 
+	bool getUpdateUserInfo();
+	std::string getDirectoryVis();
+
 protected:
 	LLPrefsIMImpl& impl;
 };
