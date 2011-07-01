@@ -79,6 +79,8 @@ BOOL LLPanelInput::postBuild()
 	childSetValue("double_click_action", gSavedSettings.getString("DoubleClickAction"));
 	childSetCommitCallback("double_click_action", onCommitAction, this);
 	childSetValue("go_action", gSavedSettings.getString("GoAction"));
+	childSetEnabled("go_action_label", gSavedSettings.getString("DoubleClickAction") == "Go");
+	childSetEnabled("go_action", gSavedSettings.getString("DoubleClickAction") == "Go");
 
 	childSetValue("Disable camera constraints", gSavedSettings.getBOOL("DisableCameraConstraints"));
 	childSetValue("disable_min_zoom_check", gSavedSettings.getBOOL("DisableMinZoomDist"));
@@ -139,7 +141,7 @@ void LLPanelInput::onCommitAction(LLUICtrl* ctrl, void* user_data)
 	LLComboBox* combo = (LLComboBox*)ctrl;
 	if (self && combo)
 	{
-		self->childSetEnabled("go_action_label", combo->getSimple() == "Go");
-		self->childSetEnabled("go_action", combo->getSimple() == "Go");
+		self->childSetEnabled("go_action_label", combo->getValue().asString() == "Go");
+		self->childSetEnabled("go_action", combo->getValue().asString() == "Go");
 	}
 }
