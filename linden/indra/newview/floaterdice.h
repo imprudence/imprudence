@@ -44,7 +44,6 @@ public:
 private:
 
 	static void onClickRoll(void* data);
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
 };
 
 #endif //floaterdice_h

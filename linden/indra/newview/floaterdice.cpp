@@ -37,7 +37,6 @@
 
 #include "llchat.h"
 #include "llchatbar.h"
-#include "llkeyboard.h"
 #include "llviewercontrol.h"
 
 
@@ -75,13 +74,20 @@ void FloaterDice::onClickRoll(void* data)
 		{
 			S32 dice_total = 0;
 			std::ostringstream rolls;
-			for (S32 i = 0; i < dice_count; ++i)
+			S32 i = 0;
+			do
 			{
-				S32 roll = ll_rand(dice_sides);
-				dice_total += roll;
-				rolls << roll;
-				if (i < dice_count - 1) rolls << ", ";
+				// see the clamping rules for ll_rand
+				S32 roll = ll_rand(dice_sides+1);
+				if (roll > 0)
+				{
+					dice_total += roll;
+					rolls << roll;
+					if (i < dice_count - 1) rolls << ", ";
+					++i;
+				}
 			}
+			while (i < dice_count);
 
 			std::string roll_text = llformat("/me rolled %dd%d for a total of %d", dice_count, dice_sides, dice_total);
 			if (dice_count > 1)
@@ -91,18 +97,4 @@ void FloaterDice::onClickRoll(void* data)
 			gChatBar->sendChatFromViewer(roll_text, CHAT_TYPE_NORMAL, FALSE);
 		}
 	}
-}
-
-// virtual
-BOOL FloaterDice::handleKeyHere(KEY key, MASK mask)
-{
-	BOOL handled = FALSE;
-
-	if ((KEY_RETURN == key) && (mask == MASK_NONE))
-	{
-		onClickRoll(this);
-		handled = TRUE;
-	}
-
-	return handled;
 }
