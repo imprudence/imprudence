@@ -2571,6 +2571,66 @@
   </map>
 
   <!-- End: full radar (Advanced menu) -->
+  
+  <!-- Begin: cache clearing -->
+
+  <key>PurgeCacheOnStartup</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear local file cache every time viewer is run (cmd line --purge)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearTextureCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear texture cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearObjectCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear object cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearInvCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear inventory cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearNameCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear cached avatar names/uuids</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  
+  <!-- End: clear cache -->
 
   <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
 
@@ -9327,17 +9387,6 @@
     <map>
       <key>Comment</key>
       <string>Clear local file cache next time viewer is run</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>PurgeCacheOnStartup</key>
-    <map>
-      <key>Comment</key>
-      <string>Clear local file cache every time viewer is run</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

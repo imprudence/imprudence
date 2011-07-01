@@ -45,6 +45,7 @@
 #include "llviewerwindow.h"
 
 // project includes
+#include "floatercache.h"
 #include "llcheckboxctrl.h"
 #include "hippogridmanager.h"
 #include "lluictrlfactory.h"
@@ -267,9 +268,8 @@ void LLPanelNetwork::refresh()
 // static
 void LLPanelNetwork::onClickClearDiskCache(void*)
 {
-	// flag client cache for clearing next time the client runs
-	gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);
-	LLNotifications::instance().add("CacheWillClear");
+	FloaterCache::getInstance()->open();
+	FloaterCache::getInstance()->center();
 }
 
 // static

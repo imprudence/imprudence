@@ -2963,10 +2963,11 @@ bool LLAppViewer::initCache()
 {
 	mPurgeCache = false;
 	// Purge cache if user requested it
-	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") ||
-		gSavedSettings.getBOOL("PurgeCacheOnNextStartup"))
+	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") || // cmd-line -- MC
+		gSavedSettings.getBOOL("PurgeCacheOnNextStartup")) // ui -- MC
 	{
 		gSavedSettings.setBOOL("PurgeCacheOnNextStartup", false);
+		gSavedSettings.setBOOL("PurgeCacheOnStartup", FALSE);
 		mPurgeCache = true;
 	}
 	// Purge cache if it belongs to an old version
@@ -3175,10 +3176,61 @@ bool LLAppViewer::initCache()
 
 void LLAppViewer::purgeCache()
 {
-	LL_INFOS("AppCache") << "Purging Cache and Texture Cache..." << llendl;
-	LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
-	std::string mask = gDirUtilp->getDirDelimiter() + "*.*";
-	gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,""),mask);
+	LL_INFOS("AppCache") << "Begin purging cachees..." << llendl;
+	if (gSavedSettings.getBOOL("PurgeCacheOnStartup")) // purging from cmd line
+	{
+		LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
+		std::string mask = gDirUtilp->getDirDelimiter() + "*.*";
+		gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), mask);
+	}
+	else // purging cache from ui
+	{
+		if (gSavedSettings.getBOOL("ClearTextureCache"))
+		{
+			LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
+			gSavedSettings.setBOOL("ClearTextureCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearObjectCache"))
+		{
+			std::string mask = gDirUtilp->getDirDelimiter() + "*.slc";
+			gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), mask);
+			gSavedSettings.setBOOL("ClearObjectCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearInvCache"))
+		{
+			std::vector<std::string> masks;
+			masks.push_back(gDirUtilp->getDirDelimiter() + "*.inv.gz");
+			masks.push_back(gDirUtilp->getDirDelimiter() + VFS_DATA_FILE_BASE + "*");
+			masks.push_back(gDirUtilp->getDirDelimiter() + VFS_INDEX_FILE_BASE + "*");
+			
+			for (std::vector<std::string>::iterator vIt = masks.begin(); 
+				vIt != masks.end(); ++vIt)
+			{
+				gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), (*vIt));
+			}
+
+			gSavedSettings.setBOOL("ClearInvCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearNameCache"))
+		{
+			// ick @ not making these variables -- MC
+			std::vector<std::string> masks;
+			masks.push_back(gDirUtilp->getDirDelimiter() + "name.cache");
+			masks.push_back(gDirUtilp->getDirDelimiter() + "avatar_name_cache.xml");
+			masks.push_back(gDirUtilp->getDirDelimiter() + "*.cached_mute");
+			
+			for (std::vector<std::string>::iterator vIt = masks.begin(); 
+				vIt != masks.end(); ++vIt)
+			{
+				gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), (*vIt));
+			}
+
+			gSavedSettings.setBOOL("ClearNameCache", FALSE);
+		}
+	}
 }
 
 const std::string& LLAppViewer::getSecondLifeTitle() const

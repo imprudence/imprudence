@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-175" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="left|top" mouse_opaque="true" height="175" width="200"
+     name="Clear Cache" title="Clear Disk Cache">
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-39" drop_shadow_visible="true" follows="left|top" font-style="BOLD|SHADOW"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
+     mouse_opaque="true" name="cache_label" v_pad="0" width="185">
+Cache Will Be Cleared After
+You Restart Imprudence
+  </text>
+  <check_box bottom_delta="-37" follows="left|top" font="SansSerifSmall" height="20"
+     initial_value="false" label="Clear texture cache" left="10"
+     mouse_opaque="true" name="texture_cache" width="185" />
+  <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
+     initial_value="false" label="Clear object cache" left_delta="0"
+     mouse_opaque="true" name="object_cache" width="185" />
+  <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
+     initial_value="false" label="Clear inventory cache" left_delta="0"
+     mouse_opaque="true" name="inv_cache" width="185" />
+  <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
+     initial_value="false" label="Clear avatar name cache" left_delta="0"
+     mouse_opaque="true" name="name_cache" width="185" />
+  <button bottom_delta="-30" follows="right|top" font="SansSerif" halign="center" height="22"
+     label="OK" left="-170" mouse_opaque="true" name="btn_ok" width="80" />
+  <button bottom_delta="0" follows="right|top" font="SansSerif" halign="center" height="22"
+     label="Cancel" left="-85" mouse_opaque="true" name="btn_cancel" width="80" />
+</floater>
