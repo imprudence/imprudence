@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Graphiques" name="Display panel">
 	<button label="?" name="GraphicsPreferencesHelpButton"/>
-	<text_editor bottom="-56" height="40" left="25" name="FullScreenInfo" width="460">
+	<text_editor name="FullScreenInfo" width="460">
 		Décochez cette option pour passer en mode plein écran.
 	</text_editor>
 	<text name="WindowSizeLabel">
@@ -63,7 +63,7 @@
 		Options d&apos;affichage :
 	</text>
 	<check_box label="Lancer Second Life en mode fenêtré" name="windowed mode"/>
-	<check_box label="Auto-détection du ratio" left="350" name="aspect_auto_detect"/>
+	<check_box label="Auto-détection du ratio" name="aspect_auto_detect"/>
 	<check_box label="Utiliser échelle de résolution indépendante" name="ui_auto_scale"/>
 	<check_box label="Montrer l&apos;avatar en vue subjective" name="avfp"/>
 	<spinner label="Distance d&apos;affichage :" name="draw_distance"/>
@@ -73,7 +73,7 @@
 	<text name="QualityText">
 		Performance :
 	</text>
-	<text left="105" name="FasterText">
+	<text name="FasterText">
 		Plus rapide
 	</text>
 	<text name="ShadersPrefText">
@@ -88,11 +88,11 @@
 	<text name="ShadersPrefText4">
 		Ultra
 	</text>
-	<text bottom="-86" left="325" name="HigherText2">
+	<text name="HigherText2">
 		Plus élevée
 	</text>
 	<text name="QualityText2" visible="false"/>
-	<check_box label="Personnaliser" left="395" name="CustomSettings"/>
+	<check_box label="Personnaliser" name="CustomSettings"/>
 	<text name="ShadersText">
 		Effets :
 	</text>
@@ -173,7 +173,7 @@
 			Lumières à proximité
 		</radio_item>
 	</radio_group>
-	<text left="380" name="TerrainDetailText">
+	<text name="TerrainDetailText">
 		Rendu du terrain :
 	</text>
 	<radio_group name="TerrainDetailRadio">
