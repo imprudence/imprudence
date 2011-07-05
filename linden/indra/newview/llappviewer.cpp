@@ -607,6 +607,10 @@ bool LLAppViewer::init()
 	//
 	// OK to write stuff to logs now, we've now crash reported if necessary
 	//
+	
+	// Always add the version to the top of the log--makes debugging easier -- MC
+	llinfos << ViewerInfo::prettyInfo() << llendl;
+
     if (!initConfiguration())
 		return false;
 
