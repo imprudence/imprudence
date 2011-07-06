@@ -3238,6 +3238,13 @@ void LLAppViewer::purgeCache()
 
 			gSavedSettings.setBOOL("ClearNameCache", FALSE);
 		}
+
+		if (gSavedSettings.getBOOL("ClearSoundsCache"))
+		{
+			removeCacheFiles("*.wav");
+			removeCacheFiles("*.dsf");
+			gSavedSettings.setBOOL("ClearSoundsCache", FALSE);
+		}
 	}
 }
 

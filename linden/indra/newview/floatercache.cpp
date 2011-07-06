@@ -53,6 +53,7 @@ BOOL FloaterCache::postBuild()
 	getChild<LLCheckBoxCtrl>("object_cache")->setValue(gSavedSettings.getBOOL("ClearObjectCache"));
 	getChild<LLCheckBoxCtrl>("inv_cache")->setValue(gSavedSettings.getBOOL("ClearInvCache"));
 	getChild<LLCheckBoxCtrl>("name_cache")->setValue(gSavedSettings.getBOOL("ClearNameCache"));
+	getChild<LLCheckBoxCtrl>("sounds_cache")->setValue(gSavedSettings.getBOOL("ClearSoundsCache"));
 
 	childSetAction("btn_ok", onClickOK, this);
 	childSetAction("btn_cancel", onClickCancel, this);
@@ -70,13 +71,15 @@ void FloaterCache::onClickOK(void* data)
 		bool purge_objects = self->getChild<LLCheckBoxCtrl>("object_cache")->getValue().asBoolean();
 		bool purge_inv = self->getChild<LLCheckBoxCtrl>("inv_cache")->getValue().asBoolean();
 		bool purge_names = self->getChild<LLCheckBoxCtrl>("name_cache")->getValue().asBoolean();
+		bool purge_sounds = self->getChild<LLCheckBoxCtrl>("sounds_cache")->getValue().asBoolean();
 		
 		gSavedSettings.setBOOL("ClearTextureCache", purge_textures);
 		gSavedSettings.setBOOL("ClearObjectCache", purge_objects);
 		gSavedSettings.setBOOL("ClearInvCache", purge_inv);
 		gSavedSettings.setBOOL("ClearNameCache", purge_names);
+		gSavedSettings.setBOOL("ClearSoundsCache", purge_sounds);
 			
-		if (purge_textures || purge_objects || purge_inv || purge_names)
+		if (purge_textures || purge_objects || purge_inv || purge_names || purge_sounds)
 		{
 			// flag client cache for clearing next time the client runs
 			gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);

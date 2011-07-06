@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-175" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="left|top" mouse_opaque="true" height="175" width="200"
+<floater bottom="-200" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="left|top" mouse_opaque="true" height="200" width="200"
      name="Clear Cache" title="Clear Disk Cache">
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom="-39" drop_shadow_visible="true" follows="left|top" font-style="BOLD|SHADOW"
@@ -18,6 +18,9 @@ You Restart Imprudence
   <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
      initial_value="false" label="Clear inventory cache" left_delta="0"
      mouse_opaque="true" name="inv_cache" width="185" />
+  <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
+     initial_value="false" label="Clear sound cache" left_delta="0"
+     mouse_opaque="true" name="sounds_cache" width="185" />
   <check_box bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
      initial_value="false" label="Clear avatar name cache" left_delta="0"
      mouse_opaque="true" name="name_cache" width="185" />
