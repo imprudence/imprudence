@@ -3188,8 +3188,7 @@ void LLAppViewer::purgeCache()
 	if (gSavedSettings.getBOOL("PurgeCacheOnStartup")) // purging from cmd line
 	{
 		LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
-		std::string mask = gDirUtilp->getDirDelimiter() + "*.*";
-		gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), mask);
+		removeCacheFiles("*.*");
 	}
 	else // purging cache from ui
 	{
@@ -3201,41 +3200,27 @@ void LLAppViewer::purgeCache()
 
 		if (gSavedSettings.getBOOL("ClearObjectCache"))
 		{
-			std::string mask = gDirUtilp->getDirDelimiter() + "*.slc";
-			gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), mask);
+			removeCacheFiles("*.slc");
 			gSavedSettings.setBOOL("ClearObjectCache", FALSE);
 		}
 
 		if (gSavedSettings.getBOOL("ClearInvCache"))
 		{
-			std::vector<std::string> masks;
-			masks.push_back(gDirUtilp->getDirDelimiter() + "*.inv.gz");
-			masks.push_back(gDirUtilp->getDirDelimiter() + VFS_DATA_FILE_BASE + "*");
-			masks.push_back(gDirUtilp->getDirDelimiter() + VFS_INDEX_FILE_BASE + "*");
-			
-			for (std::vector<std::string>::iterator vIt = masks.begin(); 
-				vIt != masks.end(); ++vIt)
-			{
-				gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), (*vIt));
-			}
-
+			removeCacheFiles("*.inv.gz");
+			removeCacheFiles(std::string(VFS_DATA_FILE_BASE) + "*");
+			removeCacheFiles(std::string(VFS_INDEX_FILE_BASE) + "*");
+			removeCacheFiles("*.lso");
+			removeCacheFiles("*.bodypart");
+			removeCacheFiles("*.clothing");
 			gSavedSettings.setBOOL("ClearInvCache", FALSE);
 		}
 
 		if (gSavedSettings.getBOOL("ClearNameCache"))
 		{
 			// ick @ not making these variables -- MC
-			std::vector<std::string> masks;
-			masks.push_back(gDirUtilp->getDirDelimiter() + "name.cache");
-			masks.push_back(gDirUtilp->getDirDelimiter() + "avatar_name_cache.xml");
-			masks.push_back(gDirUtilp->getDirDelimiter() + "*.cached_mute");
-			
-			for (std::vector<std::string>::iterator vIt = masks.begin(); 
-				vIt != masks.end(); ++vIt)
-			{
-				gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), (*vIt));
-			}
-
+			removeCacheFiles("name.cache");
+			removeCacheFiles("avatar_name_cache.xml");
+			removeCacheFiles("*.cached_mute");
 			gSavedSettings.setBOOL("ClearNameCache", FALSE);
 		}
 
