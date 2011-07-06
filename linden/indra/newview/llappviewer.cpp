@@ -1298,13 +1298,17 @@ bool LLAppViewer::cleanup()
 	llinfos << "Settings patched up" << llendflush;
 
 	// delete some of the files left around in the cache.
-	removeCacheFiles("*.wav");
+	if (!gSavedSettings.getBOOL("KeepUnpackedCacheFiles"))
+	{
+		LL_INFOS("AppCache") << "Purging unpacked files..." << llendl;
+		removeCacheFiles("*.wav");
+		removeCacheFiles("*.lso");
+		removeCacheFiles("*.dsf");
+		removeCacheFiles("*.bodypart");
+		removeCacheFiles("*.clothing");
+	}
 	removeCacheFiles("*.tmp");
-	removeCacheFiles("*.lso");
 	removeCacheFiles("*.out");
-	removeCacheFiles("*.dsf");
-	removeCacheFiles("*.bodypart");
-	removeCacheFiles("*.clothing");
 
 	llinfos << "Cache files removed" << llendflush;
 

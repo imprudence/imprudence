@@ -2574,6 +2574,17 @@
   
   <!-- Begin: cache clearing -->
 
+  <key>KeepUnpackedCacheFiles</key>
+  <map>
+    <key>Comment</key>
+    <string>If TRUE, the viewer won't delete unpacked cache files when logging out (improves overall performance and fixes sound bugs)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>PurgeCacheOnStartup</key>
   <map>
     <key>Comment</key>
