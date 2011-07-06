@@ -99,9 +99,6 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("afk_timeout_checkbox", gSavedSettings.getBOOL("AllowIdleAFK"));
 	childSetCommitCallback("afk_timeout_checkbox", onCommitAFKCheckbox, this);
 
-	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
-	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
-
 // 	mDisplayNamesUsage =  gSavedSettings.getU32("DisplayNamesUsage");
 // 	mLegacyNamesForFriends =  gSavedSettings.getBOOL("LegacyNamesForFriends");
 
@@ -168,8 +165,6 @@ void LLPanelGeneral::apply()
 	//gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox")); -- MC
 	gSavedSettings.setF32("AFKTimeout", 60 * childGetValue("afk_timeout_spinner").asReal()); // User enters minutes, we store as seconds -- MC
 	gSavedSettings.setBOOL("AllowIdleAFK", childGetValue("afk_timeout_checkbox"));
-	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
-	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
 	gSavedSettings.setString("Language", childGetValue("language_combobox"));
 
 	/*
