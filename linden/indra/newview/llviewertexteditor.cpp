@@ -417,6 +417,7 @@ void LLEmbeddedItems::bindEmbeddedChars( const LLFontGL* font ) const
 
 			break;
 		  case LLAssetType::AT_SOUND:			img_name = "inv_item_sound.tga";	break;
+		  case LLAssetType::AT_CALLINGCARD:		img_name = "inv_item_callingcard_offline.tga";   break;
 		  case LLAssetType::AT_LANDMARK:		
 			if (item->getFlags() & LLInventoryItem::II_FLAGS_LANDMARK_VISITED)
 			{
@@ -1384,6 +1385,7 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, llwchar wc)
 	case LLAssetType::AT_GESTURE:
 		showCopyToInvDialog( item, wc );
 		return TRUE;
+	case LLAssetType::AT_CALLINGCARD:
 	default:
 		return FALSE;
 	}
