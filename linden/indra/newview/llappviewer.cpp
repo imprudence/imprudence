@@ -422,6 +422,8 @@ static void settings_to_globals()
 	LLVOTree::sTreeFactor				= gSavedSettings.getF32("RenderTreeLODFactor");
 	LLVOAvatar::sLODFactor				= gSavedSettings.getF32("RenderAvatarLODFactor");
 	LLVOAvatar::sMaxVisible				= gSavedSettings.getS32("RenderAvatarMaxVisible");
+	LLVOVolume::sSculptSAThresh			= gSavedSettings.getF32("RenderSculptSAThreshold");
+	LLVOVolume::sSculptSAMax			= gSavedSettings.getF32("RenderSculptSAMax");
 	LLVOAvatar::sVisibleInFirstPerson	= gSavedSettings.getBOOL("FirstPersonAvatarVisible");
 	// clamp auto-open time to some minimum usable value
 	LLFolderView::sAutoOpenTime			= llmax(0.25f, gSavedSettings.getF32("FolderAutoOpenDelay"));
