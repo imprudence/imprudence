@@ -108,6 +108,20 @@ LLVOVolume::~LLVOVolume()
 	mVolumeImpl = NULL;
 }
 
+// virtual
+void LLVOVolume::markDead()
+{
+	if (!mDead)
+	{
+		if (mSculptTexture.notNull())
+		{
+			mSculptTexture->removeVolume(this);
+		}
+	}
+
+	LLViewerObject::markDead();
+}
+
 
 // static
 void LLVOVolume::initClass()
