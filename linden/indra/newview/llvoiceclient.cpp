@@ -1209,13 +1209,22 @@ void LLVoiceClient::terminate()
 		// ms_sleep(2000);
 		gVoiceClient->connectorShutdown();
 		gVoiceClient->closeSocket();		// Need to do this now -- bad things happen if the destructor does it later.
-		
-		// This will do unpleasant things on windows.
-//		killGateway();
-		
+
+		LL_DEBUGS("IdleCallbacks") << "IdleCallbacks deleteFunction " 
+					<< "called from LLVoiceClient" << LL_ENDL;
+		gIdleCallbacks.deleteFunction(idle, gVoiceClient);
+
+		if (isGatewayRunning())
+		{
+			// This will do unpleasant things on windows.
+			// AW: no unpleasant things observed on windows,
+			// guess they came from sloppy cleanup.
+			killGateway();
+		}
+
 		// Don't do this anymore -- LLSingleton will take care of deleting the object.		
 //		delete gVoiceClient;
-		
+
 		// Hint to other code not to access the voice client anymore.
 		gVoiceClient = NULL;
 	}
