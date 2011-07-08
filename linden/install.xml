@@ -1205,29 +1205,19 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20091118.tar.bz2</uri>
           </map>
-<!--      openal compiled against pulse 0.9.10
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>9dfdc055297355d04e04b905f92fbfad</string>
+            <string>cb1acfef8c0c44e86b539bae0e255a2e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux32-20100426.tar.bz2</uri>
-          </map>
--->
-	  <!--      openal compiled against pulse 0.9.21 -->
-          <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>44f9bacc69a3d29ae0b46ed69ad7c2ce</string>
-            <key>url</key>
-            <uri>http://download.kokuaviewer.org/files/libs/openal-linux32-20110304.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-1.13-Linux-i686-20110708.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-            <string>032848c2591a15e26c71998df3644cfc</string>
+            <string>7b1039886ab997d2926604540426961f</string>
              <key>url</key>
-            <uri>http://download.kokuaviewer.org/files/libs/openal-linux64-pulse0.9.21-20110304.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/libs/openal-1.13-Linux-x86_64-20110708.tar.bz2</uri>
            </map>
           <key>windows</key>
           <map>
@@ -1505,29 +1495,6 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <string>752daa90e07c05202d1f76980cb955eb</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6270-windows-20090309.tar.bz2</uri>
-          </map>
-        </map>
-      </map>
-      <key>32bitcompatibilitylibs</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyrights: 	Libidn: Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 
-				Simon Josefsson. License GPL v3.0.
-				Freealut, libuuid, openal-soft: see copyright and license of the 
-				according main packages.
-	</string>
-        <key>description</key>
-        <string>32bit libraries needed for using voice</string>
-        <key>license</key>
-        <string>gpl</string>
-        <key>packages</key>
-        <map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>cbaafc55fb8b14283541791e82f13462</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/linux64-32bitcompatibilitylibs-20100903.tar.bz2</uri>
           </map>
         </map>
       </map>

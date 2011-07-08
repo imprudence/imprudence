@@ -938,8 +938,12 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libz.so.1")
 
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
 
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
@@ -1028,7 +1032,6 @@ class Linux_i686Manifest(LinuxManifest):
                 self.end_prefix("bin")
 
             if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                self.path("libalut.so")
                 self.path("libortp.so")
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib")
@@ -1071,8 +1074,13 @@ class Linux_x86_64Manifest(LinuxManifest):
             #self.path("libz.so.1") #not needed
 
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
             ##self.path("libatk-1.0.so.0")
@@ -1169,9 +1177,12 @@ class Linux_x86_64Manifest(LinuxManifest):
         # 32bit libs needed for voice
         if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
             self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
             self.path("libidn.so.11")
+            self.path("libopenal.so")
             self.path("libopenal.so.1")
-            # self.path("libortp.so")
+            self.path("libopenal.so.1.13.0")
             self.path("libuuid.so.1")
             self.end_prefix("lib32")
 
