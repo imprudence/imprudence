@@ -472,6 +472,10 @@ void PrimBackup::exportWorker(void *userdata)
 					llwarns << "Incorrect permission to export" << llendl;
 					PrimBackup::getInstance()->mExportState = EXPORT_FAILED;
 					LLSelectMgr::getInstance()->getSelection()->unref();
+					gIdleCallbacks.deleteFunction(exportWorker);
+					LLNotifications::instance().add("ExportFailed");
+					PrimBackup::getInstance()->close();
+					return;
 				}
 			}
 			break;
@@ -581,10 +585,7 @@ void PrimBackup::exportWorker(void *userdata)
 			break;
 
 		case EXPORT_FAILED:
-			gIdleCallbacks.deleteFunction(exportWorker);
 			llwarns << "Export process aborted." << llendl;
-			LLNotifications::instance().add("ExportFailed");
-			PrimBackup::getInstance()->close();
 			break;
 	}
 }
@@ -682,6 +683,10 @@ LLSD PrimBackup::primsToLLSD(LLViewerObject::child_list_t child_list, bool is_at
 			{
 				llwarns << "Incorrect permission to export a sculpt texture." << llendl;
 				PrimBackup::getInstance()->mExportState = EXPORT_FAILED;
+				gIdleCallbacks.deleteFunction(exportWorker);
+				LLNotifications::instance().add("ExportFailed");
+				PrimBackup::getInstance()->close();
+				return LLSD();
 			}
 		}
 

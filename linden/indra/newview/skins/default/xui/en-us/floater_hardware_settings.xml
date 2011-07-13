@@ -40,7 +40,7 @@
     </combo_item>
   </combo_box>
 	<spinner bottom_delta="-21" control_name="RenderGamma" decimal_digits="2" enabled="true"
-	     follows="left|top" height="16" increment="0.01"
+	     follows="left|top" height="16" increment="0.01" tool_top="Disable basic shaders to set gamma" 
 	     initial_val="1" label="Gamma:" label_width="138" left="10" max_val="2"
 	     min_val="0.0" mouse_opaque="true" name="gamma" width="202" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
