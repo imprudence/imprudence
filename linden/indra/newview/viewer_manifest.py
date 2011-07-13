@@ -226,6 +226,15 @@ class WindowsManifest(ViewerManifest):
         # nor do we have a fixed name for the executable
         self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
 
+        # copy over the the pdb file for the regular or SSE2 versions
+        try:
+            symbol_name = 'inworldz-%s.pdb' % ('.'.join(self.args['version']))
+            self.path(self.find_existing_file('release/inworldz-bin.pdb'), dst="../../../../../pdb_files/inworldz-%s.pdb" % (symbol_ver))
+            pass
+        except:
+            print "Skipping saving symbols"
+            pass
+
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
