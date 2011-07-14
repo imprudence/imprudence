@@ -21,13 +21,22 @@ else (STANDALONE)
 		${LIBS_PREBUILT_DIR}/include/libxml2
 		)
   else (WINDOWS)
-    use_prebuilt_binary(glib)			# gstreamer needs glib
-	use_prebuilt_binary(libxml)
-	set(GSTREAMER010_INCLUDE_DIRS
-		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
-		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
-		${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
-		)
+      use_prebuilt_binary(glib)			# gstreamer needs glib
+      if (DARWIN)
+
+         use_prebuilt_binary(libxml)
+         set(GSTREAMER010_INCLUDE_DIRS
+                ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
+                ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
+                ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
+            )
+       else (DARWIN)
+         add_definitions(-DGST_DISABLE_XML -DGST_DISABLE_LOADSAVE)
+         set(GSTREAMER010_INCLUDE_DIRS
+                ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/gstreamer-0.10
+                ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib-2.0
+            )
+      endif (DARWIN)
   endif (WINDOWS)
 
 endif (STANDALONE)

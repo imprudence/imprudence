@@ -996,20 +996,6 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/libxml-2.6.27-darwin-20091107.tar.bz2</uri>
           </map>
-          <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>922f4bc6a8091d07a988b983cafe7a5a</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux-20091115.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>631df56daeac6aaf5be4c1e39dba6859</string>
-            <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux64-20091230.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>llqtwebkit</key>
