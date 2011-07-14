@@ -224,17 +224,21 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
 
-        # copy over the the pdb file for the regular or SSE2 versions
-        try:
-            symbol_name = 'inworldz-%s.pdb' % ('.'.join(self.args['version']))
-            self.path(self.find_existing_file('release/inworldz-bin.pdb'), dst="../../../../../pdb_files/inworldz-%s.pdb" % (symbol_ver))
-            pass
-        except:
-            print "Skipping saving symbols"
-            pass
-
+        symbol_file = 'imprudence-%s.%s.pdb' % (symbol_ver, self.args['configuration'])
+        symbol_path = '../../../../../pdb_files/%s' % (symbol_file)
+        if os.path.isfile(os.getcwd() + symbol_path):
+            print "%s already exists, skipping" % (symbol_path)
+        else:
+            #print "%s doesn't exist yet" % (os.getcwd() + symbol_path)
+            try:
+                self.path(self.find_existing_file('release/imprudence-bin.pdb'), dst="../%s" % (symbol_path))
+                pass
+            except:
+                print "Can't save symbol file %s, skipping" % (symbol_path)
+                pass
+        
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
@@ -428,17 +432,19 @@ class WindowsManifest(ViewerManifest):
             self.path("z.dll")
             self.end_prefix()
 
-#        # pull in the crash logger and updater from other projects
-#        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
-#                "../win_crash_logger/debug/windows-crash-logger.exe",
-#                "../win_crash_logger/release/windows-crash-logger.exe",
-#                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
-#                  dst="win_crash_logger.exe")
-        self.path(src=self.find_existing_file(
-                "../win_updater/debug/windows-updater.exe",
-                "../win_updater/release/windows-updater.exe",
-                "../win_updater/relwithdebinfo/windows-updater.exe"),
-                  dst="updater.exe")
+        # pull in the crash logger and updater from other projects
+        #self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
+        #        "../win_crash_logger/debug/windows-crash-logger.exe",
+        #        "../win_crash_logger/release/windows-crash-logger.exe",
+        #        "../win_crash_logger/releasesse2/windows-crash-logger.exe"),
+        #        "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
+        #          dst="win_crash_logger.exe")
+        #self.path(src=self.find_existing_file(
+        #        "../win_updater/debug/windows-updater.exe",
+        #        "../win_updater/release/windows-updater.exe",
+        #        "../win_updater/releasesse2/windows-updater.exe",
+        #        "../win_updater/relwithdebinfo/windows-updater.exe"),
+        #          dst="updater.exe")
 
         # For google-perftools tcmalloc allocator.
         #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):

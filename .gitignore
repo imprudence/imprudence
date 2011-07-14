@@ -47,7 +47,7 @@ linden/indra/viewer-*
 linden/indra/build-*
 linden/installed.xml
 *.pyc
-linden/pdb_files/*.pdb
+pdb_files/*.pdb
 
 
 # PATCHES
