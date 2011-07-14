@@ -121,15 +121,16 @@ ARGUMENTS=[
          default=""),
     dict(name='artwork', description='Artwork directory.', default=DEFAULT_SRCTREE),
     dict(name='build', description='Build directory.', default=DEFAULT_SRCTREE),
-    dict(name='buildtype',
-         description='Set to DEBUG if this is a debug build.',
-         default="RELEASE"),
-    dict(name='channel',
-         description="""The channel to use for updates, packaging, settings name, etc.""",
-         default=get_channel),
+    dict(name='buildtype', description="""The build type used. ('Debug', 'Release', 'ReleaseSSE2', or 'RelWithDebInfo')
+        Default is Release """,
+         default="Release"),
+    dict(name='branding_id', description="""Identifier for the branding set to 
+        use.  Currently, 'imprudence')""", 
+         default='inworldz'),
     dict(name='configuration',
-         description="""The build configuration used. Only used on OS X for
-        now, but it could be used for other platforms as well.""",
+         description="""The build configuration used. On OSX this is
+         Universal, etc. On Windows it's the *actual* buildtype for
+         some weird reason.""",
          default="Universal"),
     dict(name='dest', description='Destination directory.', default=DEFAULT_SRCTREE),
     dict(name='grid',
@@ -137,12 +138,15 @@ ARGUMENTS=[
         though it's not strictly a grid, 'firstlook' is also an acceptable
         value for this parameter.""",
          default=""),
+    dict(name='channel',
+         description="""The channel to use for updates, packaging, settings name, etc.""",
+         default=get_channel),
+    dict(name='login_channel',
+         description="""The channel to use for login handshake/updates only.""",
+         default=None),
     dict(name='installer_name',
          description=""" The name of the file that the installer should be
         packaged up into. Only used on Linux at the moment.""",
-         default=None),
-    dict(name='login_channel',
-         description="""The channel to use for login handshake/updates only.""",
          default=None),
     dict(name='login_url',
          description="""The url that the login screen displays in the client.""",
