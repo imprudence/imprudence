@@ -177,6 +177,15 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
+
+ copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/ReleaseSSE2"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
 # Release & ReleaseDebInfo config runtime files required for the plugin test mule (Qt image format plugins)
 set(plugintest_release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/imageformats")
 set(plugintest_release_files
@@ -205,6 +214,14 @@ set(all_targets ${all_targets} ${out_targets})
 
 copy_if_different(
     ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/../test_apps/llplugintest/ReleaseSSE2/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
     "${CMAKE_CURRENT_BINARY_DIR}/Release/llplugin/imageformats"
     out_targets
     ${plugintest_release_files}
@@ -214,6 +231,14 @@ set(all_targets ${all_targets} ${out_targets})
 copy_if_different(
     ${plugintest_release_src_dir}
     "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/llplugin/imageformats"
+    out_targets
+    ${plugintest_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugintest_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/llplugin/imageformats"
     out_targets
     ${plugintest_release_files}
     )
@@ -262,6 +287,14 @@ set(all_targets ${all_targets} ${out_targets})
 copy_if_different(
     ${plugins_release_src_dir}
     "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/llplugin"
+    out_targets
+    ${plugins_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+copy_if_different(
+    ${plugins_release_src_dir}
+    "${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/llplugin"
     out_targets
     ${plugins_release_files}
     )
@@ -364,12 +397,13 @@ copy_if_different(
 set(all_targets ${all_targets} ${out_targets})
 
 copy_if_different(
-    ${vivox_src_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
+    ${release_src_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2"
     out_targets 
-    ${vivox_files}
+    ${release_files}
     )
 set(all_targets ${all_targets} ${out_targets})
+
 
 
 # Copy MS C runtime dlls, required for packaging.
@@ -442,6 +476,14 @@ if(EXISTS ${release_msvc8_redist_path})
         )
     set(all_targets ${all_targets} ${out_targets})
 
+	copy_if_different(
+        ${release_msvc8_redist_path} 
+        "${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2"
+        out_targets 
+        ${release_msvc8_files}
+        )
+    set(all_targets ${all_targets} ${out_targets})
+
     set(release_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/Release/${VIEWER_BINARY_NAME}.exe.config)
     add_custom_command(
         OUTPUT ${release_appconfig_file}
@@ -455,25 +497,41 @@ if(EXISTS ${release_msvc8_redist_path})
         COMMENT "Creating release app config file"
         )
 
-    set(relwithdebinfo_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/${VIEWER_BINARY_NAME}.exe.config)
-    add_custom_command(
-        OUTPUT ${relwithdebinfo_appconfig_file}
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
-          ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
-          ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
-          ${relwithdebinfo_appconfig_file}
-        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
-        COMMENT "Creating relwithdebinfo app config file"
-        )
-      
-endif (EXISTS ${release_msvc8_redist_path})
+
+		set(releasesse2_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/${VIEWER_BINARY_NAME}.exe.config)
+		add_custom_command(
+			OUTPUT ${releasesse2_appconfig_file}
+			COMMAND ${PYTHON_EXECUTABLE}
+			ARGS
+				${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+				${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
+				${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
+				${releasesse2_appconfig_file}
+				DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
+				COMMENT "Creating release (SSE2 optimized) app config file"
+			)
+			
+        set(relwithdebinfo_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/${VIEWER_BINARY_NAME}.exe.config)
+        add_custom_command(
+            OUTPUT ${relwithdebinfo_appconfig_file}
+            COMMAND ${PYTHON_EXECUTABLE}
+            ARGS
+              ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+              ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+              ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
+              ${relwithdebinfo_appconfig_file}
+            DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+            COMMENT "Creating relwithdebinfo app config file"
+            )
+          
+    endif (EXISTS ${release_msvc8_redist_path})
+endif (MSVC80)
 
 add_custom_target(copy_win_libs ALL
   DEPENDS 
     ${all_targets}
-    ${release_appconfig_file} 
+    ${release_appconfig_file}
+	${releasesse2_appconfig_file}
     ${relwithdebinfo_appconfig_file} 
     ${debug_appconfig_file}
   )
