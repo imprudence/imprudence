@@ -132,7 +132,8 @@ struct LLCalcParser : grammar<LLCalcParser>
 			term =
 				power[term.value = arg1] >>
 				*(('*' >> assert_syntax(power[term.value *= arg1])) |
-				  ('/' >> assert_syntax(power[term.value /= arg1]))
+				  ('/' >> assert_syntax(power[term.value /= arg1]))	|
+				  ('%' >> assert_syntax(power[term.value = bind(&fmodf)(term.value, arg1)]))
 				)
 			;
 			
