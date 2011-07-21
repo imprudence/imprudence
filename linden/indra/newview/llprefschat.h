@@ -48,6 +48,9 @@ public:
 
 	LLPanel* getPanel();
 
+	bool getUpdateUserInfo();
+	bool getIMViaEmail();
+
 protected:
 	LLPrefsChatImpl& impl;
 };

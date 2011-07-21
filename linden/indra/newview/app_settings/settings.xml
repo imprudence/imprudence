@@ -399,6 +399,44 @@
     <key>Value</key>
     <integer>3</integer>
   </map>
+  <key>DiceLastCount</key>
+  <map>
+    <key>Comment</key>
+    <string>Last entered dice count</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>DiceLastSides</key>
+  <map>
+    <key>Comment</key>
+    <string>Last entered dice sides</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>6</integer>
+  </map>
+  <key>DiceFloaterRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for dice window</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+      <integer>100</integer>
+    </array>
+  </map>
   <key>DisableInternalFlyUpAnimation</key>
   <map>
     <key>Comment</key>
@@ -1058,6 +1096,28 @@
     <string>Boolean</string>
     <key>Value</key>
     <integer>1</integer>
+  </map>
+  <key>RenderSculptSAMax</key>
+  <map>
+    <key>Comment</key>
+    <string>The maximum combined surface area of sculpts(per frame) that are above the threshold before they stop being rendered</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>50000</integer>
+  </map>
+  <key>RenderSculptSAThreshold</key>
+  <map>
+    <key>Comment</key>
+    <string>Surface area at which sculpts are considered for not being rendered</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>1750</integer>
   </map>
   <key>RenderWaterVoidCulling</key>
   <map>
@@ -2533,6 +2593,88 @@
   </map>
 
   <!-- End: full radar (Advanced menu) -->
+  
+  <!-- Begin: cache clearing -->
+
+  <key>KeepUnpackedCacheFiles</key>
+  <map>
+    <key>Comment</key>
+    <string>If TRUE, the viewer won't delete unpacked cache files when logging out (improves overall performance and fixes sound bugs)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>PurgeCacheOnStartup</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear local file cache every time viewer is run (cmd line --purge)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearTextureCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear texture cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearObjectCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear object cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearInvCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear inventory cache</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearNameCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear cached avatar names/uuids</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>ClearSoundsCache</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear cached sounds</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  
+  <!-- End: clear cache -->
 
   <!-- END IMPRUDENCE-SPECIFIC SETTINGS -->
 
@@ -9289,17 +9431,6 @@
     <map>
       <key>Comment</key>
       <string>Clear local file cache next time viewer is run</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>PurgeCacheOnStartup</key>
-    <map>
-      <key>Comment</key>
-      <string>Clear local file cache every time viewer is run</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

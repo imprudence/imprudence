@@ -157,7 +157,7 @@
       <key>desc</key>
       <string>Delete files in the cache.</string>
       <key>map-to</key>
-      <string>PurgeCacheOnNextStartup</string>
+      <string>PurgeCacheOnStartup</string>
     </map>
 
     <key>noinvlib</key>

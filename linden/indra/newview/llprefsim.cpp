@@ -74,13 +74,15 @@ public:
 
 	static void onClickBusyAdvanced(void* user_data);
 
+	bool mUpdateUserInfo;
+	std::string mDirectoryVisibility;
+
 protected:
  
 	bool mGotPersonalInfo;
 	bool mGotPerAccountSettings;
 
 	bool mOriginalHideOnlineStatus;
-	std::string mDirectoryVisibility;
 };
 
 
@@ -88,7 +90,9 @@ LLPrefsIMImpl::LLPrefsIMImpl()
 	: LLPanel(std::string("IM Prefs Panel")),
 	  mGotPersonalInfo(false),
 	  mGotPerAccountSettings(false),
-	  mOriginalHideOnlineStatus(false)
+	  mOriginalHideOnlineStatus(false),
+	  mDirectoryVisibility(""),
+	  mUpdateUserInfo(false)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
 }
@@ -178,27 +182,45 @@ void LLPrefsIMImpl::apply()
 
 		if (new_hide_online != mOriginalHideOnlineStatus)
 		{
-			LLMessageSystem* msg = gMessageSystem;
-			msg->newMessageFast(_PREHASH_UpdateUserInfo);
-			msg->nextBlockFast(_PREHASH_AgentData);
-			msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-			msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-			msg->nextBlockFast(_PREHASH_UserData);
-			//msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
+			mOriginalHideOnlineStatus = new_hide_online;
+
 			// This hack is because we are representing several different 	 
 			// possible strings with a single checkbox. Since most users 	 
 			// can only select between 2 values, we represent it as a 	 
 			// checkbox. This breaks down a little bit for liaisons, but 	 
-			// works out in the end. 	 
-			if(new_hide_online != mOriginalHideOnlineStatus) 	 
-			{ 	 
-				if(new_hide_online) mDirectoryVisibility = VISIBILITY_HIDDEN;
-				else mDirectoryVisibility = VISIBILITY_DEFAULT;
-				//Update showonline value, otherwise multiple applys won't work
-				mOriginalHideOnlineStatus = new_hide_online;
-			} 	 
-			msg->addString("DirectoryVisibility", mDirectoryVisibility);
-			gAgent.sendReliableMessage();
+			// works out in the end. 
+			if (new_hide_online)
+			{
+				mDirectoryVisibility = VISIBILITY_HIDDEN;
+			}
+			else
+			{
+				mDirectoryVisibility = VISIBILITY_DEFAULT;
+			}
+
+			mUpdateUserInfo = true;
+
+			//LLMessageSystem* msg = gMessageSystem;
+			//msg->newMessageFast(_PREHASH_UpdateUserInfo);
+			//msg->nextBlockFast(_PREHASH_AgentData);
+			//msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+			//msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+			//msg->nextBlockFast(_PREHASH_UserData);
+			////msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
+			//// This hack is because we are representing several different 	 
+			//// possible strings with a single checkbox. Since most users 	 
+			//// can only select between 2 values, we represent it as a 	 
+			//// checkbox. This breaks down a little bit for liaisons, but 	 
+			//// works out in the end. 	 
+			//if(new_hide_online != mOriginalHideOnlineStatus) 	 
+			//{ 	 
+			//	if(new_hide_online) mDirectoryVisibility = VISIBILITY_HIDDEN;
+			//	else mDirectoryVisibility = VISIBILITY_DEFAULT;
+			//	//Update showonline value, otherwise multiple applys won't work
+			//	mOriginalHideOnlineStatus = new_hide_online;
+			//} 	 
+			//msg->addString("DirectoryVisibility", mDirectoryVisibility);
+			//gAgent.sendReliableMessage();
 		}
 	}
 }
@@ -339,6 +361,16 @@ void LLPrefsIM::setPersonalInfo(const std::string& visibility)
 void LLPrefsIM::preparePerAccountPrefs(bool enable)
 {
 	impl.preparePerAccountPrefs(enable);
+}
+
+bool LLPrefsIM::getUpdateUserInfo()
+{
+	return impl.mUpdateUserInfo; 
+}
+
+std::string LLPrefsIM::getDirectoryVis()
+{
+	return impl.mDirectoryVisibility;
 }
 
 LLPanel* LLPrefsIM::getPanel()

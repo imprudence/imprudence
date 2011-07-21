@@ -46,7 +46,6 @@
 #include "lggautocorrectfloater.h"
 #include "llprefschat.h"
 #include "llviewercontrol.h"
-#include "llviewermessage.h"
 
 class LLPrefsChatImpl : public LLPanel
 {
@@ -72,8 +71,10 @@ public:
 	static void onSpellEditCustom(void* data);
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);
 
-protected:
+	bool mUpdateUserInfo;
 	bool mOriginalIMViaEmail;
+
+protected:
 	bool mGotPersonalInfo;
 
 private:
@@ -84,7 +85,8 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	:	LLPanel(std::string("Chat Panel")),
 	mChatChannel(false),
 	mOriginalIMViaEmail(false),
-	mGotPersonalInfo(false)
+	mGotPersonalInfo(false),
+	mUpdateUserInfo(false)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
 }
@@ -230,14 +232,17 @@ void LLPrefsChatImpl::apply()
 
 		if (new_im_via_email != mOriginalIMViaEmail)
 		{
-			LLMessageSystem* msg = gMessageSystem;
+			mOriginalIMViaEmail = new_im_via_email;
+			mUpdateUserInfo = true;
+
+			/*LLMessageSystem* msg = gMessageSystem;
 			msg->newMessageFast(_PREHASH_UpdateUserInfo);
 			msg->nextBlockFast(_PREHASH_AgentData);
 			msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 			msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 			msg->nextBlockFast(_PREHASH_UserData);
 			msg->addBOOLFast(_PREHASH_IMViaEMail, new_im_via_email);
-			gAgent.sendReliableMessage();
+			gAgent.sendReliableMessage();*/
 		}
 	}
 
@@ -377,6 +382,16 @@ void LLPrefsChat::cancel()
 void LLPrefsChat::setPersonalInfo(bool im_via_email, const std::string& email)
 {
 	impl.setPersonalInfo(im_via_email, email);
+}
+
+bool LLPrefsChat::getUpdateUserInfo()
+{ 
+	return impl.mUpdateUserInfo; 
+}
+
+bool LLPrefsChat::getIMViaEmail()
+{
+	return impl.mOriginalIMViaEmail;
 }
 
 LLPanel* LLPrefsChat::getPanel()

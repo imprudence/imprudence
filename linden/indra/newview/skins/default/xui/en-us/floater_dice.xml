@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-95" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="left|top" mouse_opaque="true" height="95" width="200"
+     name="Roll Dice" title="Roll Dice" rect_control="DiceFloaterRect">
+  <spinner bottom="-37" decimal_digits="0" follows="left|top" height="16"
+       increment="1" initial_val="1" label="Number of dice:" label_width="120" left="10"
+       max_val="512" min_val="1" mouse_opaque="true" name="spin_dice_count"
+       width="170" control_name="DiceLastCount" />
+  <spinner bottom_delta="-25" decimal_digits="0" follows="left|top" height="16"
+       increment="1" initial_val="6" label="Number of sides:" label_width="120" left="10"
+       max_val="512" min_val="4" mouse_opaque="true" name="spin_dice_sides"
+       width="170" control_name="DiceLastSides" />
+  <button bottom_delta="-30" follows="right|top" font="SansSerif" halign="center" height="22"
+       label="Roll" left="-85" mouse_opaque="true" name="btn_roll" width="80" />
+</floater>

@@ -422,6 +422,8 @@ static void settings_to_globals()
 	LLVOTree::sTreeFactor				= gSavedSettings.getF32("RenderTreeLODFactor");
 	LLVOAvatar::sLODFactor				= gSavedSettings.getF32("RenderAvatarLODFactor");
 	LLVOAvatar::sMaxVisible				= gSavedSettings.getS32("RenderAvatarMaxVisible");
+	LLVOVolume::sSculptSAThresh			= gSavedSettings.getF32("RenderSculptSAThreshold");
+	LLVOVolume::sSculptSAMax			= gSavedSettings.getF32("RenderSculptSAMax");
 	LLVOAvatar::sVisibleInFirstPerson	= gSavedSettings.getBOOL("FirstPersonAvatarVisible");
 	// clamp auto-open time to some minimum usable value
 	LLFolderView::sAutoOpenTime			= llmax(0.25f, gSavedSettings.getF32("FolderAutoOpenDelay"));
@@ -607,6 +609,10 @@ bool LLAppViewer::init()
 	//
 	// OK to write stuff to logs now, we've now crash reported if necessary
 	//
+	
+	// Always add the version to the top of the log--makes debugging easier -- MC
+	llinfos << ViewerInfo::prettyInfo() << llendl;
+
     if (!initConfiguration())
 		return false;
 
@@ -1284,35 +1290,6 @@ bool LLAppViewer::cleanup()
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
-	if (gAudioStream)
-	{
-		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
-
-		delete gAudioStream;
- 		gAudioStream = NULL;
-	}
-
-	if (gAudiop)
-	{
-		// shut down the audio subsystem
-
-		bool want_longname = false;
-		if (gAudiop->getDriverName(want_longname) == "FMOD")
-		{
-			// This hack exists because fmod likes to occasionally
-			// crash or hang forever when shutting down, for no
-			// apparent reason.
-			llwarns << "Hack, skipping FMOD audio engine cleanup" << llendflush;
-		}
-		else
-		{
-			gAudiop->shutdown();
-		}
-
-		delete gAudiop;
-		gAudiop = NULL;
-	}
-
 	// Note: this is where LLFeatureManager::getInstance()-> used to be deleted.
 
 	// Patch up settings for next time
@@ -1323,13 +1300,17 @@ bool LLAppViewer::cleanup()
 	llinfos << "Settings patched up" << llendflush;
 
 	// delete some of the files left around in the cache.
-	removeCacheFiles("*.wav");
+	if (!gSavedSettings.getBOOL("KeepUnpackedCacheFiles"))
+	{
+		LL_INFOS("AppCache") << "Purging unpacked files..." << llendl;
+		removeCacheFiles("*.wav");
+		removeCacheFiles("*.lso");
+		removeCacheFiles("*.dsf");
+		removeCacheFiles("*.bodypart");
+		removeCacheFiles("*.clothing");
+	}
 	removeCacheFiles("*.tmp");
-	removeCacheFiles("*.lso");
 	removeCacheFiles("*.out");
-	removeCacheFiles("*.dsf");
-	removeCacheFiles("*.bodypart");
-	removeCacheFiles("*.clothing");
 
 	llinfos << "Cache files removed" << llendflush;
 
@@ -1547,6 +1528,36 @@ bool LLAppViewer::cleanup()
 
 	end_messaging_system();
 	llinfos << "Message system deleted." << llendflush;
+
+	if (gAudioStream)
+	{
+		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
+
+		delete gAudioStream;
+ 		gAudioStream = NULL;
+	}
+
+	if (gAudiop)
+	{
+		// shut down the audio subsystem
+
+		bool want_longname = false;
+		if (gAudiop->getDriverName(want_longname) == "FMOD")
+		{
+			// This hack exists because fmod likes to occasionally
+			// crash or hang forever when shutting down, for no
+			// apparent reason.
+			llwarns << "Hack, skipping FMOD audio engine cleanup" << llendflush;
+		}
+		else
+		{
+			gAudiop->shutdown();
+		}
+
+		delete gAudiop;
+		gAudiop = NULL;
+	}
+	llinfos << "Audio system deleted" << llendl;
 
 	// *NOTE:Mani - The following call is not thread safe. 
 	LLCurl::cleanupClass();
@@ -2962,10 +2973,11 @@ bool LLAppViewer::initCache()
 {
 	mPurgeCache = false;
 	// Purge cache if user requested it
-	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") ||
-		gSavedSettings.getBOOL("PurgeCacheOnNextStartup"))
+	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") || // cmd-line -- MC
+		gSavedSettings.getBOOL("PurgeCacheOnNextStartup")) // ui -- MC
 	{
 		gSavedSettings.setBOOL("PurgeCacheOnNextStartup", false);
+		gSavedSettings.setBOOL("PurgeCacheOnStartup", FALSE);
 		mPurgeCache = true;
 	}
 	// Purge cache if it belongs to an old version
@@ -2989,7 +3001,7 @@ bool LLAppViewer::initCache()
 		cache_location = gSavedSettings.getString("CacheLocation");
 	}
 	std::string new_cache_location = gSavedSettings.getString("NewCacheLocation");
-	if ((new_cache_location != cache_location) && new_cache_location != "")
+	if (new_cache_location != cache_location)
 	{
 		gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation"));
 		purgeCache(); // purge old cache
@@ -2997,7 +3009,7 @@ bool LLAppViewer::initCache()
 		cache_location = new_cache_location;
 	}
 	
-	if (!gDirUtilp->setCacheDir(cache_location))
+	if (!gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation")))
 	{
 		LL_WARNS("AppCache") << "Unable to set cache location" << LL_ENDL;
 		gSavedSettings.setString("CacheLocation", "");
@@ -3174,10 +3186,53 @@ bool LLAppViewer::initCache()
 
 void LLAppViewer::purgeCache()
 {
-	LL_INFOS("AppCache") << "Purging Cache and Texture Cache..." << llendl;
-	LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
-	std::string mask = gDirUtilp->getDirDelimiter() + "*.*";
-	gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,""),mask);
+	LL_INFOS("AppCache") << "Begin purging cachees..." << llendl;
+	if (gSavedSettings.getBOOL("PurgeCacheOnStartup")) // purging from cmd line
+	{
+		LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
+		removeCacheFiles("*.*");
+	}
+	else // purging cache from ui
+	{
+		if (gSavedSettings.getBOOL("ClearTextureCache"))
+		{
+			LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
+			gSavedSettings.setBOOL("ClearTextureCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearObjectCache"))
+		{
+			removeCacheFiles("*.slc");
+			gSavedSettings.setBOOL("ClearObjectCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearInvCache"))
+		{
+			removeCacheFiles("*.inv.gz");
+			removeCacheFiles(std::string(VFS_DATA_FILE_BASE) + "*");
+			removeCacheFiles(std::string(VFS_INDEX_FILE_BASE) + "*");
+			removeCacheFiles("*.lso");
+			removeCacheFiles("*.bodypart");
+			removeCacheFiles("*.clothing");
+			gSavedSettings.setBOOL("ClearInvCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearNameCache"))
+		{
+			// ick @ not making these variables -- MC
+			removeCacheFiles("name.cache");
+			removeCacheFiles("avatar_name_cache.xml");
+			removeCacheFiles("*.cached_mute");
+			gSavedSettings.setBOOL("ClearNameCache", FALSE);
+		}
+
+		if (gSavedSettings.getBOOL("ClearSoundsCache"))
+		{
+			removeCacheFiles("*.wav");
+			removeCacheFiles("*.dsf");
+			gSavedSettings.setBOOL("ClearSoundsCache", FALSE);
+		}
+	}
 }
 
 const std::string& LLAppViewer::getSecondLifeTitle() const

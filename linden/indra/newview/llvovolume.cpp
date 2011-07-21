@@ -71,10 +71,6 @@
 const S32 MIN_QUIET_FRAMES_COALESCE = 30;
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
-
-static const F32 sSculptSAThresh = 1750.f;	// Surface area at which sculpts are considered for not being rendered
-static const F32 sSculptSAMax = 50000.f;	// The maximum combined surface area of sculpts(per frame) that are above the 
-											// threshold before they stop being rendered
 		
 BOOL gAnimateTextures = TRUE;
 extern BOOL gHideSelectedObjects;
@@ -83,6 +79,9 @@ F32 LLVOVolume::sLODFactor = 1.f;
 F32	LLVOVolume::sLODSlopDistanceFactor = 0.5f; //Changing this to zero, effectively disables the LOD transition slop 
 F32 LLVOVolume::sDistanceFactor = 1.0f;
 S32 LLVOVolume::sNumLODChanges = 0;
+F32 LLVOVolume::sSculptSAThresh = 1750.f;
+F32 LLVOVolume::sSculptSAMax = 50000.f;
+
 
 LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	: LLViewerObject(id, pcode, regionp),
@@ -107,6 +106,20 @@ LLVOVolume::~LLVOVolume()
 	mTextureAnimp = NULL;
 	delete mVolumeImpl;
 	mVolumeImpl = NULL;
+}
+
+// virtual
+void LLVOVolume::markDead()
+{
+	if (!mDead)
+	{
+		if (mSculptTexture.notNull())
+		{
+			mSculptTexture->removeVolume(this);
+		}
+	}
+
+	LLViewerObject::markDead();
 }
 
 
@@ -2308,16 +2321,22 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 		LLVOVolume* vobj = drawablep->getVOVolume();
 
-		if (vobj->mSculptSurfaceArea > sSculptSAThresh)
+		llassert_always(vobj);
+
+		if (vobj->isSculpted() && vobj->mSculptSurfaceArea > LLVOVolume::sSculptSAThresh)
 		{
 		    LLPipeline::sSculptSurfaceAreaFrame += vobj->mSculptSurfaceArea;
-		    if(LLPipeline::sSculptSurfaceAreaFrame > sSculptSAMax)
+		    if (LLPipeline::sSculptSurfaceAreaFrame > LLVOVolume::sSculptSAMax)
 		    {
-		      continue;
+				LL_DEBUGS("Volume") << "Sculptie (" 
+									<< vobj->getID() << ") above RenderSculptSAMax ("
+									<< LLVOVolume::sSculptSAMax
+									<< ")! Turning invisible!" 
+									<< LL_ENDL;
+				continue;
 		    }
 		}
 		
-		llassert_always(vobj);
 		vobj->updateTextureVirtualSize();
 		vobj->preRebuild();
 

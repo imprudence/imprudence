@@ -91,6 +91,7 @@ public:
 
 public:
 						LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
+	/*virtual*/ void markDead();		// Override (and call through to parent) to clean up sculpt texture references
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 
@@ -247,6 +248,9 @@ public:
 	static F32 sLODSlopDistanceFactor;// Changing this to zero, effectively disables the LOD transition slop 
 	static F32 sLODFactor;				// LOD scale factor
 	static F32 sDistanceFactor;			// LOD distance factor
+	static F32 sSculptSAThresh;		// Surface area at which sculpts are considered for not being rendered
+	static F32 sSculptSAMax;		// The maximum combined surface area of sculpts(per frame) that are above the 
+									// threshold before they stop being rendered
 		
 protected:
 	static S32 sNumLODChanges;

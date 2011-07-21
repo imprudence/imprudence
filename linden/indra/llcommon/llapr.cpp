@@ -82,7 +82,7 @@ bool ll_apr_warn_status(apr_status_t status)
 	if(APR_SUCCESS == status) return false;
 	char buf[MAX_STRING];	/* Flawfinder: ignore */
 	apr_strerror(status, buf, MAX_STRING);
-	LL_WARNS("APR") << "APR: " << buf << LL_ENDL;
+	LL_WARNS("APR") << "APR: " << buf << " (" << status << ")" << LL_ENDL;
 	return true;
 }
 
@@ -194,8 +194,12 @@ apr_status_t LLAPRFile::open(std::string const& filename, apr_int32_t flags, acc
 // File I/O
 S32 LLAPRFile::read(void *buf, S32 nbytes)
 {
-	llassert_always(mFile) ;
-	
+	if(!mFile) 
+	{
+		llwarns << "apr mFile is removed by somebody else. Can not read." << llendl ;
+		return 0;
+	}
+
 	apr_size_t sz = nbytes;
 	apr_status_t s = apr_file_read(mFile, buf, &sz);
 	if (s != APR_SUCCESS)
@@ -212,7 +216,11 @@ S32 LLAPRFile::read(void *buf, S32 nbytes)
 
 S32 LLAPRFile::write(const void *buf, S32 nbytes)
 {
-	llassert_always(mFile) ;
+	if(!mFile) 
+	{
+		llwarns << "apr mFile is removed by somebody else. Can not read." << llendl ;
+		return 0;
+	}
 	
 	apr_size_t sz = nbytes;
 	apr_status_t s = apr_file_write(mFile, buf, &sz);

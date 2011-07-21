@@ -903,13 +903,6 @@ Would you like to disable all popups which can be skipped?
 
 <notification
  icon="notify.tga"
- name="CacheWillClear"
- type="notify">
-Cache will be cleared after you restart [VIEWER_NAME].
-</notification>
-
-<notification
- icon="notify.tga"
  name="CacheWillBeMoved"
  type="notify">
 Cache will be moved after you restart [VIEWER_NAME].

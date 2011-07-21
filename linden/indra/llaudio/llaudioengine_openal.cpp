@@ -38,7 +38,36 @@
 #include "lllistener_openal.h"
 
 
-static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+static const F32 WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+
+std::string convertALErrorToString(ALenum error)
+{
+    switch(error)
+    {
+    case AL_NO_ERROR:
+		return std::string("AL_NO_ERROR");
+		break;
+    case AL_INVALID_NAME:
+        return std::string("AL_INVALID_NAME");
+		break;
+    case AL_INVALID_ENUM:
+        return std::string("AL_INVALID_ENUM");
+		break;
+    case AL_INVALID_VALUE:
+        return std::string("AL_INVALID_VALUE");
+		break;
+    case AL_INVALID_OPERATION:
+        return std::string("AL_INVALID_OPERATION");
+		break;
+    case AL_OUT_OF_MEMORY:
+        return std::string("AL_OUT_OF_MEMORY");
+		break;
+	default:
+		std::stringstream s;
+		s << error;
+		return s.str();
+    }
+}
 
 LLAudioEngine_OpenAL::LLAudioEngine_OpenAL()
 	:
@@ -48,7 +77,9 @@ LLAudioEngine_OpenAL::LLAudioEngine_OpenAL()
 	mWindBufSamples(0),
 	mWindBufBytes(0),
 	mWindSource(AL_NONE),
-	mNumEmptyWindALBuffers(MAX_NUM_WIND_BUFFERS)
+	mNumEmptyWindALBuffers(MAX_NUM_WIND_BUFFERS),
+	mContext(NULL),
+	mDevice(NULL)
 {
 }
 
@@ -63,35 +94,105 @@ bool LLAudioEngine_OpenAL::init(const S32 num_channels, void* userdata)
 	mWindGen = NULL;
 	LLAudioEngine::init(num_channels, userdata);
 
-	if(!alutInit(NULL, NULL))
+	if (!alutInit(NULL, NULL))
 	{
 		llwarns << "LLAudioEngine_OpenAL::init() ALUT initialization failed: " << alutGetErrorString (alutGetError ()) << llendl;
 		return false;
 	}
 
+	// check for extensions
+	const ALCchar* device_list(NULL);
+	const ALCchar* device_default(NULL);
+	if (alcIsExtensionPresent(NULL, "ALC_ENUMERATION_EXT") == AL_TRUE)
+	{
+		device_default = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+		device_list = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+		llinfos << "Results for ALC_ENUMERATION_EXT:\n" 
+				<< ll_safe_string(device_list)
+				<< llendl;
+
+	}
+
+	// initialize device
+    ALCdevice* mDevice = alcOpenDevice(NULL); 
+    if (mDevice == NULL)
+	{
+		llinfos << "Could not find a default device, trying to open default manually: " 
+				<< ll_safe_string(device_default) 
+				<< llendl;
+		mDevice = alcOpenDevice(device_default);
+		if (mDevice == NULL)
+		{
+			const ALCchar* device_list_walk = device_list;
+			do
+			{
+				mDevice = alcOpenDevice(device_list_walk);
+				if (mDevice != NULL)
+				{
+					break;
+				}
+				else
+				{
+					device_list_walk += strlen(device_list_walk)+1;
+				}
+			}
+			while (device_list_walk[0] != '\0');
+
+			if (mDevice == NULL)
+			{
+				llinfos << "OpenAL could not find an installed audio device. Aborting" << llendl;
+				ALCenum error = alcGetError(mDevice);
+				if (error != ALC_NO_ERROR)
+				{
+					llinfos << "ALC error: " << ll_safe_string(alcGetString(mDevice, error)) << llendl;
+				}
+				return false;
+			}
+		}
+	}
+
+	// create context
+	ALCcontext* mContext = alcCreateContext(mDevice, NULL);
+	if (mContext != NULL)
+	{
+		if (!alcMakeContextCurrent(mContext))
+		{
+			ALenum error = alGetError();
+			if (error != AL_NO_ERROR)
+			{
+				llinfos << "ALC error: " << convertALErrorToString(error) << ". Could not set current context!" << llendl;
+			}
+			alcDestroyContext(mContext);
+			return false;
+		}
+	}
+	else
+	{
+		llinfos << "ALC error: could not create context from device!" << llendl;
+		alcCloseDevice(mDevice);
+		return false;
+	}
+
 	llinfos << "LLAudioEngine_OpenAL::init() OpenAL successfully initialized" << llendl;
 
-	llinfos << "OpenAL version: "
-		<< ll_safe_string(alGetString(AL_VERSION)) << llendl;
-	llinfos << "OpenAL vendor: "
-		<< ll_safe_string(alGetString(AL_VENDOR)) << llendl;
-	llinfos << "OpenAL renderer: "
-		<< ll_safe_string(alGetString(AL_RENDERER)) << llendl;
+	llinfos << "ALC default device: " 
+			<< ll_safe_string(alcGetString(mDevice, ALC_DEFAULT_DEVICE_SPECIFIER)) 
+			<< llendl;
 
-	ALint major = alutGetMajorVersion ();
-	ALint minor = alutGetMinorVersion ();
+	llinfos << "OpenAL version: "
+			<< ll_safe_string(alGetString(AL_VERSION)) << llendl;
+	llinfos << "OpenAL vendor: "
+			<< ll_safe_string(alGetString(AL_VENDOR)) << llendl;
+	llinfos << "OpenAL renderer: "
+			<< ll_safe_string(alGetString(AL_RENDERER)) << llendl;
+
+	ALint major = alutGetMajorVersion();
+	ALint minor = alutGetMinorVersion();
 	llinfos << "ALUT version: " << major << "." << minor << llendl;
 
-	ALCdevice *device = alcGetContextsDevice(alcGetCurrentContext());
-
-	alcGetIntegerv(device, ALC_MAJOR_VERSION, 1, &major);
-	alcGetIntegerv(device, ALC_MINOR_VERSION, 1, &minor);
+	alcGetIntegerv(mDevice, ALC_MAJOR_VERSION, 1, &major);
+	alcGetIntegerv(mDevice, ALC_MINOR_VERSION, 1, &minor);
 	llinfos << "ALC version: " << major << "." << minor << llendl;
-
-	llinfos << "ALC default device: "
-		<< ll_safe_string(alcGetString(device,
-					       ALC_DEFAULT_DEVICE_SPECIFIER))
-		<< llendl;
 
 	return true;
 }
@@ -129,7 +230,7 @@ std::string LLAudioEngine_OpenAL::getDriverName(bool verbose)
 void LLAudioEngine_OpenAL::allocateListener()
 {
 	mListenerp = (LLListener *) new LLListener_OpenAL();
-	if(!mListenerp)
+	if (!mListenerp)
 	{
 		llwarns << "LLAudioEngine_OpenAL::allocateListener() Listener creation failed" << llendl;
 	}
@@ -138,20 +239,53 @@ void LLAudioEngine_OpenAL::allocateListener()
 // virtual
 void LLAudioEngine_OpenAL::shutdown()
 {
-	llinfos << "About to LLAudioEngine::shutdown()" << llendl;
+	llinfos << "Entering LLAudioEngine::shutdown()" << llendl;
+
 	LLAudioEngine::shutdown();
 
-	llinfos << "About to alutExit()" << llendl;
-	if(!alutExit())
+	llinfos << "Entering alutExit()" << llendl;
+	if (!alutExit())
 	{
-		llwarns << "Nuts." << llendl;
-		llwarns << "LLAudioEngine_OpenAL::shutdown() ALUT shutdown failed: " << alutGetErrorString (alutGetError ()) << llendl;
+		llwarns << "LLAudioEngine_OpenAL::shutdown() ALUT shutdown failed: " << alutGetErrorString(alutGetError()) << llendl;
 	}
-
-	llinfos << "LLAudioEngine_OpenAL::shutdown() OpenAL successfully shut down" << llendl;
+	else
+	{
+		llinfos << "LLAudioEngine_OpenAL::shutdown() OpenAL successfully shut down" << llendl;
+	}
 
 	delete mListenerp;
 	mListenerp = NULL;
+
+	ALenum error;
+
+	alcMakeContextCurrent(NULL);
+	error = alGetError();
+	if (error != AL_NO_ERROR)
+	{
+		llinfos << "AL error: " << convertALErrorToString(error) << ". Could not make current context NULL!" << llendl;
+	}
+
+	alcDestroyContext(mContext);
+	error = alGetError();
+	if (error != AL_NO_ERROR)
+	{
+		llinfos << "AL error: " << convertALErrorToString(error) << ". Could not destroy context!" << llendl;
+	}
+	else
+	{
+		mContext = NULL;
+	}
+
+    alcCloseDevice(mDevice);
+	error = alGetError();
+	if (error != AL_NO_ERROR)
+	{
+		llinfos << "AL error: " << convertALErrorToString(error) << ". Could not close device!" << llendl;
+	}
+	else
+	{
+		mDevice = NULL;
+	}
 }
 
 LLAudioBuffer *LLAudioEngine_OpenAL::createBuffer()
@@ -181,7 +315,11 @@ LLAudioChannelOpenAL::LLAudioChannelOpenAL()
 LLAudioChannelOpenAL::~LLAudioChannelOpenAL()
 {
 	cleanup();
-	alDeleteSources(1, &mALSource);
+	if (mALSource != AL_NONE)
+	{
+		alDeleteSources(1, &mALSource);
+		mALSource = AL_NONE;
+	}
 }
 
 void LLAudioChannelOpenAL::cleanup()
@@ -198,7 +336,7 @@ void LLAudioChannelOpenAL::play()
 		return;
 	}
 
-	if(!isPlaying())
+	if (!isPlaying())
 	{
 		alSourcePlay(mALSource);
 		getSource()->setPlayedOnce(true);
@@ -324,7 +462,7 @@ LLAudioBufferOpenAL::~LLAudioBufferOpenAL()
 
 void LLAudioBufferOpenAL::cleanup()
 {
-	if(mALBuffer != AL_NONE)
+	if (mALBuffer != AL_NONE)
 	{
 		alDeleteBuffers(1, &mALBuffer);
 		mALBuffer = AL_NONE;
@@ -335,23 +473,25 @@ bool LLAudioBufferOpenAL::loadWAV(const std::string& filename)
 {
 	cleanup();
 	mALBuffer = alutCreateBufferFromFile(filename.c_str());
-	if(mALBuffer == AL_NONE)
+	if (mALBuffer == AL_NONE)
 	{
 		ALenum error = alutGetError(); 
 		if (gDirUtilp->fileExists(filename))
 		{
-			llwarns <<
-				"LLAudioBufferOpenAL::loadWAV() Error loading "
-				<< filename
-				<< " " << alutGetErrorString(error) << llendl;
+			llwarns << "LLAudioBufferOpenAL::loadWAV() Error loading "
+					<< filename << " " 
+					<< convertALErrorToString(error) << ": "
+					<< alutGetErrorString(error) 
+					<< llendl;
 		}
 		else
 		{
 			// It's common for the file to not actually exist.
-			lldebugs <<
-				"LLAudioBufferOpenAL::loadWAV() Error loading "
-				 << filename
-				 << " " << alutGetErrorString(error) << llendl;
+			lldebugs << "LLAudioBufferOpenAL::loadWAV() Error loading "
+					<< filename << " " 
+					<< convertALErrorToString(error) << ": "
+					<< alutGetErrorString(error) 
+					<< llendl;
 		}
 		return false;
 	}
@@ -361,7 +501,7 @@ bool LLAudioBufferOpenAL::loadWAV(const std::string& filename)
 
 U32 LLAudioBufferOpenAL::getLength()
 {
-	if(mALBuffer == AL_NONE)
+	if (mALBuffer == AL_NONE)
 	{
 		return 0;
 	}
@@ -383,9 +523,9 @@ void LLAudioEngine_OpenAL::initWind()
 	
 	alGenSources(1,&mWindSource);
 	
-	if((error=alGetError()) != AL_NO_ERROR)
+	if ((error=alGetError()) != AL_NO_ERROR)
 	{
-		llwarns << "LLAudioEngine_OpenAL::initWind() Error creating wind sources: "<<error<<llendl;
+		llwarns << "LLAudioEngine_OpenAL::initWind() Error creating wind sources: " << convertALErrorToString(error) << llendl;
 	}
 
 	mWindGen = new LLWindGen<WIND_SAMPLE_T>;
@@ -396,7 +536,7 @@ void LLAudioEngine_OpenAL::initWind()
 
 	mWindBuf = new WIND_SAMPLE_T [mWindBufSamples * 2 /*stereo*/];
 
-	if(mWindBuf==NULL)
+	if (mWindBuf == NULL)
 	{
 		llerrs << "LLAudioEngine_OpenAL::initWind() Error creating wind memory buffer" << llendl;
 		mEnableWind=false;
@@ -445,7 +585,7 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 	if (!mEnableWind)
 		return;
 	
-	if(!mWindBuf)
+	if (!mWindBuf)
 		return;
 	
 	if (mWindUpdateTimer.checkExpirationAndReset(LL_WIND_UPDATE_INTERVAL))
@@ -485,14 +625,14 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 
 	//llinfos << "mNumEmptyWindALBuffers: " << mNumEmptyWindALBuffers	<<" (" << unprocessed << ":" << processed << ")" << llendl;
 
-	while(processed--) // unqueue old buffers
+	while (processed--) // unqueue old buffers
 	{
 		ALuint buffer;
 		ALenum error;
 		alGetError(); /* clear error */
 		alSourceUnqueueBuffers(mWindSource, 1, &buffer);
 		error = alGetError();
-		if(error != AL_NO_ERROR)
+		if (error != AL_NO_ERROR)
 		{
 			llwarns << "LLAudioEngine_OpenAL::updateWind() error swapping (unqueuing) buffers" << llendl;
 		}
@@ -508,9 +648,9 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 		ALuint buffer;
 		alGetError(); /* clear error */
 		alGenBuffers(1,&buffer);
-		if((error=alGetError()) != AL_NO_ERROR)
+		if ((error=alGetError()) != AL_NO_ERROR)
 		{
-			llwarns << "LLAudioEngine_OpenAL::initWind() Error creating wind buffer: " << error << llendl;
+			llwarns << "LLAudioEngine_OpenAL::updateWind() Error creating wind buffer: " << convertALErrorToString(error) << llendl;
 			break;
 		}
 
@@ -521,14 +661,14 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 			     mWindBufBytes,
 			     mWindBufFreq);
 		error = alGetError();
-		if(error != AL_NO_ERROR)
+		if (error != AL_NO_ERROR)
 		{
 			llwarns << "LLAudioEngine_OpenAL::updateWind() error swapping (bufferdata) buffers" << llendl;
 		}
 		
 		alSourceQueueBuffers(mWindSource, 1, &buffer);
 		error = alGetError();
-		if(error != AL_NO_ERROR)
+		if (error != AL_NO_ERROR)
 		{
 			llwarns << "LLAudioEngine_OpenAL::updateWind() error swapping (queuing) buffers" << llendl;
 		}
@@ -538,11 +678,13 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 
 	ALint playing;
 	alGetSourcei(mWindSource, AL_SOURCE_STATE, &playing);
-	if(playing != AL_PLAYING)
+	if (playing != AL_PLAYING)
 	{
 		alSourcePlay(mWindSource);
 
-		lldebugs << "Wind had stopped - probably ran out of buffers - restarting: " << (unprocessed+mNumEmptyWindALBuffers) << " now queued." << llendl;
+		lldebugs << "Wind had stopped - probably ran out of buffers - restarting: " 
+				<< (unprocessed+mNumEmptyWindALBuffers) << " now queued." 
+				<< llendl;
 	}
 }
 

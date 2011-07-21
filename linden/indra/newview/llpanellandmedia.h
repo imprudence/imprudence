@@ -56,15 +56,11 @@ private:
 	static void onCommitAny(LLUICtrl* ctrl, void *userdata);
 	static void onCommitType(LLUICtrl* ctrl, void *userdata);
 	static void onSetBtn(void* userdata);
-	static void onClickSoundHelp(void*);
 
 private:
-	LLCheckBoxCtrl* mCheckSoundLocal;
-	LLButton*       mSoundHelpButton;
 	LLCheckBoxCtrl*	mCheckEnableVoiceChat;
 	LLCheckBoxCtrl*	mCheckEnableVoiceChatIsEstateDisabled;
 	LLCheckBoxCtrl*	mCheckEnableVoiceChatParcel;
-	LLLineEditor*	mMusicURLEdit;
 	LLLineEditor*	mMediaURLEdit;
 	LLLineEditor*	mMediaDescEdit;
 	LLComboBox*		mMediaTypeCombo;

@@ -25,7 +25,7 @@ USE left="270" FOR TABBING OPTIONS
     Double-Click Action:
   </text>
 
-  <combo_box name="double_click_action"
+  <combo_box name="double_click_action" enabled="true" 
              bottom_delta="-25" left_delta="30" height="18" width="160"
              follows="left|top" mouse_opaque="true">
     <combo_item name="None" value="None">
