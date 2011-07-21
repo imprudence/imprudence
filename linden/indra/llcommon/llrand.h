@@ -83,6 +83,11 @@ LL_COMMON_API F32 ll_frand();
 LL_COMMON_API F32 ll_frand(F32 val);
 
 /**
+ *@brief Generate a float from [min, max].
+ */
+LL_COMMON_API F32 ll_frand(F32 min, F32 max);
+
+/**
  *@brief Generate a double from [0, 1.0).
  */
 LL_COMMON_API F64 ll_drand();

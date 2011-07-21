@@ -156,6 +156,21 @@ F32 ll_frand(F32 val)
 	return rv;
 }
 
+F32 ll_frand(F32 min, F32 max)
+{
+	llassert(min <= max); 
+	F32 rv = min + ((max - min) * ll_internal_random_float());
+	if (rv > 0)
+	{
+		if (rv >= max) return 0.0f;
+	}
+	else
+	{
+		if (rv <= min) return 0.0f;
+	}
+	return rv;
+}
+
 F64 ll_drand()
 {
 	return ll_internal_random_double();
