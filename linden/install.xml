@@ -416,9 +416,9 @@
           <key>linux64</key>
            <map>
              <key>md5sum</key>
-             <string>13b551e5deafbaa6cfd105fa072bdfba</string>
+             <string>d7242641aa40019af06214b1d2a10bec</string>
              <key>url</key>
-             <uri>http://imprudenceviewer.org/download/libs/fontconfig-2.7.3-linux64-20091230.tar.bz2</uri>
+             <uri>http://download.kokuaviewer.org/files/test-builds/fontconfig-2.7.3-Linux-x86_64-20110805.tar.bz2</uri>
            </map>
         </map>
       </map>
@@ -582,9 +582,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>58c11add6b275c163950364df5b2964a</string>
+            <string>f181d42b6f7b2e9ca68174dbf3d282a5</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20100515.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/test-builds/glib-2.24.2-Linux-x86_64-20110806.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -714,9 +714,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>e8cb3f28379b7730004da44f04263936</string>
+            <string>e373ea5a705ec84de48c0dd9306d3dd5</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux64-20091231.tar.bz2</uri>
+            <uri>http://download.kokuaviewer.org/files/test-builds/gtk-etc-Linux-x86_64-20110806.tar.bz2</uri>
           </map>
         </map>
       </map>
