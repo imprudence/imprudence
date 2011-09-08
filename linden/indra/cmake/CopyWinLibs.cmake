@@ -498,34 +498,33 @@ if(EXISTS ${release_msvc8_redist_path})
         )
 
 
-		set(releasesse2_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/${VIEWER_BINARY_NAME}.exe.config)
-		add_custom_command(
-			OUTPUT ${releasesse2_appconfig_file}
-			COMMAND ${PYTHON_EXECUTABLE}
-			ARGS
-				${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
-				${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
-				${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
-				${releasesse2_appconfig_file}
-				DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
-				COMMENT "Creating release (SSE2 optimized) app config file"
-			)
-			
-        set(relwithdebinfo_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/${VIEWER_BINARY_NAME}.exe.config)
-        add_custom_command(
-            OUTPUT ${relwithdebinfo_appconfig_file}
-            COMMAND ${PYTHON_EXECUTABLE}
-            ARGS
-              ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
-              ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
-              ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
-              ${relwithdebinfo_appconfig_file}
-            DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
-            COMMENT "Creating relwithdebinfo app config file"
-            )
+	set(releasesse2_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/${VIEWER_BINARY_NAME}.exe.config)
+	add_custom_command(
+		OUTPUT ${releasesse2_appconfig_file}
+		COMMAND ${PYTHON_EXECUTABLE}
+		ARGS
+			${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+			${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
+			${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
+			${releasesse2_appconfig_file}
+			DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/ReleaseSSE2/Microsoft.VC80.CRT.manifest
+			COMMENT "Creating release (SSE2 optimized) app config file"
+		)
+		
+    set(relwithdebinfo_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/${VIEWER_BINARY_NAME}.exe.config)
+    add_custom_command(
+        OUTPUT ${relwithdebinfo_appconfig_file}
+        COMMAND ${PYTHON_EXECUTABLE}
+        ARGS
+          ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+          ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+          ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
+          ${relwithdebinfo_appconfig_file}
+        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+        COMMENT "Creating relwithdebinfo app config file"
+        )
           
-    endif (EXISTS ${release_msvc8_redist_path})
-endif (MSVC80)
+endif (EXISTS ${release_msvc8_redist_path})
 
 add_custom_target(copy_win_libs ALL
   DEPENDS 
