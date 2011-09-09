@@ -453,11 +453,11 @@ class WindowsManifest(ViewerManifest):
 
 
     def package_finish(self):
-        # InWorldz uses Inno Setup to compile its installers. This process creates a new installer from a template
+        # Imprudence uses Inno Setup to compile its installers. This process creates a new installer from a template
         # See http://www.jrsoftware.org/isinfo.php
         sse_string = ''
         if self.configuration().lower() == "releasesse2":
-            sse_string = ".SSE2"
+            sse_string = "-(SSE2-optimized)"
 
         version = '.'.join(self.args['version'])
         base_filename = self.installer_prefix() + version + sse_string
@@ -465,7 +465,7 @@ class WindowsManifest(ViewerManifest):
         app_ver_name="%s %s" % (app_name, version)
 
         new_script = base_filename + ".iss"
-        self.replace_in("installers/windows/inworldz_installer_template.iss", new_script, {
+        self.replace_in("installers/windows/imprudence_installer_template.iss", new_script, {
                 "%%VERSION%%":version,
                 "%%INSTALLERFILENAME%%":base_filename,
                 "%%PACKAGEFILES%%":self.args['dest'],

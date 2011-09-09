@@ -1,16 +1,18 @@
-; InWorldz inno setup installer template by McCabe Maxsted
+; Imprudence inno setup installer template by McCabe Maxsted
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
+; Imp Stable ID: D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8
+; Imp Experimental ID: 1B3E68BC-13EB-4277-9439-CB5FF9259460
 
 ; These will change
-AppId={{DC6CCE02-BC61-43B1-B4CA-292C6BCCCB34}
+AppId={{D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8}
 AppName=%%APPNAME%%
 AppVerName=%%APPVERNAME%%
-DefaultDirName={pf}\InWorldz
-DefaultGroupName=InWorldz
+DefaultDirName={pf}\Imprudence
+DefaultGroupName=Imprudence Viewer
 VersionInfoProductName=%%APPNAME%%
 OutputBaseFilename=%%INSTALLERFILENAME%%
 VersionInfoVersion=%%VERSION%%
@@ -20,21 +22,21 @@ AppVersion=%%VERSION%%
 VersionInfoCopyright=2011
 
 ; These won't change
-VersionInfoCompany=InWorldz, LLC
-AppPublisher=InWorldz, LLC
-AppPublisherURL=http://inworldz.com
-AppSupportURL=http://inworldz.com
+VersionInfoCompany=Imprudence
+AppPublisher=The Imprudence Project
+AppPublisherURL=http://kokuaviewer.org
+AppSupportURL=http://kokuaviewer.org
 AllowNoIcons=true
 InfoAfterFile=..\..\..\..\..\..\README.txt
 OutputDir=.
-SetupIconFile=..\..\..\..\newview\installers\windows\install_icon.ico
+SetupIconFile=..\..\..\..\newview\installers\windows\imp_icon.ico
 Compression=lzma2/ultra64
 InternalCompressLevel=ultra64
 SolidCompression=true
 PrivilegesRequired=poweruser
 AllowRootDirectory=true
-WizardImageFile=..\..\..\..\newview\installers\windows\installer_icon_left.bmp
-WizardSmallImageFile=..\..\..\..\newview\installers\windows\installer_icon_right.bmp
+WizardImageFile=..\..\..\..\newview\installers\windows\imprudence_installer_icon_left.bmp
+WizardSmallImageFile=..\..\..\..\newview\installers\windows\imprudence_installer_icon_right.bmp
 SetupLogging=true
 RestartIfNeededByRun=false
 AlwaysRestart=false
@@ -50,7 +52,7 @@ Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription
 
 ; NOTE VS2005 is currently the only version supported anywhere in the packaging system, so we can do this here
 [Files]
-Source: %%PACKAGEFILES%%\inworldz.exe; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\imprudence.exe; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\character\*; DestDir: {app}\character; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: %%PACKAGEFILES%%\fonts\*; DestDir: {app}\fonts; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: %%PACKAGEFILES%%\app_settings\*; DestDir: {app}\app_settings; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -63,10 +65,11 @@ Source: %%PACKAGEFILES%%\libapr-1.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\libapriconv-1.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\libaprutil-1.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\llcommon.dll; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\libhunspell.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\featuretable.txt; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\gpu_table.txt; DestDir: {app}; Flags: ignoreversion
-Source: %%PACKAGEFILES%%\kdu_v64R.dll; DestDir: {app}; Flags: ignoreversion
-Source: %%PACKAGEFILES%%\kdu_v64R.dll.config; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\imprudence.url; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\llkdu.dll.2.config; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\openal32.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\OpenJPEG.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\README.txt; DestDir: {app}; Flags: ignoreversion
@@ -134,10 +137,16 @@ Source: %%PACKAGEFILES%%\SDL.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\xvidcore.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\z.dll; DestDir: {app}; Flags: ignoreversion
 
+; Voice files
+Source: %%PACKAGEFILES%%\ortp.dll; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\SLVoice.exe; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
+Source: %%PACKAGEFILES%%\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
+
 ; VC++ 2005 SP1 x86, VC++ 2008 SP1 x86, and VC++ 2010 SP1 x86 redist
-Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
-Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
-Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
+Source: ..\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
+;Source: ..\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
+Source: ..\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
 
 ; Old files we don't use anymore:
 ; Source: %%PACKAGEFILES%%\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
@@ -152,20 +161,23 @@ Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2010_SP1.exe; Dest
 ;Source: %%PACKAGEFILES%%\msvcr71.dll; DestDir: {app}; Flags: ignoreversion; MinVersion: 0,6.01; Tasks: ; Languages:
 
 [Registry]
-Root: HKCR; Subkey: inworldz; ValueType: string; Flags: uninsdeletekey deletekey; ValueName: (default); ValueData: URL:InWorldz
-Root: HKCR; Subkey: inworldz; ValueType: string; Flags: uninsdeletekey deletekey; ValueName: URL Protocol
-Root: HKCR; Subkey: inworldz\DefaultIcon; Flags: uninsdeletekey deletekey; ValueType: string; ValueData: {app}\inworldz.exe
-Root: HKCR; Subkey: inworldz\shell\open\command; ValueType: expandsz; Flags: uninsdeletekey deletekey; ValueData: "{app}\inworldz.exe -url ""%1"""; Languages:
+Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: (default); ValueData: URL:Second Life
+Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: URL Protocol
+Root: HKCR; Subkey: secondlife\DefaultIcon; Flags: uninsdeletekey deletekey; ValueType: string; Tasks: slurlassociate; ValueData: {app}\imprudence.exe
+Root: HKCR; Subkey: secondlife\shell\open\command; ValueType: expandsz; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueData: "{app}\imprudence.exe --settings settings_imprudence.xml -url ""%1"""; Languages: 
 ; Root: HKCU; Subkey: Environment; ValueType: string; ValueName: GST_PLUGIN_PATH; Flags: deletevalue uninsdeletevalue; ValueData: {app}\lib
 ; Root: HKCU; Subkey: Environment; ValueType: expandsz; ValueName: PATH; ValueData: {app}
 
 [Icons]
-Name: {group}\{cm:UninstallProgram,InWorldz}; Filename: {uninstallexe}
-Name: {commondesktop}\InWorldz; Filename: {app}\inworldz.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\InWorldz; Filename: {app}\inworldz.exe; Tasks: quicklaunchicon; WorkingDir: {app}
-Name: {group}\InWorldz; Filename: {app}\inworldz.exe; WorkingDir: {app}; Comment: inworldz; IconIndex: 0;
+Name: {group}\{cm:UninstallProgram,Imprudence}; Filename: {uninstallexe}
+Name: {commondesktop}\Imprudence; Filename: {app}\imprudence.exe; Tasks: desktopicon; Parameters: --settings settings_imprudence.xml; WorkingDir: {app}; IconIndex: 0
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Imprudence; Filename: {app}\imprudence.exe; Tasks: quicklaunchicon; Parameters: --settings settings_imprudence.xml; WorkingDir: {app}
+Name: {group}\Imprudence; Filename: {app}\imprudence.exe; WorkingDir: {app}; Comment: imprudence; IconIndex: 0; Parameters: --settings settings_imprudence.xml
 
 [Run]
+Filename: {app}\imprudence.exe; WorkingDir: {app}; Flags: nowait postinstall
+Filename: {app}\imprudence.url; WorkingDir: {app}; Flags: nowait postinstall shellexec; Description: See what makes Imprudence different
+
 ; Install redistributables. 
 ;
 ;     !!!!BEWARE!!!! 
@@ -174,19 +186,19 @@ Name: {group}\InWorldz; Filename: {app}\inworldz.exe; WorkingDir: {app}; Comment
 
 ; Always use /q for VS2005 rather than something quieter such as Parameters: "/q:a c:""msiexec /i vcredist.msi /qn"" ". The redist will fail sometimes if you do otherwise.
 Filename: {app}\redist\vcredist_x86_VS2005_SP1_MFC_SEC.exe; Parameters: "/q"; Check: Needs2005Redist; Flags: runhidden
-Filename: {app}\redist\vcredist_x86_VS2008_SP1_ATL_SEC.exe; Parameters: "/q"; Check: Needs2008Redist; Flags: runhidden
+;Filename: {app}\redist\vcredist_x86_VS2008_SP1_ATL_SEC.exe; Parameters: "/q"; Check: Needs2008Redist; Flags: runhidden
 Filename: {app}\redist\vcredist_x86_VS2010_SP1.exe; Parameters: "/q /norestart"; Check: Needs2010Redist; Flags: runhidden
-Filename: {app}\inworldz.exe; WorkingDir: {app}; Flags: nowait postinstall
 
 [UninstallDelete]
-Name: {userappdata}\InWorldz\user_settings\password.dat; Type: files; Languages:
-Name: {userappdata}\InWorldz\user_settings\settings.xml; Type: files; Languages:
-; 1.1 and lower cache location:
-Name: {userappdata}\InWorldz\cache; Type: filesandordirs
-; 1.2 and higher cache location:
-Name: {localappdata}\InWorldz\cache; Type: filesandordirs
-Name: {userappdata}\InWorldz\logs; Type: filesandordirs
-Name: {userappdata}\InWorldz\browser_profile; Type: filesandordirs
+Name: {userappdata}\Imprudence\user_settings\password.dat; Type: files; Languages: 
+Name: {userappdata}\Imprudence\user_settings\settings.xml; Type: files; Languages: 
+Name: {userappdata}\Imprudence\user_settings\settings_imprudence.xml; Type: files; Languages: 
+; 1.2 and lower cache location:
+Name: {userappdata}\Imprudence\cache; Type: filesandordirs
+; 1.3 and higher cache location:
+Name: {localappdata}\Imprudence\cache; Type: filesandordirs
+Name: {userappdata}\Imprudence\logs; Type: filesandordirs
+Name: {userappdata}\Imprudence\browser_profile; Type: filesandordirs
 Name: C:\Users\{username}\.gstreamer-0.10; Type: filesandordirs
 Name: C:\Documents and Settings\{username}\.gstreamer-0.10; Type: filesandordirs
 
@@ -214,7 +226,6 @@ Name: {app}\freebl3.dll; Type: files; Tasks: ; Languages:
 Name: {app}\glew32.dll; Type: files; Tasks: ; Languages:
 Name: {app}\iconv.dll; Type: files; Tasks: ; Languages:
 Name: {app}\intl.dll; Type: files; Tasks: ; Languages:
-Name: {app}\InWorldzViewer.exe; Type: files; Tasks: ; Languages:
 Name: {app}\js3250.dll; Type: files; Tasks: ; Languages:
 Name: {app}\libcairo-2.dll; Type: files; Tasks: ; Languages:
 Name: {app}\libfaad-2.dll; Type: files; Tasks: ; Languages:
@@ -265,6 +276,7 @@ Name: {app}\nss3.dll; Type: files; Tasks: ; Languages:
 Name: {app}\nssckbi.dll; Type: files; Tasks: ; Languages:
 Name: {app}\plc4.dll; Type: files; Tasks: ; Languages:
 Name: {app}\plds4.dll; Type: files; Tasks: ; Languages:
+Name: {app}\RELEASE_NOTES.txt; Type: files; Tasks: ; Languages: 
 Name: {app}\smime3.dll; Type: files; Tasks: ; Languages:
 Name: {app}\softokn3.dll; Type: files; Tasks: ; Languages:
 Name: {app}\ssl3.dll; Type: files; Tasks: ; Languages:
@@ -279,7 +291,7 @@ Name: {app}\Microsoft.VC80.CRT.manifest; Type: files; Tasks: ; Languages:
 Name: {app}\msvcp80.dll; Type: files; Tasks: ; Languages:
 Name: {app}\msvcr80.dll; Type: files; Tasks: ; Languages:
 Name: {app}\msvcr71.dll; Type: files; Tasks: ; Languages:
-Name: {app}\inworldz.exe.config; Type: files; Tasks: ; Languages:
+Name: {app}\imprudence.exe.config; Type: files; Tasks: ; Languages:
 
 
 [Code]
