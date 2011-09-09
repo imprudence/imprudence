@@ -4,8 +4,8 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-; Imp Stable ID: D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8
-; Imp Experimental ID: 1B3E68BC-13EB-4277-9439-CB5FF9259460
+; Imp Stable ID: 	D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8
+; Imp Experimental ID: 	1B3E68BC-13EB-4277-9439-CB5FF9259460
 
 ; These will change
 AppId={{D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8}
@@ -47,6 +47,7 @@ Name: english; MessagesFile: compiler:Default.isl
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
 Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
+Name: slurlassociate; Description: Associate Imprudence with SLURLs; GroupDescription: Associations:; Languages: ; Flags: checkedonce
 ; TODO: use scripting for something like this on uninstall:
 ; Name: uninstallsettings; Description: Remove user settings; Flags: checkablealone; Languages: ; GroupDescription: Uninstall:
 
@@ -144,9 +145,9 @@ Source: %%PACKAGEFILES%%\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
 
 ; VC++ 2005 SP1 x86, VC++ 2008 SP1 x86, and VC++ 2010 SP1 x86 redist
-Source: ..\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
-;Source: ..\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
-Source: ..\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
+Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
+;Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
+Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
 
 ; Old files we don't use anymore:
 ; Source: %%PACKAGEFILES%%\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
