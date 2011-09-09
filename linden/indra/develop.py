@@ -80,6 +80,7 @@ class PlatformSetup(object):
     project_name = 'Imprudence'
     distcc = True
     cmake_opts = []
+    using_express = False
 
     def __init__(self):
         self.script_dir = os.path.realpath(
@@ -494,6 +495,7 @@ class WindowsSetup(PlatformSetup):
                 for version in 'vc80 vc90 vc100 vc71'.split():
                     if self.find_visual_studio_express(version):
                         self._generator = version
+                        self.using_express = True
                         print 'Building with ', self.gens[version]['gen'] , "Express edition"
                         break
                 else:
@@ -570,6 +572,7 @@ class WindowsSetup(PlatformSetup):
             key = _winreg.OpenKey(reg, key_str)
             value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
             print 'Found: %s' % value
+            self.using_express = True
             return value
         except WindowsError, err:
             print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
@@ -618,7 +621,8 @@ class WindowsSetup(PlatformSetup):
         '''Override to add the vstool.exe call after running cmake.'''
         PlatformSetup.run_cmake(self, args)
         if self.unattended == 'OFF':
-            self.run_vstool()
+            if self.using_express == False:
+                self.run_vstool()
 
     def run_vstool(self):
         for build_dir in self.build_dirs():
