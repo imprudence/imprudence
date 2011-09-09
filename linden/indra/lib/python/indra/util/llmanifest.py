@@ -126,7 +126,7 @@ ARGUMENTS=[
          default="Release"),
     dict(name='branding_id', description="""Identifier for the branding set to 
         use.  Currently, 'imprudence')""", 
-         default='inworldz'),
+         default='imprudence'),
     dict(name='configuration',
          description="""The build configuration used. On OSX this is
          Universal, etc. On Windows it's the *actual* buildtype for

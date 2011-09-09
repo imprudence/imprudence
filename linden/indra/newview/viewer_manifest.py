@@ -35,7 +35,7 @@
 # Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
 #   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 # to generate the "package" project in Visual Studio 2005
-# Note: as of Imprudence 1.3, this defaults to on for Windows
+# Note: use the batch file on Windows in the indra directory
 
 import sys
 import os.path
@@ -219,14 +219,15 @@ class ViewerManifest(LLManifest):
 
 
 class WindowsManifest(ViewerManifest):
+    # we always want these to be named imprudence.exe to avoid settings conflicts
     def final_exe(self):
-        if self.default_channel():
-            if self.default_grid():
+        #if self.default_channel():
+        #    if self.default_grid():
                 return "imprudence.exe"
-            else:
-                return "imprudencepreview.exe"
-        else:
-            return ''.join(self.channel().split()) + '.exe'
+        #    else:
+        #        return "imprudencepreview.exe"
+        #else:
+        #    return ''.join(self.channel().split()) + '.exe'
 
 
     def construct(self):
@@ -235,6 +236,8 @@ class WindowsManifest(ViewerManifest):
         # nor do we have a fixed name for the executable
         self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
 
+        # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
+        symbol_ver = '.'.join(self.args['version'])
         symbol_file = 'imprudence-%s.%s.pdb' % (symbol_ver, self.args['configuration'])
         symbol_path = '../../../../../pdb_files/%s' % (symbol_file)
         if os.path.isfile(os.getcwd() + symbol_path):
