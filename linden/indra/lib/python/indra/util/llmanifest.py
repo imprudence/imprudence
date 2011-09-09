@@ -76,17 +76,15 @@ def get_default_platform(dummy):
             }[sys.platform]
 
 def get_default_version(srctree):
-    # look up llversion.h and parse out the version info
-    paths = [os.path.join(srctree, x, 'llversionviewer.h') for x in ['llcommon', '../llcommon', '../../indra/llcommon.h']]
-    for p in paths:
-        if os.path.exists(p):
-            contents = open(p, 'r').read()
-            major = re.search("IMP_VERSION_MAJOR\s=\s([0-9]+)", contents).group(1)
-            minor = re.search("IMP_VERSION_MINOR\s=\s([0-9]+)", contents).group(1)
-            patch = re.search("IMP_VERSION_PATCH\s=\s([0-9]+)", contents).group(1)
-            #build = re.search("LL_VERSION_BUILD\s=\s([0-9]+)", contents).group(1)
-	    build = re.search('const char \* const IMP_VERSION_TEST = "(.*)";', contents).group(1)
-            return major, minor, patch, build
+    p = os.path.join(srctree, 'viewerinfo.cpp')
+    if os.path.exists(p):
+        contents = open(p, 'r').read()
+        major = re.search("MAJOR\s=\s([0-9]+)", contents).group(1)
+        minor = re.search("MINOR\s=\s([0-9]+)", contents).group(1)
+        patch = re.search("PATCH\s=\s([0-9]+)", contents).group(1)
+        rleas = re.search("RLEAS\s=\s([0-9]+)", contents).group(1)
+        extra = re.search('string\sEXTRA\s=\s"(.*)";', contents).group(1)
+        return major, minor, patch, rleas, extra
 
 def get_channel(srctree):
     # look up llversionserver.h and parse out the version info
