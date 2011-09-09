@@ -578,7 +578,7 @@ class WindowsSetup(PlatformSetup):
     def get_build_cmd(self):
         if self.incredibuild:
             config = self.build_type
-            if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
+            if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0', r'10.0', r'7.1' ]:
                 config = '\"%s|Win32\"' % config
 
             return "buildconsole %s.sln /build %s" % (self.project_name, config)
@@ -702,8 +702,8 @@ Options:
   -m32 | -m64           build architecture (32-bit or 64-bit)
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or 
-                          VC90 (VS2008)
+                        Windows: VC80 (VS2005--default), VC71 (VS2003), 
+                          VC90 (VS2008), or VC100 (VS2010)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
   -p | --project=NAME   set the root project name. (Doesn't effect makefiles)
