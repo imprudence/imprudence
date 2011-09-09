@@ -84,7 +84,14 @@ def get_default_version(srctree):
         patch = re.search("PATCH\s=\s([0-9]+)", contents).group(1)
         rleas = re.search("RLEAS\s=\s([0-9]+)", contents).group(1)
         extra = re.search('string\sEXTRA\s=\s"(.*)";', contents).group(1)
-        return major, minor, patch, rleas, extra
+        version = "%s.%s.%s.%s"%(major, minor, patch, rleas)
+        if len(extra) > 0:
+            # Replace spaces and some puncuation with '-' in extra
+            extra = re.sub('[- \t:;,!+/\\"\'`]+', '-', extra)
+            # Strip any leading or trailing "-"s
+            extra = extra.strip('-')
+            version += "-" + extra
+        return version
 
 def get_channel(srctree):
     # look up llversionserver.h and parse out the version info
