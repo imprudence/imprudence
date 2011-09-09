@@ -279,6 +279,9 @@ class WindowsManifest(ViewerManifest):
             self.path("libhunspell.dll")
             self.end_prefix()
 
+	# Copy the llkdu DSO .config
+        self.path("llkdu.dll.2.config")
+
         # Get llcommon and deps.
         if self.prefix(src=self.args['configuration'], dst=""):
             self.path('libapr-1.dll')
