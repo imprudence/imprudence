@@ -82,6 +82,10 @@ BOOL LLPrefsColors::postBuild()
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
+	getChild<LLColorSwatchCtrl>("client_tag_color")->set(gSavedSettings.getColor4("ImprudenceTagColor"));
+	static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
+	childSetValue("client_name_color_check", (*sShowClientColor));
+
 	return TRUE;
 }
 
@@ -99,6 +103,7 @@ void LLPrefsColors::refreshColors()
 	mFriendsChatColor = gSavedSettings.getColor4("FriendsChatColor");
 	mOwnNameChatColor = gSavedSettings.getColor4("OwnNameChatColor");
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
+	mClientTagColor = gSavedSettings.getColor4("ImprudenceTagColor");
 }
 
 // static
@@ -130,6 +135,18 @@ void LLPrefsColors::updateFriendsCheck()
 	getChild<LLColorSwatchCtrl>("FriendsChatColor")->setEnabled(childGetValue("HighlightFriendsChat"));
 }
 
+// static
+void LLPrefsColors::onCommitCheckClient(LLUICtrl* ctrl, void* userdata)
+{
+	LLPrefsColors* self = (LLPrefsColors*)userdata;
+	self->updateClientCheck();
+}
+
+void LLPrefsColors::updateClientCheck()
+{
+	getChild<LLColorSwatchCtrl>("client_tag_color")->setEnabled(childGetValue("client_name_color_checkt"));
+}
+
 void LLPrefsColors::cancel()
 {
 	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
@@ -144,6 +161,7 @@ void LLPrefsColors::cancel()
 	gSavedSettings.setColor4("FriendsChatColor", mFriendsChatColor);
 	gSavedSettings.setColor4("OwnNameChatColor", mOwnNameChatColor);
 	gSavedSettings.setColor4("EffectColor", mEffectColor);
+	gSavedSettings.setColor4("ImprudenceTagColor", mClientTagColor);
 }
 
 void LLPrefsColors::apply()
@@ -179,6 +197,9 @@ void LLPrefsColors::apply()
 	gSavedSettings.setString("HighlightNickname03", nick03);
 
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
+
+	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
+	gSavedSettings.setColor4("ImprudenceTagColor", getChild<LLColorSwatchCtrl>("client_tag_color")->get());
 
 	refreshColors(); // member values become the official values and cancel becomes a no-op.
 }

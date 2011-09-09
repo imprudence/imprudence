@@ -1775,6 +1775,22 @@
 
   <!-- Begin: Client Name Tag -->
 
+  <key>ImprudenceTagColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of Imprudence tags (displayed only locally)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.79</real>
+      <real>0.44</real>
+      <real>0.88</real>
+      <real>1</real>
+    </array>
+  </map>
   <key>ShowClientColor</key>
   <map>
     <key>Comment</key>
