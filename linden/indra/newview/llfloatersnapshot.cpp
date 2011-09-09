@@ -1114,10 +1114,10 @@ LLSnapshotLivePreview::ESnapshotType LLFloaterSnapshot::Impl::getTypeIndex(LLFlo
 LLFloaterSnapshot::ESnapshotFormat LLFloaterSnapshot::Impl::getFormatIndex(LLFloaterSnapshot* floater)
 {
 	ESnapshotFormat index = SNAPSHOT_FORMAT_PNG;
-	if(floater->hasChild("local_format_combo"))
+	if (floater->hasChild("local_format_combo"))
 	{
 		LLComboBox* local_format_combo = floater->getChild<LLComboBox>("local_format_combo");
-		const std::string id  = local_format_combo->getSelectedItemLabel();
+		const std::string id = local_format_combo->getValue().asString();
 		if (id == "PNG")
 			index = SNAPSHOT_FORMAT_PNG;
 		else if (id == "JPEG")
@@ -1136,10 +1136,10 @@ LLFloaterSnapshot::ESnapshotFormat LLFloaterSnapshot::Impl::getFormatIndex(LLFlo
 LLViewerWindow::ESnapshotType LLFloaterSnapshot::Impl::getLayerType(LLFloaterSnapshot* floater)
 {
 	LLViewerWindow::ESnapshotType type = LLViewerWindow::SNAPSHOT_TYPE_COLOR;
-	if(floater->hasChild("layer_types"))
+	if (floater->hasChild("layer_types"))
 	{
 		LLComboBox* layer_types = floater->getChild<LLComboBox>("layer_types");
-		const std::string id  = layer_types->getSelectedItemLabel();
+		const std::string id = layer_types->getValue().asString();
 		if (id == "colors")
 			type = LLViewerWindow::SNAPSHOT_TYPE_COLOR;
 		else if (id == "depth")
