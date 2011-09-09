@@ -530,18 +530,6 @@ bool handleSliderScrollWheelMultiplierChanged(const LLSD& newvalue)
 	return true;
 }
 
-bool handleRenderSculptSAThresholdChanged(const LLSD& newvalue)
-{
-	LLVOVolume::sSculptSAThresh = newvalue.asReal();
-	return true;
-}
-
-bool handleRenderSculptSAMaxChanged(const LLSD& newvalue)
-{
-	LLVOVolume::sSculptSAMax = newvalue.asReal();
-	return true;
-}
-
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -687,9 +675,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelMic")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));
 	gSavedSettings.getControl("LipSyncEnabled")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));	
 	gSavedSettings.getControl("SliderScrollWheelMultiplier")->getSignal()->connect(boost::bind(&handleSliderScrollWheelMultiplierChanged, _1));	
-	gSavedSettings.getControl("TranslateChat")->getSignal()->connect(boost::bind(&handleTranslateChatPrefsChanged, _1));	
-	gSavedSettings.getControl("RenderSculptSAThreshold")->getSignal()->connect(boost::bind(&handleRenderSculptSAThresholdChanged, _1));
-	gSavedSettings.getControl("RenderSculptSAMax")->getSignal()->connect(boost::bind(&handleRenderSculptSAMaxChanged, _1));
+	gSavedSettings.getControl("TranslateChat")->getSignal()->connect(boost::bind(&handleTranslateChatPrefsChanged, _1));
 }
 
 template <> eControlType get_control_type<U32>(const U32& in, LLSD& out) 

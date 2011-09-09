@@ -79,9 +79,6 @@ F32 LLVOVolume::sLODFactor = 1.f;
 F32	LLVOVolume::sLODSlopDistanceFactor = 0.5f; //Changing this to zero, effectively disables the LOD transition slop 
 F32 LLVOVolume::sDistanceFactor = 1.0f;
 S32 LLVOVolume::sNumLODChanges = 0;
-F32 LLVOVolume::sSculptSAThresh = 1750.f;
-F32 LLVOVolume::sSculptSAMax = 50000.f;
-
 
 LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	: LLViewerObject(id, pcode, regionp),
@@ -709,7 +706,7 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &volume_params, const S32 detail
 		}
 		else
 		{
-			mSculptSurfaceArea = 0.0;
+			mSculptSurfaceArea = 0.f;
 		}
 
 		return TRUE;
@@ -2322,20 +2319,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		LLVOVolume* vobj = drawablep->getVOVolume();
 
 		llassert_always(vobj);
-
-		if (vobj->isSculpted() && vobj->mSculptSurfaceArea > LLVOVolume::sSculptSAThresh)
-		{
-		    LLPipeline::sSculptSurfaceAreaFrame += vobj->mSculptSurfaceArea;
-		    if (LLPipeline::sSculptSurfaceAreaFrame > LLVOVolume::sSculptSAMax)
-		    {
-				LL_DEBUGS("Volume") << "Sculptie (" 
-									<< vobj->getID() << ") above RenderSculptSAMax ("
-									<< LLVOVolume::sSculptSAMax
-									<< ")! Turning invisible!" 
-									<< LL_ENDL;
-				continue;
-		    }
-		}
 		
 		vobj->updateTextureVirtualSize();
 		vobj->preRebuild();

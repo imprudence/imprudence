@@ -258,7 +258,6 @@ BOOL	LLPipeline::sRenderAttachedLights = TRUE;
 BOOL	LLPipeline::sRenderAttachedParticles = TRUE;
 BOOL	LLPipeline::sRenderDeferred = FALSE;
 S32	LLPipeline::sVisibleLightCount = 0;
-F32	LLPipeline::sSculptSurfaceAreaFrame = 0.0;
 
 static LLCullResult* sCull = NULL;
 
@@ -2199,8 +2198,6 @@ void LLPipeline::postSort(LLCamera& camera)
 	LLFastTimer ftm(LLFastTimer::FTM_STATESORT_POSTSORT);
 
 	assertInitialized();
-	
-	sSculptSurfaceAreaFrame = 0.0;
 
 	//rebuild drawable geometry
 	for (LLCullResult::sg_list_t::iterator i = sCull->beginDrawableGroups(); i != sCull->endDrawableGroups(); ++i)
