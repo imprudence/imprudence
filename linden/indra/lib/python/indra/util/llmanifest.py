@@ -76,17 +76,22 @@ def get_default_platform(dummy):
             }[sys.platform]
 
 def get_default_version(srctree):
-    # look up llversion.h and parse out the version info
-    paths = [os.path.join(srctree, x, 'llversionviewer.h') for x in ['llcommon', '../llcommon', '../../indra/llcommon.h']]
-    for p in paths:
-        if os.path.exists(p):
-            contents = open(p, 'r').read()
-            major = re.search("IMP_VERSION_MAJOR\s=\s([0-9]+)", contents).group(1)
-            minor = re.search("IMP_VERSION_MINOR\s=\s([0-9]+)", contents).group(1)
-            patch = re.search("IMP_VERSION_PATCH\s=\s([0-9]+)", contents).group(1)
-            #build = re.search("LL_VERSION_BUILD\s=\s([0-9]+)", contents).group(1)
-	    build = re.search('const char \* const IMP_VERSION_TEST = "(.*)";', contents).group(1)
-            return major, minor, patch, build
+    p = os.path.join(srctree, 'viewerinfo.cpp')
+    if os.path.exists(p):
+        contents = open(p, 'r').read()
+        major = re.search("MAJOR\s=\s([0-9]+)", contents).group(1)
+        minor = re.search("MINOR\s=\s([0-9]+)", contents).group(1)
+        patch = re.search("PATCH\s=\s([0-9]+)", contents).group(1)
+        rleas = re.search("RLEAS\s=\s([0-9]+)", contents).group(1)
+        extra = re.search('string\sEXTRA\s=\s"(.*)";', contents).group(1)
+        version = "%s.%s.%s.%s"%(major, minor, patch, rleas)
+        if len(extra) > 0:
+            # Replace spaces and some puncuation with '-' in extra
+            extra = re.sub('[- \t:;,!+/\\"\'`]+', '-', extra)
+            # Strip any leading or trailing "-"s
+            extra = extra.strip('-')
+            version += "-" + extra
+        return version
 
 def get_channel(srctree):
     # look up llversionserver.h and parse out the version info
@@ -121,15 +126,16 @@ ARGUMENTS=[
          default=""),
     dict(name='artwork', description='Artwork directory.', default=DEFAULT_SRCTREE),
     dict(name='build', description='Build directory.', default=DEFAULT_SRCTREE),
-    dict(name='buildtype',
-         description='Set to DEBUG if this is a debug build.',
-         default="RELEASE"),
-    dict(name='channel',
-         description="""The channel to use for updates, packaging, settings name, etc.""",
-         default=get_channel),
+    dict(name='buildtype', description="""The build type used. ('Debug', 'Release', 'ReleaseSSE2', or 'RelWithDebInfo')
+        Default is Release """,
+         default="Release"),
+    dict(name='branding_id', description="""Identifier for the branding set to 
+        use.  Currently, 'imprudence')""", 
+         default='imprudence'),
     dict(name='configuration',
-         description="""The build configuration used. Only used on OS X for
-        now, but it could be used for other platforms as well.""",
+         description="""The build configuration used. On OSX this is
+         Universal, etc. On Windows it's the *actual* buildtype for
+         some weird reason.""",
          default="Universal"),
     dict(name='dest', description='Destination directory.', default=DEFAULT_SRCTREE),
     dict(name='grid',
@@ -137,12 +143,15 @@ ARGUMENTS=[
         though it's not strictly a grid, 'firstlook' is also an acceptable
         value for this parameter.""",
          default=""),
+    dict(name='channel',
+         description="""The channel to use for updates, packaging, settings name, etc.""",
+         default=get_channel),
+    dict(name='login_channel',
+         description="""The channel to use for login handshake/updates only.""",
+         default=None),
     dict(name='installer_name',
          description=""" The name of the file that the installer should be
         packaged up into. Only used on Linux at the moment.""",
-         default=None),
-    dict(name='login_channel',
-         description="""The channel to use for login handshake/updates only.""",
          default=None),
     dict(name='login_url',
          description="""The url that the login screen displays in the client.""",

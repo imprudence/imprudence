@@ -579,7 +579,6 @@ protected:
 public:
 	static BOOL				sRenderBeacons;
 	static BOOL				sRenderHighlight;
-	static F32				sSculptSurfaceAreaFrame;
 
 };
 
