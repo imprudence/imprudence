@@ -128,7 +128,7 @@ public:
 	
 	void autoSave();
 	//dim external ed
-	void XedUpd();
+	void xedUpdateScript();
 	void xedLaunch();
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
@@ -150,9 +150,8 @@ private:
 	std::string		mSampleText;
 	std::string		mAutosaveFilename;
 	std::string     mXfname;
-	struct stat     mXstbuf;
+	llstat			mXstbuf;
 	std::string		mHelpURL;
-	std::string		mScriptTitle;
 	LLTextEditor*	mEditor;
 	void			(*mLoadCallback)(void* userdata);
 	void			(*mSaveCallback)(void* userdata, BOOL close_after_save);
@@ -160,8 +159,7 @@ private:
 	void*			mUserdata;
 	LLComboBox		*mFunctions;
 	BOOL			mForceClose;
-	//LLPanel*		mGuiPanel;
-	LLPanel*		mCodePanel;
+	//LLPanel*		mCodePanel;
 	LLScrollListCtrl* mErrorList;
 	LLDynamicArray<LLEntryAndEdCore*> mBridges;
 	LLHandle<LLFloater>	mLiveHelpHandle;
@@ -180,9 +178,10 @@ class LLPreviewLSL : public LLPreview
 public:
 	LLPreviewLSL(const std::string& name, const LLRect& rect, const std::string& title,
 				 const LLUUID& item_uuid );
+	~LLPreviewLSL();
+
 	virtual void callbackLSLCompileSucceeded();
 	virtual void callbackLSLCompileFailed(const LLSD& compile_errors);
-
 	/*virtual*/ void open();		/*Flawfinder: ignore*/
 
 protected:
