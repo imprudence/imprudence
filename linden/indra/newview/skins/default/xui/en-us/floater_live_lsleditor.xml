@@ -4,7 +4,7 @@
      min_height="271" min_width="290" mouse_opaque="true" name="script ed float"
      rect_control="FloaterOpenObjectRect" title="Script: New Script" width="500" border_drop_shadow_visible="false" border_visible="false" bevel_style="none" border_style="line" border_thickness="0">
 	<button bottom="-545" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="20" label="Reset" label_selected="Reset" left="362"
+	     halign="center" height="22" label="Reset" label_selected="Reset" left="360"
 	     mouse_opaque="true" name="Reset" width="128" />
 	<check_box bottom="-545" enabled="false" follows="left|bottom" font="SansSerif"
 	     height="18" initial_value="true" label="Running" left="12"

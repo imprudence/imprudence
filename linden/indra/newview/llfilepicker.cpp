@@ -60,6 +60,12 @@ LLFilePicker LLFilePicker::sInstance;
 #define XML_FILTER L"XML files (*.xml)\0*.xml\0"
 #define SLOBJECT_FILTER L"Objects (*.slobject)\0*.slobject\0"
 #define RAW_FILTER L"RAW files (*.raw)\0*.raw\0"
+#ifdef LL_WINDOWS
+	#define APP_FILTER L"Executable files (*.exe)\0*.exe\0"
+#else
+	// If we can, add any mac/linux binary searching here -- MC
+	#define APP_FILTER L"Executable files (*.*)\0*.*\0"
+#endif // LL_WINDOOWS
 #endif
 
 //
@@ -190,6 +196,10 @@ BOOL LLFilePicker::setupFilter(ELoadFilter filter)
 		break;
 	case FFLOAD_RAW:
 		mOFN.lpstrFilter = RAW_FILTER \
+			L"\0";
+		break;
+	case FFLOAD_APP:
+		mOFN.lpstrFilter = APP_FILTER \
 			L"\0";
 		break;
 	default:
@@ -601,6 +611,17 @@ Boolean LLFilePicker::navOpenFilterProc(AEDesc *theItem, void *info, void *callB
 				AEDisposeDesc(&desc);
 			}
 		}
+		else if(filter == FFLOAD_APP)
+		{
+			// App bundles are of type APPL; ???? is a folder, and 0 is something going wrong.
+			if((int)navInfo->fileAndFolder.folderInfo.folderType != FOUR_CHAR_CODE('APPL') &&
+			   (int)navInfo->fileAndFolder.folderInfo.folderType != FOUR_CHAR_CODE('\?\?\?\?') &&
+			   (int)navInfo->fileAndFolder.folderInfo.folderType != 0
+			   )
+			{
+				result = false;
+			}
+		}
 	}
 	return result;
 }
@@ -844,6 +865,9 @@ BOOL LLFilePicker::getOpenFile(ELoadFilter filter)
 	reset();
 	
 	mNavOptions.optionFlags &= ~kNavAllowMultipleFiles;
+	if(filter == FFLOAD_APP)
+		mNavOptions.optionFlags |= kNavSupportPackages;
+	
 	// Modal, so pause agent
 	send_agent_pause();
 	{

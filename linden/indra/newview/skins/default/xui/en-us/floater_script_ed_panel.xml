@@ -9,7 +9,7 @@
 		Loading...
 	</text_editor>
 	<button bottom="-499" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="20" label="Save" label_selected="Save" left="360"
+	     halign="center" height="22" label="Save" label_selected="Save" left="360"
 	     mouse_opaque="true" name="Save_btn" width="128" />
 	<scroll_list background_visible="true" bottom="-457" column_padding="5" draw_border="true"
 	     draw_heading="false" draw_stripes="true" enabled="true"
@@ -36,11 +36,17 @@
 			<menu_item_call bottom_delta="-58" height="20" label="Revert All Changes" left="0"
 			     mouse_opaque="true" name="Revert All Changes" width="138" />
       <menu_item_separator bottom_delta="-66" height="8" left="0" mouse_opaque="true" name="separator"
-     width="138" />
+           width="138" />
+      <menu_item_call bottom_delta="-76" height="20" label="Set External Editor..." left="0"
+           mouse_opaque="true" name="Set External Editor..." width="138" />
+      <menu_item_call bottom_delta="-96" height="20" label="Open in External Editor" left="0"
+           mouse_opaque="true" name="Open in External Editor" width="138" />
+      <menu_item_separator bottom_delta="-66" height="8" left="0" mouse_opaque="true" name="separator2"
+           width="138" />
       <menu_item_call bottom_delta="-76" height="20" label="Export Script..." left="0"
-     mouse_opaque="true" name="Export Script..." width="138" />
+           mouse_opaque="true" name="Export Script..." width="138" />
       <menu_item_call bottom_delta="-96" height="20" label="Import Script..." left="0"
-     mouse_opaque="true" name="Import Script..." width="138" />
+           mouse_opaque="true" name="Import Script..." width="138" />
 		</menu>
 		<menu bottom="665" drop_shadow="true" enabled="true" height="198"
 		     left="222" mouse_opaque="false" name="Edit" opaque="true" tear_off="false"

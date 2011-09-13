@@ -178,7 +178,11 @@ LLScriptEdCore::LLScriptEdCore(
 	mLastHelpToken(NULL),
 	mLiveHelpHistorySize(0),
 	mEnableSave(FALSE),
-	mHasScriptData(FALSE)
+	mEnableXEd(FALSE),
+	mHasScriptData(FALSE),
+	// We need to check for a new file every five seconds, or autosave every 60.
+	// There's probably a better solution to both of the above.
+	LLEventTimer((gSavedSettings.getString("LSLExternalEditor").length() < 3) ? 60 : 5)
 {
 	setFollowsAll();
 	setBorderVisible(FALSE);
@@ -209,11 +213,30 @@ LLScriptEdCore::LLScriptEdCore(
 			tooltips.push_back(ll_safe_string(gScriptLibrary.mFunctions[i]->mDesc));
 		}
 	}
-	LLColor3 color(0.5f, 0.0f, 0.15f);
-		
-	mEditor->loadKeywords(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"keywords.ini"), funcs, tooltips, color);
 
-	
+	//gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"keywords.ini")
+	std::string keyword_path = gDirUtilp->getUserSkinDir() + gDirUtilp->getDirDelimiter() + "keywords.ini";
+	if(!LLFile::isfile(keyword_path))
+	{
+		llinfos << "nothing at " << keyword_path << llendl;
+		keyword_path = gDirUtilp->getSkinDir() + gDirUtilp->getDirDelimiter() + "keywords.ini";
+		if(!LLFile::isfile(keyword_path))
+		{
+			llinfos << "nothing at " << keyword_path << " ; will use default" << llendl;
+			keyword_path = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "keywords.ini");
+		}
+		else
+		{
+			llinfos << "loaded skin-specific keywords from " << keyword_path << llendl;
+		}
+	}
+	else
+	{
+		llinfos << "loaded skin-specific keywords from " << keyword_path << llendl;
+	}
+	LLColor3 color(0.5f, 0.0f, 0.15f);
+	mEditor->loadKeywords(keyword_path, funcs, tooltips, color);
+
 	LLKeywordToken *token;
 	LLKeywords::keyword_iterator_t token_it;
 	for (token_it = mEditor->keywordsBegin(); token_it != mEditor->keywordsEnd(); ++token_it)
@@ -233,7 +256,6 @@ LLScriptEdCore::LLScriptEdCore(
 
 	childSetCommitCallback("lsl errors", &LLScriptEdCore::onErrorList, this);
 	childSetAction("Save_btn", onBtnSave,this);
-
 	initMenu();
 		
 	// Do the work that addTabPanel() normally does.
@@ -248,6 +270,23 @@ LLScriptEdCore::LLScriptEdCore(
 LLScriptEdCore::~LLScriptEdCore()
 {
 	deleteBridges();
+}
+
+BOOL LLScriptEdCore::tick()
+{
+	//autoSave();
+	if (gSavedSettings.getString("LSLExternalEditor").length() < 3)
+	{
+		if (hasChanged(this))
+		{
+			autoSave();
+		}
+	}
+	else
+	{
+		XedUpd();
+	}
+	return FALSE;
 }
 
 void LLScriptEdCore::initMenu()
@@ -297,6 +336,14 @@ void LLScriptEdCore::initMenu()
 	menuItem->setMenuCallback(onBtnHelp, this);
 	menuItem->setEnabledCallback(NULL);
 
+	menuItem = getChild<LLMenuItemCallGL>("Set External Editor...");
+	menuItem->setMenuCallback(onSetExternalEditor, this);
+	menuItem->setEnabledCallback(NULL);
+
+	menuItem = getChild<LLMenuItemCallGL>("Open in External Editor");
+	menuItem->setMenuCallback(onBtnXEd, this);
+	menuItem->setEnabledCallback(enableExternalEditor);
+
 	menuItem = getChild<LLMenuItemCallGL>("Import Script...");
 	menuItem->setMenuCallback(onBtnLoadFromDisc, this);
 	menuItem->setEnabledCallback(NULL);
@@ -318,7 +365,9 @@ void LLScriptEdCore::setScriptText(const std::string& text, BOOL is_valid)
 {
 	if (mEditor)
 	{
-		mEditor->setText(text);
+		std::string new_text(text);
+		LLStringUtil::replaceTabsWithSpaces(new_text, 4);   // fix tabs in text
+		mEditor->setText(new_text);
 		mHasScriptData = is_valid;
 	}
 }
@@ -416,6 +465,175 @@ void LLScriptEdCore::updateDynamicHelp(BOOL immediate)
 		setHelpPage(LLStringUtil::null);
 	}
 }
+//dim
+void LLScriptEdCore::xedLaunch()
+{
+	//llinfos << "LLScriptEdCore::autoSave()" << llendl;
+	
+	std::string editor = gSavedSettings.getString("LSLExternalEditor");
+	if (!gDirUtilp->fileExists(editor))
+	{
+		llwarns << "External editor " + editor + " not found" << llendl;
+
+		LLSD row;
+		row["columns"][0]["value"] = "Couldn't open external editor '" + editor + "'. File not found.";
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		mErrorList->addElement(row);
+		return;
+	}
+
+	//std::string filepath = gDirUtilp->getExpandedFilename(gDirUtilp->getTempDir(),asset_id.asString());
+	if( mXfname.empty() ) 
+	{
+		std::string asfilename = gDirUtilp->getTempFilename();
+		asfilename.replace( asfilename.length()-4, 12, "_Xed.lsl" );
+		mXfname = asfilename;
+		//mAutosaveFilename = llformat("%s.lsl", asfilename.c_str());		
+	}
+	
+	FILE* fp = LLFile::fopen(mXfname.c_str(), "wb");
+	if(!fp)
+	{
+		llwarns << "Unable to write to " << mXfname << llendl;
+		
+		LLSD row;
+		row["columns"][0]["value"] = "Error writing to temp file. Is your hard drive full?";
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		mErrorList->addElement(row);
+		return;
+	}
+	mEditor->setEnabled(FALSE);
+	std::string utf8text = mEditor->getText();
+	fputs(utf8text.c_str(), fp);
+	fclose(fp);
+	fp = NULL;
+	llinfos << "XEditor: " << mXfname << llendl;
+	//record the stat
+	stat(mXfname.c_str(), &mXstbuf);
+	//launch
+#if LL_WINDOWS
+	//just to get rid of the pesky black window
+	std::string exe = gSavedSettings.getString("LSLExternalEditor");
+	S32 spaces=0;
+	for(S32 i=0; i!=exe.size(); ++i)
+	{
+		spaces+=( exe.at(i)==' ');
+	}
+	if(spaces > 0)
+	{
+		exe = "\""+exe+"\"";
+	}
+	std::string theCMD("%COMSPEC% /c START \"External Editor\" " + exe + " " + mXfname + " & exit");
+	llinfos << "FINAL COMMAND IS :"<<
+		theCMD.c_str() << llendl;	
+
+	std::system(theCMD.c_str());
+#elif LL_DARWIN
+	// Use Launch Services for this - launching another instance is fail (and incorrect on OS X)
+	CFStringRef strPath = CFStringCreateWithCString(kCFAllocatorDefault, mXfname.c_str(), kCFStringEncodingUTF8);
+	CFURLRef tempPath = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, strPath, kCFURLPOSIXPathStyle, false);
+	CFURLRef tempPathArray[1] = { tempPath };
+	CFArrayRef arguments = CFArrayCreate(kCFAllocatorDefault, (const void **)tempPathArray, 1, NULL);
+	LSApplicationParameters appParams;
+	memset(&appParams, 0, sizeof(appParams));
+	FSRef ref;
+	FSPathMakeRef((UInt8*)gSavedSettings.getString("LSLExternalEditor").c_str(), &ref, NULL);
+	appParams.application = &ref;
+	appParams.flags = kLSLaunchAsync | kLSLaunchStartClassic;
+	LSOpenURLsWithRole(arguments, kLSRolesAll, NULL, &appParams, NULL, 0);
+	CFRelease(arguments);
+	CFRelease(tempPath);
+	CFRelease(strPath);
+#else
+	//std::system(std::string(gSavedSettings.getString("LSLExternalEditor") + " " + mXfname).c_str());
+	
+	// Any approach involving std::system will fail because SL eats signals.
+	// This was stolen from floaterskinfinder.cpp.
+	std::string exe = gSavedSettings.getString("LSLExternalEditor");
+	const char *zargv[] = {exe.c_str(), mXfname.c_str(), NULL};
+	fflush(NULL);
+	pid_t id = vfork();
+	if(id == 0)
+	{
+		execv(exe.c_str(), (char **)zargv);
+		_exit(0); // This shouldn't ever be reached.
+	}
+#endif
+}
+
+void LLScriptEdCore::XedUpd()
+{
+	struct stat stbuf;
+	stat(this->mXfname.c_str() , &stbuf);
+	if (this->mXstbuf.st_mtime != stbuf.st_mtime)
+	{
+		this->mErrorList->addCommentText(std::string("Change Detected... Updating"));
+
+		this->mXstbuf = stbuf;
+		LLFILE* file = LLFile::fopen(this->mXfname, "rb");		/*Flawfinder: ignore*/
+	 	if(file)
+	 	{
+			// read in the whole file
+			fseek(file, 0L, SEEK_END);
+			S64 file_length = ftell(file);
+			fseek(file, 0L, SEEK_SET);
+			char* buffer = new char[file_length+1];
+			size_t nread = fread(buffer, 1, file_length, file);
+			if (nread < (size_t) file_length)
+			{
+				llwarns << "Short read" << llendl;
+			}
+			buffer[nread] = '\0';
+			fclose(file);
+			std::string ttext = LLStringExplicit(buffer);
+			LLStringUtil::replaceTabsWithSpaces(ttext, 4);
+			mEditor->setText(ttext);
+			LLScriptEdCore::doSave( this, FALSE );
+			//mEditor->makePristine();
+			delete[] buffer;
+			buffer = NULL;
+		}
+		else
+		{
+			llwarns << "Error opening " << this->mXfname << llendl;
+		}
+	}					 
+}
+//end dim
+void LLScriptEdCore::autoSave()
+{
+	//llinfos << "LLScriptEdCore::autoSave()" << llendl;
+	if(mEditor->isPristine())
+	{
+		return;
+	}
+	//std::string filepath = gDirUtilp->getExpandedFilename(gDirUtilp->getTempDir(),asset_id.asString());
+	if( mAutosaveFilename.empty() ) 
+	{
+		std::string asfilename = gDirUtilp->getTempFilename();
+		asfilename.replace( asfilename.length()-4, 12, "_autosave.lsl" );
+		mAutosaveFilename = asfilename;
+		//mAutosaveFilename = llformat("%s.lsl", asfilename.c_str());		
+	}
+	
+	FILE* fp = LLFile::fopen(mAutosaveFilename.c_str(), "wb");
+	if(!fp)
+	{
+		llwarns << "Unable to write to " << mAutosaveFilename << llendl;
+		
+		LLSD row;
+		row["columns"][0]["value"] = "Error writing to temp file. Is your hard drive full?";
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		mErrorList->addElement(row);
+		return;
+	}
+	
+	std::string utf8text = mEditor->getText();
+	fputs(utf8text.c_str(), fp);
+	fclose(fp);
+	fp = NULL;
+	llinfos << "autosave: " << mAutosaveFilename << llendl;
+}
 
 void LLScriptEdCore::setHelpPage(const std::string& help_string)
 {
@@ -507,6 +725,11 @@ bool LLScriptEdCore::handleSaveChangesDialog(const LLSD& notification, const LLS
 		break;
 
 	case 1:  // "No"
+		if( !mXfname.empty()) 
+		{
+			llinfos << "remove autosave: " << mXfname << llendl;
+			LLFile::remove(mXfname.c_str());
+		}
 		mForceClose = TRUE;
 		// This will close immediately because mForceClose is true, so we won't
 		// infinite loop with these dialogs. JC
@@ -724,6 +947,34 @@ void LLScriptEdCore::onBtnSave(void* data)
 }
 
 // static
+void LLScriptEdCore::onSetExternalEditor(void* data)
+{
+	std::string cur_name(gSavedSettings.getString("LSLExternalEditor"));
+	
+	LLFilePicker& picker = LLFilePicker::instance();
+	if (! picker.getOpenFile(LLFilePicker::FFLOAD_APP) )
+	{
+		return; //Canceled!
+	}
+	std::string file_name = picker.getFirstFile();
+	if (!file_name.empty() && file_name != cur_name)
+	{
+		gSavedSettings.setString("LSLExternalEditor", file_name);
+	} 
+	else 
+	{
+		gSavedSettings.setString("LSLExternalEditor", "");
+	}
+}
+
+//static
+void LLScriptEdCore::onBtnXEd(void* data)
+{
+	LLScriptEdCore* self = (LLScriptEdCore*)data;
+	self->xedLaunch();
+}
+
+// static
 void LLScriptEdCore::onBtnUndoChanges( void* userdata )
 {
 	LLScriptEdCore* self = (LLScriptEdCore*) userdata;
@@ -904,6 +1155,12 @@ BOOL LLScriptEdCore::enableDeselectMenu(void* userdata)
 }
 
 // static
+BOOL LLScriptEdCore::enableExternalEditor(void* userdata)
+{
+	return (gSavedSettings.getString("LSLExternalEditor").length() > 3);
+}
+
+// static
 void LLScriptEdCore::onErrorList(LLUICtrl*, void* user_data)
 {
 	LLScriptEdCore* self = (LLScriptEdCore*)user_data;
@@ -989,6 +1246,11 @@ BOOL LLScriptEdCore::handleKeyHere(KEY key, MASK mask)
 		if(mSaveCallback)
 		{
 			// don't close after saving
+			if (!hasChanged(this))
+			{
+				llinfos << "Save Not Needed" << llendl;
+				return TRUE;
+			}
 			mSaveCallback(mUserdata, FALSE);
 		}
 
@@ -1181,6 +1443,11 @@ void LLPreviewLSL::closeIfNeeded()
 	mPendingUploads--;
 	if (mPendingUploads <= 0 && mCloseAfterSave)
 	{
+		if( !mScriptEd->mXfname.empty()) 
+		{
+			llinfos << "remove autosave: " << mScriptEd->mXfname << llendl;
+			LLFile::remove(mScriptEd->mXfname.c_str());
+		}
 		close();
 	}
 }
@@ -2349,6 +2616,11 @@ void LLLiveLSLEditor::closeIfNeeded()
 	mPendingUploads--;
 	if (mPendingUploads <= 0 && mCloseAfterSave)
 	{
+		if( !mScriptEd->mXfname.empty()) 
+		{
+			llinfos << "remove autosave: " << mScriptEd->mXfname << llendl;
+			LLFile::remove(mScriptEd->mXfname.c_str());
+		}
 		close();
 	}
 }
