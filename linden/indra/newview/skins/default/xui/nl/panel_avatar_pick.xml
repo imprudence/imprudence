@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Favoriet">
+	<button label="Instellen locatie" name="set_location_btn"/>
+	<button label="Teleport" name="pick_teleport_btn"/>
+	<button label="Toon op kaart" name="pick_map_btn"/>
+	<text name="sort_order_text">
+		Sorteren:
+	</text>
+	<check_box label="Ingeschakeld" name="enabled_check"/>
+</panel>

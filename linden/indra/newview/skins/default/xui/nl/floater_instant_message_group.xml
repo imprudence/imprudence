@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(onbekend)" name="im_floater" title="(onbekend)">
+	<string name="ringing">
+		Bezig met deelnemen aan voicechat
+	</string>
+	<string name="connected">
+		Verbonden, klik op Oproep beëindigen om op te hangen
+	</string>
+	<string name="hang_up">
+		Voicechat verlaten
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Welkom bij Help Request *** Controleert u alstublieft eerst onze SL Help Pagina&apos;s door F1 te drukken, of door de kennisbank http://secondlife.com/knowledgebase/ te bezoeken. Wanneer uw antwoord daar niet aanwezig is, voer dan om te beginnen uw vraag in en wacht enige tijd om beschikbare helpers de kans te geven te antwoorden. -=-=- Reactietijden zullen variëren, in het bijzonder gedurende piektijden -=-=-
+	</string>
+	<string name="title_string">
+		Instant Message met [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] is aan het typen...
+	</string>
+	<string name="session_start_string">
+		Sessie met [NAME] wordt gestart, wacht u alstublieft.
+	</string>
+	<string name="moderated_chat_label">
+		(Gemodereerd: Voice staat standaard uit)
+	</string>
+	<string name="default_text_label">
+		Klik hier voor instant message
+	</string>
+	<string name="muted_text_label">
+		Uw tekstchat is door een groepmoderator uitgeschakeld.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Groepsinfo" name="group_info_btn"/>
+			<button label="Deelnemen aan gesprek" name="start_call_btn" width="172"/>
+			<button label="Oproep beëindigen" name="end_call_btn" halign="center" width="172"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klik hier om een lijst met actieve deelnemers in deze IM-sessie te schakelen"/>
+			<button label="Verzenden" name="send_btn" width="72" left="104"/>
+			<line_editor name="chat_editor" width="96" />
+		</layout_panel>
+	</layout_stack>
+</floater>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Evenement">
+	<text name="event_name_label">
+		Naam:
+	</text>
+	<text name="event_name">
+		(none)
+	</text>
+	<text name="event_category_label">
+		Type:
+	</text>
+	<text name="event_category">
+		(none)
+	</text>
+	<text name="event_mature_label">
+		Mature Inhoud:
+	</text>
+	<text name="event_mature_yes">
+		Ja
+	</text>
+	<text name="event_mature_no">
+		Nee
+	</text>
+	<text name="event_date_label">
+		Datum:
+	</text>
+	<text name="event_date">
+		(none)
+	</text>
+	<text name="event_duration_label">
+		Evenementduur:
+	</text>
+	<text name="event_duration">
+		(none)
+	</text>
+	<text name="event_runby_label">
+		Uitgevoerd door:
+	</text>
+	<text name="event_runby">
+		(none)
+	</text>
+	<text name="event_location_label">
+		Locatie:
+	</text>
+	<text name="event_location">
+		(none)
+	</text>
+	<text name="event_cover_label">
+		Kosten:
+	</text>
+	<text name="event_cover">
+		(none)
+	</text>
+	<text name="event_desc_label">
+		Omschrijving:
+	</text>
+	<button label="Teleport" name="teleport_btn"/>
+	<button label="Toon op kaart" name="map_btn"/>
+	<button label="Waarschuwen" name="notify_btn"/>
+	<button label="Maak evenement..." name="create_event_btn"/>
+	<string name="none">
+		geen
+	</string>
+	<string name="notify">
+		Waarschuwen
+	</string>
+	<string name="dont_notify">
+		Niet waarschuwen
+	</string>
+</panel>

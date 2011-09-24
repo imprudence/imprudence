@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Tekst chat" name="chat">
+	<text name="text_box">
+		Chat lettertype grootte:
+	</text>
+	<radio_group name="chat_font_size">
+		<radio_item name="radio">
+			Klein
+		</radio_item>
+		<radio_item name="radio2">
+			Middel
+		</radio_item>
+		<radio_item name="radio3">
+			Groot
+		</radio_item>
+	</radio_group>
+	<text name="text_box2">
+		Chatkleur:
+	</text>
+	<color_swatch label="U" name="user" width="54"/>
+	<color_swatch label="Anderen" name="agent" left_delta="58"/>
+	<color_swatch label="IM" name="im"/>
+	<color_swatch label="Systeem" name="system"/>
+	<color_swatch label="Fouten" name="script_error"/>
+	<color_swatch label="Objecten" name="objects" width="54"/>
+	<color_swatch label="Eigenaar" name="owner" left_delta="58"/>
+	<color_swatch label="Ballon" name="background"/>
+	<color_swatch label="URL&apos;s" name="links"/>
+	<text name="text_box8">
+		Scriptfouten:
+	</text>
+	<check_box label="Toon scriptfouten en -waarschuwingen als reguliere chat" name="script_errors_as_chat"/>
+	<text name="text_box3">
+		Chatconsole:
+	</text>
+	<spinner label="Vervaag chat na" name="fade_chat_time" label_width="85" width="135"/>
+	<text name="text_box4" left="285">
+		(seconden)
+	</text>
+	<spinner left="350" name="max_chat_count"/>
+	<text name="text_box5" left="412">
+		(regels)
+	</text>
+	<slider label="Opaakheid" name="console_opacity"/>
+	<check_box label="Gebruik volledige schermbreedte (herstart vereist)" name="chat_full_width_check"/>
+	<text name="text_box6">
+		Chatopties:
+	</text>
+	<check_box label="Sluit de chatbalk na het indrukken van Return" name="close_chat_on_return_check"/>
+	<check_box label="Pijltjestoetsen verplaatsen avatar altijd tijdens chat" name="arrow_keys_move_avatar_check"/>
+	<check_box label="Toon tijdstempels in lokale chat" name="show_timestamps_check"/>
+	<check_box label="Speel typeanimatie tijdens chat" name="play_typing_animation"/>
+	<text name="text_box7">
+		Ballonchat:
+	</text>
+	<check_box label="Toon chatballonnen" name="bubble_text_chat"/>
+	<slider label="Opaakheid" name="bubble_chat_opacity"/>
+</panel>

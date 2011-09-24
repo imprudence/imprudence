@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Animation Preview" title="">
+	<text name="name_label">
+		Naam:
+	</text>
+	<text name="description_label">
+		Omschrijving:
+	</text>
+	<spinner label="Prioriteit" name="priority" tool_tip="Bepaalt welke andere animaties kunnen worden overschaduwd door deze animatie."/>
+	<check_box label="Herhalen" name="loop_check" tool_tip="Laat deze animatie herhalen."/>
+	<spinner label="In(%)" name="loop_in_point" tool_tip="Instellen punt in de animatie waar de herhaling begint."/>
+	<spinner label="Uit(%)" name="loop_out_point" tool_tip="Instellen punt in in de animatie waar de herhaling eindigt."/>
+	<text name="hand_label">
+		Houding van Hand
+	</text>
+	<combo_box label="" left_delta="100" width="176" name="hand_pose_combo" tool_tip="Bepaalt wat handen doen tijdens een animatie." left="300">
+		<combo_item name="Spread">
+			Gespreid
+		</combo_item>
+		<combo_item name="Relaxed">
+			Ontspannen
+		</combo_item>
+		<combo_item name="PointBoth">
+			Wijzen Beide
+		</combo_item>
+		<combo_item name="Fist">
+			Vuist
+		</combo_item>
+		<combo_item name="RelaxedLeft">
+			Ontspannen Links
+		</combo_item>
+		<combo_item name="PointLeft">
+			Wijzen Links
+		</combo_item>
+		<combo_item name="FistLeft">
+			Vuist Links
+		</combo_item>
+		<combo_item name="RelaxedRight">
+			Ontspannen Rechts
+		</combo_item>
+		<combo_item name="PointRight">
+			Wijzen Rechts
+		</combo_item>
+		<combo_item name="FistRight">
+			Vuist Rechts
+		</combo_item>
+		<combo_item name="SaluteRight">
+			Salueren Rechts
+		</combo_item>
+		<combo_item name="Typing">
+			Typen
+		</combo_item>
+		<combo_item name="PeaceRight">
+			Peace Rechts
+		</combo_item>
+	</combo_box>
+	<text name="emote_label">
+		Expressie
+	</text>
+	<combo_box label="" left_delta="100" width="176" name="emote_combo" tool_tip="Bepaalt wat het gezicht doet tijdens de animatie.">
+		<combo_item name="[None]">
+			[Geen]
+		</combo_item>
+		<combo_item name="Aaaaah">
+			Aaaaah
+		</combo_item>
+		<combo_item name="Afraid">
+			Bang
+		</combo_item>
+		<combo_item name="Angry">
+			Boos
+		</combo_item>
+		<combo_item name="BigSmile">
+			Brede Lach
+		</combo_item>
+		<combo_item name="Bored">
+			Verveeld
+		</combo_item>
+		<combo_item name="Cry">
+			Huilen
+		</combo_item>
+		<combo_item name="Disdain">
+			Minachting
+		</combo_item>
+		<combo_item name="Embarrassed">
+			Beschaamd
+		</combo_item>
+		<combo_item name="Frown">
+			Frons
+		</combo_item>
+		<combo_item name="Kiss">
+			Kus
+		</combo_item>
+		<combo_item name="Laugh">
+			Lachen
+		</combo_item>
+		<combo_item name="Plllppt">
+			Plllppt
+		</combo_item>
+		<combo_item name="Repulsed">
+			Afkeer
+		</combo_item>
+		<combo_item name="Sad">
+			Verdrietig
+		</combo_item>
+		<combo_item name="Shrug">
+			Onverschillig
+		</combo_item>
+		<combo_item name="Smile">
+			Glimlach
+		</combo_item>
+		<combo_item name="Surprise">
+			Verrassing
+		</combo_item>
+		<combo_item name="Wink">
+			Knipoog
+		</combo_item>
+		<combo_item name="Worry">
+			Bezorgd
+		</combo_item>
+	</combo_box>
+	<text name="preview_label">
+		Voorvertoning
+	</text>
+	<combo_box label="" left_delta="100" width="176" name="preview_base_anim" tool_tip="Gebruik dit om het gedrag van uw animatie te testen terwijl uw avatar veelvoorkomende acties uitvoert.">
+		<combo_item name="Standing">
+			Staand
+		</combo_item>
+		<combo_item name="Walking">
+			Lopend
+		</combo_item>
+		<combo_item name="Sitting">
+			Zittend
+		</combo_item>
+		<combo_item name="Flying">
+			Vliegend
+		</combo_item>
+	</combo_box>
+	<spinner label="Invloeitijd (sec)" label_width="125" name="ease_in_time" tool_tip="Hoeveelheid tijd (in seconden) waarover animaties invloeien." width="192"/>
+	<spinner bottom_delta="-20" label="Uitvloeitijd (sec)" label_width="125" left="10" name="ease_out_time" tool_tip="Hoeveelheid tijd (in seconden) waarover animaties uitvloeien." width="192"/>
+	<button bottom_delta="-32" label="" name="play_btn" tool_tip="Start/pauzeer uw animatie."/>
+	<button label="" name="stop_btn" tool_tip="Stop het afspelen van Uw animatie"/>
+	<text name="bad_animation_text">
+		Niet in staat om het animatiebestand te lezen. Wij 
+raden u aan bestanden te gebruiken die vanuit
+Poser 4 zijn geëxporteerd.
+	</text>
+	<button label="Annuleren" name="cancel_btn"/>
+	<button label="Upload (L$[AMOUNT])" name="ok_btn" width="140" left_delta="-155"/>
+	<string name="failed_to_initialize">
+		Het initialiseren van de beweging is mislukt.
+	</string>
+	<string name="anim_too_long">
+		het animatiebestand heeft een lengte van [LENGTH] seconden. De maximale lengte van een animatie is [MAX_LENGTH] seconden.
+	</string>
+	<string name="failed_file_read">
+		Kan animatiebestand niet lezen. [STATUS]
+	</string>
+</floater>

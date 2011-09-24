@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Gebruik de opties hieronder om uw voicechat ervaring te configureren.
+	</text_editor>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Hoor voicechat vanuit de camerapositie
+		</radio_item>
+		<radio_item name="1">
+			Hoor voicechat vanuit de avatarpositie
+		</radio_item>
+	</radio_group>
+	<check_box label="Alleen vrienden toestaan om een voicegesprek met mij te beginnen" name="friends_only_check"/>
+	<check_box label="Gebruik Indrukken-om-te-Spreken in tokkel modus" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		Microfoon Trigger
+	</text>
+	<button label="Toets instellen" name="set_voice_hotkey_button"/>
+	<button label="Middelste muisknop" name="set_voice_middlemouse_button"/>
+</panel>

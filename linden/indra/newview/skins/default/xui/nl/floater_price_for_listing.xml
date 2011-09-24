@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Publiceer advertentie">
+	<text name="explanation_text">
+		Uw advertentie zal een week actief blijven na de 
+datum van publicatie.
+
+De positie van uw advertentie in de advertentielijst 
+wordt bepaald op basis van de hoeveelheid geld die 
+u wilt betalen.  De advertenties waarvoor het meest 
+is betaald gaan naar de bovenkant van de lijst en 
+verschijnen hoger in zoekresultaten.
+	</text>
+	<text name="price_text" width="146" bottom="44">
+		Prijs voor advertentie (L$):
+	</text>
+	<line_editor left="166" name="price_edit" />
+	<button label="Annuleren" name="cancel_btn"/>
+	<button label="Prijs instellen" name="set_price_btn"/>
+</floater>

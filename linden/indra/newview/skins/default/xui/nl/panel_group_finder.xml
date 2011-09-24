@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfoFinder" title="GroupInfoFinder">
+	<text name="default_needs_apply_text">
+		Er zijn niet toegepaste wijzigingen op het huidige tabblad.
+	</text>
+	<text name="want_apply_text">
+		Wilt u deze wijzigingen toepassen?
+	</text>
+</panel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Netwerk" name="network">
+	<text name="text_box">
+		Maximale bandbreedte:
+	</text>
+	<text name="text_box2">
+		kbps (kilobits per seconde)
+	</text>
+	<text name="cache_size_label_l">
+		Diskcache grootte:
+	</text>
+	<text name="text_box5">
+		MB
+	</text>
+	<button label="Cache leegmaken" name="clear_cache" width="130"/>
+	<text name="cache_location_label">
+		Diskcache locatie:
+	</text>
+	<button label="Instellen" label_selected="Instellen" name="set_cache"/>
+	<button label="Opnieuw instellen" label_selected="Instellen" name="reset_cache" width="130"/>
+	<check_box label="Aangepaste poortverbinding" name="connection_port_enabled"/>
+	<spinner label="Poortnummer:" name="connection_port"/>
+</panel>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_notecard">
+	<text_editor name="Notecard Editor">
+		Laden...
+	</text_editor>
+	<text name="desc txt">
+		Omschrijving:
+	</text>
+	<button label="Behouden" label_selected="Behouden" name="Keep"/>
+	<button label="Negeren" label_selected="Negeren" name="Discard"/>
+	<string name="no_object">
+		Kan het object dat deze notitie bevat niet vinden.:
+	</string>
+	<string name="not_allowed">
+		U heeft geen toestemming om deze notitie te bekijken.
+	</string>
+</floater>

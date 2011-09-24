@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(onbekend)" name="im_floater" title="(onbekend)">
+	<string name="ringing">
+		Oproepen…
+	</string>
+	<string name="answering">
+		Verbinden…
+	</string>
+	<string name="connected">
+		Verbonden, klik op Oproep Beëindigen om op te hangen
+	</string>
+	<string name="hang_up">
+		Oproep beëindigd
+	</string>
+	<string name="inventory_item_offered">
+		Inventaris item aangeboden
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Instant Message met [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] typt...
+	</string>
+	<string name="session_start_string">
+		Start een sessie met [NAAM], wacht u alstublieft.
+	</string>
+	<string name="default_text_label">
+		Klik hier om een instant message te sturen
+	</string>
+	<string name="unavailable_text_label">
+		Tekstchat is niet beschikbaar voor deze oproep.
+	</string>
+	<button label="Profiel…" name="profile_callee_btn"/>
+	<button label="Oproepen" name="start_call_btn"/>
+	<button label="Oproep Beëindigen" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Voice dempen"/>
+	</panel>
+	<line_editor label="Klik hier om een instant message te sturen" name="chat_editor" width="420"/>
+	<button label="Versturen" name="send_btn" width="66" left="428"/>
+	<string name="live_help_dialog">
+		*** Welkom bij Help Request *** Controleert u alstublieft eerst onze SL Help Pagina&apos;s door F1 te drukken, of door de kennisbank http://secondlife.com/knowledgebase/ te bezoeken. Wanneer uw antwoord daar niet aanwezig is, voer dan om te beginnen uw vraag in en wacht enige tijd om beschikbare helpers de kans te geven te antwoorden. -=-=- Reactietijden zullen variëren, in het bijzonder gedurende piektijden -=-=-
+	</string>
+</floater>

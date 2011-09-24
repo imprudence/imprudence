@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call label="Profiel..." name="Profile..."/>
+	<menu_item_call label="Negeer" name="Avatar Mute"/>
+	<menu_item_call label="Ga naar" name="Go To"/>
+	<menu_item_call label="Rapporteren..." name="abuse"/>
+	<menu_item_call label="Vriend toevoegen" name="Add Friend"/>
+	<menu_item_call label="Betaal..." name="Pay..."/>
+	<pie_menu label="Meer &gt;" name="More &gt;">
+		<menu_item_call label="Bevriezen..." name="Freeze..."/>
+		<menu_item_call label="Geef kaartje" name="Give Card"/>
+		<menu_item_call label="Groepsuitnodiging..." name="Invite..."/>
+		<menu_item_call label="Uitwerpen..." name="Eject..."/>
+		<menu_item_call label="Debug..." name="Debug..."/>
+		<menu_item_call label="Inspecteren" name="Object Inspect"/>
+	</pie_menu>
+	<menu_item_call label="Verzend IM" name="Send IM..."/>
+</pie_menu>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Objectinformatie">
+	<text name="LabelItemNameTitle">
+		Object:
+	</text>
+	<text name="LabelSlurlTitle">
+		Locatie:
+	</text>
+	<text name="Unknown_Slurl" width="220">
+		(Locatie informatie niet beschikbaar)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Eigenaar:
+	</text>
+	<button label="Negeer eigenaar" label_selected="Negeer eigenaar" name="Mute"/>
+</floater>

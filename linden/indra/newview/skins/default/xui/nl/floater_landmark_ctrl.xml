@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="landmarkpicker" title="Organiseren: Landmarkeringen">
+	<check_box label="Toon mappen" name="show_folders_check"/>
+	<button label="Nieuw" label_selected="Nieuw" name="New"/>
+	<button label="Hernoemen" label_selected="Hernoemen" name="Rename"/>
+	<button label="Nieuwe map" label_selected="Nieuwe map" name="NewFolder"/>
+	<button label="Bewerken" label_selected="Bewerken" name="Edit"/>
+	<button label="Verwijderen" label_selected="Verwijderen" name="Delete"/>
+	<button label="Sluiten" label_selected="Sluiten" name="Close"/>
+</floater>

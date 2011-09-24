@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Algemeen" name="general_panel">
+	<radio_group name="default_start_location">
+		<radio_item name="MyHome" tool_tip="Log standaard in op mijn thuislocatie.">
+			Mijn thuis
+		</radio_item>
+		<radio_item name="MyLastLocation" tool_tip="Log standaard in op mijn laatste locatie.">
+			Mijn laatste locatie
+		</radio_item>
+	</radio_group>
+	<check_box label="Toon startlocatie op loginscherm" name="show_location_checkbox"/>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Nooit
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Toon tijdelijk
+		</combo_item>
+		<combo_item name="Always">
+			Altijd
+		</combo_item>
+	</combo_box>
+	<check_box label="Kleine avatarnamen" name="small_avatar_names_checkbox"/>
+	<check_box label="Verberg mijn naam op mijn scherm" name="show_my_name_checkbox"/>
+	<text name="group_titles_textbox">
+		Groepstitels:
+	</text>
+	<check_box label="Verberg alle groepstitels" name="show_all_title_checkbox"/>
+	<check_box label="Verberg mijn groepstitel" name="show_my_title_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="Klik om de kleurkiezer te openen"/>
+	<text name="UI Size:">
+		UI grootte:
+	</text>
+	<check_box label="Gebruik resolutie onafhankelijke schaal" name="ui_auto_scale"/>
+	<spinner label="Afwezigheidtijdsduur:" name="afk_timeout_spinner"/>
+	<check_box label="Waarschuwen wanneer L$ worden uitgegeven of ontvangen" name="notify_money_change_checkbox"/>
+	<text name="maturity_desired_label" bottom="-312">
+		Inhoudscategorie:
+	</text>
+	<text name="maturity_desired_prompt" bottom="-312">
+		Ik wil toegang tot inhoud
+die is beoordeeld als:
+	</text>
+	<combo_box name="maturity_desired_combobox" bottom="-330" left="290">
+		<combo_item name="Desired_Adult">
+			PG, Mature en Adult
+		</combo_item>
+		<combo_item name="Desired_Mature">
+			PG en Mature
+		</combo_item>
+		<combo_item name="Desired_PG">
+			alleen PG
+		</combo_item>
+	</combo_box>
+	<text name="maturity_desired_textbox" bottom="-324" left="290">
+		alleen PG
+	</text>
+	<text name="start_location_textbox">
+		Startlocatie:
+	</text>
+	<text name="show_names_textbox">
+		Toon namen:
+	</text>
+	<text name="effects_color_textbox">
+		Kleur voor mijn effecten:
+	</text>
+	<text name="seconds_textbox">
+		seconden
+	</text>
+	<text name="crash_report_textbox">
+		Crash rapporten:
+	</text>
+	<text name="language_textbox">
+		Taal:
+	</text>
+	<text name="language_textbox2">
+		(Vereist herstart)
+	</text>
+	<string name="region_name_prompt">
+		&lt; Type regionaam &gt;
+	</string>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item name="Askbeforesending">
+			Vraag voor verzenden
+		</combo_item>
+		<combo_item name="Alwayssend">
+			Altijd verzenden
+		</combo_item>
+		<combo_item name="Neversend">
+			Nooit verzenden
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item name="System Default Language">
+			Systeemstandaard
+		</combo_item>
+		<combo_item name="English">
+			Engels (English)
+		</combo_item>
+		<combo_item name="Danish">
+			Dansk (Deens) - Bèta
+		</combo_item>
+		<combo_item name="Deutsch(German)">
+			Deutsch (Duits) - Bèta
+		</combo_item>
+		<combo_item name="Spanish">
+			Español (Spaans) - Bèta
+		</combo_item>
+		<combo_item name="French">
+			Français (Frans) - Bèta
+		</combo_item>
+		<combo_item name="Italian">
+			Italiano (Italiaans) - Bèta
+		</combo_item>
+		<combo_item name="Hungarian">
+			Magyar (Hongaars) - Bèta
+		</combo_item>
+		<combo_item name="Dutch">
+			Nederlands - Bèta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski (Pools) - Bèta
+		</combo_item>
+		<combo_item name="Portugese">
+			Portugués (Portugees) - Bèta
+		</combo_item>
+		<combo_item name="Russian">
+			Русский (Russisch) - Bèta
+		</combo_item>
+		<combo_item name="Turkish">
+			Türkçe (Turks) - Bèta
+		</combo_item>
+		<combo_item name="Ukrainian">
+			Українська (Oekraïens) - Bèta
+		</combo_item>
+		<combo_item name="Chinese">
+			中文 (简体) (Chinees) - Bèta
+		</combo_item>
+		<combo_item name="(Japanese)">
+			日本語 (Japans) - Bèta
+		</combo_item>
+		<combo_item name="(Korean)">
+			한국어 (Koreaans) - Bèta
+		</combo_item>
+	</combo_box>
+	<check_box label="Deel taal met objecten" name="language_is_public" tool_tip="Dit laat in-wereld objecten uw voorkeurstaal weten."/>
+</panel>

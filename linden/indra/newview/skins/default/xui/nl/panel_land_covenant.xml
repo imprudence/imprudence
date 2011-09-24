@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" title="Convenant">
+	<text name="region_name_lbl">
+		Regio:
+	</text>
+	<text name="region_name_text">
+		(onbekend)
+	</text>
+	<text name="estate_name_lbl">
+		Estate:
+	</text>
+	<text name="estate_name_text">
+		(onbekend)
+	</text>
+	<text name="estate_owner_lbl">
+		Estate eigenaar:
+	</text>
+	<text name="estate_owner_text">
+		(onbekend)
+	</text>
+	<text name="resellable_clause">
+		Land dat in deze regio is gekocht mag wel of niet worden doorverkocht.
+	</text>
+	<text name="changeable_clause">
+		Land dat in deze regio is gekocht mag wel of niet worden samengevoegd of opgedeeld.
+	</text>
+	<string name="can_resell">
+		Land dat in deze regio is gekocht mag worden doorverkocht.
+	</string>
+	<string name="can_not_resell">
+		Land dat in deze regio is gekocht mag niet worden doorverkocht.
+	</string>
+	<string name="can_change">
+		Land dat in deze regio is gekocht mag worden samengevoegd of opgedeeld.
+	</string>
+	<string name="can_not_change">
+		Land dat in deze regio is gekocht mag niet worden samengevoegd of opgedeeld.
+	</string>
+</panel>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script panel">
+	<text_editor name="Script Editor">
+		Laden…
+	</text_editor>
+	<button label="Opslaan" label_selected="Opslaan" name="Save_btn"/>
+	<combo_box label="Invoegen…" name="Insert..."/>
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call label="Opslaan" name="Save"/>
+			<menu_item_call label="Herstel alle wijzigingen" name="Revert All Changes"/>
+		</menu>
+		<menu name="Edit">
+			<menu_item_call label="Ongedaan maken" name="Undo"/>
+			<menu_item_call label="Herhalen" name="Redo"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Knippen" name="Cut"/>
+			<menu_item_call label="Kopiëren" name="Copy"/>
+			<menu_item_call label="Plakken" name="Paste"/>
+			<menu_item_separator label="-----------" name="separator2"/>
+			<menu_item_call label="Selecteer alles" name="Select All"/>
+			<menu_item_call label="Deselecteren" name="Deselect"/>
+			<menu_item_separator label="-----------" name="separator3"/>
+			<menu_item_call label="Zoeken / Vervangen…" name="Search / Replace..."/>
+		</menu>
+		<menu name="Help">
+			<menu_item_call label="Help..." name="Help..."/>
+			<menu_item_call label="LSL Wiki Help..." name="LSL Wiki Help..."/>
+		</menu>
+	</menu_bar>
+	<string name="loading">
+		Laden…
+	</string>
+	<string name="can_not_view">
+		U heeft geen toestemming om dit script te bekijken
+	</string>
+	<string name="public_objects_can_not_run">
+		Openbare objecten kunnen geen scripts uitvoeren
+	</string>
+	<string name="script_running">
+		Wordt uitgevoerd
+	</string>
+</panel>

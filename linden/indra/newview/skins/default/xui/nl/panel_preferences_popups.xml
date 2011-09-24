@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Pop-ups" name="popups" title="Pop-ups">
+	<text name="dont_show_label">
+		Laat de volgende pop-ups niet zien:
+	</text>
+	<button label="Schakel deze pop-up in" name="enable_popup"/>
+	<button width="200" label="Schakel alle pop-ups in..." name="reset_dialogs_btn" tool_tip="Schakel alle optionele pop-ups en &apos;eerste keer gebruikt&apos; berichten in."/>
+	<text name="show_label">
+		Toon deze pop-ups:
+	</text>
+	<button width="200" label="Schakel al deze pop-ups uit..." name="skip_dialogs_btn" tool_tip="Schakel alle optionele pop-ups en &apos;eerste keer gebruikt&apos; berichten uit."/>
+	<text name="text_box2" width="320">
+		Aanbiedingen van notitiekaarten, texturen en landmarkeringen:
+	</text>
+	<check_box label="Automatisch accepteren" name="accept_new_inventory"/>
+	<check_box label="Automatisch bekijken na accepteren" name="show_new_inventory"/>
+	<check_box label="Automatisch nieuwe, geaccepteerde objecten in inventaris tonen" name="show_in_inventory"/>
+</panel>

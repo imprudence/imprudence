@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_controls">
+	<icon label="" name="music_icon" tool_tip="Afspelen/pauzeren streaming muziek"/>
+	<button label="" name="music_play" tool_tip="Afspelen/pauzeren streaming muziek"/>
+	<button label="" name="music_pause" tool_tip="Pauzeer streaming muziek"/>
+	<button label="" name="music_stop" tool_tip="Stop streaming muziek"/>
+	<icon label="" name="media_icon" tool_tip="Afspelen/pauzeren streaming muziek"/>
+	<button label="" name="media_play" tool_tip="Afspelen/pauzeren streaming muziek"/>
+	<button label="" name="media_pause" tool_tip="Pauzeer streaming media"/>
+	<button label="" name="media_stop" tool_tip="Stop streaming media"/>
+	<volume_slider name="volume_slider" tool_tip="Hoofdvolume"/>
+	<button label="" name="mute_master" tool_tip="Hoofddemping"/>
+	<button label="" name="expand" tool_tip="Individuele volumeniveaus aanpassen"/>
+	<string name="play_label">
+		Afspelen
+	</string>
+	<string name="stop_label">
+		Stop
+	</string>
+	<string name="pause_label">
+		Pauzeren
+	</string>
+	<string name="default_tooltip_label">
+		Geen media opgegeven
+	</string>
+	<string name="media_hidden_label">
+		(URL verborgen door perceeleigenaar)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Deze locatie toont inhoud van het wereldwijde web. Klik de Afspelen knop om de webinhoud te tonen.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Deze locatie toont video-inhoud. Klik de Afspelen knop om de video af te spelen.
+	</string>
+	<string name="media_play_tooltip">
+		Toon webcontent op deze locatie.
+	</string>
+</panel>

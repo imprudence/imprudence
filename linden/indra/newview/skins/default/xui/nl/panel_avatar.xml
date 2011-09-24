@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar" width="475">
+	<tab_container name="tab" width="464">
+		<panel label="2nd Life" name="2nd Life" width="458">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Inwoner
+			</string>
+			<string name="AcctTypeTrial">
+				Proef
+			</string>
+			<string name="AcctTypeCharterMember">
+				Charter lid
+			</string>
+			<string name="AcctTypeEmployee">
+				Linden Lab werknemer
+			</string>
+			<string name="PaymentInfoUsed">
+				Betalingsinformatie gebruikt
+			</string>
+			<string name="PaymentInfoOnFile">
+				Betalingsinformatie aanwezig
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Geen betalingsinfo aanwezig
+			</string>
+			<string name="AgeVerified">
+				Leeftijd geverifieerd
+			</string>
+			<string name="NotAgeVerified">
+				Leeftijd niet geverifieerd
+			</string>
+			<text name="Name:">
+				Naam:
+			</text>
+			<text name="online_yes" width="151">
+				Momenteel online
+			</text>
+			<text name="label">
+				Geboren
+			</text>
+			<line_editor name="born" width="161" />
+			<text name="label2">
+				Account:
+			</text>
+			<view_border name="acct_border" width="161" />
+			<text name="acct" width="161" />
+			<text name="partner_label" tool_tip="Second Life partner. Voor meer informatie over het instellen, zie www.secondlife.com/partner">
+				Partner:
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Klik om het profiel van de partner te openen"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Second Life partner. Voor meer informatie over het instellen, zie www.secondlife.com/partner" width="161">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Klik om een afbeelding te kiezen"/>
+			<text name="Groups:">
+				Groepen:
+			</text>
+			<scroll_list name="groups" width="361" />
+			<text name="About:">
+				Over:
+			</text>
+			<text name="(500 chars)">
+				(500 
+karakters)
+			</text>
+			<text_editor name="about" width="361"/>
+			<text name="Give item:">
+				Geef item:
+			</text>
+			<view_border name="drop_target_rect" width="449" />
+			<view_border name="drop_target_rect_vis" width="361" />
+			<text name="Give inventory" tool_tip="Deponeer inventarisitems hier om ze aan deze persoon te geven." width="361">
+				Deponeer inventarisitems hier.
+			</text>
+			<check_box label="Toon in zoeken" name="allow_publish" tool_tip="Publiceer extra profielinformatie zoals omschrijving en afbeelding in Zoeken"/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Vind op kaart" label_selected="Vind op kaart" name="Find on Map"/>
+			<button label="Bied teleport aan…" label_selected="Bied teleport aan…" name="Offer Teleport..." left_delta="117"/>
+			<button label="Vriend toevoegen" label_selected="Vriend toevoegen" name="Add Friend..." left_delta="157"/>
+			<button label="Betaal…" label_selected="Betaal…" name="Pay..."/>
+			<button label="Instant Message..." label_selected="Instant Message..." name="Instant Message..." tool_tip="Instant Message (IM)" left_delta="117"/>
+			<button label="Negeer" label_selected="Negeer" name="Mute" left_delta="157"/>
+		</panel>
+		<panel label="Web" name="WebProfile" width="458">
+		  <line_editor name="url_edit" width="440" />
+			<flyout_button label="Laden" label_selected="Laden" name="load" tool_tip="Laad deze profielpagina met geïntegreerde webbrowser.">
+				<flyout_button_item name="open_item">
+					In externe browser
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					Thuis URL
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Automatisch profiel webpagina&apos;s laden." name="auto_load" tool_tip="Automatisch ALLE profiel webpagina&apos;s laden zonder eerst te vragen."/>
+			<web_browser name="profile_html" width="440" />
+		</panel>
+		<panel label="Interesses" name="Interests" width="458">
+			<text name="I Want To:">
+				Ik wil:
+			</text>
+			<check_box label="Bouwen" name="chk0" left_delta="80"/>
+			<check_box label="Verkennen" name="chk1"/>
+			<check_box label="Ontmoeten" name="chk2"/>
+			<check_box label="Ingehuurd worden" name="chk6"/>
+			<check_box label="Groeperen" name="chk3"/>
+			<check_box label="Kopen" name="chk4"/>
+			<check_box label="Verkopen" name="chk5"/>
+			<check_box label="Inhuren" name="chk7"/>
+			<line_editor name="want_to_edit" left="86" width="360" />
+			<text name="Skills:" width="76">
+				Vaardigheden:
+			</text>
+			<check_box label="Texturen" name="schk0" left_delta="80"/>
+			<check_box label="Architectuur" name="schk1"/>
+			<check_box label="Evenementen organiseren" name="schk2"/>
+			<check_box label="Model zijn" name="schk3"/>
+			<check_box label="Scripten" name="schk4"/>
+			<check_box label="Aangepaste karakters" name="schk5"/>
+			<line_editor name="skills_edit" left="86" width="360" />
+			<text name="Languages:">
+				Talen:
+			</text>
+			<line_editor name="languages_edit" left="86" width="360" />
+		</panel>
+		<panel label="Favorieten" name="Picks" width="458">
+			<tab_container name="picks tab" width="452" />
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Vertel iedereen over uw favoriete plaatsen in Second Life
+			</text>
+			<button label="Nieuw…" label_selected="Nieuw…" name="New..."/>
+			<button label="Verwijderen…" label_selected="Verwijderen…" name="Delete..." width="100"/>
+			<text name="loading_text">
+				Laden…
+			</text>
+		</panel>
+		<panel label="Advertentie" name="Classified" width="458">
+			<tab_container name="classified tab" width="452" />
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Plaats een advertentie in de advertentielijst van Second Life.
+			</text>
+			<button label="Nieuw…" label_selected="Nieuw…" name="New..."/>
+			<button label="Verwijderen…" label_selected="Verwijderen…" name="Delete..." width="100"/>
+			<text name="loading_text">
+				Laden…
+			</text>
+		</panel>
+		<panel label="1e Leven" name="1st Life" width="458">
+			<text_editor name="about" width="370" />
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Klik om een afbeelding te kiezen"/>
+			<text name="Info:">
+				Info:
+			</text>
+			<text name="(250 chars)" halign="left" left="7">
+				(250
+karakters)
+			</text>
+		</panel>
+		<panel label="Mijn notities" name="My Notes" width="458">
+			<text_editor name="notes edit" width="430"/>
+			<string name="Loading">
+				Laden…
+			</string>
+			<text name="label" width="452">
+				Gebruik deze ruimte om notities over deze persoon (indien niet uw eigen profiel) of
+voor u zelf vast te leggen. Houd informatie bij over onderhanden zijnde transacties,
+gedeelde projecten, enz. Alleen u kunt deze informatie inzien. Voor eigenaar van 
+iemand anders zijn of haar profiel is deze informatie niet zichtbaar!
+			</text>
+			<text_editor bottom_delta="-280" height="256" name="notes edit" />
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annuleren" label_selected="Annuleren" name="Cancel"/>
+	<button label="Verwijderen" label_selected="Verwijderen" name="Kick" font="SansSerifSmall" />
+	<button label="Bevriezen" label_selected="Bevriezen" name="Freeze" tool_tip="Stop de beweging en chat van deze inwoner."/>
+	<button label="Bevriezen opheffen" label_selected="Bevriezen opheffen" name="Unfreeze" tool_tip="Inwoner ontdooien"/>
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Open customer service tool voor deze inwoner"/>
+	<string name="ShowOnMapNonFriend">
+		Toon locatie op de kaart. Uitgeschakeld omdat u nog geen vriendschap heeft gesloten met deze persoon.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Toon locatie op de kaart. Uitgeschakeld omdat deze persoon niet online is.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Toon locatie op de kaart. Uitgeschakeld omdat deze persoon niet online is.
+	</string>
+	<string name="TeleportGod">
+		Forceer een teleport naar uw locatie
+	</string>
+	<string name="TeleportPrelude">
+		Bied een teleport naar uw locatie aan. Uitgeschakeld tot u Orientation Island verlaat.
+	</string>
+	<string name="TeleportNormal">
+		Bied een teleport naar uw locatie aan.
+	</string>
+	<string name="Loading">
+		Laden…
+	</string>
+</panel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Welkom bij Second Life Voice Chat! Voice chat maakt het mogelijk dat u tegen andere inwoners spreekt. Deze wizard zal u door de benodigde stappen leiden om voice chat in te stellen. Om voice chat te gebruiken heeft u luidsprekers nodig, en als u wilt spreken met anderen heeft u een microfoon of een stereohoofdtelefoon met microfoon nodig.
+	</text_editor>
+	<text_editor name="voice_intro_text2">
+		Voice chat is standaard ingeschakeld. Wilt u doorgaan met het gebruiken van voice chat?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item name="1">
+			Ja, doorgaan met het gebruik van voicechat
+		</radio_item>
+		<radio_item name="0">
+			Nee, voicechat uitschakelen
+		</radio_item>
+	</radio_group>
+	<text_editor name="voice_intro_text3">
+		U kunt voice chat op elk moment inschakelen door naar het voice chat tabblad te gaan in voorkeuren.
+	</text_editor>
+	<text_editor name="voice_intro_text4">
+		Klik de Volgende knop om voicechat voorkeuren te configureren of Beëindigen om door te gaan met Second Life.
+	</text_editor>
+</panel>

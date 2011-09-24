@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Voice chat" name="chat">
+	<text_editor name="voice_unavailable">
+		Voice chat is niet beschikbaar
+	</text_editor>
+	<check_box label="Voicechat inschakelen" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Hoor Voice Chat vanuit camera positie
+		</radio_item>
+		<radio_item name="1">
+			Hoor Voice Chat vanuit avatar positie
+		</radio_item>
+	</radio_group>
+	<text name="push_to_talk_heading">
+		Indrukken om te spreken
+	</text>
+	<text_editor name="voice_chat_description">
+		Indrukken-om-te-spreken modus laat u bepalen wanneer uw stem wordt verstuurd. Wanneer u in tokkelmodus bent, dient u de indrukken-om-te-spreken trigger te bedienen om uw microfoon in en uit te schakelen. Wanneer u niet in tokkelmodus bent, is de microfoon alleen actief wanneer de trigger ingedrukt gehouden wordt.
+	</text_editor>
+	<check_box label="Gebruik Indrukken-om-te-Spreken in tokkel modus" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		Microfoon trigger:
+	</text>
+	<button label="Toets instellen" name="set_voice_hotkey_button"/>
+	<button label="Middelste muisknop" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Privacy opties
+	</text>
+	<check_box label="Accepteer alleen oproepen van mensen in mijn vriendenlijst" name="voice_call_friends_only_check"/>
+	<check_box label="Schakel microfoon uit wanneer IM gesprekken beëindigd worden" name="auto_disengage_mic_check"/>
+	<button label="Apparaat instellingen" name="device_settings_btn"/>
+	<text_editor bottom_delta="-45" height="48" name="device_settings_text">
+		LET OP: Het uitvoeren van de apparaat instellingen zal uw verbinding met voice chat tijdelijk verbreken en wijzigingen die u maakt zullen direct worden doorgevoerd.
+	</text_editor>
+</panel>

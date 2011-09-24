@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel min_width="410" name="main_panel" width="410">
+			<layout_stack name="chatbar_and_buttons" right="410">
+				<layout_panel name="padding" width="410"/>
+				<layout_panel name="state_buttons" width="410">
+					<button label="IM ontvangen" label_selected="IM ontvangen" name="IM Received" tool_tip="Er wacht een instant message. Klik om IM&apos;s te tonen."/>
+					<button label="Niet-bezet instellen" label_selected="Niet-bezet instellen" name="Set Not Busy" tool_tip="Chat en IM is voor u verborgen. Klik hier om Niet Storen uit te zetten." left="106" width="130" font="SansSerifSmall"/>
+					<button label="Vliegcamera" label_selected="Vliegcamera" name="Flycam" tool_tip="Uw camera is onder besturing van de joystick, klik hier om deze los te laten." left="240"/>
+					<button label="Mouselook" label_selected="Mouselook" name="Mouselook" tool_tip="Gebruik de muis om uw weergave te sturen. Wanneer u een geweer heeft, zal klikken schieten."/>
+					<button label="Sta op" label_selected="Sta op" name="Stand Up" tool_tip="Klik hier om op te staan."/>
+				</layout_panel>
+				<layout_panel name="chat_bar"/>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel min_width="220" name="media_remote_container" width="220"/>
+		<layout_panel min_width="138" name="voice_remote_container" width="140"/>
+	</layout_stack>
+</panel>

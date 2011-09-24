@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="bug_reporter" title="Rapporteer bug">
+	<check_box label="Voeg schermafbeelding toe" name="screen_check"/>
+	<text name="reporter_title">
+		Rapporteur:
+	</text>
+	<text name="sim_title">
+		Regio:
+	</text>
+	<text name="pos_title">
+		Positie:
+	</text>
+	<text name="select_object_label">
+		Klik de knop, dan het object:
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Objectkiezer - Identificeer een object als het onderwerp van dit rapport"/>
+	<text name="object_name_label">
+		Naam:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Eigenaar:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo" tool_tip="Categorie -- selecteer de categorie die dit rapport het best beschrijft">
+		<combo_item name="Selectcategory">
+			Selecteer categorie
+		</combo_item>
+		<combo_item name="Building">
+			Bouwen
+		</combo_item>
+		<combo_item name="Character">
+			Karakter
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Chat/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			Documentatie
+		</combo_item>
+		<combo_item name="Exploit">
+			Misbruik
+		</combo_item>
+		<combo_item name="Graphics">
+			Grafisch
+		</combo_item>
+		<combo_item name="Inventory">
+			Inventaris
+		</combo_item>
+		<combo_item name="Lag">
+			Lag
+		</combo_item>
+		<combo_item name="MissingContent">
+			Missende inhoud
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Permissies
+		</combo_item>
+		<combo_item name="Physics">
+			Fysiek
+		</combo_item>
+		<combo_item name="Script">
+			Script
+		</combo_item>
+		<combo_item name="Sound">
+			Geluid
+		</combo_item>
+		<combo_item name="Stipends">
+			Stipendia
+		</combo_item>
+		<combo_item name="Userinterface">
+			Gebruikersinterface
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Diversen
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Samenvatting:
+	</text>
+	<text name="dscr_title">
+		Details: (Lever alstublieft zoveel mogelijk informatie)
+	</text>
+	<text_editor name="details_edit">
+		Stappen om deze bug te reproduceren:
+
+Waargenomen resultaten:
+
+Verwachte resultaten:
+	</text_editor>
+	<text name="bug_aviso">
+		Let op: Onvolledige rapporten zullen niet onderzocht worden. Indien deze bug u toestaat iets te doen waartoe u niet in staat zou mogen zijn, in het bijzonder wanneer het impact op performance of beveiliging heeft, selecteer dan alstublieft de &apos;Misbruik&apos; categorie. Dank u!
+	</text>
+	<button label="Annuleren" label_selected="Annuleren" name="cancel_btn"/>
+	<button label="Rapporteer bug" label_selected="Rapporteer bug" name="send_btn"/>
+</floater>

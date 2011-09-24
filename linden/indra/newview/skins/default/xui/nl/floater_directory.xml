@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Zoeken in Second Life">
+	<tab_container name="Directory Tabs">
+		<panel label="Alles" name="find_all_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<line_editor label="Zoeken" name="search_editor" tool_tip="Zoeken in Second Life"/>
+			<button label="Terug" name="back_btn"/>
+			<button label="Vooruit" name="forward_btn"/>
+			<button label="Zoeken" name="search_btn"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Alle categorieën
+				</combo_item>
+				<combo_item name="Events">
+					Evenementen
+				</combo_item>
+				<combo_item name="Groups">
+					Groepen
+				</combo_item>
+				<combo_item name="People">
+					Mensen
+				</combo_item>
+				<combo_item name="Places">
+					Plaatsen
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
+				Laden...
+			</string>
+			<string name="done_text">
+				Gereed
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				&quot;http://secondlife.com/app/search/index.php?&quot;
+			</string>
+		</panel>
+		<panel label="Advertenties" name="classified_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Alle categorieën
+				</combo_item>
+				<combo_item name="Shopping">
+					Winkelen
+				</combo_item>
+				<combo_item name="LandRental">
+					Land verhuur
+				</combo_item>
+				<combo_item name="PropertyRental">
+					Eigendomverhuur
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					Speciale attractie
+				</combo_item>
+				<combo_item name="NewProducts">
+					Nieuwe producten
+				</combo_item>
+				<combo_item name="Employment">
+					Werkgelegenheid
+				</combo_item>
+				<combo_item name="Wanted">
+					Gezocht
+				</combo_item>
+				<combo_item name="Service">
+					Service
+				</combo_item>
+				<combo_item name="Personal">
+					Persoonlijk
+				</combo_item>
+			</combo_box>
+			<button label="Bladeren" label_selected="Bladeren" name="Browse"/>
+			<button label="Zoeken" label_selected="Zoeken" name="Search"/>
+			<button label="Plaats een advertentie..." label_selected="Plaats een advertentie..." name="Place an Ad..." width="150" left="620"/>
+			<button label="Verwijderen" label_selected="Verwijderen" name="Delete"/>
+			<scroll_list name="results">
+				<column label="Naam" name="name"/>
+				<column label="Prijs" name="price"/>
+			</scroll_list>
+			<button label="Volgende &gt;" label_selected="Volgende &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorige" label_selected="&lt; Vorige" name="&lt; Prev"/>
+		</panel>
+		<panel label="Evenementen" name="events_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="text2">
+				Zoek:
+			</text>
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					Gaande en aanstaand
+				</radio_item>
+				<radio_item name="date">
+					Datum
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="Ga een dag terug"/>
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Ga een dag vooruit"/>
+			<button label="Vandaag" label_selected="Vandaag" name="Today" tool_tip="Toon de evenementen van vandaag"/>
+			<text name="text">
+				Categorie:
+			</text>
+			<combo_box name="category combo">
+				<combo_item name="All">
+					Alle Categorieën
+				</combo_item>
+				<combo_item name="Discussion">
+					Discussie
+				</combo_item>
+				<combo_item name="Sports">
+					Sporten
+				</combo_item>
+				<combo_item name="LiveMusic">
+					Live muziek
+				</combo_item>
+				<combo_item name="Commercial">
+					Commercieel
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					Nachtleven/Vermaak
+				</combo_item>
+				<combo_item name="Games/Contests">
+					Spelen/Wedstrijden
+				</combo_item>
+				<combo_item name="Pageants">
+					Schoonheidswedstrijden
+				</combo_item>
+				<combo_item name="Education">
+					Opleiding
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					Kunst en Cultuur
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					Liefdadigheids- / Ondersteuningsgroepen
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					Diversen
+				</combo_item>
+			</combo_box>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<button label="Zoeken" label_selected="Zoeken" name="Search" tool_tip="Zoeken"/>
+			<button label="Verwijderen" label_selected="Verwijderen" name="Delete"/>
+			<scroll_list name="results">
+				<column label="Naam" name="name"/>
+				<column label="Time (PT)" name="date"/>
+				<column label="Tijd" name="time"/>
+			</scroll_list>
+			<button label="Volgende &gt;" label_selected="Volgende &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorige" label_selected="&lt; Vorige" name="&lt; Prev"/>
+		</panel>
+		<panel label="Showcase" name="showcase_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<button label="Terug" name="back_btn"/>
+			<button label="Vooruit" name="forward_btn"/>
+			<string name="loading_text">
+				Laden...
+			</string>
+			<string name="done_text">
+				Gereed
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				&quot;http://secondlife.com/app/showcase/index.php?&quot;
+			</string>
+		</panel>
+		<panel label="Land verkoop" name="land_sales_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<string name="land_help_text">
+				Land kan direct worden gekocht voor Linden dollars (L$) of op een veiling voor L$ of US$.
+Om direct te kopen, bezoekt u het land en klikt u op de plaatsnaam in de titelbalk .
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<combo_box name="type">
+				<combo_item name="AllTypes">
+					Alle types
+				</combo_item>
+				<combo_item name="Auction">
+					Veiling
+				</combo_item>
+				<combo_item name="MainlandSales">
+					Te koop - Mainland
+				</combo_item>
+				<combo_item name="EstateSales">
+					Te koop - Estate
+				</combo_item>
+			</combo_box>
+			<check_box label="Prijs &#8804; " name="pricecheck"/>
+			<text name="pricecheck_symbol">
+				L$
+			</text>
+			<check_box label="Gebied &#8805; " name="areacheck" width="90"/>
+			<text name="areacheck_symbol" left="186">
+				m²
+			</text>
+			<line_editor name="priceedit"/>
+			<line_editor name="areaedit" left="132"/>
+			<button label="Zoeken" label_selected="Zoeken" name="Search"/>
+			<scroll_list name="results">
+				<column label="Naam" name="name"/>
+				<column label="Type" name="landtype"/>
+				<column label="L$ Prijs" name="price"/>
+				<column label="Gebied" name="area"/>
+				<column label="L$/m²" name="per_meter"/>
+			</scroll_list>
+			<button label="Volgende &gt;" label_selected="Volgende &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorige" label_selected="&lt; Vorige" name="&lt; Prev"/>
+		</panel>
+		<panel label="Plaatsen" name="places_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Alle categorieën
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden Locatie
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Kunst &amp; Cultuur
+				</combo_item>
+				<combo_item name="Business">
+					Zakelijk
+				</combo_item>
+				<combo_item name="Educational">
+					Educatief
+				</combo_item>
+				<combo_item name="Gaming">
+					Spelen
+				</combo_item>
+				<combo_item name="Hangout">
+					Ontmoetingsplaats
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Nieuwkomervriendelijk
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parken &amp; Natuur
+				</combo_item>
+				<combo_item name="Residential">
+					Woongebied
+				</combo_item>
+				<combo_item name="Shopping">
+					Winkelen
+				</combo_item>
+				<combo_item name="Other">
+					Anders
+				</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Alle Categorieën
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden locatie
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Kunst &amp; Cultuur
+				</combo_item>
+				<combo_item name="Business">
+					Zakelijk
+				</combo_item>
+				<combo_item name="Educational">
+					Educatief
+				</combo_item>
+				<combo_item name="Gaming">
+					Spelen
+				</combo_item>
+				<combo_item name="Hangout">
+					Ontmoetingsplaats
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Nieuwkomervriendelijk
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parken &amp; natuur
+				</combo_item>
+				<combo_item name="Residential">
+					Woongebied
+				</combo_item>
+				<combo_item name="Shopping">
+					Winkelen
+				</combo_item>
+				<combo_item name="Other">
+					Anders
+				</combo_item>
+			</combo_box>
+			<button label="Zoeken" label_selected="Zoeken" name="Search"/>
+			<scroll_list name="results">
+				<column label="Naam" name="name"/>
+				<column label="Verkeer" name="dwell"/>
+			</scroll_list>
+			<button label="Volgende &gt;" label_selected="Volgende &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorige" label_selected="&lt; Vorige" name="&lt; Prev"/>
+		</panel>
+		<panel label="Mensen" name="people_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<button label="Zoeken" label_selected="Zoeken" name="Search"/>
+			<scroll_list name="results" width="286">
+				<column label="Naam" name="name" width="234"/>
+			</scroll_list>
+			<button right="290" label="Volgende &gt;" label_selected="Volgende &gt;" name="Next &gt;"/>
+			<button right="204" label="&lt; Vorige" label_selected="&lt; Vorige" name="&lt; Prev"/>
+		</panel>
+		<panel label="Groepen" name="groups_panel">
+			<string name="searching_text">
+				Zoeken...
+			</string>
+			<string name="not_found_text">
+				Geen gevonden.
+			</string>
+			<text name="find">
+				Zoek:
+			</text>
+			<line_editor label="Zoeken" name="search_editor" tool_tip="Zoeken in Second Life"/>
+			<button label="Terug" name="back_btn"/>
+			<button label="Vooruit" name="forward_btn"/>
+			<button label="Zoeken" name="search_btn"/>
+			<check_box label="PG inhoud" name="incpg"/>
+			<check_box label="Mature inhoud" name="incmature"/>
+			<check_box label="Adult inhoud" name="incadult"/>
+			<string name="loading_text">
+				Laden...
+			</string>
+			<string name="done_text">
+				Gereed
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				&quot;http://secondlife.com/app/search/index_groups.php?&quot;
+			</string>
+		</panel>
+	</tab_container>
+	<panel left="305" name="Panel Avatar" width="475" />
+</floater>

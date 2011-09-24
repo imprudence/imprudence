@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Advertentie">
+	<line_editor name="given_name_editor" tool_tip="Naam moet beginnen met een letter of een nummer, niet met een leesteken."/>
+	<line_editor name="location_editor" tool_tip="Stel de locatie voor deze advertentie in op uw huidige positie."/>
+	<button label="Locatie instellen" name="set_location_btn"/>
+	<button label="Teleport" name="classified_teleport_btn"/>
+	<button label="Kaart" name="classified_map_btn"/>
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Selecteer -
+		</combo_item>
+		<combo_item name="mature">
+			Mature inhoud
+		</combo_item>
+		<combo_item name="pg">
+			PG inhoud
+		</combo_item>
+	</combo_box>
+	<text width="350" name="classified_info_text" tool_tip="Hoe meer u betaalt voor uw advertentie, des te hoger zal deze in de lijst verschijnen.">
+		Advertentie geplaatst: nog niet gepubliceerd
+	</text>
+	<text name="click_through_text" tool_tip="Totaal aantal klikken op elke knop sinds deze advertentie is geplaatst.">
+		Klikken:
+	</text>
+	<button label="Publiceren..." name="classified_update_btn"/>
+	<check_box label="Wekelijks automatisch vernieuwen" name="auto_renew_check"/>
+	<string name="ad_placed_paid">
+		Advertentie geplaatst: [DATE], L$[AMT] betaald voor vermelding.
+	</string>
+	<string name="update_txt">
+		Bijwerken
+	</string>
+	<string name="publish_txt">
+		Publiceren...
+	</string>
+</panel>

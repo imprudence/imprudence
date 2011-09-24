@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Audio &amp; Video" name="Media panel">
+	<text name="muting_text">
+		Volume:
+	</text>
+	<text name="streaming_prefs_text" bottom="-195" >
+		Streaming voorkeuren:
+	</text>
+	<text name="audio_prefs_text">
+		Audiovoorkeuren:
+	</text>
+	<panel label="Volume" name="Volume Panel"/>
+	<check_box bottom="-200" height="32" label="Speel streaming muziek af wanneer beschikbaar  &#10;
+(gebruikt meer bandbreedte)" name="streaming_music"/>
+	<check_box bottom_delta="-32" height="32" label="Speel streaming media af wanneer beschikbaar  &#10;
+(gebruikt meer bandbreedte)" name="streaming_video"/>
+	<check_box bottom_delta="-32" label="Automatisch media afspelen" name="auto_streaming_video"/>
+	<check_box label="Audio dempen wanneer het venster geminimaliseerd is" name="mute_when_minimized"/>
+	<slider label="Dopplereffect" name="Doppler Effect"/>
+	<slider label="Afstandsfactor" name="Distance Factor"/>
+	<slider label="Wegdraaifactor" name="Rolloff Factor"/>
+	<spinner label="L$ Wijzigingsdrempel" name="L$ Change Threshold" label_width="165" width="229"/>
+	<spinner label="Wijzig letseldrempelwaarde" name="Health Change Threshold" label_width="165" width="229"/>
+</panel>

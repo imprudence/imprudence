@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">
+		Omschrijving:
+	</text>
+	<button label="Behouden" label_selected="Behouden" name="Keep"/>
+	<button label="Afwijzen" label_selected="Afwijzen" name="Discard"/>
+	<text name="dimensions">
+		Afmetingen: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

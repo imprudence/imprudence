@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Lokale chat">
+	<string name="ringing">
+		Verbinden met in-wereld voice chat...
+	</string>
+	<string name="connected">
+		Verbonden
+	</string>
+	<string name="unavailable">
+		Voice is niet beschikbaar op uw huidige locatie
+	</string>
+	<string name="hang_up">
+		Verbinding met in-wereld voicechat verbroken
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Instant message logging ingeschakeld --
+	</string>
+	<string name="IM_end_log_string">
+		-- Einde van log --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	&apos;[OBJECTNAME]&apos;, een object van &apos;[OWNERNAME]&apos;, gevestigd in [REGIONNAME] op [REGIONPOS], is toestemming verleend om te: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	&apos;[OBJECTNAME]&apos;, een object van &apos;[OWNERNAME]&apos;, gevestigd in [REGIONNAME] op [REGIONPOS], is toestemming geweigerd om te: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Linden dollars (L$) van u wegnemen
+  </string>
+  <string name="ActOnControlInputs">
+	Acteren op uw bedieningsinvoer
+  </string>
+  <string name="RemapControlInputs">
+	Uw bedieningsinvoer herdefiniëren
+  </string>
+  <string name="AnimateYourAvatar">
+	Animeer uw avatar
+  </string>
+  <string name="AttachToYourAvatar">
+	Bevestig aan uw avatar
+  </string>
+  <string name="ReleaseOwnership">
+	Eigendom vrijgeven en openbaar worden
+  </string>
+  <string name="LinkAndDelink">
+	Koppelen met en ontkoppelen van andere objecten
+  </string>
+  <string name="AddAndRemoveJoints">
+	Toevoegen en verwijderen koppelingen met andere objecten
+  </string>
+  <string name="ChangePermissions">
+	Wijzig zijn permissies
+  </string>
+  <string name="TrackYourCamera">
+	Volg uw camera
+  </string>
+  <string name="ControlYourCamera">
+	Bedien uw camera
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gebaren" name="Gesture">
+				<combo_item name="Gestures">
+					Gebaren
+				</combo_item>
+			</combo_box>
+			<check_box label="Toon genegeerde tekst" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klik hier om een lijst met actieve deelnemers in deze IM sessie te tonen."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gebaren
+				</string>
+				<line_editor label="Klik hier om te chatten." name="Chat Editor"/>
+				<flyout_button label="Zeg" name="Say" tool_tip="(Enter)">
+					<flyout_button_item name="shout_item">
+						Schreeuw
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Zeg
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Fluister
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

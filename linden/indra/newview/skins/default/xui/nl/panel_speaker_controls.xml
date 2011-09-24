@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="active_speakers_panel">
+	<string name="moderator_label">
+		(Moderator)
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="moderation_mode_panel">
+			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					Voice standaard aan
+				</combo_item>
+				<combo_item name="ModeratedVoice">
+					Voice standaard uit
+				</combo_item>
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel">
+			<scroll_list name="speakers_list">
+				<column label="Naam" name="speaker_name"/>
+			</scroll_list>
+			<panel name="speaker_controls">
+				<text name="resident_name">
+					Rumplstiltskin Califragilistic
+				</text>
+				<button label="" name="mute_btn" tool_tip="Negeer voice voor deze inwoner"/>
+				<check_box label="Negeer tekst" name="mute_text_btn"/>
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls">
+			<text name="moderator_controls_label">
+				Moderator besturing:
+			</text>
+			<check_box name="moderator_allow_voice">
+				Voice chat toestaan
+			</check_box>
+			<check_box name="moderator_allow_text">
+				Tekst chat toestaan
+			</check_box>
+		</layout_panel>
+	</layout_stack>
+</panel>

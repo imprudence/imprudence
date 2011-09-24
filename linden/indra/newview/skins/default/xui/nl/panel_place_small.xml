@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Plaats">
+	<text name="name_label">
+		Naam:
+	</text>
+	<text name="description_label">
+		Omschrijving:
+	</text>
+	<text name="information_label">
+		Informatie:
+	</text>
+	<text name="land_type_label">
+		Landtype:
+	</text>
+	<text name="location_label">
+		Locatie:
+	</text>
+	<button label="Teleport" name="teleport_btn"/>
+	<button label="Toon op kaart" name="map_btn"/>
+	<button label="Biedingen..." name="auction_btn"/>
+	<string name="traffic_text">
+		Verkeer: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Gebied: [AREA] m².
+	</string>
+	<string name="forsale_text">
+		Te koop voor L$[PRICE]
+	</string>
+	<string name="auction_text">
+		Veiling ID [ID].
+	</string>
+	<string name="server_update_text">
+		Plaatsinformatie niet beschikbaar zonder serverupdate.
+	</string>
+	<string name="server_error_text">
+		Informatie over deze locatie is op dit moment niet beschikbaar, probeert u het alstublieft later nog een keer.
+	</string>
+	<string name="server_forbidden_text">
+		Informatie over deze locatie is vanwege toegangsbeperkingen niet beschikbaar. Controleert u alstublieft uw permissies bij de perceeleigenaar.
+	</string>
+</panel>

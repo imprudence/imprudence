@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfo" title="Groepsinfo">
+	<string name="default_needs_apply_text">
+		Er zijn niet toegepaste wijzigingen op het huidige tabblad
+	</string>
+	<string name="want_apply_text">
+		Wilt u deze wijzigingen toepassen?
+	</string>
+	<button label="Toepassen" label_selected="Toepassen" name="btn_apply"/>
+	<button label="Annuleren" label_selected="Annuleren" name="btn_cancel"/>
+	<button label="OK" label_selected="OK" name="btn_ok"/>
+	<button label="Verversen" label_selected="Verversen" name="btn_refresh"/>
+</panel>

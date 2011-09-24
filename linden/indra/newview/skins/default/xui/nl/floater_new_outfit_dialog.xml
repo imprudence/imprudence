@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container" title="" width="520">
+	<button label="Opslaan" label_selected="Opslaan" name="Save"/>
+	<button label="Annuleren" label_selected="Annuleren" name="Cancel"/>
+	<check_box label="Postuur" name="checkbox_Shape"/>
+	<check_box label="Huid" name="checkbox_Skin"/>
+	<check_box label="Haar" name="checkbox_Hair"/>
+	<check_box label="Ogen" name="checkbox_Eyes"/>
+	<check_box label="Hernoem kleding naar &#10;mapnaam" name="rename" left="2"/>
+	<check_box label="Hemd" left="86" name="checkbox_Shirt"/>
+	<check_box label="Broek" left="86" name="checkbox_Pants"/>
+	<check_box label="Schoenen" left="86" name="checkbox_Shoes"/>
+	<check_box label="Sokken" left="86" name="checkbox_Socks"/>
+	<check_box label="Jas" left="86" name="checkbox_Jacket"/>
+	<check_box label="Handschoenen" left="86" name="checkbox_Gloves"/>
+	<check_box label="Onderhemd" left="86" name="checkbox_Undershirt"/>
+	<check_box label="Onderbroek" left="86" name="checkbox_Underpants"/>
+	<check_box label="Rok" left="86" name="checkbox_Skirt"/>
+	<check_box label="Borstkas" left="184" name="checkbox_Chest"/>
+	<check_box label="Schedel" left="184" name="checkbox_Skull"/>
+	<check_box label="Linker schouder" left="184" name="checkbox_Left Shoulder"/>
+	<check_box label="Rechter schouder" left="184" name="checkbox_Right Shoulder"/>
+	<check_box label="Linker hand" left="184" name="checkbox_Left Hand"/>
+	<check_box label="Rechter hand" left="184" name="checkbox_Right Hand"/>
+	<check_box label="Linker voet" left="184" name="checkbox_Left Foot"/>
+	<check_box label="Rechter voet" left="184" name="checkbox_Right Foot"/>
+	<check_box label="Ruggengraat" left="184" name="checkbox_Spine"/>
+	<check_box label="Bekken" left="184" name="checkbox_Pelvis"/>
+	<check_box label="Mond" left="184" name="checkbox_Mouth"/>
+	<check_box label="Kin" left="184" name="checkbox_Chin"/>
+	<check_box label="Linker oor" left="184" name="checkbox_Left Ear"/>
+	<check_box label="Rechter oor" left="296" name="checkbox_Right Ear"/>
+	<check_box label="Linker oogbal" left="296" name="checkbox_Left Eyeball"/>
+	<check_box label="Rechter oogbal" left="296" name="checkbox_Right Eyeball"/>
+	<check_box label="Neus" left="296" name="checkbox_Nose"/>
+	<check_box label="R bovenarm" left="296" name="checkbox_R Upper Arm"/>
+	<check_box label="R onderarm" left="296" name="checkbox_R Forearm"/>
+	<check_box label="L bovenarm" left="296" name="checkbox_L Upper Arm"/>
+	<check_box label="L onderarm" left="296" name="checkbox_L Forearm"/>
+	<check_box label="Rechter heup" left="296" name="checkbox_Right Hip"/>
+	<check_box label="R bovenbeen" left="296" name="checkbox_R Upper Leg"/>
+	<check_box label="R onderbeen" left="296" name="checkbox_R Lower Leg"/>
+	<check_box label="Linker heup" left="296" name="checkbox_Left Hip"/>
+	<check_box label="L bovenbeen" left="296" name="checkbox_L Upper Leg"/>
+	<check_box label="L onderbeen" left="396" name="checkbox_L Lower Leg"/>
+	<check_box label="Maag" left="396" name="checkbox_Stomach"/>
+	<check_box label="Linker borstspier" left="396" name="checkbox_Left Pec"/>
+	<check_box label="Rechter borstspier" left="396" name="checkbox_Right Pec"/>
+	<check_box label="Middelpunt 2" left="396" name="checkbox_Center 2"/>
+	<check_box label="Bovenkant rechts" left="396" name="checkbox_Top Right"/>
+	<check_box label="Bovenkant" left="396" name="checkbox_Top"/>
+	<check_box label="Bovenkant links" left="396" name="checkbox_Top Left"/>
+	<check_box label="Middelpunt" left="396" name="checkbox_Center"/>
+	<check_box label="Onderkant links" left="396" name="checkbox_Bottom Left"/>
+	<check_box label="Onderkant" left="396" name="checkbox_Bottom"/>
+	<check_box label="Onderkant rechts" left="396" name="checkbox_Bottom Right"/>
+	<text name="Make New Outfit">
+		Maak nieuwe kleding
+	</text>
+	<text name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		Kleding bestaat uit mappen die kleding en lichaamsdelen bevatten. Sleep een kledingmap 
+op uw avatar om het te dragen.
+
+&apos;Maak nieuwe kleding&apos; maakt een nieuwe map en slaat er kopieën in op van de items 
+die u nu draagt.
+	</text>
+	<text name="Folder name:">
+		Mapnaam:
+	</text>
+	<text name="Items to include in outfit:">
+		Items om toe te voegen aan outfit:
+	</text>
+	<text name="Body Parts:" left="6">
+		Lichaamsdelen:
+	</text>
+	<text name="Clothes:" left="90">
+		Kleding:
+	</text>
+	<text name="Attachments:" left="186">
+		Bevestigingen:
+	</text>
+	<text name="Options:" left="6">
+		Opties:
+	</text>
+	<line_editor name="name ed">
+		Nieuwe kleding
+	</line_editor>
+</floater>

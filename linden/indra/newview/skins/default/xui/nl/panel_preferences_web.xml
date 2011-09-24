@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Web" name="web">
+	<radio_group name="use_external_browser">
+		<radio_item name="external" tool_tip="Gebruik de standaard systeem webbrowser voor help, weblinks, etc. Niet aanbevolen indien u in volledig scherm werkt.">
+			Gebruik externe webbrowser (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item name="internal" tool_tip="Gebruik de ingebouwde webbrowser voor help, weblinks, etc. Deze browser opent als een nieuw venster binnen Second Life.">
+			Gebruik ingebouwde webbrowser
+		</radio_item>
+	</radio_group>
+	<text name="cache_size_label_l">
+		Browsercache:
+	</text>
+	<button label="Nu opschonen" name="clear_cache" width="100"/>
+	<text name="cookie_label">
+		Cookies:
+	</text>
+	<check_box label="Accepteer cookies van sites" name="cookies_enabled"/>
+	<text name="proxy_label">
+		Webproxy:
+	</text>
+	<check_box label="Webproxy inschakelen" name="web_proxy_enabled"/>
+	<text name="proxy_text_label">
+		Adres:
+	</text>
+	<line_editor name="web_proxy_editor" tool_tip="De naam of het IP-adres van de proxy die u wilt gebruiken"/>
+	<spinner label="Poortnummer:" name="web_proxy_port"/>
+</panel>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(onbekend)" name="im_floater" title="(onbekend)">
+	<string name="ringing">
+		Deelnemen aan voice chat...
+	</string>
+	<string name="connected">
+		Verbonden, klik op Oproep beëindigen om op te hangen
+	</string>
+	<string name="hang_up">
+		Voice chat verlaten
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Instant Message met [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] typt...
+	</string>
+	<string name="session_start_string">
+		Sessie met [NAME] wordt gestart. Wacht u alstublieft.
+	</string>
+	<string name="default_text_label">
+		Klik hier voor instant message
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Oproepen" name="start_call_btn" width="145"/>
+			<button label="Oproep beëindigen" name="end_call_btn" width="145" halign="right" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klik hier om een lijst met actieve deelnemers in deze IM sessie te schakelen"/>
+			<line_editor label="Klik hier voor instant message" name="chat_editor" width="414"/>
+			<button label="Verzenden" name="send_btn" width="72" left="424"/>
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Welkom bij Help Request *** Controleert u alstublieft eerst onze SL Help Pagina&apos;s door F1 te drukken, of door de kennisbank http://secondlife.com/knowledgebase/ te bezoeken. Wanneer uw antwoord daar niet aanwezig is, voer dan om te beginnen uw vraag in en wacht enige tijd om beschikbare helpers de kans te geven te antwoorden. -=-=- Reactietijden zullen variëren, in het bijzonder gedurende piektijden -=-=-
+	</string>
+</floater>

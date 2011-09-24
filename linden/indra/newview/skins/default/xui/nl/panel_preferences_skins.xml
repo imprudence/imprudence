@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Weergaves" name="Skins panel">
+	<text name="muting_text">
+		Selecteer een weergave (herstart vereist):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Standaard
+		</radio_item>
+		<radio_item name="silver">
+			Zilver
+		</radio_item>
+	</radio_group>
+</panel>

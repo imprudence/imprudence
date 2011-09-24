@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Name/Description" title="">
+	<text name="name_label">
+		Naam:
+	</text>
+	<text name="description_label">
+		Omschrijving:
+	</text>
+	<button label="Annuleren" name="cancel_btn" width="70"/>
+	<button label="Upload (L$[AMOUNT])" name="ok_btn"/>
+</floater>

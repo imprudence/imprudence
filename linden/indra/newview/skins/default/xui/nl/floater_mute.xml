@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute floater" title="Genegeerde inwoners &amp; objecten" short_title="Negeerlijst">
+	<scroll_list name="mutes" tool_tip="Lijst van momenteel genegeerde inwoners"/>
+	<button label="Negeer inwoner…" label_selected="Negeer inwoner…" name="Mute resident..." tool_tip="Kies een inwoner om te negeren"/>
+	<button label="Negeer object op naam…" label_selected="Negeer object op naam…" name="Mute object by name..."/>
+	<button label="Negeren opheffen" label_selected="Negeren opheffen" name="Unmute" tool_tip="Verwijder een inwoner of object van de negeerlijst"/>
+</floater>

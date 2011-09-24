@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Voorstellen" name="voting_tab">
+	<string name="help_text">
+		Groep Voorstellen kunnen worden gebruikt om een gevoel te krijgen voor wat een groep wil doen, of hoe de groep voelt over iets. Wanneer u over de juiste permissies beschikt, kunt u voorstellen maken, stemmen op open voorstellen en oude voorstellen bekijken.
+	</string>
+	<button label="?" name="help_button"/>
+	<text name="proposal_header">
+		Open Groep Voorstellen
+	</text>
+	<text name="proposal_instructions">
+		Dubbelklik op het voorstel waarvoor u wilt stemmen of druk Voorstel
+Maken om een nieuw voorstel te maken.
+	</text>
+	<text name="proposal_lbl">
+		Voorstel Omschrijving
+	</text>
+	<text name="proposal_voting_lbl">
+		Voorstel                                                          Stemmen eindigt            Gestemd?
+	</text>
+	<button label="Voorstel Maken" label_selected="Voorstel Maken" name="btn_proposal"/>
+	<button label="Voorstel Bekijken" label_selected="Voorstel Bekijken" name="btn_view_proposal_item"/>
+	<button label="Lijst bekijken" label_selected="Lijst bekijken" name="btn_view_proposal_list"/>
+	<text name="quorum_lbl">
+		Quorum:
+	</text>
+	<spinner name="quorum" tool_tip="Benodigd aantal stemmende leden om het verkiezingsresultaat bindend te laten zijn."/>
+	<text name="quorum_text">
+		van [MEMBERS] leden moeten stemmen.
+	</text>
+	<text name="duration_lbl">
+		Duur:
+	</text>
+	<spinner name="duration" tool_tip="Aantal dagen dat de verkiezing zal duren."/>
+	<text name="duration_text">
+		dagen
+	</text>
+	<radio_group name="majority" tool_tip="Meerderheid van het totaal aantal stemmen dat nodig is om te winnen.">
+		Eenvoudige Meerderheid
+2/3 Meerderheid
+Unaniem
+	</radio_group>
+	<text name="start_lbl">
+		Begonnen:
+	</text>
+	<text name="end_lbl">
+		Geëindigd:
+	</text>
+	<button label="Voorstel Indienen" label_selected="Voorstel Indienen" name="btn_submit"/>
+	<button label="Annuleren" label_selected="Annuleren" name="btn_cancel"/>
+	<button label="Ja" label_selected="Ja" name="btn_yes"/>
+	<button label="Nee" label_selected="Nee" name="btn_no"/>
+	<button label="Neutraal" label_selected="Neutraal" name="btn_abstain"/>
+	<text name="txt">
+		Groep Stemmingen Historie
+	</text>
+	<text name="instructions">
+		Dubbelklik op een Verlopen Stemming of selecteer er een en klik Bekijk Item
+om de resultaten te bekijken.
+	</text>
+	<text name="history_list_lbl">
+		Verlopen Stemming                                                 Stemming Geëindigd
+	</text>
+	<button label="Bekijk Item" label_selected="Bekijk Item" name="btn_view_history_item"/>
+	<text name="vote_text_lbl">
+		Stemming Resultaten:
+	</text>
+	<button label="Bekijk Lijst" label_selected="Bekijk Lijst" name="btn_view_history_list"/>
+	<string name="proposals_header_view_txt">
+		Open Groep Voorstellen
+	</string>
+	<string name="proposals_header_view_inst">
+		Dubbelklik op het voorstel waarvoor u wilt stemmen of druk Voorstel
+Maken om een nieuw voorstel te maken.
+	</string>
+	<string name="proposals_header_create_txt">
+		Voorstel Maken
+	</string>
+	<string name="proposals_header_create_inst">
+		Type de Voorstel Omschrijving voor het nieuwe voorstel. U kunt Quorum,
+Duur en Meerderheid om het voorstel aan te nemen wijzigen.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Voorstel Stemming
+	</string>
+	<string name="proposals_header_vote_inst">
+		Klik de Ja of Nee knop om te stemmen op het voorstel, of kies om Neutraal
+te blijven op dit voorstel.
+	</string>
+	<string name="proposals_header_voted_inst">
+		U heeft gestemd: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		De omschrijving van uw voorstel ontbreekt. Vul alstublieft een omschrijving in alvorens u het voorstel naar iedereen in de groep verzend.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Ja&apos; indienen op het voorstel...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Nee&apos; indienen op het voorstel...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Neutraal&apos; indienen op het voorstel...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Nieuw voorstel indienen...
+	</string>
+	<string name="vote_recorded">
+		Uw stem is ontvangen.
+	</string>
+	<string name="vote_previously_recorded">
+		U heeft reeds eerder gestemd. U mag slechts eenmaal uw stem uitbrengen tijdens een verkiezing.
+	</string>
+</panel>

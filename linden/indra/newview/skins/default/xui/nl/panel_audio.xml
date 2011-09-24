@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Audio &amp; Video" name="Media panel">
+	<slider label="Hoofd" name="System Volume"/>
+	<slider label="Muziek" name="Music Volume"/>
+	<slider label="Media" name="Media Volume"/>
+	<slider label="Voice" name="Voice Volume"/>
+	<slider label="Geluiden" name="SFX Volume"/>
+	<slider label="Omgeving" name="Wind Volume"/>
+	<slider label="UI" name="UI Volume"/>
+</panel>

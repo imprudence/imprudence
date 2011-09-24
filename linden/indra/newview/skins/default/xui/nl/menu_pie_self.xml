@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Profiel..." name="Profile..."/>
+	<menu_item_call label="Groepen..." name="Groups..."/>
+	<menu_item_call label="Ga..." name="Go..."/>
+	<menu_item_call label="Sta op" name="Stand Up"/>
+	<menu_item_call label="Vrienden..." name="Friends..."/>
+	<menu_item_call label="Gebaren..." name="Gestures..."/>
+	<pie_menu label="Uitdoen &gt;" name="Take Off &gt;">
+		<pie_menu label="Kleding &gt;" name="Clothes &gt;">
+			<menu_item_call label="Hemd" name="Shirt"/>
+			<menu_item_call label="Broek" name="Pants"/>
+			<menu_item_call label="Schoenen" name="Shoes"/>
+			<menu_item_call label="Sokken" name="Socks"/>
+			<menu_item_call label="Jas" name="Jacket"/>
+			<menu_item_call label="Handschoenen" name="Gloves"/>
+			<pie_menu label="Meer &gt;" name="More &gt;">
+				<menu_item_call label="Onderhemd" name="Self Undershirt"/>
+				<menu_item_call label="Alle kleding" name="All Clothes"/>
+				<menu_item_call label="Onderbroek" name="Self Underpants"/>
+			</pie_menu>
+			<menu_item_call label="Rok" name="Skirt"/>
+		</pie_menu>
+		<pie_menu label="HUD &gt;" name="Object Detach HUD"/>
+		<pie_menu label="Losmaken &gt;" name="Object Detach"/>
+		<menu_item_call label="Alles losmaken" name="Detach All"/>
+	</pie_menu>
+	<menu_item_call label="Uiterlijk..." name="Appearance..."/>
+</pie_menu>

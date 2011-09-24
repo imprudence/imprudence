@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multi_floater name="floater_chatterbox" title="">
+	<panel name="panel_littletoolbar">
+		<button label="" name="chat_btn" tool_tip="Toon chatbalk. (Enter)"/>
+		<flyout_button label="Communiceren" name="communicate_btn" tool_tip="Communiceer met uw vrienden en groepen"/>
+		<button label="Vliegen" label_selected="Stop vliegen" name="fly_btn" tool_tip="Start vliegen. Gebruik E/C of PgUp/PgDn om omhoog en omlaag te vliegen."/>
+	</panel>
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			Niet gefocust
+		</text>
+		<combo_box label="Keuzelijst" name="combo_box_1"/>
+		<text_editor name="Chat History Editor">
+			Tekst
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			Gefocust
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="Gefocust" name="test_1">
+				<slider label="Schuifregelaar" name="SliderTestName" label_width="74"/>
+				<check_box label="Waar" name="check_box_test_1"/>
+				<check_box label="Onwaar" name="check_box_test_2"/>
+				<text_editor name="Chat History Editor">
+					Chattekst
+				</text_editor>
+			</panel>
+			<panel label="Niet gefocust" name="test_2"/>
+		</tab_container>
+	</panel>
+</multi_floater>
