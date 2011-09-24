@@ -234,7 +234,17 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        # Actually, we know on both counts -- MC
+        if self.configuration().lower() == "release":
+            self.path(self.find_existing_file('release/imprudence-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "releasesse2":
+            self.path(self.find_existing_file('releasesse2/imprudence-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "relwithdebinfo":
+            self.path(self.find_existing_file('relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "debug":
+            self.path(self.find_existing_file('debug/imprudence-bin.exe'), dst=self.final_exe())
+        else:
+            self.path(self.find_existing_file('release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe', 'debug/imprudence-bin.exe'), dst=self.final_exe())
 
         # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
         symbol_ver = '.'.join(self.args['version'])
