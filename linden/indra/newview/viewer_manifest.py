@@ -344,25 +344,25 @@ class WindowsManifest(ViewerManifest):
         # Manifest and configuration are not needed for vs2010 builds. 00-Common.cmake sets a no manifest
 		# link. CopyWinLibs.cmake hanged to drop copy of msvc runtime dlls, manifest and configruation.
         # We no longer use private assemblies in the viewer -- MC
->       # These need to be installed as a SxS assembly, currently a 'private' assembly.
+        # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
         #if self.prefix(src=self.args['configuration'], dst=""):
         #    if self.args['configuration'] == 'Debug':
-<       #        self.path("msvcr100d.dll")
+        #        self.path("msvcr100d.dll")
         #        self.path("msvcp100d.dll")
         #        self.path("Microsoft.VC100.DebugCRT.manifest")
         #    else:
         #        self.path("msvcr100.dll")
         #        self.path("msvcp100.dll")
         #        self.path("Microsoft.VC100.CRT.manifest")
-=       #        self.path("msvcr80d.dll")
+        #        self.path("msvcr80d.dll")
         #        self.path("msvcp80d.dll")
         #        self.path("Microsoft.VC80.DebugCRT.manifest")
         #    else:
         #        self.path("msvcr80.dll")
         #        self.path("msvcp80.dll")
         #        self.path("Microsoft.VC80.CRT.manifest")
->       #    self.end_prefix()
+        #    self.end_prefix()
 
         # The config file name needs to match the exe's name.
         #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
