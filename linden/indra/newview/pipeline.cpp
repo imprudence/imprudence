@@ -232,6 +232,7 @@ BOOL	LLPipeline::sPickAvatar = TRUE;
 BOOL	LLPipeline::sDynamicLOD = TRUE;
 BOOL	LLPipeline::sShowHUDAttachments = TRUE;
 BOOL	LLPipeline::sRenderPhysicalBeacons = TRUE;
+BOOL	LLPipeline::sRenderMOAPBeacons = FALSE;
 BOOL	LLPipeline::sRenderScriptedBeacons = FALSE;
 BOOL	LLPipeline::sRenderScriptedTouchBeacons = TRUE;
 BOOL	LLPipeline::sRenderParticleBeacons = FALSE;
@@ -2149,6 +2150,43 @@ void renderPhysicalBeacons(LLDrawable* drawablep)
 	}
 }
 
+void renderMOAPBeacons(LLDrawable* drawablep)
+{
+	LLViewerObject *vobj = drawablep->getVObj();
+
+	if(!vobj || vobj->isAvatar())
+		return;
+
+	BOOL beacon=FALSE;
+	U8 tecount=vobj->getNumTEs();
+	for(int x=0;x<tecount;x++)
+	{
+		if(vobj->getTE(x)->hasMedia())
+		{
+			beacon=TRUE;
+			break;
+		}
+	}
+	if(beacon==TRUE)
+	{
+		if (gPipeline.sRenderBeacons)
+		{
+			gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(0.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
+		}
+
+		if (gPipeline.sRenderHighlight)
+		{
+			S32 face_id;
+			S32 count = drawablep->getNumFaces();
+			for (face_id = 0; face_id < count; face_id++)
+			{
+				gPipeline.mHighlightFaces.push_back(drawablep->getFace(face_id) );
+			}
+		}
+	}
+}
+
+
 void renderParticleBeacons(LLDrawable* drawablep)
 {
 	// Look for attachments, objects, etc.
@@ -2327,6 +2365,11 @@ void LLPipeline::postSort(LLCamera& camera)
 		{
 			// Only show the beacon on the root object.
 			forAllVisibleDrawables(renderPhysicalBeacons);
+		}
+
+		if(sRenderMOAPBeacons)
+		{
+			forAllVisibleDrawables(renderMOAPBeacons);
 		}
 
 		if (sRenderParticleBeacons)
@@ -4560,6 +4603,24 @@ void LLPipeline::toggleRenderScriptedTouchBeacons(void*)
 BOOL LLPipeline::getRenderScriptedTouchBeacons(void*)
 {
 	return sRenderScriptedTouchBeacons;
+}
+
+// static
+void LLPipeline::setRenderMOAPBeacons(BOOL val)
+{
+	sRenderMOAPBeacons = val;
+}
+
+// static
+void LLPipeline::toggleRenderMOAPBeacons(void*)
+{
+	sRenderMOAPBeacons = !sRenderMOAPBeacons;
+}
+
+// static
+BOOL LLPipeline::getRenderMOAPBeacons(void*)
+{
+	return sRenderMOAPBeacons;
 }
 
 // static

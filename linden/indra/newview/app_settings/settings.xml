@@ -2,6 +2,123 @@
 <llsd>
 <map>
 
+  <!-- begin RC hacking -->
+   	<key>PrimMediaMasterEnabled</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Whether or not Media on a Prim is enabled.</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>Boolean</string>
+ 		<key>Value</key>
+ 		<integer>1</integer>
+ 	</map>
+ 	<key>PrimMediaMaxRetries</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Maximum number of retries for media queries.</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>U32</string>
+ 		<key>Value</key>
+ 		<integer>4</integer>
+ 	</map>
+ 	<key>PrimMediaRequestQueueDelay</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Timer delay for fetching media from the queue (in seconds).</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>F32</string>
+ 		<key>Value</key>
+ 		<real>1.0</real>
+ 	</map>
+ 	<key>PrimMediaRetryTimerDelay</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Timer delay for retrying on media queries (in seconds).</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>F32</string>
+ 		<key>Value</key>
+ 		<real>5.0</real>
+ 	</map>
+ 	<key>PrimMediaMaxSortedQueueSize</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Maximum number of objects the viewer will load media for initially</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>U32</string>
+ 		<key>Value</key>
+ 		<integer>100000</integer>
+ 	</map>
+ 	<key>PrimMediaMaxRoundRobinQueueSize</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Maximum number of objects the viewer will continuously update media for</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>U32</string>
+ 		<key>Value</key>
+ 		<integer>100000</integer>
+	</map>
+	<key>ShowMOAPRadar</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Show the MOAP radar</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>Boolean</string>
+ 		<key>Value</key>
+ 		<integer>0</integer>
+ 	</map>
+ 	<key>FloaterMOAPRadarRect</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Rectangle for MOAP Radar</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>Rect</string>
+ 		<key>Value</key>
+ 		<array>
+ 			<integer>0</integer>
+ 			<integer>400</integer>
+ 			<integer>200</integer>
+ 			<integer>0</integer>
+ 		</array>
+ 	</map>
+ 	<key>MOAPRadarKeepOpen</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>Keeps MOAP radar updates running in background</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>Boolean</string>
+ 		<key>Value</key>
+ 		<integer>0</integer>
+ 	</map>
+ 	<key>MOAPRadarUpdateRate</key>
+ 	<map>
+ 		<key>Comment</key>
+ 		<string>MOAP Radar update rate (0 = high, 1 = medium, 2 = low)</string>
+ 		<key>Persist</key>
+ 		<integer>1</integer>
+ 		<key>Type</key>
+ 		<string>U32</string>
+ 		<key>Value</key>
+ 		<integer>1</integer>
+ 	</map>
+
   <!-- BEGIN IMPRUDENCE-SPECIFIC SETTINGS -->
   
   <!-- begin Aurora-specific settings -->
@@ -14645,6 +14762,17 @@
         <real>1.0</real>
       </array>
     </map>
+	<key>moapbeacon</key>
+	<map>
+		<key>Comment</key>
+		<string>Beacon / Highlight MOAP sources</string>
+		<key>Persist</key>
+		<integer>1</integer>
+		<key>Type</key>
+		<string>Boolean</string>
+		<key>Value</key>
+		<integer>0</integer>
+	</map>
     <key>particlesbeacon</key>
     <map>
       <key>Comment</key>

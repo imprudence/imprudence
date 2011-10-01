@@ -157,7 +157,13 @@ public:
 	enum { MEDIA_TYPE_NONE = 0, MEDIA_TYPE_WEB_PAGE = 1 };
 
 	// Return codes for processUpdateMessage
-	enum { MEDIA_URL_REMOVED = 0x1, MEDIA_URL_ADDED = 0x2, MEDIA_URL_UPDATED = 0x4, INVALID_UPDATE = 0x80000000 };
+	enum { 
+        MEDIA_URL_REMOVED = 0x1, 
+        MEDIA_URL_ADDED = 0x2, 
+        MEDIA_URL_UPDATED = 0x4, 
+        MEDIA_FLAGS_CHANGED = 0x8,
+        INVALID_UPDATE = 0x80000000
+    };
 
 	virtual U32		processUpdateMessage(LLMessageSystem *mesgsys,
 										void **user_data,

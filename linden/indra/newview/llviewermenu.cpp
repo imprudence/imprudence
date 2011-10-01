@@ -238,6 +238,8 @@
 #include "llfloaterteleporthistory.h"
 #include "slfloatermediafilter.h"
 
+#include "rcmoapradar.h"
+
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
@@ -5212,6 +5214,34 @@ class LLViewEnableLastChatter : public view_listener_t
 		// *TODO: add check that last chatter is in range
 		bool new_value = (gAgent.cameraThirdPerson() && gAgent.getLastChatter().notNull());
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		return true;
+	}
+};
+
+class LLViewToggleRadar: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterAvatarList::toggle(0);
+		bool vis = false;
+		if(LLFloaterAvatarList::getInstance())
+		{
+			vis = (bool)LLFloaterAvatarList::getInstance()->getVisible();
+		}
+		return true;
+	}
+};
+
+class LLViewToggleMOAPRadar: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterMOAPRadar::toggle(0);
+		bool vis = false;
+		if(LLFloaterMOAPRadar::getInstance())
+		{
+			vis = (bool)LLFloaterMOAPRadar::getInstance()->getVisible();
+		}
 		return true;
 	}
 };
@@ -11215,6 +11245,8 @@ void initialize_menus()
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
 	addMenu(new LLViewEnableJoystickFlycam(), "View.EnableJoystickFlycam");
 	addMenu(new LLViewEnableLastChatter(), "View.EnableLastChatter");
+    addMenu(new LLViewToggleRadar(), "View.ToggleAvatarList");
+	addMenu(new LLViewToggleMOAPRadar(), "View.ToggleMOAPList");
 
 	addMenu(new LLViewCheckBuildMode(), "View.CheckBuildMode");
 	addMenu(new LLViewCheckJoystickFlycam(), "View.CheckJoystickFlycam");

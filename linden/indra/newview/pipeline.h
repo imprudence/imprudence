@@ -271,6 +271,10 @@ public:
 	static void toggleRenderPhysicalBeacons(void* data);
 	static BOOL getRenderPhysicalBeacons(void* data);
 
+	static void setRenderMOAPBeacons(BOOL val);
+	static void toggleRenderMOAPBeacons(void * data);
+	static BOOL getRenderMOAPBeacons(void * data);
+
 	static void setRenderScriptedBeacons(BOOL val);
 	static void toggleRenderScriptedBeacons(void* data);
 	static BOOL getRenderScriptedBeacons(void* data);
@@ -572,6 +576,7 @@ protected:
 	S32						mLightingDetail;
 		
 	static BOOL				sRenderPhysicalBeacons;
+	static BOOL				sRenderMOAPBeacons;
 	static BOOL				sRenderScriptedTouchBeacons;
 	static BOOL				sRenderScriptedBeacons;
 	static BOOL				sRenderParticleBeacons;

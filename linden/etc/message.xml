@@ -702,6 +702,12 @@
 		
 			<key>FetchLib</key>
 			<boolean>true</boolean>
+			
+			<key>ObjectMedia</key>
+			<boolean>false</boolean>
+
+			<key>ObjectMediaNavigate</key>
+			<boolean>false</boolean>
 		</map>
 
 		<key>messageBans</key>

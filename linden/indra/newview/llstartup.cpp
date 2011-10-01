@@ -206,6 +206,8 @@
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
+#include "rcmoapradar.h"
+
 #if LL_WINDOWS
 #include "llwindebug.h"
 #include "lldxhardware.h"
@@ -2078,6 +2080,16 @@ bool idle_startup()
 
 		LLRect window(0, gViewerWindow->getWindowHeight(), gViewerWindow->getWindowWidth(), 0);
 		gViewerWindow->adjustControlRectanglesForFirstUse(window);
+
+		if (gSavedSettings.getBOOL("ShowRadar"))
+		{
+			LLFloaterAvatarList::showInstance();
+		}
+
+		if (gSavedSettings.getBOOL("ShowMOAPRadar"))
+		{
+			 LLFloaterMOAPRadar::showInstance();
+		}
 
 		if(gSavedSettings.getBOOL("ShowMiniMap"))
 		{

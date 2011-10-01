@@ -385,6 +385,10 @@
       <on_click function="ShowFloater" userdata="mini map" />
       <on_check control="ShowMiniMap" />
     </menu_item_check>
+	<menu_item_check enabled="true" label="MOAP Radar" name="MOAPRadar" shortcut="">
+ 			<on_click function="View.ToggleMOAPList" userdata="moapradar" />
+ 			<on_check control="ShowMOAPRadar" />
+ 		</menu_item_check>
     <menu_item_separator />
     <menu_item_check label="Animation Overrider" name="AO" 
                      shortcut="control|shift|O">

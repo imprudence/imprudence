@@ -68,6 +68,9 @@
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
+#include "llmediaentry.h"
+#include "llmediadataclient.h"
+
 const S32 MIN_QUIET_FRAMES_COALESCE = 30;
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
@@ -79,6 +82,93 @@ F32 LLVOVolume::sLODFactor = 1.f;
 F32	LLVOVolume::sLODSlopDistanceFactor = 0.5f; //Changing this to zero, effectively disables the LOD transition slop 
 F32 LLVOVolume::sDistanceFactor = 1.0f;
 S32 LLVOVolume::sNumLODChanges = 0;
+LLPointer<LLObjectMediaDataClient> LLVOVolume::sObjectMediaClient = NULL;
+LLPointer<LLObjectMediaNavigateClient> LLVOVolume::sObjectMediaNavigateClient = NULL;
+
+// Implementation class of LLMediaDataClientObject.  See llmediadataclient.h
+class LLMediaDataClientObjectImpl : public LLMediaDataClientObject
+{
+public:
+	LLMediaDataClientObjectImpl(LLVOVolume *obj, bool isNew) : mObject(obj), mNew(isNew) {}
+	LLMediaDataClientObjectImpl() { mObject = NULL; }
+	
+	virtual U8 getMediaDataCount() const 
+		{ return mObject->getNumTEs(); }
+
+	virtual LLSD getMediaDataLLSD(U8 index) const 
+		{
+			LLSD result;
+			LLTextureEntry *te = mObject->getTE(index); 
+			if (NULL != te)
+			{
+				llassert((te->getMediaData() != NULL) == te->hasMedia());
+				if (te->getMediaData() != NULL)
+				{
+					result = te->getMediaData()->asLLSD();
+					// XXX HACK: workaround bug in asLLSD() where whitelist is not set properly
+					// See DEV-41949
+					if (!result.has(LLMediaEntry::WHITELIST_KEY))
+					{
+						result[LLMediaEntry::WHITELIST_KEY] = LLSD::emptyArray();
+					}
+				}
+			}
+			return result;
+		}
+
+	virtual LLUUID getID() const
+		{ return mObject->getID(); }
+
+	virtual void mediaNavigateBounceBack(U8 index)
+		{ mObject->mediaNavigateBounceBack(index); } 
+	
+	virtual bool hasMedia() const
+		{ return mObject->hasMedia();} 
+	
+	virtual void updateObjectMediaData(LLSD const &data, const std::string &version_string) 
+		{ mObject->updateObjectMediaData(data, version_string); }
+	
+	virtual F64 getMediaInterest() const 
+		{ 
+			//F64 interest = mObject->getTotalMediaInterest();
+			//FIXME
+			F64 interest = 1024;
+			if (interest < (F64)0.0)
+			{
+				// media interest not valid yet, try pixel area
+				interest = mObject->getPixelArea();
+				// HACK: force recalculation of pixel area if interest is the "magic default" of 1024.
+				if (interest == 1024.f)
+				{
+					const_cast<LLVOVolume*>(static_cast<LLVOVolume*>(mObject))->setPixelAreaAndAngle(gAgent);
+					interest = mObject->getPixelArea();
+				}
+			}
+			return interest; 
+		}
+	
+	virtual bool isInterestingEnough() const
+		{
+			return true; //FUCKEDUP --> LLViewerMedia::isInterestingEnough(mObject, getMediaInterest());
+		}
+
+	virtual std::string getCapabilityUrl(const std::string &name) const
+		{ return mObject->getRegion()->getCapability(name); }
+	
+	virtual bool isDead() const
+		{ return mObject->isDead(); }
+	
+	virtual U32 getMediaVersion() const
+		{ return LLTextureEntry::getVersionFromMediaVersionString(mObject->getMediaURL()); }
+	
+	virtual bool isNew() const
+		{ return mNew; }
+
+private:
+	LLPointer<LLVOVolume> mObject;
+	bool mNew;
+};
+
 
 LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	: LLViewerObject(id, pcode, regionp),
@@ -123,6 +213,18 @@ void LLVOVolume::markDead()
 // static
 void LLVOVolume::initClass()
 {
+	// gSavedSettings better be around
+	if (gSavedSettings.getBOOL("PrimMediaMasterEnabled"))
+	{
+		const F32 queue_timer_delay = gSavedSettings.getF32("PrimMediaRequestQueueDelay");
+		const F32 retry_timer_delay = gSavedSettings.getF32("PrimMediaRetryTimerDelay");
+		const U32 max_retries = gSavedSettings.getU32("PrimMediaMaxRetries");
+		const U32 max_sorted_queue_size = gSavedSettings.getU32("PrimMediaMaxSortedQueueSize");
+		const U32 max_round_robin_queue_size = gSavedSettings.getU32("PrimMediaMaxRoundRobinQueueSize");
+
+		sObjectMediaClient = new LLObjectMediaDataClient(queue_timer_delay, retry_timer_delay, max_retries, 
+															 max_sorted_queue_size, max_round_robin_queue_size);
+	}
 }
 
 
@@ -132,6 +234,7 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 										  LLDataPacker *dp)
 {
 	LLColor4U color;
+	const S32 teDirtyBits = (TEM_CHANGE_TEXTURE|TEM_CHANGE_COLOR|TEM_CHANGE_MEDIA);
 
 	// Do base class updates...
 	U32 retval = LLViewerObject::processUpdateMessage(mesgsys, user_data, block_num, update_type, dp);
@@ -199,9 +302,14 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 		//
 		// Unpack texture entry data
 		//
-		if (unpackTEMessage(mesgsys, _PREHASH_ObjectData, block_num) & (TEM_CHANGE_TEXTURE|TEM_CHANGE_COLOR))
+		S32 result =unpackTEMessage(mesgsys, _PREHASH_ObjectData, block_num);
+		if (result & teDirtyBits)
 		{
 			updateTEData();
+		}
+		if (result & TEM_CHANGE_MEDIA)
+		{
+			retval |= MEDIA_FLAGS_CHANGED;
 		}
 	}
 	else
@@ -235,9 +343,16 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 // 				llerrs << "Bogus TE data in " << getID() << ", crashing!" << llendl;
 				llwarns << "Bogus TE data in " << getID() << llendl;
 			}
-			else if (res2 & (TEM_CHANGE_TEXTURE|TEM_CHANGE_COLOR))
+			else
 			{
-				updateTEData();
+				if (res2 & teDirtyBits) 
+				{
+					updateTEData();
+				}
+				if (res2 & TEM_CHANGE_MEDIA)
+				{
+					retval |= MEDIA_FLAGS_CHANGED;
+				}
 			}
 
 			U32 value = dp->getPassFlags();
@@ -275,13 +390,39 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 				U8							tdpbuffer[1024];
 				LLDataPackerBinaryBuffer	tdp(tdpbuffer, 1024);
 				mesgsys->getBinaryDataFast(_PREHASH_ObjectData, _PREHASH_TextureEntry, tdpbuffer, 0, block_num);
-				if ( unpackTEMessage(tdp) & (TEM_CHANGE_TEXTURE|TEM_CHANGE_COLOR))
+				S32 result = unpackTEMessage(tdp);
+				if (result & teDirtyBits)
 				{
 					updateTEData();
+				}
+				if (result & TEM_CHANGE_MEDIA)
+				{
+					retval |= MEDIA_FLAGS_CHANGED;
 				}
 			}
 		}
 	}
+
+	if (retval & (MEDIA_URL_REMOVED | MEDIA_URL_ADDED | MEDIA_URL_UPDATED | MEDIA_FLAGS_CHANGED)) 
+	{
+		// If only the media URL changed, and it isn't a media version URL,
+		// ignore it
+		if ( ! ( retval & (MEDIA_URL_ADDED | MEDIA_URL_UPDATED) &&
+				 mMedia && ! mMedia->mMediaURL.empty() &&
+				 ! LLTextureEntry::isMediaVersionString(mMedia->mMediaURL) ) )
+		{
+			// If the media changed at all, request new media data
+			LL_DEBUGS("MediaOnAPrim") << "Media update: " << getID() << ": retval=" << retval << " Media URL: " <<
+                ((mMedia) ?  mMedia->mMediaURL : std::string("")) << LL_ENDL;
+			requestMediaDataUpdate(retval & MEDIA_FLAGS_CHANGED);
+		}
+        else {
+            LL_INFOS("MediaOnAPrim") << "Ignoring media update for: " << getID() << " Media URL: " <<
+                ((mMedia) ?  mMedia->mMediaURL : std::string("")) << LL_ENDL;
+        }
+	}
+	// ...and clean up any media impls
+	cleanUpMediaImpls();
 	
 	return retval;
 }
@@ -2894,4 +3035,253 @@ void LLHUDPartition::shift(const LLVector3 &offset)
 	//HUD objects don't shift with region crossing.  That would be silly.
 }
 
+void LLVOVolume::requestMediaDataUpdate(bool isNew)
+{
+    if (sObjectMediaClient)
+		sObjectMediaClient->fetchMedia(new LLMediaDataClientObjectImpl(this, isNew));
+}
 
+void LLVOVolume::cleanUpMediaImpls()
+{
+	// Iterate through our TEs and remove any Impls that are no longer used
+	const U8 numTEs = getNumTEs();
+	for (U8 i = 0; i < numTEs; i++)
+	{
+		const LLTextureEntry* te = getTE(i);
+		if( ! te->hasMedia())
+		{
+			// Delete the media IMPL!
+			removeMediaImpl(i) ;
+		}
+	}
+}
+
+void LLVOVolume::removeMediaImpl(S32 texture_index)
+{
+	if(mMediaImplList.size() <= (U32)texture_index || mMediaImplList[texture_index].isNull())
+	{
+		return ;
+	}
+
+	//make the face referencing to mMediaImplList[texture_index] to point back to the old texture.
+	if(mDrawable)
+	{
+		LLFace* facep = mDrawable->getFace(texture_index) ;
+		if(facep)
+		{
+			//LLViewerMediaTexture* media_tex = LLViewerTextureManager::findMediaTexture(mMediaImplList[texture_index]->getMediaTextureID()) ;
+			//if(media_tex)
+			//{
+			//	media_tex->removeMediaFromFace(facep) ;
+			//}
+		}
+	}		
+	
+	//check if some other face(s) of this object reference(s)to this media impl.
+	S32 i ;
+	S32 end = (S32)mMediaImplList.size() ;
+	for(i = 0; i < end ; i++)
+	{
+		if( i != texture_index && mMediaImplList[i] == mMediaImplList[texture_index])
+		{
+			break ;
+		}
+	}
+
+	if(i == end) //this object does not need this media impl.
+	{
+		//mMediaImplList[texture_index]->removeObject(this) ;
+	}
+
+	mMediaImplList[texture_index] = NULL ;
+	return ;
+}
+
+void LLVOVolume::addMediaImpl(LLViewerMediaImpl* media_impl, S32 texture_index)
+{
+	if((S32)mMediaImplList.size() < texture_index + 1)
+	{
+		mMediaImplList.resize(texture_index + 1) ;
+	}
+	
+	if(mMediaImplList[texture_index].notNull())
+	{
+		if(mMediaImplList[texture_index] == media_impl)
+		{
+			return ;
+		}
+
+		removeMediaImpl(texture_index) ;
+	}
+
+	mMediaImplList[texture_index] = media_impl;
+	//media_impl->addObject(this) ;	
+
+	//add the face to show the media if it is in playing
+	if(mDrawable)
+	{
+		LLFace* facep = mDrawable->getFace(texture_index) ;
+		if(facep)
+		{
+			//LLViewerMediaTexture* media_tex = LLViewerTextureManager::findMediaTexture(mMediaImplList[texture_index]->getMediaTextureID()) ;
+			//if(media_tex)
+			//{
+			//	media_tex->addMediaToFace(facep) ;
+			//}
+		}
+		else //the face is not available now, start media on this face later.
+		{
+			//media_impl->setUpdated(TRUE) ;
+		}
+	}
+	return ;
+}
+
+void LLVOVolume::sendMediaDataUpdate()
+{
+    if (sObjectMediaClient)
+		sObjectMediaClient->updateMedia(new LLMediaDataClientObjectImpl(this, false));
+}
+
+void LLVOVolume::updateObjectMediaData(const LLSD &media_data_array, const std::string &media_version)
+{
+	// media_data_array is an array of media entry maps
+	// media_version is the version string in the response.
+	U32 fetched_version = LLTextureEntry::getVersionFromMediaVersionString(media_version);
+
+	// Only update it if it is newer!
+	if ( (S32)fetched_version > mLastFetchedMediaVersion)
+	{
+		mLastFetchedMediaVersion = fetched_version;
+		//llinfos << "updating:" << this->getID() << " " << ll_pretty_print_sd(media_data_array) << llendl;
+		
+		LLSD::array_const_iterator iter = media_data_array.beginArray();
+		LLSD::array_const_iterator end = media_data_array.endArray();
+		U8 texture_index = 0;
+		for (; iter != end; ++iter, ++texture_index)
+		{
+			syncMediaData(texture_index, *iter, false/*merge*/, false/*ignore_agent*/);
+		}
+	}
+}
+
+bool LLVOVolume::hasMedia() const
+{
+	bool result = false;
+	const U8 numTEs = getNumTEs();
+	for (U8 i = 0; i < numTEs; i++)
+	{
+		const LLTextureEntry* te = getTE(i);
+		if(te->hasMedia())
+		{
+			result = true;
+			break;
+		}
+	}
+	return result;
+}
+
+void LLVOVolume::syncMediaData(S32 texture_index, const LLSD &media_data, bool merge, bool ignore_agent)
+{
+	if(mDead)
+	{
+		// If the object has been marked dead, don't process media updates.
+		return;
+	}
+	
+	LLTextureEntry *te = getTE(texture_index);
+//	LL_DEBUGS("MediaOnAPrim") << "BEFORE: texture_index = " << texture_index
+//		<< " hasMedia = " << te->hasMedia() << " : " 
+//		<< ((NULL == te->getMediaData()) ? "NULL MEDIA DATA" : ll_pretty_print_sd(te->getMediaData()->asLLSD())) << llendl;
+
+	std::string previous_url;
+	LLMediaEntry* mep = te->getMediaData();
+	if(mep)
+	{
+		// Save the "current url" from before the update so we can tell if
+		// it changes. 
+		previous_url = mep->getCurrentURL();
+	}
+
+	if (merge)
+	{
+		te->mergeIntoMediaData(media_data);
+	}
+	else {
+		// XXX Question: what if the media data is undefined LLSD, but the
+		// update we got above said that we have media flags??	Here we clobber
+		// that, assuming the data from the service is more up-to-date. 
+		te->updateMediaData(media_data);
+	}
+
+	mep = te->getMediaData();
+	if(mep)
+	{
+		bool update_from_self = false;
+		if (!ignore_agent) 
+		{
+			LLUUID updating_agent = LLTextureEntry::getAgentIDFromMediaVersionString(getMediaURL());
+			update_from_self = (updating_agent == gAgent.getID());
+		}
+		//viewer_media_t media_impl = LLViewerMedia::updateMediaImpl(mep, previous_url, update_from_self);
+			
+		//addMediaImpl(media_impl, texture_index) ;
+	}
+	else
+	{
+		//removeMediaImpl(texture_index);
+	}
+
+//	LL_DEBUGS("MediaOnAPrim") << "AFTER: texture_index = " << texture_index
+//		<< " hasMedia = " << te->hasMedia() << " : " 
+//		<< ((NULL == te->getMediaData()) ? "NULL MEDIA DATA" : ll_pretty_print_sd(te->getMediaData()->asLLSD())) << llendl;
+}
+
+
+void LLVOVolume::mediaNavigateBounceBack(U8 texture_index)
+{
+	/*
+	// Find the media entry for this navigate
+	const LLMediaEntry* mep = NULL;
+	viewer_media_t impl = getMediaImpl(texture_index);
+	LLTextureEntry *te = getTE(texture_index);
+	if(te)
+	{
+		mep = te->getMediaData();
+	}
+	
+	if (mep && impl)
+	{
+        std::string url = mep->getCurrentURL();
+		// Look for a ":", if not there, assume "http://"
+		if (!url.empty() && std::string::npos == url.find(':')) 
+		{
+			url = "http://" + url;
+		}
+		// If the url we're trying to "bounce back" to is either empty or not
+		// allowed by the whitelist, try the home url.  If *that* doesn't work,
+		// set the media as failed and unload it
+        if (url.empty() || !mep->checkCandidateUrl(url))
+        {
+            url = mep->getHomeURL();
+			// Look for a ":", if not there, assume "http://"
+			if (!url.empty() && std::string::npos == url.find(':')) 
+			{
+				url = "http://" + url;
+			}
+        }
+        if (url.empty() || !mep->checkCandidateUrl(url))
+		{
+			// The url to navigate back to is not good, and we have nowhere else
+			// to go.
+			LL_WARNS("MediaOnAPrim") << "FAILED to bounce back URL \"" << url << "\" -- unloading impl" << LL_ENDL;
+			impl->setMediaFailed(true);
+		}
+		else {
+			// Okay, navigate now
+            LL_INFOS("MediaOnAPrim") << "bouncing back to URL: " << url << LL_ENDL;
+            impl->navigateTo(url, "", false, true);
+        }
+    }
+	*/
+}
