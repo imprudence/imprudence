@@ -114,10 +114,6 @@ BOOL FloaterVoiceLicense::postBuild()
 	childSetAction("Cancel", onCancel, this);
 	childSetCommitCallback("agree_chk", updateAgree, this);
 
-	// disable Agree to License radio button until the page has fully loaded
-	LLCheckBoxCtrl* license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
-	license_agreement->setEnabled( false );
-
 	// hide the SL text widget if we're displaying license with using a browser widget.
 	LLTextEditor *editor = getChild<LLTextEditor>("license_text");
 	editor->setVisible( FALSE );
@@ -159,8 +155,7 @@ void FloaterVoiceLicense::setSiteIsAlive( bool alive )
 	{
 		// normally this is set when navigation to license page completes (so you can't accept before it loads)
 		// but if the page is unavailable, we need to do this now
-		LLCheckBoxCtrl* license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
-		license_agreement->setEnabled( true );
+		// We used to enable "agree_chk" checkbox here too -- MC
 	}
 }
 
@@ -234,9 +229,8 @@ void FloaterVoiceLicense::handleMediaEvent(LLPluginClassMedia* /*self*/, EMediaE
 		if ( ++mLoadCompleteCount == 2 )
 		{
 			llinfos << "NAVIGATE COMPLETE" << llendl;
-			// enable Agree to License radio button now that page has loaded
-			LLCheckBoxCtrl * license_agreement = getChild<LLCheckBoxCtrl>("agree_chk");
-			license_agreement->setEnabled( true );
+			// We used to enable Agree to License radio button now that page has loaded here
+			// but this is event is horribly broken -- MC
 		}
 	}
 }
