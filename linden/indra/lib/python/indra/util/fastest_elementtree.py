@@ -43,6 +43,7 @@ try:
     if not use_celementree:
         raise ImportError()
     # Python 2.3 and 2.4.
+    from cElementTree import fromstring # this isn't in old versions of cElementTree
     from cElementTree import *
     ElementTreeError = SyntaxError
 except ImportError:
