@@ -58,11 +58,13 @@
 #include "llimview.h" // for LLIMMgr
 #include "llimpanel.h" // for LLVoiceChannel
 #include "llparcel.h"
+#include "llstartup.h"
 #include "llviewerparcelmgr.h"
 #include "llfirstuse.h"
 #include "llviewerwindow.h"
 #include "llviewercamera.h"
 #include "hippolimits.h"
+#include "hippogridmanager.h"
 
 #include "llfloaterfriends.h"  //VIVOX, inorder to refresh communicate panel
 #include "llfloaterchat.h"		// for LLFloaterChat::addChat()
@@ -75,6 +77,7 @@
 
 // for MD5 hash
 #include "llmd5.h"
+
 
 #define USE_SESSION_GROUPS 0
 
@@ -7146,6 +7149,15 @@ void LLVoiceClient::avatarNameResolved(const LLUUID &id, const std::string &name
 			
 		}
 	}
+}
+
+//static 
+bool LLVoiceClient::needsVivoxLicense()
+{
+	// assumes we're always using slvoice.exe on Second Life
+	bool needs_license = !gSavedSettings.getBOOL("VivoxLicenseAccepted") && 
+						gHippoGridManager->getCurrentGrid()->isSecondLife();
+	return needs_license;
 }
 
 class LLViewerParcelVoiceInfo : public LLHTTPNode

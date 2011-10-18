@@ -42,6 +42,7 @@
 #include "llkeyboard.h"
 #include "llmodaldialog.h"
 #include "llviewercontrol.h"
+#include "llvoiceclient.h"
 #include "lluictrlfactory.h"
 
 
@@ -150,7 +151,7 @@ void LLPrefsVoice::apply()
 	}
 
 	bool enable_voice = childGetValue("enable_voice_check");
-	if (enable_voice && !gSavedSettings.getBOOL("VivoxLicenseAccepted"))
+	if (enable_voice && LLVoiceClient::needsVivoxLicense())
 	{
 		// This window enables voice chat if license is accepted
 		FloaterVoiceLicense::getInstance()->open();

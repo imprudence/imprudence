@@ -1161,19 +1161,24 @@ bool idle_startup()
 		// color init must be after saved settings loaded
 		init_colors();
 
-		if (!gSavedSettings.getBOOL("EnableVoiceChat") ||
-			(gSavedSettings.getBOOL("EnableVoiceChat") && gSavedSettings.getBOOL("VivoxLicenseAccepted")) || 
-			!gHippoGridManager->getConnectedGrid()->isSecondLife())
+		// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
+		// skipping over STATE_UPDATE_CHECK because that just waits for input
+		// We don't do this on non-SL grids either
+		if (LLVoiceClient::needsVivoxLicense())
 		{
-			// skipping over STATE_LOGIN_VOICE_LICENSE since we don't need it
-			// skipping over STATE_UPDATE_CHECK because that just waits for input
-			// We don't do this on non-SL grids either
-			LLStartUp::setStartupState( STATE_LOGIN_AUTH_INIT );
+			if (gSavedSettings.getBOOL("EnableVoiceChat"))
+			{
+				LLStartUp::setStartupState(STATE_LOGIN_VOICE_LICENSE);
+				LLFirstUse::voiceLicenseAgreement();
+			}
+			else
+			{
+				LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
+			}
 		}
 		else
 		{
-			LLStartUp::setStartupState(STATE_LOGIN_VOICE_LICENSE);
-			LLFirstUse::voiceLicenseAgreement();
+			LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
 		}
 
 		return FALSE;

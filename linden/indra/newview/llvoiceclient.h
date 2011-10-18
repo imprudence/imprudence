@@ -87,6 +87,7 @@ class LLVoiceClient: public LLSingleton<LLVoiceClient>
 	public:
 		static void init(LLPumpIO *pump);	// Call this once at application startup (creates connector)
 		static void terminate();	// Call this to clean up during shutdown
+		static bool needsVivoxLicense();
 						
 	protected:
 		bool writeString(const std::string &str);
