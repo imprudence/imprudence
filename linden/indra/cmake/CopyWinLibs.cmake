@@ -5,6 +5,21 @@
 # VisualStudio. 
 
 include(CMakeCopyIfDifferent)
+# Provide compiler version awareness
+   if (MSVC71)
+        set(MSVC_DIR 7.1)
+        set(MSVC_SUFFIX 71)
+    elseif (MSVC80)
+        set(MSVC_DIR 8.0)
+        set(MSVC_SUFFIX 80)
+    elseif (MSVC90)
+        set(MSVC_DIR 9.0)
+        set(MSVC_SUFFIX 90)
+    elseif (MSVC10)
+        set(MSVC_DIR 10.0)
+        set(MSVC_SUFFIX 100)
+    endif (MSVC71)
+
 
 # Copying vivox's alut.dll breaks inworld audio, never use it
 set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")

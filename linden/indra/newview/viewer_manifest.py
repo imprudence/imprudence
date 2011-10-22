@@ -33,7 +33,7 @@
 
 # DO NOT RUN THIS FILE DIRECTLY
 # Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
-#   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
+#   develop.py -G vc100 configure -DPACKAGE:BOOL=ON
 # to generate the "package" project in Visual Studio 2005
 # Note: use the batch file on Windows in the indra directory
 
@@ -76,7 +76,7 @@ class ViewerManifest(LLManifest):
             self.path("*.tga")
             self.end_prefix("character")
 
-        # Include our fonts
+			# Include our fonts
         if self.prefix(src="fonts"):
             self.path("GPL.txt")
             self.path("Liberation-License.txt")
@@ -348,11 +348,23 @@ class WindowsManifest(ViewerManifest):
             self.path("qtiff4.dll")
             self.end_prefix()
 
+    # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
+        self.path("skins/default/xui/en-us/mime_types_windows.xml", "skins/default/xui/en-us/mime_types.xml")
+        #TODO remove comments after proven to work.
+        # Manifest and configuration are not needed for vs2010 builds. 00-Common.cmake sets a no manifest
+		# link. CopyWinLibs.cmake hanged to drop copy of msvc runtime dlls, manifest and configruation.
         # We no longer use private assemblies in the viewer -- MC
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
         #if self.prefix(src=self.args['configuration'], dst=""):
         #    if self.args['configuration'] == 'Debug':
+        #        self.path("msvcr100d.dll")
+        #        self.path("msvcp100d.dll")
+        #        self.path("Microsoft.VC100.DebugCRT.manifest")
+        #    else:
+        #        self.path("msvcr100.dll")
+        #        self.path("msvcp100.dll")
+        #        self.path("Microsoft.VC100.CRT.manifest")
         #        self.path("msvcr80d.dll")
         #        self.path("msvcp80d.dll")
         #        self.path("Microsoft.VC80.DebugCRT.manifest")
@@ -364,6 +376,15 @@ class WindowsManifest(ViewerManifest):
 
         # The config file name needs to match the exe's name.
         #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
+        # We need this one too, so that llkdu loads at runtime - DEV-41194
+        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
+        self.path("llkdu.dll.2.config")
+
+        # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
+        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
+
+        # same thing for auto-updater.
+        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):

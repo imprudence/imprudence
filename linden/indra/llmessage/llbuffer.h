@@ -44,7 +44,7 @@
 
 #include <list>
 #include <vector>
-
+#include <iterator>
 /** 
  * @class LLChannelDescriptors
  * @brief A way simple interface to accesss channels inside a buffer

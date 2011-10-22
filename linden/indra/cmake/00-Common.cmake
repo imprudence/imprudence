@@ -77,7 +77,7 @@ if (WINDOWS)
       /MP
       )
      
-  if(MSVC80 OR MSVC90)
+  if(MSVC80 OR MSVC90 OR MSVC10)
     set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} -D_SECURE_STL=0 -D_HAS_ITERATOR_DEBUGGING=0"
       CACHE STRING "C++ compiler release options" FORCE)
@@ -88,12 +88,34 @@ if (WINDOWS)
     add_definitions(
       /Zc:wchar_t-
       )
-  endif (MSVC80 OR MSVC90)
+  endif (MSVC80 OR MSVC90 OR MSVC10)
   
   # Are we using the crummy Visual Studio KDU build workaround?
   if (NOT VS_DISABLE_FATAL_WARNINGS)
     add_definitions(/WX)
   endif (NOT VS_DISABLE_FATAL_WARNINGS)
+    # Various libs are compiler specific, generate some variables here we can just use
+  # when we require them instead of reimplementing the test each time.
+  
+  if (MSVC71)
+	    set(MSVC_DIR 7.1)
+	    set(MSVC_SUFFIX 71)
+    elseif (MSVC80)
+	    set(MSVC_DIR 8.0)
+	    set(MSVC_SUFFIX 80)
+    elseif (MSVC90)
+	    set(MSVC_DIR 9.0)
+	    set(MSVC_SUFFIX 90)
+    elseif (MSVC10)
+	    set(MSVC_DIR 10.0)
+	    set(MSVC_SUFFIX 100)
+    endif (MSVC71)
+
+  if (MSVC10)
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MANIFEST:NO")
+    SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /MANIFEST:NO")
+  endif(MSVC10)
 endif (WINDOWS)
 
 

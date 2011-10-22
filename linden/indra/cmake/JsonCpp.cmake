@@ -18,6 +18,10 @@ else (STANDALONE)
       set(JSONCPP_LIBRARIES 
         debug json_vc90d
         optimized json_vc90)
+    elseif (MSVC10)
+      set(JSONCPP_LIBRARIES 
+        debug json_vc10d
+        optimized json_vc10)    
 	endif(MSVC80)
   elseif (DARWIN)
     set(JSONCPP_LIBRARIES json_mac-universal-gcc_libmt)
