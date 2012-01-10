@@ -308,9 +308,11 @@ public:
 	// based on preferred type. Returns the UUID of the new
 	// category. If you want to use the default name based on type,
 	// pass in a NULL to the 'name parameter.
-	LLUUID createNewCategory(const LLUUID& parent_id,
-							 LLAssetType::EType preferred_type,
-							 const std::string& name);
+ 	LLUUID createNewCategory(const LLUUID& parent_id,
+ 							 LLAssetType::EType preferred_type,
+							 const std::string& name,
+							 void (*callback)(const LLSD&, void*) = NULL,
+							 void* user_data = NULL);
 
 	LLUUID findCategoryByName(std::string name);
 

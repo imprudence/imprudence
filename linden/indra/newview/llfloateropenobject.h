@@ -50,10 +50,24 @@ public:
 	static void show();
 	static void dirty();
 	
+	class LLCategoryCreate
+	{
+		public:
+			LLCategoryCreate(LLUUID object_id, bool wear)
+			:	mObjectID(object_id),
+				mWear(wear)
+			{}
+
+		public:
+			LLUUID mObjectID;
+			bool mWear;
+	};
+
 	struct LLCatAndWear
 	{
 		LLUUID mCatID;
 		bool mWear;
+		bool mFolderResponded;
 	};
 
 protected:
@@ -67,6 +81,7 @@ protected:
 
 	static void onClickMoveToInventory(void* data);
 	static void onClickMoveAndWear(void* data);
+	static void callbackCreateInventoryCategory(const LLSD& result, void* data);
 	static void callbackMoveInventory(S32 result, void* data);
 	static void* createPanelInventory(void* data);
 
