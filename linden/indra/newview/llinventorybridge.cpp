@@ -1615,7 +1615,7 @@ public:
 								   bool folder_added = false)
 	:	mCatID(cat_id),
 		mContentsCount(count),
-		mFolderAdded(FALSE) {}
+		mFolderAdded(folder_added) {}
 	virtual ~LLInventoryCopyAndWearObserver() {}
 	virtual void changed(U32 mask);
 
