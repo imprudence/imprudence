@@ -60,6 +60,7 @@
 #include "llvoavatar.h"
 #include "llsdutil.h"
 #include <deque>
+#include "llfloateropenobject.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -454,17 +455,25 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 										   void (*callback)(const LLSD&, void*),
 										   void* user_data)
 {
+	llassert_always(NULL != callback);
+
 	LLUUID id;
+
 	if(!isInventoryUsable())
 	{
 		llwarns << "Inventory is broken." << llendl;
-		return id;
-	}
+		LLSD result;
+		result["failure"] = true;
+		callback(result, user_data);
+ 	}
+
 
 	if(preferred_type == LLAssetType::AT_SIMSTATE)
 	{
 		LL_DEBUGS("Inventory") << "Attempt to create simstate category." << LL_ENDL;
-		return id;
+		LLSD result;
+		result["failure"] = true;
+		callback(result, user_data);
 	}
 
 	id.generate();
@@ -483,15 +492,17 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		name.assign(NEW_CATEGORY_NAME);
 	}
 
-	if (callback && user_data)  // callback required for acked message.
+	if (user_data)  // callback required for acked message.
 	{
 
 
 		LLViewerRegion* viewer_region = gAgent.getRegion();
-		if (!viewer_region->capabilitiesReceived())//awfixme
+
+		if (!viewer_region->capabilitiesReceived())
 		{
-			LL_DEBUGS("Inventory") << "HIPPOS! not capabilitiesReceived()"   << LL_ENDL;
+			LL_DEBUGS("Inventory") << "We didn't get the region caps yet." << LL_ENDL;
 		}
+
 		std::string url;
 		if (viewer_region)
 		{
@@ -517,17 +528,16 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 																	  user_data));
 			return LLUUID::null;
 		}
-		else//awfixme
+		else
 		{
-			LL_DEBUGS("Inventory") << "HIPPOS! cap url empty"   << LL_ENDL;
+			LL_DEBUGS("Inventory") << "Cap url empty"   << LL_ENDL;
 		}
 	}
-	else//awfixme
+	else //NULL == user_data
 	{
-		LL_DEBUGS("Inventory") << "HIPPOS! callback: "
-				<< (callback ? "true" : "false")
-				<< "user_data"  << ((NULL!= user_data) ? "!NULL" : "NULL")
-				<< LL_ENDL;
+		// user_data is a LLCategoryCreate object instantiated in the calling
+		// function - bug (or low memory - any leaks?).
+		llwarns << "NULL user_data" << llendl;
 	}
 
 	// Add the category to the internal representation

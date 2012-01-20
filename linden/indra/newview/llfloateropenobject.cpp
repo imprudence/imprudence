@@ -195,6 +195,11 @@ void LLFloaterOpenObject::moveToInventory(bool wear)
 void LLFloaterOpenObject::callbackCreateInventoryCategory(const LLSD& result, void* data)
 {
 	LLCategoryCreate* cat_data = (LLCategoryCreate*)data;
+	if (result.has("failure") and result["failure"])
+	{
+		delete cat_data;
+		return;
+	}
 
 	LLUUID category_id = result["folder_id"].asUUID();
 	LLCatAndWear* wear_data = new LLCatAndWear;
