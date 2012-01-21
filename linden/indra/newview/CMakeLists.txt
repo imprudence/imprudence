@@ -1242,7 +1242,7 @@ set_source_files_properties(${viewer_CHARACTER_FILES}
 list(APPEND viewer_SOURCE_FILES ${viewer_CHARACTER_FILES})
 
 if (WINDOWS)
-  file(GLOB viewer_INSTALLER_FILES installers/windows/*.nsi)
+  file(GLOB viewer_INSTALLER_FILES installers/windows/*.iss)
 
   source_group("Installer Files" FILES ${viewer_INSTALLER_FILES})
 
