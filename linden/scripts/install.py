@@ -36,6 +36,7 @@ $/LicenseInfo$
 import sys
 import os.path
 import re
+import string
 
 # Look for indra/lib/python in all possible parent directories ...
 # This is an improvement over the setup-path.py method used previously:
@@ -106,7 +107,7 @@ class InstallFile(object):
 
     def _is_md5sum_match(self):
         hasher = md5(file(self.filename, 'rb').read())
-        if hasher.hexdigest() == self.md5sum:
+        if string.lower(hasher.hexdigest()) == string.lower(self.md5sum):
             return  True
         return False
 
