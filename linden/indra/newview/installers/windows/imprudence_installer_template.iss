@@ -46,7 +46,7 @@ Name: english; MessagesFile: compiler:Default.isl
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
-Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
+Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce; OnlyBelowVersion: 0,6.1
 Name: slurlassociate; Description: Associate Imprudence with SLURLs; GroupDescription: Associations:; Languages: ; Flags: checkedonce
 ; TODO: use scripting for something like this on uninstall:
 ; Name: uninstallsettings; Description: Remove user settings; Flags: checkablealone; Languages: ; GroupDescription: Uninstall:
