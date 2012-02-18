@@ -195,7 +195,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear)
 void LLFloaterOpenObject::callbackCreateInventoryCategory(const LLSD& result, void* data)
 {
 	LLCategoryCreate* cat_data = (LLCategoryCreate*)data;
-	if (result.has("failure") and result["failure"])
+	if (result.has("failure") && result["failure"])
 	{
 		delete cat_data;
 		return;
