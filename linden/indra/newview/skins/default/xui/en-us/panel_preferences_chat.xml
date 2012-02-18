@@ -252,11 +252,7 @@ USE left="270" FOR TABBING OPTIONS
       <button name="ac_button" label="AutoCorrect..." halign="center"
          tool_tip="Modify the AutoCorrect word list and settings" left="50"
          bottom_delta="-40" width="160" height="20" font="SansSerifSmall" follows="left|top"/>
-
-
-      <view_border bevel_style="none" border_thickness="1" bottom_delta="-15" follows="left|top"
-            height="1" left="55" name="border" width="380" />
-
+      
 
       <button bottom="-20" follows="left|top" font="SansSerifSmall" height="18" label="?"
              name="EmeraldHelp_SpellCheck" tool_tip="Click here for help regarding the settings in this page."
