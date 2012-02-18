@@ -2197,6 +2197,9 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 
 				if (cit == temp_cats.end())
 				{
+					llwarns << "Can't load " << inventory_filename
+							<< " because cit == temp_cats.end()" 
+							<< llendl;
 					continue; // cache corruption?? not sure why this happens -SJB
 				}
 				LLViewerInventoryCategory* tcat = *cit;
@@ -2205,6 +2208,9 @@ bool LLInventoryModel::loadSkeleton(const LLInventoryModel::options_t& options,
 				// not sent down in the skeleton.
 				if (cit == not_cached)
 				{
+					llwarns << "Can't load " << inventory_filename
+							<< " because cit == not_cached" 
+							<< llendl;
 					continue;
 				}
 
