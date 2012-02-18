@@ -51,9 +51,6 @@ LLWLDayCycle::~LLWLDayCycle()
 
 void LLWLDayCycle::loadDayCycle(const std::string & fileName)
 {
-	// clear the first few things
-	mTimeMap.clear();
-
 	// now load the file
 	std::string pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, 
 		"windlight/days", fileName));
@@ -62,6 +59,9 @@ void LLWLDayCycle::loadDayCycle(const std::string & fileName)
 	llifstream day_cycle_xml(pathName);
 	if (day_cycle_xml.is_open())
 	{
+		// clear the first few things
+		mTimeMap.clear();
+
 		// load and parse it
 		LLSD day_data(LLSD::emptyArray());
 		LLPointer<LLSDParser> parser = new LLSDXMLParser();

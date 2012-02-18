@@ -139,7 +139,6 @@
 #include "llfloaterworldmap.h"
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
-#include "lltranslate.h"
 
 #include "panelradarentry.h"
 
@@ -2805,52 +2804,6 @@ void process_decline_callingcard(LLMessageSystem* msg, void**)
 	LLNotifications::instance().add("CallingCardDeclined");
 }
 
-class ChatTranslationReceiver : public LLTranslate::TranslationReceiver
-{
-public :
-	ChatTranslationReceiver(const std::string &fromLang, const std::string &toLang, const LLChat &chat,
-		const std::string &orig_mesg, const BOOL history)
-		: LLTranslate::TranslationReceiver(fromLang, toLang),
-		m_chat(chat),
-		m_origMesg(orig_mesg),
-		m_history(history)
-	{
-	}
-
-	static boost::intrusive_ptr<ChatTranslationReceiver> build(const std::string &fromLang, const std::string &toLang, const LLChat &chat, const std::string &orig_mesg, const BOOL history)
-	{
-		return boost::intrusive_ptr<ChatTranslationReceiver>(new ChatTranslationReceiver(fromLang, toLang, chat, orig_mesg, history));
-	}
-
-protected:
-	void handleResponse(const std::string &translation, const std::string &detected_language)
-	{
-		// filter out non-interesting responeses
-		if ( !translation.empty()
-			&& (m_toLang != detected_language)
-			&& (LLStringUtil::compareInsensitive(translation, m_origMesg) != 0) )
-		{
-			m_chat.mText += " (" + translation + ")";
-		}
-
-		add_floater_chat(m_chat, m_history);
-	}
-
-	void handleFailure()
-	{
-		LLTranslate::TranslationReceiver::handleFailure();
-
-		m_chat.mText += " (?)";
-
-		add_floater_chat(m_chat, m_history);
-	}
-
-private:
-	LLChat m_chat;
-	std::string m_origMesg;
-	const BOOL m_history;
-};
-
 void add_floater_chat(const LLChat &chat, const BOOL history)
 {
 	if (history)
@@ -2862,26 +2815,6 @@ void add_floater_chat(const LLChat &chat, const BOOL history)
 	{
 		// show on screen and add to history
 		LLFloaterChat::addChat(chat, FALSE, FALSE);
-	}
-}
-
-void check_translate_chat(const std::string &mesg, const LLChat &chat, const BOOL history)
-{
-	const bool translate = gSavedSettings.getBOOL("TranslateChat");
-
-	if (translate && chat.mSourceType != CHAT_SOURCE_SYSTEM)
-	{
-		// fromLang hardcoded to "" (autodetection) pending implementation of
-		// SVC-4879
-		const std::string &fromLang = "";
-		const std::string &toLang = LLTranslate::getTranslateLanguage();
-
-		LLHTTPClient::ResponderPtr result = ChatTranslationReceiver::build(fromLang, toLang, chat, mesg, history);
-		LLTranslate::translateMessage(result, fromLang, toLang, mesg);
-	}
-	else
-	{
-		add_floater_chat(chat, history);
 	}
 }
 
@@ -3304,12 +3237,12 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			&& (is_linden || !is_busy || is_owned_by_me))
 		{
 			// show on screen and add to history
-			check_translate_chat(mesg, chat, FALSE);
+			add_floater_chat(chat, FALSE);
 		}
 		else
 		{
 			// just add to chat history
-			check_translate_chat(mesg, chat, TRUE);
+			add_floater_chat(chat, TRUE);
 		}
 	}
 }

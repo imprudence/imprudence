@@ -111,8 +111,6 @@ BOOL LLPrefsChatImpl::postBuild()
 	childSetValue("toggle_channel_control", gSavedSettings.getBOOL("ChatChannelSelect"));
 	childSetValue("console_opacity", gSavedSettings.getF32("ConsoleBackgroundOpacity"));
 	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
-	childSetValue("translate_language_combobox", 	gSavedSettings.getString("TranslateLanguage"));
-	childSetValue("translate_chat", 	gSavedSettings.getBOOL("TranslateChat"));
 
 	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
 
@@ -205,8 +203,6 @@ void LLPrefsChatImpl::apply()
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
 	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
 
-	gSavedSettings.setString("TranslateLanguage", childGetValue("translate_language_combobox"));
-	gSavedSettings.setBOOL("TranslateChat", childGetValue("translate_chat"));
 
 	bool chan_check = childGetValue("toggle_channel_control");
 	gSavedSettings.setBOOL("ChatChannelSelect", chan_check);

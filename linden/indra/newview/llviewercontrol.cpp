@@ -511,19 +511,6 @@ bool handleVoiceClientPrefsChanged(const LLSD& newvalue)
 	return true;
 }
 
-bool handleTranslateChatPrefsChanged(const LLSD& newvalue)
-{
-	LLFloaterChat* floaterp = LLFloaterChat::getInstance();
-
-	if(floaterp)
-	{
-		// update "translate chat" pref in "Local Chat" floater
-		floaterp->updateSettings();
-	}
-	return true;
-}
-
-
 bool handleSliderScrollWheelMultiplierChanged(const LLSD& newvalue)
 {
 	LLSlider::setScrollWheelMultiplier( newvalue.asInteger() );
@@ -675,7 +662,6 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelMic")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));
 	gSavedSettings.getControl("LipSyncEnabled")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));	
 	gSavedSettings.getControl("SliderScrollWheelMultiplier")->getSignal()->connect(boost::bind(&handleSliderScrollWheelMultiplierChanged, _1));	
-	gSavedSettings.getControl("TranslateChat")->getSignal()->connect(boost::bind(&handleTranslateChatPrefsChanged, _1));
 }
 
 template <> eControlType get_control_type<U32>(const U32& in, LLSD& out) 
