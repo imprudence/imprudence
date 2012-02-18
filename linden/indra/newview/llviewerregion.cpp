@@ -1428,6 +1428,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	LLSD capabilityNames = LLSD::emptyArray();
 	capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
+	capabilityNames.append("CreateInventoryCategory");
 	// Aurora settings -- MC
 	capabilityNames.append("DispatchOpenRegionSettings");
 	capabilityNames.append("DispatchRegionInfo");
