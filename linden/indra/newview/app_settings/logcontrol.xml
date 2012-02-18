@@ -53,7 +53,7 @@
 							<!--<string>AudioEngine</string>-->
 							<!--<string>BodyPhysics</string>-->
               <!--<string>InitInfo</string>-->
-              <string>Inventory</string>
+              <!--<string>Inventory</string>-->
               <!--<string>isOwnedSelf</string>-->
 							<!--<string>HUDEffect</string>-->
               <!--<string>MarkerFile</string>-->
