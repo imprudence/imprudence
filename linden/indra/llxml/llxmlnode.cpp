@@ -499,10 +499,7 @@ void XMLCALL StartXMLNode(void *userData,
 		pos += 2;
 	}
 
-	if (parent)
-	{
-		parent->addChild(new_node);
-	}
+	parent->addChild(new_node);
 }
 
 void XMLCALL EndXMLNode(void *userData,

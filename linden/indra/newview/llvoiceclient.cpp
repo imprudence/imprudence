@@ -1054,6 +1054,11 @@ void LLVoiceClientCapResponder::result(const LLSD& content)
 
 		gVoiceClient->setSpatialChannel(uri, credentials, mResponseID);
 	}
+	else
+	{
+		llwarns << "ParcelVoiceInfoRequest response malformed, disabling voice." << llendl;
+		gVoiceClient->close();
+	}
 }
 
 
@@ -1212,13 +1217,22 @@ void LLVoiceClient::terminate()
 		// ms_sleep(2000);
 		gVoiceClient->connectorShutdown();
 		gVoiceClient->closeSocket();		// Need to do this now -- bad things happen if the destructor does it later.
-		
-		// This will do unpleasant things on windows.
-//		killGateway();
-		
+
+		LL_DEBUGS("IdleCallbacks") << "IdleCallbacks deleteFunction " 
+					<< "called from LLVoiceClient" << LL_ENDL;
+		gIdleCallbacks.deleteFunction(idle, gVoiceClient);
+
+		if (isGatewayRunning())
+		{
+			// This will do unpleasant things on windows.
+			// AW: no unpleasant things observed on windows,
+			// guess they came from sloppy cleanup.
+			killGateway();
+		}
+
 		// Don't do this anymore -- LLSingleton will take care of deleting the object.		
 //		delete gVoiceClient;
-		
+
 		// Hint to other code not to access the voice client anymore.
 		gVoiceClient = NULL;
 	}
@@ -1765,11 +1779,13 @@ void LLVoiceClient::close()
 {
 	LL_DEBUGS("VoiceSession") << "Cancel Session: LLVoiceClient::close() called."
 				<< llendl;
+	mAccountActive = false;
 	setState(stateDisableCleanup);
 }
 
 void LLVoiceClient::start()
 {
+	mAccountActive = true;
 	setState(stateStart);
 }
 
@@ -7209,6 +7225,11 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 				response_id.generate();
 				gVoiceClient->setPIRCapResponseID(response_id);
 				gVoiceClient->setSpatialChannel(uri, credentials, response_id);
+			}
+			else
+			{
+				llwarns << "ParcelVoiceInfoRequest response malformed, disabling voice." << llendl;
+				gVoiceClient->close();
 			}
 		}
 	}

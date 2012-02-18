@@ -195,7 +195,8 @@ if (LINUX)
        # This rather needs to be done elsewhere
        # anyway these are the flags for the 64bit releases:
        add_definitions(-DLINUX64=1 -pipe)
-       set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fomit-frame-pointer -mmmx -msse -mfpmath=sse -msse2 -ffast-math -ftree-vectorize -fweb -fexpensive-optimizations -frename-registers")
+       # with -ffast-math lloctree crashes teleporting to mega regions, and it didn't do much for us anyway
+       set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fomit-frame-pointer -mmmx -msse -mfpmath=sse -msse2  -ftree-vectorize -fweb -fexpensive-optimizations -frename-registers")
     endif (${ARCH} STREQUAL "x86_64")
 	set(CMAKE_CXX_FLAGS_RELEASESSE2 "${CMAKE_CXX_FLAGS_RELEASESSE2} -mfpmath=sse2 -msse2")
   endif (VIEWER)
@@ -232,6 +233,15 @@ if (LINUX OR DARWIN)
 
   set(CMAKE_C_FLAGS "${GCC_WARNINGS} ${CMAKE_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${GCC_CXX_WARNINGS} ${CMAKE_CXX_FLAGS}")
+
+  if (WORD_SIZE EQUAL 32)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+  elseif (WORD_SIZE EQUAL 64)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
+  endif (WORD_SIZE EQUAL 32)
+
 endif (LINUX OR DARWIN)
 
 

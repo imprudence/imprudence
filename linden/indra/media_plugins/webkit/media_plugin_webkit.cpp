@@ -81,6 +81,7 @@ extern "C" {
 #ifdef LL_STANDALONE
 #include <qglobal.h>
 #elif defined(LL_LINUX)
+
 // We don't provide Qt headers for non-standalone, therefore define this here.
 // Our prebuilt is built with QT_NAMESPACE undefined.
 #define QT_MANGLE_NAMESPACE(name) name
@@ -1156,7 +1157,9 @@ void MediaPluginWebKit::receiveMessage(const char *message_string)
 				std::string url = message_in.getValue("url");
 				if ( 404 == code )	// browser lib only supports 404 right now
 				{
+#if LLQTWEBKIT_API_VERSION < 8
 					LLQtWebKit::getInstance()->set404RedirectUrl( mBrowserWindowId, url );
+#endif
 				};
 			}
 			else if(message_name == "set_user_agent")

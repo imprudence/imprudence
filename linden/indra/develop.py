@@ -223,14 +223,26 @@ class UnixSetup(PlatformSetup):
 
     def arch(self):
         cpu = os.uname()[-1]
+        word_size = os.environ.get('WORD_SIZE')
         if cpu.endswith('386'):
             cpu = 'i386'
+            if word_size == '64':
+              cpu = 'x86_64'
         elif cpu.endswith('86'):
-            cpu = 'i686'
+            if word_size == '64':
+              cpu = 'x86_64'
+            else:
+              cpu = 'i686'
         elif cpu in ('x86_64'):
-            cpu = 'x86_64'	    
-        elif cpu in ('athlon',):
-            cpu = 'i686'
+            if word_size == '32':
+              cpu = 'i686'
+            else:
+              cpu = 'x86_64'
+	elif cpu in ('athlon',):
+            if word_size == '64':
+              cpu = 'x86_64'
+            else:
+              cpu = 'i686'
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu

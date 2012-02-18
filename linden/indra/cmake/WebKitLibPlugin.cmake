@@ -29,6 +29,9 @@ if (STANDALONE)
     set(WEBKITLIBPLUGIN OFF CACHE BOOL
         "WEBKITLIBPLUGIN support for the llplugin/llmedia test apps.")
 else (STANDALONE)
+  if(LINUX)
+     use_prebuilt_binary(kokua-qt)
+  endif(LINUX)
     use_prebuilt_binary(llqtwebkit)
     set(WEBKITLIBPLUGIN ON CACHE BOOL
         "WEBKITLIBPLUGIN support for the llplugin/llmedia test apps.")
@@ -62,8 +65,6 @@ elseif (LINUX)
      else (STANDALONE)
        set(WEBKIT_PLUGIN_LIBRARIES
         llqtwebkit
-        qgif
-        qjpeg
         QtWebKit
         QtOpenGL
         QtNetwork
@@ -74,6 +75,8 @@ elseif (LINUX)
         X11
         Xrender
         GL
+        jscore
         )
+
      endif (STANDALONE)
 endif (WINDOWS)

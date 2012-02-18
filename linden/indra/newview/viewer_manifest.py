@@ -933,13 +933,16 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
-            self.path("libxml2.so.2")
             self.path("libz.so")
             self.path("libz.so.1")
 
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
 
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
@@ -1028,7 +1031,6 @@ class Linux_i686Manifest(LinuxManifest):
                 self.end_prefix("bin")
 
             if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                self.path("libalut.so")
                 self.path("libortp.so")
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib")
@@ -1057,22 +1059,37 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
-            self.path("libcrypto.so.0.9.8")
+            self.path("libcrypto.so")
+            self.path("libcrypto.so.1.0.0")
             self.path("libexpat.so.1")
             self.path("libhunspell-1.2.so.0.0.0", "libhunspell-1.2.so.0")
-            self.path("libssl.so.0.9.8")
+            self.path("libssl.so")
+            self.path("libssl.so.1.0.0")
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libjpeg.so.7")
             self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
-            self.path("libxml2.so.2")
-            #self.path("libz.so.1") #not needed
 
+            self.path("libcares.so")
+            self.path("libcares.so.2")
+            self.path("libcares.so.2.0.0")
+            self.path("libcurl.so")
+            self.path("libcurl.so.4")
+            self.path("libcurl.so.4.2.0")
+            self.path("libz.so.1.2.5")
+            self.path("libz.so.1")
+            self.path("libz.so")
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
             ##self.path("libatk-1.0.so.0")
@@ -1106,54 +1123,9 @@ class Linux_x86_64Manifest(LinuxManifest):
             #self.path("libgsttag-0.10.so.0")
             #self.path("libgstvideo-0.10.so.0")
 
-            ## Gstreamer plugin dependencies
-            #self.path("libfaad.so.0")
-            #self.path("libogg.so.0")
-            #self.path("libtheora.so.0")
-            #self.path("libvorbis.so.0")
-            #self.path("libvorbisenc.so.2")
-            #self.path("liboil-0.3.so.0")
 
-            ## Gstreamer plugins
-            #if self.prefix("gstreamer-plugins"):
-                #self.path("libgstalsa.so")
-                #self.path("libgstasf.so")
-                #self.path("libgstaudioconvert.so")
-                #self.path("libgstaudioresample.so")
-                #self.path("libgstautodetect.so")
-                #self.path("libgstavi.so")
-                #self.path("libgstcoreelements.so")
-                #self.path("libgstcoreindexers.so")
-                #self.path("libgstdecodebin2.so")
-                #self.path("libgstdecodebin.so")
-                #self.path("libgstesd.so")
-                #self.path("libgstfaad.so")
-                #self.path("libgstffmpeg.so")
-                #self.path("libgstffmpegcolorspace.so")
-                #self.path("libgstgnomevfs.so")
-                #self.path("libgsticydemux.so")
-                #self.path("libgstid3demux.so")
-                #self.path("libgstmpegdemux.so")
-                #self.path("libgstmultifile.so")
-                #self.path("libgstmultipart.so")
-                #self.path("libgstogg.so")
-                #self.path("libgstossaudio.so")
-                #self.path("libgstplaybin.so")
-                #self.path("libgstpulse.so")
-                #self.path("libgstqtdemux.so")
-                #self.path("libgstqueue2.so")
-                #self.path("libgsttcp.so")
-                #self.path("libgsttheora.so")
-                #self.path("libgsttypefindfunctions.so")
-                #self.path("libgstudp.so")
-                #self.path("libgstvideoscale.so")
-                #self.path("libgstvolume.so")
-                #self.path("libgstvorbis.so")
-                #self.path("libgstwavparse.so")
-                
-                #self.end_prefix("gstreamer-plugins")
             self.end_prefix("lib64")
-        
+
 
             # Vivox runtimes and libs
             if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
@@ -1169,9 +1141,12 @@ class Linux_x86_64Manifest(LinuxManifest):
         # 32bit libs needed for voice
         if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
             self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
             self.path("libidn.so.11")
+            self.path("libopenal.so")
             self.path("libopenal.so.1")
-            # self.path("libortp.so")
+            self.path("libopenal.so.1.13.0")
             self.path("libuuid.so.1")
             self.end_prefix("lib32")
 

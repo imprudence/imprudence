@@ -805,11 +805,14 @@ def _get_platform():
         }
     this_platform = platform_map[sys.platform]
     if this_platform == 'linux':
-        if platform.architecture()[0] == '64bit':
+        word_size = os.environ.get('WORD_SIZE')
+        if  platform.architecture()[0] == '64bit' or word_size == '64':
             # TODO -- someday when install.py accepts a platform of the form 
             # os/arch/compiler/compiler_version then we can replace the 
             # 'linux64' platform with 'linux/x86_64/gcc/4.1'
-            this_platform = 'linux64'
+	    if not word_size == '32':
+               this_platform = 'linux64'
+
     return this_platform
 
 def _getuser():
