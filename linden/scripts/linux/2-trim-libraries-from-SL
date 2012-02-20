@@ -1,0 +1,248 @@
+#!/bin/bash
+
+# You may enable or disable the use of your system's library by editing
+# the USE_SYSTEM_* variable ("yes" --> use the system library, "no" --> use
+# LL's provided ones).
+# The script also takes care of updating properly the viewer_manifest.py script
+# accordingly, so that you (should) end up with a properly packaged client.
+
+source config-SL-source
+
+
+########### functions definitions ###########
+
+function check() {
+    if [ "$1" != "no" ] ; then
+        if [ -f $2 ] ; then
+            echo "Using the system $3..."
+            return 0
+        else
+            echo "WARNING: system $3 requested but not available..."
+        fi
+    fi
+    return 1
+}
+
+function update_manifest() {
+    grep -v $1 $PATH_TO_SOURCES/indra/newview/viewer_manifest.py >$TEMP_DIR/viewer_manifest.py
+    mv -f $TEMP_DIR/viewer_manifest.py $PATH_TO_SOURCES/indra/newview/viewer_manifest.py
+    chmod +x $PATH_TO_SOURCES/indra/newview/viewer_manifest.py
+}
+
+########### end of functions ###########
+
+if [ "$TEMP_DIR" == "" ] ; then
+    export TEMP_DIR="/usr/tmp/$USER"
+fi
+
+# Use the parameter (if any) as the path to the archives:
+
+PATH_TO_ARCHIVES=`pwd`
+if [ "$1" != "" ] && [ "$1" != "--prep" ] ; then
+    if [ -d $1 ] ; then
+        PATH_TO_ARCHIVES=$1
+        shift
+    fi
+fi
+
+cd $PATH_TO_SOURCES/indra
+
+
+# Force the vectorization use if we chose so.
+if [ "$FORCE_VECTORIZE" == "yes" ] ; then
+    TUNE_FLAGS="$TUNE_FLAGS -DLL_VECTORIZE=1"
+fi
+if [ "$ALLOW_WARNINGS" == "yes" ] ; then
+    FATAL_WARNINGS="-DGCC_DISABLE_FATAL_WARNINGS:BOOL=TRUE"
+else
+    FATAL_WARNINGS=""
+fi
+
+# Let's use the system GTK+ if available:
+if check $USE_SYSTEM_GTK /usr/include/atk-1.0/atk/atk.h "GTK+" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client
+    rm -f libgtk* libgdk* libglib* libgmodule* libgobject* libgthread* libpango* libatk* libpixman*
+    cd ../include
+    rm -rf atk-1.0/ gtk-2.0/ glib-2.0/ pango-1.0/ pixman-1/
+    cp -a /usr/include/atk-1.0 .
+    cp -a /usr/include/gtk-2.0 .
+    cp -a /usr/lib/gtk-2.0/include/* gtk-2.0/
+    cp -a /usr/include/glib-2.0 .
+    cp -a /usr/lib/glib-2.0/include/* glib-2.0/
+    cp -a /usr/include/pango-1.0 .
+    if [ -d /usr/include/cairo ] ; then
+        rm -rf cairo/
+        cp -a /usr/include/cairo .
+        cd ../lib_release_client
+        rm -f libcairo*
+    fi
+    update_manifest libatk
+    update_manifest cairo
+    update_manifest libgtk
+    update_manifest libgdk
+    update_manifest libglib
+    update_manifest libgmodule
+    update_manifest libgobject
+    update_manifest libgthread
+    update_manifest libpango
+    update_manifest libpixman
+fi
+
+# Let's use the system zlib if available:
+if check $USE_SYSTEM_ZLIB /usr/include/zlib.h "zlib" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/zlib/
+    rm -f x86_64-linux/lib_release_client/libz.so.1
+    mkdir -p include/zlib
+    cp -a /usr/include/zlib*.h include/zlib/
+fi
+
+# Let's use the system jpeglib if available:
+if check $USE_SYSTEM_JPEGLIB /usr/include/jpeglib.h "jpeglib" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/jpeglib/ x86_64-linux/lib_release_client/libjpeg.a
+    mkdir -p include/jpeglib
+    cp -a /usr/include/j*.h include/jpeglib/
+    touch include/jpeglib/jinclude.h
+fi
+
+# Let's use the system ogg if available:
+if check $USE_SYSTEM_OGG /usr/include/ogg/ogg.h "ogg" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/ogg/ x86_64-linux/lib_release_client/libogg*
+fi
+
+# Let's use the system vorbis if available:
+if check $USE_SYSTEM_VORBIS /usr/include/vorbis/vorbisenc.h "vorbis" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/vorbis/ x86_64-linux/lib_release_client/libvorbis*
+fi
+
+# Let's use the system SDL if available:
+if check $USE_SYSTEM_SDL /usr/include/SDL/SDL.h "SDL" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux
+    rm -rf include/SDL/ lib_release_client/libSDL*
+    update_manifest libSDL
+fi
+
+# Let's use the system openssl if available:
+if check $USE_SYSTEM_SSL /usr/include/openssl/opensslconf.h "openssl" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client
+    rm -f libssl.* libcrypto.*
+    update_manifest libssl
+    update_manifest libcrypto
+fi
+
+# Let's use the system apr if available:
+if check $USE_SYSTEM_APR /usr/include/apr*/apr_base64.h "apr" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux
+    rm -rf include/apr-1/*
+    rm -f lib_release_client/libapr*
+    cp -a /usr/include/apr*/* include/apr-1/
+    update_manifest libapr
+fi
+
+# Let's use the system db4 if available:
+if check $USE_SYSTEM_DB4 /usr/include/db4/db.h "db4" ; then
+    rm -f $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client/libdb*.so
+    update_manifest libdb
+    if [ $USE_SYSTEM_DB4 != "yes" ] ; then
+        if ! grep $USE_SYSTEM_DB4 $PATH_TO_SOURCES/indra/cmake/BerkeleyDB.cmake ; then
+            # If we gave a version number instead of "yes", patch the
+            # BerkeleyDB.cmake file to use that DB4 version instead of 4.2.
+            sed -e "s/4.2/$USE_SYSTEM_DB4/" $PATH_TO_SOURCES/indra/cmake/BerkeleyDB.cmake >$TEMP_DIR/BerkeleyDB.cmake
+            mv -f $TEMP_DIR/BerkeleyDB.cmake $PATH_TO_SOURCES/indra/cmake/BerkeleyDB.cmake
+        fi
+    fi
+fi
+
+# Let's use the system expat if available:
+if check $USE_SYSTEM_EXPAT /usr/include/expat.h "expat" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/expat/
+    rm -f x86_64-linux/lib_release_client/libexpat*
+    mkdir -p include/expat
+    cp -a /usr/include/expat*.h include/expat/
+    update_manifest libexpat
+fi
+
+# Let's use the system xmlrpc-epi if available:
+if check $USE_SYSTEM_XMLRPC /usr/include/xmlrpc.h "xmlrpc-epi" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/xmlrpc-epi/ x86_64-linux/lib_release_client/libxmlrpc.a
+    mkdir -p include/xmlrpc-epi
+    cp -a /usr/include/xmlrpc*.h include/xmlrpc-epi/
+fi
+
+# Let's use the system c-ares if available:
+if check $USE_SYSTEM_CARES /usr/lib/libcares.a "c-ares" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -f include/ares/*
+    rm -f x86_64-linux/lib_release_client/libcares.*
+    cp -a /usr/include/ares* include/ares/
+    cp -a /usr/lib/libcares.a x86_64-linux/lib_release_client/
+fi
+
+# Let's use the system curl if available:
+if check $USE_SYSTEM_CURL /usr/include/curl/curl.h "curl" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/curl/
+    rm -f x86_64-linux/lib_release_client/libcurl.*
+fi
+
+# Let's use the system uuid if available:
+if check $USE_SYSTEM_UUID /lib/libuuid.so.1 "libuuid" ; then
+    rm -f $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client/libuuid.*
+    update_manifest libuuid
+fi
+
+# Let's use the system google-perftools if available:
+if check $USE_SYSTEM_PERFTOOLS /usr/include/google/malloc_hook.h "google-perftools" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux
+    rm -f lib_release_client/libtcmalloc.* lib_release_client/libstacktrace.*
+    rm -rf include/google/
+    cp -a /usr/lib/libstacktrace.* /usr/lib/libtcmalloc.so* lib_release_client/
+    cp -a /usr/include/google include/
+    update_manifest tcmalloc
+    update_manifest stacktrace
+fi
+
+# Let's use the system libELFIO if available:
+if check $USE_SYSTEM_ELFIO /usr/include/ELFIO.h "libELFIO" ; then
+    cd $PATH_TO_SOURCES/libraries/x86_64-linux
+    rm -f include/ELFIO/*
+    rm -f lib_release_client/libELFIO.*
+    cp -af /usr/include/ELF* include/ELFIO/
+    cp -af /usr/lib/libELFIO.so lib_release_client/
+    update_manifest ELFIO
+fi
+
+# Let's use the system libstdc++ if available:
+if check $USE_SYSTEM_LIBSTDC /usr/lib/libstdc++.so.6 "libstdc++" ; then
+    rm -f $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client/libstdc++.*
+    update_manifest libstdc
+fi
+
+# Let's use the system boost if available:
+if check $USE_SYSTEM_BOOST /usr/include/boost/version.hpp "boost" ; then
+    cd $PATH_TO_SOURCES/libraries
+    rm -rf include/boost/
+    rm -f x86_64-linux/lib_release/libboost_*
+    rm -f x86_64-linux/lib_release_client/libboost_*
+fi
+
+
+# Force libkdu inclusion
+# (disabled for now (v1.21.0 viewer) as the cmake scripts fail to get libkdu from Internet).
+if false; then
+# Remove everything dealing with libstdc++ and the crash logger:
+update_manifest libstdc
+update_manifest logger
+# Now, any line with a '#' followed with several spaces _should_ be dealing
+# with the libkdu stuff... So, we simply remove the '#"...
+sed -e "s/#        them/# them/" $PATH_TO_SOURCES/indra/newview/viewer_manifest.py >$TEMP_DIR/viewer_manifest.py
+sed -e "s/^#   /   /" $TEMP_DIR/viewer_manifest.py >$PATH_TO_SOURCES/indra/newview/viewer_manifest.py
+rm -f $TEMP_DIR/viewer_manifest.py
+chmod +x $PATH_TO_SOURCES/indra/newview/viewer_manifest.py
+fi
+

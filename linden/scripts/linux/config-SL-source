@@ -1,0 +1,63 @@
+# cmake-SL v1.31 (c)2008-2009 Henri Beauchamp. Released under GPL license v2:
+# http://www.gnu.org/licenses/gpl.txt
+
+
+# You may enable or disable the use of your system's library by editing
+# the USE_SYSTEM_* variable ("yes" --> use the system library, "no" --> use
+# LL's provided ones).
+# The script also takes care of updating properly the viewer_manifest.py script
+# accordingly, so that you (should) end up with a properly packaged client.
+
+PWD=`pwd`
+
+# Where the sources of the client will be held (defaults to "./linden"):
+PATH_TO_SOURCES="$PWD/../.."
+# Where the patches of the client are stored
+PATH_TO_PATCHES="$PWD/../../patches"
+# Where to store temporary files:
+TEMP_DIR="/tmp/SL-$USER"
+mkdir -p $TEMP_DIR
+
+USE_SYSTEM_GTK="no"
+USE_SYSTEM_SDL="no"
+USE_SYSTEM_SSL="no"
+# Beware: libdb4 makes use of libapr, libapr makes use of libexpat and
+# libxmlrc-epi makes use of libexpat... so you should keep USE_SYSTEM_APR,
+# USE_SYSTEM_DB4, USE_SYSTEM_EXPAT and USE_SYSTEM_XMLRPC in sync.
+USE_SYSTEM_APR="no"
+USE_SYSTEM_EXPAT="no"
+USE_SYSTEM_XMLRPC="no"
+# Note: you may specify a version number (example: 4.6) instead of "yes"
+# in USE_SYSTEM_DB4 (by default the cmake scripts will attempt to link
+# against DB4.2 only and would fail when set to "yes" if this is not the
+# version installed on your system.
+USE_SYSTEM_DB4="no"
+# You should keep the USE_SYSTEM_CARES setting in sync with the USE_SYSTEM_CURL
+# setting further below...
+USE_SYSTEM_CARES="no"
+# If your system libcurl does not use c-ares (non-blocking DNS calls), better
+# using LL's provided library...
+USE_SYSTEM_CURL="no"
+USE_SYSTEM_OGG="no"
+USE_SYSTEM_ZLIB="no"
+USE_SYSTEM_UUID="no"
+USE_SYSTEM_VORBIS="no"
+USE_SYSTEM_JPEGLIB="no"
+USE_SYSTEM_PERFTOOLS="no"
+USE_SYSTEM_ELFIO="no"
+# When compiling against anything newer than glibc v2.4, do use "yes" here:
+USE_SYSTEM_LIBSTDC="yes"
+# Seems that current viewers don't actually like the boost that LL uses.  Probaly best to set this to "yes"
+USE_SYSTEM_BOOST="no"
+
+# You may add tune flags here, to optimize the code for your processor.
+# Example, for an Athlon XP:
+# TUNE_FLAGS="-march=athlon-xp"
+TUNE_FLAGS="-fomit-frame-pointer -frename-registers -ftree-vectorize -fweb -fexpensive-optimizations -msse -mfpmath=sse"
+# Set this to "yes" to force vectorization use in the viewer code (only for
+# processors with SSE or Altivec units, and only if you did enable them via
+# the TUNE_FLAGS.
+FORCE_VECTORIZE="yes"
+
+# When using gcc v4.3 or later, you might have to set this to yes...
+ALLOW_WARNINGS="yes"

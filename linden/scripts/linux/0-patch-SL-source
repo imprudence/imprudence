@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check for patches to apply. The names of the patches must be in the form
+# slviewer-*.patch* (Example: slviewer-v117-EmbbededNotecard.patch.bz2).
+# They must be applicable from inside the source directory with the -p1
+# option, i.e. they have been built from outside the source directory
+# with a diff command such as:
+# diff -urN linden/ linden-patched/ >slviewer-whatever.patch
+# And they may be gzipped or bzipped.
+
+source config-SL-source
+
+PATCHES=`/bin/ls $PATH_TO_PATCHES/$1/slviewer-*.patch* 2>/dev/null`
+PATCHES="$PATCHES `/bin/ls $PATH_TO_PATCHES/$1/slviewer-*.diff* 2>/dev/null`"
+if [ "$PATCHES" != "" ] ; then
+    echo "Applying patches..."
+    cd $PATH_TO_SOURCES
+    for i in $PATCHES; do
+        echo "Patch: $i"
+        if echo $i | grep ".gz" &>/dev/null ; then
+            gunzip -c $i | patch -p1 -s
+        elif echo $i | grep ".bz2" &>/dev/null ; then
+            bzcat $i | patch -p1 -s
+        elif echo $i | grep ".zip" &>/dev/null ; then
+    	    unzip -o $i >/dev/null
+        else
+            patch -p1 -s <$i
+        fi
+    done
+fi
+

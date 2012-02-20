@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# cmake-SL v1.31 (c)2008-2009 Henri Beauchamp. Released under GPL license v2:
+# http://www.gnu.org/licenses/gpl.txt
+
+###############################################################################
+######## THIS IS QUICK'N DIRTY ALPHA SOFTWARE. USE AT YOUR OWN RISKS ! ########
+###############################################################################
+
+###############################################################################
+# BEWARE: this script is meant to compile a -personal- SL client. It is -NOT- #
+#         suitable to build client versions meant for public release, because #
+#         non-open source code is packaged by this script.                    #
+###############################################################################
+
+# This bash script is aimed at easying up the build process of a SL client
+# with cmake.
+# You may enable or disable the use of your system's library by editing
+# the USE_SYSTEM_* variable ("yes" --> use the system library, "no" --> use
+# LL's provided ones).
+# The script also takes care of updating properly the viewer_manifest.py script
+# accordingly, so that you (should) end up with a properly packaged client.
+
+# To use this script, simply make it executable (chmod +x cmake-SL) and
+# put it into /usr/local/bin (or any other directory in your PATH).
+# Then, download the slviewer-src-*.tar.gz, slviewer-linux-libs-*.tar.gz,
+# slviewer-artwork-*.zip and fmodapi*.tar.gz archives, and finally, invoke
+# make-SL as follow:
+#   cmake-SL path_to_archives  (example: make-SL ~/downloads)
+# or simply:
+#   cmake-SL
+# when invoking from the directory where the archives are.
+# The sources will be installed into the PATH_TO_SOURCES directory,
+# and the client will be built into the TEMP_DIR directory.
+# The packaged build will be moved to your home directory.
+#
+# If you want to retry a compilation after fixing something manually and
+# don't want cmake-SL to start all over again, overwriting everything,
+# you may invoke it with the --retry option, like this:
+#   cmake-SL --retry
+#
+# Finally, if you just want to prepare the sources without starting the
+# compilation, use:
+#   cmake-SL [path_to_archives] --prep
+#
+# This script has been tested by the author, on (very customized)
+# Mandriva 2007.1 and 2009.0 distros.
+# Tested with SL v1.21 and v1.22 sources.
+
+source config-SL-source
+
+
+cd $PATH_TO_SOURCES/indra
+
+# Do a clean build
+./develop.py clean
+
+# Force the vectorization use if we chose so.
+if [ "$FORCE_VECTORIZE" == "yes" ] ; then
+    TUNE_FLAGS="$TUNE_FLAGS -DLL_VECTORIZE=1"
+fi
+if [ "$ALLOW_WARNINGS" == "yes" ] ; then
+    FATAL_WARNINGS="-DGCC_DISABLE_FATAL_WARNINGS:BOOL=TRUE"
+else
+    FATAL_WARNINGS=""
+fi
+# Configure the sources and download the LL provided libraries:
+./develop.py --type=Release  configure "$FATAL_WARNINGS" \
+    -DCMAKE_C_FLAGS:STRING="-O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS:STRING="-O2 $TUNE_FLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="-O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELEASE:STRING="-O2 $TUNE_FLAGS" \
+    -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-g -O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-g -O2 $TUNE_FLAGS"
