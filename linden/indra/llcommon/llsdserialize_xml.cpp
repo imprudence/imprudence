@@ -394,7 +394,9 @@ S32 LLSDXMLParser::Impl::parse(std::istream& input, LLSD& data)
 		if (status == XML_STATUS_ERROR)
 		{
 			std::string error_string(XML_ErrorString(XML_GetErrorCode( mParser )));
-			if (input.gcount() == 0)
+			// I know, this if seems odd, but it fixes a problem with not being able to see nearby sims, or TP to other sims.
+			// No idea why.
+			if (input && (input.gcount() == 0))
 			{
 				// nothing to do -- MC
 				data = LLSD();
