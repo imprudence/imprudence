@@ -16,10 +16,4 @@
 	     select_all_on_focus_received="true" width="435" />
 	<button bottom_delta="0" follows="top|right" font="SansSerifSmall" height="20"
 	     label="Go" left_delta="440" name="go_btn" width="70" />
-	<string name="home_page_url">
-	  	http://www.secondlife.com
-	</string>
-	<string name="support_page_url">
-	  	http://support.secondlife.com
-	</string>
 </floater>

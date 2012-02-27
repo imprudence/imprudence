@@ -4,10 +4,4 @@
 	<button label="Terug" name="back_btn"/>
 	<button label="Vooruit" name="forward_btn"/>
 	<button label="Ga" name="go_btn"/>
-	<string name="home_page_url">
-		http://www.secondlife.com
-	</string>
-	<string name="support_page_url">
-		http://support.secondlife.com
-	</string>
 </floater>

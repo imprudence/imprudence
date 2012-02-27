@@ -5,9 +5,6 @@
 	<button label="Kezdő helyszín" name="home_btn" />
 	<button label="Előre" name="forward_btn" />
 	<button label="Menj" name="go_btn" />
-	<text name="home_page_url">
-		http://www.google.com
-	</text>
 	<text name="in-world_help_title">
 		In-World segítség
 	</text>

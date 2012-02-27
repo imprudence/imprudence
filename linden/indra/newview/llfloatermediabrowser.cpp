@@ -54,6 +54,7 @@
 #include "llviewerparcelmedia.h"
 #include "llcombobox.h"
 
+#include "hippogridmanager.h"
 
 // TEMP
 #include "llsdutil.h"
@@ -157,7 +158,7 @@ void LLFloaterMediaBrowser::buildURLHistory()
 
 std::string LLFloaterMediaBrowser::getSupportURL()
 {
-	return getString("support_page_url");
+	return gHippoGridManager->getConnectedGrid()->getSupportURL();
 }
 void LLFloaterMediaBrowser::onClose(bool app_quitting)
 {

@@ -4,7 +4,4 @@
 	<button label="Назад" name="back_btn" />
 	<button label="Вперед" name="forward_btn" />
 	<button label="Перейти" name="go_btn" />
-	<string name="home_page_url">
-		http://www.secondlife.com
-	</string>
 </floater>
