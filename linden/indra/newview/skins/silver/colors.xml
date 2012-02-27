@@ -1,3 +1,102 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings version = "101">
+
+ <!-- Additional comments by McCabe Maxsted -->
+  
+ <!-- WINDOWS -->
+<TitleBarFocusColor value="50, 115, 185, 120" />        <!-- Focused window title bar highlight, no equivalent for unfocused windows -->
+<FloaterFocusBorderColor value="50, 115, 185, 75" />    <!-- Focused window border color -->
+<FloaterUnfocusBorderColor value="110, 110, 110, 60" /> <!-- Unfocused window border color -->
+<FocusBackgroundColor value="165, 180, 200, 245" />     <!-- Background color of focused windows -->
+<DefaultBackgroundColor value="165, 180, 200, 128" />   <!-- Background color for unfocused windows -->
+<DefaultHighlightDark value="50, 115, 185, 255" />
+<DefaultHighlightLight value="50, 115, 185, 255" />     <!-- Unfocused border, bottom portion -->
+<DefaultShadowDark value="50, 115, 185, 255" />         <!-- Unfocused border, top portion -->
+<DefaultShadowLight value="50, 115, 185, 255" />        <!-- Tab area border for IMs -->
+  
+ <!-- WINDOW LABELS -->
+<LabelDisabledColor value="0, 30, 60, 128" />               <!-- Color for unfocused window titles -->
+<LabelTextColor value="0, 30, 60, 255" />                   <!-- Color for window labels and titles -->
+  
+ <!-- BUTTONS -->
+<ButtonLabelColor value="0, 30, 60, 255" />                 <!-- Label text color for buttons, like the "OK" text -->
+<ButtonLabelSelectedColor value="255, 255, 255, 255" />     <!-- Label text color when button selected -->
+<ButtonLabelDisabledColor value="0, 30, 60, 128" />         <!-- Label text color when button disabled -->
+<ButtonLabelSelectedDisabledColor value="0, 30, 60, 128" /> <!-- Label text color when button disabled but selected -->
+
+ <!-- SLIDERS, single line -->
+<SliderThumbCenterColor value="255, 255, 255, 255" />       <!-- Unfocused slider thumb color -->
+<SliderThumbOutlineColor value="37, 64, 99, 255" />         <!-- Focused slider thumb color -->
+<SliderTrackColor value="37, 64, 99, 255" />                <!-- Not used -->
+  
+ <!-- TEXTFIELDS -->
+<TextBgFocusColor value="255, 255, 255, 255" />             <!-- Text field background when receiving input (focused) -->
+<TextBgReadOnlyColor value="255, 255, 255, 140" />          <!-- Text field background when read-only -->
+<TextBgWriteableColor value="255, 255, 255, 255" />         <!-- Text field background when not receiving input (unfocused) -->
+<TextFgColor value="48, 48, 45, 255" />                     <!-- Text color for all text entry fields; cursor color for line editors -->
+<TextFgReadOnlyColor value="0, 0, 0, 200" />                <!-- Text color in read-only fields -->
+<TextLinkColor value="0, 20, 255, 255"/>
+<TextLinkHoverColor value="0, 50, 255, 255"/>
+ 
+ <!-- LISTBOXES -->
+<ScrollBgReadOnlyColor value="255, 255, 255, 140" />    <!-- Background of read only lists -->
+<ScrollBgWriteableColor value="255, 255, 255, 140" />   <!-- Background of editable lists, e.g. groups-->
+<ScrollBGStripeColor value="145, 180, 220, 60" />       <!-- Background stripes in sortable lists, e.g. Events Search -->
+<ScrollSelectedBGColor value="50, 115, 185, 150" />     <!-- Selected item in a list highlight -->
+<ScrollSelectedFGColor value="0, 30, 60, 255" />        <!-- Text color -->
+<ScrollUnselectedColor value="0, 30, 60, 255" />        <!-- Text color -->
+<ScrollHighlightedColor value="145, 180, 220, 128" />   <!-- Hover color -->
+<ScrollbarThumbColor value="120, 160, 200, 255" />      <!-- Scroll bar -->
+<ScrollbarTrackColor value="183, 202, 220, 255" />      <!-- Scroll bar background -->
+<ScrollReadOnlyColor value="180, 180, 180, 255" />      <!-- Color for inactive but not disabled lists -->
+  
+ <!-- MENUS -->
+<MenuBarBgColor value="185, 200, 220, 230" />               <!-- Menu bar background -->
+<MenuBarGodBgColor value="100, 200, 130, 230" />            <!-- Menu bar background with God Mode enabled -->
+<MenuNonProductionGodBgColor value="100, 200, 130, 230" />  <!-- Beta viewer menu bar background -->
+<MenuNonProductionBgColor value="230, 70, 70, 230" />       <!-- Beta viewer menu bar background with God Mode enabled -->
+<MenuDefaultBgColor value="210, 220, 230, 245" />           <!-- Menu background -->
+<MenuItemDisabledColor value="0, 30, 60, 128" />            <!-- Menu text color; also text color for pie menus and treeviews (like Inventory) -->
+<MenuItemEnabledColor value="0, 30, 60, 255" />             <!-- Menu text color; also text color for pie menus and treeviews (like Inventory) -->
+<MenuItemHighlightBgColor value="50, 115, 185, 100" />      <!-- Highlighted menu item background color -->
+<MenuItemHighlightFgColor value="0, 30, 60, 255" />         <!-- Highlighted menu item text color; also treeview node selection highlight -->
+<MenuPopupBgColor value="197, 217, 234, 240" />             <!-- Right-click menu background -->
+  
+ <!--  PIE MENUS -->
+<PieMenuBgColor value="118, 156, 201, 230" />           <!-- Color of pie menu -->
+<PieMenuLineColor value="255, 255, 255, 60" />          <!-- Color of pie menu slice separators -->
+<PieMenuSelectedColor value="185, 200, 220, 120" />     <!-- Color of pie menu slice when selected -->
+  
+ <!-- MENU BAR -->
+<ParcelTextColor value="40, 40, 90, 255" />		<!-- Parcel name on menu bar, normal state -->
+<ParcelHoverColor value="70, 70, 100, 255" />		<!-- Parcel name on menu bar, hover state -->
+<TimeTextColor value="0, 30, 60, 255" />		<!-- SL Time on menu bar -->
+<BalanceTextColor value="0, 100, 40, 255" />		<!-- Linden dollar balance on menu bar -->
+<HealthTextColor value="110, 15, 15, 255" />		<!-- Damage meter text on menu bar -->
+  
+ <!-- TOOLTIPS -->
+<ToolTipBgColor value="250, 255, 225, 230" />           <!-- Tool tips, i.e. "Hover Tips" -->
+  
+ <!-- NOTIFICATION POP-UPS -->
+<NotifyBoxColor value="170, 210, 255, 240" />           <!-- Notification background, i.e. tp requests -->
+<NotifyTextColor value="0, 30, 60, 255" />              <!-- Notification text -->
+<GroupNotifyBoxColor value="170, 210, 255, 240" />      <!-- Group notices background -->
+  
+ <!-- ALERT BOX COLORS -->
+<AlertBoxColor value="165, 180, 200, 245" />            <!-- Alert floaters, like the warning before returning objects -->
+<AlertTextColor value="0, 30, 60, 255" />               <!-- Alert floater text -->
+  
+ <!-- CHAT AND IM HISTORY TEXTBOX COLORS -->
+<ChatHistoryBgColor value="0, 30, 80, 200" />           <!-- Local Chat background -->
+ 
+   <!-- INVENTORY -->
+<InventoryBackgroundColor value="255, 255, 255, 80"/>           <!-- Inventory floater background -->
+<InventoryItemSuffixColor value="120, 70, 55, 255"/>            <!-- "worn", "no modify", etc -->
+<FilterBackgroundColor value="75, 75, 150, 180" />              <!-- Inventory search background -->
+<InventorySearchStatusColor value="0, 0, 0, 255" />             <!-- "Searching..." -->
+  
+ <!-- MISC -->
+<FloaterButtonImageColor value="255, 255, 255, 255" />  <!-- The floater buttons (like the close box) are white images that receive this color. -->
+<ButtonCautionImageColor value="255, 255,  255, 255" /> <!-- Match the caution dialog buttons to the default -->
+
 </settings>
