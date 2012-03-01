@@ -3,35 +3,22 @@
 # Git should ignore.
 # 
 # Since we only care about the actual source code files,
-# all the artwork and libraries are ignored, as are the
-# files that are created when you compile.
+# all the libraries are ignored, as are the files that 
+# are created when you compile.
 # 
-
-# ARTWORK
-
-linden/LICENSE-logos.txt
-linden/indra/newview/skins/*/textures/
-linden/indra/newview/skins/dark/
-linden/indra/newview/skins/gemini
-linden/indra/newview/skins/default/html/btn_purplepill_bg.png
-linden/indra/newview/skins/default/html/en-us/loading/sl_logo_rotate_black.gif
-linden/indra/newview/skins/default/html/en-us/loading/Thumbs.db
-linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
-linden/indra/newview/skins/default/html/unabletoconnect.png
-linden/indra/newview/res/
-linden/indra/newview/res-sdl/
-linden/indra/newview/app_settings/*.db2
-linden/indra/newview/app_settings/windlight/
-linden/indra/newview/cursors_mac/
-linden/indra/newview/viewer.icns
 
 # LIBRARIES
 
-linden/LICENSES/
+# Thees two lines are a bit tricky.
+# The ! syntax negates a pattern,
+# but it needs a pattern, not just a directory.
+# So turn the first line into a pattern for ! to negate.
+linden/LICENSES/*
+!linden/LICENSES/LICENSE-logos.txt
+
 linden/LICENSE-libraries-*.txt
 linden/libraries/
 linden/indra/newview/app_settings/mozilla*/
-linden/indra/newview/fonts/
 linden/indra/newview/lib/
 linden/indra/newview/dbghelp.dll
 linden/indra/newview/linux_tools/client-readme-voice.txt
@@ -62,3 +49,4 @@ ChangeLog.txt
 .DS_Store
 *.zip
 linden/indra/newview/mozilla-universal-darwin.tgz
+

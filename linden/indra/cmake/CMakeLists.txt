@@ -93,7 +93,6 @@ set(cmake_SOURCE_FILES
 	UI.cmake
 	UnixInstall.cmake
 	Variables.cmake
-	ViewerArtwork.cmake
 	ViewerMiscLibs.cmake
 	WebKitLibPlugin.cmake
 	XmlRpcEpi.cmake
