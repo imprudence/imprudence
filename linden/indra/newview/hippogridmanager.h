@@ -165,6 +165,8 @@ private:
 	};
 	XmlState mXmlState;
 
+	void checkLoginURIforSecondLifeness();
+
 	static std::string sanitizeURI(std::string &uri);
 	void formatFee(std::string &fee, S32 cost, bool showFree) const;
 

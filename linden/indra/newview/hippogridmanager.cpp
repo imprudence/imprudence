@@ -51,7 +51,7 @@
 #include "llxorcipher.h"	// saved password, MAC address
 
 #include "hipporestrequest.h"
-
+#include <boost/algorithm/string.hpp>
 
 // ********************************************************************
 // Global Variables
@@ -101,9 +101,27 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mGridNick = sanitizeGridNick(nick);
 }
 
+// Check if this really is a SecondLife grid, to prevent cheating.
+void HippoGridInfo::checkLoginURIforSecondLifeness()
+{
+	LLURI loginURI(mLoginURI);
+	std::string host = loginURI.hostName();
+	size_t found;
+
+	boost::algorithm::to_lower(host);
+
+	found = host.rfind("lindenlab.com");
+	if ((found + 13) == host.size())
+	    mPlatform = PLATFORM_SECONDLIFE;
+	found = host.rfind("secondlife.com");
+	if ((found + 14) == host.size())
+	    mPlatform = PLATFORM_SECONDLIFE;
+}
+
 void HippoGridInfo::setPlatform(Platform platform)
 {
 	mPlatform = platform;
+	checkLoginURIforSecondLifeness();
 	if (mPlatform == PLATFORM_SECONDLIFE)
 	{
 		mCurrencySymbol = "L$";
@@ -136,6 +154,7 @@ void HippoGridInfo::setLoginURI(const std::string& loginURI)
 {
 	std::string uri = loginURI;
 	mLoginURI = sanitizeURI(uri);
+	checkLoginURIforSecondLifeness();
 }
 
 void HippoGridInfo::setHelperURI(const std::string& helperURI)
