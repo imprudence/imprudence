@@ -75,7 +75,8 @@ LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::
 	mListPosition(BELOW),
 	mPrearrangeCallback( NULL ),
 	mTextEntryCallback( NULL ),
-	mLabel(label)
+	mLabel(label),
+	mListColor(LLUI::sColorsGroup->getColor("ComboBoxBg"))
 {
 	if (font)
 	{
@@ -109,7 +110,7 @@ LLComboBox::LLComboBox(	const std::string& name, const LLRect &rect, const std::
 	mList = new LLScrollListCtrl(std::string("ComboBox"), LLRect(), mGLFont,
 								 &LLComboBox::onItemSelected, this, FALSE);
 	mList->setVisible(FALSE);
-	mList->setBgWriteableColor( LLColor4(1,1,1,1) );
+	mList->setBgWriteableColor(mListColor);
 	mList->setCommitOnKeyboardMovement(FALSE);
 	addChild(mList);
 

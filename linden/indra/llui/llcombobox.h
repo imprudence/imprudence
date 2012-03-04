@@ -187,12 +187,13 @@ public:
 	virtual void	hideList();
 
 protected:
-	LLButton*			mButton;
+	LLButton*		mButton;
 	LLScrollListCtrl*	mList;
 	EPreferredPosition	mListPosition;
 	LLPointer<LLUIImage>	mArrowImage;
-	std::string			mLabel;
+	std::string		mLabel;
 	const LLFontGL*		mGLFont;
+	LLColor4		mListColor;
 
 private:
 	S32					mButtonPadding;
