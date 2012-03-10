@@ -18,6 +18,7 @@
 std::string gHippoChannel;
 
 
+// TODO - Um, WTH?  Is this actually used anywhere?
 // static
 bool HippoUpdate::checkUpdate()
 {
