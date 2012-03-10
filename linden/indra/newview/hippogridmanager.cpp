@@ -49,6 +49,7 @@
 #include "llviewernetwork.h" // gMacAddress
 #include "llweb.h"
 #include "llxorcipher.h"	// saved password, MAC address
+#include "llblowfishcipher.h"
 
 #include "hipporestrequest.h"
 #include <boost/algorithm/string.hpp>
@@ -87,6 +88,7 @@ HippoGridInfo::HippoGridInfo(const std::string& gridNick) :
 	mFirstName(LLStringUtil::null),
 	mLastName(LLStringUtil::null),
 	mPasswordAvatar(LLStringUtil::null),
+	mEncryptedPassword(LLStringUtil::null),
 	mXmlState(XML_VOID),
 	mVoiceConnector("SLVoice"),
 	mRenderCompat(false),
@@ -423,12 +425,115 @@ void HippoGridInfo::formatFee(std::string &fee, S32 cost, bool showFree) const
 	}
 }
 
+const S32 HASHED_LENGTH = 32;
+
+void HippoGridInfo::setEncryptedPassword(const std::string& encrypted_password)
+{
+	int i;
+	LLBlowfishCipher cipher(gMACAddress, 6);
+	size_t encrypted_size = cipher.requiredEncryptionSpace(HASHED_LENGTH);
+
+	if (encrypted_password.empty())
+	{
+		// Check if we have a password hash to encrypt.
+		if (mPasswordAvatar.empty())
+			mEncryptedPassword = "";
+		else
+		{
+			// In theory, this is used to convert old style Imprudence 1.4 beta 2 and earlier passwords.
+			// Encipher with MAC address
+			char out[HASHED_LENGTH * 2 + 1];
+
+/*  indra/llmessage/llmail.cpp says "blowfish-not-supported-on-windows", but we shall see.
+#if LL_WINDOWS
+			LLXORCipher cipherX(gMACAddress, 6);
+			cipherX.encrypt(mPasswordAvatar.c_str(), HASHED_LENGTH);
+#else
+*/
+			U8* encrypted = new U8[encrypted_size];
+			U8* password = (U8 *) mPasswordAvatar.c_str();
+
+			cipher.encrypt(password, HASHED_LENGTH, encrypted, HASHED_LENGTH);
+			for (i = 0; i < HASHED_LENGTH; i++)
+			{
+				sprintf(out + i * 2, "%02x", encrypted[i]);
+			}
+			out[HASHED_LENGTH * 2]='\0';
+			mEncryptedPassword.assign(out);
+		}
+
+		return;
+	}
+
+	if (encrypted_password == mEncryptedPassword)
+	{
+		return;
+	}
+
+	// Max "actual" password length is 16 characters.
+	// Hex digests are always 32 characters.
+	// Encrypted passwords stored as hex digits are 64 characters.
+	if (encrypted_password.length() == (HASHED_LENGTH * 2))
+	{
+		// This is actually encrypted, as found in the grids file.
+		mEncryptedPassword.assign(encrypted_password);
+	}
+	else
+	{
+		// Should never happen, this is only called from the file reading bit.
+		llwarns << "Encrypted password corrupted." << llendl;
+		return;
+	}
+
+	std::string hashed_password("");
+
+	// Decrypt it for the password hash.
+	// Decipher with MAC address
+	U8 buffer[HASHED_LENGTH + 1];
+	char in[HASHED_LENGTH * 2 + 1];
+
+	LLStringUtil::copy(in, mEncryptedPassword.c_str(), HASHED_LENGTH * 2 + 1);
+/*  indra/llmessage/llmail.cpp says "blowfish-not-supported-on-windows", but we shall see.
+#if LL_WINDOWS
+	for (i = 0; i < HASHED_LENGTH; i++)
+	{
+		sscanf(in + i * 2, "%2hhx", &buffer[i]);
+	}
+	// Note that an XOR "cipher" is a lousy one when the secret is repeated several times like it is here.
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.decrypt(buffer, HASHED_LENGTH);
+#else
+*/
+	U8* encrypted = new U8[encrypted_size];
+	for (i = 0; i < HASHED_LENGTH; i++)
+	{
+		sscanf(in + i * 2, "%2hhx", &encrypted[i]);
+	}
+	// Not sure why, but this prints a warning saying it failed, even though it works.  Which does not matter that much, we don't use the return value anyway.
+	cipher.decrypt(encrypted, HASHED_LENGTH, buffer, HASHED_LENGTH);
+	buffer[HASHED_LENGTH] = '\0';
+
+	// Check to see if the mac address generated a bad hashed
+	// password. It should be a hex-string or else the mac adress has
+	// changed. This is a security feature to make sure that if you
+	// get someone's grid_info.xml file, you cannot hack their account.
+	// This is a lousy way to check.
+	if (is_hex_string(buffer, HASHED_LENGTH))
+	{
+		hashed_password.assign((char*)buffer);
+	}
+
+	mPasswordAvatar.assign(hashed_password);
+}
 
 void HippoGridInfo::setPassword(const std::string& unhashed_password)
 {
+	int i;
+
 	if (unhashed_password.empty())
 	{
 		mPasswordAvatar = "";
+		mEncryptedPassword = "";
 		return;
 	}
 
@@ -454,59 +559,38 @@ void HippoGridInfo::setPassword(const std::string& unhashed_password)
 		hashed_password = munged_password;
 	}
 
-	// need to fix the bug in this
-	/*
-
+	// Encrypt it for storing in the grids file.
 	// Encipher with MAC address
-	const S32 HASHED_LENGTH = 32;
-	U8 buffer[HASHED_LENGTH+1];
+	char out[HASHED_LENGTH * 2 + 1];
 
-	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
+/*  indra/llmessage/llmail.cpp says "blowfish-not-supported-on-windows", but we shall see.
+#if LL_WINDOWS
+	LLXORCipher cipherX(gMACAddress, 6);
+	cipherX.encrypt(hashed_password.c_str(), HASHED_LENGTH);
+#else
+*/
+	LLBlowfishCipher cipher(gMACAddress, 6);
+	size_t encrypted_size = cipher.requiredEncryptionSpace(HASHED_LENGTH);
+	U8* encrypted = new U8[encrypted_size];
+	U8* password = (U8 *) hashed_password.c_str();
 
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.encrypt(buffer, HASHED_LENGTH);
-
-	mPasswordAvatar.assign((char*)buffer);
-	*/
+	cipher.encrypt(password, HASHED_LENGTH, encrypted, HASHED_LENGTH);
+	for (i = 0; i < HASHED_LENGTH; i++)
+	{
+		sprintf(out + i * 2, "%02x", encrypted[i]);
+	}
+	out[HASHED_LENGTH * 2]='\0';
+	mEncryptedPassword.assign(out);
 	mPasswordAvatar.assign(hashed_password);
 }
 
+std::string HippoGridInfo::getEncryptedPassword() const
+{
+	return mEncryptedPassword;
+}
 
 std::string HippoGridInfo::getPassword() const
 {
-	// need to fix the bug in this
-	/*
-	if (mPasswordAvatar.empty() || mPasswordAvatar.length() == 32)
-	{
-		return mPasswordAvatar;
-	}
-
-	std::string hashed_password("");
-
-	// UUID is 16 bytes, written into ASCII is 32 characters
-	// without trailing \0
-	const S32 HASHED_LENGTH = 32;
-	U8 buffer[HASHED_LENGTH+1];
-
-	LLStringUtil::copy((char*)buffer, mPasswordAvatar.c_str(), HASHED_LENGTH+1);
-	
-	// Decipher with MAC address
-	LLXORCipher cipher(gMACAddress, 6);
-	cipher.decrypt(buffer, HASHED_LENGTH);
-
-	buffer[HASHED_LENGTH] = '\0';
-
-	// Check to see if the mac address generated a bad hashed
-	// password. It should be a hex-string or else the mac adress has
-	// changed. This is a security feature to make sure that if you
-	// get someone's grid_info.xml file, you cannot hack their account.
-	if (is_hex_string(buffer, HASHED_LENGTH))
-	{
-		hashed_password.assign((char*)buffer);
-	}
-
-	return hashed_password;
-	*/
 	return mPasswordAvatar;
 }
 
@@ -909,7 +993,9 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 			if (gridMap.has("render_compat")) grid->setRenderCompat(gridMap["render_compat"]);
 			if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
 			if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
+			// Reading this one coz there are some old files in the wild that have it, but not encryptedpassword.
 			if (gridMap.has("avatarpassword")) grid->setPassword(gridMap["avatarpassword"]);
+			if (gridMap.has("encryptedpassword")) grid->setEncryptedPassword(gridMap["encryptedpassword"]);
 			if (gridMap.has("username")) grid->setUsername(gridMap["username"]);
 			if (gridMap.has("username_compat")) grid->setUsernameCompat(gridMap["username_compat"]);
 			if (newGrid) addGrid(grid);
@@ -945,8 +1031,7 @@ void HippoGridManager::saveFile()
 		gridInfo[i]["password"] = grid->getPasswordURL();
 		gridInfo[i]["firstname"] = grid->getFirstName();
 		gridInfo[i]["lastname"] = grid->getLastName();
-		gridInfo[i]["avatarpassword"] = grid->getPassword();
-		
+		gridInfo[i]["encryptedpassword"] = grid->getEncryptedPassword();
 		gridInfo[i]["search"] = grid->getSearchURL();
 		gridInfo[i]["render_compat"] = grid->isRenderCompat();
 

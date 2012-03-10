@@ -73,13 +73,13 @@ U32 LLBlowfishCipher::encrypt(const U8* src, U32 src_len, U8* dst, U32 dst_len)
     unsigned char initial_vector[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 	EVP_EncryptInit_ex(&context, NULL, NULL, mSecret, initial_vector);
 
-    int blocksize = EVP_CIPHER_CTX_block_size(&context);
-    int keylen = EVP_CIPHER_CTX_key_length(&context);
-    int iv_length = EVP_CIPHER_CTX_iv_length(&context);
-    lldebugs << "LLBlowfishCipher blocksize " << blocksize
-		<< " keylen " << keylen
-		<< " iv_len " << iv_length
-		<< llendl;
+//    int blocksize = EVP_CIPHER_CTX_block_size(&context);
+//    int keylen = EVP_CIPHER_CTX_key_length(&context);
+//    int iv_length = EVP_CIPHER_CTX_iv_length(&context);
+//    lldebugs << "LLBlowfishCipher blocksize " << blocksize
+//		<< " keylen " << keylen
+//		<< " iv_len " << iv_length
+//		<< llendl;
 
 	int output_len = 0;
 	int temp_len = 0;
@@ -113,7 +113,60 @@ ERROR:
 // virtual
 U32 LLBlowfishCipher::decrypt(const U8* src, U32 src_len, U8* dst, U32 dst_len)
 {
-	llerrs << "LLBlowfishCipher decrypt unsupported" << llendl;
+	if (!src || !src_len || !dst || !dst_len) return 0;
+	if (src_len > dst_len) return 0;
+
+	// OpenSSL uses "cipher contexts" to hold encryption parameters.
+    EVP_CIPHER_CTX context;
+    EVP_CIPHER_CTX_init(&context);
+
+	// We want a blowfish cyclic block chain cipher, but need to set 
+	// the key length before we pass in a key, so call EncryptInit 
+	// first with NULLs.
+	EVP_DecryptInit_ex(&context, EVP_bf_cbc(), NULL, NULL, NULL);
+	EVP_CIPHER_CTX_set_key_length(&context, (int)mSecretSize);
+	
+	// Complete initialization.  Per EVP_EncryptInit man page, the
+	// cipher pointer must be NULL.  Apparently initial_vector must
+	// be 8 bytes for blowfish, as this is the block size.
+    unsigned char initial_vector[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+	EVP_DecryptInit_ex(&context, NULL, NULL, mSecret, initial_vector);
+
+//    int blocksize = EVP_CIPHER_CTX_block_size(&context);
+//    int keylen = EVP_CIPHER_CTX_key_length(&context);
+//    int iv_length = EVP_CIPHER_CTX_iv_length(&context);
+//    lldebugs << "LLBlowfishCipher blocksize " << blocksize
+//		<< " keylen " << keylen
+//		<< " iv_len " << iv_length
+//		<< llendl;
+
+	int output_len = 0;
+	int temp_len = 0;
+	if (!EVP_DecryptUpdate(&context,
+			dst,
+			&output_len,
+			src,
+			src_len))
+	{
+		llwarns << "LLBlowfishCipher::decrypt EVP_DecryptUpdate failure" << llendl;
+		goto ERROR;
+	}
+
+	// There may be some final data left to decrypt if the input is
+	// not an exact multiple of the block size.
+	if (!EVP_DecryptFinal_ex(&context, (unsigned char*)(dst + output_len), &temp_len))
+	{
+		llwarns << "LLBlowfishCipher::decrypt EVP_DecryptFinal failure" << llendl;
+		goto ERROR;
+	}
+	output_len += temp_len;
+
+	EVP_CIPHER_CTX_cleanup(&context);
+	return output_len;
+
+ERROR:
+	EVP_CIPHER_CTX_cleanup(&context);
+	return 0;
 	return 0;
 }
 

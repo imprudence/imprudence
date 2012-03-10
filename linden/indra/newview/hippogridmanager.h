@@ -89,6 +89,7 @@ public:
 	const std::string& getLastName()			const { return mLastName; }
 	const std::string& getUsername()			const { return mUsername; }
 	std::string getPassword()				const;
+	std::string getEncryptedPassword()			const;
 	const std::string& getVoiceConnector()		const { return mVoiceConnector; }
 	S32 getMaxAgentGroups()						const { return mMaxAgentGroups; }
 	const std::string& getCurrencySymbol()		const { return mCurrencySymbol; }
@@ -115,6 +116,7 @@ public:
 	void setFirstName(const std::string& firstName)				{ mFirstName = firstName; }
 	void setLastName(const std::string& lastName)				{ mLastName = lastName; }
 	void setPassword(const std::string& unhashed_password);
+	void setEncryptedPassword(const std::string& encrypted_password);
 	void setVoiceConnector(const std::string& vc)				{ mVoiceConnector = vc; }
 	void setCurrencySymbol(const std::string& sym)				{ mCurrencySymbol = sym.substr(0, 3); }
 	void setRealCurrencySymbol(const std::string& sym)			{ mRealCurrencySymbol = sym.substr(0, 3); }
@@ -146,6 +148,7 @@ private:
 	std::string mFirstName;
 	std::string mLastName;
 	std::string mPasswordAvatar;
+	std::string mEncryptedPassword;
 	bool		mRenderCompat;
 	S32			mMaxAgentGroups;
 
