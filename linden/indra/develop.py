@@ -435,7 +435,12 @@ class DarwinSetup(UnixSetup):
             type=self.build_type
             )
         if self.universal == 'ON':
+            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386;ppc\''
+        elif self.arch == 'ppc':
+            args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'ppc\''
+        else:
             args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386\''
+
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
         return ('cmake -G %(generator)r '

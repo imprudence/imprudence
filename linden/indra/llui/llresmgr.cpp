@@ -266,8 +266,13 @@ std::string LLResMgr::getMonetaryString( S32 input ) const
 			default:  			// Unknown -- use the US defaults.
 			case LLLOCALE_USA: 
 			case LLLOCALE_UK:	// UK ends up being the same as US for the items used here.
-				fakeconv.negative_sign = "-";
-				fakeconv.mon_grouping = "\x03\x03\x00";	// commas every 3 digits
+						// Mac OS X 10.6 SDK's struct lconv contains "char *" not
+						// "const char *" so these char arrays work around the error
+						// this causes in GCC 4.2, even though they won't be modified.
+				static char negative_sign[] = "-";
+				static char mon_grouping[] = "\x03\x03\x00";
+				fakeconv.negative_sign = negative_sign;
+				fakeconv.mon_grouping = mon_grouping;  // commas every 3 digits
 				fakeconv.n_sign_posn = 1; // negative sign before the string
 			break;
 		}

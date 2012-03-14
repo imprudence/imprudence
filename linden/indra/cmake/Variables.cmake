@@ -80,10 +80,19 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(DARWIN 1)
+
+  # Incorporated settings from
+  # http://imprudenceviewer.org/w/index.php?title=How_to_compile&oldid=1647#Mac
+  # so that people don't have to set them every time they run develop.py
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_VERSION  "4.0")
+  set(CMAKE_XCODE_ATTRIBUTE_ARCHS '$(ARCHS_STANDARD_32_BIT)')
+  set(CMAKE_XCODE_ATTRIBUTE_VALID_ARCHS "i386 ppc")
+  # set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO")
+
   # set this dynamically from the build system now -
   # NOTE: wont have a distributable build unless you add this on the configure line with:
   # -DCMAKE_OSX_ARCHITECTURES:STRING='i386;ppc'
-  set(CMAKE_OSX_ARCHITECTURES i386)
+  set(CMAKE_OSX_ARCHITECTURES i386;ppc)
   set(CMAKE_OSX_SYSROOT /Developer/SDKs/MacOSX10.5.sdk)
   if (CMAKE_OSX_ARCHITECTURES MATCHES "i386")
     set(ARCH i386)
