@@ -205,5 +205,6 @@
 <ContextSilhouetteColor value="239, 156, 0, 255" />     <!-- For "context" highlighting, i.e. pie menu -->
 <GroupOverTierColor value="110, 15, 15, 255" />         <!-- Warning text in Group Info window -->
 <ConsoleBackground value="0, 0, 0, 255" />              <!-- Background for inworld chat -->
+<ComboBoxBg value="255, 255, 255, 255"/>
  
 </settings>
