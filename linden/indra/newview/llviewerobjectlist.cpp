@@ -639,7 +639,7 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 		mCurLazyUpdateIndex = 0;
 	}
 
-	mCurBin = (++mCurBin) % NUM_BINS;
+	mCurBin = (mCurBin + 1) % NUM_BINS;
 
 	LLVOAvatar::cullAvatarsByPixelArea();
 }
