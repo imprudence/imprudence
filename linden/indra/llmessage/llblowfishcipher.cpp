@@ -167,7 +167,6 @@ U32 LLBlowfishCipher::decrypt(const U8* src, U32 src_len, U8* dst, U32 dst_len)
 ERROR:
 	EVP_CIPHER_CTX_cleanup(&context);
 	return 0;
-	return 0;
 }
 
 // virtual
