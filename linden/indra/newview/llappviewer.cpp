@@ -179,7 +179,6 @@
 
 #include "hippogridmanager.h"
 #include "hippolimits.h"
-#include "hippoupdate.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
