@@ -579,6 +579,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "cmGetWindlightScene", "l", "l", "list cmGetWindlightScene(list rules)\nGet the current WindLight settings."));
 	// LightShare functions - alternate versions
 	// don't ask me why they renamed 'em, but we need to include both versions -- MC
+	// cm refers to a proprietary fork of OpenSim used by Meta 7 and Avination, they where renamed to ls when LightShare was released to the wild.
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "lsSetWindlightScene", "i", "l", "integer lsSetWindlightScene(list rules)\nSet the current WindLight scene. Restricted to estate managers and owners only."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "lsSetWindlightSceneTargeted", "i", "lk", "integer lsSetWindlightSceneTargeted(list rules, key target)\nSet the current WindLight scene directed to a specific avatar. Restricted to estate managers and owners only."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "lsGetWindlightScene", "l", "l", "list lsGetWindlightScene(list rules)\nGet the current WindLight settings."));
