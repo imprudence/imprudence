@@ -1,11 +1,11 @@
-/** 
+/**
  * @file lscript_library.cpp
  * @brief external library interface
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
- * 
+ *
  * Copyright (c) 2002-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -37,7 +37,7 @@
 //  ##  ##  ## ##     ## ########  ## ## ##  ##  ## ## ## ##   ####  ##   ##
 //  ##  ##  ## ######### ##   ##   ##  ####  ##  ##  #### ##    ##
 //  ##  ##  ## ##     ## ##    ##  ##   ###  ##  ##   ### ##    ##  #### ####
-//   ###  ###  ##     ## ##     ## ##    ## #### ##    ##  ######   #### #### 
+//   ###  ###  ##     ## ##     ## ##    ## #### ##    ##  ######   #### ####
 //
 // When adding functions, they <b>MUST</b> be appended to the end of
 // the init() method. The init() associates the name with a number,
@@ -335,7 +335,7 @@ void LLScriptLibrary::init()
 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetRemoteScriptAccessPin", NULL, "i", "llSetRemoteScriptAccessPin(integer pin)\nIf pin is set to a non-zero number, the task will accept remote script\nloads via llRemoteLoadScriptPin if it passes in the correct pin.\nOthersise, llRemoteLoadScriptPin is ignored."));
 	addFunction(new LLScriptLibraryFunction(10.f, 3.f, dummy_func, "llRemoteLoadScriptPin", NULL, "ksiii", "llRemoteLoadScriptPin(key target, string name, integer pin, integer running, integer start_param)\nIf the owner of the object this script is attached can modify target,\nthey are in the same region,\nand the matching pin is used,\ncopy script name onto target,\nif running == TRUE, start the script with param."));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 1.f, dummy_func, "llOpenRemoteDataChannel", NULL, NULL, "llOpenRemoteDataChannel()\nCreates a channel to listen for XML-RPC calls.  Will trigger a remote_data event with channel id once it is available."));
 	addFunction(new LLScriptLibraryFunction(10.f, 3.f, dummy_func, "llSendRemoteData", "k", "ksis", "key llSendRemoteData(key channel, string dest, integer idata, string sdata)\nSend an XML-RPC request to dest through channel with payload of channel (in a string), integer idata and string sdata.\nA message identifier key is returned.\nAn XML-RPC reply will trigger a remote_data event and reference the message id.\nThe message_id is returned."));
 	addFunction(new LLScriptLibraryFunction(10.f, 3.f, dummy_func, "llRemoteDataReply", NULL, "kksi", "llRemoteDataReply(key channel, key message_id, string sdata, integer idata)\nSend an XML-RPC reply to message_id on channel with payload of string sdata and integer idata"));
@@ -351,7 +351,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llLog", "f", "f", "float llLog(float val)\nReturns the base e log of val if val > 0, otherwise returns 0."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetAnimationList", "l", "k", "list llGetAnimationList(key id)\nGets a list of all playing animations for avatar id"));
 	addFunction(new LLScriptLibraryFunction(10.f, 2.f, dummy_func, "llSetParcelMusicURL", NULL, "s", "llSetParcelMusicURL(string url)\nSets the streaming audio URL for the parcel object is on"));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetRootPosition", "v", NULL, "vector llGetRootPosition()\nGets the global position of the root object of the object script is attached to"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetRootRotation", "q", NULL, "rotation llGetRootRotation()\nGets the global rotation of the root object of the object script is attached to"));
 
@@ -370,7 +370,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.0f, dummy_func, "llBase64ToInteger", "i", "s", "integer llBase64ToInteger(string str)\nBig endian decode of a Base64 string into an integer."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetGMTclock", "f", "", "float llGetGMTclock()\nGets the time in seconds since midnight in GMT"));
 	addFunction(new LLScriptLibraryFunction(10.f, 10.f, dummy_func, "llGetSimulatorHostname", "s", "", "string llGetSimulatorHostname()\nGets the hostname of the machine script is running on (same as string in viewer Help dialog)"));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLocalRot", NULL, "q", "llSetLocalRot(rotation rot)\nsets the rotation of a child prim relative to the root prim"));
 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llParseStringKeepNulls", "l", "sll", "list llParseStringKeepNulls(string src, list separators, list spacers)\nBreaks src into a list, discarding separators, keeping spacers (separators and spacers must be lists of strings, maximum of 8 each), keeping any null values generated."));
@@ -393,12 +393,12 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 2.f, dummy_func, "llParcelMediaQuery", "l", "l", "list llParcelMediaQuery(list query)\nSends a list of queries, returns a list of results."));
 
 	addFunction(new LLScriptLibraryFunction(10.f, 1.f, dummy_func, "llModPow", "i", "iii", "integer llModPow(integer a, integer b, integer c)\nReturns a raised to the b power, mod c. ( (a**b)%c ).  b is capped at 0xFFFF (16 bits)."));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetInventoryType", "i", "s", "integer llGetInventoryType(string name)\nReturns the type of the inventory name"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetPayPrice", NULL, "il", "llSetPayPrice(integer price, list quick_pay_buttons)\nSets the default amount when someone chooses to pay this object."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetCameraPos", "v", "", "vector llGetCameraPos()\nGets current camera position for agent task has permissions for."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetCameraRot", "q", "", "rotation llGetCameraRot()\nGets current camera orientation for agent task has permissions for."));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 20.f, dummy_func, "llSetPrimURL", NULL, "s", "llSetPrimURL(string url)\nUpdates the URL for the web page shown on the sides of the object."));
 	addFunction(new LLScriptLibraryFunction(10.f, 20.f, dummy_func, "llRefreshPrimURL", NULL, "", "llRefreshPrimURL()\nReloads the web page shown on the sides of the object."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llEscapeURL", "s", "s", "string llEscapeURL(string url)\nReturns and escaped/encoded version of url, replacing spaces with %20 etc."));
@@ -411,7 +411,7 @@ void LLScriptLibrary::init()
 
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCameraParams",			 NULL, "l", "llSetCameraParams(list rules)\nSets multiple camera parameters at once.\nList format is [ rule1, data1, rule2, data2 . . . rulen, datan ]"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llClearCameraParams",		 NULL, NULL, "llClearCameraParams()\nResets all camera parameters to default values and turns off scripted camera control."));
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llListStatistics", "f", "il", "float llListStatistics(integer operation, list l)\nPerform statistical aggregate functions on list l using LIST_STAT_* operations."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetUnixTime", "i", NULL, "integer llGetUnixTime()\nGet the number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC from the system clock."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetParcelFlags", "i", "v", "integer llGetParcelFlags(vector pos)\nGet the parcel flags (PARCEL_FLAG_*) for the parcel including the point pos."));
@@ -433,7 +433,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkPrimitiveParams", NULL, "il", "llSetLinkPrimitiveParams(integer linknumber, list rules)\nSet primitive parameters for linknumber based on rules."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkTexture", NULL, "isi", "llSetLinkTexture(integer link_pos, string texture, integer face)\nSets the texture of face for link_pos"));
 
-	
+
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llStringTrim", "s", "si", "string llStringTrim(string src, integer trim_type)\nTrim leading and/or trailing spaces from a string.\nUses trim_type of STRING_TRIM, STRING_TRIM_HEAD or STRING_TRIM_TAIL."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llRegionSay", NULL, "is", "llRegionSay(integer channel, string msg)\nbroadcasts msg to entire region on channel (not 0.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetObjectDetails", "l", "kl", "list llGetObjectDetails(key id, list params)\nGets the object details specified in params for the object with key id.\nDetails are OBJECT_NAME, _DESC, _POS, _ROT, _VELOCITY, _OWNER, _GROUP, _CREATOR."));
@@ -484,25 +484,25 @@ void LLScriptLibrary::init()
 	// documented and therefore the description may be incomplete and require further attention.
 	// OpenSimulator is written in C# and not CPP therefore some values for example "double = float" etc. are different.
 
-	// OSSL corrections and syntax additions added + set in same order as found in OSSL_stub.cs of OpenSim Source (Updated PM October-21-2010 
-	// based on OpenSimulator Ver. 0.7.x DEV/Master Git # a7acb650d400a280a7b9edabd304376dff9c81af - a7acb65-r/14142 
-	// Updates by WhiteStar Magic 
+	// OSSL corrections and syntax additions added + set in same order as found in OSSL_stub.cs of OpenSim Source (Updated PM October-21-2010
+	// based on OpenSimulator Ver. 0.7.x DEV/Master Git # a7acb650d400a280a7b9edabd304376dff9c81af - a7acb65-r/14142
+	// Updates by WhiteStar Magic
 
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetRegionWaterHeight", NULL, "f", "osSetRegionWaterHeight(float height)\nAdjusts Water Height on region.\n(OpenSim only.)"));	
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetRegionWaterHeight", NULL, "f", "osSetRegionWaterHeight(float height)\nAdjusts Water Height on region.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetRegionSunSettings", NULL, "iif", "osSetRegionSunSettings(integer useEstateSun, integer sunFixed, float sunHour)\nChanges the Estate Sun Settings, then Triggers a Sun Update\n'sunFixed' TRUE (1) to keep the sun stationary, FALSE (0) to use global time\n'sunHour' The \"Sun Hour\" that is desired, 0...24, with 0 just after SunRise.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetEstateSunSettings", NULL, "if", "osSetEstateSunSettings(integer sunFixed, float sunHour)\nsunFixed = 0 or 1, sunHour = 00.00 to 24.00.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osGetCurrentSunHour", "f", NULL, "float osGetCurrentSunHour()\nReturns Float Value of Current Sun Hour 0...24 0 = sunrise.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSunGetParam","f", "s", "float osSunGetParam(string param)\nReturns current float values for param\nwhere param = day_length, year_length, day_night_offset, update_interval.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSunSetParam", "sf", NULL, "osSunSetParam(string param, float value)\nSet's Sun Param for SunSet,\nosSunSetParam(day_length, 24.0)\nwhere param = day_length, year_length, day_night_offset, update_interval.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindActiveModelPluginName", "s", NULL, "string osWindActiveModelPluginName()\nReturns the Current Working Wind Module Installed\nThese are SimpleRandomWind or ConfigurableWind, optionally others.\n(OpenSim only.)"));
-    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelJoin", NULL, "vv", "osParcelJoin(vector pos1, vector pos2))\nJoins Parcels @ X,Y coordinates.\n(OpenSim only.)"));	 
-    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSubdivide", NULL, "vv", "osParcelSubdivide(vector pos1, vector pos2))\nSubdivides Parcels @ X,Y coordinates.\n(OpenSim only.)"));	 
-    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSetDetails", NULL, "vv", "osParcelSetDetails(vector pos, list rules))\nSet Parcel details.\n(OpenSim only.)"));	 
-	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamSet", NULL, "ssf", "osWindParamSet(string plugin, string param, float value)Send Param to Specified Wind Plugin with new value.\n(OpenSim only.)")); 
-	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamGet", "f", "ss", "float osWindParamGet(string plugin, string param)\n Returns Current param from specified Wind Plugin Module.\n(OpenSim only.)")); 
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelJoin", NULL, "vv", "osParcelJoin(vector pos1, vector pos2))\nJoins Parcels @ X,Y coordinates.\n(OpenSim only.)"));
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSubdivide", NULL, "vv", "osParcelSubdivide(vector pos1, vector pos2))\nSubdivides Parcels @ X,Y coordinates.\n(OpenSim only.)"));
+    addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osParcelSetDetails", NULL, "vv", "osParcelSetDetails(vector pos, list rules))\nSet Parcel details.\n(OpenSim only.)"));
+	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamSet", NULL, "ssf", "osWindParamSet(string plugin, string param, float value)Send Param to Specified Wind Plugin with new value.\n(OpenSim only.)"));
+	// addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osWindParamGet", "f", "ss", "float osWindParamGet(string plugin, string param)\n Returns Current param from specified Wind Plugin Module.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osList2Double", "f", "si", "double osList2Double(list src, int index)\nReturns Double (float) Value from src at index.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureURL", NULL, "ssssi", "osSetDynamicTextureURL(string dynamicID, string contentType, string url, string extraParams, int timer )\n(OpenSim only.)"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureData", NULL, "ssssi", "osSetDynamicTextureData(string dynamicID, string contentType, string data, string extraParams, int timer)\nWrites text and vector graphics onto a prim face.\n(OpenSim only.)"));	
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureData", NULL, "ssssi", "osSetDynamicTextureData(string dynamicID, string contentType, string data, string extraParams, int timer)\nWrites text and vector graphics onto a prim face.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureURLBlend", NULL, "ssssii", "osSetDynamicTextureURLBlend(string dynamicID, string contentType, string url, string extraParams, int timer, int alpha)\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureDataBlend", NULL, "ssssii", "osSetDynamicTextureDataBlend(string dynamicID, string contentType, string data, string extraParams, int timer, int alpha)\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetDynamicTextureURLBlendFace", NULL, "ssssfiiii", "osSetDynamicTextureURLBlendFace(string dynamicID, string contentType, string url, string extraParams, bool blend, int disp, int timer, int alpha, int face)\nLoads a web texture on a prim.\n(OpenSim only.)"));
@@ -512,7 +512,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osTerrainFlush", NULL, NULL, "osTerrainFlush()\nUpdates terrain data. Call this after you are done using osTerrainSetHeight.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osRegionRestart", NULL, "f", "int osRegionRestart(double seconds)\nRestart the current region in the specified number of seconds from now.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osRegionNotice",NULL, "s", "osRegionNotice(string msg)\nBroadcasts a notification message to all agents on the current region.\n(OpenSim only.)"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osConsoleCommand", NULL, "s", "osConsoleCommand(string command)\nIssues commands directly to the OpenSim server console.\n(OpenSim only.)"));	
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osConsoleCommand", NULL, "s", "osConsoleCommand(string command)\nIssues commands directly to the OpenSim server console.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetParcelMediaURL", NULL, "s", "osSetParcelMediaURL(string url)\nSets Parcel Media URL.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetParcelSIPAddress", NULL, "s", "osSetParcelSIPAddress(string SIPAddress)\nSets Parcel SIP Address for Voice.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetPrimFloatOnWater", NULL, "i", "osSetPrimFloatOnWater(int floatYN)\nMake Physical prims float at the water level, TRUE or FALSE.\n(OpenSim only.)"));
@@ -568,10 +568,10 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetSpeed", NULL, "kf", "osSetSpeed(key AVATAR, float SpeedModifier)\nMultiplies the normal running, walking, and flying speed of the specified avatar.\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osCauseDamage", NULL, "kf", "osCauseDamage(key AVATAR, float damage)\nCauses damage to specified AVATAR (UUID).\n(OpenSim only.)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osCauseHealing", NULL, "kf", "osCauseHealing(key AVATAR, float healing)\nCauses Healing to specified AVATAR (UUID).\n(OpenSim only.)"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osGetPrimitiveParams", "l", "kl", "List osGetPrimitiveParams(key prim, list rules)\nGets primitive Params.\n(OpenSim only.)")); 
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetPrimitiveParams", NULL, "kl", "osSetPrimitiveParams(key prim, list rules)\nSets primitive Params.\n(OpenSim only.)")); 
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetProjectionParams", NULL, "kikfff", "osSetProjectionParams(key prim. bool projection, key texture, float fov, float focus, float amb)\nSet Projection Paramaters (bool = true / false)\n(OpenSim only.)")); 
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osUnixTimeToTimestamp", "s", "i", "osUnixTimeToTimestamp(integer unixtime)\nConverts unixtime to an llGetTimeStamp() formated string.\n(OpenSim only.)")); 
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osGetPrimitiveParams", "l", "kl", "List osGetPrimitiveParams(key prim, list rules)\nGets primitive Params.\n(OpenSim only.)"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetPrimitiveParams", NULL, "kl", "osSetPrimitiveParams(key prim, list rules)\nSets primitive Params.\n(OpenSim only.)"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osSetProjectionParams", NULL, "kikfff", "osSetProjectionParams(key prim. bool projection, key texture, float fov, float focus, float amb)\nSet Projection Paramaters (bool = true / false)\n(OpenSim only.)"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "osUnixTimeToTimestamp", "s", "i", "osUnixTimeToTimestamp(integer unixtime)\nConverts unixtime to an llGetTimeStamp() formated string.\n(OpenSim only.)"));
 
 	// LightShare functions
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "cmSetWindlightScene", "i", "l", "integer cmSetWindlightScene(list rules)\nSet the current WindLight scene. Restricted to estate managers and owners only."));
