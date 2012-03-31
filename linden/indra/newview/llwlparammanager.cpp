@@ -3,9 +3,9 @@
  * @brief Implementation for the LLWLParamManager class.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
- * 
+ *
  * Copyright (c) 2007-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -124,9 +124,9 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 {
 	std::string path_name(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/skies", ""));
 	LL_DEBUGS2("AppInit", "ShaderLoading") << "Loading Default WindLight settings from " << path_name << LL_ENDL;
-			
-	bool found = true;			
-	while(found) 
+
+	bool found = true;
+	while(found)
 	{
 		std::string name;
 		found = gDirUtilp->getNextFileInDir(path_name, "*.xml", name, false);
@@ -150,9 +150,9 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 
 	std::string path_name2(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/skies", ""));
 	LL_INFOS2("AppInit", "Shaders") << "Loading User WindLight settings from " << path_name2 << LL_ENDL;
-			
-	found = true;			
-	while(found) 
+
+	found = true;
+	while(found)
 	{
 		std::string name;
 		found = gDirUtilp->getNextFileInDir(path_name2, "*.xml", name, false);
@@ -176,14 +176,14 @@ void LLWLParamManager::loadPresets(const std::string& file_name)
 bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool propagate /* = false */, bool check_if_real /* = false */)
 {
 	LLSD paramsData(LLSD::emptyMap());
-	
+
 	LLPointer<LLSDParser> parser = new LLSDXMLParser();
-	
+
 	if(parser->parse(preset_stream, paramsData, LLSDSerialize::SIZE_UNLIMITED) == LLSDParser::PARSE_FAILURE)
 	{
 		return false;
 	}
-	
+
 	if(check_if_real)
 	{
 		static const char* expected_windlight_settings[] = {
@@ -220,13 +220,13 @@ bool LLWLParamManager::loadPresetXML(const std::string& name, std::istream& pres
 			}
 		}
 	}
-	
+
 	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
 	if(mIt == mParamList.end())
 	{
 		addParamSet(name, paramsData);
 	}
-	else 
+	else
 	{
 		setParamSet(name, paramsData);
 	}
@@ -258,12 +258,12 @@ void LLWLParamManager::savePresets(const std::string & fileName)
 	//and not over the RO system wide version.
 
 	LLSD paramsData(LLSD::emptyMap());
-	
+
 	std::string pathName(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight", fileName));
 
 	for(std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.begin();
 		mIt != mParamList.end();
-		++mIt) 
+		++mIt)
 	{
 		paramsData[mIt->first] = mIt->second.getAll();
 	}
@@ -295,7 +295,7 @@ bool LLWLParamManager::savePresetToNotecard(const std::string & name)
 	// Write it to a notecard
 	LLNotecard notecard;
 	notecard.setText(presetsXML.str());
- 
+
 	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
 	if(!item)
 	{
@@ -309,13 +309,13 @@ bool LLWLParamManager::savePresetToNotecard(const std::string & name)
 		LLAssetID asset_id;
 		tid.generate();
 		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
-		
+
 		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
-		
+
 		std::ostringstream stream;
 		notecard.exportStream(stream);
 		std::string buffer = stream.str();
-		
+
 		S32 size = buffer.length() + 1;
 		file.setMaxSize(size);
 		file.write((U8*)buffer.c_str(), size);
@@ -328,7 +328,7 @@ bool LLWLParamManager::savePresetToNotecard(const std::string & name)
 		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
 		return false;
 	}
-	
+
 	propagateParameters();
 	return true;
 }
@@ -355,7 +355,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	escaped_filename += ".xml";
 
 	std::string pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/skies", escaped_filename));
-	LL_DEBUGS2("AppInit", "Shaders") << "Loading WindLight sky setting from " << pathName << LL_ENDL; 
+	LL_DEBUGS2("AppInit", "Shaders") << "Loading WindLight sky setting from " << pathName << LL_ENDL;
 
 	llifstream presetsXML;
 	presetsXML.open(pathName.c_str());
@@ -364,7 +364,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	if(!presetsXML)
 	{
 		pathName=gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/skies", escaped_filename);
-		LL_DEBUGS2("AppInit", "Shaders")<< "Loading User WindLight sky setting from "  << LL_ENDL; 
+		LL_DEBUGS2("AppInit", "Shaders")<< "Loading User WindLight sky setting from "  << LL_ENDL;
 		presetsXML.open(pathName.c_str());
 	}
 
@@ -372,14 +372,14 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	{
 		loadPresetXML(name, presetsXML);
 		presetsXML.close();
-	} 
-	else 
+	}
+	else
 	{
 		llwarns << "Can't find " << name << llendl;
 		return;
 	}
 
-	
+
 	if(propagate)
 	{
 		getParamSet(name, mCurParams);
@@ -387,7 +387,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 	}
 
 	notifyObservers();
-}	
+}
 
 void LLWLParamManager::savePreset(const std::string & name)
 {
@@ -427,7 +427,7 @@ void LLWLParamManager::updateShaderUniforms(LLGLSLShader * shader)
 	{
 		shader->uniform4fv(LLViewerShaderMgr::LIGHTNORM, 1, mRotatedLightDir.mV);
 		shader->uniform3fv("camPosLocal", 1, LLViewerCamera::getInstance()->getOrigin().mV);
-	} 
+	}
 
 	else if (shader->mShaderGroup == LLGLSLShader::SG_SKY)
 	{
@@ -435,13 +435,13 @@ void LLWLParamManager::updateShaderUniforms(LLGLSLShader * shader)
 	}
 
 	shader->uniform1f("scene_light_strength", mSceneLightStrength);
-	
+
 }
 
 void LLWLParamManager::propagateParameters(void)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_UPDATE_WLPARAM);
-	
+
 	LLVector4 sunDir;
 	LLVector4 moonDir;
 
@@ -491,7 +491,7 @@ void LLWLParamManager::propagateParameters(void)
 	// bind the variables for all shaders only if we're using WindLight
 	LLViewerShaderMgr::shader_iter shaders_iter, end_shaders;
 	end_shaders = LLViewerShaderMgr::instance()->endShaders();
-	for(shaders_iter = LLViewerShaderMgr::instance()->beginShaders(); shaders_iter != end_shaders; ++shaders_iter) 
+	for(shaders_iter = LLViewerShaderMgr::instance()->beginShaders(); shaders_iter != end_shaders; ++shaders_iter)
 	{
 		if (shaders_iter->mProgramObject != 0
 			&& (gPipeline.canUseWindLightShaders()
@@ -512,29 +512,29 @@ void LLWLParamManager::propagateParameters(void)
 void LLWLParamManager::update(LLViewerCamera * cam)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_UPDATE_WLPARAM);
-	
+
 	// update clouds, sun, and general
 	mCurParams.updateCloudScrolling();
-	
+
 	// update only if running
-	if(mAnimator.mIsRunning) 
+	if(mAnimator.mIsRunning)
 	{
 		mAnimator.update(mCurParams);
 	}
 
 	// update the shaders and the menu
 	propagateParameters();
-	
+
 	// sync menus if they exist
-	if(LLFloaterWindLight::isOpen()) 
+	if(LLFloaterWindLight::isOpen())
 	{
 		LLFloaterWindLight::instance()->syncMenu();
 	}
-	if(LLFloaterDayCycle::isOpen()) 
+	if(LLFloaterDayCycle::isOpen())
 	{
 		LLFloaterDayCycle::instance()->syncMenu();
 	}
-	if(LLFloaterEnvSettings::isOpen()) 
+	if(LLFloaterEnvSettings::isOpen())
 	{
 		LLFloaterEnvSettings::instance()->syncMenu();
 	}
@@ -547,8 +547,8 @@ void LLWLParamManager::update(LLViewerCamera * cam)
 	// executed some of the time.  For example for water shaders only.
 	{
 		F32 camYawDelta = mSunDeltaYaw * DEG_TO_RAD;
-		
-		LLVector3 lightNorm3(mLightDir);	
+
+		LLVector3 lightNorm3(mLightDir);
 		lightNorm3 *= LLQuaternion(-(camYaw + camYawDelta), LLVector3(0.f, 1.f, 0.f));
 		mRotatedLightDir = LLVector4(lightNorm3, 0.f);
 
@@ -621,7 +621,7 @@ void LLWLParamManager::cleanupClass()
 
 void LLWLParamManager::resetAnimator(F32 curTime, bool run)
 {
-	mAnimator.setTrack(mDay.mTimeMap, mDay.mDayRate, 
+	mAnimator.setTrack(mDay.mTimeMap, mDay.mDayRate,
 		curTime, run);
 
 	return;
@@ -630,8 +630,8 @@ bool LLWLParamManager::addParamSet(const std::string& name, LLWLParamSet& param)
 {
 	// add a new one if not one there already
 	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt == mParamList.end()) 
-	{	
+	if(mIt == mParamList.end())
+	{
 		mParamList[name] = param;
 		return true;
 	}
@@ -658,7 +658,7 @@ bool LLWLParamManager::getParamSet(const std::string& name, LLWLParamSet& param)
 {
 	// find it and set it
 	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt != mParamList.end()) 
+	if(mIt != mParamList.end())
 	{
 		param = mParamList[name];
 		param.mName = name;
@@ -678,11 +678,11 @@ bool LLWLParamManager::setParamSet(const std::string& name, LLWLParamSet& param)
 bool LLWLParamManager::setParamSet(const std::string& name, const LLSD & param)
 {
 	// quick, non robust (we won't be working with files, but assets) check
-	if(!param.isMap()) 
+	if(!param.isMap())
 	{
 		return false;
 	}
-	
+
 	mParamList[name].setAll(param);
 
 	return true;
@@ -692,7 +692,7 @@ bool LLWLParamManager::removeParamSet(const std::string& name, bool delete_from_
 {
 	// remove from param list
 	std::map<std::string, LLWLParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt != mParamList.end()) 
+	if(mIt != mParamList.end())
 	{
 		mParamList.erase(mIt);
 	}
@@ -701,11 +701,11 @@ bool LLWLParamManager::removeParamSet(const std::string& name, bool delete_from_
 
 	// remove all references
 	bool stat = true;
-	do 
+	do
 	{
 		// get it
 		stat = mDay.getKey(name, key);
-		if(stat == false) 
+		if(stat == false)
 		{
 			break;
 		}
@@ -714,17 +714,17 @@ bool LLWLParamManager::removeParamSet(const std::string& name, bool delete_from_
 		stat = mDay.removeKey(key);
 
 	} while(stat == true);
-	
+
 	if(delete_from_disk)
 	{
 		std::string path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/skies", ""));
-		
+
 		// use full curl escaped name
 		char * curl_str = curl_escape(name.c_str(), name.size());
 		std::string escaped_name(curl_str);
 		curl_free(curl_str);
 		curl_str = NULL;
-		
+
 		gDirUtilp->deleteFilesInDir(path_name, escaped_name + ".xml");
 	}
 
@@ -797,7 +797,7 @@ void LLWLParamManager::loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id,
 		}
 		else
 		{
-			// We can do this because we know mCurParams 
+			// We can do this because we know mCurParams
 			sInstance->mParamList[name].mInventoryID = inventory_id;
 		}
 	}

@@ -3,9 +3,9 @@
  * @brief Implementation for the LLWLParamManager class.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
- * 
+ *
  * Copyright (c) 2007-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -51,10 +51,10 @@ public:
 	virtual ~LLWLPresetsObserver() { };
 	virtual void changed() = 0;
 };
- 
+
 // color control
 struct WLColorControl {
-	
+
 	F32 r, g, b, i;				/// the values
 	std::string mName;			/// name to use to dereference params
 	std::string mSliderName;	/// name of the slider in menu
@@ -88,7 +88,7 @@ struct WLColorControl {
 		r = val.mV[0];
 		g = val.mV[1];
 		b = val.mV[2];
-		i = val.mV[3];		
+		i = val.mV[3];
 		return *this;
 	}
 
@@ -151,19 +151,19 @@ public:
 	/// load an individual preset into the sky from an LLSD stream
 	/// Returns whether the stream was actually reasonable XML to load from.
 	bool loadPresetXML(const std::string& name, std::istream& preset_stream, bool propogate=false, bool check_if_real=false);
-	
+
 	/// Load an individual preset from a notecard.
 	void loadPresetNotecard(const std::string& name, const LLUUID& asset_id, const LLUUID& inv_id);
-	
+
 	/// save the parameter presets to file
 	void savePreset(const std::string & name);
-	
+
 	/// save the parameter presets to file
 	bool savePresetToNotecard(const std::string & name);
 
 	/// Set shader uniforms dirty, so they'll update automatically.
 	void propagateParameters(void);
-	
+
 	/// Update shader uniforms that have changed.
 	void updateShaderUniforms(LLGLSLShader * shader);
 
@@ -181,7 +181,7 @@ public:
 
 	// get where the light is pointing
 	inline LLVector4 getRotatedLightDir(void) const;
-	
+
 	/// get the dome's offset
 	inline F32 getDomeOffset(void) const;
 
@@ -193,7 +193,7 @@ public:
 
 	// Cleanup of global data that's only inited once per class.
 	static void cleanupClass();
-	
+
 	/// add a param to the list
 	bool addParamSet(const std::string& name, LLWLParamSet& param);
 
@@ -205,9 +205,9 @@ public:
 
 	/// set the param in the list with a new param
 	bool setParamSet(const std::string& name, LLWLParamSet& param);
-	
+
 	/// set the param in the list with a new param
-	bool setParamSet(const std::string& name, LLSD const & param);	
+	bool setParamSet(const std::string& name, LLSD const & param);
 
 	/// gets rid of a parameter and any references to it
 	/// returns true if successful
@@ -249,7 +249,7 @@ public:
 	WLFloatControl mWLGamma;
 
 	F32 mSceneLightStrength;
-	
+
 	/// Atmospherics
 	WLColorControl mBlueHorizon;
 	WLColorControl mHazeDensity;
@@ -275,10 +275,10 @@ public:
 	/// sky dome
 	F32 mDomeOffset;
 	F32 mDomeRadius;
-	
+
 	// list of all the parameters, listed by name
-	std::map<std::string, LLWLParamSet> mParamList;	
-	
+	std::map<std::string, LLWLParamSet> mParamList;
+
 private:
 	// our parameter manager singleton instance
 	static LLWLParamManager * sInstance;
@@ -287,7 +287,7 @@ private:
 	LLWLParamSet* sMixSet;
 	F32 sMixTime;
 	F32 sMixCount;
-	
+
 	static std::vector<LLWLPresetsObserver*> sObservers;
 
 	static void loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
