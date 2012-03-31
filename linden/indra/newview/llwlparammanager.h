@@ -223,6 +223,11 @@ public:
 
 	void SetMixTime(LLWLParamSet* mixSet, F32 mixTime);
 
+	// Notecard settings checkers.
+	static bool isWaterSettingsNotecard(std::string name);
+	static bool isSkySettingsNotecard(std::string name);
+	static bool isSettingsNotecard(std::string name);
+
 public:
 
 	// helper variables

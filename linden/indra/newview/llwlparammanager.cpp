@@ -836,3 +836,21 @@ void LLWLParamManager::notifyObservers()
 		observer->changed();
 	}
 }
+
+// static
+bool LLWLParamManager::isWaterSettingsNotecard(std::string name)
+{
+	return (name.length() > 2 && name.compare(name.length() - 3, 3, ".ww") == 0);
+}
+
+// static
+bool LLWLParamManager::isSkySettingsNotecard(std::string name)
+{
+	return (name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") == 0);
+}
+
+// static
+bool LLWLParamManager::isSettingsNotecard(std::string name)
+{
+	return (isSkySettingsNotecard(name) || isWaterSettingsNotecard(name));
+}

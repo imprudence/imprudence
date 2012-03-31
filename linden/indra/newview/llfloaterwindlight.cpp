@@ -873,7 +873,7 @@ void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 		{
 			// Make sure we have a ".wl" extension.
 			std::string name = comboBox->getSelectedItemLabel();
-			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
+			if(!LLWLParamManager::isSkySettingsNotecard(name))
 			{
 				name += ".wl";
 			}

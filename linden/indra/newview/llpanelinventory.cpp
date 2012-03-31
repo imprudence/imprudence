@@ -81,6 +81,7 @@
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
 #include "llwearable.h"
+#include "llwlparammanager.h"
 
 #include "hippogridmanager.h"
 
@@ -1380,9 +1381,6 @@ public:
 	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
-	bool isSkySetting() const;
-	bool isWaterSetting() const;
-	bool isWindLight() const;
 };
 
 LLTaskNotecardBridge::LLTaskNotecardBridge(
@@ -1412,7 +1410,7 @@ void LLTaskNotecardBridge::openItem()
 		return;
 	}
 // [/RLVa:KB]
-	if(isWindLight())
+	if(LLWLParamManager::isSettingsNotecard(getName()))
 	{
 		return;
 	}
@@ -1442,11 +1440,11 @@ BOOL LLTaskNotecardBridge::removeItem()
 }
 LLUIImagePtr LLTaskNotecardBridge::getIcon() const
 {
-	if(isSkySetting())
+	if(LLWLParamManager::isSkySettingsNotecard(getName()))
 	{
 		return LLUI::getUIImage("Inv_WindLight");
 	}
-	else if(isWaterSetting())
+	else if(LLWLParamManager::isWaterSettingsNotecard(getName()))
 	{
 		return LLUI::getUIImage("Inv_WaterLight");
 	}
@@ -1455,22 +1453,6 @@ LLUIImagePtr LLTaskNotecardBridge::getIcon() const
 		return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 	}
 }
-
-bool LLTaskNotecardBridge::isSkySetting() const
-{
-	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-}
-
-bool LLTaskNotecardBridge::isWaterSetting() const
-{
-	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
-}
-
-bool LLTaskNotecardBridge::isWindLight() const
-{
-	return (isSkySetting() || isWaterSetting());
-}
-
 
 ///----------------------------------------------------------------------------
 /// Class LLTaskGestureBridge
