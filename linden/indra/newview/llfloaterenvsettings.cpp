@@ -291,21 +291,6 @@ void LLFloaterEnvSettings::onOpenWLManager(void* userData)
 	WLFloaterManager::show();
 }
 
-void LLFloaterEnvSettings::onSubmitWindlight(void* userData)
-{
-	Meta7WindlightPacket * wl = new Meta7WindlightPacket();
-
-	LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
-	wl->reflectionWaveletScale.X = param_mgr->mNormalScale.mX;
-	wl->reflectionWaveletScale.Y = param_mgr->mNormalScale.mY;
-	wl->reflectionWaveletScale.Z = param_mgr->mNormalScale.mZ;
-
-	
-	std::vector<std::string> strings;
-	strings.push_back((char*)wl);
-	send_generic_message("Windlight", strings);
-}
-
 void LLFloaterEnvSettings::onUseEstateTime(void* userData)
 {
 	if(LLFloaterWindLight::isOpen())

@@ -503,7 +503,6 @@ set(viewer_SOURCE_FILES
     slfloatermediafilter.cpp
     viewerinfo.cpp
     viewertime.cpp
-    windlightsettingsupdate.cpp
     wlfloatermanager.cpp
     wlfloaterwindlightsend.cpp
     wlretrievesettings.cpp
