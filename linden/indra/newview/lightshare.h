@@ -30,23 +30,19 @@
 #define LIGHTSHARE_H
 
 #include <string>
+#include "llwlparamset.h"
+#include "llwaterparamset.h"
+#include "lluuid.h"
 
 struct Meta7WindlightPacket;
-class LLMessageSystem;
-class LLSD;
-class LLTimer;
-class LLUUID;
-class LLWaterParamSet;
-class LLWLParamSet;
 
 
 // Encapsulates a "Windlight" (LightShare) message sent from the
 // region, allowing the settings to be applied at a later time.
 //
-class WindlightMessage
+class LightShare
 {
-	public:
-
+public:
 	// The meanings of the LightShareAllowed user setting.
 	enum LIGHTSHARE_ALLOWED
 	{
@@ -55,60 +51,39 @@ class WindlightMessage
 		LIGHTSHARE_ALWAYS = 2,
 	};
 
-	// Constructs a new WindlightMessage instance from a GenericMessage
+	// Constructs a new LightShare instance from a GenericMessage
 	// with the "Windlight" method, such as those sent by a
 	// Lightshare-enabled OpenSim region.
-	WindlightMessage( LLMessageSystem* msg );
+	LightShare( LLMessageSystem* msg );
 
-	~WindlightMessage();
-
-	// The name of the water preset where the region settings are stored.
-	static const std::string sWaterPresetName;
-
-	// The name of the sky preset where the region settings are stored.
-	static const std::string sSkyPresetName;
+	~LightShare();
 
 	// Message handler for GenericMessage with the "Windlight" method.
-	// Creates and applies a new WindlightMessage (or prompts user).
+	// Creates and applies a new LightShare (or prompts user).
 	static void processWindlight(LLMessageSystem* msg, void**);
 
-	// Callback when the user interacts with the notification.
-	static bool applyCallback(const LLSD& notification,
-	                          const LLSD& response);
+	static void applyMaybe(LLWaterParamSet* thisWater, LLUUID* thisVaterNormal, LLWLParamSet* thisSky);
 
 	// Called after the user has entered a new region, to reset the
 	// "ignore while in this region" state.
 	static void resetRegion();
 
-	// Applies/activates the Windlight settings from the message.
-	bool apply();
-
 	// Returns true if the message contains valid Windlight settings.
 	// (But there's no real validation yet, so this is always true.)
 	bool isValid();
 
-
-	protected:
-
-	// Restart the timer for temporarily ignoring settings.
-	static void restartIgnoreTimer();
-
-	// Returns true if the ignore timer has expired (i.e. new settings
-	// should not be ignored anymore).
-	static bool ignoreTimerHasExpired();
-
-
-	private:
-
-	static WindlightMessage* sMostRecent;
+private:
 	static LLTimer* sIgnoreTimer;
 	static bool sIgnoreRegion;
 
 	Meta7WindlightPacket* mPacket;
-	LLWaterParamSet* mWater;
-	LLWLParamSet* mSky;
-	LLUUID* mWaterNormal;
+	static LLWaterParamSet* mWater;
+	static LLWLParamSet* mSky;
+	static LLUUID* mWaterNormal;
 	bool mIsValid;
+
+	// Callback when the user interacts with the notification.
+	static bool applyCallback(const LLSD& notification, const LLSD& response);
 
 	// Converts the message's raw bytes into a Meta7WindlightPacket.
 	void process_packet( char* buf );
@@ -119,6 +94,12 @@ class WindlightMessage
 	// Constructs a LLWLParamSet from the Meta7WindlightPacket.
 	void process_sky();
 
+ 	// Restart the timer for temporarily ignoring settings.
+	static void restartIgnoreTimer();
+
+	// Returns true if the ignore timer has expired (i.e. new settings
+	// should not be ignored anymore).
+	static bool ignoreTimerHasExpired();
 };
 
 #endif

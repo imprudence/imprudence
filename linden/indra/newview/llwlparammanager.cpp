@@ -33,6 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llwlparammanager.h"
+#include "llwaterparammanager.h"
 
 #include "pipeline.h"
 #include "llsky.h"
@@ -60,6 +61,7 @@
 #include "llfloaterdaycycle.h"
 #include "llfloaterenvsettings.h"
 
+#include "llworld.h"
 
 // For notecard loading
 #include "llvfile.h"
@@ -74,6 +76,9 @@
 #include "llframetimer.h"
 
 #include "curl/curl.h"
+
+const std::string LLWLParamManager::sWaterPresetName = "(Region settings)";
+const std::string LLWLParamManager::sSkyPresetName   = "(Region settings)";
 
 LLWLParamManager * LLWLParamManager::sInstance = NULL;
 std::vector<LLWLPresetsObserver*> LLWLParamManager::sObservers;
@@ -853,4 +858,63 @@ bool LLWLParamManager::isSkySettingsNotecard(std::string name)
 bool LLWLParamManager::isSettingsNotecard(std::string name)
 {
 	return (isSkySettingsNotecard(name) || isWaterSettingsNotecard(name));
+}
+
+//static
+void LLWLParamManager::apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky)
+{
+	LLWaterParamManager* waterMgr = LLWaterParamManager::instance();
+	LLWLParamManager* skyMgr = LLWLParamManager::instance();
+
+	F32 fade = 0; //Instant
+	bool error;
+	fade = newSky->getFloat("fade", error);
+
+	newWater->mName = sWaterPresetName;
+	if(fade != 0 && waterMgr->mCurParams.mName == sWaterPresetName)//Load the settings forcefully the first time
+	{
+		LLWaterParamSet oldWset = waterMgr->mCurParams;
+		//This still needs done so that we update right, but load it to the old
+		waterMgr->removeParamSet( sWaterPresetName, false );
+		waterMgr->addParamSet( sWaterPresetName, oldWset );
+		waterMgr->savePreset( sWaterPresetName );
+		waterMgr->loadPreset( sWaterPresetName, true );
+		waterMgr->setNormalMapID( *newWaterNormal );
+		//Then mix with the new
+		waterMgr->SetMixTime(newWater, fade);
+	}
+	else
+	{
+		//Instant if fade is 0
+		waterMgr->removeParamSet( sWaterPresetName, false );
+		waterMgr->addParamSet( sWaterPresetName, *newWater );
+		waterMgr->savePreset( sWaterPresetName );
+		waterMgr->loadPreset( sWaterPresetName, true );
+		waterMgr->setNormalMapID( *newWaterNormal );
+	}
+
+	newSky->mName = sSkyPresetName;
+	if(fade != 0 && skyMgr->mCurParams.mName == sSkyPresetName)//Load the settings forcefully the first time
+	{
+		LLWLParamSet oldset = skyMgr->mCurParams;
+		//This still needs done so that we update right, but load it to the old
+		skyMgr->removeParamSet( sSkyPresetName, true );
+		skyMgr->addParamSet( sSkyPresetName, oldset );
+		skyMgr->savePreset( sSkyPresetName );
+		skyMgr->loadPreset( sSkyPresetName, true );
+		//Then mix with the new
+		skyMgr->SetMixTime(newSky, fade);
+	}
+	else
+	{
+		//Instant if fade is 0
+		skyMgr->mAnimator.mIsRunning = false;
+		skyMgr->mAnimator.mUseLindenTime = false;
+		skyMgr->removeParamSet( sSkyPresetName, false );
+		skyMgr->addParamSet( sSkyPresetName, *newSky );
+		skyMgr->savePreset( sSkyPresetName );
+		skyMgr->loadPreset( sSkyPresetName, true );
+	}
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
 }

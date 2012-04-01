@@ -70,7 +70,7 @@
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
 #include "wlretrievesettings.h"
-#include "wlsettingsmanager.h"
+#include "lightshare.h"
 #include "wlfloaterwindlightsend.h"
 
 #undef max
@@ -214,7 +214,7 @@ void WLFloaterManager::onShow(void* userData)
 	LLWaterParamSet* mWater = mgr->mWaterParamList[name];
 	LLUUID* mWaterNormal = mgr->mWaterNormalParamList[name];
 	if(mSky != NULL && mWater != NULL && mWaterNormal != NULL)
-		WLSettingsManager::Apply(mSky, mWater, mWaterNormal);
+		LightShare::applyMaybe(mWater, mWaterNormal, mSky);
 }
 void WLFloaterManager::onSetToCurrent(void* userData)
 {

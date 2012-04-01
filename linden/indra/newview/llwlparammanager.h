@@ -36,6 +36,7 @@
 #include <vector>
 #include <map>
 #include "llwlparamset.h"
+#include "llwaterparamset.h"
 #include "llwlanimator.h"
 #include "llwldaycycle.h"
 #include "llviewercamera.h"
@@ -228,6 +229,8 @@ public:
 	static bool isSkySettingsNotecard(std::string name);
 	static bool isSettingsNotecard(std::string name);
 
+	static void apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky);
+
 public:
 
 	// helper variables
@@ -283,6 +286,12 @@ public:
 
 	// list of all the parameters, listed by name
 	std::map<std::string, LLWLParamSet> mParamList;
+
+	// The name of the water preset where the region settings are stored.
+	static const std::string sWaterPresetName;
+
+	// The name of the sky preset where the region settings are stored.
+	static const std::string sSkyPresetName;
 
 private:
 	// our parameter manager singleton instance

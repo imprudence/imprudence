@@ -152,7 +152,6 @@
 
 #include "hippogridmanager.h"
 #include "hippolimits.h"
-#include "wlsettingsmanager.h"
 
 #if LL_WINDOWS // For Windows specific error handler
 #include "llwindebug.h"	// For the invalid message handler
@@ -3548,8 +3547,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 //	gViewerWindow->setShowProgress(TRUE);
 
 	// Tell the LightShare handler that we have changed regions.
-	WindlightMessage::resetRegion();
-	WLSettingsManager::wlresetRegion();
+	LightShare::resetRegion();
 }
 
 // stuff we have to do every time we get an AvatarInitComplete from a sim
@@ -3827,8 +3825,7 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 	regionp->setSeedCapability(seedCap);
 
 	// Tell the LightShare handler that we have changed regions.
-	WindlightMessage::resetRegion();
-	WLSettingsManager::wlresetRegion();
+	LightShare::resetRegion();
 }
 
 

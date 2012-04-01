@@ -87,8 +87,8 @@ void process_generic_message(LLMessageSystem* msg, void**)
 
 	// TODO: Use a proper dispatcher.
 	if(method == "Windlight")
-	{	
-		WindlightMessage::processWindlight(msg, NULL);
+	{
+		LightShare::processWindlight(msg, NULL);
 		return;
 	}
 

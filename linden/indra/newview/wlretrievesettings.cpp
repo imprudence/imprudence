@@ -67,7 +67,6 @@
 #include "hippolimits.h"
 #include "wlfloaterwindlightsend.h"
 #include "llviewerregion.h"
-#include "wlsettingsmanager.h"
 #include "lightshare.h"
 
 #include "linden_common.h"

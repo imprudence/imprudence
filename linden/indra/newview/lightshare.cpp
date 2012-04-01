@@ -27,7 +27,6 @@
  */
 
 
-#include "lightshare.h"
 
 #include "linden_common.h"
 #include "llviewercontrol.h"
@@ -38,21 +37,22 @@
 #include "message.h"
 #include "meta7windlight.h"
 
+#include "lightshare.h"
 
-const std::string WindlightMessage::sWaterPresetName = "(Region settings)";
-const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
-
-
-WindlightMessage* WindlightMessage::sMostRecent = NULL;
-LLTimer* WindlightMessage::sIgnoreTimer = new LLTimer();
-bool WindlightMessage::sIgnoreRegion = false;
+#include "llagent.h"
+#include "llworld.h"
 
 
-WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
+
+LLWaterParamSet* LightShare::mWater = NULL;
+LLWLParamSet* LightShare::mSky = NULL;
+LLUUID* LightShare::mWaterNormal = NULL;
+LLTimer* LightShare::sIgnoreTimer = new LLTimer();
+bool LightShare::sIgnoreRegion = false;
+
+
+LightShare::LightShare( LLMessageSystem* msg ) :
 	mPacket(NULL),
-	mWater(NULL),
-	mSky(NULL),
-	mWaterNormal(NULL),
 	mIsValid(false)
 {
 	std::string method;
@@ -93,7 +93,7 @@ WindlightMessage::WindlightMessage( LLMessageSystem* msg ) :
 }
 
 
-WindlightMessage::~WindlightMessage()
+LightShare::~LightShare()
 {
 	delete mWater;
 //	delete mSky;
@@ -102,12 +102,12 @@ WindlightMessage::~WindlightMessage()
 
 
 // static
-void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
+void LightShare::processWindlight(LLMessageSystem* msg, void**)
 {
 	if( gSavedSettings.getU32("LightShareAllowed") <= LIGHTSHARE_NEVER )
 		return;
 
-	WindlightMessage* wl = new WindlightMessage(msg);
+	LightShare* wl = new LightShare(msg);
 
 	if (!wl)
 		return;
@@ -118,16 +118,28 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		return;
 	}
 
+	applyMaybe(wl->mWater, wl->mWaterNormal, wl->mSky);
+}
+
+
+//static
+void LightShare::applyMaybe(LLWaterParamSet* thisWater, LLUUID* thisWaterNormal, LLWLParamSet* thisSky)
+{
+	if( gSavedSettings.getU32("LightShareAllowed") <= LIGHTSHARE_NEVER )
+		return;
+
 	std::string water = LLWaterParamManager::instance()->mCurParams.mName;
 	std::string sky = LLWLParamManager::instance()->mCurParams.mName;
 
 	// If they are using region settings already, or LightShare is
 	// always allowed, just apply the new settings, don't bother asking.
 	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ALWAYS ||
-	    (sky == sSkyPresetName && water == sWaterPresetName) )
+	    (sky == LLWLParamManager::sSkyPresetName && water == LLWLParamManager::sWaterPresetName) )
 	{
-		wl->apply();
-		delete wl;
+		mSky = thisSky;
+		mWater = thisWater;
+		mWaterNormal = thisWaterNormal;
+		LLWLParamManager::apply(mWater, mWaterNormal, mSky);
 		return;
 	}
 
@@ -136,41 +148,36 @@ void WindlightMessage::processWindlight(LLMessageSystem* msg, void**)
 		// The user recently ignored a windlight message, so ignore
 		// this one too, and restart the timer.
 		restartIgnoreTimer();
-		delete wl;
 		return;
 	}
 
 	if(sIgnoreRegion)
 	{
 		// We are ignoring new settings until user enters a new region.
-		delete wl;
 		return;
 	}
 
-	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ASK &&
-	    sMostRecent == NULL )
+	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ASK && mSky == NULL && mWater == NULL)
 	{
 		// No most recent, so store this and create notification
 		// asking the user whether to apply or not.
-		sMostRecent = wl;
-		LLNotifications::instance().add("ConfirmLightShare", LLSD(), LLSD(), 
+		mSky = thisSky;
+		mWater = thisWater;
+		mWaterNormal = thisWaterNormal;
+		LLNotifications::instance().add("ConfirmLightShare", LLSD(), LLSD(),
 		                                boost::bind(&applyCallback, _1, _2));
-		return;
 	}
 	else
 	{
-		// No new notification (to avoid spamming the user), just
-		// store this as most recent.
-		delete sMostRecent;
-		sMostRecent = wl;
-		return;
+		// No new notification (to avoid spamming the user, we do keep the saves from above)
+		mSky = thisSky;
+		mWater = thisWater;
+		mWaterNormal = thisWaterNormal;
 	}
 }
 
-
 // static
-bool WindlightMessage::applyCallback(const LLSD& notification,
-                                     const LLSD& response)
+bool LightShare::applyCallback(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 
@@ -178,7 +185,8 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
 	{
 		case 0:{
 			// "Apply"
-			sMostRecent->apply();
+			LLWLParamManager::apply(mWater, mWaterNormal, mSky);
+
 			break;
 		}
 		case 1:{
@@ -193,22 +201,18 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
 		}
 	}
 
-	delete sMostRecent;
-	sMostRecent = NULL;
-
 	return false;
 }
 
-
 // static
-void WindlightMessage::resetRegion()
+void LightShare::resetRegion()
 {
 	sIgnoreRegion = false;
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
 }
 
-
 // static
-void WindlightMessage::restartIgnoreTimer()
+void LightShare::restartIgnoreTimer()
 {
 	F32 time = gSavedSettings.getF32("LightShareIgnoreTimer");
 	sIgnoreTimer->start();
@@ -216,51 +220,24 @@ void WindlightMessage::restartIgnoreTimer()
 }
 
 // static
-bool WindlightMessage::ignoreTimerHasExpired()
+bool LightShare::ignoreTimerHasExpired()
 {
 	return sIgnoreTimer->hasExpired();
 }
 
-
-bool WindlightMessage::apply()
-{
-	LLWaterParamManager* water_mgr = LLWaterParamManager::instance();
-	LLWLParamManager* sky_mgr = LLWLParamManager::instance();
-
-	mWater->mName = sWaterPresetName;
-	water_mgr->removeParamSet( sWaterPresetName, false );
-	water_mgr->addParamSet( sWaterPresetName, *mWater );
-	water_mgr->savePreset( sWaterPresetName );
-	water_mgr->loadPreset( sWaterPresetName, true );
-	water_mgr->setNormalMapID( *mWaterNormal );
-
-	mSky->mName = sSkyPresetName;
-	sky_mgr->mAnimator.mIsRunning = false;
-	sky_mgr->mAnimator.mUseLindenTime = false;
-	sky_mgr->removeParamSet( sSkyPresetName, false );
-	sky_mgr->addParamSet( sSkyPresetName, *mSky );
-	sky_mgr->savePreset( sSkyPresetName );
-	sky_mgr->loadPreset( sSkyPresetName, true );
-
-	return true;
-}
-
-
-bool WindlightMessage::isValid()
+bool LightShare::isValid()
 {
 	return mIsValid;
 }
 
-
-void WindlightMessage::process_packet( char* buf )
+void LightShare::process_packet( char* buf )
 {
 	// *FIXME: Horrible idea, fragile, not byte-order or endian
 	//         safe, no validation, etc. etc. -Jacek
 	mPacket = (Meta7WindlightPacket*)buf;
 }
 
-
-void WindlightMessage::process_water()
+void LightShare::process_water()
 {
 	mWater->set("waterFogColor",
 							mPacket->waterColor.red   / 256.f,
@@ -316,7 +293,7 @@ void WindlightMessage::process_water()
 }
 
 
-void WindlightMessage::process_sky()
+void LightShare::process_sky()
 {
 	mSky->setSunAngle(F_TWO_PI * mPacket->sunMoonPosiiton);
 	mSky->setEastAngle(F_TWO_PI * mPacket->eastAngle);
@@ -411,5 +388,3 @@ void WindlightMessage::process_sky()
 
 	mSky->setStarBrightness(mPacket->starBrightness);
 }
-
-
