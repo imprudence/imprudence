@@ -1,11 +1,11 @@
-/** 
+/**
  * @file llfloaterwater.cpp
  * @brief LLFloaterWater class definition
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
- * 
+ *
  * Copyright (c) 2007-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -75,15 +75,15 @@ std::set<std::string> LLFloaterWater::sDefaultPresets;
 LLFloaterWater::LLFloaterWater() : LLFloater(std::string("water floater"))
 {
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_water.xml");
-	
+
 	// add the combo boxes
 	LLComboBox* comboBox = getChild<LLComboBox>("WaterPresetsCombo");
 
 	if(comboBox != NULL) {
-		
-		std::map<std::string, LLWaterParamSet>::iterator mIt = 
+
+		std::map<std::string, LLWaterParamSet>::iterator mIt =
 			LLWaterParamManager::instance()->mParamList.begin();
-		for(; mIt != LLWaterParamManager::instance()->mParamList.end(); mIt++) 
+		for(; mIt != LLWaterParamManager::instance()->mParamList.end(); mIt++)
 		{
 			comboBox->add(mIt->first);
 		}
@@ -117,7 +117,7 @@ void LLFloaterWater::initCallbacks(void) {
 	initHelpBtn("WaterFogColorHelp", "HelpWaterFogColor");
 	initHelpBtn("WaterFogDensityHelp", "HelpWaterFogDensity");
 	initHelpBtn("WaterUnderWaterFogModHelp", "HelpUnderWaterFogMod");
-	initHelpBtn("WaterGlowHelp", "HelpWaterGlow");	
+	initHelpBtn("WaterGlowHelp", "HelpWaterGlow");
 	initHelpBtn("WaterNormalScaleHelp", "HelpWaterNormalScale");
 	initHelpBtn("WaterFresnelScaleHelp", "HelpWaterFresnelScale");
 	initHelpBtn("WaterFresnelOffsetHelp", "HelpWaterFresnelOffset");
@@ -134,7 +134,7 @@ void LLFloaterWater::initCallbacks(void) {
 
 	childSetCommitCallback("WaterFogColor", onWaterFogColorMoved, &param_mgr->mFogColor);
 
-	// 
+	//
 	childSetCommitCallback("WaterGlow", onColorControlAMoved, &param_mgr->mFogColor);
 
 	// fog density
@@ -212,11 +212,11 @@ bool LLFloaterWater::newPromptCallback(const LLSD& notification, const LLSD& res
 
 		// add the current parameters to the list
 		// see if it's there first
-		std::map<std::string, LLWaterParamSet>::iterator mIt = 
+		std::map<std::string, LLWaterParamSet>::iterator mIt =
 			param_mgr->mParamList.find(text);
 
 		// if not there, add a new one
-		if(mIt == param_mgr->mParamList.end()) 
+		if(mIt == param_mgr->mParamList.end())
 		{
 			param_mgr->addParamSet(text, param_mgr->mCurParams);
 			comboBox->add(text);
@@ -227,8 +227,8 @@ bool LLFloaterWater::newPromptCallback(const LLSD& notification, const LLSD& res
 			param_mgr->savePreset(text);
 
 		// otherwise, send a message to the user
-		} 
-		else 
+		}
+		else
 		{
 			LLNotifications::instance().add("ExistsWaterPresetAlert");
 		}
@@ -261,13 +261,13 @@ void LLFloaterWater::syncMenu()
 	colCtrl->set(col);
 
 	// fog and wavelets
-	param_mgr->mFogDensity.mExp = 
-		log(current_params.getFloat(param_mgr->mFogDensity.mName, err)) / 
+	param_mgr->mFogDensity.mExp =
+		log(current_params.getFloat(param_mgr->mFogDensity.mName, err)) /
 		log(param_mgr->mFogDensity.mBase);
 	param_mgr->setDensitySliderValue(param_mgr->mFogDensity.mExp);
 	childSetValue("WaterFogDensity", param_mgr->mFogDensity.mExp);
-	
-	param_mgr->mUnderWaterFogMod.mX = 
+
+	param_mgr->mUnderWaterFogMod.mX =
 		current_params.getFloat(param_mgr->mUnderWaterFogMod.mName, err);
 	childSetValue("WaterUnderWaterFogMod", param_mgr->mUnderWaterFogMod.mX);
 
@@ -433,14 +433,14 @@ void LLFloaterWater::onColorControlRMoved(LLUICtrl* ctrl, void* userData)
 	colorControl->mR = sldrCtrl->getValueF32();
 
 	// move i if it's the max
-	if(colorControl->mR >= colorControl->mG 
-		&& colorControl->mR >= colorControl->mB 
+	if(colorControl->mR >= colorControl->mG
+		&& colorControl->mR >= colorControl->mB
 		&& colorControl->mHasSliderName)
 	{
 		colorControl->mI = colorControl->mR;
 		std::string name = colorControl->mSliderName;
 		name.append("I");
-		
+
 		sWaterMenu->childSetValue(name, colorControl->mR);
 	}
 
@@ -457,7 +457,7 @@ void LLFloaterWater::onColorControlGMoved(LLUICtrl* ctrl, void* userData)
 	colorControl->mG = sldrCtrl->getValueF32();
 
 	// move i if it's the max
-	if(colorControl->mG >= colorControl->mR 
+	if(colorControl->mG >= colorControl->mR
 		&& colorControl->mG >= colorControl->mB
 		&& colorControl->mHasSliderName)
 	{
@@ -517,9 +517,9 @@ void LLFloaterWater::onColorControlIMoved(LLUICtrl* ctrl, void* userData)
 	WaterColorControl * colorControl = static_cast<WaterColorControl *>(userData);
 
 	colorControl->mI = sldrCtrl->getValueF32();
-	
+
 	// only for sliders where we pass a name
-	if(colorControl->mHasSliderName) 
+	if(colorControl->mHasSliderName)
 	{
 		// set it to the top
 		F32 maxVal = std::max(std::max(colorControl->mR, colorControl->mG), colorControl->mB);
@@ -541,7 +541,7 @@ void LLFloaterWater::onColorControlIMoved(LLUICtrl* ctrl, void* userData)
 			colorControl->mR = 0;
 			colorControl->mG = 0;
 			colorControl->mB = 0;
-		
+
 		// if all at the start
 		// set them all to the intensity
 		}
@@ -597,7 +597,7 @@ void LLFloaterWater::onFloatControlMoved(LLUICtrl* ctrl, void* userData)
 void LLFloaterWater::onWaterFogColorMoved(LLUICtrl* ctrl, void* userData)
 {
 	LLColorSwatchCtrl* swatch = static_cast<LLColorSwatchCtrl*>(ctrl);
-	WaterColorControl * colorControl = static_cast<WaterColorControl *>(userData);	
+	WaterColorControl * colorControl = static_cast<WaterColorControl *>(userData);
 	*colorControl = swatch->get();
 
 	colorControl->update(LLWaterParamManager::instance()->mCurParams);
@@ -652,7 +652,7 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 	}
 
 	if (ctrl->getValue().asString() == "save_inventory_item")
-	{	
+	{
 		// Check if this is already a notecard.
 		if(LLWaterParamManager::instance()->mCurParams.mInventoryID.notNull())
 		{
@@ -668,7 +668,7 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 			}
 			LLPointer<KVFloaterWaterNotecardCreatedCallback> cb = new KVFloaterWaterNotecardCreatedCallback();
 			// Create a notecard and then save it.
-			create_inventory_item(gAgent.getID(), 
+			create_inventory_item(gAgent.getID(),
 								  gAgent.getSessionID(),
 								  LLUUID::null,
 								  LLTransactionID::tnull,
@@ -679,7 +679,7 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 								  NOT_WEARABLE,
 								  PERM_ITEM_UNRESTRICTED,
 								  cb);
-			
+
 		}
 	}
 	else if (ctrl->getValue().asString() == "send_to_server_item")
@@ -690,13 +690,13 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 	}
 	else
 	{
-		LLWaterParamManager::instance()->mCurParams.mName = 
+		LLWaterParamManager::instance()->mCurParams.mName =
 			comboBox->getSelectedItemLabel();
 
 		// check to see if it's a default and shouldn't be overwritten
 		std::set<std::string>::iterator sIt = sDefaultPresets.find(
 			comboBox->getSelectedItemLabel());
-		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("WaterEditPresets")) 
+		if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("WaterEditPresets"))
 		{
 			LLNotifications::instance().add("WLNoEditDefault");
 			return;
@@ -710,7 +710,7 @@ bool LLFloaterWater::saveNotecardCallback(const LLSD& notification, const LLSD& 
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose save, do it.  Otherwise, don't do anything
-	if(option == 0) 
+	if(option == 0)
 	{
 		LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
 		param_mgr->setParamSet(param_mgr->mCurParams.mName, param_mgr->mCurParams);
@@ -723,12 +723,12 @@ bool LLFloaterWater::saveAlertCallback(const LLSD& notification, const LLSD& res
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose save, do it.  Otherwise, don't do anything
-	if(option == 0) 
+	if(option == 0)
 	{
 		LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
 
 		param_mgr->setParamSet(
-			param_mgr->mCurParams.mName, 
+			param_mgr->mCurParams.mName,
 			param_mgr->mCurParams);
 
 		// comment this back in to save to file
@@ -755,14 +755,14 @@ bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& r
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose delete, do it.  Otherwise, don't do anything
-	if(option == 0) 
+	if(option == 0)
 	{
 		LLComboBox* combo_box = sWaterMenu->getChild<LLComboBox>("WaterPresetsCombo");
 		LLFloaterDayCycle* day_cycle = NULL;
 		LLComboBox* key_combo = NULL;
 		LLMultiSliderCtrl* mult_sldr = NULL;
 
-		if(LLFloaterDayCycle::isOpen()) 
+		if(LLFloaterDayCycle::isOpen())
 		{
 			day_cycle = LLFloaterDayCycle::instance();
 			key_combo = day_cycle->getChild<LLComboBox>("WaterKeyPresets");
@@ -773,20 +773,20 @@ bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& r
 
 		// check to see if it's a default and shouldn't be deleted
 		std::set<std::string>::iterator sIt = sDefaultPresets.find(name);
-		if(sIt != sDefaultPresets.end()) 
+		if(sIt != sDefaultPresets.end())
 		{
 			LLNotifications::instance().add("WaterNoEditDefault");
 			return false;
 		}
 
 		LLWaterParamManager::instance()->removeParamSet(name, true);
-		
+
 		// remove and choose another
 		S32 new_index = combo_box->getCurrentIndex();
 
 		combo_box->remove(name);
 
-		if(key_combo != NULL) 
+		if(key_combo != NULL)
 		{
 			key_combo->remove(name);
 
@@ -795,12 +795,12 @@ bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& r
 		}
 
 		// pick the previously selected index after delete
-		if(new_index > 0) 
+		if(new_index > 0)
 		{
 			new_index--;
 		}
-		
-		if(combo_box->getItemCount() > 0) 
+
+		if(combo_box->getItemCount() > 0)
 		{
 			combo_box->setCurrentByIndex(new_index);
 		}
@@ -812,12 +812,12 @@ bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& r
 void LLFloaterWater::onChangePresetName(LLUICtrl* ctrl, void * userData)
 {
 	LLComboBox * combo_box = static_cast<LLComboBox*>(ctrl);
-	
+
 	if(combo_box->getSimple() == "")
 	{
 		return;
 	}
-	
+
 	LLWaterParamManager::instance()->loadPreset(
 		combo_box->getSelectedValue().asString());
 	sWaterMenu->syncMenu();
@@ -829,12 +829,12 @@ void LLFloaterWater::onClickNext(void* user_data)
 	LLWaterParamSet& currentParams = param_mgr->mCurParams;
 
 	// find place of current param
-	std::map<std::string, LLWaterParamSet>::iterator mIt = 
+	std::map<std::string, LLWaterParamSet>::iterator mIt =
 		param_mgr->mParamList.find(currentParams.mName);
 
 	// if at the end, loop
 	std::map<std::string, LLWaterParamSet>::iterator last = param_mgr->mParamList.end(); --last;
-	if(mIt == last) 
+	if(mIt == last)
 	{
 		mIt = param_mgr->mParamList.begin();
 	}
@@ -853,11 +853,11 @@ void LLFloaterWater::onClickPrev(void* user_data)
 	LLWaterParamSet & currentParams = param_mgr->mCurParams;
 
 	// find place of current param
-	std::map<std::string, LLWaterParamSet>::iterator mIt = 
+	std::map<std::string, LLWaterParamSet>::iterator mIt =
 		param_mgr->mParamList.find(currentParams.mName);
 
 	// if at the beginning, loop
-	if(mIt == param_mgr->mParamList.begin()) 
+	if(mIt == param_mgr->mParamList.begin())
 	{
 		std::map<std::string, LLWaterParamSet>::iterator last = param_mgr->mParamList.end(); --last;
 		mIt = last;

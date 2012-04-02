@@ -3,9 +3,9 @@
  * @brief Interface for the LLWLParamSet class.
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
- * 
+ *
  * Copyright (c) 2005-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -55,7 +55,7 @@ public:
 private:
 
 	LLSD mParamValues;
-	
+
 	float mCloudScrollXOffset, mCloudScrollYOffset;
 
 public:
@@ -67,10 +67,10 @@ public:
 
 	/// set the total llsd
 	void setAll(const LLSD& val);
-	
+
 	/// get the total llsd
-	const LLSD& getAll();		
-	
+	const LLSD& getAll();
+
 
 	/// Set a float parameter.
 	/// \param paramName	The name of the parameter to set.
@@ -120,61 +120,61 @@ public:
 
 	/// Get an integer parameter
 	/// \param paramName	The name of the parameter to set.
-	/// \param error		A flag to set if it's not the proper return type	
+	/// \param error		A flag to set if it's not the proper return type
 	F32 getFloat(const std::string& paramName, bool& error);
-	
-	
+
+
 	// specific getters and setters
-	
-	
+
+
 	/// set the star's brightness
 	/// \param val brightness value
 	void setStarBrightness(F32 val);
-	
+
 	/// get the star brightness value;
-	F32 getStarBrightness();	
-	
+	F32 getStarBrightness();
+
 	void setSunAngle(F32 val);
-	F32 getSunAngle();	
-	
+	F32 getSunAngle();
+
 	void setEastAngle(F32 val);
-	F32 getEastAngle();	
-	
-							
-	
+	F32 getEastAngle();
+
+
+
 	/// set the cloud scroll x enable value
-	/// \param val scroll x value	
+	/// \param val scroll x value
 	void setEnableCloudScrollX(bool val);
 
-	/// get the scroll x enable value;	
+	/// get the scroll x enable value;
 	bool getEnableCloudScrollX();
-	
+
 	/// set the star's brightness
-	/// \param val scroll y bool value		
-	void setEnableCloudScrollY(bool val);	
+	/// \param val scroll y bool value
+	void setEnableCloudScrollY(bool val);
 
 	/// get the scroll enable y value;
 	bool getEnableCloudScrollY();
-	
+
 	/// set the cloud scroll x enable value
-	/// \param val scroll x value	
+	/// \param val scroll x value
 	void setCloudScrollX(F32 val);
 
-	/// get the scroll x enable value;	
+	/// get the scroll x enable value;
 	F32 getCloudScrollX();
-	
+
 	/// set the star's brightness
-	/// \param val scroll y bool value		
-	void setCloudScrollY(F32 val);	
+	/// \param val scroll y bool value
+	void setCloudScrollY(F32 val);
 
 	/// get the scroll enable y value;
-	F32 getCloudScrollY();	
+	F32 getCloudScrollY();
 
 	/// interpolate two parameter sets
 	/// \param src			The parameter set to start with
 	/// \param dest			The parameter set to end with
 	/// \param weight		The amount to interpolate
-	void mix(LLWLParamSet& src, LLWLParamSet& dest, 
+	void mix(LLWLParamSet& src, LLWLParamSet& dest,
 		F32 weight);
 
 	void updateCloudScrolling(void);
