@@ -77,10 +77,7 @@ LightShare::LightShare( LLMessageSystem* msg ) :
 				 buf, size, 0, 249);
 
 	mWater = new LLWaterParamSet();
-// 	mSky = new LLWLParamSet();
-	LLWLParamManager * wl_param_mgr = LLWLParamManager::instance();
-	static LLWLParamSet & sSky = wl_param_mgr->mCurParams;
-	mSky = &sSky;
+ 	mSky = new LLWLParamSet();
 
 	mWaterNormal = new LLUUID();
 
@@ -96,7 +93,7 @@ LightShare::LightShare( LLMessageSystem* msg ) :
 LightShare::~LightShare()
 {
 	delete mWater;
-//	delete mSky;
+	delete mSky;
 	delete mWaterNormal;
 }
 
