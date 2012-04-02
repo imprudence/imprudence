@@ -62,6 +62,7 @@
 
 #include "llwaterparamset.h"
 #include "llwaterparammanager.h"
+#include "llwlparammanager.h"
 #include "llpostprocess.h"
 
 #include "wlfloaterwindlightsend.h"
@@ -662,7 +663,7 @@ void LLFloaterWater::onSavePreset(LLUICtrl* ctrl, void* userData)
 		{
 			// Make sure we have a ".ww" extension.
 			std::string name = comboBox->getSelectedItemLabel();
-			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".ww") != 0)
+			if(!LLWLParamManager::isWaterSettingsNotecard(name))
 			{
 				name += ".ww";
 			}
