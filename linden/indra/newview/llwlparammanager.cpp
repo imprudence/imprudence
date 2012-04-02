@@ -860,59 +860,109 @@ bool LLWLParamManager::isSettingsNotecard(std::string name)
 	return (isSkySettingsNotecard(name) || isWaterSettingsNotecard(name));
 }
 
+
+struct WLCombined userSet, regionSet, parcelSet, RLVSet;
+
 //static
 void LLWLParamManager::apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky)
+// TODO - Pass in scope and day cycle stuff.
 {
 	LLWaterParamManager* waterMgr = LLWaterParamManager::instance();
 	LLWLParamManager* skyMgr = LLWLParamManager::instance();
+	struct WLCombined* thisSet = &userSet;
+
+//	if (region == scope)
+		thisSet = &regionSet;
+//	if (parcel== scope)
+//		thisSet = &parcelSet;
+//	if (RLV == scope)
+//		thisSet = &RLVSet;
+
+	thisSet->water.setAll(newWater->getAll());
+	thisSet->water.mParamValues["normalMap"] = *newWaterNormal;
+	thisSet->sky.setAll(newSky->getAll());
+
+// TODO - if scope is region or parcel, and not using server settings
+//          return
+
+	thisSet->enabled = true;
 
 	F32 fade = 0; //Instant
 	bool error;
 	fade = newSky->getFloat("fade", error);
 
 	newWater->mName = sWaterPresetName;
-	if(fade != 0 && waterMgr->mCurParams.mName == sWaterPresetName)//Load the settings forcefully the first time
+	newSky->mName = sSkyPresetName;
+	LLWaterParamSet oldWaterSet = waterMgr->mCurParams;
+	LLWLParamSet oldWLSet = skyMgr->mCurParams;
+
+	if (fade)
 	{
-		LLWaterParamSet oldWset = waterMgr->mCurParams;
-		//This still needs done so that we update right, but load it to the old
+		// TODO - should copy the original, then set that here.
+		// The fade should delete this copy once it's done fading.
 		waterMgr->removeParamSet( sWaterPresetName, false );
-		waterMgr->addParamSet( sWaterPresetName, oldWset );
-		waterMgr->savePreset( sWaterPresetName );
+		waterMgr->addParamSet( sWaterPresetName, oldWaterSet );
 		waterMgr->loadPreset( sWaterPresetName, true );
 		waterMgr->setNormalMapID( *newWaterNormal );
-		//Then mix with the new
-		waterMgr->SetMixTime(newWater, fade);
-	}
-	else
+
+		skyMgr->removeParamSet( sSkyPresetName, true );
+		skyMgr->addParamSet( sSkyPresetName, oldWLSet );
+		skyMgr->loadPreset( sSkyPresetName, true );
+         }
+
+	for(LLSD::map_const_iterator i = thisSet->water.mParamValues.beginMap();
+		i != thisSet->water.mParamValues.endMap();
+		++i)
 	{
-		//Instant if fade is 0
-		waterMgr->removeParamSet( sWaterPresetName, false );
-		waterMgr->addParamSet( sWaterPresetName, *newWater );
-		waterMgr->savePreset( sWaterPresetName );
-		waterMgr->loadPreset( sWaterPresetName, true );
-		waterMgr->setNormalMapID( *newWaterNormal );
+		const std::string& param = i->first;
+
+		if(i->second.isArray())
+		{
+			for (int j = 0; j < i->second.size(); j++)
+			{
+				oldWaterSet.mParamValues[param][j] = i->second[j].asReal();
+			}
+		}
+		else if(i->second.isReal())
+		  oldWaterSet.mParamValues[param] = i->second.asReal();
 	}
 
-	newSky->mName = sSkyPresetName;
-	if(fade != 0 && skyMgr->mCurParams.mName == sSkyPresetName)//Load the settings forcefully the first time
+	skyMgr->mAnimator.mIsRunning = false;
+	skyMgr->mAnimator.mUseLindenTime = false;
+	for(LLSD::map_const_iterator i = thisSet->sky.mParamValues.beginMap();
+		i != thisSet->sky.mParamValues.endMap();
+		++i)
 	{
-		LLWLParamSet oldset = skyMgr->mCurParams;
-		//This still needs done so that we update right, but load it to the old
-		skyMgr->removeParamSet( sSkyPresetName, true );
-		skyMgr->addParamSet( sSkyPresetName, oldset );
-		skyMgr->savePreset( sSkyPresetName );
-		skyMgr->loadPreset( sSkyPresetName, true );
-		//Then mix with the new
-		skyMgr->SetMixTime(newSky, fade);
+		const std::string& param = i->first;
+
+		if(i->second.isArray())
+		{
+			for (int j = 0; j < i->second.size(); j++)
+			{
+				oldWLSet.mParamValues[param][j] = i->second[j].asReal();
+			}
+		}
+		else if(i->second.isReal())
+		  oldWLSet.mParamValues[param] = i->second.asReal();
+	}
+
+// TODO - If RLV enabled
+//          Loop through RLVSet, setting the values into the old one, but keeping old values that are not in RLVSet
+
+	if (fade)
+	{
+		waterMgr->SetMixTime(&oldWaterSet, fade);
+		skyMgr->SetMixTime(&oldWLSet, fade);
 	}
 	else
 	{
-		//Instant if fade is 0
-		skyMgr->mAnimator.mIsRunning = false;
-		skyMgr->mAnimator.mUseLindenTime = false;
-		skyMgr->removeParamSet( sSkyPresetName, false );
-		skyMgr->addParamSet( sSkyPresetName, *newSky );
-		skyMgr->savePreset( sSkyPresetName );
+		waterMgr->removeParamSet( sWaterPresetName, false );
+		waterMgr->addParamSet( sWaterPresetName, oldWaterSet );
+		waterMgr->loadPreset( sWaterPresetName, true );
+		waterMgr->setNormalMapID( *newWaterNormal );
+
+		skyMgr->removeParamSet( sSkyPresetName, true );
+		skyMgr->addParamSet( sSkyPresetName, oldWLSet );
 		skyMgr->loadPreset( sSkyPresetName, true );
 	}
 

@@ -333,4 +333,11 @@ inline LLVector4 LLWLParamManager::getRotatedLightDir(void) const
 	return mRotatedLightDir;
 }
 
+struct WLCombined
+{
+	LLWaterParamSet water;
+	LLWLParamSet sky;
+	BOOL enabled;
+};
+
 #endif

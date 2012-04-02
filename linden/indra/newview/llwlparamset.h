@@ -51,8 +51,8 @@ class LLWLParamSet {
 public:
 	std::string mName;
 	LLUUID mInventoryID;
-	
-private:
+
+protected:
 
 	LLSD mParamValues;
 
