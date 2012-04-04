@@ -46,7 +46,7 @@ class LLWLParamSet;
 /// A class representing a set of parameter values for the WindLight shaders.
 class LLWLParamSet {
 
-	friend class LLWLParamManager;
+	friend class LightShare;
 
 public:
 	std::string mName;

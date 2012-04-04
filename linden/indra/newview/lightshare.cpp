@@ -1,9 +1,10 @@
 /**
  * @file lightshare.cpp
- * @brief Handler for Meta7 Lightshare (region-side Windlight settings).
+ * @brief Handler for Meta7 Lightshare (region-side Windlight settings), and other methods of sharing WindLight.
  *
  * Copyright (c) 2010, Tom Grimshaw (Tom Meta)
  * Copyright (c) 2010, Jacek Antonelli
+ * Copyright (c) 2012, David Seikel
  *
  * The source code in this file ("Source Code") is provided to you
  * under the terms of the GNU General Public License, version 2.0
@@ -42,6 +43,10 @@
 #include "llagent.h"
 #include "llworld.h"
 
+
+const std::string LightShare::sRegionPresetName = "(Region settings)";
+const std::string LightShare::sParcelPresetName = "(Parcel settings)";
+const std::string LightShare::sRLVPresetName = "(RLV settings)";
 
 
 LLWaterParamSet* LightShare::mWater = NULL;
@@ -131,12 +136,12 @@ void LightShare::applyMaybe(LLWaterParamSet* thisWater, LLUUID* thisWaterNormal,
 	// If they are using region settings already, or LightShare is
 	// always allowed, just apply the new settings, don't bother asking.
 	if( gSavedSettings.getU32("LightShareAllowed") == LIGHTSHARE_ALWAYS ||
-	    (sky == LLWLParamManager::sSkyPresetName && water == LLWLParamManager::sWaterPresetName) )
+	    (sky == sRegionPresetName && water == sRegionPresetName) )
 	{
 		mSky = thisSky;
 		mWater = thisWater;
 		mWaterNormal = thisWaterNormal;
-		LLWLParamManager::apply(mWater, mWaterNormal, mSky);
+		apply(mWater, mWaterNormal, mSky, WL_SCOPE_REGION);
 		return;
 	}
 
@@ -182,7 +187,7 @@ bool LightShare::applyCallback(const LLSD& notification, const LLSD& response)
 	{
 		case 0:{
 			// "Apply"
-			LLWLParamManager::apply(mWater, mWaterNormal, mSky);
+			apply(mWater, mWaterNormal, mSky, WL_SCOPE_REGION);
 
 			break;
 		}
@@ -205,7 +210,7 @@ bool LightShare::applyCallback(const LLSD& notification, const LLSD& response)
 void LightShare::resetRegion()
 {
 	sIgnoreRegion = false;
-	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
+	apply(NULL, NULL, NULL, WL_SCOPE_REGION);
 }
 
 // static
@@ -220,6 +225,201 @@ void LightShare::restartIgnoreTimer()
 bool LightShare::ignoreTimerHasExpired()
 {
 	return sIgnoreTimer->hasExpired();
+}
+
+// TODO - have regionSet and parcelSet be arrays, so we can deal with height zones.
+static struct WLCombined userSet, regionSet, parcelSet, RLVSet;
+
+// TODO - should spread this merging stuff around,
+//        so that eventually we can get rid of almost identical code for water and sky.
+//        Then one of these two methods goes away.
+
+//static
+void LightShare::mergeWaterSets(LLWaterParamSet* thisSet, LLWaterParamSet* oldSet)
+{
+	for(LLSD::map_const_iterator i = thisSet->mParamValues.beginMap();
+		i != thisSet->mParamValues.endMap();
+		++i)
+	{
+		const std::string& param = i->first;
+
+		if(i->second.isArray())
+		{
+			for (int j = 0; j < i->second.size(); j++)
+			{
+				oldSet->mParamValues[param][j] = i->second[j].asReal();
+			}
+		}
+		else if(i->second.isReal())
+		  oldSet->mParamValues[param] = i->second.asReal();
+	}
+}
+
+//static
+void LightShare::mergeWLSets(LLWLParamSet* thisSet, LLWLParamSet* oldSet)
+{
+	for(LLSD::map_const_iterator i = thisSet->mParamValues.beginMap();
+		i != thisSet->mParamValues.endMap();
+		++i)
+	{
+		const std::string& param = i->first;
+
+		if(i->second.isArray())
+		{
+			for (int j = 0; j < i->second.size(); j++)
+			{
+				oldSet->mParamValues[param][j] = i->second[j].asReal();
+			}
+		}
+		else if(i->second.isReal())
+		  oldSet->mParamValues[param] = i->second.asReal();
+	}
+}
+
+//static
+void LightShare::apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky, WLScope scope)
+// TODO - Deal with day cycle stuff.
+{
+	LLWaterParamManager* waterMgr = LLWaterParamManager::instance();
+	LLWLParamManager* skyMgr = LLWLParamManager::instance();
+	LLWaterParamSet oldWaterSet = waterMgr->mCurParams;
+	LLWLParamSet oldWLSet = skyMgr->mCurParams;
+	struct WLCombined* thisSet = &userSet;
+	bool user = true;
+
+	switch(scope)
+	{
+		case WL_SCOPE_USER :
+		{
+			thisSet = &userSet;
+			thisSet->water.mName = waterMgr->mCurParams.mName;
+			thisSet->sky.mName = skyMgr->mCurParams.mName;
+			thisSet->enabled = true;
+			// Check if user selected to show the saved region or parcel settings.
+			if (newSky && (sRegionPresetName == skyMgr->mCurParams.mName))
+			  thisSet->enabled = false;
+			if (newWater && (sParcelPresetName == skyMgr->mCurParams.mName))
+			  thisSet->enabled = false;
+			break;
+		}
+		case WL_SCOPE_REGION :
+		{
+			thisSet = &regionSet;
+			thisSet->water.mName = sRegionPresetName;
+			thisSet->sky.mName = sRegionPresetName;
+			thisSet->enabled = (gSavedSettings.getU32("LightShareAllowed") != LIGHTSHARE_NEVER);
+			break;
+		}
+		case WL_SCOPE_PARCEL :
+		{
+			thisSet = &parcelSet;
+			thisSet->water.mName = sParcelPresetName;
+			thisSet->sky.mName = sParcelPresetName;
+			thisSet->enabled = (gSavedSettings.getU32("LightShareAllowed") != LIGHTSHARE_NEVER);
+			break;
+		}
+		case WL_SCOPE_RLV :
+		{
+			thisSet = &RLVSet;
+			thisSet->water.mName = sRLVPresetName;
+			thisSet->sky.mName = sRLVPresetName;
+			// TODO set enabled properly.
+			break;
+		}
+	}
+
+	if (newWater)
+		thisSet->water.setAll(newWater->getAll());
+	if (newWaterNormal)
+		thisSet->water.mParamValues["normalMap"] = *newWaterNormal;
+	if (newSky)
+		thisSet->sky.setAll(newSky->getAll());
+
+	if ((NULL == newWater) && (NULL == newSky))
+		thisSet->enabled = false;
+
+	F32 fade = 0; //Instant
+	bool error;
+	fade = thisSet->sky.getFloat("fade", error);
+
+	if (fade)
+	{
+		// TODO - should copy the original, then set that here.
+		// The fade should delete this copy once it's done fading.
+		// Dunno if we actually need to do any of this anyway.
+		waterMgr->removeParamSet( oldWaterSet.mName, false );
+		waterMgr->addParamSet( oldWaterSet.mName, oldWaterSet );
+		waterMgr->setNormalMapID( *newWaterNormal );
+		waterMgr->getParamSet(oldWaterSet.mName, waterMgr->mCurParams);
+		waterMgr->propagateParameters();
+
+		skyMgr->removeParamSet( oldWLSet.mName, false );
+		skyMgr->addParamSet( oldWLSet.mName, oldWLSet );
+		skyMgr->getParamSet(oldWLSet.mName, skyMgr->mCurParams);
+		skyMgr->propagateParameters();
+	}
+
+	if (regionSet.enabled)
+	{
+		waterMgr->setParamSet( regionSet.water.mName, regionSet.water );
+		skyMgr->setParamSet( regionSet.sky.mName, regionSet.sky );
+		mergeWaterSets(&(regionSet.water), &oldWaterSet);
+		mergeWLSets(&(regionSet.sky), &oldWLSet);
+	}
+	else
+	{
+		waterMgr->removeParamSet( regionSet.water.mName, false );
+		skyMgr->removeParamSet( regionSet.sky.mName, false );
+	}
+	if (parcelSet.enabled)
+	{
+		waterMgr->setParamSet( parcelSet.water.mName, parcelSet.water );
+		skyMgr->setParamSet( parcelSet.sky.mName, parcelSet.sky );
+		mergeWaterSets(&(parcelSet.water), &oldWaterSet);
+		mergeWLSets(&(parcelSet.sky), &oldWLSet);
+	}
+	else
+	{
+		waterMgr->removeParamSet( parcelSet.water.mName, false );
+		skyMgr->removeParamSet( parcelSet.sky.mName, false );
+	}
+	if (userSet.enabled)
+	{
+		mergeWaterSets(&(userSet.water), &oldWaterSet);
+		mergeWLSets(&(userSet.sky), &oldWLSet);
+	}
+	if (RLVSet.enabled)
+	{
+		mergeWaterSets(&(RLVSet.water), &oldWaterSet);
+		mergeWLSets(&(RLVSet.sky), &oldWLSet);
+	}
+
+	skyMgr->mAnimator.mIsRunning = false;
+	skyMgr->mAnimator.mUseLindenTime = false;
+	if (fade)
+	{
+		waterMgr->SetMixTime(&oldWaterSet, fade);
+		skyMgr->SetMixTime(&oldWLSet, fade);
+	}
+	else
+	{
+		if (newWater)
+		{
+			waterMgr->setParamSet( thisSet->water.mName, oldWaterSet );
+			waterMgr->setNormalMapID( *newWaterNormal );
+			waterMgr->getParamSet(thisSet->water.mName, waterMgr->mCurParams);
+			waterMgr->propagateParameters();
+		}
+
+		if (newSky)
+		{
+			  skyMgr->setParamSet( thisSet->sky.mName, oldWLSet );
+			  skyMgr->getParamSet(thisSet->sky.mName, skyMgr->mCurParams);
+			  skyMgr->propagateParameters();
+		}
+	}
+
+	LLWorld::getInstance()->rebuildClouds(gAgent.getRegion());
 }
 
 bool LightShare::isValid()

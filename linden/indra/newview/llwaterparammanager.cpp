@@ -69,6 +69,7 @@
 
 #include "llwlparammanager.h"
 #include "llwaterparamset.h"
+#include "lightshare.h"
 #include "llpostprocess.h"
 #include "llfloaterwater.h"
 
@@ -159,7 +160,7 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 		if(propagate)
 		{
 			getParamSet(name, mCurParams);
-			propagateParameters();
+			LightShare::apply(&mCurParams, NULL, NULL, WL_SCOPE_USER);
 		}
 		return;
 	}
@@ -200,21 +201,21 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 	if(propagate)
 	{
 		getParamSet(name, mCurParams);
-		propagateParameters();
+		LightShare::apply(&mCurParams, NULL, NULL, WL_SCOPE_USER);
 	}
 }
 
 bool LLWaterParamManager::loadPresetXML(const std::string& name, std::istream& preset_stream, bool propagate /* = false */, bool check_if_real /* = false */)
 {
 	LLSD paramsData(LLSD::emptyMap());
-	
+
 	LLPointer<LLSDParser> parser = new LLSDXMLParser();
-	
+
 	if(parser->parse(preset_stream, paramsData, LLSDSerialize::SIZE_UNLIMITED) == LLSDParser::PARSE_FAILURE)
 	{
 		return false;
 	}
-	
+
 	if(check_if_real)
 	{
 		static const char* expected_windlight_settings[] = {

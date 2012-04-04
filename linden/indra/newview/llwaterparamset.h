@@ -48,6 +48,7 @@ class LLWaterParamSet
 {
 	friend class LLWaterParamManager;
 	friend class LLWLParamManager;
+	friend class LightShare;
 
 public:
 	std::string mName;

@@ -230,8 +230,6 @@ public:
 	static bool isSkySettingsNotecard(std::string name);
 	static bool isSettingsNotecard(std::string name);
 
-	static void apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky);
-
 public:
 
 	// helper variables
@@ -288,12 +286,6 @@ public:
 	// list of all the parameters, listed by name
 	std::map<std::string, LLWLParamSet> mParamList;
 
-	// The name of the water preset where the region settings are stored.
-	static const std::string sWaterPresetName;
-
-	// The name of the sky preset where the region settings are stored.
-	static const std::string sSkyPresetName;
-
 private:
 	// our parameter manager singleton instance
 	static LLWLParamManager * sInstance;
@@ -306,7 +298,6 @@ private:
 	static std::vector<LLWLPresetsObserver*> sObservers;
 
 	static void loadWindlightNotecard(LLVFS *vfs, const LLUUID& asset_id, LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
-
 };
 
 inline F32 LLWLParamManager::getDomeOffset(void) const
@@ -333,12 +324,5 @@ inline LLVector4 LLWLParamManager::getRotatedLightDir(void) const
 {
 	return mRotatedLightDir;
 }
-
-struct WLCombined
-{
-	LLWaterParamSet water;
-	LLWLParamSet sky;
-	BOOL enabled;
-};
 
 #endif

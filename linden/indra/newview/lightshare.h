@@ -37,6 +37,21 @@
 struct Meta7WindlightPacket;
 
 
+typedef enum wl_scope
+{
+	WL_SCOPE_USER,
+	WL_SCOPE_REGION,
+	WL_SCOPE_PARCEL,
+	WL_SCOPE_RLV
+} WLScope;
+
+struct WLCombined
+{
+	LLWaterParamSet water;
+	LLWLParamSet sky;
+	BOOL enabled;
+};
+
 // Encapsulates a "Windlight" (LightShare) message sent from the
 // region, allowing the settings to be applied at a later time.
 //
@@ -50,6 +65,13 @@ public:
 		LIGHTSHARE_ASK    = 1,
 		LIGHTSHARE_ALWAYS = 2,
 	};
+
+	// The name of the preset where the region settings are stored.
+	static const std::string sRegionPresetName;
+	// The name of the preset where the parcel settings are stored.
+	static const std::string sParcelPresetName;
+	// The name of the preset where the RLV settings are stored.
+	static const std::string sRLVPresetName;
 
 	// Constructs a new LightShare instance from a GenericMessage
 	// with the "Windlight" method, such as those sent by a
@@ -71,6 +93,8 @@ public:
 	// Returns true if the message contains valid Windlight settings.
 	// (But there's no real validation yet, so this is always true.)
 	bool isValid();
+
+	static void apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLParamSet *newSky, WLScope scope);
 
 private:
 	static LLTimer* sIgnoreTimer;
@@ -100,6 +124,9 @@ private:
 	// Returns true if the ignore timer has expired (i.e. new settings
 	// should not be ignored anymore).
 	static bool ignoreTimerHasExpired();
+
+	static void mergeWaterSets(LLWaterParamSet* thisSet, LLWaterParamSet* oldSet);
+	static void mergeWLSets(LLWLParamSet* thisSet, LLWLParamSet* oldSet);
 };
 
 #endif
