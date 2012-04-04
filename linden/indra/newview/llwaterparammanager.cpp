@@ -3,9 +3,9 @@
  * @brief Implementation for the LLWaterParamManager class.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
- * 
+ *
  * Copyright (c) 2007-2009, Linden Research, Inc.
- * 
+ *
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,17 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
+ *
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
  * online at
  * http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
+ *
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- * 
+ *
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -102,9 +102,9 @@ void LLWaterParamManager::loadAllPresets(const std::string& file_name)
 {
 	std::string path_name(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/water", ""));
 	LL_DEBUGS2("AppInit", "ShaderLoading") << "Loading Default water settings from " << path_name << LL_ENDL;
-			
-	bool found = true;			
-	while(found) 
+
+	bool found = true;
+	while(found)
 	{
 		std::string name;
 		found = gDirUtilp->getNextFileInDir(path_name, "*.xml", name, false);
@@ -128,9 +128,9 @@ void LLWaterParamManager::loadAllPresets(const std::string& file_name)
 
 	std::string path_name2(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/water", ""));
 	LL_DEBUGS2("AppInit", "Shaders") << "Loading User water settings from " << path_name2 << LL_ENDL;
-			
-	found = true;			
-	while(found) 
+
+	found = true;
+	while(found)
 	{
 		std::string name;
 		found = gDirUtilp->getNextFileInDir(path_name2, "*.xml", name, false);
@@ -174,10 +174,10 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 
 	std::string pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/water", escaped_filename));
 	LL_DEBUGS2("AppInit", "Shaders") << "Loading water settings from " << pathName << LL_ENDL;
-	
+
 	std::ifstream presetsXML;
 	presetsXML.open(pathName.c_str());
-	
+
 	// That failed, try loading from the users area instead.
 	if(!presetsXML)
 	{
@@ -190,8 +190,8 @@ void LLWaterParamManager::loadPreset(const std::string & name,bool propagate)
 	{
 		loadPresetXML(name, presetsXML);
 		presetsXML.close();
-	} 
-	else 
+	}
+	else
 	{
 		llwarns << "Can't find " << name << llendl;
 		return;
@@ -240,17 +240,17 @@ bool LLWaterParamManager::loadPresetXML(const std::string& name, std::istream& p
 			}
 		}
 	}
-	
+
 	std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
 	if(mIt == mParamList.end())
 	{
 		addParamSet(name, paramsData);
 	}
-	else 
+	else
 	{
 		setParamSet(name, paramsData);
 	}
-	
+
 	if(propagate)
 	{
 		getParamSet(name, mCurParams);
@@ -306,19 +306,19 @@ bool LLWaterParamManager::savePresetToNotecard(const std::string & name)
 {
 	// make an empty llsd
 	LLSD paramsData(LLSD::emptyMap());
-	
+
 	// fill it with LLSD windlight params
 	paramsData = mParamList[name].getAll();
-	
+
 	// get some XML
 	std::ostringstream presetsXML;
 	LLPointer<LLSDFormatter> formatter = new LLSDXMLFormatter();
 	formatter->format(paramsData, presetsXML, LLSDFormatter::OPTIONS_PRETTY);
-	
+
 	// Write it to a notecard
 	LLNotecard notecard;
 	notecard.setText(presetsXML.str());
-	
+
 	LLInventoryItem *item = gInventory.getItem(mParamList[name].mInventoryID);
 	if(!item)
 	{
@@ -332,13 +332,13 @@ bool LLWaterParamManager::savePresetToNotecard(const std::string & name)
 		LLAssetID asset_id;
 		tid.generate();
 		asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
-		
+
 		LLVFile file(gVFS, asset_id, LLAssetType::AT_NOTECARD, LLVFile::APPEND);
-		
+
 		std::ostringstream stream;
 		notecard.exportStream(stream);
 		std::string buffer = stream.str();
-		
+
 		S32 size = buffer.length() + 1;
 		file.setMaxSize(size);
 		file.write((U8*)buffer.c_str(), size);
@@ -351,7 +351,7 @@ bool LLWaterParamManager::savePresetToNotecard(const std::string & name)
 		LL_WARNS("WindLight") << "Stuff the legacy system." << LL_ENDL;
 		return false;
 	}
-	
+
 	propagateParameters();
 	return true;
 }
@@ -374,8 +374,8 @@ void LLWaterParamManager::propagateParameters(void)
 	}
 
 	bool err;
-	F32 fog_density_slider = 
-		log(mCurParams.getFloat(mFogDensity.mName, err)) / 
+	F32 fog_density_slider =
+		log(mCurParams.getFloat(mFogDensity.mName, err)) /
 		log(mFogDensity.mBase);
 
 	setDensitySliderValue(fog_density_slider);
@@ -398,12 +398,12 @@ void LLWaterParamManager::updateShaderUniforms(LLGLSLShader * shader)
 void LLWaterParamManager::update(LLViewerCamera * cam)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_UPDATE_WLPARAM);
-	
+
 	// update the shaders and the menu
 	propagateParameters();
-	
+
 	// sync menus if they exist
-	if(LLFloaterWater::isOpen()) 
+	if(LLFloaterWater::isOpen())
 	{
 		LLFloaterWater::instance()->syncMenu();
 	}
@@ -411,12 +411,12 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 	stop_glerror();
 
 	// only do this if we're dealing with shaders
-	if(gPipeline.canUseVertexShaders()) 
+	if(gPipeline.canUseVertexShaders())
 	{
 		//transform water plane to eye space
 		glh::vec3f norm(0.f, 0.f, 1.f);
 		glh::vec3f p(0.f, 0.f, gAgent.getRegion()->getWaterHeight()+0.1f);
-		
+
 		F32 modelView[16];
 		for (U32 i = 0; i < 16; i++)
 		{
@@ -434,13 +434,13 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 		mWaterPlane = LLVector4(enorm.v[0], enorm.v[1], enorm.v[2], -ep.dot(enorm));
 
 		LLVector3 sunMoonDir;
-		if (gSky.getSunDirection().mV[2] > NIGHTTIME_ELEVATION_COS) 	 
-		{ 	 
-			sunMoonDir = gSky.getSunDirection(); 	 
-		} 	 
-		else  	 
-		{ 	 
-			sunMoonDir = gSky.getMoonDirection(); 	 
+		if (gSky.getSunDirection().mV[2] > NIGHTTIME_ELEVATION_COS)
+		{
+			sunMoonDir = gSky.getSunDirection();
+		}
+		else
+		{
+			sunMoonDir = gSky.getMoonDirection();
 		}
 		sunMoonDir.normVec();
 		mWaterFogKS = 1.f/llmax(sunMoonDir.mV[2], WATER_FOG_LIGHT_CLAMP);
@@ -510,8 +510,8 @@ bool LLWaterParamManager::addParamSet(const std::string& name, LLWaterParamSet& 
 {
 	// add a new one if not one there already
 	std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt == mParamList.end()) 
-	{	
+	if(mIt == mParamList.end())
+	{
 		mParamList[name] = param;
 		return true;
 	}
@@ -538,7 +538,7 @@ bool LLWaterParamManager::getParamSet(const std::string& name, LLWaterParamSet& 
 {
 	// find it and set it
 	std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt != mParamList.end()) 
+	if(mIt != mParamList.end())
 	{
 		param = mParamList[name];
 		param.mName = name;
@@ -558,11 +558,11 @@ bool LLWaterParamManager::setParamSet(const std::string& name, LLWaterParamSet& 
 bool LLWaterParamManager::setParamSet(const std::string& name, const LLSD & param)
 {
 	// quick, non robust (we won't be working with files, but assets) check
-	if(!param.isMap()) 
+	if(!param.isMap())
 	{
 		return false;
 	}
-	
+
 	mParamList[name].setAll(param);
 
 	return true;
@@ -572,7 +572,7 @@ bool LLWaterParamManager::removeParamSet(const std::string& name, bool delete_fr
 {
 	// remove from param list
 	std::map<std::string, LLWaterParamSet>::iterator mIt = mParamList.find(name);
-	if(mIt != mParamList.end()) 
+	if(mIt != mParamList.end())
 	{
 		mParamList.erase(mIt);
 	}
@@ -581,13 +581,13 @@ bool LLWaterParamManager::removeParamSet(const std::string& name, bool delete_fr
 	{
 
 		std::string path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/water", ""));
-		
+
 		// use full curl escaped name
 		char * curl_str = curl_escape(name.c_str(), name.size());
 		std::string escaped_name(curl_str);
 		curl_free(curl_str);
 		curl_str = NULL;
-		
+
 		gDirUtilp->deleteFilesInDir(path_name, escaped_name + ".xml");
 	}
 
@@ -599,7 +599,7 @@ F32 LLWaterParamManager::getFogDensity(void)
 	bool err;
 
 	F32 fogDensity = mCurParams.getFloat("waterFogDensity", err);
-	
+
 	// modify if we're underwater
 	const F32 water_height = gAgent.getRegion() ? gAgent.getRegion()->getWaterHeight() : 0.f;
 	F32 camera_height = gAgent.getCameraPositionAgent().mV[2];
@@ -659,7 +659,7 @@ void LLWaterParamManager::loadWaterNotecard(LLVFS *vfs, const LLUUID& asset_id, 
 		}
 		else
 		{
-			// We can do this because we know mCurParams 
+			// We can do this because we know mCurParams
 			sInstance->mParamList[name].mInventoryID = inventory_id;
 		}
 	}
