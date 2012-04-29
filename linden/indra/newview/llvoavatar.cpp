@@ -3287,6 +3287,11 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		avatar_name_color += colour;
 		avatar_name_color *= 1.0/(cllsd["multiple"].asReal()+1.0f);
 	}
+	else if(idx == LLUUID("7eab0700-f000-0000-0000-546561706f74"))
+	{
+		avatar_name_color = LLColor4(0.69f,0.42f,0.84f,1.0f); // Armins V3 viewer.
+		client = "Teapot";
+	}
 	else if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190") ||
 			idx == LLUUID("b6820989-bf42-ff59-ddde-fd3fd3a74fe4"))
 	{
