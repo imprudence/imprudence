@@ -9088,7 +9088,7 @@ class LLAdvancedToggleRenderType : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 render_type = render_type_from_string( userdata.asString() );
+		intptr_t render_type = render_type_from_string( userdata.asString() );
 		if ( render_type != 0 )
 		{
 			LLPipeline::toggleRenderTypeControl( (void*)render_type );
@@ -9102,7 +9102,7 @@ class LLAdvancedCheckRenderType : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 render_type = render_type_from_string( userdata["data"].asString() );
+		intptr_t render_type = render_type_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( render_type != 0 )
@@ -9168,7 +9168,7 @@ class LLAdvancedToggleFeature : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 feature = feature_from_string( userdata.asString() );
+		intptr_t feature = feature_from_string( userdata.asString() );
 
 		if ( feature != 0 )
 		{
@@ -9184,7 +9184,7 @@ class LLAdvancedCheckFeature : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 feature = feature_from_string( userdata["data"].asString() );
+		intptr_t feature = feature_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( feature != 0 )
@@ -9290,7 +9290,7 @@ class LLAdvancedToggleInfoDisplay : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 info_display = info_display_from_string( userdata.asString() );
+		intptr_t info_display = info_display_from_string( userdata.asString() );
 
 		if ( info_display != 0 )
 		{
@@ -9306,7 +9306,7 @@ class LLAdvancedCheckInfoDisplay : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 info_display = info_display_from_string( userdata["data"].asString() );
+		intptr_t info_display = info_display_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( info_display != 0 )
