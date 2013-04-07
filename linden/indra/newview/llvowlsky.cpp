@@ -719,12 +719,13 @@ void LLVOWLSky::updateStarColors()
 {
 	std::vector<LLColor4>::iterator v_c = mStarColors.begin();
 	std::vector<F32>::iterator v_i = mStarIntensities.begin();
-	std::vector<LLVector3>::iterator v_p = mStarVertices.begin();
+	// A bunch of stuff here is not used, but looks like it might be useful later, so I'll leave it, but commented out.
+	//std::vector<LLVector3>::iterator v_p = mStarVertices.begin();
 
 	const F32 var = 0.15f;
 	const F32 min = 0.5f; //0.75f;
-	const F32 sunclose_max = 0.6f;
-	const F32 sunclose_range = 1 - sunclose_max;
+	//const F32 sunclose_max = 0.6f;
+	//const F32 sunclose_range = 1 - sunclose_max;
 
 	//F32 below_horizon = - llmin(0.0f, gSky.mVOSkyp->getToSunLast().mV[2]);
 	//F32 brightness_factor = llmin(1.0f, below_horizon * 20);
@@ -738,14 +739,14 @@ void LLVOWLSky::updateStarColors()
 		U32 x;
 		for (x = 0; x < getStarsNumVerts(); ++x)
 		{
-			F32 sundir_factor = 1;
-			LLVector3 tostar = *v_p;
-			tostar.normVec();
-			const F32 how_close_to_sun = tostar * gSky.mVOSkyp->getToSunLast();
-			if (how_close_to_sun > sunclose_max)
-			{
-				sundir_factor = (1 - how_close_to_sun) / sunclose_range;
-			}
+			//F32 sundir_factor = 1;
+			//LLVector3 tostar = *v_p;
+			//tostar.normVec();
+			//const F32 how_close_to_sun = tostar * gSky.mVOSkyp->getToSunLast();
+			//if (how_close_to_sun > sunclose_max)
+			//{
+			//	sundir_factor = (1 - how_close_to_sun) / sunclose_range;
+			//}
 			intensity = *(v_i);
 			F32 alpha = v_c->mV[VALPHA] + (ll_frand() - 0.5f) * var * intensity;
 			if (alpha < min * intensity)
@@ -762,7 +763,7 @@ void LLVOWLSky::updateStarColors()
 			v_c->mV[VALPHA] = alpha;
 			v_c++;
 			v_i++;
-			v_p++;
+			//v_p++;
 		}
 	}
 }
