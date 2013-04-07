@@ -1078,7 +1078,6 @@ struct LLLayoutStack::LLEmbeddedPanel
 			mVisibleAmt(1.f) // default to fully visible
 	{
 		LLResizeBar::Side side = (orientation == HORIZONTAL) ? LLResizeBar::RIGHT : LLResizeBar::BOTTOM;
-		LLRect resize_bar_rect = panelp->getRect();
 
 		S32 min_dim;
 		if (orientation == HORIZONTAL)

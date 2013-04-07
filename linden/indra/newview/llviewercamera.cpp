@@ -131,9 +131,6 @@ void LLViewerCamera::updateCameraLocation(const LLVector3 &center,
 
 	mLastPointOfInterest = point_of_interest;
 
-	// constrain to max distance from avatar
-	LLVector3 camera_offset = center - gAgent.getPositionAgent();
-
 	LLViewerRegion * regp = gAgent.getRegion();
 	F32 water_height = (NULL != regp) ? regp->getWaterHeight() : 0.f;
 

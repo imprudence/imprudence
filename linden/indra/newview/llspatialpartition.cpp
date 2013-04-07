@@ -2617,9 +2617,6 @@ public:
 			return;
 		}
 
-		LLVector3 nodeCenter = group->mBounds[0];
-		LLVector3 octCenter = LLVector3(group->mOctreeNode->getCenter());
-
 		for (LLSpatialGroup::OctreeNode::const_element_iter i = branch->getData().begin(); i != branch->getData().end(); ++i)
 		{
 			LLDrawable* drawable = *i;

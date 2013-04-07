@@ -541,7 +541,7 @@ void LLPanelPermissions::refresh()
 	// TODO: Creator permissions
 
 	BOOL valid_base_perms		= FALSE;
-	BOOL valid_owner_perms		= FALSE;
+	//BOOL valid_owner_perms		= FALSE;
 	BOOL valid_group_perms		= FALSE;
 	BOOL valid_everyone_perms	= FALSE;
 	BOOL valid_next_perms		= FALSE;
@@ -561,7 +561,8 @@ void LLPanelPermissions::refresh()
 									  &base_mask_on,
 									  &base_mask_off);
 
-	valid_owner_perms = LLSelectMgr::getInstance()->selectGetPerm(PERM_OWNER,
+	// TODO - seems odd, but this is not actually used, except to set owner_mask_*.
+	/*valid_owner_perms =*/ LLSelectMgr::getInstance()->selectGetPerm(PERM_OWNER,
 									  &owner_mask_on,
 									  &owner_mask_off);
 
