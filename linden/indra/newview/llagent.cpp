@@ -3729,9 +3729,8 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 	// Compute base camera position and look-at points.
 	F32			camera_land_height;
 	LLVector3d	frame_center_global = mAvatarObject.isNull() ? getPositionGlobal() 
-															 : getPosGlobalFromAgent(mAvatarObject->mRoot.getWorldPosition());
-		
-	LLVector3   upAxis = getUpAxis();
+		          : getPosGlobalFromAgent(mAvatarObject->mRoot.getWorldPosition());
+
 	BOOL		isConstrained = FALSE;
 	LLVector3d	head_offset;
 	head_offset.setVec(mThirdPersonHeadOffset);
@@ -3866,7 +3865,6 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 			// set the global camera position
 			LLVector3d camera_offset;
 			
-			LLVector3 av_pos = mAvatarObject.isNull() ? LLVector3::zero : mAvatarObject->getRenderPosition();
 			camera_offset.setVec( local_camera_offset );
 			camera_position_global = frame_center_global + head_offset + camera_offset;
 

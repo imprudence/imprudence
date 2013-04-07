@@ -5223,11 +5223,6 @@ class LLViewToggleRadar: public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLFloaterAvatarList::toggle(0);
-		bool vis = false;
-		if(LLFloaterAvatarList::getInstance())
-		{
-			vis = (bool)LLFloaterAvatarList::getInstance()->getVisible();
-		}
 		return true;
 	}
 };
@@ -5237,11 +5232,6 @@ class LLViewToggleMOAPRadar: public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLFloaterMOAPRadar::toggle(0);
-		bool vis = false;
-		if(LLFloaterMOAPRadar::getInstance())
-		{
-			vis = (bool)LLFloaterMOAPRadar::getInstance()->getVisible();
-		}
 		return true;
 	}
 };
@@ -8976,12 +8966,6 @@ class LLAdvancedToggleAssetBrowser: public view_listener_t
 	{
 		//open the floater
 		LLFloaterAssetBrowser::show(0);
-		
-		bool vis = false;
-		if(LLFloaterAssetBrowser::getInstance())
-		{
-			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
-		}
 		return true;
 	}
 };
