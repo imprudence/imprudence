@@ -1439,7 +1439,6 @@ BOOL move_inv_category_world_to_agent(const LLUUID& object_id,
 	if(drop && accept)
 	{
 		it = inventory_objects.begin();
-		InventoryObjectList::iterator first_it = inventory_objects.begin();
 		LLMoveInv* move_inv = new LLMoveInv;
 		move_inv->mObjectID = object_id;
 		move_inv->mCategoryID = category_id;

@@ -1613,8 +1613,6 @@ BOOL LLAgent::calcCameraMinDistance(F32 &obj_min_distance)
 	abs_target_offset.abs();
 
 	LLVector3 target_offset_dir = target_offset_origin;
-	F32 object_radius = mFocusObject->getVObjRadius();
-
 	BOOL target_outside_object_extents = FALSE;
 
 	for (U32 i = VX; i <= VZ; i++)
@@ -1707,18 +1705,6 @@ BOOL LLAgent::calcCameraMinDistance(F32 &obj_min_distance)
 	}
 
 	LLVector3 camera_offset_object(getCameraPositionAgent() - mFocusObject->getPositionAgent());
-
-	// length projected orthogonal to target offset
-	F32 camera_offset_dist = (camera_offset_object - target_offset_dir * (camera_offset_object * target_offset_dir)).magVec();
-
-	// calculate whether the target point would be "visible" if it were outside the bounding box
-	// on the opposite of the splitting plane defined by object_split_axis;
-	BOOL exterior_target_visible = FALSE;
-	if (camera_offset_dist > object_radius)
-	{
-		// target is visible from camera, so turn off fov zoom
-		exterior_target_visible = TRUE;
-	}
 
 	F32 camera_offset_clip = camera_offset_object * object_split_axis;
 	F32 target_offset_clip = target_offset_dir * object_split_axis;
@@ -2538,12 +2524,10 @@ void LLAgent::autoPilot(F32 *delta_yaw)
 		*delta_yaw = yaw;
 
 		// Compute when to start slowing down and when to stop
-		F32 stop_distance = mAutoPilotStopDistance;
 		F32 slow_distance;
 		if (getFlying())
 		{
 			slow_distance = llmax(6.f, mAutoPilotStopDistance + 5.f);
-			stop_distance = llmax(2.f, mAutoPilotStopDistance);
 		}
 		else
 		{
@@ -3719,7 +3703,6 @@ F32	LLAgent::calcCameraFOVZoomFactor()
 	else if (mFocusObject.notNull() && !mFocusObject->isAvatar())
 	{
 		// don't FOV zoom on mostly transparent objects
-		LLVector3 focus_offset = mFocusObjectOffset;
 		F32 obj_min_dist = 0.f;
 		if (!gSavedSettings.getBOOL("DisableMinZoomDist"))
 			calcCameraMinDistance(obj_min_dist);

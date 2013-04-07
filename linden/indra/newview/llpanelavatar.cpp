@@ -1321,11 +1321,11 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 {
 	if (avatar_id.isNull()) return;
 
-	BOOL avatar_changed = FALSE;
-	if (avatar_id != mAvatarID)
-	{
-		avatar_changed = TRUE;
-	}
+//	BOOL avatar_changed = FALSE;
+//	if (avatar_id != mAvatarID)
+//	{
+//		avatar_changed = TRUE;
+//	}
 	mAvatarID = avatar_id;
 
 	// Determine if we have their calling card.

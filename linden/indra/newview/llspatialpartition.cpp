@@ -2860,9 +2860,6 @@ public:
 
 	virtual bool check(LLDrawable* drawable)
 	{	
-		LLVector3 local_start = mStart;
-		LLVector3 local_end = mEnd;
-
 		if (!gPipeline.hasRenderType(drawable->getRenderType()) || !drawable->isVisible())
 		{
 			return false;

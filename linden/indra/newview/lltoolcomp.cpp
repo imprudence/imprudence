@@ -471,18 +471,16 @@ LLToolCompCreate::~LLToolCompCreate()
 
 BOOL LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
 	mMouseDown = TRUE;
 
 	if ( (mask == MASK_SHIFT) || (mask == MASK_CONTROL) )
 	{
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
-		handled = TRUE;
 	}
 	else
 	{
 		setCurrentTool( mPlacer );
-		handled = mPlacer->placeObject( x, y, mask );
+		mPlacer->placeObject( x, y, mask );
 	}
 	
 	mObjectPlacedOnMouseDown = TRUE;

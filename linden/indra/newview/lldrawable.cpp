@@ -494,7 +494,6 @@ F32 LLDrawable::updateXform(BOOL undamped)
 	//scaling
 	LLVector3 target_scale = mVObjp->getScale();
 	LLVector3 old_scale = mCurrentScale;
-	LLVector3 dest_scale = target_scale;
 	
 	// Damping
 	F32 dist_squared = 0.f;
@@ -834,7 +833,6 @@ const LLVector3* LLDrawable::getSpatialExtents() const
 
 void LLDrawable::setSpatialExtents(LLVector3 min, LLVector3 max)
 { 
-	LLVector3 size = max - min;
 	mExtents[0] = min; 
 	mExtents[1] = max; 
 }

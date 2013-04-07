@@ -1211,7 +1211,6 @@ void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 	item_array_t items;
 	update_map_t update;
 	S32 count = content["items"].size();
-	bool all_one_folder = true;
 	LLUUID folder_id;
 	// Does this loop ever execute more than once?
 	for(S32 i = 0; i < count; ++i)
@@ -1243,10 +1242,6 @@ void  LLInventoryModel::fetchInventoryResponder::result(const LLSD& content)
 		if (folder_id.isNull())
 		{
 			folder_id = titem->getParentUUID();
-		}
-		else
-		{
-			all_one_folder = false;
 		}
 	}
 
@@ -2960,7 +2955,6 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 	item_array_t items;
 	update_map_t update;
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_InventoryData);
-	bool all_one_folder = true;
 	LLUUID folder_id;
 	// Does this loop ever execute more than once?
 	for(S32 i = 0; i < count; ++i)
@@ -2991,10 +2985,6 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account)
 		if (folder_id.isNull())
 		{
 			folder_id = titem->getParentUUID();
-		}
-		else
-		{
-			all_one_folder = false;
 		}
 	}
 	if(account)

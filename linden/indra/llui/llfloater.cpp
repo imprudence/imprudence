@@ -277,30 +277,14 @@ void LLFloater::initFloater(const std::string& title,
 	mMinimized = FALSE;
 	mExpandedRect.set(0,0,0,0);
 	
-	S32 close_pad;			// space to the right of close box
 	S32 close_box_size;		// For layout purposes, how big is the close box?
 	if (close_btn)
 	{
 		close_box_size = LLFLOATER_CLOSE_BOX_SIZE;
-		close_pad = 0;
 	}
 	else
 	{
 		close_box_size = 0;
-		close_pad = 0;
-	}
-
-	S32 minimize_box_size;
-	S32 minimize_pad;
-	if (minimizable && !drag_on_left)
-	{
-		minimize_box_size = LLFLOATER_CLOSE_BOX_SIZE;
-		minimize_pad = 0;
-	}
-	else
-	{
-		minimize_box_size = 0;
-		minimize_pad = 0;
 	}
 
 	// Drag Handle

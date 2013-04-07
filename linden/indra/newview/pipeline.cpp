@@ -2269,17 +2269,11 @@ void LLPipeline::postSort(LLCamera& camera)
 	const S32 bin_count = 1024*8;
 		
 	static LLCullResult::drawinfo_list_t alpha_bins[bin_count];
-	static U32 bin_size[bin_count];
 
 	//clear one bin per frame to avoid memory bloat
 	static S32 clear_idx = 0;
 	clear_idx = (1+clear_idx)%bin_count;
 	alpha_bins[clear_idx].clear();
-
-	for (U32 j = 0; j < bin_count; j++)
-	{
-		bin_size[j] = 0;
-	}
 
 	//build render map
 	for (LLCullResult::sg_list_t::iterator i = sCull->beginVisibleGroups(); i != sCull->endVisibleGroups(); ++i)
@@ -5955,8 +5949,6 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 			gGL.setColorMask(true, false);
 
 			stop_glerror();
-
-			LLVector3 origin = camera.getOrigin();
 
 			glPushMatrix();
 

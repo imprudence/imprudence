@@ -3077,7 +3077,6 @@ void LLTextEditor::drawSelectionBackground()
 		S32 selection_right_x	= mTextRect.mRight;
 		S32 selection_right_y	= mTextRect.mBottom;
 
-		BOOL selection_left_visible = FALSE;
 		BOOL selection_right_visible = FALSE;
 
 		// Skip through the lines we aren't drawing.
@@ -3085,7 +3084,6 @@ void LLTextEditor::drawSelectionBackground()
 
 		S32 left_line_num = cur_line;
 		S32 num_lines = getLineCount();
-		S32 right_line_num = num_lines - 1;
 
 		S32 line_start = -1;
 		if (cur_line >= num_lines)
@@ -3119,13 +3117,11 @@ void LLTextEditor::drawSelectionBackground()
 			if( line_start <= selection_left && selection_left <= line_end )
 			{
 				left_line_num = cur_line;
-				selection_left_visible = TRUE;
 				selection_left_x = mTextRect.mLeft + mGLFont->getWidth(line, 0, selection_left - line_start, mAllowEmbeddedItems);
 				selection_left_y = text_y;
 			}
 			if( line_start <= selection_right && selection_right <= line_end )
 			{
-				right_line_num = cur_line;
 				selection_right_visible = TRUE;
 				selection_right_x = mTextRect.mLeft + mGLFont->getWidth(line, 0, selection_right - line_start, mAllowEmbeddedItems);
 				if (selection_right == line_end)

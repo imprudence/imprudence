@@ -653,7 +653,6 @@ void send_sound_trigger(const LLUUID& sound_id, F32 gain)
 bool join_group_response(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotification::getSelectedOption(notification, response);
-	BOOL delete_context_data = TRUE;
 	bool accept_invite = false;
 
 	LLUUID group_id = notification["payload"]["group_id"].asUUID();
@@ -682,7 +681,6 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 		}
 		else
 		{
-			delete_context_data = FALSE;
 			LLSD args;
 			args["NAME"] = name;
 			args["INVITE"] = message;
@@ -696,7 +694,6 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 		// sure the user is sure they want to join.
 		if (fee > 0)
 		{
-			delete_context_data = FALSE;
 			LLSD args;
 			args["COST"] = llformat("%d", fee);
 			args["CURRENCY"] = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();

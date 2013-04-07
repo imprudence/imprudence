@@ -306,7 +306,7 @@ void LLViewerCamera::setPerspective(BOOL for_selection,
 {
 	F32 fov_y, aspect;
 	fov_y = RAD_TO_DEG * getView();
-	BOOL z_default_near, z_default_far = FALSE;
+	BOOL z_default_far = FALSE;
 	if (z_far <= 0)
 	{
 		z_default_far = TRUE;
@@ -314,7 +314,6 @@ void LLViewerCamera::setPerspective(BOOL for_selection,
 	}
 	if (z_near <= 0)
 	{
-		z_default_near = TRUE;
 		z_near = getNear();
 	}
 	aspect = getAspect();

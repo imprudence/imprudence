@@ -408,7 +408,6 @@ void PanelRadar::updateButtonStates()
 	static bool enable_unmute = false;
 	static bool enable_track = false;
 	static bool enable_estate = false;
-	static bool enable_friend = false;
 	static bool enable_cam = false;
 
 	if (mRadarTabs->getCurrentPanelIndex() == 0) // Avatar tab
@@ -426,7 +425,6 @@ void PanelRadar::updateButtonStates()
 		enable_estate = isKickable(mSelectedAvatar);
 		enable_unmute = LLMuteList::getInstance()->isMuted(mSelectedAvatar);
 		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
-		enable_friend = !is_agent_friend(mSelectedAvatar);
 		enable_cam = mSelectedDistance >= 0 && mSelectedDistance <= gSavedSettings.getF32("NearMeRange");
 	}
 	else
@@ -436,7 +434,6 @@ void PanelRadar::updateButtonStates()
 		enable_estate = false;
 		enable_unmute = false;
 		enable_track = false;
-		enable_friend = false;
 		enable_cam = false;
 	}
 

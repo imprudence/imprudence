@@ -602,18 +602,17 @@ void LLPanelLogin::addServer(const std::string& server)
 	const std::string &defaultGrid = gHippoGridManager->getDefaultGridNick();
 
 	LLComboBox *grids = sInstance->getChild<LLComboBox>("server_combo");
-	S32 selectIndex = -1, i = 0;
+	S32 i = 0;
 	grids->removeall();
 	if (defaultGrid != "") {
 		grids->add(defaultGrid);
-		selectIndex = i++;
+		i++;
 	}
 	HippoGridManager::GridIterator it, end = gHippoGridManager->endGrid();
 	for (it = gHippoGridManager->beginGrid(); it != end; ++it) {
 		const std::string &grid = it->second->getGridNick();
 		if (grid != defaultGrid) {
 			grids->add(grid);
-			//if (grid == mCurGrid) selectIndex = i;
 			i++;
 		}
 	}
