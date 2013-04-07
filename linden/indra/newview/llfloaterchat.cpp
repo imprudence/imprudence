@@ -364,7 +364,7 @@ void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
 	{
 		// desaturate muted chat
 		LLColor4 muted_color = lerp(color, LLColor4::grey, 0.5f);
-		add_timestamped_line(history_editor_with_mute, chat, color);
+		add_timestamped_line(history_editor_with_mute, chat, muted_color);
 	}
 	
 	// add objects as transient speakers that can be muted
