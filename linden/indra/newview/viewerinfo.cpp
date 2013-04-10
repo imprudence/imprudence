@@ -30,13 +30,14 @@ namespace ViewerInfo
 
 	// These are intentionally defined here instead of in the header,
 	// because they should NOT be read directly. Use the functions.
+	// NOTE: Some parts of the build system scan this file looking for version numbers and such, commenting out sections confuses that.
 	const std::string NAME  = "Imprudence";
 	const std::string VARNT = "";
 	const S32         MAJOR = 1;
 	const S32         MINOR = 4;
 	const S32         PATCH = 0;
 	const S32         RLEAS = 3; // increment for each beta/RC/release
-	const std::string EXTRA = "beta 2";
+	const std::string EXTRA = "exp 0";
 
 	// Mac OS X bundle identifier. Should match the one in Info.plist.
 	const std::string BUNDLE_ID = "org.imprudenceviewer.viewer";
