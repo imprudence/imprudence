@@ -260,21 +260,17 @@ class WindowsManifest(ViewerManifest):
             except:
                 print "Can't save symbol file %s, skipping" % (symbol_path)
                 pass
-        
+
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
             self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
-
         self.path("imprudence.url")
 
         # Plugin host application
-        self.path(os.path.join(os.pardir,
-                               'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"),
-                  "SLPlugin.exe")
-
+        self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"), "SLPlugin.exe")
 
         self.path("featuretable.txt")
 
@@ -283,13 +279,13 @@ class WindowsManifest(ViewerManifest):
 
         # For using FMOD for sound... DJS
         #self.path("fmod.dll")
-        
+
         # For spellchecking
         if self.prefix(src=self.args['configuration'], dst=""):
             self.path("libhunspell.dll")
             self.end_prefix()
 
-	# Copy the llkdu DSO .config
+        # Copy the llkdu DSO .config
         self.path("llkdu.dll.2.config")
 
         # Get llcommon and deps.
@@ -309,7 +305,7 @@ class WindowsManifest(ViewerManifest):
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("openal32.dll")
             self.path("alut.dll")
-            self.end_prefix()           
+            self.end_prefix()
 
         # Media plugins - QuickTime
         if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
