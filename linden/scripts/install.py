@@ -830,10 +830,10 @@ def _default_installable_cache():
     """In general, the installable files do not change much, so find a 
     host/user specific location to cache files."""
     user = _getuser()
-    cache_dir = "/var/tmp/%s/install.cache" % user
-    if _get_platform() == 'windows':
-        cache_dir = os.path.join(tempfile.gettempdir(), \
-                                 'install.cache.%s' % user)
+    if sys.platform != 'cygwin' and _get_platform() == 'windows':
+        cache_dir = os.path.join(tempfile.gettempdir(), 'install.cache.%s' % user)
+    else:
+       cache_dir = "/var/tmp/%s/install.cache" % user
     return cache_dir
 
 def parse_args():
