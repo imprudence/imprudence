@@ -472,13 +472,15 @@ class WindowsManifest(ViewerManifest):
             sse_string = "-(SSE2-optimized)"
 
         version = '.'.join(self.args['version'])
-        base_filename = self.installer_prefix() + version + sse_string
+        version_number = version.split('-', 1)[0]
+        base_filename = self.installer_prefix() + version + "-Windows-x86" + sse_string
         app_name = self.channel()
         app_ver_name="%s %s" % (app_name, version)
 
         new_script = base_filename + ".iss"
         self.replace_in("installers/windows/imprudence_installer_template.iss", new_script, {
                 "%%VERSION%%":version,
+                "%%VERSIONNUMBER%%":version_number,
                 "%%INSTALLERFILENAME%%":base_filename,
                 "%%PACKAGEFILES%%":self.args['dest'],
                 "%%APPNAME%%":app_name,

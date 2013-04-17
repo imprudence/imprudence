@@ -15,9 +15,9 @@ DefaultDirName={pf}\Imprudence
 DefaultGroupName=Imprudence Viewer
 VersionInfoProductName=%%APPNAME%%
 OutputBaseFilename=%%INSTALLERFILENAME%%
-VersionInfoVersion=%%VERSION%%
+VersionInfoVersion=%%VERSIONNUMBER%%
 VersionInfoTextVersion=%%VERSION%%
-VersionInfoProductVersion=%%VERSION%%
+VersionInfoProductVersion=%%VERSIONNUMBER%%
 AppVersion=%%VERSION%%
 VersionInfoCopyright=2011
 
@@ -27,16 +27,16 @@ AppPublisher=The Imprudence Project
 AppPublisherURL=http://kokuaviewer.org
 AppSupportURL=http://kokuaviewer.org
 AllowNoIcons=true
-InfoAfterFile=..\..\..\..\..\..\README.txt
+InfoAfterFile=..\..\..\..\..\README.txt
 OutputDir=.
-SetupIconFile=..\..\..\..\newview\installers\windows\imp_icon.ico
+SetupIconFile=..\..\..\newview\installers\windows\imp_icon.ico
 Compression=lzma2/ultra64
 InternalCompressLevel=ultra64
 SolidCompression=true
 PrivilegesRequired=poweruser
 AllowRootDirectory=true
-WizardImageFile=..\..\..\..\newview\installers\windows\imprudence_installer_icon_left.bmp
-WizardSmallImageFile=..\..\..\..\newview\installers\windows\imprudence_installer_icon_right.bmp
+WizardImageFile=..\..\..\newview\installers\windows\imprudence_installer_icon_left.bmp
+WizardSmallImageFile=..\..\..\newview\installers\windows\imprudence_installer_icon_right.bmp
 SetupLogging=true
 RestartIfNeededByRun=false
 AlwaysRestart=false
@@ -145,9 +145,9 @@ Source: %%PACKAGEFILES%%\vivoxsdk.dll; DestDir: {app}; Flags: ignoreversion
 Source: %%PACKAGEFILES%%\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
 
 ; VC++ 2005 SP1 x86, VC++ 2008 SP1 x86, and VC++ 2010 SP1 x86 redist
-Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
-;Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
-Source: ..\..\..\..\newview\installers\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
+Source: ..\..\..\newview\installers\windows\vcredist_x86_VS2005_SP1_MFC_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2005_SP1_MFC_SEC.exe
+;Source: ..\..\..\newview\installers\windows\vcredist_x86_VS2008_SP1_ATL_SEC.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2008_SP1_ATL_SEC.exe
+Source: ..\..\..\newview\installers\windows\vcredist_x86_VS2010_SP1.exe; DestDir: {app}\redist; DestName: vcredist_x86_VS2010_SP1.exe
 
 ; Old files we don't use anymore:
 ; Source: %%PACKAGEFILES%%\dronesettings.xml; DestDir: {app}; Flags: ignoreversion
@@ -307,7 +307,7 @@ begin
     Success := RegQueryDWordValue(HKLM64, 'SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86', 'Installed', V);
   end else begin
     Success := RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86', 'Installed', V);
-  end
+  end;
 
   if Success = TRUE then begin
     if V = 1 then begin
