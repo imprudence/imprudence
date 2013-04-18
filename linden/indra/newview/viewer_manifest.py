@@ -244,7 +244,7 @@ class WindowsManifest(ViewerManifest):
         elif self.configuration().lower() == "debug":
             self.path(self.find_existing_file('debug/imprudence-bin.exe'), dst=self.final_exe())
         else:
-            self.path(self.find_existing_file('release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe', 'debug/imprudence-bin.exe'), dst=self.final_exe())
+            self.path(self.find_existing_file('release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe', 'debug/imprudence-bin.exe', 'imprudence-bin.exe'), dst=self.final_exe())
 
         # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
         symbol_ver = '.'.join(self.args['version'])
@@ -281,7 +281,7 @@ class WindowsManifest(ViewerManifest):
         #self.path("fmod.dll")
 
         # For spellchecking
-        if self.prefix(src=self.args['configuration'], dst=""):
+        if self.prefix(src=os.path.join(self.args['configuration'], "Release"), dst=""):
             self.path("libhunspell.dll")
             self.end_prefix()
 
@@ -289,12 +289,12 @@ class WindowsManifest(ViewerManifest):
         self.path("llkdu.dll.2.config")
 
         # Get llcommon and deps.
-        if self.prefix(src=self.args['configuration'], dst=""):
+        if self.prefix(src=os.path.join(self.args['configuration'], "Release"), dst=""):
             self.path('libapr-1.dll')
             self.path('libaprutil-1.dll')
             self.path('libapriconv-1.dll')
-            self.path('llcommon.dll')
             self.end_prefix()
+            self.path('llcommon.dll')
 
         # For textures
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):

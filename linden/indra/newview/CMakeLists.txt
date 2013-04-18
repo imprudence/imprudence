@@ -1326,7 +1326,7 @@ if (WINDOWS)
 
     # sets the 'working directory' for debugging from visual studio.
     if (NOT UNATTENDED)
-		if (NOT self.using_express)
+		if (USE_VSTOOL)
 			add_custom_command(
 				TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
 				COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
@@ -1338,7 +1338,7 @@ if (WINDOWS)
 				  ${CMAKE_CURRENT_SOURCE_DIR}
 				COMMENT "Setting the ${VIEWER_BINARY_NAME} working directory for debugging."
 				)
-		endif (NOT self.using_express)
+		endif (USE_VSTOOL)
     endif (NOT UNATTENDED)
 
     add_custom_command(

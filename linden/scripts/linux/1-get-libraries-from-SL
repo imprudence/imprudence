@@ -53,7 +53,7 @@ source config-SL-source
 cd $PATH_TO_SOURCES/indra
 
 # Do a clean build
-./develop.py clean
+#./develop.py $os_extra clean
 
 # Force the vectorization use if we chose so.
 if [ "$FORCE_VECTORIZE" == "yes" ] ; then
@@ -65,7 +65,8 @@ else
     FATAL_WARNINGS=""
 fi
 # Configure the sources and download the LL provided libraries:
-./develop.py --type=Release  configure "$FATAL_WARNINGS" \
-    -DCMAKE_C_FLAGS:STRING="-O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS:STRING="-O2 $TUNE_FLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="-O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELEASE:STRING="-O2 $TUNE_FLAGS" \
-    -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-g -O2 $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-g -O2 $TUNE_FLAGS"
+./develop.py $os_extra --type=Release  configure "$FATAL_WARNINGS" \
+    -DCMAKE_C_FLAGS:STRING="$TUNE_FLAGS" -DCMAKE_CXX_FLAGS:STRING="$TUNE_FLAGS" \
+    -DCMAKE_C_FLAGS_DEBUG:STRING="-g $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g $TUNE_FLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELEASE:STRING="$TUNE_FLAGS" \
+    -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-g $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-g $TUNE_FLAGS" -DPACKAGE:BOOL=ON

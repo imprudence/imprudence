@@ -22,7 +22,7 @@ if [ "$PATCHES" != "" ] ; then
         elif echo $i | grep ".bz2" &>/dev/null ; then
             bzcat $i | patch -p1 -s
         elif echo $i | grep ".zip" &>/dev/null ; then
-    	    unzip -o $i >/dev/null
+           unzip -o $i >/dev/null
         else
             patch -p1 -s <$i
         fi
