@@ -21,6 +21,8 @@ PATH_TO_PATCHES="$PWD/../../patches"
 TEMP_DIR="/tmp/SL-$USER"
 mkdir -p $TEMP_DIR
 
+TYPE="RelWithDebInfo"
+
 USE_SYSTEM_GTK="no"
 USE_SYSTEM_SDL="no"
 USE_SYSTEM_SSL="no"

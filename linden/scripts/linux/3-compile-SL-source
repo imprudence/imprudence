@@ -54,7 +54,7 @@ source config-SL-source
 function compile() {
     cd $PATH_TO_SOURCES/indra
     echo "Compiling the client into $TEMP_DIR..."
-    nice -n 19 $ionice ./develop.py $os_extra --type=Release build
+    nice -n 19 $ionice ./develop.py $os_extra --type=$TYPE build
 }
 
 ########### end of functions ###########
