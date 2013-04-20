@@ -77,3 +77,7 @@ if [ "$OSTYPE" == "cygwin" ] ; then
     FORCE_VECTORIZE="no"
     ALLOW_WARNINGS="no"
 fi
+
+
+# Work around python problems.
+export PYTHONUNBUFFERED='True'
