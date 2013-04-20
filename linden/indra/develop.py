@@ -829,7 +829,6 @@ For example: develop.py configure -DSERVER:BOOL=OFF"""
             for d in setup.build_dirs():
                 if not os.path.exists(d):
                     raise CommandError('run "develop.py cmake" first')
-            setup.run_cmake()
             opts, targets = setup.parse_build_opts(args)
             setup.run_build(opts, targets)
         elif cmd == 'clean':
