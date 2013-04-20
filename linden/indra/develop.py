@@ -662,25 +662,6 @@ class WindowsSetup(PlatformSetup):
             raise CommandError('the command %r %s' %
                                (name, ret))
 
-    def run_vstool(self):
-        for build_dir in self.build_dirs():
-            stamp = os.path.join(build_dir, 'vstool.txt')
-            try:
-                prev_build = open(stamp).read().strip()
-            except IOError:
-                prev_build = ''
-            if prev_build == self.build_type:
-                # Only run vstool if the build type has changed.
-                continue
-            vstool_cmd = (os.path.join('tools','vstool','VSTool.exe') +
-                          ' --solution ' +
-                          os.path.join(build_dir,'Imprudence.sln') +
-                          ' --config ' + self.build_type +
-                          ' --startup imprudence-bin')
-            print 'Running %r in %r' % (vstool_cmd, getcwd())
-            self.run(vstool_cmd)        
-            print >> open(stamp, 'w'), self.build_type
-
     def run_build(self, opts, targets):
         cwd = getcwd()
         build_cmd = self.get_build_cmd()
