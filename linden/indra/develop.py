@@ -504,6 +504,41 @@ class WindowsSetup(PlatformSetup):
         self._generator = None
         self.incredibuild = False
 
+    def find_visual_studio(self, gen=None):
+        if gen is None:
+            gen = self._generator
+        gen = gen.lower()
+        try:
+            import _winreg
+            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
+                       self.gens[gen]['ver'])
+            value_str = (r'EnvironmentDirectory')
+            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+            key = _winreg.OpenKey(reg, key_str)
+            value = _winreg.QueryValueEx(key, value_str)[0]
+            print 'Found: %s' % value
+            return value
+        except WindowsError, err:
+            return ''
+
+    def find_visual_studio_express(self, gen=None):
+        if gen is None:
+            gen = self._generator
+        gen = gen.lower()
+        try:
+            import _winreg
+            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
+                       self.gens[gen]['ver'])
+            value_str = (r'ProductDir')
+            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+            key = _winreg.OpenKey(reg, key_str)
+            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
+            print 'Found: %s' % value
+            self.using_express = True
+            return value
+        except WindowsError, err:
+            return ''
+
     def _get_generator(self):
         if self._generator is None:
             for version in 'vc80 vc90 vc100 vc71'.split():
@@ -567,51 +602,6 @@ class WindowsSetup(PlatformSetup):
                 '-DUSE_VSTOOL:BOOL=%(use_vstool)s '
                 #'-DPACKAGE:BOOL=ON '
                 '%(opts)s "%(dir)s"' % args)
-
-    def find_visual_studio(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
-        try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
-                       self.gens[gen]['ver'])
-            value_str = (r'EnvironmentDirectory')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]
-            print 'Found: %s' % value
-            return value
-        except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
-
-    def find_visual_studio_express(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
-        try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
-                       self.gens[gen]['ver'])
-            value_str = (r'ProductDir')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
-            print 'Found: %s' % value
-            self.using_express = True
-            return value
-        except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
 
     def get_build_cmd(self):
         if self.incredibuild:
