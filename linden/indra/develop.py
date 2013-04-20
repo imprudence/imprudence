@@ -559,6 +559,8 @@ class WindowsSetup(PlatformSetup):
         return self._generator
 
     def _set_generator(self, gen):
+        if gen == 'nmake':
+            self._get_generator()
         self._generator = gen
 
     generator = property(_get_generator, _set_generator)
@@ -608,18 +610,19 @@ class WindowsSetup(PlatformSetup):
 
             return "buildconsole %s.sln /build %s" % (self.project_name, config)
 
-        environment = self.find_visual_studio()
+        environment = self.find_visual_studio(self.generator)
         if environment == '':
-            environment = self.find_visual_studio_express()
-            if environment == '':
-                 print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
-            else:
-                 print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
-                 build_dirs=self.build_dirs();
-                 print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
-                 print >> sys.stderr, "Set %s as startup project" % self.project_name
-                 print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
-                 exit(0)
+            environment = self.find_visual_studio_express(self.generator)
+            if self.generator != 'nmake':
+                if environment == '':
+                    print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
+                else:
+                    print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
+                    build_dirs=self.build_dirs();
+                    print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
+                    print >> sys.stderr, "Set %s as startup project" % self.project_name
+                    print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
+                    exit(0)
 
         if self.generator == 'nmake':
            '''Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.'''
