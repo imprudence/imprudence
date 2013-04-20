@@ -572,6 +572,7 @@ class WindowsSetup(PlatformSetup):
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         args = dict(
             dir=src_dir,
+            generator=self.gens[self.generator.lower()]['gen'],
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
@@ -580,10 +581,7 @@ class WindowsSetup(PlatformSetup):
             use_vstool='ON'
             )
         if self.generator == 'nmake':
-           args['generator'] = r'NMake Makefiles'
            args['use_vstool'] = 'OFF'
-        else:
-           args['generator'] = self.gens[self.generator.lower()]['gen']
         if self.using_express:
            args['using_express'] = 'ON'
            args['use_vstool'] = 'OFF'
