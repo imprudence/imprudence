@@ -408,7 +408,7 @@ class LinuxSetup(UnixSetup):
             print 'Running %r' % cmd
             self.run(cmd)
 
-        
+
 class DarwinSetup(UnixSetup):
     def __init__(self):
         super(DarwinSetup, self).__init__()
@@ -599,7 +599,6 @@ class WindowsSetup(PlatformSetup):
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '-DUSING_EXPRESS:BOOL=%(using_express)s '
                 '-DUSE_VSTOOL:BOOL=%(use_vstool)s '
-                #'-DPACKAGE:BOOL=ON '
                 '%(opts)s "%(dir)s"' % args)
 
     def get_build_cmd(self):
@@ -607,7 +606,6 @@ class WindowsSetup(PlatformSetup):
             config = self.build_type
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0', r'10.0', r'7.1' ]:
                 config = '\"%s|Win32\"' % config
-
             return "buildconsole %s.sln /build %s" % (self.project_name, config)
 
         environment = self.find_visual_studio(self.generator)
@@ -625,14 +623,14 @@ class WindowsSetup(PlatformSetup):
                     exit(0)
 
         if self.generator == 'nmake':
-           '''Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.'''
+           # Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
-           '''Evil hack.'''
+           # Evil hack.
            self.run(r'touch newview/touched.bat')
-           return "nmake"
+           return 'nmake'
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
         return ('"%sdevenv.com" %s.sln /build %s' % 
