@@ -455,8 +455,6 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 										   void (*callback)(const LLSD&, void*),
 										   void* user_data)
 {
-	llassert_always(NULL != callback);
-
 	LLUUID id;
 
 	if(!isInventoryUsable())
@@ -464,7 +462,8 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		llwarns << "Inventory is broken." << llendl;
 		LLSD result;
 		result["failure"] = true;
-		callback(result, user_data);
+		if (callback)
+		    callback(result, user_data);
  	}
 
 
@@ -473,7 +472,8 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		LL_DEBUGS("Inventory") << "Attempt to create simstate category." << LL_ENDL;
 		LLSD result;
 		result["failure"] = true;
-		callback(result, user_data);
+		if (callback)
+		    callback(result, user_data);
 	}
 
 	id.generate();
@@ -492,10 +492,8 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		name.assign(NEW_CATEGORY_NAME);
 	}
 
-	if (user_data)  // callback required for acked message.
+	if ((NULL != callback) && (NULL != user_data))  // callback required for acked message.
 	{
-
-
 		LLViewerRegion* viewer_region = gAgent.getRegion();
 
 		if (!viewer_region->capabilitiesReceived())
@@ -537,7 +535,10 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 	{
 		// user_data is a LLCategoryCreate object instantiated in the calling
 		// function - bug (or low memory - any leaks?).
-		llwarns << "NULL user_data" << llendl;
+		// Or, it might just be no problem, since passing the callback in the first place is optional.
+		// It's really up to the calling function to know what it passed to pass back to the callback.
+		if (callback)
+		    llwarns << "NULL user_data" << llendl;
 	}
 
 	// Add the category to the internal representation
