@@ -1121,6 +1121,25 @@ class Linux_x86_64Manifest(LinuxManifest):
             #self.path("libgsttag-0.10.so.0")
             #self.path("libgstvideo-0.10.so.0")
 
+            # Wish I could kill it with fire.  lol
+            self.path("libboost_date_time-mt.so")
+            self.path("libboost_date_time-mt.so.1.48.0")
+            self.path("libboost_filesystem-mt.so")
+            self.path("libboost_filesystem-mt.so.1.48.0")
+            self.path("libboost_iostreams-mt.so")
+            self.path("libboost_iostreams-mt.so.1.48.0")
+            self.path("libboost_program_options-mt.so")
+            self.path("libboost_program_options-mt.so.1.48.0")
+            self.path("libboost_regex-mt.so")
+            self.path("libboost_regex-mt.so.1.48.0")
+            self.path("libboost_signals-mt.so")
+            self.path("libboost_signals-mt.so.1.48.0")
+            self.path("libboost_system-mt.so")
+            self.path("libboost_system-mt.so.1.48.0")
+            self.path("libboost_thread-mt.so")
+            self.path("libboost_thread-mt.so.1.48.0")
+            self.path("libboost_wave-mt.so")
+            self.path("libboost_wave-mt.so.1.48.0")
 
             self.end_prefix("lib64")
 
