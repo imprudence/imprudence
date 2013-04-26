@@ -24,6 +24,11 @@ list(REMOVE_DUPLICATES TYPES)
 set(CMAKE_CONFIGURATION_TYPES ${TYPES} CACHE STRING "Supported build types." FORCE)
 unset(TYPES)
 
+# Work around nmake / VS difference.
+set(VIEWER_CFG_INTDIR ${CMAKE_CFG_INTDIR})
+if (NMAKE)
+    set(VIEWER_CFG_INTDIR ${CMAKE_BUILD_TYPE})
+endif(NMAKE)
 
 # Determine the number of bits of this processor
 

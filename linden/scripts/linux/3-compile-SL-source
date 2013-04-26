@@ -54,10 +54,7 @@ source config-SL-source
 function compile() {
     cd $PATH_TO_SOURCES/indra
     echo "Compiling the client into $TEMP_DIR..."
-    nice -n 19 ionice -c 3 ./develop.py --type=Release build
-#    if (($? == 0)) ; then
-#        mv -f $PATH_TO_SOURCES/indra/viewer-linux-i686*/newview/SecondLife*.tar.bz2 $HOME/
-#    fi
+    nice -n 19 $ionice ./develop.py $os_extra --type=$TYPE build
 }
 
 ########### end of functions ###########
@@ -66,14 +63,7 @@ if [ "$TEMP_DIR" == "" ] ; then
     export TEMP_DIR="/usr/tmp/$USER"
 fi
 
-# Check to see if we simply want to retry a compilation:
-if [ "$1" == "--retry" ] ; then
-    compile
-    exit $?
-fi
-
 # Use the parameter (if any) as the path to the archives:
-
 PATH_TO_ARCHIVES=`pwd`
 if [ "$1" != "" ] && [ "$1" != "--prep" ] ; then
     if [ -d $1 ] ; then
@@ -83,19 +73,4 @@ if [ "$1" != "" ] && [ "$1" != "--prep" ] ; then
 fi
 
 cd $PATH_TO_SOURCES/indra
-
-# Do a clean build
-#./develop.py clean
-
-# Force the vectorization use if we chose so.
-if [ "$FORCE_VECTORIZE" == "yes" ] ; then
-    TUNE_FLAGS="$TUNE_FLAGS -DLL_VECTORIZE=1"
-fi
-if [ "$ALLOW_WARNINGS" == "yes" ] ; then
-    FATAL_WARNINGS="-DGCC_DISABLE_FATAL_WARNINGS:BOOL=TRUE"
-else
-    FATAL_WARNINGS=""
-fi
-
 time compile
-
