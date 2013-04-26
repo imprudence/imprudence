@@ -8,7 +8,7 @@
 ; Imp Experimental ID: 	1B3E68BC-13EB-4277-9439-CB5FF9259460
 
 ; These will change
-AppId={{D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8}
+AppId={{1B3E68BC-13EB-4277-9439-CB5FF9259460}
 AppName=%%APPNAME%%
 AppVerName=%%APPVERNAME%%
 DefaultDirName={pf}\Imprudence
