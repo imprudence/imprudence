@@ -620,6 +620,9 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
         		    # Linux is special, coz it's got server code.
         		    if _get_platform() == 'linux' or _get_platform() == 'linux64':
         			path = install_dir + "/libraries/" + dest_name + "lib_" + entry + "_client"
+        		# Windows is also special.
+        		if _get_platform() == 'windows':
+        		    path = install_dir + "/libraries/" + dest_name + "lib/" + entry
         		if not os.path.exists(path):
         		    os.makedirs(path)
         		for filename in os.listdir(auto_name + "/" + entry):
