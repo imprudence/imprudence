@@ -232,21 +232,15 @@ class WindowsManifest(ViewerManifest):
 
     def construct(self):
         super(WindowsManifest, self).construct()
-        # the final exe is complicated because we're not sure where it's coming from,
-        # nor do we have a fixed name for the executable
-        # Actually, we know on both counts -- MC
-        if self.configuration().lower() == "release":
-            self.path(self.find_existing_file('release/imprudence-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "releasesse2":
-            self.path(self.find_existing_file('releasesse2/imprudence-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "relwithdebinfo":
-            self.path(self.find_existing_file('relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "debug":
-            self.path(self.find_existing_file('debug/imprudence-bin.exe'), dst=self.final_exe())
-        else:
-            self.path(self.find_existing_file('release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe', 'debug/imprudence-bin.exe', 'imprudence-bin.exe'), dst=self.final_exe())
+        # Come out, come out, where ever you are.
+        executable = self.find_existing_file('release/imprudence-bin.exe', 'releasesse2/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe', 'debug/imprudence-bin.exe', './imprudence-bin.exe')
+        nmake = False
+        self.path(executable, dst=self.final_exe())
 
         # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
+        # Don't think this ever worked, the destination seems bogus.
+        # It's trying to copy a built file outside of the source tree, a file we have anyway.
+        # TODO - do we even need this?
         symbol_ver = '.'.join(self.args['version'])
         symbol_file = 'imprudence-%s.%s.pdb' % (symbol_ver, self.args['configuration'])
         symbol_path = '../../../../../pdb_files/%s' % (symbol_file)
@@ -255,7 +249,7 @@ class WindowsManifest(ViewerManifest):
         else:
             #print "%s doesn't exist yet" % (os.getcwd() + symbol_path)
             try:
-                self.path(self.find_existing_file('release/imprudence-bin.pdb'), dst="../%s" % (symbol_path))
+                self.path(self.find_existing_file(executable.split('/', 1)[0] % '/imprudence-bin.pdb'), dst="../%s" % (symbol_path))
                 pass
             except:
                 print "Can't save symbol file %s, skipping" % (symbol_path)
@@ -270,7 +264,13 @@ class WindowsManifest(ViewerManifest):
         self.path("imprudence.url")
 
         # Plugin host application
-        self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"), "SLPlugin.exe")
+        try:
+            self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"), "SLPlugin.exe")
+        except:
+            # Probably an nmake build, which is not putting exe's into the configuration folders.
+            self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', "SLPlugin.exe"), "SLPlugin.exe")
+            # Propogate our wild guess.
+            nmake = True
 
         self.path("featuretable.txt")
 
@@ -281,7 +281,7 @@ class WindowsManifest(ViewerManifest):
         #self.path("fmod.dll")
 
         # For spellchecking
-        if self.prefix(src=os.path.join(self.args['configuration'], "Release"), dst=""):
+        if self.prefix(self.args['configuration'], dst=""):
             self.path("libhunspell.dll")
             self.end_prefix()
 
@@ -289,12 +289,12 @@ class WindowsManifest(ViewerManifest):
         self.path("llkdu.dll.2.config")
 
         # Get llcommon and deps.
-        if self.prefix(src=os.path.join(self.args['configuration'], "Release"), dst=""):
+        if self.prefix(self.args['configuration'], dst=""):
             self.path('libapr-1.dll')
             self.path('libaprutil-1.dll')
             self.path('libapriconv-1.dll')
-            self.end_prefix()
             self.path('llcommon.dll')
+            self.end_prefix()
 
         # For textures
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -307,21 +307,26 @@ class WindowsManifest(ViewerManifest):
             self.path("alut.dll")
             self.end_prefix()
 
+        # TODO - Yes, I know, would be better if nmake builds put stuff in the right place, track that down and fix it later.
+        if nmake:
+            config = ''
+        else:
+            config = self.args['configuration']
         # Media plugins - QuickTime
-        if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/quicktime/%s' % config, dst="llplugin"):
             self.path("media_plugin_quicktime.dll")
             self.end_prefix()
 
         # Media plugins - WebKit/Qt
-        if self.prefix(src='../media_plugins/webkit/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/webkit/%s' % config, dst="llplugin"):
             self.path("media_plugin_webkit.dll")
             self.end_prefix()
 
         # Media plugins - GStreamer
-        if self.prefix(src='../media_plugins/gstreamer010/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/gstreamer010/%s' % config, dst="llplugin"):
             self.path("media_plugin_gstreamer010.dll")
-            self.end_prefix()            
- 
+            self.end_prefix()
+
         # For WebKit/Qt plugin runtimes
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst="llplugin"):
             self.path("libeay32.dll")

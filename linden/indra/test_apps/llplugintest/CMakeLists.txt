@@ -311,7 +311,7 @@ endif (DARWIN OR LINUX)
 if (DARWIN)
   # path inside the app bundle where we'll need to copy plugins and other related files
   set(PLUGINS_DESTINATION_DIR
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llmediaplugintest.app/Contents/Resources
+    ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llmediaplugintest.app/Contents/Resources
   )
   
   # create the Contents/Resources directory
@@ -326,7 +326,7 @@ if (DARWIN)
   ) 
 else (DARWIN)
   set(PLUGINS_DESTINATION_DIR
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/
+    ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/
   )
 endif (DARWIN)
 

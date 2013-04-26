@@ -580,10 +580,12 @@ class WindowsSetup(PlatformSetup):
             unattended=self.unattended,
             project_name=self.project_name,
             type=self.build_type,
-            use_vstool='ON'
+            use_vstool='ON',
+            nmake=''
             )
         if self.generator == 'nmake':
            args['use_vstool'] = 'OFF'
+           args['nmake'] = '-DNMAKE:BOOL=ON'
         if self.using_express:
            args['using_express'] = 'ON'
            args['use_vstool'] = 'OFF'
@@ -599,6 +601,7 @@ class WindowsSetup(PlatformSetup):
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '-DUSING_EXPRESS:BOOL=%(using_express)s '
                 '-DUSE_VSTOOL:BOOL=%(use_vstool)s '
+                '%(nmake)s '
                 '%(opts)s "%(dir)s"' % args)
 
     def get_build_cmd(self):
