@@ -4,6 +4,97 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.4.0 beta 2                   -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    CHANGES
+
+      This version of Imprudence mostly contains bug fixes, as
+      Imprudence went into a feature freeze in anticipation of an RC
+      release to come later.
+
+
+      IMPROVEMENTS
+
+        * Selective cache clearing: now you can selectively delete
+          different types of disk cache separately.
+
+      BUG FIXES
+
+        Many bug fixes that are listed here -
+
+        http://wiki.kokuaviewer.org/wiki/Imprudence:Release_Notes/1.4.0_Beta_2
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.4.0 beta 1                   -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+    There was very many changes in 1.4.0 beta 1 compared to Imprudence
+    1.3.2, this file only summarizes some of them.  A more complete list
+    is here -
+
+    http://wiki.kokuaviewer.org/wiki/Imprudence:Release_Notes/1.4.0_Beta_1
+
+
+    RELEASE HIGHLIGHTS
+
+      Compared to Imprudence 1.3, Imprudence 1.4 adds a mind-blowing
+      number of new features, UI improvements, and bug fixes. We
+      recommend Imprudence 1.3 users also upgrade to Imprudence 1.4
+      soon, unless you require streaming audio support on Mac.
+
+      Here is a brief overview of some of the most notable new features,
+      grouped by category:
+
+      * General: Support for WindLight notecards; Updated Chinese,
+        French, German, and Japanese UIs; Derender object/avatar; Gestures
+        can use more keys; Reload $ Balance; Animation Overrider starts
+        working sooner.
+
+      * Communication: Spell Checking; AutoCorrect; Chat Translation;
+        Chatbar Commands; Display Names support; Highlight chat from
+        friends; Highlight chat mentioning your name or nickname(s);
+        Search bar in Friends and Groups lists.
+
+      * Content Creation: Support for Alpha and Tattoo layers; new Prim
+        Alignment tool; Local Textures (real-time preview of textures on
+        your computer without uploading); Object texture export from SL
+        (with TPVP-compliant permission checks); Upload support for
+        Photoshop PSD image files (available on Mac only); Copy/Paste
+        buttons in Build tools.
+
+      * Login, Grids, and OpenSim: Login name and password saved
+        per-grid; Support for variable sized regions (i.e. bigger than
+        256m) when available; Support for the OpenRegionInfo capability.
+
+      * Map, Radar, and Teleport: Full Radar; Teleport History; Estate
+        Managers’ minimap radar distance is no longer limited; Right
+        clicking objects in Area Object Search to teleport to/cam to/edit
+        them.
+
+      * Media, Browser, and Networking: Media system revamped with
+        SLPlugin; Media Filters; Interaction and zoom with streaming
+        media/webpages; Improved XMLPRC and SOCKS5 proxy support; Parcel
+        media URLs are no longer hidden.
+
+      * Preferences: Reorganized Preferences window; New UI skins (Dark
+        and Gemini); Sliders for draw distance, etc. allow typing in exact
+        values; Search bar in Debug Settings.
+
+      * Texture Loading: Many, many texture loading improvements from
+        Robin Cornelius, Thickbrick Sleaford, and others; Various
+        improvements to help prevent unloaded (cloud) avatars.
+
+      * Development: Many, many, many code improvements and cleanup
+        under the hood. Special thanks to Aleric Inglewood and others for
+        their work on this.
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.3.2                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
