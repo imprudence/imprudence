@@ -1921,24 +1921,11 @@ void LLFolderBridge::pasteFromClipboard()
 			item = model->getItem(objects.get(i));
 			if (item)
 			{
-				copy_inventory_item(
-					gAgent.getID(),
-					item->getPermissions().getOwner(),
-					item->getUUID(),
-					parent_id,
-					std::string(),
-					LLPointer<LLInventoryCallback>(NULL));
-				LLInventoryCategory* cat = model->getCategory(item->getUUID());
-				if(cat)
-				{
-					model->purgeDescendentsOf(mUUID);
-				}
-				LLInventoryObject* obj = model->getObject(item->getUUID());
-				if(!obj) return;
-				obj->removeFromServer();
-				LLPreview::hide(item->getUUID());
-				model->deleteObject(item->getUUID());
-				model->notifyObservers();
+				LLInvFVBridge::changeItemParent(
+					model,
+					(LLViewerInventoryItem*)item,
+					mUUID,
+					FALSE);
 			}
 		}
 	}
