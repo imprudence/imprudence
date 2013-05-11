@@ -1258,7 +1258,6 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	sub_menu->append(new LLMenuItemCheckGL("Octree",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_OCTREE));
-	// For Imprudence 1.3 - need to XUIfy
 	sub_menu->append(new LLMenuItemCheckGL("Shadow Frusta",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_SHADOW_FRUSTA));
@@ -9262,6 +9261,10 @@ U32 info_display_from_string(std::string info_display)
 	else if ("sculpt" == info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_SCULPTED;
+	}
+	else if ("shadow frusta" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_SHADOW_FRUSTA;
 	}
 	else
 	{

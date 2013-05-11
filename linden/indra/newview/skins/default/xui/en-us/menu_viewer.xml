@@ -1327,6 +1327,12 @@
           <on_check function="Advanced.CheckInfoDisplay"
                     userdata="sculpt" />
         </menu_item_check>
+        <menu_item_check name="ShadowFrusta" label="Shadow Frusta">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="shadow frusta" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="shadow frusta" />
+        </menu_item_check>
         <menu_item_check name="Vectorize Perf Test"
                          label="Vectorize Perf Test">
           <on_click function="ToggleControl"
