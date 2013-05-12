@@ -681,16 +681,16 @@
                   userdata="" />
         <on_check control="RenderLightRadius" />
       </menu_item_check>
-      <menu_item_check label="Show Selection Outlines"
-                       name="Show Selection Outlines">
-        <on_click function="Tools.ShowSelectionHighlights" userdata="" />
-        <on_check control="RenderHighlightSelections" />
-      </menu_item_check>
       <menu_item_check name="Show Selection Beam"
                        label="Show Selection Beam">
         <on_click function="ToggleControl"
                   userdata="ShowSelectionBeam" />
         <on_check control="ShowSelectionBeam" />
+      </menu_item_check>
+      <menu_item_check label="Show Selection Outlines"
+                       name="Show Selection Outlines">
+        <on_click function="Tools.ShowSelectionHighlights" userdata="" />
+        <on_check control="RenderHighlightSelections" />
       </menu_item_check>
     </menu>
     <menu_item_separator />

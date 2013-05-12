@@ -115,6 +115,9 @@ BOOL LLFloaterBuildOptions::postBuild()
 	getChild<LLTextureCtrl>("texture control")->setImageAssetID(LLUUID(gSavedPerAccountSettings.getString("BuildPrefs_Texture")));
 
 	childSetValue("BuildPrefsRenderHighlight_toggle", gSavedSettings.getBOOL("RenderHighlightSelections") );
+	childSetValue("BuildPrefsRenderHidden_toggle", gSavedSettings.getBOOL("RenderHiddenSelections") );
+	childSetValue("BuildPrefsRenderLightRadius_toggle", gSavedSettings.getBOOL("RenderLightRadius") );
+	childSetValue("BuildPrefsShowSelectionBeam_toggle", gSavedSettings.getBOOL("ShowSelectionBeam") );
 	childSetValue("grouplandrez", gSavedSettings.getBOOL("RezWithLandGroup") );
 	childSetValue("GridSubUnit", gSavedSettings.getBOOL("GridSubUnit") );
 	childSetValue("GridCrossSection", gSavedSettings.getBOOL("GridCrossSections") );
@@ -293,6 +296,17 @@ void LLFloaterBuildOptions::apply()
 		LLSelectMgr::sRenderSelectionHighlights = !LLSelectMgr::sRenderSelectionHighlights;
 		gSavedSettings.setBOOL("RenderHighlightSelections", LLSelectMgr::sRenderSelectionHighlights);
 	}
+	if (gSavedSettings.getBOOL("RenderHiddenSelections") != (BOOL)(childGetValue("BuildPrefsRenderHidden_toggle").asBoolean()))
+	{
+		LLSelectMgr::sRenderHiddenSelections = !LLSelectMgr::sRenderHiddenSelections;
+		gSavedSettings.setBOOL("RenderHiddenSelections", LLSelectMgr::sRenderHiddenSelections);
+	}
+	if (gSavedSettings.getBOOL("RenderLightRadius") != (BOOL)(childGetValue("BuildPrefsRenderLightRadius_toggle").asBoolean()))
+	{
+		LLSelectMgr::sRenderLightRadius = !LLSelectMgr::sRenderLightRadius;
+		gSavedSettings.setBOOL("RenderLightRadius", LLSelectMgr::sRenderLightRadius);
+	}
+	gSavedSettings.setBOOL("ShowSelectionBeam", childGetValue("BuildPrefsShowSelectionBeam_toggle").asBoolean() );
 
 	gSavedSettings.setBOOL("RezWithLandGroup", childGetValue("grouplandrez").asBoolean() );
 	gSavedSettings.setBOOL("GridSubUnit", childGetValue("GridSubUnit").asBoolean() );
@@ -340,6 +354,9 @@ void LLFloaterBuildOptions::reset()
 	mBuildTextureUUID = (LLUUID)gSavedPerAccountSettings.getControl("BuildPrefs_Texture")->getDefault().asString();
 
 	childSetValue("BuildPrefsRenderHighlight_toggle", gSavedSettings.getControl("RenderHighlightSelections")->getDefault() );
+	childSetValue("BuildPrefsRenderHidden_toggle", gSavedSettings.getControl("RenderHiddenSelections")->getDefault() );
+	childSetValue("BuildPrefsRenderLightRadius_toggle", gSavedSettings.getControl("RenderLightRadius")->getDefault() );
+	childSetValue("BuildPrefsShowSelectionBeam_toggle", gSavedSettings.getControl("ShowSelectionBeam")->getDefault() );
 	childSetValue("grouplandrez", gSavedSettings.getControl("RezWithLandGroup")->getDefault() );
 	childSetValue("GridSubUnit", gSavedSettings.getControl("GridSubUnit")->getDefault() );
 	childSetValue("GridCrossSection", gSavedSettings.getControl("GridCrossSections")->getDefault() );

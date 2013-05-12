@@ -68,13 +68,34 @@
      label="Values are percent" left_delta="-5" mouse_opaque="true"
      tool_tip="Default settings are Percentages and every axis set at 50"
      name="PivotPercToggle" radio_style="false" width="100" />
-  
-  <check_box bottom_delta="60" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-					 initial_value="true" label="Show selection outlines" left_delta="143"
-					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" 
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+					 bottom_delta="-50" drop_shadow_visible="true" enabled="true" follows="left|top" font="SansSerifSmall"
+					 h_pad="0" halign="left" height="10" left="220" mouse_opaque="false"
+					 name="text_box8" v_pad="0" width="150">Show during build:</text>
+  <view_border bevel_style="none" border_thickness="1" bottom_delta="-98" follows="top|left" height="90"
+     left="198" name="ShowBorder" width="135" />
+
+
+  <check_box bottom_delta="70" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+					 initial_value="true" label="Hidden selection" left_delta="0"
+					 mouse_opaque="true" name="BuildPrefsRenderHidden_toggle" 
 					 radio_style="false" width="270"/>
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
-     label="Limit Select Distance" left_delta="0" mouse_opaque="true"
+					 initial_value="true" label="Light radius" left_delta="0"
+					 mouse_opaque="true" name="BuildPrefsRenderLightRadius_toggle" 
+					 radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+					 initial_value="true" label="Selection beam" left_delta="0"
+					 mouse_opaque="true" name="BuildPrefsShowSelectionBeam_toggle" 
+					 radio_style="false" width="270"/>
+  <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+					 initial_value="true" label="Selection outlines" left_delta="0"
+					 mouse_opaque="true" name="BuildPrefsRenderHighlight_toggle" 
+					 radio_style="false" width="270"/>
+
+  <check_box bottom_delta="198" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
+     label="Limit Select Distance" left_delta="148" mouse_opaque="true"
      tooltip=""
      name="limit_select_dist_check" radio_style="false" width="270" />
   <check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall" height="16"
