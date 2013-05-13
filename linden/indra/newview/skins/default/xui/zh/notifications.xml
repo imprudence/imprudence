@@ -3647,24 +3647,6 @@ GLOW —  发光
    name="okignore"
    yestext="OK"/>
 </notification>
-  
-<notification name="WebLaunchImprudenceBlog">
-前往 Imprudence 官方日志阅读最新的新闻和信息。
-  <usetemplate
-   ignoretext="打开网络浏览器阅读网络日志时"
-   name="okcancelignore"
-   notext="取消"
-   yestext="打开网页"/>
-</notification>
-
-<notification name="WebLaunchImprudenceForums">
-前往 Imprudence 官方论坛讨论 Imprudence 工程。
-  <usetemplate
-   ignoretext="打开网络浏览器阅读论坛时"
-   name="okcancelignore"
-   notext="取消"
-   yestext="打开网页"/>
-</notification>
 
 <notification
  icon="alert.tga"
