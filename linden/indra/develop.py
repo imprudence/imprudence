@@ -532,7 +532,7 @@ class WindowsSetup(PlatformSetup):
             value_str = (r'ProductDir')
             reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
             key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
+            value = _winreg.QueryValueEx(key, value_str)[0]+"vcpackages"
             print 'Found: %s' % value
             self.using_express = True
             return value
@@ -618,12 +618,8 @@ class WindowsSetup(PlatformSetup):
                 if environment == '':
                     print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
                 else:
-                    print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
                     build_dirs=self.build_dirs();
-                    print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
-                    print >> sys.stderr, "Set %s as startup project" % self.project_name
-                    print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
-                    exit(0)
+                    return("\"\"%s\\vcbuild\" /useenv %s.sln \"%s|win32\"\"" % (environment, self.project_name, self.build_type))
 
         if self.generator == 'nmake':
            # Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.
