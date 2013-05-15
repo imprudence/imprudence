@@ -227,16 +227,16 @@
 
     <!-- The New World Grid -->
     <map>
-        <key>gridname</key><string>The New World Grid</string>
-        <key>gridnick</key><string>thenewworldgrid</string>
+        <key>gridname</key><string>New World Grid</string>
+        <key>gridnick</key><string>newworldgrid</string>
         <key>platform</key><string>OpenSim</string>
-        <key>loginuri</key><string>http://grid.newworldgrid.com:8002/</string>
-        <key>loginpage</key><string>http://account.newworldgrid.com/loginscreen.php</string>
-        <key>helperuri</key><string>http://account.newworldgrid.com/</string>
+        <key>loginuri</key><string>http://3d.newworldgrid.com:8002/</string>
+        <key>loginpage</key><string>http://www.newworldgrid.com/loginpage/</string>
+        <key>helperuri</key><string>http://3d.newworldgrid.com/services/helper/</string>
         <key>website</key><string>http://www.newworldgrid.com/</string>
-        <key>support</key><string>http://www.newworldgrid.com/</string>
-        <key>register</key><string>http://www.newworldgrid.com/register</string>
-        <key>password</key><string>http://account.newworldgrid.com/</string>
+        <key>support</key><string>http://www.newworldgrid.com/contact/</string>
+        <key>register</key><string>http://www.newworldgrid.com/virreacentral/redirect.php?page=register</string>
+        <key>password</key><string>http://www.newworldgrid.com/virreacentral/redirect.php?page=login</string>
         <key>version</key><string>0</string>
     </map>
 
