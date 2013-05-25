@@ -46,7 +46,6 @@ QToolAlign::~QToolAlign()
 }
 
 
-
 BOOL QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mHighlightedAxis != -1)
@@ -103,7 +102,6 @@ void QToolAlign::pickCallback(const LLPickInfo& pick_info)
 
 	LLSelectMgr::getInstance()->promoteSelectionToRoot();
 }
-
 
 
 void QToolAlign::handleSelect()
@@ -207,7 +205,6 @@ BOOL QToolAlign::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-
 void setup_transforms_bbox(LLBBox bbox)
 {
 	// translate to center
@@ -242,6 +239,7 @@ void render_bbox(LLBBox bbox)
 	gGL.popMatrix();
 }
 
+
 void render_cone_bbox(LLBBox bbox)
 {
 	glMatrixMode(GL_MODELVIEW);
@@ -254,7 +252,6 @@ void render_cone_bbox(LLBBox bbox)
 
 	gGL.popMatrix();
 }
-
 
 
 // the selection bbox isn't axis aligned, so we must construct one
@@ -286,7 +283,6 @@ LLBBox get_selection_axis_aligned_bbox()
 	
 	return axis_aligned_bbox;
 }
-
 
 
 void QToolAlign::computeManipulatorSize()
@@ -407,6 +403,7 @@ void QToolAlign::render()
 	}
 }
 
+
 // only works for our specialized (AABB, position centered) bboxes
 BOOL bbox_overlap(LLBBox bbox1, LLBBox bbox2)
 {
@@ -420,7 +417,6 @@ BOOL bbox_overlap(LLBBox bbox1, LLBBox bbox2)
 			(fabs(delta.mV[VY]) < half_extent.mV[VY] - FUDGE) &&
 			(fabs(delta.mV[VZ]) < half_extent.mV[VZ] - FUDGE));
 }
-
 
 
 // used to sort bboxes before packing
@@ -598,5 +594,3 @@ void QToolAlign::align()
 	
 	LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_POSITION);
 }
-
-

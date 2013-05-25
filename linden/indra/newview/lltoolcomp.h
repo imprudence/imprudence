@@ -113,8 +113,8 @@ public:
 	virtual ~LLToolCompInspect();
 
 	// Overridden from LLToolComposite
-    virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
 
 	static void pickCallback(const LLPickInfo& pick_info);
 };
@@ -150,9 +150,9 @@ public:
 	virtual ~LLToolCompScale();
 
 	// Overridden from LLToolComposite
-    virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleHover(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);			// Returns to the default tool
 	virtual void		render();
 
@@ -172,9 +172,9 @@ public:
 	virtual ~LLToolCompRotate();
 
 	// Overridden from LLToolComposite
-    virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleHover(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual void		render();
 
@@ -195,14 +195,14 @@ public:
 	virtual ~LLToolCompCreate();
 
 	// Overridden from LLToolComposite
-    virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
-    virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
 	
 	static void pickCallback(const LLPickInfo& pick_info);
 protected:
 	LLToolPlacer*		mPlacer;
-	BOOL				mObjectPlacedOnMouseDown;
+	BOOL			mObjectPlacedOnMouseDown;
 };
 
 
@@ -220,7 +220,7 @@ public:
 	virtual ~LLToolCompGun();
 
 	// Overridden from LLToolComposite
-    virtual BOOL			handleHover(S32 x, S32 y, MASK mask);
+	virtual BOOL			handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL			handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL			handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL			handleRightMouseDown(S32 x, S32 y, MASK mask);
