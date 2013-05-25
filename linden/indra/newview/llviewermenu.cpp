@@ -1098,10 +1098,10 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
 	menu->append(new LLMenuItemCallGL( "Dump SelectMgr", &dump_select_mgr));
 	menu->append(new LLMenuItemCallGL( "Dump Inventory", &dump_inventory));
-	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus, NULL, NULL, 'F', MASK_ALT | MASK_CONTROL));
-	menu->append(new LLMenuItemCallGL( "Print Selected Object Info",	&print_object_info, NULL, NULL, 'P', MASK_CONTROL|MASK_SHIFT ));
-	menu->append(new LLMenuItemCallGL( "Print Agent Info",			&print_agent_nvpairs, NULL, NULL, 'P', MASK_SHIFT ));
-	menu->append(new LLMenuItemCallGL( "Memory Stats",  &output_statistics, NULL, NULL, 'M', MASK_SHIFT | MASK_ALT | MASK_CONTROL));
+	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus));
+	menu->append(new LLMenuItemCallGL( "Print Selected Object Info",	&print_object_info));
+	menu->append(new LLMenuItemCallGL( "Print Agent Info",			&print_agent_nvpairs));
+	menu->append(new LLMenuItemCallGL( "Memory Stats",  &output_statistics));
 	menu->append(new LLMenuItemCheckGL("Double-Click Auto-Pilot", 
 		menu_toggle_control, NULL, menu_check_control, 
 		(void*)"DoubleClickAutoPilot"));

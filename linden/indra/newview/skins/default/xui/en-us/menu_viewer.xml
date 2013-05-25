@@ -1654,23 +1654,17 @@
       <menu_item_call name="Dump Inventory" label="Dump Inventory">
         <on_click function="Advanced.DumpInventory" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Dump Focus Holder"
-                      label="Dump Focus Holder"
-                      shortcut="control|alt|F">
+      <menu_item_call name="Dump Focus Holder" label="Dump Focus Holder">
         <on_click function="Advanced.DumpFocusHolder" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Print Selected Object Info"
-                      label="Print Selected Object Info"
-                      shortcut="control|shift|P">
+      <menu_item_call name="Print Selected Object Info" label="Print Selected Object Info">
         <on_click function="Advanced.PrintSelectedObjectInfo"
                   userdata="" />
       </menu_item_call>
-      <menu_item_call name="Print Agent Info"
-                      label="Print Agent Info" shortcut="shift|P">
+      <menu_item_call name="Print Agent Info" label="Print Agent Info">
         <on_click function="Advanced.PrintAgentInfo" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Memory Stats" label="Memory Stats"
-                      shortcut="control|alt|shift|M">
+      <menu_item_call name="Memory Stats" label="Memory Stats">
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>
