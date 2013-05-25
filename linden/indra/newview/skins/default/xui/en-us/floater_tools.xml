@@ -69,20 +69,24 @@
 
 	<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Position" left="4" mouse_opaque="true"
-	     name="radio position" radio_style="true" width="114" />
+	     name="radio position" radio_style="true" width="114"
+	     tool_tip="Position selected prims (Ctrl-Shift-P)." />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Rotate (Ctrl)" left="4" mouse_opaque="true"
-	     name="radio rotate" radio_style="true" width="114" />
+	     name="radio rotate" radio_style="true" width="114"
+	     tool_tip="Rotate selected prims (Ctrl)." />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Stretch (Ctrl-Shift)" left="4"
-	     mouse_opaque="true" name="radio stretch" radio_style="true" width="123" />
+	     mouse_opaque="true" name="radio stretch" radio_style="true" width="123"
+	     tool_tip="Resize selected prims (Ctrl-Shift)." />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select faces to texture" left="4" mouse_opaque="true"
-	     name="radio select face" radio_style="true" width="114" />
+	     name="radio select face" radio_style="true" width="114"
+	     tool_tip="Select faces of prims to texture (Ctrl-Alt-F)." />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Align (Shift to Pack)" left="4" mouse_opaque="true"
 	     name="radio align" radio_style="true" width="114"
-       tool_tip="Align aligns all selected prims' edges along an axis, Pack moves all selected prims' edges so they're touching" />
+	     tool_tip="Align (Ctrl-Alt-M) aligns all selected prims edges along an axis.  Pack (Ctrl-Alt-Shift-M) moves all selected prims edges so they're touching." />
 	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Edit linked parts" left="4" mouse_opaque="true"
@@ -1364,10 +1368,10 @@
 		Drag to Move, Shift-Drag to Copy
 	</string>
 	<string name="status_selectface">
-		Click to selet a Face for texturing
+		Click to select a Face for texturing
 	</string>
 	<string name="status_align">
-		CTRL-A to align on an axis, CTRL-Shift-A to Pack 
+		Click to Align, Shift-Click to Pack 
 	</string>
 	<string name="status_modifyland">
 		Click and Hold to Modify Land
@@ -1382,7 +1386,7 @@
 		Click Inworld to Build
 	</string>
 	<string name="status_selectland">
-		Click and Drag to Select Land
+		Click and Drag to select Land
 	</string>
 	<string name="grid_screen_text">
 		Screen

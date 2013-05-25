@@ -84,6 +84,9 @@ public:
 								{ mCur->localPointToScreen(local_x, local_y, screen_x, screen_y); }
 
 	BOOL					isSelecting();
+
+	virtual LLTool*			getOverrideTool(MASK mask);
+
 protected:
 	void					setCurrentTool( LLTool* new_tool );
 	LLTool*					getCurrentTool()								{ return mCur; }
@@ -135,8 +138,6 @@ public:
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);			// Returns to the default tool
 	virtual void		render();
 
-	virtual LLTool*		getOverrideTool(MASK mask);
-
 	static void pickCallback(const LLPickInfo& pick_info);
 };
 
@@ -156,8 +157,6 @@ public:
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);			// Returns to the default tool
 	virtual void		render();
 
-	virtual LLTool*		getOverrideTool(MASK mask);
-	
 	static void pickCallback(const LLPickInfo& pick_info);
 };
 
@@ -178,11 +177,7 @@ public:
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual void		render();
 
-	virtual LLTool*		getOverrideTool(MASK mask);
-
 	static void pickCallback(const LLPickInfo& pick_info);
-
-protected:
 };
 
 //-----------------------------------------------------------------------

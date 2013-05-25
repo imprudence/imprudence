@@ -13,6 +13,7 @@
 #define Q_QTOOLALIGN_H
 
 #include "lltool.h"
+#include "lltoolcomp.h"
 #include "llbbox.h"
 
 class LLViewerObject;
@@ -20,7 +21,7 @@ class LLPickInfo;
 class LLToolSelectRect;
 
 class QToolAlign
-:	public LLTool, public LLSingleton<QToolAlign>
+:	public LLToolComposite, public LLSingleton<QToolAlign>
 {
 public:
 	QToolAlign();
@@ -29,6 +30,7 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL    handleHover(S32 x, S32 y, MASK mask);
 	virtual void	render();
 

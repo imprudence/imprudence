@@ -57,7 +57,7 @@
 //
 
 LLToolFace::LLToolFace()
-:	LLTool(std::string("Texture"))
+:	LLToolComposite(std::string("Texture"))
 { }
 
 

@@ -36,7 +36,7 @@ const F32 MANIPULATOR_SELECT_SIZE = 20.0;
 
 
 QToolAlign::QToolAlign()
-:	LLTool(std::string("Align"))
+:	LLToolComposite(std::string("Align"))
 {
 }
 
@@ -60,6 +60,11 @@ BOOL QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
+
+BOOL QToolAlign::handleDoubleClick(S32 x, S32 y, MASK mask)
+{
+	return TRUE;
+}
 
 
 void QToolAlign::pickCallback(const LLPickInfo& pick_info)
@@ -94,7 +99,7 @@ void QToolAlign::pickCallback(const LLPickInfo& pick_info)
 	}
 	else
 	{
-		if (!(pick_info.mKeyMask == MASK_SHIFT))
+		if (!(pick_info.mKeyMask & MASK_SHIFT))
 		{
 			LLSelectMgr::getInstance()->deselectAll();
 		}
