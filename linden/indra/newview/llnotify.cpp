@@ -141,11 +141,13 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 	  mNumOptions(0),
 	  mNumButtons(0),
 	  mAddedDefaultBtn(FALSE),
-	  mLayoutScriptDialog(layout_script_dialog)
+	  mLayoutScriptDialog(layout_script_dialog),
+	  mUserInputBox(NULL)
 {
-	// clicking on a button does not steal current focus
-	setIsChrome(TRUE);
 
+	std::string edit_text_name;
+	std::string edit_text_contents;
+	
 	// class init
 	if (!sFont)
 	{
@@ -176,9 +178,11 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 	LLNotificationFormPtr form(notification->getForm());
 
 	mNumOptions = form->getNumElements();
+	
+	bool is_textbox = form->getElement("message").isDefined();
 		  
 	LLRect rect = mIsTip ? getNotifyTipRect(mMessage)
-		   		  		 : getNotifyRect(mNumOptions, layout_script_dialog, mIsCaution);
+		   		  		 : getNotifyRect(is_textbox ? 10 : mNumOptions, layout_script_dialog, mIsCaution);
 	setRect(rect);
 	setFollows(mIsTip ? (FOLLOWS_BOTTOM|FOLLOWS_RIGHT) : (FOLLOWS_TOP|FOLLOWS_RIGHT));
 	setBackgroundVisible(FALSE);
@@ -307,12 +311,43 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 		{
 
 			LLSD form_element = form->getElement(i);
-			if (form_element["type"].asString() != "button") 
+			std::string element_type = form_element["type"].asString();
+			if (element_type == "button")  
 			{
-				continue;
+				addButton(form_element["name"].asString(), form_element["text"].asString(), TRUE, form_element["default"].asBoolean());
+			}
+			else if (element_type == "input")
+			{
+				edit_text_contents = form_element["value"].asString();
+				edit_text_name = form_element["name"].asString();
 			}
 
-			addButton(form_element["name"].asString(), form_element["text"].asString(), TRUE, form_element["default"].asBoolean());
+		}
+
+		if (is_textbox)
+		{
+			S32 button_rows = (layout_script_dialog) ? 2 : 1;
+			
+			LLRect input_rect;
+			input_rect.setOriginAndSize(x, BOTTOM_PAD + button_rows * (BTN_HEIGHT + VPAD),
+			            3 * 80 + 4 * HPAD, button_rows * (BTN_HEIGHT + VPAD) + BTN_HEIGHT);
+			
+			mUserInputBox = new LLTextEditor(edit_text_name, input_rect, 254,
+			               edit_text_contents, sFont, FALSE);
+			mUserInputBox->setBorderVisible(TRUE);
+			mUserInputBox->setTakesNonScrollClicks(TRUE);
+			mUserInputBox->setHideScrollbarForShortDocs(TRUE);
+			mUserInputBox->setWordWrap(TRUE);
+			mUserInputBox->setTabsToNextField(FALSE);
+			mUserInputBox->setCommitOnFocusLost(FALSE);
+			mUserInputBox->setAcceptCallingCardNames(FALSE);
+			mUserInputBox->setHandleEditKeysDirectly(TRUE);
+			
+			addChild(mUserInputBox, -1);
+		}
+		else
+		{
+			setIsChrome(TRUE);
 		}
 
 		if (mNumButtons == 0)
@@ -753,6 +788,10 @@ void LLNotifyBox::onClickButton(void* data)
 	if (!self->mAddedDefaultBtn && !button_name.empty())
 	{
 		response[button_name] = true;
+	}
+	if (self->mUserInputBox)
+	{
+		response[self->mUserInputBox->getName()] = self->mUserInputBox->getValue();
 	}
 	self->mNotification->respond(response);
 }
