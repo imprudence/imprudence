@@ -41,6 +41,7 @@
 
 class LLButton;
 class LLNotifyBoxTemplate;
+class LLTextEditor;
 
 // NotifyBox - for notifications that require a response from the user.  
 class LLNotifyBox : 
@@ -103,6 +104,8 @@ private:
 protected:
 	std::string mMessage;
 
+	LLTextEditor *mUserInputBox;
+	
 	LLNotificationPtr mNotification;
 	BOOL mIsTip;
 	BOOL mIsCaution; // is this a caution notification?
