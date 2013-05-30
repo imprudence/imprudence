@@ -6419,6 +6419,26 @@ Grant this request?
 
 <notification
  icon="notify.tga"
+ name="ScriptTextBoxDialog"
+ type="notify">
+[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+  <form name="form">
+    <input name="message">
+    </input>
+    <button
+     index="-1"
+     name="Ignore"
+     text="Ignore"/>
+    <button
+     index="0"
+     name="Send"
+     text="Send"/>
+  </form>
+</notification>
+
+<notification
+ icon="notify.tga"
  name="FirstBalanceIncrease"
  type="notify">
 You just received [CURRENCY][AMOUNT].
