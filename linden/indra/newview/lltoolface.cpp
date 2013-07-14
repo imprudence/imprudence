@@ -57,7 +57,7 @@
 //
 
 LLToolFace::LLToolFace()
-:	LLTool(std::string("Texture"))
+:	LLToolComposite(std::string("Texture"))
 { }
 
 
@@ -156,6 +156,7 @@ void LLToolFace::pickCallback(const LLPickInfo& pick_info)
 
 void LLToolFace::handleSelect()
 {
+	gFloaterTools->setStatusText("selectface");
 	// From now on, draw faces
 	LLSelectMgr::getInstance()->setTEMode(TRUE);
 }

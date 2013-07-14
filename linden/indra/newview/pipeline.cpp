@@ -232,6 +232,7 @@ BOOL	LLPipeline::sPickAvatar = TRUE;
 BOOL	LLPipeline::sDynamicLOD = TRUE;
 BOOL	LLPipeline::sShowHUDAttachments = TRUE;
 BOOL	LLPipeline::sRenderPhysicalBeacons = TRUE;
+BOOL	LLPipeline::sRenderMOAPBeacons = FALSE;
 BOOL	LLPipeline::sRenderScriptedBeacons = FALSE;
 BOOL	LLPipeline::sRenderScriptedTouchBeacons = TRUE;
 BOOL	LLPipeline::sRenderParticleBeacons = FALSE;
@@ -2149,6 +2150,43 @@ void renderPhysicalBeacons(LLDrawable* drawablep)
 	}
 }
 
+void renderMOAPBeacons(LLDrawable* drawablep)
+{
+	LLViewerObject *vobj = drawablep->getVObj();
+
+	if(!vobj || vobj->isAvatar())
+		return;
+
+	BOOL beacon=FALSE;
+	U8 tecount=vobj->getNumTEs();
+	for(int x=0;x<tecount;x++)
+	{
+		if(vobj->getTE(x)->hasMedia())
+		{
+			beacon=TRUE;
+			break;
+		}
+	}
+	if(beacon==TRUE)
+	{
+		if (gPipeline.sRenderBeacons)
+		{
+			gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(0.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
+		}
+
+		if (gPipeline.sRenderHighlight)
+		{
+			S32 face_id;
+			S32 count = drawablep->getNumFaces();
+			for (face_id = 0; face_id < count; face_id++)
+			{
+				gPipeline.mHighlightFaces.push_back(drawablep->getFace(face_id) );
+			}
+		}
+	}
+}
+
+
 void renderParticleBeacons(LLDrawable* drawablep)
 {
 	// Look for attachments, objects, etc.
@@ -2231,17 +2269,11 @@ void LLPipeline::postSort(LLCamera& camera)
 	const S32 bin_count = 1024*8;
 		
 	static LLCullResult::drawinfo_list_t alpha_bins[bin_count];
-	static U32 bin_size[bin_count];
 
 	//clear one bin per frame to avoid memory bloat
 	static S32 clear_idx = 0;
 	clear_idx = (1+clear_idx)%bin_count;
 	alpha_bins[clear_idx].clear();
-
-	for (U32 j = 0; j < bin_count; j++)
-	{
-		bin_size[j] = 0;
-	}
 
 	//build render map
 	for (LLCullResult::sg_list_t::iterator i = sCull->beginVisibleGroups(); i != sCull->endVisibleGroups(); ++i)
@@ -2327,6 +2359,11 @@ void LLPipeline::postSort(LLCamera& camera)
 		{
 			// Only show the beacon on the root object.
 			forAllVisibleDrawables(renderPhysicalBeacons);
+		}
+
+		if(sRenderMOAPBeacons)
+		{
+			forAllVisibleDrawables(renderMOAPBeacons);
 		}
 
 		if (sRenderParticleBeacons)
@@ -4563,6 +4600,24 @@ BOOL LLPipeline::getRenderScriptedTouchBeacons(void*)
 }
 
 // static
+void LLPipeline::setRenderMOAPBeacons(BOOL val)
+{
+	sRenderMOAPBeacons = val;
+}
+
+// static
+void LLPipeline::toggleRenderMOAPBeacons(void*)
+{
+	sRenderMOAPBeacons = !sRenderMOAPBeacons;
+}
+
+// static
+BOOL LLPipeline::getRenderMOAPBeacons(void*)
+{
+	return sRenderMOAPBeacons;
+}
+
+// static
 void LLPipeline::setRenderPhysicalBeacons(BOOL val)
 {
 	sRenderPhysicalBeacons = val;
@@ -5894,8 +5949,6 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 			gGL.setColorMask(true, false);
 
 			stop_glerror();
-
-			LLVector3 origin = camera.getOrigin();
 
 			glPushMatrix();
 

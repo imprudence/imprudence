@@ -54,10 +54,11 @@ class ViewerInfo:
         self.major = re.search('MAJOR\s*=\s*(\d+)',     data).group(1)
         self.minor = re.search('MINOR\s*=\s*(\d+)',     data).group(1)
         self.patch = re.search('PATCH\s*=\s*(\d+)',     data).group(1)
+        self.release = re.search('RLEAS\s*=\s*(\d+)',     data).group(1)
         self.extra = re.search('EXTRA\s*=\s*"([^"]*)"', data).group(1)
         self.bundle_id = re.search('BUNDLE_ID\s*=\s*"([^"]*)"', data).group(1)
 
-        self.version = "%s.%s.%s"%(self.major, self.minor, self.patch)
+        self.version = "%s.%s.%s.%s"%(self.major, self.minor, self.patch, self.release)
         if len(self.extra) > 0:
             # Replace spaces and some puncuation with '-' in extra
             extra = re.sub('[- \t:;,!+/\\"\'`]+', '-', self.extra)

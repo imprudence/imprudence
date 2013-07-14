@@ -283,7 +283,6 @@ void LLSlider::draw()
 
 	F32 opacity = getEnabled() ? 1.f : 0.3f;
 	LLColor4 center_color = (mThumbCenterColor % opacity);
-	LLColor4 track_color = (mTrackColor % opacity);
 
 	// Track
 	LLRect track_rect(mThumbImage->getWidth() / 2, 

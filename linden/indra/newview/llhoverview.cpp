@@ -546,14 +546,15 @@ void LLHoverView::updateText()
 
 		LLParcel* hover_parcel = LLViewerParcelMgr::getInstance()->getHoverParcel();
 		LLUUID owner;
-		S32 width = 0;
-		S32 height = 0;
+		// Their use is commented out below.  No doubt both will get deleted on a later clean up pass.
+		//S32 width = 0;
+		//S32 height = 0;
 
 		if ( hover_parcel )
 		{
 			owner = hover_parcel->getOwnerID();
-			width = S32(LLViewerParcelMgr::getInstance()->getHoverParcelWidth());
-			height = S32(LLViewerParcelMgr::getInstance()->getHoverParcelHeight());
+		//	width = S32(LLViewerParcelMgr::getInstance()->getHoverParcelWidth());
+		//	height = S32(LLViewerParcelMgr::getInstance()->getHoverParcelHeight());
 		}
 
 		// Line: "Land"

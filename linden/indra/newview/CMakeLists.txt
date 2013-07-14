@@ -92,7 +92,7 @@ set(viewer_SOURCE_FILES
     jcfloaterareasearch.cpp
     kokuastreamingaudio.cpp
     kowopenregionsettings.cpp
-    lightshare.cpp
+    llettherebelight.cpp
     llagent.cpp
     llagentaccess.cpp
     llagentdata.cpp
@@ -274,6 +274,7 @@ set(viewer_SOURCE_FILES
     llmaniprotate.cpp
     llmanipscale.cpp
     llmaniptranslate.cpp
+	llmediadataclient.cpp
     llmapresponders.cpp
     llmediaremotectrl.cpp
     llmemoryview.cpp
@@ -506,6 +507,7 @@ set(viewer_SOURCE_FILES
     wlfloatermanager.cpp
     wlfloaterwindlightsend.cpp
     wlretrievesettings.cpp
+    rcmoapradar.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -529,7 +531,7 @@ set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
     aoremotectrl.h
-	chatbar_as_cmdline.h
+    chatbar_as_cmdline.h
     emeraldboobutils.h
     floaterao.h
     floaterbusy.h
@@ -548,11 +550,11 @@ set(viewer_HEADER_FILES
     jcfloater_animation_list.h
     jcfloaterareasearch.h
     kokuastreamingaudio.h
-    lightshare.h
-	lggautocorrectfloater.h
-	lggautocorrect.h
-	lggdicdownload.h
-	lgghunspell_wrapper.h
+    llettherebelight.h
+    lggautocorrectfloater.h
+    lggautocorrect.h
+    lggdicdownload.h
+    lgghunspell_wrapper.h
     llagent.h
     llagentaccess.h
     llagentdata.h
@@ -735,6 +737,7 @@ set(viewer_HEADER_FILES
     llmaniprotate.h
     llmanipscale.h
     llmaniptranslate.h
+    llmediadataclient.h
     llmapresponders.h
     llmediaremotectrl.h
     llmemoryview.h
@@ -978,6 +981,7 @@ set(viewer_HEADER_FILES
     wlfloatermanager.h
     wlfloaterwindlightsend.h
     wlretrievesettings.h
+    rcmoapradar.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
@@ -1197,19 +1201,15 @@ set(viewer_APPSETTINGS_FILES
     app_settings/cmd_line.xml
     app_settings/default_grids.xml
     app_settings/grass.xml
-    app_settings/high_graphics.xml
     app_settings/keys.ini
     app_settings/keywords.ini
     app_settings/logcontrol.xml
-    app_settings/low_graphics.xml
-    app_settings/mid_graphics.xml
     app_settings/settings.xml
     app_settings/settings_crash_behavior.xml
     app_settings/settings_files.xml
     app_settings/settings_per_account.xml
     app_settings/std_bump.ini
     app_settings/trees.xml
-    app_settings/ultra_graphics.xml
     app_settings/viewerart.xml
     ${CMAKE_SOURCE_DIR}/../etc/message.xml
     ${CMAKE_SOURCE_DIR}/../scripts/messages/message_template.msg
@@ -1319,7 +1319,7 @@ if (WINDOWS)
 
     # sets the 'working directory' for debugging from visual studio.
     if (NOT UNATTENDED)
-		if (NOT self.using_express)
+		if (USE_VSTOOL)
 			add_custom_command(
 				TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
 				COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
@@ -1331,7 +1331,7 @@ if (WINDOWS)
 				  ${CMAKE_CURRENT_SOURCE_DIR}
 				COMMENT "Setting the ${VIEWER_BINARY_NAME} working directory for debugging."
 				)
-		endif (NOT self.using_express)
+		endif (USE_VSTOOL)
     endif (NOT UNATTENDED)
 
     add_custom_command(
@@ -1341,7 +1341,7 @@ if (WINDOWS)
           -E
           copy_if_different
           ${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/messages/message_template.msg
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/app_settings/message_template.msg
+          ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/app_settings/message_template.msg
         COMMENT "Copying message_template.msg to the runtime folder."
         )
 
@@ -1352,7 +1352,7 @@ if (WINDOWS)
           -E
           copy_if_different
           ${CMAKE_CURRENT_SOURCE_DIR}/../../etc/message.xml
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/app_settings/message.xml
+          ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/app_settings/message.xml
         COMMENT "Copying message.xml to the runtime folder."
         )
        
@@ -1363,11 +1363,11 @@ if (WINDOWS)
     endif (EXISTS ${CMAKE_SOURCE_DIR}/copy_win_scripts)
         
     add_custom_command(
-        OUTPUT ${CMAKE_CFG_INTDIR}/touched.bat
+        OUTPUT ${VIEWER_CFG_INTDIR}/touched.bat
         COMMAND ${PYTHON_EXECUTABLE}
         ARGS
           ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --configuration=${CMAKE_CFG_INTDIR}
+          --configuration=${VIEWER_CFG_INTDIR}
           --channel=${VIEWER_CHANNEL}
           --login_channel=${VIEWER_LOGIN_CHANNEL}
           --standalone=${STANDALONE}
@@ -1376,15 +1376,15 @@ if (WINDOWS)
           --source=${CMAKE_CURRENT_SOURCE_DIR}
               --artwork=${ARTWORK_DIR}
               --build=${CMAKE_CURRENT_BINARY_DIR}
-              --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/package
-              --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/touched.bat
+              --dest=${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/package
+              --touch=${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/touched.bat
         DEPENDS ${VIEWER_BINARY_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         )
 
     add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_quicktime media_plugin_webkit media_plugin_gstreamer010)
 
     if (PACKAGE)
-      add_custom_target(package ALL DEPENDS ${CMAKE_CFG_INTDIR}/touched.bat)
+      add_custom_target(package ALL DEPENDS ${VIEWER_CFG_INTDIR}/touched.bat)
       add_dependencies(package windows-updater windows-crash-logger)
     endif (PACKAGE)
 endif (WINDOWS)
@@ -1519,8 +1519,8 @@ if (DARWIN)
       --artwork=${ARTWORK_DIR}
       --build=${CMAKE_CURRENT_BINARY_DIR}
       --buildtype=${CMAKE_BUILD_TYPE}
-      --configuration=${CMAKE_CFG_INTDIR}
-      --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
+      --configuration=${VIEWER_CFG_INTDIR}
+      --dest=${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/${product}.app
       --grid=${GRID}
       --source=${CMAKE_CURRENT_SOURCE_DIR}
       --standalone=${STANDALONE}
@@ -1551,8 +1551,8 @@ if (WINDOWS)
       -E
       copy_if_different
       ${BUILT_LLCOMMON}
-      ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-      COMMENT "Copying llcommon.dll to the runtime folder."
+      ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}
+      COMMENT "Copying llcommon.dll to the runtime folder ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}."
       )
 
   get_target_property(BUILT_SLPLUGIN SLPlugin LOCATION)
@@ -1563,8 +1563,8 @@ if (WINDOWS)
         -E
         copy_if_different
         ${BUILT_SLPLUGIN}
-        ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-      COMMENT "Copying SLPlugin executable to the runtime folder."
+        ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}
+      COMMENT "Copying SLPlugin executable to the runtime folder ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}."
       )
 
   get_target_property(BUILT_WEBKIT_PLUGIN media_plugin_webkit LOCATION)
@@ -1575,8 +1575,8 @@ if (WINDOWS)
           -E
           copy_if_different
           ${BUILT_WEBKIT_PLUGIN}
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin
-        COMMENT "Copying WebKit Plugin to the runtime folder."
+          ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin
+        COMMENT "Copying WebKit Plugin to the runtime folder ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin."
         )
         
    get_target_property(BUILT_GSTREAMER_PLUGIN media_plugin_gstreamer010 LOCATION)
@@ -1587,8 +1587,8 @@ if (WINDOWS)
           -E
           copy_if_different
           ${BUILT_GSTREAMER_PLUGIN}
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin
-        COMMENT "Copying Gstreamer Plugin to the runtime folder."
+          ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin
+        COMMENT "Copying Gstreamer Plugin to the runtime folder ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin."
         )
         
   get_target_property(BUILT_QUICKTIME_PLUGIN media_plugin_quicktime LOCATION)
@@ -1599,13 +1599,13 @@ if (WINDOWS)
           -E
           copy_if_different
           ${BUILT_QUICKTIME_PLUGIN}
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin
-        COMMENT "Copying Quicktime Plugin to the runtime folder."
+          ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin
+        COMMENT "Copying Quicktime Plugin to the runtime folder ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin."
         )
 
   # Copying the mime_types.xml file to app_settings
   set(mime_types_source "${CMAKE_SOURCE_DIR}/newview/skins/default/xui/en-us")
-  set(mime_types_dest "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/app_settings")
+  set(mime_types_dest "${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/app_settings")
   add_custom_command(
       TARGET ${VIEWER_BINARY_NAME} POST_BUILD
       COMMAND ${CMAKE_COMMAND}
@@ -1622,7 +1622,7 @@ endif (WINDOWS)
 if (DARWIN)
 # Don't do this here -- it's taken care of by viewer_manifest.py
 #  add_custom_command(TARGET ${VIEWER_BINARY_NAME} POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../libraries/universal-darwin/lib_release/libllqtwebkit.dylib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llplugin/
+#    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../libraries/universal-darwin/lib_release/libllqtwebkit.dylib ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/llplugin/
 #    DEPENDS ${CMAKE_SOURCE_DIR}/../libraries/universal-darwin/lib_release/libllqtwebkit.dylib
 #  )
 endif (DARWIN)

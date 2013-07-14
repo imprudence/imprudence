@@ -150,7 +150,9 @@ void LLScriptLSOParse::printGlobals(LLFILE *fp)
 
 		// get offset to skip past name
 		varoffset = global_v_offset;
+		// FIXME: Not actually used, perhaps there's a skip function?  Or perhaps we really do need to skip past a name as the above comment suggests?
 		offset = bytestream2integer(mRawData, global_v_offset);
+		offset = offset + 0;
 		
 		// get typeexport
 		type = *(mRawData + global_v_offset++);
@@ -268,8 +270,6 @@ void LLScriptLSOParse::printGlobalFunctions(LLFILE *fp)
 		fprintf(fp, "[Function #%d] [0x%X] %s\n", function_number, orig_function_offset, name);
 		fprintf(fp, "\tReturn Type: %s\n", LSCRIPTTypeNames[type]);
 		type = *(mRawData + function_offset++);
-		S32 params;
-		params = 0;
 		S32 pcount = 0;
 		while (type)
 		{
@@ -362,7 +362,9 @@ void LLScriptLSOParse::printStates(LLFILE *fp)
 					if (event_handlers & LSCRIPTStateBitField[k])
 					{
 						temp_end = bytestream2integer(mRawData, read_ahead);
+						// FIXME onefang: Dummy is not actually used, but perhaps this is here to stop a warning?  We need to stop another warning now.  Some sort of skip might be better.
 						dummy = bytestream2integer(mRawData, read_ahead);
+						dummy = dummy + 0;
 						if (  (temp_end < opcode_end)
 							&&(temp_end > event_offset))
 						{

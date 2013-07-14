@@ -494,7 +494,6 @@ F32 LLDrawable::updateXform(BOOL undamped)
 	//scaling
 	LLVector3 target_scale = mVObjp->getScale();
 	LLVector3 old_scale = mCurrentScale;
-	LLVector3 dest_scale = target_scale;
 	
 	// Damping
 	F32 dist_squared = 0.f;
@@ -834,7 +833,6 @@ const LLVector3* LLDrawable::getSpatialExtents() const
 
 void LLDrawable::setSpatialExtents(LLVector3 min, LLVector3 max)
 { 
-	LLVector3 size = max - min;
 	mExtents[0] = min; 
 	mExtents[1] = max; 
 }
@@ -1098,7 +1096,6 @@ LLCamera LLSpatialBridge::transformCamera(LLCamera& camera)
 	LLCamera ret = camera;
 	LLXformMatrix* mat = mDrawable->getXform();
 	LLVector3 center = LLVector3(0,0,0) * mat->getWorldMatrix();
-	LLQuaternion rotation = LLQuaternion(mat->getWorldMatrix());
 
 	LLVector3 delta = ret.getOrigin() - center;
 	LLQuaternion rot = ~mat->getRotation();

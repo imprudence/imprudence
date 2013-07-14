@@ -69,7 +69,7 @@
 
 #include "llwlparammanager.h"
 #include "llwaterparamset.h"
-#include "lightshare.h"
+#include "llettherebelight.h"
 #include "llpostprocess.h"
 #include "llfloaterwater.h"
 

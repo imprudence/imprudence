@@ -36,12 +36,16 @@
 #include "llviewerobject.h"
 #include "llviewerimage.h"
 #include "llframetimer.h"
+#include "llmediadataclient.h"
+#include "llviewermedia.h"
 #include "llapr.h"
 #include <map>
 
 class LLViewerTextureAnim;
 class LLDrawPool;
 class LLSelectNode;
+
+typedef std::vector<viewer_media_t> media_list_t;
 
 enum LLVolumeInterfaceType
 {
@@ -217,12 +221,57 @@ public:
 
 	// tag: vaa emerald local_asset_browser
 	void setSculptChanged(BOOL has_changed) { mSculptChanged = has_changed; }
+	
+ 
+	   // Functions that deal with media, or media navigation
+     
+     // Update this object's media data with the given media data array
+     // (typically this is only called upon a response from a server request)
+ 	void updateObjectMediaData(const LLSD &media_data_array, const std::string &media_version);
+     
+     // Bounce back media at the given index to its current URL (or home URL, if current URL is empty)
+ 	void mediaNavigateBounceBack(U8 texture_index);
+     
+     // Returns whether or not this object has permission to navigate or control 
+ 	// the given media entry
+ 	enum MediaPermType {
+ 		MEDIA_PERM_INTERACT, MEDIA_PERM_CONTROL
+ 	};
+     bool hasMediaPermission(const LLMediaEntry* media_entry, MediaPermType perm_type);
+     
+ 	void mediaNavigated(LLViewerMediaImpl *impl, LLPluginClassMedia* plugin, std::string new_location);
+ 	void mediaEvent(LLViewerMediaImpl *impl, LLPluginClassMedia* plugin, LLViewerMediaObserver::EMediaEvent event);
+ 
+ 	// Sync the given media data with the impl and the given te
+ 	void syncMediaData(S32 te, const LLSD &media_data, bool merge, bool ignore_agent);
+ 	
+ 	// Send media data update to the simulator.
+ 	void sendMediaDataUpdate();
+ 
+ 	viewer_media_t getMediaImpl(U8 face_id) const;
+ 	S32 getFaceIndexWithMediaImpl(const LLViewerMediaImpl* media_impl, S32 start_face_id);
+ 	F64 getTotalMediaInterest() const;
+    
+ 	bool hasMedia() const;
+ 	
+ 	LLVector3 getApproximateFaceNormal(U8 face_id);
+ 	
+ 	// Returns 'true' iff the media data for this object is in flight
+ 	bool isMediaDataBeingFetched() const;
+ 	
+ 	// Returns the "last fetched" media version, or -1 if not fetched yet
+ 	S32 getLastFetchedMediaVersion() const { return mLastFetchedMediaVersion; }
 			
 protected:
 	S32	computeLODDetail(F32	distance, F32 radius);
 	BOOL calcLOD();
 	LLFace* addFace(S32 face_index);
 	void updateTEData();
+
+	void requestMediaDataUpdate(bool isNew);
+	void cleanUpMediaImpls();
+	void addMediaImpl(LLViewerMediaImpl* media_impl, S32 texture_index) ;
+	void removeMediaImpl(S32 texture_index) ;
 
 public:
 	LLViewerTextureAnim *mTextureAnimp;
@@ -242,12 +291,16 @@ private:
 	LLVolumeInterface *mVolumeImpl;
 	LLPointer<LLViewerImage> mSculptTexture;
 	S32 mIndexInTex;		// index of this volume in the texture's volume list
+	media_list_t mMediaImplList;
+ 	S32			mLastFetchedMediaVersion; // as fetched from the server, starts as -1
 	
 	// statics
 public:
 	static F32 sLODSlopDistanceFactor;// Changing this to zero, effectively disables the LOD transition slop 
 	static F32 sLODFactor;				// LOD scale factor
 	static F32 sDistanceFactor;			// LOD distance factor
+	static LLPointer<LLObjectMediaDataClient> sObjectMediaClient;
+ 	static LLPointer<LLObjectMediaNavigateClient> sObjectMediaNavigateClient;
 		
 protected:
 	static S32 sNumLODChanges;

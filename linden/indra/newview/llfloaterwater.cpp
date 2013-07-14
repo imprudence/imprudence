@@ -761,13 +761,11 @@ bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& r
 		LLComboBox* combo_box = sWaterMenu->getChild<LLComboBox>("WaterPresetsCombo");
 		LLFloaterDayCycle* day_cycle = NULL;
 		LLComboBox* key_combo = NULL;
-		LLMultiSliderCtrl* mult_sldr = NULL;
 
 		if(LLFloaterDayCycle::isOpen())
 		{
 			day_cycle = LLFloaterDayCycle::instance();
 			key_combo = day_cycle->getChild<LLComboBox>("WaterKeyPresets");
-			mult_sldr = day_cycle->getChild<LLMultiSliderCtrl>("WaterDayCycleKeys");
 		}
 
 		std::string name = combo_box->getSelectedValue().asString();

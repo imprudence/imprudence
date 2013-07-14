@@ -356,7 +356,6 @@ void LLPanelMediaHUD::updateShape()
 		media_hud_rect.mRight += getRect().getWidth() - media_region->getRect().mRight;
 
 
-		LLRect old_hud_rect = media_hud_rect;
 		// keep all parts of HUD on-screen
 		media_hud_rect.intersectWith(getParent()->getLocalRect());
 

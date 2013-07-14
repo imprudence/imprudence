@@ -206,6 +206,8 @@
 #include "rlvhandler.h"
 // [/RLVa:KB]
 
+#include "rcmoapradar.h"
+
 #if LL_WINDOWS
 #include "llwindebug.h"
 #include "lldxhardware.h"
@@ -346,7 +348,6 @@ bool idle_startup()
 	const F32 TIMEOUT_SECONDS = 10.f; // changed from 5 to 10 seconds for OpenSim lag -- MC
 	const S32 MAX_TIMEOUT_COUNT = 3;
 	static LLTimer timeout;
-	static S32 timeout_count = 0;
 
 	static LLTimer login_time;
 	static LLTimer connecting_region_timer;
@@ -378,11 +379,10 @@ bool idle_startup()
 
 	// last location by default
 	static S32  agent_location_id = START_LOCATION_ID_LAST;
-	static S32  location_which = START_LOCATION_ID_LAST;
 
 	static bool show_connect_box = true;
 
-	static bool stipend_since_login = false;
+	//static bool stipend_since_login = false;
 
 	static bool samename = false;
 
@@ -797,8 +797,6 @@ bool idle_startup()
 		
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 
-		timeout_count = 0;
-		
 		if (LLStartUp::shouldAutoLogin())
 		{
 			show_connect_box = false;
@@ -1111,7 +1109,6 @@ bool idle_startup()
 		{
 			// Force login at the last location
 			agent_location_id = START_LOCATION_ID_LAST;
-			location_which = START_LOCATION_ID_LAST;
 			gSavedSettings.setBOOL("LoginLastLocation", FALSE);
 			
 			// Clear some things that would cause us to divert to a user-specified location
@@ -1123,21 +1120,14 @@ bool idle_startup()
 		{
 			// a startup URL was specified
 			agent_location_id = START_LOCATION_ID_URL;
-
-			// doesn't really matter what location_which is, since
-			// agent_start_look_at will be overwritten when the
-			// UserLoginLocationReply arrives
-			location_which = START_LOCATION_ID_LAST;
 		}
 		else if (gSavedSettings.getBOOL("LoginLastLocation"))
 		{
 			agent_location_id = START_LOCATION_ID_LAST;	// last location
-			location_which = START_LOCATION_ID_LAST;
 		}
 		else
 		{
 			agent_location_id = START_LOCATION_ID_HOME;	// home
-			location_which = START_LOCATION_ID_HOME;
 		}
 
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_WAIT);
@@ -1783,11 +1773,11 @@ bool idle_startup()
 					if((*it).second == "N") gAgent.setFirstLogin(TRUE);
 					else gAgent.setFirstLogin(FALSE);
 				}
-				it = options[0].find("stipend_since_login");
-				if(it != no_flag)
-				{
-					if((*it).second == "Y") stipend_since_login = true;
-				}
+				//it = options[0].find("stipend_since_login");
+				//if(it != no_flag)
+				//{
+				//	if((*it).second == "Y") stipend_since_login = true;
+				//}
 				it = options[0].find("gendered");
 				if(it != no_flag)
 				{
@@ -2078,6 +2068,16 @@ bool idle_startup()
 
 		LLRect window(0, gViewerWindow->getWindowHeight(), gViewerWindow->getWindowWidth(), 0);
 		gViewerWindow->adjustControlRectanglesForFirstUse(window);
+
+		if (gSavedSettings.getBOOL("ShowRadar"))
+		{
+			LLFloaterAvatarList::showInstance();
+		}
+
+		if (gSavedSettings.getBOOL("ShowMOAPRadar"))
+		{
+			 LLFloaterMOAPRadar::showInstance();
+		}
 
 		if(gSavedSettings.getBOOL("ShowMiniMap"))
 		{

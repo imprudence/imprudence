@@ -535,6 +535,8 @@ void LLFont::renderGlyph(const U32 glyph_index) const
 	int error = FT_Load_Glyph(mFTFace, glyph_index, FT_LOAD_DEFAULT );
 	llassert(!error);
 
+	// Work around the compiler warning about error not being used when llassert() is compiled out.
+	error = error + 0;
 	error = FT_Render_Glyph(mFTFace->glyph, gFontRenderMode);
 
 	mRenderGlyphCount++;

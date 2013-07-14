@@ -74,6 +74,6 @@ add_custom_command(
     -E
     copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/AutoUpdater.nib
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/mac-updater.app/Contents/Resources/AutoUpdater.nib
+    ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_CFG_INTDIR}/mac-updater.app/Contents/Resources/AutoUpdater.nib
   )
 

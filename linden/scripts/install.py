@@ -565,6 +565,7 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
                     tar.extractall(path=install_dir)
                 except AttributeError:
                     _extractall(tar, path=install_dir)
+
             symlinks = []
             if _get_platform() == 'linux' or _get_platform() == 'linux64':
                 first = 1
@@ -591,6 +592,46 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
                                 os.symlink(target, link_name)
                             symlinks += [LINK]
                             print "    %s --> %s" % (LINK, target)
+
+	    # Reroute autobuilds
+	    auto_name = install_dir + "/include"
+            if os.path.exists(auto_name):
+        	print "Moving autobuilt include files to legacy locations."
+        	for entry in os.listdir(auto_name):
+            	    os.rename(auto_name + "/" + entry, install_dir + "/libraries/include/" + entry)
+            	os.rmdir(auto_name)
+
+	    auto_name = install_dir + "/lib"
+	    dest_name = ''
+            if _get_platform() == 'darwin':
+		dest_name = 'universal-darwin/'
+            if _get_platform() == 'linux64':
+		dest_name = 'x86_64-linux/'
+            if _get_platform() == 'linux':
+		dest_name = 'i686-linux/'
+            if _get_platform() == 'windows':
+		dest_name = 'i686-win32/'
+            if os.path.exists(auto_name):
+        	print "Moving autobuilt lib files to legacy locations."
+        	for entry in os.listdir(auto_name):
+    		    if os.path.isdir(auto_name + "/" + entry):
+        		path = install_dir + "/libraries/" + dest_name + "lib_" + entry
+        		if entry == 'release':
+        		    # Linux is special, coz it's got server code.
+        		    if _get_platform() == 'linux' or _get_platform() == 'linux64':
+        			path = install_dir + "/libraries/" + dest_name + "lib_" + entry + "_client"
+        		# Windows is also special.
+        		if _get_platform() == 'windows':
+        		    path = install_dir + "/libraries/" + dest_name + "lib/" + entry
+        		if not os.path.exists(path):
+        		    os.makedirs(path)
+        		for filename in os.listdir(auto_name + "/" + entry):
+            		    os.rename(auto_name + "/" + entry + "/" + filename, path + "/" + filename)
+            		os.rmdir(auto_name + "/" + entry)
+            	    else:
+            		os.rename(auto_name + "/" + entry, install_dir + "/libraries/" + dest_name + "lib/" + entry)
+            	os.rmdir(auto_name)
+
             if ifile.pkgname in self._installed:
                 self._installed[ifile.pkgname].add_files(
                     ifile.url,
@@ -830,10 +871,10 @@ def _default_installable_cache():
     """In general, the installable files do not change much, so find a 
     host/user specific location to cache files."""
     user = _getuser()
-    cache_dir = "/var/tmp/%s/install.cache" % user
-    if _get_platform() == 'windows':
-        cache_dir = os.path.join(tempfile.gettempdir(), \
-                                 'install.cache.%s' % user)
+    if sys.platform != 'cygwin' and _get_platform() == 'windows':
+        cache_dir = os.path.join(tempfile.gettempdir(), 'install.cache.%s' % user)
+    else:
+       cache_dir = "/var/tmp/%s/install.cache" % user
     return cache_dir
 
 def parse_args():

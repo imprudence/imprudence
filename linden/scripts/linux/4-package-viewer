@@ -1,5 +1,12 @@
 #!/bin/bash
 
-cd ../../indra/viewer-linux-*
-make package
+source config-SL-source
 
+if [ "$OSTYPE" == "cygwin" ] ; then
+    # Assumes version has been passed in from outside, coz Windows insists on adding crap to python output.
+    cd ../../indra/build-nmake/
+    iscc newview/${TYPE}/package/${version}-Windows-x86.iss
+else
+    cd ../../indra/viewer-linux-*
+    make package
+fi

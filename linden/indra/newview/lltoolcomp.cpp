@@ -43,6 +43,7 @@
 #include "llmaniptranslate.h"
 #include "llmenugl.h"			// for right-click menu hack
 #include "llselectmgr.h"
+#include "lltoolface.h"
 #include "lltoolfocus.h"
 #include "lltoolgrab.h"
 #include "lltoolgun.h"
@@ -130,6 +131,36 @@ void LLToolComposite::handleSelect()
 	mCur->handleSelect(); 
 	mSelected = TRUE; 
 }
+
+
+LLTool* LLToolComposite::getOverrideTool(MASK mask)
+{
+	if (gKeyboard->getKeyDown('M') && 
+		((mask == (MASK_ALT | MASK_CONTROL)) || (mask == (MASK_ALT | MASK_CONTROL | MASK_SHIFT))))
+	{
+		return QToolAlign::getInstance();
+	}
+	else if (gKeyboard->getKeyDown('P') &&
+		(mask == (MASK_CONTROL | MASK_SHIFT)))
+	{
+		return LLToolCompTranslate::getInstance();
+	}
+	else if (gKeyboard->getKeyDown('F') &&
+		(mask == (MASK_ALT | MASK_CONTROL)))
+	{
+		return LLToolFace::getInstance();
+	}
+	else if (mask == (MASK_CONTROL | MASK_SHIFT))
+	{
+		return LLToolCompScale::getInstance();
+	}
+	else if (mask == MASK_CONTROL)
+	{
+		return LLToolCompRotate::getInstance();
+	}
+	return LLTool::getOverrideTool(mask);
+}
+
 
 //----------------------------------------------------------------------------
 // LLToolCompInspect
@@ -277,24 +308,6 @@ BOOL LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
-LLTool* LLToolCompTranslate::getOverrideTool(MASK mask)
-{
-	if (gKeyboard->getKeyDown('A') && 
-		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
-	{
-		return QToolAlign::getInstance();
-	}
-	else if (mask == MASK_CONTROL)
-	{
-		return LLToolCompRotate::getInstance();
-	}
-	else if (mask == (MASK_CONTROL | MASK_SHIFT))
-	{
-		return LLToolCompScale::getInstance();
-	}
-	return LLToolComposite::getOverrideTool(mask);
-}
-
 BOOL LLToolCompTranslate::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if (mManip->getSelection()->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
@@ -401,22 +414,6 @@ BOOL LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
-LLTool* LLToolCompScale::getOverrideTool(MASK mask)
-{
-	if (gKeyboard->getKeyDown('A') && 
-		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
-	{
-		return QToolAlign::getInstance();
-	}
-	else if (mask == MASK_CONTROL)
-	{
-		return LLToolCompRotate::getInstance();
-	}
-
-	return LLToolComposite::getOverrideTool(mask);
-}
-
-
 BOOL LLToolCompScale::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if (!mManip->getSelection()->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
@@ -471,18 +468,16 @@ LLToolCompCreate::~LLToolCompCreate()
 
 BOOL LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
 	mMouseDown = TRUE;
 
 	if ( (mask == MASK_SHIFT) || (mask == MASK_CONTROL) )
 	{
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
-		handled = TRUE;
 	}
 	else
 	{
 		setCurrentTool( mPlacer );
-		handled = mPlacer->placeObject( x, y, mask );
+		mPlacer->placeObject( x, y, mask );
 	}
 	
 	mObjectPlacedOnMouseDown = TRUE;
@@ -604,20 +599,6 @@ BOOL LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = FALSE;
 	return LLToolComposite::handleMouseUp(x, y, mask);
-}
-
-LLTool* LLToolCompRotate::getOverrideTool(MASK mask)
-{
-	if (gKeyboard->getKeyDown('A') && 
-		((mask & MASK_CONTROL) || (mask == (MASK_CONTROL | MASK_SHIFT))))
-	{
-		return QToolAlign::getInstance();
-	}
-	else if (mask == (MASK_CONTROL | MASK_SHIFT))
-	{
-		return LLToolCompScale::getInstance();
-	}
-	return LLToolComposite::getOverrideTool(mask);
 }
 
 BOOL LLToolCompRotate::handleDoubleClick(S32 x, S32 y, MASK mask)

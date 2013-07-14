@@ -34,12 +34,13 @@
 #define LL_LLTOOLFACE_H
 
 #include "lltool.h"
+#include "lltoolcomp.h"
 
 class LLViewerObject;
 class LLPickInfo;
 
 class LLToolFace
-:	public LLTool, public LLSingleton<LLToolFace>
+:	public LLToolComposite, public LLSingleton<LLToolFace>
 {
 public:
 	LLToolFace();

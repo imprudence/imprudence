@@ -70,7 +70,7 @@
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
 #include "wlretrievesettings.h"
-#include "lightshare.h"
+#include "llettherebelight.h"
 #include "wlfloaterwindlightsend.h"
 
 #undef max

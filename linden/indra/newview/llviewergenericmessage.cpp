@@ -39,7 +39,7 @@
 #include "message.h"
 #include "llagent.h"
 #include "lluuid.h"
-#include "lightshare.h"
+#include "llettherebelight.h"
 
 
 LLDispatcher gGenericDispatcher;

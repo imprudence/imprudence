@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="false"
-     width="250" height="225"
+     width="250" height="255"
      name="beacons" title="Beacons"
      rect_control="FloaterBeaconsRect" control_name="BeaconsEnabled">
-	<panel bottom="10" follows="left|top|right|bottom" left="10" width="230" height="200" name="beacons_panel">
+	<panel bottom="10" follows="left|top|right|bottom" left="10" width="230" height="240" name="beacons_panel">
   	<check_box bottom_delta="-33" follows="left|top" left="0" name="touch_only" label="Scripted Objects with Touch Only" control_name="scripttouchbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="scripted" label="Scripted Objects" control_name="scriptsbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="physical" label="Physical Objects" control_name="physicalbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="sounds" label="Sound Sources" control_name="soundsbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="particles" label="Particle Sources" control_name="particlesbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="highlights" label="Render Highlights" control_name="renderhighlights" />
+	<check_box bottom_delta="-20" follows="left|top" left="0" name="moap" label="MOAP Objects" control_name="moapbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="beacons" label="Render Beacons" control_name="renderbeacons" />
   	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
   	     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"

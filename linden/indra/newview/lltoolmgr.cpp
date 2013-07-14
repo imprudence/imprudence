@@ -193,7 +193,7 @@ LLTool* LLToolMgr::getCurrentTool()
 	else
 	{
 		// due to window management weirdness we can get here with gToolNull
-		bool can_override = mBaseTool && (mBaseTool != gToolNull) ;					
+		bool can_override = mBaseTool && (mBaseTool != gToolNull);
 		mOverrideTool = can_override ? mBaseTool->getOverrideTool(override_mask) : NULL;
 
 		// use keyboard-override tool if available otherwise drop back to base tool

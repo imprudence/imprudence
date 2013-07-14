@@ -34,7 +34,7 @@
 
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
-#include "lightshare.h"
+#include "llettherebelight.h"
 
 #include "pipeline.h"
 #include "llsky.h"

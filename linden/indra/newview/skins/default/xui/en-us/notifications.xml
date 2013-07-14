@@ -7245,11 +7245,11 @@ Show Look At is a debug setting that displays where an avatar's head is looking.
   
 <notification
  icon="alert.tga"
- name="WebLaunchImprudenceBlog"
+ name="WebLaunchImprudenceComms"
  type="alert">
-Go to the Official Imprudence Blog, for the Latest News and Information.
+Go to the Official Imprudence communications channels, to discuss the Imprudence Project.
   <usetemplate
-   ignoretext="When launching web browser to view the blog"
+   ignoretext="When launching web browser to view the communications channels"
    name="okcancelignore"
    notext="Cancel"
    yestext="Go to page"/>
@@ -7257,11 +7257,11 @@ Go to the Official Imprudence Blog, for the Latest News and Information.
 
 <notification
  icon="alert.tga"
- name="WebLaunchImprudenceForums"
+ name="WebLaunchImprudenceBugs"
  type="alert">
-Go to the Official Imprudence Forums to discuss the Imprudence Project.
+Go to the Official Imprudence bug and feature trackers, to report bugs and request new features.
   <usetemplate
-   ignoretext="When launching web browser to view the forums"
+   ignoretext="When launching web browser to view the bug and feature trackers"
    name="okcancelignore"
    notext="Cancel"
    yestext="Go to page"/>

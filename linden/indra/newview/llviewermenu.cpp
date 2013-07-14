@@ -238,6 +238,8 @@
 #include "llfloaterteleporthistory.h"
 #include "slfloatermediafilter.h"
 
+#include "rcmoapradar.h"
+
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
@@ -1096,10 +1098,10 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
 	menu->append(new LLMenuItemCallGL( "Dump SelectMgr", &dump_select_mgr));
 	menu->append(new LLMenuItemCallGL( "Dump Inventory", &dump_inventory));
-	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus, NULL, NULL, 'F', MASK_ALT | MASK_CONTROL));
-	menu->append(new LLMenuItemCallGL( "Print Selected Object Info",	&print_object_info, NULL, NULL, 'P', MASK_CONTROL|MASK_SHIFT ));
-	menu->append(new LLMenuItemCallGL( "Print Agent Info",			&print_agent_nvpairs, NULL, NULL, 'P', MASK_SHIFT ));
-	menu->append(new LLMenuItemCallGL( "Memory Stats",  &output_statistics, NULL, NULL, 'M', MASK_SHIFT | MASK_ALT | MASK_CONTROL));
+	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus));
+	menu->append(new LLMenuItemCallGL( "Print Selected Object Info",	&print_object_info));
+	menu->append(new LLMenuItemCallGL( "Print Agent Info",			&print_agent_nvpairs));
+	menu->append(new LLMenuItemCallGL( "Memory Stats",  &output_statistics));
 	menu->append(new LLMenuItemCheckGL("Double-Click Auto-Pilot", 
 		menu_toggle_control, NULL, menu_check_control, 
 		(void*)"DoubleClickAutoPilot"));
@@ -1256,7 +1258,6 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	sub_menu->append(new LLMenuItemCheckGL("Octree",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_OCTREE));
-	// For Imprudence 1.3 - need to XUIfy
 	sub_menu->append(new LLMenuItemCheckGL("Shadow Frusta",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_SHADOW_FRUSTA));
@@ -5216,6 +5217,24 @@ class LLViewEnableLastChatter : public view_listener_t
 	}
 };
 
+class LLViewToggleRadar: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterAvatarList::toggle(0);
+		return true;
+	}
+};
+
+class LLViewToggleMOAPRadar: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterMOAPRadar::toggle(0);
+		return true;
+	}
+};
+
 class LLEditEnableDeselect : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -8946,12 +8965,6 @@ class LLAdvancedToggleAssetBrowser: public view_listener_t
 	{
 		//open the floater
 		LLFloaterAssetBrowser::show(0);
-		
-		bool vis = false;
-		if(LLFloaterAssetBrowser::getInstance())
-		{
-			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
-		}
 		return true;
 	}
 };
@@ -9058,7 +9071,7 @@ class LLAdvancedToggleRenderType : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 render_type = render_type_from_string( userdata.asString() );
+		intptr_t render_type = render_type_from_string( userdata.asString() );
 		if ( render_type != 0 )
 		{
 			LLPipeline::toggleRenderTypeControl( (void*)render_type );
@@ -9072,7 +9085,7 @@ class LLAdvancedCheckRenderType : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 render_type = render_type_from_string( userdata["data"].asString() );
+		intptr_t render_type = render_type_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( render_type != 0 )
@@ -9138,7 +9151,7 @@ class LLAdvancedToggleFeature : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 feature = feature_from_string( userdata.asString() );
+		intptr_t feature = feature_from_string( userdata.asString() );
 
 		if ( feature != 0 )
 		{
@@ -9154,7 +9167,7 @@ class LLAdvancedCheckFeature : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 feature = feature_from_string( userdata["data"].asString() );
+		intptr_t feature = feature_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( feature != 0 )
@@ -9249,6 +9262,10 @@ U32 info_display_from_string(std::string info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_SCULPTED;
 	}
+	else if ("shadow frusta" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_SHADOW_FRUSTA;
+	}
 	else
 	{
 		return 0;
@@ -9260,7 +9277,7 @@ class LLAdvancedToggleInfoDisplay : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 info_display = info_display_from_string( userdata.asString() );
+		intptr_t info_display = info_display_from_string( userdata.asString() );
 
 		if ( info_display != 0 )
 		{
@@ -9276,7 +9293,7 @@ class LLAdvancedCheckInfoDisplay : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		U32 info_display = info_display_from_string( userdata["data"].asString() );
+		intptr_t info_display = info_display_from_string( userdata["data"].asString() );
 		bool new_value = false;
 
 		if ( info_display != 0 )
@@ -11215,6 +11232,8 @@ void initialize_menus()
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
 	addMenu(new LLViewEnableJoystickFlycam(), "View.EnableJoystickFlycam");
 	addMenu(new LLViewEnableLastChatter(), "View.EnableLastChatter");
+    addMenu(new LLViewToggleRadar(), "View.ToggleAvatarList");
+	addMenu(new LLViewToggleMOAPRadar(), "View.ToggleMOAPList");
 
 	addMenu(new LLViewCheckBuildMode(), "View.CheckBuildMode");
 	addMenu(new LLViewCheckJoystickFlycam(), "View.CheckJoystickFlycam");

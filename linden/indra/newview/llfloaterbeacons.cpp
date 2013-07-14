@@ -54,6 +54,7 @@ LLFloaterBeacons::LLFloaterBeacons(const LLSD& seed)
 	LLPipeline::setRenderScriptedTouchBeacons(gSavedSettings.getBOOL("scripttouchbeacon"));
 	LLPipeline::setRenderScriptedBeacons(     gSavedSettings.getBOOL("scriptsbeacon"));
 	LLPipeline::setRenderPhysicalBeacons(     gSavedSettings.getBOOL("physicalbeacon"));
+	LLPipeline::setRenderMOAPBeacons(		  gSavedSettings.getBOOL("moapbeacon"));
 	LLPipeline::setRenderSoundBeacons(        gSavedSettings.getBOOL("soundsbeacon"));
 	LLPipeline::setRenderParticleBeacons(     gSavedSettings.getBOOL("particlesbeacon"));
 	LLPipeline::setRenderHighlights(          gSavedSettings.getBOOL("renderhighlights"));
@@ -67,6 +68,7 @@ BOOL LLFloaterBeacons::postBuild()
 	childSetCommitCallback("physical",        onClickUICheck, this);
 	childSetCommitCallback("sounds",          onClickUICheck, this);
 	childSetCommitCallback("particles",       onClickUICheck, this);
+	childSetCommitCallback("moap",			  onClickUICheck, this);
 	childSetCommitCallback("highlights",      onClickUICheck, this);
 	childSetCommitCallback("beacons",         onClickUICheck, this);
 	return TRUE;
@@ -132,6 +134,7 @@ void LLFloaterBeacons::onClickUICheck(LLUICtrl *ctrl, void* data)
 	else if(name == "physical")       LLPipeline::setRenderPhysicalBeacons(check->get());
 	else if(name == "sounds")         LLPipeline::setRenderSoundBeacons(check->get());
 	else if(name == "particles")      LLPipeline::setRenderParticleBeacons(check->get());
+	else if(name == "moap")           LLPipeline::setRenderMOAPBeacons(check->get());
 	else if(name == "highlights")
 	{
 		LLPipeline::toggleRenderHighlights(NULL);

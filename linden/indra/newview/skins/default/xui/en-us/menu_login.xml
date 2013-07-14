@@ -23,15 +23,15 @@
 			<on_click function="ShowFloater" userdata="help f1" />
 		</menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Imprudence Blog"
-                    label="Imprudence Blog">
+    <menu_item_call name="Imprudence communication channels"
+                    label="Imprudence communication channels">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceBlog,http://imprudenceviewer.org/" />
+                userdata="WebLaunchImprudenceComms,http://wiki.kokuaviewer.org/wiki/Communication_Channels" />
     </menu_item_call>
-    <menu_item_call name="Imprudence Forums"
-                    label="Imprudence Forums">
+    <menu_item_call name="Imprudence bug reporting"
+                    label="Imprudence bug reporting">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceForums,http://imprudenceviewer.org/forums/" />
+                userdata="WebLaunchImprudenceBugs,http://wiki.kokuaviewer.org/wiki/Reporting_a_bug" />
     </menu_item_call>
     <menu_item_separator />
 		<menu_item_call label="About Imprudence" name="About Imprudence">

@@ -40,10 +40,12 @@
 
 #include "llviewerwindow.h"
 #include "lltoolcomp.h"
+#include "lltoolface.h"
 #include "lltoolfocus.h"
 #include "llfocusmgr.h"
 #include "llagent.h"
 #include "llviewerjoystick.h"
+#include "qtoolalign.h"
 
 extern BOOL gDebugClicks;
 
@@ -187,7 +189,7 @@ LLTool* LLTool::getOverrideTool(MASK mask)
 	{
 		return NULL;
 	}
-	if (mask & MASK_ALT)
+	else if (mask & MASK_ALT)
 	{
 		return LLToolCamera::getInstance();
 	}

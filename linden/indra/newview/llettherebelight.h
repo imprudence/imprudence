@@ -1,5 +1,5 @@
 /**
- * @file lightshare.h
+ * @file llettherebelight.h
  * @brief WindlightMessage class definition.
  *
  * Copyright (c) 2010, Jacek Antonelli

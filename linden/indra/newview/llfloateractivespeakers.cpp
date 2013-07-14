@@ -1010,7 +1010,7 @@ void LLSpeakerMgr::update(BOOL resort_ok)
 		LLUUID speaker_id = speaker_it->first;
 		LLSpeaker* speakerp = speaker_it->second;
 		
-		speaker_map_t::iterator  cur_speaker_it = speaker_it++;
+		speaker_it++;
 
 		if (voice_channel_active && gVoiceClient->getVoiceEnabled(speaker_id))
 		{

@@ -385,6 +385,10 @@
       <on_click function="ShowFloater" userdata="mini map" />
       <on_check control="ShowMiniMap" />
     </menu_item_check>
+	<menu_item_check enabled="true" label="MOAP Radar" name="MOAPRadar" shortcut="">
+ 			<on_click function="View.ToggleMOAPList" userdata="moapradar" />
+ 			<on_check control="ShowMOAPRadar" />
+ 		</menu_item_check>
     <menu_item_separator />
     <menu_item_check label="Animation Overrider" name="AO" 
                      shortcut="control|shift|O">
@@ -677,16 +681,16 @@
                   userdata="" />
         <on_check control="RenderLightRadius" />
       </menu_item_check>
-      <menu_item_check label="Show Selection Outlines"
-                       name="Show Selection Outlines">
-        <on_click function="Tools.ShowSelectionHighlights" userdata="" />
-        <on_check control="RenderHighlightSelections" />
-      </menu_item_check>
       <menu_item_check name="Show Selection Beam"
                        label="Show Selection Beam">
         <on_click function="ToggleControl"
                   userdata="ShowSelectionBeam" />
         <on_check control="ShowSelectionBeam" />
+      </menu_item_check>
+      <menu_item_check label="Show Selection Outlines"
+                       name="Show Selection Outlines">
+        <on_click function="Tools.ShowSelectionHighlights" userdata="" />
+        <on_check control="RenderHighlightSelections" />
       </menu_item_check>
     </menu>
     <menu_item_separator />
@@ -844,15 +848,15 @@
       <on_click function="ShowFloater" userdata="help tutorial" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Imprudence Blog"
-                    label="Imprudence Blog">
+    <menu_item_call name="Imprudence communication channels"
+                    label="Imprudence communication channels">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceBlog,http://blog.kokuaviewer.org/" />
+                userdata="WebLaunchImprudenceComms,http://wiki.kokuaviewer.org/wiki/Communication_Channels" />
     </menu_item_call>
-    <menu_item_call name="Imprudence Forums"
-                    label="Imprudence Forums">
+    <menu_item_call name="Imprudence bug reporting"
+                    label="Imprudence bug reporting">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchImprudenceForums,http://forums.kokuaviewer.org/" />
+                userdata="WebLaunchImprudenceBugs,http://wiki.kokuaviewer.org/wiki/Reporting_a_bug" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Scripting Portal"
@@ -1323,6 +1327,12 @@
           <on_check function="Advanced.CheckInfoDisplay"
                     userdata="sculpt" />
         </menu_item_check>
+        <menu_item_check name="ShadowFrusta" label="Shadow Frusta">
+          <on_click function="Advanced.ToggleInfoDisplay"
+                    userdata="shadow frusta" />
+          <on_check function="Advanced.CheckInfoDisplay"
+                    userdata="shadow frusta" />
+        </menu_item_check>
         <menu_item_check name="Vectorize Perf Test"
                          label="Vectorize Perf Test">
           <on_click function="ToggleControl"
@@ -1644,23 +1654,17 @@
       <menu_item_call name="Dump Inventory" label="Dump Inventory">
         <on_click function="Advanced.DumpInventory" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Dump Focus Holder"
-                      label="Dump Focus Holder"
-                      shortcut="control|alt|F">
+      <menu_item_call name="Dump Focus Holder" label="Dump Focus Holder">
         <on_click function="Advanced.DumpFocusHolder" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Print Selected Object Info"
-                      label="Print Selected Object Info"
-                      shortcut="control|shift|P">
+      <menu_item_call name="Print Selected Object Info" label="Print Selected Object Info">
         <on_click function="Advanced.PrintSelectedObjectInfo"
                   userdata="" />
       </menu_item_call>
-      <menu_item_call name="Print Agent Info"
-                      label="Print Agent Info" shortcut="shift|P">
+      <menu_item_call name="Print Agent Info" label="Print Agent Info">
         <on_click function="Advanced.PrintAgentInfo" userdata="" />
       </menu_item_call>
-      <menu_item_call name="Memory Stats" label="Memory Stats"
-                      shortcut="control|alt|shift|M">
+      <menu_item_call name="Memory Stats" label="Memory Stats">
         <on_click function="Advanced.PrintTextureMemoryStats"
                   userdata="" />
       </menu_item_call>

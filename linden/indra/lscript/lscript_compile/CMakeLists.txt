@@ -103,7 +103,7 @@ if (WINDOWS)
                               PROPERTIES COMPILE_FLAGS /DYY_NO_UNISTD_H)
 endif (WINDOWS)
 
-if (WINDOWS)
+if (WINDOWS AND NOT CYGWIN)
   get_filename_component(M4_PATH ${M4} PATH)
   add_custom_command(
       OUTPUT
@@ -118,7 +118,7 @@ if (WINDOWS)
         ${CMAKE_CURRENT_SOURCE_DIR}/indra.y
       )
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/windows)
-else (WINDOWS)
+else (WINDOWS AND NOT CYGWIN)
   add_custom_command(
       OUTPUT
         ${CMAKE_CURRENT_BINARY_DIR}/indra.y.cpp
@@ -131,7 +131,7 @@ else (WINDOWS)
       DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/indra.y
       )
-endif (WINDOWS)
+endif (WINDOWS AND NOT CYGWIN)
 
 if (DARWIN)
   # Mac OS X 10.4 compatibility

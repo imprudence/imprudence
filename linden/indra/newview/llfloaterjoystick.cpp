@@ -100,7 +100,6 @@ BOOL LLFloaterJoystick::postBuild()
 	if (child)
 	{
 		LLRect r = child->getRect();
-		LLRect f = getRect();
 		rect = LLRect(350, r.mTop, r.mRight + 200, 0);
 	}
 

@@ -111,7 +111,9 @@ static const char* EatNonWhiteSpace(const char *str)
 int glh_init_extensions(const char *origReqExts)
 {
 	// Length of requested extensions string
+	/*
 	unsigned reqExtsLen;
+	*/
 	char *reqExts;
 	// Ptr for individual extensions within reqExts
 	char *reqExt;
@@ -153,8 +155,8 @@ int glh_init_extensions(const char *origReqExts)
 		return TRUE;
 	}
 	reqExts = strdup(origReqExts);
-	reqExtsLen = (S32)strlen(reqExts);
 	/*
+	reqExtsLen = (S32)strlen(reqExts);
 	if (NULL == gGLHExts.mUnsupportedExts)
 	{
 		gGLHExts.mUnsupportedExts = (char*)malloc(reqExtsLen + 1);

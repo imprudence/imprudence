@@ -408,7 +408,7 @@ class LinuxSetup(UnixSetup):
             print 'Running %r' % cmd
             self.run(cmd)
 
-        
+
 class DarwinSetup(UnixSetup):
     def __init__(self):
         super(DarwinSetup, self).__init__()
@@ -485,6 +485,10 @@ class WindowsSetup(PlatformSetup):
         'vc100' : {
             'gen' : r'Visual Studio 10',
             'ver' : r'10.0'
+            },
+        'nmake' : {
+            'gen' : r'NMake Makefiles',
+            'ver' : r''
             }
         }
     gens['vs2003'] = gens['vc71']
@@ -500,6 +504,41 @@ class WindowsSetup(PlatformSetup):
         self._generator = None
         self.incredibuild = False
 
+    def find_visual_studio(self, gen=None):
+        if gen is None:
+            gen = self._generator
+        gen = gen.lower()
+        try:
+            import _winreg
+            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
+                       self.gens[gen]['ver'])
+            value_str = (r'EnvironmentDirectory')
+            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+            key = _winreg.OpenKey(reg, key_str)
+            value = _winreg.QueryValueEx(key, value_str)[0]
+            print 'Found: %s' % value
+            return value
+        except WindowsError, err:
+            return ''
+
+    def find_visual_studio_express(self, gen=None):
+        if gen is None:
+            gen = self._generator
+        gen = gen.lower()
+        try:
+            import _winreg
+            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
+                       self.gens[gen]['ver'])
+            value_str = (r'ProductDir')
+            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
+            key = _winreg.OpenKey(reg, key_str)
+            value = _winreg.QueryValueEx(key, value_str)[0]+"vcpackages"
+            print 'Found: %s' % value
+            self.using_express = True
+            return value
+        except WindowsError, err:
+            return ''
+
     def _get_generator(self):
         if self._generator is None:
             for version in 'vc80 vc90 vc100 vc71'.split():
@@ -508,9 +547,8 @@ class WindowsSetup(PlatformSetup):
                     print 'Building with ', self.gens[version]['gen']
                     break
             else:
-                print >> sys.stderr, 'Cannot find a Visual Studio installation, testing for express editions'
                 for version in 'vc80 vc90 vc100 vc71'.split():
-                    if self.find_visual_studio_express(version):
+                    if self.find_visual_studio_express(version) != '':
                         self._generator = version
                         self.using_express = True
                         print 'Building with ', self.gens[version]['gen'] , "Express edition"
@@ -521,6 +559,8 @@ class WindowsSetup(PlatformSetup):
         return self._generator
 
     def _set_generator(self, gen):
+        if gen == 'nmake':
+            self._get_generator()
         self._generator = gen
 
     generator = property(_get_generator, _set_generator)
@@ -538,83 +578,58 @@ class WindowsSetup(PlatformSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
-            project_name=self.project_name
+            project_name=self.project_name,
+            type=self.build_type,
+            use_vstool='ON',
+            nmake=''
             )
+        if self.generator == 'nmake':
+           args['use_vstool'] = 'OFF'
+           args['nmake'] = '-DNMAKE:BOOL=ON'
+        if self.using_express:
+           args['using_express'] = 'ON'
+           args['use_vstool'] = 'OFF'
+        else:
+           args['using_express'] = 'OFF'
         # default to packaging disabled
         # if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
+                '-DCMAKE_BUILD_TYPE:STRING=%(type)s '
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
-                #'-DPACKAGE:BOOL=ON '
+                '-DUSING_EXPRESS:BOOL=%(using_express)s '
+                '-DUSE_VSTOOL:BOOL=%(use_vstool)s '
+                '%(nmake)s '
                 '%(opts)s "%(dir)s"' % args)
-
-    def find_visual_studio(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
-        try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VisualStudio\%s\Setup\VS' %
-                       self.gens[gen]['ver'])
-            value_str = (r'EnvironmentDirectory')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]
-            print 'Found: %s' % value
-            return value
-        except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
-
-    def find_visual_studio_express(self, gen=None):
-        if gen is None:
-            gen = self._generator
-        gen = gen.lower()
-        try:
-            import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
-                       self.gens[gen]['ver'])
-            value_str = (r'ProductDir')
-            print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
-                   (key_str, value_str))
-            print key_str
-
-            reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
-            key = _winreg.OpenKey(reg, key_str)
-            value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
-            print 'Found: %s' % value
-            self.using_express = True
-            return value
-        except WindowsError, err:
-            print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
-            return ''
 
     def get_build_cmd(self):
         if self.incredibuild:
             config = self.build_type
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0', r'10.0', r'7.1' ]:
                 config = '\"%s|Win32\"' % config
-
             return "buildconsole %s.sln /build %s" % (self.project_name, config)
-           
-        environment = self.find_visual_studio()
+
+        environment = self.find_visual_studio(self.generator)
         if environment == '':
-            environment = self.find_visual_studio_express()
-            if environment == '':
-                 print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
-            else:
-                 print >> sys.stderr, "\nSolution generation complete, as you are using an express edition the final\n stages will need to be completed by hand"
-                 build_dirs=self.build_dirs();
-                 print >> sys.stderr, "Solution can now be found in:", build_dirs[0]
-                 print >> sys.stderr, "Set %s as startup project" % self.project_name
-                 print >> sys.stderr, "Set build target is Release or RelWithDbgInfo"
-                 exit(0)   
+            environment = self.find_visual_studio_express(self.generator)
+            if self.generator != 'nmake':
+                if environment == '':
+                    print >> sys.stderr, "Something went very wrong during build stage, could not find a Visual Studio?"
+                else:
+                    build_dirs=self.build_dirs();
+                    return("\"\"%s\\vcbuild\" /useenv %s.sln \"%s|win32\"\"" % (environment, self.project_name, self.build_type))
+
+        if self.generator == 'nmake':
+           # Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
+           # Evil hack.
+           self.run(r'touch newview/touched.bat')
+           return 'nmake'
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
         return ('"%sdevenv.com" %s.sln /build %s' % 
@@ -634,55 +649,29 @@ class WindowsSetup(PlatformSetup):
             raise CommandError('the command %r %s' %
                                (name, ret))
 
-    def run_cmake(self, args=[]):
-        '''Override to add the vstool.exe call after running cmake.'''
-        PlatformSetup.run_cmake(self, args)
-        if self.unattended == 'OFF':
-            if self.using_express == False:
-                self.run_vstool()
-
-    def run_vstool(self):
-        for build_dir in self.build_dirs():
-            stamp = os.path.join(build_dir, 'vstool.txt')
-            try:
-                prev_build = open(stamp).read().strip()
-            except IOError:
-                prev_build = ''
-            if prev_build == self.build_type:
-                # Only run vstool if the build type has changed.
-                continue
-            vstool_cmd = (os.path.join('tools','vstool','VSTool.exe') +
-                          ' --solution ' +
-                          os.path.join(build_dir,'Imprudence.sln') +
-                          ' --config ' + self.build_type +
-                          ' --startup imprudence-bin')
-            print 'Running %r in %r' % (vstool_cmd, getcwd())
-            self.run(vstool_cmd)        
-            print >> open(stamp, 'w'), self.build_type
-        
     def run_build(self, opts, targets):
         cwd = getcwd()
         build_cmd = self.get_build_cmd()
-
-        for d in self.build_dirs():
-            try:
-                os.chdir(d)
-                if targets:
-                    for t in targets:
-                        cmd = '%s /project %s %s' % (build_cmd, t, ' '.join(opts))
+        if build_cmd != "":
+            for d in self.build_dirs():
+                try:
+                    os.chdir(d)
+                    if targets:
+                        for t in targets:
+                            cmd = '%s /project %s %s' % (build_cmd, t, ' '.join(opts))
+                            print 'Running %r in %r' % (cmd, d)
+                            self.run(cmd)
+                    else:
+                        cmd = '%s %s' % (build_cmd, ' '.join(opts))
                         print 'Running %r in %r' % (cmd, d)
                         self.run(cmd)
-                else:
-                    cmd = '%s %s' % (build_cmd, ' '.join(opts))
-                    print 'Running %r in %r' % (cmd, d)
-                    self.run(cmd)
-            finally:
-                os.chdir(cwd)
-                
+                finally:
+                    os.chdir(cwd)
+
 class CygwinSetup(WindowsSetup):
     def __init__(self):
         super(CygwinSetup, self).__init__()
-        self.generator = 'vc80'
+        self.generator = 'nmake'
 
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         dos_dir = commands.getoutput("cygpath -w %s" % src_dir)
@@ -692,11 +681,13 @@ class CygwinSetup(WindowsSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
-            project_name=self.project_name
+            project_name=self.project_name,
+            type=self.build_type
             )
         #if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
+                '-DCMAKE_BUILD_TYPE:STRING=%(type)s '
                 '-DUNATTENDED:BOOl=%(unattended)s '
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
@@ -723,7 +714,7 @@ Options:
   -m32 | -m64           build architecture (32-bit or 64-bit)
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC80 (VS2005--default), VC71 (VS2003), 
+                        Windows: NMake, VC80 (VS2005--default), VC71 (VS2003), 
                           VC90 (VS2008), or VC100 (VS2010)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
@@ -806,7 +797,6 @@ For example: develop.py configure -DSERVER:BOOL=OFF"""
             for d in setup.build_dirs():
                 if not os.path.exists(d):
                     raise CommandError('run "develop.py cmake" first')
-            setup.run_cmake()
             opts, targets = setup.parse_build_opts(args)
             setup.run_build(opts, targets)
         elif cmd == 'clean':

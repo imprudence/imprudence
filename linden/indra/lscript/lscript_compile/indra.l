@@ -53,9 +53,16 @@ void parse_string();
 #define ECHO do { } while (0)
 
 #if defined(__cplusplus)
-extern "C" { int yylex( void ); }
-extern "C" { int yyparse( void ); }
-extern "C" { int yyerror(const char *fmt, ...); }
+extern "C" {
+#endif
+int yyerror(const char *fmt, ...);
+int yylex( void );
+// Windows defines this in indra.y.hpp, which is included above, and defines it differently.
+#ifndef LL_WINDOWS
+int yyparse( void );
+#endif
+#if defined(__cplusplus)
+}
 #endif
 
 %}
@@ -722,9 +729,6 @@ L?\"(\\.|[^\\"])*\"	{ parse_string(); count(); return(STRING_CONSTANT); }
 LLScriptAllocationManager	*gAllocationManager;
 LLScriptScript				*gScriptp;
 
-// Prototype for the yacc parser entry point
-int yyparse(void);
-
 int yyerror(const char *fmt, ...)
 {
 	gErrorToText.writeError(yyout, gLine, gColumn, LSERROR_SYNTAX_ERROR);
@@ -760,7 +764,13 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 
 	    yyrestart(yyin);
 
-		b_parse_ok = !yyparse();
+// TODO - Try to fix this, but for now, no compiling LSL for Windows in SL.
+// Actually, this seems to not actually be needed anymore?
+// I thought it was needed to support ancient pre Mono LSL scripts, which only work in SL anyway, but they still work fine.  Perhaps SL fixed it server side?
+// If that's the case, we don't need any of this stuff.
+#ifndef LL_WINDOWS
+//		b_parse_ok = !yyparse();
+#endif
 
 		if (b_parse_ok)
 		{

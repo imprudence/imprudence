@@ -83,9 +83,6 @@ void LLProgressBar::draw()
 	bar_bg_imagep->draw(getLocalRect(),
 		background_color);
 
-	F32 alpha = 0.5f + 0.5f*0.5f*(1.f + (F32)sin(3.f*timer.getElapsedTimeF32()));
-	LLColor4 bar_color = LLUI::sColorsGroup->getColor("LoginProgressBarFgColor");
-	bar_color.mV[3] = alpha;
 	LLRect progress_rect = getLocalRect();
 	progress_rect.mRight = llround(getRect().getWidth() * (mPercentDone / 100.f));
 	bar_fg_imagep->draw(progress_rect);

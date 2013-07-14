@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="MOAP" title="MOAP Radar"
+	can_resize="true" can_minimize="true" can_close="true" can_drag_on_left="false"
+	rect_control="FloaterRadarRect" min_width="700"	min_height="150">
+
+	<scroll_list name="moap_list"
+		    left="10" right="-10" top="-20" bottom="40" can_resize="true"
+		    column_padding="0" follows="left|top|bottom|right"
+		    draw_heading="true" multi_select="true" search_column="1"
+		    tool_tip="MOAP List">
+		<column name="URL" label="URL" width="450" tool_tip="URL of MOAP"/>
+		<column name="face" label="Face" width="48" tool_tip="URL of MOAP"/>
+		<column name="distance" label="Dist." width="48" tool_tip="Distance from your avatar"/>
+		<column name="position" label="Pos." width="90" tool_tip="Position (X, Y) within this sim, or general direction (cardinal point) for outside sims"/>
+		<column name="altitude" label="Alt." width="48" tool_tip="Altitude"/>
+	</scroll_list>
+
+
+		<button
+			   name="open_btn"
+			   label="Open"
+			   tool_tip="Open Current URL"
+			   left="10"
+			   bottom_delta="-30"
+			   width="80"
+			   height="20"
+			   font="SansSerifSmall"
+			   follows="bottom|left"
+			       />
+		<button
+			   name="track_btn"
+			   label="(Un)Track"
+			   tool_tip="Toggle tracking of this MOAPs position"
+			   left_delta="90"
+			   bottom_delta="0"
+			   width="80"
+			   height="20"
+			   font="SansSerifSmall"
+			   follows="bottom|left"
+			       />
+		<button
+			   name="copy_btn"
+			   label="Get URL"
+			   tool_tip="Copies URL to the clipboard"
+			   left_delta="90"
+			   bottom_delta="0"
+			   width="80"
+			   height="20"
+			   font="SansSerifSmall"
+			   follows="bottom|left"
+			       />
+		<!-- upper middle row -->
+	
+</floater>

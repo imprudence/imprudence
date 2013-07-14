@@ -195,16 +195,16 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>4db3d74e40d149eeec06f4d97a609bb1</string>
+            <string>146ed8a8c2ef8ab3f0a6c4f214fc5c22</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.39.0-linux-20100624.tar.bz2</uri>
+            <uri>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-boost/rev/268347/arch/Linux/installer/boost-1.52.0-linux-20121218.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>ebfaa439a8a78db7d99a26a73a70994a</string>
+            <string>b9dbe1ab34187a9a6f53fd89f88060d2</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/boost-1.39.0-linux64-20100901.tar.bz2</uri>
+            <uri>https://bitbucket.org/kokua/3p-boost-64/downloads/boost-1.52.0-linux64-20130107.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>

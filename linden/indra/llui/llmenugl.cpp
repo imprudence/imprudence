@@ -3095,8 +3095,6 @@ void LLMenuGL::draw( void )
 			LLUI::sConfigGroup->getS32("DropShadowFloater") );
 	}
 
-	LLColor4 bg_color = mBackgroundColor;
-
 	if( mBgVisible )
 	{
 		gl_rect_2d(  0, getRect().getHeight(),   getRect().getWidth(),    0, mBackgroundColor );

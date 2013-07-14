@@ -2046,9 +2046,6 @@ BOOL LLViewerObject::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 				if (HJT_HINGE == mJointInfo->mJointType)
 				{
 					// hinge = uniform circular motion
-					LLVector3 parent_pivot = getVelocity();
-					LLVector3 parent_axis = getAcceleration();
-	
 					angle = dt * (ang_vel * mJointInfo->mAxisOrAnchor);	// AxisOrAnchor = axis
 					dQ.setQuat(angle, mJointInfo->mAxisOrAnchor);		// AxisOrAnchor = axis
 					LLVector3 pivot_offset = pos - mJointInfo->mPivot;	// pos in pivot-frame

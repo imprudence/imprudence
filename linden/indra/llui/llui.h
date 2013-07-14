@@ -706,10 +706,12 @@ public:
 
 	// this avoids a MSVC bug where non-referenced static members are "optimized" away
 	// even if their constructors have side effects
+	// Then we avoid a compiler warning that dummy is never used.  lol
 	void reference()
 	{
 		S32 dummy;
 		dummy = 0;
+		dummy = dummy + 0;
 	}
 };
 

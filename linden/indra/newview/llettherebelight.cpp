@@ -1,5 +1,5 @@
 /**
- * @file lightshare.cpp
+ * @file llettherebelight.cpp
  * @brief Handler for Meta7 Lightshare (region-side Windlight settings), and other methods of sharing WindLight.
  *
  * Copyright (c) 2010, Tom Grimshaw (Tom Meta)
@@ -38,7 +38,7 @@
 #include "message.h"
 #include "meta7windlight.h"
 
-#include "lightshare.h"
+#include "llettherebelight.h"
 
 #include "llagent.h"
 #include "llworld.h"

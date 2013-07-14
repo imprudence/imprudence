@@ -1439,7 +1439,6 @@ BOOL move_inv_category_world_to_agent(const LLUUID& object_id,
 	if(drop && accept)
 	{
 		it = inventory_objects.begin();
-		InventoryObjectList::iterator first_it = inventory_objects.begin();
 		LLMoveInv* move_inv = new LLMoveInv;
 		move_inv->mObjectID = object_id;
 		move_inv->mCategoryID = category_id;
@@ -1922,24 +1921,11 @@ void LLFolderBridge::pasteFromClipboard()
 			item = model->getItem(objects.get(i));
 			if (item)
 			{
-				copy_inventory_item(
-					gAgent.getID(),
-					item->getPermissions().getOwner(),
-					item->getUUID(),
-					parent_id,
-					std::string(),
-					LLPointer<LLInventoryCallback>(NULL));
-				LLInventoryCategory* cat = model->getCategory(item->getUUID());
-				if(cat)
-				{
-					model->purgeDescendentsOf(mUUID);
-				}
-				LLInventoryObject* obj = model->getObject(item->getUUID());
-				if(!obj) return;
-				obj->removeFromServer();
-				LLPreview::hide(item->getUUID());
-				model->deleteObject(item->getUUID());
-				model->notifyObservers();
+				LLInvFVBridge::changeItemParent(
+					model,
+					(LLViewerInventoryItem*)item,
+					mUUID,
+					FALSE);
 			}
 		}
 	}
