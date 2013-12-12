@@ -11,7 +11,7 @@
 PWD=`pwd`
 os_extra=''
 ionice='ionice -c 3'
-
+if [ -z "$(which ionice)" ]; then ionice=''; fi
 
 # Where the sources of the client will be held (defaults to "./linden"):
 PATH_TO_SOURCES="$PWD/../.."
@@ -73,7 +73,6 @@ ALLOW_WARNINGS="yes"
 # Change it all for cygwin.
 if [[ "$OSTYPE" =~ ^cygwin ]] ; then
     os_extra='-G nmake'
-    ionice=''
     USE_SYSTEM_LIBSTDC="no"
     TUNE_FLAGS="/EHsc /GR /Zm1000 /DWIN32 /D_WINDOWS "
     FORCE_VECTORIZE="no"
