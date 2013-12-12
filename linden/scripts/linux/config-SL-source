@@ -68,8 +68,10 @@ FORCE_VECTORIZE="yes"
 ALLOW_WARNINGS="yes"
 
 
+# $OSTYPE comes from bash
+
 # Change it all for cygwin.
-if [ "$OSTYPE" == "cygwin" ] ; then
+if [[ "$OSTYPE" =~ ^cygwin ]] ; then
     os_extra='-G nmake'
     ionice=''
     USE_SYSTEM_LIBSTDC="no"
