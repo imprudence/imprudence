@@ -6,6 +6,9 @@ if [[ "$OSTYPE" =~ ^cygwin ]] ; then
     # Assumes version has been passed in from outside, coz Windows insists on adding crap to python output.
     cd ../../indra/build-nmake/
     iscc newview/${TYPE}/package/${version}-Windows-x86.iss
+elif [[ "$OSTYPE" =~ ^darwin ]] ; then
+    cd ../../indra/build-darwin-*
+    ../../scripts/package.py --build-dir=.
 else
     cd ../../indra/viewer-linux-*
     make package

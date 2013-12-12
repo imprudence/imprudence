@@ -65,7 +65,7 @@ else
     FATAL_WARNINGS=""
 fi
 # Configure the sources and download the LL provided libraries:
-./develop.py $os_extra --type=$TYPE  configure "$FATAL_WARNINGS" \
+./develop.py $os_extra --type=$TYPE  configure "$FATAL_WARNINGS" $defs_extra \
     -DCMAKE_C_FLAGS:STRING="$TUNE_FLAGS" -DCMAKE_CXX_FLAGS:STRING="$TUNE_FLAGS" \
     -DCMAKE_C_FLAGS_DEBUG:STRING="-g $TUNE_FLAGS" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g $TUNE_FLAGS" \
     -DCMAKE_C_FLAGS_RELEASE:STRING="$TUNE_FLAGS" -DCMAKE_CXX_FLAGS_RELEASE:STRING="$TUNE_FLAGS" \
