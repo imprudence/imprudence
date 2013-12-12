@@ -158,8 +158,11 @@ true""" % {'d': packaged_dir})
         dmg_dst = os.path.join('/Volumes', volname)
 
         if (os.path.exists(dmg_dst)):
-            error('%r is currently attached. Eject it and try again.' % dmg_dst)
-            sys.exit(1)
+            error('%r is currently attached. Trying to eject it.' % dmg_dst)
+            self.__run_command(
+                'Unmounting temp disk image...',
+                'hdiutil detach %r' % dmg_dst)
+            # sys.exit(1)
 
         app_name = self.viewer_info.name + ".app"
         app_orig = os.path.join(self.build_dir, 'newview', self.build_type, app_name)
