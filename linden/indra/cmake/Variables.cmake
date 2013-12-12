@@ -84,16 +84,20 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   # Incorporated settings from
   # http://imprudenceviewer.org/w/index.php?title=How_to_compile&oldid=1647#Mac
   # so that people don't have to set them every time they run develop.py
-  set(CMAKE_XCODE_ATTRIBUTE_GCC_VERSION  "4.0")
+  # At least on Xcode 3.2.6 the default of LLVM gcc 4.2 seems to work fine now.
+  #set(CMAKE_XCODE_ATTRIBUTE_GCC_VERSION  "4.0")
   set(CMAKE_XCODE_ATTRIBUTE_ARCHS '$(ARCHS_STANDARD_32_BIT)')
   set(CMAKE_XCODE_ATTRIBUTE_VALID_ARCHS "i386 ppc")
   # set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO")
 
   # set this dynamically from the build system now -
   # NOTE: wont have a distributable build unless you add this on the configure line with:
-  # -DCMAKE_OSX_ARCHITECTURES:STRING='i386;ppc'
-  set(CMAKE_OSX_ARCHITECTURES i386;ppc)
-  set(CMAKE_OSX_SYSROOT /Developer/SDKs/MacOSX10.5.sdk)
+  # -DCMAKE_OSX_ARCHITECTURES:STRING='i386'
+  # I don't think PPC builds work, and I don't have one to test on.
+  #set(CMAKE_OSX_ARCHITECTURES i386;ppc)
+  set(CMAKE_OSX_ARCHITECTURES i386)
+  # 10.5 SDK is not supported in Xcode 4 and later, but it's the most tested.  Leave this to be set on the command line, since apparently that's not overriding this.  sigh
+  #set(CMAKE_OSX_SYSROOT /Developer/SDKs/MacOSX10.5.sdk)
   if (CMAKE_OSX_ARCHITECTURES MATCHES "i386")
     set(ARCH i386)
   endif (CMAKE_OSX_ARCHITECTURES MATCHES "i386")
