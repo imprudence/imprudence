@@ -12,7 +12,7 @@ PWD=`pwd`
 os_extra=''
 defs_extra=''
 ionice='ionice -c 3'
-if [ -z "$(which ionice)" ]; then ionice=''; fi
+if [ -z "$(which ionice 1>/dev/null 2>&1)" ]; then ionice=''; fi
 
 # Where the sources of the client will be held (defaults to "./linden"):
 PATH_TO_SOURCES="$PWD/../.."
