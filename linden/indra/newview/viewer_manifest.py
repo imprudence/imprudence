@@ -740,8 +740,9 @@ class DarwinManifest(ViewerManifest):
             self.run_command('strip -S "%(viewer_binary)s"' %
                              { 'viewer_binary' : self.dst_path_of('Contents/MacOS/Second Life')})
 
-
-    def package_finish(self):
+# No idea why, but the Mac version is not calling this, though the Linux version does.  I've not checked the Windows version yet.
+# SO just let it fall through and hope that doesn't mess things up.
+#    def package_finish(self):
         channel_standin = 'Imprudence'  # hah, our default channel is not usable on its own
         if not self.default_channel():
             channel_standin = self.channel()

@@ -8,7 +8,8 @@ if [[ "$OSTYPE" =~ ^cygwin ]] ; then
     iscc newview/${TYPE}/package/${version}-Windows-x86.iss
 elif [[ "$OSTYPE" =~ ^darwin ]] ; then
     cd ../../indra/build-darwin-*
-    ../../scripts/package.py --build-dir=.
+    # This is actually taken care of in the build stage.  For now.
+    #../../scripts/package.py --build-dir=.
 else
     cd ../../indra/viewer-linux-*
     make package
