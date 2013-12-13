@@ -285,7 +285,6 @@ void LightShare::apply(LLWaterParamSet * newWater, LLUUID *newWaterNormal, LLWLP
 	LLWaterParamSet oldWaterSet = waterMgr->mCurParams;
 	LLWLParamSet oldWLSet = skyMgr->mCurParams;
 	struct WLCombined* thisSet = &userSet;
-	bool user = true;
 
 	switch(scope)
 	{
