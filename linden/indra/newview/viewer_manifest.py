@@ -747,7 +747,8 @@ class DarwinManifest(ViewerManifest):
         if not self.default_channel():
             channel_standin = self.channel()
 
-        imagename=self.installer_prefix() + '.'.join(self.args['version']) + "-Mac-X86"
+	# Hard coding this coz platform is "darwin" and arch is """, so neither are useful now.
+        imagename=self.installer_prefix() + '.'.join(self.args['version']) + "-Mac-x86"
 
         volname="Imprudence Installer"  # DO NOT CHANGE without understanding comment above
 
