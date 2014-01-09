@@ -85,10 +85,13 @@ if [[ "$OSTYPE" =~ ^darwin ]] ; then
     # Try to figure out which SDK is the earliest this version of Xcode supports.
     # This might be fragile, only tested it with Xcode 3.2.6, which is the minimum supported Xcode anyway.
     sdk_path="$(xcodebuild -version -sdk | grep Path: | cut -d ' ' -f 2 | grep MacOSX10. | sort | head -n 1)"
-    sdk="$(echo $sdk_path | cut -d '.' -f 2)"
+    # Save both parts, in case there's stuff in the path that the magic foo below might get confused over.
+    sdk_file="$(basename $sdk_path)"
+    sdk_path="$(dirnam $sdk_path)"
+    sdk="$(echo $sdk_file | cut -d '.' -f 2)"
     # Minimum of SDK 10.5
-    if [ "$sdk" == "4u" ] ; then sdk_path="$(echo $sdk_path | cut -d '.' -f -1)".5.sdk; fi
-    defs_extra="-DCMAKE_OSX_SYSROOT=$sdk_path"
+    if [ "$sdk" == "4u" ] ; then sdk_file=MacOSX10.5.sdk; fi
+    defs_extra="-DCMAKE_OSX_SYSROOT=$sdk_path/$sdk_file"
 fi
 
 
