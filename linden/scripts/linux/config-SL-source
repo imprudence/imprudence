@@ -87,7 +87,7 @@ if [[ "$OSTYPE" =~ ^darwin ]] ; then
     sdk_path="$(xcodebuild -version -sdk | grep Path: | cut -d ' ' -f 2 | grep MacOSX10. | sort | head -n 1)"
     # Save both parts, in case there's stuff in the path that the magic foo below might get confused over.
     sdk_file="$(basename $sdk_path)"
-    sdk_path="$(dirnam $sdk_path)"
+    sdk_path="$(dirname $sdk_path)"
     sdk="$(echo $sdk_file | cut -d '.' -f 2)"
     # Minimum of SDK 10.5
     if [ "$sdk" == "4u" ] ; then sdk_file=MacOSX10.5.sdk; fi
