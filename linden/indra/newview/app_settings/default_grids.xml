@@ -112,6 +112,15 @@
         <key>register</key><string>http://www.islandoasis.biz/verification.aspx</string>
     </map>
 
+    <map>
+        <key>gridname</key><string>Kitely</string>
+        <key>gridnick</key><string>kitely</string>
+        <key>platform</key><string>OpenSim</string>
+        <key>loginpage</key><string>http://www.kitely.com/viewer_login</string>
+        <key>loginuri</key><string>http://grid.kitely.com:8002/</string>
+        <key>name</key><string>grid.kitely.com:8002</string>
+    </map>
+
     <!-- Local Host -->
     <map>
         <key>gridname</key><string>Localhost</string>
