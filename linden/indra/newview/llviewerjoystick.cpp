@@ -33,6 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llviewerjoystick.h"
+#include "llviewerkeyboard.h"
 
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
@@ -302,7 +303,7 @@ void LLViewerJoystick::updateStatus()
 		mAxes[i] = (F32) mNdofDev->axes[i] / mNdofDev->axes_max;
 	}
 
-	for (int i=0; i<16; i++)
+	for (int i=0; i<32; i++)
 	{
 		mBtn[i] = mNdofDev->buttons[i];
 	}
@@ -323,7 +324,7 @@ F32 LLViewerJoystick::getJoystickAxis(U32 axis) const
 // -----------------------------------------------------------------------------
 U32 LLViewerJoystick::getJoystickButton(U32 button) const
 {
-	if (button < 16)
+	if (button < 32)
 	{
 		return mBtn[button];
 	}
@@ -1029,6 +1030,22 @@ void LLViewerJoystick::scanJoystick()
 	{
 		toggle_flycam = 0;
 	}
+
+	static long hit_esc = 0;
+
+	if (mBtn[22] == 1)
+	{
+		if (mBtn[22] != hit_esc)
+		{
+			hit_esc = mBtn[22];
+			gViewerKeyboard.handleKey(KEY_ESCAPE, MASK_NONE, false);
+		}
+	}
+	else
+	{
+		hit_esc = 0;
+	}
+
 	
 	if (!mOverrideCamera && !(LLToolMgr::getInstance()->inBuildMode() && gSavedSettings.getBOOL("JoystickBuildEnabled")))
 	{
@@ -1057,7 +1074,7 @@ bool LLViewerJoystick::isLikeSpaceNavigator() const
 				||  strncmp(mNdofDev->product, "SpaceBall",       9) == 0
 				||  strncmp(mNdofDev->product, "SpaceExplorer",  13) == 0
 				||  strncmp(mNdofDev->product, "SpaceMouse",     10) == 0
-				||  strncmp(mNdofDev->product, "SpaceOrb",        8) == 0	// Not actually suppored anyway.
+				||  strncmp(mNdofDev->product, "SpaceOrb",        8) == 0	// Not actually supported anyway.
 				||  strncmp(mNdofDev->product, "SpacePilot",     10) == 0
 				||  strncmp(mNdofDev->product, "SpaceTraveler",  13) == 0));
 #else
