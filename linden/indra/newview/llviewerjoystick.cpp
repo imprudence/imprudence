@@ -999,7 +999,7 @@ void LLViewerJoystick::scanJoystick()
 	static long toggle_flycam = 0;
 
 	if (mBtn[0] == 1)
-    {
+	{
 		if (mBtn[0] != toggle_flycam)
 		{
 			toggle_flycam = toggleFlycam() ? 1 : 0;
