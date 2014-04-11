@@ -1033,10 +1033,13 @@ bool LLViewerJoystick::isLikeSpaceNavigator() const
 {
 #if LIB_NDOF	
 	return (isJoystickInitialized() 
-			&& (strncmp(mNdofDev->product, "SpaceNavigator", 14) == 0
-				|| strncmp(mNdofDev->product, "SpaceExplorer", 13) == 0
-				|| strncmp(mNdofDev->product, "SpaceTraveler", 13) == 0
-				|| strncmp(mNdofDev->product, "SpacePilot", 10) == 0));
+				&& (strncmp(mNdofDev->product, "SpaceNavigator", 14) == 0
+				||  strncmp(mNdofDev->product, "SpaceBall",       9) == 0
+				||  strncmp(mNdofDev->product, "SpaceExplorer",  13) == 0
+				||  strncmp(mNdofDev->product, "SpaceMouse",     10) == 0
+				||  strncmp(mNdofDev->product, "SpaceOrb",        8) == 0	// Not actually suppored anyway.
+				||  strncmp(mNdofDev->product, "SpacePilot",     10) == 0
+				||  strncmp(mNdofDev->product, "SpaceTraveler",  13) == 0));
 #else
 	return false;
 #endif
