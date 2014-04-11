@@ -600,10 +600,30 @@ void LLViewerJoystick::moveAvatar(bool reset)
 
 	bool is_zero = true;
 
+	static long toggle_fly = 0;
+
 	if (mBtn[1] == 1)
 	{
-		agentJump();
-		is_zero = false;
+		if (mBtn[1] != toggle_fly)
+		{
+			toggle_fly = mBtn[1];
+			if (!gAgent.getFlying())
+			{
+				if (gAgent.canFly())
+				{
+					gAgent.setFlying(true);
+				}
+			}
+			else
+			{
+				gAgent.setFlying(false);
+			}
+			is_zero = false;
+		}
+	}
+	else
+	{
+		toggle_fly = 0;
 	}
 
 	F32 axis_scale[] =
