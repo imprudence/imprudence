@@ -1053,6 +1053,46 @@ void LLViewerJoystick::scanJoystick()
 		}
 	}
 
+	// Check build mode buttons.
+	if (LLToolMgr::getInstance()->inBuildMode() && gSavedSettings.getBOOL("JoystickBuildEnabled"))
+	{
+		// No modifiers held down.
+		if (!mBtn[23] && !mBtn[24] && !mBtn[25])
+		{
+			// Zoom or focus selection.
+			if (mBtn[1])	// FIT button
+			{
+				gViewerKeyboard.handleKey('H', MASK_SHIFT, false);
+			}
+			if (mBtn[8])	// "that other one" button.  Square with an arrow around the bottom left corner.
+			{
+				gViewerKeyboard.handleKey('H', MASK_NONE, false);
+			}
+		}
+
+		// Only CTRL held down
+		if (!mBtn[23] && !mBtn[24] && mBtn[25])
+		{
+			// Edit  / next / root / previous linked part.
+			if (mBtn[8] && !mBtnLast[8])	// "that other one" button.  Square with an arrow around the bottom left corner.
+			{
+				// TODO - Edit linked parts has no keystroke.
+			}
+			if (mBtn[5] && !mBtnLast[5])	// F button
+			{
+				gViewerKeyboard.handleKey('.', MASK_CONTROL, false);
+			}
+			if (mBtn[4] && !mBtnLast[4])	// R button
+			{
+				// TODO - Select root prim doesn't even have a method call.
+			}
+			if (mBtn[2] && !mBtnLast[2])	// T button
+			{
+				gViewerKeyboard.handleKey(',', MASK_CONTROL, false);
+			}
+		}
+	}
+
 	if (!mOverrideCamera && !(LLToolMgr::getInstance()->inBuildMode() && gSavedSettings.getBOOL("JoystickBuildEnabled")))
 	{
 		// No modifiers held down.
