@@ -307,7 +307,29 @@ void LLViewerJoystick::updateStatus()
 	{
 		mBtn[i] = mNdofDev->buttons[i];
 	}
-	
+
+	static long toggle_rotate = 0;
+	static long rotate_disabled = 0;
+
+	if (mBtn[26] == 1)
+	{
+		if (mBtn[26] != toggle_rotate)
+		{
+			toggle_rotate = mBtn[26];
+			rotate_disabled = !rotate_disabled;
+		}
+	}
+	else
+	{
+		toggle_rotate = 0;
+	}
+
+	if (rotate_disabled)
+	{
+		mAxes[RX_I] = 0.0;
+		mAxes[RY_I] = 0.0;
+		mAxes[RZ_I] = 0.0;
+	}
 #endif
 }
 
