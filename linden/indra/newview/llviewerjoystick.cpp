@@ -303,27 +303,22 @@ void LLViewerJoystick::updateStatus()
 		mAxes[i] = (F32) mNdofDev->axes[i] / mNdofDev->axes_max;
 	}
 
+	// Save the last button state so we can detect changes.
+	for (int i=0; i<32; i++)
+	{
+		mBtnLast[i] = mBtn[i];
+	}
 	for (int i=0; i<32; i++)
 	{
 		mBtn[i] = mNdofDev->buttons[i];
 	}
 
-	static long toggle_rotate = 0;
 	static long rotate_disabled = 0;
 
-	if (mBtn[26] == 1)
+	if (mBtn[26] && !mBtnLast[26])
 	{
-		if (mBtn[26] != toggle_rotate)
-		{
-			toggle_rotate = mBtn[26];
-			rotate_disabled = !rotate_disabled;
-		}
+		rotate_disabled = !rotate_disabled;
 	}
-	else
-	{
-		toggle_rotate = 0;
-	}
-
 	if (rotate_disabled)
 	{
 		mAxes[RX_I] = 0.0;
@@ -623,30 +618,20 @@ void LLViewerJoystick::moveAvatar(bool reset)
 
 	bool is_zero = true;
 
-	static long toggle_fly = 0;
-
-	if (mBtn[1] == 1)
+	if (mBtn[1] && !mBtnLast[1])
 	{
-		if (mBtn[1] != toggle_fly)
+		if (!gAgent.getFlying())
 		{
-			toggle_fly = mBtn[1];
-			if (!gAgent.getFlying())
+			if (gAgent.canFly())
 			{
-				if (gAgent.canFly())
-				{
-					gAgent.setFlying(true);
-				}
+				gAgent.setFlying(true);
 			}
-			else
-			{
-				gAgent.setFlying(false);
-			}
-			is_zero = false;
 		}
-	}
-	else
-	{
-		toggle_fly = 0;
+		else
+		{
+			gAgent.setFlying(false);
+		}
+		is_zero = false;
 	}
 
 	F32 axis_scale[] =
@@ -1039,33 +1024,14 @@ void LLViewerJoystick::scanJoystick()
 #endif
 	updateStatus();
 
-	static long toggle_flycam = 0;
-
-	if (mBtn[0] == 1)
+	if (mBtn[0] && !mBtnLast[0])
 	{
-		if (mBtn[0] != toggle_flycam)
-		{
-			toggle_flycam = toggleFlycam() ? 1 : 0;
-		}
-	}
-	else
-	{
-		toggle_flycam = 0;
+		toggleFlycam();
 	}
 
-	static long hit_esc = 0;
-
-	if (mBtn[22] == 1)
+	if (mBtn[22] && !mBtnLast[22])
 	{
-		if (mBtn[22] != hit_esc)
-		{
-			hit_esc = mBtn[22];
-			gViewerKeyboard.handleKey(KEY_ESCAPE, MASK_NONE, false);
-		}
-	}
-	else
-	{
-		hit_esc = 0;
+		gViewerKeyboard.handleKey(KEY_ESCAPE, MASK_NONE, false);
 	}
 
 	

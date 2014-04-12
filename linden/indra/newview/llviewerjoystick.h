@@ -92,6 +92,7 @@ protected:
 private:
 	F32						mAxes[6];
 	long					mBtn[32];
+	long					mBtnLast[32];
 	EJoystickDriverState	mDriverState;
 	NDOF_Device				*mNdofDev;
 	bool					mResetFlag;
