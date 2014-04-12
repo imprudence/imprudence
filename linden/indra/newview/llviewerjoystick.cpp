@@ -315,7 +315,7 @@ void LLViewerJoystick::updateStatus()
 
 	static long rotate_disabled = 0;
 
-	if (mBtn[26] && !mBtnLast[26])
+	if (mBtn[26] && !mBtnLast[26])	// "toggle rotate" button
 	{
 		rotate_disabled = !rotate_disabled;
 	}
@@ -618,7 +618,7 @@ void LLViewerJoystick::moveAvatar(bool reset)
 
 	bool is_zero = true;
 
-	if (mBtn[1] && !mBtnLast[1])
+	if (mBtn[1] && !mBtnLast[1])	// FIT button
 	{
 		if (!gAgent.getFlying())
 		{
@@ -1020,23 +1020,50 @@ void LLViewerJoystick::scanJoystick()
 #if LL_WINDOWS
 	// On windows, the flycam is updated syncronously with a timer, so there is
 	// no need to update the status of the joystick here.
-	if (!mOverrideCamera)
+	// Except for all those other things that need to be updated.  Pffft
+//	if (!mOverrideCamera)
 #endif
 	updateStatus();
 
-	if (mBtn[0] && !mBtnLast[0])
+	// No modifiers held down.
+	if (!mBtn[23] && !mBtn[24] && !mBtn[25])
 	{
-		toggleFlycam();
+		if (mBtn[0] && !mBtnLast[0])	// MENU button
+		{
+			toggleFlycam();
+		}
+
+		if (mBtn[22] && !mBtnLast[22])	// ESC button
+		{
+			gViewerKeyboard.handleKey(KEY_ESCAPE, MASK_NONE, false);
+		}
+
+		// Zoom controls.
+		if (mBtn[2])	// T button
+		{
+			gViewerKeyboard.handleKey('0', MASK_CONTROL, false);
+		}
+		if (mBtn[4])	// R button
+		{
+			gViewerKeyboard.handleKey('9', MASK_CONTROL, false);
+		}
+		if (mBtn[5])	// F button
+		{
+			gViewerKeyboard.handleKey('8', MASK_CONTROL, false);
+		}
 	}
 
-	if (mBtn[22] && !mBtnLast[22])
-	{
-		gViewerKeyboard.handleKey(KEY_ESCAPE, MASK_NONE, false);
-	}
-
-	
 	if (!mOverrideCamera && !(LLToolMgr::getInstance()->inBuildMode() && gSavedSettings.getBOOL("JoystickBuildEnabled")))
 	{
+		// No modifiers held down.
+		if (!mBtn[23] && !mBtn[24] && !mBtn[25])
+		{
+			// Mouse look.
+			if (mBtn[8] && !mBtnLast[8])	// "that other one" button.  Square with an arrow around the bottom left corner.
+			{
+				gViewerKeyboard.handleKey('M', MASK_NONE, false);
+			}
+		}
 		moveAvatar();
 	}
 }
