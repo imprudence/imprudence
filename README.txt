@@ -1,5 +1,4 @@
 
-
  ABOUT IMPRUDENCE
 
    Imprudence is an open source metaverse viewer project based on
@@ -24,6 +23,17 @@
 
      http://github.com/imprudence/imprudence/
 
+ INSTALL
+
+  This will install Imprudence and add the imprudence command to PATH.
+
+     cd ~
+     wget http://imprudence.googlecode.com/files/Imprudence-1.3.2b-Linux-x86.tar.bz2
+     bunzip2 Imprudence-1.3.2b-Linux-x86.tar.bz2
+     tar xvf Imprudence-1.3.2b-Linux-x86.tar
+     mv Imprudence-1.3.2b-Linux-x86 imprudence
+     echo "export PATH=\$PATH:~/imprudence" > ~/.bashrc
+     source ~/.bashrc
 
  LICENSE
 
